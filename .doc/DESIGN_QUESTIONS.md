@@ -2,6 +2,8 @@
 
 > **Status:** open working register. Questions and candidate answers below are not approved decisions. The project is documentation/specification only.
 
+Related: [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md), [PROJECT_PLAN.md](PROJECT_PLAN.md), [GAMEPLAY.md](GAMEPLAY.md), [SIMULATION.md](SIMULATION.md), [TRANSPORT.md](TRANSPORT.md).
+
 ## 1. Decision workflow
 
 - **Agreed direction:** existing explicit project intent; change deliberately and update its authoritative document.
@@ -12,6 +14,8 @@
 When resolving a question, record the chosen behaviour, rationale, affected document, date and remaining validation. Keep rejected alternatives only when they explain a meaningful tradeoff. Nothing in this register is validated yet.
 
 Priority means when an answer becomes necessary, not a demand to answer everything now. Technical questions should be resolved before the relevant prototype; content mysteries can remain open much longer.
+
+The implementation sequence should follow [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md): build small playable slices using the real final-game architecture, then scale and stress the same systems rather than building disposable foundations or isolated infrastructure first.
 
 ## 2. Before the first simulation prototype
 
@@ -65,12 +69,16 @@ Player-experience proposals: [GAMEPLAY.md](GAMEPLAY.md). Existing vision: [PROJE
 
 Final Gatebuilder name/origin/disappearance, ultimate realm nature, final planet/biome/mob catalogue, exact art palette, satellite coverage and late teleporter balance can remain open. Resolve them earlier only if a concrete dependency requires it. Mystery in the fiction must not make action feedback or save behaviour unpredictable.
 
-## 6. Suggested next brainstorming sequence
+## 6. Suggested next design / validation sequence
 
-1. Agree production time and chunk-boundary behaviour (S01-S03).
-2. Choose realm reward expectations and return/companion rules (G01-G02, T01-T03).
-3. Describe one first-session loop and one complete progression path (G03-G04).
-4. Choose reference workloads and refine candidate performance budgets (S07).
-5. Review the complete-game coverage table and deliberately include/defer unresolved systems.
+This sequence follows the agreed playable-increment philosophy rather than treating infrastructure as a separate project:
 
-This sequence is a proposal for discussion, not authorization to begin implementation. Continue recording useful detail without requiring every open question to be answered in one session.
+1. Define the minimum responsive FPS/block interaction contract and the real world/chunk/item identities needed to support it.
+2. Describe the first playable gathering/crafting loop and decide only the persistence details required to save that real state safely.
+3. Define the smallest real automation chain: one processor, generator, item pipe and simple control, then resolve the simulation rules that chain actually needs (S01-S03).
+4. Stress that playable chain across chunk boundaries and lifecycle states; refine batching, persistence and performance workloads from evidence (S04-S07).
+5. Prototype a second lightweight world using the same world-aware architecture before implementing finished Gate or rocket content.
+6. Resolve Gate/transport edge cases when the multi-world skeleton is ready to test them (T01-T09).
+7. Expand progression/content only after the core sandbox and first automation loop are both enjoyable and structurally sound.
+
+This is a working sequence, not permission to implement without a user request. It deliberately keeps gameplay validation and architectural validation together.
