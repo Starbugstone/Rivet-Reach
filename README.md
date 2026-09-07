@@ -24,6 +24,6 @@ The design will remain **evolutive** while ideas are brainstormed and the POC is
 
 ## Design documents
 
-- [PROJECT_PLAN.md](PROJECT_PLAN.md) - technical plan, architecture, POC and long-term target.
-- [LORE.md](LORE.md) - hidden lore, world history, Gatebuilders and current mob/world rules.
-- [TRANSPORT.md](TRANSPORT.md) - Gate networks, rockets, coordinate-preserving travel, portal state and future transport systems.
+- [PROJECT_PLAN.md](.doc/PROJECT_PLAN.md) - technical plan, architecture, POC and long-term target.
+- [LORE.md](.doc/LORE.md) - hidden lore, world history, Gatebuilders and current mob/world rules.
+- [TRANSPORT.md](.doc/TRANSPORT.md) - Gate networks, rockets, coordinate-preserving travel, portal state and future transport systems.
