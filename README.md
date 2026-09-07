@@ -11,7 +11,7 @@ The long-term vision combines:
 - Factorio-inspired automation using machines, item pipes, fluid pipes, power and signal networks.
 - Technology evolving through distinct ages, including a strong steampunk/steam-industrial period.
 - Rockets and automated colonies on other planets.
-- Ancient ruined gateways leading to strange portal realms that must be explored personally.
+- Ancient ruined Gatebuilder networks leading to strange portal realms that must be explored personally.
 - Multiplayer support after the single-player foundations are proven.
 
 ## Current status
@@ -22,4 +22,8 @@ The first objective is not content volume, but proving that an infinite voxel wo
 
 The design will remain **evolutive** while ideas are brainstormed and the POC is tested. Systems described today may be refined as implementation and performance testing expose better solutions.
 
-See [PROJECT_PLAN.md](PROJECT_PLAN.md) for the current technical plan and long-term vision.
+## Design documents
+
+- [PROJECT_PLAN.md](PROJECT_PLAN.md) - technical plan, architecture, POC and long-term target.
+- [LORE.md](LORE.md) - hidden lore, world history, Gatebuilders and current mob/world rules.
+- [TRANSPORT.md](TRANSPORT.md) - Gate networks, rockets, coordinate-preserving travel, portal state and future transport systems.
