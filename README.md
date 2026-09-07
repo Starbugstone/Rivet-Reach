@@ -24,14 +24,14 @@ The design will remain **evolutive** while ideas are brainstormed and the POC is
 
 ## Design documents
 
-- [PROJECT_PLAN.md](.docs/PROJECT_PLAN.md) - technical plan, architecture, POC and long-term target.
-- [LORE.md](.docs/LORE.md) - hidden lore, world history, Gatebuilders and current mob/world rules.
-- [TRANSPORT.md](.docs/TRANSPORT.md) - Gate networks, rockets, coordinate-preserving travel, portal state and future transport systems.
+- [PROJECT_PLAN.md](.doc/PROJECT_PLAN.md) - technical plan, architecture, POC and long-term target.
+- [DEVELOPMENT_STRATEGY.md](.doc/DEVELOPMENT_STRATEGY.md) - how to build the final architecture incrementally while keeping gameplay responsive and performance-aware.
+- [GAMEPLAY.md](.doc/GAMEPLAY.md) - responsive play, progression, exploration rewards and full-game completeness.
+- [SIMULATION.md](.doc/SIMULATION.md) - proposed simulation, persistence and benchmark contracts.
+- [LORE.md](.doc/LORE.md) - hidden lore, world history, Gatebuilders and current mob/world rules.
+- [TRANSPORT.md](.doc/TRANSPORT.md) - Gate networks, rockets, coordinate-preserving travel, portal state and future transport systems.
+- [DESIGN_QUESTIONS.md](.doc/DESIGN_QUESTIONS.md) - prioritized questions, provisional options and validation needs.
 
-- [SIMULATION.md](.docs/SIMULATION.md) - proposed simulation, persistence and benchmark contracts.
-- [GAMEPLAY.md](.docs/GAMEPLAY.md) - responsive play, progression, exploration rewards and full-game completeness.
-- [DESIGN_QUESTIONS.md](.docs/DESIGN_QUESTIONS.md) - prioritized questions, provisional options and validation needs.
-
-Project specifications live in `.docs/`. Contributor and agent workflow is recorded in [AGENTS.md](AGENTS.md).
+Project specifications live in `.doc/`. Contributor and agent workflow is recorded in [AGENTS.md](AGENTS.md).
 
 **Decision status:** agreed direction describes existing project intent; proposals remain subject to brainstorming and future tests; open questions are not settled requirements. Numerical targets are provisional until measured.
