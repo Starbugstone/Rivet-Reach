@@ -2,34 +2,49 @@
 
 > **Status:** evolving design / proof-of-concept phase
 >
-> This document describes the current direction of Rivet Reach. It is intentionally **evolutive**: we will continue brainstorming, prototyping and benchmarking, and we expect details to change as the POC exposes better design or technical solutions.
+> Rivet Reach is intentionally **evolutive**. The design will continue to change while we brainstorm, prototype, benchmark and test the POC. The current documents describe the agreed direction, not an immutable final specification.
 >
-> The POC must prove the core architecture before large amounts of content are added. Performance and scalability are first-class design constraints from the beginning, not cleanup work for later.
+> The first objective is to prove the architecture. Performance, scalability, deterministic world generation and multi-world readiness are first-class constraints from the beginning rather than cleanup work for later.
+
+Related design documents:
+
+- [LORE.md](LORE.md) - hidden world history, Gatebuilders, environmental storytelling and current mob/ecology direction.
+- [TRANSPORT.md](TRANSPORT.md) - Gate networks, coordinate-preserving world travel, rockets, portal state, chunk wake-up, satellites and future teleporters.
 
 ---
 
 ## 1. Core vision
 
-Rivet Reach is a **first-person voxel sandbox** built around two equally important sides of play:
+Rivet Reach is a **first-person voxel sandbox** built around two equally important gameplay pillars:
 
-1. **Discovery and exploration**
-   - Infinite procedural worlds.
-   - Biomes, caves, villages, ruins, temples and other generated structures.
-   - Day/night cycles and mobs.
-   - New materials and resources discovered through exploration.
-   - Rockets to physically reachable planets.
-   - Ancient ruined gateway structures leading to strange portal realms.
+### Discovery and exploration
 
-2. **Engineering and automation**
-   - Minecraft-style block placement, mining and crafting.
-   - Machines and processing chains.
-   - Item pipes and fluid pipes instead of conveyor belts and thousands of loose moving item entities.
-   - Electrical power networks.
-   - Redstone-inspired signal/control networks.
-   - Automated factories and interplanetary logistics.
-   - Chunk loading for factories that must remain simulated away from the player.
+- effectively infinite procedural worlds;
+- block-based terrain, caves, rivers, biomes and generated structures;
+- villages, ruins, mines, temples and ancient sites;
+- day/night cycle and mobs;
+- resource discovery as a major driver of progress;
+- additional physical planets reached by rockets;
+- ancient ruined Gatebuilder gateways leading to strange portal realms;
+- environmental storytelling rather than a heavily scripted narrative.
 
-The goal is not to make a direct Minecraft clone. The familiar voxel/crafting interaction is the foundation, but Rivet Reach should develop its own visual identity, machinery, structures, creatures, materials, technology and exploration systems.
+### Engineering and automation
+
+- Minecraft-style mining, placement, hotbar, inventory and grid crafting;
+- much more generous inventory and stack limits;
+- machines and processing chains;
+- item pipes rather than conveyor belts as the primary item-logistics system;
+- fluid pipes;
+- electrical power;
+- Redstone-inspired signal/control networks;
+- automated factories;
+- chunk loading/background simulation;
+- automated interplanetary cargo;
+- late-game teleportation between normal physical worlds.
+
+The game should begin with the familiarity of a voxel crafting sandbox and gradually allow players to create large Factorio-like industrial systems without losing the importance of exploration.
+
+Rivet Reach should be inspired by Minecraft, classic technology mods and Factorio without directly copying Minecraft-specific mobs, structures, textures, names, recipes, dimensions or visual assets.
 
 ---
 
@@ -37,88 +52,87 @@ The goal is not to make a direct Minecraft clone. The familiar voxel/crafting in
 
 ### 2.1 Open progression
 
-There should be **no conventional player levels, XP gates or mandatory research-point progression** controlling the technology tree.
+There should be **no conventional character levels, XP gates or mandatory research-point tree controlling technology**.
 
-Progress is driven by what the player can physically obtain and manufacture:
+Progress should emerge from resources and capability:
 
 ```text
-new resource
-    -> new material
-    -> new component
-    -> new machine
-    -> new manufacturing process
-    -> access to further resources
+find resource
+    -> process material
+    -> manufacture component
+    -> build new machine
+    -> access better process/resource
+    -> expand capability
 ```
 
-A knowledgeable player should be able to **beeline toward a technology** if they want to. Doing so may be difficult, inefficient and resource-intensive, but the game should not respond with an arbitrary "requires level 20" message.
+A knowledgeable player should be able to beeline toward a particular technology if desired. Doing so may be inefficient, risky and resource-intensive, but the game should not block the player with `Requires Level 20` or a similar arbitrary gate.
 
-Technology is therefore mostly **soft-gated by materials, tools, machinery and infrastructure**.
+Technology is primarily soft-gated by:
 
-Examples:
+- resource location;
+- tool/material capability;
+- manufacturing processes;
+- infrastructure;
+- machine requirements;
+- industrial scale;
+- exploration discoveries.
 
-- A material may require a stronger tool to mine.
-- A component may require precision manufacturing rather than hand crafting.
-- A machine may require electricity that the player has not yet established.
-- Rockets may require advanced alloys, fuel production and electronics.
-- Advanced teleportation may require resources only available after space exploration.
+We explicitly do **not** want temperature management or toxic-gas/atmosphere survival systems to become major progression gates.
 
-We explicitly do **not** currently want temperature-management or toxic-atmosphere survival systems to become progression gates.
+### 2.2 Discovery remains important
 
-### 2.2 Discovery
+Automation should not eventually remove all reasons to explore.
 
-Exploration should continue to matter even when the player owns a large automated industrial base.
+Physical planets increasingly reward industrialisation and automation.
 
-Some progression comes from finding:
+Portal realms deliberately remain places the player must physically visit.
 
-- new ores and materials;
-- structures and ruins;
-- villages and unusual generated locations;
-- distant planets;
-- ancient portal structures;
-- rare resources found only in portal realms.
+Some rare materials, structures and discoveries should therefore remain tied to personal exploration rather than unattended remote extraction.
 
-The recipe/UI system can reveal new possibilities as materials are discovered, but discovery is primarily a **knowledge/UI aid**, not a hard crafting permission system.
+### 2.3 Automation should scale
 
-### 2.3 Automation
-
-Automation should eventually allow large industrial systems comparable in spirit to Factorio and classic Minecraft technology mods, but adapted to a first-person voxel game.
-
-The player should be able to build systems such as:
+A player should eventually be able to build large systems such as:
 
 ```text
 Ore Storage
     |
-    v
  Item Pipe
     |
-    v
  Crusher
     |
-    v
  Item Pipe
     |
-    v
  Furnace
     |
-    v
+ Item Pipe
+    |
  Finished Storage
 ```
 
-with power, fluid and signal networks controlling the process.
+with power, fluids and signals controlling the overall factory.
 
-### 2.4 Performance and scalability
+The game must be designed for players who will eventually build absurdly large factories.
 
-Optimization is a design requirement from the first prototype.
+### 2.4 Performance before content volume
 
-We should not build features first and attempt to optimize them once the game is already slow.
+A core rule:
 
-A useful rule:
+> If CPU cost scales directly with the total number of blocks in the world, the architecture is probably wrong.
 
-> If a system's CPU cost scales directly with the total number of blocks in the world, its architecture is probably wrong.
+Ten million static stone blocks should be almost free to simulate.
 
-Large static worlds and inactive factories should be cheap. CPU time should primarily be spent on things that are **near players, active, or changing**.
+A huge dormant pipe network should be almost free.
 
-The target is a game that runs well on reasonable gaming hardware and does not require a high-end PC simply because the player has built a serious factory.
+CPU should primarily be spent on things that are:
+
+- near players;
+- currently active;
+- changing;
+- being transferred;
+- being rendered;
+- being explicitly background-simulated.
+
+The target is good performance on reasonable gaming hardware rather than designing for high-end PCs only.
 
 ---
 
@@ -136,55 +150,54 @@ The target is a game that runs well on reasonable gaming hardware and does not r
 
 **Universal Render Pipeline (URP)**
 
-The world should keep its block-based visual identity while improving presentation through features such as:
+The game keeps the block aesthetic but improves presentation through features such as:
 
 - higher-quality textures;
 - material variation;
-- normal/PBR information where useful;
+- PBR/normal information where useful;
 - ambient occlusion;
-- better sunlight and shadows;
+- improved sunlight and shadows;
 - atmospheric fog;
-- improved water;
+- better water;
 - particles;
 - animated vegetation;
-- more detailed machine and mob models;
-- dynamic lights where performance permits.
+- more detailed machine models;
+- more detailed mob models;
+- dynamic lighting where performance allows it.
 
-The POC should remain visually simple until the underlying world and simulation architecture is proven.
+The POC should remain visually modest until the world/simulation architecture is proven.
 
 ### Performance tooling
 
-Use Unity's data-oriented tools selectively where they make sense:
+Use Unity's data-oriented tools selectively:
 
-- **Jobs System**;
-- **Burst Compiler**;
-- `NativeArray` / native collections;
-- background worker jobs for generation and meshing;
-- ECS/Entities only where benchmarking shows a real advantage.
+- Jobs System;
+- Burst Compiler;
+- `NativeArray` and native collections;
+- background jobs for generation/meshing;
+- ECS/Entities only where profiling proves it useful.
 
-The entire game should **not** be forced into ECS purely because it exists.
-
-Likely candidates for Jobs/Burst include:
+Likely Jobs/Burst candidates:
 
 - terrain generation;
 - chunk meshing;
 - lighting calculations;
 - noise generation;
 - bulk voxel operations;
-- some pathfinding tasks;
-- network topology calculations if profiling justifies it.
+- portions of pathfinding;
+- network topology work if profiling justifies it.
+
+Do **not** force the entire game into ECS merely because it exists.
 
 ### Commercial licensing assumption
 
-At the time this plan was written, Unity Personal permits commercial use below Unity's applicable financial threshold, the old Runtime Fee has been cancelled, and Unity Pro becomes required above the Personal threshold. These terms must be rechecked before commercial release or major funding because licensing can change.
+Unity Personal currently permits commercial use below Unity's applicable financial threshold, the old Runtime Fee has been cancelled, and Unity Pro is required above the Personal eligibility threshold. Licensing must be rechecked before release/funding because commercial terms can change.
 
 ---
 
 ## 4. Simulation architecture
 
-The simulation should be separated from the presentation layer as much as practical.
-
-Conceptually:
+Separate simulation from presentation as much as practical.
 
 ```text
                     Rivet Reach
@@ -192,46 +205,38 @@ Conceptually:
         +---------------+----------------+
         |                                |
      Client/View                  Simulation Core
-   Unity presentation               Pure C# where practical
+ Unity rendering/UI            Pure C# where practical
         |                                |
-   rendering/audio             world/entities/networks
+ rendering/audio              world/entities/networks
                                          |
-                             +-----------+-----------+
-                             |                       |
-                         Signal networks         Power networks
-                             |                       |
-                         Machines                Logistics
+                           +-------------+-------------+
+                           |             |             |
+                        signals        power        logistics
+                                         |
+                                      machines
 ```
 
-This is important for:
+Benefits:
 
 - deterministic testing;
-- save/load reliability;
+- reliable saves;
 - background simulation;
-- dedicated servers later;
+- easier dedicated-server support;
 - multiplayer authority;
-- running simulations without rendering.
+- simulations that can run without rendering.
 
-Single-player should use the same fundamental command/simulation path that multiplayer can later use.
-
-Avoid gameplay code where a view/controller directly mutates authoritative world state.
-
-Prefer:
+Prefer command/event flow:
 
 ```text
-Player action
+player action
     -> command
-    -> simulation validation
+    -> authoritative simulation validation
     -> world change
-    -> event
+    -> event/delta
     -> presentation update
 ```
 
-rather than:
-
-```text
-PlayerController directly edits everything
-```
+Single-player should use the same broad simulation path so multiplayer does not require rewriting gameplay logic.
 
 ---
 
@@ -242,70 +247,95 @@ Each save is a **completely separate universe**.
 There are no interactions between saves:
 
 - no shared inventory;
-- no shared machines;
 - no shared discoveries;
+- no shared machines;
+- no shared resources;
 - no cross-save portals;
-- no cross-save logistics;
-- no global resource storage.
+- no cross-save teleporters;
+- no cross-save logistics.
 
 Conceptually:
 
 ```text
 SAVE
 |
-+-- Player data
-+-- Discovery / recipe-knowledge state
-+-- Universe state
++-- player state
++-- discovery / recipe knowledge
++-- universe state
 |
-+-- Worlds
++-- worlds
     |
-    +-- Physical worlds
-    |   +-- Starting planet
-    |   +-- Moon
-    |   +-- Other planets
+    +-- physical worlds
+    |   +-- starting planet
+    |   +-- moons
+    |   +-- other planets
     |
-    +-- Portal realms
-        +-- Realm A
-        +-- Realm B
-        +-- Realm C
+    +-- portal realms
+        +-- realm A
+        +-- realm B
+        +-- realm C
 ```
 
 Terminology:
 
-- **Save**: one isolated game/universe.
-- **Universe**: all worlds belonging to that save.
-- **World**: one actual voxel simulation space.
-- **Planet**: a normal physical celestial body/world in the universe.
-- **Portal realm**: a separate alien/otherworldly reality reached through ancient gateways.
+- **Save** - one isolated game/universe.
+- **Universe** - all worlds in that save.
+- **World** - one voxel simulation space.
+- **Physical world/planet** - normal celestial world in the system.
+- **Portal realm** - strange world accessed through ancient Gatebuilder gateways.
 
-The POC may initially generate only one world, but the APIs and save format must **not assume that only one world exists**.
+The POC may initially instantiate only one world, but the APIs and persistence model must never assume only one world can exist.
 
 ---
 
-## 6. World definition system
+## 6. Multi-world coordinate model
 
-World generation should be configuration/modular driven from the beginning.
+World identity must be part of location/state APIs from the beginning.
 
-We should avoid hard-coding a single `GenerateOverworld()` implementation and attempting to retrofit moons, planets and portal realms later.
+Conceptually:
 
-A conceptual `WorldDefinition` may contain information such as:
+```text
+WorldId
+ChunkX / ChunkY / ChunkZ
+LocalBlockX / LocalBlockY / LocalBlockZ
+```
+
+Absolute world position should not rely on Unity floating-point coordinates at extreme distances.
+
+Use integer/chunk coordinates for authoritative locations plus a **floating origin** for rendered local space.
+
+A major transport rule is now established:
+
+> Early/intermediate travel between worlds preserves horizontal X/Z position.
+
+Detailed rules are defined in [TRANSPORT.md](TRANSPORT.md).
+
+---
+
+## 7. WorldDefinition architecture
+
+World generation must be modular/configuration driven from the start.
+
+Avoid building one hard-coded `GenerateOverworld()` and trying to bolt moons/alien worlds onto it later.
+
+A conceptual definition can expose:
 
 ```text
 WorldDefinition
-|- world id / type
+|- world id/type
 |- seed
 |- terrain profile
 |- biome profile
 |- cave profile
-|- ore distribution
+|- ore profile
 |- structure profile
 |- gravity
-|- sky / lighting profile
+|- sky/lighting profile
 |- water profile
-|- mob/spawn rules
+|- mob spawn rules
 |- rocket rules
 |- teleporter rules
-|- gateway rules
+|- Gate-network rules
 |- chunk-loader rules
 |- automation rules
 |- generation modifiers
@@ -316,108 +346,97 @@ Examples:
 ### Starting planet
 
 ```text
-terrain: continental
-biomes: broad natural set
-water: oceans, lakes, rivers
-structures: villages, ruins, temples, ancient gateways
+continental terrain
+normal biome system
+rivers/oceans/lakes
+villages and normal ruins
+Gatebuilder ruins and Gate networks
 normal automation: yes
 rockets: yes
-teleporters: eventually yes
 chunk loading: yes
+late teleporters: yes
 ```
 
-### Moon / nearby physical planet
+### Other physical planet
 
 ```text
-terrain: cratered / planet-specific
-biomes: planet-specific
-water: definition-dependent
-structures: rare generated structures
+planet-specific terrain
+planet-specific resources
+planet-specific structures
+Gatebuilder presence according to history
 normal automation: yes
 rockets: yes
-teleporters: eventually yes
 chunk loading: yes
+late teleporters: yes
 ```
 
 ### Portal realm
 
 ```text
-terrain: alien / realm-specific
-biomes: alien
-structures: ancient / unique
+alien terrain/biomes
+unique structures/resources/mobs
+Gatebuilder Gate lattice
 rockets: no
-normal inter-world teleporters: no
-remote resource automation: no
-chunk loaders: disabled as current design
+normal player teleporters: no
+remote inter-world resource automation: no
+factory chunk loading: disabled/currently not intended
 ```
 
-The exact values and content are future design work, but the **ability to express these differences must exist from the first generation architecture**.
+The content remains future work. The ability to express these differences is required from the beginning.
 
 ---
 
-## 7. Procedural world generation
+## 8. Procedural generation
 
-World generation should be deterministic from a seed.
+All generation must be deterministic from the save seed.
 
 A possible normal-world pipeline:
 
 ```text
 seed
- -> large-scale land/continent distribution
+ -> macro world facts / important anchors
+ -> large-scale continents/landmass
  -> elevation / ridges / mountains
- -> humidity / biome distribution
+ -> climate/biome distribution
  -> terrain shaping
- -> rivers / water features
+ -> rivers/water
  -> caves
  -> ores
  -> vegetation/features
- -> structures
+ -> historical/structure placement
 ```
 
-The final generation technique will be benchmarked during the POC rather than selected purely theoretically.
+The final algorithms must be benchmarked during the POC rather than chosen purely theoretically.
 
-### Structural generation
+### History-aware structures
 
-Generated structures are a core requirement, eventually including things such as:
+World structures belong to different historical layers rather than one random pool:
 
-- villages;
-- roads;
-- houses;
-- farms;
-- workshops;
-- ruins;
-- temples;
-- mines;
-- abandoned settlements;
-- ancient gateway sites;
-- world-specific structures.
+- current villages/farms/workshops/mines;
+- abandoned/recent ruins;
+- ancient Gatebuilder ruins;
+- Gatebuilder gateway complexes;
+- world-specific special structures.
 
-Structures should ultimately be modular and data-driven where possible.
+See [LORE.md](LORE.md).
 
-For example, villages can be assembled from:
+### Important deterministic anchors
 
-```text
-village seed
- -> layout / road graph
- -> plots
- -> building pools
- -> variants
- -> decoration
-```
+Critical structures such as Gatebuilder Gate sites must not be created by a simple random roll when a chunk happens to generate.
 
-rather than every village being a single fixed blueprint.
+Their locations are determined mathematically from the universe seed so corresponding structures can exist in linked dimensions.
+
+See [TRANSPORT.md](TRANSPORT.md).
 
 ---
 
-## 8. Voxel/chunk architecture
+## 9. Voxel/chunk architecture
 
-### Blocks are data, not GameObjects
+### Blocks are compact data
 
-The infinite world must not use one Unity `GameObject`/`Node` equivalent per block.
+Do **not** create one Unity GameObject per ordinary block.
 
-Normal blocks should be compact data stored inside chunks.
-
-Conceptually:
+Conceptual starting representation:
 
 ```csharp
 struct Block
@@ -427,226 +446,184 @@ struct Block
 }
 ```
 
-The exact representation will evolve and can later use palette compression and bit packing.
+The format can later use palette compression/bit packing.
 
-### Chunk storage
+### Chunk size
 
-Tentative starting point for testing:
+Tentative POC starting point:
 
 ```text
-32 x 32 x 32 blocks per chunk
+32 x 32 x 32 blocks
 ```
 
-This is not final. Chunk dimensions must be benchmarked against:
+Not final. Benchmark against:
 
-- mesh generation cost;
+- generation time;
+- mesh cost;
 - memory;
-- update frequency;
+- remeshing frequency;
 - save size;
-- networking later;
-- visibility and culling.
+- future networking;
+- visibility/culling.
 
 ### Block entities
 
-Only blocks that require additional persistent behaviour/state should become richer simulation objects, for example:
+Only special blocks require richer persistent objects/state, for example:
 
 - chests;
 - furnaces;
 - generators;
 - batteries;
 - machines;
-- configurable sensors;
+- sensors;
 - pumps;
-- controllers.
+- controllers;
+- Gate control structures when locally loaded.
 
-Millions of stone/dirt blocks require no object instances.
+Millions of stone/dirt blocks do not.
 
 ---
 
-## 9. Chunk rendering
+## 10. Chunk rendering
 
-Each chunk should build combined meshes rather than rendering individual cubes.
-
-Pipeline:
+Each chunk generates combined geometry rather than rendering individual cubes.
 
 ```text
-chunk voxel data
+voxel data
  -> visible-face calculation
  -> greedy/optimized meshing
  -> mesh buffers
  -> Unity renderer
 ```
 
-Use **greedy meshing or equivalent face merging** to reduce geometry where appropriate.
-
-Rendering should support separate paths/material groups for at least:
+Support distinct rendering paths/material groups for at least:
 
 - opaque geometry;
 - cutout geometry;
 - transparent geometry;
-- fluids as required.
+- fluids where necessary.
 
-Chunk meshing should move off the main thread where practical using Jobs/Burst.
+Chunk meshing should move off the main thread where practical with Jobs/Burst.
 
-Only affected chunks and relevant neighbours should remesh after voxel changes.
-
-### Floating origin
-
-The world can be effectively infinite in X/Z, but Unity's floating-point precision cannot be trusted at extreme distances.
-
-Store absolute locations using chunk/world coordinates and use a **floating-origin strategy** for the rendered local world around the player.
+Only affected chunks/neighbours should remesh after block changes.
 
 ---
 
-## 10. FPS player interaction
+## 11. FPS interaction
 
-Rivet Reach is designed as a **first-person game**.
+Rivet Reach is designed first and foremost as an **FPS**.
 
-POC interaction includes:
+POC controls:
 
 - mouse look;
 - walk;
 - sprint;
 - jump;
-- block targeting/raycast;
-- mine/break block;
-- place block;
-- interact with machines/containers;
+- block targeting;
+- mine/break;
+- place;
+- interact;
 - hotbar selection.
 
-Third-person is not a POC priority.
+Third person is not a POC priority.
 
-The physical world should remain important. Machines can eventually display information through models, indicator lights, gauges, moving parts and local controls rather than forcing every interaction into large abstract menus.
+Machines and structures should communicate through physical models, ports, animation, indicator lights and gauges where practical rather than reducing everything to abstract menus.
 
 ---
 
-## 11. Inventory and hotbar
+## 12. Inventory and hotbar
 
-Keep the familiar Minecraft-like interaction model, but make it much more generous because an industrial game will contain many resources and components.
+Retain the familiar Minecraft-like interaction model but make it significantly more permissive for an industrial game.
 
-Tentative POC values to test:
+Tentative test values:
 
-- **12-slot hotbar**;
+- **12 hotbar slots**;
 - **6 x 8 main inventory = 48 slots**;
-- around **60 immediately accessible slots total**.
+- approximately **60 immediately accessible slots** total.
 
-These numbers are not final.
+These values are not final.
 
-Stack sizes should also be more permissive than Minecraft. Tentative examples:
+Tentative stack philosophy:
 
 ```text
 building blocks: 250-500
-basic materials: 250
+basic resources: ~250
 components: ~100
-machines: smaller stacks depending on type
+machines: smaller stacks according to size/type
 unique tools/equipment: 1
 ```
 
-The goal is not to make repeated inventory-full messages a major gameplay mechanic.
+Inventory inconvenience should not be a dominant gameplay loop.
 
-Storage and logistics should matter because factories process large volumes of material, not because the player can barely carry basic building supplies.
+Storage/logistics matter because factories create volume, not because the character can carry almost nothing.
 
 ---
 
-## 12. Crafting system
+## 13. Crafting
 
-Keep the recognisable **grid crafting** approach.
+Keep recognisable grid crafting.
 
-Possible early structure:
+Potential structure:
 
-- player inventory crafting grid (small/basic recipes);
-- workbench with a larger traditional grid;
-- industrial machines for advanced recipes.
+- basic player crafting grid;
+- workbench with traditional larger grid;
+- advanced manufacturing performed by machines rather than giant manual grids.
 
-The exact 2x2/3x3 division can be tested, but hand crafting should remain simple and intuitive.
+Recipes should be data driven.
 
-As technology advances, recipes should move naturally into purpose-built machines rather than growing into enormous hand-crafting grids.
-
-Examples:
-
-- furnace;
-- crusher;
-- machine shop / assembler;
-- chemical processing equipment;
-- future age-specific manufacturing machines.
-
-### Data-driven recipes
-
-Recipes should be registered/configured as data wherever practical rather than encoded through giant chains of bespoke conditionals.
-
-This supports:
+Benefits:
 
 - easier balancing;
-- recipe browsing;
-- future modding possibilities;
-- machine upgrades;
-- content expansion.
+- easier recipe browser integration;
+- machine recipes use the same registry model;
+- easier content expansion;
+- possible modding later.
 
 ---
 
-## 13. Recipe browser / discovery UI
+## 14. Recipe browser and discovery
 
-A built-in **NEI/JEI-style recipe browser** is a core feature, not an optional future mod.
+A built-in **NEI/JEI-style recipe/uses browser** is a core feature.
 
-Selecting an item/material should allow the player to answer both:
+Selecting any material/item should answer:
 
 ```text
 How do I make this?
 What can I make with this?
 ```
 
+Recipes must be navigable as a graph, including machine processes and alternative processing paths.
+
 Example:
-
-```text
-COPPER INGOT
-
-Uses:
-- Copper wire
-- Copper pipe
-- Copper plate
-- Motor component
-- Generator component
-- Electrical cable
-```
-
-Recipes should be navigable as a graph: clicking an ingredient opens its recipes and uses.
-
-The same interface must include machine recipes and processing alternatives.
-
-For example:
 
 ```text
 IRON ORE
 
-Smelting:
-Iron Ore -> Iron Ingot
+Smelting
+-> Iron Ingot
 
-Crusher:
-Iron Ore -> Crushed Iron
+Crusher + smelting
+-> higher intermediate yield
 
-Advanced processing:
-Iron Ore -> higher-yield intermediate
+Later advanced processing
+-> still better yield
 ```
 
-### Discovery vs hard unlocks
+### Discovery without hard locking
 
-The recipe browser may classify content as:
+New materials can reveal relevant entries so the recipe interface does not dump thousands of late-game recipes on a new player.
 
-- known;
-- newly discoverable;
-- unknown/hidden.
+This is a **knowledge/UI discovery system**, not a mandatory research tree.
 
-Acquiring a new resource can reveal relevant recipes so the UI does not show thousands of meaningless late-game items immediately.
-
-However, this should not become an arbitrary permission wall. If an experienced player already knows a recipe and can physically obtain the required materials/machine, the system should favour openness rather than forcing a research meter.
+If an experienced player knows how to obtain/manufacture the required ingredients and equipment, the game should favour allowing the action rather than blocking it because a research meter is incomplete.
 
 ---
 
-## 14. Technology ages
+## 15. Technology ages
 
-Progression should naturally pass through technological eras, but **ages are descriptive stages of capability, not XP levels**.
+Ages describe technological capability but are **not player levels**.
 
-A provisional direction is:
+Provisional progression:
 
 ```text
 Primitive / hand crafting
@@ -657,23 +634,23 @@ Mechanical systems
         |
 Steam / steampunk industrial age
         |
-Electric age
+Electrical age
         |
-Industrial / advanced manufacturing
+Advanced industrial manufacturing
         |
 Aerospace
         |
 Advanced interplanetary technology
 ```
 
-The exact ages and resource chains will be designed later.
+The exact resource chains and era names remain open.
 
-### Steampunk age
+### Steampunk era
 
-One era should have a strong steampunk visual identity, including elements such as:
+One age should have a strong steampunk visual/engineering identity:
 
-- brass and copper;
-- riveted metal;
+- brass/copper;
+- riveted steel;
 - boilers;
 - pressure gauges;
 - steam exhaust;
@@ -681,698 +658,663 @@ One era should have a strong steampunk visual identity, including elements such 
 - pistons;
 - shafts/gears where useful;
 - analogue controls;
-- steam generators;
-- large mechanical machines.
+- steam engines/generators;
+- large mechanical machinery.
 
-Technology should visibly evolve rather than merely replacing a machine with a higher-number version.
-
-For example, moving from a steam/mechanical installation to electrical motors and distributed wiring should change how factories are built.
+Moving from steam/mechanical installations to electrical motors and distributed wiring should materially change factory construction rather than simply replacing `Machine Mk1` with `Machine Mk2`.
 
 ---
 
-## 15. Machines
+## 16. Universal machine interaction language
 
-Machines should share reusable capabilities/interfaces rather than each being a giant bespoke system.
+All player-built machines should follow a consistent connection/UX grammar.
 
-Conceptually, a machine may expose combinations of:
+Functions include:
+
+- item input/output;
+- fluid input/output;
+- power input/output;
+- signal input/output;
+- inventories;
+- internal buffers;
+- process state;
+- configurable sides/ports where useful.
+
+### Port communication
+
+Do not rely on colour alone.
+
+Use **shape + symbol + direction + colour**.
+
+Current conceptual grammar:
+
+| Function | Shape idea | Visual cue |
+|---|---|---|
+| Power | hexagonal | lightning/energy symbol |
+| Items | square | box/item symbol |
+| Fluid | circular | droplet/pipe symbol |
+| Signal | diamond/small control port | pulse/signal symbol |
+| Component/module | recessed keyed slot | matching silhouette |
+| Input/output | directional marking | inward/outward arrow |
+| Stored amount | gauge/bar/dial | universal fill indication |
+
+Exact colours/art are not final.
+
+A cable/pipe should visually connect only to compatible ports.
+
+### Machine state
+
+Machines should visibly communicate broad states such as:
+
+- off;
+- ready;
+- running;
+- fault/blocked.
+
+Steampunk machinery can use physical gauges and motion; later machinery can use more advanced indicators while retaining the same mental model.
+
+Gatebuilder pedestals use related interaction principles but a deliberately alien visual language. See [LORE.md](LORE.md).
+
+---
+
+## 17. Machine architecture
+
+Machines should compose common reusable capabilities rather than each being a large bespoke system.
+
+Conceptually:
 
 ```text
-inventory input
-inventory output
-power input/output
-signal input/output
-fluid input/output
-recipe processor
-status/configuration
+MachineBlock
+|- inventories
+|- item ports
+|- fluid ports
+|- power ports
+|- signal ports
+|- recipe processor
+|- internal buffers
+|- state/configuration
 ```
 
-This makes new machines primarily combinations of common systems and configuration.
-
-Example crusher:
+Example crusher, illustrative only:
 
 ```text
 power demand: 250 W
 input: ore
 output: crushed ore
-processing time: 4 s
+processing duration: 4 s
 ```
 
-Exact numbers are placeholders for future balancing.
+Exact values are future balance work.
 
 ---
 
-## 16. Item logistics
+## 18. Item logistics
 
-Rivet Reach should use **item pipes**, not Factorio-style conveyor belts as the primary logistics system.
+Use **item pipes**, not conveyor belts as the primary logistics system.
 
-The reason is both gameplay preference and performance: the game should not need to render and simulate thousands of individual items moving physically across belts.
+Reasons:
 
-### Network-level simulation
+- gameplay preference;
+- cleaner first-person factory layouts;
+- avoids large numbers of physical moving item entities;
+- easier to optimise at network level.
 
-A connected pipe system should become a logical network.
-
-```text
-Chest ===== Item Pipe Network ===== Crusher
-```
-
-Do not tick every pipe block individually every frame.
-
-Instead:
+### Simulation rule
 
 ```text
 pipe blocks = topology
 connected topology = ItemNetwork
-ItemNetwork = transfer decisions/state
+ItemNetwork = transfer state/decisions
 ```
 
-When a pipe is placed or removed, rebuild only the affected topology/network.
+Do not tick every pipe every frame.
 
-The network can transfer abstract quantities between inventories.
+When topology changes, rebuild only the affected network.
 
-Optional visual items travelling through transparent pipes can be cosmetic and must not become authoritative physics entities.
+Actual item transfer can be abstract quantities between inventories.
 
-### Future capabilities
+Any visible item movement inside transparent pipes should be cosmetic rather than authoritative physics.
 
-Potential item-pipe features include:
+Potential later features:
 
 - extraction modules;
 - filters;
-- priority outputs;
-- round-robin distribution;
+- priorities;
+- round robin;
 - throughput tiers;
-- colour/channel routing;
-- machine side configuration;
-- storage interfaces.
+- channel routing;
+- configurable machine faces.
 
 ---
 
-## 17. Fluid logistics
+## 19. Fluid logistics
 
-Fluids use their own network system.
+Fluid networks are separate from item networks.
 
-A fluid network should track useful game quantities such as:
+Track game-relevant quantities such as:
 
-- fluid type;
-- amount/volume;
+- type;
+- amount;
 - capacity;
 - input rate;
 - output demand;
 - throughput.
 
-It should **not** attempt computational fluid dynamics.
+Do not implement computational fluid dynamics.
 
-Potential fluids later include:
+Possible fluids later:
 
 - water;
 - steam;
 - oil;
 - fuels;
 - coolant;
-- industrial/chemical liquids.
+- industrial liquids.
 
-Different pipe tiers can provide different throughput/capacity without requiring realistic fluid simulation.
+Different pipe tiers can change throughput/capacity.
 
 ---
 
-## 18. Signal/control network
+## 20. Signal/control network
 
-The game must retain the creativity of Minecraft's redstone-like automation, but implement its own **signal/control network**.
+Retain the creative automation role of Redstone using Rivet Reach's own signal/control system.
 
-Signal tells a device **what to do**.
+Signal tells something **what to do**.
 
-Power determines whether the device **can do it**.
+Power determines whether it **can do it**.
 
-These are separate systems.
-
-Possible signal devices:
+Possible components:
 
 - switch;
 - button;
 - pressure plate;
-- sensor;
-- timer;
-- repeater/delay;
+- sensors;
+- timer/delay;
+- repeater;
 - comparator;
-- AND/OR/XOR/NOT logic;
+- AND/OR/XOR/NOT;
 - latch;
 - counter;
 - relay;
-- configurable controller;
-- lamps;
-- doors;
-- machines.
+- controller;
+- lamp;
+- door;
+- machine inputs.
 
 Example:
 
 ```text
 Storage sensor
     |
-    v
 IF iron > threshold
     |
-    v
 Stop crusher
 ```
 
-or:
+### Event-driven rule
+
+Do not recalculate every wire every frame.
 
 ```text
-Tank sensor
-    |
-    v
-IF water < 20%
-    |
-    v
-Enable pump
-```
-
-### Event-driven simulation
-
-Signals must **not** be recalculated for every wire every frame.
-
-Prefer:
-
-```text
-switch changes
- -> signal-change event
+input changes
+ -> signal event
  -> affected network queued
- -> network recalculated
+ -> relevant state recalculated
  -> connected devices notified
 ```
 
-A huge dormant circuit should cost nearly nothing.
-
-Future signal channels/colours/numbers may allow several independent circuits to share conduit routes.
+Future signal channels may allow multiple independent circuits through compact conduits.
 
 ---
 
-## 19. Electrical power
+## 21. Electrical power
 
-Electricity is separate from signals.
+Electricity is its own simulation network.
 
-Example:
+The first implementation should remain game-readable rather than becoming an electrical-engineering simulator.
 
-```text
-Switch ---- signal ----> Electric Furnace
-                           ^
-                           |
-Generator ---- cable ---- Battery
-```
+Track concepts such as:
 
-The furnace can be commanded ON while still reporting **NO POWER**.
-
-### Simplified engineering model
-
-Do not initially implement full Kirchhoff electrical-network simulation.
-
-The game should model electricity deeply enough to create engineering decisions without becoming electrical-engineering software.
-
-A power network can track concepts such as:
-
-- generation capacity;
+- generation;
 - demand;
 - stored energy;
 - machine priority;
-- cable/network limits;
-- later voltage tiers.
+- cable/network capacity;
+- later voltage tiers;
+- later transformers where useful.
 
-Potential progression:
+Possible sources across progression:
 
-```text
-basic generator / low voltage
- -> steam generation / larger storage
- -> medium voltage industrial grid
- -> advanced high-capacity grid
-```
-
-Future voltage/transformer mechanics may allow incorrect connections to fail or damage machinery, but the exact level of harshness is a later gameplay decision.
-
-Possible power sources across progression may include:
-
-- primitive/mechanical sources;
-- water/wind where appropriate;
-- combustion generators;
+- mechanical conversion;
+- wind/water where appropriate;
+- combustion;
 - steam;
 - solar;
 - geothermal;
 - nuclear;
-- advanced late-game systems.
+- advanced systems.
+
+Exact shortage/brownout/damage behaviour remains open.
+
+**Gatebuilder gateways are not part of this conventional electricity system.** Their operation is intentionally different. See [LORE.md](LORE.md) and [TRANSPORT.md](TRANSPORT.md).
 
 ---
 
-## 20. Network architecture rule
+## 22. Network optimization rule
 
-Item, fluid, power and signal systems should use the same broad optimization principle:
+Item, fluid, power and signal systems follow the same fundamental model:
 
 ```text
-blocks represent topology
-networks represent simulation
+blocks = topology
+network object/state = simulation
 ```
 
-A line of 500 inactive cable blocks should not mean 500 `Update()` calls.
+A line of 500 inactive cables/pipes must not mean 500 `Update()` calls.
 
-Only topology changes, resource transfers, signal changes or active machines should perform meaningful work.
+Meaningful work happens only for:
+
+- topology changes;
+- active transfers;
+- changing signals;
+- active machines;
+- relevant network calculations.
 
 ---
 
-## 21. Chunk states and simulation levels
+## 23. Chunk states
 
-Chunk loading should have several concepts rather than only "loaded" vs "not loaded".
+Chunks need more than loaded/unloaded.
 
-Possible states:
+Conceptual levels:
 
 ```text
 DORMANT / UNLOADED
-    |
+       |
 BACKGROUND SIMULATION
-    |
+       |
 ACTIVE PLAYER SIMULATION
 ```
 
-### Active chunks
+### Active near-player chunks
 
-Near players:
+Can include:
 
 - rendering;
-- full relevant block simulation;
-- nearby mobs/AI;
+- mob AI;
 - physics;
+- local block simulation;
+- machines;
+- networks;
 - particles;
-- machines;
-- power/logistics;
-- local gameplay.
+- player interactions.
 
-### Background-simulated chunks
+### Background factory chunks
 
-Chunk-loader factory chunks can run:
+Can run only what is needed:
 
 - machines;
-- item networks;
-- fluid networks;
-- power networks;
+- item/fluid networks;
+- power;
 - signals;
-- production timers.
+- production timers;
+- coarse process state.
 
-They generally should not run expensive unrelated systems such as:
-
-- rendering;
-- particles;
-- distant mob AI;
-- unnecessary physics.
+No unnecessary rendering, distant mob AI or unrelated physics.
 
 ### Dormant chunks
 
-Store state and consume essentially no continuous CPU until something loads/wakes them.
+Persist state and consume essentially no continuous CPU until something wakes them.
 
 ---
 
-## 22. Chunk loaders
+## 24. Chunk ticket system
 
-Chunk loaders are necessary because industrial bases must continue working when the player travels elsewhere, including to other planets.
+Different reasons can wake/retain chunks.
 
-### Player-owned load tickets
+At minimum:
 
-Current preferred rule:
+```text
+Player proximity ticket
+-> full active simulation
 
-> A chunk loader contributes its load ticket **only while its owner is online**.
+Player-owned factory chunk-loader ticket
+-> background factory simulation
 
-This avoids the server waking every offline player's factories when any unrelated player logs in.
+Portal activity ticket
+-> temporary simulation required around Gate traversal
+```
+
+The strongest relevant ticket determines simulation level.
+
+### Player-owned chunk loaders
+
+Current preferred multiplayer rule:
+
+> Factory chunk-loader tickets are active **only while their owner is online**.
+
+This prevents one unrelated online player from waking every offline player's factories.
+
+Chunk loading has a **per-player quota**. Exact values will be benchmarked later.
+
+Overlapping tickets are deduplicated; a chunk simulates once no matter how many players have tickets for it.
+
+### Portal tickets
+
+Portal activity tickets are system-owned and temporary. They do not count against player factory quotas.
+
+See [TRANSPORT.md](TRANSPORT.md).
+
+---
+
+## 25. Background factory processing
+
+Where mathematically safe, use coarse elapsed-time calculation rather than thousands of tiny ticks.
 
 Example:
 
 ```text
-Stone offline
-Alice online elsewhere
-
-Stone's chunk-loader tickets: inactive
-Alice's chunk-loader tickets: active
-```
-
-If a player physically visits Stone's factory, the chunks can still become active through normal player proximity. The important rule is that Stone's remote loader does not wake merely because somebody else is online somewhere on the server.
-
-### Per-player quota
-
-Chunk loading must have a **per-player limit**.
-
-Exact numbers will only be chosen after benchmarking.
-
-Possible concept:
-
-```text
-Chunk loading budget: 8 / 12 / 16 chunks
-```
-
-The limit may evolve with server configuration or game progression, but it must never be unlimited by default.
-
-### Overlapping tickets
-
-If multiple players load the same chunk, simulate it once.
-
-```text
-Chunk 50,50
-load tickets:
-- Stone
-- Alice
-```
-
-Disconnecting Stone removes Stone's ticket. Alice's ticket keeps it active.
-
-When no valid ticket and no nearby player remains, the chunk can sleep/unload.
-
----
-
-## 23. Background/offline-style factory calculation
-
-Where possible, long-running machine processes should support coarse or elapsed-time calculation rather than literally executing thousands of tiny ticks.
-
-Example:
-
-```text
-machine cycle: 10 seconds
-elapsed background time: 1800 seconds
+cycle: 10 sec
+elapsed background time: 1800 sec
 available input: 100
-available fuel/power: enough
-
-maximum cycles by time: 180
-maximum cycles by input: 100
-result: process 100 cycles
+possible by time: 180
+possible by input: 100
+result: 100 completed cycles
 ```
 
-This will not work for every complex machine/network, but it should be exploited where mathematically safe.
-
-The purpose is to support substantial multi-world automation without keeping huge areas in expensive full simulation.
+Not every network can use this optimization, but straightforward machine processes should where possible.
 
 ---
 
-## 24. Physical planets
+## 26. Physical planets
 
-Physical planets are part of the normal universe and are intended to become **industrial territory**.
+Physical planets are normal parts of the universe and are intended to become **industrial territory**.
 
-Players initially reach new worlds through rockets.
-
-Expected long-term loop:
+Long-term loop:
 
 ```text
-build industrial base
- -> construct rocket infrastructure
+starting-world industry
+ -> aerospace manufacturing
+ -> build rocket infrastructure
  -> reach new planet
- -> explore and establish outpost
- -> find planet-specific resources
- -> build automated extraction/processing
- -> automate return logistics
- -> eventually replace expensive transport with advanced teleportation
+ -> explore/resources
+ -> establish outpost
+ -> automate extraction/processing
+ -> automate cargo return
+ -> eventually replace expensive routes with advanced teleportation
 ```
 
-### Rockets
+The exact planets and resources remain future design work.
 
-Rockets should be meaningful machines/projects rather than simply a menu button.
+The Gatebuilders colonised the planetary system before the player, so additional worlds can contain their ruins and gateway infrastructure. See [LORE.md](LORE.md).
 
-Potential requirements later:
+---
 
-- launch structure/pad;
-- fuel;
-- engines;
+## 27. Rockets and cargo
+
+Rockets should be physical projects/machines rather than a menu button.
+
+Potential later requirements:
+
+- launch pad;
 - structural materials;
+- engines;
+- fuel;
 - electronics;
-- cargo capacity;
-- player transport.
+- cargo;
+- player cabin/transport.
 
-We do not currently intend full Kerbal-style orbital mechanics, but launches should feel physical and significant.
+We do not intend full Kerbal-style orbital simulation.
 
-### Automated interplanetary logistics
+### Coordinate-preserving travel
 
-Later systems may include:
+Launch location X/Z maps approximately to the same X/Z on the target world.
 
-- cargo rockets;
-- automated launches;
-- resource import/export;
-- remote planetary factories;
-- advanced item teleportation.
+The first landing can select safe terrain within a small constrained radius because no destination pad exists yet.
 
-The desired late-game result is a network of automated worlds supplying one another.
+After arrival, the player can build a receiving pad.
 
----
+Established pad-to-pad routes support repeat travel and automated cargo.
 
-## 25. Teleporters
+Cargo rockets eventually enable Factorio-like off-world supply chains.
 
-Teleporters are **player-built advanced technology** for the normal physical universe.
-
-They can eventually reduce the logistics cost of rockets and connect industrial bases directly.
-
-Potential late-game concept:
-
-```text
-Planet A storage
-    |
- item pipe
-    |
- teleport transmitter
-    ||
-    || interplanetary link
-    ||
- teleport receiver
-    |
- item pipe
-    |
- Planet B factory
-```
-
-Teleportation should require substantial infrastructure and/or energy so it does not trivialize rockets immediately after rockets are invented.
-
-Normal teleporters **do not work with portal realms**.
+Detailed behaviour is in [TRANSPORT.md](TRANSPORT.md).
 
 ---
 
-## 26. Ancient gateways / portal realms
+## 28. Ancient Gatebuilder gateways
 
-Portal realms serve a fundamentally different design purpose from physical planets.
+Ancient gateways are a fundamentally different exploration system.
 
-They are focused on **discovery, mystery and player exploration**, not automated resource exploitation.
+They are:
 
-Ancient gateways should be discovered as **ruined generated structures**, giving the exploration loop a Stargate-like feeling while using our own visual design, terminology and lore.
+- naturally generated ruined structures;
+- never player-crafted;
+- part of sparse world-spanning Gate networks;
+- deterministic from the save seed;
+- linked by corresponding X/Z anchors in portal realms;
+- based on non-conventional Gatebuilder technology rather than ordinary electricity;
+- persistent once activated;
+- free to traverse once operational;
+- able to transfer players/mobs physically;
+- not an automated item/fluid logistics conduit.
 
-Possible discovery experience:
+The player can enter through one Gate, explore the corresponding realm, find another Gate and return through it to the matching distant Gate on the physical world.
 
-```text
-exploration
- -> unusual ruin
- -> ancient inactive gateway
- -> unknown materials/symbols
- -> later learn how to repair/activate it
- -> travel to alien realm
-```
+Distance is preserved, so the portal realm does not become a compressed fast-travel network.
 
-Different gateway sites may lead to different realms or require different activation knowledge/components.
+Gate state, damaged receiving endpoints, control pedestals and chunk wake-up are defined in [TRANSPORT.md](TRANSPORT.md).
 
-### Portal-realm rules
+Hidden lore is defined in [LORE.md](LORE.md).
 
-Current intended rules:
+---
 
-- reached through ancient gateways;
+## 29. Portal realm rules
+
+Portal realms exist to preserve the **discovery** half of the game.
+
+Current rules:
+
 - rockets cannot reach them;
 - normal player-built teleporters cannot link to them;
-- automated inter-world resource transfer is not allowed;
-- chunk loaders are disabled there as the current design;
-- resources must be obtained through actual player travel/exploration.
+- automated cross-world item/fluid transfer is not allowed;
+- factory chunk loaders are currently not intended there;
+- resources must be physically brought back by players/entities;
+- Gate traversal itself is repeatable and should not become a grind;
+- local temporary machinery while players are physically present can be considered later.
 
-Local machines may eventually be usable while players are present, but the realm must not turn into a remote AFK mining colony.
-
-The player should continue having reasons to personally return to portal realms even in the late game.
-
-This preserves the distinction:
-
-```text
-PHYSICAL PLANETS
-explore -> colonize -> automate -> optimize logistics
-
-PORTAL REALMS
-find -> enter -> explore personally -> bring discoveries home
-```
+The endgame must not reduce every portal realm to `place miner, chunk-load it, never visit again`.
 
 ---
 
-## 27. Interplay between exploration and industry
+## 30. Player-built teleporters
 
-The two progression branches should feed each other without becoming identical.
+Teleporters are later player technology for the **normal physical universe**.
 
-Example long-term structure:
+Unlike rockets/Gates, they may eventually allow arbitrary linked endpoints and therefore break geography.
 
-```text
-                    DISCOVERY
-                       |
-          +------------+------------+
-          |                         |
-    Physical space             Portal realms
-          |                         |
-       Rockets                  Ancient gates
-          |                         |
-       Planets                  Exploration
-          |                         |
-   Automated industry          Unique resources
-          |                         |
-   Cargo / teleporters         Manual player travel
-          |                         |
-          +------------+------------+
-                       |
-                New technologies
-                       |
-                 Better industry
-```
+They should require substantial advanced infrastructure so rockets remain relevant through aerospace progression.
 
-Some advanced technology may require combining industrial capability with rare discoveries from portal realms.
+Potential uses:
+
+- player transport;
+- item logistics;
+- direct planetary factory links.
+
+They cannot connect to portal realms.
 
 ---
 
-## 28. Day/night and mobs
+## 31. Satellites
+
+A future orbital satellite system can assist with **cartography**.
+
+Current concept only:
+
+- satellites reveal/expand map coverage around the player or according to an eventual coverage model;
+- balance/radius/orbital behaviour remains open;
+- satellites should not automatically locate Gatebuilder structures;
+- satellites should not become a default ore scanner.
+
+The technology helps the player understand geography without deleting discovery.
+
+---
+
+## 32. Day/night and mobs
 
 The final game requires:
 
 - day/night cycle;
-- passive/neutral/hostile creatures as appropriate;
-- mob spawning rules;
-- world-specific creatures later;
+- passive, neutral and hostile mobs;
+- world-specific spawning;
 - combat/survival pressure;
-- generated settlements and inhabitants where designed.
+- settlement inhabitants;
+- realm-specific creatures later.
 
-The POC does **not** need a complete mob ecosystem.
+The current lore/mob direction is intentionally simple and documented in [LORE.md](LORE.md).
 
-### Performance approach
+POC mob AI should prioritise a few reusable behaviour types rather than content volume.
 
-Mob AI must respect simulation distance.
+### Performance
 
-Conceptually:
+Mob simulation must respect distance:
 
 ```text
-near player: full AI
-medium range: simplified simulation
-far away: sleeping / no expensive AI
+near player -> full AI
+medium range -> simplified simulation
+far away -> sleeping/no expensive AI
 ```
 
-We should not attempt to run complex AI for every creature in generated worlds.
+Do not attempt to maintain full AI for creatures across infinite worlds.
 
-Navigation should be compatible with destructible voxel terrain; relying on one huge static Unity NavMesh for an infinite world is not appropriate.
+Navigation must cope with destructible voxel terrain; one giant static NavMesh is not appropriate.
+
+Mobs may traverse active Gatebuilder gateways and should retain entity state when transferred.
 
 ---
 
-## 29. Multiplayer direction
+## 33. Multiplayer direction
 
-Multiplayer is **not part of the first POC**, but architecture decisions from day one must avoid making multiplayer a rewrite.
+Multiplayer comes **after the single-player foundations**, but architecture must support it from day one.
 
-The intended model is **server authoritative**.
-
-Conceptually:
+Intended model: **server authoritative**.
 
 ```text
 Client
- -> BreakBlockCommand
- -> Server / authoritative simulation
+ -> command
+ -> authoritative server simulation
  -> validation
- -> block changes
+ -> state change
  -> event/delta
  -> interested clients
 ```
 
-Single-player can run the same simulation locally.
+Future requirements:
 
-### Future networking concerns
-
-The networking layer will eventually need:
-
-- dedicated server builds;
-- chunk interest management;
+- dedicated server build;
+- world/chunk interest management;
 - chunk streaming;
 - block deltas;
 - entity snapshots;
-- machine/network state replication;
+- machine/network replication;
 - player commands;
-- anti-cheat validation;
 - ownership/permissions;
-- chunk-loader ownership.
+- anti-cheat validation;
+- chunk-loader ownership/quotas;
+- authoritative Gate/rocket transport state.
 
-The client should never be trusted to authoritatively decide important world state.
+The client should never authoritatively decide important world state.
+
+### Geography and multiplayer
+
+Sparse Gate networks plus coordinate-preserving travel deliberately allow distant communities to remain distant.
+
+Spawn can naturally develop into a hub without forcing a player who settles thousands of chunks away to travel back to a unique portal.
 
 ---
 
-## 30. Render distance vs simulation distance
+## 34. Render distance vs simulation distance
 
-Rendering and simulation should be independently configurable.
+Keep them independent.
 
-Example concept only:
+Example only:
 
 ```text
 render distance: 20 chunks
 full simulation distance: 8 chunks
 ```
 
-Far terrain can remain visible without running mobs, machines, physics and every block tick at the same distance.
+Far terrain may remain visible without running mobs, physics, machines and every simulation system at the same range.
 
-Chunk-loaded factories are handled through the separate background-simulation system rather than simply increasing global simulation distance.
+Chunk-loaded factories use background simulation rather than increasing global simulation distance.
 
 ---
 
-## 31. Persistence
+## 35. Persistence
 
-World persistence must support extremely large generated universes efficiently.
+Persistence must support extremely large universes efficiently.
 
-Likely direction:
+Likely principles:
 
 - deterministic generation from seed;
-- save modified chunks rather than storing every untouched generated voxel;
+- store modified chunks rather than untouched procedural terrain;
 - compressed binary chunk/region storage;
-- separate block-entity state;
-- world/version metadata;
-- migration/versioning strategy before save format becomes public/stable.
+- block-entity state stored separately where appropriate;
+- persistent universe-level state for systems such as Gate activation;
+- save/version metadata;
+- migration/versioning strategy before public save format stabilises;
+- asynchronous/non-blocking saving where possible.
 
-Exact storage format will be selected through POC testing.
-
-Saving should not freeze the game for noticeable periods.
+Undiscovered seed-defined Gate anchors should not require a huge explicit list in the save if they can be reproduced deterministically.
 
 ---
 
-## 32. Debug/profiling tools are part of the POC
+## 36. Debug/profiling tooling
 
-Voxel games become difficult to optimize when internal state is invisible.
+Debug tooling is part of the POC.
 
-Build debug tools early for displaying things such as:
+Useful overlays/instrumentation include:
 
 - chunk boundaries;
+- chunk coordinates/world IDs;
 - loaded chunks;
-- background-simulated chunks;
-- chunk-loader tickets/owners;
+- background chunks;
+- chunk ticket source/owner;
 - mesh generation timings;
 - world generation timings;
 - active block entities;
+- active mob counts;
 - power networks;
+- signal networks;
 - item networks;
 - fluid networks;
-- signal networks;
-- network rebuild timings;
-- entity/mob counts;
-- memory usage where practical.
+- topology rebuild timings;
+- Gate anchors/states in developer mode;
+- memory usage where practical;
+- frame timing/profiling.
 
-Profiling is not a final-stage activity.
+Optimization is continuous, not a final sprint.
 
 ---
 
-## 33. Proof-of-concept scope
+## 37. Proof-of-concept scope
 
 The POC should be **small in content and deep in architecture**.
 
 ### Phase 1 - Core voxel world
 
-- [ ] Unity 6.3 LTS project using URP.
+- [ ] Unity 6.3 LTS + URP project.
 - [ ] FPS controller.
-- [ ] Chunk coordinate/world coordinate system.
+- [ ] World/chunk/local coordinate model.
+- [ ] World IDs and multi-world-safe APIs.
 - [ ] Modular `WorldDefinition` architecture.
-- [ ] Deterministic seeded terrain generation.
+- [ ] Deterministic seeded terrain.
 - [ ] Infinite X/Z chunk streaming.
-- [ ] Basic height terrain.
-- [ ] Basic caves.
-- [ ] Small block palette (~5-8 block types initially).
+- [ ] Basic terrain and caves.
+- [ ] Small initial block palette (~5-8 types).
 - [ ] Chunk mesh generation.
 - [ ] Greedy/optimized meshing.
 - [ ] Chunk load/unload.
-- [ ] Floating-origin support or architecture ready for it.
+- [ ] Floating-origin-ready architecture.
 - [ ] Block break/place.
 - [ ] Save/load modified chunks.
 
@@ -1381,74 +1323,85 @@ The POC should be **small in content and deep in architecture**.
 - [ ] Larger hotbar.
 - [ ] Larger main inventory.
 - [ ] Stack handling.
-- [ ] Basic item registry.
-- [ ] Data-driven crafting recipe registry.
-- [ ] Hand/workbench grid crafting.
-- [ ] Basic NEI/JEI-style recipe/uses browser.
-- [ ] Discovery-aware recipe visibility without hard XP/research gates.
+- [ ] Item/block registry.
+- [ ] Data-driven recipe registry.
+- [ ] Grid crafting/workbench.
+- [ ] NEI/JEI-style recipe/uses browser.
+- [ ] Discovery-aware visibility without XP/research locks.
 
-### Phase 3 - Machines and power
+### Phase 3 - Machine framework and UX
 
-- [ ] Reusable machine/block-entity foundation.
+- [ ] Reusable block-entity/machine foundation.
+- [ ] Common inventories/buffers/process state.
+- [ ] Universal port grammar for items/fluids/power/signals.
 - [ ] Furnace.
-- [ ] Crusher or equivalent powered processing machine.
-- [ ] Basic generator.
-- [ ] Power cable blocks.
-- [ ] Logical `PowerNetwork`.
-- [ ] Power production/demand.
-- [ ] Basic energy storage if needed for the POC.
+- [ ] Crusher or similar powered processor.
+- [ ] Machine status/readability conventions.
 
-### Phase 4 - Signals
+### Phase 4 - Electrical power
+
+- [ ] Basic generator.
+- [ ] Power cables.
+- [ ] Logical `PowerNetwork`.
+- [ ] Production/demand.
+- [ ] Basic storage where useful.
+- [ ] No per-cable frame ticking.
+
+### Phase 5 - Signals
 
 - [ ] Switch.
-- [ ] Signal wire/conduit.
+- [ ] Signal conduit.
 - [ ] Lamp and/or machine signal input.
 - [ ] Event-driven `SignalNetwork`.
-- [ ] No per-wire per-frame polling.
+- [ ] Basic logic interaction.
 
-### Phase 5 - Item logistics
+### Phase 6 - Item logistics
 
 - [ ] Container/chest.
 - [ ] Item pipes.
 - [ ] Extractor/interface.
 - [ ] Logical `ItemNetwork`.
-- [ ] Machine input/output automation.
-- [ ] At least basic filtering or destination rules.
+- [ ] Machine automation.
+- [ ] Basic routing/filtering.
 
-### Phase 6 - Fluids
+### Phase 7 - Fluids
 
 - [ ] Fluid type/quantity model.
-- [ ] Pump/source for testing.
+- [ ] Pump/source.
 - [ ] Fluid pipe network.
 - [ ] Tank.
-- [ ] Machine consuming or producing fluid.
-- [ ] Aggregate/network simulation rather than per-pipe fluid physics.
+- [ ] Machine consuming/producing fluid.
+- [ ] Aggregate simulation rather than per-pipe fluid physics.
 
-### Phase 7 - Chunk-loader/background simulation
+### Phase 8 - Chunk/background simulation
 
-- [ ] Chunk ticket system.
-- [ ] Player ownership.
+- [ ] Generic chunk ticket system.
+- [ ] Player proximity tickets.
+- [ ] Player-owned factory tickets.
+- [ ] Owner-online rule.
 - [ ] Per-player quota support.
-- [ ] Owner-online activation rule.
-- [ ] Overlapping-ticket deduplication.
-- [ ] Background factory simulation without rendering/mob AI.
-- [ ] Coarse elapsed-time machine processing where valid.
+- [ ] Overlap deduplication.
+- [ ] Background machine simulation.
+- [ ] Coarse elapsed-time processing where valid.
 
-### Phase 8 - Multi-world readiness
+### Phase 9 - Multi-world foundation
 
-- [ ] Save owns a universe, not one hard-coded world.
-- [ ] World IDs included in coordinates/persistence APIs where necessary.
-- [ ] Multiple `WorldDefinition` profiles can be instantiated.
-- [ ] Travel API capable of moving a player between worlds.
-- [ ] Rules for normal planets vs portal realms represented in configuration.
+- [ ] Save owns a universe rather than one hard-coded world.
+- [ ] Instantiate at least two test `WorldDefinition` profiles.
+- [ ] World-to-world entity/player transfer API.
+- [ ] Coordinate-preserving transfer test.
+- [ ] Persistent universe-level metadata.
+- [ ] Deterministic cross-world anchor test for future Gate networks.
+- [ ] Destination chunk generation/wake-up before transfer.
+- [ ] Temporary system-owned portal activity ticket prototype.
 
-The POC does not initially need polished rockets, multiple finished planets or finished ancient gateway content. It needs to prove that adding them later does not require replacing the foundation.
+The POC does **not** need polished Gate art, finished alien realms, rockets or complete planets. It needs to prove that the architecture can support them without a rewrite.
 
 ---
 
-## 34. POC acceptance test
+## 38. POC acceptance test
 
-The main technical acceptance scenario should be something close to:
+Primary factory scenario:
 
 ```text
                     Generator
@@ -1464,148 +1417,209 @@ Ore Chest -> Pipe -> Crusher -> Pipe -> Furnace -> Pipe -> Storage
 
 The player must be able to:
 
-1. generate an effectively infinite seeded world;
-2. build this small factory in first person;
-3. save and reload it correctly;
+1. generate an effectively infinite deterministic world;
+2. build the factory in first person;
+3. save/reload correctly;
 4. use the recipe browser to understand its components;
-5. supply and process resources through item pipes;
-6. supply any required fluid through fluid pipes;
-7. power the machines through a real logical power network;
-8. control at least part of it through the signal system;
-9. chunk-load the factory;
-10. travel far enough away that the factory is no longer rendered/fully simulated;
-11. have production continue correctly in background simulation;
-12. return and observe the expected inventory/state;
-13. maintain stable performance without unnecessary per-block/per-pipe updates.
+5. process items through pipe logistics;
+6. use a fluid network where required;
+7. power machines through a logical network;
+8. control machinery through signals;
+9. chunk-load the factory using player-owned tickets;
+10. leave rendering/full simulation range;
+11. have appropriate production continue in background simulation;
+12. return and see correct inventories/state;
+13. maintain stable performance without per-block/per-pipe polling.
 
-If this works reliably and benchmarks well, the POC has proven the systems that the larger game depends on.
+Secondary architecture scenario:
+
+1. instantiate two lightweight test worlds from different definitions;
+2. generate deterministic matching test anchors from the same save seed;
+3. transfer a player/entity at preserved X/Z;
+4. generate/wake destination chunks before arrival;
+5. keep the destination/source temporarily active via system ticket;
+6. unload correctly after inactivity;
+7. reload the save with cross-world state intact.
+
+If these scenarios are reliable and benchmark well, the POC has proven the foundations the full game depends on.
 
 ---
 
-## 35. Explicitly outside the initial POC
+## 39. Explicitly outside the first POC
 
-Do not allow these to distract from the foundation initially:
+Do not let these distract from the architecture initially:
 
 - huge biome library;
-- polished procedural villages;
-- full mob ecosystem;
+- polished villages;
+- complete mob ecosystem;
 - final combat balance;
 - final art direction;
-- final age/technology tree;
-- full steam-era content;
-- rockets;
-- finished planets;
-- final gateway/portal-realm content;
+- final technology/age progression;
+- full steampunk content;
+- complete rocket system;
+- finished additional planets;
+- polished Gatebuilder gateway activation;
+- complete portal realms;
 - late-game teleporters;
-- multiplayer UI/matchmaking;
-- massive recipe/content library.
-
-They are important final-game goals, but they depend on the core architecture being stable and fast first.
+- final satellite system;
+- multiplayer matchmaking/UI;
+- enormous recipe/content library.
 
 ---
 
-## 36. Long-term target
+## 40. Long-term target
 
-The intended end-state is a sandbox where a player can begin by punching/mining/placing familiar voxel blocks and eventually build a multi-world industrial network without the game losing its exploration side.
-
-A possible long-term player journey:
+The intended long-term journey resembles:
 
 ```text
 Explore starting world
         |
-Gather / craft / build
+Mine / craft / build
         |
-Discover metals
+Discover resources
+        |
+Early metalworking
         |
 Mechanical industry
         |
-Steampunk / steam factories
+Steam / steampunk factories
         |
-Electric industry
+Electrical industry
         |
-Large automated pipe-based factories
+Large pipe-based automation
         |
-Discover ancient gateway ruins --------+
-        |                               |
-Advanced manufacturing             Portal realms
-        |                               |
-Aerospace                          Manual exploration
-        |                               |
-Rockets                            Strange resources
-        |                               |
-Other planets                         |
-        |                               |
-Automated colonies                     |
-        |                               |
-Cargo logistics                        |
-        +---------------+---------------+
-                        |
-               Advanced technology
-                        |
-          Interplanetary teleporters
-                        |
-          Large optimized world network
+        +-------------------- discover ancient Gate ruins
+        |                                  |
+Advanced manufacturing                Portal realms
+        |                                  |
+Aerospace                         personal exploration
+        |                                  |
+Rockets                          unusual resources
+        |                                  |
+Other physical planets                    |
+        |                                  |
+Automated colonies                         |
+        |                                  |
+Cargo rockets                              |
+        +------------------+---------------+
+                           |
+                  advanced technology
+                           |
+             physical-world teleporters
+                           |
+             large multi-world industry
 ```
 
 Physical planets increasingly reward **automation and logistics**.
 
-Portal realms deliberately remain **places the player must personally explore**.
+Portal realms deliberately continue rewarding **personal discovery and travel**.
 
-That tension between discovering the unknown and then engineering increasingly powerful systems from what was discovered is the core long-term identity of Rivet Reach.
-
----
-
-## 37. Current non-negotiable architectural rules
-
-These are the decisions most likely to create major headaches if ignored early:
-
-1. **No GameObject per normal voxel.**
-2. **World state is chunked data.**
-3. **Multiple worlds are supported by the model from the beginning.**
-4. **Each save is completely isolated.**
-5. **Normal planets and portal realms are distinct world categories.**
-6. **World generation is driven by modular definitions, not one hard-coded overworld.**
-7. **Power, signal, item and fluid networks are distinct simulation systems.**
-8. **Pipes/cables are topology; connected networks perform the simulation.**
-9. **No per-wire/per-pipe/per-block `Update()` architecture.**
-10. **Chunk loaders use player-owned tickets and have quotas.**
-11. **Chunk-loader tickets are active only while the owner is online.**
-12. **Portal realms cannot be automated into remote resource farms.**
-13. **Performance is benchmarked continuously.**
-14. **Multiplayer is later, but authoritative command/simulation architecture starts now.**
-15. **Progress comes from resources and capability, not character levels.**
-16. **Recipe discovery assists the player but should not arbitrarily block knowledgeable players.**
-17. **The POC proves architecture before content volume.**
+The tension between those two behaviours is the core long-term identity of Rivet Reach.
 
 ---
 
-## 38. Open design areas
+## 41. Current non-negotiable architectural/design rules
 
-The following are intentionally not final yet and should evolve through brainstorming and testing:
+Unless deliberately revisited, these decisions should guide implementation:
+
+1. No GameObject per normal voxel.
+2. World state is chunked data.
+3. Multiple worlds are supported by the model from the beginning.
+4. Each save is completely isolated.
+5. World generation is modular through world definitions.
+6. Important cross-world Gate anchors are deterministic from the save seed.
+7. Early/intermediate inter-world travel preserves horizontal X/Z.
+8. Power, signals, items and fluids are distinct simulation systems.
+9. Pipes/cables represent topology; logical networks perform simulation.
+10. No per-wire/per-pipe/per-block `Update()` architecture.
+11. Item pipes are the primary automated item transport, not conveyor belts.
+12. Chunk loaders use player-owned tickets and per-player quotas.
+13. Factory chunk-loader tickets are active only while their owner is online.
+14. Portal activity uses temporary system tickets rather than permanent hidden chunk loading.
+15. Portal realms cannot be unattended remote resource farms.
+16. Gatebuilder gateways cannot be constructed by players.
+17. Gatebuilder Gate operation is separate from conventional player electricity.
+18. Gate traversal has no per-use resource/energy cost once operational.
+19. Gate networks contain many extremely widely spaced sites, not one unique global portal.
+20. Shared Gate anchors preserve coordinates across linked dimensions.
+21. Gate state persists outside loaded chunks.
+22. A damaged receiving Gate cannot permanently strand the player.
+23. Mobs can physically traverse active Gates.
+24. Rockets preserve X/Z between physical worlds.
+25. Player teleporters are later technology and cannot link to portal realms.
+26. Satellites are currently cartography tools, not automatic Gate/ore scanners.
+27. Progress comes from resources/capability rather than character levels.
+28. Recipe discovery assists the player but should not arbitrarily block knowledgeable players.
+29. Optimization is measured continuously.
+30. Multiplayer is later, but authoritative simulation architecture starts now.
+31. The POC proves architecture before content volume.
+
+---
+
+## 42. Open design areas
+
+Still intentionally unresolved:
+
+### Core engine
 
 - exact chunk dimensions;
-- world height/storage layout;
-- terrain/noise algorithm;
-- lighting algorithm;
+- vertical world storage/height;
+- terrain/noise algorithms;
+- lighting implementation;
+- final save/region format;
+- floating-origin details.
+
+### Crafting/industry
+
 - exact inventory dimensions and stack sizes;
-- final crafting-grid dimensions;
-- exact age names and progression chains;
-- early mechanical power depth;
-- exact electrical voltage/transformer rules;
-- power-shortage behaviour;
-- final signal channels and logic blocks;
+- final crafting grid sizes;
+- exact age names/resource chains;
+- depth of mechanical power;
+- electrical voltage/transformer rules;
+- power shortage/failure behaviour;
+- signal channels;
 - item-pipe routing algorithms;
 - fluid throughput model;
-- chunk-loader quota values;
-- chunk-loader progression/upgrades;
-- background-simulation granularity;
-- exact planet count/types;
-- rocket mechanics;
-- gateway activation/discovery mechanics;
-- portal-realm rules beyond the core no-automation requirement;
-- mobs and combat;
-- village/NPC systems;
-- final visual style and asset pipeline;
-- networking library/implementation once multiplayer work begins.
+- multi-function conduits.
 
-This file should be updated whenever POC measurements or design decisions materially change the plan.
+### Background simulation
+
+- player chunk-loader quota values;
+- chunk-loader progression/upgrades;
+- exact background-simulation granularity;
+- how complex networks catch up after sleeping.
+
+### Worlds/transport
+
+- exact physical planet count/types;
+- rocket manufacture/fuel mechanics;
+- cargo rocket balance;
+- Gate macro-region size/minimum separation;
+- number of Gate networks/portal realms;
+- Gate activation/repair components;
+- exact damaged-side cooldown;
+- final Gatebuilder technology terminology;
+- whether/how portal networks can span more than one physical planet without bypassing aerospace progression;
+- player teleporter limitations/energy requirements;
+- satellite map-coverage model.
+
+### World/lore/content
+
+- final Gatebuilder identity/name;
+- reason for their disappearance;
+- exact portal-realm nature;
+- final mobs and creature designs;
+- village/NPC behaviour;
+- structure library;
+- portal realm ecology/resources;
+- final visual identity and asset pipeline.
+
+### Multiplayer
+
+- networking implementation/library;
+- dedicated server configuration;
+- permissions/claims if any;
+- server-side Gate/transport configuration;
+- player limits and performance targets.
+
+These documents should be updated whenever POC measurements or new design decisions materially change the project direction.
