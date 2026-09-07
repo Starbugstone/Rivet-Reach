@@ -541,17 +541,3 @@ Still intentionally unresolved:
 - whether some portal realms link to more than one physical planet without undermining rocket progression.
 
 These should evolve through brainstorming and POC/playtesting rather than being locked prematurely.
-
----
-
-## 21. Lore and gameplay boundaries during brainstorming
-
-The hidden history can remain mysterious while observable mechanics become precise. Players need reliable clues about repair, danger and return travel even when the underlying Gatebuilder principle remains unexplained.
-
-Detailed Gate mechanics belong to [TRANSPORT.md](TRANSPORT.md); the existing lore sections summarize that direction. Proposed destruction protection, companion restrictions and emergency return options in that document are not yet canon. Once a policy is selected, update its visual/environmental explanation here without requiring an exposition scene.
-
-Exploration rewards and recurring realm-material demand are discussed in [GAMEPLAY.md](GAMEPLAY.md). Rare does not automatically mean enjoyable: a mysterious material should support worthwhile expeditions rather than an unexplained recurring chore. Whether such materials are durable components, reusable catalysts or consumables remains open.
-
-Future structure briefs should state historical layer, recognizable visual clues, gameplay purpose, possible damage states and regional placement constraints. A ruin can contribute atmosphere without containing required loot. A structure that provides essential progression must have a discoverability and dependency review so its repair does not require material obtainable only beyond that same inaccessible Gate.
-
-Lore decisions can wait when they do not affect observable rules. Gatebuilder disappearance, final names and the ultimate nature of realms remain intentionally unresolved. Track consequential questions in [DESIGN_QUESTIONS.md](DESIGN_QUESTIONS.md).
