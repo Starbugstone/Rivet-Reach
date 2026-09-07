@@ -493,6 +493,9 @@ validate persistent Gate state
 determine linked world and same X/Z anchor
     |
     v
+reserve source/destination with temporary preparation tickets
+    |
+    v
 wake/load destination Gate area
     |
     v
@@ -605,7 +608,7 @@ Portal activity ticket
 -> temporary local/full simulation needed for safe traversal
 ```
 
-The strongest applicable reason determines the simulation level.
+The strongest applicable reason determines the simulation level, subject to world-specific capability restrictions. Portal safety activity must not implicitly authorize unattended realm factories; see section 38 for the proposed policy and unresolved entity exceptions.
 
 ---
 
@@ -926,4 +929,71 @@ Still to brainstorm/test:
 - satellite map coverage model and balance;
 - server configuration for Gate density and transport-related chunk tickets.
 
-These should remain evolutive as the POC and later gameplay tests reveal what is fun, readable and performant.
+These remain open; priorities are tracked in [DESIGN_QUESTIONS.md](DESIGN_QUESTIONS.md). Sections 37-39 below add proposed edge-case specifications, not newly approved gameplay rules.
+
+---
+
+## 37. Proposed traversal safety and failure contract
+
+**Status: proposal for validation.** The established direction remains safe return, persistent link state, free repeated traversal and no permanent Gate chunk loading. The following makes missing edge cases explicit without declaring a final repair mechanic.
+
+Separate endpoint condition, established pair state, current traversal readiness and individual entity re-entry cooldown. A linked Gate may be temporarily unavailable while loading a destination; this must not appear as lost repair progress.
+
+Proposed transition sequence:
+
+1. Validate entity eligibility, pair state and the requested destination.
+2. Acquire bounded preparation tickets and reserve safe arrival space before asynchronous generation/loading begins.
+3. Keep the source entity authoritative and safe while preparation runs; show waiting state.
+4. Revalidate the destination and pair before committing a uniquely identified transfer.
+5. Commit one authoritative world/location change; preserve identity and carried state.
+6. Start short traversal activity tickets and an entity re-entry guard; release preparation reservations.
+7. On failure, retain/restore the entity at the source and explain the cause. On interrupted saves, recover to exactly one side.
+
+Preparation tickets must cover the waiting interval; tickets applied only after arrival are too late to protect it. Timeout/cancellation and reservation cleanup need explicit handling. See [SIMULATION.md](SIMULATION.md) for durability requirements.
+
+Arrival safety must include player-placed obstructions, occupied exit space, hazardous terrain and simultaneous arrivals. Proposed starting approach: reserve a small structure-owned exit volume and queue arrivals when occupied. Whether that volume prevents placement, clears blocks with refunds, or uses a nearby safe fallback is unresolved. Never silently destroy a player's build to satisfy arrival.
+
+### Return guarantee under damage
+
+Existing damaged-destination cooldown rules do not resolve destruction of the last healthy endpoint while someone is away.
+
+Candidate policies:
+
+- restoring a pair establishes a protected minimum return function that later component removal cannot eliminate;
+- essential linked cores cannot be destroyed, while optional restoration improves readiness;
+- an explicit emergency return mechanism preserves safety when both ends fail.
+
+Choose one before implementing destructive Gate interactions. These are alternatives, not simultaneous rules. Define whether the guarantee covers only generated damage or also player sabotage, environmental damage and server permissions. Cooldown cannot resolve a permanently missing endpoint by itself.
+
+Open: does recovery time progress while both sides are unloaded or while a single-player game is paused? Persist timestamps/state under a declared clock without continuously ticking unloaded Gates.
+
+## 38. Proposed limits on entity logistics and activity tickets
+
+**Agreed direction:** mobs may follow players and retain identity; realm Gates are not automated inter-world resource conduits.
+
+**Unresolved interaction:** cargo-bearing creatures, dropped items, automated creature movement and repeat crossings could create a logistics route or a permanent source of refreshed system tickets.
+
+Candidate starting policy for testing:
+
+- allow player traversal and a bounded accompanying/following-entity window;
+- do not allow unattended entity crossings to refresh realm simulation indefinitely;
+- cap concurrent preparation areas and activity duration under sustained non-player crossings;
+- require an explicit policy for inventory-bearing companions and dropped items before treating them as allowed cargo;
+- restrict realm factory eligibility by ticket capability, not merely by the presence of any full-simulation ticket.
+
+Player proximity, factory permission, AI/physics readiness and portal safety are distinct capabilities. The strongest ticket can select a simulation level, but cannot override world-specific bans. A portal ticket may enable collision and following creatures without enabling unattended extraction.
+
+This proposal may constrain the existing broad mob-crossing rule and therefore needs a deliberate decision. Compare a companion window with a proximity-only rule and report gameplay costs, particularly livestock handling and hostile pursuit. No final restriction is selected here.
+
+Required future scenarios: a hostile follows one player; a named companion carries items; a dropped item reaches a Gate; creatures circulate without a player; several players cross simultaneously; the last player leaves while a portal ticket remains.
+
+## 39. Rocket and network edge cases to resolve
+
+- **First landing:** bound search radius and generation work; if no safe site exists, fail preparation safely rather than drifting arbitrarily far. Determine whether landing suitability is checked before departure or handled by a return-capable expedition.
+- **Route coordinates:** later explicit pads must still satisfy the intended coordinate rule. Choose tolerance and prevent repeated first-landing offsets or pad relocation from becoming unlimited lateral travel.
+- **Receiving pad failure:** reserve capacity where appropriate; specify queue, hold, retry or return behaviour if a pad is full, removed or loses simulation eligibility.
+- **Owner disconnect:** decide what happens to already launched cargo when owner-online tickets expire. No implicit infinite destination loading or duplicate delivery.
+- **Cross-planet realm shortcuts:** initial candidate is separate realm instances/network identities per physical planet, even when realm themes repeat. Shared realms with destination restrictions remain an alternative. Neither is approved yet.
+- **Transport throughput:** establish bounded concurrent preparations, queued entities and cargo routes; safe waiting is preferable to loading unbounded regions.
+
+Priorities and decision tracking live in [DESIGN_QUESTIONS.md](DESIGN_QUESTIONS.md).

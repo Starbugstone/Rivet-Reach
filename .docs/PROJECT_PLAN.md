@@ -1,6 +1,6 @@
 # Rivet Reach - Project Plan and Long-Term Vision
 
-> **Status:** evolving design / proof-of-concept phase
+> **Status:** early brainstorming / documentation and specifications; POC not yet implemented
 >
 > Rivet Reach is intentionally **evolutive**. The design will continue to change while we brainstorm, prototype, benchmark and test the POC. The current documents describe the agreed direction, not an immutable final specification.
 >
@@ -10,6 +10,16 @@ Related design documents:
 
 - [LORE.md](LORE.md) - hidden world history, Gatebuilders, environmental storytelling and current mob/ecology direction.
 - [TRANSPORT.md](TRANSPORT.md) - Gate networks, coordinate-preserving world travel, rockets, portal state, chunk wake-up, satellites and future teleporters.
+
+- [SIMULATION.md](SIMULATION.md) - proposed simulation timing, network boundaries, persistence and benchmark contracts.
+- [GAMEPLAY.md](GAMEPLAY.md) - player experience, responsiveness and full-game completeness.
+- [DESIGN_QUESTIONS.md](DESIGN_QUESTIONS.md) - prioritized unresolved decisions and validation needs.
+
+### How to read this plan
+
+The existing vision and explicitly agreed rules remain the design baseline. New specialist specifications label **proposals** separately from **agreed direction**. Unchecked milestones are future work, not implemented capabilities. The current task is documentation only; future implementation begins when requested.
+
+Detailed simulation behaviour belongs to `SIMULATION.md`, transport behaviour to `TRANSPORT.md`, player-experience criteria to `GAMEPLAY.md`, and hidden history to `LORE.md`. Summaries here do not override those documents. Conflicts should be resolved explicitly and recorded, not silently interpreted as approval.
 
 ---
 
@@ -984,7 +994,7 @@ Portal activity ticket
 -> temporary simulation required around Gate traversal
 ```
 
-The strongest relevant ticket determines simulation level.
+The strongest relevant ticket determines simulation level within world-specific capability restrictions. A portal safety ticket must not implicitly authorize unattended realm production; see [TRANSPORT.md](TRANSPORT.md) and [SIMULATION.md](SIMULATION.md).
 
 ### Player-owned chunk loaders
 
@@ -1021,7 +1031,7 @@ possible by input: 100
 result: 100 completed cycles
 ```
 
-Not every network can use this optimization, but straightforward machine processes should where possible.
+Not every network can use this optimization. The arithmetic above illustrates time and input limits only; output capacity, energy, fluids, controls and coupled consumers must also be respected. A correct reference simulation comes first. See [SIMULATION.md](SIMULATION.md) for proposed eligibility-time and equivalence rules. Dormant time is not automatically productive time.
 
 ---
 
@@ -1300,102 +1310,57 @@ Optimization is continuous, not a final sprint.
 
 The POC should be **small in content and deep in architecture**.
 
-### Phase 1 - Core voxel world
+The following order is a **proposed revision** to test persistence and background factories before expanding the industrial feature set. It changes validation order, not the full-game ambition. Each milestone needs correctness evidence before its performance result is meaningful.
 
-- [ ] Unity 6.3 LTS + URP project.
-- [ ] FPS controller.
-- [ ] World/chunk/local coordinate model.
-- [ ] World IDs and multi-world-safe APIs.
-- [ ] Modular `WorldDefinition` architecture.
-- [ ] Deterministic seeded terrain.
-- [ ] Infinite X/Z chunk streaming.
-- [ ] Basic terrain and caves.
-- [ ] Small initial block palette (~5-8 types).
-- [ ] Chunk mesh generation.
-- [ ] Greedy/optimized meshing.
-- [ ] Chunk load/unload.
-- [ ] Floating-origin-ready architecture.
-- [ ] Block break/place.
-- [ ] Save/load modified chunks.
+### Milestone 1 - Persistent voxel foundation
 
-### Phase 2 - Inventory and crafting
+- [ ] Unity 6.3 LTS + URP project and modest FPS controller, when implementation is authorized.
+- [ ] World/chunk/local coordinates, world IDs and modular world definitions.
+- [ ] Deterministic infinite X/Z streaming, basic terrain/caves and ~5-8 block types.
+- [ ] Chunk meshing, load/unload, block targeting and break/place.
+- [ ] Exercise floating-origin shifts and negative/far coordinates.
+- [ ] Save/reload modified terrain with generator/version metadata.
 
-- [ ] Larger hotbar.
-- [ ] Larger main inventory.
-- [ ] Stack handling.
-- [ ] Item/block registry.
-- [ ] Data-driven recipe registry.
-- [ ] Grid crafting/workbench.
-- [ ] NEI/JEI-style recipe/uses browser.
-- [ ] Discovery-aware visibility without XP/research locks.
+### Milestone 2 - Small factory across chunk boundaries
 
-### Phase 3 - Machine framework and UX
+- [ ] Stable item/block/recipe identities and minimal inventories.
+- [ ] One reusable processor, generator, containers, power cables and item pipes.
+- [ ] Common buffers/process state and readable compatible ports.
+- [ ] Logical power/item networks with deterministic transfer rules.
+- [ ] Build the factory across a chunk boundary; split and reconnect networks.
+- [ ] Reference simulation with resource accounting and bounded work queues.
 
-- [ ] Reusable block-entity/machine foundation.
-- [ ] Common inventories/buffers/process state.
-- [ ] Universal port grammar for items/fluids/power/signals.
-- [ ] Furnace.
-- [ ] Crusher or similar powered processor.
-- [ ] Machine status/readability conventions.
+### Milestone 3 - Factory lifecycle and persistence
 
-### Phase 4 - Electrical power
+- [ ] Generic tickets: player proximity, owner-online factory quota and overlap deduplication.
+- [ ] Active/background/dormant transitions, including partially eligible networks.
+- [ ] Verify identical authoritative factory results in active and background modes.
+- [ ] Save during processing, recover consistently and avoid duplication/loss.
+- [ ] Exercise owner disconnect/reconnect without unauthorized offline catch-up.
+- [ ] Benchmark steady production and topology-edit bursts before adding content.
+- [ ] Add coarse processing only where equivalence can be demonstrated.
 
-- [ ] Basic generator.
-- [ ] Power cables.
-- [ ] Logical `PowerNetwork`.
-- [ ] Production/demand.
-- [ ] Basic storage where useful.
-- [ ] No per-cable frame ticking.
+### Milestone 4 - Minimal multi-world transfer
 
-### Phase 5 - Signals
+- [ ] Instantiate two lightweight world definitions within one save/universe.
+- [ ] Generate matching deterministic anchors independent of exploration order.
+- [ ] Load and reserve a safe destination before transferring a player/entity.
+- [ ] Preserve identity, coordinates, inventory and universe-level metadata.
+- [ ] Exercise temporary portal tickets, expiry and repeated-crossing limits.
+- [ ] Save/recover during transfer and prove exactly one surviving entity.
 
-- [ ] Switch.
-- [ ] Signal conduit.
-- [ ] Lamp and/or machine signal input.
-- [ ] Event-driven `SignalNetwork`.
-- [ ] Basic logic interaction.
+### Milestone 5 - Complete the architectural gameplay slice
 
-### Phase 6 - Item logistics
+- [ ] Larger hotbar/inventory, stack handling and grid crafting/workbench.
+- [ ] Data-driven recipe/uses browser with discovery visibility and no research locks.
+- [ ] Furnace plus powered crusher, common machine status and port grammar.
+- [ ] Event-driven signals: switch, conduit, lamp/machine control and basic logic.
+- [ ] Aggregate fluids: source/pump, pipes, tank and consuming/producing process.
+- [ ] Basic item routing/filtering and power storage where useful.
+- [ ] Run the combined acceptance scenarios below with failure/recovery cases.
+- [ ] Playtest discovery, factory diagnosis and interaction responsiveness.
 
-- [ ] Container/chest.
-- [ ] Item pipes.
-- [ ] Extractor/interface.
-- [ ] Logical `ItemNetwork`.
-- [ ] Machine automation.
-- [ ] Basic routing/filtering.
-
-### Phase 7 - Fluids
-
-- [ ] Fluid type/quantity model.
-- [ ] Pump/source.
-- [ ] Fluid pipe network.
-- [ ] Tank.
-- [ ] Machine consuming/producing fluid.
-- [ ] Aggregate simulation rather than per-pipe fluid physics.
-
-### Phase 8 - Chunk/background simulation
-
-- [ ] Generic chunk ticket system.
-- [ ] Player proximity tickets.
-- [ ] Player-owned factory tickets.
-- [ ] Owner-online rule.
-- [ ] Per-player quota support.
-- [ ] Overlap deduplication.
-- [ ] Background machine simulation.
-- [ ] Coarse elapsed-time processing where valid.
-
-### Phase 9 - Multi-world foundation
-
-- [ ] Save owns a universe rather than one hard-coded world.
-- [ ] Instantiate at least two test `WorldDefinition` profiles.
-- [ ] World-to-world entity/player transfer API.
-- [ ] Coordinate-preserving transfer test.
-- [ ] Persistent universe-level metadata.
-- [ ] Deterministic cross-world anchor test for future Gate networks.
-- [ ] Destination chunk generation/wake-up before transfer.
-- [ ] Temporary system-owned portal activity ticket prototype.
-
-The POC does **not** need polished Gate art, finished alien realms, rockets or complete planets. It needs to prove that the architecture can support them without a rewrite.
+The POC does not need polished Gate art, finished alien realms, rockets or complete planets. Those remain part of the complete-game vision. Technical success alone does not demonstrate that the full exploration/progression loop is fun; [GAMEPLAY.md](GAMEPLAY.md) defines that separate validation track.
 
 ---
 
@@ -1441,7 +1406,7 @@ Secondary architecture scenario:
 6. unload correctly after inactivity;
 7. reload the save with cross-world state intact.
 
-If these scenarios are reliable and benchmark well, the POC has proven the foundations the full game depends on.
+These scenarios provide evidence for the tested foundations, not proof of unlimited scale or a finished game. Use the workload matrix and provisional budgets in [SIMULATION.md](SIMULATION.md), record actual hardware/build settings, and include chunk boundaries, failure recovery, topology edits and long traversal. Full-game readiness also requires the player-experience coverage in [GAMEPLAY.md](GAMEPLAY.md).
 
 ---
 
@@ -1622,4 +1587,4 @@ Still intentionally unresolved:
 - server-side Gate/transport configuration;
 - player limits and performance targets.
 
-These documents should be updated whenever POC measurements or new design decisions materially change the project direction.
+Use [DESIGN_QUESTIONS.md](DESIGN_QUESTIONS.md) to prioritize these open areas and record resolutions. These documents should be updated whenever measurements or new decisions materially change the project direction.
