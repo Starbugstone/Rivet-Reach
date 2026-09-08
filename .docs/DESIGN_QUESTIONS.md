@@ -29,8 +29,11 @@ The implementation sequence should follow [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_
 | S06 | How are old generated worlds preserved after updates? | Pin generator/definition versions; explicit migration when needed | Regenerate untouched terrain and anchors under an older save version |
 | S07 | What hardware/workload defines acceptable performance? | Candidate budgets in SIMULATION.md; actual reference machine undecided | Measure frame distributions, memory, queue age and scale limits |
 | S08 | What coordinate and vertical bounds are supported? | Integer world/chunk coordinates; width and height policy open | Test negative seams, far locations, overflow and origin shifts |
+| S09 | How should world-item piles merge and despawn? | Agreed: compatible nearby piles merge; tune merge radius/cadence, maximum world-pile size and despawn policy | Preserve Minecraft-like feel while preventing excessive entity cost; stress mass drops, pickups and long-lived piles |
+| S10 | How should lightweight dropped-item movement be implemented? | Compare temporary Unity Rigidbody use with custom voxel-item movement/sleeping | Measure CPU, collision correctness, water response and wake/sleep behaviour under large item counts |
+| S11 | What water forces give the desired item feel? | Agreed: items sink by default and `buoyant=true` items float; tune current force, vertical force, drag and surface/bottom settling | Ensure water feels readable and useful without becoming expensive fluid physics or accidental high-speed transport |
 
-Authoritative proposals: [SIMULATION.md](SIMULATION.md).
+Authoritative proposals: [SIMULATION.md](SIMULATION.md). Player-facing world-item behaviour is defined in [GAMEPLAY.md](GAMEPLAY.md).
 
 ## 3. Before the first Gate/transport prototype
 
@@ -76,7 +79,7 @@ This sequence follows the agreed playable-increment philosophy rather than treat
 1. Define the minimum responsive FPS/block interaction contract and the real world/chunk/item identities needed to support it.
 2. Describe the first playable gathering/crafting loop and decide only the persistence details required to save that real state safely.
 3. Define the smallest real automation chain: one processor, generator, item pipe and simple control, then resolve the simulation rules that chain actually needs (S01-S03).
-4. Stress that playable chain across chunk boundaries and lifecycle states; refine batching, persistence and performance workloads from evidence (S04-S07).
+4. Stress that playable chain across chunk boundaries and lifecycle states; refine batching, persistence and performance workloads from evidence (S04-S11).
 5. Prototype a second lightweight world using the same world-aware architecture before implementing finished Gate or rocket content.
 6. Resolve Gate/transport edge cases when the multi-world skeleton is ready to test them (T01-T09).
 7. Expand progression/content only after the core sandbox and first automation loop are both enjoyable and structurally sound.
