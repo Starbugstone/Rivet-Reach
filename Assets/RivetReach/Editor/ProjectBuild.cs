@@ -21,6 +21,13 @@ namespace RivetReach.Editor
             const string request="Logs/build-request.txt";
             if(!File.Exists(request))return;
             string command=File.ReadAllText(request).Trim();
+            if(command=="verify-editor")
+            {
+                File.Delete(request);
+                try{EditorPlayVerification.Begin();}
+                catch(Exception ex){Debug.LogException(ex);File.WriteAllText("Logs/build-result.txt","FAILED\n"+ex);}
+                return;
+            }
             if(!command.EndsWith("|ready"))
             {
                 File.WriteAllText(request,command+"|ready");nextPoll=EditorApplication.timeSinceStartup+10;

@@ -17,6 +17,8 @@ Build through **Rivet Reach → Build Windows first POC** in Unity, or from Wind
 
 The build script reuses this project's open Editor through an explicit local file request, or starts the pinned Editor in batch mode when the project is closed. It does not close scenes, discard unsaved work or install a live editor integration. Runtime assets are committed, so ordinary Play does not require Blender or an asset-generation step. After cloning, retrieve binary assets with `git lfs pull`.
 
+For an Editor startup regression check, open the saved Main scene outside Play mode and choose **Rivet Reach → Verify Editor Play startup**. This runs two ordinary Play/Stop cycles, checks the title-to-game transition and character animation, and writes results/screenshots to `Logs/EditorPlayVerification/`. It uses the current scene and imports without an asset preparation or build step. See [the Editor startup fix](verification/EDITOR_PLAY_STARTUP_RESULTS.md) for the blue-screen diagnosis and evidence.
+
 ## Play
 
 | Action | Default |
@@ -78,6 +80,6 @@ Terrain uses four original **32×32** bilinear-filtered tile-array layers: grass
 
 ## Verification and review boundary
 
-[Terrain/UI revision results](verification/VISUAL_REVISION_RESULTS.md) and [player polish results](verification/PLAYER_POLISH_RESULTS.md) record the final build's actual checks, machine, settings, measured workload and screenshots. Automation separates test fixtures from ordinary sessions: only the explicit `-rr-verify` command-line mode injects inventory stacks, controlled movement and seam edits.
+[Terrain/UI revision results](verification/VISUAL_REVISION_RESULTS.md) and [player polish results](verification/PLAYER_POLISH_RESULTS.md) record the final build's actual checks, machine, settings, measured workload and screenshots. Automation separates test fixtures from ordinary sessions: the explicit `-rr-verify` command-line mode injects inventory stacks, controlled movement and seam edits; the explicit Editor startup check also briefly drives movement and mining animation. Ordinary Play enables neither test mode.
 
 This delivery establishes the first playable review candidate. The user still needs to assess movement/mining feel, player appearance and terrain composition in play before the milestone is accepted or subsequent work is selected. In particular, the initial rig/skin layout and lighting remain open to refinement. Durable saves, functional crafting and every later roadmap group require a separate scope decision.

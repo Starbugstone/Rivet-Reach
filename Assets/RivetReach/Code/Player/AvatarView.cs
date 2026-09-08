@@ -99,7 +99,10 @@ namespace RivetReach
             string[] names=FirstPersonArms?new[]{"FP_Idle","FP_Walk","FP_Run","FP_Airborne","FP_Crouch","FP_CrouchWalk","FP_Land"}:new[]{"Idle","Walk","Run","Airborne","CrouchIdle","CrouchWalk","Land"};
             string mine=FirstPersonArms?"FP_Mine":"Mine";
             if(names.Any(n=>Find(n)==null)||Find(mine)==null){Debug.LogError("Incomplete explorer animation library: "+path);return;}
-            var animator=model.GetComponent<Animator>()??model.AddComponent<Animator>();animator.applyRootMotion=false;animator.cullingMode=AnimatorCullingMode.AlwaysAnimate;
+            // Unity's missing-component sentinel in the Editor is not a CLR null.
+            // Use the component API so the runtime Animator is created in Play mode too.
+            if(!model.TryGetComponent<Animator>(out var animator))animator=model.AddComponent<Animator>();
+            animator.applyRootMotion=false;animator.cullingMode=AnimatorCullingMode.AlwaysAnimate;
             graph=PlayableGraph.Create(name+" Explorer animation");graph.SetTimeUpdateMode(DirectorUpdateMode.Manual);
             locomotion=AnimationMixerPlayable.Create(graph,names.Length);
             movement=new AnimationClipPlayable[names.Length];

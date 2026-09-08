@@ -16,6 +16,8 @@ The initialization request uses the existing installed Editor and supersedes the
 
 In Unity Hub, add/open the repository root and select 6000.4.4f1. Open `Assets/RivetReach/Scenes/Main.unity` if the Editor restores another scene. The scene retains the template camera, directional light and global volume on disk. Press Play to run `Expedition.Bootstrap`, which creates the playable terrain/player/interface and replaces the starter camera. See [FIRST_POC.md](FIRST_POC.md) for controls, Windows build commands and the session-only state boundary.
 
+Play should show the **Start Expedition** title menu. An all-blue Game view was traced to an Editor-only Animator initialization exception and fixed; no extra scene setup is required. After a code update, stop Play, let Unity compile, then enter Play again. The [Editor startup report](verification/EDITOR_PLAY_STARTUP_RESULTS.md) records the regression check separately from standalone build verification.
+
 The installed Windows Editor is `D:\Unity\Hub\6000.4.4f1\Editor\Unity.exe`. Launch from PowerShell with:
 
 ```powershell
