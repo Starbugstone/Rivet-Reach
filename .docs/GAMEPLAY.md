@@ -297,11 +297,11 @@ Following the additional user request to make the review props selectable, a fre
 
 Review generated trees at chunk seams, cut a trunk in its middle with hands and an axe, check mixed tool capabilities, item conservation, nearby trees with touching leaves, leaf decay, player-placed foliage, and unload/reload during felling. See [tree verification](verification/TREE_RESULTS.md) for measured evidence and remaining review.
 
-### Inventory and crafting placeholder
+### Inventory and original crafting placeholder
 
 Deliver real hotbar/main inventory storage using stable item definitions and section 9's initial slot/stack configuration. Display collected item identity and count; support selection, moving stacks, splitting, combining, quick transfer, manual dropping and clear full-inventory feedback. The selected stack remains separate from fist mining. The user’s subsequent POC feedback explicitly adds placement of collected grass, dirt and stone in this step; the contract below supersedes the original placement exclusion.
 
-Reserve a visible area inside the inventory labelled **Crafting — coming later**. It is a UI/layout placeholder only: no functional recipes, ingredient escrow, crafted output, workbench or recipe browser. Placeholder slots accept no real items and never consume or trap stacks. Keep the inventory's actual storage separate so later crafting can connect to the real item model.
+**Original milestone boundary, superseded by the explicit crafting extension in [section 16](#16-modular-grid-crafting):** reserve a visible area inside the inventory labelled **Crafting — coming later**. It is a UI/layout placeholder only: no functional recipes, ingredient escrow, crafted output, workbench or recipe browser. Placeholder slots accept no real items and never consume or trap stacks. Keep the inventory's actual storage separate so later crafting can connect to the real item model.
 
 ### Playable review cases
 
@@ -311,7 +311,7 @@ Reserve a visible area inside the inventory labelled **Crafting — coming later
 - Place collected terrain against reachable block faces, verify rejected overlaps consume nothing, leave/reload the area, then remine a placed block and recover exactly one item.
 - Open/close inventory while mining; no world edit leaks through UI input and no progress commits against a stale target.
 - Inspect the player body and first-person fists, then review terrain, lighting, item icons and inventory together for a coherent visual concept.
-- Verify the crafting area is visibly unavailable and cannot change item totals.
+- Verify crafting through the subsequently authorized [section 16 interaction cases](#16-modular-grid-crafting).
 - Leave a mined area until its runtime chunk representation unloads, then return and confirm the session's terrain edits and unexpired items remain correct.
 
 The first POC now implements this loop. [Current revision results](verification/VISUAL_REVISION_RESULTS.md) record the automated and visual checks actually performed; user assessment of feel and final visual acceptance remains pending. Decide the next implementation with the user after reviewing this slice.
@@ -339,3 +339,17 @@ Placed terrain uses the same session edit records, immediate voxel collision and
 For the first playable slice, the working minimum is a small local skin selector with a preview and two visibly different skins demonstrated on each of the male and female models. Use a compatible shared rig/animation contract and skin layout, verifying both models rather than assuming the fit. Model choice must not change collision dimensions, camera eye height, reach, movement speed or mining capability. First-person hands and the preview follow both selections. Apply selection without restarting the terrain session or losing inventory. Remember model and skin selections as local player preferences independently of the first slice's session-only world state; a missing skin falls back visibly to the default. This narrowly extends the earlier exclusion of all character customization. A body editor, skin-painting tool, marketplace and account service remain outside the first step.
 
 Allowing players to supply their own PNG skin using a published Rivet Reach template is the proposed custom-skin workflow. Decide its exact layout/resolution and whether file import ships in this first slice during the player visual review; basic skin switching and a reusable layout must work regardless. Future multiplayer must show each player's selected skin consistently, but upload/distribution limits, caching and server policy belong to the later multiplayer implementation. The first POC implements the two-skin selector and both model variants. Custom-file import and multiplayer distribution remain unimplemented. See [FIRST_POC.md](FIRST_POC.md#actual-first-visual-kit) for the initial shared texture layout and its limitations.
+
+## 16. Modular grid crafting
+
+**Explicit user extension, 2026-09-08:** implement modular, easily editable recipes as a core system supporting 2×2, 3×3 and 4×4 grids. Activate the existing personal 2×2 inventory area. The earlier placeholder-only restriction is superseded for this feature. Larger station interfaces remain later work; their grid sizes already use the shared core.
+
+**Working interaction rules:** move, split, combine, swap and drag ingredients using the same controls as inventory. Shaped recipes may move anywhere they fit in a larger grid; internal empty cells remain empty, mirroring is per-recipe, and rotation is not implicit. Shapeless recipes accept any cell arrangement with the exact occupied-slot ingredients. Extra inputs reject the match. Minimum grid size is an independent recipe requirement. No knowledge or XP flag gates the registered recipes.
+
+The result slot previews the actual output bundle without owning or creating an item. Left- or right-click crafts one complete recipe into a compatible cursor stack. Shift-click with an empty cursor crafts as many complete results as available ingredients and inventory space allow. An incompatible/full cursor, insufficient space, changed ingredients or no matching recipe consumes nothing. Dragging a result to an inventory slot crafts once. The preview immediately updates when inputs change or are consumed.
+
+Shift-clicking an ingredient returns what fits to inventory. **Return ingredients** and closing inventory do the same for the whole grid. Any remainder stays in that session's grid and is visible when inventory reopens; it is never deleted or dropped by ingredient return. Existing cursor-on-close behavior still returns the cursor stack and physically drops overflow. Appearance/menu transitions that close inventory also return its ingredients. UI rebuilds do not own/reset grid contents. World and inventory state, including retained crafting ingredients, still reset on application exit.
+
+The personal **Recipes** guide reads the same compiled catalog and shows available layouts, counts and mirroring/shapeless rules. It is a small current-station guide, not the full discovery/uses graph. The current starter set and its working balance are owned by [ECONOMY.md](ECONOMY.md#current-playable-starter-recipes). Authoring, matching, conflict rules and future extension boundaries are owned by [CRAFTING.md](CRAFTING.md).
+
+Review normal click/right-click/drag input, craft-one and batch output, full/partially full destinations, empty/incompatible cursor states, extra ingredients, stale previews, and closing/reopening with a full inventory. The larger grids also require core tests for translation, mirroring, quantity consumption and size gates before their future interfaces are built. [Crafting verification](verification/CRAFTING_RESULTS.md) records current evidence; player assessment of usability and recipe balance remains pending.

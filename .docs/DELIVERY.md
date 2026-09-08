@@ -16,7 +16,7 @@ A cooperative release also requires permissions, join/rejoin, save compatibility
 
 ## 2. Single roadmap ownership
 
-`DEVELOPMENT_STRATEGY.md` owns milestone scope and sequence. `PROJECT_PLAN.md` mirrors it; specialist files define behaviour. The user has locked only the first terrain/FPS/3D-player/fist-mining/inventory slice, with an inventory crafting placeholder and no generated structures. Review its visual concept, playable behaviour and chunk-streaming evidence before deciding the next implementation. The former Stages 1-5 remain provisional candidate groups and may be split/reordered after that review; they are not an automatic implementation queue.
+`DEVELOPMENT_STRATEGY.md` owns milestone scope and sequence. `PROJECT_PLAN.md` mirrors it; specialist files define behaviour. The user has locked only the first terrain/FPS/3D-player/fist-mining/inventory slice, originally with an inventory crafting placeholder and no generated structures. The user subsequently authorized the [modular crafting extension](CRAFTING.md), activating the personal grid while leaving larger station interfaces and progression for later selection. Review its visual concept, playable behaviour and chunk-streaming evidence before deciding the next implementation. The former Stages 1-5 remain provisional candidate groups and may be split/reordered after that review; they are not an automatic implementation queue.
 
 A stage cannot pass on synthetic performance alone or on a playable fake that discards the chosen data model. Small experiments may change implementations through evidence. Scope and user-visible goals stay explicit when tradeoffs arise.
 

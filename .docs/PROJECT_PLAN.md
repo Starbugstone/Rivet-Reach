@@ -579,11 +579,7 @@ Storage/logistics matter because factories create volume, not because the charac
 
 Keep recognisable grid crafting.
 
-Potential structure:
-
-- basic player crafting grid;
-- workbench with traditional larger grid;
-- advanced manufacturing performed by machines rather than giant manual grids.
+User-authorized grid sizes are 2×2, 3×3 and 4×4. The personal 2×2 grid is now playable; the shared core supports all three sizes. Larger station interfaces and advanced machine manufacturing remain future work. [CRAFTING.md](CRAFTING.md) owns the modular recipe engine and authoring contract; [GAMEPLAY.md section 16](GAMEPLAY.md#16-modular-grid-crafting) owns current interaction behavior.
 
 Recipes should be data driven.
 
@@ -1324,7 +1320,7 @@ The user's 2026-09-08 staging instruction locks **only the first playable step**
 - [x] World-aware coordinates and deterministic natural terrain with no generated structures; real chunk generation, meshing, loading and unloading.
 - [x] Playable FPS movement, selectable male/female 3D player models and visible first-person fists with basic animation; basic skin selection on both models with a shared body/hand appearance, as specified in [GAMEPLAY.md](GAMEPLAY.md#15-player-skins).
 - [x] Fist mining, precise targeting/feedback and immediate collision correctness during asynchronous remeshing.
-- [x] Real item stacks, physical mining drops/pickup, functional inventory/hotbar and an explicitly nonfunctional crafting placeholder inside inventory.
+- [x] Real item stacks, physical mining drops/pickup, functional inventory/hotbar and personal crafting, activated after the original placeholder under the explicit [crafting extension](CRAFTING.md).
 - [x] Preserve session edits and item state when leaving and returning to chunks; exercise origin shifts and bounded streaming residency.
 - [x] Terrain-block placement from collected stacks, with current-face targeting, player overlap rejection, dropped-item displacement and session edit persistence.
 - [ ] Establish and review a coherent terrain/player/UI/lighting concept in a standalone Windows build.
@@ -1431,7 +1427,7 @@ These scenarios provide evidence for the tested foundations, not proof of unlimi
 
 ## 39. Deferred scope
 
-The locked first step's exclusions are owned by [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence). In particular, all generated structures, functional crafting, tool progression beyond the [starter tools/tree extension](GAMEPLAY.md#trees-and-axe-felling--user-feedback-extension), mobs, water simulation and industry are deferred from that step. The following larger content areas also remain outside the broader early POC ambition:
+The locked first step's exclusions are owned by [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence). In particular, all generated structures, larger crafting station interfaces, tool progression beyond the [starter tools/tree extension](GAMEPLAY.md#trees-and-axe-felling--user-feedback-extension), mobs, water simulation and industry are deferred from that step. The following larger content areas also remain outside the broader early POC ambition:
 
 - huge biome library;
 - polished villages;
@@ -1556,7 +1552,7 @@ Working resolutions are indexed in [DESIGN_QUESTIONS.md](DESIGN_QUESTIONS.md). T
 ### Crafting/industry
 
 - exact inventory dimensions and stack sizes;
-- recipe layouts and balance within the initial 2x2/3x3 crafting model;
+- recipe layouts and balance within the authorized 2×2/3×3/4×4 crafting model;
 - later age names/resource chains beyond the specified bootstrap;
 - depth of mechanical power;
 - electrical voltage/transformer rules;

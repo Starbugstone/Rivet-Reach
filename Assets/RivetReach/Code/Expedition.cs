@@ -13,6 +13,8 @@ namespace RivetReach
         public DroppedItems Items {get;private set;}
         public Inventory Inventory {get;private set;}
         public ItemRegistry Registry {get;private set;}
+        public RecipeRegistry Recipes {get;private set;}
+        public CraftingSession Crafting {get;private set;}
         public PlayerInput Input {get;private set;}
         public GameUI UI {get;private set;}
         public WorldSound Sound {get;private set;}
@@ -48,7 +50,7 @@ namespace RivetReach
             RenderSettings.ambientSkyColor=new Color(.58f,.69f,.82f);RenderSettings.ambientEquatorColor=new Color(.52f,.58f,.63f);RenderSettings.ambientGroundColor=new Color(.34f,.35f,.29f);
             RenderSettings.fog=true;RenderSettings.fogMode=FogMode.Linear;RenderSettings.fogColor=new Color(.61f,.71f,.80f);RenderSettings.fogStartDistance=65;RenderSettings.fogEndDistance=135;
             RenderSettings.skybox=Resources.Load<Material>("Materials/Sky");
-            Input=new PlayerInput();Registry=ItemRegistry.Load();Sound=gameObject.AddComponent<WorldSound>();
+            Input=new PlayerInput();Registry=ItemRegistry.Load();Recipes=RecipeCatalogAsset.Load().Compile(Registry);Sound=gameObject.AddComponent<WorldSound>();
             CreateSession(NewRandomSeed());UI=gameObject.AddComponent<GameUI>();UI.Initialize(this);SetMode(ScreenMode.Title);
             if(Array.Exists(Environment.GetCommandLineArgs(),s=>s=="-rr-verify"))gameObject.AddComponent<RuntimeVerification>();
         }
@@ -56,9 +58,10 @@ namespace RivetReach
         {
             Seed=seed;
             Inventory=new Inventory(id=>Registry.Get(id).stackLimit);
-            Inventory.Slots[9]=new ItemStack(BlockId.StarterDagger,1);
-            Inventory.Slots[10]=new ItemStack(BlockId.StarterPickaxe,1);
-            Inventory.Slots[11]=new ItemStack(BlockId.StarterAxe,1);
+            Crafting=new CraftingSession(Recipes,2,id=>Registry.Get(id).stackLimit);
+            Inventory.Add(BlockId.StarterDagger,1,9,10);
+            Inventory.Add(BlockId.StarterPickaxe,1,10,11);
+            Inventory.Add(BlockId.StarterAxe,1,11,12);
             var root=new GameObject("Surface world");root.transform.SetParent(transform,false);World=root.AddComponent<VoxelWorld>();World.Initialize(seed);World.ViewDistance=Mathf.Clamp(PlayerPrefs.GetInt("viewDistance.v2",10),4,14);
             RenderSettings.fogStartDistance=World.FogStart;RenderSettings.fogEndDistance=World.FogEnd;
             var p=new GameObject("Player");p.transform.SetParent(transform,false);Player=p.AddComponent<FirstPersonPlayer>();Player.Initialize(this);

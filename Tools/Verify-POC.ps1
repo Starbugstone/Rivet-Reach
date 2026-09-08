@@ -1,4 +1,4 @@
-param([string]$OutputDirectory,[switch]$Trees)
+param([string]$OutputDirectory,[switch]$Trees,[switch]$Crafting)
 $ErrorActionPreference = 'Stop'
 $project = Split-Path $PSScriptRoot -Parent
 if (!$OutputDirectory) { $OutputDirectory = Join-Path $project 'Logs\POCVerification' }
@@ -7,6 +7,7 @@ $executable = Join-Path $project 'Builds\PlayerRevision4\RivetReach.exe'
 if (!(Test-Path $executable)) { throw 'Build first with Tools/Build-Windows.ps1.' }
 $arguments = @('-screen-fullscreen','0','-screen-width','1280','-screen-height','720','-rr-verify','-rr-output',('"'+$OutputDirectory+'"'),'-logFile',('"'+(Join-Path $OutputDirectory 'player.log')+'"'))
 if ($Trees) { $arguments += '-rr-tree-review' }
+if ($Crafting) { $arguments += '-rr-crafting-review' }
 $process = Start-Process -FilePath $executable -ArgumentList $arguments -PassThru
 if (!$process.WaitForExit(180000)) { throw 'Verification exceeded 180 seconds. The player was left running for diagnosis.' }
 Get-Content (Join-Path $OutputDirectory 'runtime-report.json')

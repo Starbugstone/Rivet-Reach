@@ -49,7 +49,7 @@ Eligible background miners load the authoritative voxel pages they read/change a
 
 The first complete sandbox/industrial slice uses logs, stone, iron ore, copper ore and water. Charcoal provides starter fuel from logs; coal can be added as a naturally found alternative. Surface wood and mineable stone are available near valid spawn locations. Spawn validation also requires reachable iron and copper within a provisional 256-block search region, without replacing player exploration with map markers. An unsuitable candidate spawn is rejected deterministically, not repaired after exploration order changes.
 
-Initial recipes use a 2x2 personal grid and a 3x3 workbench. Shaped layouts are content data; the table specifies material quantities and manufacturing dependencies. The browser shows layouts from that same registry. All recipes below are accessible without knowledge/XP flags when their materials and station are present.
+The broader bootstrap recipes below are future content. The current crafting engine supports 2×2, 3×3 and 4×4 grids; only the personal 2×2 interface is implemented. Initial bootstrap recipes use a 2x2 personal grid and a 3x3 workbench. Shaped layouts are content data; the table specifies material quantities and manufacturing dependencies. The browser shows layouts from that same registry. All recipes below are accessible without knowledge/XP flags when their materials and station are present.
 
 | Output | Inputs | Process / purpose |
 |---|---|---|
@@ -84,9 +84,21 @@ One plank supplies one furnace operation; one charcoal supplies eight. Operation
 
 The wooden tool exists to bootstrap stone without a metal dependency. The furnace and manual component recipes bootstrap machinery without already owning a crusher, press, pump or generator. Machine production later improves speed/batching, not permission to make the first machine.
 
+### Current playable starter recipes
+
+The user explicitly requested functional modular crafting after the initial placeholder slice. Three independently authored recipes now remake the already available starter tools using currently gatherable stone and logs. These layouts and quantities are **working defaults selected for this implementation**, not user-approved final progression balance. Each occupied cell consumes one item per craft. `S` is stone, `L` is log, and `·` is an empty cell.
+
+| Output | Personal 2×2 inputs | Matching |
+|---|---|---|
+| 1 starter axe | top row `S S`; bottom row `· L` | Shaped; horizontal mirror allowed |
+| 1 starter pickaxe | top row `S S`; bottom row `L L` | Shaped |
+| 1 starter dagger | One `S` cell and one `L` cell | Shapeless; any two distinct slots |
+
+These recipes preserve the existing tool capabilities and one-item tool stack limits. Normal starter hotbar tools remain supplied. They make the crafting service playable without adding planks, handles, ores, workbench/furnace blocks, durability or a broader progression chain. The earlier bootstrap table remains the intended later economic chain; adopting it will deliberately replace/rebalance this small starter set. [The recipe authoring contract](CRAFTING.md) explains how to change the assets.
+
 ## 4. First-session and industrial sequence
 
-The locked first step delivers terrain, FPS movement, a 3D player, fist mining and a real gathering/inventory loop, with only a crafting placeholder. Its fist-mineable palette is scoped in [GAMEPLAY.md](GAMEPLAY.md#14-locked-first-step-interaction-contract); the user-authorized starter axe/tree extension is available, while the tool progression, starter ore distribution, recipes and industrial resources below remain deferred. This broader bootstrap remains a candidate for later implementation chosen after reviewing that first slice. When selected, its first 20-30 minutes should support building, inventory use, smelting and saving without developer commands; it does not promise that every player finishes industrialization in that interval.
+The locked first step delivers terrain, FPS movement, a 3D player, fist mining and a real gathering/inventory loop, originally with only a crafting placeholder. The subsequent user-authorized crafting extension is recorded in [the current starter set](#current-playable-starter-recipes). Its fist-mineable palette is scoped in [GAMEPLAY.md](GAMEPLAY.md#14-locked-first-step-interaction-contract); the user-authorized starter axe/tree extension is available, while the tool progression, starter ore distribution, broader bootstrap recipes and industrial resources below remain deferred. This broader bootstrap remains a candidate for later implementation chosen after reviewing that first slice. When selected, its first 20-30 minutes should support building, inventory use, smelting and saving without developer commands; it does not promise that every player finishes industrialization in that interval.
 
 The first industrial sequence is:
 

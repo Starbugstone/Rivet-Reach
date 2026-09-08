@@ -79,7 +79,7 @@ namespace RivetReach
             game.Selected=11;int axeCount=game.Inventory.Total(BlockId.StarterAxe);
             Check(!game.CanPlace(cut,out _)&&!world.Place(cut,BlockId.StarterAxe)&&game.Inventory.Total(BlockId.StarterAxe)==axeCount,"Axe cannot become a placed voxel or be consumed by failed placement");
             game.Inventory.Add(BlockId.Log,2);game.Inventory.Add(BlockId.Leaves,2);
-            game.Selected=Array.FindIndex(game.Inventory.Slots,s=>s.Id==BlockId.Log);yield return new WaitForSecondsRealtime(.1f);
+            game.Selected=game.Inventory.FindSlot(s=>s.Id==BlockId.Log);yield return new WaitForSecondsRealtime(.1f);
             Check(player.HeldBlock.DesiredGrip==GripPose.Block,"Collected logs use the held-block presentation");
             // Exercise the player hold-to-mine path with the selected tool definition.
             for(int y=0;y<=3;y++)if(world.Get(cut.Offset(0,y,0))==0)world.Place(cut.Offset(0,y,0),BlockId.Log);

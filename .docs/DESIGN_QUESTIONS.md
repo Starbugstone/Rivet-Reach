@@ -109,7 +109,7 @@ These alternatives can be revisited with a concrete reason and affected-rule rev
 
 ## 8. Next implementation-readiness review
 
-The user has received Unity initialization at the repository root with Editor 6000.4.4f1 and now explicitly locks the first playable step in documentation. The user subsequently authorized implementation and then requested a visual/fog revision plus terrain placement. The current implemented scope is in [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence): terrain generation/loading, FPS movement, 3D player, fist mining, terrain-block placement and real inventory with a crafting placeholder. No structures. Record hardware, visual review, interaction/streaming findings and known limits, then decide the next implementation with the user. The retained sandbox/industry/lifecycle/multi-world groups are possibilities, not preselected next tasks.
+The user has received Unity initialization at the repository root with Editor 6000.4.4f1 and now explicitly locks the first playable step in documentation. The user subsequently authorized implementation and then requested a visual/fog revision plus terrain placement. The current implemented scope is in [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence): terrain generation/loading, FPS movement, 3D player, fist mining, terrain-block placement and real inventory, now extended with the explicitly requested [modular personal crafting](CRAFTING.md). No structures. Record hardware, visual review, interaction/streaming findings and known limits, then decide the next implementation with the user. The retained sandbox/industry/lifecycle/multi-world groups are possibilities, not preselected next tasks.
 
 Every working decision now has a concrete behaviour and acceptance case. Only measurements can establish performance, feel and final balance; this register must not mark them validated on the strength of a Markdown review.
 
@@ -123,7 +123,7 @@ Review these points in the playable build before choosing the next scope:
 - Are the original male/female models, longer female hair, practical clothing and first-person fists a useful translation of the accepted concept? The rig is simple and the shared skin sheet still reuses regions across mesh faces. Decide whether the next visual refinement needs a full front/back body unwrap and custom PNG import.
 - Is the small hills/caves palette a useful starting composition? Cave lighting is deliberately simple; the initial build had no vegetation; the subsequent [tree extension](GAMEPLAY.md#trees-and-axe-felling--user-feedback-extension) adds logs/leaves. Structures, water and broader biome content remain deferred.
 - Mining's immediate local remesh is now measured, but heavier seam edits and slower hardware may require the preferred changed-cell patch plus asynchronous rebuild. The current finite traversal sample is not a factory-scale or long-session memory certification.
-- After this first review, select the next playable increment explicitly. Functional crafting, durable saving, building and later industry remain candidates rather than an automatic implementation queue.
+- After this first review, select the next playable increment explicitly. Larger crafting stations/progression, durable saving, building and later industry remain candidates rather than an automatic implementation queue.
 
 ## First-POC feedback revision — 2026-09-08
 
@@ -137,3 +137,11 @@ The user subsequently clarified that another agent owns actual player modeling a
 Generated log/leaf trees and axe-only upward log felling are explicit user requirements. [GAMEPLAY.md](GAMEPLAY.md#trees-and-axe-felling--user-feedback-extension) owns the working rules. A definition capability supports axe-type tools; the starter axe in slot 12 makes the mechanic reviewable while crafting stays a placeholder.
 
 Nonblocking review questions: tune tree density/canopy shape and mining pace; decide whether later progression adds axe recipes/durability, saplings/regrowth or different manual leaf drops. The user explicitly requires generated-only felling after an initial pass damaged placed base wood: placed logs always mine individually and form a boundary to felling; placed leaves persist. This protection is a requirement, not an open tuning choice. Current opaque foliage and daylight approximation are scoped visual choices, not final foliage or lighting approval. Evidence is in [tree verification](verification/TREE_RESULTS.md).
+
+## Modular crafting extension — 2026-09-08
+
+**Explicit requirement:** modular, easily changed recipes and a fast shared core for 2×2, 3×3 and 4×4 grids; activate the existing inventory grid. [CRAFTING.md](CRAFTING.md) records the selected asset factory, immutable indexed registry, shared authority service and measured verification. This supersedes the old placeholder exclusion.
+
+**Working decisions:** exact per-cell shaped/shapeless inputs; optional horizontal mirrors; conservative rejection of recipe ambiguity; one output bundle; whole-output batching; return ingredients on close while retaining overflow in the grid. Three recipes remake the existing starter tools using current materials, as specified in [ECONOMY.md](ECONOMY.md#current-playable-starter-recipes). These numerical recipes/layouts are implementation defaults, not individually approved final balance.
+
+**Nonblocking later questions:** choose 3×3/4×4 station forms and their progression; replace starter recipes when adopting the broader plank/handle bootstrap; design tags/alternatives, byproducts/catalysts and metadata/durability; extend the recipe/uses graph and durable state. None is required to use the current personal crafting system. Review the current guide and inventory interactions in play before choosing that scope.

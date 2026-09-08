@@ -38,6 +38,10 @@ namespace RivetReach.Editor
             command=command.Replace("|ready","");File.Delete(request);
             try
             {
+                if(command=="craft-checks")
+                {
+                    CraftingChecks.Run();File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;
+                }
                 Prepare();DomainChecks.Run();
                 if(command=="build")Build();
                 File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));

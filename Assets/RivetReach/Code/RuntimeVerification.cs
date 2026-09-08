@@ -93,6 +93,8 @@ namespace RivetReach
             game.World.ViewDistance=10;game.Diagnostics=true;
             yield return Settle();report.firstReadySeconds=Time.realtimeSinceStartup-began;
             var player=game.Player;var world=game.World;report.viewRadius=world.ViewDistance;report.fogStart=world.FogStart;report.fogEnd=world.FogEnd;var start=world.Address(player.transform.position);var saved=WorldPoint.FromLocal(player.transform.position,world.Origin);
+            if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-crafting-review"))
+            {report.workload="Modular crafting, pointer clicks/drags, batching and full inventory conservation";yield return ReviewCrafting();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-interaction-review"))
             {report.workload="Grass and hand interaction review";yield return ReviewInteractions();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-placement-items-review"))
@@ -153,7 +155,7 @@ namespace RivetReach
             Check(game.Inventory.Total(1)+game.Inventory.Total(2)+game.Inventory.Total(3)+game.Items.Piles.Sum(p=>p.Stack.Count)==1,"Mining/pickup conserves quantity");
             player.Pitch=20;yield return Capture("02-mining");
             // Exercise face targeting and the real opposite-button placement action.
-            game.Inventory.Add(3,4);game.Selected=Array.FindIndex(game.Inventory.Slots,stack=>stack.Id==3);
+            game.Inventory.Add(3,4);game.Selected=game.Inventory.FindSlot(stack=>stack.Id==3);
             player.transform.position=saved.Local(world.Origin);player.Yaw=90;player.Pitch=48;yield return null;
             Check(game.PlacementPreview(out var placed,out _),"Aimed block face offers a valid adjacent placement cell");
             int stoneBefore=game.Inventory.Total(3);
@@ -166,7 +168,7 @@ namespace RivetReach
             Check(!world.Place(placed,3)&&!game.CanPlace(placed,out _),"An occupied cell rejects placement");
             int quantity=game.Inventory.Total(3);Check(!game.CanPlace(world.Address(player.transform.position),out _)&&game.Inventory.Total(3)==quantity,"Player overlap rejects placement without consuming inventory");
             game.SetMode(ScreenMode.Inventory);Check(!game.TryPlaceSelected(),"Inventory mode suppresses placement");game.SetMode(ScreenMode.Play);
-            int placementSlot=game.Selected;game.Selected=Array.FindIndex(game.Inventory.Slots,s=>s.Empty);Check(!game.TryPlaceSelected(),"An empty selected slot cannot create blocks");game.Selected=placementSlot;
+            int placementSlot=game.Selected;game.Selected=game.Inventory.FindSlot(s=>s.Empty);Check(!game.TryPlaceSelected(),"An empty selected slot cannot create blocks");game.Selected=placementSlot;
             Check(!world.Place(new BlockPos(99999,90,99999),3),"Unready terrain rejects placement");
             player.transform.position=saved.Local(world.Origin)+Vector3.left*2;player.Pitch=20;yield return new WaitForSecondsRealtime(1.1f);yield return Capture("02b-placement");
             // Two neighbouring edited seam blocks must survive unload and a floating-origin shift.
