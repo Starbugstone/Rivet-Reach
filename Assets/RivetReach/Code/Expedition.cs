@@ -36,9 +36,14 @@ namespace RivetReach
         {
             Instance=this;Application.targetFrameRate=90;QualitySettings.vSyncCount=0;
             foreach(var camera in FindObjectsByType<Camera>())camera.gameObject.SetActive(false);
-            foreach(var light in FindObjectsByType<Light>())if(light.type==LightType.Directional){light.transform.rotation=Quaternion.Euler(48,-35,0);light.intensity=1.1f;}
-            RenderSettings.ambientMode=UnityEngine.Rendering.AmbientMode.Flat;RenderSettings.ambientLight=new Color(.55f,.64f,.72f);
-            RenderSettings.fog=true;RenderSettings.fogMode=FogMode.Linear;RenderSettings.fogColor=new Color(.56f,.68f,.77f);RenderSettings.fogStartDistance=65;RenderSettings.fogEndDistance=135;
+            foreach(var light in FindObjectsByType<Light>())if(light.type==LightType.Directional)
+            {
+                light.transform.rotation=Quaternion.Euler(42,-35,0);light.intensity=1.35f;light.color=new Color(1,.94f,.83f);
+                light.shadows=LightShadows.Soft;Shader.SetGlobalVector("_RRSunDirection",-light.transform.forward);
+            }
+            RenderSettings.ambientMode=UnityEngine.Rendering.AmbientMode.Trilight;
+            RenderSettings.ambientSkyColor=new Color(.58f,.69f,.82f);RenderSettings.ambientEquatorColor=new Color(.52f,.58f,.63f);RenderSettings.ambientGroundColor=new Color(.34f,.35f,.29f);
+            RenderSettings.fog=true;RenderSettings.fogMode=FogMode.Linear;RenderSettings.fogColor=new Color(.61f,.71f,.80f);RenderSettings.fogStartDistance=65;RenderSettings.fogEndDistance=135;
             RenderSettings.skybox=Resources.Load<Material>("Materials/Sky");
             Input=new PlayerInput();Registry=ItemRegistry.Load();Sound=gameObject.AddComponent<WorldSound>();
             CreateSession(Seed);UI=gameObject.AddComponent<GameUI>();UI.Initialize(this);SetMode(ScreenMode.Title);

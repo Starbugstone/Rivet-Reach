@@ -1,0 +1,66 @@
+Cycle 1: Bootstrap logged no errors or exceptions
+Cycle 1: Ordinary Bootstrap completed the whole session
+Cycle 1: Play opens on the title screen
+Cycle 1: Title canvas is active
+Cycle 1: Start Expedition button is available
+Cycle 1: Player body and hand animation graphs are ready
+Cycle 1: Appearance portrait animation graph is ready
+Cycle 1: Male skin 0 body creates its Animator
+Cycle 1: Authored mining clip moves the initialized hand
+Cycle 1: Male skin 0 hands creates its Animator
+Cycle 1: Authored mining clip moves the initialized hand
+Cycle 1: Male skin 1 body creates its Animator
+Cycle 1: Authored mining clip moves the initialized hand
+Cycle 1: Male skin 1 hands creates its Animator
+Cycle 1: Authored mining clip moves the initialized hand
+Cycle 1: Female skin 0 body creates its Animator
+Cycle 1: Authored mining clip moves the initialized hand
+Cycle 1: Female skin 0 hands creates its Animator
+Cycle 1: Authored mining clip moves the initialized hand
+Cycle 1: Female skin 1 body creates its Animator
+Cycle 1: Authored mining clip moves the initialized hand
+Cycle 1: Female skin 1 hands creates its Animator
+Cycle 1: Authored mining clip moves the initialized hand
+Cycle 1: Title button enters gameplay
+Cycle 1: Spawn terrain becomes ready
+Cycle 1: Expedition camera renders to the Game view
+Cycle 1: Editor gameplay camera enables colour grading
+Cycle 1: Body and hands are visible during gameplay
+Cycle 1: Player moves and blends its locomotion animation
+Cycle 1: Mining animation responds in Editor Play
+Cycle 1: Editor look-down keeps the neck opening below the lens at 100-degree FOV
+Cycle 1: Editor crouching look-down keeps the neck opening below the lens at 100-degree FOV
+Cycle 1: Completed Play cycle without logged errors or exceptions
+Cycle 2: Bootstrap logged no errors or exceptions
+Cycle 2: Ordinary Bootstrap completed the whole session
+Cycle 2: Play opens on the title screen
+Cycle 2: Title canvas is active
+Cycle 2: Start Expedition button is available
+Cycle 2: Player body and hand animation graphs are ready
+Cycle 2: Appearance portrait animation graph is ready
+Cycle 2: Male skin 0 body creates its Animator
+Cycle 2: Authored mining clip moves the initialized hand
+Cycle 2: Male skin 0 hands creates its Animator
+Cycle 2: Authored mining clip moves the initialized hand
+Cycle 2: Male skin 1 body creates its Animator
+Cycle 2: Authored mining clip moves the initialized hand
+Cycle 2: Male skin 1 hands creates its Animator
+Cycle 2: Authored mining clip moves the initialized hand
+Cycle 2: Female skin 0 body creates its Animator
+Cycle 2: Authored mining clip moves the initialized hand
+Cycle 2: Female skin 0 hands creates its Animator
+Cycle 2: Authored mining clip moves the initialized hand
+Cycle 2: Female skin 1 body creates its Animator
+Cycle 2: Authored mining clip moves the initialized hand
+Cycle 2: Female skin 1 hands creates its Animator
+Cycle 2: Authored mining clip moves the initialized hand
+Cycle 2: Title button enters gameplay
+Cycle 2: Spawn terrain becomes ready
+Cycle 2: Expedition camera renders to the Game view
+Cycle 2: Editor gameplay camera enables colour grading
+Cycle 2: Body and hands are visible during gameplay
+Cycle 2: Player moves and blends its locomotion animation
+Cycle 2: Mining animation responds in Editor Play
+Cycle 2: Editor look-down keeps the neck opening below the lens at 100-degree FOV
+Cycle 2: Editor crouching look-down keeps the neck opening below the lens at 100-degree FOV
+Cycle 2: Completed Play cycle without logged errors or exceptions

@@ -36,13 +36,14 @@ namespace RivetReach
         public bool Preview;
         public int TriangleCount {get;private set;}
         public int VertexCount {get;private set;}
+        public int ShadowTriangleCount {get;private set;}
         public int BoneCount {get;private set;}
         public int ClipCount {get;private set;}
         public bool AnimationReady => graph.IsValid();
 
         public void Build(bool female,int skin)
         {
-            Release();bones.Clear();TriangleCount=VertexCount=0;presentationApplied=false;
+            Release();bones.Clear();TriangleCount=VertexCount=ShadowTriangleCount=0;presentationApplied=false;
             string path="Characters/"+(female?"ExplorerFemale":"ExplorerMale");
             var asset=Resources.Load<GameObject>(path);
             if(asset==null){Debug.LogError("Missing player model");return;}
@@ -66,7 +67,9 @@ namespace RivetReach
                     {
                         string bone=r.bones[weights[vertex].boneIndex0].name;
                         bool arm=IsArm(bone);
-                        return FirstPersonArms?arm:!arm&&bone!="Head"&&bone!="Neck"&&bone!="Chest"&&bone!="Spine";
+                        // Keep the complete jacket, waist and legs beneath the eye camera.
+                        // Removing Spine/Chest cut the character open at the belt when looking down.
+                        return FirstPersonArms?arm:!arm&&bone!="Head"&&bone!="Neck";
                     }
                     for(int i=0;i<sourceIndices.Length;i+=3)
                     {
@@ -78,13 +81,23 @@ namespace RivetReach
                     var used=indices.Distinct().ToArray();var remap=new int[source.vertexCount];
                     for(int i=0;i<used.Length;i++)remap[used[i]]=i;
                     var positions=source.vertices;var normals=source.normals;var uv=source.uv;var tangents=source.tangents;
-                    var derived=new Mesh{name=source.name+(FirstPersonArms?" Arms":" Lower body"),indexFormat=source.indexFormat};
+                    var derived=new Mesh{name=source.name+(FirstPersonArms?" Arms":" First person body"),indexFormat=source.indexFormat};
                     derived.vertices=used.Select(i=>positions[i]).ToArray();derived.normals=used.Select(i=>normals[i]).ToArray();
                     derived.uv=used.Select(i=>uv[i]).ToArray();
                     if(tangents.Length==source.vertexCount)derived.tangents=used.Select(i=>tangents[i]).ToArray();
                     derived.boneWeights=used.Select(i=>weights[i]).ToArray();derived.bindposes=source.bindposes;
                     derived.triangles=indices.Select(i=>remap[i]).ToArray();derived.RecalculateBounds();
                     derivedMeshes.Add(derived);r.sharedMesh=derived;
+                    if(HideHeadAndArms)
+                    {
+                        // The visible first-person mesh omits the head and duplicate arms,
+                        // while its shadow keeps the full silhouette on the same animated bones.
+                        var shadowObject=new GameObject("Full player shadow");shadowObject.transform.SetParent(r.transform,false);
+                        var shadow=shadowObject.AddComponent<SkinnedMeshRenderer>();shadow.sharedMesh=source;
+                        shadow.bones=r.bones;shadow.rootBone=r.rootBone;shadow.sharedMaterial=material;shadow.localBounds=bounds;
+                        shadow.shadowCastingMode=ShadowCastingMode.ShadowsOnly;shadow.receiveShadows=false;
+                        r.shadowCastingMode=ShadowCastingMode.Off;ShadowTriangleCount+=source.triangles.Length/3;
+                    }
                 }
                 TriangleCount+=r.sharedMesh.triangles.Length/3;
                 VertexCount+=r.sharedMesh.vertexCount;

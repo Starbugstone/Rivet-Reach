@@ -92,7 +92,7 @@ namespace RivetReach
         void Update()
         {
             if(Generator==null||Observer==null||stopped)return;
-            Shader.SetGlobalColor("_RRFogColour",new Color(.56f,.68f,.77f));
+            Shader.SetGlobalColor("_RRFogColour",RenderSettings.fogColor);
             Shader.SetGlobalVector("_RRFogRange",new Vector4(FogStart,FogEnd,0,0));
             if(Mathf.Abs(Observer.position.x)>512||Mathf.Abs(Observer.position.z)>512)
             {
@@ -101,6 +101,9 @@ namespace RivetReach
                 foreach(var kv in chunks)if(kv.Value.View!=null)kv.Value.View.transform.position=Local(kv.Key.Min);
                 OriginShifted?.Invoke(shift);
             }
+            // The shader's macro palette repeats every 1024 m. Reduce the integer origin
+            // before converting to float so shifts and distant coordinates preserve its phase.
+            Shader.SetGlobalVector("_RRWorldOffset",new Vector4((Origin.X%1024+1024)%1024,0,(Origin.Z%1024+1024)%1024,0));
             var centre=Address(Observer.position).Chunk;
             if(Time.unscaledTime>=nextDemand||!centre.Equals(lastCentre))
             {nextDemand=Time.unscaledTime+0.4f;lastCentre=centre;Demand(centre);}

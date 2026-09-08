@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -14,7 +15,7 @@ namespace RivetReach
         Canvas canvas;
         RectTransform root;
         Font font;
-        readonly Color ink=new Color(.065f,.105f,.12f,.97f),slate=new Color(.13f,.19f,.21f,1),gold=new Color(.85f,.69f,.38f),pale=new Color(.91f,.92f,.85f);
+        readonly Color ink=new Color(.045f,.075f,.09f,.97f),slate=new Color(.105f,.16f,.185f,.96f),gold=new Color(.85f,.72f,.47f),pale=new Color(.91f,.92f,.85f);
         readonly List<SlotView> slots=new List<SlotView>();
         readonly Dictionary<byte,Texture2D> icons=new Dictionary<byte,Texture2D>();
         Text message,diagnostics,targetLabel,heldLabel,selectedLabel,loading,tooltip;
@@ -87,13 +88,18 @@ namespace RivetReach
         }
         void BuildHUD()
         {
-            Label(root,"RIVET REACH",28,22,300,34,24);
-            Label(root,"FIRST EXPEDITION",29,58,280,22,12,gold);
-            Label(root,"+",625,340,30,30,24).alignment=TextAnchor.MiddleCenter;
+            Label(root,"RIVET REACH",28,22,300,28,19);
+            Label(root,"FIRST EXPEDITION",29,52,280,22,11,gold);
+            foreach(var bar in new[]{new Rect(632,359,5,2),new Rect(643,359,5,2),new Rect(639,352,2,5),new Rect(639,363,2,5)})
+            {
+                Panel(root,bar.x-1,bar.y-1,bar.width+2,bar.height+2,new Color(.025f,.04f,.035f,.65f));
+                Panel(root,bar.x,bar.y,bar.width,bar.height,pale);
+            }
             targetLabel=Label(root,"",475,395,330,28,17);targetLabel.alignment=TextAnchor.MiddleCenter;
             var track=Panel(root,580,385,120,3,new Color(.1f,.15f,.16f,.5f));progress=Panel(track.transform,0,0,0,3,gold);
-            BuildHotbar(root,256,628,60,4);
-            selectedLabel=Label(root,"",420,605,440,28,18);selectedLabel.alignment=TextAnchor.MiddleCenter;
+            Panel(root,296,635,688,67,new Color(.025f,.045f,.055f,.75f));
+            BuildHotbar(root,304,642,52,4);
+            selectedLabel=Label(root,"",420,611,440,24,15);selectedLabel.alignment=TextAnchor.MiddleCenter;
             Label(root,$"{game.Input.Keys["Inventory"]}  Inventory    {game.Input.Keys["Drop"]}  Drop    Place block    {game.Input.Keys["Inspect"]}  Inspect player",28,694,650,22,13);
             Label(root,"Session-only world",1090,694,172,22,12,new Color(.75f,.77f,.73f));
             message=Label(root,"",330,555,620,40,18,gold);message.alignment=TextAnchor.MiddleCenter;
@@ -125,6 +131,7 @@ namespace RivetReach
         void Slot(Transform parent,int index,float x,float y,int size)
         {
             var image=Panel(parent,x,y,size,size,slate);var slot=image.gameObject.AddComponent<SlotView>();slot.Owner=this;slot.Index=index;slot.Background=image;
+            slot.Border=image.gameObject.AddComponent<Outline>();slot.Border.effectDistance=new Vector2(1,-1);slot.Border.useGraphicAlpha=false;
             var icon=Rect(image.transform,"Item",7,6,size-14,size-14).gameObject.AddComponent<RawImage>();icon.raycastTarget=false;slot.Icon=icon;
             slot.Count=Label(image.transform,"",3,size-22,size-7,22,14);slot.Count.alignment=TextAnchor.LowerRight;
             if(index<12)Label(image.transform,(index+1).ToString(),3,2,20,14,10,new Color(.55f,.64f,.64f));
@@ -203,6 +210,7 @@ namespace RivetReach
                 var stack=game.Inventory.Slots[view.Index];view.Icon.enabled=!stack.Empty;view.Count.text=stack.Empty?"":stack.Count.ToString();
                 if(!stack.Empty)view.Icon.texture=icons[stack.Id];
                 view.Background.color=view.Index==game.Selected?new Color(.40f,.43f,.31f):slate;
+                view.Border.effectColor=view.Index==game.Selected?gold:new Color(.25f,.33f,.36f,.85f);
             }
             lastRevision=game.Inventory.Revision;
         }
@@ -213,7 +221,11 @@ namespace RivetReach
             if(message!=null)message.text=game.Message??"";
             if(loading!=null)loading.text=!game.ReadyToPlay?"Preparing nearby terrain…":"";
             if(targetLabel!=null)targetLabel.text=game.Player.HasTarget?game.Registry.Get(game.Player.TargetId).displayName:"";
-            if(progress!=null)progress.rectTransform.sizeDelta=new Vector2(120*Mathf.Clamp01(game.Player.MiningProgress),3);
+            if(progress!=null)
+            {
+                progress.transform.parent.gameObject.SetActive(game.Player.HasTarget&&game.Player.MiningProgress>0);
+                progress.rectTransform.sizeDelta=new Vector2(120*Mathf.Clamp01(game.Player.MiningProgress),3);
+            }
             if(selectedLabel!=null){var s=game.Inventory.Slots[game.Selected];selectedLabel.text=s.Empty?"BARE HANDS":game.Registry.Get(s.Id).displayName+"  ·  "+s.Count;}
             if(heldRoot!=null)
             {
@@ -252,14 +264,25 @@ namespace RivetReach
         }
         void BuildIcons()
         {
+            var tiles=Resources.Load<Texture2DArray>("Materials/BlockTiles");
+            var swatches=Enumerable.Range(0,4).Select(layer=>tiles.GetPixels(layer)).ToArray();
+            Color Swatch(int layer,float u,float v)
+            {int x=Mathf.Clamp((int)(u*tiles.width),0,tiles.width-1),y=Mathf.Clamp((int)(v*tiles.height),0,tiles.height-1);return swatches[layer][x+y*tiles.width];}
             foreach(var item in game.Registry.items)
             {
                 var texture=new Texture2D(48,48,TextureFormat.RGBA32,false);texture.filterMode=FilterMode.Point;var pixels=new Color[48*48];
                 for(int y=0;y<48;y++)for(int x=0;x<48;x++)
                 {
-                    float dx=x-24,dy=y-27;
-                    if(Mathf.Abs(dx)/21+Mathf.Abs(dy)/11<1)pixels[x+y*48]=item.colour*1.15f;
-                    else if(y>=6&&y<27-Mathf.Abs(dx)*.5f&&Mathf.Abs(dx)<21)pixels[x+y*48]=item.colour*(x<24?.75f:.93f);
+                    float dx=x-24,dy=y-32;
+                    int top=item.runtimeId==1?0:item.runtimeId==2?2:3,side=item.runtimeId==1?1:top;
+                    Color c=Color.clear;
+                    if(Mathf.Abs(dx)/21+Mathf.Abs(dy)/12<1)c=Swatch(top,(dx/21+dy/12+1)*.5f,(dy/12-dx/21+1)*.5f)*1.12f;
+                    else if(Mathf.Abs(dx)<21)
+                    {
+                        float bottom=2+Mathf.Abs(dx)*12/21;
+                        if(y>=bottom&&y<bottom+18)c=Swatch(side,Mathf.Abs(dx)/21,(y-bottom)/18)*(dx<0?.68f:.88f);
+                    }
+                    if(c.a>0)c.a=1;pixels[x+y*48]=c;
                 }
                 texture.SetPixels(pixels);texture.Apply();icons[item.runtimeId]=texture;
             }
@@ -270,7 +293,7 @@ namespace RivetReach
     {public GameUI Owner;public void OnDrag(PointerEventData e)=>Owner.RotatePreview(e.delta.x);}
     public sealed class SlotView : MonoBehaviour,IPointerClickHandler,IBeginDragHandler,IDragHandler,IEndDragHandler,IPointerEnterHandler,IPointerExitHandler
     {
-        public GameUI Owner;public int Index;public Image Background;public RawImage Icon;public Text Count;
+        public GameUI Owner;public int Index;public Image Background;public Outline Border;public RawImage Icon;public Text Count;
         public void OnPointerEnter(PointerEventData e)=>Owner.HoverSlot(Index);
         public void OnPointerExit(PointerEventData e)=>Owner.HoverSlot(-1);
         bool dragged;

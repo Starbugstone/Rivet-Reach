@@ -15,7 +15,8 @@ namespace RivetReach
     {
         [Serializable] public sealed class Report
         {
-            public string timestamp,unity,cpu,gpu,result;
+            public string timestamp,unity,cpu,gpu,result,workload;
+            public int bodyShadowTriangles,terrainTilePixels;
             public int memoryMB,width,height,assertions,residentPeak,triangles,maleTriangles,femaleTriangles,armsTriangles,bodyTriangles,drawCallsPeak;
             public long allocatedMemoryBytes;
             public float frameMedianMs,frameP95Ms,frameMaxMs,firstReadySeconds,miningFrameMaxMs;
@@ -70,6 +71,10 @@ namespace RivetReach
             float began=Time.realtimeSinceStartup;game.World.ViewDistance=10;game.StartSession(246813);game.Diagnostics=true;
             yield return Settle();report.firstReadySeconds=Time.realtimeSinceStartup-began;
             var player=game.Player;var world=game.World;report.viewRadius=world.ViewDistance;report.fogStart=world.FogStart;report.fogEnd=world.FogEnd;var start=world.Address(player.transform.position);var saved=WorldPoint.FromLocal(player.transform.position,world.Origin);
+            bool visualOnly=Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-visual-review");
+            report.workload=visualOnly?"Visual review and first-person body regression":"Full terrain/inventory and visual regression";
+            yield return ReviewVisuals();
+            if(visualOnly)yield break;
             Check(!world.Overlaps(player.transform.position,.6f,1.8f),"Spawn has headroom and no solid overlap");
             Check(world.Raycast(player.transform.position+Vector3.up,Vector3.down,4,out var ground,out byte id),"Axis-aligned ray hits ground");
             Check(id!=0,"Spawn is supported by terrain");
@@ -231,6 +236,57 @@ namespace RivetReach
             Check(!world.Overlaps(player.transform.position,.6f,1.8f),"Cave collision permits a supported player");yield return Capture("09-cave");
             game.SetMode(ScreenMode.Title);yield return Capture("10-title");
             Check(world.Error==null,"No terrain worker errors");
+        }
+        IEnumerator ReviewVisuals()
+        {
+            var player=game.Player;bool female=player.Female;int skin=player.Skin;
+            float fov=player.Camera.fieldOfView,pitch=player.Pitch;
+            var tiles=Resources.Load<Texture2DArray>("Materials/BlockTiles");report.terrainTilePixels=tiles.width;
+            Check(tiles.width==64&&tiles.height==64&&tiles.depth==4,"Four 64-texel terrain tiles are imported");
+            Check(game.World.TerrainMaterial.shader.isSupported,"Terrain shader has a supported rendering pass");
+            Check(player.Camera.GetComponent<UnityEngine.Rendering.Universal.UniversalAdditionalCameraData>().renderPostProcessing,"Gameplay camera enables the scene colour grade");
+            game.Diagnostics=false;
+            player.Pitch=10;yield return Capture("visual-01-landscape");
+            player.Pitch=-25;yield return Capture("visual-02-sky");
+            foreach(bool variant in new[]{false,true})foreach(int variantSkin in new[]{0,1})
+            {
+                game.SetAppearance(variant,variantSkin);yield return null;
+                var body=player.Body.GetComponentsInChildren<SkinnedMeshRenderer>().Single(r=>r.shadowCastingMode!=UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly);
+                var weights=body.sharedMesh.boneWeights;
+                Check(weights.Any(w=>body.bones[w.boneIndex0].name=="Chest")&&weights.Any(w=>body.bones[w.boneIndex0].name=="Spine"),"First-person jacket and waist survive the visibility filter");
+                int full=Resources.Load<GameObject>("Characters/"+(variant?"ExplorerFemale":"ExplorerMale")).GetComponentInChildren<SkinnedMeshRenderer>().sharedMesh.triangles.Length/3;
+                if(variant)report.femaleTriangles=full;else report.maleTriangles=full;
+                Check(player.Body.ShadowTriangleCount==full,"First-person player casts the complete model silhouette");
+                report.bodyTriangles=player.Body.TriangleCount;report.armsTriangles=player.Arms.TriangleCount;report.bodyShadowTriangles=player.Body.ShadowTriangleCount;
+                string label=(variant?"female":"male")+"-skin"+variantSkin;
+                foreach(float angle in new[]{60f,85f})
+                {
+                    player.Pitch=angle;player.Camera.fieldOfView=78;
+                    yield return new WaitForSecondsRealtime(.25f);yield return Capture("visual-lookdown-"+label+"-"+angle);
+                    Check(player.Camera.WorldToViewportPoint(player.Body.BonePosition("Neck")).y<0,"Standing look-down keeps the neck opening below the lens");
+                }
+                InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState(game.Input.Keys["Crouch"]));
+                yield return new WaitForSecondsRealtime(.4f);
+                Check(player.Height<1.5f&&player.Body.CrouchWeight>.9f,"Look-down capture uses the real crouching pose");
+                Check(player.Camera.WorldToViewportPoint(player.Body.BonePosition("Neck")).y<0,"Crouching look-down keeps the neck opening below the lens");
+                yield return Capture("visual-crouch-"+label);
+                InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState());yield return new WaitForSecondsRealtime(.4f);
+            }
+            game.SetAppearance(false,0);
+            foreach(float lens in new[]{60f,100f})
+            {
+                player.Camera.fieldOfView=lens;player.Pitch=85;yield return new WaitForSecondsRealtime(.25f);
+                Check(player.Camera.WorldToViewportPoint(player.Body.BonePosition("Neck")).y<0,"Neck opening stays outside the 60/100-degree camera range");
+                yield return Capture("visual-lookdown-fov"+lens);
+            }
+            // Warm steady scene sample; separate from the streaming/mining timings below.
+            player.Camera.fieldOfView=fov;player.Pitch=10;sampling=true;
+            yield return new WaitForSecondsRealtime(3);sampling=false;
+            game.Inventory.Add(1,24);game.Inventory.Add(2,48);game.Inventory.Add(3,12);
+            yield return Capture("visual-03-hotbar");
+            game.Inventory.Take(0,int.MaxValue);game.Inventory.Take(1,int.MaxValue);game.Inventory.Take(2,int.MaxValue);
+            game.SetAppearance(female,skin);player.Pitch=pitch;game.Diagnostics=true;
+            Check(errors.Count==0,"Body views and scene polish complete without Unity errors");
         }
         void OnDestroy(){Application.logMessageReceived-=Log;drawCalls.Dispose();}
     }

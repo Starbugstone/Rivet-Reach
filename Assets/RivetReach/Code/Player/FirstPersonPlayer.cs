@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 namespace RivetReach
 {
@@ -35,6 +36,7 @@ namespace RivetReach
             var cameraObject=new GameObject("Expedition Camera");cameraObject.transform.SetParent(transform,false);
             Camera=cameraObject.AddComponent<Camera>();Camera.tag="MainCamera";Camera.nearClipPlane=.025f;Camera.farClipPlane=640;
             Camera.fieldOfView=PlayerPrefs.GetFloat("fov",78);Camera.backgroundColor=new Color(.52f,.66f,.76f);Camera.clearFlags=CameraClearFlags.Skybox;
+            var cameraData=Camera.GetUniversalAdditionalCameraData();cameraData.renderPostProcessing=true;cameraData.dithering=true;
             cameraObject.AddComponent<AudioListener>();
             var body=new GameObject("Player appearance");body.transform.SetParent(transform,false);Body=body.AddComponent<AvatarView>();Body.HideHeadAndArms=true;
             var arms=new GameObject("First person hands");arms.transform.SetParent(Camera.transform,false);arms.transform.localPosition=new Vector3(0,-1.50f,.02f);Arms=arms.AddComponent<AvatarView>();Arms.FirstPersonArms=true;
@@ -108,7 +110,10 @@ namespace RivetReach
                 Camera.transform.localPosition=Vector3.up*eyeHeight;
                 Camera.transform.localRotation=Quaternion.Euler(Pitch,0,0);
             }
-            Body.transform.localPosition=Inspecting?Vector3.zero:new Vector3(0,0,-.20f);
+            // Put the first-person torso behind the eye, including the forward bend in crouch.
+            // This keeps the open neck/shoulder cuts outside the lens without moving the camera,
+            // collision capsule or interaction rays. Follow the same smooth crouch blend as the rig.
+            Body.transform.localPosition=Inspecting?Vector3.zero:new Vector3(0,0,Mathf.Lerp(-.34f,-.48f,Body.CrouchWeight));
             Body.transform.localScale=Vector3.one;
             Arms.FitFirstPersonFov(Camera.fieldOfView);
             Vector2 swayTarget=control?Vector2.ClampMagnitude(Game.Input.Look,8):Vector2.zero;

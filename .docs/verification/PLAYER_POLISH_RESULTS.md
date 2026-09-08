@@ -57,6 +57,8 @@ Run [create_player_assets.py](../../Tools/create_player_assets.py) through Blend
 
 ## Scope of the evidence
 
+The subsequent [body and scene polish](BODY_AND_SCENE_POLISH_RESULTS.md) restores the torso in first person, keeps the open collar outside the camera and adds a complete shadow silhouette. Its report owns the revised first-person/shadow rendering cost and current scene visuals; the source model/clip counts above remain unchanged.
+
 The original checks above ran in standalone players. A later user report exposed an Editor-only startup exception in the missing-Animator fallback. The [Editor Play startup correction](EDITOR_PLAY_STARTUP_RESULTS.md) records the fix and separate Editor verification; the standalone results alone did not establish that pressing Play in Unity worked.
 
 The source and imported poses were inspected alongside the concept. The resulting model uses smoother surfaces and simpler material painting than the illustration's painted facets. The shared 256×256 semantic atlas remains a palette skin contract, not a finished uniquely unwrapped paint template. Facial expressions, secondary ponytail simulation, arbitrary-slope foot placement, multiplayer crowd LODs and new tool/combat systems are outside this revision. The in-place gait does not guarantee zero foot sliding at every gameplay speed.

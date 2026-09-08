@@ -124,6 +124,7 @@ namespace RivetReach.Editor
             Check(game.ReadyToPlay,"Spawn terrain becomes ready");
             yield return new WaitForSecondsRealtime(1);
             Check(game.Player.Camera.isActiveAndEnabled&&game.Player.Camera.targetTexture==null,"Expedition camera renders to the Game view");
+            Check(game.Player.Camera.GetComponent<UnityEngine.Rendering.Universal.UniversalAdditionalCameraData>().renderPostProcessing,"Editor gameplay camera enables colour grading");
             Check(game.Player.Arms.gameObject.activeInHierarchy&&game.Player.Body.gameObject.activeInHierarchy,"Body and hands are visible during gameplay");
             Vector3 position=game.Player.transform.position;
             game.Player.VerificationMovement=Vector2.up;game.Player.VerificationMining=true;
@@ -135,6 +136,19 @@ namespace RivetReach.Editor
             yield return new WaitForSecondsRealtime(.5f);
             ScreenCapture.CaptureScreenshot(Output+$"/cycle-{Cycle+1}-world.png");
             yield return new WaitForSecondsRealtime(.5f);
+            game.Player.Pitch=85;game.Player.Camera.fieldOfView=100;
+            yield return new WaitForSecondsRealtime(.3f);
+            Check(game.Player.Camera.WorldToViewportPoint(game.Player.Body.BonePosition("Neck")).y<0,"Editor look-down keeps the neck opening below the lens at 100-degree FOV");
+            ScreenCapture.CaptureScreenshot(Output+$"/cycle-{Cycle+1}-lookdown.png");
+            yield return new WaitForSecondsRealtime(.5f);
+            UnityEngine.InputSystem.InputSystem.QueueStateEvent(UnityEngine.InputSystem.Keyboard.current,
+                new UnityEngine.InputSystem.LowLevel.KeyboardState(game.Input.Keys["Crouch"]));
+            yield return new WaitForSecondsRealtime(.4f);
+            Check(game.Player.Height<1.5f&&game.Player.Camera.WorldToViewportPoint(game.Player.Body.BonePosition("Neck")).y<0,
+                "Editor crouching look-down keeps the neck opening below the lens at 100-degree FOV");
+            ScreenCapture.CaptureScreenshot(Output+$"/cycle-{Cycle+1}-crouch-lookdown.png");
+            yield return new WaitForSecondsRealtime(.5f);
+            UnityEngine.InputSystem.InputSystem.QueueStateEvent(UnityEngine.InputSystem.Keyboard.current,new UnityEngine.InputSystem.LowLevel.KeyboardState());
             Check(Errors.Length==0,"Completed Play cycle without logged errors or exceptions");
         }
     }
