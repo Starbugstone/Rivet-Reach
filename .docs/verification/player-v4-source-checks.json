@@ -1,0 +1,178 @@
+[
+  {
+    "model": "ExplorerMale",
+    "normalizedWeights": true,
+    "relativeTextures": true,
+    "singleUV": true,
+    "clips": [
+      {
+        "clip": "Airborne",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 1.354314500387026e-18
+      },
+      {
+        "clip": "CrouchIdle",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 1.2202733713677674e-18
+      },
+      {
+        "clip": "CrouchWalk",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 5.791434766922356e-18
+      },
+      {
+        "clip": "FP_Airborne",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 0.0
+      },
+      {
+        "clip": "FP_Crouch",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 0.0
+      },
+      {
+        "clip": "FP_CrouchWalk",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 0.0
+      },
+      {
+        "clip": "FP_Idle",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 0.0
+      },
+      {
+        "clip": "FP_Land",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": null
+      },
+      {
+        "clip": "FP_Mine",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": null
+      },
+      {
+        "clip": "FP_Run",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 0.0
+      },
+      {
+        "clip": "FP_Walk",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 0.0
+      },
+      {
+        "clip": "Idle",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 1.354314500387026e-18
+      },
+      {
+        "clip": "Land",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": null
+      },
+      {
+        "clip": "Mine",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": null
+      },
+      {
+        "clip": "Run",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 6.563441600241618e-18
+      },
+      {
+        "clip": "Walk",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 6.587191542872962e-18
+      }
+    ]
+  },
+  {
+    "model": "ExplorerFemale",
+    "normalizedWeights": true,
+    "relativeTextures": true,
+    "singleUV": true,
+    "clips": [
+      {
+        "clip": "Airborne",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 1.354314500387026e-18
+      },
+      {
+        "clip": "CrouchIdle",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 1.2202733713677674e-18
+      },
+      {
+        "clip": "CrouchWalk",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 1.3877787807814457e-17
+      },
+      {
+        "clip": "FP_Airborne",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 0.0
+      },
+      {
+        "clip": "FP_Crouch",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 0.0
+      },
+      {
+        "clip": "FP_CrouchWalk",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 0.0
+      },
+      {
+        "clip": "FP_Idle",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 0.0
+      },
+      {
+        "clip": "FP_Land",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": null
+      },
+      {
+        "clip": "FP_Mine",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": null
+      },
+      {
+        "clip": "FP_Run",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 0.0
+      },
+      {
+        "clip": "FP_Walk",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 0.0
+      },
+      {
+        "clip": "Idle",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 1.354314500387026e-18
+      },
+      {
+        "clip": "Land",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": null
+      },
+      {
+        "clip": "Mine",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": null
+      },
+      {
+        "clip": "Run",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 6.563441600241618e-18
+      },
+      {
+        "clip": "Walk",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 6.587191542872962e-18
+      }
+    ]
+  }
+]

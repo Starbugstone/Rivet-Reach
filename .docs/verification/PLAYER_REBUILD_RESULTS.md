@@ -1,5 +1,7 @@
 # Player model and animation rebuild
 
+> Historical revision 3 evidence. The subsequent higher-detail models, corrected Animator-relative mining mask, and movement polish are recorded in [the current player polish report](PLAYER_POLISH_RESULTS.md). The original mining test below also admitted a sufficiently large walking swing; revision 4 adds an explicit raised-hand check.
+
 The user requested a complete player-model revision toward the [approved male/female concept](../concept-art/player-male-female-turnaround-v3.png), corrected first-person hand orientation/placement, and a skeleton with proper animation. This revision rebuilds both original explorer assets in Blender 5.2 and imports their authored animations into Unity 6000.4.4f1. Artistic acceptance remains with the user.
 
 ## Delivered assets

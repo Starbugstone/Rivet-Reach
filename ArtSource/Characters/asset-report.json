@@ -1,7 +1,7 @@
 [
   {
     "model": "ExplorerMale",
-    "triangles": 4572,
+    "triangles": 31734,
     "bones": 40,
     "materials": 1,
     "maxInfluences": 3,
@@ -32,6 +32,21 @@
         "loop": false
       },
       {
+        "name": "CrouchIdle",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "CrouchWalk",
+        "seconds": 1.2,
+        "loop": true
+      },
+      {
+        "name": "Land",
+        "seconds": 0.4,
+        "loop": false
+      },
+      {
         "name": "FP_Idle",
         "seconds": 3.0,
         "loop": true
@@ -40,6 +55,31 @@
         "name": "FP_Walk",
         "seconds": 1.0,
         "loop": true
+      },
+      {
+        "name": "FP_Run",
+        "seconds": 0.8,
+        "loop": true
+      },
+      {
+        "name": "FP_Airborne",
+        "seconds": 1.0,
+        "loop": true
+      },
+      {
+        "name": "FP_Crouch",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_CrouchWalk",
+        "seconds": 1.2,
+        "loop": true
+      },
+      {
+        "name": "FP_Land",
+        "seconds": 0.4,
+        "loop": false
       },
       {
         "name": "FP_Mine",
@@ -50,7 +90,7 @@
   },
   {
     "model": "ExplorerFemale",
-    "triangles": 4788,
+    "triangles": 32126,
     "bones": 40,
     "materials": 1,
     "maxInfluences": 3,
@@ -81,6 +121,21 @@
         "loop": false
       },
       {
+        "name": "CrouchIdle",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "CrouchWalk",
+        "seconds": 1.2,
+        "loop": true
+      },
+      {
+        "name": "Land",
+        "seconds": 0.4,
+        "loop": false
+      },
+      {
         "name": "FP_Idle",
         "seconds": 3.0,
         "loop": true
@@ -89,6 +144,31 @@
         "name": "FP_Walk",
         "seconds": 1.0,
         "loop": true
+      },
+      {
+        "name": "FP_Run",
+        "seconds": 0.8,
+        "loop": true
+      },
+      {
+        "name": "FP_Airborne",
+        "seconds": 1.0,
+        "loop": true
+      },
+      {
+        "name": "FP_Crouch",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_CrouchWalk",
+        "seconds": 1.2,
+        "loop": true
+      },
+      {
+        "name": "FP_Land",
+        "seconds": 0.4,
+        "loop": false
       },
       {
         "name": "FP_Mine",

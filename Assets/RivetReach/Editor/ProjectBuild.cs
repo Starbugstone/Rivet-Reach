@@ -52,7 +52,7 @@ namespace RivetReach.Editor
                 foreach(var clip in clips)
                 {
                     clip.name=clip.takeName.Substring(clip.takeName.LastIndexOf('|')+1);
-                    clip.loopTime=clip.name!="Mine"&&clip.name!="FP_Mine";
+                    clip.loopTime=clip.name!="Mine"&&clip.name!="FP_Mine"&&clip.name!="Land"&&clip.name!="FP_Land";
                     clip.lockRootRotation=true;clip.lockRootHeightY=true;clip.lockRootPositionXZ=true;
                     clip.keepOriginalOrientation=true;clip.keepOriginalPositionY=true;clip.keepOriginalPositionXZ=true;
                 }
@@ -123,15 +123,15 @@ namespace RivetReach.Editor
         public static void PrepareAndBuild(){Prepare();DomainChecks.Run();Build();}
         static void Build()
         {
-            Directory.CreateDirectory("Builds/PlayerRevision3");
-            var report=BuildPipeline.BuildPlayer(new BuildPlayerOptions{scenes=EditorBuildSettings.scenes.Select(s=>s.path).ToArray(),locationPathName="Builds/PlayerRevision3/RivetReach.exe",target=BuildTarget.StandaloneWindows64,options=BuildOptions.Development});
+            Directory.CreateDirectory("Builds/PlayerRevision4");
+            var report=BuildPipeline.BuildPlayer(new BuildPlayerOptions{scenes=EditorBuildSettings.scenes.Select(s=>s.path).ToArray(),locationPathName="Builds/PlayerRevision4/RivetReach.exe",target=BuildTarget.StandaloneWindows64,options=BuildOptions.Development});
             File.WriteAllText("Logs/build-summary.txt",report.summary.result+"; errors "+report.summary.totalErrors+"; warnings "+report.summary.totalWarnings+"; seconds "+report.summary.totalTime.TotalSeconds+"; bytes "+report.summary.totalSize);
             if(report.summary.result!=BuildResult.Succeeded)throw new Exception("Windows build failed: "+report.summary.result);
-            File.Copy("LICENSE.md","Builds/PlayerRevision3/LICENSE.md",true);
-            File.Copy(".docs/THIRD_PARTY_NOTICES.md","Builds/PlayerRevision3/THIRD_PARTY_NOTICES.md",true);
+            File.Copy("LICENSE.md","Builds/PlayerRevision4/LICENSE.md",true);
+            File.Copy(".docs/THIRD_PARTY_NOTICES.md","Builds/PlayerRevision4/THIRD_PARTY_NOTICES.md",true);
             foreach(string source in Directory.GetFiles(".docs/licenses","*",SearchOption.AllDirectories))
             {
-                string target=Path.Combine("Builds/PlayerRevision3/licenses",Path.GetRelativePath(".docs/licenses",source));
+                string target=Path.Combine("Builds/PlayerRevision4/licenses",Path.GetRelativePath(".docs/licenses",source));
                 Directory.CreateDirectory(Path.GetDirectoryName(target));File.Copy(source,target,true);
             }
         }

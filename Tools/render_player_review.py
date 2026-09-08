@@ -21,15 +21,15 @@ for name,loc,power,size in [('Key',(-3,-4,5),500,4),('Fill',(3,-2,3),180,3),('Ri
 cam=bpy.data.cameras.new('Review camera');o=bpy.data.objects.new('Review camera',cam);bpy.context.collection.objects.link(o);o.location=(.55,-6,2.35);o.rotation_euler=(Vector((0,0,.96))-o.location).to_track_quat('-Z','Y').to_euler();cam.type='ORTHO';cam.ortho_scale=2.3;bpy.context.scene.camera=o
 scene=bpy.context.scene;scene.render.engine='CYCLES';scene.cycles.samples=32;scene.cycles.use_denoising=True;scene.render.resolution_x=1400;scene.render.resolution_y=1200;scene.render.resolution_percentage=100
 scene.view_settings.view_transform='AgX';scene.render.image_settings.file_format='PNG'
-scene.render.filepath=str(root/'Logs/player-v3-front.png');bpy.ops.render.render(write_still=True)
+scene.render.filepath=str(root/'Logs/player-v4-front.png');bpy.ops.render.render(write_still=True)
 
 for rig in [obj for obj in bpy.data.objects if obj.type=='ARMATURE']:rig.location.x*=-1
 o.location=(.55,6,2.35);o.rotation_euler=(Vector((0,0,.96))-o.location).to_track_quat('-Z','Y').to_euler()
-scene.render.filepath=str(root/'Logs/player-v3-back.png');bpy.ops.render.render(write_still=True)
+scene.render.filepath=str(root/'Logs/player-v4-back.png');bpy.ops.render.render(write_still=True)
 
 # Face and joint detail from the same source scene, not a concept illustration.
 
 for rig in [obj for obj in bpy.data.objects if obj.type=='ARMATURE']:rig.location.x*=-1
 o.location=(.30,-5,1.95);o.rotation_euler=(Vector((0,0,1.60))-o.location).to_track_quat('-Z','Y').to_euler();cam.ortho_scale=1.38
 scene.render.resolution_x=1600;scene.render.resolution_y=850
-scene.render.filepath=str(root/'Logs/player-v3-detail.png');bpy.ops.render.render(write_still=True)
+scene.render.filepath=str(root/'Logs/player-v4-detail.png');bpy.ops.render.render(write_still=True)

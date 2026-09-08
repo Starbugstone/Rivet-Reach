@@ -95,6 +95,9 @@ namespace RivetReach
             yield return new WaitForSecondsRealtime(.7f);
             InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState(game.Input.Keys["Crouch"]));yield return null;yield return null;
             Check(player.Height<1.5f,"Mapped crouch changes presentation and collision height");
+            Check(player.VisualEyeHeight>1.10f&&player.VisualEyeHeight<1.64f,"Crouch camera moves continuously while collision height responds immediately");
+            yield return new WaitForSecondsRealtime(.3f);
+            Check(Mathf.Abs(player.VisualEyeHeight-1.09f)<.012f,"Crouch eye transition reaches its target within 300 ms");
             InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState());yield return null;yield return null;
             Check(player.Height==1.8f,"Releasing crouch restores height with headroom");
             InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState(game.Input.Keys["Inventory"]));yield return null;yield return null;
@@ -211,8 +214,8 @@ namespace RivetReach
             report.femaleTriangles=Resources.Load<GameObject>("Characters/ExplorerFemale").GetComponentInChildren<SkinnedMeshRenderer>().sharedMesh.triangles.Length/3;
             game.SetAppearance(true,1);game.UI.Rebuild();yield return Capture("06-alternate-skin");
             Check(Mathf.Approximately(player.Height,1.8f),"Appearance changes preserve gameplay height");
-            Check(report.maleTriangles<=5000&&report.femaleTriangles<=5000,"Both imported player meshes meet initial triangle ceiling");
-            Check(report.armsTriangles<=1500,"Derived first-person hands and arms meet initial triangle ceiling");
+            Check(report.maleTriangles<=35000&&report.femaleTriangles<=35000,"Both imported player meshes meet revised triangle review budget");
+            Check(report.armsTriangles<=12000,"Derived first-person hands and arms meet revised triangle review budget");
             game.SetAppearance(false,0);game.SetMode(ScreenMode.Settings);yield return Capture("07-settings");
             game.SetMode(ScreenMode.Controls);yield return Capture("08-controls");
             // Inspect an actually generated underground cavity with a supported two-cell opening.

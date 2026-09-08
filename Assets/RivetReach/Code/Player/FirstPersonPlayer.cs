@@ -19,6 +19,9 @@ namespace RivetReach
         public int Skin;
         public float Height=1.8f;
         float vertical,phase,footstep;
+        float eyeHeight=1.64f,eyeVelocity;
+        Vector2 handSway,handSwayVelocity;
+        public float VisualEyeHeight=>eyeHeight;
         GameObject selection,placementGhost;
         Material ghostMaterial;
         float nextPlace;
@@ -47,7 +50,7 @@ namespace RivetReach
         void Update()
         {
             if(Game==null)return;
-            Arms.FitFirstPersonFov(Camera.fieldOfView);
+
             bool control=Game.Started&&!Game.Paused&&!Game.InventoryOpen;
             if(!Game.Started)
             {
@@ -69,6 +72,7 @@ namespace RivetReach
                 if(desired<Height||!Game.World.Overlaps(transform.position,.6f,desired))Height=desired;
                 Vector2 input=VerificationMovement??(control?Game.Input.Move:Vector2.zero);
                 float speed=Height<1.5f?2.2f:control&&Game.Input.Held("Sprint")?6.5f:4.5f;
+                input=Vector2.ClampMagnitude(input,1);
                 Vector3 move=transform.TransformDirection(new Vector3(input.x,0,input.y))*speed;
                 bool jump=control&&Game.Input.Pressed("Jump")&&Grounded;
                 if(jump)vertical=6.7f;
@@ -77,13 +81,15 @@ namespace RivetReach
                 if(crouch&&Grounded&&!jump&&!Game.World.Overlaps(transform.position+move*dt-Vector3.up*.12f,.6f,.12f))move=Vector3.zero;
                 Vector3 previous=transform.position;
                 transform.position=Game.World.Move(transform.position,(move+Vector3.up*vertical)*dt,.6f,Height,out bool ground);
+                float impact=!Grounded&&ground?Mathf.Max(0,-vertical):0;
                 Grounded=ground;if(ground)vertical=-1;
                 Vector3 travelled=transform.position-previous;travelled.y=0;
                 float distance=travelled.magnitude,motion=Mathf.Clamp01(distance/Mathf.Max(.001f,speed*dt));
-                phase+=distance*2;
+                // A gait cycle covers two steps; advance only when the feet can contact terrain.
+                if(ground)phase+=distance*(Height<1.5f?3.8f:speed>5?2.2f:2.4f)*(input.y<-.1f?-1:1);
                 if(distance>.001f&&ground){footstep+=dt;if(footstep>.42f){Game.Sound.Step();footstep=0;}}
-                Body.Animate(motion,control&&(Game.Input.Mine||VerificationMining),phase,Grounded,speed>5);
-                Arms.Animate(motion,control&&(Game.Input.Mine||VerificationMining),phase,Grounded,speed>5);
+                Body.Animate(motion,control&&(Game.Input.Mine||VerificationMining),phase,Grounded,speed>5,Height<1.5f,input,impact);
+                Arms.Animate(motion,control&&(Game.Input.Mine||VerificationMining),phase,Grounded,speed>5,Height<1.5f,input,impact);
             }
             if(Inspecting)
             {
@@ -95,11 +101,20 @@ namespace RivetReach
             }
             else
             {
-                Camera.transform.localPosition=Vector3.up*(Height-.16f);
+                // Smooth the eye transition independently of the immediate collision-height change.
+                eyeHeight=Mathf.SmoothDamp(eyeHeight,Height-.16f,ref eyeVelocity,.105f,20,Time.deltaTime);
+                if(Game.World.Raycast(transform.position+Vector3.up*.1f,Vector3.up,eyeHeight,out var ceiling,out _))
+                    eyeHeight=Mathf.Min(eyeHeight,Mathf.Max(.25f,Game.World.Local(ceiling).y-transform.position.y-.035f));
+                Camera.transform.localPosition=Vector3.up*eyeHeight;
                 Camera.transform.localRotation=Quaternion.Euler(Pitch,0,0);
             }
             Body.transform.localPosition=Inspecting?Vector3.zero:new Vector3(0,0,-.20f);
-            Body.transform.localScale=new Vector3(1,Height/1.8f,1);
+            Body.transform.localScale=Vector3.one;
+            Arms.FitFirstPersonFov(Camera.fieldOfView);
+            Vector2 swayTarget=control?Vector2.ClampMagnitude(Game.Input.Look,8):Vector2.zero;
+            handSway=Vector2.SmoothDamp(handSway,swayTarget,ref handSwayVelocity,.075f,100,Time.deltaTime);
+            // Camera aim is direct; only the held hands lag slightly behind a turn.
+            Arms.transform.localPosition+=new Vector3(-handSway.x*.0012f,-handSway.y*.001f,0);
             if(control&&!Inspecting)TargetAndMine();else{HasTarget=false;MiningProgress=0;nextPlace=0;}
             bool preview=control&&!Inspecting&&HasTarget&&!Game.Inventory.Slots[Game.Selected].Empty;
             placementGhost.SetActive(preview);
