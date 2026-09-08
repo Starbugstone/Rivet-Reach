@@ -241,7 +241,7 @@ User-required scope:
 - Natural voxel terrain generation only: no generated structures, villages, ruins, Gates or buildings.
 - Real chunk generation, meshing, loading and unloading around the player, rather than a finite demonstration map.
 - Playable first-person movement and camera controls.
-- A 3D player model, including visible first-person fists and enough presentation to review movement and mining.
+- Selectable male and female 3D player models, both supporting changeable skins, visible first-person fists and enough presentation to review movement and mining (subsequent explicit user appearance decisions).
 - Fist mining with targeting, progress and clear feedback.
 - Functional inventory/hotbar, using real item identities and quantities collected from mined terrain.
 - A clearly labelled, nonfunctional crafting placeholder inside the inventory.
@@ -267,7 +267,7 @@ Implementation checkpoints within this one milestone, each reviewed in the same 
 These checkpoints do not authorize separate later features. Stage 0 is complete only when the combined playable result meets all of the following:
 
 - The player can start, move, mine and manage inventory without developer commands; crafting is visibly unavailable.
-- The 3D player and first-person fists are present and visually coherent with terrain and UI; switching between two visibly different test skins updates both without changing movement, collision or mining.
+- Both male and female player choices are present and visually coherent with terrain and UI; switching between two test skins on either model updates the body and first-person fists without changing movement, collision or mining. Review actual geometry/rendering cost using CONTENT_PIPELINE.md section 7.
 - Terrain contains no generated structures; the same seed and generator definition reproduce unedited terrain independently of discovery order.
 - Crossing chunk boundaries, digging at seams, outrunning generation and shifting the rendering origin produce no fall-through, stale collision or reappearing mined blocks.
 - Leaving and returning preserves session edits and item accounting; streaming releases unnecessary runtime meshes/colliders and does not hide an unlimited resident-world cache.
