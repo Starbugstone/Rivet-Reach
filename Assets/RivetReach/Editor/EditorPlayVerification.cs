@@ -23,6 +23,7 @@ namespace RivetReach.Editor
         static object waiting;
         static int lastFrame;
         static double deadline;
+        static double restartAt;
         static EditorPlayVerification()
         {
             EditorApplication.playModeStateChanged+=StateChanged;
@@ -59,8 +60,8 @@ namespace RivetReach.Editor
                 SessionState.SetString(Key+"errors","Verification was interrupted before completing a Play cycle.");
             if(Errors.Length==0&&Cycle<2)
             {
-                SessionState.SetBool(Key+"complete",false);
-                EditorApplication.delayCall+=EditorApplication.EnterPlaymode;
+                // Re-enter after the exit transition has settled; a same-update delay can be lost.
+                restartAt=EditorApplication.timeSinceStartup+.5;
                 return;
             }
             string result=Errors.Length==0?"PASS":"FAIL";
@@ -75,6 +76,11 @@ namespace RivetReach.Editor
         }
         static void Tick()
         {
+            if(Active&&restartAt>0&&!EditorApplication.isPlayingOrWillChangePlaymode&&!EditorApplication.isCompiling&&!EditorApplication.isUpdating&&EditorApplication.timeSinceStartup>=restartAt)
+            {
+                restartAt=0;SessionState.SetBool(Key+"complete",false);
+                EditorApplication.EnterPlaymode();return;
+            }
             if(!Active||!EditorApplication.isPlaying||run==null)return;
             try
             {
@@ -149,17 +155,17 @@ namespace RivetReach.Editor
             ScreenCapture.CaptureScreenshot(Output+$"/cycle-{Cycle+1}-lookdown.png");
             yield return new WaitForSecondsRealtime(.5f);
             float crouchDeadline=Time.realtimeSinceStartup+3;
+            // Exercise the real crouch/animation path independently of Game-view keyboard focus.
+            game.Player.VerificationCrouching=true;
             while((game.Player.Height>1.5f||game.Player.Body.CrouchWeight<.995f)&&Time.realtimeSinceStartup<crouchDeadline)
             {
-                UnityEngine.InputSystem.InputSystem.QueueStateEvent(UnityEngine.InputSystem.Keyboard.current,
-                    new UnityEngine.InputSystem.LowLevel.KeyboardState(game.Input.Keys["Crouch"]));
                 yield return null;
             }
             Check(game.Player.Height<1.5f&&game.Player.Camera.WorldToViewportPoint(game.Player.Body.BonePosition("Neck")).y<0,
                 "Editor crouching look-down keeps the neck opening below the lens at 100-degree FOV; height="+game.Player.Height+", blend="+game.Player.Body.CrouchWeight+", neck="+game.Player.Camera.WorldToViewportPoint(game.Player.Body.BonePosition("Neck")));
             ScreenCapture.CaptureScreenshot(Output+$"/cycle-{Cycle+1}-crouch-lookdown.png");
             yield return new WaitForSecondsRealtime(.5f);
-            UnityEngine.InputSystem.InputSystem.QueueStateEvent(UnityEngine.InputSystem.Keyboard.current,new UnityEngine.InputSystem.LowLevel.KeyboardState());
+            game.Player.VerificationCrouching=null;
             game.Player.Pitch=10;game.Selected=11;game.Inventory.Take(11,int.MaxValue);game.Inventory.Add(2,2,11,12);
             yield return new WaitForSecondsRealtime(.4f);
             var held=game.Player.HeldBlock;

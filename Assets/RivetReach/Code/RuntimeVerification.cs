@@ -101,6 +101,8 @@ namespace RivetReach
             {report.workload="Dropped-item stacking, placement and movement interactions";yield return ReviewPlacementItems();yield return ReviewMovementInteractions();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-tree-review"))
             {report.workload="Generated trees, axe-only upward felling, leaf decay and tree streaming";yield return ReviewTrees();yield break;}
+            if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-audio-review"))
+            {report.workload="Imported foley quality, voice bounds, variation and master mute";yield return ReviewAudio();yield break;}
             bool visualOnly=Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-visual-review");
             report.workload=visualOnly?"Visual review and first-person body regression":"Full terrain/inventory and visual regression";
             yield return ReviewVisuals();
@@ -250,8 +252,8 @@ namespace RivetReach
             report.femaleTriangles=Resources.Load<GameObject>("Characters/ExplorerFemale").GetComponentInChildren<SkinnedMeshRenderer>().sharedMesh.triangles.Length/3;
             game.SetAppearance(true,1);game.UI.Rebuild();yield return Capture("06-alternate-skin");
             Check(Mathf.Approximately(player.Height,1.8f),"Appearance changes preserve gameplay height");
-            Check(report.maleTriangles<=35000&&report.femaleTriangles<=35000,"Both imported player meshes meet revised triangle review budget");
-            Check(report.armsTriangles<=12000,"Derived first-person hands and arms meet revised triangle review budget");
+            Check(report.maleTriangles<=80000&&report.femaleTriangles<=80000,"Both imported player meshes meet revised triangle review budget");
+            Check(report.armsTriangles<=55000,"Derived first-person hands and arms meet revised triangle review budget");
             game.SetAppearance(false,0);game.SetMode(ScreenMode.Settings);yield return Capture("07-settings");
             game.SetMode(ScreenMode.Controls);yield return Capture("08-controls");
             // Inspect an actually generated underground cavity with a supported two-cell opening.
@@ -323,5 +325,43 @@ namespace RivetReach
             Check(errors.Count==0,"Body views and scene polish complete without Unity errors");
         }
         void OnDestroy(){Application.logMessageReceived-=Log;drawCalls.Dispose();}
+        IEnumerator ReviewAudio()
+        {
+            var sound=game.Sound;float volume=sound.Master;
+            try
+            {
+                var clips=Resources.LoadAll<AudioClip>("Audio");
+                Check(clips.Length==77&&sound.LoadedClipCount==77,"All 77 authored sound assets load in the Windows player");
+                Check(clips.All(c=>c.frequency==48000),"Audio imports preserve the 48 kHz source rate");
+                Check(clips.Count(c=>c.channels==2)==1&&clips.Single(c=>c.channels==2).name=="WindCanopy","Ambience retains stereo; positional foley imports as mono");
+                float peak=0;float endpoint=0;
+                foreach(var clip in clips.Where(c=>c.loadType!=AudioClipLoadType.Streaming))
+                {
+                    var data=new float[clip.samples*clip.channels];
+                    Check(clip.GetData(data,0),"Decoded audio is available: "+clip.name);
+                    foreach(float value in data){if(float.IsNaN(value)||float.IsInfinity(value))throw new Exception("Nonfinite audio sample: "+clip.name);peak=Mathf.Max(peak,Mathf.Abs(value));}
+                    endpoint=Mathf.Max(endpoint,Mathf.Abs(data[0]),Mathf.Abs(data[data.Length-1]));
+                }
+                Check(peak<.9f&&peak>.1f,"Decoded foley is non-silent and retains at least 0.9 dB of sample headroom");
+                Check(endpoint<.001f,"Short foley starts and ends near zero to avoid edge clicks");
+                var sources=sound.GetComponentsInChildren<AudioSource>();
+                Check(sources.Length==sound.VoiceLimit+1,"Effect voices are bounded separately from the ambience source");
+                sound.SetMaster(.8f);AudioClip previous=null;
+                for(int i=0;i<20;i++)
+                {
+                    foreach(var source in sources)if(!source.loop)source.Stop();
+                    sound.Step(BlockId.Grass);yield return null;
+                    var current=sources.Single(source=>!source.loop&&source.isPlaying).clip;
+                    Check(current!=previous,"Consecutive material footsteps choose distinct variations");previous=current;
+                }
+                for(int i=0;i<60;i++)sound.Hit(BlockId.Stone,game.Player.Camera.transform.position+Vector3.forward*3);
+                Check(sound.GetComponentsInChildren<AudioSource>().Length==sources.Length,"Impact overload reuses the fixed voice pool without creating sources");
+                Check(sources.Where(s=>!s.loop&&s.isPlaying).All(s=>s.spatialBlend==1&&s.dopplerLevel==0),"Material impacts use spatial playback without artificial Doppler pitch");
+                sound.SetMaster(0);
+                Check(sources.All(s=>s.volume==0),"Master mute silences already playing effects and wind immediately");
+                foreach(var source in sources)if(!source.loop)source.Stop();
+            }
+            finally{sound.SetMaster(volume);}
+        }
     }
 }

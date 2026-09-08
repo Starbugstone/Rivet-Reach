@@ -60,8 +60,8 @@ namespace RivetReach
             result.maleTriangles=male.TriangleCount;result.femaleTriangles=female.TriangleCount;result.bones=male.BoneCount;result.clips=male.ClipCount;result.fullVertices=male.VertexCount;
             Check(male.AnimationReady&&female.AnimationReady,"Both animation graphs initialize");
             Check(male.ClipCount==28&&female.ClipCount==28,"Both FBX imports contain all twenty-eight clips");
-            Check(male.BoneCount==42&&female.BoneCount==42,"Both imports retain 40 deformation bones and two attachment frames");
-            Check(male.TriangleCount<=35000&&female.TriangleCount<=35000,"Both full models remain within the 35000 triangle review budget");
+            Check(male.BoneCount==50&&female.BoneCount==50,"Both imports retain 48 deformation bones and two attachment frames");
+            Check(male.TriangleCount<=80000&&female.TriangleCount<=80000,"Both full models remain within the 80000 triangle review budget");
             male.SamplePose("Idle",0);female.SamplePose("Idle",0);yield return Capture("01-front");
             male.transform.rotation=female.transform.rotation=Quaternion.Euler(0,180,0);yield return Capture("02-back");
             male.transform.rotation=Quaternion.Euler(0,-20,0);female.transform.rotation=Quaternion.Euler(0,-20,0);
@@ -98,7 +98,7 @@ namespace RivetReach
             foreach(bool isFemale in new[]{false,true})foreach(int skin in new[]{0,1})
             {
                 hands.Build(isFemale,skin);hands.SamplePose("FP_Idle",0);result.armsTriangles=hands.TriangleCount;result.armsVertices=hands.VertexCount;
-                Check(hands.TriangleCount<=6000,"Dominant first-person arm remains below 6000 triangles");
+                Check(hands.TriangleCount<=28000,"Dominant first-person arm remains below 28000 triangles");
                 result.leftWristViewport=reviewCamera.WorldToViewportPoint(hands.BonePosition("HandL"));result.rightWristViewport=reviewCamera.WorldToViewportPoint(hands.BonePosition("HandR"));
                 foreach(var wrist in new[]{result.rightWristViewport})
                     Check(wrist.z>.2f&&wrist.y>0&&wrist.y<.38f&&wrist.x>.12f&&wrist.x<.88f,"Resting wrists sit inside the lower camera frame");

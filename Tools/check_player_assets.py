@@ -6,6 +6,7 @@ for name in ['ExplorerMale','ExplorerFemale']:
  bpy.ops.wm.open_mainfile(filepath=str(root/'ArtSource/Characters'/(name+'.blend')))
  rig=next(o for o in bpy.data.objects if o.type=='ARMATURE');model=next(o for o in bpy.data.objects if o.type=='MESH')
  for v in model.data.vertices:assert abs(sum(g.weight for g in v.groups)-1)<.001
+ assert max(sum(g.weight>1e-6 for g in v.groups) for v in model.data.vertices)<=4
  assert len(model.data.uv_layers)==1 and len(model.data.materials)==1
  for im in bpy.data.images:
   if im.source=='FILE':assert im.filepath.startswith('//') and Path(bpy.path.abspath(im.filepath)).exists()

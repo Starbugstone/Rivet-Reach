@@ -44,6 +44,7 @@ namespace RivetReach
             renderer.sharedMaterial=material;renderer.shadowCastingMode=ShadowCastingMode.Off;
             toolMaterial=new Material(Shader.Find("RivetReach/HeldTool"));toolMaterial.SetTexture("_BaseMap",Resources.Load<Texture2D>("Characters/SkinField"));
             axeMaterial=new Material(Shader.Find("RivetReach/HeldTool"));axeMaterial.SetTexture("_BaseMap",Resources.Load<Texture2D>("Tools/StarterAxe"));
+            axeMaterial.SetFloat("_AxePalette",1);
             view.SetActive(false);
         }
         GameObject Tool(string path)

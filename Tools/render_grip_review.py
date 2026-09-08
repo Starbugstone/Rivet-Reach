@@ -26,8 +26,12 @@ for loc,power,size in [((-2,-3,4),450,3),((3,0,3),220,3)]:
  l=bpy.data.lights.new('Softbox','AREA');l.energy=power;l.size=size;o=bpy.data.objects.new('Softbox',l);bpy.context.collection.objects.link(o);o.location=loc;o.rotation_euler=(Vector((0,-.3,1.2))-o.location).to_track_quat('-Z','Y').to_euler()
 c=bpy.data.cameras.new('Review camera');cam=bpy.data.objects.new('Review camera',c);bpy.context.collection.objects.link(cam)
 scene=bpy.context.scene;scene.camera=cam;scene.render.engine='CYCLES';scene.cycles.samples=20;scene.cycles.use_denoising=True;scene.render.resolution_x=1280;scene.render.resolution_y=720;scene.render.resolution_percentage=100;scene.view_settings.view_transform='AgX'
+if '--low-memory' in sys.argv:
+ scene.render.threads_mode='FIXED';scene.render.threads=2;scene.cycles.use_denoising=False;scene.cycles.samples=48
+if '--denoise' in sys.argv:scene.cycles.use_denoising=True
 results=[]
 for action,prop in [('FP_Idle',None),('FP_HoldBlock',cube),('FP_HoldTool',props['GripSword']),('FP_HoldTwoHandTool',props['GripPickaxe'])]:
+ if '--idle-only' in sys.argv and action!='FP_Idle':continue
  if '--twohand' in sys.argv and 'TwoHandTool' not in action:continue
  rig.animation_data.action=bpy.data.actions[action];scene.frame_set(1);left.hide_render='TwoHandTool' not in action
  for o in [cube,*props.values()]:o.hide_render=o!=prop
@@ -37,6 +41,7 @@ for action,prop in [('FP_Idle',None),('FP_HoldBlock',cube),('FP_HoldTool',props[
  h=rig.pose.bones['HandR'];f=rig.pose.bones['ForearmR']
  results.append({'clip':action,'wristDegrees':math.degrees((h.tail-h.head).angle(f.tail-f.head)),'palmUp':h.matrix.to_3x3().col[2].z})
  for close in [False,True]:
+  if '--close-only' in sys.argv and not close:continue
   if close:
    target=h.head+h.matrix.to_3x3() @ Vector((0,.06,.02));cam.location=target+Vector((-.34,-.35,.20));cam.rotation_euler=(target-cam.location).to_track_quat('-Z','Y').to_euler();c.lens=55;c.sensor_fit='AUTO'
   else:

@@ -69,6 +69,7 @@ namespace RivetReach
             int h=World.Generator.Height(0,0);Player.transform.position=new Vector3(.5f,h+1.01f,.5f);World.Observer=Player.transform;
             var drops=new GameObject("World item stacks");drops.transform.SetParent(transform,false);Items=drops.AddComponent<DroppedItems>();Items.Initialize(this);
             World.BlockMined+=SpawnMinedDrop;
+            World.OriginShifted+=Sound.ShiftOrigin;
         }
         void SpawnMinedDrop(BlockPos pos,byte id)
         {
@@ -139,7 +140,7 @@ namespace RivetReach
             var selected=Inventory.Slots[Selected];
             // One local authority turn: recheck occupancy, commit the voxel, then consume exactly one.
             if(!World.Place(cell,selected.Id))return false;
-            Inventory.Take(Selected,1);Sound.Mine();PlacementDiagnostic="Placed "+Registry.Get(selected.Id).displayName;Notify(PlacementDiagnostic,1);return true;
+            Inventory.Take(Selected,1);Sound.Place(selected.Id,World.Local(cell)+Vector3.one*.5f);PlacementDiagnostic="Placed "+Registry.Get(selected.Id).displayName;Notify(PlacementDiagnostic,1);return true;
         }
         public void Drop(ItemStack stack)
         {
@@ -156,23 +157,4 @@ namespace RivetReach
         void OnDestroy(){Time.timeScale=1;Cursor.lockState=CursorLockMode.None;Cursor.visible=true;if(Instance==this)Instance=null;}
     }
 
-    public sealed class WorldSound : MonoBehaviour
-    {
-        AudioSource source;AudioClip step,mine,pickup;float lastPickup;
-        void Awake()
-        {
-            source=gameObject.AddComponent<AudioSource>();source.spatialBlend=0;source.volume=.26f;
-            step=Make("Stone footstep",120,.07f,.6f);mine=Make("Fist impact",75,.16f,.8f);pickup=Make("Pickup",720,.065f,.1f);
-        }
-        static AudioClip Make(string name,float hz,float duration,float noise)
-        {
-            int n=(int)(22050*duration);float[] data=new float[n];var random=new System.Random(83);
-            for(int i=0;i<n;i++){float envelope=Mathf.Pow(1-i/(float)n,2);data[i]=(Mathf.Sin(i*hz*2*Mathf.PI/22050)*(1-noise)+(float)(random.NextDouble()*2-1)*noise)*envelope*.4f;}
-            var clip=AudioClip.Create(name,n,1,22050,false);clip.SetData(data,0);return clip;
-        }
-        public void Step()=>source.PlayOneShot(step);
-        public void Mine()=>source.PlayOneShot(mine);
-        public void Pickup(){if(Time.unscaledTime-lastPickup<.08f)return;lastPickup=Time.unscaledTime;source.PlayOneShot(pickup);}
-        void OnDestroy(){if(step!=null)Destroy(step);if(mine!=null)Destroy(mine);if(pickup!=null)Destroy(pickup);}
-    }
 }

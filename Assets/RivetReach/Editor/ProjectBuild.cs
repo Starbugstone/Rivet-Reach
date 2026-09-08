@@ -86,6 +86,22 @@ namespace RivetReach.Editor
                 if(importer.filterMode!=FilterMode.Bilinear||importer.textureCompression!=TextureImporterCompression.Uncompressed)
                 {importer.filterMode=FilterMode.Bilinear;importer.textureCompression=TextureImporterCompression.Uncompressed;importer.mipmapEnabled=true;importer.wrapMode=TextureWrapMode.Clamp;importer.SaveAndReimport();}
             }
+            foreach(string name in new[]{"SkinNormal","SkinSurface"})
+            {
+                var importer=(TextureImporter)AssetImporter.GetAtPath("Assets/RivetReach/Resources/Characters/"+name+".png");
+                var type=name=="SkinNormal"?TextureImporterType.NormalMap:TextureImporterType.Default;
+                if(importer.textureType!=type||importer.sRGBTexture||importer.textureCompression!=TextureImporterCompression.Uncompressed)
+                {importer.textureType=type;importer.sRGBTexture=false;importer.textureCompression=TextureImporterCompression.Uncompressed;importer.filterMode=FilterMode.Trilinear;importer.anisoLevel=4;importer.mipmapEnabled=true;importer.wrapMode=TextureWrapMode.Clamp;importer.SaveAndReimport();}
+            }
+            foreach(string path in Directory.GetFiles("Assets/RivetReach/Resources/Audio","*.wav"))
+            {
+                var importer=(AudioImporter)AssetImporter.GetAtPath(path);var settings=importer.defaultSampleSettings;
+                bool ambience=path.EndsWith("WindCanopy.wav");
+                var load=ambience?AudioClipLoadType.Streaming:AudioClipLoadType.DecompressOnLoad;
+                var format=ambience?AudioCompressionFormat.Vorbis:AudioCompressionFormat.PCM;
+                if(settings.loadType!=load||settings.compressionFormat!=format||settings.sampleRateSetting!=AudioSampleRateSetting.PreserveSampleRate)
+                {settings.loadType=load;settings.compressionFormat=format;settings.quality=.85f;settings.sampleRateSetting=AudioSampleRateSetting.PreserveSampleRate;importer.defaultSampleSettings=settings;importer.SaveAndReimport();}
+            }
             var axeImporter=(ModelImporter)AssetImporter.GetAtPath("Assets/RivetReach/Resources/Tools/StarterAxe.fbx");
             if(axeImporter!=null&&(!axeImporter.useFileScale||axeImporter.importAnimation||axeImporter.materialImportMode!=ModelImporterMaterialImportMode.None||!axeImporter.isReadable))
             {axeImporter.useFileScale=true;axeImporter.importAnimation=false;axeImporter.materialImportMode=ModelImporterMaterialImportMode.None;axeImporter.isReadable=true;axeImporter.SaveAndReimport();}
@@ -115,7 +131,11 @@ namespace RivetReach.Editor
             registry.Get(1).fistDropId=2;EditorUtility.SetDirty(registry);
             var tiles=TerrainTiles.Build();
             MaterialAsset("Terrain","RivetReach/VoxelTerrain").SetTexture("_Tiles",tiles);
-            var player=MaterialAsset("Player","Universal Render Pipeline/Lit");player.SetFloat("_Smoothness",.12f);player.SetTexture("_BaseMap",Resources.Load<Texture2D>("Characters/SkinField"));
+            var player=MaterialAsset("Player","RivetReach/ExplorerSkin");player.shader=Shader.Find("RivetReach/ExplorerSkin");
+            player.SetTexture("_BaseMap",Resources.Load<Texture2D>("Characters/SkinField"));
+            player.SetTexture("_SurfaceMap",Resources.Load<Texture2D>("Characters/SkinSurface"));
+            player.SetTexture("_BumpMap",Resources.Load<Texture2D>("Characters/SkinNormal"));
+            player.SetFloat("_FirstPerson",0);player.SetColor("_BaseColor",Color.white);
             MaterialAsset("Selection","Universal Render Pipeline/Unlit");MaterialAsset("Sky","RivetReach/ExpeditionSky");
             var profile=AssetDatabase.LoadAssetAtPath<VolumeProfile>("Assets/RivetReach/Settings/SampleSceneProfile.asset");
             if(profile.TryGet<Bloom>(out var bloom)){bloom.intensity.Override(.08f);bloom.threshold.Override(1.05f);EditorUtility.SetDirty(bloom);}
@@ -148,6 +168,7 @@ namespace RivetReach.Editor
             Directory.CreateDirectory("Builds/PlayerRevision4");
             var report=BuildPipeline.BuildPlayer(new BuildPlayerOptions{scenes=EditorBuildSettings.scenes.Select(s=>s.path).ToArray(),locationPathName="Builds/PlayerRevision4/RivetReach.exe",target=BuildTarget.StandaloneWindows64,options=BuildOptions.Development});
             File.WriteAllText("Logs/build-summary.txt",report.summary.result+"; errors "+report.summary.totalErrors+"; warnings "+report.summary.totalWarnings+"; seconds "+report.summary.totalTime.TotalSeconds+"; bytes "+report.summary.totalSize);
+            File.WriteAllLines("Logs/build-messages.txt",report.steps.SelectMany(step=>step.messages).Where(message=>message.type==LogType.Warning||message.type==LogType.Error).Select(message=>message.type+": "+message.content));
             if(report.summary.result!=BuildResult.Succeeded||report.summary.totalErrors>0)throw new Exception("Windows build failed: "+report.summary.result+"; errors "+report.summary.totalErrors);
             File.Copy("LICENSE.md","Builds/PlayerRevision4/LICENSE.md",true);
             File.Copy(".docs/THIRD_PARTY_NOTICES.md","Builds/PlayerRevision4/THIRD_PARTY_NOTICES.md",true);

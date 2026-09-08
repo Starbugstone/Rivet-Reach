@@ -1,10 +1,10 @@
 [
   {
     "model": "ExplorerMale",
-    "triangles": 31734,
-    "bones": 42,
+    "triangles": 67070,
+    "bones": 50,
     "materials": 1,
-    "maxInfluences": 3,
+    "maxInfluences": 4,
     "clips": [
       {
         "name": "Idle",
@@ -147,18 +147,32 @@
         "loop": false
       }
     ],
-    "deformBones": 40,
+    "deformBones": 48,
     "sockets": [
       "BlockSocket",
       "ToolSocket"
+    ],
+    "hands": [
+      {
+        "side": "L",
+        "skinTriangles": 21008,
+        "connectedComponents": 1,
+        "closedManifold": true
+      },
+      {
+        "side": "R",
+        "skinTriangles": 20372,
+        "connectedComponents": 1,
+        "closedManifold": true
+      }
     ]
   },
   {
     "model": "ExplorerFemale",
-    "triangles": 32126,
-    "bones": 42,
+    "triangles": 68610,
+    "bones": 50,
     "materials": 1,
-    "maxInfluences": 3,
+    "maxInfluences": 4,
     "clips": [
       {
         "name": "Idle",
@@ -301,10 +315,24 @@
         "loop": false
       }
     ],
-    "deformBones": 40,
+    "deformBones": 48,
     "sockets": [
       "BlockSocket",
       "ToolSocket"
+    ],
+    "hands": [
+      {
+        "side": "L",
+        "skinTriangles": 23384,
+        "connectedComponents": 1,
+        "closedManifold": true
+      },
+      {
+        "side": "R",
+        "skinTriangles": 19144,
+        "connectedComponents": 1,
+        "closedManifold": true
+      }
     ]
   }
 ]

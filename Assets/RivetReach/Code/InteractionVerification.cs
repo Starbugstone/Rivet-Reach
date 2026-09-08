@@ -18,7 +18,7 @@ namespace RivetReach
             for(int slot=0;slot<60;slot++)game.Inventory.Take(slot,int.MaxValue);
             game.Selected=0;game.SetAppearance(false,0);yield return null;yield return null;
             Check(!player.HeldBlock.Visible&&player.HeldBlock.ItemId==0,"An empty hotbar slot shows the bare hand");
-            Check(player.Arms.TriangleCount<=6000,"Only the dominant first-person arm is rendered");
+            Check(player.Arms.TriangleCount<=28000,"Only the dominant first-person arm is rendered");
             report.armsTriangles=player.Arms.TriangleCount;report.bodyTriangles=player.Body.TriangleCount;
             yield return Capture("interaction-01-bare-hand");
             player.Pitch=-65;player.VerificationMining=true;var rest=player.Arms.BonePosition("HandR");float travel=0;
@@ -58,7 +58,7 @@ namespace RivetReach
             {
                 player.HeldBlock.SetPreview(grip);yield return new WaitForSecondsRealtime(.35f);
                 Check(player.HeldBlock.Visible&&player.HeldBlock.Socket==player.Arms.Bone("ToolSocket"),"Handle preview attaches to authored grip: "+grip);
-                Check((player.Arms.TriangleCount>6000)==(grip==GripPose.TwoHandTool),"Support hand renders only for the two-hand grip: "+grip);
+                Check((player.Arms.SupportHandVisible)==(grip==GripPose.TwoHandTool),"Support hand renders only for the two-hand grip: "+grip);
                 yield return Capture("interaction-grip-"+grip);
                 player.enabled=false;
                 foreach(float time in new[]{0f,.15f,.3f,.45f,.6f})

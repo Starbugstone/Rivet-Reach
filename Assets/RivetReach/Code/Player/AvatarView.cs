@@ -48,6 +48,7 @@ namespace RivetReach
         public bool Preview;
         int triangles,vertices;
         public int TriangleCount=>triangles+(supportHand!=null&&supportHand.enabled?supportTriangles:0);
+        public bool SupportHandVisible=>supportHand!=null&&supportHand.enabled;
         public int VertexCount=>vertices+(supportHand!=null&&supportHand.enabled?supportVertices:0);
         public int ShadowTriangleCount {get;private set;}
         public int BoneCount {get;private set;}
@@ -63,7 +64,8 @@ namespace RivetReach
             model=Instantiate(asset,transform);model.name=female?"Female":"Male";
             model.transform.localPosition=Vector3.zero;model.transform.localRotation=Quaternion.identity;model.transform.localScale=Vector3.one;
             foreach(var t in model.GetComponentsInChildren<Transform>())bones[t.name]=t;
-            material=FirstPersonArms?new Material(Shader.Find("RivetReach/HeldTool")):new Material(Resources.Load<Material>("Materials/Player"));
+            material=new Material(Resources.Load<Material>("Materials/Player"));
+            material.SetFloat("_FirstPerson",FirstPersonArms?1:0);
             material.SetTexture("_BaseMap",Resources.Load<Texture2D>("Characters/"+(skin==0?"SkinField":"SkinOchre")));
             foreach(var r in model.GetComponentsInChildren<Renderer>())r.sharedMaterial=material;
             foreach(var r in model.GetComponentsInChildren<SkinnedMeshRenderer>())

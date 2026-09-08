@@ -5,10 +5,13 @@ Copyright (c) 2026 Starbugstone. See LICENSE.md. No third-party asset inputs.
 import bpy
 import math
 import json
+import sys
 from pathlib import Path
 from mathutils import Vector, Matrix, Quaternion
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.dont_write_bytecode=True
+sys.path.insert(0,str(ROOT/'Tools'))
 OUT = ROOT / 'Assets/RivetReach/Resources/Characters'
 SOURCE = ROOT / 'ArtSource/Characters'
 OUT.mkdir(parents=True, exist_ok=True)
@@ -445,6 +448,9 @@ def build(female):
     tex=mat.node_tree.nodes.new('ShaderNodeTexImage');tex.image=bpy.data.images.load(str(OUT/'SkinField.png'));tex.image.filepath=bpy.path.relpath(str(OUT/'SkinField.png'),start=str(SOURCE));tex.interpolation='Linear'
     mat.node_tree.links.new(tex.outputs['Color'],mat.node_tree.nodes['Principled BSDF'].inputs['Base Color']);mat.node_tree.nodes['Principled BSDF'].inputs['Roughness'].default_value=.82
     model.data.materials.clear();model.data.materials.append(mat)
+    from refine_player_surfaces import refine
+    from polish_player_rig import polish,material
+    refine(rig,model);polish(rig,model);material(model)
     mod=model.modifiers.new('Weighted explorer skeleton','ARMATURE');mod.object=rig;model.parent=rig
     clips=animate(rig,shoulder,female)
     rig.animation_data.action=bpy.data.actions['Idle'];scene.frame_set(1)
@@ -490,7 +496,8 @@ def animate(rig,shoulder,female,only=None):
     def curl(side,strength):
         for f in range(4):
             rotate('Finger%dA%s'%(f,side),strength*(94-f*1.5))
-            rotate('Finger%dB%s'%(f,side),strength*100)
+            rotate('Finger%dB%s'%(f,side),strength*(110 if 'Finger%dC%s'%(f,side) in bones else 100))
+            if 'Finger%dC%s'%(f,side) in bones:rotate('Finger%dC%s'%(f,side),strength*48)
         b=bones['ThumbA'+side];basis=b.bone.matrix_local.to_quaternion()
         direction=b.bone.tail_local-b.bone.head_local
         q=direction.rotation_difference(Vector(((1 if side=='L' else -1)*.014,.025,-.024)))
@@ -522,7 +529,7 @@ def animate(rig,shoulder,female,only=None):
     def tray_fingers(side):
         h=bones['Hand'+side];direction=h.matrix.to_3x3().col[1]
         for f in range(4):
-            for part in ['A','B']:
+            for part in (['A','B','C'] if 'Finger%dC%s'%(f,side) in bones else ['A','B']):
                 b=bones['Finger%d%s%s'%(f,part,side)];aim(b.name,b.head+direction*b.length)
         # Relaxed abducted thumb stays beside, and below, the supported cube.
         sign=1 if side=='R' else -1
@@ -530,7 +537,8 @@ def animate(rig,shoulder,female,only=None):
         aim('ThumbB'+side,h.matrix @ Vector((sign*.087,.065,.002)))
     def shaft_fingers(side):
         for f in range(4):
-            rotate('Finger%dA%s'%(f,side),51-f*.8);rotate('Finger%dB%s'%(f,side),52)
+            rotate('Finger%dA%s'%(f,side),51-f*.8);rotate('Finger%dB%s'%(f,side),47 if 'Finger%dC%s'%(f,side) in bones else 52)
+            if 'Finger%dC%s'%(f,side) in bones:rotate('Finger%dC%s'%(f,side),8)
         h=bones['Hand'+side];sign=1 if side=='R' else -1
         aim('ThumbA'+side,h.matrix @ Vector((sign*.020,.056,.068)))
         aim('ThumbB'+side,h.matrix @ Vector((sign*.010,.082,.091)))
@@ -666,7 +674,8 @@ def animate(rig,shoulder,female,only=None):
 
 
 if __name__=='__main__':
-    atlas('SkinField');atlas('SkinOchre',True)
+    from create_skin_materials import generate
+    generate()
     report=[build(False),build(True)]
     (SOURCE/'asset-report.json').write_text(json.dumps(report,indent=2)+'\n')
     print('RIVET_ASSETS '+json.dumps(report))

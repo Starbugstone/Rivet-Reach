@@ -22,7 +22,8 @@ namespace RivetReach
         public bool Female;
         public int Skin;
         public float Height=1.8f;
-        float vertical,phase,footstep;
+        float vertical,phase;
+        byte previousHeld;float previousSwingPhase;bool hitSoundPlayed;
         float eyeHeight=1.64f,eyeVelocity;
         Vector2 handSway,handSwayVelocity;
         public float VisualEyeHeight=>eyeHeight;
@@ -36,6 +37,7 @@ namespace RivetReach
         Mesh lineMesh;
         public Vector2? VerificationMovement;
         public bool VerificationMining;
+        public bool? VerificationCrouching;
         public void Initialize(Expedition game)
         {
             Game=game;
@@ -62,6 +64,7 @@ namespace RivetReach
             if(Game==null)return;
 
             bool control=Game.Started&&!Game.Paused&&!Game.InventoryOpen;
+            bool audibleSwing=false;
             if(!Game.Started)
             {
                 ResetSprint();
@@ -79,7 +82,7 @@ namespace RivetReach
             transform.rotation=Quaternion.Euler(0,Yaw,0);
             if(!Game.Paused && Game.World.Ready(Game.World.Address(transform.position)))
             {
-                bool crouch=control&&Game.Input.Held("Crouch");
+                bool crouch=control&&(VerificationCrouching??Game.Input.Held("Crouch"));
                 float desired=crouch?1.25f:1.8f;
                 if(desired<Height||!Game.World.Overlaps(transform.position,.6f,desired))Height=desired;
                 Vector2 input=VerificationMovement??(control?Game.Input.Move:Vector2.zero);
@@ -100,13 +103,19 @@ namespace RivetReach
                 Grounded=ground;if(ground)vertical=-1;
                 Vector3 travelled=transform.position-previous;travelled.y=0;
                 float distance=travelled.magnitude,motion=Mathf.Clamp01(distance/Mathf.Max(.001f,speed*dt));
-                // A gait cycle covers two steps; advance only when the feet can contact terrain.
+                // Footfalls follow the same distance-driven phase as the authored feet.
+                int priorContact=Mathf.FloorToInt(phase/Mathf.PI);
                 if(ground)phase+=distance*(Height<1.5f?3.8f:speed>5?2.2f:2.4f)*(input.y<-.1f?-1:1);
-                if(distance>.001f&&ground){footstep+=dt;if(footstep>.42f){Game.Sound.Step();footstep=0;}}
+                if(ground&&distance>.001f&&Mathf.FloorToInt(phase/Mathf.PI)!=priorContact)
+                    Game.Sound.Step(Game.World.Get(Game.World.Address(transform.position-Vector3.up*.08f)),Height<1.5f?.42f:Sprinting?1.15f:1);
+                if(impact>2)Game.Sound.Land(impact);
                 bool swing=control&&(Game.Input.Mine||VerificationMining)&&!Game.Input.Place;
+                var held=Game.Inventory.Slots[Game.Selected];byte heldId=held.Empty?(byte)0:held.Id;
+                if(heldId!=previousHeld){Game.Sound.Equip();previousHeld=heldId;}
                 var grip=HeldBlock.DesiredGrip;Body.SetGrip(grip);Arms.SetGrip(grip);
                 Body.Animate(motion,swing,phase,Grounded,speed>5,Height<1.5f,input,impact);
                 Arms.Animate(motion,swing,phase,Grounded,speed>5,Height<1.5f,input,impact);
+                audibleSwing=swing;
             }
             if(Inspecting)
             {
@@ -136,13 +145,25 @@ namespace RivetReach
             // Camera aim is direct; only the held hands lag slightly behind a turn.
             Arms.transform.localPosition+=new Vector3(-handSway.x*.0012f,-handSway.y*.001f,0);
             if(control&&!Inspecting)TargetAndMine();else{HasTarget=false;MiningProgress=0;nextPlace=0;}
+            UpdateSwingSound(audibleSwing);
             selection.SetActive(HasTarget);
             if(HasTarget)selection.transform.position=Game.World.Local(Target)-Vector3.one*.002f;
+        }
+        void UpdateSwingSound(bool swing)
+        {
+            // Targeting and camera updates have completed for this frame before contact audio.
+            if(swing)
+            {
+                if(Arms.SwingPhase<previousSwingPhase||previousSwingPhase==0){Game.Sound.Swing();hitSoundPlayed=false;}
+                if(!hitSoundPlayed&&Arms.SwingPhase>=.43f){if(HasTarget)Game.Sound.Hit(TargetId,Game.World.Local(Target)+Vector3.one*.5f);hitSoundPlayed=true;}
+                previousSwingPhase=Arms.SwingPhase;
+            }
+            else{previousSwingPhase=0;hitSoundPlayed=false;}
         }
         void ResetSprint(){doubleTapSprint=false;lastForwardPress=float.NegativeInfinity;Sprinting=false;}
         void UpdateSprintGesture(bool control)
         {
-            if(!control||Game.Input.Rebinding!=null||Game.Input.Held("Crouch")){ResetSprint();return;}
+            if(!control||Game.Input.Rebinding!=null||(VerificationCrouching??Game.Input.Held("Crouch"))){ResetSprint();return;}
             bool forward=Game.Input.Held("Forward")&&!Game.Input.Held("Back");
             if(!forward)doubleTapSprint=false;
             if(!forward||!Game.Input.Pressed("Forward"))return;
@@ -174,7 +195,7 @@ namespace RivetReach
             if(Game.World.Mine(pos,id,tool))
             {
                 byte drop=Game.Registry.FistDrop(id);
-                Game.Sound.Mine();Game.Notify("Gathered "+Game.Registry.Get(drop).displayName+" — walk close to collect",1);
+                Game.Sound.Mine(id,Game.World.Local(pos)+Vector3.one*.5f);Game.Notify("Gathered "+Game.Registry.Get(drop).displayName+" — walk close to collect",1);
             }
         }
         void CreateSelection()
