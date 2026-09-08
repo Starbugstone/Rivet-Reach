@@ -25,6 +25,7 @@ namespace RivetReach
         long nextId=1;
         float accumulator,mergeAt;
         readonly Dictionary<byte,Material> materials=new Dictionary<byte,Material>();
+        readonly Dictionary<byte,Mesh> meshes=new Dictionary<byte,Mesh>();
         readonly Dictionary<(byte,long,int,long),List<Pile>> mergeBuckets=new Dictionary<(byte,long,int,long),List<Pile>>();
         readonly Stack<List<Pile>> spareBuckets=new Stack<List<Pile>>();
         // Enclose the rotated 23 cm display cube as well as its physical height.
@@ -104,16 +105,10 @@ namespace RivetReach
                 if(!visible){if(p.View!=null){Destroy(p.View);p.View=null;}continue;}
                 if(p.View==null)
                 {
-                    p.View=GameObject.CreatePrimitive(PrimitiveType.Cube);p.View.name="Item stack "+p.Id;p.View.transform.SetParent(transform,false);
-                    Destroy(p.View.GetComponent<Collider>());p.View.transform.localScale=Vector3.one*.23f;
-                    if(!materials.TryGetValue(p.Stack.Id,out var m))
-                    {
-                        m=new Material(Resources.Load<Material>("Materials/Player"));m.SetTexture("_BaseMap",Texture2D.whiteTexture);m.SetColor("_BaseColor",Game.Registry.Get(p.Stack.Id).colour);materials.Add(p.Stack.Id,m);
-                    }
-                    p.View.GetComponent<Renderer>().sharedMaterial=m;
+                    p.View=CreateView(p.Stack.Id);p.View.name="Item stack "+p.Id;p.View.transform.SetParent(transform,false);p.View.transform.localScale=Vector3.one*.23f;
                 }
                 p.View.transform.position=p.Position.Local(World.Origin)+Vector3.up*.115f;
-                p.View.transform.rotation=Quaternion.Euler(0,(p.Id*37)%360,0);
+                p.View.transform.rotation=Quaternion.Euler(0,(p.Id*37)%360+Time.time*18,0);
             }
         }
         public void Step(float dt)
@@ -143,7 +138,7 @@ namespace RivetReach
                     if(!World.Raycast(start,delta.normalized,delta.magnitude-.05f,out _,out _))
                     {
                         int left=Game.Inventory.Add(p.Stack.Id,p.Stack.Count);
-                        if(left<p.Stack.Count)Game.Sound.Pickup();
+                        if(left<p.Stack.Count){Game.Sound.Pickup();ArcadePresentation.Active?.Pickup(local,p.Stack.Id);}
                         else Game.Notify("Inventory full — make room to collect this stack",2);
                         p.Stack=new ItemStack(p.Stack.Id,left);
                     }
@@ -193,6 +188,33 @@ namespace RivetReach
             for(int i=Piles.Count-1;i>=0;i--)if(Piles[i].Stack.Empty)Delete(i);
         }
         void Delete(int i){if(Piles[i].View!=null)Destroy(Piles[i].View);Piles.RemoveAt(i);}
-        void OnDestroy(){foreach(var m in materials.Values)Destroy(m);}
+        GameObject CreateView(byte id)
+        {
+            var view=new GameObject("World item display");
+            var capability=Game.Registry.Capabilities(new ItemStack(id,1));
+            if(capability!=ToolCapability.None)
+            {
+                bool axe=(capability&ToolCapability.Axe)!=0;
+                string path=axe?"Tools/StarterAxe":(capability&ToolCapability.Pickaxe)!=0?"Characters/GripPickaxe":"Characters/GripSword";
+                var model=Instantiate(Resources.Load<GameObject>(path),view.transform,false);
+                var renderers=model.GetComponentsInChildren<Renderer>();Bounds bounds=renderers[0].bounds;foreach(var r in renderers)bounds.Encapsulate(r.bounds);
+                float scale=1/Mathf.Max(bounds.size.x,bounds.size.y,bounds.size.z);model.transform.localPosition=-bounds.center*scale;model.transform.localScale*=scale;
+                if(!materials.TryGetValue(id,out var material))
+                {material=new Material(Shader.Find("RivetReach/HeldTool"));material.SetFloat("_FirstPerson",0);material.SetFloat("_AxePalette",axe?1:0);material.SetTexture("_BaseMap",Resources.Load<Texture2D>(axe?"Tools/StarterAxe":"Characters/SkinField"));materials.Add(id,material);}
+                foreach(var renderer in renderers)renderer.sharedMaterial=material;
+            }
+            else
+            {
+                if(!meshes.TryGetValue(id,out var mesh))
+                {
+                    var cells=new byte[34*34*34];cells[ChunkMesher.Index(0,0,0)]=id;var cube=ChunkMesher.Build(default,0,cells);
+                    for(int i=0;i<cube.Vertices.Length;i++)cube.Vertices[i]-=Vector3.one*.5f;
+                    mesh=new Mesh{name="World item voxel "+id};mesh.vertices=cube.Vertices;mesh.normals=cube.Normals;mesh.uv=cube.UV;mesh.uv2=cube.Tiles;mesh.triangles=cube.Triangles;mesh.RecalculateBounds();meshes.Add(id,mesh);
+                }
+                view.AddComponent<MeshFilter>().sharedMesh=mesh;view.AddComponent<MeshRenderer>().sharedMaterial=World.TerrainMaterial;
+            }
+            return view;
+        }
+        void OnDestroy(){foreach(var m in materials.Values)Destroy(m);foreach(var mesh in meshes.Values)Destroy(mesh);}
     }
 }

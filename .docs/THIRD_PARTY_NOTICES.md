@@ -39,6 +39,8 @@ At the first player build, identify the components actually shipped and include 
 
 ## First POC additions
 
+The arcade visual revision also enables the pinned Editor's built-in `com.unity.modules.particlesystem` 1.0.0 module for bounded cosmetic particles and trails. It is supplied with Unity 6000.4.4f1 under the existing Unity Engine terms; no marketplace effect pack or external particle runtime was imported. The debris meshes and effect shaders are original Rivet Reach content.
+
 The first POC enables the pinned Editor's built-in `audio`, `physics` and `screencapture` modules at 1.0.0; `imageconversion` is resolved transitively. These are Unity Engine modules, with the same engine terms as the previously listed built-ins. No external gameplay or asset package was added. The player build includes the engine-provided Mono/D3D runtime libraries and retains their supplied distribution files.
 
 The player models, skin images, terrain tiles, sky/terrain shaders and synthesized sound effects were created for Rivet Reach from the versioned scripts and code. Blender is an authoring tool; its executable and implementation are not redistributed in the game. No third-party character, texture or audio asset was copied. The Windows build helper includes this notice inventory, the supplied package/template license copies and Rivet Reach's proprietary license alongside the player. Some preserved package notices cover development tooling as well as runtime material; inclusion does not imply those tools are gameplay features.

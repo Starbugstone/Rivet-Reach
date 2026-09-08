@@ -1,4 +1,4 @@
-param([string]$OutputDirectory,[switch]$Trees,[switch]$Crafting,[switch]$Audio,[switch]$Ores)
+param([string]$OutputDirectory,[switch]$Trees,[switch]$Crafting,[switch]$Audio,[switch]$Ores,[switch]$Arcade)
 $ErrorActionPreference = 'Stop'
 $project = Split-Path $PSScriptRoot -Parent
 if (!$OutputDirectory) { $OutputDirectory = Join-Path $project 'Logs\POCVerification' }
@@ -10,6 +10,7 @@ if ($Trees) { $arguments += '-rr-tree-review' }
 if ($Crafting) { $arguments += '-rr-crafting-review' }
 if ($Audio) { $arguments += '-rr-audio-review' }
 if ($Ores) { $arguments += '-rr-ore-review' }
+if ($Arcade) { $arguments += '-rr-arcade-review' }
 $process = Start-Process -FilePath $executable -ArgumentList $arguments -PassThru
 if (!$process.WaitForExit(180000)) { throw 'Verification exceeded 180 seconds. The player was left running for diagnosis.' }
 Get-Content (Join-Path $OutputDirectory 'runtime-report.json')

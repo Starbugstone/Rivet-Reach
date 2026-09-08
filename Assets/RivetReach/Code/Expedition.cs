@@ -51,7 +51,9 @@ namespace RivetReach
             RenderSettings.fog=true;RenderSettings.fogMode=FogMode.Linear;RenderSettings.fogColor=new Color(.61f,.71f,.80f);RenderSettings.fogStartDistance=65;RenderSettings.fogEndDistance=135;
             RenderSettings.skybox=Resources.Load<Material>("Materials/Sky");
             Input=new PlayerInput();Registry=ItemRegistry.Load();Recipes=RecipeCatalogAsset.Load().Compile(Registry);Sound=gameObject.AddComponent<WorldSound>();
-            CreateSession(NewRandomSeed());UI=gameObject.AddComponent<GameUI>();UI.Initialize(this);SetMode(ScreenMode.Title);
+            CreateSession(NewRandomSeed());
+            var effects=new GameObject("Arcade presentation");effects.transform.SetParent(transform,false);effects.AddComponent<ArcadePresentation>();
+            UI=gameObject.AddComponent<GameUI>();UI.Initialize(this);SetMode(ScreenMode.Title);
             if(Array.Exists(Environment.GetCommandLineArgs(),s=>s=="-rr-verify"))gameObject.AddComponent<RuntimeVerification>();
         }
         void CreateSession(int seed)
@@ -140,7 +142,7 @@ namespace RivetReach
             var selected=Inventory.Slots[Selected];
             // One local authority turn: recheck occupancy, commit the voxel, then consume exactly one.
             if(!World.Place(cell,selected.Id))return false;
-            Inventory.Take(Selected,1);Sound.Place(selected.Id,World.Local(cell)+Vector3.one*.5f);PlacementDiagnostic="Placed "+Registry.Get(selected.Id).displayName;Notify(PlacementDiagnostic,1);return true;
+            Inventory.Take(Selected,1);Sound.Place(selected.Id,World.Local(cell)+Vector3.one*.5f);ArcadePresentation.Active?.Place(World.Local(cell)+Vector3.one*.5f,selected.Id);PlacementDiagnostic="Placed "+Registry.Get(selected.Id).displayName;Notify(PlacementDiagnostic,1);return true;
         }
         public void Drop(ItemStack stack)
         {

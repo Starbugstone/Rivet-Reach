@@ -154,6 +154,7 @@ namespace RivetReach.Editor
             if(!profile.TryGet<ColorAdjustments>(out var grading))
             {grading=profile.Add<ColorAdjustments>();AssetDatabase.AddObjectToAsset(grading,profile);}
             grading.postExposure.Override(.10f);grading.contrast.Override(6);grading.saturation.Override(2);EditorUtility.SetDirty(grading);EditorUtility.SetDirty(profile);
+            ArcadeTerrainArt.Apply(tiles,MaterialAsset("Terrain","RivetReach/VoxelTerrain"),profile);
             PlayerSettings.companyName="Starbugstone";PlayerSettings.productName="Rivet Reach";PlayerSettings.defaultScreenWidth=1280;PlayerSettings.defaultScreenHeight=720;
             PlayerSettings.fullScreenMode=FullScreenMode.Windowed;PlayerSettings.resizableWindow=true;PlayerSettings.runInBackground=true;
             EditorBuildSettings.scenes=new[]{new EditorBuildSettingsScene("Assets/RivetReach/Scenes/Main.unity",true)};

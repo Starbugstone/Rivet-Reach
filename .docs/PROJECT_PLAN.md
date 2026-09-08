@@ -181,7 +181,7 @@ The game keeps the block aesthetic but improves presentation through features su
 - more detailed mob models;
 - dynamic lighting where performance allows it.
 
-The POC should remain visually modest until the world/simulation architecture is proven.
+The user subsequently authorized the current slice’s [arcade visual and dynamic-effects treatment](CONTENT_PIPELINE.md#arcade-presentation-and-dynamic-feedback). Its presentation evolves alongside the existing world/simulation architecture and measured runtime checks.
 
 ### Performance tooling
 

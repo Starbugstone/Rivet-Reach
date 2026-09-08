@@ -27,6 +27,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _DetailTiles:
+        m_Texture: {fileID: 18700000, guid: 6ab821cbf67f1bc4daab9fede1b76ccb, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Tiles:
         m_Texture: {fileID: 18700000, guid: 122fef48d12a5384d8e621350f5f677f, type: 2}
         m_Scale: {x: 1, y: 1}

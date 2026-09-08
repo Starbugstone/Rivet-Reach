@@ -22,6 +22,7 @@ namespace RivetReach
             public float frameMedianMs,frameP95Ms,frameMaxMs,firstReadySeconds,miningFrameMaxMs;
             public double miningMeshMs,placementMeshMs,grassTickMaxMs;
             public int grassChanges;
+            public int arcadeParticlePeak,arcadeGrassTufts,arcadeGrassTriangles;
             public double generatedLogRecognitionNs,placedLogRecognitionNs,unloadedLogRecognitionUs,treeTickMaxMs,treeCutMs;
             public int startupSeed;
             public int viewRadius;public float fogStart,fogEnd;
@@ -105,6 +106,8 @@ namespace RivetReach
             {report.workload="Generated trees, axe-only upward felling, leaf decay and tree streaming";yield return ReviewTrees();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-audio-review"))
             {report.workload="Imported foley quality, voice bounds, variation and master mute";yield return ReviewAudio();yield break;}
+            if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-arcade-review"))
+            {report.workload="Arcade materials, action feedback, particle bounds and visual motion capture";yield return ReviewArcade();yield break;}
             bool visualOnly=Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-visual-review");
             report.workload=visualOnly?"Visual review and first-person body regression":"Full terrain/inventory and visual regression";
             yield return ReviewVisuals();

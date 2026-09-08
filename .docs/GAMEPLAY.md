@@ -19,6 +19,8 @@ Working interaction contract (detailed in section 9):
 
 Technical candidate budgets live in [SIMULATION.md](SIMULATION.md). Multiplayer latency handling will need separate validation when networking is designed.
 
+The current arcade presentation request adds dynamic cosmetic feedback to the playable slice. [The presentation contract](CONTENT_PIPELINE.md#arcade-presentation-and-dynamic-feedback) owns its style and effect boundaries; [runtime evidence](verification/ARCADE_VISUAL_RESULTS.md) separates checks from artistic acceptance.
+
 ## 2. First-session experience
 
 **Proposed scenario:** a new player can discover a useful material, learn a recipe, make a tool, improve a process and understand a small automated chain without external documentation. Experienced players can move directly toward known capabilities.

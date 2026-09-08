@@ -230,11 +230,12 @@ namespace RivetReach
             }
             else if(game.Mode==ScreenMode.Settings)
             {
-                Slider(p.transform,"Look sensitivity",112,game.Input.Sensitivity,.03f,.25f,v=>{game.Input.Sensitivity=v;PlayerPrefs.SetFloat("sensitivity",v);});
-                Slider(p.transform,"Field of view",192,game.Player.Camera.fieldOfView,65,95,v=>{game.Player.Camera.fieldOfView=v;PlayerPrefs.SetFloat("fov",v);});
-                Slider(p.transform,"View distance (chunks)",272,game.World.ViewDistance,4,14,v=>{game.World.ViewDistance=Mathf.RoundToInt(v);PlayerPrefs.SetInt("viewDistance.v2",game.World.ViewDistance);RenderSettings.fogStartDistance=game.World.FogStart;RenderSettings.fogEndDistance=game.World.FogEnd;},true);
-                Slider(p.transform,"Interface scale",352,Mathf.Clamp(PlayerPrefs.GetFloat("uiScale",1),.85f,1),.85f,1,v=>{PlayerPrefs.SetFloat("uiScale",v);root.localScale=Vector3.one*v;});
-                Slider(p.transform,"Sound volume",432,game.Sound.Master,0,1,game.Sound.SetMaster);
+                Slider(p.transform,"Look sensitivity",94,game.Input.Sensitivity,.03f,.25f,v=>{game.Input.Sensitivity=v;PlayerPrefs.SetFloat("sensitivity",v);});
+                Slider(p.transform,"Field of view",162,game.Player.Camera.fieldOfView,65,95,v=>{game.Player.Camera.fieldOfView=v;PlayerPrefs.SetFloat("fov",v);});
+                Slider(p.transform,"View distance (chunks)",230,game.World.ViewDistance,4,14,v=>{game.World.ViewDistance=Mathf.RoundToInt(v);PlayerPrefs.SetInt("viewDistance.v2",game.World.ViewDistance);RenderSettings.fogStartDistance=game.World.FogStart;RenderSettings.fogEndDistance=game.World.FogEnd;},true);
+                Slider(p.transform,"Interface scale",298,Mathf.Clamp(PlayerPrefs.GetFloat("uiScale",1),.85f,1),.85f,1,v=>{PlayerPrefs.SetFloat("uiScale",v);root.localScale=Vector3.one*v;});
+                Slider(p.transform,"Sound volume",366,game.Sound.Master,0,1,game.Sound.SetMaster);
+                Slider(p.transform,"Effect intensity",434,ArcadePresentation.Active.Intensity,0,1,ArcadePresentation.Active.SetIntensity);
                 Button(p.transform,"REBIND CONTROLS",36,537,346,44,()=>game.SetMode(ScreenMode.Controls));
                 Button(p.transform,"APPLY",407,537,346,44,()=>{PlayerPrefs.Save();game.SetMode(game.Started?ScreenMode.Pause:ScreenMode.Title);},true);
             }

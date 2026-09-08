@@ -1,0 +1,17 @@
+[
+  {
+    "mesh": "StoneChip",
+    "triangles": 44,
+    "materials": 1
+  },
+  {
+    "mesh": "WoodSliver",
+    "triangles": 44,
+    "materials": 1
+  },
+  {
+    "mesh": "LeafChip",
+    "triangles": 104,
+    "materials": 1
+  }
+]
