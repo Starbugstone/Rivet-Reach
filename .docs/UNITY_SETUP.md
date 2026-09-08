@@ -30,7 +30,7 @@ The starter assets/settings come from the Editor's bundled 3D URP template. Tuto
 
 Direct packages are URP, Input System, Unity UI, Test Framework and Visual Studio integration. The lockfile records transitive packages. Framework availability does not mean gameplay tests have been implemented or run.
 
-Unity uses visible `.meta` files and text asset serialization. Track `Assets`, `Packages` and `ProjectSettings`; `.gitignore` excludes `Library`, `Temp`, `Logs`, `UserSettings`, builds and generated IDE files. Keep every tracked asset's `.meta` file. No binary art sources were introduced, so Git LFS configuration is deferred until those assets are added.
+Unity uses visible `.meta` files and text asset serialization. Track `Assets`, `Packages` and `ProjectSettings`; `.gitignore` excludes `Library`, `Temp`, `Logs`, `UserSettings`, builds and generated IDE files. Keep every tracked asset's `.meta` file. Initialization introduced no binary runtime art. The later [concept-art gallery](concept-art/README.md) adds PNG references outside `Assets`, tracked through Git LFS; run `git lfs pull` after cloning to retrieve those images. Actual runtime art/source formats remain governed by CONTENT_PIPELINE.md.
 
 License provenance and retained upstream notices are recorded in [Third-party notices](THIRD_PARTY_NOTICES.md).
 

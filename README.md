@@ -34,6 +34,7 @@ See [LICENSE.md](LICENSE.md) for the complete terms.
 
 ## Design documents
 
+- [Concept art](.docs/concept-art/README.md) - player turnarounds, future equipment and three first-person terrain/UI drafts; visual references, not implemented screenshots.
 - [PROJECT_PLAN.md](.docs/PROJECT_PLAN.md) - technical plan, architecture, POC and long-term target.
 - [DEVELOPMENT_STRATEGY.md](.docs/DEVELOPMENT_STRATEGY.md) - how to build the final architecture incrementally while keeping gameplay responsive and performance-aware.
 - [GAMEPLAY.md](.docs/GAMEPLAY.md) - responsive play, progression, exploration rewards and full-game completeness.

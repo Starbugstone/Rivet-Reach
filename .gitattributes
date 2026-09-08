@@ -9,3 +9,5 @@
 *.inputactions text eol=lf
 # Preserve upstream license/notice formatting verbatim.
 .docs/licenses/** whitespace=-blank-at-eol,-blank-at-eof
+# Version concept PNGs through Git LFS; keep documentation in ordinary Git.
+.docs/concept-art/*.png filter=lfs diff=lfs merge=lfs -text
