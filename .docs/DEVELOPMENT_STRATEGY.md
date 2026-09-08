@@ -10,7 +10,10 @@ Related documents:
 - [GAMEPLAY.md](GAMEPLAY.md) - player experience and responsiveness.
 - [SIMULATION.md](SIMULATION.md) - simulation correctness, persistence and performance contracts.
 - [TRANSPORT.md](TRANSPORT.md) - world travel, Gates, rockets and transport architecture.
-- [DESIGN_QUESTIONS.md](DESIGN_QUESTIONS.md) - unresolved design choices.
+- [DESIGN_QUESTIONS.md](DESIGN_QUESTIONS.md) - working decisions and remaining validation.
+- [ECONOMY.md](ECONOMY.md) - first real resource/recipe chain and finite extraction.
+- [DELIVERY.md](DELIVERY.md) - release scope and verification.
+- [CONTENT_PIPELINE.md](CONTENT_PIPELINE.md) - asset conventions and import checks.
 
 ---
 
@@ -227,7 +230,7 @@ It does not need every future migration/recovery feature before mining feels goo
 
 ## 6. Recommended implementation sequence
 
-This sequence prioritizes playable feedback while continuously exercising the final architecture.
+This is the authoritative stage order, mirrored by PROJECT_PLAN.md. It prioritizes playable feedback while continuously exercising the final architecture. The 2026-09-08 resolution pass aligns both documents and supplies behavioural contracts in the specialist specifications.
 
 ### Stage 0 - Core feel on real voxel foundations
 
@@ -260,7 +263,7 @@ Add:
 
 - real item registry and stack model;
 - hotbar and main inventory;
-- resource drops/gathering;
+- resource drops/gathering, stack merging, sleeping piles and block-water interaction;
 - data-driven grid crafting;
 - workbench/furnace;
 - save/reload of terrain, inventory and simple block entities;
@@ -278,8 +281,9 @@ Goal: **prove that Rivet Reach's automation is satisfying, not only technically 
 Add:
 
 - common machine architecture;
-- generator;
-- powered crusher;
+- starter boiler-engine and alternator with manual water/fuel bootstrap;
+- powered crusher, pump and finite-terrain drill;
+- minimal tank/fluid pipes using the final quantity/type model;
 - containers;
 - item pipes using a logical network;
 - power cables/network;
@@ -291,13 +295,12 @@ Add:
 Target playable chain:
 
 ```text
-resource gathering
--> furnace / materials
--> generator
--> crusher
--> item pipe
--> storage
--> signal control
+manual gathering / smelting / components
+-> boiler-engine + alternator
+-> crusher + storage + pipes + signal control
+-> pump sustains water
+-> drill automates finite extraction
+-> more useful construction / next deposit
 ```
 
 Acceptance question:

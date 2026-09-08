@@ -1,6 +1,6 @@
 # Rivet Reach - Player Experience and Complete-Game Scope
 
-> **Status:** brainstorming specification. Existing pillars are agreed direction; experience targets and reward models below are proposals. No feature is implemented or playtested.
+> **Status:** brainstorming specification with working resolutions dated 2026-09-08. Existing pillars and world-item rules remain agreed direction. Sections 9-12 select the interaction, survival and water baseline under the user's request to resolve design gaps. No feature is implemented or playtested.
 
 Related: [PROJECT_PLAN.md](PROJECT_PLAN.md), [LORE.md](LORE.md), [TRANSPORT.md](TRANSPORT.md), [DESIGN_QUESTIONS.md](DESIGN_QUESTIONS.md).
 
@@ -8,7 +8,7 @@ Related: [PROJECT_PLAN.md](PROJECT_PLAN.md), [LORE.md](LORE.md), [TRANSPORT.md](
 
 The intended game responds clearly to player actions while supporting large persistent systems. High average FPS alone does not establish responsiveness.
 
-Proposed interaction contract:
+Working interaction contract (detailed in section 9):
 
 - targeting, placement previews, hotbar changes and inventory actions acknowledge input promptly;
 - an invalid action explains its relevant cause: obstruction, range, missing resource or incompatible port;
@@ -23,7 +23,7 @@ Technical candidate budgets live in [SIMULATION.md](SIMULATION.md). Multiplayer 
 
 **Proposed scenario:** a new player can discover a useful material, learn a recipe, make a tool, improve a process and understand a small automated chain without external documentation. Experienced players can move directly toward known capabilities.
 
-The recipe browser should expose prerequisites and machine requirements without revealing every exploration secret. Discoverability must not become an invisible crafting lock. Open: a spoiler setting, unknown-material silhouettes, and how much of an undiscovered recipe path is shown.
+The recipe browser should expose prerequisites and machine requirements without revealing every exploration secret. Discoverability must not become an invisible crafting lock. Default browsing shows discovered items and the immediate prerequisite chain of a pinned goal, using silhouettes for undiscovered optional realm artifacts. A player-selectable full-recipe view exposes every ordinary manufacturing recipe. Both views use the same unrestricted craft validation; neither reveals undiscovered world coordinates.
 
 Do not set a mandatory timed tutorial yet. Observe where players become confused, how long they spend walking or collecting, and whether a completed machine creates an understandable benefit. Exact onboarding prompts and first-session pacing remain open.
 
@@ -45,11 +45,9 @@ Steam and electricity should change layout and control decisions. Aerospace shou
 
 **Agreed direction:** realms require personal exploration and cannot become unattended inter-world mining colonies.
 
-**Proposed reward preference:** favour durable upgrades, reusable catalysts, unusual building options, discoveries and substantial expedition yields. A discovered technique can reveal a manufacturing path without creating a mandatory research-point gate.
+**Working reward decision:** use durable upgrades, reusable catalysts, unusual building options, discoveries and substantial expedition yields, as specified in [ECONOMY.md](ECONOMY.md). A discovered technique can reveal a manufacturing path without creating a mandatory research-point gate.
 
-Recurring realm materials remain an option, but review the full consumption rate. A factory that continually exhausts manually gathered material can turn exploration into maintenance. Compare expedition yield, industrial consumption, trip duration and variety of encounters before committing to such a chain.
-
-Open alternatives: finite caches, renewable encounters, distant new deposits, reusable rare components or mostly optional realm technology. Decide whether any realm visit is required for core aerospace/endgame progression, and ensure early access does not create an impossible repair/material dependency loop.
+Core physical-world progression, including aerospace and ordinary teleporters, has no mandatory realm visit or realm-consumable supply dependency. Optional specialized machines may require additional durable recovered artifacts per new machine, but never consume them continuously to sustain throughput. Dismantling recovers those components. First-Gate repairs use surface-accessible salvage/substitutes so access cannot depend on already crossing the closed Gate.
 
 ## 5. Distance, discovery and return journeys
 
@@ -57,23 +55,23 @@ Coordinate preservation protects geography, but distance still consumes player t
 
 Measure first-Gate discovery time, travel between meaningful discoveries, expedition return burden and the usefulness of maps/markers. Sparse structures should feel intriguing without making the main exploration system practically invisible to unlucky players.
 
-Open: local vehicles before teleportation, personal waypoints, death recovery and expedition supplies. These are design questions, not added committed features. A realm with easier terrain may offer a faster journey despite equal X/Z distance; decide whether that is an acceptable reward, consistent with the existing transport direction.
+Personal waypoints and durable death caches are selected in section 10. Easier terrain may reward faster travel at equal X/Z distance. Local vehicles remain later content, not a dependency of safe return. Regional clues lead toward Gates under the distribution model in TRANSPORT.md.
 
 ## 6. Complete-game coverage
 
-The POC proves selected architecture. A complete release also needs coherent player-facing systems and recovery paths. This table records coverage to design, not a promise that every possible feature will ship.
+The POC proves selected architecture. A complete release also needs coherent player-facing systems and recovery paths. This table records coverage; selected baseline decisions are detailed in sections 9-12 and DELIVERY.md. Entries describe the remaining refinements, not permission to ignore the selected rules.
 
 | Area | Complete experience to specify | Still open |
 |---|---|---|
-| Building and inventory | Reliable targeting, placement, mining, storage and understandable item handling | Tool wear, block recovery, bulk building and inventory conveniences |
-| Survival and combat | Readable threats, player damage, death/respawn and recovery | Difficulty, hunger if any, death penalties and factory damage |
-| Industry | Useful progression, maintainable layouts and understandable failures | Mechanical depth, power shortages, routing and resource renewal |
+| Building and inventory | Reliable targeting, placement, mining, storage and understandable item handling | No starter tool wear; refine bulk building beyond settings copy and atomic recovery |
+| Survival and combat | Readable threats, player damage, death/respawn and recovery | Tune health/combat; baseline has no hunger, durable death caches and no automatic factory raids |
+| Industry | Useful progression, maintainable layouts and understandable failures | Extend mechanical depth and tune the selected shortage/routing/finite-ore model |
 | Exploration and worlds | Distinct discoveries, navigation and rewarding expeditions | Realm rewards, biome/planet set and discovery pacing |
 | Transport | First expedition, repeat travel, safe return and cargo failure handling | Fuel, pad rules, Gate repair and teleporter costs |
 | Settlements and ecology | World inhabitants with clear behaviour and a reason to encounter them | Trading, farming, NPC interaction depth and persistence |
 | Interface and accessibility | Rebinding, readable text/UI, clear feedback and usable options | Controller scope, UI scaling, reduced motion, audio cues and localization |
-| Persistence and lifecycle | Create/load/save, pause/quit, settings and intelligible recovery | Backup policy, compatibility window and supported platforms |
-| Multiplayer, after single-player foundations | Joining, ownership, permissions, disconnect/reconnect and shared-world behaviour | Hosting model, player counts, claims and cooperative factory ownership |
+| Persistence and lifecycle | Create/load/save, pause/quit, settings and intelligible recovery | Test checkpoint/migration policy and later platform expansion |
+| Multiplayer, after single-player foundations | Joining, ownership, permissions, disconnect/reconnect and shared-world behaviour | Implement claims/access and cooperative hosting under personal loader ownership |
 | Long-term motivation | Meaningful goals after reaching advanced industry | Megaprojects, optional mastery goals and whether any explicit completion milestone exists |
 
 No mandatory final boss, quest story or finite ending is implied. “Complete” means the chosen scope works as a coherent game, including onboarding, failures, saves and late play.
@@ -192,3 +190,71 @@ Pipe item
 Optional moving icons/items visible inside pipes can be cosmetic only.
 
 This keeps the world tactile and Minecraft-like while allowing large factories to scale without thousands of authoritative moving item entities.
+
+## 9. Working interaction specification
+
+**Resolution dated 2026-09-08:** the following selects concrete behaviour for the previously broad responsiveness goal. Values are initial tuning parameters; rules and acceptance cases govern the first playable stages. Existing drop/sinking/buoyancy rules in section 8 remain unchanged.
+
+### Movement and targeting
+
+One voxel edge represents one metre. Start with a 0.6 m wide, 1.8 m tall player collision volume, 4.5 m/s walk, 6.5 m/s sprint and a jump that clears one block. Sprint has no stamina meter in the initial survival rules. Crouch reduces height/speed and prevents stepping off an edge unless the player deliberately jumps. Water slows movement; swimming uses held vertical input. These values need feel testing rather than physical realism.
+
+Target the authoritative voxel grid within 5 m, not a possibly stale render mesh. Display the selected face, block identity where discovered, placement ghost and mining progress. Mining uses a held action with duration from block hardness and tool capability; changing target resets uncommitted progress. There is no mandatory mouse-click-per-block repetition. Wood is hand-breakable; a wooden pick mines stone, and a stone pick mines starter ores. An inadequate tool reports the required capability and does not silently destroy ore without its expected drop.
+
+The first tools do not wear out. Durability is deferred unless playtests establish a useful maintenance decision; it must not become a surprise prerequisite for early-loop completion. Mining permission and item yield are server-authoritative even though sound/selection feedback can begin locally.
+
+### Placement and inventory
+
+Placement uses the targeted face and a rotatable ghost. Rotate cycles through allowed orientations defined by the block/machine; ordinary machines initially rotate in four horizontal directions. Placement fails visibly when out of reach, obstructed, unsupported where support is required, protected, or overlapping a player/entity. Inventory is consumed only when the world placement commits. Held repeat placement is rate-limited and uses the current target each time.
+
+Use 12 hotbar slots plus 48 main slots as the initial configuration. Direct keys select the first ten slots; mouse wheel and rebindable next/previous actions reach all twelve. Initial stack limits: terrain blocks 500, raw resources 250, components 100, machines 10, unique equipment 1. These are content definitions, not hard-coded assumptions in inventory storage.
+
+Support quick transfer, splitting, combining compatible stacks, drag placement and a full-inventory message. Pickup accepts as much of a pile as fits and leaves the remainder with its identity/timer. Normal drop releases one item; modified drop releases the stack. A 0.75-second owner pickup delay prevents instantly recollecting an intentional throw; another player may collect it under ordinary pickup rules. Initial automatic pickup radius is 1.5 m and requires no solid barrier between player and pile. Eligible players compete in a stable tick/entity order; a pickup transfers only actual accepted quantity. The delay/ownership metadata participates in legal merge compatibility.
+
+### Machine footprint and dismantling
+
+A machine definition declares anchor, occupied cells, allowed rotations and ports relative to that anchor. Initial machines may occupy one cell, but placement validation reserves the entire footprint atomically. A later multi-block machine uses one logical identity, not independent inventories in each occupied cell.
+
+A wrench interaction toggles compatible side configurations and inspects ports. A deliberate dismantle action pauses the machine, cancels uncommitted reservations and returns the machine item, stored stacks and unprocessed recipe escrow. Previously spent fuel/energy is not refunded. Completed outputs remain outputs. If the player lacks space, recoverable items become ordinary world stacks at a safe nearby cell; a protected recovery parcel is used when no safe drop cell exists. Removing any occupied cell addresses the same dismantle command.
+
+Copy/paste of machine settings is a construction convenience for the industrial stage. It copies compatible configuration only, never inventory or manufactured equipment. Full structure blueprints are later scope; their absence must not prevent placing a useful first factory.
+
+## 10. Survival, death and expedition recovery
+
+**Working default:** health-based survival with readable melee/ranged enemies, no hunger/starvation, no temperature/toxic-atmosphere gate and no automatic enemy raids on factories. Food restores health with a short use cooldown. Hostiles threaten players; baseline attacks do not dismantle machines or destroy terrain. Player tools/quarries can alter terrain under their explicit permissions.
+
+On death, transfer carried inventory/equipment into one durable recovery cache and respawn at the player's bound shelter, or the world's safe starting spawn if that shelter is unavailable. A realm death respawns the player at their physical-world shelter; the cache remains in the realm with a known route/waypoint. Learned recipe visibility and discovered map markers remain. No XP penalty exists.
+
+The cache cannot burn, despawn, merge with loose piles or cross a Gate automatically. It is stored in persistent world metadata without keeping chunks active. If the death point is inside a hazard or inaccessible cell, place the cache at the last recorded safe grounded position in that world; use the arrival sanctuary when there is no such position. Repeated deaths create distinct caches rather than replacing the previous one. Cache contents remain recoverable after another player edits surrounding terrain; inspection includes position and recovery guidance.
+
+Only the owner can withdraw cache items by default; explicit cooperative permission can allow help. Reaching the cache is the consequence of death. A character cannot intentionally die to teleport carried cargo home. The cache is a deliberate exception to ordinary timed world drops, preserving the recently agreed physical-item behaviour for mining, mobs and manual dropping.
+
+Personal waypoints and a death marker are available early. Maps record visited terrain; they do not reveal undiscovered Gates/ores. A handheld compass/coordinate readout and marker labels make return journeys practical. Earlier ordinary surface vehicles can be introduced in the expansion stage, but coordinate-preserving world travel does not depend on them. Easier realm terrain can reward a faster walk at the same distance; no coordinate scaling is introduced.
+
+## 11. Initial world-water behaviour visible to players
+
+Water occupies voxel cells as source or flowing water. Sources produce descending flow and a limited horizontal spread; water routes around simple block obstacles, pushes entities and can be redirected by construction. The initial horizontal reach is 7 cells from a source/falling column on one level. Flow does not form new sources merely because two sources are adjacent. Generated lakes/rivers contain authored seeded source cells; a placed bucket source is explicitly marked as a source too.
+
+A bucket takes one source into a 10 L container and removes that placed/generated source cell; nearby sources may refill it with flowing water, which is not a newly created source. Emptying the bucket places one source in a legal empty cell. Interacting with a tank instead transfers 10 L from the bucket into available tank capacity atomically; if less than 10 L is free the operation is rejected without loss. Filling a bucket from a tank removes exactly 10 L and never creates extra fluid. Pumps read an eligible source as a renewable water intake at their defined rate; flowing water is not a pump source. Removing or blocking the intake stops it. This deliberate source abstraction makes water renewable without simulating an entire lake's volume or distant flow.
+
+Source water is inexhaustible for pumping, but tank/pipe quantities are conserved after intake. A pipe leak/ejector cannot create a source for less than a full 10 L placement action. Ordinary industrial flow stays in buffers; visual pipe particles do not wet terrain.
+
+Items continue to sink by default and float only with `buoyant=true`. Currents act on both. Channel transport needs physical piles and a physical intake/collector, with merge and pickup rules; pipes transfer inventory data directly. Channels remain a valid early construction choice. They lack filters, sealed routing and the controlled throughput of pipes; no arbitrary rule makes an otherwise valid water channel stop working because pipes are available.
+
+## 12. Interaction acceptance cases
+
+Before Stage 0 completes, test moving/jumping/crouching across chunk seams, mining directly beneath the player, rapid wall edits, placement near the body and looking beyond generated terrain. There must be no invisible newly placed obstacle, traversable uncommitted wall or fall through unready collision.
+
+Stage 1 adds the full recipe bootstrap in [ECONOMY.md](ECONOMY.md), configurable actions, partial pickup, owner drop delay, full-inventory handling, world-item sinking/floating, redirected water, death-cache recovery and save/reload. Water/item visuals must remain readable when cosmetic animation is reduced.
+
+Stage 2 adds a furnace/boiler/crusher chain, one deliberate starvation/full-output fault, settings copy, rotated ports and dismantling with a full inventory. Show stop reasons on the machine, not only in a debug console.
+
+Values are adjusted through recorded playtests. The current rules are complete enough to build the first increments without deciding every late-game vehicle, creature or recipe.
+
+## 13. Settlements and cooperative-world baseline
+
+Settlements provide recognizable inhabitants, shelter landmarks and a small trade catalogue; they are not required quest gates or walking lore encyclopaedias. Use local schedules and inventory offers that restock only through an explicit timed/source rule while eligible. No full offscreen civilization economy is required. Trades must not offer cheaper reverse recipes that generate unlimited metal. Farming supports food/healing and renewable plant materials; livestock use a small shared behaviour set rather than custom planet-wide simulations.
+
+Cooperative worlds distinguish build/use/storage permissions from production-ticket ownership. Players can grant a group access to a base and its machines, but a loader keeps one explicit owner and quota account until transferred. Claims protect placed blocks, inventories and mining targets; they cannot appropriate a Gate sanctuary or block its return interaction. Unclaimed natural terrain remains editable under server rules. PvP is off by default for the initial cooperative profile. Changing those server rules is an explicit configuration choice, not an implicit consequence of multiplayer.
+
+Late-game goals come from constructing settlements, expanding useful industrial capacity, completing optional artifact collections and building multi-world projects. The release progression must provide durable uses for advanced output; it does not require a narrative victory screen. Final trade catalogues, creatures, optional megaproject recipes and combat numbers remain content work.

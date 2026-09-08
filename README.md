@@ -27,11 +27,14 @@ The design will remain **evolutive** while ideas are brainstormed and the POC is
 - [PROJECT_PLAN.md](.docs/PROJECT_PLAN.md) - technical plan, architecture, POC and long-term target.
 - [DEVELOPMENT_STRATEGY.md](.docs/DEVELOPMENT_STRATEGY.md) - how to build the final architecture incrementally while keeping gameplay responsive and performance-aware.
 - [GAMEPLAY.md](.docs/GAMEPLAY.md) - responsive play, progression, exploration rewards and full-game completeness.
-- [SIMULATION.md](.docs/SIMULATION.md) - proposed simulation, persistence and benchmark contracts.
+- [SIMULATION.md](.docs/SIMULATION.md) - working simulation/persistence contracts and candidate benchmark budgets.
 - [LORE.md](.docs/LORE.md) - hidden lore, world history, Gatebuilders and current mob/world rules.
 - [TRANSPORT.md](.docs/TRANSPORT.md) - Gate networks, rockets, coordinate-preserving travel, portal state and future transport systems.
-- [DESIGN_QUESTIONS.md](.docs/DESIGN_QUESTIONS.md) - prioritized questions, provisional options and validation needs.
+- [ECONOMY.md](.docs/ECONOMY.md) - finite extraction, first recipes and durable exploration rewards.
+- [CONTENT_PIPELINE.md](.docs/CONTENT_PIPELINE.md) - asset scale, Blender/Unity import and source conventions.
+- [DELIVERY.md](.docs/DELIVERY.md) - release scope, verification and production dependencies.
+- [DESIGN_QUESTIONS.md](.docs/DESIGN_QUESTIONS.md) - resolved working decisions, remaining questions and validation needs.
 
 Project specifications live in `.docs/`. Contributor and agent workflow is recorded in [AGENTS.md](AGENTS.md).
 
-**Decision status:** agreed direction describes existing project intent; proposals remain subject to brainstorming and future tests; open questions are not settled requirements. Numerical targets are provisional until measured.
+**Decision status:** agreed direction describes existing project intent; working decisions resolve design gaps under the user's delegated request; proposals remain subject to brainstorming and future tests; open questions are not settled requirements. Numerical targets are provisional until measured.

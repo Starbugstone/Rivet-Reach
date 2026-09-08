@@ -11,7 +11,7 @@ The project is at the beginning: brainstorming, documentation and specifications
 - Read `README.md`, `.docs/PROJECT_PLAN.md`, `.docs/DEVELOPMENT_STRATEGY.md` and the relevant specialist documents before changing the design.
 - Preserve the full-game vision while building toward it through small playable increments.
 - Do not treat gameplay responsiveness, scalability and final architecture as competing goals; the project explicitly requires all three to evolve together.
-- Distinguish agreed direction, proposals to validate, and unresolved questions. An assistant suggestion is not an approved design decision.
+- Distinguish agreed direction, working decisions selected under an explicit user request to resolve designs, proposals to validate, and unresolved questions. Record delegated solutions as working specifications with rationale and remaining evidence; do not claim that each numerical default was explicitly chosen by the user or validated by tests.
 - Make useful documentation changes autonomously within the user's request. Record nonblocking design questions in `.docs/DESIGN_QUESTIONS.md`; ask directly only when an answer is needed to proceed.
 - Keep each detailed rule in its authoritative document; summaries elsewhere should link to it. Update affected summaries when a rule changes.
 - Keep links relative and verify them after moving or adding documents.
@@ -26,7 +26,10 @@ The project is at the beginning: brainstorming, documentation and specifications
 - `GAMEPLAY.md`: player experience, responsiveness, progression and full-game completeness.
 - `TRANSPORT.md`: Gate/rocket/teleporter behaviour, traversal and transport exceptions.
 - `LORE.md`: hidden history, environmental storytelling and ecology.
-- `DESIGN_QUESTIONS.md`: prioritized unresolved choices and evidence needed to resolve them.
+- `ECONOMY.md`: resource conservation, finite extraction, bootstrap recipes and progression demand.
+- `CONTENT_PIPELINE.md`: asset creation/import conventions and reproducibility.
+- `DELIVERY.md`: complete-game scope, verification, production ownership and external dependencies.
+- `DESIGN_QUESTIONS.md`: working decision register, unresolved choices and required evidence.
 
 ## Working principles
 

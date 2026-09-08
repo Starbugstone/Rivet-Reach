@@ -4,22 +4,26 @@
 >
 > Rivet Reach is intentionally **evolutive**. The design will continue to change while we brainstorm, prototype, benchmark and test the POC. The current documents describe the agreed direction, not an immutable final specification.
 >
-> The first objective is to prove the architecture. Performance, scalability, deterministic world generation and multi-world readiness are first-class constraints from the beginning rather than cleanup work for later.
+> The first objective is a responsive playable slice using the real architecture. Performance, scalability, deterministic world generation and multi-world readiness are first-class constraints from the beginning rather than cleanup work for later.
 
 Related design documents:
 
 - [LORE.md](LORE.md) - hidden world history, Gatebuilders, environmental storytelling and current mob/ecology direction.
 - [TRANSPORT.md](TRANSPORT.md) - Gate networks, coordinate-preserving world travel, rockets, portal state, chunk wake-up, satellites and future teleporters.
 
-- [SIMULATION.md](SIMULATION.md) - proposed simulation timing, network boundaries, persistence and benchmark contracts.
+- [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md) - authoritative playable implementation stage order.
+- [ECONOMY.md](ECONOMY.md) - finite extraction, recipe bootstrap and technological demand.
+- [CONTENT_PIPELINE.md](CONTENT_PIPELINE.md) - Blender/Unity asset conventions and validation.
+- [DELIVERY.md](DELIVERY.md) - staged release scope, verification and external planning inputs.
+- [SIMULATION.md](SIMULATION.md) - simulation timing, network boundaries, persistence and benchmark contracts.
 - [GAMEPLAY.md](GAMEPLAY.md) - player experience, responsiveness and full-game completeness.
 - [DESIGN_QUESTIONS.md](DESIGN_QUESTIONS.md) - prioritized unresolved decisions and validation needs.
 
 ### How to read this plan
 
-The existing vision and explicitly agreed rules remain the design baseline. New specialist specifications label **proposals** separately from **agreed direction**. Unchecked milestones are future work, not implemented capabilities. The current task is documentation only; future implementation begins when requested.
+The existing vision and explicitly agreed rules remain the design baseline. The 2026-09-08 resolution pass adds **working decisions** selected under the user's request to solve conflicts; they are current specifications, not validated results. Specialist documents distinguish these from unresolved proposals and numerical tuning. Unchecked milestones are future work, not implemented capabilities. The current task is documentation only; future implementation begins when requested.
 
-Detailed simulation behaviour belongs to `SIMULATION.md`, transport behaviour to `TRANSPORT.md`, player-experience criteria to `GAMEPLAY.md`, and hidden history to `LORE.md`. Summaries here do not override those documents. Conflicts should be resolved explicitly and recorded, not silently interpreted as approval.
+Detailed simulation behaviour belongs to `SIMULATION.md`, transport behaviour to `TRANSPORT.md`, player-experience criteria to `GAMEPLAY.md`, and hidden history to `LORE.md`. Economy, content workflow and delivery details belong to their named specialist files. Stage order belongs only to `DEVELOPMENT_STRATEGY.md`. Summaries here do not override those documents. Conflicts should be resolved explicitly and recorded, not silently interpreted as approval.
 
 ---
 
@@ -389,7 +393,7 @@ Gatebuilder Gate lattice
 rockets: no
 normal player teleporters: no
 remote inter-world resource automation: no
-factory chunk loading: disabled/currently not intended
+factory chunk loading: disabled; attended local processing only
 ```
 
 The content remains future work. The ability to express these differences is required from the beginning.
@@ -545,7 +549,7 @@ Machines and structures should communicate through physical models, ports, anima
 
 Retain the familiar Minecraft-like interaction model but make it significantly more permissive for an industrial game.
 
-Tentative test values:
+Working initial values (tunable; detailed interactions in [GAMEPLAY.md](GAMEPLAY.md)):
 
 - **12 hotbar slots**;
 - **6 x 8 main inventory = 48 slots**;
@@ -556,10 +560,10 @@ These values are not final.
 Tentative stack philosophy:
 
 ```text
-building blocks: 250-500
-basic resources: ~250
-components: ~100
-machines: smaller stacks according to size/type
+building blocks: 500
+basic resources: 250
+components: 100
+machines: 10
 unique tools/equipment: 1
 ```
 
@@ -653,7 +657,7 @@ Aerospace
 Advanced interplanetary technology
 ```
 
-The exact resource chains and era names remain open.
+The first resource chain and per-age capability roles are specified in [ECONOMY.md](ECONOMY.md). Later recipe balance and final era names remain adjustable.
 
 ### Steampunk era
 
@@ -904,7 +908,7 @@ Possible sources across progression:
 - nuclear;
 - advanced systems.
 
-Exact shortage/brownout/damage behaviour remains open.
+The working baseline slows processors in proportion to allocated power and stops safely on missing supply; it does not damage machines. Allocation and escrow are specified in [SIMULATION.md](SIMULATION.md). Later voltage tiers require a separate explicit revision.
 
 **Gatebuilder gateways are not part of this conventional electricity system.** Their operation is intentionally different. See [LORE.md](LORE.md) and [TRANSPORT.md](TRANSPORT.md).
 
@@ -1031,7 +1035,7 @@ possible by input: 100
 result: 100 completed cycles
 ```
 
-Not every network can use this optimization. The arithmetic above illustrates time and input limits only; output capacity, energy, fluids, controls and coupled consumers must also be respected. A correct reference simulation comes first. See [SIMULATION.md](SIMULATION.md) for proposed eligibility-time and equivalence rules. Dormant time is not automatically productive time.
+Not every network can use this optimization. The arithmetic above illustrates time and input limits only; output capacity, energy, fluids, controls and coupled consumers must also be respected. A correct reference simulation comes first. See [SIMULATION.md](SIMULATION.md) for the selected eligibility-time and equivalence rules. Dormant time is not automatically productive time.
 
 ---
 
@@ -1127,10 +1131,10 @@ Current rules:
 - rockets cannot reach them;
 - normal player-built teleporters cannot link to them;
 - automated cross-world item/fluid transfer is not allowed;
-- factory chunk loaders are currently not intended there;
-- resources must be physically brought back by players/entities;
+- factory chunk loaders and automatic extraction/harvesting are disabled there;
+- resources are carried back by players or accompanied living entities; loose world-item piles cannot cross Gates;
 - Gate traversal itself is repeatable and should not become a grind;
-- local temporary machinery while players are physically present can be considered later.
+- local storage/hand crafting are allowed; attended processors require player proximity, while automatic realm extraction/harvesting is disabled. See [ECONOMY.md](ECONOMY.md) and [TRANSPORT.md](TRANSPORT.md).
 
 The endgame must not reduce every portal realm to `place miner, chunk-load it, never visit again`.
 
@@ -1310,57 +1314,59 @@ Optimization is continuous, not a final sprint.
 
 The POC should be **small in content and deep in architecture**.
 
-The following order is a **proposed revision** to test persistence and background factories before expanding the industrial feature set. It changes validation order, not the full-game ambition. Each milestone needs correctness evidence before its performance result is meaningful.
+This checklist follows the **agreed playable stage order** in [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md). It replaces the earlier conflicting order that delayed crafting until after multi-world work. Every stage exercises real architecture through playable behaviour.
 
-### Milestone 1 - Persistent voxel foundation
+### Stage 0 - Core feel on real voxel foundations
 
-- [ ] Unity 6.3 LTS + URP project and modest FPS controller, when implementation is authorized.
-- [ ] World/chunk/local coordinates, world IDs and modular world definitions.
-- [ ] Deterministic infinite X/Z streaming, basic terrain/caves and ~5-8 block types.
-- [ ] Chunk meshing, load/unload, block targeting and break/place.
-- [ ] Exercise floating-origin shifts and negative/far coordinates.
-- [ ] Save/reload modified terrain with generator/version metadata.
+- [ ] Create the authorized Unity/URP project with an explicitly selected Editor version.
+- [ ] World-aware integer/chunk coordinates, deterministic streamed terrain and a small real block palette.
+- [ ] FPS movement, precise targeting, break/place, feedback and collision correctness during asynchronous rebuilds.
+- [ ] Mesh generation/load/unload, origin-shift exercises and basic profiling.
+- [ ] Pass the Stage 0 interaction cases in [GAMEPLAY.md](GAMEPLAY.md).
 
-### Milestone 2 - Small factory across chunk boundaries
+### Stage 1 - First sandbox loop
 
-- [ ] Stable item/block/recipe identities and minimal inventories.
-- [ ] One reusable processor, generator, containers, power cables and item pipes.
-- [ ] Common buffers/process state and readable compatible ports.
-- [ ] Logical power/item networks with deterministic transfer rules.
-- [ ] Build the factory across a chunk boundary; split and reconnect networks.
-- [ ] Reference simulation with resource accounting and bounded work queues.
+- [ ] Stable item identities, 12-slot hotbar/48-slot inventory, stack movement and physical drops/pickup.
+- [ ] Workbench, furnace and the manual bootstrap recipes in [ECONOMY.md](ECONOMY.md).
+- [ ] Save/reload terrain, inventory, piles and simple block entities.
+- [ ] World water, sinking/buoyant piles, compatible merging and sleeping movement.
+- [ ] Basic day/night, health/death recovery and initial passive/hostile behaviours as the loop needs them.
+- [ ] Play 20-30 minutes of gathering/building/crafting without developer commands.
 
-### Milestone 3 - Factory lifecycle and persistence
+### Stage 2 - Industrial hook
 
-- [ ] Generic tickets: player proximity, owner-online factory quota and overlap deduplication.
-- [ ] Active/background/dormant transitions, including partially eligible networks.
-- [ ] Verify identical authoritative factory results in active and background modes.
-- [ ] Save during processing, recover consistently and avoid duplication/loss.
-- [ ] Exercise owner disconnect/reconnect without unauthorized offline catch-up.
-- [ ] Benchmark steady production and topology-edit bursts before adding content.
-- [ ] Add coarse processing only where equivalence can be demonstrated.
+- [ ] Reusable machine inventories, escrow, ports, process state and visible stop reasons.
+- [ ] Boiler-engine/alternator, crusher, pump and finite-terrain drill with manual startup routes.
+- [ ] Real item, power and minimal fluid networks; switch and logical signal control.
+- [ ] Recipe/uses browser backed by the same recipe registry; no discovery hard locks.
+- [ ] Build, diagnose and dismantle the complete extraction-to-storage chain, not just supplied chests.
+- [ ] Keep the same authority/identity model used by the sandbox loop.
 
-### Milestone 4 - Minimal multi-world transfer
+### Stage 3 - Lifecycle, scale and background simulation
 
-- [ ] Instantiate two lightweight world definitions within one save/universe.
-- [ ] Generate matching deterministic anchors independent of exploration order.
-- [ ] Load and reserve a safe destination before transferring a player/entity.
-- [ ] Preserve identity, coordinates, inventory and universe-level metadata.
-- [ ] Exercise temporary portal tickets, expiry and repeated-crossing limits.
-- [ ] Save/recover during transfer and prove exactly one surviving entity.
+- [ ] Generic ticket capabilities, owner-online quotas, overlap deduplication and dormant boundaries.
+- [ ] Active/background equivalence, resource accounting and stable scheduling.
+- [ ] Topology split/merge, water/item load and excavation while saving.
+- [ ] Coherent journal/checkpoint recovery and failure reporting.
+- [ ] Benchmark playable workloads plus scaling tiers; batch only after reference equivalence.
 
-### Milestone 5 - Complete the architectural gameplay slice
+### Stage 4 - Multi-world skeleton
 
-- [ ] Larger hotbar/inventory, stack handling and grid crafting/workbench.
-- [ ] Data-driven recipe/uses browser with discovery visibility and no research locks.
-- [ ] Furnace plus powered crusher, common machine status and port grammar.
-- [ ] Event-driven signals: switch, conduit, lamp/machine control and basic logic.
-- [ ] Aggregate fluids: source/pump, pipes, tank and consuming/producing process.
-- [ ] Basic item routing/filtering and power storage where useful.
-- [ ] Run the combined acceptance scenarios below with failure/recovery cases.
-- [ ] Playtest discovery, factory diagnosis and interaction responsiveness.
+- [ ] Two lightweight world definitions in the same saved universe.
+- [ ] Deterministic matching anchors with world-specific terrain and stable identities.
+- [ ] Safe prepared arrivals, persistent Gate states and same-entity transfers.
+- [ ] Temporary bounded tickets, cancellation, unload/reload and interrupted-transfer recovery.
+- [ ] Exercise the selected Gate accompaniment/sanctuary rules with simple test presentation.
 
-The POC does not need polished Gate art, finished alien realms, rockets or complete planets. Those remain part of the complete-game vision. Technical success alone does not demonstrate that the full exploration/progression loop is fun; [GAMEPLAY.md](GAMEPLAY.md) defines that separate validation track.
+### Stage 5 - Expand the real game
+
+- [ ] Expand technology ages, manufacturing and construction conveniences.
+- [ ] Richer terrain, settlements/ecology, Gate ruins and distinct exploration realms.
+- [ ] Rockets, physical planets, prepared cargo routes and advanced teleporters.
+- [ ] Multiplayer implementation, permissions and dedicated-server operation.
+- [ ] Complete content/asset and release validation from [CONTENT_PIPELINE.md](CONTENT_PIPELINE.md) and [DELIVERY.md](DELIVERY.md).
+
+The same stages are maintained in [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md); there is no separate infrastructure-first milestone order. Stage 5 expands an already playable and measured foundation. Final content breadth is not required before earlier playable increments can be reviewed.
 
 ---
 
@@ -1374,7 +1380,7 @@ Primary factory scenario:
                     Power
                        |
                        v
-Ore Chest -> Pipe -> Crusher -> Pipe -> Furnace -> Pipe -> Storage
+Finite ore -> Drill -> Buffer -> Pipe -> Crusher -> Pipe -> Furnace -> Storage
                          ^
                          |
                     Signal Control
@@ -1394,7 +1400,11 @@ The player must be able to:
 10. leave rendering/full simulation range;
 11. have appropriate production continue in background simulation;
 12. return and see correct inventories/state;
-13. maintain stable performance without per-block/per-pipe polling.
+13. maintain stable performance without per-block/per-pipe polling;
+14. construct the chain from gathered materials through the manual bootstrap path;
+15. excavate finite terrain into output buffers without duplicate world drops;
+16. redirect world water, observe buoyant/sinking stacks and recover from death;
+17. diagnose a blocked output, insufficient power and a dormant intermediate network chunk.
 
 Secondary architecture scenario:
 
@@ -1523,27 +1533,27 @@ Unless deliberately revisited, these decisions should guide implementation:
 
 ## 42. Open design areas
 
-Still intentionally unresolved:
+Working resolutions are indexed in [DESIGN_QUESTIONS.md](DESIGN_QUESTIONS.md). The following are remaining tuning/content/implementation choices; they do not reopen rules already selected in the specialist documents.
 
 ### Core engine
 
 - exact chunk dimensions;
-- vertical world storage/height;
+- final vertical bounds after testing the initial configured envelope;
 - terrain/noise algorithms;
-- lighting implementation;
-- final save/region format;
+- optimized implementation of the selected queued voxel-light behaviour;
+- binary packing and filesystem implementation of the journal/checkpoint protocol;
 - floating-origin details.
 
 ### Crafting/industry
 
 - exact inventory dimensions and stack sizes;
-- final crafting grid sizes;
-- exact age names/resource chains;
+- recipe layouts and balance within the initial 2x2/3x3 crafting model;
+- later age names/resource chains beyond the specified bootstrap;
 - depth of mechanical power;
 - electrical voltage/transformer rules;
-- power shortage/failure behaviour;
+- tuning of the selected proportional shortage/safe-stop behaviour;
 - signal channels;
-- item-pipe routing algorithms;
+- routing cache/optimization implementation under selected priority/round-robin semantics;
 - fluid throughput model;
 - multi-function conduits.
 
@@ -1552,7 +1562,7 @@ Still intentionally unresolved:
 - player chunk-loader quota values;
 - chunk-loader progression/upgrades;
 - exact background-simulation granularity;
-- how complex networks catch up after sleeping.
+- which eligible processes can batch equivalently; dormant production never earns catch-up.
 
 ### Worlds/transport
 
@@ -1561,10 +1571,10 @@ Still intentionally unresolved:
 - cargo rocket balance;
 - Gate macro-region size/minimum separation;
 - number of Gate networks/portal realms;
-- Gate activation/repair components;
+- cost/art tuning for the selected two-slot Gate repair components;
 - exact damaged-side cooldown;
 - final Gatebuilder technology terminology;
-- whether/how portal networks can span more than one physical planet without bypassing aerospace progression;
+- any future deliberate revision to planet-specific realm instances; cross-planet Gate shortcuts are excluded from the baseline;
 - player teleporter limitations/energy requirements;
 - satellite map-coverage model.
 
@@ -1577,13 +1587,13 @@ Still intentionally unresolved:
 - village/NPC behaviour;
 - structure library;
 - portal realm ecology/resources;
-- final visual identity and asset pipeline.
+- final visual identity and measured asset budgets under the selected content workflow.
 
 ### Multiplayer
 
 - networking implementation/library;
 - dedicated server configuration;
-- permissions/claims if any;
+- UI and implementation of cooperative access, claims and personal loader ownership;
 - server-side Gate/transport configuration;
 - player limits and performance targets.
 

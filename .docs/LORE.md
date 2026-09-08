@@ -235,7 +235,7 @@ This allows procedural luck and exploration knowledge to create different player
 
 ## 9. Activation philosophy
 
-Gateway activation is still an open design area, but several rules are established.
+The working activation interaction is the two-slot surface-repair model in TRANSPORT.md. Final component names/art may evolve; these lore principles remain established.
 
 Activation should:
 
@@ -461,7 +461,7 @@ The player must retain a reason to physically return.
 
 Gateways are physical passages for living entities, not player-only menu transitions.
 
-Mobs may pass through an active gateway when they physically enter it.
+Mobs may pass through an active gateway when they physically enter it under player accompaniment, including a short following window. Loose world-item piles do not cross. Detailed eligibility is defined in TRANSPORT.md.
 
 This allows situations such as:
 
@@ -510,7 +510,7 @@ Unless deliberately changed later, the current core lore rules are:
 7. Gatebuilder gateway technology is not ordinary player electricity.
 8. Once established, normal Gate travel does not consume resources or energy per traversal.
 9. Gate endpoints can be damaged independently.
-10. One sufficiently operational endpoint can sustain a linked pair.
+10. One restored endpoint sustains normal service; after establishment the protected cores preserve minimum return even if optional modules are removed.
 11. A damaged receiving side may impose a short visible recovery cooldown but cannot permanently strand the player.
 12. Repairing both sides provides convenience/performance benefits.
 13. Gatebuilder control pedestals communicate state primarily through diegetic visual language.
@@ -531,13 +531,25 @@ Still intentionally unresolved:
 - whether they originated in the local system or arrived from elsewhere;
 - what the portal realms fundamentally are;
 - final number and identity of gateway networks/realm types;
-- exact Gate activation/repair puzzle;
-- what Gatebuilder components are and how substitutes/replacements work;
+- final presentation and tuning of the selected service-slot repair interaction;
+- final identity of service components; physical substitute recipes and salvage acceptance are specified in TRANSPORT.md;
 - how much of Gate technology the player can eventually understand;
 - exact structure hierarchy and ruin archetypes;
 - detailed village cultures/architecture;
 - final mob designs and names;
 - portal-realm ecosystems;
-- whether some portal realms link to more than one physical planet without undermining rocket progression.
+- any future explicit revision of the baseline that gives each planet distinct realm instances.
 
 These should evolve through brainstorming and POC/playtesting rather than being locked prematurely.
+
+---
+
+## 21. Observable Gate and reward rules after the resolution pass
+
+The protected core/sanctuary and persistent fallback in [TRANSPORT.md](TRANSPORT.md) are now working mechanical rules. They fit the premise that restoration re-establishes a lasting relationship between ancient cores, while replaceable modules improve stability. They do not require explaining the fundamental mechanism or the Gatebuilders' disappearance.
+
+Damage is expressed through missing service modules, recovery delay and ruined surroundings, not a randomly nonexistent receiving core. A restored pair must preserve a readable return path. The pedestal communicates fallback, damage and accompaniment readiness without implying that ordinary electricity is Gate fuel.
+
+Realm discoveries provide durable optional capability and distinctive construction, as specified in [ECONOMY.md](ECONOMY.md). Core aerospace and physical-world teleportation remain achievable through physical industry. First-Gate restoration uses surface-accessible salvage/substitutes, so the first visit cannot require a part found only beyond that same closed Gate.
+
+Realm extraction and traversal restrictions are consistent observable world rules; they need visual/status feedback even if their ultimate explanation remains mysterious. They do not change the principle that ordinary physical-world creatures are native life unrelated to the Gatebuilders. Further origin stories, final names and realm cosmology remain intentionally open.

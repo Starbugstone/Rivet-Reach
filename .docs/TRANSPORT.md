@@ -4,6 +4,8 @@
 >
 > This document defines the current rules for movement between worlds, Gatebuilder gateway generation/state, rockets, chunk wake-up around portals, future teleporters and satellite cartography.
 >
+> Working resolutions in sections 37-40 (2026-09-08) select previously open safety, accompaniment and route policies; numerical defaults remain unvalidated tuning.
+>
 > These rules are intentionally documented early because world travel touches procedural generation, save data, multiplayer geography and performance. Retrofitting them after the world format is established would create major headaches.
 
 ---
@@ -345,7 +347,7 @@ This gives procedural variation without breaking linking.
 
 ## 13. Gate activation
 
-The exact activation puzzle remains open, but current rules are established:
+The repair interaction is specified in section 37; final artwork/component names remain tunable. Core rules:
 
 - players cannot construct new Gatebuilder gateways;
 - gateways are discovered as ancient ruined structures;
@@ -388,7 +390,7 @@ Gate endpoints may be damaged independently.
 
 Current rule:
 
-> Once the Gate pair has been established, the link remains usable as long as the required operating condition is satisfied on at least one of the two sides.
+> One restored endpoint sustains normal service. Once established, the pair also retains a protected minimum return function if all optional repaired systems become unavailable; see section 37.
 
 This does not require both structures to be fully repaired before first use.
 
@@ -411,7 +413,7 @@ Healthy endpoint
 -> immediate or near-immediate reuse
 
 Damaged endpoint
--> Gate closes
+-> outbound traversal waits while receiving remains possible
 -> pedestal displays visible recovery progress
 -> short cooldown
 -> Gate becomes usable again
@@ -542,7 +544,7 @@ Portal activity tickets do **not** count against a player's chunk-loader quota.
 
 ## 21. Mobs and Gate traversal
 
-Mobs can physically pass through active Gates.
+Mobs can physically pass through active Gates under the player-accompaniment rule in section 38.
 
 If a hostile creature follows a player into the gateway, it may arrive in the destination world.
 
@@ -577,7 +579,7 @@ Current portal-realm rules:
 - no cargo rockets into the realm;
 - no unattended remote extraction loop that turns a realm into another factory colony;
 - player/entity traversal remains allowed;
-- local temporary machinery while players are present can be considered later.
+- local storage/hand crafting and attended processing are allowed; automatic realm extraction/harvesting is disabled under sections 38 and ECONOMY.md.
 
 The player should always retain a reason to personally return to portal realms.
 
@@ -608,7 +610,7 @@ Portal activity ticket
 -> temporary local/full simulation needed for safe traversal
 ```
 
-The strongest applicable reason determines the simulation level, subject to world-specific capability restrictions. Portal safety activity must not implicitly authorize unattended realm factories; see section 38 for the proposed policy and unresolved entity exceptions.
+The strongest applicable reason determines the simulation level, subject to world-specific capability restrictions. Portal safety activity must not implicitly authorize unattended realm factories; see section 38 for the selected accompaniment and entity rules.
 
 ---
 
@@ -786,9 +788,9 @@ The Gatebuilders colonised the system, so additional physical planets should als
 
 The same procedural system can vary Gate/ruin density by planet.
 
-Important unresolved question:
+Resolved working rule:
 
-> Should the same portal realm directly connect Gate networks from multiple physical planets?
+> A realm instance belongs to one physical planet/network. Themes may repeat, but other planets use distinct instances.
 
 Allowing this could create routes such as:
 
@@ -798,7 +800,7 @@ Home planet -> Realm A -> Moon
 
 which might bypass rockets and undermine aerospace progression.
 
-Current preference is therefore to **avoid accidental cross-planet Gate shortcuts** until we deliberately design a rule that preserves rocket progression.
+The selected model **excludes cross-planet Gate shortcuts**. A future change would require an explicit progression review.
 
 The architecture should not hard-code an answer that makes later experimentation impossible.
 
@@ -889,13 +891,13 @@ Unless deliberately revised, the current agreed rules are:
 9. Gatebuilder technology is separate from conventional player electricity.
 10. Normal Gate traversal costs no fuel/energy/resource.
 11. Once a pair is established, persistent state records that link.
-12. One sufficiently operational side can sustain the pair.
+12. One sufficiently operational side sustains normal service; established pairs retain protected fallback return after optional modules are removed.
 13. A damaged receiving side may create a short visible cooldown but must not strand the player.
 14. Repairing the second side reduces/removes that inconvenience.
 15. The Gate pedestal is the primary diegetic status/repair interface.
 16. Active Gates do not permanently load chunks.
 17. Traversal temporarily wakes destination/source areas using system-owned portal tickets.
-18. Mobs can pass physically through Gates.
+18. Mobs can pass physically through Gates under player accompaniment; loose item piles cannot cross.
 19. Portal realms cannot be automated as unattended inter-world resource farms.
 20. Factory chunk loaders remain owner-online and quota-limited.
 21. Rockets preserve X/Z between physical worlds.
@@ -908,92 +910,123 @@ Unless deliberately revised, the current agreed rules are:
 
 ## 36. Open transport/design questions
 
-Still to brainstorm/test:
+Remaining tuning and implementation review (policies resolved in sections 37-40 are no longer open alternatives):
 
 - exact Gate macro-region size and minimum separation;
 - number of Gate networks/portal realms on the starting world;
 - how network identities are communicated visually;
-- exact Gate activation/repair components;
+- final names/art and balance for the selected two-slot surface-repair components;
 - final Gatebuilder energy/resonance lore;
 - exact damaged-side cooldown timing;
 - whether multiple repair stages affect cooldown differently;
-- how dropped item entities behave at Gates;
+- presentation of dropped items remaining at the Gate threshold;
 - portal collision/transition presentation;
 - first-landing rocket safety algorithm;
 - launchpad/landing-pad sizes and construction rules;
 - rocket fuel and manufacturing chains;
 - cargo rocket scheduling/capacity;
 - planet count and orbital progression;
-- whether and how Gate realms can ever connect multiple physical planets without bypassing rockets;
+- any future deliberate revision to the selected planet-specific realm-instance model;
 - final player-teleporter limitations/costs;
 - satellite map coverage model and balance;
 - server configuration for Gate density and transport-related chunk tickets.
 
-These remain open; priorities are tracked in [DESIGN_QUESTIONS.md](DESIGN_QUESTIONS.md). Sections 37-39 below add proposed edge-case specifications, not newly approved gameplay rules.
+Working policies are selected below; remaining tuning and evidence are tracked in [DESIGN_QUESTIONS.md](DESIGN_QUESTIONS.md). These specifications resolve the requested gaps without claiming implementation or playtest validation.
 
 ---
 
-## 37. Proposed traversal safety and failure contract
+## 37. Working Gate safety and return contract
 
-**Status: proposal for validation.** The established direction remains safe return, persistent link state, free repeated traversal and no permanent Gate chunk loading. The following makes missing edge cases explicit without declaring a final repair mechanic.
+**Resolution dated 2026-09-08:** select protected Gate cores with a permanent minimum return function after first establishment. This replaces the unresolved alternatives previously listed here. Repairs still matter for convenient operation; they cannot revoke an established pair's basic travel.
 
-Separate endpoint condition, established pair state, current traversal readiness and individual entity re-entry cooldown. A linked Gate may be temporarily unavailable while loading a destination; this must not appear as lost repair progress.
+### Persistent state and restoration
 
-Proposed transition sequence:
+A seeded Gate core and its small arrival sanctuary cannot be mined, exploded, moved or overwritten by ordinary construction/quarries. Damage in generation affects replaceable systems and the surrounding ruin, not the existence of its matching core. The sanctuary is generated from the anchor before ordinary structure/terrain decoration and reserves a safe floor, clearance and Gate approach on both sides.
 
-1. Validate entity eligibility, pair state and the requested destination.
-2. Acquire bounded preparation tickets and reserve safe arrival space before asynchronous generation/loading begins.
-3. Keep the source entity authoritative and safe while preparation runs; show waiting state.
-4. Revalidate the destination and pair before committing a uniquely identified transfer.
-5. Commit one authoritative world/location change; preserve identity and carried state.
-6. Start short traversal activity tickets and an entity re-entry guard; release preparation reservations.
-7. On failure, retain/restore the entity at the source and explain the cause. On interrupted saves, recover to exactly one side.
+Before establishment, at least one endpoint must be restored with locally obtainable repair components. After establishment, the persistent pair retains a fallback link even if all optional repaired modules are removed. One restored endpoint supplies normal pair service; the fallback is the explicit exception to the earlier “one operational side” requirement. It prevents later sabotage or optional-component removal from stranding a visitor.
 
-Preparation tickets must cover the waiting interval; tickets applied only after arrival are too late to protect it. Timeout/cancellation and reservation cleanup need explicit handling. See [SIMULATION.md](SIMULATION.md) for durability requirements.
+Working cooldown values: restored local endpoint 1 second between departures; damaged local endpoint 10 seconds; pair fallback with no restored endpoint 15 seconds. These are tuning defaults. Each endpoint keeps an explicit next-ready universe tick; no always-running chunk object is needed. Arrival is allowed while the local departure recovery timer runs, so following creatures do not become trapped solely by a player's arrival. Each entity also has a 2-second re-entry guard and must leave the portal volume before crossing again.
 
-Arrival safety must include player-placed obstructions, occupied exit space, hazardous terrain and simultaneous arrivals. Proposed starting approach: reserve a small structure-owned exit volume and queue arrivals when occupied. Whether that volume prevents placement, clears blocks with refunds, or uses a nearby safe fallback is unresolved. Never silently destroy a player's build to satisfy arrival.
+The first restoration interaction has two visible service slots: a coupling assembly and a stabilizer. A generated endpoint may already contain either/both in working condition. Inspecting a slot identifies its missing/damaged function and the accepted component; clearing overgrowth is ordinary mining around protected core cells. Compatible salvage from surface ruins can fill a slot. Physical substitutes are workbench recipes: coupling assembly = 4 iron plates + 4 copper wire + 1 gear; stabilizer = 4 copper plates + 2 iron plates + 1 gear. Installing both on one side and holding the pedestal's establish action completes the persistent link. Already intact sites need no manufactured parts. These service modules do not let players construct new cores/Gates.
 
-### Return guarantee under damage
+The receiving side's sanctuary/core exists regardless of optional slot damage. Establishment does not require a realm material, conventional electrical supply or repairing both ends. Components are consumed into persistent slot inventories and recovered once when deliberately removed; removal leaves the established fallback intact.
 
-Existing damaged-destination cooldown rules do not resolve destruction of the last healthy endpoint while someone is away.
+The pedestal shows established/unestablished, local condition, pair fallback and departure recovery separately. Repair removes inconvenience without imposing a per-use resource cost. A claim cannot lock another player's only established return route or revoke core traversal. Ordinary surrounding builds remain subject to player permissions.
 
-Candidate policies:
+### Arrival sanctuary and obstruction
 
-- restoring a pair establishes a protected minimum return function that later component removal cannot eliminate;
-- essential linked cores cannot be destroyed, while optional restoration improves readiness;
-- an explicit emergency return mechanism preserves safety when both ends fail.
+Core definitions reserve at least a 3x3 floor with 3 blocks of clear height at the exit, plus a clear approach back to the portal. Water/lava placement and solid construction inside that volume are rejected with a visible protected-area preview. Generated hazards cannot occupy it. Do not clear an existing player's blocks silently after arrival is requested.
 
-Choose one before implementing destructive Gate interactions. These are alternatives, not simultaneous rules. Define whether the guarantee covers only generated damage or also player sabotage, environmental damage and server permissions. Cooldown cannot resolve a permanently missing endpoint by itself.
+Entities inside the sanctuary cannot attack, take combat damage or body-block another arrival; the protection ends when they leave. Non-player entities may traverse it but cannot choose it as a permanent AI resting target. This is a small explicit safe-return exception, not a safe zone across the ruin. Players can still build hazards outside it; cache/death rules handle ordinary expedition risk.
 
-Open: does recovery time progress while both sides are unloaded or while a single-player game is paused? Persist timestamps/state under a declared clock without continuously ticking unloaded Gates.
+Legacy or corrupt saves with an invalid sanctuary require explicit recovery to a nearby safe reservation or a reported blocked transfer, never an arrival inside a wall. If the player is already in the realm and the local return approach is invalid, an inspectable persistent Gate-return interaction within the sanctuary transfers to its paired sanctuary after the fallback delay. It does not select arbitrary coordinates or carry unattended items.
 
-## 38. Proposed limits on entity logistics and activity tickets
+### Traversal transaction
 
-**Agreed direction:** mobs may follow players and retain identity; realm Gates are not automated inter-world resource conduits.
+1. Validate the entity, its player-accompaniment eligibility, pair identity and cooldown.
+2. Acquire bounded preparation tickets at both ends and reserve a safe destination pose.
+3. Keep the source entity authoritative while loading. During a requested player transfer, protect the waiting player in the source sanctuary and show progress; cancellation returns normal control there.
+4. Revalidate destination revision and reserve the entity's complete identity/inventory state.
+5. Commit a uniquely identified ownership/location transfer once through the save journal.
+6. Apply temporary activity tickets, departure cooldown and entity re-entry guard; release preparation reservations.
+7. Pre-commit failure leaves the entity at the source. Post-commit recovery restores it at the destination. Retries never create another copy.
 
-**Unresolved interaction:** cargo-bearing creatures, dropped items, automated creature movement and repeat crossings could create a logistics route or a permanent source of refreshed system tickets.
+Initial preparation timeout is 30 seconds before returning a clear retryable failure; profiling may change it. One player can own one pending Gate preparation. Coalesce requests for the same endpoint; a server-wide initial pool of 8 simultaneous cold preparations queues additional requests fairly. This is a concurrency scheduler, not a cap on discovered Gates or permanently loaded worlds. Expired/cancelled reservations release their tickets.
 
-Candidate starting policy for testing:
+Cooldowns use universe time as defined in [SIMULATION.md](SIMULATION.md): they can elapse while chunks sleep, pause with a paused single-player universe, and never require a Gate tick on every frame.
 
-- allow player traversal and a bounded accompanying/following-entity window;
-- do not allow unattended entity crossings to refresh realm simulation indefinitely;
-- cap concurrent preparation areas and activity duration under sustained non-player crossings;
-- require an explicit policy for inventory-bearing companions and dropped items before treating them as allowed cargo;
-- restrict realm factory eligibility by ticket capability, not merely by the presence of any full-simulation ticket.
+## 38. Working entity travel and realm-automation boundary
 
-Player proximity, factory permission, AI/physics readiness and portal safety are distinct capabilities. The strongest ticket can select a simulation level, but cannot override world-specific bans. A portal ticket may enable collision and following creatures without enabling unattended extraction.
+**Selected policy:** living entities cross only under player accompaniment; loose world-item piles never cross Gates. A player carries inventory normally. This deliberately narrows the earlier broad mob-crossing statement to preserve pursuit and livestock travel while closing unattended cargo/loader loops.
 
-This proposal may constrain the existing broad mob-crossing rule and therefore needs a deliberate decision. Compare a companion window with a proximity-only rule and report gameplay costs, particularly livestock handling and hostile pursuit. No final restriction is selected here.
+An eligible crossing has either a player within 16 m of the source Gate, or a still-valid 10-second following window created by a player's successful departure in that direction. An entity must physically enter the source Gate; proximity does not teleport it. The player's departure creates one following lease shared by both endpoint regions. Non-player crossings cannot extend it, and they cannot create new cold destination preparation after it expires.
 
-Required future scenarios: a hostile follows one player; a named companion carries items; a dropped item reaches a Gate; creatures circulate without a player; several players cross simultaneously; the last player leaves while a portal ticket remains.
+Named/tamed inventory-bearing companions may cross under the same accompaniment rule with their original state intact. The player is physically present for that transport. Creatures circulated unattended by water, machinery or AI eventually stop at the inactive traversal surface without losing inventory. World-item piles, including buoyant piles pushed by water, collide/settle at the Gate threshold and remain in their source world. No normal dropped item is destroyed merely for touching the Gate.
 
-## 39. Rocket and network edge cases to resolve
+An endpoint with no local player and no following window retains its persistent linked state but does not provide unattended entity travel. The pedestal distinguishes linked from currently receiving accompanied traffic. Queued creatures that miss the window stay at the source; the player can return to escort them. Within the active window, prepared endpoint queues process entities in stable order with a per-step budget rather than spawning unbounded loading jobs.
 
-- **First landing:** bound search radius and generation work; if no safe site exists, fail preparation safely rather than drifting arbitrarily far. Determine whether landing suitability is checked before departure or handled by a return-capable expedition.
-- **Route coordinates:** later explicit pads must still satisfy the intended coordinate rule. Choose tolerance and prevent repeated first-landing offsets or pad relocation from becoming unlimited lateral travel.
-- **Receiving pad failure:** reserve capacity where appropriate; specify queue, hold, retry or return behaviour if a pad is full, removed or loses simulation eligibility.
-- **Owner disconnect:** decide what happens to already launched cargo when owner-online tickets expire. No implicit infinite destination loading or duplicate delivery.
-- **Cross-planet realm shortcuts:** initial candidate is separate realm instances/network identities per physical planet, even when realm themes repeat. Shared realms with destination restrictions remain an alternative. Neither is approved yet.
-- **Transport throughput:** establish bounded concurrent preparations, queued entities and cargo routes; safe waiting is preferable to loading unbounded regions.
+Ticket capabilities are independent: entity collision/pursuit readiness does not confer factory or world-water propagation permission. Realm extractors/drills/pumps/automatic harvesting are disabled even under player proximity. Local hand crafting, storage and player-attended processing are allowed. A realm mob only produces normal drops through an eligible nearby player interaction/combat; unattended crushers, environmental kill loops and non-player attacks cannot produce harvest loot there. This explicit realm spawn/drop policy prevents a home-side player from farming realm creatures through a Gate indefinitely. Companions are not renewable realm-resource generators after export.
 
-Priorities and decision tracking live in [DESIGN_QUESTIONS.md](DESIGN_QUESTIONS.md).
+Local processing uses only player-proximity production eligibility and pauses when the last nearby player leaves. Portal-following leases cannot maintain it. Physical worlds retain ordinary machinery and water channels. These distinctions are visible in machine placement/status and world rules, not hidden exceptions discovered after resources are spent.
+
+Acceptance: hostile pursuit through one Gate; escorted livestock and a cargo companion; dropped ore/wood against the threshold; an unattended circulating creature; a player leaving a realm processor running; environmental realm mob farming; many simultaneous arrivals; save/reload during a following window. Preserve entity/item identity, bounded work and the player's return ability in every case.
+
+## 39. Working rocket, route and realm-network resolutions
+
+### Planet-specific realm instances
+
+A Gate network belongs to exactly one physical planet and one realm instance. Identity includes universe, physical-world ID and network ID. Different planets may share realm themes, but they never share the same instance/exit routing. Thus Home -> Realm -> Moon cannot bypass rockets. Any deliberate future cross-planet Gate feature requires an explicit revision of this rule.
+
+### First landing and stable coordinates
+
+Select a deterministic landing anchor from the departure X/Z before launch, searching within an initial 16-block horizontal radius on the destination. A suitable site must have a safe footprint/clearance and an owned arrival reservation. If no site exists, reject launch preparation without consuming the vehicle, fuel or cargo. The player can move the launch site; the system does not silently widen the search.
+
+Persist the expedition route's canonical X/Z and both actual pads/landing sites. Subsequent trips and returns use those recorded sites, not a new offset from the most recent landing. Creating a route at an offset arrival pad reuses its canonical anchor; a pad cannot belong to several incompatible anchors, and conflicting reserved route footprints are rejected. To create a new canonical route elsewhere, the player must physically move beyond the existing reserved footprint and build new infrastructure. Repeated clicking, pad dismantling/rebuilding in that footprint or alternating destinations cannot accumulate lateral displacement.
+
+Only the first site selection permits the small safety offset. Established cargo routes require registered endpoints; relocating a receiving pad invalidates the route until a new explicit route is established under these coordinate rules. The route/landing records survive temporary pad destruction and do not disappear on chunk unload.
+
+### Player and cargo flight lifecycle
+
+Use a persistent flight record: prepared -> launched -> travelling -> awaiting destination -> landed/unloaded. A record owns the vehicle and cargo exactly once during flight. Visual ascent/descent does not duplicate a stored vehicle entity.
+
+For a player expedition, destination reservation must be ready before launch commits. Carry sufficient reserved return capability for the first expedition; landing does not assume the player can manufacture fuel on an unknown world. Actual propulsion/return-fuel recipes remain aerospace content design. A failed post-launch destination uses a safe holding state and the reserved return endpoint; never eject the player into unloaded terrain.
+
+Cargo dispatch validates fuel, source contents and a receiving reservation before committing. On full, removed or inaccessible receiving pad, keep cargo in the flight's durable hold, report the cause and retry only while the route owner is online. Initial retries occur every 10 eligible seconds; stop automatic retries after 6 failures until conditions change or the owner requests another attempt. Holding uses metadata, not an orbiting physics scene, and consumes no additional fuel. Delivery requires space for the complete manifest initially; partial delivery is deferred to avoid ambiguous retries.
+
+Owner disconnect pauses automatic flight progress/retries at the next committed step and releases destination production tickets; reconnect resumes from remaining eligible duration without offline catch-up. Player proximity can operate ordinary factories but does not impersonate a route owner's dispatch authorization. An already committed delivery remains delivered. A player flight is handled by player transfer/reconnect recovery rather than the automatic-cargo pause policy.
+
+A route owner can request return if a source pad is available, using the vehicle's reserved return capability. If neither endpoint is usable, the manifest remains recoverable in the route interface as a held flight pending rebuilt infrastructure; it never silently becomes lost loot. Detailed vehicle loss from deliberate combat is outside the baseline transport model.
+
+### Sparse but discoverable Gates
+
+Use one total major anchor per 2,048x2,048 macro-region initially. Assign each region one network identity in a deterministic balanced regional pattern; each realm receives only its network's subset of anchors. Hash each anchor into the central 1,024x1,024 window of its region. This guarantees at least 1,024 blocks of separation between major anchors, including different networks, without exploration-order-dependent rejection. There is not one independent anchor per network in every region.
+
+Terrain accommodates the shared X/Z anchor, with world-specific Y and ruin state. It does not reject the anchor after generation and leave an accidental void. Clues form a bounded regional hierarchy: ordinary small ruins may reveal a direction/region, then nearer architectural remnants lead toward the Gate. No undiscovered exact map marker is awarded automatically. The macro-region and jitter values are tuning data; test boundary spacing and discoverability before final adoption. Multiple network themes can be interleaved without clustering independent major anchors.
+
+## 40. Transport implementation acceptance
+
+Gate testing must include removal of every optional repair module after a player departs, attempt to build/flood the sanctuary, cold-load cancellation, same-entity retry after crash, companion inventory transfer and unlimited non-player ticket-refresh attempts. The fallback must work without hidden permanent chunk loading or per-traversal fuel.
+
+Rocket testing must include invalid terrain before launch, blocked full delivery, deleted/rebuilt pad, owner disconnect in flight, recovery after committed delivery and repeated first-landing offset attempts. Check canonical X/Z and exact vehicle/cargo ownership at each state transition.
+
+These rules resolve the previously open policies; manufacturing costs, final visual presentation, cooldown tuning and benchmarked concurrency remain adjustable. [DESIGN_QUESTIONS.md](DESIGN_QUESTIONS.md) records the working decisions and remaining validation.
