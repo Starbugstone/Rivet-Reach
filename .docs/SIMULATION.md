@@ -316,3 +316,31 @@ Do not delete excess piles to meet a frame budget. Reduce cosmetic instances, sl
 - An active network loses its middle ticket or splits while fluid is stored: no bypass, duplicate amount or stale route remains.
 
 These supplement the existing scaling matrix. They are acceptance requirements for future implementation, not tests run during this documentation update.
+
+## 12. First-step terrain and streaming validation
+
+The locked first milestone in [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence) exercises terrain generation/loading, FPS collision, fist mining and real inventory. The industrial, water, transfer and durable-save contracts elsewhere in this document apply as their systems are selected later; they are not prerequisites for completing this step.
+
+Use the existing coordinate/chunk/origin and authoritative-edit contracts. One world definition is sufficient now, with stable WorldId, block/item identities, generator version and seed. Generate natural terrain only; do not place structures or silently enable a structure-generation pass. Start with a small opaque terrain palette and enough height/cave variation to exercise seams, visibility and mining; the exact generation algorithms and visual palette remain implementation/review choices.
+
+Chunk demand is driven by player position and configurable distances. Prioritize safe spawn, nearby collision and movement direction; schedule generation/meshing with bounded work and reject obsolete job revisions. At an unready frontier, retain a safe movement boundary and expose loading feedback. Unload unneeded runtime meshes and collision/presentation resources; retain only the compact authoritative state required to regenerate or restore edits/entities. Changing a render distance must not change terrain contents or delete items.
+
+### Session state and resource conservation
+
+For this first step, the selected working storage boundary is one running session. Keep changed voxel data and unexpired loose-item records independently of resident rendering chunks; unloading is not permission to regenerate mined blocks or reset item counts. Inventory remains authoritative across all streaming operations. Regenerate untouched terrain deterministically and reapply retained changes before a returning chunk becomes playable. Dormant pile lifetime follows the existing eligibility rule.
+
+Do not retain every visited chunk's full unmodified voxel/mesh data merely to simulate persistence. Track compact edit/entity storage separately from resident streaming allocations: retained state can grow with real player changes, while an unedited exploration route must not cause unlimited resident terrain growth. Never evict committed changes or items silently to meet a memory target. Cross-session disk saving, journal durability and migrations remain later work; disclose the session reset on quitting/restarting and make no save-success claim in this build. Preserve the identity/revision boundaries so durable persistence can extend these same models.
+
+### Required evidence for the first review
+
+| Exercise | Evidence to record |
+|---|---|
+| Same seed, different discovery order | Matching unedited block contents across positive/negative chunk boundaries; safe deterministic spawn |
+| Continuous walking/sprinting and rapid turns | Frame-time distribution, generation/mesh queue age, loaded chunks and frontier behaviour |
+| Repeated mining at seams and underfoot | Correct authoritative removal/collision, rejected stale mesh results and conserved drop quantities |
+| Leave and revisit an edited area | Runtime unloading actually occurred; removed blocks stay removed and unexpired items return once |
+| Long unedited travel and return | Resident memory/cache counts stabilize for the declared view settings; compact edited-state growth reported separately |
+| Floating-origin shift with the player and loose items | No targeting offset, visual jump, changed world identity or collision loss |
+| Inventory interaction during remeshing/loading | No unintended mining through UI and no duplicate/lost stack transfers |
+
+Record seed, generator version, travel route/duration, distances, job settings, build revision and actual reference hardware. Use the existing provisional frame/feedback/memory budgets, reporting measured outcomes and limitations. This step establishes evidence for its tested terrain workload; it does not certify factory scale, additional worlds or unlimited travel.

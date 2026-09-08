@@ -14,7 +14,11 @@ Keep `.blend` source separate from Unity's imported runtime hierarchy. Publish e
 
 ## 2. First visual kit
 
-Produce a cohesive kit before a broad catalogue: terrain blocks for the first resource set, held tools, chest/workbench/furnace, boiler-engine, alternator, crusher, pipes/cables and a temporary common creature rig. A block is recognizable from silhouette/texture at normal targeting distance. Different port functions use shape, icon and direction alongside colour.
+The locked first step requires a cohesive **terrain/player/inventory visual concept**, as scoped in [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence). Its kit contains a small natural terrain palette, a 3D player body and first-person fists, basic idle/movement/mining animations, terrain-item icons, selection/mining feedback, hotbar/inventory UI and the visibly inactive crafting area. Use a consistent lighting reference. No structure kit, held tools, machine assets or creatures are required for this step.
+
+The initial player must be an inspectable 3D model, not only an invisible collision capsule or disconnected floating hand placeholders. A reusable simple rig and restrained animation set are sufficient for concept review. Check first-person clipping, fist reach/readability, body proportions and contact with the terrain; graphical pose must remain independent of authoritative movement/mining. Final customization, combat animation and a production-wide character catalogue are later decisions.
+
+After this slice is reviewed, later selected work can extend the same visual language to tools, chest/workbench/furnace, boiler-engine, alternator, crusher, pipes/cables and creatures. A block is recognizable from silhouette/texture at normal targeting distance. Later port functions use shape, icon and direction alongside colour.
 
 Initial terrain texture density is 32 texels per block face; test readability at 32 and 64 before finalizing. Machines can use more detail near controls, but do not mix unrelated density/material styles by accident. Record selected palette, roughness ranges, edge treatment and lighting reference in the first kit review. Steam devices emphasize readable moving parts and gauges; Gatebuilder devices keep a distinct shape language.
 
@@ -38,6 +42,8 @@ Pin Unity and package versions in project metadata. A fresh checkout must import
 
 ## 5. Acceptance and tool readiness
 
-For the first machine, round-trip Blender source -> export -> Unity import; verify 1 m grid fit, rotations, port alignment, collision bounds, material appearance and state animation. Change the source and repeat import without losing asset identity. Check a second checkout and a built player, not only one open Editor.
+For the first-step player, round-trip Blender source -> export -> Unity import; verify scale against the 1 m terrain grid, orientation, rig/animation, first-person visibility and material appearance. Change the source and repeat import without losing asset identity. Review terrain, player, lighting and inventory together in a built player and verify a fresh checkout imports the kit. Record screenshots and in-motion observations, the selected visual direction and remaining issues; an isolated concept image does not establish in-game readability. The exact palette/model style is deliberately chosen during this step, not claimed finalized by this specification.
+
+When machines are selected later, apply the same round-trip checks to grid fit, rotations, port alignment, collision bounds, material appearance and state animation.
 
 Unity/Blender startup uses the local skill linked from `AGENTS.md`. A working executable, an open editor and a responsive integration are separate checks. Live integrations can improve iteration but are not runtime dependencies of the shipped game. Tool installation and project creation happen only as part of their authorized tasks.

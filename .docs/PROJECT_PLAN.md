@@ -1316,26 +1316,30 @@ Optimization is continuous, not a final sprint.
 
 The POC should be **small in content and deep in architecture**.
 
-This checklist follows the **agreed playable stage order** in [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md). It replaces the earlier conflicting order that delayed crafting until after multi-world work. Every stage exercises real architecture through playable behaviour.
+The user's 2026-09-08 staging instruction locks **only the first playable step** below. [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence) owns its scope, exclusions, internal checkpoints and acceptance gate. The later groups preserve the full-game ambition as candidates; their order and size must be decided after reviewing the first playable result. This documentation update starts no gameplay implementation.
 
-### Stage 0 - Core feel on real voxel foundations
+### Stage 0 - First playable terrain, FPS and visual concept (locked scope)
 
 - [x] Create the authorized Unity/URP project, pinned to 6000.4.4f1 with URP 17.4.0. Gameplay tasks below remain outstanding.
-- [ ] World-aware integer/chunk coordinates, deterministic streamed terrain and a small real block palette.
-- [ ] FPS movement, precise targeting, break/place, feedback and collision correctness during asynchronous rebuilds.
-- [ ] Mesh generation/load/unload, origin-shift exercises and basic profiling.
-- [ ] Pass the Stage 0 interaction cases in [GAMEPLAY.md](GAMEPLAY.md).
+- [ ] World-aware coordinates and deterministic natural terrain with no generated structures; real chunk generation, meshing, loading and unloading.
+- [ ] Playable FPS movement, a 3D player model and visible first-person fists with basic animation.
+- [ ] Fist mining, precise targeting/feedback and immediate collision correctness during asynchronous remeshing.
+- [ ] Real item stacks, physical mining drops/pickup, functional inventory/hotbar and an explicitly nonfunctional crafting placeholder inside inventory.
+- [ ] Preserve session edits and item state when leaving and returning to chunks; exercise origin shifts and bounded streaming residency.
+- [ ] Establish and review a coherent terrain/player/UI/lighting concept in a standalone Windows build.
+- [ ] Record interaction, visual and streaming evidence against [GAMEPLAY.md](GAMEPLAY.md#14-locked-first-step-interaction-contract) and [SIMULATION.md](SIMULATION.md#12-first-step-terrain-and-streaming-validation).
+- [ ] Review the result and known issues with the user, then decide the next implementation. Do not automatically start the candidates below.
 
-### Stage 1 - First sandbox loop
+### Candidate Stage 1 - Extend the sandbox (not yet selected)
 
-- [ ] Stable item identities, 12-slot hotbar/48-slot inventory, stack movement and physical drops/pickup.
+- [ ] Extend the first step's item/inventory/drop systems with block placement and tool progression.
 - [ ] Workbench, furnace and the manual bootstrap recipes in [ECONOMY.md](ECONOMY.md).
 - [ ] Save/reload terrain, inventory, piles and simple block entities.
 - [ ] World water, sinking/buoyant piles, compatible merging and sleeping movement.
 - [ ] Basic day/night, health/death recovery and initial passive/hostile behaviours as the loop needs them.
 - [ ] Play 20-30 minutes of gathering/building/crafting without developer commands.
 
-### Stage 2 - Industrial hook
+### Candidate Stage 2 - Industrial hook (not yet selected)
 
 - [ ] Reusable machine inventories, escrow, ports, process state and visible stop reasons.
 - [ ] Boiler-engine/alternator, crusher, pump and finite-terrain drill with manual startup routes.
@@ -1344,7 +1348,7 @@ This checklist follows the **agreed playable stage order** in [DEVELOPMENT_STRAT
 - [ ] Build, diagnose and dismantle the complete extraction-to-storage chain, not just supplied chests.
 - [ ] Keep the same authority/identity model used by the sandbox loop.
 
-### Stage 3 - Lifecycle, scale and background simulation
+### Candidate Stage 3 - Lifecycle, scale and background simulation (not yet selected)
 
 - [ ] Generic ticket capabilities, owner-online quotas, overlap deduplication and dormant boundaries.
 - [ ] Active/background equivalence, resource accounting and stable scheduling.
@@ -1352,7 +1356,7 @@ This checklist follows the **agreed playable stage order** in [DEVELOPMENT_STRAT
 - [ ] Coherent journal/checkpoint recovery and failure reporting.
 - [ ] Benchmark playable workloads plus scaling tiers; batch only after reference equivalence.
 
-### Stage 4 - Multi-world skeleton
+### Candidate Stage 4 - Multi-world skeleton (not yet selected)
 
 - [ ] Two lightweight world definitions in the same saved universe.
 - [ ] Deterministic matching anchors with world-specific terrain and stable identities.
@@ -1360,7 +1364,7 @@ This checklist follows the **agreed playable stage order** in [DEVELOPMENT_STRAT
 - [ ] Temporary bounded tickets, cancellation, unload/reload and interrupted-transfer recovery.
 - [ ] Exercise the selected Gate accompaniment/sanctuary rules with simple test presentation.
 
-### Stage 5 - Expand the real game
+### Candidate Stage 5 - Expand the real game (not yet selected)
 
 - [ ] Expand technology ages, manufacturing and construction conveniences.
 - [ ] Richer terrain, settlements/ecology, Gate ruins and distinct exploration realms.
@@ -1368,11 +1372,13 @@ This checklist follows the **agreed playable stage order** in [DEVELOPMENT_STRAT
 - [ ] Multiplayer implementation, permissions and dedicated-server operation.
 - [ ] Complete content/asset and release validation from [CONTENT_PIPELINE.md](CONTENT_PIPELINE.md) and [DELIVERY.md](DELIVERY.md).
 
-The same stages are maintained in [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md); there is no separate infrastructure-first milestone order. Stage 5 expands an already playable and measured foundation. Final content breadth is not required before earlier playable increments can be reviewed.
+These candidate groups are mirrored in [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md). Their retained numbering is a planning reference, not approval to implement them in that order. The first step can be reviewed without functional crafting, industry or the wider POC scenarios below.
 
 ---
 
-## 38. POC acceptance test
+## 38. Broader POC acceptance scenarios (later candidates)
+
+These are cumulative technical/gameplay ambitions for later selected milestones. They are not completion requirements for the locked first step, whose acceptance gate is in DEVELOPMENT_STRATEGY.md section 6.
 
 Primary factory scenario:
 
@@ -1422,9 +1428,9 @@ These scenarios provide evidence for the tested foundations, not proof of unlimi
 
 ---
 
-## 39. Explicitly outside the first POC
+## 39. Deferred scope
 
-Do not let these distract from the architecture initially:
+The locked first step's exclusions are owned by [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence). In particular, all generated structures, functional crafting, placement/building, tools, mobs, water simulation and industry are deferred from that step. The following larger content areas also remain outside the broader early POC ambition:
 
 - huge biome library;
 - polished villages;

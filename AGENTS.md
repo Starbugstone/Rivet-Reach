@@ -4,6 +4,8 @@
 
 The project is at the beginning: the user authorized Unity project initialization, and the repository root now contains the initial Unity 6000.4.4f1 / URP project. Gameplay systems remain unimplemented and the design specifications remain evolutive. Keep work scoped to the current user request; project initialization is not authorization to implement the full roadmap, upgrade the Editor or install live integrations. Do not describe planned gameplay as implemented.
 
+The user has locked the first playable milestone in documentation: terrain-only world generation and chunk streaming, FPS movement, a 3D player, fist mining, functional inventory and a nonfunctional crafting placeholder inside inventory. No generated structures. [DEVELOPMENT_STRATEGY.md](.docs/DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence) owns its detailed scope and review gate. This documentation request does not authorize gameplay implementation. Once implementation is requested, complete and review this first slice with the user before selecting subsequent work; the later roadmap groups are candidates, not an automatic queue.
+
 ## Licensing and ownership
 
 - Rivet Reach is **proprietary, all rights reserved, and not open source**. Read `LICENSE.md` before introducing code, assets, dependencies or contribution workflows.

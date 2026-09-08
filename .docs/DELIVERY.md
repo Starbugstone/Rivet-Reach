@@ -16,7 +16,7 @@ A cooperative release also requires permissions, join/rejoin, save compatibility
 
 ## 2. Single roadmap ownership
 
-`DEVELOPMENT_STRATEGY.md` owns implementation stage order. `PROJECT_PLAN.md` lists scope/acceptance mapped to those same stages. Specialist files define behaviour; they must not independently reorder the project. Stage 0 is responsive real voxel play; Stage 1 is gathering/crafting/persistence; Stage 2 is the industrial hook; Stage 3 stresses lifecycle/scale; Stage 4 proves multi-world transfer; Stage 5 expands the real game.
+`DEVELOPMENT_STRATEGY.md` owns milestone scope and sequence. `PROJECT_PLAN.md` mirrors it; specialist files define behaviour. The user has locked only the first terrain/FPS/3D-player/fist-mining/inventory slice, with an inventory crafting placeholder and no generated structures. Review its visual concept, playable behaviour and chunk-streaming evidence before deciding the next implementation. The former Stages 1-5 remain provisional candidate groups and may be split/reordered after that review; they are not an automatic implementation queue.
 
 A stage cannot pass on synthetic performance alone or on a playable fake that discards the chosen data model. Small experiments may change implementations through evidence. Scope and user-visible goals stay explicit when tradeoffs arise.
 
@@ -26,7 +26,7 @@ Before the first implementation benchmark, designate one available machine and r
 
 Initial memory investigation budget is 4 GiB resident game memory for the first playable slice, excluding the Editor; this is a tuning target, not a supported minimum-RAM declaration. Track native meshes, voxel pages, caches and managed allocations separately. Use the existing 100/1,000/10,000-machine scaling tiers to reveal growth, alongside real play. No tier is promised supported until measured with declared active chunks/transfers.
 
-Interactive edits, world-item/water piles, save activity and topology bursts run concurrently in representative tests. Report p95/p99/max frame time, industrial step cost, oldest queued job, generation backlog and resident memory after travel/unload. Profile development instrumentation separately from representative player builds. A faster average cannot excuse periodic long input stalls or resource loss.
+For the first step, measure concurrent traversal/streaming, fist mining, dry-terrain item piles and inventory operations using SIMULATION.md section 12. Add water, saves, topology bursts and industrial timing as those systems are selected later. Report applicable p95/p99/max frame time, oldest queued job, generation backlog and resident memory after travel/unload. Profile development instrumentation separately from representative player builds. A faster average cannot excuse periodic long input stalls or resource loss.
 
 ## 4. Development verification and release lifecycle
 
@@ -34,9 +34,11 @@ When implementation starts, the build workflow must produce a player build from 
 
 Check command validation, inventory conservation, recipe bootstrap, chunk seams, job revision rejection, save recovery and world transfer with automated tests where they can establish invariants. Check movement, machine readability, exploration motivation and asset appearance through hands-on play. Neither method substitutes for the other.
 
-World create/load, pause/options, quit/save, failed save reporting and recovery are part of playable completion. Initial autosave interval is 5 eligible minutes, with explicit save-on-quit and three rotating valid checkpoints. A migration creates a separate backup first. Development builds may deliberately change schema only with a visible compatibility notice; public releases need a documented migration or supported-version policy before accepting established saves.
+World create/load, pause/options, quit/save, failed save reporting and recovery are part of the later persistent sandbox/release scope. The first-step working boundary is session-only state: provide start/pause/resume/quit and clearly disclose that quitting resets progress; preserve edits/items when chunks unload within that session. Durable saving is not a first-step acceptance requirement. When persistence is selected, the initial autosave interval is 5 eligible minutes, with explicit save-on-quit and three rotating valid checkpoints. A migration creates a separate backup first. Development builds may deliberately change schema only with a visible compatibility notice; public releases need a documented migration or supported-version policy before accepting established saves.
 
 Every stage review records: available player actions, actual test results, known limitations, performance workload and next unresolved dependency. Do not mark all issues solved because one demonstration passed. A release candidate requires an uninterrupted extended play/save/reload session, recovery exercises, fresh install/import and a second environment check.
+
+The first-step handoff includes a reproducible standalone Windows build, a normal-controls play walkthrough, visual concept captures, player-model/animation inspection, streaming measurements and a list of remaining issues. Present these for user review and selection of the next implementation; do not convert milestone completion into permission to start the next candidate group.
 
 ## 5. Production ownership and multi-agent collaboration
 

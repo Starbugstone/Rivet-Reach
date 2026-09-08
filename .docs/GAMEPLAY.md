@@ -243,11 +243,11 @@ Items continue to sink by default and float only with `buoyant=true`. Currents a
 
 ## 12. Interaction acceptance cases
 
-Before Stage 0 completes, test moving/jumping/crouching across chunk seams, mining directly beneath the player, rapid wall edits, placement near the body and looking beyond generated terrain. There must be no invisible newly placed obstacle, traversable uncommitted wall or fall through unready collision.
+The locked first step uses the interaction and review contract in section 14. Test moving/jumping/crouching across chunk seams, mining beneath the player, rapid mining edits and looking beyond generated terrain. Placement/collision tests for newly placed blocks apply when building is selected for a later milestone.
 
-Stage 1 adds the full recipe bootstrap in [ECONOMY.md](ECONOMY.md), configurable actions, partial pickup, owner drop delay, full-inventory handling, world-item sinking/floating, redirected water, death-cache recovery and save/reload. Water/item visuals must remain readable when cosmetic animation is reduced.
+Partial pickup, owner drop delay, full-inventory handling and configurable actions apply to the first step's real inventory. Functional recipes, water/item buoyancy, death recovery and durable save/reload remain later candidates, selected after the first-step review. Their full-game rules remain specified here and in [ECONOMY.md](ECONOMY.md).
 
-Stage 2 adds a furnace/boiler/crusher chain, one deliberate starvation/full-output fault, settings copy, rotated ports and dismantling with a full inventory. Show stop reasons on the machine, not only in a debug console.
+When the industrial candidate is selected, test a furnace/boiler/crusher chain, one deliberate starvation/full-output fault, settings copy, rotated ports and dismantling with a full inventory. Show stop reasons on the machine, not only in a debug console.
 
 Values are adjusted through recorded playtests. The current rules are complete enough to build the first increments without deciding every late-game vehicle, creature or recipe.
 
@@ -258,3 +258,37 @@ Settlements provide recognizable inhabitants, shelter landmarks and a small trad
 Cooperative worlds distinguish build/use/storage permissions from production-ticket ownership. Players can grant a group access to a base and its machines, but a loader keeps one explicit owner and quota account until transferred. Claims protect placed blocks, inventories and mining targets; they cannot appropriate a Gate sanctuary or block its return interaction. Unclaimed natural terrain remains editable under server rules. PvP is off by default for the initial cooperative profile. Changing those server rules is an explicit configuration choice, not an implicit consequence of multiplayer.
 
 Late-game goals come from constructing settlements, expanding useful industrial capacity, completing optional artifact collections and building multi-world projects. The release progression must provide durable uses for advanced output; it does not require a narrative victory screen. Final trade catalogues, creatures, optional megaproject recipes and combat numbers remain content work.
+
+## 14. Locked first-step interaction contract
+
+**User scope decision, 2026-09-08:** the first playable step contains natural terrain, chunk streaming, FPS movement, fist mining, functional inventory with a crafting placeholder and a 3D player. No structures. [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence) owns the milestone boundary; the details below are working implementation defaults within it, not claims of tested feel or final visual approval.
+
+### Player and controls
+
+Start in first person at a safely prepared terrain spawn. Support mouse look, walk, sprint, jump and crouch using the section 9 movement defaults and rebindable actions. Spawn readiness and collision must precede player control. Provide usable pause/resume, mouse capture/release and inventory open/close behaviour. Opening inventory releases the pointer and suppresses movement/mining commands so clicking slots cannot also mine terrain; existing universe-time rules remain unchanged.
+
+Use a real 3D player model with a body and visible first-person arms/fists. Basic idle, locomotion and mining animation must share one player state; animation never decides whether an authoritative block is removed. First-person presentation must avoid the camera seeing inside the head/body or fists obscuring the target. Provide a development inspection view for reviewing the complete model/animation; a player-facing third-person mode is not required. Model proportions, silhouette, material treatment and animation style are selected through the visual review, with asset conventions in CONTENT_PIPELINE.md.
+
+### Fist mining and collection
+
+Use the existing grid targeting/reach and held mining progress rules. Every ordinary block in the first terrain palette must be mineable with fists; use definition-driven durations and yields. This explicitly supersedes the wooden/stone-pick prerequisites in section 9 for this slice. Tools, ore progression and future special unbreakable blocks are later content, not hidden requirements for this first loop.
+
+Give immediate fist/selection/progress feedback and simple readable impact feedback. Only a successful authoritative removal creates the defined physical item stack once. Use the existing dry-terrain drop, pickup, stack merging, sleeping and partial-transfer semantics. A full inventory leaves the uncollected amount in the world; repeated mining, pickup and inventory actions must not duplicate or silently erase material. Water interactions are deferred by the milestone boundary.
+
+### Inventory and crafting placeholder
+
+Deliver real hotbar/main inventory storage using stable item definitions and section 9's initial slot/stack configuration. Display collected item identity and count; support selection, moving stacks, splitting, combining, quick transfer, manual dropping and clear full-inventory feedback. The selected stack does not turn fists into a tool or enable block placement in this step.
+
+Reserve a visible area inside the inventory labelled **Crafting — coming later**. It is a UI/layout placeholder only: no functional recipes, ingredient escrow, crafted output, workbench or recipe browser. Placeholder slots accept no real items and never consume or trap stacks. Keep the inventory's actual storage separate so later crafting can connect to the real item model.
+
+### Playable review cases
+
+- Start a terrain session, walk/sprint/jump/crouch and cross chunk seams using normal controls.
+- Mine nearby terrain with fists, including at chunk edges and underfoot; confirm targeting, fist motion, visible progress, removal and collision agree.
+- Collect the drops, move/split/merge/drop stacks, fill inventory and pick up only the amount that fits.
+- Open/close inventory while mining; no world edit leaks through UI input and no progress commits against a stale target.
+- Inspect the player body and first-person fists, then review terrain, lighting, item icons and inventory together for a coherent visual concept.
+- Verify the crafting area is visibly unavailable and cannot change item totals.
+- Leave a mined area until its runtime chunk representation unloads, then return and confirm the session's terrain edits and unexpired items remain correct.
+
+These cases are future checks, not completed tests. Record the actual playtest findings and decide the next implementation with the user after this first slice.

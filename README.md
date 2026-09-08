@@ -20,7 +20,7 @@ Rivet Reach is in **early development and specification design**. The repository
 
 Open this repository folder in Unity Hub with the pinned Editor version. Start with `Assets/RivetReach/Scenes/Main.unity`. See [Unity setup](.docs/UNITY_SETUP.md) for the exact setup and verification notes.
 
-The first objective is not content volume, but proving that an infinite voxel world, crafting, machinery, logistics and persistent background factories can all run efficiently on ordinary gaming hardware.
+The **locked first playable step** is terrain generation and chunk streaming, FPS movement, a 3D player, fist mining, functional inventory and a crafting placeholder inside that inventory. It contains **no generated structures**. Establish the visual concept and validate terrain/loading through play before choosing the next implementation. Full crafting, industry and background factories remain later ambitions. See the authoritative [first-step scope and review gate](.docs/DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence). This scope is documented; gameplay implementation has not started.
 
 The design will remain **evolutive** while ideas are brainstormed and the POC is tested. Systems described today may be refined as implementation and performance testing expose better solutions.
 

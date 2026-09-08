@@ -188,7 +188,7 @@ The inventory UX should already support fast operations such as stack movement, 
 
 ### Crafting
 
-Use the real data-driven recipe registry from the start.
+When functional crafting is selected for a later milestone, use the real data-driven recipe registry from its first implementation. The locked first step includes only an inventory crafting placeholder, with no recipe execution.
 
 Begin with only enough recipes to create the first playable loop.
 
@@ -228,42 +228,62 @@ It does not need every future migration/recovery feature before mining feels goo
 
 ---
 
-## 6. Recommended implementation sequence
+## 6. Locked first step and provisional later sequence
 
-This is the authoritative stage order, mirrored by PROJECT_PLAN.md. It prioritizes playable feedback while continuously exercising the final architecture. The 2026-09-08 resolution pass aligns both documents and supplies behavioural contracts in the specialist specifications.
+This document owns milestone scope and sequencing, mirrored by PROJECT_PLAN.md. The user's 2026-09-08 staging instruction supersedes the earlier automatic Stage 0-5 progression: **only the first step below is locked. Review its playable result with the user before choosing the next implementation.** The later stages remain candidate groupings of the full-game vision, not an approved queue. This request locks documentation; it does not start gameplay implementation.
 
-### Stage 0 - Core feel on real voxel foundations
+### Stage 0 - First playable terrain, FPS and visual concept (locked scope)
 
-Goal: **walking around and manipulating the world already feels good.**
+Goal: **play in a generated terrain world, move as a 3D first-person player, mine with fists and collect/manage the results while establishing the visual concept and reliable chunk streaming.**
 
-Build:
+User-required scope:
 
-- Unity project and rendering baseline;
-- world/chunk/local coordinate model with `WorldId` awareness;
-- deterministic streamed terrain using the real chunk data model;
-- FPS controller;
-- precise block targeting;
-- break/place;
-- immediate hit/place feedback;
-- basic sounds/particles/selection feedback;
-- basic performance instrumentation.
+- Natural voxel terrain generation only: no generated structures, villages, ruins, Gates or buildings.
+- Real chunk generation, meshing, loading and unloading around the player, rather than a finite demonstration map.
+- Playable first-person movement and camera controls.
+- A 3D player model, including visible first-person fists and enough presentation to review movement and mining.
+- Fist mining with targeting, progress and clear feedback.
+- Functional inventory/hotbar, using real item identities and quantities collected from mined terrain.
+- A clearly labelled, nonfunctional crafting placeholder inside the inventory.
+- A coherent initial visual concept for terrain, player, lighting and inventory; review the concept in play.
 
-Architectural constraints already apply:
+Working scope boundaries, chosen to keep this step small:
 
-- no GameObject per voxel;
-- no hard-coded single-world coordinates;
-- async/budgeted heavy work where necessary;
-- floating-origin compatibility.
+- Use one terrain-only world definition and a small fist-mineable block palette. Hills and a small amount of cave/overhang geometry should exercise generation and underground edits; biome variety and the full resource distribution are later choices.
+- Preserve the existing physical stack-drop/pickup rules for the mining-to-inventory loop, including compatible merging and sleeping on dry terrain. Water simulation is not required here.
+- Establish a reusable player model and basic idle/movement/fist animation. A third-person gameplay mode, character customization, combat and final animation polish are not required.
+- Block placement/building, tools/tool progression, functional recipes, workbench/furnace, survival/death, mobs, water simulation, day/night progression, machinery, logistics and additional worlds remain outside this step.
+- Retain terrain edits, inventory and unexpired drops across chunk unloading/reloading within the running session. Durable cross-session saving and recovery remain later candidates; the first build must clearly disclose its session-only state. This is a scoped milestone boundary, not removal of the final persistent-save requirement.
+- Use a stable lighting setup for visual review. Final art breadth and a complete voxel-light feature set are not prerequisites for this step.
 
-### Stage 1 - First sandbox loop
+Architectural requirements still apply: world-aware integer/chunk coordinates, real block/item definitions, authoritative mining and inventory changes, voxel-grid collision, revision-safe asynchronous meshes, no GameObject per voxel, bounded heavy work and floating-origin handling. Build only the portions needed by this step. Interaction detail belongs to [GAMEPLAY.md](GAMEPLAY.md#14-locked-first-step-interaction-contract); streaming/state evidence belongs to [SIMULATION.md](SIMULATION.md#12-first-step-terrain-and-streaming-validation); visual delivery belongs to [CONTENT_PIPELINE.md](CONTENT_PIPELINE.md#2-first-visual-kit).
+
+Implementation checkpoints within this one milestone, each reviewed in the same growing project:
+
+1. **Traverse:** seeded terrain, safe spawn, chunk streaming, FPS controls and an initial 3D player.
+2. **Mine and collect:** fist targeting/mining, authoritative edits, physical pickups and usable inventory with the crafting placeholder.
+3. **Review and stabilize:** cohesive terrain/player/UI visuals, model and animation review, chunk-boundary/long-traversal checks and a measured standalone build.
+
+These checkpoints do not authorize separate later features. Stage 0 is complete only when the combined playable result meets all of the following:
+
+- The player can start, move, mine and manage inventory without developer commands; crafting is visibly unavailable.
+- The 3D player and first-person fists are present and visually coherent with terrain and UI.
+- Terrain contains no generated structures; the same seed and generator definition reproduce unedited terrain independently of discovery order.
+- Crossing chunk boundaries, digging at seams, outrunning generation and shifting the rendering origin produce no fall-through, stale collision or reappearing mined blocks.
+- Leaving and returning preserves session edits and item accounting; streaming releases unnecessary runtime meshes/colliders and does not hide an unlimited resident-world cache.
+- A standalone Windows build has a recorded hardware/settings/workload profile and documented remaining visual, control and streaming issues. Numerical performance targets remain provisional until measured.
+
+**Review gate:** present the playable build, visual concept, measurements and known limitations to the user. Decide the next implementation scope from that evidence. Do not automatically begin crafting, survival, industry or the old Stage 1 list.
+
+### Candidate Stage 1 - Extend the sandbox (not yet selected)
 
 Goal: **the player can play rather than merely test a voxel engine.**
 
 Add:
 
-- real item registry and stack model;
-- hotbar and main inventory;
-- resource drops/gathering, stack merging, sleeping piles and block-water interaction;
+- extend the real item/inventory/drop systems delivered in the first step;
+- block placement/building and tool progression;
+- block-water interaction;
 - data-driven grid crafting;
 - workbench/furnace;
 - save/reload of terrain, inventory and simple block entities;
@@ -274,7 +294,7 @@ Acceptance question:
 
 > Can a player spend 20-30 minutes gathering, building and crafting without developer commands?
 
-### Stage 2 - Industrial hook
+### Candidate Stage 2 - Industrial hook (not yet selected)
 
 Goal: **prove that Rivet Reach's automation is satisfying, not only technically possible.**
 
@@ -307,7 +327,7 @@ Acceptance question:
 
 > Is building and diagnosing the first automated process immediately understandable and satisfying?
 
-### Stage 3 - Lifecycle, scale and background simulation
+### Candidate Stage 3 - Lifecycle, scale and background simulation (not yet selected)
 
 Goal: **prove the playable systems can survive the scale implied by the final game.**
 
@@ -329,7 +349,7 @@ This is where [SIMULATION.md](SIMULATION.md) becomes heavily exercised.
 
 Do not invent a separate fast background machine implementation with different game rules. Optimize the same authoritative system.
 
-### Stage 4 - Multi-world skeleton
+### Candidate Stage 4 - Multi-world skeleton (not yet selected)
 
 Goal: **prove the existing game can exist in more than one world without redesign.**
 
@@ -346,7 +366,7 @@ Add:
 
 This remains an architecture test, not finished Gate or rocket content.
 
-### Stage 5 - Expand the real game
+### Candidate Stage 5 - Expand the real game (not yet selected)
 
 Only once the core interaction and industrial loop are both enjoyable and structurally sound should content expand substantially:
 
@@ -470,7 +490,7 @@ The final goal is the constraint; individual classes and algorithms are not.
 
 ## 10. Relationship to the POC
 
-The POC must prove both **gameplay value** and **technical viability**.
+The broader POC ambition must prove both **gameplay value** and **technical viability**. The following describes cumulative evidence across future milestones; it is not the acceptance bar for the locked first step in section 6. That step proves terrain/FPS/inventory/visual foundations and can finish before functional crafting or automation exists.
 
 A technically correct voxel engine with no satisfying game loop is not a successful POC.
 
@@ -504,11 +524,11 @@ Neither side replaces the other.
 
 ## 11. Current development priority
 
-Until implementation begins, documentation should preserve this balance.
+The first milestone's scope is locked in section 6. Gameplay implementation has not begun; this documentation decision does not mark any new feature implemented.
 
 When implementation is authorized, the first priority is:
 
-> **Build a responsive playable slice using the real foundational architecture, then extend that same slice toward the complete Rivet Reach vision.**
+> **Build and review the locked terrain/FPS/fist-mining/inventory/3D-player slice, then decide with the user what to implement next.**
 
 When two approaches both meet the final requirements, prefer the one that can be tested through actual gameplay sooner.
 
