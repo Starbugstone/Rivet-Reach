@@ -22,6 +22,14 @@ The first objective is not content volume, but proving that an infinite voxel wo
 
 The design will remain **evolutive** while ideas are brainstormed and the POC is tested. Systems described today may be refined as implementation and performance testing expose better solutions.
 
+## License and ownership
+
+**Rivet Reach is proprietary and is not an open-source project.** Copyright © 2026 Starbugstone. All rights reserved.
+
+Public visibility of this repository does not grant permission to use, copy, modify, redistribute, commercialize, or create derivative works from its source code, documentation, artwork, assets, or other protected material beyond rights required by GitHub's Terms of Service or applicable law.
+
+See [LICENSE.md](LICENSE.md) for the complete terms.
+
 ## Design documents
 
 - [PROJECT_PLAN.md](.docs/PROJECT_PLAN.md) - technical plan, architecture, POC and long-term target.
