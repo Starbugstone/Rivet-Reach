@@ -16,7 +16,7 @@ Keep `.blend` source separate from Unity's imported runtime hierarchy. Publish e
 
 The locked first step requires a cohesive **terrain/player/inventory visual concept**, as scoped in [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence). Its kit contains a small natural terrain palette, a 3D player body and first-person fists, basic idle/movement/mining animations, terrain-item icons, selection/mining feedback, hotbar/inventory UI and the visibly inactive crafting area. Use a consistent lighting reference. No structure kit, held tools, machine assets or creatures are required for this step.
 
-The initial player must be an inspectable 3D model, not only an invisible collision capsule or disconnected floating hand placeholders. A reusable simple rig and restrained animation set are sufficient for concept review. Check first-person clipping, fist reach/readability, body proportions and contact with the terrain; graphical pose must remain independent of authoritative movement/mining. Final customization, combat animation and a production-wide character catalogue are later decisions.
+The initial player must be an inspectable 3D model, not only an invisible collision capsule or disconnected floating hand placeholders. A reusable simple rig and restrained animation set are sufficient for concept review. Check first-person clipping, fist reach/readability, body proportions and contact with the terrain; graphical pose must remain independent of authoritative movement/mining. Changeable skins are now required by the user; body-shape customization, combat animation and a production-wide character catalogue remain later decisions.
 
 After this slice is reviewed, later selected work can extend the same visual language to tools, chest/workbench/furnace, boiler-engine, alternator, crusher, pipes/cables and creatures. A block is recognizable from silhouette/texture at normal targeting distance. Later port functions use shape, icon and direction alongside colour.
 
@@ -47,3 +47,13 @@ For the first-step player, round-trip Blender source -> export -> Unity import; 
 When machines are selected later, apply the same round-trip checks to grid fit, rotations, port alignment, collision bounds, material appearance and state animation.
 
 Unity/Blender startup uses the local skill linked from `AGENTS.md`. A working executable, an open editor and a responsive integration are separate checks. Live integrations can improve iteration but are not runtime dependencies of the shipped game. Tool installation and project creation happen only as part of their authorized tasks.
+
+## 6. Player skin authoring contract
+
+Player-facing behaviour is owned by [GAMEPLAY.md](GAMEPLAY.md#15-player-skins). Build the initial player around a reusable model/rig and a documented texture layout. Skin colours, face details, painted hair and clothing patterns must be replaceable without editing the mesh, animation or gameplay definitions. Separate left/right limb regions so asymmetric designs work. First-person arms/hands use the same skin regions as the body, even if presentation uses a separate mesh.
+
+The generated explorer-builder concept is one proposed appearance, not a locked identity or mandatory teal waistcoat for all players. Revisit its sculpted hair, raised clothing and pouch details before modeling: texture replacement cannot remove a protruding silhouette. Keep the base silhouette sufficiently neutral for different painted outfits; additional hairstyles, garment meshes and accessories would be separate customization features.
+
+Provide an original Rivet Reach skin template and preview it on the model before fixing its layout. PNG is the working interchange proposal; exact resolution, UV layout, filtering and optional overlay-layer support remain to be selected through the player visual review. Familiar skin customization does not imply compatibility with Minecraft skin files. Do not advertise direct compatibility without a separately selected and tested mapping.
+
+The initial two test skins must differ in face/skin colours and clothing so body/first-person mismatches are easy to detect. Verify seams, left/right orientation, hand detail, bending at joints and unchanged collision/mining behaviour. If custom-file import is selected for the first slice, reject invalid formats/dimensions or excessive decoded sizes and preserve the last valid selection. Base-body transparency must not make the player disappear; optional transparent overlays require their own explicit format rule.

@@ -1322,7 +1322,7 @@ The user's 2026-09-08 staging instruction locks **only the first playable step**
 
 - [x] Create the authorized Unity/URP project, pinned to 6000.4.4f1 with URP 17.4.0. Gameplay tasks below remain outstanding.
 - [ ] World-aware coordinates and deterministic natural terrain with no generated structures; real chunk generation, meshing, loading and unloading.
-- [ ] Playable FPS movement, a 3D player model and visible first-person fists with basic animation.
+- [ ] Playable FPS movement, a reusable 3D player model and visible first-person fists with basic animation; basic skin selection with a shared body/hand appearance, as specified in [GAMEPLAY.md](GAMEPLAY.md#15-player-skins).
 - [ ] Fist mining, precise targeting/feedback and immediate collision correctness during asynchronous remeshing.
 - [ ] Real item stacks, physical mining drops/pickup, functional inventory/hotbar and an explicitly nonfunctional crafting placeholder inside inventory.
 - [ ] Preserve session edits and item state when leaving and returning to chunks; exercise origin shifts and bounded streaming residency.

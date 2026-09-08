@@ -292,3 +292,13 @@ Reserve a visible area inside the inventory labelled **Crafting — coming later
 - Leave a mined area until its runtime chunk representation unloads, then return and confirm the session's terrain edits and unexpired items remain correct.
 
 These cases are future checks, not completed tests. Record the actual playtest findings and decide the next implementation with the user after this first slice.
+
+## 15. Player skins
+
+**Explicit user direction, 2026-09-08:** players must be able to change their skin, with the approachable customization of a voxel sandbox. The character concept shown during brainstorming is one possible skin; it does not fix every player's face, skin colour or outfit.
+
+**Working design:** a skin changes the texture appearance of a reusable player body/rig. Face details, colours and painted clothing can change; body shape, collision, reach, movement and mining capability stay the same. The selected appearance must also update first-person arms/fists and any player preview. A painted glove or sleeve is cosmetic and does not equip a tool or grant protection. Texture skins cannot change the underlying hair/clothing silhouette; asset constraints are in [CONTENT_PIPELINE.md](CONTENT_PIPELINE.md#6-player-skin-authoring-contract).
+
+For the first playable slice, the working minimum is a small local skin selector with a preview and two visibly different skins demonstrating the same model and animations. Apply selection without restarting the terrain session or losing inventory. Remember the selection as a local player preference independently of the first slice's session-only world state; a missing skin falls back visibly to the default. This narrowly extends the earlier exclusion of all character customization. A body editor, skin-painting tool, marketplace and account service remain outside the first step.
+
+Allowing players to supply their own PNG skin using a published Rivet Reach template is the proposed custom-skin workflow. Decide its exact layout/resolution and whether file import ships in this first slice during the player visual review; basic skin switching and a reusable layout must work regardless. Future multiplayer must show each player's selected skin consistently, but upload/distribution limits, caching and server policy belong to the later multiplayer implementation. None of these capabilities is implemented by this documentation update.

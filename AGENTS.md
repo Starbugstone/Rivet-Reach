@@ -6,6 +6,8 @@ The project is at the beginning: the user authorized Unity project initializatio
 
 The user has locked the first playable milestone in documentation: terrain-only world generation and chunk streaming, FPS movement, a 3D player, fist mining, functional inventory and a nonfunctional crafting placeholder inside inventory. No generated structures. [DEVELOPMENT_STRATEGY.md](.docs/DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence) owns its detailed scope and review gate. This documentation request does not authorize gameplay implementation. Once implementation is requested, complete and review this first slice with the user before selecting subsequent work; the later roadmap groups are candidates, not an automatic queue.
 
+Player appearance must support changeable skins. Treat the illustrated character as one proposed appearance, not a fixed identity. [GAMEPLAY.md](.docs/GAMEPLAY.md#15-player-skins) owns skin behaviour and the working first-step minimum; [CONTENT_PIPELINE.md](.docs/CONTENT_PIPELINE.md#6-player-skin-authoring-contract) owns model/texture constraints. This remains documentation work until implementation is requested.
+
 ## Licensing and ownership
 
 - Rivet Reach is **proprietary, all rights reserved, and not open source**. Read `LICENSE.md` before introducing code, assets, dependencies or contribution workflows.

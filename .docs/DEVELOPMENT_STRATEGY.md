@@ -251,7 +251,7 @@ Working scope boundaries, chosen to keep this step small:
 
 - Use one terrain-only world definition and a small fist-mineable block palette. Hills and a small amount of cave/overhang geometry should exercise generation and underground edits; biome variety and the full resource distribution are later choices.
 - Preserve the existing physical stack-drop/pickup rules for the mining-to-inventory loop, including compatible merging and sleeping on dry terrain. Water simulation is not required here.
-- Establish a reusable player model and basic idle/movement/fist animation. A third-person gameplay mode, character customization, combat and final animation polish are not required.
+- Establish a reusable player model and basic idle/movement/fist animation. The user subsequently requested changeable player skins: include a reusable skin texture layout and basic local skin selection as the working first-step extension, with matching body/fists. Detailed behaviour is in [GAMEPLAY.md](GAMEPLAY.md#15-player-skins). A third-person gameplay mode, body-shape customization, an in-game skin painter, combat and final animation polish are not required.
 - Block placement/building, tools/tool progression, functional recipes, workbench/furnace, survival/death, mobs, water simulation, day/night progression, machinery, logistics and additional worlds remain outside this step.
 - Retain terrain edits, inventory and unexpired drops across chunk unloading/reloading within the running session. Durable cross-session saving and recovery remain later candidates; the first build must clearly disclose its session-only state. This is a scoped milestone boundary, not removal of the final persistent-save requirement.
 - Use a stable lighting setup for visual review. Final art breadth and a complete voxel-light feature set are not prerequisites for this step.
@@ -267,7 +267,7 @@ Implementation checkpoints within this one milestone, each reviewed in the same 
 These checkpoints do not authorize separate later features. Stage 0 is complete only when the combined playable result meets all of the following:
 
 - The player can start, move, mine and manage inventory without developer commands; crafting is visibly unavailable.
-- The 3D player and first-person fists are present and visually coherent with terrain and UI.
+- The 3D player and first-person fists are present and visually coherent with terrain and UI; switching between two visibly different test skins updates both without changing movement, collision or mining.
 - Terrain contains no generated structures; the same seed and generator definition reproduce unedited terrain independently of discovery order.
 - Crossing chunk boundaries, digging at seams, outrunning generation and shifting the rendering origin produce no fall-through, stale collision or reappearing mined blocks.
 - Leaving and returning preserves session edits and item accounting; streaming releases unnecessary runtime meshes/colliders and does not hide an unlimited resident-world cache.
