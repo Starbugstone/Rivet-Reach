@@ -10,9 +10,15 @@ namespace RivetReach
     public static class BlockId
     {
         public const byte Air=0,Grass=1,Dirt=2,Stone=3,Log=4,Leaves=5,StarterAxe=6,StarterPickaxe=7,StarterDagger=8;
+        public const byte IronOre=9,CopperOre=10,CoalOre=11,GoldOre=12,DiamondOre=13,Bedrock=14;
+        public const byte RawIron=15,RawCopper=16,Coal=17,RawGold=18,Diamond=19;
+        public static bool Ore(byte id)=>id>=IronOre&&id<=DiamondOre;
+        public static bool RawMaterial(byte id)=>id>=RawIron&&id<=Diamond;
+        public static bool Mineable(byte id,ToolCapability tool)=>id>=Grass&&id<=Leaves||Ore(id)&&(tool&ToolCapability.Pickaxe)!=0;
+        public static string MiningHint(byte id,ToolCapability tool)=>id==Bedrock?"Unbreakable":Ore(id)&&!Mineable(id,tool)?"Requires a pickaxe":"";
         public static bool Placeable(byte id)=>id>=Grass&&id<=Leaves;
         public static bool Opaque(byte id)=>id!=Air&&id!=Leaves;
-        public static int Tile(byte id,int axis,int sign)=>id==Grass?(axis==1?(sign>0?0:2):1):id==Dirt?2:id==Log?(axis==1?5:4):id==Leaves?6:3;
+        public static int Tile(byte id,int axis,int sign)=>Ore(id)?7+id-IronOre:RawMaterial(id)?13+id-RawIron:id==Bedrock?12:id==Grass?(axis==1?(sign>0?0:2):1):id==Dirt?2:id==Log?(axis==1?5:4):id==Leaves?6:3;
     }
 
     [Serializable]
@@ -62,7 +68,7 @@ namespace RivetReach
         }
         public static ItemRegistry Load() => Resources.Load<ItemRegistry>("Definitions/Items");
         public ToolCapability Capabilities(ItemStack stack)=>stack.Empty?ToolCapability.None:Get(stack.Id).toolCapabilities;
-        public float MiningSeconds(byte blockId,ToolCapability tool)=>Get(blockId).fistSeconds*
+        public float MiningSeconds(byte blockId,ToolCapability tool)=>!BlockId.Mineable(blockId,tool)?float.PositiveInfinity:Get(blockId).fistSeconds*
             (blockId==BlockId.Log&&(tool&ToolCapability.Axe)!=0?.3f:1f);
         public byte FistDrop(byte blockId){var item=Get(blockId);return item.fistDropId==0?blockId:item.fistDropId;}
     }

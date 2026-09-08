@@ -250,7 +250,7 @@ User-required scope:
 
 Working scope boundaries, chosen to keep this step small:
 
-- Use one terrain-only world definition and a small fist-mineable block palette. Hills and a small amount of cave/overhang geometry should exercise generation and underground edits; biome variety and the full resource distribution are later choices.
+- Use one terrain-only world definition and a small fist-mineable block palette. Hills and a small amount of cave/overhang geometry should exercise generation and underground edits; biome variety remains a later choice. The subsequently selected ore extension below adds a small depth-banded resource profile.
 - Preserve the existing physical stack-drop/pickup rules for the mining-to-inventory loop, including compatible merging and sleeping on dry terrain. Water simulation is not required here.
 - Establish a reusable player model and basic idle/movement/fist animation. The user subsequently requested changeable player skins: include a reusable skin texture layout and basic local skin selection as the working first-step extension, with matching body/fists. Detailed behaviour is in [GAMEPLAY.md](GAMEPLAY.md#15-player-skins). A third-person gameplay mode, body-shape customization, an in-game skin painter, combat and final animation polish are not required.
 - Beyond the explicitly requested starter tools/tree felling extension, broader tool progression, workbench/furnace, survival/death, mobs, water simulation, day/night progression, machinery, logistics and additional worlds remain outside this step.
@@ -282,7 +282,9 @@ These checkpoints do not authorize separate later features. Stage 0 is complete 
 
 **Crafting extension, 2026-09-08:** the user explicitly requested modular, editable recipes and a fast, reliable shared engine for 2×2, 3×3 and 4×4 grids. Activate the personal inventory grid, implement the shared definition/matching/transaction core and measure it. [CRAFTING.md](CRAFTING.md) owns technical boundaries; [GAMEPLAY.md section 16](GAMEPLAY.md#16-modular-grid-crafting) owns behavior. This authorization does not implement larger station interfaces, furnace/industry, durable saves or the full bootstrap progression.
 
-**Review gate:** present the playable build, visual concept, measurements and known limitations to the user. Decide the next implementation scope from that evidence. The crafting extension is authorized; do not automatically begin its larger stations/progression, survival, industry or the old Stage 1 list.
+**Ore extension, 2026-09-08:** the user explicitly selected ore generation as the next step, then required multiple ores at different levels and an unbreakable bedrock base. Implement this bounded terrain/resource extension with pickaxe extraction and session depletion. [ECONOMY.md](ECONOMY.md#current-ore-generation-and-bedrock) owns the working bands and yields. This does not select processing, tool tiers, durable saves or the broader candidate stages.
+
+**Review gate:** present the playable build, visual concept, measurements and known limitations to the user. Decide the next implementation scope from that evidence. The crafting and ore/bedrock extensions are authorized; do not automatically begin its larger stations/progression, survival, industry or the old Stage 1 list.
 
 ### Candidate Stage 1 - Extend the sandbox (not yet selected)
 
@@ -533,11 +535,11 @@ Neither side replaces the other.
 
 ## 11. Current development priority
 
-The first milestone's scope is locked in section 6. Its initial playable implementation is recorded in [FIRST_POC.md](FIRST_POC.md), with measured results and remaining review work. User acceptance of the slice and selection of the next milestone remain pending.
+The first milestone's scope is locked in section 6. Its initial playable implementation is recorded in [FIRST_POC.md](FIRST_POC.md), with measured results and remaining review work. The user subsequently selected the bounded ore/bedrock extension. Broader milestone selection and remaining visual/feel acceptance remain pending.
 
 The current priority is:
 
-> **Build and review the locked terrain/FPS/fist-mining/inventory/3D-player slice, then decide with the user what to implement next.**
+> **Review the terrain/FPS/inventory/player slice and its crafting and ore/bedrock extensions, then select the next playable increment with the user.**
 
 When two approaches both meet the final requirements, prefer the one that can be tested through actual gameplay sooner.
 

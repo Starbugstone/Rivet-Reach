@@ -126,7 +126,18 @@ namespace RivetReach.Editor
                 new ItemDefinition{runtimeId=BlockId.Leaves,stableId="rivet:leaves",displayName="Leaves",fistSeconds=.2f,colour=new Color(.28f,.45f,.18f)},
                 new ItemDefinition{runtimeId=BlockId.StarterAxe,stableId="rivet:starter_axe",displayName="Starter axe",stackLimit=1,toolCapabilities=ToolCapability.Axe,colour=new Color(.6f,.65f,.67f)},
                 new ItemDefinition{runtimeId=BlockId.StarterPickaxe,stableId="rivet:starter_pickaxe",displayName="Starter pickaxe",stackLimit=1,toolCapabilities=ToolCapability.Pickaxe,colour=new Color(.6f,.65f,.67f)},
-                new ItemDefinition{runtimeId=BlockId.StarterDagger,stableId="rivet:starter_dagger",displayName="Starter dagger",stackLimit=1,toolCapabilities=ToolCapability.Blade,colour=new Color(.6f,.65f,.67f)}})
+                new ItemDefinition{runtimeId=BlockId.StarterDagger,stableId="rivet:starter_dagger",displayName="Starter dagger",stackLimit=1,toolCapabilities=ToolCapability.Blade,colour=new Color(.6f,.65f,.67f)},
+                new ItemDefinition{runtimeId=BlockId.IronOre,stableId="rivet:iron_ore",displayName="Iron ore",fistSeconds=1.5f,fistDropId=BlockId.RawIron,colour=new Color(.58f,.34f,.24f)},
+                new ItemDefinition{runtimeId=BlockId.CopperOre,stableId="rivet:copper_ore",displayName="Copper ore",fistSeconds=1.3f,fistDropId=BlockId.RawCopper,colour=new Color(.75f,.43f,.21f)},
+                new ItemDefinition{runtimeId=BlockId.CoalOre,stableId="rivet:coal_ore",displayName="Coal ore",fistSeconds=1.1f,fistDropId=BlockId.Coal,colour=new Color(.16f,.18f,.21f)},
+                new ItemDefinition{runtimeId=BlockId.GoldOre,stableId="rivet:gold_ore",displayName="Gold ore",fistSeconds=1.8f,fistDropId=BlockId.RawGold,colour=new Color(.85f,.65f,.19f)},
+                new ItemDefinition{runtimeId=BlockId.DiamondOre,stableId="rivet:diamond_ore",displayName="Diamond ore",fistSeconds=2.1f,fistDropId=BlockId.Diamond,colour=new Color(.44f,.84f,.88f)},
+                new ItemDefinition{runtimeId=BlockId.Bedrock,stableId="rivet:bedrock",displayName="Bedrock",colour=new Color(.18f,.20f,.22f)},
+                new ItemDefinition{runtimeId=BlockId.RawIron,stableId="rivet:raw_iron",displayName="Raw iron",colour=new Color(.58f,.34f,.24f)},
+                new ItemDefinition{runtimeId=BlockId.RawCopper,stableId="rivet:raw_copper",displayName="Raw copper",colour=new Color(.75f,.43f,.21f)},
+                new ItemDefinition{runtimeId=BlockId.Coal,stableId="rivet:coal",displayName="Coal",colour=new Color(.16f,.18f,.21f)},
+                new ItemDefinition{runtimeId=BlockId.RawGold,stableId="rivet:raw_gold",displayName="Raw gold",colour=new Color(.85f,.65f,.19f)},
+                new ItemDefinition{runtimeId=BlockId.Diamond,stableId="rivet:diamond",displayName="Diamond",colour=new Color(.44f,.84f,.88f)}})
                 if(!registry.items.Any(i=>i.runtimeId==item.runtimeId))registry.items=registry.items.Append(item).ToArray();
             registry.Get(1).fistDropId=2;EditorUtility.SetDirty(registry);
             var tiles=TerrainTiles.Build();

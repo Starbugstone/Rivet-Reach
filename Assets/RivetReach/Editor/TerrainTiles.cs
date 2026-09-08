@@ -11,14 +11,15 @@ namespace RivetReach.Editor
             const string path="Assets/RivetReach/Resources/Materials/BlockTiles.asset";
             const int size=64;
             var tiles=AssetDatabase.LoadAssetAtPath<Texture2DArray>(path);
-            if(tiles==null||tiles.width!=size||tiles.depth!=7)
+            const int layers=18;
+            if(tiles==null||tiles.width!=size||tiles.depth!=layers)
             {
-                tiles=new Texture2DArray(size,size,7,TextureFormat.RGBA32,true,false);
+                tiles=new Texture2DArray(size,size,layers,TextureFormat.RGBA32,true,false);
                 // CreateAsset replaces the serialized content and preserves the existing .meta GUID.
                 AssetDatabase.CreateAsset(tiles,path);
             }
-            tiles.name="Terrain tiles v4 trees";tiles.filterMode=FilterMode.Bilinear;tiles.anisoLevel=8;tiles.wrapMode=TextureWrapMode.Repeat;
-            for(int layer=0;layer<7;layer++)
+            tiles.name="Terrain tiles v5 minerals";tiles.filterMode=FilterMode.Bilinear;tiles.anisoLevel=8;tiles.wrapMode=TextureWrapMode.Repeat;
+            for(int layer=0;layer<layers;layer++)
             {
                 var pixels=new Color[size*size];
                 for(int y=0;y<size;y++)for(int x=0;x<size;x++)
@@ -39,7 +40,7 @@ namespace RivetReach.Editor
                         if(y>=fringe)c=grass*(.94f+.06f*(y-fringe)/14f);
                         else if(y>=fringe-2)c=dirt*.81f;
                     }
-                    if(layer==3)
+                    if(layer==3||layer>=7&&layer<=11)
                     {
                         // Irregular mineral planes, without horizontal masonry courses.
                         float mineral=Mineral(x,y);
@@ -65,12 +66,29 @@ namespace RivetReach.Editor
                         float cluster=Hash(x/8,y/8,71),vein=(x+y)%8==0?.84f:1;
                         c=Color.Lerp(new Color(.18f,.30f,.105f),new Color(.36f,.49f,.19f),cluster*.5f+small*.5f)*vein;
                     }
+                    if(layer>=7&&layer<=11)
+                    {
+                        // Original angular inclusions embedded in the existing stone palette.
+                        int cx=x/16,cy=y/16;float sx=cx*16+4+Hash(cx,cy,110+layer)*8,sy=cy*16+4+Hash(cx,cy,130+layer)*8;
+                        float dx=x-sx,dy=y-sy,edge=Mathf.Abs(dx)+Mathf.Abs(dy)*1.15f;
+                        float radius=4+Hash(cx,cy,150+layer)*3;
+                        if(edge<radius+1)c*=.67f;
+                        if(edge<radius)c=MineralColour(layer-7)*(.72f+small*.20f+(dx-dy>0?.27f:0));
+                    }
+                    if(layer==12)
+                    {
+                        float plane=Mineral(x,y),fracture=Patch(x,y,4,183);
+                        c=Color.Lerp(new Color(.105f,.12f,.14f),new Color(.29f,.31f,.34f),plane)*(.9f+small*.2f);
+                        if(fracture<.25f)c*=.60f;
+                    }
+                    if(layer>=13)c=MineralColour(layer-13)*(.70f+Mineral(x,y)*.32f+small*.16f);
                     c*=.988f+grain*.024f;c.a=1;pixels[x+y*size]=c;
                 }
                 tiles.SetPixels(pixels,layer);
             }
             tiles.Apply(true,false);EditorUtility.SetDirty(tiles);return tiles;
         }
+        static Color MineralColour(int index)=>index==0?new Color(.66f,.39f,.28f):index==1?new Color(.87f,.49f,.22f):index==2?new Color(.12f,.15f,.19f):index==3?new Color(.94f,.73f,.20f):new Color(.43f,.86f,.91f);
         static float Hash(int x,int y,int salt)=>TerrainGenerator.Hash(x,salt,y,953)%10000/9999f;
         static float Mineral(int x,int y)
         {

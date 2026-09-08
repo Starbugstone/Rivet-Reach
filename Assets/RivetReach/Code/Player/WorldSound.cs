@@ -45,7 +45,7 @@ namespace RivetReach
             for(int i=0;i<count;i++){clips[i]=Resources.Load<AudioClip>("Audio/"+bank+i);if(clips[i]!=null)LoadedClipCount++;else Debug.LogError("Missing foley: "+bank+i);}
             banks[bank]=clips;
         }
-        static string Surface(byte id)=>id==BlockId.Grass?"Grass":id==BlockId.Stone?"Stone":id==BlockId.Log?"Wood":id==BlockId.Leaves?"Leaves":"Soil";
+        static string Surface(byte id)=>id==BlockId.Grass?"Grass":id==BlockId.Stone||BlockId.Ore(id)||id==BlockId.Bedrock?"Stone":id==BlockId.Log?"Wood":id==BlockId.Leaves?"Leaves":"Soil";
         void Play(string bank,float gain,Vector3? position=null,float pitch=1)
         {
             var clips=banks[bank];int index=variation.Next(clips.Length-1);

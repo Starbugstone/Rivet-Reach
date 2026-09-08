@@ -60,7 +60,7 @@ namespace RivetReach
             if(id!=ItemId)
             {
                 ItemId=id;
-                if(BlockId.Placeable(id))
+                if(BlockId.Placeable(id)||BlockId.RawMaterial(id))
                 {
                     if(!meshes.TryGetValue(id,out var mesh))
                     {

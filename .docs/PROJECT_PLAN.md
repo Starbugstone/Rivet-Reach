@@ -422,6 +422,8 @@ seed
  -> historical/structure placement
 ```
 
+The current user-authorized ore step adds coal, copper, iron, gold and diamond in distinct depth bands and an unbreakable bedrock floor. [ECONOMY.md](ECONOMY.md#current-ore-generation-and-bedrock) owns their working distribution; [SIMULATION.md](SIMULATION.md#15-ore-generation-and-the-world-base) owns deterministic generation and depletion. Processing and tool tiers remain future work.
+
 The final algorithms must be benchmarked during the POC rather than chosen purely theoretically.
 
 ### History-aware structures

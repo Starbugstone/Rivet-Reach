@@ -72,10 +72,11 @@ namespace RivetReach
             return Generator.At(p);
         }
         public bool Solid(BlockPos p) => !Ready(p)||Get(p)!=0;
-        public bool Remove(BlockPos p,byte expected) => expected!=0&&Change(p,expected,0);
+        public bool Remove(BlockPos p,byte expected) => expected!=0&&expected!=BlockId.Bedrock&&Change(p,expected,0);
         public bool Place(BlockPos p,byte id) => BlockId.Placeable(id)&&Change(p,0,id);
         public bool Mine(BlockPos p,byte expected,ToolCapability tool)
         {
+            if(!BlockId.Mineable(expected,tool))return false;
             bool fell=expected==BlockId.Log&&(tool&ToolCapability.Axe)!=0&&NaturalLog(p);
             if(!Remove(p,expected))return false;
             BlockMined?.Invoke(p,expected);
@@ -135,6 +136,7 @@ namespace RivetReach
         }
         bool Change(BlockPos p,byte expected,byte replacement,bool immediate=true,bool requireReady=true)
         {
+            if(p.Y<=TerrainGenerator.MinY||p.Y>TerrainGenerator.MaxY||Math.Abs(p.X)>TerrainGenerator.HorizontalLimit||Math.Abs(p.Z)>TerrainGenerator.HorizontalLimit||expected==BlockId.Bedrock)return false;
             if((requireReady&&!Ready(p))||Get(p)!=expected)return false;
             if(!edits.TryGetValue(p.Chunk,out var e)){e=new Dictionary<int,byte>();edits[p.Chunk]=e;}
             e[p.Index]=replacement;

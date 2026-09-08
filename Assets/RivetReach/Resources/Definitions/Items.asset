@@ -77,3 +77,91 @@ MonoBehaviour:
     colour: {r: 0.6, g: 0.65, b: 0.67, a: 1}
     fistDropId: 0
     toolCapabilities: 4
+  - runtimeId: 9
+    stableId: rivet:iron_ore
+    displayName: Iron ore
+    stackLimit: 500
+    fistSeconds: 1.5
+    colour: {r: 0.58, g: 0.34, b: 0.24, a: 1}
+    fistDropId: 15
+    toolCapabilities: 0
+  - runtimeId: 10
+    stableId: rivet:copper_ore
+    displayName: Copper ore
+    stackLimit: 500
+    fistSeconds: 1.3
+    colour: {r: 0.75, g: 0.43, b: 0.21, a: 1}
+    fistDropId: 16
+    toolCapabilities: 0
+  - runtimeId: 11
+    stableId: rivet:coal_ore
+    displayName: Coal ore
+    stackLimit: 500
+    fistSeconds: 1.1
+    colour: {r: 0.16, g: 0.18, b: 0.21, a: 1}
+    fistDropId: 17
+    toolCapabilities: 0
+  - runtimeId: 12
+    stableId: rivet:gold_ore
+    displayName: Gold ore
+    stackLimit: 500
+    fistSeconds: 1.8
+    colour: {r: 0.85, g: 0.65, b: 0.19, a: 1}
+    fistDropId: 18
+    toolCapabilities: 0
+  - runtimeId: 13
+    stableId: rivet:diamond_ore
+    displayName: Diamond ore
+    stackLimit: 500
+    fistSeconds: 2.1
+    colour: {r: 0.44, g: 0.84, b: 0.88, a: 1}
+    fistDropId: 19
+    toolCapabilities: 0
+  - runtimeId: 14
+    stableId: rivet:bedrock
+    displayName: Bedrock
+    stackLimit: 500
+    fistSeconds: 0.6
+    colour: {r: 0.18, g: 0.2, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+  - runtimeId: 15
+    stableId: rivet:raw_iron
+    displayName: Raw iron
+    stackLimit: 500
+    fistSeconds: 0.6
+    colour: {r: 0.58, g: 0.34, b: 0.24, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+  - runtimeId: 16
+    stableId: rivet:raw_copper
+    displayName: Raw copper
+    stackLimit: 500
+    fistSeconds: 0.6
+    colour: {r: 0.75, g: 0.43, b: 0.21, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+  - runtimeId: 17
+    stableId: rivet:coal
+    displayName: Coal
+    stackLimit: 500
+    fistSeconds: 0.6
+    colour: {r: 0.16, g: 0.18, b: 0.21, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+  - runtimeId: 18
+    stableId: rivet:raw_gold
+    displayName: Raw gold
+    stackLimit: 500
+    fistSeconds: 0.6
+    colour: {r: 0.85, g: 0.65, b: 0.19, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+  - runtimeId: 19
+    stableId: rivet:diamond
+    displayName: Diamond
+    stackLimit: 500
+    fistSeconds: 0.6
+    colour: {r: 0.44, g: 0.84, b: 0.88, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0

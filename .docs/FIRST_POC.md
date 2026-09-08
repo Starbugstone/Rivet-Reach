@@ -15,6 +15,7 @@ Build through **Rivet Reach → Build Windows first POC** in Unity, or from Wind
 .\Tools\Verify-POC.ps1
 .\Tools\Verify-POC.ps1 -Trees # Focused tree/axe/leaf/streaming verification
 .\Tools\Verify-POC.ps1 -Crafting # Pointer, recipe, output and conservation verification
+.\Tools\Verify-POC.ps1 -Ores # Depth bands, pickaxe drops, bedrock and depletion
 ```
 
 The build script reuses this project's open Editor through an explicit local file request, or starts the pinned Editor in batch mode when the project is closed. It does not close scenes, discard unsaved work or install a live editor integration. Runtime assets are committed, so ordinary Play does not require Blender or an asset-generation step. After cloning, retrieve binary assets with `git lfs pull`.
@@ -48,6 +49,8 @@ Inventory has **12 hotbar + 48 main slots**, with a 500-item limit per block sta
 
 Each new session includes a **Starter dagger in slot 10**, **Starter pickaxe in slot 11**, and **Starter axe in slot 12**. Press `0` for the dagger, or use the wheel/`[ / ]` for all three. From the initial first slot, press `[` once to select the axe, or use the wheel/inventory. Hold Mine on a trunk: the axe removes connected generated logs at or above the cut, leaving the stump; placed wood, fists and other items remain single-block mining. Natural unsupported leaves decay and placed leaves remain. Logs and leaves can be collected and placed. The axe cannot be placed. Starter tool crafting is now available through [the modular crafting extension](CRAFTING.md); durability and regrowth remain unimplemented. [Tree gameplay rules](GAMEPLAY.md#trees-and-axe-felling--user-feedback-extension) and [verification evidence](verification/TREE_RESULTS.md) record the scope and remaining review.
 
+The verified ore review build is also preserved locally at `Builds/Ores/RivetReach.exe`. Select the **Starter pickaxe in slot 11** to mine the five new ores. Coal and copper occur nearer the surface; iron extends deeper; gold and diamond occur in deeper bands. [The ore table](ECONOMY.md#current-ore-generation-and-bedrock) gives exact Y ranges. F12 displays your height. Ores yield nonplaceable raw resources; bedrock at Y = −256 is unbreakable. Processing these resources remains future work. See [ore verification](verification/ORE_RESULTS.md).
+
 **World progress is session-only.** Edits, inventory and unexpired dropped items survive chunk unloading in the running game. Quitting/restarting resets them. The title, pause menu and HUD disclose this boundary; appearance/settings persist independently.
 
 ## F12 debug panel
@@ -70,7 +73,7 @@ The values are current development diagnostics, not a benchmark result or a save
 
 ## Implemented foundation
 
-- One `surface` world instance, deterministic seed and `terrain-2-trees` generator version. Natural grass/dirt/stone hills, underground noise caves and seeded log/leaf trees; no structure generation, water, ores or other biomes.
+- One `surface` world instance, deterministic seed and `terrain-3-ores-bedrock` generator version. Natural grass/dirt/stone hills, underground noise caves, seeded log/leaf trees, five depth-banded ores and an unbreakable base; no structure generation, water or other biomes.
 - 32³ chunks with a one-cell immutable worker halo. The generator evaluates integer-coordinate noise, so adjacent chunks share terrain independently of discovery order. Authoritative block addresses use signed 64-bit horizontal coordinates and integer height; Unity floating positions are presentation only.
 - Runtime chunk demand follows the player and nearby surface. The default horizontal radius is ten chunks (320 m per axis), adjustable from four to fourteen. Vertical demand covers the player's vicinity and the local surface without retaining the entire intervening deep column. Supported design bounds are Y −256 through 767 and horizontal ±1,000,000,000 blocks.
 - Two background generation/greedy-mesh jobs, nearest-first dispatch, main-thread mesh publication with a nominal 4 ms budget, stale-result rejection using both edit revision and residency generation. Unloaded chunk meshes and occupancy arrays are released. Compact session edit records and dormant item records remain; travelling without edits does not retain an unbounded full-chunk cache.

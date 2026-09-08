@@ -95,6 +95,8 @@ namespace RivetReach
             var player=game.Player;var world=game.World;report.viewRadius=world.ViewDistance;report.fogStart=world.FogStart;report.fogEnd=world.FogEnd;var start=world.Address(player.transform.position);var saved=WorldPoint.FromLocal(player.transform.position,world.Origin);
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-crafting-review"))
             {report.workload="Modular crafting, pointer clicks/drags, batching and full inventory conservation";yield return ReviewCrafting();yield break;}
+            if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-ore-review"))
+            {report.workload="Five ore depth bands, pickaxe mining, raw drops, bedrock and depletion across streaming";yield return ReviewOres();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-interaction-review"))
             {report.workload="Grass and hand interaction review";yield return ReviewInteractions();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-placement-items-review"))
@@ -278,7 +280,7 @@ namespace RivetReach
             var player=game.Player;bool female=player.Female;int skin=player.Skin;
             float fov=player.Camera.fieldOfView,pitch=player.Pitch;
             var tiles=Resources.Load<Texture2DArray>("Materials/BlockTiles");report.terrainTilePixels=tiles.width;
-            Check(tiles.width==64&&tiles.height==64&&tiles.depth==7,"Seven 64-texel terrain and tree tiles are imported");
+            Check(tiles.width==64&&tiles.height==64&&tiles.depth==18,"Eighteen 64-texel terrain, tree and mineral tiles are imported");
             Check(game.World.TerrainMaterial.shader.isSupported,"Terrain shader has a supported rendering pass");
             Check(player.Camera.GetComponent<UnityEngine.Rendering.Universal.UniversalAdditionalCameraData>().renderPostProcessing,"Gameplay camera enables the scene colour grade");
             game.Diagnostics=false;

@@ -5,7 +5,7 @@ namespace RivetReach
 {
     public sealed class TerrainGenerator
     {
-        public const string Version="terrain-2-trees";
+        public const string Version="terrain-3-ores-bedrock";
         public const string WorldId="surface";
         public const int MinY=-256,MaxY=767;
         public const long HorizontalLimit=1000000000;
@@ -95,17 +95,20 @@ namespace RivetReach
         }
         public byte At(BlockPos p)
         {
-            if(p.Y<MinY || Math.Abs(p.X)>HorizontalLimit || Math.Abs(p.Z)>HorizontalLimit)return 3;
+            if(p.Y<=MinY || Math.Abs(p.X)>HorizontalLimit || Math.Abs(p.Z)>HorizontalLimit)return BlockId.Bedrock;
             if(p.Y>MaxY)return 0;
-            int h=Height(p.X,p.Z);byte ground=At(p,h);
+            int h=Height(p.X,p.Z);byte ground=GroundAt(p,h);
+            if(ground==BlockId.Stone)return OreGenerator.At(Seed,p);
             if(ground!=0||p.Y<=h||p.Y>h+MaxTreeHeight+2)return ground;
             byte result=0;
             foreach(var tree in Trees(p.X,p.Z,p.X,p.Z))
             {byte id=tree.At(p);if(id==BlockId.Log)return id;if(id==BlockId.Leaves)result=id;}
             return result;
         }
-        byte At(BlockPos p,int h)
+        internal byte GroundAt(BlockPos p,int h)
         {
+            if(p.Y<=MinY||Math.Abs(p.X)>HorizontalLimit||Math.Abs(p.Z)>HorizontalLimit)return BlockId.Bedrock;
+            if(p.Y>MaxY)return BlockId.Air;
             if(p.Y>h)return 0;
             // A protective surface roof keeps the initial spawn supported; fist mining opens caves.
             if(p.Y>10 && p.Y<h-2 && Noise(p.X,p.Y,p.Z,14)>0.71 && Noise(p.X,p.Y,p.Z,40)>0.42)return 0;
@@ -121,9 +124,10 @@ namespace RivetReach
                 for(int y=0;y<34;y++)
                 {
                     int wy=min.Y+y-1;
-                    cells[x+34*(y+34*z)]=wy<MinY?(byte)3:wy>MaxY?(byte)0:At(new BlockPos(wx,wy,wz),h);
+                    cells[x+34*(y+34*z)]=GroundAt(new BlockPos(wx,wy,wz),h);
                 }
             }
+            OreGenerator.Stamp(Seed,chunk,cells);
             // Stamp each candidate once into the chunk and its halo. Discovery order is irrelevant.
             foreach(var tree in Trees(min.X-1,min.Z-1,min.X+32,min.Z+32))
             for(int z=(int)Math.Max(-1,tree.Root.Z-min.Z-CanopyRadius);z<=Math.Min(32,tree.Root.Z-min.Z+CanopyRadius);z++)

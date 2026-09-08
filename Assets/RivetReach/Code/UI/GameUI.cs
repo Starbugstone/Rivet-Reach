@@ -321,7 +321,11 @@ namespace RivetReach
             if(lastRevision!=game.Inventory.Revision||lastCraftRevision!=game.Crafting.Grid.Revision||game.Mode==ScreenMode.Play)RefreshSlots();
             if(message!=null)message.text=game.Message??"";
             if(loading!=null)loading.text=!game.ReadyToPlay?"Preparing nearby terrain…":"";
-            if(targetLabel!=null)targetLabel.text=game.Player.HasTarget?game.Registry.Get(game.Player.TargetId).displayName:"";
+            if(targetLabel!=null)
+            {
+                string hint=BlockId.MiningHint(game.Player.TargetId,game.Registry.Capabilities(game.Inventory.Slots[game.Selected]));
+                targetLabel.text=game.Player.HasTarget?game.Registry.Get(game.Player.TargetId).displayName+(hint.Length>0?" · "+hint:""):"";
+            }
             if(progress!=null)
             {
                 progress.transform.parent.gameObject.SetActive(game.Player.HasTarget&&game.Player.MiningProgress>0);
@@ -384,7 +388,14 @@ namespace RivetReach
                     float dx=x-24,dy=y-32;
                     int top=BlockId.Tile(item.runtimeId,1,1),side=BlockId.Tile(item.runtimeId,0,1);
                     Color c=Color.clear;
-                    if(Mathf.Abs(dx)/21+Mathf.Abs(dy)/12<1)c=Swatch(top,(dx/21+dy/12+1)*.5f,(dy/12-dx/21+1)*.5f)*1.12f;
+                    if(BlockId.RawMaterial(item.runtimeId))
+                    {
+                        float rx=x-24,ry=y-23;
+                        bool crystal=item.runtimeId==BlockId.Diamond;
+                        bool inside=crystal?Mathf.Abs(rx)/17+Mathf.Abs(ry)/21<1:Mathf.Abs(rx)<18&&Mathf.Abs(ry)<15&&Mathf.Abs(rx)+Mathf.Abs(ry)<26;
+                        if(inside)c=Swatch(top,x/48f,y/48f)*(ry>rx*.5f?1.2f:.72f);
+                    }
+                    else if(Mathf.Abs(dx)/21+Mathf.Abs(dy)/12<1)c=Swatch(top,(dx/21+dy/12+1)*.5f,(dy/12-dx/21+1)*.5f)*1.12f;
                     else if(Mathf.Abs(dx)<21)
                     {
                         float bottom=2+Mathf.Abs(dx)*12/21;

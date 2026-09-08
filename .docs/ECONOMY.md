@@ -47,7 +47,7 @@ Eligible background miners load the authoritative voxel pages they read/change a
 
 ## 3. First resource and recipe set
 
-The first complete sandbox/industrial slice uses logs, stone, iron ore, copper ore and water. Charcoal provides starter fuel from logs; coal can be added as a naturally found alternative. Surface wood and mineable stone are available near valid spawn locations. Spawn validation also requires reachable iron and copper within a provisional 256-block search region, without replacing player exploration with map markers. An unsuitable candidate spawn is rejected deterministically, not repaired after exploration order changes.
+The first complete sandbox/industrial slice uses logs, stone, iron ore, copper ore and water. Charcoal is the planned starter fuel from logs; the ore extension below now generates coal as a future naturally found fuel alternative. Fuel processing remains unimplemented. Surface wood and mineable stone are available near valid spawn locations. Spawn validation also requires reachable iron and copper within a provisional 256-block search region, without replacing player exploration with map markers. An unsuitable candidate spawn is rejected deterministically, not repaired after exploration order changes.
 
 The broader bootstrap recipes below are future content. The current crafting engine supports 2×2, 3×3 and 4×4 grids; only the personal 2×2 interface is implemented. Initial bootstrap recipes use a 2x2 personal grid and a 3x3 workbench. Shaped layouts are content data; the table specifies material quantities and manufacturing dependencies. The browser shows layouts from that same registry. All recipes below are accessible without knowledge/XP flags when their materials and station are present.
 
@@ -94,11 +94,29 @@ The user explicitly requested functional modular crafting after the initial plac
 | 1 starter pickaxe | top row `S S`; bottom row `L L` | Shaped |
 | 1 starter dagger | One `S` cell and one `L` cell | Shapeless; any two distinct slots |
 
-These recipes preserve the existing tool capabilities and one-item tool stack limits. Normal starter hotbar tools remain supplied. They make the crafting service playable without adding planks, handles, ores, workbench/furnace blocks, durability or a broader progression chain. The earlier bootstrap table remains the intended later economic chain; adopting it will deliberately replace/rebalance this small starter set. [The recipe authoring contract](CRAFTING.md) explains how to change the assets.
+These recipes preserve the existing tool capabilities and one-item tool stack limits. Normal starter hotbar tools remain supplied. They make the crafting service playable without requiring planks, handles, ores or workbench/furnace blocks, durability or a broader progression chain. The earlier bootstrap table remains the intended later economic chain; adopting it will deliberately replace/rebalance this small starter set. [The recipe authoring contract](CRAFTING.md) explains how to change the assets.
+
+### Current ore generation and bedrock
+
+**Explicit user extension, 2026-09-08:** implement ore generation with multiple resources at different levels and an unbreakable bedrock base. The current resource selection and numerical bands are working implementation defaults, open to playtest tuning. Heights are absolute world Y coordinates, visible in F12 diagnostics; they are not depth below the local surface.
+
+| Ore | Inclusive Y range | Most frequent candidate level | Maximum vein radii (blocks) | One mined block yields |
+|---|---|---|---|---|
+| Coal | 0 to 80 | 40 | 5 × 3 × 4 | 1 coal |
+| Copper | −48 to 64 | 16 | 4 × 2 × 3 | 1 raw copper |
+| Iron | −160 to 48 | −48 | 4 × 2 × 3 | 1 raw iron |
+| Gold | −240 to −64 | −160 | 3 × 1 × 2 | 1 raw gold |
+| Diamond | −255 to −160 | −224 | 2 × 1 × 2 | 1 diamond |
+
+Only existing stone becomes ore. Soil, grass, cave air, trees and bedrock remain intact. Veins are finite and vary in shape, size and frequency; band edges taper in frequency rather than having the same abundance as the preferred level. Horizontal radii can swap. Actual recoverable vein size depends on cave cuts, overlap and band boundaries. Coal/copper occupy shallower layers, iron extends farther down, and gold/diamond reward deeper mining. A solid bedrock floor occupies Y = −256 across the supported world, with solid boundary queries below it. It cannot be mined or collected.
+
+Every current ore requires the supplied starter pickaxe (or an item with Pickaxe capability). Metal ore drops raw material, coal ore drops coal and diamond ore drops a diamond, each with a stack limit of 500. These drops are inventory resources and cannot be placed back as ore. Tool tiers, smelting, fuel use and recipes for these new materials remain future work; the current starter tool recipes remain usable. Surface blocks retain the earlier fist-mining rules. See [ore interaction](GAMEPLAY.md#17-ore-mining-and-bedrock), [generation and depletion](SIMULATION.md#15-ore-generation-and-the-world-base), and [verification](verification/ORE_RESULTS.md).
+
+The earlier 256-block spawn-validation requirement belongs to the complete industrial bootstrap. This extension measures nearby resource availability across sampled seeds; it does not add deterministic spawn rejection or certify every seed's gathering route.
 
 ## 4. First-session and industrial sequence
 
-The locked first step delivers terrain, FPS movement, a 3D player, fist mining and a real gathering/inventory loop, originally with only a crafting placeholder. The subsequent user-authorized crafting extension is recorded in [the current starter set](#current-playable-starter-recipes). Its fist-mineable palette is scoped in [GAMEPLAY.md](GAMEPLAY.md#14-locked-first-step-interaction-contract); the user-authorized starter axe/tree extension is available, while the tool progression, starter ore distribution, broader bootstrap recipes and industrial resources below remain deferred. This broader bootstrap remains a candidate for later implementation chosen after reviewing that first slice. When selected, its first 20-30 minutes should support building, inventory use, smelting and saving without developer commands; it does not promise that every player finishes industrialization in that interval.
+The locked first step delivers terrain, FPS movement, a 3D player, fist mining and a real gathering/inventory loop, originally with only a crafting placeholder. The subsequent user-authorized crafting extension is recorded in [the current starter set](#current-playable-starter-recipes). Its fist-mineable palette is scoped in [GAMEPLAY.md](GAMEPLAY.md#14-locked-first-step-interaction-contract); the user-authorized starter axe/tree extension is available, while the tool progression, broader bootstrap recipes and industrial processing below remain deferred; ore distribution is now implemented by the separately authorized extension above. This broader bootstrap remains a candidate for later implementation chosen after reviewing that first slice. When selected, its first 20-30 minutes should support building, inventory use, smelting and saving without developer commands; it does not promise that every player finishes industrialization in that interval.
 
 The first industrial sequence is:
 

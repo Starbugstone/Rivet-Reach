@@ -23,7 +23,7 @@ namespace RivetReach
                 player.VerificationMining=false;player.Pitch=10;yield return new WaitForSecondsRealtime(.4f);
                 Check(player.Arms.MiningWeight<.02f,"New hotbar tool completes its swing and returns to idle");
             }
-            Check(TerrainGenerator.Version=="terrain-2-trees","Tree generation version is recorded");
+            Check(TerrainGenerator.Version=="terrain-3-ores-bedrock","Ore/bedrock generator retains the tree contract");
             var natural=world.Generator.Trees(-35,-35,35,35).First(t=>t.Root.X>7&&t.Root.Z>7);
             Check(world.Get(natural.Root)==BlockId.Log&&world.Get(natural.Root.Offset(0,natural.Logs,0))==BlockId.Leaves,"Streamed natural tree contains logs and leaves");
             // Measure recognition separately from rendering/remeshing. Consume results so

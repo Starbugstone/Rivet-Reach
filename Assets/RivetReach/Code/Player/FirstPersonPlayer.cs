@@ -189,6 +189,8 @@ namespace RivetReach
             }
             nextPlace=0;
             if(!found||!(Game.Input.Mine||VerificationMining)){MiningProgress=0;return;}
+            if(!BlockId.Mineable(id,tool))
+            {MiningProgress=0;Game.Notify(BlockId.MiningHint(id,tool),1);return;}
             MiningProgress+=Time.deltaTime/Game.Registry.MiningSeconds(id,tool);
             if(MiningProgress<1)return;
             MiningProgress=0;
