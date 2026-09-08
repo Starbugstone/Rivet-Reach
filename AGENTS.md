@@ -6,7 +6,7 @@ The project is at the beginning: brainstorming, documentation and specifications
 
 ## Documentation workflow
 
-- Keep project design documents and specifications in `.docs/`.
+- Keep project design documents and specifications in `.docs/` (plural). The user explicitly confirmed this spelling. Preserve it when integrating other agents' or remote changes; only a new explicit user instruction changes this convention.
 - Keep `README.md` and this `AGENTS.md` at the repository root. Use the standard uppercase `AGENTS.md` filename for agent instructions.
 - Read `README.md`, `.docs/PROJECT_PLAN.md`, `.docs/DEVELOPMENT_STRATEGY.md` and the relevant specialist documents before changing the design.
 - Preserve the full-game vision while building toward it through small playable increments.
