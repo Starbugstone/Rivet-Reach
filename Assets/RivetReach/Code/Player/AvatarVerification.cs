@@ -22,7 +22,7 @@ namespace RivetReach
             public Vector3 strafeStep;
         }
         readonly List<string> checks=new List<string>(),errors=new List<string>();
-        Result result=new Result();string output;Camera camera;AvatarView male,female,hands;
+        Result result=new Result();string output;Camera reviewCamera;AvatarView male,female,hands;
         void Awake(){Application.logMessageReceived+=Log;}
         void Log(string message,string stack,LogType type){if(type==LogType.Error||type==LogType.Exception||type==LogType.Assert)errors.Add(message+"\n"+stack);}
         IEnumerator Start()
@@ -54,8 +54,8 @@ namespace RivetReach
             foreach(var l in FindObjectsByType<Light>())l.gameObject.SetActive(false);
             RenderSettings.fog=false;RenderSettings.ambientMode=UnityEngine.Rendering.AmbientMode.Flat;RenderSettings.ambientLight=new Color(.58f,.62f,.68f);
             var light=new GameObject("Review key").AddComponent<Light>();light.type=LightType.Directional;light.intensity=1.25f;light.transform.rotation=Quaternion.Euler(38,152,0);
-            camera=new GameObject("Review camera").AddComponent<Camera>();camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=new Color(.23f,.28f,.30f);camera.nearClipPlane=.025f;camera.farClipPlane=20;camera.fieldOfView=38;
-            camera.transform.position=new Vector3(0,1,3.25f);camera.transform.LookAt(new Vector3(0,.95f,0));
+            reviewCamera=new GameObject("Review camera").AddComponent<Camera>();reviewCamera.clearFlags=CameraClearFlags.SolidColor;reviewCamera.backgroundColor=new Color(.23f,.28f,.30f);reviewCamera.nearClipPlane=.025f;reviewCamera.farClipPlane=20;reviewCamera.fieldOfView=38;
+            reviewCamera.transform.position=new Vector3(0,1,3.25f);reviewCamera.transform.LookAt(new Vector3(0,.95f,0));
             male=Avatar("Male review",new Vector3(.48f,0,0),false);female=Avatar("Female review",new Vector3(-.48f,0,0),true);
             result.maleTriangles=male.TriangleCount;result.femaleTriangles=female.TriangleCount;result.bones=male.BoneCount;result.clips=male.ClipCount;result.fullVertices=male.VertexCount;
             Check(male.AnimationReady&&female.AnimationReady,"Both animation graphs initialize");
@@ -65,8 +65,8 @@ namespace RivetReach
             male.SamplePose("Idle",0);female.SamplePose("Idle",0);yield return Capture("01-front");
             male.transform.rotation=female.transform.rotation=Quaternion.Euler(0,180,0);yield return Capture("02-back");
             male.transform.rotation=Quaternion.Euler(0,-20,0);female.transform.rotation=Quaternion.Euler(0,-20,0);
-            camera.transform.position=new Vector3(0,1.59f,1.9f);camera.transform.LookAt(new Vector3(0,1.56f,0));yield return Capture("03-face");
-            camera.transform.position=new Vector3(0,1,3.25f);camera.transform.LookAt(new Vector3(0,.95f,0));
+            reviewCamera.transform.position=new Vector3(0,1.59f,1.9f);reviewCamera.transform.LookAt(new Vector3(0,1.56f,0));yield return Capture("03-face");
+            reviewCamera.transform.position=new Vector3(0,1,3.25f);reviewCamera.transform.LookAt(new Vector3(0,.95f,0));
             male.SamplePose("Walk",.25f);female.SamplePose("Walk",.75f);yield return Capture("04-walk");
             male.SamplePose("Run",.2f);female.SamplePose("Run",.6f);yield return Capture("05-run");
             male.SamplePose("Mine",.22f);female.SamplePose("Mine",.22f);yield return Capture("06-mine");
@@ -93,13 +93,13 @@ namespace RivetReach
             result.strafeStep=strafeStep;yield return Capture("07d-strafe");
             Check(Mathf.Abs(strafeStep.x)>.02f,"Strafing turns the foot path laterally while preserving forward upper-body presentation");
             male.gameObject.SetActive(false);female.gameObject.SetActive(false);
-            camera.transform.position=Vector3.zero;camera.transform.rotation=Quaternion.identity;camera.fieldOfView=78;
-            var o=new GameObject("First person review");o.transform.SetParent(camera.transform,false);o.transform.localPosition=new Vector3(0,-1.5f,.02f);hands=o.AddComponent<AvatarView>();hands.FirstPersonArms=true;
+            reviewCamera.transform.position=Vector3.zero;reviewCamera.transform.rotation=Quaternion.identity;reviewCamera.fieldOfView=78;
+            var o=new GameObject("First person review");o.transform.SetParent(reviewCamera.transform,false);o.transform.localPosition=new Vector3(0,-1.5f,.02f);hands=o.AddComponent<AvatarView>();hands.FirstPersonArms=true;
             foreach(bool isFemale in new[]{false,true})foreach(int skin in new[]{0,1})
             {
                 hands.Build(isFemale,skin);hands.SamplePose("FP_Idle",0);result.armsTriangles=hands.TriangleCount;result.armsVertices=hands.VertexCount;
                 Check(hands.TriangleCount<=6000,"Dominant first-person arm remains below 6000 triangles");
-                result.leftWristViewport=camera.WorldToViewportPoint(hands.BonePosition("HandL"));result.rightWristViewport=camera.WorldToViewportPoint(hands.BonePosition("HandR"));
+                result.leftWristViewport=reviewCamera.WorldToViewportPoint(hands.BonePosition("HandL"));result.rightWristViewport=reviewCamera.WorldToViewportPoint(hands.BonePosition("HandR"));
                 foreach(var wrist in new[]{result.rightWristViewport})
                     Check(wrist.z>.2f&&wrist.y>0&&wrist.y<.38f&&wrist.x>.12f&&wrist.x<.88f,"Resting wrists sit inside the lower camera frame");
                 string label=(isFemale?"female":"male")+"-skin"+skin;
@@ -135,14 +135,14 @@ namespace RivetReach
                 hands.SetGrip(GripPose.Empty);
             }
             hands.Build(false,0);hands.SamplePose("FP_Idle",0);
-            Vector3 referenceWrist=camera.WorldToViewportPoint(hands.BonePosition("HandR"));
+            Vector3 referenceWrist=reviewCamera.WorldToViewportPoint(hands.BonePosition("HandR"));
             foreach(float fov in new[]{60f,100f})
             {
-                camera.fieldOfView=fov;hands.FitFirstPersonFov(fov);
-                Check(Vector3.Distance(referenceWrist,camera.WorldToViewportPoint(hands.BonePosition("HandR")))<.001f,"Hand framing remains stable when world field of view changes");
+                reviewCamera.fieldOfView=fov;hands.FitFirstPersonFov(fov);
+                Check(Vector3.Distance(referenceWrist,reviewCamera.WorldToViewportPoint(hands.BonePosition("HandR")))<.001f,"Hand framing remains stable when world field of view changes");
                 yield return Capture("11-fov-"+fov);
             }
-            camera.fieldOfView=78;hands.FitFirstPersonFov(78);
+            reviewCamera.fieldOfView=78;hands.FitFirstPersonFov(78);
             Check(hands.VertexCount<result.fullVertices*.55f,"First-person mesh excludes hidden body vertices from skinning");
             // Time-based state tests catch sluggish input response and frame-rate-dependent blends.
             hands.Build(false,0);float elapsed=0;

@@ -6,7 +6,7 @@ Implementation record for the user-authorized first slice, 2026-09-08. This is t
 
 Open the repository root with Unity **6000.4.4f1**, open `Assets/RivetReach/Scenes/Main.unity`, then press Play. The scene's runtime entry point is `Expedition.Bootstrap`; the terrain and interface are constructed from versioned definitions and assets when the scene runs. The Editor's unplayed scene is therefore not a populated voxel map.
 
-The Windows build is generated at `Builds/PlayerRevision4/RivetReach.exe`. Keep its adjacent data folder, DLLs and Mono runtime together. Start Expedition creates a terrain session using the seed entered on the title screen. Nearby terrain prepares before movement can enter it. No developer commands are needed to play.
+The Windows build is generated at `Builds/PlayerRevision4/RivetReach.exe`. Keep its adjacent data folder, DLLs and Mono runtime together. Start Expedition creates a terrain session using a fresh random seed, or the optional seed entered on the title screen. Nearby terrain prepares before movement can enter it. No developer commands are needed to play.
 
 Build through **Rivet Reach → Build Windows first POC** in Unity, or from Windows PowerShell:
 
@@ -24,23 +24,43 @@ For an Editor startup regression check, open the saved Main scene outside Play m
 | Action | Default |
 |---|---|
 | Move / look | WASD / mouse |
-| Sprint / jump / crouch | Left Shift / Space / Left Ctrl |
+| Sprint / jump / crouch | Left Shift or double-tap Forward / Space / Left Ctrl |
 | Mine | Hold left mouse on a block within 5 m |
 | Place collected terrain | Right mouse on a block face; uses the selected hotbar stack |
 | Inventory / pause | Tab / Escape |
 | Select hotbar | Mouse wheel or [ / ] across all 12 slots; 1–0 for the first ten |
 | Drop one / full selected stack | Q / Shift+Q |
-| Inspect body / diagnostics | F5 / F3 |
+| Inspect body / diagnostics | F5 / F12 |
 | Move an inventory stack | Click source then destination, or drag |
 | Split / place one | Right-click |
 | Transfer between hotbar and main storage | Shift-click |
 | Rotate the appearance preview | Drag the player portrait |
 
+The title screen starts with a fresh random world seed on each launch. Leave the optional seed field blank to use it, or enter a signed 32-bit integer to replay that terrain; F12 diagnostics display the active seed.
+
 The settings screens expose look sensitivity, FOV, view distance, interface scale and keyboard action rebinding. Existing mapped keyboard conflicts swap keys. Mining can use left or right mouse; placement uses the opposite button. Appearance and settings are remembered locally.
 
-Inventory has **12 hotbar + 48 main slots**, with a 500-item limit per stack in this palette. Grass, dirt and stone use real stable definitions. Selected terrain stacks can be placed against a targeted block face. One thin dark outline identifies the aimed block. Blocked cells, player/pile overlaps and unavailable terrain reject placement without consuming the stack. The selected terrain item appears in the right hand and follows its swing; empty stacks restore the bare fist. Held placement repeats every 0.22 seconds. Fists remain the mining method. [The placement contract](GAMEPLAY.md#first-step-terrain-placement--user-feedback-extension) owns the detailed rules. The crafting area is clearly inactive and accepts no items.
+Inventory has **12 hotbar + 48 main slots**, with a 500-item limit per stack in this palette. Grass, dirt and stone use real stable definitions. Selected terrain stacks can be placed against a targeted block face. One thin dark outline identifies the aimed block. Blocked cells, actual player overlap and unavailable terrain reject placement without consuming the stack. Touching feet allow placement below them; jump and hold Place to build upward. Loose drops pop above a placed block or move to a clear side. The selected terrain item appears in the right hand and follows its swing; empty stacks restore the bare fist. Held placement repeats every 0.22 seconds. Fists remain the mining method. [The placement contract](GAMEPLAY.md#first-step-terrain-placement--user-feedback-extension) owns the detailed rules. The crafting area is clearly inactive and accepts no items.
 
 **World progress is session-only.** Edits, inventory and unexpired dropped items survive chunk unloading in the running game. Quitting/restarting resets them. The title, pause menu and HUD disclose this boundary; appearance/settings persist independently.
+
+## F12 debug panel
+
+Press **F12** during an expedition to show or hide the debug panel. The action is listed as **Diagnostics** in Controls and can be rebound. It starts hidden during ordinary play; automated verification can enable it explicitly.
+
+The panel displays:
+
+- FPS and smoothed frame duration.
+- Active world identifier, seed and player block coordinates.
+- Ready/resident chunk counts and pending terrain work.
+- Latest generation/mesh and local edit mesh durations.
+- Terrain triangle count, retained terrain edits and dropped-item pile count.
+- Rejected stale jobs and the current rendering origin.
+- The most recent placement result or rejection reason.
+
+**“Cannot place inside the player” appears only in this panel.** Normal building remains quiet when your body blocks a placement attempt. Collision still prevents placing through your legs; a block that fits below your feet is allowed, and holding Place while jumping builds underneath once there is room. Other useful placement feedback, such as an empty selection or unavailable terrain, remains on the HUD. Closing F12 hides diagnostics without affecting gameplay.
+
+The values are current development diagnostics, not a benchmark result or a save system. Copy the displayed seed to recreate the terrain in a new expedition; placed/mined blocks and inventory still follow the session-only progress boundary above. [The gameplay contract](GAMEPLAY.md#first-step-terrain-placement--user-feedback-extension) owns placement behaviour; recorded checks and screenshots are in [building and movement results](verification/BUILDING_AND_MOVEMENT_RESULTS.md).
 
 ## Implemented foundation
 
@@ -52,7 +72,7 @@ Inventory has **12 hotbar + 48 main slots**, with a 500-item limit per stack in 
 - Voxel queries own movement/collision, including unready frontiers. Swept movement substeps prevent stepping through cells; no MeshCollider or GameObject is created per voxel. Mining changes authoritative occupancy before drops are emitted. Placement commits occupancy and consumes one selected item in the same local authority turn, using the same edit revision and neighbour-halo update path.
 - Held fist mining, selection outline, progress bar, fist motion and original procedural impact/pickup/footstep audio. Grass/dirt/stone fist times are working defaults of 0.45 / 0.60 / 0.95 seconds.
 - Grass drops dirt when fist-mined. Nearby resident grass spreads to exposed dirt and decays under cover on fixed random ticks, using direct sky exposure. These solid-to-solid changes use the session edit/revision system and asynchronous remeshing. [Grass scheduling](SIMULATION.md#13-grass-random-ticks--first-step-feedback) owns the working timing, locality and light limitations.
-- Physical stack entities use 20 Hz custom movement, dry-ground sleep, 1.5 m proximity pickup with an obstruction check, partial pickup, drop-owner delay of 0.75 s, compatible merge checks every 0.5 s and 500-item pile limits. Merge keeps the oldest eligible lifetime. Twenty minutes of active physical eligibility expires ordinary piles; unloaded and paused time does not count. No piles are discarded simply to enforce a population cap.
+- Physical stack entities use 20 Hz custom movement, dry-ground sleep, 1.5 m proximity pickup with an obstruction check, partial pickup, drop-owner delay of 0.75 s, same-item merge checks every 0.5 s and 500-item pile limits. Different item types may share one block; merging removes emptied pile records and views, preserves excess quantity in remainder stacks and reuses its spatial lookup storage. Merge keeps the oldest eligible lifetime. Twenty minutes of active physical eligibility expires ordinary piles; unloaded and paused time does not count. No piles are discarded simply to enforce a population cap.
 
 Detailed future contracts remain owned by [SIMULATION.md](SIMULATION.md) and [GAMEPLAY.md](GAMEPLAY.md). This first implementation has one local authority; it does not implement multiplayer transactions, durable journals or the factory scheduler.
 

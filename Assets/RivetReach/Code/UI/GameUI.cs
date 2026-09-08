@@ -19,6 +19,7 @@ namespace RivetReach
         readonly List<SlotView> slots=new List<SlotView>();
         readonly Dictionary<byte,Texture2D> icons=new Dictionary<byte,Texture2D>();
         Text message,diagnostics,targetLabel,heldLabel,selectedLabel,loading,tooltip;
+        GameObject diagnosticsPanel;
         Image progress;
         RectTransform heldRoot;
         RawImage heldIcon;
@@ -28,6 +29,7 @@ namespace RivetReach
         GameObject previewRoot;
         AvatarView preview;
         float frameAverage;
+        string titleSeedText="";
         public void Initialize(Expedition expedition)
         {
             game=expedition;font=Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
@@ -59,7 +61,7 @@ namespace RivetReach
         public void Rebuild()
         {
             if(canvas==null)return;
-            if(root!=null)Destroy(root.gameObject);slots.Clear();message=null;diagnostics=null;targetLabel=null;progress=null;heldRoot=null;heldLabel=null;loading=null;tooltip=null;lastRevision=-1;
+            if(root!=null)Destroy(root.gameObject);slots.Clear();message=null;diagnostics=null;diagnosticsPanel=null;targetLabel=null;progress=null;heldRoot=null;heldLabel=null;loading=null;tooltip=null;lastRevision=-1;
             if(previewRoot!=null)previewRoot.SetActive(game.Mode==ScreenMode.Inventory||game.Mode==ScreenMode.Appearance);
             root=Rect(canvas.transform,"Screen",0,0,1280,720);root.anchorMin=root.anchorMax=root.pivot=new Vector2(.5f,.5f);root.anchoredPosition=Vector2.zero;
             float scale=Mathf.Clamp(PlayerPrefs.GetFloat("uiScale",1),.85f,1);root.localScale=Vector3.one*scale;
@@ -77,8 +79,16 @@ namespace RivetReach
             Label(p.transform,"Explore the terrain. Mine with your fists.\nBring what you find back to your inventory.",36,252,360,68,19);
             Label(p.transform,"WORLD SEED",36,337,160,22,13,gold);
             var fieldBackground=Panel(p.transform,36,366,365,44,slate);
-            var field=fieldBackground.gameObject.AddComponent<InputField>();field.textComponent=Label(fieldBackground.transform,"",12,5,340,35,21);field.contentType=InputField.ContentType.IntegerNumber;field.text=game.Seed.ToString();field.characterLimit=10;
-            Button(p.transform,"START EXPEDITION",36,430,365,50,()=>{int seed=int.TryParse(field.text,out int n)?n:game.Seed;game.StartSession(seed);},true);
+            var field=fieldBackground.gameObject.AddComponent<InputField>();field.textComponent=Label(fieldBackground.transform,"",12,5,340,35,21);field.contentType=InputField.ContentType.IntegerNumber;field.text=titleSeedText;field.characterLimit=11;
+            field.placeholder=Label(fieldBackground.transform,"Random — leave blank",12,10,340,30,17,new Color(.65f,.71f,.70f));
+            var seedError=Label(p.transform,"",36,411,365,18,12,gold);
+            field.onValueChanged.AddListener(value=>{titleSeedText=value;seedError.text="";});
+            Button(p.transform,"START EXPEDITION",36,430,365,50,()=>
+            {
+                if(string.IsNullOrWhiteSpace(field.text)){game.StartSession(game.Seed);return;}
+                if(int.TryParse(field.text,out int seed))game.StartSession(seed);
+                else seedError.text="Enter a whole number from -2147483648 to 2147483647.";
+            },true);
             Button(p.transform,"PLAYER",36,494,112,40,()=>game.SetMode(ScreenMode.Appearance));
             Button(p.transform,"SETTINGS",161,494,114,40,()=>game.SetMode(ScreenMode.Settings));
             Button(p.transform,"QUIT",289,494,112,40,game.Quit);
@@ -104,7 +114,8 @@ namespace RivetReach
             Label(root,"Session-only world",1090,694,172,22,12,new Color(.75f,.77f,.73f));
             message=Label(root,"",330,555,620,40,18,gold);message.alignment=TextAnchor.MiddleCenter;
             loading=Label(root,"",435,457,410,50,20);loading.alignment=TextAnchor.MiddleCenter;
-            diagnostics=Label(root,"",28,103,650,190,14);
+            var debug=Panel(root,20,94,680,210,new Color(.025f,.045f,.055f,.9f));diagnosticsPanel=debug.gameObject;
+            diagnostics=Label(debug.transform,"",8,9,660,190,14);diagnosticsPanel.SetActive(game.Diagnostics);
         }
         void BuildInventory()
         {
@@ -237,7 +248,8 @@ namespace RivetReach
                 }
             }
             frameAverage=Mathf.Lerp(frameAverage,Time.unscaledDeltaTime,.05f);
-            if(diagnostics!=null)diagnostics.text=game.Diagnostics?$"{1/Mathf.Max(.001f,frameAverage):0} fps · {frameAverage*1000:0.0} ms\nWorld: {TerrainGenerator.WorldId} · seed {game.Seed} · {game.World.Address(game.Player.transform.position)}\nChunks {game.World.ReadyCount}/{game.World.ResidentCount} · queue {game.World.PendingCount}\nGeneration + mesh {game.World.LastBuildMs:0.0} ms · edit mesh {game.World.LastEditMeshMs:0.0} ms\nTriangles {game.World.MeshTriangles:N0} · changes {game.World.EditCount} · piles {game.Items.Piles.Count}\nStale jobs rejected {game.World.RejectedJobs} · origin {game.World.Origin}":"";
+            if(diagnosticsPanel!=null)diagnosticsPanel.SetActive(game.Diagnostics);
+            if(diagnostics!=null)diagnostics.text=game.Diagnostics?$"{1/Mathf.Max(.001f,frameAverage):0} fps · {frameAverage*1000:0.0} ms\nWorld: {TerrainGenerator.WorldId} · seed {game.Seed} · {game.World.Address(game.Player.transform.position)}\nChunks {game.World.ReadyCount}/{game.World.ResidentCount} · queue {game.World.PendingCount}\nGeneration + mesh {game.World.LastBuildMs:0.0} ms · edit mesh {game.World.LastEditMeshMs:0.0} ms\nTriangles {game.World.MeshTriangles:N0} · changes {game.World.EditCount} · piles {game.Items.Piles.Count}\nStale jobs rejected {game.World.RejectedJobs} · origin {game.World.Origin}\nPlacement: {game.PlacementDiagnostic??"No attempt yet"}":"";
             if(preview!=null&&previewRoot.activeSelf)preview.Animate(.12f,false,Time.unscaledTime*2);
         }
         Rect PortraitUV(float width,float height)

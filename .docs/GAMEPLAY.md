@@ -121,7 +121,7 @@ The same logical item-stack model should be used by inventories, world-item enti
 
 ### Item merging
 
-Nearby compatible world-item entities should merge into larger piles where legal.
+Nearby world-item entities of the **same item type** merge into larger piles where legal. Different types remain separate piles and may occupy the same block; there is no one-item-type-per-cell restriction.
 
 Example:
 
@@ -197,7 +197,7 @@ This keeps the world tactile and Minecraft-like while allowing large factories t
 
 ### Movement and targeting
 
-One voxel edge represents one metre. Start with a 0.6 m wide, 1.8 m tall player collision volume, 4.5 m/s walk, 6.5 m/s sprint and a jump that clears one block. Sprint has no stamina meter in the initial survival rules. Crouch reduces height/speed and prevents stepping off an edge unless the player deliberately jumps. Water slows movement; swimming uses held vertical input. These values need feel testing rather than physical realism.
+One voxel edge represents one metre. Start with a 0.6 m wide, 1.8 m tall player collision volume, 4.5 m/s walk, 6.5 m/s sprint and a jump reaching 1.6 blocks, explicitly chosen by the user for future half-block clearance. Half blocks themselves remain later work. Sprint starts with the dedicated sprint key or a double tap of the mapped Forward action. The double-tap gesture has an initial 0.3-second press-to-press window and stays active while forward is held; releasing forward, crouching, inspecting or opening a menu/inventory clears it. Sprint has no stamina meter in the initial survival rules. Crouch reduces height/speed and prevents stepping off an edge unless the player deliberately jumps. Water slows movement; swimming uses held vertical input. These values need feel testing rather than physical realism.
 
 Target the authoritative voxel grid within 5 m, not a possibly stale render mesh. Display the selected face, block identity where discovered, placement ghost and mining progress. Mining uses a held action with duration from block hardness and tool capability; changing target resets uncommitted progress. There is no mandatory mouse-click-per-block repetition. Wood is hand-breakable; a wooden pick mines stone, and a stone pick mines starter ores. An inadequate tool reports the required capability and does not silently destroy ore without its expected drop.
 
@@ -205,7 +205,7 @@ The first tools do not wear out. Durability is deferred unless playtests establi
 
 ### Placement and inventory
 
-Placement uses the targeted face and a rotatable ghost. Rotate cycles through allowed orientations defined by the block/machine; ordinary machines initially rotate in four horizontal directions. Placement fails visibly when out of reach, obstructed, unsupported where support is required, protected, or overlapping a player/entity. Inventory is consumed only when the world placement commits. Held repeat placement is rate-limited and uses the current target each time.
+Placement uses the targeted face and a rotatable ghost. Rotate cycles through allowed orientations defined by the block/machine; ordinary machines initially rotate in four horizontal directions. Placement fails visibly when out of reach, obstructed, unsupported where support is required, protected, or overlapping a player or solid entity. Loose dropped items do not obstruct placement: they pop above the new block or move into a clear side. Inventory is consumed only when the world placement commits. Held repeat placement is rate-limited and uses the current target each time.
 
 Use 12 hotbar slots plus 48 main slots as the initial configuration. Direct keys select the first ten slots; mouse wheel and rebindable next/previous actions reach all twelve. Initial stack limits: terrain blocks 500, raw resources 250, components 100, machines 10, unique equipment 1. These are content definitions, not hard-coded assumptions in inventory storage.
 
@@ -302,11 +302,15 @@ Reserve a visible area inside the inventory labelled **Crafting — coming later
 
 The first POC now implements this loop. [Current revision results](verification/VISUAL_REVISION_RESULTS.md) record the automated and visual checks actually performed; user assessment of feel and final visual acceptance remains pending. Decide the next implementation with the user after reviewing this slice.
 
+### First-step world seed — user feedback extension
+
+Normal application/Editor Play startup prepares a fresh random seed. The optional title-screen seed field is blank by default; starting with it blank uses that prepared world. An explicitly entered signed 32-bit integer recreates the corresponding terrain. Returning through settings or appearance preserves the typed seed. F12 diagnostics expose the active seed for replay. Automated terrain regression explicitly enters its fixed seed and does not set the normal startup default.
+
 ### First-step terrain placement — user feedback extension
 
 Use the opposite mouse button from mining (right mouse by default). Aim at an existing block within 5 m; the voxel ray supplies the entered face and therefore the adjacent destination cell. Following the user's later Minecraft-style interaction request, show one thin dark outline around the aimed existing block, with consistent screen-space thickness and normal terrain occlusion. This supersedes the green/red destination wireframe. Destination validation still occurs on every placement attempt, with the reason shown when rejected. These three terrain blocks have no directional state, so rotation is unnecessary; machinery orientation and footprints remain later work.
 
-Validate the current selected stack, destination residency, empty occupancy and overlap with the player or a dropped-item pile on each attempt. Reject placement while an inventory/menu is open, while inspecting the body, or when there is no reachable target face. Report the reason and leave quantities unchanged. A successful local authority turn commits one terrain voxel and immediately consumes one item from the selected stack. Held placement repeats at most once per 0.22 seconds using the current target; release resets the repeat timer. Mining and placing simultaneously gives placement priority.
+Validate the current selected stack, destination residency, empty occupancy and overlap with the player on each attempt. Use the same occupied-cell boundary and 1 mm skin as movement, so touching feet do not reject a block that fits below them. Loose items are allowed in the destination; after the voxel commits, move overlapping piles above it or into a clear side, waking their movement without changing their item identities, quantities, pickup delays or lifetimes. Different item types may share the destination and escape space. Reject placement while an inventory/menu is open, while inspecting the body, or when there is no reachable target face. Leave quantities unchanged on rejection. Player-overlap rejection is silent in the normal HUD and recorded in the F12 debug panel; other actionable placement failures retain their HUD feedback. [The play guide](FIRST_POC.md#f12-debug-panel) describes panel contents and controls. A successful local authority turn commits one terrain voxel and immediately consumes one item from the selected stack. Successful held placements repeat at most once per 0.22 seconds using the current target; a failed attempt does not spend this cooldown. Holding placement while jumping can therefore fill the space as soon as the feet clear it. Release resets the repeat timer. Mining and placing simultaneously gives placement priority.
 
 Placed terrain uses the same session edit records, immediate voxel collision and revision-aware neighbour remeshing as mining. It survives chunk unload/reload and origin shifts in-session. Mining it follows the ordinary hardness/drop path. There is no creative/free block source, generated structure placement, blueprint building, undo, terrain gravity or durable save in this extension. The 0.22-second repeat delay and overlap margins are working defaults, not user-validated feel.
 

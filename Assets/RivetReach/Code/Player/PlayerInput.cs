@@ -10,7 +10,7 @@ namespace RivetReach
         public readonly Dictionary<string,Key> Keys=new Dictionary<string,Key>{
             {"Forward",Key.W},{"Back",Key.S},{"Left",Key.A},{"Right",Key.D},{"Jump",Key.Space},
             {"Sprint",Key.LeftShift},{"Crouch",Key.LeftCtrl},{"Inventory",Key.Tab},{"Drop",Key.Q},
-            {"Pause",Key.Escape},{"Inspect",Key.F5},{"Diagnostics",Key.F3},
+            {"Pause",Key.Escape},{"Inspect",Key.F5},{"Diagnostics",Key.F12},
             {"Previous slot",Key.LeftBracket},{"Next slot",Key.RightBracket}};
         public float Sensitivity=0.11f;
         public string Rebinding {get;private set;}
@@ -18,6 +18,12 @@ namespace RivetReach
         public PlayerInput()
         {
             foreach(var n in new List<string>(Keys.Keys))Keys[n]=(Key)PlayerPrefs.GetInt("binding."+n,(int)Keys[n]);
+            // Migrate the previous default when it was stored by key rebinding.
+            if(Keys["Diagnostics"]==Key.F3)
+            {
+                foreach(var n in new List<string>(Keys.Keys))if(n!="Diagnostics"&&Keys[n]==Key.F12)Keys[n]=Key.F3;
+                Keys["Diagnostics"]=Key.F12;
+            }
             Sensitivity=PlayerPrefs.GetFloat("sensitivity",.11f);
         }
         public bool Held(string name) => Rebinding==null && Keyboard.current!=null&&Keyboard.current[Keys[name]].isPressed;

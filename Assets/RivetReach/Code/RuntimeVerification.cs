@@ -22,6 +22,7 @@ namespace RivetReach
             public float frameMedianMs,frameP95Ms,frameMaxMs,firstReadySeconds,miningFrameMaxMs;
             public double miningMeshMs,placementMeshMs,grassTickMaxMs;
             public int grassChanges;
+            public int startupSeed;
             public int viewRadius;public float fogStart,fogEnd;
             public string[] checks,errors;
         }
@@ -29,7 +30,15 @@ namespace RivetReach
         readonly List<string> checks=new List<string>(),errors=new List<string>();
         readonly List<float> frames=new List<float>();
         Report report=new Report();bool sampling,miningSample;ProfilerRecorder drawCalls;
-        void Awake(){Application.logMessageReceived+=Log;drawCalls=ProfilerRecorder.StartNew(ProfilerCategory.Render,"Draw Calls Count");}
+        void Awake()
+        {
+            Application.logMessageReceived+=Log;drawCalls=ProfilerRecorder.StartNew(ProfilerCategory.Render,"Draw Calls Count");
+            // Verification owns virtual input devices, so desktop focus or real keys
+            // cannot suppress or alter the queued gameplay gestures in a test build.
+            InputSystem.settings.backgroundBehavior=InputSettings.BackgroundBehavior.IgnoreFocus;
+            foreach(var device in InputSystem.devices)if(device is Keyboard||device is Mouse)InputSystem.DisableDevice(device);
+            InputSystem.AddDevice<Keyboard>("Verification keyboard");InputSystem.AddDevice<Mouse>("Verification mouse");
+        }
         void Log(string condition,string stack,LogType type){if(type==LogType.Exception||type==LogType.Error||type==LogType.Assert)errors.Add(condition+"\n"+stack);}
         IEnumerator Start()
         {
@@ -69,11 +78,24 @@ namespace RivetReach
         IEnumerator Run()
         {
             // Nested enumerators are driven by Unity. Check failures are also captured by Log().
-            float began=Time.realtimeSinceStartup;game.World.ViewDistance=10;game.StartSession(246813);game.Diagnostics=true;
+            yield return null; // Allow the title's initialization rebuild to retire its previous UI tree.
+            float began=Time.realtimeSinceStartup;report.startupSeed=game.Seed;
+            var seedField=game.UI.GetComponentInChildren<UnityEngine.UI.InputField>();
+            Check(seedField!=null&&string.IsNullOrEmpty(seedField.text),"Normal startup leaves the optional seed field blank for a random world (seed "+game.Seed+")");
+            yield return Capture("random-seed-title");
+            UnityEngine.UI.Button StartButton()=>game.UI.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b=>b.GetComponentInChildren<UnityEngine.UI.Text>().text=="START EXPEDITION");
+            StartButton().onClick.Invoke();
+            Check(game.Started&&game.Seed==report.startupSeed&&game.World.Generator.Seed==report.startupSeed,"Starting with a blank seed uses the randomly prepared world");
+            game.SetMode(ScreenMode.Title);yield return null;
+            seedField=game.UI.GetComponentInChildren<UnityEngine.UI.InputField>();seedField.text="246813";StartButton().onClick.Invoke();
+            Check(game.Seed==246813&&game.World.Generator.Seed==246813,"Entering an explicit seed starts that reproducible world");
+            game.World.ViewDistance=10;game.Diagnostics=true;
             yield return Settle();report.firstReadySeconds=Time.realtimeSinceStartup-began;
             var player=game.Player;var world=game.World;report.viewRadius=world.ViewDistance;report.fogStart=world.FogStart;report.fogEnd=world.FogEnd;var start=world.Address(player.transform.position);var saved=WorldPoint.FromLocal(player.transform.position,world.Origin);
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-interaction-review"))
             {report.workload="Grass and hand interaction review";yield return ReviewInteractions();yield break;}
+            if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-placement-items-review"))
+            {report.workload="Dropped-item stacking, placement and movement interactions";yield return ReviewPlacementItems();yield return ReviewMovementInteractions();yield break;}
             bool visualOnly=Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-visual-review");
             report.workload=visualOnly?"Visual review and first-person body regression":"Full terrain/inventory and visual regression";
             yield return ReviewVisuals();
@@ -240,6 +262,8 @@ namespace RivetReach
             Check(!world.Overlaps(player.transform.position,.6f,1.8f),"Cave collision permits a supported player");yield return Capture("09-cave");
             game.SetMode(ScreenMode.Title);yield return Capture("10-title");
             yield return ReviewInteractions();
+            yield return ReviewPlacementItems();
+            yield return ReviewMovementInteractions();
             Check(world.Error==null,"No terrain worker errors");
         }
         IEnumerator ReviewVisuals()

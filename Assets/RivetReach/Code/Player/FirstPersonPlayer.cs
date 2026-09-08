@@ -13,6 +13,7 @@ namespace RivetReach
         public HeldBlockView HeldBlock {get;private set;}
         public bool Inspecting {get;private set;}
         public bool Grounded {get;private set;}
+        public bool Sprinting {get;private set;}
         public bool HasTarget {get;private set;}
         public BlockPos Target {get;private set;}
         public byte TargetId {get;private set;}
@@ -28,6 +29,8 @@ namespace RivetReach
         GameObject selection;
         public bool SelectionVisible=>selection!=null&&selection.activeInHierarchy;
         float nextPlace;
+        float lastForwardPress=float.NegativeInfinity;
+        bool doubleTapSprint;
         Material lineMaterial;
         Mesh lineMesh;
         public Vector2? VerificationMovement;
@@ -60,6 +63,7 @@ namespace RivetReach
             bool control=Game.Started&&!Game.Paused&&!Game.InventoryOpen;
             if(!Game.Started)
             {
+                ResetSprint();
                 transform.rotation=Quaternion.Euler(0,Yaw,0);
                 Camera.transform.localPosition=Vector3.up*1.64f;
                 Camera.transform.localRotation=Quaternion.Euler(Pitch,0,0);Arms.gameObject.SetActive(false);Body.gameObject.SetActive(false);return;
@@ -70,6 +74,7 @@ namespace RivetReach
                 var look=Game.Input.Look;Yaw+=look.x;Pitch=Mathf.Clamp(Pitch-look.y,-85,85);
                 if(Game.Input.Pressed("Inspect")){Inspecting=!Inspecting;RefreshAppearance();}
             }
+            UpdateSprintGesture(control&&!Inspecting);
             transform.rotation=Quaternion.Euler(0,Yaw,0);
             if(!Game.Paused && Game.World.Ready(Game.World.Address(transform.position)))
             {
@@ -77,16 +82,19 @@ namespace RivetReach
                 float desired=crouch?1.25f:1.8f;
                 if(desired<Height||!Game.World.Overlaps(transform.position,.6f,desired))Height=desired;
                 Vector2 input=VerificationMovement??(control?Game.Input.Move:Vector2.zero);
-                float speed=Height<1.5f?2.2f:control&&Game.Input.Held("Sprint")?6.5f:4.5f;
+                Sprinting=control&&Height>=1.5f&&input.sqrMagnitude>0&&(Game.Input.Held("Sprint")||doubleTapSprint);
+                float speed=Height<1.5f?2.2f:Sprinting?6.5f:4.5f;
                 input=Vector2.ClampMagnitude(input,1);
                 Vector3 move=transform.TransformDirection(new Vector3(input.x,0,input.y))*speed;
                 bool jump=control&&Game.Input.Pressed("Jump")&&Grounded;
-                if(jump)vertical=6.7f;
-                vertical=Mathf.Max(-35,vertical-20*Mathf.Min(Time.deltaTime,.05f));
+                // The requested 1.6-block apex leaves clearance for future half blocks.
+                if(jump)vertical=8f;
                 float dt=Mathf.Min(Time.deltaTime,.05f);
+                float nextVertical=Mathf.Max(-35,vertical-20*dt);
+                float verticalTravel=(vertical+nextVertical)*.5f*dt;vertical=nextVertical;
                 if(crouch&&Grounded&&!jump&&!Game.World.Overlaps(transform.position+move*dt-Vector3.up*.12f,.6f,.12f))move=Vector3.zero;
                 Vector3 previous=transform.position;
-                transform.position=Game.World.Move(transform.position,(move+Vector3.up*vertical)*dt,.6f,Height,out bool ground);
+                transform.position=Game.World.Move(transform.position,move*dt+Vector3.up*verticalTravel,.6f,Height,out bool ground);
                 float impact=!Grounded&&ground?Mathf.Max(0,-vertical):0;
                 Grounded=ground;if(ground)vertical=-1;
                 Vector3 travelled=transform.position-previous;travelled.y=0;
@@ -130,6 +138,17 @@ namespace RivetReach
             selection.SetActive(HasTarget);
             if(HasTarget)selection.transform.position=Game.World.Local(Target)-Vector3.one*.002f;
         }
+        void ResetSprint(){doubleTapSprint=false;lastForwardPress=float.NegativeInfinity;Sprinting=false;}
+        void UpdateSprintGesture(bool control)
+        {
+            if(!control||Game.Input.Rebinding!=null||Game.Input.Held("Crouch")){ResetSprint();return;}
+            bool forward=Game.Input.Held("Forward")&&!Game.Input.Held("Back");
+            if(!forward)doubleTapSprint=false;
+            if(!forward||!Game.Input.Pressed("Forward"))return;
+            if(Time.unscaledTime-lastForwardPress<=.3f){doubleTapSprint=true;lastForwardPress=float.NegativeInfinity;}
+            else lastForwardPress=Time.unscaledTime;
+        }
+        void OnDisable(){ResetSprint();}
         void TargetAndMine()
         {
             bool found=Game.World.Raycast(Camera.transform.position,Camera.transform.forward,5,out var pos,out byte id);
@@ -138,7 +157,9 @@ namespace RivetReach
             if(Game.Input.Place)
             {
                 MiningProgress=0;
-                if(Time.time>=nextPlace){if(Game.TryPlaceSelected()){Arms.TriggerSwing();Body.TriggerSwing();}nextPlace=Time.time+.22f;}
+                // Failed attempts must not consume the repeat interval: underfoot space
+                // may become clear for only a few frames near the apex of a jump.
+                if(Time.time>=nextPlace&&Game.TryPlaceSelected()){Arms.TriggerSwing();Body.TriggerSwing();nextPlace=Time.time+.22f;}
                 return;
             }
             nextPlace=0;

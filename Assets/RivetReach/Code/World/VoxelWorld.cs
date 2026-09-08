@@ -253,10 +253,19 @@ namespace RivetReach
         }
         public bool Overlaps(Vector3 feet,float width,float height)
         {
-            var min=Address(feet+new Vector3(-width/2+0.001f,0.001f,-width/2+0.001f));
-            var max=Address(feet+new Vector3(width/2-0.001f,height-0.001f,width/2-0.001f));
+            CollisionCells(feet,width,height,out var min,out var max);
             for(long z=min.Z;z<=max.Z;z++)for(int y=min.Y;y<=max.Y;y++)for(long x=min.X;x<=max.X;x++)if(Solid(new BlockPos(x,y,z)))return true;
             return false;
+        }
+        public bool OccupiesCell(Vector3 feet,float width,float height,BlockPos cell)
+        {
+            CollisionCells(feet,width,height,out var min,out var max);
+            return cell.X>=min.X&&cell.X<=max.X&&cell.Y>=min.Y&&cell.Y<=max.Y&&cell.Z>=min.Z&&cell.Z<=max.Z;
+        }
+        void CollisionCells(Vector3 feet,float width,float height,out BlockPos min,out BlockPos max)
+        {
+            min=Address(feet+new Vector3(-width/2+0.001f,0.001f,-width/2+0.001f));
+            max=Address(feet+new Vector3(width/2-0.001f,height-0.001f,width/2-0.001f));
         }
         public Vector3 Move(Vector3 feet,Vector3 delta,float width,float height,out bool grounded)
         {

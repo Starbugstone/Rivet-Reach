@@ -1326,7 +1326,7 @@ The user's 2026-09-08 staging instruction locks **only the first playable step**
 - [x] Fist mining, precise targeting/feedback and immediate collision correctness during asynchronous remeshing.
 - [x] Real item stacks, physical mining drops/pickup, functional inventory/hotbar and an explicitly nonfunctional crafting placeholder inside inventory.
 - [x] Preserve session edits and item state when leaving and returning to chunks; exercise origin shifts and bounded streaming residency.
-- [x] Terrain-block placement from collected stacks, with current-face targeting, overlap rejection and session edit persistence.
+- [x] Terrain-block placement from collected stacks, with current-face targeting, player overlap rejection, dropped-item displacement and session edit persistence.
 - [ ] Establish and review a coherent terrain/player/UI/lighting concept in a standalone Windows build.
 - [x] Record interaction, visual and streaming evidence against [GAMEPLAY.md](GAMEPLAY.md#14-locked-first-step-interaction-contract) and [SIMULATION.md](SIMULATION.md#12-first-step-terrain-and-streaming-validation).
 - [ ] Review the result and known issues with the user, then decide the next implementation. Do not automatically start the candidates below.
