@@ -107,13 +107,20 @@ namespace RivetReach.Editor
             {
                 view.FirstPersonArms=arms;view.Build(female,skin);
                 var animator=view.GetComponentsInChildren<Animator>().Single();
-                Check(view.AnimationReady&&view.ClipCount==16&&animator.isActiveAndEnabled,$"{(female?"Female":"Male")} skin {skin} {(arms?"hands":"body")} creates its Animator");
+                Check(view.AnimationReady&&view.ClipCount==28&&animator.isActiveAndEnabled,$"{(female?"Female":"Male")} skin {skin} {(arms?"hands":"body")} creates its Animator");
                 var before=view.BonePosition("HandR");
                 view.SamplePose(arms?"FP_Mine":"Mine",.216f);
                 Check(Vector3.Distance(before,view.BonePosition("HandR"))>.03f,"Authored mining clip moves the initialized hand");
                 yield return null;
             }
             UnityEngine.Object.Destroy(fixture);
+            foreach(var prop in new[]{("GripSword",3366),("GripPickaxe",2876)})
+            {
+                var asset=Resources.Load<GameObject>("Characters/"+prop.Item1);
+                int triangles=asset.GetComponentsInChildren<MeshFilter>().Sum(f=>(int)f.sharedMesh.GetIndexCount(0)/3);
+                Check(triangles==prop.Item2&&asset.GetComponentsInChildren<Renderer>().All(r=>r.sharedMaterials.Length==1),
+                    prop.Item1+" imports its source triangle count and one material");
+            }
             yield return new WaitForSecondsRealtime(.5f);
             ScreenCapture.CaptureScreenshot(Output+$"/cycle-{Cycle+1}-title.png");
             yield return new WaitForSecondsRealtime(.5f);
@@ -141,14 +148,29 @@ namespace RivetReach.Editor
             Check(game.Player.Camera.WorldToViewportPoint(game.Player.Body.BonePosition("Neck")).y<0,"Editor look-down keeps the neck opening below the lens at 100-degree FOV");
             ScreenCapture.CaptureScreenshot(Output+$"/cycle-{Cycle+1}-lookdown.png");
             yield return new WaitForSecondsRealtime(.5f);
-            UnityEngine.InputSystem.InputSystem.QueueStateEvent(UnityEngine.InputSystem.Keyboard.current,
-                new UnityEngine.InputSystem.LowLevel.KeyboardState(game.Input.Keys["Crouch"]));
-            yield return new WaitForSecondsRealtime(.4f);
+            float crouchDeadline=Time.realtimeSinceStartup+3;
+            while((game.Player.Height>1.5f||game.Player.Body.CrouchWeight<.995f)&&Time.realtimeSinceStartup<crouchDeadline)
+            {
+                UnityEngine.InputSystem.InputSystem.QueueStateEvent(UnityEngine.InputSystem.Keyboard.current,
+                    new UnityEngine.InputSystem.LowLevel.KeyboardState(game.Input.Keys["Crouch"]));
+                yield return null;
+            }
             Check(game.Player.Height<1.5f&&game.Player.Camera.WorldToViewportPoint(game.Player.Body.BonePosition("Neck")).y<0,
-                "Editor crouching look-down keeps the neck opening below the lens at 100-degree FOV");
+                "Editor crouching look-down keeps the neck opening below the lens at 100-degree FOV; height="+game.Player.Height+", blend="+game.Player.Body.CrouchWeight+", neck="+game.Player.Camera.WorldToViewportPoint(game.Player.Body.BonePosition("Neck")));
             ScreenCapture.CaptureScreenshot(Output+$"/cycle-{Cycle+1}-crouch-lookdown.png");
             yield return new WaitForSecondsRealtime(.5f);
             UnityEngine.InputSystem.InputSystem.QueueStateEvent(UnityEngine.InputSystem.Keyboard.current,new UnityEngine.InputSystem.LowLevel.KeyboardState());
+            game.Player.Pitch=10;game.Selected=11;game.Inventory.Take(11,int.MaxValue);game.Inventory.Add(2,2,11,12);
+            yield return new WaitForSecondsRealtime(.4f);
+            var held=game.Player.HeldBlock;
+            Check(held.Visible&&held.ItemId==2&&held.Hand==game.Player.Arms.Bone("HandR"),"Selected dirt appears on the animated right hand in Editor Play");
+            var centre=game.Player.Camera.WorldToViewportPoint(held.Centre);
+            Check(centre.x>.5f&&centre.x<1&&centre.y>0&&centre.y<.5f,"Held block stays in the lower-right view at 100-degree FOV");
+            ScreenCapture.CaptureScreenshot(Output+$"/cycle-{Cycle+1}-held-block.png");
+            yield return new WaitForSecondsRealtime(.4f);
+            game.Inventory.Take(11,2);yield return new WaitForSecondsRealtime(.1f);
+            Check(!held.Visible,"Emptying the selected stack restores the bare fist in Editor Play");
+            Check(game.World.Grass.Tick>0&&game.Registry.FistDrop(1)==2,"Grass ticks and grass-to-dirt drops are enabled in ordinary Editor Play");
             Check(Errors.Length==0,"Completed Play cycle without logged errors or exceptions");
         }
     }

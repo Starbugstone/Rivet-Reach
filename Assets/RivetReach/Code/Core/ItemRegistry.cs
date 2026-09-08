@@ -12,6 +12,7 @@ namespace RivetReach
         public int stackLimit = 500;
         public float fistSeconds = 0.6f;
         public Color colour = Color.white;
+        public byte fistDropId;
     }
 
     [CreateAssetMenu(menuName="Rivet Reach/Block and item registry")]
@@ -24,6 +25,7 @@ namespace RivetReach
             throw new ArgumentOutOfRangeException(nameof(id), $"Unknown item {id}");
         }
         public static ItemRegistry Load() => Resources.Load<ItemRegistry>("Definitions/Items");
+        public byte FistDrop(byte blockId){var item=Get(blockId);return item.fistDropId==0?blockId:item.fistDropId;}
     }
 
     [Serializable]

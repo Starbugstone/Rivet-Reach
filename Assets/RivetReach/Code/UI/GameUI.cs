@@ -226,7 +226,7 @@ namespace RivetReach
                 progress.transform.parent.gameObject.SetActive(game.Player.HasTarget&&game.Player.MiningProgress>0);
                 progress.rectTransform.sizeDelta=new Vector2(120*Mathf.Clamp01(game.Player.MiningProgress),3);
             }
-            if(selectedLabel!=null){var s=game.Inventory.Slots[game.Selected];selectedLabel.text=s.Empty?"BARE HANDS":game.Registry.Get(s.Id).displayName+"  ·  "+s.Count;}
+            if(selectedLabel!=null){var s=game.Inventory.Slots[game.Selected];selectedLabel.text=s.Empty?"BARE HAND":game.Registry.Get(s.Id).displayName+"  ·  "+s.Count;}
             if(heldRoot!=null)
             {
                 heldRoot.gameObject.SetActive(!HeldStack.Empty);

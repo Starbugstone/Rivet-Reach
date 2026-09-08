@@ -1,6 +1,6 @@
 # Rivet Reach - Simulation and Persistence Contracts
 
-> **Status:** working specifications with resolutions dated 2026-09-08; no implementation or benchmark evidence yet.
+> **Status:** full-game working specifications with resolutions dated 2026-09-08. Sections 12–13 describe the selected first-step implementation boundary; [FIRST_POC.md](FIRST_POC.md) links measured evidence. Industrial, water and durable-save contracts remain later work.
 >
 > Existing agreed constraints come from [PROJECT_PLAN.md](PROJECT_PLAN.md). Sections 9-11 select concrete behaviour for the earlier contracts and the newly agreed water/item rules. Numerical defaults remain tuning values; unselected alternatives are not competing requirements. Open choices are tracked in [DESIGN_QUESTIONS.md](DESIGN_QUESTIONS.md).
 
@@ -358,3 +358,15 @@ The tested route is finite and the item fixture is small. This does not validate
 The user’s feedback extends Stage 0 with terrain-block placement. Its interaction contract is owned by [GAMEPLAY.md](GAMEPLAY.md#first-step-terrain-placement--user-feedback-extension). The runtime uses one occupancy-change path for mine/place operations: compare expected cell value, store the replacement in the session edit map, update resident neighbour halos and revisions, and immediately publish the bounded local remesh. Placement consumes the selected item only after the occupancy change succeeds. This is a single local authority turn; it does not establish a network transaction or durable journal.
 
 Default horizontal demand is now ten 32 m chunks, with a four-to-fourteen radius setting. Fog start is `max(48, (radius * 32 - 24) * 0.8)` metres; fog end is `radius * 32 - 16` metres. These put haze near the guaranteed interior of the resident square rather than near the player. Runtime view preferences use a revised key so the old default of four does not silently preserve the rejected close fog. Measure actual residency, allocation and frame times at the new default; historical radius-four evidence is not proof of radius-ten performance. See [current revision evidence](verification/VISUAL_REVISION_RESULTS.md).
+
+## 13. Grass random ticks — first-step feedback
+
+The user requested grass-to-dirt fist drops and gradual light-dependent spread. Player-visible rules belong to [GAMEPLAY.md](GAMEPLAY.md#grass-growth--user-feedback-extension). `GrassSimulation` is a pure state transition/scheduler using world-addressed block reads, sky exposure and compare-and-replace mutations; it does not depend on rendered brightness or mesh availability.
+
+The working cadence is 20 Hz. For each eligible 32³ chunk, sample three random cells in each of its eight 16³ sections. Only sampled grass evaluates decay or four candidate neighbours; ordinary stone/air has no per-block ticking object. Eligible chunks are the ready terrain inside a 5×5×3 chunk neighbourhood of the player's chunk, bounded by resident demand. Seed, tick number and sorted chunk coordinates define stable sampling. Empty/dormant eligibility performs no voxel samples. Pause freezes the tick clock; unloaded regions receive no retroactive growth. Cap catch-up at four simulation steps per render frame while retaining the eligible-time accumulator.
+
+Queue at most eight grass/dirt conversions per tick, publish after sampling and recheck the expected source state. Newly converted grass cannot spread again within that same tick. Gameplay mining/placement retains immediate collision and local mesh publication; solid-to-solid grass changes instead mark affected halos/revisions dirty for the existing bounded asynchronous mesh workers. Old worker results cannot undo newer conversions. No item event occurs for grass growth or decay.
+
+The current sky query returns 15 above the highest opaque voxel in a column and 0 below it. Start with deterministic terrain height, include edited blocks above it and search down through mined holes. Cache only queried columns near the active neighbourhood; invalidate when an edit changes solid/air occupancy. Session edits remain authoritative even if a roof's chunk is unloaded. This deliberately does not approximate indirect/torch light from visual ambient fill. A later light service can replace the query while keeping the tick and edit contracts.
+
+Validate illuminated versus covered dirt, overhead roofs, cover removal, cross-chunk spread, deterministic sampling, no item creation, paused/unready/dormant behaviour and preservation through origin shifts/reloading. The tick interval, sampling density and neighbourhood are working defaults for review, not user-selected numerical requirements or a universal performance guarantee.

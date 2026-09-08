@@ -243,7 +243,7 @@ User-required scope:
 - Playable first-person movement and camera controls.
 - Selectable male and female 3D player models, both supporting changeable skins, visible first-person fists and enough presentation to review movement and mining (subsequent explicit user appearance decisions).
 - Fist mining with targeting, progress and clear feedback.
-- Terrain-block placement from the selected hotbar stack, with a face-aligned preview, collision validation and conserved inventory (explicit extension from the user’s first-POC feedback).
+- Terrain-block placement from the selected hotbar stack, with an aimed-block outline, face-adjacent placement, collision validation and conserved inventory (explicit extension from the user’s first-POC feedback).
 - Functional inventory/hotbar, using real item identities and quantities collected from mined terrain.
 - A clearly labelled, nonfunctional crafting placeholder inside the inventory.
 - A coherent initial visual concept for terrain, player, lighting and inventory; review the concept in play.
@@ -275,6 +275,8 @@ These checkpoints do not authorize separate later features. Stage 0 is complete 
 - A standalone Windows build has a recorded hardware/settings/workload profile and documented remaining visual, control and streaming issues. Numerical performance targets remain provisional until measured.
 
 **Feedback revision, 2026-09-08:** the user rejected the initial player/terrain presentation, requested farther fog and identified missing placement. Placement now belongs to Stage 0; the art remains under review. This does not authorize later systems. Current evidence is recorded in [the visual revision report](verification/VISUAL_REVISION_RESULTS.md).
+
+**Further first-step feedback, 2026-09-08:** the user requested grass-to-dirt drops, light-dependent grass spreading on ticks, a Minecraft-style fist swing and held-item display, and a simpler targeting outline. These narrowly extend this same terrain/interaction slice; detailed rules are in GAMEPLAY.md section 14 and SIMULATION.md section 13.
 
 **Review gate:** present the playable build, visual concept, measurements and known limitations to the user. Decide the next implementation scope from that evidence. Do not automatically begin crafting, survival, industry or the old Stage 1 list.
 

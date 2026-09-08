@@ -8,7 +8,7 @@ using UnityEngine.Rendering;
 
 namespace RivetReach
 {
-    public sealed class VoxelWorld : MonoBehaviour
+    public sealed class VoxelWorld : MonoBehaviour,IGrassWorld
     {
         sealed class Resident
         {
@@ -42,10 +42,17 @@ namespace RivetReach
         float nextDemand;
         ChunkPos lastCentre;
         bool stopped;
+        readonly Dictionary<(long x,long z),SortedSet<int>> editedColumns=new Dictionary<(long,long),SortedSet<int>>();
+        readonly Dictionary<(long x,long z),int> skyHeights=new Dictionary<(long,long),int>();
+        readonly List<ChunkPos> grassChunks=new List<ChunkPos>();
+        float grassAccumulator;
+        public GrassSimulation Grass {get;private set;}
+        public double LastGrassTickMs {get;private set;}
 
         public void Initialize(int seed)
         {
             Generator=new TerrainGenerator(seed);Origin=new BlockPos(0,0,0);
+            Grass=new GrassSimulation(seed);
             TerrainMaterial=Resources.Load<Material>("Materials/Terrain");
         }
         public Vector3 Local(BlockPos p) => new Vector3((float)(p.X-Origin.X),p.Y-Origin.Y,(float)(p.Z-Origin.Z));
@@ -61,11 +68,42 @@ namespace RivetReach
         public bool Solid(BlockPos p) => !Ready(p)||Get(p)!=0;
         public bool Remove(BlockPos p,byte expected) => expected!=0&&Change(p,expected,0);
         public bool Place(BlockPos p,byte id) => id!=0&&Change(p,0,id);
-        bool Change(BlockPos p,byte expected,byte replacement)
+        public bool TryRead(BlockPos p,out byte id)
+        {id=0;if(!Ready(p))return false;id=Get(p);return true;}
+        public byte SkyLight(BlockPos air)
+        {
+            var key=(air.X,air.Z);
+            if(!skyHeights.TryGetValue(key,out int top))
+            {
+                top=Generator.Height(air.X,air.Z);
+                if(editedColumns.TryGetValue(key,out var column)&&column.Count>0)top=Math.Max(top,column.Max);
+                while(top>=TerrainGenerator.MinY&&Get(new BlockPos(air.X,top,air.Z))==0)top--;
+                skyHeights[key]=top;
+            }
+            // The current world has opaque terrain and daylight. Artificial lighting is separate.
+            return air.Y>top?(byte)15:(byte)0;
+        }
+        public bool ChangeGrass(BlockPos p,byte expected,byte replacement)
+            => (expected==1&&replacement==2||expected==2&&replacement==1)&&Change(p,expected,replacement,false);
+        public void AdvanceGrass(float dt)
+        {
+            if(stopped||Observer==null)return;
+            grassAccumulator+=dt;int steps=0;
+            while(grassAccumulator>=GrassSimulation.StepSeconds&&steps++<4)
+            {
+                var clock=Stopwatch.StartNew();Grass.Step(this,grassChunks);LastGrassTickMs=clock.Elapsed.TotalMilliseconds;
+                grassAccumulator-=GrassSimulation.StepSeconds;
+            }
+        }
+        bool Change(BlockPos p,byte expected,byte replacement,bool immediate=true)
         {
             if(!Ready(p)||Get(p)!=expected)return false;
             if(!edits.TryGetValue(p.Chunk,out var e)){e=new Dictionary<int,byte>();edits[p.Chunk]=e;}
             e[p.Index]=replacement;
+            var columnKey=(p.X,p.Z);
+            if(!editedColumns.TryGetValue(columnKey,out var column)){column=new SortedSet<int>();editedColumns[columnKey]=column;}
+            if(replacement!=0)column.Add(p.Y);else column.Remove(p.Y);
+            if((expected==0)!=(replacement==0))skyHeights.Remove(columnKey);
             // Update every resident halo touching the edit. Collision sees the change now.
             foreach(var kv in chunks)
             {
@@ -77,6 +115,7 @@ namespace RivetReach
             // Masking the old block requires fresh meshes; their local surface work is prioritized.
             // Hide stale chunks immediately, publishing a synchronous local rebuild for this edit only.
             // 32^3 bounded meshing is measured independently from asynchronous streaming.
+            if(!immediate){BlockChanged?.Invoke(p);return true;}
             var editClock=Stopwatch.StartNew();
             foreach(var kv in chunks.ToArray())
             {
@@ -146,6 +185,11 @@ namespace RivetReach
             }
             foreach(var key in chunks.Keys.Where(k=>!wanted.Contains(k)).ToArray())
             {Release(chunks[key]);chunks.Remove(key);}
+            grassChunks.Clear();
+            // Only a bounded neighbourhood ticks; unloaded/distant terrain receives no catch-up.
+            grassChunks.AddRange(wanted.Where(p=>Math.Abs(p.X-centre.X)<=2&&Math.Abs(p.Z-centre.Z)<=2&&Math.Abs(p.Y-centre.Y)<=1)
+                .OrderBy(p=>p.X).ThenBy(p=>p.Y).ThenBy(p=>p.Z));
+            foreach(var key in skyHeights.Keys.Where(k=>Math.Abs(BlockPos.FloorDiv(k.x,32)-centre.X)>2||Math.Abs(BlockPos.FloorDiv(k.z,32)-centre.Z)>2).ToArray())skyHeights.Remove(key);
         }
         void Launch(ChunkPos p,Resident c)
         {

@@ -19,15 +19,18 @@ MonoBehaviour:
     stackLimit: 500
     fistSeconds: 0.45
     colour: {r: 0.43, g: 0.56, b: 0.26, a: 1}
+    fistDropId: 2
   - runtimeId: 2
     stableId: rivet:dirt
     displayName: Dirt
     stackLimit: 500
     fistSeconds: 0.6
     colour: {r: 0.44, g: 0.3, b: 0.19, a: 1}
+    fistDropId: 0
   - runtimeId: 3
     stableId: rivet:stone
     displayName: Stone
     stackLimit: 500
     fistSeconds: 0.95
     colour: {r: 0.48, g: 0.51, b: 0.51, a: 1}
+    fistDropId: 0

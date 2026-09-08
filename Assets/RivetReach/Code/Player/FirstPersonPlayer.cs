@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -9,6 +10,7 @@ namespace RivetReach
         public Expedition Game;
         public Camera Camera;
         public AvatarView Body,Arms;
+        public HeldBlockView HeldBlock {get;private set;}
         public bool Inspecting {get;private set;}
         public bool Grounded {get;private set;}
         public bool HasTarget {get;private set;}
@@ -23,8 +25,8 @@ namespace RivetReach
         float eyeHeight=1.64f,eyeVelocity;
         Vector2 handSway,handSwayVelocity;
         public float VisualEyeHeight=>eyeHeight;
-        GameObject selection,placementGhost;
-        Material ghostMaterial;
+        GameObject selection;
+        public bool SelectionVisible=>selection!=null&&selection.activeInHierarchy;
         float nextPlace;
         Material lineMaterial;
         Mesh lineMesh;
@@ -41,11 +43,13 @@ namespace RivetReach
             var body=new GameObject("Player appearance");body.transform.SetParent(transform,false);Body=body.AddComponent<AvatarView>();Body.HideHeadAndArms=true;
             var arms=new GameObject("First person hands");arms.transform.SetParent(Camera.transform,false);arms.transform.localPosition=new Vector3(0,-1.50f,.02f);Arms=arms.AddComponent<AvatarView>();Arms.FirstPersonArms=true;
             Female=PlayerPrefs.GetInt("female",0)==1;Skin=PlayerPrefs.GetInt("skin",0);RefreshAppearance();
+            HeldBlock=gameObject.AddComponent<HeldBlockView>();HeldBlock.Player=this;
             game.World.OriginShifted+=shift=>transform.position-=shift;
             CreateSelection();
         }
         public void RefreshAppearance()
         {
+            if(HeldBlock!=null)HeldBlock.Detach();
             Body.HideHeadAndArms=!Inspecting;Body.Build(Female,Skin);Arms.Build(Female,Skin);
             PlayerPrefs.SetInt("female",Female?1:0);PlayerPrefs.SetInt("skin",Skin);PlayerPrefs.Save();
         }
@@ -90,8 +94,10 @@ namespace RivetReach
                 // A gait cycle covers two steps; advance only when the feet can contact terrain.
                 if(ground)phase+=distance*(Height<1.5f?3.8f:speed>5?2.2f:2.4f)*(input.y<-.1f?-1:1);
                 if(distance>.001f&&ground){footstep+=dt;if(footstep>.42f){Game.Sound.Step();footstep=0;}}
-                Body.Animate(motion,control&&(Game.Input.Mine||VerificationMining),phase,Grounded,speed>5,Height<1.5f,input,impact);
-                Arms.Animate(motion,control&&(Game.Input.Mine||VerificationMining),phase,Grounded,speed>5,Height<1.5f,input,impact);
+                bool swing=control&&(Game.Input.Mine||VerificationMining)&&!Game.Input.Place;
+                var grip=HeldBlock.DesiredGrip;Body.SetGrip(grip);Arms.SetGrip(grip);
+                Body.Animate(motion,swing,phase,Grounded,speed>5,Height<1.5f,input,impact);
+                Arms.Animate(motion,swing,phase,Grounded,speed>5,Height<1.5f,input,impact);
             }
             if(Inspecting)
             {
@@ -121,13 +127,6 @@ namespace RivetReach
             // Camera aim is direct; only the held hands lag slightly behind a turn.
             Arms.transform.localPosition+=new Vector3(-handSway.x*.0012f,-handSway.y*.001f,0);
             if(control&&!Inspecting)TargetAndMine();else{HasTarget=false;MiningProgress=0;nextPlace=0;}
-            bool preview=control&&!Inspecting&&HasTarget&&!Game.Inventory.Slots[Game.Selected].Empty;
-            placementGhost.SetActive(preview);
-            if(preview)
-            {
-                bool valid=Game.PlacementPreview(out var cell,out _);placementGhost.transform.position=Game.World.Local(cell)-Vector3.one*.004f;
-                ghostMaterial.SetColor("_BaseColor",valid?new Color(.3f,1,.65f):new Color(1,.3f,.23f));
-            }
             selection.SetActive(HasTarget);
             if(HasTarget)selection.transform.position=Game.World.Local(Target)-Vector3.one*.002f;
         }
@@ -139,7 +138,7 @@ namespace RivetReach
             if(Game.Input.Place)
             {
                 MiningProgress=0;
-                if(Time.time>=nextPlace){Game.TryPlaceSelected();nextPlace=Time.time+.22f;}
+                if(Time.time>=nextPlace){if(Game.TryPlaceSelected()){Arms.TriggerSwing();Body.TriggerSwing();}nextPlace=Time.time+.22f;}
                 return;
             }
             nextPlace=0;
@@ -149,8 +148,9 @@ namespace RivetReach
             MiningProgress=0;
             if(Game.World.Remove(pos,id))
             {
-                Game.Items.Spawn(new ItemStack(id,1),Game.World.Local(pos)+new Vector3(.5f,.3f,.5f),Vector3.up*1.6f);
-                Game.Sound.Mine();Game.Notify("Gathered "+Game.Registry.Get(id).displayName+" — walk close to collect",1);
+                byte drop=Game.Registry.FistDrop(id);
+                Game.Items.Spawn(new ItemStack(drop,1),Game.World.Local(pos)+new Vector3(.5f,.3f,.5f),Vector3.up*1.6f);
+                Game.Sound.Mine();Game.Notify("Gathered "+Game.Registry.Get(drop).displayName+" — walk close to collect",1);
             }
         }
         void CreateSelection()
@@ -159,12 +159,18 @@ namespace RivetReach
             selection.transform.SetParent(Game.transform,false);
             var vertices=new Vector3[8];for(int i=0;i<8;i++)vertices[i]=new Vector3(i&1,(i>>1)&1,(i>>2)&1);
             int[] edges={0,1,0,2,0,4,1,3,1,5,2,3,2,6,3,7,4,5,4,6,5,7,6,7};
-            lineMesh=new Mesh{name="Selection edges"};lineMesh.vertices=vertices;lineMesh.SetIndices(edges,MeshTopology.Lines,0);lineMesh.RecalculateBounds();
+            var positions=new List<Vector3>();var other=new List<Vector3>();var sides=new List<Vector2>();var triangles=new List<int>();
+            for(int i=0;i<edges.Length;i+=2)
+            {
+                int first=positions.Count;Vector3 a=vertices[edges[i]],b=vertices[edges[i+1]];
+                positions.AddRange(new[]{a,a,b,b});other.AddRange(new[]{b,b,a,a});sides.AddRange(new[]{new Vector2(-1,0),new Vector2(1,0),new Vector2(1,0),new Vector2(-1,0)});
+                triangles.AddRange(new[]{first,first+2,first+1,first+2,first+3,first+1});
+            }
+            lineMesh=new Mesh{name="Constant-width target outline"};lineMesh.SetVertices(positions);lineMesh.SetUVs(0,other);lineMesh.SetUVs(1,sides);lineMesh.SetTriangles(triangles,0);lineMesh.RecalculateBounds();
             selection.AddComponent<MeshFilter>().sharedMesh=lineMesh;
-            placementGhost=new GameObject("Placement preview");placementGhost.transform.SetParent(Game.transform,false);placementGhost.transform.localScale=Vector3.one*1.008f;
-            placementGhost.AddComponent<MeshFilter>().sharedMesh=lineMesh;ghostMaterial=new Material(Resources.Load<Material>("Materials/Selection"));placementGhost.AddComponent<MeshRenderer>().sharedMaterial=ghostMaterial;placementGhost.SetActive(false);
-            lineMaterial=new Material(Shader.Find("Universal Render Pipeline/Unlit"));lineMaterial.SetColor("_BaseColor",new Color(1,.85f,.4f));selection.AddComponent<MeshRenderer>().sharedMaterial=lineMaterial;
+            lineMaterial=new Material(Shader.Find("RivetReach/BlockOutline"));var renderer=selection.AddComponent<MeshRenderer>();renderer.sharedMaterial=lineMaterial;renderer.shadowCastingMode=UnityEngine.Rendering.ShadowCastingMode.Off;
+            selection.SetActive(false);
         }
-        void OnDestroy(){if(placementGhost!=null)Destroy(placementGhost);if(ghostMaterial!=null)Destroy(ghostMaterial);if(lineMesh!=null)Destroy(lineMesh);if(lineMaterial!=null)Destroy(lineMaterial);if(selection!=null)Destroy(selection);}
+        void OnDestroy(){if(lineMesh!=null)Destroy(lineMesh);if(lineMaterial!=null)Destroy(lineMaterial);if(selection!=null)Destroy(selection);}
     }
 }

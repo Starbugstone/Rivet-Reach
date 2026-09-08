@@ -59,8 +59,8 @@ namespace RivetReach
             male=Avatar("Male review",new Vector3(.48f,0,0),false);female=Avatar("Female review",new Vector3(-.48f,0,0),true);
             result.maleTriangles=male.TriangleCount;result.femaleTriangles=female.TriangleCount;result.bones=male.BoneCount;result.clips=male.ClipCount;result.fullVertices=male.VertexCount;
             Check(male.AnimationReady&&female.AnimationReady,"Both animation graphs initialize");
-            Check(male.ClipCount==16&&female.ClipCount==16,"Both FBX imports contain all sixteen clips");
-            Check(male.BoneCount==40&&female.BoneCount==40,"Both imports retain all 40 weighted bones");
+            Check(male.ClipCount==28&&female.ClipCount==28,"Both FBX imports contain all twenty-eight clips");
+            Check(male.BoneCount==42&&female.BoneCount==42,"Both imports retain 40 deformation bones and two attachment frames");
             Check(male.TriangleCount<=35000&&female.TriangleCount<=35000,"Both full models remain within the 35000 triangle review budget");
             male.SamplePose("Idle",0);female.SamplePose("Idle",0);yield return Capture("01-front");
             male.transform.rotation=female.transform.rotation=Quaternion.Euler(0,180,0);yield return Capture("02-back");
@@ -98,15 +98,41 @@ namespace RivetReach
             foreach(bool isFemale in new[]{false,true})foreach(int skin in new[]{0,1})
             {
                 hands.Build(isFemale,skin);hands.SamplePose("FP_Idle",0);result.armsTriangles=hands.TriangleCount;result.armsVertices=hands.VertexCount;
-                Check(hands.TriangleCount<=12000,"Articulated arm pair remains below the 12000 triangle review budget");
+                Check(hands.TriangleCount<=6000,"Dominant first-person arm remains below 6000 triangles");
                 result.leftWristViewport=camera.WorldToViewportPoint(hands.BonePosition("HandL"));result.rightWristViewport=camera.WorldToViewportPoint(hands.BonePosition("HandR"));
-                foreach(var wrist in new[]{result.leftWristViewport,result.rightWristViewport})
+                foreach(var wrist in new[]{result.rightWristViewport})
                     Check(wrist.z>.2f&&wrist.y>0&&wrist.y<.38f&&wrist.x>.12f&&wrist.x<.88f,"Resting wrists sit inside the lower camera frame");
                 string label=(isFemale?"female":"male")+"-skin"+skin;
                 yield return Capture("09-hands-"+label);
                 Vector3 rest=hands.BonePosition("HandR");hands.SamplePose("FP_Mine",.22f);
-                Check(Vector3.Distance(rest,hands.BonePosition("HandR"))>.10f,"Authored mining clip extends the striking hand");
+                Check(Vector3.Distance(rest,hands.BonePosition("HandR"))>.10f,"Authored mining clip sweeps the striking hand inward");
                 yield return Capture("10-strike-"+label);
+            }
+            foreach(bool isFemale in new[]{false,true})
+            {
+                hands.Build(isFemale,0);
+                foreach(var grip in new[]{GripPose.Block,GripPose.Tool,GripPose.TwoHandTool})
+                {
+                    hands.SetGrip(grip);
+                    for(int frame=0;frame<36;frame++)hands.Animate(0,false,0,deltaTime:1f/120);
+                    Check(hands.GripWeight>.995f,"Grip transition settles within 300 ms: "+grip);
+                    float maxBend=0,maxStep=0,maxSupportBend=0;Quaternion previous=hands.Bone("HandR").rotation;
+                    for(int frame=0;frame<=72;frame++)
+                    {
+                        hands.SamplePose("FP_Mine"+grip,frame/120f);
+                        if(grip==GripPose.TwoHandTool)maxSupportBend=Mathf.Max(maxSupportBend,Vector3.Angle(hands.Bone("HandL").up,hands.Bone("ForearmL").up));
+                        maxBend=Mathf.Max(maxBend,Vector3.Angle(hands.Bone("HandR").up,hands.Bone("ForearmR").up));
+                        maxStep=Mathf.Max(maxStep,Quaternion.Angle(previous,hands.Bone("HandR").rotation));previous=hands.Bone("HandR").rotation;
+                    }
+                    if(grip==GripPose.TwoHandTool)Check(maxSupportBend<30,"Support wrist stays below 30 degrees throughout the pickaxe swing");
+                    Check(maxBend<35,"Grip swing keeps wrist flexion below 35 degrees: "+grip);
+                    Check(maxStep<20,"Grip swing has no abrupt hand rotation between 120 Hz samples: "+grip);
+                    hands.SamplePose("FP_Hold"+grip,0);
+                    if(grip==GripPose.Block)
+                        Check(Vector3.Dot(hands.Bone("BlockSocket").up,Vector3.up)>.999f,"Block socket keeps its tray plane horizontal");
+                    yield return Capture("grip-"+(isFemale?"female":"male")+"-"+grip);
+                }
+                hands.SetGrip(GripPose.Empty);
             }
             hands.Build(false,0);hands.SamplePose("FP_Idle",0);
             Vector3 referenceWrist=camera.WorldToViewportPoint(hands.BonePosition("HandR"));

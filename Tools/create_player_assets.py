@@ -458,10 +458,26 @@ def build(female):
     weights=[sum(g.weight for g in v.groups) for v in model.data.vertices]
     assert all(abs(w-1)<.001 for w in weights),'Unnormalized vertex weights'
     assert len(model.data.uv_layers)==1
-    return {'model':name,'triangles':len(model.data.loop_triangles),'bones':len(arm.bones),'materials':len(model.data.materials),'maxInfluences':max(len(v.groups) for v in model.data.vertices),'clips':clips}
+    return {'model':name,'triangles':len(model.data.loop_triangles),'bones':len(arm.bones),'deformBones':sum(b.use_deform for b in arm.bones),'sockets':['BlockSocket','ToolSocket'],'materials':len(model.data.materials),'maxInfluences':max(len(v.groups) for v in model.data.vertices),'clips':clips}
 
 
-def animate(rig,shoulder,female):
+def ensure_grip_sockets(rig):
+    """Non-deforming attachment frames, authored in the hand's rest coordinates."""
+    bpy.context.view_layer.objects.active=rig;rig.select_set(True)
+    bpy.ops.object.mode_set(mode='EDIT')
+    hand=rig.data.edit_bones['HandR'];basis=hand.matrix.copy()
+    for name,offset,up,forward in [
+        ('BlockSocket',(0,.045,.102),(0,0,1),(0,-1,0)),
+        ('ToolSocket',(0,.082,.047),(1,0,0),(0,0,1))]:
+        b=rig.data.edit_bones.get(name) or rig.data.edit_bones.new(name)
+        b.parent=hand;b.use_deform=False
+        b.head=basis @ Vector(offset);b.tail=b.head+basis.to_3x3() @ Vector(up)*.04
+        b.align_roll(basis.to_3x3() @ Vector(forward))
+    bpy.ops.object.mode_set(mode='OBJECT');rig.select_set(False)
+
+
+def animate(rig,shoulder,female,only=None):
+    ensure_grip_sockets(rig)
     scene=bpy.context.scene;bones=rig.pose.bones
     rig.animation_data_create()
     def reset():
@@ -492,8 +508,32 @@ def animate(rig,shoulder,female):
         bend=(Vector(pole)-root);bend=(bend-direction*bend.dot(direction)).normalized()
         joint=root+direction*along+bend*math.sqrt(max(0,u.length*u.length-along*along))
         aim(u.name,joint);aim(f.name,target)
-        y=Vector(hand_direction).normalized();z=Vector(palm_normal);z=(z-y*z.dot(y)).normalized();x=y.cross(z).normalized()
+        # Carry pronation in the forearm instead of twisting the entire wrist seam.
+        # A neutral fist follows the forearm; grips may request an explicit palm plane.
+        axis=(f.tail-f.head).normalized();desired=Vector(palm_normal);desired-=axis*desired.dot(axis)
+        if desired.length>.001:
+            desired.normalize();current=f.matrix.to_3x3().col[2];current=(current-axis*current.dot(axis)).normalized()
+            angle=math.atan2(axis.dot(current.cross(desired)),current.dot(desired))
+            f.matrix=Matrix.Translation(f.head) @ Quaternion(axis,angle).to_matrix().to_4x4() @ f.matrix.to_3x3().to_4x4()
+            scene.view_layers[0].update()
+        y=Vector(hand_direction).normalized() if hand_direction is not None else axis
+        z=Vector(palm_normal);z=(z-y*z.dot(y)).normalized();x=y.cross(z).normalized()
         h.matrix=Matrix.Translation(h.head) @ Matrix((x,y,z)).transposed().to_4x4();scene.view_layers[0].update()
+    def tray_fingers(side):
+        h=bones['Hand'+side];direction=h.matrix.to_3x3().col[1]
+        for f in range(4):
+            for part in ['A','B']:
+                b=bones['Finger%d%s%s'%(f,part,side)];aim(b.name,b.head+direction*b.length)
+        # Relaxed abducted thumb stays beside, and below, the supported cube.
+        sign=1 if side=='R' else -1
+        aim('ThumbA'+side,h.matrix @ Vector((sign*.071,.045,.001)))
+        aim('ThumbB'+side,h.matrix @ Vector((sign*.087,.065,.002)))
+    def shaft_fingers(side):
+        for f in range(4):
+            rotate('Finger%dA%s'%(f,side),51-f*.8);rotate('Finger%dB%s'%(f,side),52)
+        h=bones['Hand'+side];sign=1 if side=='R' else -1
+        aim('ThumbA'+side,h.matrix @ Vector((sign*.020,.056,.068)))
+        aim('ThumbB'+side,h.matrix @ Vector((sign*.010,.082,.091)))
     def translate(n,x=0,y=0,z=0):
         b=bones[n];b.location=b.bone.matrix_local.to_quaternion().inverted() @ Vector((x,y,z))
     def leg_ik(side,target,pitch=0):
@@ -509,17 +549,23 @@ def animate(rig,shoulder,female):
         h.matrix=Matrix.Translation(h.head) @ q.to_matrix().to_4x4();scene.view_layers[0].update()
     def smooth(t):
         t=max(0,min(1,t));return t*t*(3-2*t)
-    def punch(t):
-        # Anticipation, fast extension, then a softer recovery; continuous at loop boundaries.
-        if t<.16:return -.20*smooth(t/.16)
-        if t<.36:return -.20+1.20*smooth((t-.16)/.20)
-        return 1-smooth((t-.36)/.64)
-    specs=[('Idle',90),('Walk',30),('Run',24),('Airborne',30),('Mine',18),
+    def swing_arc(t):
+        # One continuous curve: no intermediate zero-velocity stops or wrist cranking.
+        pulse=math.sin(math.pi*t)**2
+        return (.22*pulse,-.13*pulse,.13*math.sin(math.tau*t)*math.sin(math.pi*t))
+    specs=[('Idle',90),('Walk',30),('Run',24),('Airborne',30),('Mine',9),
            ('CrouchIdle',90),('CrouchWalk',36),('Land',12),
-           ('FP_Idle',90),('FP_Walk',30),('FP_Run',24),('FP_Airborne',30),('FP_Crouch',90),('FP_CrouchWalk',36),('FP_Land',12),('FP_Mine',18)]
+           ('FP_Idle',90),('FP_Walk',30),('FP_Run',24),('FP_Airborne',30),('FP_Crouch',90),('FP_CrouchWalk',36),('FP_Land',12),('FP_Mine',9)]
+    for prefix in ['', 'FP_']:
+        for grip in ['Block','Tool','TwoHandTool']:
+            specs.extend([(prefix+'Hold'+grip,90),(prefix+'Mine'+grip,9 if grip=='Block' else 18)])
+    if only is not None:specs=[entry for entry in specs if entry[0] in only]
     for name,length in specs:
         action=bpy.data.actions.new(name);action.use_fake_user=True;rig.animation_data.action=action
         scene.frame_start=1;scene.frame_end=length+1
+        previous={}
+        grip=next((g for g in ['TwoHandTool','Block','Tool'] if name.endswith(g)),None)
+        striking='Mine' in name
         for frame in range(1,length+2):
             t=(frame-1)/length;a=t*math.tau;reset()
             for side in ['L','R']:curl(side,.32)
@@ -555,34 +601,72 @@ def animate(rig,shoulder,female):
                         rotate('UpperArm'+side,-18,sign*8);rotate('Forearm'+side,-24)
                     else:
                         leg_ik(side,(sign*.139,-.018 if crouch else 0,.155))
-                if name=='Mine':
-                    hit=punch(t);rotate('Chest',-2+hit*9,0,hit*-9)
-                    arm_ik('R',(-.18+hit*.025,-.30-hit*.15,1.32+hit*.055),(-.43,-.08,1.15),(0,-1,.12),(0,0,-1));curl('R',1)
+                if name=='Mine' and grip is None:
+                    across,forward,lift=swing_arc(t);hit=math.sin(math.pi*t)
+                    rotate('Chest',-2+hit*7,0,hit*-8)
+                    arm_ik('R',(-.26+across,-.26+forward,1.30+lift),(-.46,-.04,1.25+lift),None,(0,0,-1));curl('R',.92)
             else:
-                hit=punch(t) if name=='FP_Mine' else 0
+                across,forward,lift=swing_arc(t) if name=='FP_Mine' else (0,0,0)
                 run=name=='FP_Run';walk=name in ['FP_Walk','FP_Run','FP_CrouchWalk']
                 landing=math.sin(math.pi*smooth(t)) if name=='FP_Land' else 0
                 for side,sign in [('L',1),('R',-1)]:
-                    strike=hit if side=='R' else 0
+                    bare_striking=side=='R' and name=='FP_Mine'
                     armphase=a+(0 if sign==1 else math.pi)
                     bob=math.sin(armphase)*(.012 if run else .007) if walk else math.sin(a)*.0018
                     sway=math.cos(armphase)*(.011 if run else .004) if walk else 0
                     up=.026 if name=='FP_Airborne' else -.016 if name in ['FP_Crouch','FP_CrouchWalk'] else 0
-                    target=(sign*(.235-strike*.075)+sway,-.34-strike*.15,1.265+bob+strike*.06+up-landing*.045)
+                    target=(sign*.29+sway+(across if bare_striking else 0),-.34+(forward if bare_striking else 0),1.295+bob+(lift if bare_striking else 0)+up-landing*.045)
                     # Lower, outward viewmodel shoulders keep the connected sleeve below the camera.
-                    translate('Clavicle'+side,x=sign*.08,y=-.07,z=-.22)
-                    arm_ik(side,target,(sign*.46,.03,1.01),(-sign*.15,-.95,.26),(sign*.30,-.28,-.94))
-                    curl(side,1)
+                    translate('Clavicle'+side,x=sign*.08,y=-.07,z=-.15)
+                    arm_ik(side,target,(sign*.53,-.01,target[2]-.035),None,(0,0,-1))
+                    curl(side,.92)
+            if grip is not None:
+                fp=name.startswith('FP_');hit=swing_arc(t) if striking else (0,0,0)
+                across,forward,lift=hit
+                if grip=='Block':across*=.55;forward*=.55;lift*=.55
+                wrist=Vector(((-.26 if fp else -.25)+across,(-.40 if fp else -.31)+forward,(1.24 if fp and grip=='TwoHandTool' else 1.265 if fp else 1.25)+lift))
+                if fp:translate('ClavicleR',x=-.08,y=-.07,z=-.15+lift)
+                if grip=='Block':
+                    # Horizontal forearm and fully flat palm form a tray below the block socket.
+                    root=bones['UpperArmR'].head;direction=(wrist-Vector((-.50,-.18,wrist.z))).normalized();direction.z=0
+                    arm_ik('R',wrist,(-.53,-.01,wrist.z),direction,(0,0,1));tray_fingers('R')
+                else:
+                    normal=(1,0,-.18 if grip=='TwoHandTool' else .08)
+                    arm_ik('R',wrist,(-.53,-.01,wrist.z-.015),None,normal);shaft_fingers('R')
+                    if grip=='TwoHandTool':
+                        if fp:translate('ClavicleL',x=-.14,y=-.14,z=-.22+lift)
+                        else:translate('ClavicleL',x=-.13,y=-.12,z=0)
+                        scene.view_layers[0].update();socket=bones['ToolSocket'].matrix
+                        shaft=socket.to_3x3().col[1].normalized();centre=socket.translation+shaft*.12
+                        # Solve the grip around the shaft so the wrist, forearm and elbow
+                        # can stay aligned while the palm's contact centre remains fixed.
+                        root=bones['UpperArmL'].head;delta=centre-root
+                        radial=delta-shaft*delta.dot(shaft);basis=radial.normalized()
+                        reach=bones['ForearmL'].length+.082;offset=.047
+                        radius=math.hypot(reach,offset)
+                        cosine=(delta.length_squared+radius*radius-bones['UpperArmL'].length**2)/(2*radial.length*radius)
+                        angle=math.acos(max(-1,min(1,cosine)));solutions=[]
+                        for sign in [-1,1]:
+                            direction=Quaternion(shaft,sign*angle-math.atan2(offset,reach)) @ basis
+                            palm=shaft.cross(direction);target=centre-direction*.082-palm*offset
+                            elbow=target-direction*bones['ForearmL'].length
+                            solutions.append(((elbow-Vector((.24,-.33,1.13+lift))).length,target,elbow,direction,palm))
+                        _,target,pole,direction,palm=min(solutions,key=lambda s:s[0])
+                        arm_ik('L',target,pole,direction,palm);shaft_fingers('L')
             for b in bones:
+                q=b.rotation_quaternion
+                if b.name in previous and q.dot(previous[b.name])<0:q.negate()
+                previous[b.name]=q.copy()
                 b.keyframe_insert(data_path='location',frame=frame,group=b.name)
                 b.keyframe_insert(data_path='rotation_quaternion',frame=frame,group=b.name)
                 b.keyframe_insert(data_path='scale',frame=frame,group=b.name)
-        action['loop']=name not in ['Mine','FP_Mine','Land','FP_Land']
+        action['loop']='Mine' not in name and name not in ['Land','FP_Land']
     scene.frame_start=1;scene.frame_end=91
-    return [{'name':n,'seconds':f/30,'loop':n not in ['Mine','FP_Mine','Land','FP_Land']} for n,f in specs]
+    return [{'name':n,'seconds':f/30,'loop':'Mine' not in n and n not in ['Land','FP_Land']} for n,f in specs]
 
 
-atlas('SkinField');atlas('SkinOchre',True)
-report=[build(False),build(True)]
-(SOURCE/'asset-report.json').write_text(json.dumps(report,indent=2)+'\n')
-print('RIVET_ASSETS '+json.dumps(report))
+if __name__=='__main__':
+    atlas('SkinField');atlas('SkinOchre',True)
+    report=[build(False),build(True)]
+    (SOURCE/'asset-report.json').write_text(json.dumps(report,indent=2)+'\n')
+    print('RIVET_ASSETS '+json.dumps(report))

@@ -11,7 +11,7 @@ using Unity.Profiling;
 namespace RivetReach
 {
     // Explicit command-line test mode. Ordinary new games never receive fixtures or automation.
-    public sealed class RuntimeVerification : MonoBehaviour
+    public sealed partial class RuntimeVerification : MonoBehaviour
     {
         [Serializable] public sealed class Report
         {
@@ -20,7 +20,8 @@ namespace RivetReach
             public int memoryMB,width,height,assertions,residentPeak,triangles,maleTriangles,femaleTriangles,armsTriangles,bodyTriangles,drawCallsPeak;
             public long allocatedMemoryBytes;
             public float frameMedianMs,frameP95Ms,frameMaxMs,firstReadySeconds,miningFrameMaxMs;
-            public double miningMeshMs,placementMeshMs;
+            public double miningMeshMs,placementMeshMs,grassTickMaxMs;
+            public int grassChanges;
             public int viewRadius;public float fogStart,fogEnd;
             public string[] checks,errors;
         }
@@ -71,6 +72,8 @@ namespace RivetReach
             float began=Time.realtimeSinceStartup;game.World.ViewDistance=10;game.StartSession(246813);game.Diagnostics=true;
             yield return Settle();report.firstReadySeconds=Time.realtimeSinceStartup-began;
             var player=game.Player;var world=game.World;report.viewRadius=world.ViewDistance;report.fogStart=world.FogStart;report.fogEnd=world.FogEnd;var start=world.Address(player.transform.position);var saved=WorldPoint.FromLocal(player.transform.position,world.Origin);
+            if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-interaction-review"))
+            {report.workload="Grass and hand interaction review";yield return ReviewInteractions();yield break;}
             bool visualOnly=Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-visual-review");
             report.workload=visualOnly?"Visual review and first-person body regression":"Full terrain/inventory and visual regression";
             yield return ReviewVisuals();
@@ -114,13 +117,14 @@ namespace RivetReach
             // Exercise the real hold-to-mine path with camera facing the ground.
             InputSystem.QueueStateEvent(Mouse.current,new MouseState());player.Pitch=80;yield return null;miningSample=true;player.VerificationMining=true;
             float until=Time.realtimeSinceStartup+3;
-            while(world.EditCount==0&&Time.realtimeSinceStartup<until)yield return null;
+            while(game.Items.TotalSpawned==0&&Time.realtimeSinceStartup<until)yield return null;
             player.VerificationMining=false;InputSystem.QueueStateEvent(Mouse.current,new MouseState());yield return null;miningSample=false;
-            Check(world.EditCount==1,"Fist hold removes exactly one addressed block");report.miningMeshMs=world.LastEditMeshMs;
+            Check(game.Items.TotalSpawned==1,"Fist hold removes exactly one addressed block");report.miningMeshMs=world.LastEditMeshMs;
             var removed=player.Target; // The frame after removal can target deeper terrain; retain ground below feet as fallback.
             if(world.Get(removed)!=0)removed=ground;
             yield return new WaitForSecondsRealtime(1);
             Check(game.Items.TotalSpawned==1,"Mining creates one item (actual "+game.Items.TotalSpawned+")");
+            Check(game.Inventory.Total(1)+game.Items.Total(1)==0&&game.Inventory.Total(2)+game.Items.Total(2)==1,"Fist-mined surface grass yields one dirt and no grass item");
             Check(game.Inventory.Total(1)+game.Inventory.Total(2)+game.Inventory.Total(3)+game.Items.Piles.Sum(p=>p.Stack.Count)==1,"Mining/pickup conserves quantity");
             player.Pitch=20;yield return Capture("02-mining");
             // Exercise face targeting and the real opposite-button placement action.
@@ -235,6 +239,7 @@ namespace RivetReach
             player.transform.position=world.Local(cave)+new Vector3(.5f,.01f,.5f);player.Pitch=0;player.Yaw=55;yield return null;yield return Settle();
             Check(!world.Overlaps(player.transform.position,.6f,1.8f),"Cave collision permits a supported player");yield return Capture("09-cave");
             game.SetMode(ScreenMode.Title);yield return Capture("10-title");
+            yield return ReviewInteractions();
             Check(world.Error==null,"No terrain worker errors");
         }
         IEnumerator ReviewVisuals()

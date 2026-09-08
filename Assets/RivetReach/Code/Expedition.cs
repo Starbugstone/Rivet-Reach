@@ -78,6 +78,7 @@ namespace RivetReach
         void Update()
         {
             if(Input==null)return;
+            if(Started&&!Paused)World.AdvanceGrass(Time.deltaTime);
             if(Input.PollRebind()){UI.Rebuild();return;}
             if(Input.Pressed("Pause"))SetMode(Mode==ScreenMode.Play?ScreenMode.Pause:Started?ScreenMode.Play:ScreenMode.Title);
             if(Started&&Input.Pressed("Inventory"))SetMode(InventoryOpen?ScreenMode.Play:ScreenMode.Inventory);

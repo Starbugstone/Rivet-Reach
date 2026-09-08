@@ -47,6 +47,12 @@ namespace RivetReach.Editor
         [MenuItem("Rivet Reach/Prepare assets and validate")]
         public static void Prepare()
         {
+            foreach(string name in new[]{"GripSword","GripPickaxe"})
+            {
+                var prop=(ModelImporter)AssetImporter.GetAtPath("Assets/RivetReach/Resources/Characters/"+name+".fbx");
+                if(prop.materialImportMode!=ModelImporterMaterialImportMode.None||prop.importAnimation)
+                {prop.materialImportMode=ModelImporterMaterialImportMode.None;prop.importAnimation=false;prop.SaveAndReimport();}
+            }
             foreach(string name in new[]{"ExplorerMale","ExplorerFemale"})
             {
                 string path="Assets/RivetReach/Resources/Characters/"+name+".fbx";
@@ -61,7 +67,7 @@ namespace RivetReach.Editor
                 foreach(var clip in clips)
                 {
                     clip.name=clip.takeName.Substring(clip.takeName.LastIndexOf('|')+1);
-                    clip.loopTime=clip.name!="Mine"&&clip.name!="FP_Mine"&&clip.name!="Land"&&clip.name!="FP_Land";
+                    clip.loopTime=!clip.name.Contains("Mine")&&clip.name!="Land"&&clip.name!="FP_Land";
                     clip.lockRootRotation=true;clip.lockRootHeightY=true;clip.lockRootPositionXZ=true;
                     clip.keepOriginalOrientation=true;clip.keepOriginalPositionY=true;clip.keepOriginalPositionXZ=true;
                 }
@@ -86,6 +92,7 @@ namespace RivetReach.Editor
                     new ItemDefinition{runtimeId=3,stableId="rivet:stone",displayName="Stone",fistSeconds=.95f,colour=new Color(.48f,.51f,.51f)}};
                 AssetDatabase.CreateAsset(registry,definitions);
             }
+            registry.Get(1).fistDropId=2;EditorUtility.SetDirty(registry);
             var tiles=TerrainTiles.Build();
             MaterialAsset("Terrain","RivetReach/VoxelTerrain").SetTexture("_Tiles",tiles);
             var player=MaterialAsset("Player","Universal Render Pipeline/Lit");player.SetFloat("_Smoothness",.12f);player.SetTexture("_BaseMap",Resources.Load<Texture2D>("Characters/SkinField"));

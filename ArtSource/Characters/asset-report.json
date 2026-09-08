@@ -2,7 +2,7 @@
   {
     "model": "ExplorerMale",
     "triangles": 31734,
-    "bones": 40,
+    "bones": 42,
     "materials": 1,
     "maxInfluences": 3,
     "clips": [
@@ -28,7 +28,7 @@
       },
       {
         "name": "Mine",
-        "seconds": 0.6,
+        "seconds": 0.3,
         "loop": false
       },
       {
@@ -83,15 +83,80 @@
       },
       {
         "name": "FP_Mine",
+        "seconds": 0.3,
+        "loop": false
+      },
+      {
+        "name": "HoldBlock",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "MineBlock",
+        "seconds": 0.3,
+        "loop": false
+      },
+      {
+        "name": "HoldTool",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "MineTool",
+        "seconds": 0.6,
+        "loop": false
+      },
+      {
+        "name": "HoldTwoHandTool",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "MineTwoHandTool",
+        "seconds": 0.6,
+        "loop": false
+      },
+      {
+        "name": "FP_HoldBlock",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_MineBlock",
+        "seconds": 0.3,
+        "loop": false
+      },
+      {
+        "name": "FP_HoldTool",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_MineTool",
+        "seconds": 0.6,
+        "loop": false
+      },
+      {
+        "name": "FP_HoldTwoHandTool",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_MineTwoHandTool",
         "seconds": 0.6,
         "loop": false
       }
+    ],
+    "deformBones": 40,
+    "sockets": [
+      "BlockSocket",
+      "ToolSocket"
     ]
   },
   {
     "model": "ExplorerFemale",
     "triangles": 32126,
-    "bones": 40,
+    "bones": 42,
     "materials": 1,
     "maxInfluences": 3,
     "clips": [
@@ -117,7 +182,7 @@
       },
       {
         "name": "Mine",
-        "seconds": 0.6,
+        "seconds": 0.3,
         "loop": false
       },
       {
@@ -172,9 +237,74 @@
       },
       {
         "name": "FP_Mine",
+        "seconds": 0.3,
+        "loop": false
+      },
+      {
+        "name": "HoldBlock",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "MineBlock",
+        "seconds": 0.3,
+        "loop": false
+      },
+      {
+        "name": "HoldTool",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "MineTool",
+        "seconds": 0.6,
+        "loop": false
+      },
+      {
+        "name": "HoldTwoHandTool",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "MineTwoHandTool",
+        "seconds": 0.6,
+        "loop": false
+      },
+      {
+        "name": "FP_HoldBlock",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_MineBlock",
+        "seconds": 0.3,
+        "loop": false
+      },
+      {
+        "name": "FP_HoldTool",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_MineTool",
+        "seconds": 0.6,
+        "loop": false
+      },
+      {
+        "name": "FP_HoldTwoHandTool",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_MineTwoHandTool",
         "seconds": 0.6,
         "loop": false
       }
+    ],
+    "deformBones": 40,
+    "sockets": [
+      "BlockSocket",
+      "ToolSocket"
     ]
   }
 ]
