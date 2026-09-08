@@ -6,7 +6,7 @@ Implementation record for the user-authorized first slice, 2026-09-08. This is t
 
 Open the repository root with Unity **6000.4.4f1**, open `Assets/RivetReach/Scenes/Main.unity`, then press Play. The scene's runtime entry point is `Expedition.Bootstrap`; the terrain and interface are constructed from versioned definitions and assets when the scene runs. The Editor's unplayed scene is therefore not a populated voxel map.
 
-The Windows build is generated at `Builds/FirstPOC/RivetReach.exe`. Keep its adjacent data folder, DLLs and Mono runtime together. Start Expedition creates a terrain session using the seed entered on the title screen. Nearby terrain prepares before movement can enter it. No developer commands are needed to play.
+The Windows build is generated at `Builds/FirstPOC-v2/RivetReach.exe`. Keep its adjacent data folder, DLLs and Mono runtime together. Start Expedition creates a terrain session using the seed entered on the title screen. Nearby terrain prepares before movement can enter it. No developer commands are needed to play.
 
 Build through **Rivet Reach → Build Windows first POC** in Unity, or from Windows PowerShell:
 
@@ -24,6 +24,7 @@ The build script reuses this project's open Editor through an explicit local fil
 | Move / look | WASD / mouse |
 | Sprint / jump / crouch | Left Shift / Space / Left Ctrl |
 | Mine | Hold left mouse on a block within 5 m |
+| Place collected terrain | Right mouse on a block face; uses the selected hotbar stack |
 | Inventory / pause | Tab / Escape |
 | Select hotbar | Mouse wheel or [ / ] across all 12 slots; 1–0 for the first ten |
 | Drop one / full selected stack | Q / Shift+Q |
@@ -33,9 +34,9 @@ The build script reuses this project's open Editor through an explicit local fil
 | Transfer between hotbar and main storage | Shift-click |
 | Rotate the appearance preview | Drag the player portrait |
 
-The settings screens expose look sensitivity, FOV, view distance, interface scale and keyboard action rebinding. Existing mapped keyboard conflicts swap keys. Mining can use left or right mouse. Appearance and settings are remembered locally.
+The settings screens expose look sensitivity, FOV, view distance, interface scale and keyboard action rebinding. Existing mapped keyboard conflicts swap keys. Mining can use left or right mouse; placement uses the opposite button. Appearance and settings are remembered locally.
 
-Inventory has **12 hotbar + 48 main slots**, with a 500-item limit per stack in this palette. Grass, dirt and stone use real stable definitions. Selected terrain stacks remain items: they do not equip tools or enable placement. The crafting area is clearly inactive and accepts no items.
+Inventory has **12 hotbar + 48 main slots**, with a 500-item limit per stack in this palette. Grass, dirt and stone use real stable definitions. Selected terrain stacks can be placed against a targeted block face. A green/red preview shows destination validity; blocked cells, player/pile overlaps and unavailable terrain reject placement without consuming the stack. Held placement repeats every 0.22 seconds. Fists remain the mining method. [The placement contract](GAMEPLAY.md#first-step-terrain-placement--user-feedback-extension) owns the detailed rules. The crafting area is clearly inactive and accepts no items.
 
 **World progress is session-only.** Edits, inventory and unexpired dropped items survive chunk unloading in the running game. Quitting/restarting resets them. The title, pause menu and HUD disclose this boundary; appearance/settings persist independently.
 
@@ -43,10 +44,10 @@ Inventory has **12 hotbar + 48 main slots**, with a 500-item limit per stack in 
 
 - One `surface` world instance, deterministic seed and `terrain-1` generator version. Natural grass/dirt/stone hills and underground noise caves; no structure generation, water, vegetation, ores or other biomes.
 - 32³ chunks with a one-cell immutable worker halo. The generator evaluates integer-coordinate noise, so adjacent chunks share terrain independently of discovery order. Authoritative block addresses use signed 64-bit horizontal coordinates and integer height; Unity floating positions are presentation only.
-- Runtime chunk demand follows the player and nearby surface. The default horizontal radius is four chunks, adjustable from two to six. Vertical demand covers the player's vicinity and the local surface without retaining the entire intervening deep column. Supported design bounds are Y −256 through 767 and horizontal ±1,000,000,000 blocks.
+- Runtime chunk demand follows the player and nearby surface. The default horizontal radius is ten chunks (320 m per axis), adjustable from four to fourteen. Vertical demand covers the player's vicinity and the local surface without retaining the entire intervening deep column. Supported design bounds are Y −256 through 767 and horizontal ±1,000,000,000 blocks.
 - Two background generation/greedy-mesh jobs, nearest-first dispatch, main-thread mesh publication with a nominal 4 ms budget, stale-result rejection using both edit revision and residency generation. Unloaded chunk meshes and occupancy arrays are released. Compact session edit records and dormant item records remain; travelling without edits does not retain an unbounded full-chunk cache.
 - Rendering-origin shifts at 512 local horizontal metres, using whole-chunk offsets. Player, resident chunks and physical stack views retain their world addresses across the shift.
-- Voxel queries own movement/collision, including unready frontiers. Swept movement substeps prevent stepping through cells; no MeshCollider or GameObject is created per voxel. Mining changes authoritative occupancy before drops are emitted.
+- Voxel queries own movement/collision, including unready frontiers. Swept movement substeps prevent stepping through cells; no MeshCollider or GameObject is created per voxel. Mining changes authoritative occupancy before drops are emitted. Placement commits occupancy and consumes one selected item in the same local authority turn, using the same edit revision and neighbour-halo update path.
 - Held fist mining, selection outline, progress bar, fist motion and original procedural impact/pickup/footstep audio. Grass/dirt/stone fist times are working defaults of 0.45 / 0.60 / 0.95 seconds.
 - Physical stack entities use 20 Hz custom movement, dry-ground sleep, 1.5 m proximity pickup with an obstruction check, partial pickup, drop-owner delay of 0.75 s, compatible merge checks every 0.5 s and 500-item pile limits. Merge keeps the oldest eligible lifetime. Twenty minutes of active physical eligibility expires ordinary piles; unloaded and paused time does not count. No piles are discarded simply to enforce a population cap.
 
@@ -54,9 +55,11 @@ Detailed future contracts remain owned by [SIMULATION.md](SIMULATION.md) and [GA
 
 ## Actual first visual kit
 
+Actual front/back renders can be reproduced with [render_player_review.py](../Tools/render_player_review.py). The [Blender game-art skill](skills/blender-game-art/SKILL.md) records the reference-to-runtime review workflow.
+
 The original Blender asset script is [create_player_assets.py](../Tools/create_player_assets.py). Editable `.blend` sources live in `ArtSource/Characters/`; explicit FBX and PNG outputs are under `Assets/RivetReach/Resources/Characters/`. Re-run in Blender 5.2 background mode with the script's absolute path. The process updates source/export content while existing Unity `.meta` files retain their identities.
 
-The models use a shared 17-bone convention, one material/submesh, rigid part weights and simple procedural idle/walk/mining poses. Male and female choices share gameplay dimensions. The female has a longer ponytail/side hair and restrained silhouette differences. First-person arms derive from the selected skinned mesh; head, upper torso and duplicate arms are excluded from the first-person body. The portrait can be rotated to inspect the back. These are initial game models for review, with simpler detail than the concept paintings.
+The models use a shared 17-bone convention, one material/submesh, rigid part weights and simple procedural idle/walk/mining poses. Male and female choices share gameplay dimensions. The female has a longer ponytail/side hair and restrained silhouette differences. First-person arms derive from the selected skinned mesh; head, upper torso and duplicate arms are excluded from the first-person body. The portrait can be rotated to inspect the back. The initial crude models were rejected by the user. Another agent now owns the actual player model and animation rework. This terrain/placement revision includes UI aspect-ratio and antialiasing fixes, with a local interim Blender pass used for verification; its sources/exports are deliberately left outside this commit for the model agent’s handoff. Do not treat the interim model screenshots as final art or assume the committed baseline models have already been replaced. See [the handoff](PLAYER_ASSET_HANDOFF.md) and the current revision report for exact evidence.
 
 Two **256×256 opaque PNG skins** use a shared 4×4 tile layout (64×64 per region). Regions in Blender image coordinates, from the bottom row upward:
 
@@ -69,10 +72,10 @@ Two **256×256 opaque PNG skins** use a shared 4×4 tile layout (64×64 per regi
 
 Each polygon samples its assigned region with an inset to limit mip bleeding. This is an initial paintable palette layout, not a production face-by-face body unwrap. Multiple faces within a region reuse UVs; independent front/back painting and a clean artist template remain visual-review refinements. Field/Teal and Ochre/Slate differ in skin, face and clothing colours and work on both variants. Custom PNG import, overlay layers and Minecraft-format compatibility are not provided.
 
-Terrain uses four original **32×32** point-filtered tile-array layers: grass top, grass side, dirt and stone. Greedy quads repeat the tile per metre. Fixed directional light, a procedural sky and distance haze provide a stable review setting. The initial terrain shader uses simple directional/ambient shading; propagated voxel light and fully occluded cave lighting are not implemented.
+Terrain uses four original **32×32** bilinear-filtered tile-array layers: grass top, grass side, dirt and stone. Greedy quads repeat the tile per metre. Fixed directional light, a procedural sky and distance haze provide a stable review setting. The revised shader participates in URP shadow/depth passes and samples directional shadows and screen-space ambient occlusion. Shadow distance is 160 m. Four-sample MSAA reduces silhouette/terrain-edge aliasing, and a 768×1024 portrait is cropped to each UI panel’s aspect ratio so the player is not squeezed horizontally. Fog now begins at 236.8 m and ends at 304 m with the default ten-chunk radius; it follows the selected streaming radius rather than obscuring nearby hills. Surface palettes use restrained coarse variation. Propagated voxel light and fully occluded cave lighting are not implemented.
 
 ## Verification and review boundary
 
-[Verification results](verification/FIRST_POC_RESULTS.md) record the final build's actual checks, machine, settings, measured workload and screenshots. Automation separates test fixtures from ordinary sessions: only the explicit `-rr-verify` command-line mode injects inventory stacks, controlled movement and seam edits.
+[Current revision results](verification/VISUAL_REVISION_RESULTS.md) record the final build's actual checks, machine, settings, measured workload and screenshots. Automation separates test fixtures from ordinary sessions: only the explicit `-rr-verify` command-line mode injects inventory stacks, controlled movement and seam edits.
 
 This delivery establishes the first playable review candidate. The user still needs to assess movement/mining feel, player appearance and terrain composition in play before the milestone is accepted or subsequent work is selected. In particular, the initial rig/skin layout and lighting remain open to refinement. Durable saves, functional crafting and every later roadmap group require a separate scope decision.

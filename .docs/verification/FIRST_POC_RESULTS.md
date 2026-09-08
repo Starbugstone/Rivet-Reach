@@ -1,5 +1,7 @@
 # First POC verification — 2026-09-08
 
+> Historical first-delivery evidence. The user rejected this version’s visuals and requested farther fog and placement. See [revision 2 results](VISUAL_REVISION_RESULTS.md) for the current build; the measurements and screenshots below describe the original build only.
+
 The terrain/FPS/inventory slice is implemented as a **playable review candidate**. The Windows build and checks below passed. User acceptance of movement feel, the initial player art and the next milestone remains pending. [FIRST_POC.md](../FIRST_POC.md) contains controls, architecture details, asset provenance and reproduction commands.
 
 ## Build and test evidence

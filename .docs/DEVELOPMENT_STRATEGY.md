@@ -234,7 +234,7 @@ This document owns milestone scope and sequencing, mirrored by PROJECT_PLAN.md. 
 
 ### Stage 0 - First playable terrain, FPS and visual concept (locked scope)
 
-Goal: **play in a generated terrain world, move as a 3D first-person player, mine with fists and collect/manage the results while establishing the visual concept and reliable chunk streaming.**
+Goal: **play in a generated terrain world, move as a 3D first-person player, mine with fists, collect/manage the results and place collected terrain blocks while establishing the visual concept and reliable chunk streaming.**
 
 User-required scope:
 
@@ -243,6 +243,7 @@ User-required scope:
 - Playable first-person movement and camera controls.
 - Selectable male and female 3D player models, both supporting changeable skins, visible first-person fists and enough presentation to review movement and mining (subsequent explicit user appearance decisions).
 - Fist mining with targeting, progress and clear feedback.
+- Terrain-block placement from the selected hotbar stack, with a face-aligned preview, collision validation and conserved inventory (explicit extension from the user’s first-POC feedback).
 - Functional inventory/hotbar, using real item identities and quantities collected from mined terrain.
 - A clearly labelled, nonfunctional crafting placeholder inside the inventory.
 - A coherent initial visual concept for terrain, player, lighting and inventory; review the concept in play.
@@ -252,26 +253,28 @@ Working scope boundaries, chosen to keep this step small:
 - Use one terrain-only world definition and a small fist-mineable block palette. Hills and a small amount of cave/overhang geometry should exercise generation and underground edits; biome variety and the full resource distribution are later choices.
 - Preserve the existing physical stack-drop/pickup rules for the mining-to-inventory loop, including compatible merging and sleeping on dry terrain. Water simulation is not required here.
 - Establish a reusable player model and basic idle/movement/fist animation. The user subsequently requested changeable player skins: include a reusable skin texture layout and basic local skin selection as the working first-step extension, with matching body/fists. Detailed behaviour is in [GAMEPLAY.md](GAMEPLAY.md#15-player-skins). A third-person gameplay mode, body-shape customization, an in-game skin painter, combat and final animation polish are not required.
-- Block placement/building, tools/tool progression, functional recipes, workbench/furnace, survival/death, mobs, water simulation, day/night progression, machinery, logistics and additional worlds remain outside this step.
+- Tools/tool progression, functional recipes, workbench/furnace, survival/death, mobs, water simulation, day/night progression, machinery, logistics and additional worlds remain outside this step.
 - Retain terrain edits, inventory and unexpired drops across chunk unloading/reloading within the running session. Durable cross-session saving and recovery remain later candidates; the first build must clearly disclose its session-only state. This is a scoped milestone boundary, not removal of the final persistent-save requirement.
 - Use a stable lighting setup for visual review. Final art breadth and a complete voxel-light feature set are not prerequisites for this step.
 
-Architectural requirements still apply: world-aware integer/chunk coordinates, real block/item definitions, authoritative mining and inventory changes, voxel-grid collision, revision-safe asynchronous meshes, no GameObject per voxel, bounded heavy work and floating-origin handling. Build only the portions needed by this step. Interaction detail belongs to [GAMEPLAY.md](GAMEPLAY.md#14-locked-first-step-interaction-contract); streaming/state evidence belongs to [SIMULATION.md](SIMULATION.md#12-first-step-terrain-and-streaming-validation); visual delivery belongs to [CONTENT_PIPELINE.md](CONTENT_PIPELINE.md#2-first-visual-kit).
+Architectural requirements still apply: world-aware integer/chunk coordinates, real block/item definitions, authoritative mining, placement and inventory changes, voxel-grid collision, revision-safe asynchronous meshes, no GameObject per voxel, bounded heavy work and floating-origin handling. Build only the portions needed by this step. Interaction detail belongs to [GAMEPLAY.md](GAMEPLAY.md#14-locked-first-step-interaction-contract); streaming/state evidence belongs to [SIMULATION.md](SIMULATION.md#12-first-step-terrain-and-streaming-validation); visual delivery belongs to [CONTENT_PIPELINE.md](CONTENT_PIPELINE.md#2-first-visual-kit).
 
 Implementation checkpoints within this one milestone, each reviewed in the same growing project:
 
 1. **Traverse:** seeded terrain, safe spawn, chunk streaming, FPS controls and an initial 3D player.
-2. **Mine and collect:** fist targeting/mining, authoritative edits, physical pickups and usable inventory with the crafting placeholder.
+2. **Mine, collect and place:** fist targeting/mining, authoritative edits, physical pickups and usable inventory with the crafting placeholder, and placement of collected terrain blocks.
 3. **Review and stabilize:** cohesive terrain/player/UI visuals, model and animation review, chunk-boundary/long-traversal checks and a measured standalone build.
 
 These checkpoints do not authorize separate later features. Stage 0 is complete only when the combined playable result meets all of the following:
 
-- The player can start, move, mine and manage inventory without developer commands; crafting is visibly unavailable.
+- The player can start, move, mine, place collected blocks and manage inventory without developer commands; crafting is visibly unavailable.
 - Both male and female player choices are present and visually coherent with terrain and UI; switching between two test skins on either model updates the body and first-person fists without changing movement, collision or mining. Review actual geometry/rendering cost using CONTENT_PIPELINE.md section 7.
 - Terrain contains no generated structures; the same seed and generator definition reproduce unedited terrain independently of discovery order.
 - Crossing chunk boundaries, digging at seams, outrunning generation and shifting the rendering origin produce no fall-through, stale collision or reappearing mined blocks.
 - Leaving and returning preserves session edits and item accounting; streaming releases unnecessary runtime meshes/colliders and does not hide an unlimited resident-world cache.
 - A standalone Windows build has a recorded hardware/settings/workload profile and documented remaining visual, control and streaming issues. Numerical performance targets remain provisional until measured.
+
+**Feedback revision, 2026-09-08:** the user rejected the initial player/terrain presentation, requested farther fog and identified missing placement. Placement now belongs to Stage 0; the art remains under review. This does not authorize later systems. Current evidence is recorded in [the visual revision report](verification/VISUAL_REVISION_RESULTS.md).
 
 **Review gate:** present the playable build, visual concept, measurements and known limitations to the user. Decide the next implementation scope from that evidence. Do not automatically begin crafting, survival, industry or the old Stage 1 list.
 
@@ -282,7 +285,7 @@ Goal: **the player can play rather than merely test a voxel engine.**
 Add:
 
 - extend the real item/inventory/drop systems delivered in the first step;
-- block placement/building and tool progression;
+- advanced building conveniences and tool progression;
 - block-water interaction;
 - data-driven grid crafting;
 - workbench/furnace;

@@ -19,7 +19,8 @@ namespace RivetReach
             public int memoryMB,width,height,assertions,residentPeak,triangles,maleTriangles,femaleTriangles,armsTriangles,bodyTriangles,drawCallsPeak;
             public long allocatedMemoryBytes;
             public float frameMedianMs,frameP95Ms,frameMaxMs,firstReadySeconds,miningFrameMaxMs;
-            public double miningMeshMs;
+            public double miningMeshMs,placementMeshMs;
+            public int viewRadius;public float fogStart,fogEnd;
             public string[] checks,errors;
         }
         Expedition game;string output;
@@ -66,9 +67,9 @@ namespace RivetReach
         IEnumerator Run()
         {
             // Nested enumerators are driven by Unity. Check failures are also captured by Log().
-            float began=Time.realtimeSinceStartup;game.World.ViewDistance=4;game.StartSession(246813);game.Diagnostics=true;
+            float began=Time.realtimeSinceStartup;game.World.ViewDistance=10;game.StartSession(246813);game.Diagnostics=true;
             yield return Settle();report.firstReadySeconds=Time.realtimeSinceStartup-began;
-            var player=game.Player;var world=game.World;var start=world.Address(player.transform.position);var saved=WorldPoint.FromLocal(player.transform.position,world.Origin);
+            var player=game.Player;var world=game.World;report.viewRadius=world.ViewDistance;report.fogStart=world.FogStart;report.fogEnd=world.FogEnd;var start=world.Address(player.transform.position);var saved=WorldPoint.FromLocal(player.transform.position,world.Origin);
             Check(!world.Overlaps(player.transform.position,.6f,1.8f),"Spawn has headroom and no solid overlap");
             Check(world.Raycast(player.transform.position+Vector3.up,Vector3.down,4,out var ground,out byte id),"Axis-aligned ray hits ground");
             Check(id!=0,"Spawn is supported by terrain");
@@ -103,17 +104,34 @@ namespace RivetReach
             InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState());yield return null;
             Check(game.Mode==ScreenMode.Play,"Inventory key resumes exploration");
             // Exercise the real hold-to-mine path with camera facing the ground.
-            player.Pitch=80;yield return null;miningSample=true;player.VerificationMining=true;
+            InputSystem.QueueStateEvent(Mouse.current,new MouseState());player.Pitch=80;yield return null;miningSample=true;player.VerificationMining=true;
             float until=Time.realtimeSinceStartup+3;
             while(world.EditCount==0&&Time.realtimeSinceStartup<until)yield return null;
-            player.VerificationMining=false;yield return null;miningSample=false;
+            player.VerificationMining=false;InputSystem.QueueStateEvent(Mouse.current,new MouseState());yield return null;miningSample=false;
             Check(world.EditCount==1,"Fist hold removes exactly one addressed block");report.miningMeshMs=world.LastEditMeshMs;
             var removed=player.Target; // The frame after removal can target deeper terrain; retain ground below feet as fallback.
             if(world.Get(removed)!=0)removed=ground;
             yield return new WaitForSecondsRealtime(1);
-            Check(game.Items.TotalSpawned==1,"Mining creates one item");
+            Check(game.Items.TotalSpawned==1,"Mining creates one item (actual "+game.Items.TotalSpawned+")");
             Check(game.Inventory.Total(1)+game.Inventory.Total(2)+game.Inventory.Total(3)+game.Items.Piles.Sum(p=>p.Stack.Count)==1,"Mining/pickup conserves quantity");
             player.Pitch=20;yield return Capture("02-mining");
+            // Exercise face targeting and the real opposite-button placement action.
+            game.Inventory.Add(3,4);game.Selected=Array.FindIndex(game.Inventory.Slots,stack=>stack.Id==3);
+            player.transform.position=saved.Local(world.Origin);player.Yaw=90;player.Pitch=48;yield return null;
+            Check(game.PlacementPreview(out var placed,out _),"Aimed block face offers a valid adjacent placement cell");
+            int stoneBefore=game.Inventory.Total(3);
+            var placementButton=PlayerPrefs.GetInt("mineButton",0)==0?MouseButton.Right:MouseButton.Left;
+            InputSystem.QueueStateEvent(Mouse.current,new MouseState().WithButton(placementButton));yield return null;yield return null;
+            InputSystem.QueueStateEvent(Mouse.current,new MouseState());yield return null;
+            Check(world.Get(placed)==3&&game.Inventory.Total(3)==stoneBefore-1,"Mapped placement adds one voxel and consumes exactly one selected item");
+            report.placementMeshMs=world.LastEditMeshMs;
+            Check(world.Overlaps(world.Local(placed)+new Vector3(.5f,.01f,.5f),.6f,1.8f),"Placed block participates in collision immediately");
+            Check(!world.Place(placed,3)&&!game.CanPlace(placed,out _),"An occupied cell rejects placement");
+            int quantity=game.Inventory.Total(3);Check(!game.CanPlace(world.Address(player.transform.position),out _)&&game.Inventory.Total(3)==quantity,"Player overlap rejects placement without consuming inventory");
+            game.SetMode(ScreenMode.Inventory);Check(!game.TryPlaceSelected(),"Inventory mode suppresses placement");game.SetMode(ScreenMode.Play);
+            int placementSlot=game.Selected;game.Selected=11;Check(!game.TryPlaceSelected(),"An empty selected slot cannot create blocks");game.Selected=placementSlot;
+            Check(!world.Place(new BlockPos(99999,90,99999),3),"Unready terrain rejects placement");
+            player.transform.position=saved.Local(world.Origin)+Vector3.left*2;player.Pitch=20;yield return new WaitForSecondsRealtime(1.1f);yield return Capture("02b-placement");
             // Two neighbouring edited seam blocks must survive unload and a floating-origin shift.
             var seam=new BlockPos(31,world.Generator.Height(31,0),0);var seam2=new BlockPos(32,world.Generator.Height(32,0),0);
             Check(world.Remove(seam,world.Get(seam))&&world.Remove(seam2,world.Get(seam2)),"Edits on both sides of a chunk seam commit");
@@ -142,6 +160,15 @@ namespace RivetReach
             player.transform.position=saved.Local(world.Origin)+Vector3.up;yield return null;yield return Settle();
             Check(world.Get(seam)==0&&world.Get(seam2)==0,"Mined seam remains empty after unload/reload/origin shift");
             Check(game.Items.Total(3)>=550,"Dropped quantities survive chunk unloading");
+            Check(world.Get(placed)==3,"Placed voxel survives chunk unload, reload and origin shifts");
+            // Remine the placed cell through the same fist path, proving one recoverable item.
+            Vector3 aim=(world.Local(placed)+Vector3.one*.5f)-(player.transform.position+Vector3.up*1.64f);
+            player.Yaw=Mathf.Atan2(aim.x,aim.z)*Mathf.Rad2Deg;player.Pitch=-Mathf.Atan2(aim.y,new Vector2(aim.x,aim.z).magnitude)*Mathf.Rad2Deg;
+            yield return null;Check(player.HasTarget&&player.Target.Equals(placed),"Placed block is targetable for fist mining");
+            int remineBefore=game.Items.TotalSpawned;player.VerificationMining=true;until=Time.realtimeSinceStartup+3;
+            while(world.Get(placed)!=0&&Time.realtimeSinceStartup<until)yield return null;
+            player.VerificationMining=false;yield return null;
+            Check(world.Get(placed)==0&&game.Items.TotalSpawned==remineBefore+1,"Fist mining a placed block creates exactly one recoverable item");
             // Fill every slot, leave exactly five spaces, then exercise real partial pickup.
             var carried=game.Inventory.Slots.ToArray();for(int slot=0;slot<60;slot++)game.Inventory.Take(slot,int.MaxValue);
             game.Inventory.Add(3,29995);
@@ -169,8 +196,8 @@ namespace RivetReach
             // Real inventory mutations, then UI representations and held-stack close.
             game.Inventory.Add(1,28);game.Inventory.Add(2,142);game.Inventory.Add(3,64);
             game.SetMode(ScreenMode.Inventory);game.UI.ClickSlot(0,true,false);
-            int before=game.Inventory.Total(1)+game.UI.HeldStack.Count;game.SetMode(ScreenMode.Play);
-            Check(game.UI.HeldStack.Empty&&game.Inventory.Total(1)==before,"Closing inventory returns held stack without loss");
+            byte heldId=game.UI.HeldStack.Id;int before=game.Inventory.Total(heldId)+game.UI.HeldStack.Count;game.SetMode(ScreenMode.Play);
+            Check(game.UI.HeldStack.Empty&&game.Inventory.Total(heldId)==before,"Closing inventory returns held stack without loss");
             game.SetMode(ScreenMode.Inventory);yield return Capture("03-inventory");
             game.SetMode(ScreenMode.Appearance);game.SetAppearance(false,0);yield return null;
             report.armsTriangles=player.Arms.TriangleCount;report.bodyTriangles=player.Body.TriangleCount;
@@ -180,6 +207,7 @@ namespace RivetReach
             game.SetAppearance(true,1);game.UI.Rebuild();yield return Capture("06-alternate-skin");
             Check(Mathf.Approximately(player.Height,1.8f),"Appearance changes preserve gameplay height");
             Check(report.maleTriangles<=5000&&report.femaleTriangles<=5000,"Both imported player meshes meet initial triangle ceiling");
+            Check(report.armsTriangles<=1500,"Derived first-person hands and arms meet initial triangle ceiling");
             game.SetAppearance(false,0);game.SetMode(ScreenMode.Settings);yield return Capture("07-settings");
             game.SetMode(ScreenMode.Controls);yield return Capture("08-controls");
             // Inspect an actually generated underground cavity with a supported two-cell opening.

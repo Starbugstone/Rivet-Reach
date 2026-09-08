@@ -25,7 +25,9 @@ namespace RivetReach
         public TerrainGenerator Generator { get; private set; }
         public BlockPos Origin { get; private set; }
         public Transform Observer;
-        public int ViewDistance=4;
+        public int ViewDistance=10;
+        public float FogStart => Math.Max(48,(ViewDistance*32-24)*.80f);
+        public float FogEnd => ViewDistance*32-16;
         public Material TerrainMaterial;
         public int ResidentCount => chunks.Count;
         public int ReadyCount => chunks.Values.Count(c=>c.Cells!=null);
@@ -57,18 +59,20 @@ namespace RivetReach
             return Generator.At(p);
         }
         public bool Solid(BlockPos p) => !Ready(p)||Get(p)!=0;
-        public bool Remove(BlockPos p,byte expected)
+        public bool Remove(BlockPos p,byte expected) => expected!=0&&Change(p,expected,0);
+        public bool Place(BlockPos p,byte id) => id!=0&&Change(p,0,id);
+        bool Change(BlockPos p,byte expected,byte replacement)
         {
-            if(!Ready(p)||expected==0||Get(p)!=expected)return false;
+            if(!Ready(p)||Get(p)!=expected)return false;
             if(!edits.TryGetValue(p.Chunk,out var e)){e=new Dictionary<int,byte>();edits[p.Chunk]=e;}
-            e[p.Index]=0;
+            e[p.Index]=replacement;
             // Update every resident halo touching the edit. Collision sees the change now.
             foreach(var kv in chunks)
             {
                 var min=kv.Key.Min;long x=p.X-min.X,z=p.Z-min.Z;int y=p.Y-min.Y;
                 if(x < -1 || x>32 || y < -1 || y>32 || z < -1 || z>32)continue;
                 var c=kv.Value;c.Revision++;c.Dirty=true;
-                if(c.Cells!=null)c.Cells[ChunkMesher.Index((int)x,y,(int)z)]=0;
+                if(c.Cells!=null)c.Cells[ChunkMesher.Index((int)x,y,(int)z)]=replacement;
             }
             // Masking the old block requires fresh meshes; their local surface work is prioritized.
             // Hide stale chunks immediately, publishing a synchronous local rebuild for this edit only.
@@ -89,7 +93,7 @@ namespace RivetReach
         {
             if(Generator==null||Observer==null||stopped)return;
             Shader.SetGlobalColor("_RRFogColour",new Color(.56f,.68f,.77f));
-            Shader.SetGlobalVector("_RRFogRange",new Vector4(ViewDistance*12,ViewDistance*24,0,0));
+            Shader.SetGlobalVector("_RRFogRange",new Vector4(FogStart,FogEnd,0,0));
             if(Mathf.Abs(Observer.position.x)>512||Mathf.Abs(Observer.position.z)>512)
             {
                 var shift=new Vector3(Mathf.Floor(Observer.position.x/32)*32,0,Mathf.Floor(Observer.position.z/32)*32);
@@ -180,8 +184,10 @@ namespace RivetReach
         static void Release(Resident c)
         {if(c.View!=null)Destroy(c.View);if(c.Mesh!=null)Destroy(c.Mesh);}
         public bool Raycast(Vector3 start,Vector3 direction,float reach,out BlockPos hit,out byte id)
+            => Raycast(start,direction,reach,out hit,out id,out _);
+        public bool Raycast(Vector3 start,Vector3 direction,float reach,out BlockPos hit,out byte id,out Vector3Int face)
         {
-            hit=default;id=0;var cell=Address(start);
+            hit=default;id=0;face=Vector3Int.zero;var cell=Address(start);
             Vector3 localCell=Local(cell),step=new Vector3(Math.Sign(direction.x),Math.Sign(direction.y),Math.Sign(direction.z));
             Vector3 delta=new Vector3(direction.x==0?float.PositiveInfinity:Mathf.Abs(1/direction.x),direction.y==0?float.PositiveInfinity:Mathf.Abs(1/direction.y),direction.z==0?float.PositiveInfinity:Mathf.Abs(1/direction.z));
             Vector3 t=new Vector3((direction.x>0?localCell.x+1-start.x:start.x-localCell.x)*delta.x,(direction.y>0?localCell.y+1-start.y:start.y-localCell.y)*delta.y,(direction.z>0?localCell.z+1-start.z:start.z-localCell.z)*delta.z);
@@ -193,6 +199,7 @@ namespace RivetReach
                 byte b=Get(cell);if(b!=0){hit=cell;id=b;return true;}
                 int axis=t.x<t.y?(t.x<t.z?0:2):(t.y<t.z?1:2);
                 distance=t[axis];t[axis]+=delta[axis];
+                face=Vector3Int.zero;face[axis]=-(int)step[axis];
                 cell=cell.Offset(axis==0?(int)step.x:0,axis==1?(int)step.y:0,axis==2?(int)step.z:0);
             }
             return false;

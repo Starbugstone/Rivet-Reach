@@ -19,7 +19,9 @@ namespace RivetReach
         public int Skin;
         public float Height=1.8f;
         float vertical,phase,footstep;
-        GameObject selection;
+        GameObject selection,placementGhost;
+        Material ghostMaterial;
+        float nextPlace;
         Material lineMaterial;
         Mesh lineMesh;
         public Vector2? VerificationMovement;
@@ -28,7 +30,7 @@ namespace RivetReach
         {
             Game=game;
             var cameraObject=new GameObject("Expedition Camera");cameraObject.transform.SetParent(transform,false);
-            Camera=cameraObject.AddComponent<Camera>();Camera.tag="MainCamera";Camera.nearClipPlane=.025f;Camera.farClipPlane=400;
+            Camera=cameraObject.AddComponent<Camera>();Camera.tag="MainCamera";Camera.nearClipPlane=.025f;Camera.farClipPlane=640;
             Camera.fieldOfView=PlayerPrefs.GetFloat("fov",78);Camera.backgroundColor=new Color(.52f,.66f,.76f);Camera.clearFlags=CameraClearFlags.Skybox;
             cameraObject.AddComponent<AudioListener>();
             var body=new GameObject("Player appearance");body.transform.SetParent(transform,false);Body=body.AddComponent<AvatarView>();Body.HideHeadAndArms=true;
@@ -94,7 +96,14 @@ namespace RivetReach
             }
             Body.transform.localPosition=Inspecting?Vector3.zero:new Vector3(0,0,-.20f);
             Body.transform.localScale=new Vector3(1,Height/1.8f,1);
-            if(control&&!Inspecting)TargetAndMine();else{HasTarget=false;MiningProgress=0;}
+            if(control&&!Inspecting)TargetAndMine();else{HasTarget=false;MiningProgress=0;nextPlace=0;}
+            bool preview=control&&!Inspecting&&HasTarget&&!Game.Inventory.Slots[Game.Selected].Empty;
+            placementGhost.SetActive(preview);
+            if(preview)
+            {
+                bool valid=Game.PlacementPreview(out var cell,out _);placementGhost.transform.position=Game.World.Local(cell)-Vector3.one*.004f;
+                ghostMaterial.SetColor("_BaseColor",valid?new Color(.3f,1,.65f):new Color(1,.3f,.23f));
+            }
             selection.SetActive(HasTarget);
             if(HasTarget)selection.transform.position=Game.World.Local(Target)-Vector3.one*.002f;
         }
@@ -103,6 +112,13 @@ namespace RivetReach
             bool found=Game.World.Raycast(Camera.transform.position,Camera.transform.forward,5,out var pos,out byte id);
             if(!found||!HasTarget||!pos.Equals(Target))MiningProgress=0;
             HasTarget=found;Target=pos;TargetId=id;
+            if(Game.Input.Place)
+            {
+                MiningProgress=0;
+                if(Time.time>=nextPlace){Game.TryPlaceSelected();nextPlace=Time.time+.22f;}
+                return;
+            }
+            nextPlace=0;
             if(!found||!(Game.Input.Mine||VerificationMining)){MiningProgress=0;return;}
             MiningProgress+=Time.deltaTime/Game.Registry.Get(id).fistSeconds;
             if(MiningProgress<1)return;
@@ -121,8 +137,10 @@ namespace RivetReach
             int[] edges={0,1,0,2,0,4,1,3,1,5,2,3,2,6,3,7,4,5,4,6,5,7,6,7};
             lineMesh=new Mesh{name="Selection edges"};lineMesh.vertices=vertices;lineMesh.SetIndices(edges,MeshTopology.Lines,0);lineMesh.RecalculateBounds();
             selection.AddComponent<MeshFilter>().sharedMesh=lineMesh;
+            placementGhost=new GameObject("Placement preview");placementGhost.transform.SetParent(Game.transform,false);placementGhost.transform.localScale=Vector3.one*1.008f;
+            placementGhost.AddComponent<MeshFilter>().sharedMesh=lineMesh;ghostMaterial=new Material(Resources.Load<Material>("Materials/Selection"));placementGhost.AddComponent<MeshRenderer>().sharedMaterial=ghostMaterial;placementGhost.SetActive(false);
             lineMaterial=new Material(Shader.Find("Universal Render Pipeline/Unlit"));lineMaterial.SetColor("_BaseColor",new Color(1,.85f,.4f));selection.AddComponent<MeshRenderer>().sharedMaterial=lineMaterial;
         }
-        void OnDestroy(){if(lineMesh!=null)Destroy(lineMesh);if(lineMaterial!=null)Destroy(lineMaterial);if(selection!=null)Destroy(selection);}
+        void OnDestroy(){if(placementGhost!=null)Destroy(placementGhost);if(ghostMaterial!=null)Destroy(ghostMaterial);if(lineMesh!=null)Destroy(lineMesh);if(lineMaterial!=null)Destroy(lineMaterial);if(selection!=null)Destroy(selection);}
     }
 }

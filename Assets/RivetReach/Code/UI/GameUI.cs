@@ -94,7 +94,7 @@ namespace RivetReach
             var track=Panel(root,580,385,120,3,new Color(.1f,.15f,.16f,.5f));progress=Panel(track.transform,0,0,0,3,gold);
             BuildHotbar(root,256,628,60,4);
             selectedLabel=Label(root,"",420,605,440,28,18);selectedLabel.alignment=TextAnchor.MiddleCenter;
-            Label(root,$"{game.Input.Keys["Inventory"]}  Inventory    {game.Input.Keys["Drop"]}  Drop    {game.Input.Keys["Inspect"]}  Inspect player",28,694,650,22,13);
+            Label(root,$"{game.Input.Keys["Inventory"]}  Inventory    {game.Input.Keys["Drop"]}  Drop    Place block    {game.Input.Keys["Inspect"]}  Inspect player",28,694,650,22,13);
             Label(root,"Session-only world",1090,694,172,22,12,new Color(.75f,.77f,.73f));
             message=Label(root,"",330,555,620,40,18,gold);message.alignment=TextAnchor.MiddleCenter;
             loading=Label(root,"",435,457,410,50,20);loading.alignment=TextAnchor.MiddleCenter;
@@ -105,7 +105,7 @@ namespace RivetReach
             Panel(root,0,0,1280,720,new Color(0,0,0,.23f));var p=Panel(root,55,42,1170,634,ink);
             Label(p.transform,"INVENTORY",28,20,500,45,30);Label(p.transform,"Drag stacks · Right-click split / place one · Shift-click transfer",28,66,880,28,15,gold);
             Button(p.transform,"CLOSE",1033,20,108,40,()=>game.SetMode(ScreenMode.Play));
-            var backdrop=Panel(p.transform,28,113,210,388,slate);var portrait=Rect(backdrop.transform,"Portrait",0,0,210,388).gameObject.AddComponent<RawImage>();portrait.texture=previewTexture;portrait.gameObject.AddComponent<PortraitDrag>().Owner=this;
+            var backdrop=Panel(p.transform,28,113,210,388,slate);var portrait=Rect(backdrop.transform,"Portrait",0,0,210,388).gameObject.AddComponent<RawImage>();portrait.texture=previewTexture;portrait.uvRect=PortraitUV(210,388);portrait.gameObject.AddComponent<PortraitDrag>().Owner=this;
             for(int row=0;row<6;row++)for(int col=0;col<8;col++)Slot(p.transform,12+row*8+col,266+col*62,113+row*62,56);
             Label(p.transform,"CRAFTING",821,115,300,42,27);Label(p.transform,"Coming later",821,162,290,35,18,new Color(.55f,.61f,.6f));
             for(int row=0;row<2;row++)for(int col=0;col<2;col++)Panel(p.transform,829+col*70,222+row*70,60,60,new Color(.16f,.20f,.21f,.6f));
@@ -146,7 +146,7 @@ namespace RivetReach
             }
             else if(game.Mode==ScreenMode.Appearance)
             {
-                var portrait=Rect(p.transform,"Portrait",35,105,290,465).gameObject.AddComponent<RawImage>();portrait.texture=previewTexture;portrait.gameObject.AddComponent<PortraitDrag>().Owner=this;
+                var portrait=Rect(p.transform,"Portrait",35,105,290,465).gameObject.AddComponent<RawImage>();portrait.texture=previewTexture;portrait.uvRect=PortraitUV(290,465);portrait.gameObject.AddComponent<PortraitDrag>().Owner=this;
                 Label(p.transform,"PLAYER MODEL",365,125,350,30,15,gold);
                 Button(p.transform,"MALE",365,167,165,46,()=>{game.SetAppearance(false,game.Player.Skin);Rebuild();},!game.Player.Female);
                 Button(p.transform,"FEMALE",548,167,165,46,()=>{game.SetAppearance(true,game.Player.Skin);Rebuild();},game.Player.Female);
@@ -161,7 +161,7 @@ namespace RivetReach
             {
                 Slider(p.transform,"Look sensitivity",112,game.Input.Sensitivity,.03f,.25f,v=>{game.Input.Sensitivity=v;PlayerPrefs.SetFloat("sensitivity",v);});
                 Slider(p.transform,"Field of view",212,game.Player.Camera.fieldOfView,65,95,v=>{game.Player.Camera.fieldOfView=v;PlayerPrefs.SetFloat("fov",v);});
-                Slider(p.transform,"View distance (chunks)",312,game.World.ViewDistance,2,6,v=>{game.World.ViewDistance=Mathf.RoundToInt(v);PlayerPrefs.SetInt("viewDistance",game.World.ViewDistance);RenderSettings.fogStartDistance=game.World.ViewDistance*16;RenderSettings.fogEndDistance=game.World.ViewDistance*32+7;},true);
+                Slider(p.transform,"View distance (chunks)",312,game.World.ViewDistance,4,14,v=>{game.World.ViewDistance=Mathf.RoundToInt(v);PlayerPrefs.SetInt("viewDistance.v2",game.World.ViewDistance);RenderSettings.fogStartDistance=game.World.FogStart;RenderSettings.fogEndDistance=game.World.FogEnd;},true);
                 Slider(p.transform,"Interface scale",412,Mathf.Clamp(PlayerPrefs.GetFloat("uiScale",1),.85f,1),.85f,1,v=>{PlayerPrefs.SetFloat("uiScale",v);root.localScale=Vector3.one*v;});
                 Button(p.transform,"REBIND CONTROLS",36,537,346,44,()=>game.SetMode(ScreenMode.Controls));
                 Button(p.transform,"APPLY",407,537,346,44,()=>{PlayerPrefs.Save();game.SetMode(game.Started?ScreenMode.Pause:ScreenMode.Title);},true);
@@ -175,7 +175,7 @@ namespace RivetReach
                     Button(p.transform,name+"   ·   "+kv.Value,36+col*365,143+row*48,348,40,()=>{game.Input.BeginRebind(name);Rebuild();});i++;
                 }
                 Button(p.transform,"MINE: "+(PlayerPrefs.GetInt("mineButton",0)==0?"LEFT MOUSE":"RIGHT MOUSE"),36,530,348,44,()=>{PlayerPrefs.SetInt("mineButton",1-PlayerPrefs.GetInt("mineButton",0));PlayerPrefs.Save();Rebuild();});
-                Label(p.transform,"Mouse wheel: all 12 hotbar slots\n1–0: first 10 slots · Shift + drop: full stack",410,527,340,60,15);
+                Label(p.transform,"Opposite mouse button: place block\nWheel / [ ]: slots · Shift+drop: full stack",410,527,340,60,15);
             }
         }
         void Slider(Transform parent,string title,float y,float initial,float min,float max,Action<float> change,bool whole=false)
@@ -228,6 +228,12 @@ namespace RivetReach
             if(diagnostics!=null)diagnostics.text=game.Diagnostics?$"{1/Mathf.Max(.001f,frameAverage):0} fps · {frameAverage*1000:0.0} ms\nWorld: {TerrainGenerator.WorldId} · seed {game.Seed} · {game.World.Address(game.Player.transform.position)}\nChunks {game.World.ReadyCount}/{game.World.ResidentCount} · queue {game.World.PendingCount}\nGeneration + mesh {game.World.LastBuildMs:0.0} ms · edit mesh {game.World.LastEditMeshMs:0.0} ms\nTriangles {game.World.MeshTriangles:N0} · changes {game.World.EditCount} · piles {game.Items.Piles.Count}\nStale jobs rejected {game.World.RejectedJobs} · origin {game.World.Origin}":"";
             if(preview!=null&&previewRoot.activeSelf)preview.Animate(.12f,false,Time.unscaledTime*2);
         }
+        Rect PortraitUV(float width,float height)
+        {
+            // Crop the studio background instead of squeezing the character into narrow UI panels.
+            float span=(width/height)/(previewTexture.width/(float)previewTexture.height);
+            return new Rect((1-span)*.5f,0,span,1);
+        }
         void CreatePreview()
         {
             previewRoot=new GameObject("Appearance preview");previewRoot.transform.position=new Vector3(0,-1000,0);
@@ -236,7 +242,7 @@ namespace RivetReach
             var camera=cam.AddComponent<Camera>();camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=slate;camera.fieldOfView=38;camera.nearClipPlane=.1f;camera.farClipPlane=8;camera.cullingMask=1<<30;
             var fillLight=new GameObject("Portrait fill");fillLight.transform.SetParent(previewRoot.transform,false);fillLight.transform.localPosition=new Vector3(.5f,1.5f,2);
             var lamp=fillLight.AddComponent<Light>();lamp.type=LightType.Point;lamp.range=5;lamp.intensity=3;lamp.cullingMask=1<<30;lamp.shadows=LightShadows.None;
-            previewTexture=new RenderTexture(384,512,24);previewTexture.Create();camera.targetTexture=previewTexture;
+            previewTexture=new RenderTexture(768,1024,24){antiAliasing=4,filterMode=FilterMode.Bilinear};previewTexture.Create();camera.targetTexture=previewTexture;
             game.Player.Camera.cullingMask&=~(1<<30);RefreshPreview();
         }
         public void RefreshPreview()

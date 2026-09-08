@@ -44,7 +44,8 @@ namespace RivetReach
         {
             Seed=seed;
             Inventory=new Inventory(id=>Registry.Get(id).stackLimit);
-            var root=new GameObject("Surface world");root.transform.SetParent(transform,false);World=root.AddComponent<VoxelWorld>();World.Initialize(seed);World.ViewDistance=PlayerPrefs.GetInt("viewDistance",4);
+            var root=new GameObject("Surface world");root.transform.SetParent(transform,false);World=root.AddComponent<VoxelWorld>();World.Initialize(seed);World.ViewDistance=Mathf.Clamp(PlayerPrefs.GetInt("viewDistance.v2",10),4,14);
+            RenderSettings.fogStartDistance=World.FogStart;RenderSettings.fogEndDistance=World.FogEnd;
             var p=new GameObject("Player");p.transform.SetParent(transform,false);Player=p.AddComponent<FirstPersonPlayer>();Player.Initialize(this);
             // Deterministic spawn remains on a supported surface with headroom.
             int h=World.Generator.Height(0,0);Player.transform.position=new Vector3(.5f,h+1.01f,.5f);World.Observer=Player.transform;
@@ -86,6 +87,36 @@ namespace RivetReach
             }
             if(Time.unscaledTime>messageUntil)Message=null;
             if(World.Error!=null)Notify("Terrain worker error: "+World.Error,10);
+        }
+        public bool PlacementPreview(out BlockPos cell,out string reason)
+        {
+            cell=default;reason="Aim at a block face";
+            if(!World.Raycast(Player.Camera.transform.position,Player.Camera.transform.forward,5,out var support,out _,out var face)||face==Vector3Int.zero)return false;
+            cell=support.Offset(face.x,face.y,face.z);
+            return CanPlace(cell,out reason);
+        }
+        public bool CanPlace(BlockPos cell,out string reason)
+        {
+            var selected=Inventory.Slots[Selected];reason="Select a terrain block in the hotbar";
+            if(selected.Empty)return false;
+            reason="Waiting for nearby terrain";if(!World.Ready(cell))return false;
+            reason="This cell is occupied";if(World.Get(cell)!=0)return false;
+            var block=new Bounds(World.Local(cell)+Vector3.one*.5f,Vector3.one*.998f);
+            var player=new Bounds(Player.transform.position+Vector3.up*(Player.Height*.5f),new Vector3(.6f,Player.Height,.6f));
+            reason="Cannot place inside the player";if(block.Intersects(player))return false;
+            reason="Collect the item in this space first";
+            foreach(var pile in Items.Piles)
+                if(block.Intersects(new Bounds(pile.Position.Local(World.Origin)+Vector3.up*.115f,Vector3.one*.23f)))return false;
+            reason="Place "+Registry.Get(selected.Id).displayName;return true;
+        }
+        public bool TryPlaceSelected()
+        {
+            if(Mode!=ScreenMode.Play||Player.Inspecting)return false;
+            if(!PlacementPreview(out var cell,out string reason)){Notify(reason,1);return false;}
+            var selected=Inventory.Slots[Selected];
+            // One local authority turn: recheck occupancy, commit the voxel, then consume exactly one.
+            if(!World.Place(cell,selected.Id))return false;
+            Inventory.Take(Selected,1);Sound.Mine();Notify("Placed "+Registry.Get(selected.Id).displayName,1);return true;
         }
         public void Drop(ItemStack stack)
         {

@@ -261,7 +261,7 @@ Late-game goals come from constructing settlements, expanding useful industrial 
 
 ## 14. Locked first-step interaction contract
 
-**User scope decision, 2026-09-08:** the first playable step contains natural terrain, chunk streaming, FPS movement, fist mining, functional inventory with a crafting placeholder and a 3D player. No structures. [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence) owns the milestone boundary; the details below are working implementation defaults within it, not claims of tested feel or final visual approval.
+**User scope decision, 2026-09-08:** the first playable step contains natural terrain, chunk streaming, FPS movement, fist mining, terrain-block placement, functional inventory with a crafting placeholder and a 3D player. No structures. [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence) owns the milestone boundary; the details below are working implementation defaults within it, not claims of tested feel or final visual approval.
 
 ### Player and controls
 
@@ -277,7 +277,7 @@ Give immediate fist/selection/progress feedback and simple readable impact feedb
 
 ### Inventory and crafting placeholder
 
-Deliver real hotbar/main inventory storage using stable item definitions and section 9's initial slot/stack configuration. Display collected item identity and count; support selection, moving stacks, splitting, combining, quick transfer, manual dropping and clear full-inventory feedback. The selected stack does not turn fists into a tool or enable block placement in this step.
+Deliver real hotbar/main inventory storage using stable item definitions and section 9's initial slot/stack configuration. Display collected item identity and count; support selection, moving stacks, splitting, combining, quick transfer, manual dropping and clear full-inventory feedback. The selected stack remains separate from fist mining. The user’s subsequent POC feedback explicitly adds placement of collected grass, dirt and stone in this step; the contract below supersedes the original placement exclusion.
 
 Reserve a visible area inside the inventory labelled **Crafting — coming later**. It is a UI/layout placeholder only: no functional recipes, ingredient escrow, crafted output, workbench or recipe browser. Placeholder slots accept no real items and never consume or trap stacks. Keep the inventory's actual storage separate so later crafting can connect to the real item model.
 
@@ -286,12 +286,21 @@ Reserve a visible area inside the inventory labelled **Crafting — coming later
 - Start a terrain session, walk/sprint/jump/crouch and cross chunk seams using normal controls.
 - Mine nearby terrain with fists, including at chunk edges and underfoot; confirm targeting, fist motion, visible progress, removal and collision agree.
 - Collect the drops, move/split/merge/drop stacks, fill inventory and pick up only the amount that fits.
+- Place collected terrain against reachable block faces, verify rejected overlaps consume nothing, leave/reload the area, then remine a placed block and recover exactly one item.
 - Open/close inventory while mining; no world edit leaks through UI input and no progress commits against a stale target.
 - Inspect the player body and first-person fists, then review terrain, lighting, item icons and inventory together for a coherent visual concept.
 - Verify the crafting area is visibly unavailable and cannot change item totals.
 - Leave a mined area until its runtime chunk representation unloads, then return and confirm the session's terrain edits and unexpired items remain correct.
 
-The first POC now implements this loop. [Verification results](verification/FIRST_POC_RESULTS.md) record the automated and visual checks actually performed; user assessment of feel and final visual acceptance remains pending. Decide the next implementation with the user after reviewing this slice.
+The first POC now implements this loop. [Current revision results](verification/VISUAL_REVISION_RESULTS.md) record the automated and visual checks actually performed; user assessment of feel and final visual acceptance remains pending. Decide the next implementation with the user after reviewing this slice.
+
+### First-step terrain placement — user feedback extension
+
+Use the opposite mouse button from mining (right mouse by default). Aim at an existing block within 5 m; the voxel ray supplies the entered face and therefore the adjacent destination cell. Show a green wireframe for a valid destination and red for an invalid destination. These three terrain blocks have no directional state, so rotation is unnecessary; machinery orientation and footprints remain later work.
+
+Validate the current selected stack, destination residency, empty occupancy and overlap with the player or a dropped-item pile on each attempt. Reject placement while an inventory/menu is open, while inspecting the body, or when there is no reachable target face. Report the reason and leave quantities unchanged. A successful local authority turn commits one terrain voxel and immediately consumes one item from the selected stack. Held placement repeats at most once per 0.22 seconds using the current target; release resets the repeat timer. Mining and placing simultaneously gives placement priority.
+
+Placed terrain uses the same session edit records, immediate voxel collision and revision-aware neighbour remeshing as mining. It survives chunk unload/reload and origin shifts in-session. Mining it follows the ordinary hardness/drop path. There is no creative/free block source, generated structure placement, blueprint building, undo, terrain gravity or durable save in this extension. The 0.22-second repeat delay and overlap margins are working defaults, not user-validated feel.
 
 ## 15. Player skins
 

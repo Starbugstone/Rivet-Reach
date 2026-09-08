@@ -1316,23 +1316,24 @@ Optimization is continuous, not a final sprint.
 
 The POC should be **small in content and deep in architecture**.
 
-The user's 2026-09-08 staging instruction locks **only the first playable step** below. [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence) owns its scope, exclusions, internal checkpoints and acceptance gate. The later groups preserve the full-game ambition as candidates; their order and size must be decided after reviewing the first playable result. This documentation update starts no gameplay implementation.
+The user's 2026-09-08 staging instruction locks **only the first playable step** below. [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence) owns its scope, exclusions, internal checkpoints and acceptance gate. The later groups preserve the full-game ambition as candidates; their order and size must be decided after reviewing the first playable result. Implementation was subsequently authorized; the first review led to a scoped placement and visual revision, recorded in [FIRST_POC.md](FIRST_POC.md). Checkboxes below distinguish implemented foundations from pending user acceptance.
 
 ### Stage 0 - First playable terrain, FPS and visual concept (locked scope)
 
-- [x] Create the authorized Unity/URP project, pinned to 6000.4.4f1 with URP 17.4.0. Gameplay tasks below remain outstanding.
-- [ ] World-aware coordinates and deterministic natural terrain with no generated structures; real chunk generation, meshing, loading and unloading.
-- [ ] Playable FPS movement, selectable male/female 3D player models and visible first-person fists with basic animation; basic skin selection on both models with a shared body/hand appearance, as specified in [GAMEPLAY.md](GAMEPLAY.md#15-player-skins).
-- [ ] Fist mining, precise targeting/feedback and immediate collision correctness during asynchronous remeshing.
-- [ ] Real item stacks, physical mining drops/pickup, functional inventory/hotbar and an explicitly nonfunctional crafting placeholder inside inventory.
-- [ ] Preserve session edits and item state when leaving and returning to chunks; exercise origin shifts and bounded streaming residency.
+- [x] Create the authorized Unity/URP project, pinned to 6000.4.4f1 with URP 17.4.0.
+- [x] World-aware coordinates and deterministic natural terrain with no generated structures; real chunk generation, meshing, loading and unloading.
+- [x] Playable FPS movement, selectable male/female 3D player models and visible first-person fists with basic animation; basic skin selection on both models with a shared body/hand appearance, as specified in [GAMEPLAY.md](GAMEPLAY.md#15-player-skins).
+- [x] Fist mining, precise targeting/feedback and immediate collision correctness during asynchronous remeshing.
+- [x] Real item stacks, physical mining drops/pickup, functional inventory/hotbar and an explicitly nonfunctional crafting placeholder inside inventory.
+- [x] Preserve session edits and item state when leaving and returning to chunks; exercise origin shifts and bounded streaming residency.
+- [x] Terrain-block placement from collected stacks, with current-face targeting, overlap rejection and session edit persistence.
 - [ ] Establish and review a coherent terrain/player/UI/lighting concept in a standalone Windows build.
-- [ ] Record interaction, visual and streaming evidence against [GAMEPLAY.md](GAMEPLAY.md#14-locked-first-step-interaction-contract) and [SIMULATION.md](SIMULATION.md#12-first-step-terrain-and-streaming-validation).
+- [x] Record interaction, visual and streaming evidence against [GAMEPLAY.md](GAMEPLAY.md#14-locked-first-step-interaction-contract) and [SIMULATION.md](SIMULATION.md#12-first-step-terrain-and-streaming-validation).
 - [ ] Review the result and known issues with the user, then decide the next implementation. Do not automatically start the candidates below.
 
 ### Candidate Stage 1 - Extend the sandbox (not yet selected)
 
-- [ ] Extend the first step's item/inventory/drop systems with block placement and tool progression.
+- [ ] Extend the first step's item/inventory/drop systems with advanced building conveniences and tool progression.
 - [ ] Workbench, furnace and the manual bootstrap recipes in [ECONOMY.md](ECONOMY.md).
 - [ ] Save/reload terrain, inventory, piles and simple block entities.
 - [ ] World water, sinking/buoyant piles, compatible merging and sleeping movement.
@@ -1430,7 +1431,7 @@ These scenarios provide evidence for the tested foundations, not proof of unlimi
 
 ## 39. Deferred scope
 
-The locked first step's exclusions are owned by [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence). In particular, all generated structures, functional crafting, placement/building, tools, mobs, water simulation and industry are deferred from that step. The following larger content areas also remain outside the broader early POC ambition:
+The locked first step's exclusions are owned by [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence). In particular, all generated structures, functional crafting, tools, mobs, water simulation and industry are deferred from that step. The following larger content areas also remain outside the broader early POC ambition:
 
 - huge biome library;
 - polished villages;
