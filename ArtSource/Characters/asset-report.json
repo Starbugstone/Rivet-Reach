@@ -1,0 +1,14 @@
+[
+  {
+    "model": "ExplorerMale",
+    "triangles": 1920,
+    "bones": 17,
+    "materials": 1
+  },
+  {
+    "model": "ExplorerFemale",
+    "triangles": 2180,
+    "bones": 17,
+    "materials": 1
+  }
+]

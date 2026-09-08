@@ -344,3 +344,11 @@ Do not retain every visited chunk's full unmodified voxel/mesh data merely to si
 | Inventory interaction during remeshing/loading | No unintended mining through UI and no duplicate/lost stack transfers |
 
 Record seed, generator version, travel route/duration, distances, job settings, build revision and actual reference hardware. Use the existing provisional frame/feedback/memory budgets, reporting measured outcomes and limitations. This step establishes evidence for its tested terrain workload; it does not certify factory scale, additional worlds or unlimited travel.
+
+### First POC implementation evidence
+
+The [first-POC record](FIRST_POC.md#implemented-foundation) and [verification results](verification/FIRST_POC_RESULTS.md) document the implemented subset. Worker meshes use immutable terrain/edit snapshots, per-residency generation tokens and edit revisions. Collision uses current voxel data and closed unready frontiers.
+
+For this small palette, mining currently rebuilds only resident chunks whose halo touches the edit synchronously, keeping visual removal and occupancy aligned immediately. This is a bounded first-slice choice instead of the preferred changed-cell patch followed by an asynchronous optimized rebuild. The initial mesher produced a measured 55 ms hitch; direct stride indexing reduced that path substantially. The final measured cost and remaining frame-time limitation are recorded in the results. Keep measuring at seams and under heavier edits; move to immediate patches/async rebuilds if the synchronous cost exceeds the workload's budget. The nominal streaming publication budget is checked between meshes, so it is not a hard per-frame ceiling for one upload.
+
+The tested route is finite and the item fixture is small. This does not validate unbounded travel, sustained thousands-of-pile workloads, factory simulation, multiplayer or durable recovery. Their existing contracts remain requirements for the stages that introduce them.

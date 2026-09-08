@@ -1,6 +1,6 @@
 # Rivet Reach - Project Plan and Long-Term Vision
 
-> **Status:** initial Unity project created; gameplay/POC implementation not yet started
+> **Status:** first terrain/FPS/inventory POC implemented for review; later milestones remain planned
 >
 > Rivet Reach is intentionally **evolutive**. The design will continue to change while we brainstorm, prototype, benchmark and test the POC. The current documents describe the agreed direction, not an immutable final specification.
 >
@@ -21,7 +21,7 @@ Related design documents:
 
 ### How to read this plan
 
-The existing vision and explicitly agreed rules remain the design baseline. The 2026-09-08 resolution pass adds **working decisions** selected under the user's request to solve conflicts; they are current specifications, not validated results. Specialist documents distinguish these from unresolved proposals and numerical tuning. Unchecked milestones are future work, not implemented capabilities. The user subsequently authorized project initialization only. The repository contains the Unity scaffold; further gameplay implementation follows explicit task scope.
+The existing vision and explicitly agreed rules remain the design baseline. The 2026-09-08 resolution pass adds **working decisions** selected under the user's request to solve conflicts; they are current specifications, not validated results. Specialist documents distinguish these from unresolved proposals and numerical tuning. Unchecked milestones are future work, not implemented capabilities. The user subsequently authorized initialization and then implementation of the locked first POC. [FIRST_POC.md](FIRST_POC.md) records the resulting playable slice and links its verification; later milestones still require a scope decision.
 
 Detailed simulation behaviour belongs to `SIMULATION.md`, transport behaviour to `TRANSPORT.md`, player-experience criteria to `GAMEPLAY.md`, and hidden history to `LORE.md`. Economy, content workflow and delivery details belong to their named specialist files. Stage order belongs only to `DEVELOPMENT_STRATEGY.md`. Summaries here do not override those documents. Conflicts should be resolved explicitly and recorded, not silently interpreted as approval.
 

@@ -230,7 +230,7 @@ It does not need every future migration/recovery feature before mining feels goo
 
 ## 6. Locked first step and provisional later sequence
 
-This document owns milestone scope and sequencing, mirrored by PROJECT_PLAN.md. The user's 2026-09-08 staging instruction supersedes the earlier automatic Stage 0-5 progression: **only the first step below is locked. Review its playable result with the user before choosing the next implementation.** The later stages remain candidate groupings of the full-game vision, not an approved queue. This request locks documentation; it does not start gameplay implementation.
+This document owns milestone scope and sequencing, mirrored by PROJECT_PLAN.md. The user's 2026-09-08 staging instruction supersedes the earlier automatic Stage 0-5 progression: **only the first step below is locked. Review its playable result with the user before choosing the next implementation.** The later stages remain candidate groupings of the full-game vision, not an approved queue. The user subsequently authorized implementation of this locked slice; [FIRST_POC.md](FIRST_POC.md) records the delivered review candidate.
 
 ### Stage 0 - First playable terrain, FPS and visual concept (locked scope)
 
@@ -524,9 +524,9 @@ Neither side replaces the other.
 
 ## 11. Current development priority
 
-The first milestone's scope is locked in section 6. Gameplay implementation has not begun; this documentation decision does not mark any new feature implemented.
+The first milestone's scope is locked in section 6. Its initial playable implementation is recorded in [FIRST_POC.md](FIRST_POC.md), with measured results and remaining review work. User acceptance of the slice and selection of the next milestone remain pending.
 
-When implementation is authorized, the first priority is:
+The current priority is:
 
 > **Build and review the locked terrain/FPS/fist-mining/inventory/3D-player slice, then decide with the user what to implement next.**
 

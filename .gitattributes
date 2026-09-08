@@ -11,3 +11,7 @@
 .docs/licenses/** whitespace=-blank-at-eol,-blank-at-eof
 # Version concept PNGs through Git LFS; keep documentation in ordinary Git.
 .docs/concept-art/*.png filter=lfs diff=lfs merge=lfs -text
+ArtSource/**/*.blend filter=lfs diff=lfs merge=lfs -text
+Assets/RivetReach/Resources/Characters/*.fbx filter=lfs diff=lfs merge=lfs -text
+Assets/RivetReach/Resources/Characters/*.png filter=lfs diff=lfs merge=lfs -text
+.docs/verification/*.png filter=lfs diff=lfs merge=lfs -text

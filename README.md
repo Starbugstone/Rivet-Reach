@@ -16,11 +16,11 @@ The long-term vision combines:
 
 ## Current status
 
-Rivet Reach is in **early development and specification design**. The repository root is now a Unity **6000.4.4f1** project using **URP 17.4.0**. It contains the initial scene and rendering/input configuration; gameplay systems and the playable POC are not implemented yet.
+Rivet Reach is in **early development and specification design**. The repository root is now a Unity **6000.4.4f1** project using **URP 17.4.0**. It now includes the first playable terrain/FPS/inventory POC, with male/female player models and two interchangeable skins. This is an early review build; the wider game remains planned.
 
-Open this repository folder in Unity Hub with the pinned Editor version. Start with `Assets/RivetReach/Scenes/Main.unity`. See [Unity setup](.docs/UNITY_SETUP.md) for the exact setup and verification notes.
+Open this repository folder in Unity Hub with the pinned Editor version. Open `Assets/RivetReach/Scenes/Main.unity` and press Play. The Windows executable is generated at `Builds/FirstPOC/RivetReach.exe`. See [POC controls and build instructions](.docs/FIRST_POC.md) and [measured verification results](.docs/verification/FIRST_POC_RESULTS.md). See [Unity setup](.docs/UNITY_SETUP.md) for the exact setup and verification notes.
 
-The **locked first playable step** is terrain generation and chunk streaming, FPS movement, a 3D player, fist mining, functional inventory and a crafting placeholder inside that inventory. It contains **no generated structures**. Establish the visual concept and validate terrain/loading through play before choosing the next implementation. Full crafting, industry and background factories remain later ambitions. See the authoritative [first-step scope and review gate](.docs/DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence). This scope is documented; gameplay implementation has not started.
+The **locked first playable step** is terrain generation and chunk streaming, FPS movement, a 3D player, fist mining, functional inventory and a crafting placeholder inside that inventory. It contains **no generated structures**. Establish the visual concept and validate terrain/loading through play before choosing the next implementation. Full crafting, industry and background factories remain later ambitions. See the authoritative [first-step scope and review gate](.docs/DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence). The first slice is implemented for review. Progress survives chunk unloading in-session but resets when the game quits.
 
 The design will remain **evolutive** while ideas are brainstormed and the POC is tested. Systems described today may be refined as implementation and performance testing expose better solutions.
 

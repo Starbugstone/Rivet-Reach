@@ -112,3 +112,15 @@ These alternatives can be revisited with a concrete reason and affected-rule rev
 The user has received Unity initialization at the repository root with Editor 6000.4.4f1 and now explicitly locks the first playable step in documentation. Gameplay implementation is still a subsequent task. When requested, implement only the scope in [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence): terrain generation/loading, FPS movement, 3D player, fist mining and real inventory with a crafting placeholder. No structures. Record hardware, visual review, interaction/streaming findings and known limits, then decide the next implementation with the user. The retained sandbox/industry/lifecycle/multi-world groups are possibilities, not preselected next tasks.
 
 Every working decision now has a concrete behaviour and acceptance case. Only measurements can establish performance, feel and final balance; this register must not mark them validated on the strength of a Markdown review.
+
+## First POC review — implementation now available
+
+The user subsequently authorized the locked slice, now documented in [FIRST_POC.md](FIRST_POC.md) with [verification evidence](verification/FIRST_POC_RESULTS.md). This supersedes earlier statements that all gameplay is still unimplemented. The full-game decisions above remain working specifications.
+
+Review these points in the playable build before choosing the next scope:
+
+- Does the walking/jumping/crouching and fist-mining pace feel right on actual terrain? The definition-driven mining times and controller values are initial tuning.
+- Are the original male/female models, longer female hair, practical clothing and first-person fists a useful translation of the accepted concept? The rig is simple and the shared skin sheet still reuses regions across mesh faces. Decide whether the next visual refinement needs a full front/back body unwrap and custom PNG import.
+- Is the small hills/caves palette a useful starting composition? Cave lighting is deliberately simple; the build has no structures, water, vegetation or broader biome content.
+- Mining's immediate local remesh is now measured, but heavier seam edits and slower hardware may require the preferred changed-cell patch plus asynchronous rebuild. The current finite traversal sample is not a factory-scale or long-session memory certification.
+- After this first review, select the next playable increment explicitly. Functional crafting, durable saving, building and later industry remain candidates rather than an automatic implementation queue.

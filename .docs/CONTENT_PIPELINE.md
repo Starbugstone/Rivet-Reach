@@ -1,6 +1,6 @@
 # Rivet Reach - Content and Asset Workflow
 
-> **Status:** working specification, 2026-09-08. Applies when asset production/implementation is requested. No assets, Unity scaffolding or integration packages are created by this document.
+> **Status:** working specification, 2026-09-08. The first POC now supplies the initial runtime kit; detailed production rules remain working specifications. See [FIRST_POC.md](FIRST_POC.md#actual-first-visual-kit) for actual assets, skin layout and measured geometry.
 
 ## 1. Scale and source ownership
 
@@ -8,7 +8,7 @@ Use 1 metre per voxel and model modular assets against that grid. Blender workin
 
 A block-sized machine's anchor is its lower grid corner, with its footprint explicitly recorded in the content definition. Reusable attachments use a named connector pivot. Visual meshes can extend within their declared bounds but cannot invent solid occupied cells absent from gameplay data. Decorative animation must not move authoritative ports or collision unexpectedly.
 
-Planned source layout: `ArtSource/` for editable Blender/image/audio originals; `Assets/RivetReach/` for imported runtime content; `Packages/` for pinned dependencies; `ProjectSettings/` for Unity settings. Specifications remain in `.docs/`. These paths are a future convention, not a request to create empty directories now.
+Source layout: `ArtSource/` for editable Blender/image/audio originals; `Assets/RivetReach/` for imported runtime content; `Packages/` for pinned dependencies; `ProjectSettings/` for Unity settings. Specifications remain in `.docs/`. The first POC uses this layout for its original character sources and runtime exports.
 
 Keep `.blend` source separate from Unity's imported runtime hierarchy. Publish explicit interchange exports with documented settings so opening a project does not depend on every contributor's local Blender executable or personal defaults. FBX is the initial mesh/animation interchange choice; texture outputs use lossless source images and Unity import compression settings selected per use.
 

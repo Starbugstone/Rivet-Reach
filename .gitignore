@@ -26,3 +26,9 @@
 Thumbs.db
 # Crash diagnostics
 sysinfo.txt
+
+# Blender recovery copies and Unity performance-package generated build metadata
+/ArtSource/**/*.blend1
+/Assets/Resources/PerformanceTestRunInfo.json*
+/Assets/Resources/PerformanceTestRunSettings.json*
+/Assets/Resources.meta

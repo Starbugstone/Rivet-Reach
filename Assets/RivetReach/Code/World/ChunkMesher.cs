@@ -1,0 +1,65 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace RivetReach
+{
+    public sealed class ChunkBuild
+    {
+        public ChunkPos Position;
+        public int Revision,Token;
+        public byte[] Cells;
+        public Vector3[] Vertices,Normals;
+        public Vector2[] UV, Tiles;
+        public int[] Triangles;
+        public double Milliseconds;
+    }
+
+    public static class ChunkMesher
+    {
+        public static int Index(int x,int y,int z) => x+1+34*(y+1+34*(z+1));
+        public static ChunkBuild Build(ChunkPos pos,int revision,byte[] cells)
+        {
+            var vertices=new List<Vector3>();var normals=new List<Vector3>();var uv=new List<Vector2>();
+            var tiles=new List<Vector2>();var indices=new List<int>();var mask=new byte[1024];
+            int[] stride={1,34,1156};
+            for(int axis=0;axis<3;axis++)for(int sign=-1;sign<=1;sign+=2)
+            {
+                int u=(axis+1)%3,v=(axis+2)%3;
+                for(int layer=0;layer<32;layer++)
+                {
+                    for(int j=0;j<32;j++)for(int i=0;i<32;i++)
+                    {
+                        int address=Index(0,0,0)+layer*stride[axis]+i*stride[u]+j*stride[v];
+                        byte a=cells[address],b=cells[address+sign*stride[axis]];
+                        mask[i+j*32]=a!=0&&b==0?a:(byte)0;
+                    }
+                    for(int j=0;j<32;j++)for(int i=0;i<32;)
+                    {
+                        byte id=mask[i+j*32];if(id==0){i++;continue;}
+                        int width=1;while(i+width<32&&mask[i+width+j*32]==id)width++;
+                        int height=1;bool stop=false;
+                        while(j+height<32&&!stop)
+                        {
+                            for(int k=0;k<width;k++)if(mask[i+k+(j+height)*32]!=id){stop=true;break;}
+                            if(!stop)height++;
+                        }
+                        Vector3 p=Vector3.zero,du=Vector3.zero,dv=Vector3.zero,n=Vector3.zero;
+                        p[axis]=layer+(sign>0?1:0);p[u]=i;p[v]=j;du[u]=width;dv[v]=height;n[axis]=sign;
+                        int start=vertices.Count;
+                        vertices.Add(p);vertices.Add(p+du);vertices.Add(p+du+dv);vertices.Add(p+dv);
+                        uv.Add(Vector2.zero);
+                        if(axis==0){uv.Add(new Vector2(0,width));uv.Add(new Vector2(height,width));uv.Add(new Vector2(height,0));}
+                        else {uv.Add(new Vector2(width,0));uv.Add(new Vector2(width,height));uv.Add(new Vector2(0,height));}
+                        int tile=id==1?(axis==1?(sign>0?0:2):1):id==2?2:3;
+                        for(int k=0;k<4;k++){normals.Add(n);tiles.Add(new Vector2(tile,0));}
+                        if(sign>0){indices.Add(start);indices.Add(start+1);indices.Add(start+2);indices.Add(start);indices.Add(start+2);indices.Add(start+3);}
+                        else {indices.Add(start);indices.Add(start+2);indices.Add(start+1);indices.Add(start);indices.Add(start+3);indices.Add(start+2);}
+                        for(int y=0;y<height;y++)for(int x=0;x<width;x++)mask[i+x+(j+y)*32]=0;
+                        i+=width;
+                    }
+                }
+            }
+            return new ChunkBuild{Position=pos,Revision=revision,Cells=cells,Vertices=vertices.ToArray(),Normals=normals.ToArray(),UV=uv.ToArray(),Tiles=tiles.ToArray(),Triangles=indices.ToArray()};
+        }
+    }
+}
