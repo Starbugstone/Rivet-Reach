@@ -85,11 +85,11 @@ namespace RivetReach.Editor
             var axeImporter=(ModelImporter)AssetImporter.GetAtPath("Assets/RivetReach/Resources/Tools/StarterAxe.fbx");
             if(axeImporter!=null&&(!axeImporter.useFileScale||axeImporter.importAnimation||axeImporter.materialImportMode!=ModelImporterMaterialImportMode.None||!axeImporter.isReadable))
             {axeImporter.useFileScale=true;axeImporter.importAnimation=false;axeImporter.materialImportMode=ModelImporterMaterialImportMode.None;axeImporter.isReadable=true;axeImporter.SaveAndReimport();}
-            foreach(string toolTexture in new[]{"StarterAxe","StarterAxeIcon"})
+            foreach(string toolTexture in new[]{"StarterAxe","StarterAxeIcon","StarterPickaxeIcon","StarterDaggerIcon"})
             {
                 var importer=(TextureImporter)AssetImporter.GetAtPath("Assets/RivetReach/Resources/Tools/"+toolTexture+".png");
                 if(importer!=null&&(importer.textureShape!=TextureImporterShape.Texture2D||importer.filterMode!=FilterMode.Point||importer.textureCompression!=TextureImporterCompression.Uncompressed))
-                {importer.textureShape=TextureImporterShape.Texture2D;importer.filterMode=FilterMode.Point;importer.textureCompression=TextureImporterCompression.Uncompressed;importer.mipmapEnabled=toolTexture!="StarterAxeIcon";importer.alphaIsTransparency=toolTexture=="StarterAxeIcon";importer.SaveAndReimport();}
+                {importer.textureShape=TextureImporterShape.Texture2D;importer.filterMode=FilterMode.Point;importer.textureCompression=TextureImporterCompression.Uncompressed;importer.mipmapEnabled=!toolTexture.EndsWith("Icon");importer.alphaIsTransparency=toolTexture.EndsWith("Icon");importer.SaveAndReimport();}
             }
             const string definitions="Assets/RivetReach/Resources/Definitions/Items.asset";
             var registry=AssetDatabase.LoadAssetAtPath<ItemRegistry>(definitions);
@@ -104,7 +104,9 @@ namespace RivetReach.Editor
             foreach(var item in new[]{
                 new ItemDefinition{runtimeId=BlockId.Log,stableId="rivet:log",displayName="Log",fistSeconds=1.5f,colour=new Color(.40f,.27f,.14f)},
                 new ItemDefinition{runtimeId=BlockId.Leaves,stableId="rivet:leaves",displayName="Leaves",fistSeconds=.2f,colour=new Color(.28f,.45f,.18f)},
-                new ItemDefinition{runtimeId=BlockId.StarterAxe,stableId="rivet:starter_axe",displayName="Starter axe",stackLimit=1,toolCapabilities=ToolCapability.Axe,colour=new Color(.6f,.65f,.67f)}})
+                new ItemDefinition{runtimeId=BlockId.StarterAxe,stableId="rivet:starter_axe",displayName="Starter axe",stackLimit=1,toolCapabilities=ToolCapability.Axe,colour=new Color(.6f,.65f,.67f)},
+                new ItemDefinition{runtimeId=BlockId.StarterPickaxe,stableId="rivet:starter_pickaxe",displayName="Starter pickaxe",stackLimit=1,toolCapabilities=ToolCapability.Pickaxe,colour=new Color(.6f,.65f,.67f)},
+                new ItemDefinition{runtimeId=BlockId.StarterDagger,stableId="rivet:starter_dagger",displayName="Starter dagger",stackLimit=1,toolCapabilities=ToolCapability.Blade,colour=new Color(.6f,.65f,.67f)}})
                 if(!registry.items.Any(i=>i.runtimeId==item.runtimeId))registry.items=registry.items.Append(item).ToArray();
             registry.Get(1).fistDropId=2;EditorUtility.SetDirty(registry);
             var tiles=TerrainTiles.Build();

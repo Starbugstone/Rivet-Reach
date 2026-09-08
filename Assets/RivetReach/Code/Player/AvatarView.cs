@@ -13,6 +13,7 @@ namespace RivetReach
     // The Blender library owns poses and joint motion. Gameplay supplies state only.
     public sealed class AvatarView : MonoBehaviour
     {
+        const float SwingSpeed=2.5f;
         readonly Dictionary<string,Transform> bones=new Dictionary<string,Transform>();
         readonly List<Mesh> derivedMeshes=new List<Mesh>();
         GameObject model;
@@ -213,10 +214,10 @@ namespace RivetReach
             swingRequested=false;
             if(swingActive)
             {
-                strikeTime+=dt;
+                strikeTime+=dt*SwingSpeed;
                 if(strikeTime>=strikeLength){if(mining)strikeTime%=Mathf.Max(.01f,strikeLength);else{strikeTime=strikeLength;swingActive=false;}}
             }
-            wasMining=mining;miningBlend=Follow(miningBlend,swingActive?1:0,swingActive?.014f:.035f,dt);
+            wasMining=mining;miningBlend=Follow(miningBlend,swingActive?1:0,swingActive?.014f:.035f,dt*SwingSpeed);
             UpdateGrip(dt);
             for(int i=0;i<4;i++)strikeClips[i].SetTime(SwingPhase*strikeClips[i].GetAnimationClip().length);
             layers.SetInputWeight(2,miningBlend);graph.Evaluate(0);

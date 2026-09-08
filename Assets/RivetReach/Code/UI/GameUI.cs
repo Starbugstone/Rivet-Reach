@@ -274,7 +274,7 @@ namespace RivetReach
             if(preview==null)return;preview.Build(game.Player.Female,game.Player.Skin);
             foreach(var t in preview.GetComponentsInChildren<Transform>())t.gameObject.layer=30;
         }
-        Texture2D sharedAxeIcon;
+        readonly HashSet<Texture2D> sharedToolIcons=new HashSet<Texture2D>();
         void BuildIcons()
         {
             var tiles=Resources.Load<Texture2DArray>("Materials/BlockTiles");
@@ -283,8 +283,11 @@ namespace RivetReach
             {int x=Mathf.Clamp((int)(u*tiles.width),0,tiles.width-1),y=Mathf.Clamp((int)(v*tiles.height),0,tiles.height-1);return swatches[layer][x+y*tiles.width];}
             foreach(var item in game.Registry.items)
             {
-                if((item.toolCapabilities&ToolCapability.Axe)!=0)
-                {sharedAxeIcon=Resources.Load<Texture2D>("Tools/StarterAxeIcon");icons[item.runtimeId]=sharedAxeIcon;continue;}
+                if(item.toolCapabilities!=ToolCapability.None)
+                {
+                    string name=(item.toolCapabilities&ToolCapability.Axe)!=0?"StarterAxeIcon":(item.toolCapabilities&ToolCapability.Pickaxe)!=0?"StarterPickaxeIcon":"StarterDaggerIcon";
+                    var icon=Resources.Load<Texture2D>("Tools/"+name);sharedToolIcons.Add(icon);icons[item.runtimeId]=icon;continue;
+                }
                 var texture=new Texture2D(48,48,TextureFormat.RGBA32,false);texture.filterMode=FilterMode.Point;var pixels=new Color[48*48];
                 for(int y=0;y<48;y++)for(int x=0;x<48;x++)
                 {
@@ -302,7 +305,7 @@ namespace RivetReach
                 texture.SetPixels(pixels);texture.Apply();icons[item.runtimeId]=texture;
             }
         }
-        void OnDestroy(){foreach(var t in icons.Values)if(t!=sharedAxeIcon)Destroy(t);if(previewTexture!=null){previewTexture.Release();Destroy(previewTexture);}if(previewRoot!=null)Destroy(previewRoot);}
+        void OnDestroy(){foreach(var t in icons.Values)if(!sharedToolIcons.Contains(t))Destroy(t);if(previewTexture!=null){previewTexture.Release();Destroy(previewTexture);}if(previewRoot!=null)Destroy(previewRoot);}
     }
     public sealed class PortraitDrag : MonoBehaviour,IDragHandler
     {public GameUI Owner;public void OnDrag(PointerEventData e)=>Owner.RotatePreview(e.delta.x);}

@@ -56,6 +56,8 @@ namespace RivetReach
         {
             Seed=seed;
             Inventory=new Inventory(id=>Registry.Get(id).stackLimit);
+            Inventory.Slots[9]=new ItemStack(BlockId.StarterDagger,1);
+            Inventory.Slots[10]=new ItemStack(BlockId.StarterPickaxe,1);
             Inventory.Slots[11]=new ItemStack(BlockId.StarterAxe,1);
             var root=new GameObject("Surface world");root.transform.SetParent(transform,false);World=root.AddComponent<VoxelWorld>();World.Initialize(seed);World.ViewDistance=Mathf.Clamp(PlayerPrefs.GetInt("viewDistance.v2",10),4,14);
             RenderSettings.fogStartDistance=World.FogStart;RenderSettings.fogEndDistance=World.FogEnd;

@@ -11,6 +11,18 @@ namespace RivetReach
         {
             var world=game.World;var player=game.Player;sampling=true;
             Check(game.Inventory.Slots[11].Id==BlockId.StarterAxe&&game.Inventory.Slots[11].Count==1,"New session supplies one starter axe in hotbar slot 12");
+            foreach(var tool in new[]{(slot:9,id:BlockId.StarterDagger,grip:GripPose.Tool),(slot:10,id:BlockId.StarterPickaxe,grip:GripPose.TwoHandTool)})
+            {
+                var stack=game.Inventory.Slots[tool.slot];var definition=game.Registry.Get(tool.id);
+                Check(stack.Id==tool.id&&stack.Count==1&&definition.stackLimit==1,"New session supplies a single-stack "+definition.displayName);
+                Check((game.Registry.Capabilities(stack)&ToolCapability.Axe)==0&&!BlockId.Placeable(tool.id),"Pickaxe/dagger cannot acquire axe felling or become terrain voxels");
+                game.Selected=tool.slot;yield return new WaitForSecondsRealtime(.5f);
+                Check(player.HeldBlock.Visible&&player.HeldBlock.ItemId==tool.id&&player.HeldBlock.DesiredGrip==tool.grip,"Hotbar selection displays the existing "+definition.displayName+" with its authored grip");
+                yield return Capture("hotbar-"+tool.id);
+                player.Pitch=-65;player.VerificationMining=true;yield return new WaitForSecondsRealtime(.7f);
+                player.VerificationMining=false;player.Pitch=10;yield return new WaitForSecondsRealtime(.4f);
+                Check(player.Arms.MiningWeight<.02f,"New hotbar tool completes its swing and returns to idle");
+            }
             Check(TerrainGenerator.Version=="terrain-2-trees","Tree generation version is recorded");
             var natural=world.Generator.Trees(-35,-35,35,35).First(t=>t.Root.X>7&&t.Root.Z>7);
             Check(world.Get(natural.Root)==BlockId.Log&&world.Get(natural.Root.Offset(0,natural.Logs,0))==BlockId.Leaves,"Streamed natural tree contains logs and leaves");
@@ -50,7 +62,7 @@ namespace RivetReach
             // High fixture crosses both horizontal and vertical chunk seams.
             var cut=new BlockPos(31,95,31);player.transform.position=world.Local(cut)+new Vector3(-3,0,-3);
             yield return Settle();
-            foreach(var tool in new[]{ToolCapability.None,ToolCapability.Pickaxe,ToolCapability.Axe,ToolCapability.Axe|ToolCapability.Pickaxe})
+            foreach(var tool in new[]{ToolCapability.None,ToolCapability.Pickaxe,ToolCapability.Blade,ToolCapability.Axe,ToolCapability.Axe|ToolCapability.Pickaxe})
             {
                 for(int y=-1;y<=3;y++){var p=cut.Offset(0,y,0);if(world.Get(p)!=0)world.Remove(p,world.Get(p));Check(world.Place(p,BlockId.Log),"Fixture log placed across seam");}
                 var branch=cut.Offset(1,2,0);if(world.Get(branch)!=0)world.Remove(branch,world.Get(branch));Check(world.Place(branch,BlockId.Log),"Connected branch crosses x seam");
@@ -114,10 +126,10 @@ namespace RivetReach
             world.Place(cut.Offset(0,3,0),BlockId.Log);world.Mine(cut.Offset(0,3,0),BlockId.Log,ToolCapability.Axe);
             yield return new WaitForSecondsRealtime(3);
             Check(world.Get(placedLeaf)==BlockId.Leaves,"Player-placed leaves do not decay after their supporting log is removed");
-            var naturalTests=world.Generator.Trees(-40,-40,40,40).Where(t=>world.NaturalLog(t.Root)&&t.Root.X<0&&t.Root.Z<0).Take(6).ToArray();
-            Check(naturalTests.Length==6,"Enough untouched generated trees are available for provenance tests");
+            var naturalTests=world.Generator.Trees(-40,-40,40,40).Where(t=>world.NaturalLog(t.Root)&&t.Root.X<0&&t.Root.Z<0).Take(7).ToArray();
+            Check(naturalTests.Length==7,"Enough untouched generated trees are available for provenance tests");
             int treeIndex=0;
-            foreach(var tool in new[]{ToolCapability.None,ToolCapability.Pickaxe,ToolCapability.Axe,ToolCapability.Axe|ToolCapability.Pickaxe})
+            foreach(var tool in new[]{ToolCapability.None,ToolCapability.Pickaxe,ToolCapability.Blade,ToolCapability.Axe,ToolCapability.Axe|ToolCapability.Pickaxe})
             {
                 var tree=naturalTests[treeIndex++];var middle=tree.Root.Offset(0,1,0);var baseLog=middle.Offset(1,0,0);
                 if(world.Get(baseLog)!=0)world.Remove(baseLog,world.Get(baseLog));world.Place(baseLog,BlockId.Log);
@@ -126,12 +138,12 @@ namespace RivetReach
                 Check(world.Get(tree.Root)==BlockId.Log&&world.Get(baseLog)==BlockId.Log,"Generated stump and adjoining player construction remain intact: "+tool);
                 Check(world.Get(tree.Root.Offset(0,tree.Logs-1,0))==(axeTool?0:BlockId.Log)&&game.Items.TotalSpawned==before+(axeTool?tree.Logs-1:1),"Only axe capability fells generated logs above the cut: "+tool);
             }
-            var replacedTree=naturalTests[4];before=game.Items.TotalSpawned;
+            var replacedTree=naturalTests[5];before=game.Items.TotalSpawned;
             Check(world.Mine(replacedTree.Root,BlockId.Log,ToolCapability.Axe),"Generated cut queues upper logs");
             var replacedLog=replacedTree.Root.Offset(0,1,0);world.Remove(replacedLog,BlockId.Log);world.Place(replacedLog,BlockId.Log);
             yield return new WaitForSecondsRealtime(.5f);
             Check(world.Get(replacedLog)==BlockId.Log&&world.Get(replacedLog.Offset(0,1,0))==BlockId.Log&&game.Items.TotalSpawned==before+1,"Queued felling rechecks origin and stops at a replaced player log");
-            var unloadedTree=naturalTests[5];game.SetMode(ScreenMode.Pause);before=game.Items.TotalSpawned;
+            var unloadedTree=naturalTests[6];game.SetMode(ScreenMode.Pause);before=game.Items.TotalSpawned;
             Check(world.Mine(unloadedTree.Root,BlockId.Log,ToolCapability.Axe),"Generated felling operation is queued before unloading");
             var returnPoint=WorldPoint.FromLocal(player.transform.position,world.Origin);
             player.transform.position+=new Vector3(1024,0,0);yield return Settle();

@@ -16,7 +16,11 @@ namespace RivetReach
             {
                 if(PreviewGrip.HasValue)return PreviewGrip.Value;
                 var stack=Player.Game.Inventory.Slots[Player.Game.Selected];
-                return stack.Empty?GripPose.Empty:Player.Game.Registry.Capabilities(stack)!=ToolCapability.None?GripPose.Tool:GripPose.Block;
+                if(stack.Empty)return GripPose.Empty;
+                var tool=Player.Game.Registry.Capabilities(stack);
+                if((tool&ToolCapability.Axe)!=0)return GripPose.Tool;
+                if((tool&ToolCapability.Pickaxe)!=0)return GripPose.TwoHandTool;
+                return tool!=ToolCapability.None?GripPose.Tool:GripPose.Block;
             }
         }
         public bool Visible=>view!=null&&view.activeInHierarchy;

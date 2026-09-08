@@ -4,11 +4,11 @@ using UnityEngine;
 namespace RivetReach
 {
     [Flags]
-    public enum ToolCapability { None=0, Axe=1, Pickaxe=2 }
+    public enum ToolCapability { None=0, Axe=1, Pickaxe=2, Blade=4 }
 
     public static class BlockId
     {
-        public const byte Air=0,Grass=1,Dirt=2,Stone=3,Log=4,Leaves=5,StarterAxe=6;
+        public const byte Air=0,Grass=1,Dirt=2,Stone=3,Log=4,Leaves=5,StarterAxe=6,StarterPickaxe=7,StarterDagger=8;
         public static bool Placeable(byte id)=>id>=Grass&&id<=Leaves;
         public static bool Opaque(byte id)=>id!=Air&&id!=Leaves;
         public static int Tile(byte id,int axis,int sign)=>id==Grass?(axis==1?(sign>0?0:2):1):id==Dirt?2:id==Log?(axis==1?5:4):id==Leaves?6:3;

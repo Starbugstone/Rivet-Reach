@@ -1,4 +1,4 @@
-"""Original cosmetic sword/pickaxe for validating handle grips, not gameplay tools.
+"""Original grip-review models, also used by the starter dagger and pickaxe.
 Copyright (c) 2026 Starbugstone. Run in background Blender.
 """
 import bpy, math

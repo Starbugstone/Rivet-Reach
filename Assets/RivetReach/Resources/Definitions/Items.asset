@@ -61,3 +61,19 @@ MonoBehaviour:
     colour: {r: 0.6, g: 0.65, b: 0.67, a: 1}
     fistDropId: 0
     toolCapabilities: 1
+  - runtimeId: 7
+    stableId: rivet:starter_pickaxe
+    displayName: Starter pickaxe
+    stackLimit: 1
+    fistSeconds: 0.6
+    colour: {r: 0.6, g: 0.65, b: 0.67, a: 1}
+    fistDropId: 0
+    toolCapabilities: 2
+  - runtimeId: 8
+    stableId: rivet:starter_dagger
+    displayName: Starter dagger
+    stackLimit: 1
+    fistSeconds: 0.6
+    colour: {r: 0.6, g: 0.65, b: 0.67, a: 1}
+    fistDropId: 0
+    toolCapabilities: 4
