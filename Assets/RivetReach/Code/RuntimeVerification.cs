@@ -172,10 +172,15 @@ namespace RivetReach
             // Fill every slot, leave exactly five spaces, then exercise real partial pickup.
             var carried=game.Inventory.Slots.ToArray();for(int slot=0;slot<60;slot++)game.Inventory.Take(slot,int.MaxValue);
             game.Inventory.Add(3,29995);
+            // Isolate this quantity fixture from the just-mined drop: it may still be in
+            // pickup/merge range depending on frame timing. Ordinary item rules are unchanged.
+            var priorDelays=game.Items.Piles.Select(p=>(pile:p,delay:p.Delay)).ToArray();
+            foreach(var savedDelay in priorDelays)savedDelay.pile.Delay=Math.Max(1,savedDelay.delay);
             game.Items.Spawn(new ItemStack(3,10),player.transform.position+Vector3.up*.35f,Vector3.zero);
             var partial=game.Items.Piles[game.Items.Piles.Count-1];game.Items.Step(.05f);
             Check(game.Inventory.Total(3)==30000&&partial.Stack.Count==5,"Partial pickup fills five spaces and leaves five in world");
             game.Items.Step(.05f);Check(partial.Stack.Count==5,"Full inventory does not consume remaining world items");
+            foreach(var savedDelay in priorDelays)savedDelay.pile.Delay=savedDelay.delay;
             game.Items.Piles.Remove(partial);if(partial.View!=null)Destroy(partial.View);
             for(int slot=0;slot<60;slot++)game.Inventory.Take(slot,int.MaxValue);
             foreach(var stack in carried)if(!stack.Empty)game.Inventory.Add(stack.Id,stack.Count);

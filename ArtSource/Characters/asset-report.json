@@ -1,14 +1,100 @@
 [
   {
     "model": "ExplorerMale",
-    "triangles": 1920,
-    "bones": 17,
-    "materials": 1
+    "triangles": 4572,
+    "bones": 40,
+    "materials": 1,
+    "maxInfluences": 3,
+    "clips": [
+      {
+        "name": "Idle",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "Walk",
+        "seconds": 1.0,
+        "loop": true
+      },
+      {
+        "name": "Run",
+        "seconds": 0.8,
+        "loop": true
+      },
+      {
+        "name": "Airborne",
+        "seconds": 1.0,
+        "loop": true
+      },
+      {
+        "name": "Mine",
+        "seconds": 0.6,
+        "loop": false
+      },
+      {
+        "name": "FP_Idle",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_Walk",
+        "seconds": 1.0,
+        "loop": true
+      },
+      {
+        "name": "FP_Mine",
+        "seconds": 0.6,
+        "loop": false
+      }
+    ]
   },
   {
     "model": "ExplorerFemale",
-    "triangles": 2180,
-    "bones": 17,
-    "materials": 1
+    "triangles": 4788,
+    "bones": 40,
+    "materials": 1,
+    "maxInfluences": 3,
+    "clips": [
+      {
+        "name": "Idle",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "Walk",
+        "seconds": 1.0,
+        "loop": true
+      },
+      {
+        "name": "Run",
+        "seconds": 0.8,
+        "loop": true
+      },
+      {
+        "name": "Airborne",
+        "seconds": 1.0,
+        "loop": true
+      },
+      {
+        "name": "Mine",
+        "seconds": 0.6,
+        "loop": false
+      },
+      {
+        "name": "FP_Idle",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_Walk",
+        "seconds": 1.0,
+        "loop": true
+      },
+      {
+        "name": "FP_Mine",
+        "seconds": 0.6,
+        "loop": false
+      }
+    ]
   }
 ]

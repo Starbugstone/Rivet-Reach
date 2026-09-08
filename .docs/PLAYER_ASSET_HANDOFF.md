@@ -1,5 +1,7 @@
 # Player asset ownership handoff — 2026-09-08
 
+> **Historical handoff, now resolved:** the replacement models, 40-bone rigs, animation playback and new build/verification path are recorded in [player rebuild results](verification/PLAYER_REBUILD_RESULTS.md). The descriptions below record the earlier terrain-revision boundary.
+
 The user clarified during the terrain/fog/placement revision that another agent owns actual player 3D modeling and animation. That work remains with the model agent. The current terrain/placement change does not commit the interim model sources/exports listed below and makes no final artistic acceptance claim.
 
 ## Local interim files

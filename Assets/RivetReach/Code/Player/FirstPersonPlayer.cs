@@ -47,6 +47,7 @@ namespace RivetReach
         void Update()
         {
             if(Game==null)return;
+            Arms.FitFirstPersonFov(Camera.fieldOfView);
             bool control=Game.Started&&!Game.Paused&&!Game.InventoryOpen;
             if(!Game.Started)
             {
@@ -74,12 +75,15 @@ namespace RivetReach
                 vertical=Mathf.Max(-35,vertical-20*Mathf.Min(Time.deltaTime,.05f));
                 float dt=Mathf.Min(Time.deltaTime,.05f);
                 if(crouch&&Grounded&&!jump&&!Game.World.Overlaps(transform.position+move*dt-Vector3.up*.12f,.6f,.12f))move=Vector3.zero;
+                Vector3 previous=transform.position;
                 transform.position=Game.World.Move(transform.position,(move+Vector3.up*vertical)*dt,.6f,Height,out bool ground);
                 Grounded=ground;if(ground)vertical=-1;
-                phase+=move.magnitude*dt*2;
-                if(move.sqrMagnitude>.1f&&ground){footstep+=dt;if(footstep>.42f){Game.Sound.Step();footstep=0;}}
-                Body.Animate(input.magnitude,control&&Game.Input.Mine,phase);
-                Arms.Animate(input.magnitude,control&&(Game.Input.Mine||VerificationMining),phase);
+                Vector3 travelled=transform.position-previous;travelled.y=0;
+                float distance=travelled.magnitude,motion=Mathf.Clamp01(distance/Mathf.Max(.001f,speed*dt));
+                phase+=distance*2;
+                if(distance>.001f&&ground){footstep+=dt;if(footstep>.42f){Game.Sound.Step();footstep=0;}}
+                Body.Animate(motion,control&&(Game.Input.Mine||VerificationMining),phase,Grounded,speed>5);
+                Arms.Animate(motion,control&&(Game.Input.Mine||VerificationMining),phase,Grounded,speed>5);
             }
             if(Inspecting)
             {

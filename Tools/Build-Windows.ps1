@@ -22,4 +22,4 @@ if ($running) {
     if ($process.ExitCode -ne 0) { throw "Unity build exited $($process.ExitCode). See Logs/build-batch.log." }
 }
 Get-Content (Join-Path $logs 'build-summary.txt')
-Write-Output "Player: $(Join-Path $project 'Builds\FirstPOC-v2\RivetReach.exe')"
+Write-Output "Player: $(Join-Path $project 'Builds\PlayerRevision3\RivetReach.exe')"

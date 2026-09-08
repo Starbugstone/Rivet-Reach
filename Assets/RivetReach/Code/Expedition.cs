@@ -27,7 +27,11 @@ namespace RivetReach
         float messageUntil;
         public bool ReadyToPlay => Player!=null&&World.Ready(World.Address(Player.transform.position))&&World.Ready(World.Address(Player.transform.position+Vector3.up*2));
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-        static void Bootstrap(){if(FindAnyObjectByType<Expedition>()==null)new GameObject("Rivet Reach").AddComponent<Expedition>();}
+        static void Bootstrap()
+        {
+            if(Array.Exists(Environment.GetCommandLineArgs(),s=>s=="-rr-avatar-verify")){new GameObject("Player art verification").AddComponent<AvatarVerification>();return;}
+            if(FindAnyObjectByType<Expedition>()==null)new GameObject("Rivet Reach").AddComponent<Expedition>();
+        }
         void Awake()
         {
             Instance=this;Application.targetFrameRate=90;QualitySettings.vSyncCount=0;

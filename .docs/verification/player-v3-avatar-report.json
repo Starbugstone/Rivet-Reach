@@ -1,0 +1,47 @@
+{
+    "result": "PASS",
+    "unity": "6000.4.4f1",
+    "checks": [
+        "Both animation graphs initialize",
+        "Both FBX imports contain all eight clips",
+        "Both imports retain all 40 weighted bones",
+        "Both full models remain within 5000 triangles",
+        "Live locomotion moves the foot while mining layer is active",
+        "Live upper-body mining layer raises and extends the striking hand",
+        "Articulated arm pair remains below the initial 1500 triangle limit",
+        "Resting wrists sit inside the lower camera frame",
+        "Resting wrists sit inside the lower camera frame",
+        "Authored mining clip extends the striking hand",
+        "Articulated arm pair remains below the initial 1500 triangle limit",
+        "Resting wrists sit inside the lower camera frame",
+        "Resting wrists sit inside the lower camera frame",
+        "Authored mining clip extends the striking hand",
+        "Articulated arm pair remains below the initial 1500 triangle limit",
+        "Resting wrists sit inside the lower camera frame",
+        "Resting wrists sit inside the lower camera frame",
+        "Authored mining clip extends the striking hand",
+        "Articulated arm pair remains below the initial 1500 triangle limit",
+        "Resting wrists sit inside the lower camera frame",
+        "Resting wrists sit inside the lower camera frame",
+        "Authored mining clip extends the striking hand",
+        "Hand framing remains stable when world field of view changes",
+        "Hand framing remains stable when world field of view changes",
+        "No Unity errors during appearance rebuilds and animation transitions"
+    ],
+    "errors": [],
+    "maleTriangles": 4544,
+    "femaleTriangles": 4760,
+    "armsTriangles": 1168,
+    "bones": 40,
+    "clips": 8,
+    "leftWristViewport": {
+        "x": 0.2166009247303009,
+        "y": 0.09694293886423111,
+        "z": 0.36000022292137148
+    },
+    "rightWristViewport": {
+        "x": 0.7833991050720215,
+        "y": 0.09694293886423111,
+        "z": 0.36000022292137148
+    }
+}

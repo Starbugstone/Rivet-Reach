@@ -24,7 +24,7 @@ namespace RivetReach.Editor
             if(!command.EndsWith("|ready"))
             {
                 File.WriteAllText(request,command+"|ready");nextPoll=EditorApplication.timeSinceStartup+10;
-                AssetDatabase.Refresh();return;
+                UnityEditor.PackageManager.Client.Resolve();AssetDatabase.Refresh();return;
             }
             command=command.Replace("|ready","");File.Delete(request);
             try
@@ -44,6 +44,22 @@ namespace RivetReach.Editor
                 var importer=(ModelImporter)AssetImporter.GetAtPath(path);
                 if(!importer.isReadable||importer.materialImportMode!=ModelImporterMaterialImportMode.None||importer.animationType!=ModelImporterAnimationType.Generic)
                 {importer.isReadable=true;importer.materialImportMode=ModelImporterMaterialImportMode.None;importer.animationType=ModelImporterAnimationType.Generic;importer.optimizeGameObjects=false;importer.SaveAndReimport();}
+            }
+            foreach(string name in new[]{"ExplorerMale","ExplorerFemale"})
+            {
+                var importer=(ModelImporter)AssetImporter.GetAtPath("Assets/RivetReach/Resources/Characters/"+name+".fbx");
+                var clips=importer.defaultClipAnimations;
+                foreach(var clip in clips)
+                {
+                    clip.name=clip.takeName.Substring(clip.takeName.LastIndexOf('|')+1);
+                    clip.loopTime=clip.name!="Mine"&&clip.name!="FP_Mine";
+                    clip.lockRootRotation=true;clip.lockRootHeightY=true;clip.lockRootPositionXZ=true;
+                    clip.keepOriginalOrientation=true;clip.keepOriginalPositionY=true;clip.keepOriginalPositionXZ=true;
+                }
+                var current=importer.clipAnimations;
+                bool changed=!importer.importAnimation||current.Length!=clips.Length||importer.animationCompression!=ModelImporterAnimationCompression.Off;
+                if(!changed)changed=current.Where((c,i)=>c.name!=clips[i].name||c.takeName!=clips[i].takeName||c.firstFrame!=clips[i].firstFrame||c.lastFrame!=clips[i].lastFrame||c.loopTime!=clips[i].loopTime||!c.lockRootHeightY||!c.lockRootPositionXZ||!c.lockRootRotation).Any();
+                if(changed){importer.importAnimation=true;importer.animationCompression=ModelImporterAnimationCompression.Off;importer.clipAnimations=clips;importer.SaveAndReimport();}
             }
             foreach(string name in new[]{"SkinField","SkinOchre"})
             {
@@ -107,15 +123,15 @@ namespace RivetReach.Editor
         public static void PrepareAndBuild(){Prepare();DomainChecks.Run();Build();}
         static void Build()
         {
-            Directory.CreateDirectory("Builds/FirstPOC-v2");
-            var report=BuildPipeline.BuildPlayer(new BuildPlayerOptions{scenes=EditorBuildSettings.scenes.Select(s=>s.path).ToArray(),locationPathName="Builds/FirstPOC-v2/RivetReach.exe",target=BuildTarget.StandaloneWindows64,options=BuildOptions.Development});
+            Directory.CreateDirectory("Builds/PlayerRevision3");
+            var report=BuildPipeline.BuildPlayer(new BuildPlayerOptions{scenes=EditorBuildSettings.scenes.Select(s=>s.path).ToArray(),locationPathName="Builds/PlayerRevision3/RivetReach.exe",target=BuildTarget.StandaloneWindows64,options=BuildOptions.Development});
             File.WriteAllText("Logs/build-summary.txt",report.summary.result+"; errors "+report.summary.totalErrors+"; warnings "+report.summary.totalWarnings+"; seconds "+report.summary.totalTime.TotalSeconds+"; bytes "+report.summary.totalSize);
             if(report.summary.result!=BuildResult.Succeeded)throw new Exception("Windows build failed: "+report.summary.result);
-            File.Copy("LICENSE.md","Builds/FirstPOC-v2/LICENSE.md",true);
-            File.Copy(".docs/THIRD_PARTY_NOTICES.md","Builds/FirstPOC-v2/THIRD_PARTY_NOTICES.md",true);
+            File.Copy("LICENSE.md","Builds/PlayerRevision3/LICENSE.md",true);
+            File.Copy(".docs/THIRD_PARTY_NOTICES.md","Builds/PlayerRevision3/THIRD_PARTY_NOTICES.md",true);
             foreach(string source in Directory.GetFiles(".docs/licenses","*",SearchOption.AllDirectories))
             {
-                string target=Path.Combine("Builds/FirstPOC-v2/licenses",Path.GetRelativePath(".docs/licenses",source));
+                string target=Path.Combine("Builds/PlayerRevision3/licenses",Path.GetRelativePath(".docs/licenses",source));
                 Directory.CreateDirectory(Path.GetDirectoryName(target));File.Copy(source,target,true);
             }
         }

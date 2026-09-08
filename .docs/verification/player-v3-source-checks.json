@@ -1,0 +1,82 @@
+[
+  {
+    "model": "ExplorerMale",
+    "normalizedWeights": true,
+    "relativeTextures": true,
+    "singleUV": true,
+    "clips": [
+      {
+        "clip": "Airborne",
+        "maxEdgeMetres": 0.2034
+      },
+      {
+        "clip": "FP_Idle",
+        "maxEdgeMetres": 0.202
+      },
+      {
+        "clip": "FP_Mine",
+        "maxEdgeMetres": 0.202
+      },
+      {
+        "clip": "FP_Walk",
+        "maxEdgeMetres": 0.202
+      },
+      {
+        "clip": "Idle",
+        "maxEdgeMetres": 0.202
+      },
+      {
+        "clip": "Mine",
+        "maxEdgeMetres": 0.202
+      },
+      {
+        "clip": "Run",
+        "maxEdgeMetres": 0.2075
+      },
+      {
+        "clip": "Walk",
+        "maxEdgeMetres": 0.2055
+      }
+    ]
+  },
+  {
+    "model": "ExplorerFemale",
+    "normalizedWeights": true,
+    "relativeTextures": true,
+    "singleUV": true,
+    "clips": [
+      {
+        "clip": "Airborne",
+        "maxEdgeMetres": 0.2034
+      },
+      {
+        "clip": "FP_Idle",
+        "maxEdgeMetres": 0.202
+      },
+      {
+        "clip": "FP_Mine",
+        "maxEdgeMetres": 0.202
+      },
+      {
+        "clip": "FP_Walk",
+        "maxEdgeMetres": 0.202
+      },
+      {
+        "clip": "Idle",
+        "maxEdgeMetres": 0.202
+      },
+      {
+        "clip": "Mine",
+        "maxEdgeMetres": 0.202
+      },
+      {
+        "clip": "Run",
+        "maxEdgeMetres": 0.2075
+      },
+      {
+        "clip": "Walk",
+        "maxEdgeMetres": 0.2055
+      }
+    ]
+  }
+]

@@ -6,7 +6,7 @@ Implementation record for the user-authorized first slice, 2026-09-08. This is t
 
 Open the repository root with Unity **6000.4.4f1**, open `Assets/RivetReach/Scenes/Main.unity`, then press Play. The scene's runtime entry point is `Expedition.Bootstrap`; the terrain and interface are constructed from versioned definitions and assets when the scene runs. The Editor's unplayed scene is therefore not a populated voxel map.
 
-The Windows build is generated at `Builds/FirstPOC-v2/RivetReach.exe`. Keep its adjacent data folder, DLLs and Mono runtime together. Start Expedition creates a terrain session using the seed entered on the title screen. Nearby terrain prepares before movement can enter it. No developer commands are needed to play.
+The Windows build is generated at `Builds/PlayerRevision3/RivetReach.exe`. Keep its adjacent data folder, DLLs and Mono runtime together. Start Expedition creates a terrain session using the seed entered on the title screen. Nearby terrain prepares before movement can enter it. No developer commands are needed to play.
 
 Build through **Rivet Reach → Build Windows first POC** in Unity, or from Windows PowerShell:
 
@@ -59,7 +59,9 @@ Actual front/back renders can be reproduced with [render_player_review.py](../To
 
 The original Blender asset script is [create_player_assets.py](../Tools/create_player_assets.py). Editable `.blend` sources live in `ArtSource/Characters/`; explicit FBX and PNG outputs are under `Assets/RivetReach/Resources/Characters/`. Re-run in Blender 5.2 background mode with the script's absolute path. The process updates source/export content while existing Unity `.meta` files retain their identities.
 
-The models use a shared 17-bone convention, one material/submesh, rigid part weights and simple procedural idle/walk/mining poses. Male and female choices share gameplay dimensions. The female has a longer ponytail/side hair and restrained silhouette differences. First-person arms derive from the selected skinned mesh; head, upper torso and duplicate arms are excluded from the first-person body. The portrait can be rotated to inspect the back. The initial crude models were rejected by the user. Another agent now owns the actual player model and animation rework. This terrain/placement revision includes UI aspect-ratio and antialiasing fixes, with a local interim Blender pass used for verification; its sources/exports are deliberately left outside this commit for the model agent’s handoff. Do not treat the interim model screenshots as final art or assume the committed baseline models have already been replaced. See [the handoff](PLAYER_ASSET_HANDOFF.md) and the current revision report for exact evidence.
+The player rebuild uses a shared **40-bone skeleton**, including clavicles, neck and two joints per finger/thumb. It retains one material/submesh and the same skin-region layout on both variants. Elbows, knees, wrists and ankles have blended weights (at most three influences per vertex after welding shared seams). The source library contains eight in-place actions: `Idle`, `Walk`, `Run`, `Airborne`, `Mine`, `FP_Idle`, `FP_Walk`, and `FP_Mine`. Unity blends the imported clips with Playables; an upper-body mask lets mining run over locomotion. Actual horizontal travel drives the gait, and visual animation does not remove blocks or move the collision body.
+
+The models were rebuilt against the turnaround sheet with shaped facial planes, swept hair, fitted waistcoats, rolled sleeves, continuous trouser shells and layered boots. First-person poses keep dorsal fist surfaces up, thumbs inward and wrists low in the camera frame. Their geometry is derived from the selected body, including its articulated fingers. The body visibility mask excludes duplicate arms and the upper body from the first-person camera. Male/female appearance and both skins retain identical gameplay dimensions. [Player rebuild results](verification/PLAYER_REBUILD_RESULTS.md) contain source renders, Unity imports, counts, animation checks and remaining artistic review.
 
 Two **256×256 opaque PNG skins** use a shared 4×4 tile layout (64×64 per region). Regions in Blender image coordinates, from the bottom row upward:
 
@@ -76,6 +78,6 @@ Terrain uses four original **32×32** bilinear-filtered tile-array layers: grass
 
 ## Verification and review boundary
 
-[Current revision results](verification/VISUAL_REVISION_RESULTS.md) record the final build's actual checks, machine, settings, measured workload and screenshots. Automation separates test fixtures from ordinary sessions: only the explicit `-rr-verify` command-line mode injects inventory stacks, controlled movement and seam edits.
+[Terrain/UI revision results](verification/VISUAL_REVISION_RESULTS.md) and [player rebuild results](verification/PLAYER_REBUILD_RESULTS.md) record the final build's actual checks, machine, settings, measured workload and screenshots. Automation separates test fixtures from ordinary sessions: only the explicit `-rr-verify` command-line mode injects inventory stacks, controlled movement and seam edits.
 
 This delivery establishes the first playable review candidate. The user still needs to assess movement/mining feel, player appearance and terrain composition in play before the milestone is accepted or subsequent work is selected. In particular, the initial rig/skin layout and lighting remain open to refinement. Durable saves, functional crafting and every later roadmap group require a separate scope decision.
