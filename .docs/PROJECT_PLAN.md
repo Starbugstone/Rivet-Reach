@@ -1,6 +1,6 @@
 # Rivet Reach - Project Plan and Long-Term Vision
 
-> **Status:** early brainstorming / documentation and specifications; POC not yet implemented
+> **Status:** initial Unity project created; gameplay/POC implementation not yet started
 >
 > Rivet Reach is intentionally **evolutive**. The design will continue to change while we brainstorm, prototype, benchmark and test the POC. The current documents describe the agreed direction, not an immutable final specification.
 >
@@ -21,7 +21,7 @@ Related design documents:
 
 ### How to read this plan
 
-The existing vision and explicitly agreed rules remain the design baseline. The 2026-09-08 resolution pass adds **working decisions** selected under the user's request to solve conflicts; they are current specifications, not validated results. Specialist documents distinguish these from unresolved proposals and numerical tuning. Unchecked milestones are future work, not implemented capabilities. The current task is documentation only; future implementation begins when requested.
+The existing vision and explicitly agreed rules remain the design baseline. The 2026-09-08 resolution pass adds **working decisions** selected under the user's request to solve conflicts; they are current specifications, not validated results. Specialist documents distinguish these from unresolved proposals and numerical tuning. Unchecked milestones are future work, not implemented capabilities. The user subsequently authorized project initialization only. The repository contains the Unity scaffold; further gameplay implementation follows explicit task scope.
 
 Detailed simulation behaviour belongs to `SIMULATION.md`, transport behaviour to `TRANSPORT.md`, player-experience criteria to `GAMEPLAY.md`, and hidden history to `LORE.md`. Economy, content workflow and delivery details belong to their named specialist files. Stage order belongs only to `DEVELOPMENT_STRATEGY.md`. Summaries here do not override those documents. Conflicts should be resolved explicitly and recorded, not silently interpreted as approval.
 
@@ -154,7 +154,9 @@ The target is good performance on reasonable gaming hardware rather than designi
 
 ### Engine
 
-**Unity 6.3 LTS**
+**Unity 6000.4.4f1 (Unity 6.4)**
+
+Initialization uses the existing installed Editor, superseding the earlier 6.3 LTS target. The exact version is pinned in `ProjectSettings/ProjectVersion.txt`; URP is pinned to 17.4.0. See [UNITY_SETUP.md](UNITY_SETUP.md). No Editor update was required to initialize this project.
 
 ### Language
 
@@ -1318,7 +1320,7 @@ This checklist follows the **agreed playable stage order** in [DEVELOPMENT_STRAT
 
 ### Stage 0 - Core feel on real voxel foundations
 
-- [ ] Create the authorized Unity/URP project with an explicitly selected Editor version.
+- [x] Create the authorized Unity/URP project, pinned to 6000.4.4f1 with URP 17.4.0. Gameplay tasks below remain outstanding.
 - [ ] World-aware integer/chunk coordinates, deterministic streamed terrain and a small real block palette.
 - [ ] FPS movement, precise targeting, break/place, feedback and collision correctness during asynchronous rebuilds.
 - [ ] Mesh generation/load/unload, origin-shift exercises and basic profiling.

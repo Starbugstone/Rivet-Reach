@@ -1,0 +1,28 @@
+# Unity-generated state and builds
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Bb]uild/
+/[Bb]uilds/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+# IDE-generated files
+/.vs/
+/.idea/
+/.vscode/
+*.csproj
+*.sln
+*.slnx
+*.user
+*.suo
+*.pidb
+*.booproj
+*.opendb
+*.VC.db
+# Local OS files
+.DS_Store
+Thumbs.db
+# Crash diagnostics
+sysinfo.txt

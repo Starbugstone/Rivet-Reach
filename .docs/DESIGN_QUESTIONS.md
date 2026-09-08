@@ -92,7 +92,7 @@ These alternatives can be revisited with a concrete reason and affected-rule rev
 
 ## 7. Remaining open dependencies and tuning
 
-**External facts:** actual reference machine, available team time, funding/distribution accounts, supported remote binary storage and a chosen exact Unity Editor installation. The documented target remains Unity 6.3 LTS; the discovered local installation was 6000.4.4f1. Project creation must select/pin a compatible version explicitly rather than silently converting that mismatch into a decision. No integration installation or game scaffolding is authorized by this documentation pass.
+**External facts:** actual reference machine, available team time, funding/distribution accounts, supported remote binary storage and the remaining production environment details. The later initialization request selected the existing Unity 6000.4.4f1 installation and pinned URP 17.4.0, superseding the original 6.3 LTS target. See [UNITY_SETUP.md](UNITY_SETUP.md). No live integration installation is implied.
 
 **Numerical tuning:** movement/reach, tool hardness, recipe costs, fuel/pump/drill rates, pile lifetime/radius/cadence, water speeds, Gate spacing/cooldowns, ticket concurrency and render/memory budgets. The specifications provide starting values so experiments are concrete; evidence may change them.
 
@@ -102,6 +102,6 @@ These alternatives can be revisited with a concrete reason and affected-rule rev
 
 ## 8. Next implementation-readiness review
 
-Remain documentation-only until implementation is requested. Before that request is executed, confirm the exact Editor/project location and reference machine, then use Stage 0's real interaction/coordinate model. Add Stage 1's supplied bootstrap specification and persist its real state. Grow into the complete starter factory, stress the same systems, then add the second world.
+The user has authorized and received Unity initialization at the repository root with Editor 6000.4.4f1. Gameplay implementation is a subsequent task. Before performance claims, select/record the reference machine; then build Stage 0's real interaction/coordinate model when requested. Add Stage 1's supplied bootstrap specification and persist its real state. Grow into the complete starter factory, stress the same systems, then add the second world.
 
 Every working decision now has a concrete behaviour and acceptance case. Only measurements can establish performance, feel and final balance; this register must not mark them validated on the strength of a Markdown review.

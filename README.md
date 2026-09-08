@@ -16,7 +16,9 @@ The long-term vision combines:
 
 ## Current status
 
-Rivet Reach is currently in **early brainstorming and specification design**. This repository contains documentation only; the POC is planned, not implemented.
+Rivet Reach is in **early development and specification design**. The repository root is now a Unity **6000.4.4f1** project using **URP 17.4.0**. It contains the initial scene and rendering/input configuration; gameplay systems and the playable POC are not implemented yet.
+
+Open this repository folder in Unity Hub with the pinned Editor version. Start with `Assets/RivetReach/Scenes/Main.unity`. See [Unity setup](.docs/UNITY_SETUP.md) for the exact setup and verification notes.
 
 The first objective is not content volume, but proving that an infinite voxel world, crafting, machinery, logistics and persistent background factories can all run efficiently on ordinary gaming hardware.
 

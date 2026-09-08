@@ -2,7 +2,7 @@
 
 ## Current project phase
 
-The project is at the beginning: brainstorming, documentation and specifications only. The intended outcome is a complete, responsive game, but implementation has not started. Do not create game code, scaffold Unity, install dependencies or treat planned features as implemented unless the user requests that work.
+The project is at the beginning: the user authorized Unity project initialization, and the repository root now contains the initial Unity 6000.4.4f1 / URP project. Gameplay systems remain unimplemented and the design specifications remain evolutive. Keep work scoped to the current user request; project initialization is not authorization to implement the full roadmap, upgrade the Editor or install live integrations. Do not describe planned gameplay as implemented.
 
 ## Licensing and ownership
 
@@ -29,6 +29,8 @@ The project is at the beginning: brainstorming, documentation and specifications
 - Do not claim performance, gameplay quality or implementation correctness has been proven without measurements or playtests.
 
 ## Document ownership
+
+- `UNITY_SETUP.md`: pinned Editor/packages, project location, startup and initialization evidence.
 
 - `PROJECT_PLAN.md`: vision, architecture overview, scope and milestones.
 - `DEVELOPMENT_STRATEGY.md`: implementation philosophy, playable incremental development and the relationship between responsiveness, performance and final architecture.

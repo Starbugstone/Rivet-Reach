@@ -1,0 +1,41 @@
+# Rivet Reach - Unity Project Setup
+
+## Project and Editor
+
+The repository root is the Unity project directory. Open `D:\Dev\github-desktop\Rivet-Reach` on this workstation, or the root of a fresh checkout on another machine. Do not create a second nested project or open `.docs` as the project.
+
+- Editor: **6000.4.4f1**, pinned in [ProjectVersion.txt](../ProjectSettings/ProjectVersion.txt).
+- Render pipeline: **URP 17.4.0**.
+- Initial scene: [Main.unity](../Assets/RivetReach/Scenes/Main.unity).
+- Project assets: `Assets/RivetReach/`.
+- Package declarations and resolved versions: [manifest.json](../Packages/manifest.json) and [packages-lock.json](../Packages/packages-lock.json).
+
+The initialization request uses the existing installed Editor and supersedes the earlier Unity 6.3 LTS planning target. No Unity Editor update was performed or needed for this initialization. Future upgrades are separate tasks and must update the pinned version with compatibility checks.
+
+## Starting work
+
+In Unity Hub, add/open the repository root and select 6000.4.4f1. Open `Assets/RivetReach/Scenes/Main.unity` if the Editor restores another scene. The blank starter scene contains the template camera, directional light and global volume. It is not yet a playable voxel world.
+
+The installed Windows Editor is `D:\Unity\Hub\6000.4.4f1\Editor\Unity.exe`. Launch from PowerShell with:
+
+```powershell
+& 'D:\Unity\Hub\6000.4.4f1\Editor\Unity.exe' -projectPath 'D:\Dev\github-desktop\Rivet-Reach'
+```
+
+Use the project's local Unity/Blender skill to identify/reuse running instances. Do not open the same project simultaneously in a GUI Editor and batch Editor.
+
+## Initialization scope
+
+The starter assets/settings come from the Editor's bundled 3D URP template. Tutorial/readme scripts and sample branding were omitted; the scene was renamed to Main and assets placed under RivetReach while preserving asset GUIDs. No gameplay scripts, world generation, movement controller, machinery or live-editor integration were added.
+
+Direct packages are URP, Input System, Unity UI, Test Framework and Visual Studio integration. The lockfile records transitive packages. Framework availability does not mean gameplay tests have been implemented or run.
+
+Unity uses visible `.meta` files and text asset serialization. Track `Assets`, `Packages` and `ProjectSettings`; `.gitignore` excludes `Library`, `Temp`, `Logs`, `UserSettings`, builds and generated IDE files. Keep every tracked asset's `.meta` file. No binary art sources were introduced, so Git LFS configuration is deferred until those assets are added.
+
+License provenance and retained upstream notices are recorded in [Third-party notices](THIRD_PARTY_NOTICES.md).
+
+## Verification
+
+On 2026-09-08, the initial Editor import exited successfully (code 0). A subsequent Editor verification also exited with code 0, opened Main.unity, confirmed an active UniversalRenderPipelineAsset, and found Main Camera, Directional Light and Global Volume. The verification run contained no C# compiler errors or exceptions. The first import used Unity's automatic API updater on bundled package code; generated package caches are not committed.
+
+The temporary verification script was removed after checking the scene; no C# scripts are included in the initialized Assets tree. The graphical Editor was also opened successfully on Main.unity. Temporary scene-opening helpers were removed after verification. This verifies initialization, not a player build or gameplay. Machine-local diagnostic logs are retained in the ignored `Logs/` directory; they are not committed because they contain local paths and account/environment details. This setup does not establish gameplay correctness, performance targets, release readiness or a live MCP connection.

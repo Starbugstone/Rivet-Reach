@@ -1,0 +1,11 @@
+* text=auto
+*.md text eol=lf
+*.cs text eol=lf
+*.json text eol=lf
+# Preserve Unity-generated empty YAML scalars without whitespace-only rewrites.
+*.meta text eol=lf whitespace=-blank-at-eol
+*.unity text eol=lf whitespace=-blank-at-eol
+*.asset text eol=lf whitespace=-blank-at-eol
+*.inputactions text eol=lf
+# Preserve upstream license/notice formatting verbatim.
+.docs/licenses/** whitespace=-blank-at-eol,-blank-at-eof

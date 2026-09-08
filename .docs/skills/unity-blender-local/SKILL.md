@@ -34,13 +34,13 @@ Machine-specific starting points, verified on 2026-09-08; rediscover if absent:
 | Unity Hub 3.20.0 | `D:\Unity\Unity Hub\Unity Hub.exe` |
 | Blender 5.2.0 LTS | `D:\Program Files\Blender Foundation\Blender 5.2\blender.exe` |
 
-Blender's `--version` command succeeded during discovery. Unity's installed executable/version was inspected, but project launch and licensing were not tested. Neither live editor integration was exposed at that time; recheck availability rather than assuming that remains true.
+Blender's `--version` command succeeded during discovery. Unity's installed executable/version was inspected; consult Rivet Reach's `.docs/UNITY_SETUP.md` for subsequent project initialization/import evidence. Neither live editor integration was exposed at that time; recheck availability rather than assuming that remains true.
 
 ## Unity
 
 Find the actual project root from `ProjectSettings/ProjectVersion.txt`, `Assets/` and `Packages/`; do not assume the Git root is a Unity project. Read its pinned Editor version and use the matching installation. A documentation-only repository is not launchable as a Unity project. Do not create scaffolding merely to pass a connectivity check.
 
-In Rivet Reach, the original documented target was Unity 6.3 LTS while the discovered install was 6000.4.4f1. Resolve that difference when project creation is requested; do not silently upgrade a project to the latest installed Editor.
+Rivet Reach was subsequently initialized at `D:\Dev\github-desktop\Rivet-Reach` using the installed 6000.4.4f1 Editor with URP 17.4.0, superseding its earlier 6.3 LTS target. Read its current ProjectVersion.txt before launch; do not silently upgrade it to another installed Editor. The initial scene is `Assets/RivetReach/Scenes/Main.unity`.
 
 Inspect Windows Unity process command lines to identify an instance already using the target project. Do not open the same project in another Editor/batch process or remove lock files to bypass a running instance. Launch the matching executable with `-projectPath` and a properly quoted Windows project path. Use an explicit temporary `-logFile` when useful for diagnostics.
 
