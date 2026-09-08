@@ -90,3 +90,105 @@ Use separate evidence for fun and technical correctness:
 6. Long-session player: retain meaningful choices beyond repeated bulk collection.
 
 Record confusion, waiting, repetitive travel, failure recovery and motivation alongside frame time. These scenarios are future playtests; documentation review cannot declare them successful.
+
+## 8. Minecraft-like world item behaviour
+
+**Agreed direction:** basic moment-to-moment play should retain the familiar, readable feel of Minecraft where that interaction already works well. Rivet Reach differentiates itself through its own automation depth, technology progression, worlds, lore and visual identity rather than by making basic sandbox controls unnecessarily unfamiliar.
+
+### Dropping items
+
+Items can be thrown out of the player inventory into the world.
+
+The intended feel is familiar sandbox behaviour:
+
+- a normal drop action throws a small amount/one item from the selected stack;
+- a modifier can drop the full stack;
+- mined blocks, mob drops and manually discarded inventory become physical world-item entities;
+- world items fall under gravity, collide with terrain and settle on the ground;
+- walking close enough collects compatible items into the player's inventory;
+- exact keys and controller bindings remain configurable rather than hard-coded to Minecraft's defaults.
+
+A dropped stack is represented as **one world entity containing an item stack**, not one physics entity per individual item.
+
+Conceptually:
+
+```text
+ItemStack
+|- item id
+|- count
+|- item-specific data where required
+```
+
+The same logical item-stack model should be used by inventories, world-item entities and automated item logistics. A pipe transfer does not create a second kind of iron ore; it moves the same authoritative item identity/count through a different representation.
+
+### Item merging
+
+Nearby compatible world-item entities should merge into larger piles where legal.
+
+Example:
+
+```text
+Stone x30 + nearby Stone x40
+-> Stone x70
+```
+
+This preserves the familiar visual behaviour while reducing entity, renderer, collision and pickup overhead.
+
+Compatibility must respect item identity and any item metadata that makes two stacks meaningfully different. Exact merge radius, cadence and maximum world-pile size are implementation/balance details to measure.
+
+### Water interaction and buoyancy
+
+Water should use a Minecraft-like block-fluid interaction model rather than expensive continuous fluid dynamics.
+
+Flowing water applies current to physical entities, including dropped items.
+
+Rivet Reach deliberately differs from modern Minecraft in one clear rule:
+
+> **Dropped items sink in water by default.**
+
+An item definition can opt into floating behaviour with a data property/tag:
+
+```text
+buoyant = true
+```
+
+If `buoyant` is false or absent, the item sinks while still being pushed horizontally by flowing water. If `buoyant = true`, the item receives a gentle upward buoyancy influence and can rise/float while still responding to the current.
+
+Typical intended examples:
+
+```text
+wood / planks       -> buoyant = true
+some plants/leaves  -> buoyant = true
+
+stone               -> default false
+ore                  -> default false
+metal ingots         -> default false
+machines             -> default false
+```
+
+The tag is a **content property**, not a special-case list embedded in world-item physics code.
+
+The exact upward/downward force, drag and settling behaviour should be tuned for readability and playability rather than physical realism. Water should be useful for environmental interaction and simple player-made channels without replacing the dedicated item-pipe automation system.
+
+### World items versus factory items
+
+Maintain a clear distinction between presentation/simulation modes:
+
+```text
+World item
+-> physical entity
+-> visible
+-> gravity / collisions / water
+-> can settle, merge and be picked up
+
+Inventory item
+-> data in an inventory/container
+
+Pipe item
+-> logical network transfer
+-> no authoritative loose physics entity travelling through the pipe
+```
+
+Optional moving icons/items visible inside pipes can be cosmetic only.
+
+This keeps the world tactile and Minecraft-like while allowing large factories to scale without thousands of authoritative moving item entities.
