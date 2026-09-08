@@ -56,12 +56,19 @@ namespace RivetReach
         {
             Seed=seed;
             Inventory=new Inventory(id=>Registry.Get(id).stackLimit);
+            Inventory.Slots[11]=new ItemStack(BlockId.StarterAxe,1);
             var root=new GameObject("Surface world");root.transform.SetParent(transform,false);World=root.AddComponent<VoxelWorld>();World.Initialize(seed);World.ViewDistance=Mathf.Clamp(PlayerPrefs.GetInt("viewDistance.v2",10),4,14);
             RenderSettings.fogStartDistance=World.FogStart;RenderSettings.fogEndDistance=World.FogEnd;
             var p=new GameObject("Player");p.transform.SetParent(transform,false);Player=p.AddComponent<FirstPersonPlayer>();Player.Initialize(this);
             // Deterministic spawn remains on a supported surface with headroom.
             int h=World.Generator.Height(0,0);Player.transform.position=new Vector3(.5f,h+1.01f,.5f);World.Observer=Player.transform;
             var drops=new GameObject("World item stacks");drops.transform.SetParent(transform,false);Items=drops.AddComponent<DroppedItems>();Items.Initialize(this);
+            World.BlockMined+=SpawnMinedDrop;
+        }
+        void SpawnMinedDrop(BlockPos pos,byte id)
+        {
+            byte drop=Registry.FistDrop(id);
+            Items.Spawn(new ItemStack(drop,1),World.Local(pos)+new Vector3(.5f,.3f,.5f),Vector3.up*1.6f);
         }
         public void StartSession(int seed)
         {
@@ -81,7 +88,7 @@ namespace RivetReach
         void Update()
         {
             if(Input==null)return;
-            if(Started&&!Paused)World.AdvanceGrass(Time.deltaTime);
+            if(Started&&!Paused){World.AdvanceGrass(Time.deltaTime);World.AdvanceTrees(Time.deltaTime);}
             if(Input.PollRebind()){UI.Rebuild();return;}
             if(Input.Pressed("Pause"))SetMode(Mode==ScreenMode.Play?ScreenMode.Pause:Started?ScreenMode.Play:ScreenMode.Title);
             if(Started&&Input.Pressed("Inventory"))SetMode(InventoryOpen?ScreenMode.Play:ScreenMode.Inventory);
@@ -111,7 +118,7 @@ namespace RivetReach
         public bool CanPlace(BlockPos cell,out string reason)
         {
             var selected=Inventory.Slots[Selected];reason="Select a terrain block in the hotbar";
-            if(selected.Empty)return false;
+            if(selected.Empty||!BlockId.Placeable(selected.Id))return false;
             reason="Waiting for nearby terrain";if(!World.Ready(cell))return false;
             reason="This cell is occupied";if(World.Get(cell)!=0)return false;
             // Use the movement collider's exact occupied-cell rule, including its skin.

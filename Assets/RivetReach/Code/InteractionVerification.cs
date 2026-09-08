@@ -94,8 +94,8 @@ namespace RivetReach
             Check(!player.SelectionVisible&&!player.HeldBlock.Visible,"Inventory hides interaction views");
             game.SetMode(ScreenMode.Play);
 
-            // Explicit fixture above the generated surface, spanning X=-1/0 chunk boundaries.
-            int y=0;for(int z=8;z<=12;z++)for(int x=-2;x<=2;x++)y=Math.Max(y,world.Generator.Height(x,z)+3);
+            // Explicit fixture above generated canopies, spanning X=-1/0 chunk boundaries.
+            int y=0;for(int z=8;z<=12;z++)for(int x=-2;x<=2;x++)y=Math.Max(y,world.Generator.Height(x,z)+TerrainGenerator.MaxTreeHeight+3);
             var target=new BlockPos(0,y,10);var dark=new BlockPos(1,y,11);var coveredGrass=new BlockPos(2,y,12);
             for(int z=8;z<=12;z++)for(int x=-2;x<=2;x++)
             {

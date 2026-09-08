@@ -18,7 +18,7 @@ namespace RivetReach
                 if(!changes.ContainsKey(p))changes[p]=world.Get(p);
                 byte old=world.Get(p);if(old!=0&&old!=id)world.Remove(p,old);if(id!=0&&old!=id)Check(world.Place(p,id),"Placement-item fixture uses ready terrain");
             }
-            int y=0;for(int x=28;x<=34;x++)for(int z=-7;z<=-1;z++)y=Math.Max(y,world.Generator.Height(x,z)+3);
+            int y=0;for(int x=28;x<=34;x++)for(int z=-7;z<=-1;z++)y=Math.Max(y,world.Generator.Height(x,z)+TerrainGenerator.MaxTreeHeight+3);
             var cell=new BlockPos(31,y,-4);Vector3 at=world.Local(cell);
             game.SetMode(ScreenMode.Play);game.Diagnostics=false;player.enabled=false;
             player.transform.position=at+new Vector3(.5f,0,-3);player.Camera.transform.position=at+new Vector3(.5f,.55f,-2);player.Camera.transform.LookAt(at+new Vector3(.5f,.55f,1.5f));

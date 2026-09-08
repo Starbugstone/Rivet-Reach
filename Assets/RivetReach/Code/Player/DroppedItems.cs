@@ -28,7 +28,7 @@ namespace RivetReach
         readonly Dictionary<(byte,long,int,long),List<Pile>> mergeBuckets=new Dictionary<(byte,long,int,long),List<Pile>>();
         readonly Stack<List<Pile>> spareBuckets=new Stack<List<Pile>>();
         // Enclose the rotated 23 cm display cube as well as its physical height.
-        public const float CollisionWidth=.33f,CollisionHeight=.23f;
+        public const float CollisionWidth=.33f,CollisionHeight=.23f,PickupRadius=1.7f;
         public int Total(byte id){int total=0;foreach(var p in Piles)if(p.Stack.Id==id)total+=p.Stack.Count;return total;}
         public void Initialize(Expedition game)
         {
@@ -137,7 +137,7 @@ namespace RivetReach
                         p.Position=WorldPoint.FromLocal(local,World.Origin);
                     }
                 }
-                if(clear&&p.Delay<=0&&Vector3.Distance(local,player+Vector3.up*.5f)<1.5f)
+                if(clear&&p.Delay<=0&&Vector3.Distance(local,player+Vector3.up*.5f)<=PickupRadius)
                 {
                     Vector3 start=player+Vector3.up*.9f,delta=local+Vector3.up*.1f-start;
                     if(!World.Raycast(start,delta.normalized,delta.magnitude-.05f,out _,out _))

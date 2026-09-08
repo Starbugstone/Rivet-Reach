@@ -22,6 +22,7 @@ namespace RivetReach
             public float frameMedianMs,frameP95Ms,frameMaxMs,firstReadySeconds,miningFrameMaxMs;
             public double miningMeshMs,placementMeshMs,grassTickMaxMs;
             public int grassChanges;
+            public double generatedLogRecognitionNs,placedLogRecognitionNs,unloadedLogRecognitionUs,treeTickMaxMs,treeCutMs;
             public int startupSeed;
             public int viewRadius;public float fogStart,fogEnd;
             public string[] checks,errors;
@@ -96,6 +97,8 @@ namespace RivetReach
             {report.workload="Grass and hand interaction review";yield return ReviewInteractions();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-placement-items-review"))
             {report.workload="Dropped-item stacking, placement and movement interactions";yield return ReviewPlacementItems();yield return ReviewMovementInteractions();yield break;}
+            if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-tree-review"))
+            {report.workload="Generated trees, axe-only upward felling, leaf decay and tree streaming";yield return ReviewTrees();yield break;}
             bool visualOnly=Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-visual-review");
             report.workload=visualOnly?"Visual review and first-person body regression":"Full terrain/inventory and visual regression";
             yield return ReviewVisuals();
@@ -163,7 +166,7 @@ namespace RivetReach
             Check(!world.Place(placed,3)&&!game.CanPlace(placed,out _),"An occupied cell rejects placement");
             int quantity=game.Inventory.Total(3);Check(!game.CanPlace(world.Address(player.transform.position),out _)&&game.Inventory.Total(3)==quantity,"Player overlap rejects placement without consuming inventory");
             game.SetMode(ScreenMode.Inventory);Check(!game.TryPlaceSelected(),"Inventory mode suppresses placement");game.SetMode(ScreenMode.Play);
-            int placementSlot=game.Selected;game.Selected=11;Check(!game.TryPlaceSelected(),"An empty selected slot cannot create blocks");game.Selected=placementSlot;
+            int placementSlot=game.Selected;game.Selected=Array.FindIndex(game.Inventory.Slots,s=>s.Empty);Check(!game.TryPlaceSelected(),"An empty selected slot cannot create blocks");game.Selected=placementSlot;
             Check(!world.Place(new BlockPos(99999,90,99999),3),"Unready terrain rejects placement");
             player.transform.position=saved.Local(world.Origin)+Vector3.left*2;player.Pitch=20;yield return new WaitForSecondsRealtime(1.1f);yield return Capture("02b-placement");
             // Two neighbouring edited seam blocks must survive unload and a floating-origin shift.
@@ -271,7 +274,7 @@ namespace RivetReach
             var player=game.Player;bool female=player.Female;int skin=player.Skin;
             float fov=player.Camera.fieldOfView,pitch=player.Pitch;
             var tiles=Resources.Load<Texture2DArray>("Materials/BlockTiles");report.terrainTilePixels=tiles.width;
-            Check(tiles.width==64&&tiles.height==64&&tiles.depth==4,"Four 64-texel terrain tiles are imported");
+            Check(tiles.width==64&&tiles.height==64&&tiles.depth==7,"Seven 64-texel terrain and tree tiles are imported");
             Check(game.World.TerrainMaterial.shader.isSupported,"Terrain shader has a supported rendering pass");
             Check(player.Camera.GetComponent<UnityEngine.Rendering.Universal.UniversalAdditionalCameraData>().renderPostProcessing,"Gameplay camera enables the scene colour grade");
             game.Diagnostics=false;

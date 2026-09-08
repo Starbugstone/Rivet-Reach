@@ -50,7 +50,7 @@ namespace RivetReach
                         uv.Add(Vector2.zero);
                         if(axis==0){uv.Add(new Vector2(0,width));uv.Add(new Vector2(height,width));uv.Add(new Vector2(height,0));}
                         else {uv.Add(new Vector2(width,0));uv.Add(new Vector2(width,height));uv.Add(new Vector2(0,height));}
-                        int tile=id==1?(axis==1?(sign>0?0:2):1):id==2?2:3;
+                        int tile=BlockId.Tile(id,axis,sign);
                         for(int k=0;k<4;k++){normals.Add(n);tiles.Add(new Vector2(tile,0));}
                         if(sign>0){indices.Add(start);indices.Add(start+1);indices.Add(start+2);indices.Add(start);indices.Add(start+2);indices.Add(start+3);}
                         else {indices.Add(start);indices.Add(start+2);indices.Add(start+1);indices.Add(start);indices.Add(start+3);indices.Add(start+2);}

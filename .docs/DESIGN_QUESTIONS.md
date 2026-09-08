@@ -121,7 +121,7 @@ Review these points in the playable build before choosing the next scope:
 
 - Does the walking/jumping/crouching and fist-mining pace feel right on actual terrain? The definition-driven mining times and controller values are initial tuning.
 - Are the original male/female models, longer female hair, practical clothing and first-person fists a useful translation of the accepted concept? The rig is simple and the shared skin sheet still reuses regions across mesh faces. Decide whether the next visual refinement needs a full front/back body unwrap and custom PNG import.
-- Is the small hills/caves palette a useful starting composition? Cave lighting is deliberately simple; the build has no structures, water, vegetation or broader biome content.
+- Is the small hills/caves palette a useful starting composition? Cave lighting is deliberately simple; the initial build had no vegetation; the subsequent [tree extension](GAMEPLAY.md#trees-and-axe-felling--user-feedback-extension) adds logs/leaves. Structures, water and broader biome content remain deferred.
 - Mining's immediate local remesh is now measured, but heavier seam edits and slower hardware may require the preferred changed-cell patch plus asynchronous rebuild. The current finite traversal sample is not a factory-scale or long-session memory certification.
 - After this first review, select the next playable increment explicitly. Functional crafting, durable saving, building and later industry remain candidates rather than an automatic implementation queue.
 
@@ -130,3 +130,10 @@ Review these points in the playable build before choosing the next scope:
 The user rejected the first runtime art as too far from the published concept, found the fog too close and requested block placement. Stage 0 now includes placement of collected terrain blocks; [GAMEPLAY.md](GAMEPLAY.md#first-step-terrain-placement--user-feedback-extension) owns its concrete rules. [The revision report](verification/VISUAL_REVISION_RESULTS.md) records the actual Blender/Unity assets, increased view distance and validation. Artistic acceptance remains open: inspect the revised silhouettes, faces, hair and first-person hand poses with the user. Do not equate passing geometry ceilings or automated checks with approval of the look. The next milestone is still unselected.
 
 The user subsequently clarified that another agent owns actual player modeling and animation. Terrain, placement, fog, portrait rendering and the Blender workflow proceed here; final character integration remains with that agent. [PLAYER_ASSET_HANDOFF.md](PLAYER_ASSET_HANDOFF.md) records local interim files and the verification boundary.
+
+
+## Tree and axe feedback — 2026-09-08
+
+Generated log/leaf trees and axe-only upward log felling are explicit user requirements. [GAMEPLAY.md](GAMEPLAY.md#trees-and-axe-felling--user-feedback-extension) owns the working rules. A definition capability supports axe-type tools; the starter axe in slot 12 makes the mechanic reviewable while crafting stays a placeholder.
+
+Nonblocking review questions: tune tree density/canopy shape and mining pace; decide whether later progression adds axe recipes/durability, saplings/regrowth or different manual leaf drops. The user explicitly requires generated-only felling after an initial pass damaged placed base wood: placed logs always mine individually and form a boundary to felling; placed leaves persist. This protection is a requirement, not an open tuning choice. Current opaque foliage and daylight approximation are scoped visual choices, not final foliage or lighting approval. Evidence is in [tree verification](verification/TREE_RESULTS.md).

@@ -1,10 +1,11 @@
 using System;
+using System.Collections.Generic;
 
 namespace RivetReach
 {
     public sealed class TerrainGenerator
     {
-        public const string Version="terrain-1";
+        public const string Version="terrain-2-trees";
         public const string WorldId="surface";
         public const int MinY=-256,MaxY=767;
         public const long HorizontalLimit=1000000000;
@@ -31,11 +32,77 @@ namespace RivetReach
             return Lerp(Lerp(a,b,ty),Lerp(c,d,ty),tz);
         }
         public int Height(long x,long z) => 32+(int)(Noise(x,0,z,96)*42+Noise(x,0,z,32)*14+Noise(x,0,z,12)*3);
+        public const int TreeSpacing=8,CanopyRadius=2,MaxTreeHeight=8;
+        public readonly struct Tree
+        {
+            public readonly BlockPos Root;
+            public readonly int Logs;
+            public Tree(BlockPos root,int logs){Root=root;Logs=logs;}
+            public byte At(BlockPos p)
+            {
+                long dx=Math.Abs(p.X-Root.X),dz=Math.Abs(p.Z-Root.Z);int dy=p.Y-Root.Y;
+                if(dx==0&&dz==0&&dy>=0&&dy<Logs)return BlockId.Log;
+                int layer=dy-(Logs-1);int radius=layer<0?2:1;
+                if(layer < -2||layer>1||dx>radius||dz>radius||dx+dz>radius+1)return 0;
+                if(layer==1&&dx+dz>1)return 0;
+                return BlockId.Leaves;
+            }
+        }
+        struct TreeSample
+        {
+            public bool Valid,Present;
+            public long X,Z;
+            public int Seed;
+            public Tree Tree;
+        }
+        // Pure candidate results, bounded to 256 entries per worker/main thread.
+        // Include seed in the key; no locks, world references or expanding world cache.
+        [ThreadStatic] static TreeSample[] treeSamples;
+        public bool TryTree(long gridX,long gridZ,out Tree tree)
+        {
+            if(treeSamples==null)treeSamples=new TreeSample[256];
+            int index=(int)(Hash(gridX,171,gridZ,Seed)&255);
+            ref var sample=ref treeSamples[index];
+            if(sample.Valid&&sample.X==gridX&&sample.Z==gridZ&&sample.Seed==Seed)
+            {tree=sample.Tree;return sample.Present;}
+            bool present=ComputeTree(gridX,gridZ,out tree);
+            sample=new TreeSample{Valid=true,Present=present,X=gridX,Z=gridZ,Seed=Seed,Tree=tree};return present;
+        }
+        bool ComputeTree(long gridX,long gridZ,out Tree tree)
+        {
+            tree=default;uint hash=Hash(gridX,719,gridZ,Seed);
+            if(hash%100>=58)return false;
+            long x=gridX*TreeSpacing+2+(hash>>8)%4,z=gridZ*TreeSpacing+2+(hash>>16)%4;
+            // Preserve the supported, clear spawn for every seed.
+            if(Math.Abs(x)<=5&&Math.Abs(z)<=5)return false;
+            if(Math.Abs(x)>HorizontalLimit-CanopyRadius||Math.Abs(z)>HorizontalLimit-CanopyRadius)return false;
+            int h=Height(x,z);
+            for(int dz=-2;dz<=2;dz++)for(int dx=-2;dx<=2;dx++)if(Math.Abs(Height(x+dx,z+dz)-h)>2)return false;
+            tree=new Tree(new BlockPos(x,h+1,z),4+(int)((hash>>24)%3));return true;
+        }
+        public IEnumerable<Tree> Trees(long minX,long minZ,long maxX,long maxZ)
+        {
+            for(long z=BlockPos.FloorDiv(minZ-CanopyRadius,TreeSpacing);z<=BlockPos.FloorDiv(maxZ+CanopyRadius,TreeSpacing);z++)
+            for(long x=BlockPos.FloorDiv(minX-CanopyRadius,TreeSpacing);x<=BlockPos.FloorDiv(maxX+CanopyRadius,TreeSpacing);x++)
+                if(TryTree(x,z,out var tree))yield return tree;
+        }
+        public int OpaqueHeight(long x,long z)
+        {
+            int h=Height(x,z);
+            if(TryTree(BlockPos.FloorDiv(x,TreeSpacing),BlockPos.FloorDiv(z,TreeSpacing),out var t)&&t.Root.X==x&&t.Root.Z==z)
+                h=Math.Max(h,t.Root.Y+t.Logs-1);
+            return h;
+        }
         public byte At(BlockPos p)
         {
             if(p.Y<MinY || Math.Abs(p.X)>HorizontalLimit || Math.Abs(p.Z)>HorizontalLimit)return 3;
             if(p.Y>MaxY)return 0;
-            return At(p,Height(p.X,p.Z));
+            int h=Height(p.X,p.Z);byte ground=At(p,h);
+            if(ground!=0||p.Y<=h||p.Y>h+MaxTreeHeight+2)return ground;
+            byte result=0;
+            foreach(var tree in Trees(p.X,p.Z,p.X,p.Z))
+            {byte id=tree.At(p);if(id==BlockId.Log)return id;if(id==BlockId.Leaves)result=id;}
+            return result;
         }
         byte At(BlockPos p,int h)
         {
@@ -56,6 +123,15 @@ namespace RivetReach
                     int wy=min.Y+y-1;
                     cells[x+34*(y+34*z)]=wy<MinY?(byte)3:wy>MaxY?(byte)0:At(new BlockPos(wx,wy,wz),h);
                 }
+            }
+            // Stamp each candidate once into the chunk and its halo. Discovery order is irrelevant.
+            foreach(var tree in Trees(min.X-1,min.Z-1,min.X+32,min.Z+32))
+            for(int z=(int)Math.Max(-1,tree.Root.Z-min.Z-CanopyRadius);z<=Math.Min(32,tree.Root.Z-min.Z+CanopyRadius);z++)
+            for(int x=(int)Math.Max(-1,tree.Root.X-min.X-CanopyRadius);x<=Math.Min(32,tree.Root.X-min.X+CanopyRadius);x++)
+            for(int y=Math.Max(-1,tree.Root.Y-min.Y);y<=Math.Min(32,tree.Root.Y-min.Y+tree.Logs+1);y++)
+            {
+                var p=min.Offset(x,y,z);byte id=tree.At(p);int i=ChunkMesher.Index(x,y,z);
+                if(id!=0&&(cells[i]==0||cells[i]==BlockId.Leaves&&id==BlockId.Log))cells[i]=id;
             }
             return cells;
         }

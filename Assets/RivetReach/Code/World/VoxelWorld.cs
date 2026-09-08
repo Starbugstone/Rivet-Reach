@@ -8,7 +8,7 @@ using UnityEngine.Rendering;
 
 namespace RivetReach
 {
-    public sealed class VoxelWorld : MonoBehaviour,IGrassWorld
+    public sealed class VoxelWorld : MonoBehaviour,IGrassWorld,ITreeWorld
     {
         sealed class Resident
         {
@@ -39,6 +39,12 @@ namespace RivetReach
         public string Error { get; private set; }
         public event Action<Vector3> OriginShifted;
         public event Action<BlockPos> BlockChanged;
+        public event Action<BlockPos,byte> BlockMined;
+        readonly HashSet<ChunkPos> treeMeshes=new HashSet<ChunkPos>();
+        public TreeSimulation Trees {get;private set;}
+        float treeAccumulator;
+        public double LastTreeTickMs {get;private set;}
+        public double MaxTreeTickMs {get;private set;}
         float nextDemand;
         ChunkPos lastCentre;
         bool stopped;
@@ -52,7 +58,7 @@ namespace RivetReach
         public void Initialize(int seed)
         {
             Generator=new TerrainGenerator(seed);Origin=new BlockPos(0,0,0);
-            Grass=new GrassSimulation(seed);
+            Grass=new GrassSimulation(seed);Trees=new TreeSimulation();
             TerrainMaterial=Resources.Load<Material>("Materials/Terrain");
         }
         public Vector3 Local(BlockPos p) => new Vector3((float)(p.X-Origin.X),p.Y-Origin.Y,(float)(p.Z-Origin.Z));
@@ -67,7 +73,39 @@ namespace RivetReach
         }
         public bool Solid(BlockPos p) => !Ready(p)||Get(p)!=0;
         public bool Remove(BlockPos p,byte expected) => expected!=0&&Change(p,expected,0);
-        public bool Place(BlockPos p,byte id) => id!=0&&Change(p,0,id);
+        public bool Place(BlockPos p,byte id) => BlockId.Placeable(id)&&Change(p,0,id);
+        public bool Mine(BlockPos p,byte expected,ToolCapability tool)
+        {
+            bool fell=expected==BlockId.Log&&(tool&ToolCapability.Axe)!=0&&NaturalLog(p);
+            if(!Remove(p,expected))return false;
+            BlockMined?.Invoke(p,expected);
+            if(fell)Trees.FellAbove(this,p);
+            return true;
+        }
+        public bool NaturalLog(BlockPos p)=>Get(p)==BlockId.Log&&
+            !(edits.TryGetValue(p.Chunk,out var e)&&e.ContainsKey(p.Index));
+        public bool NaturalLeaf(BlockPos p)=>Get(p)==BlockId.Leaves&&
+            !(edits.TryGetValue(p.Chunk,out var e)&&e.ContainsKey(p.Index));
+        public bool RemoveTreeBlock(BlockPos p,byte expected,bool drop)
+        {
+            if(expected==BlockId.Log&&!NaturalLog(p))return false;
+            if((expected!=BlockId.Log&&expected!=BlockId.Leaves)||p.Y<TerrainGenerator.MinY||p.Y>TerrainGenerator.MaxY||!Change(p,expected,0,false,false))return false;
+            if(drop)BlockMined?.Invoke(p,expected);return true;
+        }
+        public void AdvanceTrees(float dt)
+        {
+            if(stopped)return;treeAccumulator+=dt;
+            if(treeAccumulator<TreeSimulation.StepSeconds)return;
+            treeAccumulator=Math.Min(treeAccumulator-TreeSimulation.StepSeconds,TreeSimulation.StepSeconds);
+            if(Trees.PendingFells==0&&Trees.PendingLeaves==0&&treeMeshes.Count==0){LastTreeTickMs=0;return;}
+            long began=Stopwatch.GetTimestamp();Trees.Step(this);
+            var clock=Stopwatch.StartNew();
+            foreach(var key in treeMeshes)
+                if(chunks.TryGetValue(key,out var c)&&c.Cells!=null&&c.Dirty)Apply(ChunkMesher.Build(key,c.Revision,c.Cells),c);
+            if(treeMeshes.Count>0)LastEditMeshMs=clock.Elapsed.TotalMilliseconds;
+            treeMeshes.Clear();
+            LastTreeTickMs=(Stopwatch.GetTimestamp()-began)*1000.0/Stopwatch.Frequency;MaxTreeTickMs=Math.Max(MaxTreeTickMs,LastTreeTickMs);
+        }
         public bool TryRead(BlockPos p,out byte id)
         {id=0;if(!Ready(p))return false;id=Get(p);return true;}
         public byte SkyLight(BlockPos air)
@@ -75,12 +113,12 @@ namespace RivetReach
             var key=(air.X,air.Z);
             if(!skyHeights.TryGetValue(key,out int top))
             {
-                top=Generator.Height(air.X,air.Z);
+                top=Generator.OpaqueHeight(air.X,air.Z);
                 if(editedColumns.TryGetValue(key,out var column)&&column.Count>0)top=Math.Max(top,column.Max);
-                while(top>=TerrainGenerator.MinY&&Get(new BlockPos(air.X,top,air.Z))==0)top--;
+                while(top>=TerrainGenerator.MinY&&!BlockId.Opaque(Get(new BlockPos(air.X,top,air.Z))))top--;
                 skyHeights[key]=top;
             }
-            // The current world has opaque terrain and daylight. Artificial lighting is separate.
+            // Leaves transmit daylight for grass; voxel light attenuation remains a later system.
             return air.Y>top?(byte)15:(byte)0;
         }
         public bool ChangeGrass(BlockPos p,byte expected,byte replacement)
@@ -95,26 +133,30 @@ namespace RivetReach
                 grassAccumulator-=GrassSimulation.StepSeconds;
             }
         }
-        bool Change(BlockPos p,byte expected,byte replacement,bool immediate=true)
+        bool Change(BlockPos p,byte expected,byte replacement,bool immediate=true,bool requireReady=true)
         {
-            if(!Ready(p)||Get(p)!=expected)return false;
+            if((requireReady&&!Ready(p))||Get(p)!=expected)return false;
             if(!edits.TryGetValue(p.Chunk,out var e)){e=new Dictionary<int,byte>();edits[p.Chunk]=e;}
             e[p.Index]=replacement;
             var columnKey=(p.X,p.Z);
             if(!editedColumns.TryGetValue(columnKey,out var column)){column=new SortedSet<int>();editedColumns[columnKey]=column;}
-            if(replacement!=0)column.Add(p.Y);else column.Remove(p.Y);
-            if((expected==0)!=(replacement==0))skyHeights.Remove(columnKey);
+            if(BlockId.Opaque(replacement))column.Add(p.Y);else column.Remove(p.Y);
+            if(BlockId.Opaque(expected)!=BlockId.Opaque(replacement))skyHeights.Remove(columnKey);
             // Update every resident halo touching the edit. Collision sees the change now.
             foreach(var kv in chunks)
             {
                 var min=kv.Key.Min;long x=p.X-min.X,z=p.Z-min.Z;int y=p.Y-min.Y;
                 if(x < -1 || x>32 || y < -1 || y>32 || z < -1 || z>32)continue;
                 var c=kv.Value;c.Revision++;c.Dirty=true;
+                if(!requireReady)treeMeshes.Add(kv.Key);
                 if(c.Cells!=null)c.Cells[ChunkMesher.Index((int)x,y,(int)z)]=replacement;
             }
             // Masking the old block requires fresh meshes; their local surface work is prioritized.
             // Hide stale chunks immediately, publishing a synchronous local rebuild for this edit only.
             // 32^3 bounded meshing is measured independently from asynchronous streaming.
+            // Automatically decaying leaves cannot be part of another leaf's valid
+            // support path. The original support removal already scheduled affected leaves.
+            if((expected==BlockId.Log||expected==BlockId.Leaves&&requireReady)&&replacement!=expected)Trees.SupportRemoved(this,p);
             if(!immediate){BlockChanged?.Invoke(p);return true;}
             var editClock=Stopwatch.StartNew();
             foreach(var kv in chunks.ToArray())
@@ -174,7 +216,7 @@ namespace RivetReach
                 long cx=centre.X+x,cz=centre.Z+z;
                 if(cx < -TerrainGenerator.HorizontalLimit/32||cx>=TerrainGenerator.HorizontalLimit/32||cz < -TerrainGenerator.HorizontalLimit/32||cz>=TerrainGenerator.HorizontalLimit/32)continue;
                 int surface=Generator.Height(cx*32+16,cz*32+16)/32;
-                int low=Math.Max(-8,Math.Min(surface-1,centre.Y-1)),high=Math.Min(23,Math.Max(surface,centre.Y+1));
+                int low=Math.Max(-8,Math.Min(surface-1,centre.Y-1)),high=Math.Min(23,Math.Max(surface+1,centre.Y+1));
                 // Deep travel does not fill the whole column between the player and surface.
                 for(int y=low;y<=high;y++)
                 {

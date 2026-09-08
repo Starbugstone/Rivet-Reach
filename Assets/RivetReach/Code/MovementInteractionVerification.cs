@@ -21,7 +21,7 @@ namespace RivetReach
                 if(!changes.ContainsKey(p))changes[p]=world.Get(p);
                 byte old=world.Get(p);if(old!=0&&old!=id)world.Remove(p,old);if(id!=0&&old!=id&&!world.Place(p,id))throw new Exception("Movement fixture terrain unavailable");
             }
-            int y=0;for(int x=-2;x<=2;x++)for(int z=-2;z<=28;z++)y=Math.Max(y,world.Generator.Height(x,z)+3);
+            int y=0;for(int x=-2;x<=2;x++)for(int z=-2;z<=28;z++)y=Math.Max(y,world.Generator.Height(x,z)+TerrainGenerator.MaxTreeHeight+3);
             var cell=new BlockPos(0,y,0);var at=world.Local(cell);
             game.SetMode(ScreenMode.Play);game.Diagnostics=false;player.VerificationMovement=null;player.VerificationMining=false;
             InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState());InputSystem.QueueStateEvent(Mouse.current,new MouseState());

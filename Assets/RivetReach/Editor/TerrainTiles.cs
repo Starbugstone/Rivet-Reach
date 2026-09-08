@@ -11,14 +11,14 @@ namespace RivetReach.Editor
             const string path="Assets/RivetReach/Resources/Materials/BlockTiles.asset";
             const int size=64;
             var tiles=AssetDatabase.LoadAssetAtPath<Texture2DArray>(path);
-            if(tiles==null||tiles.width!=size)
+            if(tiles==null||tiles.width!=size||tiles.depth!=7)
             {
-                tiles=new Texture2DArray(size,size,4,TextureFormat.RGBA32,true,false);
+                tiles=new Texture2DArray(size,size,7,TextureFormat.RGBA32,true,false);
                 // CreateAsset replaces the serialized content and preserves the existing .meta GUID.
                 AssetDatabase.CreateAsset(tiles,path);
             }
-            tiles.name="Terrain tiles v3";tiles.filterMode=FilterMode.Bilinear;tiles.anisoLevel=8;tiles.wrapMode=TextureWrapMode.Repeat;
-            for(int layer=0;layer<4;layer++)
+            tiles.name="Terrain tiles v4 trees";tiles.filterMode=FilterMode.Bilinear;tiles.anisoLevel=8;tiles.wrapMode=TextureWrapMode.Repeat;
+            for(int layer=0;layer<7;layer++)
             {
                 var pixels=new Color[size*size];
                 for(int y=0;y<size;y++)for(int x=0;x<size;x++)
@@ -46,6 +46,24 @@ namespace RivetReach.Editor
                         c=Color.Lerp(new Color(.43f,.46f,.47f),new Color(.56f,.57f,.55f),mineral*.65f+broad*.35f);
                         c*=.96f+small*.075f;
                         if(grain>.98f)c=Color.Lerp(c,new Color(.60f,.53f,.40f),.24f);
+                    }
+                    if(layer==4)
+                    {
+                        float ridge=Patch(x,0,4,61),groove=Mathf.Pow((Mathf.Sin(x*.70f+small*2)+1)*.5f,8);
+                        c=Color.Lerp(new Color(.24f,.145f,.075f),new Color(.46f,.32f,.17f),ridge)*(.86f+small*.24f);
+                        c*=1-groove*.24f;
+                    }
+                    if(layer==5)
+                    {
+                        float dx=x-31.5f,dy=y-31.5f,r=Mathf.Sqrt(dx*dx+dy*dy);
+                        float ring=(Mathf.Sin(r*.95f+small*1.4f)+1)*.5f;
+                        c=Color.Lerp(new Color(.49f,.33f,.17f),new Color(.69f,.51f,.29f),ring*.6f+broad*.4f);
+                        if(Mathf.Max(Mathf.Abs(dx),Mathf.Abs(dy))>28)c=new Color(.30f,.19f,.095f)*(.9f+small*.2f);
+                    }
+                    if(layer==6)
+                    {
+                        float cluster=Hash(x/8,y/8,71),vein=(x+y)%8==0?.84f:1;
+                        c=Color.Lerp(new Color(.18f,.30f,.105f),new Color(.36f,.49f,.19f),cluster*.5f+small*.5f)*vein;
                     }
                     c*=.988f+grain*.024f;c.a=1;pixels[x+y*size]=c;
                 }

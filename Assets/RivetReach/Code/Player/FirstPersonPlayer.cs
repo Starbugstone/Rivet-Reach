@@ -29,6 +29,7 @@ namespace RivetReach
         GameObject selection;
         public bool SelectionVisible=>selection!=null&&selection.activeInHierarchy;
         float nextPlace;
+        byte miningItem;
         float lastForwardPress=float.NegativeInfinity;
         bool doubleTapSprint;
         Material lineMaterial;
@@ -129,7 +130,7 @@ namespace RivetReach
             // collision capsule or interaction rays. Follow the same smooth crouch blend as the rig.
             Body.transform.localPosition=Inspecting?Vector3.zero:new Vector3(0,0,Mathf.Lerp(-.34f,-.48f,Body.CrouchWeight));
             Body.transform.localScale=Vector3.one;
-            Arms.FitFirstPersonFov(Camera.fieldOfView);
+            Arms.FitFirstPersonFov(Camera.fieldOfView);HeldBlock.FrameFirstPerson();
             Vector2 swayTarget=control?Vector2.ClampMagnitude(Game.Input.Look,8):Vector2.zero;
             handSway=Vector2.SmoothDamp(handSway,swayTarget,ref handSwayVelocity,.075f,100,Time.deltaTime);
             // Camera aim is direct; only the held hands lag slightly behind a turn.
@@ -151,8 +152,11 @@ namespace RivetReach
         void OnDisable(){ResetSprint();}
         void TargetAndMine()
         {
+            var selected=Game.Inventory.Slots[Game.Selected];byte heldId=selected.Empty?(byte)0:selected.Id;
+            if(heldId!=miningItem){MiningProgress=0;miningItem=heldId;}
+            ToolCapability tool=Game.Registry.Capabilities(selected);
             bool found=Game.World.Raycast(Camera.transform.position,Camera.transform.forward,5,out var pos,out byte id);
-            if(!found||!HasTarget||!pos.Equals(Target))MiningProgress=0;
+            if(!found||!HasTarget||!pos.Equals(Target)||id!=TargetId)MiningProgress=0;
             HasTarget=found;Target=pos;TargetId=id;
             if(Game.Input.Place)
             {
@@ -164,13 +168,12 @@ namespace RivetReach
             }
             nextPlace=0;
             if(!found||!(Game.Input.Mine||VerificationMining)){MiningProgress=0;return;}
-            MiningProgress+=Time.deltaTime/Game.Registry.Get(id).fistSeconds;
+            MiningProgress+=Time.deltaTime/Game.Registry.MiningSeconds(id,tool);
             if(MiningProgress<1)return;
             MiningProgress=0;
-            if(Game.World.Remove(pos,id))
+            if(Game.World.Mine(pos,id,tool))
             {
                 byte drop=Game.Registry.FistDrop(id);
-                Game.Items.Spawn(new ItemStack(drop,1),Game.World.Local(pos)+new Vector3(.5f,.3f,.5f),Vector3.up*1.6f);
                 Game.Sound.Mine();Game.Notify("Gathered "+Game.Registry.Get(drop).displayName+" — walk close to collect",1);
             }
         }

@@ -86,7 +86,7 @@ The wooden tool exists to bootstrap stone without a metal dependency. The furnac
 
 ## 4. First-session and industrial sequence
 
-The locked first step delivers terrain, FPS movement, a 3D player, fist mining and a real gathering/inventory loop, with only a crafting placeholder. Its fist-mineable palette is scoped in [GAMEPLAY.md](GAMEPLAY.md#14-locked-first-step-interaction-contract); it does not require the tools, starter ore distribution, recipes or industrial resources below. This broader bootstrap remains a candidate for later implementation chosen after reviewing that first slice. When selected, its first 20-30 minutes should support building, inventory use, smelting and saving without developer commands; it does not promise that every player finishes industrialization in that interval.
+The locked first step delivers terrain, FPS movement, a 3D player, fist mining and a real gathering/inventory loop, with only a crafting placeholder. Its fist-mineable palette is scoped in [GAMEPLAY.md](GAMEPLAY.md#14-locked-first-step-interaction-contract); the user-authorized starter axe/tree extension is available, while the tool progression, starter ore distribution, recipes and industrial resources below remain deferred. This broader bootstrap remains a candidate for later implementation chosen after reviewing that first slice. When selected, its first 20-30 minutes should support building, inventory use, smelting and saving without developer commands; it does not promise that every player finishes industrialization in that interval.
 
 The first industrial sequence is:
 

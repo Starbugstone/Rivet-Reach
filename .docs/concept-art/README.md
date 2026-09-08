@@ -7,7 +7,7 @@
 | Image | Purpose | Milestone relationship |
 |---|---|---|
 | [Player turnarounds](player-male-female-turnaround-v3.png) | Male left, female right; both with front/back coverage, same practical visual language | First-step player/model reference; both support skins |
-| [Tools and weapons](player-tools-weapons-v1.png) | Player poses and first-person grip ideas for pickaxe, axe, sword and crossbow | Future visual proposals only; the first step still mines with fists |
+| [Tools and weapons](player-tools-weapons-v1.png) | Player poses and first-person grip ideas for pickaxe, axe, sword and crossbow | Axe subsequently requested for tree felling; other equipment remains a future proposal |
 | [World 01 - Grassland traversal](world-grassland-fps-v1.png) | First-person scale, terrain palette, depth and restrained HUD | First-step terrain/FPS target |
 | [World 02 - Cave mining](world-cave-mining-fps-v1.png) | Shallow cave visibility, fist targeting, excavation and loose-item readability | First-step mining/streaming target |
 | [World 03 - Ridge inventory](world-ridge-inventory-v1.png) | Inventory over the world, player preview and disabled crafting area | First-step inventory/UI draft |

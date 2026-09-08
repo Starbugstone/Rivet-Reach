@@ -253,7 +253,7 @@ Working scope boundaries, chosen to keep this step small:
 - Use one terrain-only world definition and a small fist-mineable block palette. Hills and a small amount of cave/overhang geometry should exercise generation and underground edits; biome variety and the full resource distribution are later choices.
 - Preserve the existing physical stack-drop/pickup rules for the mining-to-inventory loop, including compatible merging and sleeping on dry terrain. Water simulation is not required here.
 - Establish a reusable player model and basic idle/movement/fist animation. The user subsequently requested changeable player skins: include a reusable skin texture layout and basic local skin selection as the working first-step extension, with matching body/fists. Detailed behaviour is in [GAMEPLAY.md](GAMEPLAY.md#15-player-skins). A third-person gameplay mode, body-shape customization, an in-game skin painter, combat and final animation polish are not required.
-- Tools/tool progression, functional recipes, workbench/furnace, survival/death, mobs, water simulation, day/night progression, machinery, logistics and additional worlds remain outside this step.
+- Beyond the explicitly requested starter axe/tree felling extension, tool progression, functional recipes, workbench/furnace, survival/death, mobs, water simulation, day/night progression, machinery, logistics and additional worlds remain outside this step.
 - Retain terrain edits, inventory and unexpired drops across chunk unloading/reloading within the running session. Durable cross-session saving and recovery remain later candidates; the first build must clearly disclose its session-only state. This is a scoped milestone boundary, not removal of the final persistent-save requirement.
 - Use a stable lighting setup for visual review. Final art breadth and a complete voxel-light feature set are not prerequisites for this step.
 
@@ -277,6 +277,8 @@ These checkpoints do not authorize separate later features. Stage 0 is complete 
 **Feedback revision, 2026-09-08:** the user rejected the initial player/terrain presentation, requested farther fog and identified missing placement. Placement now belongs to Stage 0; the art remains under review. This does not authorize later systems. Current evidence is recorded in [the visual revision report](verification/VISUAL_REVISION_RESULTS.md).
 
 **Further first-step feedback, 2026-09-08:** the user requested grass-to-dirt drops, light-dependent grass spreading on ticks, a Minecraft-style fist swing and held-item display, and a simpler targeting outline. These narrowly extend this same terrain/interaction slice; detailed rules are in GAMEPLAY.md section 14 and SIMULATION.md section 13.
+
+**Tree feedback extension, 2026-09-08:** the user subsequently requested generated log/leaf trees and axe-only breaking of logs above the cut. Include this in the current terrain slice, with a starter axe available without functional crafting. [GAMEPLAY.md](GAMEPLAY.md#trees-and-axe-felling--user-feedback-extension) owns the behaviour and working defaults. This does not select the broader tool/recipe progression.
 
 **Review gate:** present the playable build, visual concept, measurements and known limitations to the user. Decide the next implementation scope from that evidence. Do not automatically begin crafting, survival, industry or the old Stage 1 list.
 

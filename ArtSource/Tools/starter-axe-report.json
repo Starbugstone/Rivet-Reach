@@ -1,0 +1,15 @@
+{
+  "triangles": 752,
+  "vertices": 390,
+  "materials": 1,
+  "dimensions_m": [
+    0.25999999046325684,
+    0.06200000271201134,
+    0.5370000004768372
+  ],
+  "texture_pixels": [
+    128,
+    128
+  ],
+  "grip_diameter_m": 0.036
+}
