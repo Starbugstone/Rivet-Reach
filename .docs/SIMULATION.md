@@ -122,3 +122,104 @@ Proposed reproducible workload matrix:
 Record seed, workload configuration, resident/eligible chunk counts, network nodes/edges, active transfers, frame distributions, simulation time, queue age, memory and save size. Dormant CPU cost can be near zero while persisted metadata and storage still grow; measure those separately.
 
 A benchmark passes only for its stated workload. When overloaded, bounded queues and visible waiting should preserve correctness; silently dropping simulation steps, duplicating transfers or freezing input is not an acceptable optimization.
+
+## 8. World-item entity simulation
+
+**Agreed gameplay direction:** mined blocks, mob drops and manually discarded inventory can exist as physical world-item entities. These should feel Minecraft-like in normal play while using a representation designed for larger worlds and heavier automation.
+
+### One entity represents a stack
+
+A world-item entity contains an authoritative `ItemStack` rather than representing one individual unit.
+
+Conceptually:
+
+```text
+WorldItemEntity
+|- world position / velocity
+|- ItemStack
+   |- item id
+   |- count
+   |- metadata/data where required
+|- active/sleeping movement state
+```
+
+Dropping a full stack creates one world entity containing that stack. Breaking many blocks may create several world entities initially, but compatible nearby piles should merge where legal.
+
+### Merge compatible piles
+
+Nearby compatible item entities should periodically merge to reduce active entity counts.
+
+A merge is legal only when item identity and relevant metadata are compatible. Merge operations must preserve exact item counts and obey the selected world-pile maximum.
+
+Do not run expensive all-to-all proximity checks every frame. Candidate implementations include local spatial buckets, chunk/entity grids or bounded neighbour queries. The exact merge radius and check cadence remain benchmarking decisions.
+
+The merge behaviour should be deterministic enough for authoritative multiplayer simulation and must never duplicate or lose items during simultaneous pickup/merge/despawn operations.
+
+### Sleeping settled items
+
+World items should not require continuous full physics after they have clearly settled.
+
+Candidate state flow:
+
+```text
+ACTIVE
+-> gravity / collision / water movement / merge checks
+-> settles
+-> SLEEPING
+```
+
+A sleeping item can avoid continuous expensive movement/collision work until a relevant event wakes it, for example:
+
+- supporting block removed or moved;
+- flowing water reaches/changes around it;
+- explosion or other force;
+- another physical interaction requiring movement;
+- implementation-specific merge/pickup proximity handling.
+
+Whether Unity rigidbodies are used temporarily or replaced by lightweight custom voxel-item movement should be benchmarked. General-purpose rigidbody simulation is not an architectural requirement.
+
+### Water movement and buoyancy
+
+Water uses game-oriented voxel/block fluid rules rather than continuous fluid dynamics.
+
+Flowing water contributes horizontal/current movement to world items.
+
+**Agreed content rule:** item definitions default to non-buoyant. Items sink unless their definition explicitly declares:
+
+```text
+buoyant = true
+```
+
+The physics/movement system queries this property from the item definition. It must not contain hard-coded special cases such as `if item == wood`.
+
+Non-buoyant items receive downward/sinking behaviour while still responding to current. Buoyant items receive a gentle upward influence while still responding to current.
+
+Exact forces, drag, terminal movement, resting behaviour on underwater terrain and behaviour at the water surface remain feel/performance tuning parameters.
+
+### Separation from pipe logistics
+
+Do not convert normal factory transfers into physical world-item entities merely for visual effect.
+
+```text
+world item = physical entity simulation
+inventory item = stored data
+pipe item = logical transfer/accounting
+```
+
+All three share stable item identity/count semantics, but only the first participates in gravity, collisions and water movement.
+
+Cosmetic representations inside pipes may be rendered independently and may be dropped/skipped under performance load without changing authoritative item state.
+
+### World-item stress cases
+
+Add explicit future tests for:
+
+- mining/dropping hundreds or thousands of compatible items in one area;
+- many small piles merging while players pick them up;
+- item piles crossing chunk boundaries in flowing water;
+- settled sleeping items after long sessions;
+- submerged buoyant and non-buoyant items in still and flowing water;
+- block removal under sleeping items;
+- save/load of world piles with exact counts;
+- multiplayer contention where two players attempt to collect the same pile;
+- despawn/merge/pickup occurring near the same simulation boundary.
