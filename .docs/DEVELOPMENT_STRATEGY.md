@@ -284,6 +284,8 @@ These checkpoints do not authorize separate later features. Stage 0 is complete 
 
 **Ore extension, 2026-09-08:** the user explicitly selected ore generation as the next step, then required multiple ores at different levels and an unbreakable bedrock base. Implement this bounded terrain/resource extension with pickaxe extraction and session depletion. [ECONOMY.md](ECONOMY.md#current-ore-generation-and-bedrock) owns the working bands and yields. This does not select processing, tool tiers, durable saves or the broader candidate stages.
 
+**Day/night extension, 2026-09-09:** the user requested moving sun/moon and nightly lunar phases. This bounded environment extension is now selected; [GAMEPLAY.md](GAMEPLAY.md#day-night-and-lunar-phases) owns its working behavior. It does not automatically select the remaining candidate sandbox systems.
+
 **Review gate:** present the playable build, visual concept, measurements and known limitations to the user. Decide the next implementation scope from that evidence. The crafting and ore/bedrock extensions are authorized; do not automatically begin its larger stations/progression, survival, industry or the old Stage 1 list.
 
 ### Candidate Stage 1 - Extend the sandbox (not yet selected)
@@ -298,7 +300,7 @@ Add:
 - data-driven grid crafting;
 - workbench/furnace;
 - save/reload of terrain, inventory and simple block entities;
-- simple day/night cycle;
+- simple day/night cycle (subsequently selected separately; see the extension above);
 - one passive and one hostile mob when useful for feel testing.
 
 Acceptance question:

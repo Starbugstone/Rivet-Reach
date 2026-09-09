@@ -28,6 +28,7 @@ Shader "RivetReach/VoxelTerrain"
             TEXTURE2D_ARRAY(_Tiles); SAMPLER(sampler_Tiles);
             TEXTURE2D_ARRAY(_DetailTiles); SAMPLER(sampler_DetailTiles);
             float4 _RRFogColour; float4 _RRFogRange; float4 _RRWorldOffset; float _RRPresentationTime;float4 _RRImpactLight,_RRImpactColour;
+            float4 _RRAmbientSky,_RRAmbientGround;
             float PaletteHash(float2 cell)
             {
                 cell=cell-floor(cell/64)*64;
@@ -65,11 +66,11 @@ Shader "RivetReach/VoxelTerrain"
                 Light sun=GetMainLight(TransformWorldToShadowCoord(i.positionWS));
                 half diffuse=saturate(dot(normal,sun.direction));
                 AmbientOcclusionFactor ao=GetScreenSpaceAmbientOcclusion(GetNormalizedScreenSpaceUV(i.positionCS));
-                half3 ambient=lerp(half3(.22,.21,.17),half3(.37,.48,.62),normal.y*.5+.5);
+                half3 ambient=lerp(_RRAmbientGround.rgb,_RRAmbientSky.rgb,normal.y*.5+.5);
                 float clouds=PaletteNoise(world.xz/16+float2(_RRPresentationTime*.016,0));
                 float cloudLight=lerp(.84,1,smoothstep(.35,.68,clouds));
                 half3 lighting=ambient*ao.indirectAmbientOcclusion+sun.color*diffuse*sun.shadowAttenuation*.82*ao.directAmbientOcclusion*cloudLight;
-                if(i.tile==6)lighting+=half3(.30,.42,.12)*saturate(dot(-normal,sun.direction))*.32*sun.shadowAttenuation;
+                if(i.tile==6)lighting+=half3(.30,.42,.12)*sun.color*saturate(dot(-normal,sun.direction))*.32*sun.shadowAttenuation;
                 float3 view=GetWorldSpaceNormalizeViewDir(i.positionWS),halfVector=normalize(view+sun.direction);
                 float sheen=pow(saturate(dot(normal,halfVector)),lerp(18,48,1-detail.a))*.035*sun.shadowAttenuation;
                 colour=colour*lighting+sun.color*sheen;

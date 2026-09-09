@@ -18,6 +18,7 @@ namespace RivetReach
         public PlayerInput Input {get;private set;}
         public GameUI UI {get;private set;}
         public WorldSound Sound {get;private set;}
+        public DayNightCycle Sky {get;private set;}
         public ScreenMode Mode {get;private set;}=ScreenMode.Title;
         public bool Started {get;private set;}
         public bool InventoryOpen=>Mode==ScreenMode.Inventory;
@@ -41,15 +42,7 @@ namespace RivetReach
         {
             Instance=this;Application.targetFrameRate=90;QualitySettings.vSyncCount=0;
             foreach(var camera in FindObjectsByType<Camera>())camera.gameObject.SetActive(false);
-            foreach(var light in FindObjectsByType<Light>())if(light.type==LightType.Directional)
-            {
-                light.transform.rotation=Quaternion.Euler(42,-35,0);light.intensity=1.35f;light.color=new Color(1,.94f,.83f);
-                light.shadows=LightShadows.Soft;Shader.SetGlobalVector("_RRSunDirection",-light.transform.forward);
-            }
-            RenderSettings.ambientMode=UnityEngine.Rendering.AmbientMode.Trilight;
-            RenderSettings.ambientSkyColor=new Color(.58f,.69f,.82f);RenderSettings.ambientEquatorColor=new Color(.52f,.58f,.63f);RenderSettings.ambientGroundColor=new Color(.34f,.35f,.29f);
-            RenderSettings.fog=true;RenderSettings.fogMode=FogMode.Linear;RenderSettings.fogColor=new Color(.61f,.71f,.80f);RenderSettings.fogStartDistance=65;RenderSettings.fogEndDistance=135;
-            RenderSettings.skybox=Resources.Load<Material>("Materials/Sky");
+            Sky=gameObject.AddComponent<DayNightCycle>();Sky.Initialize();
             Input=new PlayerInput();Registry=ItemRegistry.Load();Recipes=RecipeCatalogAsset.Load().Compile(Registry);Sound=gameObject.AddComponent<WorldSound>();
             CreateSession(NewRandomSeed());
             var effects=new GameObject("Arcade presentation");effects.transform.SetParent(transform,false);effects.AddComponent<ArcadePresentation>();
@@ -59,6 +52,7 @@ namespace RivetReach
         void CreateSession(int seed)
         {
             Seed=seed;
+            Sky.ResetClock();
             Inventory=new Inventory(id=>Registry.Get(id).stackLimit);
             Crafting=new CraftingSession(Recipes,2,id=>Registry.Get(id).stackLimit);
             Inventory.Add(BlockId.StarterDagger,1,9,10);
@@ -96,7 +90,7 @@ namespace RivetReach
         void Update()
         {
             if(Input==null)return;
-            if(Started&&!Paused){World.AdvanceGrass(Time.deltaTime);World.AdvanceTrees(Time.deltaTime);}
+            if(Started&&!Paused){Sky.Advance(Time.deltaTime);World.AdvanceGrass(Time.deltaTime);World.AdvanceTrees(Time.deltaTime);}
             if(Input.PollRebind()){UI.Rebuild();return;}
             if(Input.Pressed("Pause"))SetMode(Mode==ScreenMode.Play?ScreenMode.Pause:Started?ScreenMode.Play:ScreenMode.Title);
             if(Started&&Input.Pressed("Inventory"))SetMode(InventoryOpen?ScreenMode.Play:ScreenMode.Inventory);

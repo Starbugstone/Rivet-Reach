@@ -19,6 +19,7 @@ namespace RivetReach
         readonly List<SlotView> slots=new List<SlotView>();
         readonly Dictionary<byte,Texture2D> icons=new Dictionary<byte,Texture2D>();
         Text message,diagnostics,targetLabel,heldLabel,selectedLabel,loading,tooltip;
+        Text worldTime;
         GameObject diagnosticsPanel;
         Image progress;
         RectTransform heldRoot;
@@ -102,6 +103,7 @@ namespace RivetReach
         void BuildHUD()
         {
             Label(root,"RIVET REACH",28,22,300,28,19);
+            worldTime=Label(root,"",870,22,380,52,16,pale);worldTime.alignment=TextAnchor.UpperRight;
             Label(root,"FIRST EXPEDITION",29,52,280,22,11,gold);
             foreach(var bar in new[]{new Rect(632,359,5,2),new Rect(643,359,5,2),new Rect(639,352,2,5),new Rect(639,363,2,5)})
             {
@@ -344,6 +346,11 @@ namespace RivetReach
             }
             frameAverage=Mathf.Lerp(frameAverage,Time.unscaledDeltaTime,.05f);
             if(diagnosticsPanel!=null)diagnosticsPanel.SetActive(game.Diagnostics);
+            if(worldTime!=null)
+            {
+                var clock=game.Sky.Clock;int minute=(int)(clock.Hour*60);
+                worldTime.text=$"Day {clock.DayNumber} · {minute/60:00}:{minute%60:00}\n{clock.MoonPhaseName}";
+            }
             if(diagnostics!=null)diagnostics.text=game.Diagnostics?$"{1/Mathf.Max(.001f,frameAverage):0} fps · {frameAverage*1000:0.0} ms\nWorld: {TerrainGenerator.WorldId} · seed {game.Seed} · {game.World.Address(game.Player.transform.position)}\nChunks {game.World.ReadyCount}/{game.World.ResidentCount} · queue {game.World.PendingCount}\nGeneration + mesh {game.World.LastBuildMs:0.0} ms · edit mesh {game.World.LastEditMeshMs:0.0} ms\nTriangles {game.World.MeshTriangles:N0} · changes {game.World.EditCount} · piles {game.Items.Piles.Count}\nStale jobs rejected {game.World.RejectedJobs} · origin {game.World.Origin}\nPlacement: {game.PlacementDiagnostic??"No attempt yet"}":"";
             if(preview!=null&&previewRoot.activeSelf)preview.Animate(.12f,false,Time.unscaledTime*2);
         }

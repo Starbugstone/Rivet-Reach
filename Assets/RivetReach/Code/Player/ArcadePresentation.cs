@@ -46,10 +46,6 @@ namespace RivetReach
             cracks.transform.SetParent(transform,false);cracks.transform.localScale=Vector3.one*1.003f;
             crackMaterial=new Material(Shader.Find("RivetReach/ArcadeCracks"));materials.Add(crackMaterial);
             var renderer=cracks.GetComponent<MeshRenderer>();renderer.sharedMaterial=crackMaterial;renderer.shadowCastingMode=ShadowCastingMode.Off;renderer.receiveShadows=false;cracks.SetActive(false);
-            foreach(var light in FindObjectsByType<Light>())if(light.type==LightType.Directional)
-            {light.transform.rotation=Quaternion.Euler(47,-32,0);light.color=new Color(1,.91f,.72f);light.intensity=1.45f;Shader.SetGlobalVector("_RRSunDirection",-light.transform.forward);}
-            RenderSettings.ambientSkyColor=new Color(.50f,.70f,.94f);RenderSettings.ambientEquatorColor=new Color(.48f,.59f,.71f);
-            RenderSettings.ambientGroundColor=new Color(.36f,.32f,.23f);RenderSettings.fogColor=new Color(.72f,.82f,.87f);
             Bind();
             gameObject.AddComponent<ArcadeGrass>();
         }

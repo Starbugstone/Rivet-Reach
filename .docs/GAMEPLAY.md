@@ -366,3 +366,14 @@ Explore and dig to discover coal, copper, iron, gold and diamond veins. Select t
 A successful extraction removes one voxel and produces exactly one matching physical resource stack through the existing drop/pickup path. Resources have distinct names, icons and held swatches. They support inventory movement, splitting and dropping, but cannot be placed as ore or terrain. A repeated stale mining command produces nothing. Mined veins stay depleted when unloaded and revisited within the session; quitting still resets world progress.
 
 Bedrock at Y = −256 is a continuous solid floor. Targeting it shows **Unbreakable**. Every tool, direct removal and placement reject changes to this layer without progress, item consumption or drops. Player collision prevents descent through it. Grass, dirt, stone, logs and leaves retain their existing mining and placement behavior. F12 coordinates help review the ore levels; no scanner or map markers are added.
+
+
+## Day, night and lunar phases
+
+**Explicit user extension, 2026-09-09:** implement a day/night system with a moving sun and moon, and a different lunar phase each night. This is an authorized addition to the current playable slice.
+
+**Working defaults:** a complete day lasts 20 minutes of running simulation, beginning at 08:00 on Day 1. Sunrise is at 06:00 and sunset at 18:00. The sun travels east to west; the moon follows the opposite arc at night. Sky colors, clouds, directional shadows, ambient light and distant fog blend through dawn/day/dusk/night. Stars appear after dusk. Moonlight is strongest at full moon and absent at new moon; a low ambient floor keeps terrain readable. These durations, colors and visibility levels remain tuning choices awaiting player review.
+
+Eight phases repeat over eight nights: new moon, waxing crescent, first quarter, waxing gibbous, full moon, waning gibbous, last quarter and waning crescent. The first night is full. The phase advances at dawn, preserving one phase across the whole night, including midnight. The moon is an illuminated procedural disk with distinct waxing/waning silhouettes and a faint dark side. Sun/moon positions use a stylized opposed orbit so the moon crosses the night sky at every phase; this is not an astronomical orbital simulation.
+
+The HUD shows the civil day, time and phase. Civil days change at midnight. Play and inventory advance time; title/pause/settings/appearance/controls freeze it with the existing universe-time rule. A new world starts the clock over; quitting has no offline catch-up or durable clock save in this session-only slice. [Simulation contract](SIMULATION.md#session-world-clock-and-celestial-presentation) owns the API and update boundary. [Day/night verification](verification/DAY_NIGHT_RESULTS.md) records actual evidence and remaining integration review.

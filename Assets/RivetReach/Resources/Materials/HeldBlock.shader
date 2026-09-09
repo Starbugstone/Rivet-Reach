@@ -15,6 +15,7 @@ Shader "RivetReach/HeldBlock"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
             TEXTURE2D_ARRAY(_Tiles);SAMPLER(sampler_Tiles);
             float _FirstPerson;
+            float4 _RRAmbientSky,_RRAmbientGround;
             struct A {float3 positionOS:POSITION;float3 normalOS:NORMAL;float2 uv:TEXCOORD0;float2 tile:TEXCOORD1;};
             struct V {float4 positionCS:SV_POSITION;float3 normalWS:TEXCOORD0;float2 uv:TEXCOORD1;float tile:TEXCOORD2;};
             V Vert(A i){V o;o.positionCS=TransformObjectToHClip(i.positionOS);o.normalWS=TransformObjectToWorldNormal(i.normalOS);o.uv=i.uv;o.tile=i.tile.x;
@@ -31,7 +32,7 @@ Shader "RivetReach/HeldBlock"
             half4 Frag(V i):SV_Target
             {
                 Light sun=GetMainLight();float3 normal=normalize(i.normalWS);
-                half3 light=lerp(half3(.28,.29,.25),half3(.47,.53,.59),normal.y*.5+.5)+sun.color*saturate(dot(normal,sun.direction))*.65;
+                half3 light=lerp(_RRAmbientGround.rgb,_RRAmbientSky.rgb,normal.y*.5+.5)+sun.color*saturate(dot(normal,sun.direction))*.65;
                 return half4(SAMPLE_TEXTURE2D_ARRAY(_Tiles,sampler_Tiles,i.uv,i.tile).rgb*light,1);
             }
             ENDHLSL

@@ -1,0 +1,51 @@
+{
+  "result": "PASS",
+  "method": "PNG screen pixels; 12<radius<42 around moon at(640,360), >12 RGB-grey increase over new moon; ground patch x400..759,y515..585. UI centre excluded. Scene captures at matched player position/orientation.",
+  "phases": [
+    {
+      "phase": 0,
+      "litPixelFraction": 0.0,
+      "litCentroidOffsetX": 0
+    },
+    {
+      "phase": 1,
+      "litPixelFraction": 0.1549,
+      "litCentroidOffsetX": 30.75
+    },
+    {
+      "phase": 2,
+      "litPixelFraction": 0.5175,
+      "litCentroidOffsetX": 18.25
+    },
+    {
+      "phase": 3,
+      "litPixelFraction": 0.8807,
+      "litCentroidOffsetX": 4.42
+    },
+    {
+      "phase": 4,
+      "litPixelFraction": 1.0,
+      "litCentroidOffsetX": 0.0
+    },
+    {
+      "phase": 5,
+      "litPixelFraction": 0.8634,
+      "litCentroidOffsetX": -5.03
+    },
+    {
+      "phase": 6,
+      "litPixelFraction": 0.5057,
+      "litCentroidOffsetX": -18.7
+    },
+    {
+      "phase": 7,
+      "litPixelFraction": 0.1388,
+      "litCentroidOffsetX": -31.47
+    }
+  ],
+  "groundMeanRGB255": {
+    "day-night-01-noon.png": 78.571,
+    "day-night-03-full-moon-landscape.png": 23.608,
+    "day-night-04-new-moon-landscape.png": 18.074
+  }
+}

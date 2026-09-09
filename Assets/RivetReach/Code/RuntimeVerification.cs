@@ -94,6 +94,8 @@ namespace RivetReach
             game.World.ViewDistance=10;game.Diagnostics=true;
             yield return Settle();report.firstReadySeconds=Time.realtimeSinceStartup-began;
             var player=game.Player;var world=game.World;report.viewRadius=world.ViewDistance;report.fogStart=world.FogStart;report.fogEnd=world.FogEnd;var start=world.Address(player.transform.position);var saved=WorldPoint.FromLocal(player.transform.position,world.Origin);
+            if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-day-night-review"))
+            {report.workload="Day/night progression, pause, inventory, moving light/sky, eight lunar phases and session reset";yield return ReviewDayNight();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-crafting-review"))
             {report.workload="Modular crafting, pointer clicks/drags, batching and full inventory conservation";yield return ReviewCrafting();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-ore-review"))

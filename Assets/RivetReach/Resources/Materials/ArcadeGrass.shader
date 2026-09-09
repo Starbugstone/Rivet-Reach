@@ -14,6 +14,7 @@ Shader "RivetReach/ArcadeGrass"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
             float _RRPresentationTime;float4 _RRWorldOffset;
+            float4 _RRAmbientSky;
             struct A {float3 positionOS:POSITION;float3 normalOS:NORMAL;float2 uv:TEXCOORD0;};
             struct V {float4 positionCS:SV_POSITION;float3 positionWS:TEXCOORD0;float3 normalWS:TEXCOORD1;float2 uv:TEXCOORD2;};
             V Vert(A i)
@@ -31,7 +32,7 @@ Shader "RivetReach/ArcadeGrass"
                 Light sun=GetMainLight(TransformWorldToShadowCoord(i.positionWS));
                 half3 colour=lerp(half3(.055,.17,.065),half3(.32,.49,.14),pow(saturate(i.uv.y),.7));
                 half light=.48+abs(dot(normalize(i.normalWS),sun.direction))*.40*sun.shadowAttenuation;
-                return half4(colour*(half3(.50,.68,.80)+sun.color*light),1);
+                return half4(colour*(_RRAmbientSky.rgb*1.3+sun.color*light),1);
             }
             ENDHLSL
         }
