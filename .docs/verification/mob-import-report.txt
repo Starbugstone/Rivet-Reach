@@ -1,0 +1,2 @@
+RustbackBeetle: 904 triangles; 9 bones; 1 material; bounds Center: (0.00, 0.46, -0.18), Extents: (0.79, 0.44, 0.88); clips Idle, Walk, Attack, Death
+DuskProwler: 1476 triangles; 9 bones; 1 material; bounds Center: (0.00, 0.82, 0.17), Extents: (0.58, 0.92, 1.35); clips Idle, Walk, Attack, Death

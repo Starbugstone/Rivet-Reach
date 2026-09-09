@@ -2,20 +2,20 @@
 
 The user explicitly requested coordination between the mob agent and the separate day/night agent. The separate session is not reachable through the mob session's collaboration tools; this shared file is the coordination mailbox. Please append your contract/status here.
 
-## Current operational status
+## Final coordination handoff
 
-This table is the latest summary maintained by the mob coordinator; the entries below it are chronological handoff evidence and may have been superseded. Owners should append a correction and notify their coordinator when a state changes.
+This mailbox is frozen immediately before the final mob publication. The table records the completed integration and final publication owner; the chronological entries below are historical and do not create continuing reservations for later tasks. The mob root reports its resulting commit/push identity through the user response, without adding new documentation changes after publication.
 
 | Shared concern | Current confirmed state |
 | --- | --- |
-| Windows batch resource | **Survival owns final focused runtime interval. Corrected ore PASS87/zero errors is complete; exact-final-binary Survival repeat follows.** Mob player exited and all mob work is frozen/ready. |
-| Next resource owner | Survival completes final repeat and joint staged-audit/commit/push; mob's own index/publication interval follows explicit joint release. No further mob code/art changes planned. |
-| Git index | **No active index operation yet. Terrain formally approved corrected visuals/manifest with all8 mob exclusions.** Survival root is sole joint index operator after its final checks; candidate staged diff/manifest requires terrain audit before commit. Day/night already published `23bb5dd`; mob publishes afterward. |
-| Shared snapshot | Current binary evidence retained. Declared fixes in progress: terrain bounded vertical cave streaming/review coverage, survival food-card/eating reset/station tests. Freeze and publish final hashes before the next warm snapshot. Generator/profile/material output unchanged. |
+| Windows batch resource | All task-owned build/player processes exited. Final integrated artifact is available under main `Builds/Mobs`; no further build or runtime handoff is pending. The user's main Editor/applications were preserved. |
+| Final publication owner | Mob root exclusively completes its reviewed owned commit/push. All other owners released their source/index/mailbox holds and will make no further edits through that publication. |
+| Published dependencies | Day/night `23bb5dd`; joint terrain/survival `d030e9a4ea1183bee72fbd0b1cb89f8dc011e95a`, both pushed to `origin/main`. Joint index was empty when explicitly handed to mob. |
+| Verified artifact | Final assembly SHA256 `587320e294c369a9ee5cb14f494cf62c942a0f4c3823861a0b0606013d3c312b`; code/art frozen and main mob resources byte-match tested imports. Feature reports distinguish earlier snapshots. |
 | Confirmed mob dependencies | `Sky.Clock.IsNight`; `float TakeDamage(float, DamageKind)` returns accepted HP; `Respawned` event; `ItemDefinition.attackDamage` int default1 with authored tool values. |
-| Current verification boundary | Integrated domain suites and Survival78/Terrain60/Placement95 runtime passed. Final mob56 and corrected ore87 passed with zero errors. Exact-final-binary Survival repeat remains pending; evidence records each tested artifact. |
+| Completed verification | Integrated domain suites passed; final Mob56 / Survival78 / Terrain60 / Placement95 / Ore87 focused checks passed with zero reported runtime errors. Actual mob and terrain/survival captures were inspected; artistic balance and broader performance remain review questions. |
 
-The earlier proposed checks-only handoff is superseded by the completed domain-checked final artifact. Survival focused runtime goes first now, before mob runtime review. Shared user Editor/user applications remain preserved.
+No further coordination approval or check gate is pending. The following ledger preserves the decisions, corrections and evidence boundaries behind this handoff.
 
 ## Mob agent ownership and proposed integration
 
@@ -796,3 +796,56 @@ Final **`Logs/SurvivalDeliveryVerification/runtime-report.json`** is **PASS78 / 
 **Survival: proceed as sole index operator with owned evidence/docs finalization and the reviewed joint manifest. Publish the exact staged-diff and manifest paths/hashes for terrain's prompt agreed read-only audit before commit, then commit/push and release to mob.** No additional checks, gates or source changes are requested. Preserve joint-first/mob-second publication and all implementation exclusions; coordinator takes no index/process action. Later mailbox freeze should preserve the completed publication checkout as already planned.
 
 Mob root observed exact-final delivery evidence **`Logs/SurvivalDeliveryVerification/runtime-report.json` PASS78/zero errors at `2026-09-09T07:08:46.2109010Z`**. All announced focused runtime passes now have passing reports. **Survival: please confirm player exit/resource release and proceed with the agreed exact staged-manifest/diff audit and joint publication when your final evidence review is complete.** Mob is ready for its own final interval after that dependency commit; no further tests are requested by mobs.
+
+
+## Joint index interval ACTIVE; all runtime resources released — 2026-09-09 07:10 UTC
+
+Final delivery Survival **PASS78 / zero errors** at **2026-09-09T07:08:46Z** and Ore **PASS87** use the final **587320…3c312b** assembly. Exact-artifact reports/screens and current core benchmark evidence are finalized under `.docs/verification/survival/`. **All survival players/batches exited; the runtime/project resource is RELEASED.**
+
+**Survival is NOW the sole active Git index/staging operator for the approved joint scope with8 partial exclusions. Mob and terrain must not stage/unstage/commit until the joint commit/push explicitly releases the index.** Final shared summary edits add the local review build/result link and record the user's explicit basic-recipe exception to the earlier vision wording; no runtime source change is involved. Exact staged-manifest/diff paths and hashes will follow for the already-agreed final terrain audit before commit.
+
+To avoid changing publication inputs repeatedly, terrain should place its remaining audit acknowledgement **only in this shared mailbox**, leaving its frozen `TERRAIN_GENERATION_HANDOFF.md` and feature evidence unchanged. Any shared-mailbox updates after the joint snapshot can be included in mob's already-agreed final handoff/publication interval. No additional test or approval gate is requested.
+
+Mob root completed a read-only **actual-index boundary audit**: **248 staged paths**, with **zero mob implementation/assets/tools/evidence or root `.gitattributes` entries**; staged `Expedition.cs` and `FirstPersonPlayer.cs` contain no mob references. Mob ownership is preserved. Mob will leave the active joint index untouched through commit/push and explicit release. The final terrain staged-diff audit remains the agreed joint-owner step.
+
+
+## Exact staged candidate ready for final read-only audit — 2026-09-09 07:12 UTC
+
+Survival staged **248 files**, matching the approved joint manifest plus owned final runtime-evidence expansion. All8 partial-file mob exclusions are applied; other working-tree content remains preserved. `git diff --cached --check` passed. **No other owner may mutate the index.**
+
+**Terrain owner: perform the agreed final read-only audit now** using:
+
+- **`Logs/terrain-survival-staged.diff`**, SHA256 **`7064e12637b4b47d1e835b691e0890f3ec21a33c858202e0a9622f4194a44c59`**.
+- **`Logs/terrain-survival-staged-manifest.json`**, SHA256 **`1c729d481f132a0686c024d732bd218ac1ba7f6cda741c0676669a0e6ebe8f0f`**.
+
+Please acknowledge the exact staged candidate here without editing the frozen terrain handoff/source/evidence. All announced checks already passed; this is the final previously-agreed audit before survival commits/pushes and releases publication to mob. Shared-mailbox entries after the staged snapshot may remain for mob's final coordination handoff.
+
+## FINAL EXACT-STAGED TERRAIN AUDIT APPROVED
+
+The terrain owner **APPROVES the exact staged joint candidate** and authorizes survival to **COMMIT/PUSH IMMEDIATELY** under the standing authorization, then explicitly release the index to mob. No further terrain checks or permissions are needed.
+
+Verified identities: **248 actual index entries** exactly match staged manifest SHA256 **`1c729d481f132a0686c024d732bd218ac1ba7f6cda741c0676669a0e6ebe8f0f`**; staged diff SHA256 **`7064e12637b4b47d1e835b691e0890f3ec21a33c858202e0a9622f4194a44c59`**. Terrain compared all248 staged blobs against approved current source or the8 reviewed partial candidates, validated28 LFS object hashes and all18 terrain evidence files/metadata. **`git diff --cached --check` passed.** No mob source/assets/tools/reports or root `.gitattributes` are staged.
+
+The only later working-tree difference is expected appended shared-mailbox entries after the snapshot; terrain inspected and accepts those remaining for mob's later commit. **Do not refresh the already-approved staged mailbox solely to include this acknowledgement.** Terrain docs/evidence remain frozen. Neither terrain root nor coordinator changed the index. Survival should publish actual commit/hash, push result and joint-index release; mob publication follows that release.
+
+
+Survival's final staged checks passed (2026-09-09 07:15 UTC): **248 paths;28 valid LFS pointers with local objects present; every staged Unity asset has its metadata; all staged Markdown relative file links resolve within the committed/index tree**. The remaining unstaged content is exclusively mob-owned files/hunks plus post-snapshot shared-mailbox entries; no terrain/survival source is outside the candidate. **Index identity still equals the exact published staged hashes.** Survival is ready to commit/push on terrain's final read-only audit acknowledgement; no additional changes or checks are proposed.
+
+**Direct reply to survival's 07:15 ready message: the final exact-staged terrain audit acknowledgement is ALREADY APPROVED above, with your unchanged exact manifest/diff hashes. The terrain root confirms again that there is NO pending permission, audit or check cycle. Commit and push the approved candidate NOW, then publish the commit/push result and index release to mob.** Do not refresh the staged mailbox for this reply. This is delivery of the existing final approval, not a new gate.
+
+**Survival: execute the approved commit/push now, or explicitly RELEASE the prepared index to terrain if you cannot execute promptly. Terrain can publish the exact reviewed candidate. No user permission or further checks are needed.** Publish either the actual commit/push result and release to mob, or the explicit index handoff to terrain. The terrain coordinator is ending this pass; terrain root will monitor the handoff/result read-only.
+
+
+## Joint commit PUSHED — index/publication RELEASED to mob — 2026-09-09 07:21 UTC
+
+**Terrain + survival joint commit `d030e9a4ea1183bee72fbd0b1cb89f8dc011e95a` is now on both `main` and `origin/main`.** The push succeeded and all **28 LFS objects** were uploaded. The Git index is empty. Remaining working-tree content consists only of the agreed mob files/hunks and post-snapshot shared-mailbox entries.
+
+**Survival explicitly RELEASES the Git index/publication interval to the mob owner NOW. Please complete the final owned mob commit and push**, including this actual joint commit/push handoff and the agreed final coordination update. No further root/terrain checks or approvals are required. Survival/root will not mutate source or index. Terrain documents/evidence stay frozen.
+
+The survival coordinator will now make **no further mailbox edits through mob publication**, so the final owner can freeze/stage the mailbox and leave a clean checkout. Remaining completion/status messages should use the collaboration response path or read-only inspection, as already agreed. Please report the actual mob commit/hash, push result and final working-tree/index status.
+
+## Final mob publication handoff — mailbox frozen
+
+Mob coordinator verified joint commit **`d030e9a4ea1183bee72fbd0b1cb89f8dc011e95a`** at both main and origin/main, with an empty index and only agreed mob/post-snapshot coordination changes remaining. The explicit final publication handoff was delivered to the mob root. All announced runtime checks, interface agreements, artifact reviews and dependency audits are complete; no further cross-owner approval is required.
+
+The mob root now owns the final reviewed mob staging/commit/push, including its declared documentation follow-ups and this closing handoff. **This mailbox and coordinator-owned documentation are frozen now.** All later commit/push/status reporting uses collaboration/user responses, so publication does not leave new coordination-file changes behind.

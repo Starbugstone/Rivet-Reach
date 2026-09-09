@@ -379,6 +379,10 @@ Eight phases repeat over eight nights: new moon, waxing crescent, first quarter,
 The HUD shows the civil day, time and phase. Civil days change at midnight. Play and inventory advance time; title/pause/settings/appearance/controls freeze it with the existing universe-time rule. A new world starts the clock over; quitting has no offline catch-up or durable clock save in this session-only slice. [Simulation contract](SIMULATION.md#session-world-clock-and-celestial-presentation) owns the API and update boundary. [Day/night verification](verification/DAY_NIGHT_RESULTS.md) records actual evidence and remaining integration review.
 
 
+## Native creature combat and spawning
+
+The user explicitly authorized mobs, Blender-authored enemies, AI and spawning on 2026-09-09, choosing Rustback beetle and Dusk prowler. This supersedes the earlier mob/combat exclusion for this bounded extension. [MOBS.md](MOBS.md) owns the species, working combat defaults, natural spawning, voxel movement, lifecycle, asset contract and verification workflow. Mob attacks use the shared survival health/armor/death authority and prowler spawning reads the authoritative day/night clock. This is not authorization for factory raids, terrain-destroying creatures, broader ecology or durable mob saves.
+
 ## Survival progression, farming, health and armor
 
 **Selected by the user on 2026-09-09**, extending the initial crafting request with basic recipes, five tool tiers, furnaces, potatoes, farming, hunger, health and armor. This section supersedes earlier statements that these features are deferred. The broader game vision and later systems remain intact. [ECONOMY.md](ECONOMY.md#current-survival-recipes-and-tiers) owns recipe quantities and tier tables; [CRAFTING.md](CRAFTING.md#survival-progression-extension--2026-09-09) owns architecture and authoring.

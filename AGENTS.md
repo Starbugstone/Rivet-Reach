@@ -14,6 +14,8 @@ Player appearance must offer male and female model choices, both supporting chan
 
 The user subsequently authorized varied terrain, caves and biomes. [TERRAIN_GENERATION.md](.docs/TERRAIN_GENERATION.md) owns the working surface/cave profile, materials and generation compatibility. Preserve the ore bands, protected bedrock base and coordinated survival crop hook when changing generation. [Terrain verification](.docs/verification/TERRAIN_GENERATION_RESULTS.md) distinguishes generator checks from actual Unity evidence.
 
+The user subsequently authorized native mobs, Blender-authored enemies, AI and spawning, selecting Rustback beetle and Dusk prowler. [MOBS.md](.docs/MOBS.md) owns the working species, combat, spawning, voxel navigation and lifecycle rules; [mob verification](.docs/verification/MOB_RESULTS.md) separates measured results from remaining review. Integrate with the shared `WorldClock.IsNight`, item `attackDamage`, `Expedition.TakeDamage` and `Respawned` interfaces instead of duplicating clock or player survival state. Broader ecology, raids, mob loot and durable mob saves remain future scope.
+
 ## Licensing and ownership
 
 - Rivet Reach is **proprietary, all rights reserved, and not open source**. Read `LICENSE.md` before introducing code, assets, dependencies or contribution workflows.
@@ -56,7 +58,7 @@ The user subsequently authorized varied terrain, caves and biomes. [TERRAIN_GENE
 
 ## Working principles
 
-Active parallel feature coordination (2026-09-09): agents working on mobs, day/night, survival/processing and terrain/caves should read and append their ownership, public API and shared Editor/build status to [MOB_DAY_NIGHT_HANDOFF.md](.docs/MOB_DAY_NIGHT_HANDOFF.md) before editing shared runtime/UI/build entry points. Separate sessions may not be reachable through collaboration tools; mailbox entries distinguish confirmed replies from pending requests. Preserve other agents' work and stage only owned changes.
+Parallel feature integration on 2026-09-09 is recorded in [MOB_DAY_NIGHT_HANDOFF.md](.docs/MOB_DAY_NIGHT_HANDOFF.md), including confirmed mob/day-night/survival/terrain APIs, ownership and verification. That coordination handoff is closed; its historical build/index reservations do not apply to later tasks. Preserve other agents' work, establish current ownership before new overlapping edits, and stage only owned changes.
 
 Protect the exploration/automation balance, capability-based progression, world-aware state, logical network simulation and persistent saves. Challenge contradictions with concrete scenarios.
 

@@ -1,0 +1,39 @@
+{
+  "unity": "6000.4.4f1",
+  "urp": "17.4.0",
+  "platform": "Windows x64 Development",
+  "seed": 73519,
+  "resolution": "1280x720",
+  "assemblyCSharpSha256": "587320e294c369a9ee5cb14f494cf62c942a0f4c3823861a0b0606013d3c312b",
+  "domainAssertions": 92338,
+  "craftingAssertions": 1158103,
+  "survivalAssertions": 45402,
+  "mobRuntimeAssertions": 56,
+  "assetSha256": {
+    "ArtSource/Mobs/DuskProwler.blend": "6edd115073c11cd49208104c093d6c66f6d14c077bdb31a9df0a8d561601e2e3",
+    "ArtSource/Mobs/DuskProwler.blend1": "23bcf82181fddbe41fbe422ea9e065458dda73b11a3376c56b9e5a8a8dfcc8ec",
+    "ArtSource/Mobs/RustbackBeetle.blend": "d153496afd93b2622fa252ba583a3349034d912a50fcac798e88e1179788c109",
+    "ArtSource/Mobs/RustbackBeetle.blend1": "39f85350b00231a439e21c49789641526369ef83e546bb03c11f6dd16f3cd81e",
+    "ArtSource/Mobs/mob-asset-report.json": "d103a2a88a352798d57da7b459fe07a6bd92e2c8466160681ca576aee438b42c",
+    "Assets/RivetReach/Resources/Mobs/CreatureMaterial.mat": "2542d5230032f4a27015f07d07fef6dadfcf30b4b7b1c6138e663dd2202f58d8",
+    "Assets/RivetReach/Resources/Mobs/CreatureMaterial.mat.meta": "c9adea0292789d7517e55512efaa0c89174108cb8efb7c1b0bdef781d3d18dd4",
+    "Assets/RivetReach/Resources/Mobs/CreaturePalette.png": "753b707ec3692fbbfc616d456d306b6b9a09de056be61aea317906285b041cca",
+    "Assets/RivetReach/Resources/Mobs/CreaturePalette.png.meta": "d7f560e790416516bd2ad9a5efa3b37c4b8ab6e354ca4af6d9cf8d2b2b68ad3b",
+    "Assets/RivetReach/Resources/Mobs/Definitions.meta": "996f8581c18ee3de92c14ee2c589b4a0d17d5f298c1e5e4d233cd587e0a5fd41",
+    "Assets/RivetReach/Resources/Mobs/Definitions/DuskProwler.asset": "80f881fb0b9701791030bc367295bc5f817ff4eacf26f768e1b9dc52df360c0b",
+    "Assets/RivetReach/Resources/Mobs/Definitions/DuskProwler.asset.meta": "caa797614f6f482095b78fdc9c1d7e403947c02e16b5661f06ccef6b5ea92ce8",
+    "Assets/RivetReach/Resources/Mobs/Definitions/RustbackBeetle.asset": "149d616e4a1f268f8079e2d1622006413aaf4a6463a493216d3a12b2e38a5bc5",
+    "Assets/RivetReach/Resources/Mobs/Definitions/RustbackBeetle.asset.meta": "284d58652b0d7cd94386dee9b0a2f1474cc4a67fa1ddbc506f4b027eed100ce5",
+    "Assets/RivetReach/Resources/Mobs/DuskProwler.fbx": "4208b857728e71b052dff6f7a728b0e235bee922df73d7f366dcc59ae26dad1f",
+    "Assets/RivetReach/Resources/Mobs/DuskProwler.fbx.meta": "27787cd7a4eaaad2af693f04bb2aec32aa6d04ba08882458f8f941a887e1511e",
+    "Assets/RivetReach/Resources/Mobs/RustbackBeetle.fbx": "e160ef292086ec9ef3f8983a241239d113ffe186a588747a0ab955c9c71e1c90",
+    "Assets/RivetReach/Resources/Mobs/RustbackBeetle.fbx.meta": "b1bf696cd650dbc7019900d4b781334333d608032c1091ce948cff83b47a820a",
+    "Tools/create_mob_assets.py": "71185c36ec87ff610b24aa36d3fc22a397a99a7534c0ff1683bc89f201a8b624"
+  },
+  "repositoryFormatting": {
+    "path": "Assets/RivetReach/Resources/Mobs/CreatureMaterial.mat",
+    "change": "Removed two Unity-generated trailing spaces after build; serialized values unchanged.",
+    "testedSha256": "2542d5230032f4a27015f07d07fef6dadfcf30b4b7b1c6138e663dd2202f58d8",
+    "repositorySha256": "045277c35dda3ced9b93459b0ae8d8eef5a707c23aaf7b47bf4b4cc20955b9fc"
+  }
+}

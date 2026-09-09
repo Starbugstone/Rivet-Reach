@@ -550,6 +550,10 @@ When two approaches both meet the final requirements, prefer the one that can be
 When a gameplay requirement and a performance problem conflict, first look for a better representation, simulation level or scheduling strategy before reducing the intended game scope.
 
 
+## Authorized mob extension — 2026-09-09
+
+The user selected mob implementation, Blender-authored enemies, AI and spawning, then chose Rustback beetle and Dusk prowler. [MOBS.md](MOBS.md) owns this bounded playable increment. It integrates the concurrently selected day/night and survival work without selecting factory raids, generated structures, the broader creature catalogue or cross-session mob persistence. Earlier exclusions of mobs/combat describe the original first-step boundary and are superseded only for this explicit extension.
+
 ### Terrain and biome extension — 2026-09-09
 
 The user selected a terrain-generation rework with caves, varied relief and biomes. [TERRAIN_GENERATION.md](TERRAIN_GENERATION.md) owns this bounded working profile and its review questions. It preserves finite ore bands, bedrock and session edits, and supplies the coordinated wild-food generation hook to survival. Structures, water and additional worlds are not selected by this terrain request. [Verification](verification/TERRAIN_GENERATION_RESULTS.md) records measured evidence separately from user play review.

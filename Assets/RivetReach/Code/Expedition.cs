@@ -9,6 +9,7 @@ namespace RivetReach
     {
         public static Expedition Instance;
         public VoxelWorld World {get;private set;}
+        public MobSystem Mobs {get;private set;}
         public FirstPersonPlayer Player {get;private set;}
         public DroppedItems Items {get;private set;}
         public Inventory Inventory {get;private set;}
@@ -76,6 +77,7 @@ namespace RivetReach
             World.BlockMined+=SpawnMinedDrop;
             World.OriginShifted+=Sound.ShiftOrigin;
             Survival=new WorldSurvival(this);
+            Mobs=root.AddComponent<MobSystem>();Mobs.Initialize(this);
         }
         void SpawnMinedDrop(BlockPos pos,byte id)
         {
@@ -188,6 +190,7 @@ namespace RivetReach
             // Use the movement collider's exact occupied-cell rule, including its skin.
             // Touching the supporting face is legal; occupying the player's body is not.
             reason=PlayerOverlapReason;if(World.OccupiesCell(Player.transform.position,.6f,Player.Height,cell))return false;
+            reason="Cannot place inside a creature";if(Mobs!=null&&Mobs.Occupies(cell))return false;
             reason="Place "+Registry.Get(selected.Id).displayName;return true;
         }
         public bool TryPlaceSelected()

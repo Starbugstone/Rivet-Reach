@@ -1335,7 +1335,7 @@ The user's 2026-09-08 staging instruction locks **only the first playable step**
 - [x] Workbench, furnace and basic survival recipes under the explicit [survival extension](GAMEPLAY.md#survival-progression-farming-health-and-armor); industrial components remain later content.
 - [ ] Save/reload terrain, inventory, piles and simple block entities.
 - [ ] World water, sinking/buoyant piles, compatible merging and sleeping movement.
-- [ ] Basic day/night, health/death recovery and initial passive/hostile behaviours as the loop needs them.
+- [x] Initial day/night, health/death recovery and native creature behaviours under the explicit day/night, survival and [mob extensions](MOBS.md); broader ecology remains later scope.
 - [ ] Play 20-30 minutes of gathering/building/crafting without developer commands.
 
 ### Candidate Stage 2 - Industrial hook (not yet selected)
@@ -1609,3 +1609,8 @@ Use [DESIGN_QUESTIONS.md](DESIGN_QUESTIONS.md) to prioritize these open areas an
 ## Terrain and biome rework — 2026-09-09
 
 The current terrain extension is specified in [TERRAIN_GENERATION.md](TERRAIN_GENERATION.md): five surface biomes, varied relief, natural entrances and deep caves, preserving the existing ore/base and session-edit contracts. Its [verification record](verification/TERRAIN_GENERATION_RESULTS.md) owns actual evidence; the wider exploration vision remains a future scope.
+
+
+## Authorized native mob increment
+
+The user selected Rustback beetle and Dusk prowler with original Blender assets, AI, melee combat and natural spawning on 2026-09-09. [MOBS.md](MOBS.md) owns this bounded extension and [its verification report](verification/MOB_RESULTS.md) owns measured evidence. It connects the current voxel world to shared day/night, item and survival authority, with bounded active entities and local terrain-aware navigation. Broader ecology, factory raids, mob loot, named persistent creatures and multiplayer AI remain future work.

@@ -1,0 +1,38 @@
+[
+  {
+    "name": "RustbackBeetle",
+    "triangles": 904,
+    "vertices": 526,
+    "bones": 9,
+    "materials": 1,
+    "bounds_m": [
+      1.3949251174926758,
+      1.7672014236450195,
+      0.8761176466941833
+    ],
+    "actions": [
+      "Idle",
+      "Walk",
+      "Attack",
+      "Death"
+    ]
+  },
+  {
+    "name": "DuskProwler",
+    "triangles": 1476,
+    "vertices": 852,
+    "bones": 9,
+    "materials": 1,
+    "bounds_m": [
+      0.8364158868789673,
+      2.684041738510132,
+      1.6879867315292358
+    ],
+    "actions": [
+      "Idle",
+      "Walk",
+      "Attack",
+      "Death"
+    ]
+  }
+]

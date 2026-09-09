@@ -114,6 +114,10 @@ The user's subsequent request selects a polished, strongly arcade visual directi
 Actual images, motion evidence and measured limits belong in [arcade visual results](verification/ARCADE_VISUAL_RESULTS.md). The visual-only sequence encoder uses Blender's bundled video encoder; it does not add a game runtime dependency. Existing character model, skin and animation contracts remain authoritative above.
 
 
+## Native creature assets
+
+The subsequently authorized Rustback beetle and Dusk prowler extend the natural stylized kit. [MOBS.md](MOBS.md#source-and-authoring) owns their reproducible Blender sources, shared palette, nine-bone rigs, four actions, explicit FBX import and one-material contract. Compare the actual source front/back renders with Unity review captures; the selected species direction does not establish final artistic acceptance.
+
 ## Terrain and biome rework — 2026-09-09
 
 [Biome terrain materials](TERRAIN_GENERATION.md#materials-and-authoring) add original sand, sandstone, snow and red-clay swatches through `BiomeTerrainAssets`, at layers 40–43 of the shared 64² array. The builder retains other owners’ layers; the arcade detail pass matches the expanded array depth. IDs and helper contracts belong to the terrain specification. No external art or dependency was introduced.

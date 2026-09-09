@@ -161,3 +161,10 @@ The user selected caves, varied terrain and biomes. [The working profile](TERRAI
 ## Survival progression working decisions — 2026-09-09
 
 The user explicitly selected basic Minecraft-style recipes, five tool tiers including copper, furnaces, potatoes, farming, hunger, health and armor. [ECONOMY.md](ECONOMY.md#current-survival-recipes-and-tiers) and [GAMEPLAY.md](GAMEPLAY.md#survival-progression-farming-health-and-armor) own the current implementation rules. The authored recipe graph can bootstrap from gathered resources without supplied tools. Tool speeds, three 60-second crop growth intervals, exhaustion/food/healing rates and respawn grace are working defaults, not individually approved or playtest-balanced numbers. Further review should assess time to first cooked meal, underground return trips, hunger pressure and armor usefulness. Tool wear, fitted armor cosmetics, irrigation and durable saves remain separate additions.
+
+
+## Native mob working decisions — 2026-09-09
+
+**Explicit requirement:** Blender-authored enemies, AI and spawning; the user selected Rustback beetle and Dusk prowler. [MOBS.md](MOBS.md) owns the working combat, spawn, navigation and lifecycle defaults. Population limits, detection distances, attack timing, body dimensions and health are implementation choices, not individually approved balance numbers.
+
+**Nonblocking review:** assess the creature silhouettes and animation, prowler visibility under different moon phases, warning/attack readability, and encounter density while gathering and crafting. The [56-check runtime report and actual renders](verification/MOB_RESULTS.md) establish the stated checks, not artistic acceptance or long-session balance. Loot, broader ecology, persistent named creatures and multiplayer remain separate future choices.

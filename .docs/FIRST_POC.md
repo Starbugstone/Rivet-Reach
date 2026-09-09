@@ -137,3 +137,8 @@ The user extended the crafting slice with familiar basic recipes and tiers, stat
 Use a placed workbench/furnace/chest to open it; crouch-use places against it. The recipe button shows layouts from the same registry used to validate crafting. A furnace needs an ingredient and fuel; drag logs explicitly to its fuel slot if you want to burn them. Find wild ripe potatoes, use a hoe to till grass/dirt, use a potato to plant and harvest when ripe. Hold Use away from farmland to eat. Copper/iron/diamond armor equips into the four inventory armor slots. Health appears as ten hearts; hungry players cannot sprint, food supports healing and the death screen offers Respawn while retaining the world.
 
 Build with `Tools/Build-Windows.ps1`; `Tools/Verify-POC.ps1 -Survival -OutputDirectory <absolute path>` runs the focused input/transaction/lifecycle scenario. [Survival results](verification/SURVIVAL_RESULTS.md) records measured evidence. Worlds and stations still reset when the application quits. Tool/armor wear, fitted armor meshes, enchantments and irrigation remain unimplemented.
+
+
+## Native creature review build
+
+The user-requested Rustback beetle and Dusk prowler extension is available in **`Builds/Mobs/RivetReach.exe`** with its adjacent data/runtime files. Hold the existing **Mine** input while aiming at a creature to attack with the selected item or fists. The mob system uses the shared night clock and survival health/equipment rules. [MOBS.md](MOBS.md) owns behavior, authoring and build instructions; [mob verification](verification/MOB_RESULTS.md) records 56 passing standalone checks and actual Blender/Unity images. This remains a session-only review build.
