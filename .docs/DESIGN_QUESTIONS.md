@@ -74,8 +74,8 @@ Full rules are in [TRANSPORT.md](TRANSPORT.md), particularly sections 37-40.
 | P01 | PROJECT_PLAN and DEVELOPMENT_STRATEGY used different orders | One authoritative milestone plan; the later user staging decision P04 locks only the first step and makes the former Stages 1-5 provisional | Review both roadmaps together; do not treat old numbering as permission to proceed |
 | P02 | Installed art tools were mistaken for an asset pipeline | Grid/pivot/port conventions, explicit export/import, stable identities and binary-source policy | Round-trip one kit and a fresh checkout before broad asset production |
 | P03 | “Complete game” lacked a delivery boundary | Explicit staged preview/full-game scope, initial platform/content floor, cooperative verification and recovery criteria | Exact staffing, hardware and dates remain external; distinguish planned scope from validated delivery |
-| P04 | Even the earlier first POC bundled too much work and omitted early player/visual review | **Explicit user decision:** first terrain-only FPS slice, fist mining, terrain-block placement, functional inventory, crafting placeholder and a 3D player; review before selecting subsequent implementations | No structures; visual concept and terrain/chunk loading are primary outcomes. DEVELOPMENT_STRATEGY.md section 6 owns the scope |
-| P05 | Fist mining conflicted with tool-gated stone/ore; an inventory placeholder risked becoming fake inventory or real crafting scope | Real inventory and dry-terrain physical collection now; all first-palette blocks fist-mineable; crafting subsequently activated, and the ore extension adds pickaxe-only deposits | GAMEPLAY.md section 14 defines the scoped override. Full tool/recipe progression remains future design |
+| P04 | Broad milestones could omit early playable/visual review | **Explicit user direction:** build small playable increments and review before selecting further scope | DEVELOPMENT_STRATEGY.md section 6 owns the current authorized scope; later roadmap groups are candidates |
+| P05 | Mining gates and crafting scope must stay consistent | The authorized survival extension uses real grid crafting and five tool tiers; stone and ore require the appropriate pickaxe | GAMEPLAY.md owns the current gates and ECONOMY.md owns recipes; industrial progression remains later scope |
 | P06 | Chunk unloading could erase excavation while a complete disk-save system expanded the first step | **Working boundary:** preserve compact edits/item state within the session, unload runtime chunk resources; durable saving deferred with explicit session-reset disclosure | SIMULATION.md section 12 separates unchanged-terrain residency from retained player changes; test leave/return conservation |
 | P07 | A single illustrated character and the exclusion of customization could prevent player-chosen appearances | **Explicit user direction:** changeable skins. Working first-step minimum: reusable texture layout, local selector/preview and two test skins, synchronized body/fists | GAMEPLAY.md section 15 owns behaviour; custom PNG import timing, resolution, layout and overlays remain visual-review choices. No body editor or online skin service implied |
 | P08 | One model excluded the requested female choice; faceted concept art could be mistaken for proven low rendering cost | **Explicit user direction:** selectable male/female models, both with skins. Working contract: compatible rig/skin layout, identical gameplay dimensions, provisional geometry budgets | GAMEPLAY.md section 15 and CONTENT_PIPELINE.md sections 6-7 own details. Test both variants/skins in a player build; the image is not topology or performance evidence |
@@ -101,57 +101,21 @@ These alternatives can be revisited with a concrete reason and affected-rule rev
 
 **Numerical tuning:** movement/reach, tool hardness, recipe costs, fuel/pump/drill rates, pile lifetime/radius/cadence, water speeds, Gate spacing/cooldowns, ticket concurrency and render/memory budgets. The specifications provide starting values so experiments are concrete; evidence may change them.
 
-**First-step implementation/review choices:** select the small fist-mineable terrain palette, generation/meshing approach and streaming distances; record a reference machine; establish the initial terrain/player/UI visual direction through playable review. Select 3D player proportions, material/animation style and the simplest suitable reusable rig during that step. These choices are not reasons to add structures, working recipes or industry. Numerical defaults remain tuning data. Exact later implementation scope must wait for the first-step review.
+**Current implementation/review choices:** assess the implemented terrain, player, crafting/survival and creatures through play. Recorded hardware and focused checks establish their stated workloads, not final art/balance or whole-game performance. Select further implementation scope with the user.
 
 **Later content/implementation:** final production art palette, final recipe layouts, planets/biomes beyond the release floor, creature/trade catalogues, surface vehicles, deep mechanical gearing, advanced voltage/control tiers, satellite coverage, binary save packing and advanced pathfinding/meshing optimization. Select these when their stage needs them.
 
 **Intentionally mysterious:** Gatebuilder origin/disappearance and ultimate realm cosmology. Observable repair, traversal and reward rules are precise without answering those lore questions.
 
-## 8. Next implementation-readiness review
+## 8. Current implementation review
 
-The user has received Unity initialization at the repository root with Editor 6000.4.4f1 and now explicitly locks the first playable step in documentation. The user subsequently authorized implementation and then requested a visual/fog revision plus terrain placement. The current implemented scope is in [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence): terrain generation/loading, FPS movement, 3D player, fist mining, terrain-block placement and real inventory, now extended with the explicitly requested [modular personal crafting](CRAFTING.md). No structures. Record hardware, visual review, interaction/streaming findings and known limits, then decide the next implementation with the user. The retained sandbox/industry/lifecycle/multi-world groups are possibilities, not preselected next tasks.
+[FIRST_POC.md](FIRST_POC.md) records the implemented playable increment and [current verification](verification/README.md) links the latest maintained evidence per feature. The full-game decisions above remain working specifications. Superseded implementation histories and screenshots are retained in Git history.
 
-Every working decision now has a concrete behaviour and acceptance case. Only measurements can establish performance, feel and final balance; this register must not mark them validated on the strength of a Markdown review.
+Review movement, mining pace, terrain composition, cave visibility, original player appearance/hand poses, and the time to a first tool and cooked meal through play. The user selected exact Minecraft-style beginning recipe layouts and quantities; these are acceptance requirements, not open balance defaults. The shared engine supports 2×2/3×3/4×4; only personal and workbench interfaces are present. [CRAFTING.md](CRAFTING.md) owns the independent recipe checks and station interaction boundary.
 
-## First POC review — implementation now available
+Generated-only axe felling and player-placed wood/leaf protection are requirements. Ore identities and tier gates are implemented; tune availability, vein size and gathering time through play. Saplings/regrowth, equipment wear, propagated voxel lighting, irrigation, durable saves and 4×4 station forms remain separate choices. [ECONOMY.md](ECONOMY.md) and [GAMEPLAY.md](GAMEPLAY.md) own the current rules. Do not treat previous prototype starter tools or historical recipe layouts as active policy.
 
-The user subsequently authorized the locked slice, now documented in [FIRST_POC.md](FIRST_POC.md) with [verification evidence](verification/FIRST_POC_RESULTS.md). This supersedes earlier statements that all gameplay is still unimplemented. The full-game decisions above remain working specifications.
-
-Review these points in the playable build before choosing the next scope:
-
-- Does the walking/jumping/crouching and fist-mining pace feel right on actual terrain? The definition-driven mining times and controller values are initial tuning.
-- Are the original male/female models, longer female hair, practical clothing and first-person fists a useful translation of the accepted concept? The rig is simple and the shared skin sheet still reuses regions across mesh faces. Decide whether the next visual refinement needs a full front/back body unwrap and custom PNG import.
-- Is the small hills/caves palette a useful starting composition? Cave lighting is deliberately simple; the initial build had no vegetation; the subsequent [tree extension](GAMEPLAY.md#trees-and-axe-felling--user-feedback-extension) adds logs/leaves. Structures, water and broader biome content remain deferred.
-- Mining's immediate local remesh is now measured, but heavier seam edits and slower hardware may require the preferred changed-cell patch plus asynchronous rebuild. The current finite traversal sample is not a factory-scale or long-session memory certification.
-- After this first review, select the next playable increment explicitly. Larger crafting stations/progression, durable saving, building and later industry remain candidates rather than an automatic implementation queue.
-
-## First-POC feedback revision — 2026-09-08
-
-The user rejected the first runtime art as too far from the published concept, found the fog too close and requested block placement. Stage 0 now includes placement of collected terrain blocks; [GAMEPLAY.md](GAMEPLAY.md#first-step-terrain-placement--user-feedback-extension) owns its concrete rules. [The revision report](verification/VISUAL_REVISION_RESULTS.md) records the actual Blender/Unity assets, increased view distance and validation. Artistic acceptance remains open: inspect the revised silhouettes, faces, hair and first-person hand poses with the user. Do not equate passing geometry ceilings or automated checks with approval of the look. The next milestone is still unselected.
-
-The user subsequently clarified that another agent owns actual player modeling and animation. Terrain, placement, fog, portrait rendering and the Blender workflow proceed here; final character integration remains with that agent. [PLAYER_ASSET_HANDOFF.md](PLAYER_ASSET_HANDOFF.md) records local interim files and the verification boundary.
-
-
-## Tree and axe feedback — 2026-09-08
-
-Generated log/leaf trees and axe-only upward log felling are explicit user requirements. [GAMEPLAY.md](GAMEPLAY.md#trees-and-axe-felling--user-feedback-extension) owns the working rules. A definition capability supports axe-type tools; the starter axe in slot 12 makes the mechanic reviewable while crafting stays a placeholder.
-
-Nonblocking review questions: tune tree density/canopy shape and mining pace; decide whether later progression adds axe recipes/durability, saplings/regrowth or different manual leaf drops. The user explicitly requires generated-only felling after an initial pass damaged placed base wood: placed logs always mine individually and form a boundary to felling; placed leaves persist. This protection is a requirement, not an open tuning choice. Current opaque foliage and daylight approximation are scoped visual choices, not final foliage or lighting approval. Evidence is in [tree verification](verification/TREE_RESULTS.md).
-
-## Modular crafting extension — 2026-09-08
-
-**Explicit requirement:** modular, easily changed recipes and a fast shared core for 2×2, 3×3 and 4×4 grids; activate the existing inventory grid. [CRAFTING.md](CRAFTING.md) records the selected asset factory, immutable indexed registry, shared authority service and measured verification. This supersedes the old placeholder exclusion.
-
-**Working decisions:** exact per-cell shaped/shapeless inputs; optional horizontal mirrors; conservative rejection of recipe ambiguity; one output bundle; whole-output batching; return ingredients on close while retaining overflow in the grid. Three recipes remake the existing starter tools using current materials, as specified in [ECONOMY.md](ECONOMY.md#current-survival-recipes-and-tiers). These numerical recipes/layouts are implementation defaults, not individually approved final balance.
-
-**Nonblocking later questions:** choose 3×3/4×4 station forms and their progression; replace starter recipes when adopting the broader plank/handle bootstrap; design tags/alternatives, byproducts/catalysts and metadata/durability; extend the recipe/uses graph and durable state. None is required to use the current personal crafting system. Review the current guide and inventory interactions in play before choosing that scope.
-
-
-## Ore and world-base extension — 2026-09-08
-
-**Explicit requirement:** implement ore generation, with multiple ores at different levels and an unbreakable bedrock base. **Working defaults:** coal/copper/iron/gold/diamond selection, absolute height bands and candidate rates, original mineral swatches, one raw item per voxel, starter-pickaxe eligibility for all five and a flat floor at Y = −256. [ECONOMY.md](ECONOMY.md#current-ore-generation-and-bedrock) owns the values and [ore results](verification/ORE_RESULTS.md) separates measurements from review.
-
-**Nonblocking review:** tune availability, vein size, gathering time and visual distinction through play. Decide processing uses and later tool grades separately. The all-seed 256-block spawn validation rule remains part of the broader industrial bootstrap; sample distributions do not establish that guarantee. Deep caves, lighting equipment and durable world saves remain separate scope choices.
+Character art must remain aligned with the approved concept, with model/skin choice independent of movement, health and equipment. [Player asset integration](PLAYER_ASSET_HANDOFF.md) records the current source/import ownership contract. Geometry checks do not establish artistic acceptance or final crowd performance.
 
 ## Terrain and biome rework — 2026-09-09
 

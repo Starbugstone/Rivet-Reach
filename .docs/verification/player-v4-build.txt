@@ -1,2 +1,0 @@
-Succeeded; errors 0; warnings 0; seconds 14,7100824; bytes 179862124
-PASS: 22371 domain assertions.

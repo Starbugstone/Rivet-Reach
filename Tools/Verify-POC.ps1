@@ -1,4 +1,4 @@
-param([string]$OutputDirectory,[switch]$Trees,[switch]$Crafting,[switch]$Audio,[switch]$Ores,[switch]$Arcade,[switch]$Survival,[switch]$PlacementItems,[string]$Executable,[ValidateRange(1,1800)][int]$TimeoutSeconds=600)
+param([string]$OutputDirectory,[switch]$Trees,[switch]$Crafting,[switch]$StarterCrafting,[switch]$Audio,[switch]$Ores,[switch]$Arcade,[switch]$Survival,[switch]$PlacementItems,[string]$Executable,[ValidateRange(1,1800)][int]$TimeoutSeconds=600)
 $ErrorActionPreference = 'Stop'
 $project = Split-Path $PSScriptRoot -Parent
 if (!$OutputDirectory) { $OutputDirectory = Join-Path $project 'Logs\POCVerification' }
@@ -8,6 +8,7 @@ if (!(Test-Path $Executable)) { throw 'Build first with Tools/Build-Windows.ps1,
 $arguments = @('-screen-fullscreen','0','-screen-width','1280','-screen-height','720','-rr-verify','-rr-output',('"'+$OutputDirectory+'"'),'-logFile',('"'+(Join-Path $OutputDirectory 'player.log')+'"'))
 if ($Trees) { $arguments += '-rr-tree-review' }
 if ($Crafting) { $arguments += '-rr-crafting-review' }
+if ($StarterCrafting) { $arguments += '-rr-starter-crafting-review' }
 if ($Survival) { $arguments += '-rr-survival-review' }
 if ($PlacementItems) { $arguments += '-rr-placement-items-review' }
 if ($Audio) { $arguments += '-rr-audio-review' }

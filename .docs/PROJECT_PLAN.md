@@ -422,7 +422,7 @@ seed
  -> historical/structure placement
 ```
 
-The current user-authorized ore step adds coal, copper, iron, gold and diamond in distinct depth bands and an unbreakable bedrock floor. [ECONOMY.md](ECONOMY.md#current-ore-generation-and-bedrock) owns their working distribution; [SIMULATION.md](SIMULATION.md#15-ore-generation-and-the-world-base) owns deterministic generation and depletion. Processing and tool tiers remain future work.
+The current user-authorized ore step adds coal, copper, iron, gold and diamond in distinct depth bands and an unbreakable bedrock floor. [ECONOMY.md](ECONOMY.md#current-ore-generation-and-bedrock) owns their working distribution; [SIMULATION.md](SIMULATION.md#15-ore-generation-and-the-world-base) owns deterministic generation and depletion. The selected survival increment implements furnaces and five tool tiers; advanced industry remains future work.
 
 The final algorithms must be benchmarked during the POC rather than chosen purely theoretically.
 
@@ -581,7 +581,7 @@ Storage/logistics matter because factories create volume, not because the charac
 
 Keep recognisable grid crafting.
 
-User-authorized grid sizes are 2×2, 3×3 and 4×4. The personal 2×2 grid is now playable; the shared core supports all three sizes. Larger station interfaces and advanced machine manufacturing remain future work. [CRAFTING.md](CRAFTING.md) owns the modular recipe engine and authoring contract; [GAMEPLAY.md section 16](GAMEPLAY.md#16-modular-grid-crafting) owns current interaction behavior.
+User-authorized grid sizes are 2×2, 3×3 and 4×4. The personal 2×2 and placed workbench 3×3 grids are playable; the shared core supports all three sizes. A 4×4 interface and advanced machine manufacturing remain future work. [CRAFTING.md](CRAFTING.md) owns the modular recipe engine and authoring contract; [GAMEPLAY.md section 16](GAMEPLAY.md#16-modular-grid-crafting) owns current interaction behavior.
 
 Recipes should be data driven.
 
@@ -1322,20 +1322,20 @@ The user's 2026-09-08 staging instruction locks **only the first playable step**
 - [x] World-aware coordinates and deterministic natural terrain with no generated structures; real chunk generation, meshing, loading and unloading.
 - [x] Playable FPS movement, selectable male/female 3D player models and visible first-person fists with basic animation; basic skin selection on both models with a shared body/hand appearance, as specified in [GAMEPLAY.md](GAMEPLAY.md#15-player-skins).
 - [x] Fist mining, precise targeting/feedback and immediate collision correctness during asynchronous remeshing.
-- [x] Real item stacks, physical mining drops/pickup, functional inventory/hotbar and personal crafting, activated after the original placeholder under the explicit [crafting extension](CRAFTING.md).
+- [x] Real item stacks, physical mining drops/pickup, functional inventory/hotbar and personal/workbench crafting through the shared [recipe registry](CRAFTING.md).
+- [x] Explicitly selected extensions: tool tiers, furnaces/chests, farming/hunger/health/armor, day/night, biomes/caves and [native mobs](MOBS.md).
 - [x] Preserve session edits and item state when leaving and returning to chunks; exercise origin shifts and bounded streaming residency.
 - [x] Terrain-block placement from collected stacks, with current-face targeting, player overlap rejection, dropped-item displacement and session edit persistence.
 - [ ] Establish and review a coherent terrain/player/UI/lighting concept in a standalone Windows build.
 - [x] Record interaction, visual and streaming evidence against [GAMEPLAY.md](GAMEPLAY.md#14-locked-first-step-interaction-contract) and [SIMULATION.md](SIMULATION.md#12-first-step-terrain-and-streaming-validation).
 - [ ] Review the result and known issues with the user, then decide the next implementation. Do not automatically start the candidates below.
 
-### Candidate Stage 1 - Extend the sandbox (not yet selected)
+### Candidate Stage 1 - Extend the sandbox (remaining work not yet selected)
 
-- [ ] Extend the first step's item/inventory/drop systems with advanced building conveniences and tool progression.
-- [x] Workbench, furnace and basic survival recipes under the explicit [survival extension](GAMEPLAY.md#survival-progression-farming-health-and-armor); industrial components remain later content.
+- [ ] Extend item/inventory/drop systems with advanced building conveniences and tool wear.
 - [ ] Save/reload terrain, inventory, piles and simple block entities.
 - [ ] World water, sinking/buoyant piles, compatible merging and sleeping movement.
-- [x] Initial day/night, health/death recovery and native creature behaviours under the explicit day/night, survival and [mob extensions](MOBS.md); broader ecology remains later scope.
+- [ ] Broader ecology beyond the existing native creatures.
 - [ ] Play 20-30 minutes of gathering/building/crafting without developer commands.
 
 ### Candidate Stage 2 - Industrial hook (not yet selected)

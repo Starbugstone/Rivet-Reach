@@ -113,12 +113,12 @@ namespace RivetReach
                 Panel(root,bar.x-1,bar.y-1,bar.width+2,bar.height+2,new Color(.025f,.04f,.035f,.65f));
                 Panel(root,bar.x,bar.y,bar.width,bar.height,pale);
             }
-            targetLabel=Label(root,"",475,395,330,28,17);targetLabel.alignment=TextAnchor.MiddleCenter;
+            targetLabel=Label(root,"",370,395,540,52,17);targetLabel.alignment=TextAnchor.MiddleCenter;
             var track=Panel(root,580,385,120,3,new Color(.1f,.15f,.16f,.5f));progress=Panel(track.transform,0,0,0,3,gold);
             Panel(root,296,635,688,67,new Color(.025f,.045f,.055f,.75f));
             BuildHotbar(root,304,642,52,4);
             selectedLabel=Label(root,"",420,611,440,24,15);selectedLabel.alignment=TextAnchor.MiddleCenter;
-            Label(root,$"{game.Input.Keys["Inventory"]}  Inventory    {game.Input.Keys["Drop"]}  Drop    Place block    {game.Input.Keys["Inspect"]}  Inspect player",28,694,650,22,13);
+            Label(root,$"{game.Input.Keys["Inventory"]}  Inventory    {game.Input.Keys["Interact"]}  Interact    {game.Input.UseButtonName}  Use / place    {game.Input.Keys["Drop"]}  Drop",28,694,850,22,13);
             BuildSurvivalHUD();
             Label(root,"Session-only world",1090,694,172,22,12,new Color(.75f,.77f,.73f));
             message=Label(root,"",330,555,620,40,18,gold);message.alignment=TextAnchor.MiddleCenter;
@@ -149,6 +149,7 @@ namespace RivetReach
                 craftStatus=Label(p.transform,"",829,407,290,40,15,gold);
                 Label(p.transform,"Click result: craft one\nShift-click result: craft all that fit",829,451,300,44,14);
                 Button(p.transform,"RETURN INGREDIENTS",829,502,282,32,()=>{game.Crafting.ReturnIngredients(game.Inventory);RefreshSlots();},false);
+                if(size==2)Label(p.transform,$"4 planks → Workbench\nPlace it, then {game.Input.Keys["Interact"]} / {game.Input.UseButtonName} for 3 × 3",821,194,318,26,12,gold);
             }
             Label(p.transform,"HOTBAR",266,502,250,24,14,gold);BuildHotbar(p.transform,266,534,53,4);
             inventoryHint=Label(p.transform,"Use Recipes to see available layouts. Leftover ingredients stay in the grid if your inventory is full.",28,604,1090,24,14);
@@ -262,7 +263,7 @@ namespace RivetReach
                     Button(p.transform,name+"   ·   "+kv.Value,36+col*365,143+row*48,348,40,()=>{game.Input.BeginRebind(name);Rebuild();});i++;
                 }
                 Button(p.transform,"MINE: "+(PlayerPrefs.GetInt("mineButton",0)==0?"LEFT MOUSE":"RIGHT MOUSE"),36,530,348,44,()=>{PlayerPrefs.SetInt("mineButton",1-PlayerPrefs.GetInt("mineButton",0));PlayerPrefs.Save();Rebuild();});
-                Label(p.transform,"Opposite mouse button: place block\nWheel / [ ]: slots · Shift+drop: full stack",410,527,340,60,15);
+                Label(p.transform,$"{game.Input.UseButtonName}: use / place\n{game.Input.Keys["Crouch"]} + {game.Input.UseButtonName}: place against stations",410,527,340,60,15);
             }
         }
         void Slider(Transform parent,string title,float y,float initial,float min,float max,Action<float> change,bool whole=false)
@@ -341,7 +342,7 @@ namespace RivetReach
             if(targetLabel!=null)
             {
                 string hint=BlockId.MiningHint(game.Player.TargetId,game.Registry.Capabilities(game.Inventory.Slots[game.Selected]),game.Registry.Tier(game.Inventory.Slots[game.Selected]));
-                targetLabel.text=game.Player.HasTarget?game.Registry.Get(game.Player.TargetId).displayName+(BlockId.Station(game.Player.TargetId)?" · Use to open":hint.Length>0?" · "+hint:""):"";
+                targetLabel.text=game.Player.HasTarget?game.Registry.Get(game.Player.TargetId).displayName+(BlockId.Station(game.Player.TargetId)?$"\n{game.Input.Keys["Interact"]} / {game.Input.UseButtonName} · Open"+(game.Player.TargetId==BlockId.Workbench?" 3 × 3 crafting":""):hint.Length>0?" · "+hint:""):"";
             }
             if(progress!=null)
             {

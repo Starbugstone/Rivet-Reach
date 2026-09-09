@@ -1,16 +1,18 @@
 {
-  "base_commit": "23bb5dd8ea6ee5989821bba0378d07666647de22",
+  "base_commit": "c766d226a493d3a3c33144d5c128476cac610d9e",
   "unity": "6000.4.4f1",
-  "entry_point": "RivetReach.Editor.MobBuild.Build",
+  "entry_point": "RivetReach.Editor.ProjectBuild.PrepareAndBuildSurvival",
   "artifact": "Builds/Survival/RivetReach.exe",
-  "build_scope": "Integrated terrain/survival/day-night and concurrent mob candidate; ownership and test claims remain separate.",
-  "assembly_sha256": "587320e294c369a9ee5cb14f494cf62c942a0f4c3823861a0b0606013d3c312b",
-  "resources": {
-    "Definitions/Items.asset": "3baf6566831129108ebfe2e99c4f36313526b06c026d9f1250b73c78f3fa260c",
-    "Materials/BlockTiles.asset": "5a7fdc9f4bc1618228f5a725613bc10e957d6ed70ec1dd1fa01c8c7804b3faf2",
-    "Materials/BlockDetail.asset": "770fe375cb98c5e1d4784936adec8624f9ed928743a3a174a00340ed953c1a07"
-  },
-  "previous_assembly_sha256": "c1b6e67d1adb7ed02bc438600c7ca2ea7607d330d7b33d6a7055abd6b4494d2d",
-  "previous_artifact_retained_at": "Builds/Terrain/RivetReach.exe; terrain60 and placement95 used this preceding assembly.",
-  "final_delta": "Ore verification corridor fixture and mob-owned eating-reset/verification changes only; all shared terrain/core resources retain the recorded hashes."
+  "assembly_sha256": "9e72f8b49ab11bc3823135825fede84e5254b79d3942539a81b95777296919e7",
+  "source_manifest": "../crafting/source-manifest.json",
+  "scope": "Current committed mob wall-climbing code plus owned starter-crafting/interaction changes. Recipe and survival tests do not certify mob behavior.",
+  "starter_report": "../crafting/runtime-report.json",
+  "survival_report": "runtime-report.json",
+  "build_summary": "build-summary.txt",
+  "recipe_reference": "../crafting/minecraft-recipe-comparison.json",
+  "separate_retained_regressions": {
+    "ore_87_assembly_sha256": "587320e294c369a9ee5cb14f494cf62c942a0f4c3823861a0b0606013d3c312b",
+    "placement_95_assembly_sha256": "c1b6e67d1adb7ed02bc438600c7ca2ea7607d330d7b33d6a7055abd6b4494d2d",
+    "note": "Latest focused ore/placement reports retain their original timestamps and build identities; not rerun for the starter UI review."
+  }
 }

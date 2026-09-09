@@ -1,0 +1,374 @@
+{
+  "source": "Mojang/bedrock-samples",
+  "commit": "736072450c26a7c67f07b1661f29d9a5ebaa14b1",
+  "date": "2026-09-09",
+  "comparison": "Selected recipe layouts, quantities and outputs; wood/stone ingredient tags mapped to implemented materials. No external source/assets imported.",
+  "matched": 52,
+  "total": 52,
+  "recipes": [
+    {
+      "recipe": "chest",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/chest.json",
+      "reference_sha256": "1b2308c48636cfddf69e6df69749afc77a2ef27a4698860fa8f24f4131b2c1c2",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "coal_block",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/coal_block.json",
+      "reference_sha256": "1364f41b64a96cb97cfc3ab20c42678286eb73341f8140423b95f50acc1ca57d",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "coal_unpack",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/coal.json",
+      "reference_sha256": "4b35a428bfb1448b0e4e2e8c17f8efbb2cba0021eefdb529c627ee0349d19b9b",
+      "match": true,
+      "single_cell_equivalence": true
+    },
+    {
+      "recipe": "copper_axe",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/copper_axe.json",
+      "reference_sha256": "059507c4bde957ebccbcc5897414de958a78305d38c9eb22d616ea658ef5a021",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "copper_block",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/copper_block_from_ingots.json",
+      "reference_sha256": "d04030c66828105044626ca8ca44b21acde77abf887f2548d65c863d6a168121",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "copper_boots",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/copper_boots.json",
+      "reference_sha256": "f5bc2fccfe3b93eb09ebdfee84f36405a053475fc85bd4ca204e4b73c491aa50",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "copper_chestplate",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/copper_chestplate.json",
+      "reference_sha256": "b1b8eab5b17f53200a5008fab6be6b400357ead653d27835c41583e9e607fcd1",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "copper_helmet",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/copper_helmet.json",
+      "reference_sha256": "2fe664cc0bf08e94a7033dc385424bc36c321208ad4265f922466a0d015ed9fc",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "copper_hoe",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/copper_hoe.json",
+      "reference_sha256": "bfe55dd3755f52f303a8f8cd7dfd0c541f5f30ccbc6186c16ba67ddfd070bb14",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "copper_leggings",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/copper_leggings.json",
+      "reference_sha256": "60cf59a645c4b96de885e00ca1480553c5d987e47cc429156ec7240ca1f74b23",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "copper_pickaxe",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/copper_pickaxe.json",
+      "reference_sha256": "d3048aeb926ef51b2ef3079141c1eeae3e7442f68d3f6ba375be16acd8c83f95",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "copper_shovel",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/copper_shovel.json",
+      "reference_sha256": "d000bdb88116d0ebd544628b2fa50306b6c2a5fdb9c0309f3356e6e2f929ddf0",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "copper_sword",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/copper_sword.json",
+      "reference_sha256": "10214d966d1c21af561921c2c0fa985cb10268dc4161dc621a013ab098bf3cde",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "copper_unpack",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/ingots_from_copper.json",
+      "reference_sha256": "81e65be2282ec04e5a1939c442a6a7f2e5aaafb8740af39b224a69b0cdb61a55",
+      "match": true,
+      "single_cell_equivalence": true
+    },
+    {
+      "recipe": "diamond_axe",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/diamond_axe.json",
+      "reference_sha256": "0e659417fd743c42fb207e3a440ceeedbfdddc55a237b5878d04f68948fa9790",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "diamond_block",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/diamond_block.json",
+      "reference_sha256": "655813ad0245e408ef3cddb0ae0ad3a40562e1d5d1ee43ee6bfca54f2263551f",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "diamond_boots",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/diamond_boots.json",
+      "reference_sha256": "0ea13df8cbc0c04e0dc68b073c19faf5a1dc01a0d143c8b8f7665a15142e0b7c",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "diamond_chestplate",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/diamond_chestplate.json",
+      "reference_sha256": "3f7dece3853ffec4a982997e4dc80f7d6f3a1acd061f849b51e0ed5f87453756",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "diamond_helmet",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/diamond_helmet.json",
+      "reference_sha256": "de16c9817104106d71965835904ea224a8ab1f1b5b4db12340731b19f4f68998",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "diamond_hoe",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/diamond_hoe.json",
+      "reference_sha256": "946c7317caab4c2615f5c659aab3370654a9245a6175608cfb709dbba4cdda1a",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "diamond_leggings",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/diamond_leggings.json",
+      "reference_sha256": "1545076c70c59bed68cfb991922cacfa9979281fef38f9f3a3bc97ab1d7b8f1a",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "diamond_pickaxe",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/diamond_pickaxe.json",
+      "reference_sha256": "c2fb9f7adc036036df357580f1c49a77fea4d562250910396250c2a9eca038a2",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "diamond_shovel",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/diamond_shovel.json",
+      "reference_sha256": "3bb652d9f374d2c36a8972683961c06161b0317e7f8d543d00d27c2e00e165ce",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "diamond_sword",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/diamond_sword.json",
+      "reference_sha256": "d68fb9d405213940c0b92620d7510340ba40d799dfe3e3a967debcb082e3ca78",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "diamond_unpack",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/diamond.json",
+      "reference_sha256": "31852d90664fc89b7e7d82d86f6207dc8cafe9b3a4e05dd2c4e73fc211fec5ed",
+      "match": true,
+      "single_cell_equivalence": true
+    },
+    {
+      "recipe": "furnace",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/furnace.json",
+      "reference_sha256": "8c4450bf0e11a5d9ea30c3fb6e2d1cad276928a2e0cf584e634e5f0c62529736",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "gold_block",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/gold_block.json",
+      "reference_sha256": "01c1ecbfdd03ab1195ea4d73461a3d793d6356bbab4fe58ca9fa61f21fbc8c89",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "gold_unpack",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/gold_ingot_from_block.json",
+      "reference_sha256": "bae1e83a6802543c116c47e20920c738ffc674ca851d38d20fad8df56410f496",
+      "match": true,
+      "single_cell_equivalence": true
+    },
+    {
+      "recipe": "iron_axe",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/iron_axe.json",
+      "reference_sha256": "c975920968bcde2a36be5ff9265fd652d3e6d20a15c65cd8fe3d33fd6b513f81",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "iron_block",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/iron_block.json",
+      "reference_sha256": "4113e2946c7bda5e9511ee661681cd65b745e9322cde0c10853d85bd798eb310",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "iron_boots",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/iron_boots.json",
+      "reference_sha256": "dc0cdfbee41b27ba0b83cb95f4cb36fd5f00acd7b262e3e23fcfe94a2aaae413",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "iron_chestplate",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/iron_chestplate.json",
+      "reference_sha256": "06d515283880c4224ab16de8649bb18d05864fd3f2e912eba63aff886e9946a9",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "iron_helmet",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/iron_helmet.json",
+      "reference_sha256": "483607a9164dca55f2e51502c94494465eee9632a02d35478f1bec647e0da941",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "iron_hoe",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/iron_hoe.json",
+      "reference_sha256": "096a549fb35a1de2410288df17d497cf1dcb60b4c7841ce1de63903c93d83b3c",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "iron_leggings",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/iron_leggings.json",
+      "reference_sha256": "c522db3b2fab135d1c249d25609019949cc4f1a4a6c9ca004e6a205a9a83eeee",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "iron_pickaxe",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/iron_pickaxe.json",
+      "reference_sha256": "5040ec3127fc57dd05b3255e7907046a47fb525438ca31d9fefcf22f41d3566b",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "iron_shovel",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/iron_shovel.json",
+      "reference_sha256": "b01bf20a03672b58a5e77e659a92a4d070e2759302bb79982c6b21cc3938b90a",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "iron_sword",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/iron_sword.json",
+      "reference_sha256": "5ae556074581178e1489a40ce563576166c8311113b3b2205de5dd6fb5c7731b",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "iron_unpack",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/iron_ingot_from_block.json",
+      "reference_sha256": "b83fc09c26d12b47627f01ae52aa54359016cc8b63955de8a0a060d1763b7361",
+      "match": true,
+      "single_cell_equivalence": true
+    },
+    {
+      "recipe": "planks",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/oak_planks.json",
+      "reference_sha256": "2161c09ae14557170c7dfbbbf3f1dbeb4ee553c2a1b72b28d8ce3a4e3d4285a7",
+      "match": true,
+      "single_cell_equivalence": true
+    },
+    {
+      "recipe": "sticks",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/stick.json",
+      "reference_sha256": "1a8f1f02fac84bda06cd1ca4711f7b1b8219c8218d4bd4d91ee36c3b361f15cd",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "stone_axe",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/stone_axe.json",
+      "reference_sha256": "b4275c3546cbb2cd8b8459daf50d8b3c900b4505b4f9d3e9e1d35a396ca6f061",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "stone_hoe",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/stone_hoe.json",
+      "reference_sha256": "4657622e6c1bb8618cb8e238c77184fcbfc68a87050457fb0cb6004f014b09fc",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "stone_pickaxe",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/stone_pickaxe.json",
+      "reference_sha256": "92698ec7a4dd1d26d3cdba46215b04f38a9d723425d3b283a318714b14ec32b1",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "stone_shovel",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/stone_shovel.json",
+      "reference_sha256": "26f8796321f0f438ecda8e82ea8964be15034cd1e5ebea3a5999f9ae2843c047",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "stone_sword",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/stone_sword.json",
+      "reference_sha256": "905208cda8c11f03aa2f27451211f6fc7384f3af1b246839a5bad55b0a39b93c",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "wood_axe",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/wooden_axe.json",
+      "reference_sha256": "be27c29d54bdd2176f0625c65fa3eefa52452144074b53ce5977d754d3ed8559",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "wood_hoe",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/wooden_hoe.json",
+      "reference_sha256": "102cda61fcebec4c06eaa11be475c78efef8b5c078d2ad830fa80fa672b8d26a",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "wood_pickaxe",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/wooden_pickaxe.json",
+      "reference_sha256": "bd27a5c46e8138ac6ef30ce997f99c6ece8f8e8781459d67adf560f7f2290ab1",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "wood_shovel",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/wooden_shovel.json",
+      "reference_sha256": "9b30d03f938bf9567bf7c7eb2e493bff05cdd68c0d80c60bc5819376971955ea",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "wood_sword",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/wooden_sword.json",
+      "reference_sha256": "8161a56476537fe992030879a5cd3e8200790ae6de6f08d60803bb1025b249f2",
+      "match": true,
+      "single_cell_equivalence": false
+    },
+    {
+      "recipe": "workbench",
+      "reference": "https://raw.githubusercontent.com/Mojang/bedrock-samples/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes/crafting_table.json",
+      "reference_sha256": "74285895ed654243ac8bb7ca13ad18d559ccfe26d64610f6a7fec867ba21a314",
+      "match": true,
+      "single_cell_equivalence": false
+    }
+  ]
+}

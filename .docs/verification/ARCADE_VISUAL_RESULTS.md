@@ -1,18 +1,16 @@
 # Arcade visuals and dynamic effects
 
-Implemented on 2026-09-09 (Europe/Paris) following the user's request for AAA-style arcade presentation. This is the current playable visual revision; studio-level artistic acceptance remains a review decision.
+Implemented on 2026-09-09 (Europe/Paris) following the user's request for AAA-style arcade presentation. This report maintains the effects workload. [Terrain](TERRAIN_GENERATION_RESULTS.md) and [day/night](DAY_NIGHT_RESULTS.md) own current landscape/sky evidence; artistic acceptance remains a review decision.
 
 ## Actual player views
 
 [Watch the actual Unity action sequence](arcade-action-preview.mp4): mining, block break, placement, collection and a pickaxe swing. The silent 2.5-second clip contains 150 consecutive player captures at a fixed 60 fps simulation step. It is a scripted gameplay fixture rendered by Unity, not a concept render or a real-time performance recording.
 
-![Current terrain, wind grass and sky in the Windows player](arcade-landscape.png)
-
 | Mining contact and cracks | Accepted block placement |
 |---|---|
 | ![Mining cracks and a swing ribbon](arcade-mining.png) | ![Placement ring on the new block](arcade-placement.png) |
 
-[Break debris](arcade-break.png), [sustained impact effects](arcade-impact.png), [sky](arcade-sky.png) and [effect-intensity settings](arcade-settings.png) provide further actual player views.
+[Break debris](arcade-break.png), [sustained impact effects](arcade-impact.png) and [effect-intensity settings](arcade-settings.png) provide further actual player views.
 
 ## Implemented treatment
 

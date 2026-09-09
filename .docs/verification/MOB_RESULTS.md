@@ -32,7 +32,7 @@ These suite counts are domain evidence; they do not establish mob gameplay quali
 
 The first isolated startup failed before compilation while UPM copied a bundled Shader Graph sample (`copyfile UNKNOWN`); copying the existing pinned package cache recovered startup. Import checks then caught early clip mapping and a 100× animation-scale issue. The final import uses post-import clip mapping, Generic rigs with explicit avatar creation, and metre-bound assertions. [Unity documents the first-import clip lifecycle](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/ModelImporter-clipAnimations.html). These failures were fixed before the corrected build above.
 
-No user-owned editor was stopped or unsaved scene replaced. Builds/captures were serialized through the [coordination mailbox](../MOB_DAY_NIGHT_HANDOFF.md) while other project work continued.
+No user-owned editor was stopped or unsaved scene replaced. The completed integration serialized builds/captures while preserving concurrent work; historical coordination messages are retained in Git history.
 
 ## Runtime iteration
 

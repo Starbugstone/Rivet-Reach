@@ -127,11 +127,22 @@ namespace RivetReach
             if(Time.unscaledTime>messageUntil)Message=null;
             if(World.Error!=null)Notify("Terrain worker error: "+World.Error,10);
         }
+        public bool TryInteractTarget()
+        {
+            if(Mode!=ScreenMode.Play||Health.Dead)return false;
+            var eye=Player.Camera.transform;
+            return World.Raycast(eye.position,eye.forward,5,out var position,out var id)&&BlockId.Station(id)&&TryOpenStation(position);
+        }
         public bool TryOpenStation(BlockPos position)
         {
             if(Mode!=ScreenMode.Play||Health.Dead||!World.Ready(position)||
                 (World.Local(position)+Vector3.one*.5f-Player.Camera.transform.position).sqrMagnitude>36)return false;
             var station=Survival.At(position);if(station==null)return false;
+            // An exposed edge/top is a valid target even when the block's center is hidden.
+            // Direct commands also validate visibility; cached addresses cannot open through walls.
+            var eye=Player.Camera.transform.position;var direction=(World.Local(position)+Vector3.one*.5f-eye).normalized;
+            bool aimed=World.Raycast(eye,Player.Camera.transform.forward,5,out var visible,out var id)&&visible.Equals(position)&&id==station.Block;
+            if(!aimed&&(!World.Raycast(eye,direction,5,out visible,out id)||!visible.Equals(position)||id!=station.Block))return false;
             OpenStation=station;StationPosition=position;SetMode(ScreenMode.Inventory);return true;
         }
         public float TakeDamage(float amount,DamageKind kind=DamageKind.Impact)

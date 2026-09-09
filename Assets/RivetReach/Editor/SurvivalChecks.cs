@@ -32,6 +32,7 @@ namespace RivetReach.Editor
             }
             Check(!BlockId.Mineable(BlockId.Stone,ToolCapability.None,ToolTier.None)&&BlockId.Mineable(BlockId.Log,ToolCapability.None,ToolTier.None),"Bare hands gather wood before stone");
             Bootstrap(items,recipes,processing);
+            checks+=StarterRecipeChecks.Run(items,recipes);
             var furnace=Furnace();Put(furnace,0,BlockId.RawIron,8);Put(furnace,1,BlockId.Coal);
             furnace.Advance(199);Check(furnace.Slots[2].Empty&&furnace.Slots[0].Count==8&&furnace.BurnTicks==1401,"No early output or early input consumption");
             furnace.Advance(1);Check(furnace.Slots[2].Count==1&&furnace.Slots[0].Count==7,"Exactly one result at recipe boundary");

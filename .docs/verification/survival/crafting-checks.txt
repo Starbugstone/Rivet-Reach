@@ -1,5 +1,5 @@
-PASS: 1158103 crafting assertions. UTC 2026-09-09T06:57:44.2620266Z; Unity 6000.4.4f1; Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
-10 recipes; compile 0,183 ms; 4x4 hit 0,953 us, miss 1,071 us; 100000 iterations each; 0 bytes per loop after warmup.
-1000 recipes; compile 2,365 ms; 4x4 hit 0,969 us, miss 0,949 us; 100000 iterations each; 0 bytes per loop after warmup.
-10000 recipes; compile 32,570 ms; 4x4 hit 1,070 us, miss 1,091 us; 100000 iterations each; 0 bytes per loop after warmup.
-Cached preview: 8,492 ms / 1,000,000 reads, 0 bytes. Editor Mono, isolated synchronous workload; not whole-game frame timings.
+PASS: 1158103 crafting assertions. UTC 2026-09-09T17:06:19.3281388Z; Unity 6000.4.4f1; Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
+10 recipes; compile 0,083 ms; 4x4 hit 0,667 us, miss 0,643 us; 100000 iterations each; 0 bytes per loop after warmup.
+1000 recipes; compile 1,888 ms; 4x4 hit 0,645 us, miss 0,628 us; 100000 iterations each; 0 bytes per loop after warmup.
+10000 recipes; compile 20,218 ms; 4x4 hit 0,632 us, miss 0,644 us; 100000 iterations each; 0 bytes per loop after warmup.
+Cached preview: 4,540 ms / 1,000,000 reads, 0 bytes. Editor Mono, isolated synchronous workload; not whole-game frame timings.

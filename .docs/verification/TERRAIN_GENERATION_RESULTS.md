@@ -49,7 +49,7 @@ All eleven final ground/survey/cave captures were inspected. [Natural review coo
 | [Alpine survey](terrain-survey-alpine.png), [ground](terrain-ground-alpine.png) | Steep snowy ridges and foothills under distance fog; ground capture is a close material view |
 | [Corrected cavern](terrain-cave.png) | Continuous deeper walls/floor and exposed ore across multiple vertical chunks |
 
-The first runtime passed 59 assertions but its [earlier cave capture](terrain-cave-before-streaming-fix.png) exposed sky through a missing lower floor. Visual inspection caught the inadequate player ±1 vertical chunk band. Demand now includes bounded vertical sight distance, and the added readiness regression plus the corrected capture close that observed defect. This comparison demonstrates the tested cave correction, not proof that every possible vista is free of streaming defects. Cave lighting still uses the existing ambient/fog system; this extension adds no voxel light propagation.
+The current cave capture and readiness checks cover the corrected bounded vertical sight demand. They do not prove that every possible vista is free of streaming defects. Cave lighting still uses the existing ambient/fog system; this extension adds no voxel light propagation.
 
 ## Review limits
 

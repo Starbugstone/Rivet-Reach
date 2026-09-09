@@ -6,7 +6,7 @@ The user requested a moving sun/moon and a different moon phase each night. [Gam
 
 Unity **6000.4.4f1**, URP **17.4.0**, Windows x64 Development build, committed baseline **2355996** plus only this day/night change. Concurrent terrain/biome, survival/progression and mob work was still under development in the shared checkout, so it was preserved and excluded from this review build. Those owners acknowledged file ownership and `game.Sky.Clock.IsNight` through shared coordination mailboxes. Combined-feature validation belongs to their later integration builds.
 
-The final build succeeded with **0 errors and 0 warnings** in **19.90 seconds** after shader polish; the first successful build from the fresh import took 405.93 seconds. The verified player is copied to `Builds/DayNight/RivetReach.exe` in the main checkout. [Replay instructions](../FIRST_POC.md#daynight-review) describe the Editor commands and `-rr-day-night-review` player flag.
+The final build succeeded with **0 errors and 0 warnings** in **19.90 seconds** after shader polish; the first successful build from the fresh import took 405.93 seconds. The verified player is copied to `Builds/DayNight/RivetReach.exe` in the main checkout. [Replay instructions](../FIRST_POC.md#verification) describe the Editor commands and `-rr-day-night-review` player flag.
 
 SHA256: `RivetReach.exe` = `7d52ee70fb22771f4608d810d1015f539c37dd8b7b2fbb1a0ea9f6bc5c32d5c9`; `Assembly-CSharp.dll` = `27e13b873e16c544db2be2844d5b5239e31e0b5a5a9999112150f35de1101a78`.
 

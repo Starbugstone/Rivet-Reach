@@ -1,4 +1,0 @@
-Unity 6000.4.4f1 isolated Editor import and Windows development build.
-C# warning/error entries in build.log: 0.
-GripPreviewWindow uses FindAnyObjectByType; AvatarVerification uses reviewCamera.
-Succeeded; errors 0; warnings 0; seconds 34,6401345; bytes 186259596

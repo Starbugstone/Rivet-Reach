@@ -1,0 +1,54 @@
+PASS: 1744 independent recipe acceptance checks; all 52 active layouts and output quantities.
+Dots are empty cells; slashes separate rows.
+Planks × 4 | M | M=Log; S=Stick | min 2×2
+Stick × 4 | M/M | M=Planks; S=Stick | min 2×2
+Workbench × 1 | MM/MM | M=Planks; S=Stick | min 2×2
+Furnace × 1 | MMM/M.M/MMM | M=Cobblestone; S=Stick | min 3×3
+Chest × 1 | MMM/M.M/MMM | M=Planks; S=Stick | min 3×3
+Wood axe × 1 | MM/MS/.S | M=Planks; S=Stick | min 3×3 | horizontal mirror
+Wood pickaxe × 1 | MMM/.S./.S. | M=Planks; S=Stick | min 3×3
+Wood sword × 1 | M/M/S | M=Planks; S=Stick | min 3×3
+Wood shovel × 1 | M/S/S | M=Planks; S=Stick | min 3×3
+Wood hoe × 1 | MM/.S/.S | M=Planks; S=Stick | min 3×3 | horizontal mirror
+Stone axe × 1 | MM/MS/.S | M=Cobblestone; S=Stick | min 3×3 | horizontal mirror
+Stone pickaxe × 1 | MMM/.S./.S. | M=Cobblestone; S=Stick | min 3×3
+Stone sword × 1 | M/M/S | M=Cobblestone; S=Stick | min 3×3
+Stone shovel × 1 | M/S/S | M=Cobblestone; S=Stick | min 3×3
+Stone hoe × 1 | MM/.S/.S | M=Cobblestone; S=Stick | min 3×3 | horizontal mirror
+Copper axe × 1 | MM/MS/.S | M=Copper ingot; S=Stick | min 3×3 | horizontal mirror
+Copper pickaxe × 1 | MMM/.S./.S. | M=Copper ingot; S=Stick | min 3×3
+Copper sword × 1 | M/M/S | M=Copper ingot; S=Stick | min 3×3
+Copper shovel × 1 | M/S/S | M=Copper ingot; S=Stick | min 3×3
+Copper hoe × 1 | MM/.S/.S | M=Copper ingot; S=Stick | min 3×3 | horizontal mirror
+Iron axe × 1 | MM/MS/.S | M=Iron ingot; S=Stick | min 3×3 | horizontal mirror
+Iron pickaxe × 1 | MMM/.S./.S. | M=Iron ingot; S=Stick | min 3×3
+Iron sword × 1 | M/M/S | M=Iron ingot; S=Stick | min 3×3
+Iron shovel × 1 | M/S/S | M=Iron ingot; S=Stick | min 3×3
+Iron hoe × 1 | MM/.S/.S | M=Iron ingot; S=Stick | min 3×3 | horizontal mirror
+Diamond axe × 1 | MM/MS/.S | M=Diamond; S=Stick | min 3×3 | horizontal mirror
+Diamond pickaxe × 1 | MMM/.S./.S. | M=Diamond; S=Stick | min 3×3
+Diamond sword × 1 | M/M/S | M=Diamond; S=Stick | min 3×3
+Diamond shovel × 1 | M/S/S | M=Diamond; S=Stick | min 3×3
+Diamond hoe × 1 | MM/.S/.S | M=Diamond; S=Stick | min 3×3 | horizontal mirror
+Copper helmet × 1 | MMM/M.M | M=Copper ingot; S=Stick | min 3×3
+Copper chestplate × 1 | M.M/MMM/MMM | M=Copper ingot; S=Stick | min 3×3
+Copper leggings × 1 | MMM/M.M/M.M | M=Copper ingot; S=Stick | min 3×3
+Copper boots × 1 | M.M/M.M | M=Copper ingot; S=Stick | min 3×3
+Iron helmet × 1 | MMM/M.M | M=Iron ingot; S=Stick | min 3×3
+Iron chestplate × 1 | M.M/MMM/MMM | M=Iron ingot; S=Stick | min 3×3
+Iron leggings × 1 | MMM/M.M/M.M | M=Iron ingot; S=Stick | min 3×3
+Iron boots × 1 | M.M/M.M | M=Iron ingot; S=Stick | min 3×3
+Diamond helmet × 1 | MMM/M.M | M=Diamond; S=Stick | min 3×3
+Diamond chestplate × 1 | M.M/MMM/MMM | M=Diamond; S=Stick | min 3×3
+Diamond leggings × 1 | MMM/M.M/M.M | M=Diamond; S=Stick | min 3×3
+Diamond boots × 1 | M.M/M.M | M=Diamond; S=Stick | min 3×3
+Coal block × 1 | MMM/MMM/MMM | M=Coal; S=Stick | min 3×3
+Coal × 9 | M | M=Coal block; S=Stick | min 2×2
+Copper block × 1 | MMM/MMM/MMM | M=Copper ingot; S=Stick | min 3×3
+Copper ingot × 9 | M | M=Copper block; S=Stick | min 2×2
+Iron block × 1 | MMM/MMM/MMM | M=Iron ingot; S=Stick | min 3×3
+Iron ingot × 9 | M | M=Iron block; S=Stick | min 2×2
+Gold block × 1 | MMM/MMM/MMM | M=Gold ingot; S=Stick | min 3×3
+Gold ingot × 9 | M | M=Gold block; S=Stick | min 2×2
+Diamond block × 1 | MMM/MMM/MMM | M=Diamond; S=Stick | min 3×3
+Diamond × 9 | M | M=Diamond block; S=Stick | min 2×2

@@ -186,6 +186,8 @@ namespace RivetReach
             var selected=Game.Inventory.Slots[Game.Selected];byte heldId=selected.Empty?(byte)0:selected.Id;
             if(heldId!=miningItem){MiningProgress=0;miningItem=heldId;}
             ToolCapability tool=Game.Registry.Capabilities(selected);
+            if(Game.Input.Pressed("Interact"))
+            {MiningProgress=0;eating=0;eatingItem=0;Game.TryInteractTarget();return;}
             if(!Game.Input.Place&&Game.Mobs!=null&&Game.Mobs.HandlePlayerTarget(Game.Input.Mine||VerificationMining))
             {HasTarget=false;MiningProgress=0;eating=0;eatingItem=0;return;}
             bool found=Game.World.Raycast(Camera.transform.position,Camera.transform.forward,5,out var pos,out byte id);
@@ -195,7 +197,7 @@ namespace RivetReach
             {
                 MiningProgress=0;
                 if(found&&BlockId.Station(id)&&!Game.Input.Held("Crouch"))
-                {if(Game.Input.PlacePressed)Game.TryOpenStation(pos);return;}
+                {eating=0;eatingItem=0;if(Game.Input.PlacePressed)Game.TryInteractTarget();return;}
                 if(found&&(tool&ToolCapability.Hoe)!=0&&(id==BlockId.Grass||id==BlockId.Dirt))
                 {
                     if(Time.time>=nextPlace&&Game.World.Till(pos)){nextPlace=Time.time+.22f;Arms.TriggerSwing();Game.Hunger.Exert(.05);}

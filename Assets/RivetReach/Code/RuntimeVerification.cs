@@ -100,6 +100,8 @@ namespace RivetReach
             {report.workload="Day/night progression, pause, inventory, moving light/sky, eight lunar phases and session reset";yield return ReviewDayNight();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-crafting-review"))
             {report.workload="Modular crafting, pointer clicks/drags, batching and full inventory conservation";yield return ReviewCrafting();yield break;}
+            if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-starter-crafting-review"))
+            {report.workload="Minecraft starter recipe quantities and pointer layouts, crafted workbench placement, keyboard/mouse interaction, visibility, reach and rebinding";yield return ReviewStarterCrafting();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-survival-review"))
             {report.workload="Crafting progression, world stations, smelting, potato farming, hunger, health, armor and respawn";yield return ReviewSurvival();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-ore-review"))

@@ -188,7 +188,7 @@ The inventory UX should already support fast operations such as stack movement, 
 
 ### Crafting
 
-The user has now explicitly selected modular functional crafting. Use the real data-driven recipe registry from its first implementation, shared by 2×2/3×3/4×4 grids. The personal 2×2 interface replaces the original locked step’s placeholder; see [CRAFTING.md](CRAFTING.md) and [the gameplay extension](GAMEPLAY.md#16-modular-grid-crafting).
+The implemented crafting system uses the real data-driven recipe registry shared by 2×2/3×3/4×4 grids, with playable personal 2×2 and workbench 3×3 interfaces; see [CRAFTING.md](CRAFTING.md) and [the gameplay extension](GAMEPLAY.md#16-modular-grid-crafting).
 
 Begin with only enough recipes to create the first playable loop.
 
@@ -234,76 +234,35 @@ This document owns milestone scope and sequencing, mirrored by PROJECT_PLAN.md. 
 
 ### Stage 0 - First playable terrain, FPS and visual concept (locked scope)
 
-Goal: **play in a generated terrain world, move as a 3D first-person player, mine with fists, collect/manage the results and place collected terrain blocks while establishing the visual concept and reliable chunk streaming.**
+The user authorized the first terrain/FPS/inventory increment and subsequently selected crafting, ore/tier progression, survival, day/night, varied terrain and native creatures. [FIRST_POC.md](FIRST_POC.md) is the current run/control guide; [verification](verification/README.md) maintains the latest useful evidence for each feature.
 
-User-required scope:
+Implemented under those explicit requests:
 
-- Natural voxel terrain generation only: no generated structures, villages, ruins, Gates or buildings.
-- Real chunk generation, meshing, loading and unloading around the player, rather than a finite demonstration map.
-- Playable first-person movement and camera controls.
-- Selectable male and female 3D player models, both supporting changeable skins, visible first-person fists and enough presentation to review movement and mining (subsequent explicit user appearance decisions).
-- Fist mining with targeting, progress and clear feedback.
-- Terrain-block placement from the selected hotbar stack, with an aimed-block outline, face-adjacent placement, collision validation and conserved inventory (explicit extension from the user’s first-POC feedback).
-- Functional inventory/hotbar, using real item identities and quantities collected from mined terrain.
-- Functional personal 2×2 crafting, superseding the original nonfunctional placeholder under the explicit crafting extension below. Its shared core supports future 3×3/4×4 station interfaces.
-- A coherent initial visual concept for terrain, player, lighting and inventory; review the concept in play.
+- Deterministic terrain with five biomes, caves, seeded trees, depth-banded ores and protected bedrock; bounded chunk streaming and a floating render origin.
+- Responsive FPS movement, fist mining, terrain placement, physical item drops/pickup and real inventory.
+- Male/female 3D player models, matching first-person hands and two changeable skins with identical gameplay dimensions.
+- Modular personal 2×2 and placed workbench 3×3 crafting, a tested future 4×4 core, 52 basic recipes and five tool tiers.
+- Furnaces, chests, potatoes, farming, hunger, hearts, armor, death and respawn.
+- A moving day/night sky, lunar phases, original native creatures, AI and melee combat.
 
-Working scope boundaries, chosen to keep this step small:
+The user requires the beginning recipe layouts and quantities to match Minecraft. [CRAFTING.md](CRAFTING.md) owns authoring, independent acceptance checks and station interaction; [GAMEPLAY.md](GAMEPLAY.md) owns controls and progression. Implementation uses original code/assets and the real item/world authorities.
 
-- Use one terrain-only world definition and a small fist-mineable block palette. The original hills/cave palette was subsequently extended by the user with depth-banded ores and then [varied terrain, caves and biomes](TERRAIN_GENERATION.md). The terrain extension preserves the same streaming/edit architecture.
-- Preserve the existing physical stack-drop/pickup rules for the mining-to-inventory loop, including compatible merging and sleeping on dry terrain. Water simulation is not required here.
-- Establish a reusable player model and basic idle/movement/fist animation. The user subsequently requested changeable player skins: include a reusable skin texture layout and basic local skin selection as the working first-step extension, with matching body/fists. Detailed behaviour is in [GAMEPLAY.md](GAMEPLAY.md#15-player-skins). A third-person gameplay mode, body-shape customization, an in-game skin painter, combat and final animation polish are not required.
-- Beyond the explicitly requested starter tools/tree felling extension, broader tool progression, workbench/furnace, survival/death, mobs, water simulation, day/night progression, machinery, logistics and additional worlds remain outside this step.
-- Retain terrain edits, inventory and unexpired drops across chunk unloading/reloading within the running session. Durable cross-session saving and recovery remain later candidates; the first build must clearly disclose its session-only state. This is a scoped milestone boundary, not removal of the final persistent-save requirement.
-- Use a stable lighting setup for visual review. Final art breadth and a complete voxel-light feature set are not prerequisites for this step.
+Current exclusions include generated structures, water/irrigation, equipment wear, fitted armor meshes, 4×4 station UI, industry and durable saves. Session edits, inventory, stations and unexpired drops survive chunk unload/reload; quitting resets them. This boundary does not remove the eventual persistent-save requirement.
 
-Architectural requirements still apply: world-aware integer/chunk coordinates, real block/item definitions, authoritative mining, placement and inventory changes, voxel-grid collision, revision-safe asynchronous meshes, no GameObject per voxel, bounded heavy work and floating-origin handling. Build only the portions needed by this step. Interaction detail belongs to [GAMEPLAY.md](GAMEPLAY.md#14-locked-first-step-interaction-contract); streaming/state evidence belongs to [SIMULATION.md](SIMULATION.md#12-first-step-terrain-and-streaming-validation); visual delivery belongs to [CONTENT_PIPELINE.md](CONTENT_PIPELINE.md#2-first-visual-kit).
+Architectural requirements remain world-aware integer addresses, authoritative item transactions, voxel-grid collision, revision-safe asynchronous meshes, bounded heavy work and sleeping simulation. No GameObject per ordinary voxel. Appearance does not define collision or survival capabilities.
 
-Implementation checkpoints within this one milestone, each reviewed in the same growing project:
+**Review gate:** assess movement/mining feel, recipe usability, visual quality, terrain composition, survival balance and encounter readability in the current playable build. Measured checks establish only their stated workload; no universal performance or artistic acceptance claim follows from automated success. Select further scope explicitly from that review. The groups below preserve future options and do not authorize automatic roadmap work.
 
-1. **Traverse:** seeded terrain, safe spawn, chunk streaming, FPS controls and an initial 3D player.
-2. **Mine, collect and place:** fist targeting/mining, authoritative edits, physical pickups and usable inventory with the subsequently activated personal crafting grid, and placement of collected terrain blocks.
-3. **Review and stabilize:** cohesive terrain/player/UI visuals, model and animation review, chunk-boundary/long-traversal checks and a measured standalone build.
-
-These checkpoints do not authorize separate later features. Stage 0 is complete only when the combined playable result meets all of the following:
-
-- The player can start, move, mine, place collected blocks and manage inventory without developer commands; the subsequently requested personal crafting grid executes its authored starter recipes.
-- Both male and female player choices are present and visually coherent with terrain and UI; switching between two test skins on either model updates the body and first-person fists without changing movement, collision or mining. Review actual geometry/rendering cost using CONTENT_PIPELINE.md section 7.
-- Terrain contains no generated structures; the same seed and generator definition reproduce unedited terrain independently of discovery order.
-- Crossing chunk boundaries, digging at seams, outrunning generation and shifting the rendering origin produce no fall-through, stale collision or reappearing mined blocks.
-- Leaving and returning preserves session edits and item accounting; streaming releases unnecessary runtime meshes/colliders and does not hide an unlimited resident-world cache.
-- A standalone Windows build has a recorded hardware/settings/workload profile and documented remaining visual, control and streaming issues. Numerical performance targets remain provisional until measured.
-
-**Feedback revision, 2026-09-08:** the user rejected the initial player/terrain presentation, requested farther fog and identified missing placement. Placement now belongs to Stage 0; the art remains under review. This does not authorize later systems. Current evidence is recorded in [the visual revision report](verification/VISUAL_REVISION_RESULTS.md).
-
-**Further first-step feedback, 2026-09-08:** the user requested grass-to-dirt drops, light-dependent grass spreading on ticks, a Minecraft-style fist swing and held-item display, and a simpler targeting outline. These narrowly extend this same terrain/interaction slice; detailed rules are in GAMEPLAY.md section 14 and SIMULATION.md section 13.
-
-**Tree feedback extension, 2026-09-08:** the user subsequently requested generated log/leaf trees and axe-only breaking of logs above the cut. Include this in the current terrain slice, with a starter axe available without functional crafting. The user subsequently requested 2.5× faster swing playback and hotbar availability for the existing dagger/pickaxe grip props. [GAMEPLAY.md](GAMEPLAY.md#trees-and-axe-felling--user-feedback-extension) owns the behaviour and working defaults. This does not select the broader tool/recipe progression.
-
-**Crafting extension, 2026-09-08:** the user explicitly requested modular, editable recipes and a fast, reliable shared engine for 2×2, 3×3 and 4×4 grids. Activate the personal inventory grid, implement the shared definition/matching/transaction core and measure it. [CRAFTING.md](CRAFTING.md) owns technical boundaries; [GAMEPLAY.md section 16](GAMEPLAY.md#16-modular-grid-crafting) owns behavior. This authorization does not implement larger station interfaces, furnace/industry, durable saves or the full bootstrap progression.
-
-**Ore extension, 2026-09-08:** the user explicitly selected ore generation as the next step, then required multiple ores at different levels and an unbreakable bedrock base. Implement this bounded terrain/resource extension with pickaxe extraction and session depletion. [ECONOMY.md](ECONOMY.md#current-ore-generation-and-bedrock) owns the working bands and yields. This does not select processing, tool tiers, durable saves or the broader candidate stages.
-
-**Day/night extension, 2026-09-09:** the user requested moving sun/moon and nightly lunar phases. This bounded environment extension is now selected; [GAMEPLAY.md](GAMEPLAY.md#day-night-and-lunar-phases) owns its working behavior. It does not automatically select the remaining candidate sandbox systems.
-
-**Survival extension, 2026-09-09:** the user selected familiar basic recipes, wood/stone/copper/iron/diamond tool tiers, a workbench and furnace, then potatoes, farming, hunger, health and armor. Implement this requested playable progression using the existing authoritative item/grid/world model. [GAMEPLAY.md](GAMEPLAY.md#survival-progression-farming-health-and-armor) owns behavior and [CRAFTING.md](CRAFTING.md#survival-progression-extension--2026-09-09) owns authoring/transactions. Earlier exclusions of these selected features are superseded; this does not automatically select industry, water, durable saves or the rest of the candidate stages.
-
-**Review gate:** present the playable build, visual concept, measurements and known limitations to the user. Decide the next implementation scope from that evidence. The crafting, ore/bedrock and survival extensions are authorized; select further systems explicitly after review rather than automatically executing the old Stage 1 list.
-
-### Candidate Stage 1 - Extend the sandbox (not yet selected)
+### Candidate Stage 1 - Extend the sandbox (remaining work not yet selected)
 
 Goal: **the player can play rather than merely test a voxel engine.**
 
-Add:
+The selected crafting, tool tiers, workbench/furnace, day/night, health and initial creatures are already implemented. Remaining candidates are:
 
-- extend the real item/inventory/drop systems delivered in the first step;
-- advanced building conveniences and tool progression;
+- advanced building conveniences;
 - block-water interaction;
-- data-driven grid crafting;
-- workbench/furnace;
 - save/reload of terrain, inventory and simple block entities;
-- simple day/night cycle (subsequently selected separately; see the extension above);
-- one passive and one hostile mob when useful for feel testing.
+- broader ecology and further content selected through play review.
 
 Acceptance question:
 

@@ -1,2 +1,0 @@
-Succeeded; errors 0; warnings 0; seconds 12,5488154; bytes 179862136
-PASS: 22371 assertions. Signed coordinates, precision, deterministic terrain/halos, mesh winding/greedy occlusion, inventory overflow/split/transfer and 10,000 randomized stack operations.

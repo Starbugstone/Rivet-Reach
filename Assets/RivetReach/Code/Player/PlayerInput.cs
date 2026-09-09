@@ -9,7 +9,7 @@ namespace RivetReach
     {
         public readonly Dictionary<string,Key> Keys=new Dictionary<string,Key>{
             {"Forward",Key.W},{"Back",Key.S},{"Left",Key.A},{"Right",Key.D},{"Jump",Key.Space},
-            {"Sprint",Key.LeftShift},{"Crouch",Key.LeftCtrl},{"Inventory",Key.Tab},{"Drop",Key.Q},
+            {"Sprint",Key.LeftShift},{"Crouch",Key.LeftCtrl},{"Inventory",Key.Tab},{"Drop",Key.Q},{"Interact",Key.E},
             {"Pause",Key.Escape},{"Inspect",Key.F5},{"Diagnostics",Key.F12},
             {"Previous slot",Key.LeftBracket},{"Next slot",Key.RightBracket}};
         public float Sensitivity=0.11f;
@@ -18,6 +18,13 @@ namespace RivetReach
         public PlayerInput()
         {
             foreach(var n in new List<string>(Keys.Keys))Keys[n]=(Key)PlayerPrefs.GetInt("binding."+n,(int)Keys[n]);
+            // Adding an action must not steal a key from an existing customized binding.
+            if(!PlayerPrefs.HasKey("binding.Interact"))
+                foreach(var candidate in new[]{Key.E,Key.F,Key.R,Key.G,Key.T,Key.Y,Key.U,Key.I,Key.O,Key.P,Key.H,Key.J,Key.K,Key.L,Key.Z,Key.X})
+                {
+                    bool used=false;foreach(var binding in Keys)if(binding.Key!="Interact"&&binding.Value==candidate){used=true;break;}
+                    if(!used){Keys["Interact"]=candidate;break;}
+                }
             // Migrate the previous default when it was stored by key rebinding.
             if(Keys["Diagnostics"]==Key.F3)
             {
@@ -33,6 +40,7 @@ namespace RivetReach
         public bool Mine => Rebinding==null&&Mouse.current!=null&&(PlayerPrefs.GetInt("mineButton",0)==0?Mouse.current.leftButton.isPressed:Mouse.current.rightButton.isPressed);
         public bool Place => Rebinding==null&&Mouse.current!=null&&(PlayerPrefs.GetInt("mineButton",0)==0?Mouse.current.rightButton.isPressed:Mouse.current.leftButton.isPressed);
         public bool PlacePressed => Rebinding==null&&Mouse.current!=null&&(PlayerPrefs.GetInt("mineButton",0)==0?Mouse.current.rightButton.wasPressedThisFrame:Mouse.current.leftButton.wasPressedThisFrame);
+        public string UseButtonName=>PlayerPrefs.GetInt("mineButton",0)==0?"Right-click":"Left-click";
         public void BeginRebind(string name) {Rebinding=name;rebindAfter=Time.unscaledTime+.2f;}
         public bool PollRebind()
         {

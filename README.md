@@ -16,21 +16,13 @@ The long-term vision combines:
 
 ## Current status
 
-Rivet Reach is in **early development and specification design**. The repository root is now a Unity **6000.4.4f1** project using **URP 17.4.0**. It now includes the first playable terrain/FPS/inventory POC, with generated log/leaf trees, axe-only upward felling of generated logs, male/female player models and two interchangeable skins, plus personal/workbench crafting, five tool tiers, furnaces, chests, potato farming, hunger, health and armor, five ores distributed by depth and an unbreakable bedrock floor. This is an early review build; the wider game remains planned.
+The current Unity **6000.4.4f1 / URP 17.4.0** review build includes FPS movement, block mining/placement, inventory, **52 modular recipes**, personal 2×2 and workbench 3×3 crafting, five tool tiers, furnaces, chests, potato farming, hunger, hearts and armor. It also includes five biomes and caves, depth-banded ores, protected bedrock, generated trees, male/female appearances with two skins, a moving day/night sky, and native beetle/prowler enemies.
 
-Open this repository folder in Unity Hub with the pinned Editor version. Open `Assets/RivetReach/Scenes/Main.unity` and press Play. The latest integrated review executable is `Builds/Mobs/RivetReach.exe`. See [ore levels and bedrock](.docs/ECONOMY.md#current-ore-generation-and-bedrock), [ore verification](.docs/verification/ORE_RESULTS.md), [POC controls and build instructions](.docs/FIRST_POC.md), [modular crafting verification](.docs/verification/CRAFTING_RESULTS.md), the [arcade visual and effects revision](.docs/verification/ARCADE_VISUAL_RESULTS.md), the [high-fidelity player and audio revision](.docs/verification/HIFI_PLAYER_AND_AUDIO_RESULTS.md), [faster swings and starter tools](.docs/verification/TOOL_HOTBAR_RESULTS.md), [tree and axe checks](.docs/verification/TREE_RESULTS.md), [building, movement and dropped-item checks](.docs/verification/BUILDING_AND_MOVEMENT_RESULTS.md), [grass and hand interactions](.docs/verification/GRASS_AND_HAND_INTERACTION_RESULTS.md), and the [player asset results](.docs/verification/PLAYER_POLISH_RESULTS.md). See [Unity setup](.docs/UNITY_SETUP.md) for the exact setup and verification notes.
+Open `Assets/RivetReach/Scenes/Main.unity` in the pinned Editor and press Play, or launch the current local review build **`Builds/Survival/RivetReach.exe`**. [Run instructions and controls](.docs/FIRST_POC.md) explain the first crafting steps: logs → planks → workbench; place it, then **E or right-click** to open 3×3 crafting. Recipes are editable through the [authoring workflow](.docs/CRAFTING.md).
 
-The coordinated survival review executable is available locally at `Builds/Survival/RivetReach.exe`. [Survival results](.docs/verification/SURVIVAL_RESULTS.md) record the final build, recipe/furnace measurements and input/lifecycle checks. Recipes are edited through the [shared authoring workflow](.docs/CRAFTING.md).
+[Current verification and screenshots](.docs/verification/README.md) link the maintained report for each feature. [Starter recipe verification](.docs/verification/CRAFTING_RESULTS.md) checks the actual layouts and quantities. Superseded screenshots/reports remain in Git history.
 
-The current slice also includes the user-requested [day/night cycle with moving sun/moon and nightly phases](.docs/GAMEPLAY.md#day-night-and-lunar-phases). See its [verification record](.docs/verification/DAY_NIGHT_RESULTS.md) for the tested build and integration boundary.
-
-The **locked first playable step** is terrain generation and chunk streaming, FPS movement, a 3D player, fist mining, terrain-block placement, functional inventory and originally a crafting placeholder inside that inventory. The user subsequently authorized [functional modular crafting](.docs/CRAFTING.md), now connected to personal 2×2 and workbench 3×3 grids with a shared core that also supports future 4×4 interfaces. It contains **no generated structures**. Establish the visual concept and validate terrain/loading through play before choosing the next implementation. The user subsequently selected the [survival progression extension](.docs/GAMEPLAY.md#survival-progression-farming-health-and-armor): a 3×3 workbench, furnace, basic recipes and tool tiers, farming, hunger, health and armor. Industry and background factories remain later ambitions. See the authoritative [first-step scope and review gate](.docs/DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence). The first slice is implemented for review. Progress survives chunk unloading in-session but resets when the game quits.
-
-The design will remain **evolutive** while ideas are brainstormed and the POC is tested. Systems described today may be refined as implementation and performance testing expose better solutions.
-
-The subsequent [native mob extension](.docs/MOBS.md) adds Blender-authored Rustback beetles and Dusk prowlers, voxel-aware AI, natural spawning and melee combat through the shared survival system. Prowler spawning follows the world’s night clock. The review executable is `Builds/Mobs/RivetReach.exe`. See [mob verification](.docs/verification/MOB_RESULTS.md) for actual evidence and review limits.
-
-The [terrain rework](.docs/TERRAIN_GENERATION.md) adds grasslands, forests, dunes, badlands and alpine terrain, with natural cave entrances, deep passages and caverns. See [terrain verification](.docs/verification/TERRAIN_GENERATION_RESULTS.md) for current evidence.
+This is an early playable increment. Progress survives chunk unloading during a session and resets on quit. Durable saves, 4×4 station interfaces, generated structures, industry and the wider game remain planned. [The development strategy](.docs/DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence) requires playable review before selecting further scope. Art, balance and long-session performance remain subject to review.
 
 ## License and ownership
 
@@ -42,7 +34,7 @@ See [LICENSE.md](LICENSE.md) for the complete terms.
 
 ## Design documents
 
-- [Concept art](.docs/concept-art/README.md) - player turnarounds, future equipment and three first-person terrain/UI drafts; visual references, not implemented screenshots.
+- [Concept art](.docs/concept-art/README.md) - current player turnarounds and equipment direction; visual references, not implemented screenshots.
 - [PROJECT_PLAN.md](.docs/PROJECT_PLAN.md) - technical plan, architecture, POC and long-term target.
 - [DEVELOPMENT_STRATEGY.md](.docs/DEVELOPMENT_STRATEGY.md) - how to build the final architecture incrementally while keeping gameplay responsive and performance-aware.
 - [GAMEPLAY.md](.docs/GAMEPLAY.md) - responsive play, progression, exploration rewards and full-game completeness.

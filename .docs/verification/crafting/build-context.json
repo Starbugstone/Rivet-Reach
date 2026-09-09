@@ -1,0 +1,13 @@
+{
+  "base_commit": "c766d226a493d3a3c33144d5c128476cac610d9e",
+  "unity": "6000.4.4f1",
+  "entry_point": "RivetReach.Editor.ProjectBuild.PrepareAndBuildSurvival",
+  "artifact": "Builds/Survival/RivetReach.exe",
+  "assembly_sha256": "9e72f8b49ab11bc3823135825fede84e5254b79d3942539a81b95777296919e7",
+  "source_manifest": "source-manifest.json",
+  "scope": "Current committed mob wall-climbing code plus owned starter-crafting/interaction changes. Recipe and survival tests do not certify mob behavior.",
+  "starter_report": "runtime-report.json",
+  "survival_report": "../survival/runtime-report.json",
+  "build_summary": "build-summary.txt",
+  "recipe_reference": "minecraft-recipe-comparison.json"
+}

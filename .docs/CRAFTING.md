@@ -64,7 +64,7 @@ Test fixtures are enabled only by the existing explicit verification mode. Ordin
 
 ## Survival progression extension — 2026-09-09
 
-The user subsequently selected familiar basic grid recipes, five tool tiers, furnaces, farming, hunger, health and armor. The personal grid and placed workbench now share the compiled registry: **52 active grid recipes**, each an independent asset. The historical three starter-tool assets remain unregistered; ordinary sessions start with empty inventories. [ECONOMY.md](ECONOMY.md#current-survival-recipes-and-tiers) owns quantities and progression. Larger 4×4 interfaces remain future content; the engine still supports them.
+The user subsequently selected familiar basic grid recipes, five tool tiers, furnaces, farming, hunger, health and armor. The personal grid and placed workbench now share the compiled registry: **52 active grid recipes**, each an independent asset. Ordinary sessions start with empty inventories; obsolete stone/log starter-tool layouts are not registered. [ECONOMY.md](ECONOMY.md#current-survival-recipes-and-tiers) owns quantities and progression. Larger 4×4 interfaces remain future content; the engine still supports them.
 
 ### Stations and processing authoring
 
@@ -81,3 +81,9 @@ Only furnaces with remaining burn time or immediately actionable input/fuel ente
 `SurvivalChecks.Run` validates the registered recipe dependency graph from gathered resources, all pickaxe tiers, processing boundaries, filters, output blocking, fuel accounting, randomized time partition equivalence, food, health and equipment. It measures 1,000 active furnace instances over 200 reference ticks separately from whole-game frame timing. `DomainChecks.Run` includes this suite, and the existing crafting suite still validates every active recipe plus matching/conservation/scaling.
 
 `Tools/Verify-POC.ps1 -Survival` exercises pointer crafting, a placed workbench, furnace inputs/results, farming, eating, armor slots and death/respawn. `-Crafting` now exercises the actual log/plank/workbench recipes. [Survival verification](verification/SURVIVAL_RESULTS.md) distinguishes measured checks from limitations.
+
+## Starter recipe and block-interaction acceptance
+
+The user explicitly requires the implemented beginning recipes to use Minecraft's ingredient positions and output quantities. `StarterRecipeChecks` defines independent acceptance fixtures for all 52 current recipes, including translations, permitted mirrors and exact consumption/output. The catalog-driven compiler checks still validate arbitrary authored content. Deliberately changing this baseline requires updating the acceptance contract, not silently accepting a newly authored layout as its own expected result.
+
+`Expedition.TryInteractTarget` resolves the currently aimed voxel within five blocks. The bound **Interact** key (default E) and mouse Use open a workbench, furnace or chest through the same station authority. Direct station-open commands also validate visibility and reach. Crouch + mouse Use bypasses opening for placement against a station; keyboard Interact explicitly opens it. The HUD displays the actual controls after rebinding. `Verify-POC.ps1 -StarterCrafting` exercises crafting a workbench, placing it and opening its nine-slot UI with keyboard/mouse input, plus occlusion, reach and rebinding. [Current evidence](verification/CRAFTING_RESULTS.md) includes the actual screenshots and Minecraft reference links.

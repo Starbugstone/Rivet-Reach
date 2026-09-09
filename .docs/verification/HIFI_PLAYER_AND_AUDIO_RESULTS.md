@@ -2,6 +2,8 @@
 
 Working revision, 2026-09-08, following the user’s high-fidelity visuals, sounds, rig and animation request. Artistic acceptance remains with the user; “AAA” is a target, not a measured result.
 
+Current model/hand/audio evidence is retained here. [Crafting](CRAFTING_RESULTS.md), [survival](SURVIVAL_RESULTS.md) and [terrain](TERRAIN_GENERATION_RESULTS.md) own their current interfaces and gameplay evidence. The dated reports below are the latest measurements for these character/audio workloads, not measurements of the current complete game.
+
 ## Changes
 
 - One continuous closed skin surface per forearm/palm/five-finger assembly, replacing separate finger/thumb shells. Quad retopology and subdivision provide smooth silhouettes; transferred weights are relaxed across the anatomical joins.
@@ -17,14 +19,13 @@ The [source checks](hifi-source-checks.json) pass normalized weights, portable t
 
 ## Unity evidence
 
-The pinned Unity 6000.4.4f1 Windows development player builds with **zero errors and zero warnings**. The [final clean build](hifi-build.txt) reports 211,950,836 bytes. All four built-player suites pass, with no logged errors:
+The pinned Unity 6000.4.4f1 Windows development player builds with **zero errors and zero warnings**. The [final clean build](hifi-build.txt) reports 211,950,836 bytes. The three feature suites below pass, with no logged errors:
 
 | Suite | Passed checks | Evidence |
 | --- | ---: | --- |
 | Character import, animation, appearance and grip transitions | 55 | [Avatar report](hifi-avatar-report.json) |
 | Terrain, movement, inventory, placement, appearance and held items | 263 | [Runtime report](hifi-runtime-report.json) |
 | Imported audio, variation, spatial settings, voice bound and immediate mute | 109 | [Audio report](hifi-audio-report.json) |
-| Crafting integration after preserving the committed tooltip fixes | 44 | [Integration report](hifi-crafting-integration-report.json) |
 
 Audio checks cover all 77 imported clips, sample rates/channels, finite and unclipped sampled PCM, smooth effect endpoints, nonrepeating footsteps, twelve effect voices, disabled Doppler, spatial impacts and mute of already playing sources. They do not measure perceived mix quality or headphone/speaker translation.
 

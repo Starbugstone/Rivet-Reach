@@ -347,9 +347,9 @@ Record seed, generator version, travel route/duration, distances, job settings, 
 
 ### First POC implementation evidence
 
-The [first-POC record](FIRST_POC.md#implemented-foundation) and [verification results](verification/FIRST_POC_RESULTS.md) document the implemented subset. Worker meshes use immutable terrain/edit snapshots, per-residency generation tokens and edit revisions. Collision uses current voxel data and closed unready frontiers.
+The [first-POC record](FIRST_POC.md#foundation-and-diagnostics) and [verification results](verification/README.md) document the implemented subset. Worker meshes use immutable terrain/edit snapshots, per-residency generation tokens and edit revisions. Collision uses current voxel data and closed unready frontiers.
 
-For this small palette, mining currently rebuilds only resident chunks whose halo touches the edit synchronously, keeping visual removal and occupancy aligned immediately. This is a bounded first-slice choice instead of the preferred changed-cell patch followed by an asynchronous optimized rebuild. The initial mesher produced a measured 55 ms hitch; direct stride indexing reduced that path substantially. The final measured cost and remaining frame-time limitation are recorded in the results. Keep measuring at seams and under heavier edits; move to immediate patches/async rebuilds if the synchronous cost exceeds the workload's budget. The nominal streaming publication budget is checked between meshes, so it is not a hard per-frame ceiling for one upload.
+For this palette, mining rebuilds only resident chunks whose halo touches the edit synchronously, keeping visual removal and occupancy aligned immediately. This is a bounded first-slice choice; the full architecture still calls for a changed-cell patch followed by an asynchronous optimized rebuild. Keep measuring at seams and under heavier edits; move to immediate patches/async rebuilds if the synchronous cost exceeds the workload's budget. The nominal streaming publication budget is checked between meshes, so it is not a hard per-frame ceiling for one upload.
 
 The tested route is finite and the item fixture is small. This does not validate unbounded travel, sustained thousands-of-pile workloads, factory simulation, multiplayer or durable recovery. Their existing contracts remain requirements for the stages that introduce them.
 
@@ -359,7 +359,7 @@ The user’s feedback extends Stage 0 with terrain-block placement. Its interact
 
 Player vertical travel integrates the mean of the beginning and ending velocity for each movement step, using an 8 m/s jump impulse and 20 m/s² gravity for the user’s requested 1.6 m free jump apex, leaving clearance for future half blocks. This avoids the lost jump height from applying the end-of-step velocity to the whole interval. Failed held-placement attempts retry on the next render frame; only successful commits spend the 0.22-second repeat interval.
 
-Default horizontal demand is now ten 32 m chunks, with a four-to-fourteen radius setting. Fog start is `max(48, (radius * 32 - 24) * 0.8)` metres; fog end is `radius * 32 - 16` metres. These put haze near the guaranteed interior of the resident square rather than near the player. Runtime view preferences use a revised key so the old default of four does not silently preserve the rejected close fog. Measure actual residency, allocation and frame times at the new default; historical radius-four evidence is not proof of radius-ten performance. See [current revision evidence](verification/VISUAL_REVISION_RESULTS.md).
+Default horizontal demand is now ten 32 m chunks, with a four-to-fourteen radius setting. Fog start is `max(48, (radius * 32 - 24) * 0.8)` metres; fog end is `radius * 32 - 16` metres. These put haze near the guaranteed interior of the resident square rather than near the player. Runtime view preferences use a revised key so the old default of four does not silently preserve the rejected close fog. Measure actual residency, allocation and frame times at the new default; historical radius-four evidence is not proof of radius-ten performance. See [current revision evidence](verification/TERRAIN_GENERATION_RESULTS.md).
 
 ## 13. Grass random ticks — first-step feedback
 
@@ -395,7 +395,7 @@ Chunk generation enumerates candidates intersecting the 32³ interior and one-ce
 
 Base terrain returns bedrock at and below MinY = −256, including generated halos. Mutation rejects bedrock and out-of-bounds coordinates centrally, before recording edits or changing halos. `Mine` separately rejects ore without Pickaxe capability. Successful mining uses the existing compare-and-replace, revision rejection and one-drop event; session edit snapshots are applied after generation when chunks return. Bedrock protection also applies to the lower-level removal path and placement. No ore regeneration occurs on a timer or reload.
 
-[Ore verification](verification/ORE_RESULTS.md) records band/host preservation, signed and distant point-query agreement, three-axis halos, concurrent/reordered generation, measured distribution, actual player mining, raw-resource conservation, floor collision and depletion after streaming. Sampling demonstrates the tested workloads, not all-seed resource accessibility, play balance, durable saves or factory-scale performance.
+[Ore verification](verification/SURVIVAL_RESULTS.md) records band/host preservation, signed and distant point-query agreement, three-axis halos, concurrent/reordered generation, measured distribution, actual player mining, raw-resource conservation, floor collision and depletion after streaming. Sampling demonstrates the tested workloads, not all-seed resource accessibility, play balance, durable saves or factory-scale performance.
 
 
 ## Session world clock and celestial presentation
