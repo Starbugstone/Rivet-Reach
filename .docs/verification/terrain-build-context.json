@@ -1,0 +1,61 @@
+{
+  "unity": "6000.4.4f1",
+  "build_project": "D:/Dev/github-desktop/Rivet-Reach-MobVerify",
+  "build_method": "RivetReach.Editor.MobBuild.Build",
+  "build_log": "Logs/survival-final-build.log in isolated project",
+  "playable_folder": "Builds/Terrain",
+  "assembly_sha256": "c1b6e67d1adb7ed02bc438600c7ca2ea7607d330d7b33d6a7055abd6b4494d2d",
+  "runtime_folder": "Logs/SurvivalTerrainVerificationFinal",
+  "runtime_utc": "2026-09-09T06:49:30.3327764Z",
+  "boundary": "Integrated verification artifact includes independently owned survival, day/night and unpublished mob code/assets. Natural mobs are disabled by -rr-verify. Terrain source and prepared assets below match the checked isolated snapshot. Joint terrain/survival publication excludes mob implementation. This manifest does not identify an exact commit build.",
+  "matched_terrain_inputs": [
+    {
+      "path": "Assets/RivetReach/Code/World/WorldNoise.cs",
+      "sha256": "cac4b7578044b2630be7a32eac5340d0b13362acf161ce8c8d7b51ad3785f0bf"
+    },
+    {
+      "path": "Assets/RivetReach/Code/World/TerrainProfile.cs",
+      "sha256": "04db71e8be38aca29983f69481d1e0171569b8ce2840310510ece4bd27fb0dd8"
+    },
+    {
+      "path": "Assets/RivetReach/Code/World/CaveGenerator.cs",
+      "sha256": "2eb20f37a5c87ef2789c445d2db235ac31d84420de4c56c60ce0ae159915c59b"
+    },
+    {
+      "path": "Assets/RivetReach/Code/World/TerrainGenerator.cs",
+      "sha256": "f65e3df31f805e950af6939f2e36a0eb636ae7de9e1c70e1897f4f34bf7c8645"
+    },
+    {
+      "path": "Assets/RivetReach/Code/World/TerrainReviewSites.cs",
+      "sha256": "602b91d99ceb082531befc72d8d378b178b7897257c66cb1722ab0fa9dd54353"
+    },
+    {
+      "path": "Assets/RivetReach/Code/World/VoxelWorld.cs",
+      "sha256": "6892865073d05e4e08cdbcaaa515d5f01bef3082d8354cf5062a9312db18ed38"
+    },
+    {
+      "path": "Assets/RivetReach/Code/TerrainVerification.cs",
+      "sha256": "1ac9e6e24236b765ef791082bb18f7a752784fcaf630a047897c44f2804634c1"
+    },
+    {
+      "path": "Assets/RivetReach/Editor/BiomeTerrainAssets.cs",
+      "sha256": "2be8aad0d2d1d29073b51640c4f09c38ba37ed4659305ac62e82979a2252766d"
+    },
+    {
+      "path": "Assets/RivetReach/Editor/TerrainGenerationChecks.cs",
+      "sha256": "ea7501664c3808f788606a37169c9893f278f3e87dc91c61e58936af28e9e9ff"
+    },
+    {
+      "path": "Assets/RivetReach/Resources/Definitions/Items.asset",
+      "sha256": "3baf6566831129108ebfe2e99c4f36313526b06c026d9f1250b73c78f3fa260c"
+    },
+    {
+      "path": "Assets/RivetReach/Resources/Materials/BlockTiles.asset",
+      "sha256": "5a7fdc9f4bc1618228f5a725613bc10e957d6ed70ec1dd1fa01c8c7804b3faf2"
+    },
+    {
+      "path": "Assets/RivetReach/Resources/Materials/BlockDetail.asset",
+      "sha256": "770fe375cb98c5e1d4784936adec8624f9ed928743a3a174a00340ed953c1a07"
+    }
+  ]
+}

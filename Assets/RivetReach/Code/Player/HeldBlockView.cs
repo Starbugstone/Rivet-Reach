@@ -28,7 +28,9 @@ namespace RivetReach
         public Transform Socket {get;private set;}
         public Vector3 Centre=>view.transform.position;
         public void SetPreview(GripPose? grip){PreviewGrip=grip;}
-        GameObject view,block,sword,pickaxe,axe;
+        GameObject view,block,sword,pickaxe,axe,shovel,hoe,card;
+        Material cardMaterial,plainToolMaterial;
+        Texture2D cardIcon;
         MeshFilter filter;
         Material material,toolMaterial,axeMaterial;
         Vector3 bladeAxis,handleAxis;
@@ -45,6 +47,7 @@ namespace RivetReach
             toolMaterial=new Material(Shader.Find("RivetReach/HeldTool"));toolMaterial.SetTexture("_BaseMap",Resources.Load<Texture2D>("Characters/SkinField"));
             axeMaterial=new Material(Shader.Find("RivetReach/HeldTool"));axeMaterial.SetTexture("_BaseMap",Resources.Load<Texture2D>("Tools/StarterAxe"));
             axeMaterial.SetFloat("_AxePalette",1);
+            plainToolMaterial=new Material(Shader.Find("RivetReach/HeldTool"));
             view.SetActive(false);
         }
         GameObject Tool(string path)
@@ -71,6 +74,22 @@ namespace RivetReach
                     }
                     filter.sharedMesh=mesh;
                 }
+                if(id!=0)
+                {
+                    var definition=game.Registry.Get(id);var tint=definition.tier==ToolTier.None?Color.white:Color.Lerp(Color.white,definition.colour,.70f);
+                    toolMaterial.SetColor("_BaseColor",tint);axeMaterial.SetColor("_BaseColor",tint);plainToolMaterial.SetColor("_BaseColor",definition.colour);
+                    if(!BlockId.Placeable(id)&&!BlockId.RawMaterial(id)&&definition.toolCapabilities==ToolCapability.None)
+                    {
+                        if(card==null)
+                        {
+                            card=GameObject.CreatePrimitive(PrimitiveType.Quad);Destroy(card.GetComponent<Collider>());card.transform.SetParent(block.transform,false);
+                            card.transform.localScale=Vector3.one*1.5f;card.transform.localPosition=new Vector3(0,0,-.55f);
+                            cardMaterial=new Material(Shader.Find("RivetReach/HeldTool"));cardMaterial.SetFloat("_Cutoff",.1f);cardMaterial.SetFloat("_Cull",0);
+                            var cardRenderer=card.GetComponent<Renderer>();cardRenderer.sharedMaterial=cardMaterial;cardRenderer.shadowCastingMode=ShadowCastingMode.Off;
+                        }
+                        if(cardIcon!=null)Destroy(cardIcon);cardIcon=SurvivalItemArt.Icon(definition);cardMaterial.SetTexture("_BaseMap",cardIcon);
+                    }
+                }
             }
             var grip=DesiredGrip;var rig=Player.Inspecting?Player.Body:Player.Arms;
             // The object appears once the fingers have reached their new contact pose.
@@ -81,6 +100,9 @@ namespace RivetReach
             float boneUnits=rig.transform.InverseTransformVector(Socket.TransformVector(Vector3.up)).magnitude;
             view.transform.localPosition=Vector3.zero;view.transform.localRotation=Quaternion.identity;view.transform.localScale=Vector3.one/boneUnits;
             block.SetActive(grip==GripPose.Block);
+            bool showCard=id!=0&&!BlockId.Placeable(id)&&!BlockId.RawMaterial(id)&&game.Registry.Get(id).toolCapabilities==ToolCapability.None;
+            filter.GetComponent<Renderer>().enabled=!showCard;if(card!=null)card.SetActive(showCard);
+            if(showCard)card.transform.rotation=Player.Camera.transform.rotation;
             bool useAxe=!PreviewGrip.HasValue&&(game.Registry.Capabilities(selected)&ToolCapability.Axe)!=0;
             if(useAxe&&axe==null)
             {
@@ -104,11 +126,31 @@ namespace RivetReach
                 if(desired.sqrMagnitude>.0001f)
                     axe.transform.localRotation=Quaternion.AngleAxis(Vector3.SignedAngle(blade,desired,shaft),shaft)*axe.transform.localRotation;
             }
-            if(grip==GripPose.Tool&&!useAxe&&sword==null)sword=Tool("GripSword");
+            var capability=game.Registry.Capabilities(selected);bool useShovel=(capability&ToolCapability.Shovel)!=0,useHoe=(capability&ToolCapability.Hoe)!=0;
+            if(useShovel&&shovel==null)shovel=GardenTool(false);
+            if(useHoe&&hoe==null)hoe=GardenTool(true);
+            if(shovel!=null)shovel.SetActive(useShovel);if(hoe!=null)hoe.SetActive(useHoe);
+            if(grip==GripPose.Tool&&!useAxe&&!useShovel&&!useHoe&&sword==null)sword=Tool("GripSword");
             if(grip==GripPose.TwoHandTool&&pickaxe==null)pickaxe=Tool("GripPickaxe");
-            if(sword!=null)sword.SetActive(grip==GripPose.Tool&&!useAxe);if(pickaxe!=null)pickaxe.SetActive(grip==GripPose.TwoHandTool);
+            if(sword!=null)sword.SetActive(grip==GripPose.Tool&&!useAxe&&!useShovel&&!useHoe);if(pickaxe!=null)pickaxe.SetActive(grip==GripPose.TwoHandTool);
             float firstPerson=Player.Inspecting?0:1;
             material.SetFloat("_FirstPerson",firstPerson);toolMaterial.SetFloat("_FirstPerson",firstPerson);axeMaterial.SetFloat("_FirstPerson",firstPerson);
+            plainToolMaterial.SetFloat("_FirstPerson",firstPerson);
+            if(cardMaterial!=null)cardMaterial.SetFloat("_FirstPerson",firstPerson);
+        }
+        GameObject GardenTool(bool isHoe)
+        {
+            var root=new GameObject(isHoe?"Hoe":"Shovel");root.transform.SetParent(view.transform,false);
+            void Part(Vector3 position,Vector3 size)
+            {
+                var part=GameObject.CreatePrimitive(PrimitiveType.Cube);Destroy(part.GetComponent<Collider>());part.transform.SetParent(root.transform,false);
+                part.transform.localPosition=position;part.transform.localScale=size;part.GetComponent<Renderer>().sharedMaterial=plainToolMaterial;
+                part.GetComponent<Renderer>().shadowCastingMode=ShadowCastingMode.Off;
+            }
+            Part(new Vector3(0,.04f,0),new Vector3(.033f,.50f,.033f));
+            if(isHoe)Part(new Vector3(.075f,.32f,0),new Vector3(.20f,.035f,.075f));
+            else Part(new Vector3(0,.34f,0),new Vector3(.14f,.20f,.022f));
+            return root;
         }
         float axeFraming;
         public void FrameFirstPerson()
@@ -126,6 +168,6 @@ namespace RivetReach
             arm.localPosition=pivot+roll*(arm.localPosition-pivot)+new Vector3(.42f*scale,-.12f*scale,.18f)*axeFraming;
             arm.localRotation=roll;
         }
-        void OnDestroy(){if(view!=null)Destroy(view);if(material!=null)Destroy(material);if(toolMaterial!=null)Destroy(toolMaterial);if(axeMaterial!=null)Destroy(axeMaterial);foreach(var mesh in meshes.Values)Destroy(mesh);}
+        void OnDestroy(){if(view!=null)Destroy(view);if(material!=null)Destroy(material);if(toolMaterial!=null)Destroy(toolMaterial);if(axeMaterial!=null)Destroy(axeMaterial);if(plainToolMaterial!=null)Destroy(plainToolMaterial);if(cardMaterial!=null)Destroy(cardMaterial);if(cardIcon!=null)Destroy(cardIcon);foreach(var mesh in meshes.Values)Destroy(mesh);}
     }
 }

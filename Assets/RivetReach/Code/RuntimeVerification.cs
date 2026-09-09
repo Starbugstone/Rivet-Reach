@@ -94,10 +94,14 @@ namespace RivetReach
             game.World.ViewDistance=10;game.Diagnostics=true;
             yield return Settle();report.firstReadySeconds=Time.realtimeSinceStartup-began;
             var player=game.Player;var world=game.World;report.viewRadius=world.ViewDistance;report.fogStart=world.FogStart;report.fogEnd=world.FogEnd;var start=world.Address(player.transform.position);var saved=WorldPoint.FromLocal(player.transform.position,world.Origin);
+            if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-terrain-review"))
+            {report.workload="Five natural biomes, cave traversal, surface streaming, biome block mining/placement and bedrock";yield return ReviewTerrain();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-day-night-review"))
             {report.workload="Day/night progression, pause, inventory, moving light/sky, eight lunar phases and session reset";yield return ReviewDayNight();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-crafting-review"))
             {report.workload="Modular crafting, pointer clicks/drags, batching and full inventory conservation";yield return ReviewCrafting();yield break;}
+            if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-survival-review"))
+            {report.workload="Crafting progression, world stations, smelting, potato farming, hunger, health, armor and respawn";yield return ReviewSurvival();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-ore-review"))
             {report.workload="Five ore depth bands, pickaxe mining, raw drops, bedrock and depletion across streaming";yield return ReviewOres();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-interaction-review"))
@@ -190,8 +194,8 @@ namespace RivetReach
             game.Items.Spawn(new ItemStack(3,100),world.Local(pilePos)+new Vector3(.7f,.01f,.5f),Vector3.zero);
             yield return new WaitForSecondsRealtime(1);
             Check(game.Items.Total(3)>=550,"Physical stack merge preserves overflow");
-            Check(game.Items.Piles.All(p=>p.Stack.Count<=500),"World pile stack limits hold");
-            Check(game.Items.Piles.Any(p=>p.Stack.Id==3&&p.Stack.Count==500)&&game.Items.Piles.Any(p=>p.Stack.Id==3&&p.Stack.Count==50),"Two settled piles merge once with exact overflow");
+            Check(game.Items.Piles.All(p=>p.Stack.Count<=game.Registry.Get(p.Stack.Id).stackLimit),"World pile stack limits hold");
+            Check(game.Items.Piles.Any(p=>p.Stack.Id==3&&p.Stack.Count==64)&&game.Items.Piles.Any(p=>p.Stack.Id==3&&p.Stack.Count==38),"Settled piles merge with exact stack-limit overflow");
             float oldest=game.Items.Piles.Max(p=>p.Age);
             var far=new BlockPos(640,world.Generator.Height(640,0)+2,0);
             player.transform.position=world.Local(far)+new Vector3(.5f,0,.5f);yield return null;yield return Settle();
@@ -209,24 +213,25 @@ namespace RivetReach
             Check(world.Get(seam)==0&&world.Get(seam2)==0,"Mined seam remains empty after unload/reload/origin shift");
             Check(game.Items.Total(3)>=550,"Dropped quantities survive chunk unloading");
             Check(world.Get(placed)==3,"Placed voxel survives chunk unload, reload and origin shifts");
-            // Remine the placed cell through the same fist path, proving one recoverable item.
+            // Remine the placed stone with an explicit wooden pickaxe fixture.
+            game.Inventory.Add(BlockId.WoodPickaxe,1,10,11);game.Selected=10;
             Vector3 aim=(world.Local(placed)+Vector3.one*.5f)-(player.transform.position+Vector3.up*1.64f);
             player.Yaw=Mathf.Atan2(aim.x,aim.z)*Mathf.Rad2Deg;player.Pitch=-Mathf.Atan2(aim.y,new Vector2(aim.x,aim.z).magnitude)*Mathf.Rad2Deg;
-            yield return null;Check(player.HasTarget&&player.Target.Equals(placed),"Placed block is targetable for fist mining");
+            yield return null;Check(player.HasTarget&&player.Target.Equals(placed),"Placed block is targetable for pickaxe mining");
             int remineBefore=game.Items.TotalSpawned;player.VerificationMining=true;until=Time.realtimeSinceStartup+3;
             while(world.Get(placed)!=0&&Time.realtimeSinceStartup<until)yield return null;
             player.VerificationMining=false;yield return null;
-            Check(world.Get(placed)==0&&game.Items.TotalSpawned==remineBefore+1,"Fist mining a placed block creates exactly one recoverable item");
+            Check(world.Get(placed)==0&&game.Items.TotalSpawned==remineBefore+1,"Pickaxe mining a placed block creates exactly one recoverable item");
             // Fill every slot, leave exactly five spaces, then exercise real partial pickup.
             var carried=game.Inventory.Slots.ToArray();for(int slot=0;slot<60;slot++)game.Inventory.Take(slot,int.MaxValue);
-            game.Inventory.Add(3,29995);
+            int capacity=game.Inventory.Count*game.Registry.Get(3).stackLimit;game.Inventory.Add(3,capacity-5);
             // Isolate this quantity fixture from the just-mined drop: it may still be in
             // pickup/merge range depending on frame timing. Ordinary item rules are unchanged.
             var priorDelays=game.Items.Piles.Select(p=>(pile:p,delay:p.Delay)).ToArray();
             foreach(var savedDelay in priorDelays)savedDelay.pile.Delay=Math.Max(1,savedDelay.delay);
             game.Items.Spawn(new ItemStack(3,10),player.transform.position+Vector3.up*.35f,Vector3.zero);
             var partial=game.Items.Piles[game.Items.Piles.Count-1];game.Items.Step(.05f);
-            Check(game.Inventory.Total(3)==30000&&partial.Stack.Count==5,"Partial pickup fills five spaces and leaves five in world");
+            Check(game.Inventory.Total(3)==capacity&&partial.Stack.Count==5,"Partial pickup fills five spaces and leaves five in world");
             game.Items.Step(.05f);Check(partial.Stack.Count==5,"Full inventory does not consume remaining world items");
             foreach(var savedDelay in priorDelays)savedDelay.pile.Delay=savedDelay.delay;
             game.Items.Piles.Remove(partial);if(partial.View!=null)Destroy(partial.View);
@@ -285,7 +290,7 @@ namespace RivetReach
             var player=game.Player;bool female=player.Female;int skin=player.Skin;
             float fov=player.Camera.fieldOfView,pitch=player.Pitch;
             var tiles=Resources.Load<Texture2DArray>("Materials/BlockTiles");report.terrainTilePixels=tiles.width;
-            Check(tiles.width==64&&tiles.height==64&&tiles.depth==18,"Eighteen 64-texel terrain, tree and mineral tiles are imported");
+            Check(tiles.width==64&&tiles.height==64&&tiles.depth>=44,"Terrain, tree, mineral and biome texture layers are imported");
             Check(game.World.TerrainMaterial.shader.isSupported,"Terrain shader has a supported rendering pass");
             Check(player.Camera.GetComponent<UnityEngine.Rendering.Universal.UniversalAdditionalCameraData>().renderPostProcessing,"Gameplay camera enables the scene colour grade");
             game.Diagnostics=false;

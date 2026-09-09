@@ -10,11 +10,13 @@ namespace RivetReach
         IEnumerator ReviewTrees()
         {
             var world=game.World;var player=game.Player;sampling=true;
-            Check(game.Inventory.Slots[11].Id==BlockId.StarterAxe&&game.Inventory.Slots[11].Count==1,"New session supplies one starter axe in hotbar slot 12");
+            // Explicit presentation fixtures; ordinary survival sessions start empty-handed.
+            game.Inventory.Add(BlockId.StarterAxe,1,11,12);game.Inventory.Add(BlockId.StarterDagger,1,9,10);game.Inventory.Add(BlockId.StarterPickaxe,1,10,11);
+            Check(game.Inventory.Slots[11].Id==BlockId.StarterAxe&&game.Inventory.Slots[11].Count==1,"Tree review supplies one explicit axe fixture in hotbar slot 12");
             foreach(var tool in new[]{(slot:9,id:BlockId.StarterDagger,grip:GripPose.Tool),(slot:10,id:BlockId.StarterPickaxe,grip:GripPose.TwoHandTool)})
             {
                 var stack=game.Inventory.Slots[tool.slot];var definition=game.Registry.Get(tool.id);
-                Check(stack.Id==tool.id&&stack.Count==1&&definition.stackLimit==1,"New session supplies a single-stack "+definition.displayName);
+                Check(stack.Id==tool.id&&stack.Count==1&&definition.stackLimit==1,"Review supplies a single-stack "+definition.displayName);
                 Check((game.Registry.Capabilities(stack)&ToolCapability.Axe)==0&&!BlockId.Placeable(tool.id),"Pickaxe/dagger cannot acquire axe felling or become terrain voxels");
                 game.Selected=tool.slot;yield return new WaitForSecondsRealtime(.5f);
                 Check(player.HeldBlock.Visible&&player.HeldBlock.ItemId==tool.id&&player.HeldBlock.DesiredGrip==tool.grip,"Hotbar selection displays the existing "+definition.displayName+" with its authored grip");
@@ -23,7 +25,7 @@ namespace RivetReach
                 player.VerificationMining=false;player.Pitch=10;yield return new WaitForSecondsRealtime(.4f);
                 Check(player.Arms.MiningWeight<.02f,"New hotbar tool completes its swing and returns to idle");
             }
-            Check(TerrainGenerator.Version=="terrain-3-ores-bedrock","Ore/bedrock generator retains the tree contract");
+            Check(TerrainGenerator.Version=="terrain-4-biomes-caves","Ore/bedrock generator retains the tree contract");
             var natural=world.Generator.Trees(-35,-35,35,35).First(t=>t.Root.X>7&&t.Root.Z>7);
             Check(world.Get(natural.Root)==BlockId.Log&&world.Get(natural.Root.Offset(0,natural.Logs,0))==BlockId.Leaves,"Streamed natural tree contains logs and leaves");
             // Measure recognition separately from rendering/remeshing. Consume results so

@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace RivetReach
 {
-    public enum ScreenMode { Title, Play, Inventory, Pause, Appearance, Settings, Controls }
+    public enum ScreenMode { Title, Play, Inventory, Pause, Appearance, Settings, Controls, Death }
     public sealed class Expedition : MonoBehaviour
     {
         public static Expedition Instance;
@@ -14,7 +14,16 @@ namespace RivetReach
         public Inventory Inventory {get;private set;}
         public ItemRegistry Registry {get;private set;}
         public RecipeRegistry Recipes {get;private set;}
-        public CraftingSession Crafting {get;private set;}
+        public CraftingSession PersonalCrafting {get;private set;}
+        public CraftingSession Crafting=>OpenStation?.Crafting??PersonalCrafting;
+        public ProcessingRegistry Processing {get;private set;}
+        public WorldSurvival Survival {get;private set;}
+        public StationState OpenStation {get;private set;}
+        public BlockPos StationPosition {get;private set;}
+        public HungerState Hunger {get;private set;}
+        public HealthState Health {get;private set;}
+        public EquipmentState Equipment {get;private set;}
+        public event Action Respawned;
         public PlayerInput Input {get;private set;}
         public GameUI UI {get;private set;}
         public WorldSound Sound {get;private set;}
@@ -31,6 +40,7 @@ namespace RivetReach
         public string PlacementDiagnostic {get;private set;}
         const string PlayerOverlapReason="Cannot place inside the player";
         float messageUntil;
+        float invulnerableUntil;
         public bool ReadyToPlay => Player!=null&&World.Ready(World.Address(Player.transform.position))&&World.Ready(World.Address(Player.transform.position+Vector3.up*2));
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void Bootstrap()
@@ -43,7 +53,7 @@ namespace RivetReach
             Instance=this;Application.targetFrameRate=90;QualitySettings.vSyncCount=0;
             foreach(var camera in FindObjectsByType<Camera>())camera.gameObject.SetActive(false);
             Sky=gameObject.AddComponent<DayNightCycle>();Sky.Initialize();
-            Input=new PlayerInput();Registry=ItemRegistry.Load();Recipes=RecipeCatalogAsset.Load().Compile(Registry);Sound=gameObject.AddComponent<WorldSound>();
+            Input=new PlayerInput();Registry=ItemRegistry.Load();Recipes=RecipeCatalogAsset.Load().Compile(Registry);Processing=ProcessingCatalogAsset.Load().Compile(Registry);Sound=gameObject.AddComponent<WorldSound>();
             CreateSession(NewRandomSeed());
             var effects=new GameObject("Arcade presentation");effects.transform.SetParent(transform,false);effects.AddComponent<ArcadePresentation>();
             UI=gameObject.AddComponent<GameUI>();UI.Initialize(this);SetMode(ScreenMode.Title);
@@ -52,12 +62,11 @@ namespace RivetReach
         void CreateSession(int seed)
         {
             Seed=seed;
+            invulnerableUntil=0;
             Sky.ResetClock();
             Inventory=new Inventory(id=>Registry.Get(id).stackLimit);
-            Crafting=new CraftingSession(Recipes,2,id=>Registry.Get(id).stackLimit);
-            Inventory.Add(BlockId.StarterDagger,1,9,10);
-            Inventory.Add(BlockId.StarterPickaxe,1,10,11);
-            Inventory.Add(BlockId.StarterAxe,1,11,12);
+            OpenStation=null;PersonalCrafting=new CraftingSession(Recipes,2,id=>Registry.Get(id).stackLimit);
+            Hunger=new HungerState();Health=new HealthState();Equipment=new EquipmentState(Registry.Get);
             var root=new GameObject("Surface world");root.transform.SetParent(transform,false);World=root.AddComponent<VoxelWorld>();World.Initialize(seed);World.ViewDistance=Mathf.Clamp(PlayerPrefs.GetInt("viewDistance.v2",10),4,14);
             RenderSettings.fogStartDistance=World.FogStart;RenderSettings.fogEndDistance=World.FogEnd;
             var p=new GameObject("Player");p.transform.SetParent(transform,false);Player=p.AddComponent<FirstPersonPlayer>();Player.Initialize(this);
@@ -66,11 +75,13 @@ namespace RivetReach
             var drops=new GameObject("World item stacks");drops.transform.SetParent(transform,false);Items=drops.AddComponent<DroppedItems>();Items.Initialize(this);
             World.BlockMined+=SpawnMinedDrop;
             World.OriginShifted+=Sound.ShiftOrigin;
+            Survival=new WorldSurvival(this);
         }
         void SpawnMinedDrop(BlockPos pos,byte id)
         {
             byte drop=Registry.FistDrop(id);
-            Items.Spawn(new ItemStack(drop,1),World.Local(pos)+new Vector3(.5f,.3f,.5f),Vector3.up*1.6f);
+            int count=id==BlockId.MaturePotatoPlant?2+(int)(TerrainGenerator.Hash(pos.X,pos.Y,pos.Z,Seed)%3):1;
+            Items.Spawn(new ItemStack(drop,count),World.Local(pos)+new Vector3(.5f,.3f,.5f),Vector3.up*1.6f);
         }
         public void StartSession(int seed)
         {
@@ -82,7 +93,9 @@ namespace RivetReach
         }
         public void SetMode(ScreenMode mode)
         {
+            if(Health?.Dead==true&&mode!=ScreenMode.Title)mode=ScreenMode.Death;
             if(InventoryOpen&&mode!=ScreenMode.Inventory)UI.ReturnHeld();
+            if(mode!=ScreenMode.Inventory)OpenStation=null;
             Mode=mode;Time.timeScale=Paused?0:1;
             bool capture=Mode==ScreenMode.Play;if(Player!=null)Player.Arms.gameObject.SetActive(capture&&!Player.Inspecting);Cursor.lockState=capture?CursorLockMode.Locked:CursorLockMode.None;Cursor.visible=!capture;
             UI?.Rebuild();
@@ -90,7 +103,9 @@ namespace RivetReach
         void Update()
         {
             if(Input==null)return;
-            if(Started&&!Paused){Sky.Advance(Time.deltaTime);World.AdvanceGrass(Time.deltaTime);World.AdvanceTrees(Time.deltaTime);}
+            if(Started&&!Paused){Sky.Advance(Time.deltaTime);World.AdvanceGrass(Time.deltaTime);World.AdvanceTrees(Time.deltaTime);Health.Advance(Survival.Advance(Time.deltaTime),Hunger);}
+            if(OpenStation!=null&&(!World.Ready(StationPosition)||(World.Local(StationPosition)+Vector3.one*.5f-Player.transform.position).sqrMagnitude>36))SetMode(ScreenMode.Play);
+            if(Health.Dead)return;
             if(Input.PollRebind()){UI.Rebuild();return;}
             if(Input.Pressed("Pause"))SetMode(Mode==ScreenMode.Play?ScreenMode.Pause:Started?ScreenMode.Play:ScreenMode.Title);
             if(Started&&Input.Pressed("Inventory"))SetMode(InventoryOpen?ScreenMode.Play:ScreenMode.Inventory);
@@ -109,6 +124,53 @@ namespace RivetReach
             }
             if(Time.unscaledTime>messageUntil)Message=null;
             if(World.Error!=null)Notify("Terrain worker error: "+World.Error,10);
+        }
+        public bool TryOpenStation(BlockPos position)
+        {
+            if(Mode!=ScreenMode.Play||Health.Dead||!World.Ready(position)||
+                (World.Local(position)+Vector3.one*.5f-Player.Camera.transform.position).sqrMagnitude>36)return false;
+            var station=Survival.At(position);if(station==null)return false;
+            OpenStation=station;StationPosition=position;SetMode(ScreenMode.Inventory);return true;
+        }
+        public float TakeDamage(float amount,DamageKind kind=DamageKind.Impact)
+        {
+            if(!Started||Paused||Health.Dead||Time.time<invulnerableUntil)return 0;
+            float accepted=Health.Damage(amount,kind,Equipment.Protection);
+            if(!Health.Dead)return accepted;
+            SetMode(ScreenMode.Death);
+            for(int i=0;i<Inventory.Count;i++)Drop(Inventory.Take(i,int.MaxValue));
+            for(int i=0;i<PersonalCrafting.Grid.Count;i++)Drop(PersonalCrafting.Grid.Take(i,int.MaxValue));
+            for(int i=0;i<4;i++)Drop(Equipment.Take(i));
+            return accepted;
+        }
+        public void Respawn()
+        {
+            if(!Health.Dead)return;
+            if(!TrySafeRespawn(out var spawn)){Notify("No safe respawn location found. Clear space near the original spawn.",8);return;}
+            Health.Respawn();Hunger=new HungerState();invulnerableUntil=Time.time+2;
+            Player.ResetMotion();Player.transform.position=World.Local(spawn)+new Vector3(.5f,.02f,.5f);SetMode(ScreenMode.Play);Respawned?.Invoke();
+        }
+        bool TrySafeRespawn(out BlockPos spawn)
+        {
+            spawn=default;
+            // Search around the original spawn without deleting construction or creating blocks.
+            for(int radius=0;radius<=16;radius++)for(int z=-radius;z<=radius;z++)for(int x=-radius;x<=radius;x++)
+            {
+                if(Math.Max(Math.Abs(x),Math.Abs(z))!=radius)continue;
+                int h=World.Generator.Height(x,z);
+                for(int y=Math.Min(TerrainGenerator.MaxY-2,h+32);y>=h-8;y--)
+                {
+                    var p=new BlockPos(x,y,z);
+                    if(BlockId.Solid(World.Get(p.Offset(0,-1,0)))&&!BlockId.Solid(World.Get(p))&&!BlockId.Solid(World.Get(p.Offset(0,1,0)))){spawn=p;return true;}
+                }
+            }
+            // An extensively excavated/covered spawn is recoverable in an untouched nearby column.
+            for(int x=32;x<TerrainGenerator.HorizontalLimit;x*=2)
+            {
+                int h=World.Generator.Height(x,0);var p=new BlockPos(x,h+1,0);
+                if(BlockId.Solid(World.Get(p.Offset(0,-1,0)))&&!BlockId.Solid(World.Get(p))&&!BlockId.Solid(World.Get(p.Offset(0,1,0)))){spawn=p;return true;}
+            }
+            return false;
         }
         public bool PlacementPreview(out BlockPos cell,out string reason)
         {

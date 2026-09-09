@@ -48,8 +48,8 @@ namespace RivetReach.Editor
                 Check(inventory.Total(1)+held.Count==expected,"Random inventory operation conservation");
                 Check(inventory.Slots.All(s=>s.Count>=0&&s.Count<=500)&&held.Count<=500,"Stack bounds");
             }
-            Check(ItemRegistry.Load().FistDrop(1)==2&&ItemRegistry.Load().FistDrop(2)==2&&ItemRegistry.Load().FistDrop(3)==3,"Grass drops dirt; dirt and stone retain their own drops");
-            GrassChecks();TreeChecks.Run(Check);OreChecks.Run(Check);CraftingChecks.Run();
+            Check(ItemRegistry.Load().FistDrop(1)==2&&ItemRegistry.Load().FistDrop(2)==2&&ItemRegistry.Load().FistDrop(3)==BlockId.Cobblestone,"Grass drops dirt; mined stone supplies cobblestone");
+            GrassChecks();TreeChecks.Run(Check);OreChecks.Run(Check);TerrainGenerationChecks.Run(Check);CraftingChecks.Run();SurvivalChecks.Run();
             string report="PASS: "+checks+" assertions. Signed coordinates, precision, deterministic terrain/halos, mesh winding/greedy occlusion, inventory overflow/split/transfer, 10,000 randomized stack operations, grass drops and deterministic light-gated random ticks; deterministic trees, axe capabilities, upward felling and leaf decay; ore bands, hosts, worker determinism, signed/distant halos and bedrock.";
             File.WriteAllText("Logs/domain-checks.txt",report);Debug.Log(report);
         }

@@ -19,6 +19,7 @@ namespace RivetReach
             public bool Busy,Dirty=true;
         }
         readonly Dictionary<ChunkPos,Resident> chunks=new Dictionary<ChunkPos,Resident>();
+        readonly Dictionary<(long x,long z),(int min,int max)> surfaceRanges=new Dictionary<(long,long),(int,int)>();
         readonly Dictionary<ChunkPos,Dictionary<int,byte>> edits=new Dictionary<ChunkPos,Dictionary<int,byte>>();
         readonly List<Task<ChunkBuild>> work=new List<Task<ChunkBuild>>();
         int nextToken;
@@ -71,17 +72,26 @@ namespace RivetReach
             {int i=p.Index;return c.Cells[ChunkMesher.Index(i%32,i/32%32,i/1024)];}
             return Generator.At(p);
         }
-        public bool Solid(BlockPos p) => !Ready(p)||Get(p)!=0;
+        public bool Solid(BlockPos p) => !Ready(p)||BlockId.Solid(Get(p));
         public bool Remove(BlockPos p,byte expected) => expected!=0&&expected!=BlockId.Bedrock&&Change(p,expected,0);
         public bool Place(BlockPos p,byte id) => BlockId.Placeable(id)&&Change(p,0,id);
-        public bool Mine(BlockPos p,byte expected,ToolCapability tool)
+        public bool Mine(BlockPos p,byte expected,ToolCapability tool,ToolTier tier=ToolTier.Diamond)
         {
-            if(!BlockId.Mineable(expected,tool))return false;
+            if(!BlockId.Mineable(expected,tool,tier))return false;
             bool fell=expected==BlockId.Log&&(tool&ToolCapability.Axe)!=0&&NaturalLog(p);
             if(!Remove(p,expected))return false;
             BlockMined?.Invoke(p,expected);
             if(fell)Trees.FellAbove(this,p);
             return true;
+        }
+        public bool Till(BlockPos p)=>Ready(p.Offset(0,1,0))&&Get(p.Offset(0,1,0))==0&&
+            (Get(p)==BlockId.Grass?Change(p,BlockId.Grass,BlockId.Farmland):Change(p,BlockId.Dirt,BlockId.Farmland));
+        public bool Plant(BlockPos p)=>Get(p.Offset(0,-1,0))==BlockId.Farmland&&Change(p,0,BlockId.PotatoPlant);
+        public bool Grow(BlockPos p,byte expected)=>Get(p.Offset(0,-1,0))==BlockId.Farmland&&BlockId.Crop(expected)&&expected<BlockId.MaturePotatoPlant&&Change(p,expected,(byte)(expected+1));
+        public bool Uproot(BlockPos p,byte expected)
+        {
+            if(!BlockId.Crop(expected)||!Change(p,expected,0,false,false))return false;
+            BlockMined?.Invoke(p,expected);return true;
         }
         public bool NaturalLog(BlockPos p)=>Get(p)==BlockId.Log&&
             !(edits.TryGetValue(p.Chunk,out var e)&&e.ContainsKey(p.Index));
@@ -199,6 +209,8 @@ namespace RivetReach
                 if(!chunks.TryGetValue(result.Position,out var c)||c.Token!=result.Token){RejectedJobs++;continue;}
                 c.Busy=false;
                 if(c.Revision!=result.Revision){RejectedJobs++;c.Dirty=true;continue;}
+                if(result.HasSurfaceRange&&!surfaceRanges.ContainsKey((result.Position.X,result.Position.Z)))
+                {surfaceRanges[(result.Position.X,result.Position.Z)]=(result.SurfaceMin,result.SurfaceMax);nextDemand=0;}
                 Apply(result,c);LastBuildMs=result.Milliseconds;
                 if(clock.Elapsed.TotalMilliseconds>4)break;
             }
@@ -212,23 +224,35 @@ namespace RivetReach
         void Demand(ChunkPos centre)
         {
             var wanted=new HashSet<ChunkPos>();
+            var columns=new HashSet<(long,long)>();
             for(int z=-ViewDistance;z<=ViewDistance;z++)for(int x=-ViewDistance;x<=ViewDistance;x++)
             {
                 if(x*x+z*z>ViewDistance*ViewDistance+1)continue;
                 long cx=centre.X+x,cz=centre.Z+z;
                 if(cx < -TerrainGenerator.HorizontalLimit/32||cx>=TerrainGenerator.HorizontalLimit/32||cz < -TerrainGenerator.HorizontalLimit/32||cz>=TerrainGenerator.HorizontalLimit/32)continue;
-                int surface=Generator.Height(cx*32+16,cz*32+16)/32;
-                int low=Math.Max(-8,Math.Min(surface-1,centre.Y-1)),high=Math.Min(23,Math.Max(surface+1,centre.Y+1));
-                // Deep travel does not fill the whole column between the player and surface.
+                columns.Add((cx,cz));
+                int surface=Generator.Height(cx*32+16,cz*32+16)/32,lowest=surface-1,highest=surface+1;
+                // Workers publish exact extrema with their first page. Mountain coverage expands
+                // without a second synchronous column scan or an unbounded world-height cache.
+                if(surfaceRanges.TryGetValue((cx,cz),out var range))
+                {lowest=(int)BlockPos.FloorDiv(range.min,32)-1;highest=(int)BlockPos.FloorDiv(range.max,32);}
+                // Large cavities can expose floors/ceilings far beyond the former three-layer
+                // player band. Cover the view sphere vertically too, with one seam margin.
+                int vertical=(int)Math.Ceiling(Math.Sqrt(Math.Max(0,ViewDistance*ViewDistance+1-x*x-z*z)))+1;
+                int caveLow=centre.Y-vertical,caveHigh=Math.Max(centre.Y+1,Math.Min(highest,centre.Y+vertical));
+                int low=Math.Max(TerrainGenerator.MinY/32,Math.Min(lowest,caveLow)),high=Math.Min(TerrainGenerator.MaxY/32,Math.Max(highest,caveHigh));
+                // Keep surface coverage separate beyond the view sphere, and avoid loading
+                // high empty sky columns merely to inspect underground caves.
                 for(int y=low;y<=high;y++)
                 {
-                    if(Math.Abs(y-centre.Y)>1&&Math.Abs(y-surface)>1)continue;
+                    if((y<caveLow||y>caveHigh)&&(y<lowest||y>highest))continue;
                     var p=new ChunkPos(cx,y,cz);wanted.Add(p);
                     if(!chunks.ContainsKey(p))chunks.Add(p,new Resident{Token=++nextToken});
                 }
             }
             foreach(var key in chunks.Keys.Where(k=>!wanted.Contains(k)).ToArray())
             {Release(chunks[key]);chunks.Remove(key);}
+            foreach(var key in surfaceRanges.Keys.Where(k=>!columns.Contains(k)).ToArray())surfaceRanges.Remove(key);
             grassChunks.Clear();
             // Only a bounded neighbourhood ticks; unloaded/distant terrain receives no catch-up.
             grassChunks.AddRange(wanted.Where(p=>Math.Abs(p.X-centre.X)<=2&&Math.Abs(p.Z-centre.Z)<=2&&Math.Abs(p.Y-centre.Y)<=1)
@@ -248,13 +272,13 @@ namespace RivetReach
             }
             work.Add(Task.Run(()=>
             {
-                var sw=Stopwatch.StartNew();byte[] cells=generator.Generate(p);var min=p.Min;
+                var sw=Stopwatch.StartNew();byte[] cells=generator.Generate(p,out int surfaceMin,out int surfaceMax);var min=p.Min;
                 foreach(var e in changes)
                 {
                     long x=e.Key.X-min.X,z=e.Key.Z-min.Z;int y=e.Key.Y-min.Y;
                     if(x>=-1&&x<=32&&y>=-1&&y<=32&&z>=-1&&z<=32)cells[ChunkMesher.Index((int)x,y,(int)z)]=e.Value;
                 }
-                var result=ChunkMesher.Build(p,revision,cells);result.Token=token;result.Milliseconds=sw.Elapsed.TotalMilliseconds;return result;
+                var result=ChunkMesher.Build(p,revision,cells);result.Token=token;result.HasSurfaceRange=true;result.SurfaceMin=surfaceMin;result.SurfaceMax=surfaceMax;result.Milliseconds=sw.Elapsed.TotalMilliseconds;return result;
             }));
         }
         void Apply(ChunkBuild result,Resident c)
@@ -329,7 +353,7 @@ namespace RivetReach
             }
             return feet;
         }
-        public void Stop() {stopped=true;foreach(var c in chunks.Values)Release(c);chunks.Clear();}
+        public void Stop() {stopped=true;foreach(var c in chunks.Values)Release(c);chunks.Clear();surfaceRanges.Clear();}
         void OnDestroy() {Stop();}
     }
 }

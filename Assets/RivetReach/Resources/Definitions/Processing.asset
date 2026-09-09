@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c803f430fc4b48da9fb3837fef054724, type: 3}
+  m_Name: Processing
+  m_EditorClassIdentifier:
+  recipes:
+  - {fileID: 11400000, guid: d1a7de88f3cc4c91bd0eadbaecb579e1, type: 2}
+  - {fileID: 11400000, guid: 85d3c4b6aede47fcbdb4796176ed0d17, type: 2}
+  - {fileID: 11400000, guid: ad00c2172bc64c74820e0f6f178c2a8d, type: 2}
+  - {fileID: 11400000, guid: 02591a8b4c69413bb4decab933cf4993, type: 2}
+  - {fileID: 11400000, guid: a579f4fc16e94ff996b97598413530b3, type: 2}
+  - {fileID: 11400000, guid: 29cd9869abf04a3bbe3052ef8576f8fb, type: 2}
+  fuels:
+  - itemId: rivet:log
+    ticks: 300
+  - itemId: rivet:planks
+    ticks: 300
+  - itemId: rivet:stick
+    ticks: 100
+  - itemId: rivet:coal
+    ticks: 1600
+  - itemId: rivet:charcoal
+    ticks: 1600
+  - itemId: rivet:coal_block
+    ticks: 16000
+  - itemId: rivet:wood_axe
+    ticks: 200
+  - itemId: rivet:wood_pickaxe
+    ticks: 200
+  - itemId: rivet:wood_sword
+    ticks: 200
+  - itemId: rivet:wood_shovel
+    ticks: 200
+  - itemId: rivet:wood_hoe
+    ticks: 200

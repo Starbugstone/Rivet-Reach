@@ -58,7 +58,7 @@ Rivet Reach is a **first-person voxel sandbox** built around two equally importa
 
 The game should begin with the familiarity of a voxel crafting sandbox and gradually allow players to create large Factorio-like industrial systems without losing the importance of exploration.
 
-Rivet Reach should be inspired by Minecraft, classic technology mods and Factorio without directly copying Minecraft-specific mobs, structures, textures, names, recipes, dimensions or visual assets.
+Rivet Reach should be inspired by Minecraft, classic technology mods and Factorio without directly copying Minecraft-specific mobs, structures, textures, names, recipes, dimensions or visual assets. The user subsequently selected familiar basic recipe layouts for the bounded survival increment; code and visual assets remain original, and the broader game vision remains distinct.
 
 ---
 
@@ -561,7 +561,7 @@ Working initial values (tunable; detailed interactions in [GAMEPLAY.md](GAMEPLAY
 
 These values are not final.
 
-Tentative stack philosophy:
+Earlier industrial stack proposal (unimplemented; the selected survival content uses 64 for ordinary items and one for equipment):
 
 ```text
 building blocks: 500
@@ -1332,7 +1332,7 @@ The user's 2026-09-08 staging instruction locks **only the first playable step**
 ### Candidate Stage 1 - Extend the sandbox (not yet selected)
 
 - [ ] Extend the first step's item/inventory/drop systems with advanced building conveniences and tool progression.
-- [ ] Workbench, furnace and the manual bootstrap recipes in [ECONOMY.md](ECONOMY.md).
+- [x] Workbench, furnace and basic survival recipes under the explicit [survival extension](GAMEPLAY.md#survival-progression-farming-health-and-armor); industrial components remain later content.
 - [ ] Save/reload terrain, inventory, piles and simple block entities.
 - [ ] World water, sinking/buoyant piles, compatible merging and sleeping movement.
 - [ ] Basic day/night, health/death recovery and initial passive/hostile behaviours as the loop needs them.
@@ -1429,7 +1429,7 @@ These scenarios provide evidence for the tested foundations, not proof of unlimi
 
 ## 39. Deferred scope
 
-The locked first step's exclusions are owned by [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence). In particular, all generated structures, larger crafting station interfaces, tool progression beyond the [starter tools/tree extension](GAMEPLAY.md#trees-and-axe-felling--user-feedback-extension), mobs, water simulation and industry are deferred from that step. The following larger content areas also remain outside the broader early POC ambition:
+The locked first step's exclusions are owned by [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence). In particular, all generated structures, 4×4 station interfaces, water simulation and industry remain deferred from that step. The subsequently selected [survival progression](GAMEPLAY.md#survival-progression-farming-health-and-armor) includes the workbench, furnace, five tool tiers, farming, hunger, health and armor. The following larger content areas also remain outside the broader early POC ambition:
 
 - huge biome library;
 - polished villages;
@@ -1605,3 +1605,7 @@ Working resolutions are indexed in [DESIGN_QUESTIONS.md](DESIGN_QUESTIONS.md). T
 - player limits and performance targets.
 
 Use [DESIGN_QUESTIONS.md](DESIGN_QUESTIONS.md) to prioritize these open areas and record resolutions. These documents should be updated whenever measurements or new decisions materially change the project direction.
+
+## Terrain and biome rework — 2026-09-09
+
+The current terrain extension is specified in [TERRAIN_GENERATION.md](TERRAIN_GENERATION.md): five surface biomes, varied relief, natural entrances and deep caves, preserving the existing ore/base and session-edit contracts. Its [verification record](verification/TERRAIN_GENERATION_RESULTS.md) owns actual evidence; the wider exploration vision remains a future scope.

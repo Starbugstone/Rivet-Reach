@@ -99,7 +99,7 @@ namespace RivetReach.Editor
             var axeBounds=axe.GetComponentInChildren<MeshRenderer>().bounds;
             check(axeBounds.size.y>.50f&&axeBounds.size.y<.60f&&axeBounds.size.x<.30f,"Imported axe retains metre scale rather than FBX centimetres");
             UnityEngine.Object.DestroyImmediate(axe);
-            var tiles=Resources.Load<Texture2DArray>("Materials/BlockTiles");check(tiles.depth==18,"Terrain, tree, ore, bedrock and raw resource texture layers are available");
+            var tiles=Resources.Load<Texture2DArray>("Materials/BlockTiles");check(tiles.depth>=44,"Terrain, tree, ore, bedrock and raw resource texture layers are available");
         }
         sealed class Fixture : ITreeWorld
         {

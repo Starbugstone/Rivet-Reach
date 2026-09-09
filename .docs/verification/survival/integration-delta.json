@@ -1,0 +1,70 @@
+[
+  {
+    "path": "Assets/RivetReach/Code/SurvivalVerification.cs",
+    "sha256": "c863df6970e812dbf95acfcad93d61c6af57f68c354423b0f38109658c69da61"
+  },
+  {
+    "path": "Assets/RivetReach/Code/Player/FirstPersonPlayer.cs",
+    "sha256": "2985ae5ea28f44e1773471b8aea4f5996de4c57d5578c1cb780c98e1b883d815"
+  },
+  {
+    "path": "Assets/RivetReach/Code/Player/HeldBlockView.cs",
+    "sha256": "7e0773be7d31b4513740854bf3ae3e68469010326eaccec05c67155bb2acaea5"
+  },
+  {
+    "path": "Assets/RivetReach/Code/UI/GameUISurvival.cs",
+    "sha256": "c87376358d30a4d9f2c60b0d1d9ba9b75f5e55fa9f8a1a68666fb97498adc7d5"
+  },
+  {
+    "path": "Assets/RivetReach/Code/TreeVerification.cs",
+    "sha256": "1c4acaa9059269af9c442e33fed3aae7edd977ded5ad525994839284f9dd9241"
+  },
+  {
+    "path": "Assets/RivetReach/Code/OreVerification.cs",
+    "sha256": "e8746de146ec1df59de4947c12ba8ff24fe035ad172b1acb6d4db70dad02ed06"
+  },
+  {
+    "path": "Assets/RivetReach/Code/RuntimeVerification.cs",
+    "sha256": "bddf743e31e51f81ab6ecec5d2c5806f0508600a78d7f127c6623e11d97db902"
+  },
+  {
+    "path": "Assets/RivetReach/Code/PlacementItemVerification.cs",
+    "sha256": "d5026734e924a729726ea6d823d4dd9cc07e038ba254d7a412cd41ec189901c0"
+  },
+  {
+    "path": "Assets/RivetReach/Resources/Materials/HeldTool.shader",
+    "sha256": "87c49b340c41a14c273df6ba0823ec23ac9c201fd3d616e264ac7a861065849f"
+  },
+  {
+    "path": "Assets/RivetReach/Code/World/VoxelWorld.cs",
+    "sha256": "6892865073d05e4e08cdbcaaa515d5f01bef3082d8354cf5062a9312db18ed38"
+  },
+  {
+    "path": "Assets/RivetReach/Code/World/TerrainReviewSites.cs",
+    "sha256": "602b91d99ceb082531befc72d8d378b178b7897257c66cb1722ab0fa9dd54353"
+  },
+  {
+    "path": "Assets/RivetReach/Code/TerrainVerification.cs",
+    "sha256": "1ac9e6e24236b765ef791082bb18f7a752784fcaf630a047897c44f2804634c1"
+  },
+  {
+    "path": "Assets/RivetReach/Code/Mobs/MobView.cs",
+    "sha256": "8f8ac42e9c5d431917c3bb92296b47f27e985b730348381af74fce3ec793de42"
+  },
+  {
+    "path": "Assets/RivetReach/Code/Mobs/MobVerification.cs",
+    "sha256": "7ad693c24146c7e50120578496f91a61580f560f879cc4e7d6345c711de8fb87"
+  },
+  {
+    "path": "Assets/RivetReach/Editor/MobAssetImport.cs",
+    "sha256": "bdbfe2b7c703681fa66ea34536a51d08649394298c37104ce990861e62bfc9dd"
+  },
+  {
+    "path": "Assets/RivetReach/Resources/Mobs/Definitions/DuskProwler.asset",
+    "sha256": "80f881fb0b9701791030bc367295bc5f817ff4eacf26f768e1b9dc52df360c0b"
+  },
+  {
+    "path": "Assets/RivetReach/Resources/Mobs/Definitions/RustbackBeetle.asset",
+    "sha256": "149d616e4a1f268f8079e2d1622006413aaf4a6463a493216d3a12b2e38a5bc5"
+  }
+]

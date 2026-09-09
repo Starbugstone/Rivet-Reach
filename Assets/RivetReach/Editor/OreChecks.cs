@@ -43,8 +43,7 @@ namespace RivetReach.Editor
                             int index=Enumerable.Range(0,5).First(i=>OreGenerator.Bands[i].Block==id);var band=OreGenerator.Bands[index];
                             counts[index]++;localCounts[index]++;sums[index]+=wy;
                             valid&=wy>=band.MinY&&wy<=band.MaxY&&wy>TerrainGenerator.MinY;
-                            roof&=wy<h-3;
-                            if(wy>10&&wy<h-2)roof&=!(generator.Noise(min.X+x,wy,min.Z+z,14)>.71&&generator.Noise(min.X+x,wy,min.Z+z,40)>.42);
+                            roof&=generator.GroundAt(new BlockPos(min.X+x,wy,min.Z+z))==BlockId.Stone;
                         }
                     }
                     check(valid&&roof,"Generated ore respects height bands, bedrock, soil and cave air");

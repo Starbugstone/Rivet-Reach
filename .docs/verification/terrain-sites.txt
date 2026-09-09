@@ -1,0 +1,6 @@
+Grassland: 0, 50, 0
+Forest: 96, 70, 32
+Dunes: -272, 60, -96
+Badlands: 32, 74, -96
+Alpine: -240, 160, 16
+Cave: -23, -123, -26

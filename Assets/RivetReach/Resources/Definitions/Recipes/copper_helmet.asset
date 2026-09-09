@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b415fe1e1ea7423195120d9e284fcfe9, type: 3}
+  m_Name: copper_helmet
+  m_EditorClassIdentifier:
+  stableId: rivet:craft_copper_helmet
+  kind: 0
+  minimumGridSize: 3
+  width: 3
+  height: 2
+  mirror: 0
+  ingredients:
+  - itemId: rivet:copper_ingot
+    count: 1
+  - itemId: rivet:copper_ingot
+    count: 1
+  - itemId: rivet:copper_ingot
+    count: 1
+  - itemId: rivet:copper_ingot
+    count: 1
+  - itemId: 
+    count: 0
+  - itemId: rivet:copper_ingot
+    count: 1
+  output:
+    itemId: rivet:copper_helmet
+    count: 1

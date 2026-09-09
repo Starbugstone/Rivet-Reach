@@ -8,7 +8,11 @@ The user has locked the first playable milestone in documentation: terrain-only 
 
 The user subsequently authorized a day/night cycle with moving sun/moon and nightly lunar phases. [GAMEPLAY.md](.docs/GAMEPLAY.md#day-night-and-lunar-phases) owns behavior; [SIMULATION.md](.docs/SIMULATION.md#session-world-clock-and-celestial-presentation) owns the clock/API boundary. This does not automatically authorize the other roadmap candidates.
 
+The user subsequently selected a basic survival progression extension: Minecraft-style grid layouts, wood/stone/copper/iron/diamond tools, workbench/furnace/chest, gatherable potatoes and baking, then farming, hunger, health/hearts and copper/iron/diamond armor. [GAMEPLAY.md](.docs/GAMEPLAY.md#survival-progression-farming-health-and-armor) owns these rules; [CRAFTING.md](.docs/CRAFTING.md#survival-progression-extension--2026-09-09) and [ECONOMY.md](.docs/ECONOMY.md#current-survival-recipes-and-tiers) own authoring and progression. This supersedes earlier processing/tool-tier exclusions. Ordinary sessions start empty-handed. Health and equipment are independent of appearance. Irrigation, tool/armor wear, fitted armor meshes, industry and durable saves remain later scope.
+
 Player appearance must offer male and female model choices, both supporting changeable skins. Keep appearance selection separate from gameplay dimensions/capabilities and verify actual model/rendering cost before claiming performance. Treat the illustrated character as one proposed appearance, not a fixed identity. [GAMEPLAY.md](.docs/GAMEPLAY.md#15-player-skins) owns skin behaviour and the working first-step minimum; [CONTENT_PIPELINE.md](.docs/CONTENT_PIPELINE.md#6-player-skin-authoring-contract) owns model/texture constraints. The first slice includes terrain-block placement (added by the user’s POC feedback), both model variants and two local test skins; further customization remains scoped by later requests.
+
+The user subsequently authorized varied terrain, caves and biomes. [TERRAIN_GENERATION.md](.docs/TERRAIN_GENERATION.md) owns the working surface/cave profile, materials and generation compatibility. Preserve the ore bands, protected bedrock base and coordinated survival crop hook when changing generation. [Terrain verification](.docs/verification/TERRAIN_GENERATION_RESULTS.md) distinguishes generator checks from actual Unity evidence.
 
 ## Licensing and ownership
 
@@ -51,6 +55,8 @@ Player appearance must offer male and female model choices, both supporting chan
 - `DESIGN_QUESTIONS.md`: working decision register, unresolved choices and required evidence.
 
 ## Working principles
+
+Active parallel feature coordination (2026-09-09): agents working on mobs, day/night, survival/processing and terrain/caves should read and append their ownership, public API and shared Editor/build status to [MOB_DAY_NIGHT_HANDOFF.md](.docs/MOB_DAY_NIGHT_HANDOFF.md) before editing shared runtime/UI/build entry points. Separate sessions may not be reachable through collaboration tools; mailbox entries distinguish confirmed replies from pending requests. Preserve other agents' work and stage only owned changes.
 
 Protect the exploration/automation balance, capability-based progression, world-aware state, logical network simulation and persistent saves. Challenge contradictions with concrete scenarios.
 

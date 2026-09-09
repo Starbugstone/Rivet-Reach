@@ -42,62 +42,42 @@ namespace RivetReach
             var original=game.Inventory.Slots.ToArray();
             game.SetMode(ScreenMode.Inventory);yield return null;yield return null;
             for(int i=0;i<game.Inventory.Count;i++)game.Inventory.Take(i,int.MaxValue);
-            game.Inventory.Add(BlockId.Stone,8,12,13);game.Inventory.Add(BlockId.Log,8,13,14);
-            Check(game.Crafting.Grid.Size==2&&game.Recipes.Recipes.Count==3,"Personal 2x2 grid loads three authored starter recipes");
-            Check(CraftView(CraftResultSlot).Icon.enabled==false,"Empty grid has no claimable result");
-            yield return ClickCraftUI(12);
-            yield return ClickCraftUI(CraftCell,true);yield return ClickCraftUI(CraftCell,true);
-            yield return ClickCraftUI(CraftCell+1,true);yield return ClickCraftUI(CraftCell+1,true);
-            yield return ClickCraftUI(12);
-            yield return ClickCraftUI(13);yield return ClickCraftUI(CraftCell+3,true);yield return ClickCraftUI(CraftCell+3,true);yield return ClickCraftUI(13);
-            Check(game.UI.HeldStack.Empty&&game.Crafting.Preview?.Output.Id==BlockId.StarterAxe&&game.Crafting.MaximumCrafts==2,"Right-place ingredients updates the visible axe result");
-            Check(CraftView(CraftResultSlot).Icon.enabled&&CraftView(CraftResultSlot).Count.text=="1","Result icon and output quantity are visible");
-            yield return Capture("crafting-axe-ready");
+            game.Inventory.Add(BlockId.Log,8,12,13);
+            Check(game.Crafting.Grid.Size==2&&game.Recipes.Recipes.Count>=52,"Personal grid loads the modular progression catalog");
+            Check(!CraftView(CraftResultSlot).Icon.enabled,"Empty grid has no claimable result");
+            yield return ClickCraftUI(12);yield return ClickCraftUI(CraftCell+3,true);yield return ClickCraftUI(12);
+            Check(game.Crafting.Preview?.Output.Id==BlockId.Planks,"A log in an offset personal cell produces planks");
+            yield return DragCraftUI(CraftResultSlot,13);
+            Check(game.Inventory.Slots[13].Id==BlockId.Planks&&game.Inventory.Slots[13].Count==4&&game.UI.HeldStack.Empty,"Dragging a result crafts one complete bundle");
+            yield return ClickCraftUI(13);
+            for(int i=0;i<4;i++)yield return ClickCraftUI(CraftCell+i,true);
+            Check(game.Crafting.Preview?.Output.Id==BlockId.Workbench,"Four planks preview a workbench");
+            yield return Capture("personal-workbench-ready");
             var guideButton=game.UI.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b=>b.GetComponentInChildren<UnityEngine.UI.Text>().text=="RECIPES");
             guideButton.onClick.Invoke();yield return null;
-            Check(game.UI.GetComponentsInChildren<UnityEngine.UI.Text>().Any(t=>t.text=="PERSONAL RECIPES"),"Recipe guide opens from the compiled catalog");
-            yield return Capture("crafting-recipe-guide");guideButton.onClick.Invoke();yield return null;
-            yield return ClickCraftUI(CraftResultSlot);
-            Check(game.UI.HeldStack.Id==BlockId.StarterAxe&&game.UI.HeldStack.Count==1&&game.Crafting.Grid.Total(BlockId.Stone)==2,"Click result consumes one complete recipe into cursor");
-            yield return ClickCraftUI(CraftResultSlot);
-            Check(game.Crafting.Grid.Total(BlockId.Stone)==2&&game.UI.HeldStack.Count==1,"Full tool cursor cannot duplicate or consume another craft");
-            yield return ClickCraftUI(14);yield return ClickCraftUI(CraftResultSlot,false,true);
-            Check(game.Inventory.Total(BlockId.StarterAxe)==2&&game.Crafting.Preview==null&&game.Crafting.Grid.Total(BlockId.Log)==0,"Shift-result crafts remaining recipe to inventory and clears preview");
-            yield return Capture("crafting-axe-complete");
-
-            yield return ClickCraftUI(12);yield return ClickCraftUI(CraftCell,true);yield return ClickCraftUI(12);
-            yield return ClickCraftUI(13);yield return ClickCraftUI(CraftCell+2,true);yield return ClickCraftUI(13);
-            Check(game.Crafting.Preview?.Output.Id==BlockId.StarterDagger,"Shapeless dagger accepts separated vertical cells");
-            yield return DragCraftUI(CraftResultSlot,16);
-            Check(game.UI.HeldStack.Empty&&game.Inventory.Slots[16].Id==BlockId.StarterDagger&&game.Crafting.Preview==null,"Dragging the result crafts exactly once and delivers it to the target slot");
-            yield return DragCraftUI(12,CraftCell+1);
-            Check(game.Inventory.Slots[12].Empty&&game.Crafting.Grid.Slots[1].Id==BlockId.Stone,"Dragging inventory ingredients into grid uses real slots");
-            yield return ClickCraftUI(CraftCell+1,false,true);
-            Check(game.Crafting.Grid.Slots[1].Empty&&game.Inventory.Total(BlockId.Stone)==3,"Shift ingredient returns its whole stack to inventory");
-
-            // Full destination: opening/closing and rebuilding UI must retain every ingredient.
+            Check(game.UI.GetComponentsInChildren<UnityEngine.UI.Text>().Any(t=>t.text=="PERSONAL RECIPES"),"Personal recipe guide opens from the catalog");
+            yield return Capture("personal-recipe-guide");guideButton.onClick.Invoke();yield return null;
+            yield return ClickCraftUI(CraftResultSlot);yield return ClickCraftUI(14);
+            Check(game.Inventory.Total(BlockId.Workbench)==1&&game.Crafting.Preview==null,"One workbench consumes four planks");
+            yield return DragCraftUI(12,CraftCell);yield return ClickCraftUI(CraftResultSlot,false,true);
+            Check(game.Inventory.Total(BlockId.Planks)==28&&game.Crafting.Grid.Total(BlockId.Log)==0,"Shift result batches all seven remaining logs");
             for(int i=0;i<game.Inventory.Count;i++)game.Inventory.Take(i,int.MaxValue);
-            game.Inventory.Add(BlockId.Dirt,30000);
-            game.Crafting.Grid.Add(BlockId.Stone,1,0,1);game.Crafting.Grid.Add(BlockId.Log,1,3,4);
+            game.Inventory.Add(BlockId.Dirt,64*60);game.Crafting.Grid.Add(BlockId.Log,1,3,4);
             yield return null;yield return ClickCraftUI(CraftResultSlot,false,true);
-            Check(game.Crafting.Grid.Total(BlockId.Stone)==1&&game.Crafting.Grid.Total(BlockId.Log)==1&&game.Inventory.Total(BlockId.StarterDagger)==0,"Full inventory rejects output without consuming inputs");
-            yield return Capture("crafting-inventory-full");
+            Check(game.Crafting.Grid.Total(BlockId.Log)==1&&game.Inventory.Total(BlockId.Planks)==0,"Full inventory rejects crafting without consumption");
             game.SetMode(ScreenMode.Play);yield return null;game.SetMode(ScreenMode.Inventory);yield return null;yield return null;
-            Check(game.Crafting.Grid.Total(BlockId.Stone)==1&&game.Crafting.Grid.Total(BlockId.Log)==1&&game.Crafting.Preview!=null,"Close/reopen keeps ingredients when return storage is full");
+            Check(game.Crafting.Grid.Total(BlockId.Log)==1&&game.Crafting.Preview!=null,"Close/reopen retains ingredients when storage is full");
             game.UI.Rebuild();yield return null;yield return null;
-            Check(game.Crafting.Preview?.Output.Id==BlockId.StarterDagger,"UI rebuilding leaves authority state intact");
-            game.Inventory.Take(0,int.MaxValue);game.Inventory.Take(1,int.MaxValue);
-            game.SetMode(ScreenMode.Play);yield return null;
-            Check(game.Crafting.Grid.Total(BlockId.Stone)==0&&game.Crafting.Grid.Total(BlockId.Log)==0&&game.Inventory.Total(BlockId.Stone)==1&&game.Inventory.Total(BlockId.Log)==1,"Closing returns ingredients once space exists");
-
-            // Output input is rejected outside inventory even if an old slot handler is invoked.
-            game.Crafting.Grid.Add(BlockId.Stone,1,0,1);game.Crafting.Grid.Add(BlockId.Log,1,3,4);
-            game.UI.ClickSlot(CraftResultSlot,false,false);
-            Check(game.UI.HeldStack.Empty&&game.Crafting.Grid.Total(BlockId.Stone)==1,"Crafting UI cannot execute while playing");
-            game.Crafting.Grid.Take(0,int.MaxValue);game.Crafting.Grid.Take(3,int.MaxValue);
+            Check(game.Crafting.Preview?.Output.Id==BlockId.Planks,"Rebuilding the interface preserves the recipe authority");
+            yield return Capture("personal-full-inventory");
+            game.Inventory.Take(0,int.MaxValue);game.SetMode(ScreenMode.Play);yield return null;
+            Check(game.Crafting.Grid.Total(BlockId.Log)==0&&game.Inventory.Total(BlockId.Log)==1,"Closing returns ingredients exactly once when space exists");
+            game.Crafting.Grid.Add(BlockId.Log,1);game.UI.ClickSlot(CraftResultSlot,false,false);
+            Check(game.UI.HeldStack.Empty&&game.Crafting.Grid.Total(BlockId.Log)==1,"Stale UI handlers cannot craft during gameplay");
+            for(int i=0;i<game.Crafting.Grid.Count;i++)game.Crafting.Grid.Take(i,int.MaxValue);
             for(int i=0;i<game.Inventory.Count;i++)game.Inventory.Take(i,int.MaxValue);
             for(int i=0;i<original.Length;i++)if(!original[i].Empty)game.Inventory.Add(original[i].Id,original[i].Count,i,i+1);
-            Check(game.Inventory.Slots.SequenceEqual(original),"Runtime verification restores original inventory");
+            Check(game.Inventory.Slots.SequenceEqual(original),"Crafting verification restores the original inventory");
         }
     }
 }

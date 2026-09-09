@@ -7,6 +7,8 @@ namespace RivetReach
     {
         public ChunkPos Position;
         public int Revision,Token;
+        public bool HasSurfaceRange;
+        public int SurfaceMin,SurfaceMax;
         public byte[] Cells;
         public Vector3[] Vertices,Normals;
         public Vector2[] UV, Tiles;
@@ -21,6 +23,7 @@ namespace RivetReach
         {
             var vertices=new List<Vector3>();var normals=new List<Vector3>();var uv=new List<Vector2>();
             var tiles=new List<Vector2>();var indices=new List<int>();var mask=new byte[1024];
+            var plants=new List<(Vector3 position,byte id)>();
             int[] stride={1,34,1156};
             for(int axis=0;axis<3;axis++)for(int sign=-1;sign<=1;sign+=2)
             {
@@ -31,7 +34,8 @@ namespace RivetReach
                     {
                         int address=Index(0,0,0)+layer*stride[axis]+i*stride[u]+j*stride[v];
                         byte a=cells[address],b=cells[address+sign*stride[axis]];
-                        mask[i+j*32]=a!=0&&b==0?a:(byte)0;
+                        if(axis==0&&sign==-1&&BlockId.Crop(a))plants.Add((new Vector3(layer,i,j),a));
+                        mask[i+j*32]=a!=0&&!BlockId.Crop(a)&&(b==0||BlockId.Crop(b))?a:(byte)0;
                     }
                     for(int j=0;j<32;j++)for(int i=0;i<32;)
                     {
@@ -57,6 +61,29 @@ namespace RivetReach
                         for(int y=0;y<height;y++)for(int x=0;x<width;x++)mask[i+x+(j+y)*32]=0;
                         i+=width;
                     }
+                }
+            }
+            foreach(var plant in plants)
+            {
+                float h=.22f+(plant.id-BlockId.PotatoPlant)*.16f;var centre=plant.position+new Vector3(.5f,0,.5f);
+                void Leaf(Vector3 a,Vector3 b,Vector3 c,Vector3 d)
+                {
+                    Vector3 normal=Vector3.Cross(b-a,c-a).normalized;
+                    for(int side=0;side<2;side++)
+                    {
+                        int start=vertices.Count;vertices.Add(a);vertices.Add(b);vertices.Add(c);vertices.Add(d);
+                        uv.Add(Vector2.zero);uv.Add(Vector2.right);uv.Add(Vector2.one);uv.Add(Vector2.up);
+                        for(int k=0;k<4;k++){normals.Add(side==0?normal:-normal);tiles.Add(new Vector2(BlockId.Tile(plant.id,1,1),0));}
+                        if(side==0)indices.AddRange(new[]{start,start+1,start+2,start,start+2,start+3});
+                        else indices.AddRange(new[]{start,start+2,start+1,start,start+3,start+2});
+                    }
+                }
+                Leaf(centre+Vector3.left*.025f,centre+Vector3.right*.025f,centre+new Vector3(.025f,h,0),centre+new Vector3(-.025f,h,0));
+                for(int leaf=0;leaf<6;leaf++)
+                {
+                    float angle=leaf*Mathf.PI/3;var direction=new Vector3(Mathf.Cos(angle),0,Mathf.Sin(angle));var across=new Vector3(-direction.z,0,direction.x);
+                    var start=centre+Vector3.up*h*(.3f+leaf%2*.28f);var end=start+direction*h*.65f+Vector3.up*.06f;
+                    Leaf(start,Vector3.Lerp(start,end,.5f)-across*h*.19f,end,Vector3.Lerp(start,end,.5f)+across*h*.19f);
                 }
             }
             return new ChunkBuild{Position=pos,Revision=revision,Cells=cells,Vertices=vertices.ToArray(),Normals=normals.ToArray(),UV=uv.ToArray(),Tiles=tiles.ToArray(),Triangles=indices.ToArray()};

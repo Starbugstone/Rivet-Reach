@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace RivetReach
 {
-    public sealed class GameUI : MonoBehaviour
+    public sealed partial class GameUI : MonoBehaviour
     {
         Expedition game;
         Canvas canvas;
@@ -26,6 +26,7 @@ namespace RivetReach
         RawImage heldIcon;
         public ItemStack HeldStack;
         long lastRevision=-1,lastCraftRevision=-1;
+        int lastSelected=-1;
         const int CraftSlotStart=Inventory.SlotCount, CraftOutputSlot=Inventory.SlotCount+16;
         Text craftStatus,craftOutputName,inventoryHint;
         int hoveredSlot=-1;
@@ -65,13 +66,15 @@ namespace RivetReach
         public void Rebuild()
         {
             if(canvas==null)return;
-            if(root!=null)Destroy(root.gameObject);slots.Clear();message=null;diagnostics=null;diagnosticsPanel=null;targetLabel=null;progress=null;heldRoot=null;heldLabel=null;loading=null;tooltip=null;craftStatus=null;craftOutputName=null;inventoryHint=null;hoveredSlot=-1;lastRevision=-1;lastCraftRevision=-1;
+            ResetSurvivalUI();
+            if(root!=null){root.gameObject.SetActive(false);Destroy(root.gameObject);}slots.Clear();message=null;diagnostics=null;diagnosticsPanel=null;targetLabel=null;progress=null;heldRoot=null;heldLabel=null;loading=null;tooltip=null;craftStatus=null;craftOutputName=null;inventoryHint=null;hoveredSlot=-1;lastRevision=-1;lastCraftRevision=-1;
             if(previewRoot!=null)previewRoot.SetActive(game.Mode==ScreenMode.Inventory||game.Mode==ScreenMode.Appearance);
             root=Rect(canvas.transform,"Screen",0,0,1280,720);root.anchorMin=root.anchorMax=root.pivot=new Vector2(.5f,.5f);root.anchoredPosition=Vector2.zero;
             float scale=Mathf.Clamp(PlayerPrefs.GetFloat("uiScale",1),.85f,1);root.localScale=Vector3.one*scale;
             if(game.Mode==ScreenMode.Play)BuildHUD();
             else if(game.Mode==ScreenMode.Inventory)BuildInventory();
             else if(game.Mode==ScreenMode.Title)BuildTitle();
+            else if(game.Mode==ScreenMode.Death)BuildDeath();
             else BuildMenu();
             RefreshSlots();
         }
@@ -116,6 +119,7 @@ namespace RivetReach
             BuildHotbar(root,304,642,52,4);
             selectedLabel=Label(root,"",420,611,440,24,15);selectedLabel.alignment=TextAnchor.MiddleCenter;
             Label(root,$"{game.Input.Keys["Inventory"]}  Inventory    {game.Input.Keys["Drop"]}  Drop    Place block    {game.Input.Keys["Inspect"]}  Inspect player",28,694,650,22,13);
+            BuildSurvivalHUD();
             Label(root,"Session-only world",1090,694,172,22,12,new Color(.75f,.77f,.73f));
             message=Label(root,"",330,555,620,40,18,gold);message.alignment=TextAnchor.MiddleCenter;
             loading=Label(root,"",435,457,410,50,20);loading.alignment=TextAnchor.MiddleCenter;
@@ -125,33 +129,39 @@ namespace RivetReach
         void BuildInventory()
         {
             Panel(root,0,0,1280,720,new Color(0,0,0,.23f));var p=Panel(root,55,42,1170,634,ink);
-            Label(p.transform,"INVENTORY",28,20,500,45,30);Label(p.transform,"Drag stacks · Right-click split / place one · Shift-click transfer",28,66,880,28,15,gold);
+            Label(p.transform,game.OpenStation==null?"INVENTORY":game.Registry.Get(game.OpenStation.Block).displayName.ToUpperInvariant(),28,20,500,45,30);Label(p.transform,"Drag stacks · Right-click split / place one · Shift-click transfer",28,66,880,28,15,gold);
             Button(p.transform,"CLOSE",1033,20,108,40,()=>game.SetMode(ScreenMode.Play));
-            var backdrop=Panel(p.transform,28,113,210,388,slate);var portrait=Rect(backdrop.transform,"Portrait",0,0,210,388).gameObject.AddComponent<RawImage>();portrait.texture=previewTexture;portrait.uvRect=PortraitUV(210,388);portrait.gameObject.AddComponent<PortraitDrag>().Owner=this;
+            var backdrop=Panel(p.transform,28,113,210,270,slate);var portrait=Rect(backdrop.transform,"Portrait",0,0,210,270).gameObject.AddComponent<RawImage>();portrait.texture=previewTexture;portrait.uvRect=PortraitUV(210,270);portrait.gameObject.AddComponent<PortraitDrag>().Owner=this;
             for(int row=0;row<6;row++)for(int col=0;col<8;col++)Slot(p.transform,12+row*8+col,266+col*62,113+row*62,56);
-            Label(p.transform,"CRAFTING",821,115,300,42,27);
-            Label(p.transform,"Personal grid · 2 × 2",821,162,290,30,17,gold);
+            BuildEquipment(p.transform);
             GameObject guide=null;
-            Button(p.transform,"RECIPES",1031,163,108,32,()=>guide.SetActive(!guide.activeSelf));
-            for(int row=0;row<2;row++)for(int col=0;col<2;col++)Slot(p.transform,CraftSlotStart+row*2+col,829+col*70,222+row*70,60);
-            Label(p.transform,"→",974,268,38,40,30,gold);
-            Slot(p.transform,CraftOutputSlot,1021,256,72);
-            craftOutputName=Label(p.transform,"",992,339,143,44,15,gold);craftOutputName.alignment=TextAnchor.UpperCenter;
-            craftStatus=Label(p.transform,"",829,391,290,50,15,gold);
-            Label(p.transform,"Click result: craft one\nShift-click result: craft all that fit",829,451,300,44,14);
-            Button(p.transform,"RETURN INGREDIENTS",829,502,282,32,()=>{game.Crafting.ReturnIngredients(game.Inventory);RefreshSlots();},false);
+            if(game.OpenStation?.Furnace!=null)BuildFurnace(p.transform);
+            else if(game.OpenStation?.Storage!=null)BuildChest(p.transform);
+            else
+            {
+                int size=game.Crafting.Grid.Size,cell=size==2?60:48,gap=size==2?70:56;
+                Label(p.transform,"CRAFTING",821,115,300,42,27);
+                Label(p.transform,size==2?"Personal · 2 × 2":"Workbench · 3 × 3",821,162,210,30,17,gold);
+                Button(p.transform,"RECIPES",1031,163,108,32,()=>guide.SetActive(!guide.activeSelf));
+                for(int row=0;row<size;row++)for(int col=0;col<size;col++)Slot(p.transform,CraftSlotStart+row*size+col,821+col*gap,222+row*gap,cell);
+                Label(p.transform,"→",995,268,27,40,26,gold);Slot(p.transform,CraftOutputSlot,1030,256,64);
+                craftOutputName=Label(p.transform,"",1010,333,125,44,14,gold);craftOutputName.alignment=TextAnchor.UpperCenter;
+                craftStatus=Label(p.transform,"",829,407,290,40,15,gold);
+                Label(p.transform,"Click result: craft one\nShift-click result: craft all that fit",829,451,300,44,14);
+                Button(p.transform,"RETURN INGREDIENTS",829,502,282,32,()=>{game.Crafting.ReturnIngredients(game.Inventory);RefreshSlots();},false);
+            }
             Label(p.transform,"HOTBAR",266,502,250,24,14,gold);BuildHotbar(p.transform,266,534,53,4);
             inventoryHint=Label(p.transform,"Use Recipes to see available layouts. Leftover ingredients stay in the grid if your inventory is full.",28,604,1090,24,14);
             Button(p.transform,"APPEARANCE",28,527,210,40,()=>game.SetMode(ScreenMode.Appearance));
             heldRoot=Rect(root,"Held stack",0,0,52,65);heldRoot.gameObject.SetActive(false);heldIcon=heldRoot.gameObject.AddComponent<RawImage>();heldIcon.raycastTarget=false;heldLabel=Label(heldRoot,"",0,37,55,25,16);heldLabel.alignment=TextAnchor.LowerRight;
             tooltip=Label(p.transform,"",28,604,1090,24,14,gold);
-            guide=BuildCraftingGuide(p.transform);guide.SetActive(false);
+            if(game.OpenStation?.Furnace==null&&game.OpenStation?.Storage==null){guide=BuildCraftingGuide(p.transform);guide.SetActive(false);}
             RefreshPreview();
         }
         GameObject BuildCraftingGuide(Transform parent)
         {
             var panel=Panel(parent,816,204,329,330,ink);
-            Label(panel.transform,"PERSONAL RECIPES",10,8,300,25,16,gold);
+            Label(panel.transform,game.Crafting.Grid.Size==2?"PERSONAL RECIPES":"WORKBENCH RECIPES",10,8,300,25,16,gold);
             var viewport=Panel(panel.transform,7,40,315,280,slate);
             viewport.gameObject.AddComponent<Mask>().showMaskGraphic=true;
             var content=Rect(viewport.transform,"Recipe list",0,0,315,0);
@@ -160,25 +170,27 @@ namespace RivetReach
             foreach(var recipe in game.Recipes.Recipes)
             {
                 if(recipe.MinimumGridSize>game.Crafting.Grid.Size)continue;
-                float y=row++*94+9;
+                float y=row++*116+9;
                 int width=recipe.Kind==RecipeKind.Shaped?recipe.Width:game.Crafting.Grid.Size;
                 for(int i=0;i<recipe.Ingredients.Count;i++)
                 {
-                    var stack=recipe.Ingredients[i];var cell=Panel(content,9+i%width*27,y+i/width*27,24,24,ink);
+                    var stack=recipe.Ingredients[i];var cell=Panel(content,9+i%width*25,y+i/width*25,24,24,ink);
                     if(stack.Empty)continue;
                     var icon=Rect(cell.transform,"Ingredient",2,2,20,20).gameObject.AddComponent<RawImage>();icon.texture=icons[stack.Id];icon.raycastTarget=false;
                     if(stack.Count>1)Label(cell.transform,stack.Count.ToString(),0,8,23,16,10).alignment=TextAnchor.LowerRight;
                 }
-                Label(content,"→",70,y+10,30,30,22,gold);
-                var output=Rect(content,"Output",100,y+7,34,34).gameObject.AddComponent<RawImage>();output.texture=icons[recipe.Output.Id];output.raycastTarget=false;
-                Label(content,game.Registry.Get(recipe.Output.Id).displayName+" × "+recipe.Output.Count,144,y+5,161,42,15,gold);
-                Label(content,recipe.Kind==RecipeKind.Shapeless?"Any arrangement":recipe.AllowsMirroring?"Layout or mirror":"Shown layout",9,y+60,296,22,12);
+                Label(content,"→",88,y+10,30,30,22,gold);
+                var output=Rect(content,"Output",117,y+7,34,34).gameObject.AddComponent<RawImage>();output.texture=icons[recipe.Output.Id];output.raycastTarget=false;
+                Label(content,game.Registry.Get(recipe.Output.Id).displayName+" × "+recipe.Output.Count,161,y+5,144,42,15,gold);
+                Label(content,recipe.Kind==RecipeKind.Shapeless?"Any arrangement":recipe.AllowsMirroring?"Layout or mirror":"Shown layout",9,y+83,296,22,12);
             }
-            content.sizeDelta=new Vector2(315,Mathf.Max(280,row*94+9));
+            content.sizeDelta=new Vector2(315,Mathf.Max(280,row*116+9));
             return panel.gameObject;
         }
         ItemStack StackAt(int index)
         {
+            if(index>=ArmorSlotStart&&index<ArmorSlotStart+4)return game.Equipment.Slots[index-ArmorSlotStart];
+            if(index>=StationSlotStart&&game.OpenStation!=null)return StationStack(index-StationSlotStart);
             if(index==CraftOutputSlot)return game.Crafting.Preview?.Output??default;
             if(index>=CraftSlotStart&&index<CraftSlotStart+game.Crafting.Grid.Count)return game.Crafting.Grid.Slots[index-CraftSlotStart];
             return index>=0&&index<Inventory.SlotCount?game.Inventory.Slots[index]:default;
@@ -268,6 +280,7 @@ namespace RivetReach
         public void ClickSlot(int index,bool right,bool shift)
         {
             if(!game.InventoryOpen)return;
+            if(ClickStationSlot(index,right,shift)){RefreshSlots();return;}
             if(index==CraftOutputSlot)
             {
                 var recipe=game.Crafting.Preview;
@@ -284,7 +297,7 @@ namespace RivetReach
             }
             else if(index>=0&&index<Inventory.SlotCount)
             {
-                if(shift&&HeldStack.Empty)game.Inventory.QuickTransfer(index);
+                if(shift&&HeldStack.Empty)QuickTransferInventory(index);
                 else game.Inventory.Click(index,ref HeldStack,right);
             }
             RefreshSlots();
@@ -297,7 +310,7 @@ namespace RivetReach
                 int left=game.Inventory.Add(HeldStack.Id,HeldStack.Count);
                 if(left>0)game.Drop(new ItemStack(HeldStack.Id,left));HeldStack.Clear();
             }
-            game.Crafting.ReturnIngredients(game.Inventory);
+            if(game.OpenStation==null||game.OpenStation.Crafting!=null)game.Crafting.ReturnIngredients(game.Inventory);
         }
         void RefreshSlots()
         {
@@ -316,18 +329,19 @@ namespace RivetReach
                 craftStatus.text=recipe==null?"Place ingredients in the grid":"Ready · "+game.Crafting.MaximumCrafts+" craft(s)";
             }
             RefreshTooltip();
-            lastRevision=game.Inventory.Revision;lastCraftRevision=game.Crafting.Grid.Revision;
+            lastRevision=game.Inventory.Revision;lastCraftRevision=game.Crafting.Grid.Revision;lastStationRevision=StationRevision;lastEquipmentRevision=game.Equipment.Revision;lastSelected=game.Selected;
         }
         void Update()
         {
             if(game==null)return;
-            if(lastRevision!=game.Inventory.Revision||lastCraftRevision!=game.Crafting.Grid.Revision||game.Mode==ScreenMode.Play)RefreshSlots();
+            if(lastRevision!=game.Inventory.Revision||lastCraftRevision!=game.Crafting.Grid.Revision||lastStationRevision!=StationRevision||lastEquipmentRevision!=game.Equipment.Revision||lastSelected!=game.Selected)RefreshSlots();
+            RefreshSurvival();
             if(message!=null)message.text=game.Message??"";
             if(loading!=null)loading.text=!game.ReadyToPlay?"Preparing nearby terrain…":"";
             if(targetLabel!=null)
             {
-                string hint=BlockId.MiningHint(game.Player.TargetId,game.Registry.Capabilities(game.Inventory.Slots[game.Selected]));
-                targetLabel.text=game.Player.HasTarget?game.Registry.Get(game.Player.TargetId).displayName+(hint.Length>0?" · "+hint:""):"";
+                string hint=BlockId.MiningHint(game.Player.TargetId,game.Registry.Capabilities(game.Inventory.Slots[game.Selected]),game.Registry.Tier(game.Inventory.Slots[game.Selected]));
+                targetLabel.text=game.Player.HasTarget?game.Registry.Get(game.Player.TargetId).displayName+(BlockId.Station(game.Player.TargetId)?" · Use to open":hint.Length>0?" · "+hint:""):"";
             }
             if(progress!=null)
             {
@@ -385,6 +399,8 @@ namespace RivetReach
             {int x=Mathf.Clamp((int)(u*tiles.width),0,tiles.width-1),y=Mathf.Clamp((int)(v*tiles.height),0,tiles.height-1);return swatches[layer][x+y*tiles.width];}
             foreach(var item in game.Registry.items)
             {
+                if(item.runtimeId>=20&&!BlockId.Placeable(item.runtimeId)&&item.runtimeId!=BlockId.Farmland&&!BlockId.Crop(item.runtimeId))
+                {icons[item.runtimeId]=SurvivalItemArt.Icon(item);continue;}
                 if(item.toolCapabilities!=ToolCapability.None)
                 {
                     string name=(item.toolCapabilities&ToolCapability.Axe)!=0?"StarterAxeIcon":(item.toolCapabilities&ToolCapability.Pickaxe)!=0?"StarterPickaxeIcon":"StarterDaggerIcon";

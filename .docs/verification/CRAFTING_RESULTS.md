@@ -1,6 +1,6 @@
 # Modular crafting verification — 2026-09-08
 
-The personal 2×2 crafting interface and the shared 2×2/3×3/4×4 recipe engine are implemented and verified below. [CRAFTING.md](../CRAFTING.md) owns authoring and architecture; [GAMEPLAY.md section 16](../GAMEPLAY.md#16-modular-grid-crafting) owns interaction behavior; [ECONOMY.md](../ECONOMY.md#current-playable-starter-recipes) owns the current starter recipes.
+The personal 2×2 crafting interface and the shared 2×2/3×3/4×4 recipe engine are implemented and verified below. [CRAFTING.md](../CRAFTING.md) owns authoring and architecture; [GAMEPLAY.md section 16](../GAMEPLAY.md#16-modular-grid-crafting) owns interaction behavior; [ECONOMY.md](../ECONOMY.md#current-survival-recipes-and-tiers) now owns the expanded survival recipes; the measurements below describe the earlier three-recipe starter slice.
 
 ## Tested configuration and artifact
 

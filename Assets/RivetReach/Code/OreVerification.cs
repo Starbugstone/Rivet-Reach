@@ -11,18 +11,23 @@ namespace RivetReach
         IEnumerator ReviewOres()
         {
             var world=game.World;var player=game.Player;var mined=new List<BlockPos>();
-            Check(TerrainGenerator.Version=="terrain-3-ores-bedrock","Ore generation and base layer have a new deterministic version");
+            Check(TerrainGenerator.Version=="terrain-4-biomes-caves","Ore generation and base layer have a new deterministic version");
+            game.Inventory.Add(BlockId.IronPickaxe,1,10,11); // Explicit review fixture, sufficient for every ore tier.
             foreach(var band in OreGenerator.Bands)
             {
                 // Find actual generated ore. Only approach corridors are verification fixtures.
                 var target=OreGenerator.Veins(game.Seed,new BlockPos(-64,band.PeakY-16,-64),new BlockPos(64,band.PeakY+16,64))
                     .Where(v=>v.Band.Block==band.Block&&world.Generator.At(v.Centre)==band.Block).Select(v=>v.Centre).First();
-                player.enabled=false;player.transform.position=world.Local(target)+new Vector3(.5f,-1,-2.5f);
+                player.enabled=false;player.ResetMotion();player.transform.position=world.Local(target)+new Vector3(.5f,-1,-2.5f);
                 yield return null;yield return Settle();
                 for(int z=-4;z<=-1;z++)for(int y=-1;y<=2;y++)for(int x=-1;x<=1;x++)
                 {var p=target.Offset(x,y,z);byte id=world.Get(p);if(id!=0)world.Remove(p,id);}
                 for(int y=1;y<=2;y++){var p=target.Offset(0,y,0);if(world.Get(p)!=0)world.Remove(p,world.Get(p));}
-                var support=target.Offset(0,-2,-3);if(world.Get(support)==0)world.Place(support,BlockId.Stone);
+                // Keep the entire approach supported even where the new cavern profile is open.
+                // Clear below the untouched ore so its drop can fall into the reachable corridor.
+                for(int x=-1;x<=1;x++){var p=target.Offset(x,-1,0);if(world.Get(p)!=0)world.Remove(p,world.Get(p));}
+                for(int z=-4;z<=0;z++)for(int x=-1;x<=1;x++)
+                {var support=target.Offset(x,-2,z);if(world.Get(support)==0)world.Place(support,BlockId.Stone);}
                 player.Yaw=0;player.Pitch=3;player.enabled=true;game.Selected=8;
                 yield return new WaitForSecondsRealtime(.5f);
                 sampling=true;
@@ -32,10 +37,10 @@ namespace RivetReach
                     Check(!world.Mine(target,band.Block,tool)&&world.Get(target)==band.Block,"Authority rejects unsuitable tool for "+band.Block);
                 player.VerificationMining=true;yield return new WaitForSecondsRealtime(.8f);player.VerificationMining=false;
                 Check(world.Get(target)==band.Block&&player.MiningProgress==0&&game.Items.TotalSpawned==spawned,"Holding Mine barehanded leaves ore and drops unchanged");
-                Check(game.UI.GetComponentsInChildren<UnityEngine.UI.Text>().Any(t=>t.text.Contains("Requires a pickaxe")),"HUD explains ore's required tool");
+                Check(game.UI.GetComponentsInChildren<UnityEngine.UI.Text>().Any(t=>t.text.Contains("pickaxe or better")),"HUD explains ore's required tool");
                 yield return Capture("ore-"+band.Block+"-natural");
                 game.Selected=10;yield return new WaitForSecondsRealtime(.5f);
-                Check(player.HeldBlock.Visible&&player.HeldBlock.ItemId==BlockId.StarterPickaxe,"Selected starter pickaxe is displayed before extraction");
+                Check(player.HeldBlock.Visible&&player.HeldBlock.ItemId==BlockId.IronPickaxe,"Selected iron pickaxe is displayed before extraction");
                 byte raw=game.Registry.FistDrop(band.Block);int before=game.Inventory.Total(raw);
                 player.VerificationMining=true;float until=Time.realtimeSinceStartup+5;
                 while(world.Get(target)!=0&&Time.realtimeSinceStartup<until)yield return null;

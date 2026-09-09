@@ -250,7 +250,7 @@ User-required scope:
 
 Working scope boundaries, chosen to keep this step small:
 
-- Use one terrain-only world definition and a small fist-mineable block palette. Hills and a small amount of cave/overhang geometry should exercise generation and underground edits; biome variety remains a later choice. The subsequently selected ore extension below adds a small depth-banded resource profile.
+- Use one terrain-only world definition and a small fist-mineable block palette. The original hills/cave palette was subsequently extended by the user with depth-banded ores and then [varied terrain, caves and biomes](TERRAIN_GENERATION.md). The terrain extension preserves the same streaming/edit architecture.
 - Preserve the existing physical stack-drop/pickup rules for the mining-to-inventory loop, including compatible merging and sleeping on dry terrain. Water simulation is not required here.
 - Establish a reusable player model and basic idle/movement/fist animation. The user subsequently requested changeable player skins: include a reusable skin texture layout and basic local skin selection as the working first-step extension, with matching body/fists. Detailed behaviour is in [GAMEPLAY.md](GAMEPLAY.md#15-player-skins). A third-person gameplay mode, body-shape customization, an in-game skin painter, combat and final animation polish are not required.
 - Beyond the explicitly requested starter tools/tree felling extension, broader tool progression, workbench/furnace, survival/death, mobs, water simulation, day/night progression, machinery, logistics and additional worlds remain outside this step.
@@ -286,7 +286,9 @@ These checkpoints do not authorize separate later features. Stage 0 is complete 
 
 **Day/night extension, 2026-09-09:** the user requested moving sun/moon and nightly lunar phases. This bounded environment extension is now selected; [GAMEPLAY.md](GAMEPLAY.md#day-night-and-lunar-phases) owns its working behavior. It does not automatically select the remaining candidate sandbox systems.
 
-**Review gate:** present the playable build, visual concept, measurements and known limitations to the user. Decide the next implementation scope from that evidence. The crafting and ore/bedrock extensions are authorized; do not automatically begin its larger stations/progression, survival, industry or the old Stage 1 list.
+**Survival extension, 2026-09-09:** the user selected familiar basic recipes, wood/stone/copper/iron/diamond tool tiers, a workbench and furnace, then potatoes, farming, hunger, health and armor. Implement this requested playable progression using the existing authoritative item/grid/world model. [GAMEPLAY.md](GAMEPLAY.md#survival-progression-farming-health-and-armor) owns behavior and [CRAFTING.md](CRAFTING.md#survival-progression-extension--2026-09-09) owns authoring/transactions. Earlier exclusions of these selected features are superseded; this does not automatically select industry, water, durable saves or the rest of the candidate stages.
+
+**Review gate:** present the playable build, visual concept, measurements and known limitations to the user. Decide the next implementation scope from that evidence. The crafting, ore/bedrock and survival extensions are authorized; select further systems explicitly after review rather than automatically executing the old Stage 1 list.
 
 ### Candidate Stage 1 - Extend the sandbox (not yet selected)
 
@@ -546,3 +548,8 @@ The current priority is:
 When two approaches both meet the final requirements, prefer the one that can be tested through actual gameplay sooner.
 
 When a gameplay requirement and a performance problem conflict, first look for a better representation, simulation level or scheduling strategy before reducing the intended game scope.
+
+
+### Terrain and biome extension — 2026-09-09
+
+The user selected a terrain-generation rework with caves, varied relief and biomes. [TERRAIN_GENERATION.md](TERRAIN_GENERATION.md) owns this bounded working profile and its review questions. It preserves finite ore bands, bedrock and session edits, and supplies the coordinated wild-food generation hook to survival. Structures, water and additional worlds are not selected by this terrain request. [Verification](verification/TERRAIN_GENERATION_RESULTS.md) records measured evidence separately from user play review.

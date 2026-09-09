@@ -30,6 +30,9 @@ namespace RivetReach
         GameObject selection;
         public bool SelectionVisible=>selection!=null&&selection.activeInHierarchy;
         float nextPlace;
+        float eating,fallDistance;
+        byte eatingItem;
+        public float EatingProgress=>eating/1.2f;
         byte miningItem;
         float lastForwardPress=float.NegativeInfinity;
         bool doubleTapSprint;
@@ -64,6 +67,7 @@ namespace RivetReach
             if(Game==null)return;
 
             bool control=Game.Started&&!Game.Paused&&!Game.InventoryOpen;
+            if(!control){eating=0;eatingItem=0;}
             bool audibleSwing=false;
             if(!Game.Started)
             {
@@ -86,7 +90,7 @@ namespace RivetReach
                 float desired=crouch?1.25f:1.8f;
                 if(desired<Height||!Game.World.Overlaps(transform.position,.6f,desired))Height=desired;
                 Vector2 input=VerificationMovement??(control?Game.Input.Move:Vector2.zero);
-                Sprinting=control&&Height>=1.5f&&input.sqrMagnitude>0&&(Game.Input.Held("Sprint")||doubleTapSprint);
+                Sprinting=control&&Game.Hunger.CanSprint&&Height>=1.5f&&input.sqrMagnitude>0&&(Game.Input.Held("Sprint")||doubleTapSprint);
                 float speed=Height<1.5f?2.2f:Sprinting?6.5f:4.5f;
                 input=Vector2.ClampMagnitude(input,1);
                 Vector3 move=transform.TransformDirection(new Vector3(input.x,0,input.y))*speed;
@@ -103,6 +107,9 @@ namespace RivetReach
                 Grounded=ground;if(ground)vertical=-1;
                 Vector3 travelled=transform.position-previous;travelled.y=0;
                 float distance=travelled.magnitude,motion=Mathf.Clamp01(distance/Mathf.Max(.001f,speed*dt));
+                if(control)Game.Hunger.Exert(distance*(Sprinting?.1:.01)+(jump?.2:0));
+                if(!ground&&transform.position.y<previous.y)fallDistance+=previous.y-transform.position.y;
+                if(ground){if(fallDistance>3)Game.TakeDamage(Mathf.Floor(fallDistance-3),DamageKind.Fall);fallDistance=0;}
                 // Footfalls follow the same distance-driven phase as the authored feet.
                 int priorContact=Mathf.FloorToInt(phase/Mathf.PI);
                 if(ground)phase+=distance*(Height<1.5f?3.8f:speed>5?2.2f:2.4f)*(input.y<-.1f?-1:1);
@@ -161,6 +168,7 @@ namespace RivetReach
             else{previousSwingPhase=0;hitSoundPlayed=false;}
         }
         void ResetSprint(){doubleTapSprint=false;lastForwardPress=float.NegativeInfinity;Sprinting=false;}
+        public void ResetMotion(){vertical=0;fallDistance=0;eating=0;MiningProgress=0;VerificationMovement=null;ResetSprint();}
         void UpdateSprintGesture(bool control)
         {
             if(!control||Game.Input.Rebinding!=null||(VerificationCrouching??Game.Input.Held("Crouch"))){ResetSprint();return;}
@@ -173,6 +181,7 @@ namespace RivetReach
         void OnDisable(){ResetSprint();}
         void TargetAndMine()
         {
+            if(Game.Mode!=ScreenMode.Play||Game.Health.Dead)return;
             var selected=Game.Inventory.Slots[Game.Selected];byte heldId=selected.Empty?(byte)0:selected.Id;
             if(heldId!=miningItem){MiningProgress=0;miningItem=heldId;}
             ToolCapability tool=Game.Registry.Capabilities(selected);
@@ -182,20 +191,39 @@ namespace RivetReach
             if(Game.Input.Place)
             {
                 MiningProgress=0;
+                if(found&&BlockId.Station(id)&&!Game.Input.Held("Crouch"))
+                {if(Game.Input.PlacePressed)Game.TryOpenStation(pos);return;}
+                if(found&&(tool&ToolCapability.Hoe)!=0&&(id==BlockId.Grass||id==BlockId.Dirt))
+                {
+                    if(Time.time>=nextPlace&&Game.World.Till(pos)){nextPlace=Time.time+.22f;Arms.TriggerSwing();Game.Hunger.Exert(.05);}
+                    return;
+                }
+                if(found&&id==BlockId.Farmland&&selected.Id==BlockId.Potato)
+                {if(Game.World.Plant(pos.Offset(0,1,0))){Game.Inventory.Take(Game.Selected,1);Arms.TriggerSwing();}return;}
+                int food=selected.Empty?0:Game.Registry.Get(selected.Id).foodPoints;
+                if(food>0)
+                {
+                    if(eatingItem!=selected.Id){eating=0;eatingItem=selected.Id;}
+                    if(Game.Hunger.Food<HungerState.Maximum)eating+=Time.deltaTime;
+                    if(eating>=1.2f){if(Game.Hunger.TryEat(Game.Inventory,Game.Selected,food)){Game.Sound.Pickup();Game.Notify("Ate "+Game.Registry.Get(selected.Id).displayName,1);}eating=0;}
+                    return;
+                }
+                eating=0;
                 // Failed attempts must not consume the repeat interval: underfoot space
                 // may become clear for only a few frames near the apex of a jump.
                 if(Time.time>=nextPlace&&Game.TryPlaceSelected()){Arms.TriggerSwing();Body.TriggerSwing();nextPlace=Time.time+.22f;}
                 return;
             }
-            nextPlace=0;
+            nextPlace=0;eating=0;eatingItem=0;
             if(!found||!(Game.Input.Mine||VerificationMining)){MiningProgress=0;return;}
-            if(!BlockId.Mineable(id,tool))
-            {MiningProgress=0;Game.Notify(BlockId.MiningHint(id,tool),1);return;}
-            MiningProgress+=Time.deltaTime/Game.Registry.MiningSeconds(id,tool);
+            if(!BlockId.Mineable(id,tool,Game.Registry.Tier(selected)))
+            {MiningProgress=0;Game.Notify(BlockId.MiningHint(id,tool,Game.Registry.Tier(selected)),1);return;}
+            MiningProgress+=Time.deltaTime/Game.Registry.MiningSeconds(id,selected);
             if(MiningProgress<1)return;
             MiningProgress=0;
-            if(Game.World.Mine(pos,id,tool))
+            if(Game.World.Mine(pos,id,tool,Game.Registry.Tier(selected)))
             {
+                Game.Hunger.Exert(.05);
                 byte drop=Game.Registry.FistDrop(id);
                 Game.Sound.Mine(id,Game.World.Local(pos)+Vector3.one*.5f);Game.Notify("Gathered "+Game.Registry.Get(drop).displayName+" — walk close to collect",1);
             }

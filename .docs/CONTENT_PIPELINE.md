@@ -112,3 +112,8 @@ The user's subsequent request selects a polished, strongly arcade visual directi
 `Tools/create_arcade_effect_assets.py` authors the original three-mesh debris kit in Blender; editable sources are under `ArtSource/Effects`, and explicit FBX imports are under `Resources/Effects`. The runtime normalizes each mesh for particle-size control. Drops render the actual terrain tile or tool silhouette and rotate at their authoritative display position; rotation does not drive item physics, pickup, merging or expiry. `com.unity.modules.particlesystem` 1.0.0 is the pinned Editor's built-in module, recorded in [third-party notices](THIRD_PARTY_NOTICES.md).
 
 Actual images, motion evidence and measured limits belong in [arcade visual results](verification/ARCADE_VISUAL_RESULTS.md). The visual-only sequence encoder uses Blender's bundled video encoder; it does not add a game runtime dependency. Existing character model, skin and animation contracts remain authoritative above.
+
+
+## Terrain and biome rework — 2026-09-09
+
+[Biome terrain materials](TERRAIN_GENERATION.md#materials-and-authoring) add original sand, sandstone, snow and red-clay swatches through `BiomeTerrainAssets`, at layers 40–43 of the shared 64² array. The builder retains other owners’ layers; the arcade detail pass matches the expanded array depth. IDs and helper contracts belong to the terrain specification. No external art or dependency was introduced.

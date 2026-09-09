@@ -42,8 +42,15 @@ namespace RivetReach.Editor
                 {
                     CraftingChecks.Run();File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;
                 }
+                if(command=="terrain-build"||command=="terrain-checks")
+                {
+                    Prepare();TerrainGenerationChecks.Run((ok,message)=>{if(!ok)throw new Exception(message);});
+                    if(command=="terrain-build")Build("Terrain");
+                    File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;
+                }
                 Prepare();DomainChecks.Run();
                 if(command=="build")Build();
+                if(command=="survival-build")Build("Survival");
                 File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));
             }
             catch(Exception ex){Debug.LogException(ex);File.WriteAllText("Logs/build-result.txt","FAILED\n"+ex);}
@@ -139,6 +146,7 @@ namespace RivetReach.Editor
                 new ItemDefinition{runtimeId=BlockId.RawGold,stableId="rivet:raw_gold",displayName="Raw gold",colour=new Color(.85f,.65f,.19f)},
                 new ItemDefinition{runtimeId=BlockId.Diamond,stableId="rivet:diamond",displayName="Diamond",colour=new Color(.44f,.84f,.88f)}})
                 if(!registry.items.Any(i=>i.runtimeId==item.runtimeId))registry.items=registry.items.Append(item).ToArray();
+            BiomeTerrainAssets.Items(registry);
             registry.Get(1).fistDropId=2;EditorUtility.SetDirty(registry);
             var tiles=TerrainTiles.Build();
             MaterialAsset("Terrain","RivetReach/VoxelTerrain").SetTexture("_Tiles",tiles);
@@ -175,18 +183,19 @@ namespace RivetReach.Editor
         }
         [MenuItem("Rivet Reach/Build Windows first POC")]
         public static void PrepareAndBuild(){Prepare();DomainChecks.Run();Build();}
-        static void Build()
+        public static void PrepareAndBuildSurvival(){Prepare();DomainChecks.Run();Build("Survival");}
+        static void Build(string outputFolder="PlayerRevision4")
         {
-            Directory.CreateDirectory("Builds/PlayerRevision4");
-            var report=BuildPipeline.BuildPlayer(new BuildPlayerOptions{scenes=EditorBuildSettings.scenes.Select(s=>s.path).ToArray(),locationPathName="Builds/PlayerRevision4/RivetReach.exe",target=BuildTarget.StandaloneWindows64,options=BuildOptions.Development});
+            string output=Path.Combine("Builds",outputFolder);Directory.CreateDirectory(output);
+            var report=BuildPipeline.BuildPlayer(new BuildPlayerOptions{scenes=EditorBuildSettings.scenes.Select(s=>s.path).ToArray(),locationPathName=Path.Combine(output,"RivetReach.exe"),target=BuildTarget.StandaloneWindows64,options=BuildOptions.Development});
             File.WriteAllText("Logs/build-summary.txt",report.summary.result+"; errors "+report.summary.totalErrors+"; warnings "+report.summary.totalWarnings+"; seconds "+report.summary.totalTime.TotalSeconds+"; bytes "+report.summary.totalSize);
             File.WriteAllLines("Logs/build-messages.txt",report.steps.SelectMany(step=>step.messages).Where(message=>message.type==LogType.Warning||message.type==LogType.Error).Select(message=>message.type+": "+message.content));
             if(report.summary.result!=BuildResult.Succeeded||report.summary.totalErrors>0)throw new Exception("Windows build failed: "+report.summary.result+"; errors "+report.summary.totalErrors);
-            File.Copy("LICENSE.md","Builds/PlayerRevision4/LICENSE.md",true);
-            File.Copy(".docs/THIRD_PARTY_NOTICES.md","Builds/PlayerRevision4/THIRD_PARTY_NOTICES.md",true);
+            File.Copy("LICENSE.md",Path.Combine(output,"LICENSE.md"),true);
+            File.Copy(".docs/THIRD_PARTY_NOTICES.md",Path.Combine(output,"THIRD_PARTY_NOTICES.md"),true);
             foreach(string source in Directory.GetFiles(".docs/licenses","*",SearchOption.AllDirectories))
             {
-                string target=Path.Combine("Builds/PlayerRevision4/licenses",Path.GetRelativePath(".docs/licenses",source));
+                string target=Path.Combine(output,"licenses",Path.GetRelativePath(".docs/licenses",source));
                 Directory.CreateDirectory(Path.GetDirectoryName(target));File.Copy(source,target,true);
             }
         }

@@ -32,6 +32,7 @@ namespace RivetReach
         public Vector2 Look => Mouse.current==null?Vector2.zero:Mouse.current.delta.ReadValue()*Sensitivity;
         public bool Mine => Rebinding==null&&Mouse.current!=null&&(PlayerPrefs.GetInt("mineButton",0)==0?Mouse.current.leftButton.isPressed:Mouse.current.rightButton.isPressed);
         public bool Place => Rebinding==null&&Mouse.current!=null&&(PlayerPrefs.GetInt("mineButton",0)==0?Mouse.current.rightButton.isPressed:Mouse.current.leftButton.isPressed);
+        public bool PlacePressed => Rebinding==null&&Mouse.current!=null&&(PlayerPrefs.GetInt("mineButton",0)==0?Mouse.current.rightButton.wasPressedThisFrame:Mouse.current.leftButton.wasPressedThisFrame);
         public void BeginRebind(string name) {Rebinding=name;rebindAfter=Time.unscaledTime+.2f;}
         public bool PollRebind()
         {

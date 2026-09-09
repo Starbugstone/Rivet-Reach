@@ -46,7 +46,7 @@ namespace RivetReach
             if(!world.TryRead(p,out byte id)||id!=1)return;
             var above=p.Offset(0,1,0);
             if(!world.TryRead(above,out byte roof))return;
-            if(roof!=0||world.SkyLight(above)<4){Queue(p,1,2);return;}
+            if(roof!=0&&!BlockId.Crop(roof)||world.SkyLight(above)<4){Queue(p,1,2);return;}
             if(world.SkyLight(above)<9)return;
             for(int attempt=0;attempt<4;attempt++)
             {

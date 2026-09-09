@@ -47,9 +47,9 @@ Eligible background miners load the authoritative voxel pages they read/change a
 
 ## 3. First resource and recipe set
 
-The first complete sandbox/industrial slice uses logs, stone, iron ore, copper ore and water. Charcoal is the planned starter fuel from logs; the ore extension below now generates coal as a future naturally found fuel alternative. Fuel processing remains unimplemented. Surface wood and mineable stone are available near valid spawn locations. Spawn validation also requires reachable iron and copper within a provisional 256-block search region, without replacing player exploration with map markers. An unsuitable candidate spawn is rejected deterministically, not repaired after exploration order changes.
+The first complete sandbox/industrial slice uses logs, stone, iron ore, copper ore and water. Charcoal is the planned starter fuel from logs; the ore extension below now generates coal as a future naturally found fuel alternative. Fuel processing is implemented by the survival extension below. Surface wood and mineable stone are available near valid spawn locations. Spawn validation also requires reachable iron and copper within a provisional 256-block search region, without replacing player exploration with map markers. An unsuitable candidate spawn is rejected deterministically, not repaired after exploration order changes.
 
-The broader bootstrap recipes below are future content. The current crafting engine supports 2×2, 3×3 and 4×4 grids; only the personal 2×2 interface is implemented. Initial bootstrap recipes use a 2x2 personal grid and a 3x3 workbench. Shaped layouts are content data; the table specifies material quantities and manufacturing dependencies. The browser shows layouts from that same registry. All recipes below are accessible without knowledge/XP flags when their materials and station are present.
+The broader industrial bootstrap table below remains a future specification where it goes beyond the current survival recipe section. The shared grid engine supports 2×2, 3×3 and 4×4; personal and workbench interfaces are implemented. Initial bootstrap recipes use a 2x2 personal grid and a 3x3 workbench. Shaped layouts are content data; the table specifies material quantities and manufacturing dependencies. The browser shows layouts from that same registry. All recipes below are accessible without knowledge/XP flags when their materials and station are present.
 
 | Output | Inputs | Process / purpose |
 |---|---|---|
@@ -80,21 +80,52 @@ The broader bootstrap recipes below are future content. The current crafting eng
 | Pump | 1 casing + 1 gear + 4 copper wire | Workbench; source water to tank/pipe |
 | Drill | 1 casing + 2 gears + 4 iron plates + 4 copper wire | Workbench; automates finite terrain extraction |
 
-One plank supplies one furnace operation; one charcoal supplies eight. Operations take an initial 8 seconds. Fuel credit stays in the furnace and is persisted; closing the interface does not reset it. No recipe converts crafted plates, gears or machines back into more raw material than was consumed. Recycling later specifies deliberate losses or exact recovery, not generic arithmetic by item category.
+Historical industrial tuning proposed one plank per operation, eight operations per charcoal and 8-second operations; the current survival furnace values below supersede those defaults. Fuel credit stays in the furnace and is persisted; closing the interface does not reset it. No recipe converts crafted plates, gears or machines back into more raw material than was consumed. Recycling later specifies deliberate losses or exact recovery, not generic arithmetic by item category.
 
 The wooden tool exists to bootstrap stone without a metal dependency. The furnace and manual component recipes bootstrap machinery without already owning a crusher, press, pump or generator. Machine production later improves speed/batching, not permission to make the first machine.
 
-### Current playable starter recipes
+### Current survival recipes and tiers
 
-The user explicitly requested functional modular crafting after the initial placeholder slice. Three independently authored recipes now remake the already available starter tools using currently gatherable stone and logs. These layouts and quantities are **working defaults selected for this implementation**, not user-approved final progression balance. Each occupied cell consumes one item per craft. `S` is stone, `L` is log, and `·` is an empty cell.
+**User-selected extension, 2026-09-09:** basic familiar crafting layouts, wood/stone/copper/iron/diamond tools, a furnace, potatoes and baking, then farming, hunger, health and armor. These rules supersede the three temporary starter-tool recipes and the earlier fuel defaults. Numerical speeds, food/health tuning and growth times are working implementation defaults, subject to play review.
 
-| Output | Personal 2×2 inputs | Matching |
+The active registry contains 52 grid recipes and six furnace recipes. All ordinary stackable items use 64-item stacks; tools and armor use one. Normal expeditions start without supplied tools. Legacy starter item identities remain available to historical verification fixtures, but their recipes are not registered.
+
+| Output | Layout / ingredients | Station |
 |---|---|---|
-| 1 starter axe | top row `S S`; bottom row `· L` | Shaped; horizontal mirror allowed |
-| 1 starter pickaxe | top row `S S`; bottom row `L L` | Shaped |
-| 1 starter dagger | One `S` cell and one `L` cell | Shapeless; any two distinct slots |
+| 4 planks | 1 log, shapeless | Personal |
+| 4 sticks | 2 planks, one above the other | Personal |
+| Workbench | 2×2 planks | Personal |
+| Furnace | 3×3 cobblestone ring, empty centre | Workbench |
+| Chest | 3×3 plank ring, empty centre; 27 storage slots | Workbench |
+| Pickaxe | 3 material across top; 2 sticks down centre | Workbench |
+| Axe | `MM / MS / ·S`; horizontal mirror accepted | Workbench |
+| Sword | material, material, stick in one column | Workbench |
+| Shovel | material, stick, stick in one column | Workbench |
+| Hoe | `MM / ·S / ·S`; horizontal mirror accepted | Workbench |
+| Helmet | `MMM / M·M` | Workbench |
+| Chestplate | `M·M / MMM / MMM` | Workbench |
+| Leggings | `MMM / M·M / M·M` | Workbench |
+| Boots | `M·M / M·M` | Workbench |
+| Material storage block | 3×3 coal, iron/copper/gold ingots or diamonds | Workbench |
+| 9 original materials | 1 matching storage block | Personal |
 
-These recipes preserve the existing tool capabilities and one-item tool stack limits. Normal starter hotbar tools remain supplied. They make the crafting service playable without requiring planks, handles, ores or workbench/furnace blocks, durability or a broader progression chain. The earlier bootstrap table remains the intended later economic chain; adopting it will deliberately replace/rebalance this small starter set. [The recipe authoring contract](CRAFTING.md) explains how to change the assets.
+`M` is planks for wood tools, cobblestone for stone tools, or the matching ingot/diamond for higher tools. All five tiers have axes, pickaxes, swords, shovels and hoes. Armor recipes use copper, iron or diamond. Complete armor sets supply 12, 15 or 20 protection points respectively. No wood or stone armor is invented.
+
+| Pickaxe | Effective mining speed multiplier | Extraction |
+|---|---:|---|
+| Wood | 2 | Stone → cobblestone, coal ore, furnace |
+| Stone | 4 | Adds raw iron and raw copper |
+| Copper | 5 | Same extraction grade as stone, faster mining |
+| Iron | 6 | Adds gold and diamond |
+| Diamond | 8 | Same current ore access as iron, faster mining |
+
+Bare hands gather logs, dirt and potatoes. Stone requires a pickaxe. A tool below the required extraction grade leaves the block intact and shows the required tier. Bedrock is always protected. Axes accelerate wood and preserve the existing upward felling behavior; shovels accelerate soil; hoes till soil and accelerate leaves. Tool wear and enchantments are not implemented.
+
+Furnaces take 200 ticks (10 seconds) for one log → charcoal, raw copper/iron/gold → its ingot, cobblestone → stone, or potato → baked potato. One coal or charcoal burns for 1,600 ticks (8 items), a coal block for 16,000 ticks (80), a log/plank for 300 ticks (1½), a stick for 100 ticks (½), and an obsolete wooden tool for 200 ticks (1). Burning fuel runs down after ignition even without usable input; partial paid recipe work is retained only while its input identity remains unchanged. These are furnace recipes, not grid recipe exceptions. [CRAFTING.md](CRAFTING.md#stations-and-processing-authoring) owns authoring and transaction details.
+
+Wild ripe potatoes provide the initial food/seed source. One potato plants one crop on tilled soil. Three growth stages take 60 seconds each while the crop has suitable loaded, exposed terrain; ripe harvests yield 2–4 potatoes, and immature harvests return one. Raw potatoes restore 1 food point, baked potatoes 5. [Gameplay survival rules](GAMEPLAY.md#survival-progression-farming-health-and-armor) own controls and survival behavior.
+
+The industrial component recipes above remain future content. This extension provides a playable gather → craft → mine → smelt → farm/eat chain; it does not select industry, water simulation, enchantments or durable saves.
 
 ### Current ore generation and bedrock
 
@@ -110,13 +141,13 @@ These recipes preserve the existing tool capabilities and one-item tool stack li
 
 Only existing stone becomes ore. Soil, grass, cave air, trees and bedrock remain intact. Veins are finite and vary in shape, size and frequency; band edges taper in frequency rather than having the same abundance as the preferred level. Horizontal radii can swap. Actual recoverable vein size depends on cave cuts, overlap and band boundaries. Coal/copper occupy shallower layers, iron extends farther down, and gold/diamond reward deeper mining. A solid bedrock floor occupies Y = −256 across the supported world, with solid boundary queries below it. It cannot be mined or collected.
 
-Every current ore requires the supplied starter pickaxe (or an item with Pickaxe capability). Metal ore drops raw material, coal ore drops coal and diamond ore drops a diamond, each with a stack limit of 500. These drops are inventory resources and cannot be placed back as ore. Tool tiers, smelting, fuel use and recipes for these new materials remain future work; the current starter tool recipes remain usable. Surface blocks retain the earlier fist-mining rules. See [ore interaction](GAMEPLAY.md#17-ore-mining-and-bedrock), [generation and depletion](SIMULATION.md#15-ore-generation-and-the-world-base), and [verification](verification/ORE_RESULTS.md).
+Ore extraction requires a pickaxe meeting the [current tier table](#current-survival-recipes-and-tiers). Metal ore drops raw material, coal ore drops coal and diamond ore drops a diamond, each with a stack limit of 64. Raw resources cannot be placed back as ore. Furnaces process raw metals using the recipes and fuels above. [Ore interaction](GAMEPLAY.md#17-ore-mining-and-bedrock) and [generation/depletion](SIMULATION.md#15-ore-generation-and-the-world-base) own those contracts. [Ore verification](verification/ORE_RESULTS.md) records the earlier ore-only slice; [survival verification](verification/SURVIVAL_RESULTS.md) covers the selected progression extension.
 
 The earlier 256-block spawn-validation requirement belongs to the complete industrial bootstrap. This extension measures nearby resource availability across sampled seeds; it does not add deterministic spawn rejection or certify every seed's gathering route.
 
 ## 4. First-session and industrial sequence
 
-The locked first step delivers terrain, FPS movement, a 3D player, fist mining and a real gathering/inventory loop, originally with only a crafting placeholder. The subsequent user-authorized crafting extension is recorded in [the current starter set](#current-playable-starter-recipes). Its fist-mineable palette is scoped in [GAMEPLAY.md](GAMEPLAY.md#14-locked-first-step-interaction-contract); the user-authorized starter axe/tree extension is available, while the tool progression, broader bootstrap recipes and industrial processing below remain deferred; ore distribution is now implemented by the separately authorized extension above. This broader bootstrap remains a candidate for later implementation chosen after reviewing that first slice. When selected, its first 20-30 minutes should support building, inventory use, smelting and saving without developer commands; it does not promise that every player finishes industrialization in that interval.
+The initial terrain/FPS/inventory slice has been extended with the [current survival recipes](#current-survival-recipes-and-tiers), ore distribution, tool progression, furnaces, farming, hunger, health and armor. The broader industrial bootstrap below remains a candidate for later implementation chosen after playable review. When selected, its first 20–30 minutes should support building, inventory use, industrial processing and durable saving without developer commands; it does not promise that every player finishes industrialization in that interval.
 
 The first industrial sequence is:
 
@@ -163,3 +194,5 @@ Gate restoration requires locally obtainable surface-side salvage or physically 
 Validate every recipe graph from spawn resources: there must be an ingredient/station path to the first instance of each core capability. Test an unlucky but valid seed, exhausted local ore, full buffers and a lost starter tool. Intentional resource sources/sinks are registered explicitly so closed recipe loops cannot generate metal accidentally.
 
 Measure time spent gathering versus building, amount of construction enabled by one ore trip, power/water interruptions and time between useful decisions. Recipe quantities, hardness, bore reach, fuel duration and deposit sizes can change together after tests. The finite-terrain model, manual bootstrap routes and durable realm-reward policy are the working decisions; final balance remains unvalidated.
+
+Mechanic references for the requested familiar progression: Minecraft's official [crafting introduction](https://www.minecraft.net/en-us/article/how-craft), [furnace overview](https://www.minecraft.net/en-us/article/block-week-furnace) and [Copper Age release notes](https://www.minecraft.net/en-us/article/minecraft-java-edition-1-21-9). Rivet Reach's implementation and procedural visuals are authored in this repository; the survival timing/balance exceptions are stated above.
