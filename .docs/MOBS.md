@@ -6,7 +6,7 @@ The user authorized Blender-authored enemies, AI and spawning on 2026-09-09 and 
 
 | Species | Behaviour | Health | Hit damage | Spawn rule |
 | --- | --- | ---: | ---: | --- |
-| Rustback beetle | Wanders; warns for 1.4 seconds when approached within 5 m; attacks if the player stays or strikes it | 12 | 2 HP | Supported surface, day or night; up to 8 |
+| Rustback beetle | Wanders and climbs walls; warns for 1.4 seconds when approached within 5 m; attacks if the player stays or strikes it | 12 | 2 HP | Supported surface, day or night; up to 8 |
 | Dusk prowler | Detects a visible player within 16 m, pursues and bites | 18 | 3 HP | Supported surface at night; up to 6 |
 
 Night comes from the day/night agent's authoritative `WorldClock.IsNight` (18:00 through 05:59). There is no second mob clock. Dawn stops new prowler spawns; existing prowlers remain normal living entities. Beetles return home beyond a 20 m leash; prowlers beyond 30 m. Breaking sight for four seconds also ends pursuit. Creatures never mine terrain or raid player machinery.
@@ -17,11 +17,21 @@ Bites have a visible preparation action/tint (0.8 s beetle, 0.65 s prowler), the
 
 Player movement resolves lateral contact with living creatures; block placement rejects their bodies. The beetle's collision footprint is 0.90 m square and the prowler's is 0.85 m square, allowing their bodies to navigate one-voxel lanes and steps; extended legs, ears and tails are visual appendages. Attacking a creature takes priority over mining the block behind it. Dead creatures cannot receive a second defeat or block construction.
 
+## Beetle wall climbing
+
+The user subsequently requested wall-climbing beetles. The Rustback definition enables `climbsWalls`, with a working climbing speed of **1.8 m/s**. The same navigation graph now includes vertical edges on loaded solid wall faces, and connects those edges to the supporting top surface. Climbing works during pursuit, wandering and return movement; existing detection, line-of-sight, warning and leash rules still apply.
+
+Two grip probes check the actual wall voxels on each move. Vertical edges recheck support and body clearance along the route. Removing support releases the beetle into normal gravity; missing wall bands, solid overhangs and unloaded cells cannot supply a climbing route. A short checked lip transition lets it pull onto the top or descend over an edge. Climbing does not destroy terrain or add ceiling traversal.
+
+The imported Blender rig turns around its body centre so its feet face the wall and its head follows movement along the surface. Its existing leg action follows climbing speed. Authoritative position, damage, targeting and the compact collision body remain in the same `MobState`/voxel movement system. Prowlers retain their ground-only navigation. The existing 20 Hz simulation and per-step search budgets apply to both routes.
+
+[Wall-climbing verification](verification/BEETLE_WALL_CLIMB_RESULTS.md) records the focused evidence and review limits.
+
 ## Spawn and simulation boundaries
 
 Working defaults: at most 14 tracked ambient mobs, a 24–48 m spawn ring around the player, and a protected 16 m radius around the original world spawn. Spawn attempts run every two simulation seconds, with at most eight candidates per attempt. A candidate needs sky access above its body, actual loaded terrain, a solid supporting surface across the collision footprint and clear space for the full body. Spawning rejects the current visible camera area when unobstructed. Surface samples use the current terrain generator only as a search hint, then validate actual edited voxels (grass, dirt, stone, sand, sandstone, snow or red clay); leaves, cave voids and unloaded borders are not valid support.
 
-One session `MobSystem` owns stable instance IDs, health, intent and `WorldPoint` positions. The renderer and animations contain no combat authority. Simulation runs at 20 Hz with a bounded catch-up of four steps/frame. At most two path searches are performed per step, with 96 node expansions and 256 stored nodes each. The local cardinal voxel search permits one-block steps and one-block drops, checks overhead clearance, and rechecks movement against current terrain edits. Full maze navigation, water traversal and flying are outside this initial behaviour set.
+One session `MobSystem` owns stable instance IDs, health, intent and `WorldPoint` positions. The renderer and animations contain no combat authority. Simulation runs at 20 Hz with a bounded catch-up of four steps/frame. At most two path searches are performed per step, with 96 node expansions and 256 stored nodes each. The local cardinal voxel search permits ground steps/drops of one block and beetle wall edges, checks overhead clearance, and rechecks movement against current terrain edits. Full maze navigation, water traversal and flying are outside this initial behaviour set.
 
 Views and thinking sleep beyond 68 m or when the entity's chunk is unavailable. Ambient mobs beyond 112 m are removed and may be replenished by later spawning. This is a bounded ambient population, not persistent named creatures: mob identity/health survive floating-origin shifts and temporary sleep within the active session, but there is no cross-session mob save. Creatures carry no inventories or loot that could be silently lost during removal. Initial combat grace is ten gameplay seconds; the shared `Respawned` event resets eight seconds of mob grace in addition to survival-owned respawn immunity. A large relocation also triggers this grace as a fallback.
 
@@ -38,8 +48,8 @@ All meshes, palette pixels and animations were authored for Rivet Reach. No thir
 
 ## Build and verification
 
-Use the pinned Unity 6000.4.4f1 Editor. `Rivet Reach > Mobs > Build Windows review` prepares the shared project assets, runs mob import validation and produces `Builds/Mobs/RivetReach.exe`; a batch process in an otherwise unopened checkout can execute `RivetReach.Editor.MobBuild.Build`. Preserve any active Editor session and follow [the shared coordination mailbox](MOB_DAY_NIGHT_HANDOFF.md).
+Use the pinned Unity 6000.4.4f1 Editor. `Rivet Reach > Mobs > Build Windows review` prepares the shared project assets, runs mob import validation and produces `Builds/Mobs/RivetReach.exe`; a batch process in an otherwise unopened checkout can execute `RivetReach.Editor.MobBuild.Build`. Preserve active Editor sessions and establish current ownership before sharing a build checkout.
 
 Run `Tools/Verify-Mobs.ps1` after building. It invokes the explicit `-rr-mob-verify` mode and writes `Logs/MobVerification/mob-runtime-report.json` plus screenshots. That mode uses the actual gameplay authority, creates a bounded test platform, and checks loaded support, day/night spawn policy, population limits, collision/navigation, melee occlusion, telegraph/avoidance, health integration, player input, defeat and origin/distance lifecycle. Normal games never create test fixtures. Generic `-rr-verify` runs disable natural mob spawning to keep pre-existing terrain/inventory tests reproducible.
 
-The [mob verification results](verification/MOB_RESULTS.md) record 56 passing standalone checks, imported geometry, actual day/night/combat screenshots and the remaining review limits. Read the [day/night handoff](MOB_DAY_NIGHT_HANDOFF.md) for coordination provenance.
+The [initial mob verification results](verification/MOB_RESULTS.md) record 56 passing standalone checks, imported geometry and actual day/night/combat screenshots. The [wall-climbing revision](verification/BEETLE_WALL_CLIMB_RESULTS.md) extends this to 79 passing checks and records the current wall behavior, screenshot and review limits. Completed integration messages remain in Git history.

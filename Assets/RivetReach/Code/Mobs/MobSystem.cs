@@ -213,27 +213,66 @@ namespace RivetReach
         }
         static void Face(MobState mob,Vector3 direction)
         {if(direction.x*direction.x+direction.z*direction.z>.001f)mob.Yaw=Mathf.Atan2(direction.x,direction.z)*Mathf.Rad2Deg;}
+        bool WallMove(MobState mob,Vector3 local,float dt,out Vector3 delta)
+        {
+            delta=Vector3.zero;var d=mob.Definition;
+            if(!d.climbsWalls)return false;
+            bool hasPath=(mob.Intent==MobIntent.Chase||mob.Intent==MobIntent.Wander||mob.Intent==MobIntent.Return)&&mob.PathIndex<mob.Path.Count;
+            Vector3 next=hasPath?MobNavigation.Feet(world,mob.Path[mob.PathIndex]):local;
+            bool onFloor=MobNavigation.Standable(world,local,d);
+            bool top=hasPath&&MobNavigation.Standable(world,next,d);
+            Vector3 toward=next-local;
+            // Retain the last wall's lower grip points for the short crest onto its checked
+            // top. This cannot bridge a missing wall or attach to the underside of a ceiling.
+            bool lip=mob.Climbing&&top&&toward.y>=-.02f&&toward.y<.55f&&
+                new Vector2(toward.x,toward.z).magnitude<1.15f&&Vector3.Dot(toward,-mob.WallNormal)>.05f;
+            Vector3 normal=MobNavigation.WallNormal(world,local,d,mob.WallNormal,lip);
+            if(normal==Vector3.zero||onFloor&&(!hasPath||Mathf.Abs(toward.y)<.15f))return false;
+            if(hasPath&&(world.Overlaps(next,d.width,d.height)||!top&&MobNavigation.WallNormal(world,next,d)==Vector3.zero))
+            {mob.Path.Clear();mob.PathAt=elapsed;hasPath=false;}
+            mob.Climbing=true;mob.WallNormal=normal;mob.Vertical=0;
+            if(hasPath)
+            {
+                if(toward.magnitude<.12f)mob.PathIndex++;
+                else
+                {
+                    delta=toward.normalized*Mathf.Min(d.climbSpeed*dt,toward.magnitude);
+                    if(top&&toward.y>.01f&&Vector3.Dot(toward,-normal)>.05f)
+                        delta=Vector3.up*Mathf.Min(d.climbSpeed*dt,toward.y);
+                    Vector3 along=Vector3.ProjectOnPlane(toward,normal);
+                    if(along.sqrMagnitude>.01f)mob.ClimbDirection=along.normalized;
+                }
+            }
+            return true;
+        }
         void Move(MobState mob,float dt)
         {
             var d=mob.Definition;Vector3 local=mob.Position.Local(game.World.Origin),horizontal=Vector3.zero;
-            if((mob.Intent==MobIntent.Chase||mob.Intent==MobIntent.Wander||mob.Intent==MobIntent.Return)&&mob.PathIndex<mob.Path.Count)
+            bool climbing=WallMove(mob,local,dt,out Vector3 movement);
+            if(!climbing)
             {
-                var next=MobNavigation.Feet(game.World,mob.Path[mob.PathIndex]);Vector3 direction=next-local;direction.y=0;
-                if(direction.magnitude<.14f)mob.PathIndex++;
-                else
+                mob.Climbing=false;mob.WallNormal=Vector3.zero;
+                if((mob.Intent==MobIntent.Chase||mob.Intent==MobIntent.Wander||mob.Intent==MobIntent.Return)&&mob.PathIndex<mob.Path.Count)
                 {
-                    Face(mob,direction);float speed=d.speed*(mob.Intent==MobIntent.Chase?1:.45f);
-                    horizontal=direction.normalized*Mathf.Min(speed*dt,direction.magnitude);
-                    if(next.y-local.y>.3f&&mob.Grounded&&
-                       !game.World.Overlaps(local+Vector3.up*1.02f,d.width,d.height))mob.Vertical=7.2f;
-                    // Refuse walking into a newly mined pit. Replan against edits.
-                    Vector3 edge=local+horizontal+direction.normalized*d.width*.55f;
-                    if(mob.Grounded&&next.y<=local.y+.3f&&!game.World.Overlaps(edge-Vector3.up*1.12f,.12f,1.15f))
-                    {horizontal=Vector3.zero;mob.Path.Clear();mob.PathAt=elapsed;}
+                    var next=MobNavigation.Feet(game.World,mob.Path[mob.PathIndex]);Vector3 direction=next-local;direction.y=0;
+                    if(direction.magnitude<.14f&&Mathf.Abs(next.y-local.y)<.3f)mob.PathIndex++;
+                    else
+                    {
+                        Face(mob,direction);float speed=d.speed*(mob.Intent==MobIntent.Chase?1:.45f);
+                        horizontal=direction.normalized*Mathf.Min(speed*dt,direction.magnitude);
+                        if(next.y-local.y>.3f&&mob.Grounded&&
+                           !game.World.Overlaps(local+Vector3.up*1.02f,d.width,d.height))mob.Vertical=7.2f;
+                        // Refuse walking into a newly mined pit. Replan against edits.
+                        Vector3 edge=local+horizontal+direction.normalized*d.width*.55f;
+                        bool wallDescent=d.climbsWalls&&next.y>=local.y-1.05f&&MobNavigation.WallNormal(world,next,d)!=Vector3.zero;
+                        if(mob.Grounded&&next.y<=local.y+.3f&&!wallDescent&&!game.World.Overlaps(edge-Vector3.up*1.12f,.12f,1.15f))
+                        {horizontal=Vector3.zero;mob.Path.Clear();mob.PathAt=elapsed;}
+                    }
                 }
+                mob.Vertical=Mathf.Max(-25,mob.Vertical-20*dt);
+                movement=horizontal+Vector3.up*mob.Vertical*dt;
             }
-            mob.Vertical=Mathf.Max(-25,mob.Vertical-20*dt);
-            Vector3 result=game.World.Move(local,horizontal+mob.Knockback*dt+Vector3.up*mob.Vertical*dt,d.width,d.height,out bool grounded);
+            Vector3 result=game.World.Move(local,movement+mob.Knockback*dt,d.width,d.height,out bool grounded);
             mob.Grounded=grounded;if(grounded)mob.Vertical=-1;
             mob.Knockback=Vector3.MoveTowards(mob.Knockback,Vector3.zero,10*dt);
             // Keep creatures from occupying the player or each other while retaining vertical support.

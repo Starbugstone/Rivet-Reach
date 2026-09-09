@@ -52,7 +52,7 @@ namespace RivetReach.Editor
                 if(AssetDatabase.LoadAssetAtPath<MobDefinition>(path)!=null)continue;
                 var d=ScriptableObject.CreateInstance<MobDefinition>();bool beetle=model=="RustbackBeetle";
                 d.stableId=beetle?"rivet:rustback_beetle":"rivet:dusk_prowler";d.displayName=beetle?"Rustback beetle":"Dusk prowler";
-                d.model=model;d.territorial=beetle;d.nocturnal=!beetle;d.health=beetle?12:18;d.damage=beetle?2:3;
+                d.model=model;d.territorial=beetle;d.nocturnal=!beetle;d.climbsWalls=beetle;d.health=beetle?12:18;d.damage=beetle?2:3;
                 // Body colliders fit a voxel lane; legs, ears and tail are presentation.
                 d.population=beetle?8:6;d.width=beetle?.9f:.85f;d.height=beetle?.92f:1.7f;d.speed=beetle?2.6f:3.7f;
                 d.strideLength=beetle?.55f:1.1f;

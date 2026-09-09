@@ -17,6 +17,8 @@ MonoBehaviour:
   model: RustbackBeetle
   nocturnal: 0
   territorial: 1
+  climbsWalls: 1
+  climbSpeed: 1.8
   health: 12
   damage: 2
   population: 8

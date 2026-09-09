@@ -15,6 +15,7 @@ namespace RivetReach
         readonly float[] lengths=new float[4];
         Renderer[] renderers;
         MaterialPropertyBlock properties;
+        Transform surfacePose;
         float flash,clipTime,blend;
         int current=-1,previous=-1;
         public int Triangles {get;private set;}
@@ -23,7 +24,10 @@ namespace RivetReach
             State=state;
             var prefab=Resources.Load<GameObject>("Mobs/"+state.Definition.model);
             if(prefab==null)throw new InvalidOperationException("Missing creature model: "+state.Definition.model);
-            var facing=new GameObject("Authored forward axis");facing.transform.SetParent(transform,false);
+            surfacePose=new GameObject("Surface pose").transform;surfacePose.SetParent(transform,false);
+            surfacePose.localPosition=Vector3.up*state.Definition.height*.5f;
+            var facing=new GameObject("Authored forward axis");facing.transform.SetParent(surfacePose,false);
+            facing.transform.localPosition=-Vector3.up*state.Definition.height*.5f;
             var model=Instantiate(prefab,facing.transform);model.name=state.Definition.displayName;
             // Named bones define facing while preserving FBX's axis/unit conversion. The
             // independent parent cannot be overwritten by an imported root animation curve.
@@ -62,10 +66,12 @@ namespace RivetReach
         {
             transform.position=Vector3.Lerp(transform.position,position,1-Mathf.Exp(-20*dt));
             transform.rotation=Quaternion.Slerp(transform.rotation,Quaternion.Euler(0,State.Yaw,0),1-Mathf.Exp(-12*dt));
+            Quaternion pose=State.Climbing?Quaternion.LookRotation(State.ClimbDirection,State.WallNormal):transform.rotation;
+            surfacePose.rotation=Quaternion.Slerp(surfacePose.rotation,pose,1-Mathf.Exp(-14*dt));
             int clip=State.Intent==MobIntent.Dead?3:State.Intent==MobIntent.Windup?2:
                 State.Intent==MobIntent.Chase||State.Intent==MobIntent.Return||State.Intent==MobIntent.Wander?1:0;
             if(clip!=current){previous=current;current=clip;clipTime=0;blend=previous<0?1:0;}
-            float speed=clip==1?State.Definition.speed*(State.Intent==MobIntent.Chase?1:.45f)/State.Definition.strideLength:
+            float speed=clip==1?(State.Climbing?State.Definition.climbSpeed:State.Definition.speed*(State.Intent==MobIntent.Chase?1:.45f))/State.Definition.strideLength:
                 clip==2?lengths[clip]/State.Definition.windup:clip==3?lengths[clip]/1.4f:1;
             clipTime+=dt*speed;blend=Mathf.Min(1,blend+dt/.12f);
             clips[current].SetTime(clip<2?clipTime%lengths[clip]:Mathf.Min(clipTime,lengths[clip]-.001f));

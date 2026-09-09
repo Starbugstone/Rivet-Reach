@@ -1,0 +1,27 @@
+{
+  "unity": "6000.4.4f1",
+  "ownedSourceSha256": {
+    "Assets/RivetReach/Code/Mobs/MobDefinition.cs": "d3f1df8342d8570088c50b38f9a212d8d1b8dca0312fb7aeeb611d8e879cf9be",
+    "Assets/RivetReach/Code/Mobs/MobNavigation.cs": "152ba5d2aac55489b73c0d6deb736bfff9242a380c2ba107af7e128364ef3c73",
+    "Assets/RivetReach/Code/Mobs/MobSystem.cs": "384d67d7d6998c25cf5b98ef0857f1cdd428d17c8c29127fb6523ea089c6b4e3",
+    "Assets/RivetReach/Code/Mobs/MobVerification.cs": "44b0f628cac6bfc91aeee8ad6768a1c9d726ee2ce02cee73abbe2afa7002574b",
+    "Assets/RivetReach/Code/Mobs/MobView.cs": "2a23cb38af1441f3aabb3e2b5d31c387856ff64851d59d771a774423f730b2c3",
+    "Assets/RivetReach/Editor/MobAssetImport.cs": "a62a423eca46798b445020f9220e36aaceddcad27181a25fdf01e038b221fb61",
+    "Assets/RivetReach/Resources/Mobs/Definitions/RustbackBeetle.asset": "192b9737d680dc1a34a54852fbc692c08873bc244b9608ebc2b71c31b5fa7bb6"
+  },
+  "artifactSha256": {
+    "RivetReach.exe": "7d52ee70fb22771f4608d810d1015f539c37dd8b7b2fbb1a0ea9f6bc5c32d5c9",
+    "RivetReach_Data/Managed/Assembly-CSharp.dll": "f3ac7b52c3259b0dbd81cdefd0adc0eedc663802dc1599f7d8700d3215f9dc1e",
+    "RivetReach_Data/resources.assets": "cf22c14a5d12e8176d1d430983e0fe3da5521df3241f0d73044a39fed4ef5faf"
+  },
+  "mainFilesChangedAfterSnapshot": [
+    "Assets/RivetReach/Code/Expedition.cs",
+    "Assets/RivetReach/Code/StarterCraftingVerification.cs",
+    "Assets/RivetReach/Resources/Mobs/CreatureMaterial.mat"
+  ],
+  "concurrentRuntimeSourceSha256": {
+    "Assets/RivetReach/Code/Expedition.cs": "b0e32ffe3a9ce01637b821578d3a77cc9aa242037a8a484487a86160555324c9",
+    "Assets/RivetReach/Code/Player/FirstPersonPlayer.cs": "fa2e4658ab4a1f045e56d87749ea0097eba8ca91f690806e6fc272e13643af43",
+    "Assets/RivetReach/Code/Player/PlayerInput.cs": "b797e6d224efd44edb95dd2d7bdf59557206f0480b96651159d2d95ea5fc72e4"
+  }
+}

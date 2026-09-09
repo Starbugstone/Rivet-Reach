@@ -6,7 +6,8 @@ namespace RivetReach
     public sealed class MobDefinition : ScriptableObject
     {
         public string stableId, displayName, model;
-        public bool nocturnal, territorial;
+        public bool nocturnal, territorial, climbsWalls;
+        [Min(.1f)] public float climbSpeed=1.8f;
         [Min(1)] public int health=30, damage=8, population=6;
         [Min(.2f)] public float width=1.1f, height=1.6f, speed=3.2f;
         [Min(.1f)] public float strideLength=1.1f;
@@ -15,7 +16,7 @@ namespace RivetReach
         public void Validate()
         {
             if(string.IsNullOrWhiteSpace(stableId)||string.IsNullOrWhiteSpace(model)||health<1||damage<1||population<1||
-               width<.2f||height<.2f||speed<=0||strideLength<.1f||noticeRange<attackRange||attackRange<1||leashRange<noticeRange||windup<.1f||recovery<.1f)
+               width<.2f||height<.2f||speed<=0||climbSpeed<.1f||strideLength<.1f||noticeRange<attackRange||attackRange<1||leashRange<noticeRange||windup<.1f||recovery<.1f)
                 throw new System.InvalidOperationException("Invalid mob definition: "+name);
         }
     }
@@ -31,7 +32,8 @@ namespace RivetReach
         public int Health;
         public MobIntent Intent;
         public float Timer, Anger, Yaw, Vertical, PathAt, Unseen;
-        public bool Grounded;
+        public bool Grounded, Climbing;
+        public Vector3 WallNormal, ClimbDirection=Vector3.up;
         public Vector3 Knockback;
         internal readonly System.Collections.Generic.List<BlockPos> Path=new System.Collections.Generic.List<BlockPos>();
         internal int PathIndex;

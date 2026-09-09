@@ -26,6 +26,33 @@ namespace RivetReach
             }
             return true;
         }
+        public static Vector3 WallNormal(VoxelWorld world,Vector3 feet,MobDefinition definition,Vector3 preferred=default,bool lip=false)
+        {
+            if(!definition.climbsWalls)return Vector3.zero;
+            bool Contact(Vector3 normal)
+            {
+                Vector3 tangent=Vector3.Cross(normal,Vector3.up)*definition.width*.32f;
+                // Two grip points need real, loaded solid voxels. A lip probe is used only
+                // during a checked transition onto the supporting top of this same wall.
+                Vector3 probe=feet-normal*(definition.width*.5f+.10f)+Vector3.up*(lip?-.08f:.08f);
+                for(int side=-1;side<=1;side+=2)
+                {
+                    var cell=world.Address(probe+tangent*side);
+                    if(!world.Ready(cell)||!BlockId.Solid(world.Get(cell)))return false;
+                }
+                return true;
+            }
+            if(preferred.sqrMagnitude>.5f&&Contact(preferred))return preferred;
+            if(lip)return Vector3.zero;
+            foreach(var direction in directions)if(Contact(direction))return direction;
+            return Vector3.zero;
+        }
+        static bool Supported(VoxelWorld world,BlockPos cell,MobDefinition definition)
+        {
+            var feet=Feet(world,cell);
+            return Standable(world,feet,definition)||definition.climbsWalls&&
+                !world.Overlaps(feet,definition.width,definition.height)&&WallNormal(world,feet,definition)!=Vector3.zero;
+        }
         static bool Edge(VoxelWorld world,BlockPos from,BlockPos to,MobDefinition definition)
         {
             Vector3 a=Feet(world,from),b=Feet(world,to);
@@ -41,8 +68,20 @@ namespace RivetReach
         public void Find(VoxelWorld world,Vector3 start,Vector3 destination,MobDefinition definition,List<BlockPos> path)
         {
             path.Clear();nodes.Clear();indices.Clear();LastExpanded=0;
-            BlockPos first=world.Address(start),goal=world.Address(destination);
-            float Distance(BlockPos c)=>(float)(System.Math.Abs(c.X-goal.X)+System.Math.Abs(c.Z-goal.Z)) + System.Math.Abs(c.Y-goal.Y)*.5f;
+            // Voxel collision can rest feet a fraction below the integer top face. Address
+            // the free cell above that tolerance, otherwise a return route starts in stone.
+            BlockPos first=world.Address(start+Vector3.up*.01f),goal=world.Address(destination+Vector3.up*.01f);
+            float Distance(BlockPos c)=>(float)(System.Math.Abs(c.X-goal.X)+System.Math.Abs(c.Z-goal.Z)) + System.Math.Abs(c.Y-goal.Y);
+            void Add(BlockPos cell,int parent,float cost)
+            {
+                if(indices.TryGetValue(cell,out int index))
+                {
+                    var existing=nodes[index];
+                    if(!existing.Closed&&cost<existing.Cost){existing.Cost=cost;existing.Parent=parent;existing.Score=cost+Distance(cell);nodes[index]=existing;}
+                }
+                else if(nodes.Count<256)
+                {indices[cell]=nodes.Count;nodes.Add(new Node{Cell=cell,Parent=parent,Cost=cost,Score=cost+Distance(cell)});}
+            }
             nodes.Add(new Node{Cell=first,Parent=-1,Score=Distance(first)});indices[first]=0;
             int closest=0;
             while(LastExpanded<96)
@@ -59,16 +98,23 @@ namespace RivetReach
                     {
                         int rise=dy==0?0:dy==1?1:-1;
                         var cell=node.Cell.Offset(direction.x,rise,direction.z);
-                        if(!Standable(world,Feet(world,cell),definition)||!Edge(world,node.Cell,cell,definition))continue;
-                        float cost=node.Cost+1+Mathf.Abs(rise)*.4f;
-                        if(indices.TryGetValue(cell,out int index))
-                        {
-                            var existing=nodes[index];
-                            if(!existing.Closed&&cost<existing.Cost){existing.Cost=cost;existing.Parent=best;existing.Score=cost+Distance(cell);nodes[index]=existing;}
-                        }
-                        else if(nodes.Count<256)
-                        {indices[cell]=nodes.Count;nodes.Add(new Node{Cell=cell,Parent=best,Cost=cost,Score=cost+Distance(cell)});}
+                        if(!Supported(world,cell,definition)||!Edge(world,node.Cell,cell,definition))continue;
+                        Add(cell,best,node.Cost+1+Mathf.Abs(rise)*.4f);
                         break;
+                    }
+                }
+                if(definition.climbsWalls&&WallNormal(world,Feet(world,node.Cell),definition)!=Vector3.zero)
+                {
+                    for(int rise=-1;rise<=1;rise+=2)
+                    {
+                        var cell=node.Cell.Offset(0,rise,0);bool clear=true;
+                        // A wall gap, ceiling or unloaded border must not become a flying edge.
+                        for(int sample=1;sample<=4;sample++)
+                        {
+                            var feet=Vector3.Lerp(Feet(world,node.Cell),Feet(world,cell),sample*.25f);
+                            if(world.Overlaps(feet,definition.width,definition.height)||WallNormal(world,feet,definition)==Vector3.zero){clear=false;break;}
+                        }
+                        if(clear)Add(cell,best,node.Cost+1.15f);
                     }
                 }
             }

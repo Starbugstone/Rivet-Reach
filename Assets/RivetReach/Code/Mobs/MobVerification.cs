@@ -53,8 +53,9 @@ namespace RivetReach
         void Log(string message,string stack,LogType type){if(type==LogType.Error||type==LogType.Exception||type==LogType.Assert)errors.Add(message+"\n"+stack);}
         void OnDestroy(){Application.logMessageReceived-=Log;}
         void Check(bool condition,string message){if(!condition)throw new InvalidOperationException(message);checks.Add(message);}
-        IEnumerator Until(Func<bool> predicate,float timeout,string message)
-        {float end=Time.realtimeSinceStartup+timeout;while(!predicate()&&Time.realtimeSinceStartup<end)yield return null;Check(predicate(),message);}
+        IEnumerator Until(Func<bool> predicate,float timeout,string message,Func<string> diagnostic=null)
+        {float end=Time.realtimeSinceStartup+timeout;while(!predicate()&&Time.realtimeSinceStartup<end)yield return null;
+            bool passed=predicate();Check(passed,!passed&&diagnostic!=null?message+": "+diagnostic():message);}
         IEnumerator Capture(string name)
         {yield return new WaitForSecondsRealtime(.3f);yield return new WaitForEndOfFrame();ScreenCapture.CaptureScreenshot(Path.Combine(output,name+".png"));yield return new WaitForSecondsRealtime(.4f);}
         Vector3 At(float x,float z)=>new Vector3(x+.5f,floor+1.006f,z+.5f);
@@ -70,6 +71,64 @@ namespace RivetReach
             var direction=mob.Position.Local(game.World.Origin)+Vector3.up*mob.Definition.height*.55f-game.Player.Camera.transform.position;
             game.Player.Yaw=Mathf.Atan2(direction.x,direction.z)*Mathf.Rad2Deg;
             game.Player.Pitch=-Mathf.Atan2(direction.y,new Vector2(direction.x,direction.z).magnitude)*Mathf.Rad2Deg;
+        }
+        IEnumerator WallChecks(MobDefinition beetle,MobDefinition prowler)
+        {
+            mobs.Clear();PlayerAt(0,0);
+            Check(beetle.climbsWalls&&!prowler.climbsWalls,"Wall climbing is authored for beetles only");
+            // Four-block vertical faces and a broad, reachable top. All edits are real voxels.
+            void Wall(byte block)
+            {for(int x=-3;x<=3;x++)for(int z=3;z<=7;z++)for(int y=floor+1;y<=floor+4;y++)Block(x,y,z,block);}
+            Wall(BlockId.Stone);
+            var nav=new MobNavigation();var path=new List<BlockPos>();
+            Vector3 goal=At(0,6)+Vector3.up*4;
+            nav.Find(game.World,At(0,1),goal,beetle,path);
+            Check(path.Any(p=>p.Y>=floor+5)&&path.Zip(path.Skip(1),(a,b)=>a.X==b.X&&a.Z==b.Z&&b.Y>a.Y).Any(b=>b),"Beetle navigation finds vertical wall edges and the top ledge");
+            Check(nav.LastExpanded<=96,"Wall navigation retains the bounded search budget");
+            nav.Find(game.World,goal-Vector3.up*.0065f,At(0,1),beetle,path);
+            Check(path.Any(p=>p.Y<floor+4),"Wall descent routes tolerate resting collider feet below the top face");
+            nav.Find(game.World,At(0,1),goal,prowler,path);
+            Check(path.All(p=>p.Y<floor+5),"Prowlers cannot use the beetle wall route");
+            foreach(var feet in new[]{At(0,2),At(0,8),At(-4,5),At(4,5)})
+                Check(MobNavigation.WallNormal(game.World,feet+Vector3.up,beetle)!=Vector3.zero,"Beetle can grip a cardinal wall face");
+            Check(MobNavigation.WallNormal(game.World,At(300,0),beetle)==Vector3.zero,"Unloaded terrain never supplies wall grip");
+            // A missing horizontal band cannot be crossed by a vertical climbing edge.
+            for(int x=-3;x<=3;x++)for(int z=3;z<=7;z++)Block(x,floor+3,z,0);
+            Check(MobNavigation.WallNormal(game.World,At(0,2)+Vector3.up*2,beetle)==Vector3.zero,"A mined wall band removes grip immediately");
+            nav.Find(game.World,At(0,1),goal,beetle,path);
+            Check(path.All(p=>p.Y<floor+4),"Navigation cannot climb through a missing wall band");
+            for(int x=-3;x<=3;x++)for(int z=3;z<=7;z++)Block(x,floor+3,z,BlockId.Stone);
+            // Low overhang across the outside face: the beetle cannot move through it.
+            for(int x=-3;x<=3;x++)Block(x,floor+3,2,BlockId.Stone);
+            nav.Find(game.World,At(0,2),At(0,2)+Vector3.up*3,beetle,path);
+            Check(!path.Any(p=>p.X==0&&p.Z==2&&p.Y==floor+3),"Wall route rejects a solid overhang in the body volume");
+            for(int x=-3;x<=3;x++)Block(x,floor+3,2,0);
+            var bug=mobs.Spawn(beetle,At(0,1));Check(bug!=null,"Wall encounter starts with a normally grounded beetle");
+            mobs.Damage(bug,1,Vector3.zero);PlayerAt(0,6);game.Player.transform.position+=Vector3.up*4;game.Player.ResetMotion();
+            yield return Until(()=>bug.Climbing&&bug.Position.Local(game.World.Origin).y>floor+2,6,"Provoked beetle physically climbs toward the player above the wall");
+            Check(!game.World.Overlaps(bug.Position.Local(game.World.Origin),beetle.width,beetle.height),"Climbing respects the voxel body collider");
+            game.SetMode(ScreenMode.Pause);var paused=bug.Position;
+            yield return new WaitForSecondsRealtime(.25f);
+            Check(bug.Position.Cell.Equals(paused.Cell)&&bug.Position.Fraction==paused.Fraction,"Pause freezes a beetle attached to a wall");
+            game.SetMode(ScreenMode.Play);
+            // Freeze this actual climbed pose while moving only the review camera/player.
+            mobs.enabled=false;PlayerAt(-4,0);Aim(bug);
+            yield return Capture("beetle-wall-climb");
+            var pose=bug.View.transform.Find("Surface pose");
+            Check(Vector3.Dot(pose.up,bug.WallNormal)>.95f&&Vector3.Dot(pose.forward,Vector3.up)>.9f,"Imported beetle turns against the wall and faces upward");
+            PlayerAt(0,6);game.Player.transform.position+=Vector3.up*4;game.Player.ResetMotion();mobs.enabled=true;
+            yield return Until(()=>bug.Position.Local(game.World.Origin).y>floor+4.98f&&MobNavigation.Standable(game.World,bug.Position.Local(game.World.Origin),beetle),7,"Beetle pulls onto the wall top during pursuit");
+            yield return new WaitForSeconds(.2f);
+            Check(!bug.Climbing,"Beetle returns to ground movement on the top surface");
+            mobs.GiveRespawnGrace();PlayerAt(-5,0);
+            // Return follows the same wall graph down to its original home.
+            yield return Until(()=>bug.Climbing&&bug.ClimbDirection.y<-.5f&&bug.Position.Local(game.World.Origin).y<floor+4.5f,7,"Returning beetle descends a vertical wall",
+                ()=>$"{bug.Intent}, feet={bug.Position.Local(game.World.Origin)}, floor={floor}, climbing={bug.Climbing}, path={bug.PathIndex}/{bug.Path.Count}");
+            float height=bug.Position.Local(game.World.Origin).y;
+            Wall(0);yield return new WaitForSeconds(.45f);
+            Check(!bug.Climbing&&bug.Position.Local(game.World.Origin).y<height-.15f,"Removing wall support detaches the beetle into gravity");
+            Check(!game.World.Overlaps(bug.Position.Local(game.World.Origin),beetle.width,beetle.height),"Support loss cannot push the beetle inside terrain");
+            mobs.Clear();PlayerAt(0,0);game.Player.ResetMotion();
         }
         IEnumerator Run()
         {
@@ -171,6 +230,7 @@ namespace RivetReach
             mobs.Clear();PlayerAt(0,0);cat=mobs.Spawn(prowler,At(0,2));
             yield return Until(()=>mobs.AttackHits>0,5,"Enemy bite reaches shared player damage authority");
             Check(game.Health.Hearts<before&&!game.Health.Dead,"Enemy damage reduces health without bypassing survival");
+            yield return WallChecks(beetle,prowler);
             mobs.GiveRespawnGrace();mobs.Clear();PlayerAt(0,0);bug=mobs.Spawn(beetle,At(0,2));
             yield return null;Aim(bug);yield return null;
             Check(mobs.RayTarget(game.Player.Camera.transform.position,game.Player.Camera.transform.forward)==bug,"First-person ray selects the aimed creature");
@@ -192,8 +252,11 @@ namespace RivetReach
             Check(!mobs.Damage(bug,100,Vector3.forward)&&mobs.TotalDefeated==defeated+1,"Dead entities reject repeated hits and duplicate defeat");
             Check(!mobs.Occupies(bug.Position.Cell),"Dead mob releases build occupancy");
             yield return new WaitForSeconds(1.6f);Check(!mobs.Mobs.Contains(bug),"Death animation completes then presentation is released");
-            mobs.Clear();mobs.GiveRespawnGrace();PlayerAt(0,0);bug=mobs.Spawn(beetle,At(0,4));
-            yield return Until(()=>bug.Intent==MobIntent.Warning,11,"Territorial beetle warns before aggression");
+            mobs.Clear();mobs.GiveRespawnGrace();PlayerAt(0,0);
+            // Start this proximity encounter after grace; an earlier spawn can wander
+            // outside warning range while aggression is intentionally disabled.
+            yield return new WaitForSeconds(8.1f);bug=mobs.Spawn(beetle,At(0,4));
+            yield return Until(()=>bug.Intent==MobIntent.Warning,3,"Territorial beetle warns before aggression");
             PlayerAt(0,-4);yield return new WaitForSeconds(.3f);
             Check(bug.Intent!=MobIntent.Chase,"Backing out of warning range avoids beetle combat");
             // Origin shifts preserve WorldPoint, HP and identity, with views following their data.
