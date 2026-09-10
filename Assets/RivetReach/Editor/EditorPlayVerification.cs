@@ -97,6 +97,8 @@ namespace RivetReach.Editor
         {
             yield return null;
             Check(Errors.Length==0,"Bootstrap logged no errors or exceptions");
+            foreach(var type in new[]{typeof(Light),typeof(AudioSource)})
+                Check(GizmoUtility.TryGetGizmoInfo(type,out var icon)&&!icon.iconEnabled,type.Name+" Editor icons stay hidden after entering Play");
             var game=Expedition.Instance;
             Check(game!=null&&game.World!=null&&game.Player!=null&&game.Items!=null&&game.UI!=null,"Ordinary Bootstrap completed the whole session");
             Check(game.Mode==ScreenMode.Title&&!game.Started,"Play opens on the title screen");

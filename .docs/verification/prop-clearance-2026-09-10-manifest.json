@@ -1,0 +1,10 @@
+{
+  "buildResult": "PASS 2026-09-10T15:53:34.2758299Z",
+  "verification": "prop-clearance-2026-09-10-runtime.json",
+  "sha256": {
+    "RivetReach.exe": "7d52ee70fb22771f4608d810d1015f539c37dd8b7b2fbb1a0ea9f6bc5c32d5c9",
+    "RivetReach_Data/Managed/Assembly-CSharp.dll": "764bb0be31d23ddf199d5ec2c7427999f8ca70219d74c2fb6454ce0b983874e1",
+    "RivetReach_Data/globalgamemanagers": "ffa5a7c8184116c25b91d7475e5dd9a8c35919ec42dfa1d9c1bb84d3ebdbca44",
+    "RivetReach_Data/resources.assets": "ced2534a84aabed7c9334c3fd632d81b8b574d508b20a9d8d1a9b53d8e20d4e8"
+  }
+}

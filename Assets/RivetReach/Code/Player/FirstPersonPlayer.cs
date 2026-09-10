@@ -147,7 +147,7 @@ namespace RivetReach
             {
                 Vector3 desired=transform.position-transform.forward*3+Vector3.up*1.3f;
                 var direction=desired-(transform.position+Vector3.up*1.3f);
-                if(Game.World.Raycast(transform.position+Vector3.up*1.3f,direction.normalized,3,out var obstruction,out _))
+                if(Game.World.RaycastSolid(transform.position+Vector3.up*1.3f,direction.normalized,3,out var obstruction,out _))
                     desired=transform.position+Vector3.up*1.3f+direction.normalized*Mathf.Max(.4f,Vector3.Distance(Game.World.Local(obstruction),transform.position)-.7f);
                 Camera.transform.position=desired;Camera.transform.LookAt(transform.position+Vector3.up*1.05f);
             }
@@ -155,7 +155,7 @@ namespace RivetReach
             {
                 // Smooth the eye transition independently of the immediate collision-height change.
                 eyeHeight=Mathf.SmoothDamp(eyeHeight,Height-.16f,ref eyeVelocity,.105f,20,Time.deltaTime);
-                if(Game.World.Raycast(transform.position+Vector3.up*.1f,Vector3.up,eyeHeight,out var ceiling,out _))
+                if(Game.World.RaycastSolid(transform.position+Vector3.up*.1f,Vector3.up,eyeHeight,out var ceiling,out _))
                     eyeHeight=Mathf.Min(eyeHeight,Mathf.Max(.25f,Game.World.Local(ceiling).y-transform.position.y-.035f));
                 Camera.transform.localPosition=Vector3.up*eyeHeight;
                 Camera.transform.localRotation=Quaternion.Euler(Pitch,0,0);

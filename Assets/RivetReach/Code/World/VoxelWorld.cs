@@ -363,6 +363,11 @@ namespace RivetReach
         public bool Raycast(Vector3 start,Vector3 direction,float reach,out BlockPos hit,out byte id)
             => Raycast(start,direction,reach,out hit,out id,out _);
         public bool Raycast(Vector3 start,Vector3 direction,float reach,out BlockPos hit,out byte id,out Vector3Int face,bool fluidSources=false)
+            => Trace(start,direction,reach,out hit,out id,out face,fluidSources,false);
+        // Camera clearance shares movement's solid predicate, not interaction targeting.
+        public bool RaycastSolid(Vector3 start,Vector3 direction,float reach,out BlockPos hit,out byte id)
+            => Trace(start,direction,reach,out hit,out id,out _,false,true);
+        bool Trace(Vector3 start,Vector3 direction,float reach,out BlockPos hit,out byte id,out Vector3Int face,bool fluidSources,bool solidsOnly)
         {
             hit=default;id=0;face=Vector3Int.zero;var cell=Address(start);
             Vector3 localCell=Local(cell),step=new Vector3(Math.Sign(direction.x),Math.Sign(direction.y),Math.Sign(direction.z));
@@ -372,8 +377,9 @@ namespace RivetReach
             float distance=0;
             for(int i=0;i<64&&distance<=reach;i++)
             {
-                if(!Ready(cell))return false;
-                byte b=Get(cell);var fluid=Fluids.Registry.Get(b);if(b!=0&&(fluid==null||fluidSources&&fluid.IsSource(b))){hit=cell;id=b;return true;}
+                if(!Ready(cell)){if(solidsOnly){hit=cell;return true;}return false;}
+                byte b=Get(cell);var fluid=Fluids.Registry.Get(b);
+                if(solidsOnly?Solid(cell):b!=0&&(fluid==null||fluidSources&&fluid.IsSource(b))){hit=cell;id=b;return true;}
                 int axis=t.x<t.y?(t.x<t.z?0:2):(t.y<t.z?1:2);
                 distance=t[axis];t[axis]+=delta[axis];
                 face=Vector3Int.zero;face[axis]=-(int)step[axis];

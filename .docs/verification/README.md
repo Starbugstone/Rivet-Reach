@@ -6,6 +6,7 @@ This directory maintains the latest report and useful evidence for each feature.
 | --- | --- |
 | Multiblock tanks and shared pipe channel fittings | [Multiblock verification](MULTIBLOCK_RESULTS.md) |
 | Blue Signal, power and the first workshop | [Industry verification](INDUSTRY_RESULTS.md) — screenshots, gameplay clip, machine interfaces and measured limits |
+| Pass-through props, camera clearance and Editor icons | [Clearance verification](PROP_CLEARANCE_RESULTS.md) |
 | Craftable torches and local lighting | [Torch verification](TORCH_RESULTS.md) |
 | Creative testing, flight and item catalog | [Creative verification](CREATIVE_RESULTS.md) |
 | Starter recipes and block interaction | [Crafting verification](CRAFTING_RESULTS.md) — exact layouts/quantities, placed workbench and 3×3 UI |

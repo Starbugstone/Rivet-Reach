@@ -10,6 +10,76 @@ namespace RivetReach
 {
     public sealed partial class RuntimeVerification
     {
+        IEnumerator ReviewPropClearance()
+        {
+            var world=game.World;var player=game.Player;
+            var saved=WorldPoint.FromLocal(player.transform.position,world.Origin);
+            int y=0;for(int x=-2;x<=2;x++)for(int z=-3;z<=4;z++)y=Math.Max(y,world.Generator.Height(x,z)+TerrainGenerator.MaxTreeHeight+3);
+            var cell=new BlockPos(0,y,0);var at=world.Local(cell);
+            var changes=new Dictionary<BlockPos,byte>();
+            void Set(BlockPos p,byte id)
+            {
+                if(!changes.ContainsKey(p))changes[p]=world.Get(p);
+                byte old=world.Get(p);if(old==id)return;
+                if(old!=0)Check(world.Remove(p,old),"Clearance fixture removes prior cell");
+                if(id!=0)Check(world.Place(p,id),"Clearance fixture places cell");
+            }
+            game.SetMode(ScreenMode.Play);game.Diagnostics=false;
+            player.enabled=false;
+            for(int z=-3;z<=4;z++)for(int x=-2;x<=2;x++)Set(cell.Offset(x,-1,z),BlockId.Dirt);
+            foreach(byte id in new[]{BlockId.Torch,BlockId.PotatoPlant,(byte)34,(byte)35,BlockId.MaturePotatoPlant,IndustryId.SignalWire})
+            {
+                if(BlockId.Crop(id))
+                {
+                    Check(world.Till(cell.Offset(0,-1,0))||world.Get(cell.Offset(0,-1,0))==BlockId.Farmland,"Crop fixture has farmland");
+                    Check(world.Plant(cell),"Plant through survival authority");
+                    for(byte stage=BlockId.PotatoPlant;stage<id;stage++)Check(world.Grow(cell,stage),"Advance potato growth stage");
+                }
+                else Set(cell,id);
+                Vector3 inside=at+new Vector3(.5f,.003f,.5f);
+                Check(!world.Overlaps(inside,.6f,1.8f),"Prop "+id+" permits full player volume");
+                Check(!world.RaycastSolid(inside+Vector3.up*.1f,Vector3.up,1.64f,out _,out _),"Prop "+id+" is not a camera ceiling");
+                Vector3 ray=at+new Vector3(.5f,.5f,-1.5f);
+                Check(world.Raycast(ray,Vector3.forward,4,out var hit,out byte target)&&hit.Equals(cell)&&target==id,"Prop "+id+" remains interaction-targetable");
+                Set(cell.Offset(0,0,2),BlockId.Stone);
+                Check(world.RaycastSolid(ray,Vector3.forward,4,out hit,out _)&&hit.Equals(cell.Offset(0,0,2)),"Camera ray continues through prop "+id+" to solid wall");
+                Set(cell.Offset(0,0,2),0);
+                player.ResetMotion();player.transform.position=inside-Vector3.forward*1.5f;player.Yaw=0;player.Pitch=10;player.VerificationCrouching=false;player.enabled=true;
+                yield return new WaitForSecondsRealtime(.4f);
+                player.VerificationMovement=Vector2.up;
+                float until=Time.realtimeSinceStartup+3,minEye=float.MaxValue,maxFootError=0;
+                while(player.transform.position.z<inside.z+1.5f&&Time.realtimeSinceStartup<until)
+                {
+                    yield return null;minEye=Math.Min(minEye,player.VisualEyeHeight);maxFootError=Math.Max(maxFootError,Math.Abs(player.transform.position.y-at.y));
+                }
+                player.VerificationMovement=Vector2.zero;
+                Check(player.transform.position.z>=inside.z+1.5f&&maxFootError<.02f,"Walk completely through prop "+id+" without blocking or changing floor height");
+                Check(minEye>1.62f,"Walking through prop "+id+" keeps standing eye height (minimum "+minEye.ToString("F3")+" m)");
+                player.transform.position=inside;player.VerificationCrouching=true;
+                yield return new WaitForSecondsRealtime(.6f);
+                Check(player.Height<1.5f&&player.VisualEyeHeight>1.07f,"Crouching inside prop "+id+" keeps crouched eye height");
+                player.VerificationCrouching=false;yield return new WaitForSecondsRealtime(.6f);
+                Check(player.Height>1.7f&&player.VisualEyeHeight>1.62f,"Stand up inside prop "+id+" without camera dip");
+                if(id==BlockId.Torch||id==BlockId.MaturePotatoPlant)yield return Capture("clearance-prop-"+id);
+                player.enabled=false;Set(cell,0);
+            }
+            // A wall-mounted torch at head height must also be passable.
+            Set(cell.Offset(1,1,0),BlockId.Stone);
+            changes[cell.Offset(0,1,0)]=world.Get(cell.Offset(0,1,0));
+            Check(world.PlaceTorch(cell.Offset(0,1,0),cell.Offset(1,1,0)),"Place wall torch at head height");
+            player.transform.position=at+new Vector3(.5f,.003f,.5f);player.enabled=true;
+            yield return new WaitForSecondsRealtime(.4f);
+            Check(player.VisualEyeHeight>1.62f&&!world.Overlaps(player.transform.position,.6f,1.8f),"Head-height wall torch permits standing with full eye height");
+            player.enabled=false;Set(cell.Offset(0,1,0),0);
+            // Real low ceilings must still cap the view immediately after crouching.
+            player.transform.position=at+new Vector3(.5f,-.55f,.5f);Set(cell.Offset(0,-1,0),0);Set(cell.Offset(0,-2,0),BlockId.Stone);Set(cell.Offset(0,1,0),BlockId.Stone);
+            player.VerificationCrouching=true;player.enabled=true;yield return null;yield return null;
+            Check(player.Camera.transform.position.y<at.y+1,"Solid ceiling still prevents eye clipping during crouch transition");
+            player.enabled=false;
+            foreach(var pair in changes){byte current=world.Get(pair.Key);if(current!=0&&current!=pair.Value)world.Remove(pair.Key,current);if(pair.Value!=0&&world.Get(pair.Key)==0)world.Place(pair.Key,pair.Value);}
+            player.transform.position=saved.Local(world.Origin);player.VerificationCrouching=null;player.ResetMotion();player.enabled=true;
+            yield return null;
+        }
         IEnumerator ReviewMovementInteractions()
         {
             var world=game.World;var player=game.Player;

@@ -1,4 +1,4 @@
-param([string]$OutputDirectory,[switch]$Trees,[switch]$Crafting,[switch]$StarterCrafting,[switch]$Audio,[switch]$Ores,[switch]$Arcade,[switch]$Survival,[switch]$PlacementItems,[string]$Executable,[ValidateRange(1,1800)][int]$TimeoutSeconds=600)
+param([string]$OutputDirectory,[switch]$Trees,[switch]$Crafting,[switch]$StarterCrafting,[switch]$Audio,[switch]$Ores,[switch]$Arcade,[switch]$Survival,[switch]$PlacementItems,[switch]$Clearance,[string]$Executable,[ValidateRange(1,1800)][int]$TimeoutSeconds=600)
 $ErrorActionPreference = 'Stop'
 $project = Split-Path $PSScriptRoot -Parent
 if (!$OutputDirectory) { $OutputDirectory = Join-Path $project 'Logs\POCVerification' }
@@ -11,6 +11,7 @@ if ($Crafting) { $arguments += '-rr-crafting-review' }
 if ($StarterCrafting) { $arguments += '-rr-starter-crafting-review' }
 if ($Survival) { $arguments += '-rr-survival-review' }
 if ($PlacementItems) { $arguments += '-rr-placement-items-review' }
+if ($Clearance) { $arguments += '-rr-clearance-review' }
 if ($Audio) { $arguments += '-rr-audio-review' }
 if ($Ores) { $arguments += '-rr-ore-review' }
 if ($Arcade) { $arguments += '-rr-arcade-review' }

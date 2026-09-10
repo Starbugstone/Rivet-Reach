@@ -18,6 +18,8 @@ The normal build entry point is **Rivet Reach → Build Windows first POC**, or 
 
 `Tools/Verify-Multiblocks.ps1 -Build` prepares, builds and verifies the current tank/pipe review through the open Editor. `Tools/Verify-Industry.ps1 -Build` retains the earlier workshop scenario. The older general script builds `Builds/PlayerRevision4/RivetReach.exe`. To test the delivered review executable, supply `-Executable Builds/Multiblocks/RivetReach.exe`. `Tools/Verify-Creative.ps1 -Build` produces and checks the separate Creative review build through the open Editor. Runtime assets are versioned; ordinary Play requires no Blender or asset-generation step.
 
+Light-bulb and speaker markers are Unity Editor annotations, with no gameplay purpose. The project hides these icons on Editor initialization and Play entry; actual lights and sound remain enabled. Camera clearance uses movement solidity so walking through torches and potato plants keeps the normal eye height.
+
 The build script reuses this project's open Editor through its existing local file request, or starts the pinned Editor in batch mode when the project is closed. Preserve open scenes and unsaved work. An explicit Editor startup check is available through **Rivet Reach → Verify Editor Play startup**; the latest [player/audio report](verification/HIFI_PLAYER_AND_AUDIO_RESULTS.md) records its evidence.
 
 ## Controls
