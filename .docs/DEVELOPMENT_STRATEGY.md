@@ -517,3 +517,7 @@ The user selected mob implementation, Blender-authored enemies, AI and spawning,
 ### Terrain and biome extension — 2026-09-09
 
 The user selected a terrain-generation rework with caves, varied relief and biomes. [TERRAIN_GENERATION.md](TERRAIN_GENERATION.md) owns this bounded working profile and its review questions. It preserves finite ore bands, bedrock and session edits, and supplies the coordinated wild-food generation hook to survival. Structures, water and additional worlds are not selected by this terrain request. [Verification](verification/TERRAIN_GENERATION_RESULTS.md) records measured evidence separately from user play review.
+
+## Authorized industrial extension — 2026-09-10
+
+The user selected implementation of [GitHub issue #2](https://github.com/Starbugstone/Rivet-Reach/issues/2), including original Blender machines, animated operating states, matching interfaces and stability/performance checks. [INDUSTRY.md](INDUSTRY.md) owns the current Azure/Copper unlock, 4×4 Machinist’s Bench, separate signal/power/item/fluid graphs, steam/electrical bootstrap, crusher/pump/drill and fixed sensor/relay behavior. This supersedes earlier statements excluding this bounded industrial content; hybrid transport/control variants, advanced logic and durable saves remain later extensions. [Industry verification](verification/INDUSTRY_RESULTS.md) owns evidence and remaining limits.

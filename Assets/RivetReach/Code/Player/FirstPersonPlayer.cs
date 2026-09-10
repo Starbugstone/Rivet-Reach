@@ -212,7 +212,7 @@ namespace RivetReach
             {
                 MiningProgress=0;
                 if(Fluids.IsBucket(heldId)){if(Game.Input.PlacePressed&&Game.TryUseBucket())Arms.TriggerSwing();return;}
-                if(found&&BlockId.Station(id)&&!Game.Input.Held("Crouch"))
+                if(found&&(BlockId.Station(id)||IndustryId.Placed(id))&&!Game.Input.Held("Crouch"))
                 {eating=0;eatingItem=0;if(Game.Input.PlacePressed)Game.TryInteractTarget();return;}
                 if(found&&(tool&ToolCapability.Hoe)!=0&&(id==BlockId.Grass||id==BlockId.Dirt))
                 {

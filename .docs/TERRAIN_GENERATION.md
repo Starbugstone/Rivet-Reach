@@ -62,3 +62,7 @@ All four use the existing item definition, mining/drop, placement, inventory and
 - The runtime review visits naturally generated biome and cave sites for seed 246813, captures ground and elevated survey views, checks full surface residency and cave collision, mines/places the four biome blocks and tests edits across unloading/origin shifts. Teleports and survey cameras belong only to explicit verification mode.
 
 Measured results and limitations belong in [terrain verification](verification/TERRAIN_GENERATION_RESULTS.md). Biome scale, height variety, cave density, entrance safety and navigation remain user-review questions. This request does not automatically select another roadmap stage.
+
+## Authorized industrial extension — 2026-09-10
+
+The user selected implementation of [GitHub issue #2](https://github.com/Starbugstone/Rivet-Reach/issues/2), including original Blender machines, animated operating states, matching interfaces and stability/performance checks. [INDUSTRY.md](INDUSTRY.md) owns the current Azure/Copper unlock, 4×4 Machinist’s Bench, separate signal/power/item/fluid graphs, steam/electrical bootstrap, crusher/pump/drill and fixed sensor/relay behavior. This supersedes earlier statements excluding this bounded industrial content; hybrid transport/control variants, advanced logic and durable saves remain later extensions. [Industry verification](verification/INDUSTRY_RESULTS.md) owns evidence and remaining limits.

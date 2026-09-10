@@ -1614,3 +1614,7 @@ The current terrain extension is specified in [TERRAIN_GENERATION.md](TERRAIN_GE
 ## Authorized native mob increment
 
 The user selected Rustback beetle and Dusk prowler with original Blender assets, AI, melee combat and natural spawning on 2026-09-09. [MOBS.md](MOBS.md) owns this bounded extension and [its verification report](verification/MOB_RESULTS.md) owns measured evidence. It connects the current voxel world to shared day/night, item and survival authority, with bounded active entities and local terrain-aware navigation. Broader ecology, factory raids, mob loot, named persistent creatures and multiplayer AI remain future work.
+
+## Authorized industrial extension — 2026-09-10
+
+The user selected implementation of [GitHub issue #2](https://github.com/Starbugstone/Rivet-Reach/issues/2), including original Blender machines, animated operating states, matching interfaces and stability/performance checks. [INDUSTRY.md](INDUSTRY.md) owns the current Azure/Copper unlock, 4×4 Machinist’s Bench, separate signal/power/item/fluid graphs, steam/electrical bootstrap, crusher/pump/drill and fixed sensor/relay behavior. This supersedes earlier statements excluding this bounded industrial content; hybrid transport/control variants, advanced logic and durable saves remain later extensions. [Industry verification](verification/INDUSTRY_RESULTS.md) owns evidence and remaining limits.

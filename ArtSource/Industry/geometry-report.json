@@ -1,0 +1,162 @@
+{
+  "azure_ore": {
+    "triangles": 980,
+    "meshParts": 1,
+    "materials": 1
+  },
+  "azure_crystal": {
+    "triangles": 276,
+    "meshParts": 1,
+    "materials": 1
+  },
+  "copper_wire": {
+    "triangles": 2004,
+    "meshParts": 1,
+    "materials": 1
+  },
+  "copper_plate": {
+    "triangles": 132,
+    "meshParts": 1,
+    "materials": 1
+  },
+  "iron_plate": {
+    "triangles": 132,
+    "meshParts": 1,
+    "materials": 1
+  },
+  "cog": {
+    "triangles": 688,
+    "meshParts": 1,
+    "materials": 1
+  },
+  "rivets": {
+    "triangles": 696,
+    "meshParts": 1,
+    "materials": 1
+  },
+  "machine_casing": {
+    "triangles": 528,
+    "meshParts": 1,
+    "materials": 1
+  },
+  "glass": {
+    "triangles": 88,
+    "meshParts": 1,
+    "materials": 1
+  },
+  "crushed_copper": {
+    "triangles": 80,
+    "meshParts": 1,
+    "materials": 1
+  },
+  "crushed_iron": {
+    "triangles": 80,
+    "meshParts": 1,
+    "materials": 1
+  },
+  "crushed_gold": {
+    "triangles": 80,
+    "meshParts": 1,
+    "materials": 1
+  },
+  "machinist_bench": {
+    "triangles": 1116,
+    "meshParts": 1,
+    "materials": 1
+  },
+  "signal_wire": {
+    "triangles": 440,
+    "meshParts": 5,
+    "materials": 1
+  },
+  "signal_conduit": {
+    "triangles": 2328,
+    "meshParts": 7,
+    "materials": 1
+  },
+  "signal_relay": {
+    "triangles": 676,
+    "meshParts": 1,
+    "materials": 1
+  },
+  "lever": {
+    "triangles": 604,
+    "meshParts": 2,
+    "materials": 1
+  },
+  "button": {
+    "triangles": 448,
+    "meshParts": 2,
+    "materials": 1
+  },
+  "signal_indicator": {
+    "triangles": 704,
+    "meshParts": 1,
+    "materials": 1
+  },
+  "workshop_hatch": {
+    "triangles": 480,
+    "meshParts": 2,
+    "materials": 1
+  },
+  "power_cable": {
+    "triangles": 2064,
+    "meshParts": 7,
+    "materials": 1
+  },
+  "workshop_lamp": {
+    "triangles": 1784,
+    "meshParts": 2,
+    "materials": 1
+  },
+  "boiler_engine": {
+    "triangles": 3288,
+    "meshParts": 4,
+    "materials": 1
+  },
+  "alternator": {
+    "triangles": 3220,
+    "meshParts": 3,
+    "materials": 1
+  },
+  "crusher": {
+    "triangles": 4268,
+    "meshParts": 4,
+    "materials": 1
+  },
+  "pump": {
+    "triangles": 2932,
+    "meshParts": 3,
+    "materials": 1
+  },
+  "drill": {
+    "triangles": 3280,
+    "meshParts": 3,
+    "materials": 1
+  },
+  "water_tank": {
+    "triangles": 2396,
+    "meshParts": 2,
+    "materials": 1
+  },
+  "item_pipe": {
+    "triangles": 2064,
+    "meshParts": 7,
+    "materials": 1
+  },
+  "fluid_pipe": {
+    "triangles": 2064,
+    "meshParts": 7,
+    "materials": 1
+  },
+  "extractor": {
+    "triangles": 1964,
+    "meshParts": 3,
+    "materials": 1
+  },
+  "inventory_sensor": {
+    "triangles": 732,
+    "meshParts": 1,
+    "materials": 1
+  }
+}

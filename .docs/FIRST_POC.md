@@ -6,7 +6,7 @@ The Unity **6000.4.4f1 / URP 17.4.0** project now includes terrain and caves, FP
 
 Open this repository in the pinned Unity Editor, open `Assets/RivetReach/Scenes/Main.unity`, then press Play. `Expedition.Bootstrap` creates the voxel world and UI at runtime; the unplayed scene is not a populated map. After cloning, run `git lfs pull` to retrieve binary assets.
 
-The current local review executable is **`Builds/Torches/RivetReach.exe`**. Keep its adjacent data folder, DLLs and Mono runtime together. Start Expedition uses a fresh random world seed, or the optional signed 32-bit seed entered on the title screen. Nearby terrain prepares before movement can enter it.
+The current local review executable is **`Builds/Industry/RivetReach.exe`**. Keep its adjacent data folder, DLLs and Mono runtime together. Start Expedition uses a fresh random world seed, or the optional signed 32-bit seed entered on the title screen. Nearby terrain prepares before movement can enter it.
 
 The normal build entry point is **Rivet Reach → Build Windows first POC**, or Windows PowerShell:
 
@@ -16,7 +16,7 @@ The normal build entry point is **Rivet Reach → Build Windows first POC**, or 
 .\Tools\Verify-POC.ps1 -Survival
 ```
 
-The normal script builds `Builds/PlayerRevision4/RivetReach.exe`. To test the delivered review executable, supply `-Executable Builds/Torches/RivetReach.exe`. `Tools/Verify-Creative.ps1 -Build` produces and checks this dedicated review build through the open Editor. Runtime assets are versioned; ordinary Play requires no Blender or asset-generation step.
+`Tools/Verify-Industry.ps1 -Build` prepares, builds and verifies the current industrial review through the open Editor. The older general script builds `Builds/PlayerRevision4/RivetReach.exe`. To test the delivered review executable, supply `-Executable Builds/Industry/RivetReach.exe`. `Tools/Verify-Creative.ps1 -Build` produces and checks the separate Creative review build through the open Editor. Runtime assets are versioned; ordinary Play requires no Blender or asset-generation step.
 
 The build script reuses this project's open Editor through its existing local file request, or starts the pinned Editor in batch mode when the project is closed. Preserve open scenes and unsaved work. An explicit Editor startup check is available through **Rivet Reach → Verify Editor Play startup**; the latest [player/audio report](verification/HIFI_PLAYER_AND_AUDIO_RESULTS.md) records its evidence.
 
@@ -27,7 +27,7 @@ The build script reuses this project's open Editor through its existing local fi
 | Move / look | WASD / mouse |
 | Sprint / jump / crouch | Left Shift or double-tap Forward / Space / Left Ctrl |
 | Mine / attack | Hold left mouse while aiming within reach |
-| Interact with workbench, furnace or chest | E, or right-click while aiming at the block |
+| Interact with stations or machines | E, or right-click while aiming at the block |
 | Place / use held item | Right-click; Left Ctrl + right-click places against a station |
 | Inventory / pause | Tab / Escape |
 | Select hotbar | Mouse wheel or [ / ]; 1–0 for the first ten slots |
@@ -51,7 +51,7 @@ Keyboard controls can be rebound; conflicting actions swap keys. New Interact bi
 
 Once you have coal or furnace-made charcoal, place **one above one stick** in either crafting grid to make **four torches**. Select a torch and right-click a floor or wall to light the area. Mine it to recover it. [Torch rules](GAMEPLAY.md#torches) describe attachment and lighting limits.
 
-**Recipes** displays layouts from the same editable catalog used by crafting. Click the result to craft once; Shift-click crafts complete outputs that fit. Closing the inventory returns ingredients; leftovers stay in the grid if the inventory is full. [CRAFTING.md](CRAFTING.md) owns the shared 2×2/3×3/4×4 engine and authoring; [ECONOMY.md](ECONOMY.md#current-survival-recipes-and-tiers) owns the 55 active recipes and progression. The 4×4 core has tests but no station interface yet.
+**Recipes** displays layouts from the same editable catalog used by crafting. Click the result to craft once; Shift-click crafts complete outputs that fit. Closing the inventory returns ingredients; leftovers stay in the grid if the inventory is full. [CRAFTING.md](CRAFTING.md) owns the shared 2×2/3×3/4×4 engine and authoring; [ECONOMY.md](ECONOMY.md#current-survival-recipes-and-tiers) owns the 55 survival recipes and progression. The [Machinist’s Bench](INDUSTRY.md) now opens the 4×4 interface and adds 26 industrial recipes.
 
 ## Survival and exploration
 
@@ -88,4 +88,8 @@ Run `Tools/Verify-Creative.ps1 -Build` with this project's pinned Editor open to
 
 ## Torches review build
 
-The latest local executable is **`Builds/Torches/RivetReach.exe`**. `Tools/Verify-Torches.ps1 -Build` rebuilds through the pinned open Editor and runs the focused crafting, placement, light, water and streaming scenario. [Torch verification](verification/TORCH_RESULTS.md) includes matching lit/unlit screenshots and remaining limits. Earlier dedicated review executables retain their own artifact identities.
+The dedicated torch review executable is **`Builds/Torches/RivetReach.exe`**. `Tools/Verify-Torches.ps1 -Build` rebuilds through the pinned open Editor and runs the focused crafting, placement, light, water and streaming scenario. [Torch verification](verification/TORCH_RESULTS.md) includes matching lit/unlit screenshots and remaining limits. Earlier dedicated review executables retain their own artifact identities.
+
+## Industrial workshop — issue #2
+
+Run `Builds/Industry/RivetReach.exe` for the current industrial review. [Industry](INDUSTRY.md) owns progression, recipes, machine interfaces, port directions and power/signal rules. Interact / mouse Use opens machines; levers toggle and buttons pulse. Machines rotate through their interface. The Machinist’s Bench opens 4×4 crafting. Creative’s existing catalog includes every new component for session testing. [Verification](verification/INDUSTRY_RESULTS.md) distinguishes measured evidence from remaining review.

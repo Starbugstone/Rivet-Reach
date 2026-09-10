@@ -18,6 +18,8 @@ The user subsequently authorized [world fluids](.docs/FLUIDS.md): a sea biome, r
 
 The user subsequently authorized craftable torches and placed lighting. [GAMEPLAY.md](.docs/GAMEPLAY.md#torches) owns attachment, recovery and lighting behavior; [torch verification](.docs/verification/TORCH_RESULTS.md) records the current build and evidence. Preserve coal/charcoal-over-stick recipes, session attachments, and water displacement when changing these systems.
 
+The user subsequently authorized [issue #2 industry](.docs/INDUSTRY.md): Azure resources, a 4×4 Machinist’s Bench, Blue Signal, separate electricity, boiler/alternator, crusher/pump/drill, tanks and initial item/fluid logistics, with original Blender assets and matching interfaces. [Industry verification](.docs/verification/INDUSTRY_RESULTS.md) records measured evidence. Keep signal, electricity, items and fluid channels independent; preserve dormant boundaries, fixed-step resource conservation and current player assets.
+
 ## Licensing and ownership
 
 - Rivet Reach is **proprietary, all rights reserved, and not open source**. Read `LICENSE.md` before introducing code, assets, dependencies or contribution workflows.

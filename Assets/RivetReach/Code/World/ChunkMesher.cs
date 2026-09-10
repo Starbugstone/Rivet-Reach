@@ -36,7 +36,7 @@ namespace RivetReach
                         int address=Index(0,0,0)+layer*stride[axis]+i*stride[u]+j*stride[v];
                         byte a=cells[address],b=cells[address+sign*stride[axis]];
                         if(axis==0&&sign==-1&&BlockId.Crop(a))plants.Add((new Vector3(layer,i,j),a));
-                        mask[i+j*32]=BlockId.Solid(a)&&!BlockId.Solid(b)?a:(byte)0;
+                        mask[i+j*32]=BlockId.Solid(a)&&!IndustryId.Placed(a)&&(!BlockId.Solid(b)||IndustryId.Placed(b))?a:(byte)0;
                     }
                     for(int j=0;j<32;j++)for(int i=0;i<32;)
                     {

@@ -20,7 +20,8 @@ namespace RivetReach
             new OreBand(BlockId.CopperOre,-48,64,16,55,4),
             new OreBand(BlockId.IronOre,-160,48,-48,60,4),
             new OreBand(BlockId.GoldOre,-240,-64,-160,28,3),
-            new OreBand(BlockId.DiamondOre,-255,-160,-224,16,2)});
+            new OreBand(BlockId.DiamondOre,-255,-160,-224,16,2),
+            new OreBand(IndustryId.AzureOre,-96,8,-40,38,3)});
 
         public readonly struct Vein
         {

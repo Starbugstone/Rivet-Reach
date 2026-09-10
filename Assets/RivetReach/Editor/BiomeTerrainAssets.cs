@@ -5,7 +5,7 @@ namespace RivetReach.Editor
 {
     public static class BiomeTerrainAssets
     {
-        public const int TileCount=44;
+        public const int TileCount=45;
         static float Noise(int x,int y)
         {
             int gx=x/16,gy=y/16;

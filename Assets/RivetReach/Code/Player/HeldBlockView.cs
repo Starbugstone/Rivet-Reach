@@ -28,6 +28,7 @@ namespace RivetReach
         public Transform Socket {get;private set;}
         public Vector3 Centre=>view.transform.position;
         public void SetPreview(GripPose? grip){PreviewGrip=grip;}
+        GameObject industryItem;
         GameObject view,block,sword,pickaxe,axe,shovel,hoe,card;
         Material cardMaterial,plainToolMaterial;
         Texture2D cardIcon;
@@ -63,6 +64,12 @@ namespace RivetReach
             if(id!=ItemId)
             {
                 ItemId=id;
+                if(industryItem!=null){Destroy(industryItem);industryItem=null;}
+                if(id>=IndustryId.AzureOre&&id<=IndustryId.CrushedGold)
+                {
+                    var prefab=Resources.Load<GameObject>("Industry/Runtime/"+game.Registry.Get(id).stableId.Substring(6));
+                    if(prefab!=null){industryItem=Instantiate(prefab,block.transform,false);industryItem.transform.localPosition=-Vector3.one*.5f;foreach(var r in industryItem.GetComponentsInChildren<Renderer>()){r.sharedMaterial=Resources.Load<Material>("Industry/Workshop");r.shadowCastingMode=ShadowCastingMode.Off;}}
+                }
                 if(id!=BlockId.Torch&&(BlockId.Placeable(id)||BlockId.RawMaterial(id)))
                 {
                     if(!meshes.TryGetValue(id,out var mesh))
@@ -101,7 +108,7 @@ namespace RivetReach
             view.transform.localPosition=Vector3.zero;view.transform.localRotation=Quaternion.identity;view.transform.localScale=Vector3.one/boneUnits;
             block.SetActive(grip==GripPose.Block);
             bool showCard=id!=0&&(id==BlockId.Torch||!BlockId.Placeable(id)&&!BlockId.RawMaterial(id))&&game.Registry.Get(id).toolCapabilities==ToolCapability.None;
-            filter.GetComponent<Renderer>().enabled=!showCard;if(card!=null)card.SetActive(showCard);
+            filter.GetComponent<Renderer>().enabled=!showCard&&industryItem==null;if(card!=null)card.SetActive(showCard&&industryItem==null);
             if(showCard)card.transform.rotation=Player.Camera.transform.rotation;
             bool useAxe=!PreviewGrip.HasValue&&(game.Registry.Capabilities(selected)&ToolCapability.Axe)!=0;
             if(useAxe&&axe==null)

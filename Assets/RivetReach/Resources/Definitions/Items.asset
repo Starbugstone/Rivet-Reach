@@ -1288,3 +1288,483 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 1
+  - runtimeId: 120
+    stableId: rivet:azure_ore
+    displayName: Azure Ore
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.08, g: 0.65, b: 0.95, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 121
+    stableId: rivet:azure_crystal
+    displayName: Azure Crystal
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.08, g: 0.65, b: 0.95, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 122
+    stableId: rivet:copper_wire
+    displayName: Copper Wire
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 123
+    stableId: rivet:copper_plate
+    displayName: Copper Plate
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 124
+    stableId: rivet:iron_plate
+    displayName: Iron Plate
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 125
+    stableId: rivet:cog
+    displayName: Iron Cog
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 126
+    stableId: rivet:rivets
+    displayName: Rivets
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 127
+    stableId: rivet:machine_casing
+    displayName: Machine Casing
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 128
+    stableId: rivet:glass
+    displayName: Glass
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 1, g: 1, b: 1, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 150
+    stableId: rivet:crushed_copper
+    displayName: Crushed Copper
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 151
+    stableId: rivet:crushed_iron
+    displayName: Crushed Iron
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 152
+    stableId: rivet:crushed_gold
+    displayName: Crushed Gold
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 130
+    stableId: rivet:machinist_bench
+    displayName: Machinist's Bench
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 131
+    stableId: rivet:signal_wire
+    displayName: Signal Wire
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 132
+    stableId: rivet:signal_conduit
+    displayName: Signal Conduit
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 138
+    stableId: rivet:power_cable
+    displayName: Power Cable
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 146
+    stableId: rivet:item_pipe
+    displayName: Item Pipe
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 147
+    stableId: rivet:fluid_pipe
+    displayName: Fluid Pipe
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 134
+    stableId: rivet:lever
+    displayName: Lever
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 135
+    stableId: rivet:button
+    displayName: Button
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 133
+    stableId: rivet:signal_relay
+    displayName: Signal Relay
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 136
+    stableId: rivet:signal_indicator
+    displayName: Signal Indicator
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 137
+    stableId: rivet:workshop_hatch
+    displayName: Workshop Hatch
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 139
+    stableId: rivet:workshop_lamp
+    displayName: Workshop Lamp
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 140
+    stableId: rivet:boiler_engine
+    displayName: Boiler Engine
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 141
+    stableId: rivet:alternator
+    displayName: Alternator
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 142
+    stableId: rivet:crusher
+    displayName: Crusher
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 143
+    stableId: rivet:pump
+    displayName: Pump
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 144
+    stableId: rivet:drill
+    displayName: Drill
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 145
+    stableId: rivet:water_tank
+    displayName: Water Tank
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 148
+    stableId: rivet:extractor
+    displayName: Extractor
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 149
+    stableId: rivet:inventory_sensor
+    displayName: Inventory Sensor
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0

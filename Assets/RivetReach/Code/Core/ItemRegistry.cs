@@ -25,20 +25,20 @@ namespace RivetReach
         public const byte IronAxe=55,IronPickaxe=56,IronSword=57,IronShovel=58,IronHoe=59;
         public const byte DiamondAxe=60,DiamondPickaxe=61,DiamondSword=62,DiamondShovel=63,DiamondHoe=64;
         public const byte CoalBlock=65,IronBlock=66,CopperBlock=67,GoldBlock=68,DiamondBlock=69;
-        public static bool Ore(byte id)=>id>=IronOre&&id<=DiamondOre;
+        public static bool Ore(byte id)=>id>=IronOre&&id<=DiamondOre||id==IndustryId.AzureOre;
         public static bool RawMaterial(byte id)=>id>=RawIron&&id<=Diamond;
         public static bool Crop(byte id)=>id>=PotatoPlant&&id<=MaturePotatoPlant;
-        public static bool Station(byte id)=>id==Workbench||id==Furnace||id==Chest;
-        public static ToolTier RequiredTier(byte id)=>id==DiamondOre||id==GoldOre||id==GoldBlock||id==DiamondBlock?ToolTier.Iron:
+        public static bool Station(byte id)=>id==Workbench||id==Furnace||id==Chest||id==IndustryId.Bench;
+        public static ToolTier RequiredTier(byte id)=>id==IndustryId.AzureOre?ToolTier.Copper:id==DiamondOre||id==GoldOre||id==GoldBlock||id==DiamondBlock?ToolTier.Iron:
             id==IronOre||id==CopperOre||id==IronBlock||id==CopperBlock?ToolTier.Stone:
             id==Stone||id==Cobblestone||id==CoalOre||id==Furnace||id==CoalBlock?ToolTier.Wood:ToolTier.None;
         public static bool Mineable(byte id,ToolCapability tool,ToolTier tier=ToolTier.Diamond)=>id!=Air&&id!=Bedrock&&(Placeable(id)||Ore(id)||id==Farmland||Crop(id))&&
             (RequiredTier(id)==ToolTier.None||(tool&ToolCapability.Pickaxe)!=0&&tier>=RequiredTier(id));
         public static string MiningHint(byte id,ToolCapability tool,ToolTier tier=ToolTier.Diamond)=>id==Bedrock?"Unbreakable":!Mineable(id,tool,tier)&&RequiredTier(id)!=ToolTier.None?"Requires "+RequiredTier(id).ToString().ToLowerInvariant()+" pickaxe or better":"";
-        public static bool Placeable(byte id)=>id==Torch||id>=Grass&&id<=Leaves||BiomeBlock(id)||id==Planks||id==Cobblestone||Station(id)||id>=CoalBlock&&id<=DiamondBlock;
-        public static bool Solid(byte id)=>id!=Air&&id!=Torch&&!Crop(id)&&!Fluids.IsFluid(id);
-        public static bool Opaque(byte id)=>Solid(id)&&id!=Leaves;
-        public static int Tile(byte id,int axis,int sign)=>id==Planks?18:id==Cobblestone?19:id==Workbench?(axis==1&&sign>0?20:21):id==Furnace?(axis==1?19:22):id==Chest?23:id==Farmland?(axis==1&&sign>0?24:2):Crop(id)?25+id-PotatoPlant:id>=CoalBlock&&id<=DiamondBlock?29+id-CoalBlock:
+        public static bool Placeable(byte id)=>IndustryId.Placed(id)||id==Torch||id>=Grass&&id<=Leaves||BiomeBlock(id)||id==Planks||id==Cobblestone||Station(id)||id>=CoalBlock&&id<=DiamondBlock;
+        public static bool Solid(byte id)=>id!=Air&&id!=Torch&&!IndustryId.Thin(id)&&!Crop(id)&&!Fluids.IsFluid(id);
+        public static bool Opaque(byte id)=>Solid(id)&&id!=Leaves&&!IndustryId.Placed(id);
+        public static int Tile(byte id,int axis,int sign)=>id==IndustryId.AzureOre?44:id==Planks?18:id==Cobblestone?19:id==Workbench?(axis==1&&sign>0?20:21):id==Furnace?(axis==1?19:22):id==Chest?23:id==Farmland?(axis==1&&sign>0?24:2):Crop(id)?25+id-PotatoPlant:id>=CoalBlock&&id<=DiamondBlock?29+id-CoalBlock:
             BiomeBlock(id)?40+id-Sand:Ore(id)?7+id-IronOre:RawMaterial(id)?13+id-RawIron:id==Bedrock?12:id==Grass?(axis==1?(sign>0?0:2):1):id==Dirt?2:id==Log?(axis==1?5:4):id==Leaves?6:3;
     }
 
@@ -68,8 +68,9 @@ namespace RivetReach
         public ItemDefinition[] items;
         ItemDefinition[] byId;
         Dictionary<string, byte> byStableId;
-        void OnEnable() { byId=null; byStableId=null; }
-        void OnValidate() { byId=null; byStableId=null; }
+        void OnEnable() => InvalidateIndex();
+        public void InvalidateIndex(){byId=null;byStableId=null;}
+        void OnValidate() => InvalidateIndex();
         void BuildIndex()
         {
             var ids=new ItemDefinition[256];

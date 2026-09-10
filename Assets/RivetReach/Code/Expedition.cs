@@ -66,7 +66,7 @@ namespace RivetReach
             invulnerableUntil=0;
             Sky.ResetClock();
             Inventory=new Inventory(id=>Registry.Get(id).stackLimit);
-            OpenStation=null;PersonalCrafting=new CraftingSession(Recipes,2,id=>Registry.Get(id).stackLimit);
+            OpenMachine=null;OpenStation=null;PersonalCrafting=new CraftingSession(Recipes,2,id=>Registry.Get(id).stackLimit);
             Hunger=new HungerState();Health=new HealthState();Equipment=new EquipmentState(Registry.Get);
             var root=new GameObject("Surface world");root.transform.SetParent(transform,false);World=root.AddComponent<VoxelWorld>();World.Initialize(seed);World.ViewDistance=Mathf.Clamp(PlayerPrefs.GetInt("viewDistance.v2",10),4,14);
             RenderSettings.fogStartDistance=World.FogStart;RenderSettings.fogEndDistance=World.FogEnd;
@@ -76,7 +76,7 @@ namespace RivetReach
             var drops=new GameObject("World item stacks");drops.transform.SetParent(transform,false);Items=drops.AddComponent<DroppedItems>();Items.Initialize(this);
             World.BlockMined+=SpawnMinedDrop;
             World.OriginShifted+=Sound.ShiftOrigin;
-            Survival=new WorldSurvival(this);
+            Survival=new WorldSurvival(this);Industry=new WorldIndustry(this);root.AddComponent<IndustryPresentation>().Initialize(this);
             Mobs=root.AddComponent<MobSystem>();Mobs.Initialize(this);
         }
         void SpawnMinedDrop(BlockPos pos,byte id)
@@ -97,7 +97,7 @@ namespace RivetReach
         {
             if(Health?.Dead==true&&mode!=ScreenMode.Title)mode=ScreenMode.Death;
             if(InventoryOpen&&mode!=ScreenMode.Inventory)UI.ReturnHeld();
-            if(mode!=ScreenMode.Inventory)OpenStation=null;
+            if(mode!=ScreenMode.Inventory){OpenStation=null;OpenMachine=null;}
             Mode=mode;Time.timeScale=Paused?0:1;
             bool capture=Mode==ScreenMode.Play;if(Player!=null)Player.Arms.gameObject.SetActive(capture&&!Player.Inspecting);Cursor.lockState=capture?CursorLockMode.Locked:CursorLockMode.None;Cursor.visible=!capture;
             UI?.Rebuild();
@@ -105,8 +105,8 @@ namespace RivetReach
         void Update()
         {
             if(Input==null)return;
-            if(Started&&!Paused){Sky.Advance(Time.deltaTime);World.AdvanceGrass(Time.deltaTime);World.AdvanceTrees(Time.deltaTime);World.AdvanceFluids(Time.deltaTime);int ticks=Survival.Advance(Time.deltaTime);if(!Creative)Health.Advance(ticks,Hunger);}
-            if(OpenStation!=null&&(!World.Ready(StationPosition)||(World.Local(StationPosition)+Vector3.one*.5f-Player.transform.position).sqrMagnitude>36))SetMode(ScreenMode.Play);
+            if(Started&&!Paused){Sky.Advance(Time.deltaTime);World.AdvanceGrass(Time.deltaTime);World.AdvanceTrees(Time.deltaTime);World.AdvanceFluids(Time.deltaTime);int ticks=Survival.Advance(Time.deltaTime);Industry.Advance(ticks);if(!Creative)Health.Advance(ticks,Hunger);}
+            if((OpenStation!=null||OpenMachine!=null)&&(!World.Ready(StationPosition)||(World.Local(StationPosition)+Vector3.one*.5f-Player.transform.position).sqrMagnitude>36))SetMode(ScreenMode.Play);
             if(Health.Dead)return;
             if(Input.PollRebind()){UI.Rebuild();return;}
             if(Input.Pressed("Pause"))SetMode(Mode==ScreenMode.Play?ScreenMode.Pause:Started?ScreenMode.Play:ScreenMode.Title);
@@ -131,7 +131,7 @@ namespace RivetReach
         {
             if(Mode!=ScreenMode.Play||Health.Dead)return false;
             var eye=Player.Camera.transform;
-            return World.Raycast(eye.position,eye.forward,5,out var position,out var id)&&BlockId.Station(id)&&TryOpenStation(position);
+            return World.Raycast(eye.position,eye.forward,5,out var position,out var id)&&(IndustryId.Placed(id)?TryOpenMachine(position):BlockId.Station(id)&&TryOpenStation(position));
         }
         public bool TryOpenStation(BlockPos position)
         {
@@ -201,6 +201,7 @@ namespace RivetReach
             if(selected.Empty||!BlockId.Placeable(selected.Id))return false;
             reason="Waiting for nearby terrain";if(!World.Ready(cell))return false;
             reason="This cell is occupied";if(World.Get(cell)!=0&&!Fluids.IsFluid(World.Get(cell)))return false;
+            if(selected.Id==IndustryId.SignalWire&&(!World.Ready(cell.Offset(0,-1,0))||!BlockId.Solid(World.Get(cell.Offset(0,-1,0))))){reason="Signal Wire needs a solid floor";return false;}
             if(selected.Id==BlockId.Torch)
             {bool dry=World.Get(cell)==BlockId.Air;reason=dry?"Place Torch":"Torches need a dry floor or wall face";return dry;}
             // Use the movement collider's exact occupied-cell rule, including its skin.
@@ -221,6 +222,7 @@ namespace RivetReach
                 if(!World.Raycast(Player.Camera.transform.position,Player.Camera.transform.forward,5,out var support,out _)||!World.PlaceTorch(cell,support))return false;
             }
             else if(!World.Place(cell,selected.Id))return false;
+            if(IndustryId.Placed(selected.Id)){var machine=Industry.Simulation.At(cell);machine.Rotation=((Mathf.RoundToInt(Player.transform.eulerAngles.y/90)+2)%4);Industry.Simulation.Invalidate();}
             if(!Creative)Inventory.Take(Selected,1);Sound.Place(selected.Id,World.Local(cell)+Vector3.one*.5f);ArcadePresentation.Active?.Place(World.Local(cell)+Vector3.one*.5f,selected.Id);PlacementDiagnostic="Placed "+Registry.Get(selected.Id).displayName;Notify(PlacementDiagnostic,1);return true;
         }
         public bool TryUseBucket()

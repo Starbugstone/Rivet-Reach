@@ -45,6 +45,8 @@ namespace RivetReach
         public string Error { get; private set; }
         public event Action<Vector3> OriginShifted;
         public event Action<BlockPos> BlockChanged;
+        public event Action ResidencyChanged;
+        public Func<BlockPos,bool> IsOpenMachine;
         public event Action<BlockPos,byte> BlockMined;
         readonly HashSet<ChunkPos> treeMeshes=new HashSet<ChunkPos>();
         public TreeSimulation Trees {get;private set;}
@@ -80,7 +82,7 @@ namespace RivetReach
             {int i=p.Index;return c.Cells[ChunkMesher.Index(i%32,i/32%32,i/1024)];}
             return Generator.At(p);
         }
-        public bool Solid(BlockPos p) => !Ready(p)||BlockId.Solid(Get(p));
+        public bool Solid(BlockPos p) => !Ready(p)||BlockId.Solid(Get(p))&&!(IsOpenMachine?.Invoke(p)??false);
         public bool Remove(BlockPos p,byte expected) => expected!=0&&expected!=BlockId.Bedrock&&Change(p,expected,0);
         public bool Place(BlockPos p,byte id) => id==BlockId.Torch?PlaceTorch(p,p.Offset(0,-1,0)):BlockId.Placeable(id)&&(Get(p)==0||Fluids.IsFluid(Get(p)))&&Change(p,Get(p),id);
         public bool ChangeFluid(BlockPos p,byte expected,byte replacement)
@@ -289,7 +291,7 @@ namespace RivetReach
                 }
             }
             foreach(var key in chunks.Keys.Where(k=>!wanted.Contains(k)).ToArray())
-            {Release(chunks[key]);chunks.Remove(key);}
+            {Release(chunks[key]);chunks.Remove(key);ResidencyChanged?.Invoke();}
             foreach(var key in surfaceRanges.Keys.Where(k=>!columns.Contains(k)).ToArray())surfaceRanges.Remove(key);
             grassChunks.Clear();
             // Only a bounded neighbourhood ticks; unloaded/distant terrain receives no catch-up.
@@ -347,7 +349,7 @@ namespace RivetReach
             {c.FluidView.SetActive(visibleFluid);c.FluidView.GetComponent<MeshFilter>().sharedMesh=c.FluidMesh;}
             if(first)
             {
-                FluidSimulation.Ready(result.Position);
+                FluidSimulation.Ready(result.Position);ResidencyChanged?.Invoke();
                 // The worker identifies exposed/unsettled cells. Stable source interiors and
                 // shared source boundaries never enter the scheduled queue on mere residency.
                 var min=result.Position.Min;

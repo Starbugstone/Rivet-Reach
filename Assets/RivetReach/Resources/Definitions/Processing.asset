@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c803f430fc4b48da9fb3837fef054724, type: 3}
   m_Name: Processing
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   recipes:
   - {fileID: 11400000, guid: d1a7de88f3cc4c91bd0eadbaecb579e1, type: 2}
   - {fileID: 11400000, guid: 85d3c4b6aede47fcbdb4796176ed0d17, type: 2}
@@ -19,6 +19,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 02591a8b4c69413bb4decab933cf4993, type: 2}
   - {fileID: 11400000, guid: a579f4fc16e94ff996b97598413530b3, type: 2}
   - {fileID: 11400000, guid: 29cd9869abf04a3bbe3052ef8576f8fb, type: 2}
+  - {fileID: 11400000, guid: 980e6a2f5daa14a4998d1bc8c26b37e5, type: 2}
+  - {fileID: 11400000, guid: c68fe3f9552149545bf0ce2cdceec275, type: 2}
+  - {fileID: 11400000, guid: 16cdfe0ed43ab71439f7dda56270580f, type: 2}
+  - {fileID: 11400000, guid: b3da2ede79d55ae40a0e9dace866709f, type: 2}
+  - {fileID: 11400000, guid: 45d36ec42d52a764e932cfd227919f1e, type: 2}
   fuels:
   - itemId: rivet:log
     ticks: 300

@@ -5,7 +5,7 @@ namespace RivetReach
 {
     public sealed class TerrainGenerator
     {
-        public const string Version="terrain-5-seas-rivers";
+        public const string Version="terrain-6-azure";
         public const string WorldId="surface";
         public const int MinY=-256,MaxY=767;
         public const long HorizontalLimit=1000000000;

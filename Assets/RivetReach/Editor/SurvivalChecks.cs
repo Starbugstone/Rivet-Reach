@@ -80,14 +80,14 @@ namespace RivetReach.Editor
         }
         static void Bootstrap(ItemRegistry items,RecipeRegistry registry,ProcessingRegistry processing)
         {
-            var reachable=new System.Collections.Generic.HashSet<byte>{BlockId.Log,BlockId.Dirt,BlockId.Grass,BlockId.Potato};
+            var reachable=new System.Collections.Generic.HashSet<byte>{BlockId.Log,BlockId.Dirt,BlockId.Grass,BlockId.Potato,BlockId.Sand};
             bool changed;
             do
             {
-                changed=false;int grid=reachable.Contains(BlockId.Workbench)?3:2;
+                changed=false;int grid=reachable.Contains(IndustryId.Bench)?4:reachable.Contains(BlockId.Workbench)?3:2;
                 foreach(var recipe in registry.Recipes)if(recipe.MinimumGridSize<=grid&&recipe.Ingredients.All(s=>s.Empty||reachable.Contains(s.Id)))changed|=reachable.Add(recipe.Output.Id);
                 foreach(var item in items.items)if((item.toolCapabilities&ToolCapability.Pickaxe)!=0&&reachable.Contains(item.runtimeId))
-                    foreach(byte block in new[]{BlockId.Stone,BlockId.IronOre,BlockId.CopperOre,BlockId.CoalOre,BlockId.GoldOre,BlockId.DiamondOre})
+                    foreach(byte block in new[]{BlockId.Stone,BlockId.IronOre,BlockId.CopperOre,BlockId.CoalOre,BlockId.GoldOre,BlockId.DiamondOre,IndustryId.AzureOre})
                         if(BlockId.Mineable(block,item.toolCapabilities,item.tier))changed|=reachable.Add(items.FistDrop(block));
                 if(reachable.Contains(BlockId.Furnace)&&reachable.Any(id=>processing.FuelTicks(id)>0))foreach(var recipe in processing.Recipes)if(reachable.Contains(recipe.Input.Id))changed|=reachable.Add(recipe.Output.Id);
             }while(changed);

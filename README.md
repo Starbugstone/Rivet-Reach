@@ -16,15 +16,17 @@ The long-term vision combines:
 
 ## Current status
 
-The current Unity **6000.4.4f1 / URP 17.4.0** review build includes FPS movement, block mining/placement, inventory, **55 modular recipes**, personal 2×2 and workbench 3×3 crafting, five tool tiers, craftable light-emitting torches, furnaces, chests, potato farming, hunger, hearts and armor. It also includes seven biomes including seas and rivers, bucket water flow and caves, depth-banded ores, protected bedrock, generated trees, male/female appearances with two skins, a moving day/night sky, and native beetle/prowler enemies.
+The current Unity **6000.4.4f1 / URP 17.4.0** review build includes FPS movement, block mining/placement, inventory, **81 modular recipes**, personal 2×2 and workbench 3×3 crafting, five tool tiers, craftable light-emitting torches, furnaces, chests, potato farming, hunger, hearts and armor. It also includes seven biomes including seas and rivers, bucket water flow and caves, depth-banded ores, protected bedrock, generated trees, male/female appearances with two skins, a moving day/night sky, and native beetle/prowler enemies.
 
 For testing, the Escape menu now offers [Creative mode](.docs/GAMEPLAY.md#creative-testing-mode): flight, invincibility and a searchable catalog of every current item. The local Creative review build is `Builds/Creative/RivetReach.exe`.
 
-Open `Assets/RivetReach/Scenes/Main.unity` in the pinned Editor and press Play, or launch the current local review build **`Builds/Torches/RivetReach.exe`**. [Run instructions and controls](.docs/FIRST_POC.md) explain the first crafting steps: logs → planks → workbench; place it, then **E or right-click** to open 3×3 crafting. Recipes are editable through the [authoring workflow](.docs/CRAFTING.md).
+Open `Assets/RivetReach/Scenes/Main.unity` in the pinned Editor and press Play, or launch the current local review build **`Builds/Industry/RivetReach.exe`**. [Run instructions and controls](.docs/FIRST_POC.md) explain the first crafting steps: logs → planks → workbench; place it, then **E or right-click** to open 3×3 crafting. Recipes are editable through the [authoring workflow](.docs/CRAFTING.md).
 
 [Current verification and screenshots](.docs/verification/README.md) link the maintained report for each feature. [Starter recipe verification](.docs/verification/CRAFTING_RESULTS.md) checks the actual layouts and quantities. Superseded screenshots/reports remain in Git history.
 
-This is an early playable increment. Progress survives chunk unloading during a session and resets on quit. Durable saves, 4×4 station interfaces, generated structures, industry and the wider game remain planned. [The development strategy](.docs/DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence) requires playable review before selecting further scope. Art, balance and long-session performance remain subject to review.
+This is an early playable increment. Progress survives chunk unloading during a session and resets on quit. Durable saves, generated structures and the wider game remain planned. The [first industrial workshop](.docs/INDUSTRY.md) adds a 4×4 Machinist’s Bench, Azure resources, Blue Signal, steam/electricity, machines and separate item/fluid pipes. [The development strategy](.docs/DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence) requires playable review before selecting further scope. Art, balance and long-session performance remain subject to review.
+
+[Industrial verification](.docs/verification/INDUSTRY_RESULTS.md) includes in-game screenshots, a gameplay clip and measured limits.
 
 ## License and ownership
 

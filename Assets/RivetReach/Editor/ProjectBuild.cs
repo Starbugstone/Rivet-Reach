@@ -38,6 +38,12 @@ namespace RivetReach.Editor
             command=command.Replace("|ready","");File.Delete(request);
             try
             {
+                if(command=="industry-regression")
+                {DomainChecks.Run();StarterRecipeChecks.Run(ItemRegistry.Load(),RecipeCatalogAsset.Load().Compile(ItemRegistry.Load()));FluidChecks.Run();File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
+                if(command=="industry-logic")
+                {IndustryChecks.Run();File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
+                if(command=="industry-build"||command=="industry-checks")
+                {IndustryAssets.Prepare();IndustryChecks.Run();if(command=="industry-build")Build("Industry");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="torch-build")
                 {TorchAssets.Prepare();DomainChecks.Run();FluidChecks.Run();Build("Torches");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="creative-build")

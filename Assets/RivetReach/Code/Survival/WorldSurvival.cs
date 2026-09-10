@@ -13,7 +13,7 @@ namespace RivetReach
         public StationState(byte block,RecipeRegistry crafting,ProcessingRegistry processing,Func<byte,int> limit)
         {
             Block=block;
-            if(block==BlockId.Workbench)Crafting=new CraftingSession(crafting,3,limit);
+            if(block==BlockId.Workbench||block==IndustryId.Bench)Crafting=new CraftingSession(crafting,block==IndustryId.Bench?4:3,limit);
             else if(block==BlockId.Furnace)Furnace=new FurnaceState(processing,limit);
             else if(block==BlockId.Chest)Storage=new ItemContainer(27,limit);
             else throw new ArgumentException("Unsupported station block.");

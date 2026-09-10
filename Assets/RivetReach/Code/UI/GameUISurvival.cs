@@ -13,7 +13,7 @@ namespace RivetReach
         bool shownEating;
         Text healthText,hungerText,armorText,furnaceText;
         Image cookBar,burnBar;
-        long StationRevision=>game.OpenStation?.Furnace?.Revision??game.OpenStation?.Storage?.Revision??0;
+        long StationRevision=>game.OpenMachine?.Items.Revision??game.OpenStation?.Furnace?.Revision??game.OpenStation?.Storage?.Revision??0;
         ItemStack StationStack(int slot)
         {
             if(game.OpenStation.Furnace!=null)return slot>=0&&slot<3?game.OpenStation.Furnace.Slots[slot]:default;
@@ -55,9 +55,12 @@ namespace RivetReach
             furnaceText=Label(parent,"",821,469,300,64,15,gold);
             guide=Panel(parent,816,204,329,330,ink).gameObject;
             Label(guide.transform,"10 seconds per item",12,10,305,24,17,gold);
+            var viewport=Panel(guide.transform,7,42,315,165,slate);viewport.gameObject.AddComponent<Mask>().showMaskGraphic=true;
+            var content=Rect(viewport.transform,"Furnace recipes",0,0,315,game.Processing.Recipes.Count*28);
+            var scroll=viewport.gameObject.AddComponent<ScrollRect>();scroll.viewport=viewport.rectTransform;scroll.content=content;scroll.horizontal=false;scroll.movementType=ScrollRect.MovementType.Clamped;
             int row=0;
             foreach(var recipe in game.Processing.Recipes)
-                Label(guide.transform,game.Registry.Get(recipe.Input.Id).displayName+" → "+game.Registry.Get(recipe.Output.Id).displayName,12,46+row++*28,305,26,14);
+                Label(content,game.Registry.Get(recipe.Input.Id).displayName+" → "+game.Registry.Get(recipe.Output.Id).displayName,8,row++*28,299,26,14);
             Label(guide.transform,"Coal / charcoal: 8 items\nLog / plank: 1½ items · Stick: ½ item\nBurning fuel runs down while idle.\nDrag logs to FUEL to burn them.",12,226,305,94,14,gold);
             guide.SetActive(false);
         }
@@ -68,6 +71,7 @@ namespace RivetReach
         }
         bool ClickStationSlot(int index,bool right,bool shift)
         {
+            if(index>=MachineSlotStart&&index<MachineSlotStart+3&&game.OpenMachine!=null){int slot=index-MachineSlotStart;if(shift&&HeldStack.Empty)game.OpenMachine.Items.TransferTo(slot,game.Inventory);else game.OpenMachine.Click(slot,ref HeldStack,right);return true;}
             if(index>=ArmorSlotStart&&index<ArmorSlotStart+4)
             {
                 int slot=index-ArmorSlotStart;
@@ -91,7 +95,8 @@ namespace RivetReach
         void QuickTransferInventory(int index)
         {
             var stack=game.Inventory.Slots[index];if(stack.Empty)return;
-            if(game.OpenStation?.Furnace!=null){game.OpenStation.Furnace.TransferIn(game.Inventory,index);game.Survival.Wake(game.StationPosition);}
+            if(game.OpenMachine!=null)game.OpenMachine.TransferIn(game.Inventory,index);
+            else if(game.OpenStation?.Furnace!=null){game.OpenStation.Furnace.TransferIn(game.Inventory,index);game.Survival.Wake(game.StationPosition);}
             else if(game.OpenStation?.Storage!=null)game.Inventory.TransferTo(index,game.OpenStation.Storage);
             else if(game.Registry.Get(stack.Id).armorSlot!=ArmorSlot.None)game.Equipment.TransferIn(game.Inventory,index);
             else game.Inventory.QuickTransfer(index);
