@@ -39,8 +39,7 @@ namespace RivetReach
             for(int i=0;i<pickRecipe.Ingredients.Count;i++)if(!pickRecipe.Ingredients[i].Empty)game.Crafting.Grid.Add(pickRecipe.Ingredients[i].Id,1,i,i+1);
             yield return Capture("workbench-pickaxe-ready");yield return ClickCraftUI(CraftResultSlot,false,true);
             Check(game.Inventory.Total(BlockId.WoodPickaxe)==1&&game.Crafting.Grid.Slots.All(s=>s.Empty),"Workbench pointer result crafts a wooden pickaxe");
-            var recipeButton=game.UI.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b=>b.GetComponentInChildren<UnityEngine.UI.Text>().text=="RECIPES");
-            recipeButton.onClick.Invoke();yield return Capture("workbench-recipes");recipeButton.onClick.Invoke();
+            game.UI.InspectBrowserItem(BlockId.WoodPickaxe,false);yield return Capture("workbench-recipes");game.UI.CloseBrowserRecipe();
             game.SetMode(ScreenMode.Play);yield return null;
             var ore=baseCell.Offset(1,0,2);world.Place(ore,BlockId.Stone);
             Check(!world.Mine(ore,BlockId.Stone,ToolCapability.None,ToolTier.None)&&world.Get(ore)==BlockId.Stone,"Fists cannot bypass the stone extraction tier");

@@ -1,4 +1,4 @@
-param([string]$OutputDirectory,[switch]$Build)
+param([string]$OutputDirectory,[switch]$Build,[switch]$FullRun)
 $ErrorActionPreference = 'Stop'
 $project = Split-Path $PSScriptRoot -Parent
 if (!$OutputDirectory) { $OutputDirectory = Join-Path $project 'Logs\CreativeVerification' }
@@ -16,6 +16,8 @@ if ($Build) {
 }
 $executable = Join-Path $project 'Builds\Creative\RivetReach.exe'
 if (!(Test-Path $executable)) { throw 'Use -Build with the pinned Editor open.' }
+$report = Join-Path $OutputDirectory 'runtime-report.json'
+if (Test-Path $report) { Remove-Item $report }
 $arguments = @('-screen-fullscreen','0','-screen-width','1280','-screen-height','720','-rr-verify','-rr-creative-review','-rr-output',('"'+$OutputDirectory+'"'),'-logFile',('"'+(Join-Path $OutputDirectory 'player.log')+'"'))
 $process = Start-Process -FilePath $executable -ArgumentList $arguments -PassThru
 if (!$process.WaitForExit(900000)) { throw 'Creative review exceeded fifteen minutes. Player remains available for diagnosis.' }
@@ -23,3 +25,20 @@ $report = Join-Path $OutputDirectory 'runtime-report.json'
 if (!(Test-Path $report)) { throw 'No runtime report; inspect player.log.' }
 Get-Content $report
 if ($process.ExitCode -ne 0 -or (Get-Content -Raw $report | ConvertFrom-Json).result -ne 'PASS') { throw 'Creative verification failed.' }
+
+if ($FullRun) {
+    # All scenarios use the exact player just checked above. Workshop fixtures opt into Creative.
+    foreach ($scenario in @('industry','multiblock','placement-items','browser','survival')) {
+        $scenarioOutput = Join-Path $OutputDirectory $scenario
+        New-Item -ItemType Directory -Force $scenarioOutput | Out-Null
+        $scenarioReport = Join-Path $scenarioOutput 'runtime-report.json'
+        if (Test-Path $scenarioReport) { Remove-Item $scenarioReport }
+        $arguments = @('-screen-fullscreen','0','-screen-width','1280','-screen-height','720','-rr-verify',('-rr-'+$scenario+'-review'),'-rr-output',('"'+$scenarioOutput+'"'),'-logFile',('"'+(Join-Path $scenarioOutput 'player.log')+'"'))
+        if ($scenario -in @('industry','multiblock')) { $arguments += '-rr-creative-workshop' }
+        $process = Start-Process -FilePath $executable -ArgumentList $arguments -PassThru
+        if (!$process.WaitForExit(900000)) { throw "$scenario exceeded fifteen minutes; player preserved for diagnosis." }
+        if (!(Test-Path $scenarioReport)) { throw "No $scenario report; inspect player.log." }
+        Get-Content $scenarioReport
+        if ($process.ExitCode -ne 0 -or (Get-Content -Raw $scenarioReport | ConvertFrom-Json).result -ne 'PASS') { throw "$scenario verification failed." }
+    }
+}

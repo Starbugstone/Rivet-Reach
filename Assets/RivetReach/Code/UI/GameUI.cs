@@ -111,7 +111,7 @@ namespace RivetReach
             Label(root,"RIVET REACH",28,22,300,28,19);
             worldTime=Label(root,"",870,22,380,52,16,pale);worldTime.alignment=TextAnchor.UpperRight;
             Label(root,game.Creative?"CREATIVE · INVINCIBLE":"FIRST EXPEDITION",29,52,280,22,11,gold);
-            if(game.Creative)Label(root,$"{game.Input.Keys["Jump"]} Rise · {game.Input.Keys["Crouch"]} Descend · {game.Input.Keys["Sprint"]} Fly faster",29,76,600,22,13,gold);
+            if(game.Creative)Label(root,$"Double-tap {game.Input.Keys["Jump"]}: toggle flight · {game.Input.Keys["Crouch"]}: crouch / descend · {game.Input.Keys["Sprint"]}: run",29,76,950,22,13,gold);
             foreach(var bar in new[]{new Rect(632,359,5,2),new Rect(643,359,5,2),new Rect(639,352,2,5),new Rect(639,363,2,5)})
             {
                 Panel(root,bar.x-1,bar.y-1,bar.width+2,bar.height+2,new Color(.025f,.04f,.035f,.65f));
@@ -300,11 +300,12 @@ namespace RivetReach
             if(selectedLabel!=null){var s=game.Inventory.Slots[game.Selected];selectedLabel.text=s.Empty?"BARE HAND":game.Registry.Get(s.Id).displayName+"  ·  "+s.Count;}
             if(heldRoot!=null)
             {
-                heldRoot.gameObject.SetActive(!HeldStack.Empty);
-                if(!HeldStack.Empty&&Mouse.current!=null)
+                var cursorStack=creativeDrag.Empty?HeldStack:creativeDrag;
+                heldRoot.gameObject.SetActive(!cursorStack.Empty);
+                if(!cursorStack.Empty&&Mouse.current!=null)
                 {
                     RectTransformUtility.ScreenPointToLocalPointInRectangle(root,Mouse.current.position.ReadValue(),null,out var point);
-                    heldRoot.localPosition=new Vector3(point.x+10,point.y-10,0);heldIcon.texture=icons[HeldStack.Id];heldLabel.text=HeldStack.Count.ToString();
+                    heldRoot.localPosition=new Vector3(point.x+10,point.y-10,0);heldIcon.texture=icons[cursorStack.Id];heldLabel.text=cursorStack.Count.ToString();
                 }
             }
             frameAverage=Mathf.Lerp(frameAverage,Time.unscaledDeltaTime,.05f);

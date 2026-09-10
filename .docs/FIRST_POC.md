@@ -6,7 +6,7 @@ The Unity **6000.4.4f1 / URP 17.4.0** project now includes terrain and caves, FP
 
 Open this repository in the pinned Unity Editor, open `Assets/RivetReach/Scenes/Main.unity`, then press Play. `Expedition.Bootstrap` creates the voxel world and UI at runtime; the unplayed scene is not a populated map. After cloning, run `git lfs pull` to retrieve binary assets.
 
-The current local review executable is **`Builds/Multiblocks/RivetReach.exe`**. Keep its adjacent data folder, DLLs and Mono runtime together. Start Expedition uses a fresh random world seed, or the optional signed 32-bit seed entered on the title screen. Nearby terrain prepares before movement can enter it.
+The current local review executable is **`Builds/Creative/RivetReach.exe`**. Keep its adjacent data folder, DLLs and Mono runtime together. Start Expedition uses a fresh random world seed, or the optional signed 32-bit seed entered on the title screen. Nearby terrain prepares before movement can enter it.
 
 The normal build entry point is **Rivet Reach → Build Windows first POC**, or Windows PowerShell:
 
@@ -16,7 +16,7 @@ The normal build entry point is **Rivet Reach → Build Windows first POC**, or 
 .\Tools\Verify-POC.ps1 -Survival
 ```
 
-`Tools/Verify-Multiblocks.ps1 -Build` prepares, builds and verifies the current tank/pipe review through the open Editor. `Tools/Verify-Industry.ps1 -Build` retains the earlier workshop scenario. The older general script builds `Builds/PlayerRevision4/RivetReach.exe`. To test the delivered review executable, supply `-Executable Builds/Multiblocks/RivetReach.exe`. `Tools/Verify-Creative.ps1 -Build` produces and checks the separate Creative review build through the open Editor. Runtime assets are versioned; ordinary Play requires no Blender or asset-generation step.
+`Tools/Verify-Multiblocks.ps1 -Build` prepares, builds and verifies the current tank/pipe review through the open Editor. `Tools/Verify-Industry.ps1 -Build` retains the earlier workshop scenario. The older general script builds `Builds/PlayerRevision4/RivetReach.exe`. To test the delivered review executable, supply `-Executable Builds/Multiblocks/RivetReach.exe`. `Tools/Verify-Creative.ps1 -Build -FullRun` builds the current Creative review and checks controls, Creative industry/multiblocks, placement/movement, recipe browsing and Survival through the open Editor. Runtime assets are versioned; ordinary Play requires no Blender or asset-generation step.
 
 Light-bulb and speaker markers are Unity Editor annotations, with no gameplay purpose. The project hides these icons on Editor initialization and Play entry; actual lights and sound remain enabled. Camera clearance uses movement solidity so walking through torches and potato plants keeps the normal eye height.
 
@@ -27,10 +27,10 @@ The build script reuses this project's open Editor through its existing local fi
 | Action | Default |
 | --- | --- |
 | Move / look | WASD / mouse |
-| Sprint / jump / crouch | Left Shift or double-tap Forward / Space / Left Ctrl |
+| Sprint / jump / crouch | Left Ctrl or double-tap Forward / Space / Left Shift |
 | Mine / attack | Hold left mouse while aiming within reach |
 | Interact with stations or machines | E, or right-click while aiming at the block |
-| Place / use held item | Right-click; Left Ctrl + right-click places against a station |
+| Place / use held item | Right-click; Left Shift + right-click places against a station |
 | Inventory / pause | Tab / Escape |
 | Select hotbar | Mouse wheel or [ / ]; 1–0 for the first ten slots |
 | Drop one / selected stack | Q / Shift+Q |
@@ -40,7 +40,7 @@ The build script reuses this project's open Editor through its existing local fi
 | Transfer / craft all that fit | Shift-click |
 | Rotate the appearance preview | Drag the player portrait |
 
-Keyboard controls can be rebound; conflicting actions swap keys. New Interact bindings preserve existing customized keys. Mining can use either mouse button; use/placement follows the opposite button, including the displayed prompts. Appearance, audio and settings are remembered locally.
+Keyboard controls can be rebound; conflicting actions swap keys. The old default Sprint/Crouch pair migrates to Ctrl/Shift; other customized pairs are preserved. New Interact bindings preserve existing customized keys. Mining can use either mouse button; use/placement follows the opposite button, including the displayed prompts. Appearance, audio and settings are remembered locally.
 
 ## Start crafting
 
@@ -83,9 +83,9 @@ The current liquid review executable is **`Builds/Fluids/RivetReach.exe`** (Unit
 
 ## Creative testing
 
-The Creative review executable is **`Builds/Creative/RivetReach.exe`**. Start an expedition, then press **Escape → Creative Mode: Off** to enable it. Fly with **WASD**, **Space** to rise, **Left Ctrl** to descend and **Left Shift** to fly faster. Open **Tab → All Items**, search or scroll, and click an item for a full stack. You are invincible, hunger is frozen, and placed blocks are not consumed. Use the same Escape toggle to return to Survival; gravity and damage resume and your items remain. See [the full rules](GAMEPLAY.md#creative-testing-mode) and [verification](verification/CREATIVE_RESULTS.md).
+The Creative review executable is **`Builds/Creative/RivetReach.exe`**. Start an expedition, then press **Escape → Creative Mode: Off** to enable it. Double-tap **Space** to enable or disable flight. Fly with **WASD**, hold **Space** to rise, **Left Shift** to descend and **Left Ctrl** (or double-tap Forward) to fly faster. While walking, Shift crouches and Ctrl runs. Open **Tab → All Items**, search or scroll, and click an item for a full stack, or drag an icon from the right-hand sidebar into a backpack/hotbar slot. You are invincible, hunger is frozen, and placed blocks are not consumed. Use the same Escape toggle to return to Survival; gravity and damage resume and your items remain. See [the full rules](GAMEPLAY.md#creative-testing-mode) and [verification](verification/CREATIVE_RESULTS.md).
 
-Run `Tools/Verify-Creative.ps1 -Build` with this project's pinned Editor open to rebuild and exercise the focused Creative scenario.
+Run `Tools/Verify-Creative.ps1 -Build -FullRun` with this project's pinned Editor open to build and run Creative controls/catalog, Creative industry/multiblocks, placement/movement, recipe-browser and Survival checks against that same executable.
 
 
 ## Torches review build

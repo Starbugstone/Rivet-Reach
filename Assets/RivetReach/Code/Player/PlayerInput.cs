@@ -9,7 +9,7 @@ namespace RivetReach
     {
         public readonly Dictionary<string,Key> Keys=new Dictionary<string,Key>{
             {"Forward",Key.W},{"Back",Key.S},{"Left",Key.A},{"Right",Key.D},{"Jump",Key.Space},
-            {"Sprint",Key.LeftShift},{"Crouch",Key.LeftCtrl},{"Inventory",Key.Tab},{"Drop",Key.Q},{"Interact",Key.E},
+            {"Sprint",Key.LeftCtrl},{"Crouch",Key.LeftShift},{"Inventory",Key.Tab},{"Drop",Key.Q},{"Interact",Key.E},
             {"Pause",Key.Escape},{"Inspect",Key.F5},{"Diagnostics",Key.F12},
             {"Previous slot",Key.LeftBracket},{"Next slot",Key.RightBracket}};
         public float Sensitivity=0.11f;
@@ -17,7 +17,24 @@ namespace RivetReach
         float rebindAfter;
         public PlayerInput()
         {
+            bool legacyMovement=PlayerPrefs.GetInt("binding.movementVersion",0)<1;
+            // Old preferences may store only one action. Resolve missing keys using
+            // that version's defaults before migrating the pair to avoid duplicate bindings.
+            if(legacyMovement){Keys["Sprint"]=Key.LeftShift;Keys["Crouch"]=Key.LeftCtrl;}
             foreach(var n in new List<string>(Keys.Keys))Keys[n]=(Key)PlayerPrefs.GetInt("binding."+n,(int)Keys[n]);
+            // Migrate only the old default pair; preserve deliberately customized controls.
+            if(legacyMovement&&Keys["Sprint"]==Key.LeftShift&&Keys["Crouch"]==Key.LeftCtrl)
+            {
+                Keys["Sprint"]=Key.LeftCtrl;Keys["Crouch"]=Key.LeftShift;
+                PlayerPrefs.SetInt("binding.Sprint",(int)Key.LeftCtrl);
+                PlayerPrefs.SetInt("binding.Crouch",(int)Key.LeftShift);PlayerPrefs.Save();
+            }
+            if(legacyMovement)
+            {
+                PlayerPrefs.SetInt("binding.Sprint",(int)Keys["Sprint"]);
+                PlayerPrefs.SetInt("binding.Crouch",(int)Keys["Crouch"]);
+                PlayerPrefs.SetInt("binding.movementVersion",1);PlayerPrefs.Save();
+            }
             // Adding an action must not steal a key from an existing customized binding.
             if(!PlayerPrefs.HasKey("binding.Interact"))
                 foreach(var candidate in new[]{Key.E,Key.F,Key.R,Key.G,Key.T,Key.Y,Key.U,Key.I,Key.O,Key.P,Key.H,Key.J,Key.K,Key.L,Key.Z,Key.X})

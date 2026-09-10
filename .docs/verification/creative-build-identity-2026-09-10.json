@@ -1,0 +1,54 @@
+{
+  "build": "Builds/Creative/RivetReach.exe",
+  "unity": "6000.4.4f1",
+  "configuration": "Windows x64 Development",
+  "baseCommit": "25838e424b6452853ed371a20e1896db5b72e3d3",
+  "sourceState": "Base commit plus task modifications; source hashes below identify the tested code.",
+  "buildResult": "SUCCESS 2026-09-10T17:31:26.6419738Z",
+  "sha256": {
+    "Builds/Creative/RivetReach.exe": "7d52ee70fb22771f4608d810d1015f539c37dd8b7b2fbb1a0ea9f6bc5c32d5c9",
+    "Builds/Creative/RivetReach_Data/Managed/Assembly-CSharp.dll": "aaf4961776934ed19b3faa035f5fc2ab98dbcfb22b4730aa8adf826864056309",
+    "Assets/RivetReach/Code/CreativeMode.cs": "5d737fed236dff7a12149b3f7fa962c9889ae7b2d9db98f147a7b47ab7943a78",
+    "Assets/RivetReach/Code/CreativeVerification.cs": "f06c7d292d24fa99535e9b64c83d164a7dc4bb89db2081586d5b88c6dceafe8c",
+    "Assets/RivetReach/Code/IndustryVerification.cs": "87ef895586c930fe18e828e86ee6c81166721255d983907d511e96be6daf7639",
+    "Assets/RivetReach/Code/MultiblockVerification.cs": "f782ab58337c05b1435a7d92f8eef3225df3f7313aa4420c51a65a4e0938e319",
+    "Assets/RivetReach/Code/Player/FirstPersonPlayer.cs": "160bf4acbee27e19c3245f16acb7e99a71f94849598064bc967ec4e632f9ee5b",
+    "Assets/RivetReach/Code/Player/PlayerInput.cs": "bca2e9d9c1f36289ab921399376609e214849c3dc9a12ac565221bbf55a5e34f",
+    "Assets/RivetReach/Code/SurvivalVerification.cs": "6bcf25587d1c25c9ab94de1fadfd3b8bb65c6742c7ed79e985d4f1ccbccd4a73",
+    "Assets/RivetReach/Code/UI/GameUI.cs": "e6bd0c3e43a592e6a448c3dc60d1497463c5c91519b76360bd0a4d4430244ca5",
+    "Assets/RivetReach/Code/UI/GameUIBrowser.cs": "64cbdc9e4dd7ccca24bdcee39e642c16947461287116ee69fd72e4f0753a391d",
+    "Assets/RivetReach/Editor/ProjectBuild.cs": "b0a00e94f78856bd85d6bc6b45051ca059ea9787a17bccc1200e5f5c18666a74"
+  },
+  "runs": {
+    "controls": {
+      "timestamp": "2026-09-10T17:32:10.0871830Z",
+      "assertions": 308,
+      "result": "PASS"
+    },
+    "industry": {
+      "timestamp": "2026-09-10T17:33:02.2556039Z",
+      "assertions": 163,
+      "result": "PASS"
+    },
+    "multiblock": {
+      "timestamp": "2026-09-10T17:33:31.2855486Z",
+      "assertions": 287,
+      "result": "PASS"
+    },
+    "placement-items": {
+      "timestamp": "2026-09-10T17:34:12.5072352Z",
+      "assertions": 96,
+      "result": "PASS"
+    },
+    "browser": {
+      "timestamp": "2026-09-10T17:34:34.2620690Z",
+      "assertions": 491,
+      "result": "PASS"
+    },
+    "survival": {
+      "timestamp": "2026-09-10T17:36:08.8045017Z",
+      "assertions": 86,
+      "result": "PASS"
+    }
+  }
+}

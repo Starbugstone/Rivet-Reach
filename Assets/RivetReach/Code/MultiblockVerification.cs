@@ -14,13 +14,14 @@ namespace RivetReach
             game.Mobs.enabled=false;player.enabled=false;game.Items.enabled=false;game.Diagnostics=false;
             player.Arms.gameObject.SetActive(false);player.Body.gameObject.SetActive(false);
             Check(game.Inventory.Slots.All(s=>s.Empty),"Ordinary session starts empty handed");
+            if(CreativeWorkshop){game.SetCreative(true);Check(game.Creative,"Workshop runs with Creative enabled");}
             var start=world.Address(player.transform.position);
             var origin=new BlockPos(start.Chunk.X*32+29,start.Y,start.Z+5);
             // Deliberately straddle an X chunk boundary with actual editable world cells.
             for(int x=-3;x<11;x++)for(int z=-5;z<8;z++)for(int y=-1;y<7;y++)
             {var p=origin.Offset(x,y,z);byte b=world.Get(p);if(b!=0)world.Remove(p,b);if(y==-1)world.Place(p,BlockId.Stone);}
             MachineState Place(int x,int y,int z,byte id,int rotation=0)
-            {var p=origin.Offset(x,y,z);byte b=world.Get(p);if(b!=0)world.Remove(p,b);Check(world.Place(p,id),"Place "+game.Registry.Get(id).displayName);var m=sim.At(p);for(int i=0;i<rotation;i++)sim.Rotate(m);return m;}
+            {var p=origin.Offset(x,y,z);byte b=world.Get(p);if(b!=0)world.Remove(p,b);Check(PlaceWorkshopItem(p,id),"Place "+game.Registry.Get(id).displayName);var m=sim.At(p);for(int i=0;i<rotation;i++)sim.Rotate(m);return m;}
             const int width=6,height=4,depth=5;
             var bounds=new StructureBounds(origin,origin.Offset(width-1,height-1,depth-1));
             for(int x=0;x<width;x++)for(int y=0;y<height;y++)for(int z=0;z<depth;z++)
@@ -36,6 +37,7 @@ namespace RivetReach
             player.transform.position=world.Local(origin)+new Vector3(3,1,-4);
             player.Camera.transform.position=world.Local(origin)+new Vector3(8,5,-6);player.Camera.transform.LookAt(world.Local(origin)+new Vector3(2.8f,1.5f,2));
             game.Sky.Clock.SetTime(.4);game.Sky.Apply();yield return new WaitForSecondsRealtime(1);
+            if(CreativeWorkshop)for(int fixtureSlot=0;fixtureSlot<game.Inventory.Count;fixtureSlot++)game.Inventory.Take(fixtureSlot,int.MaxValue);
             var tank=controller.Structure;
             Check(tank.Formed&&tank.Bounds.Width==6&&tank.Fluid.Capacity==6000000,"6×4×5 tank forms across chunk boundary at 6,000 L");
             Check(valve.Structure==tank&&hatch.Structure==tank&&outputPort.Structure==tank,"All shell interfaces share controller storage");
@@ -62,7 +64,13 @@ namespace RivetReach
             var upgrade=Place(8,1,-2,IndustryId.ItemPipe);
             Aim(upgrade);Check(game.TryOpenMachine(upgrade.Position),"Open ordinary item pipe through normal targeting");
             game.Inventory.Add(IndustryId.SignalConduit,1);game.Inventory.Add(IndustryId.PowerCable,1);
-            Check(game.Industry.AddPipeChannel(upgrade,PipeAddition.Signal)&&game.Industry.AddPipeChannel(upgrade,PipeAddition.Power)&&upgrade.Additions==(PipeAddition.Signal|PipeAddition.Power),"Install both independent channels through the real pipe interface authority");
+            if(CreativeWorkshop)
+            {
+                yield return BrowserPointer(game.UI.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b=>b.GetComponentInChildren<UnityEngine.UI.Text>().text=="FIT SIGNAL"));
+                yield return BrowserPointer(game.UI.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b=>b.GetComponentInChildren<UnityEngine.UI.Text>().text=="FIT POWER"));
+                Check(upgrade.Additions==(PipeAddition.Signal|PipeAddition.Power),"Pointer installs independent signal and power fittings on Item Pipe");
+            }
+            else Check(game.Industry.AddPipeChannel(upgrade,PipeAddition.Signal)&&game.Industry.AddPipeChannel(upgrade,PipeAddition.Power)&&upgrade.Additions==(PipeAddition.Signal|PipeAddition.Power),"Install both independent channels through the real pipe interface authority");
             Check(game.Inventory.Total(IndustryId.SignalConduit)==0&&game.Inventory.Total(IndustryId.PowerCable)==0&&!game.Industry.AddPipeChannel(upgrade,PipeAddition.Signal),"Pipe fittings consume components once and reject duplicate installation");
             game.SetMode(ScreenMode.Play);Aim(upgrade);Check(game.TryOpenMachine(upgrade.Position),"Reopen fitted pipe controls");yield return Capture("multiblock-pipe-channel-ui");game.SetMode(ScreenMode.Play);
             // Stop transport for exact bucket/full-inventory and breach checks.
@@ -79,7 +87,7 @@ namespace RivetReach
             Check(!tank.Formed&&tank.Fluid.Amount==held,"Mining breaches immediately and preserves stored amount");yield return new WaitForSecondsRealtime(.2f);
             Check(!tank.Formed&&tank.Fluid.Amount==held&&!world.Remove(controller.Position,IndustryId.TankController),"Invalid tank pauses ports and rejects nonempty controller dismantle");
             Aim(controller);Check(game.TryOpenMachine(controller.Position),"Breached controller remains usable for emergency recovery");yield return Capture("multiblock-breach-diagnostics");game.SetMode(ScreenMode.Play);
-            Check(world.Place(breach,IndustryId.TankGlass),"Replace mined glass member");yield return new WaitForSecondsRealtime(.25f);
+            Check(PlaceWorkshopItem(breach,IndustryId.TankGlass),"Replace mined glass member");yield return new WaitForSecondsRealtime(.25f);
             Check(tank.Formed&&tank.StructureId==identity&&tank.Fluid.Amount==held,"Repair restores same logical tank and liquid");
             sampling=true;yield return new WaitForSecondsRealtime(6);sampling=false;
             game.SetMode(ScreenMode.Pause);var saved=WorldPoint.FromLocal(player.transform.position,world.Origin);

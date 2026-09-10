@@ -31,6 +31,7 @@ namespace RivetReach
 
         void ResetBrowserUI()
         {
+            creativeDrag = default;
             browserHost = null; recipePanel = null; recipeTransferStatus = null; browserTip = null; browserSearchField = null;
             browserCells.Clear(); browserHovered = 0; browserItem = 0; browserHistory.Clear();
         }
@@ -108,7 +109,7 @@ namespace RivetReach
             Button(panel.transform, "×", 234, 57, 36, 35, () => browserSearchField.text = "");
             var grid = Rect(panel.transform, "Item pages", 16, 108, 252, 420);
             var wheel = grid.gameObject.AddComponent<BrowserPageScroll>(); wheel.Owner = this;
-            for (int i = 0; i < BrowserPageSize; i++) browserCells.Add(BrowserIcon(grid, default, i % 6 * 42, i / 6 * 42, 38));
+            for (int i = 0; i < BrowserPageSize; i++) { var view=BrowserIcon(grid, default, i % 6 * 42, i / 6 * 42, 38); view.CatalogSource=true; browserCells.Add(view); }
             browserPrevious = Button(panel.transform, "‹", 14, 539, 38, 34, () => ChangeBrowserPage(-1));
             browserNext = Button(panel.transform, "›", 232, 539, 38, 34, () => ChangeBrowserPage(1));
             browserPageLabel = Label(panel.transform, "", 54, 542, 176, 30, 13, gold); browserPageLabel.alignment = TextAnchor.MiddleCenter;
@@ -155,10 +156,25 @@ namespace RivetReach
             if (stack.Count > 1) Label(panel.transform, stack.Count.ToString(), 1, size - 19, size - 3, 19, 13).alignment = TextAnchor.LowerRight;
             return view;
         }
+        ItemStack creativeDrag;
+        public bool BeginCreativeDrag(byte id)
+        {
+            if(!game.Creative||!game.InventoryOpen||!HeldStack.Empty||id==0)return false;
+            creativeDrag=new ItemStack(id,game.Registry.Get(id).stackLimit);return true;
+        }
+        public void EndCreativeDrag(SlotView slot)
+        {
+            byte id=creativeDrag.Id;creativeDrag=default;
+            if(id==0||slot==null||slot.Owner!=this)return;
+            if(!game.TryGiveCreativeItemToSlot(id,slot.Index)&&browserTip!=null)
+                browserTip.text="Drop into an empty inventory slot\nor a matching stack with room.";
+            RefreshSlots();
+        }
+        string BrowserDragHint=>game.Creative?" · Drag: give stack":"";
         public void HoverBrowserItem(byte id)
         {
             browserHovered = id;
-            if (browserTip != null) browserTip.text = id == 0 ? "Click: recipes\nShift / right-click: uses\nCtrl-click: fill crafting grid" : game.Registry.Get(id).displayName + "\nClick: recipes · Shift-click: uses\nCtrl-click: fill crafting grid";
+            if (browserTip != null) browserTip.text = (id == 0 ? "Click: recipes · Right-click: uses" : game.Registry.Get(id).displayName) + "\nCtrl-click: fill crafting grid\nShift-click: uses" + BrowserDragHint;
         }
         public void InspectBrowserItem(byte id, bool usages)
         {
@@ -283,14 +299,22 @@ namespace RivetReach
             else if (Keyboard.current.uKey.wasPressedThisFrame) InspectBrowserItem(item, true);
         }
     }
-    public sealed class BrowserItemView : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+    public sealed class BrowserItemView : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         public GameUI Owner; public byte Item; public string RecipeId; public RawImage Icon;
+        public bool CatalogSource;
+        bool dragging;
+        public void OnBeginDrag(PointerEventData e)
+        {dragging=CatalogSource&&e.button==PointerEventData.InputButton.Left&&Owner.BeginCreativeDrag(Item);}
+        public void OnDrag(PointerEventData e){}
+        public void OnEndDrag(PointerEventData e)
+        {if(dragging)Owner.EndCreativeDrag(e.pointerCurrentRaycast.gameObject?.GetComponentInParent<SlotView>());dragging=false;}
+        void OnDisable(){if(dragging)Owner.EndCreativeDrag(null);dragging=false;}
         public void OnPointerEnter(PointerEventData e) => Owner.HoverBrowserItem(Item);
         public void OnPointerExit(PointerEventData e) => Owner.HoverBrowserItem(0);
         public void OnPointerClick(PointerEventData e)
         {
-            if (e.button != PointerEventData.InputButton.Left && e.button != PointerEventData.InputButton.Right) return;
+            if (dragging || e.dragging || (e.button != PointerEventData.InputButton.Left && e.button != PointerEventData.InputButton.Right)) return;
             if (e.button == PointerEventData.InputButton.Left && Keyboard.current?.ctrlKey.isPressed == true)
                 Owner.FillBrowserRecipe(Item, RecipeId);
             else Owner.InspectBrowserItem(Item, e.button == PointerEventData.InputButton.Right || Keyboard.current?.shiftKey.isPressed == true);

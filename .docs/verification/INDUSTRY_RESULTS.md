@@ -1,5 +1,7 @@
 # Industrial workshop verification — 2026-09-10
 
+The later [Creative workshop run](CREATIVE_RESULTS.md) checks these systems with Creative enabled on the current combined build. The evidence below retains its original artifact identity.
+
 Implementation of the V1 workshop in [issue #2](https://github.com/Starbugstone/Rivet-Reach/issues/2). [INDUSTRY.md](../INDUSTRY.md) owns recipes, ports, rates, timing and remaining roadmap scope. This report separates actual Windows-player evidence from domain checks and artistic review.
 
 ## In-game footage

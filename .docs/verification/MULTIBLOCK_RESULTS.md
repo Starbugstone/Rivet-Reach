@@ -1,5 +1,7 @@
 # Multiblock tanks and pipe fittings — 2026-09-10
 
+The later [Creative workshop run](CREATIVE_RESULTS.md) checks these systems with Creative enabled on the current combined build. The evidence below retains its original artifact identity.
+
 [Clean in-game machinery gallery](MACHINERY_SHOWCASE.md) provides staged presentation shots with the HUD hidden.
 [MULTIBLOCKS.md](../MULTIBLOCKS.md) owns the working implementation selected from issue #3. This feature adds a reusable validator/machine-data lifecycle, individually editable tank shells, exact shared storage, connected Blender surfaces, valve and level controls, and independent signal/power fittings on both transport pipes.
 

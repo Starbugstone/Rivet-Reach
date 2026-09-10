@@ -14,6 +14,8 @@ namespace RivetReach
         public bool Inspecting {get;private set;}
         public bool Grounded {get;private set;}
         public bool Sprinting {get;private set;}
+        public bool Flying {get;private set;}
+        float lastJumpPress=float.NegativeInfinity;
         public bool HasTarget {get;private set;}
         public BlockPos Target {get;private set;}
         public byte TargetId {get;private set;}
@@ -83,18 +85,19 @@ namespace RivetReach
                 if(Game.Input.Pressed("Inspect")){Inspecting=!Inspecting;RefreshAppearance();}
             }
             UpdateSprintGesture(control&&!Inspecting);
+            UpdateFlightGesture(control&&!Inspecting);
             transform.rotation=Quaternion.Euler(0,Yaw,0);
             if(!Game.Paused && Game.World.Ready(Game.World.Address(transform.position)))
             {
-                bool crouch=!Game.Creative&&control&&(VerificationCrouching??Game.Input.Held("Crouch"));
+                bool crouch=!Flying&&control&&(VerificationCrouching??Game.Input.Held("Crouch"));
                 float desired=crouch?1.25f:1.8f;
                 if(desired<Height||!Game.World.Overlaps(transform.position,.6f,desired))Height=desired;
                 Vector2 input=VerificationMovement??(control?Game.Input.Move:Vector2.zero);
-                Sprinting=control&&(Game.Creative||Game.Hunger.CanSprint)&&Height>=1.5f&&(input.sqrMagnitude>0||Game.Creative&&(Game.Input.Held("Jump")||Game.Input.Held("Crouch")))&&(Game.Input.Held("Sprint")||doubleTapSprint);
-                float speed=Game.Creative?(Sprinting?12f:7f):Height<1.5f?2.2f:Sprinting?6.5f:4.5f;
+                Sprinting=control&&(Game.Creative||Game.Hunger.CanSprint)&&Height>=1.5f&&(input.sqrMagnitude>0||Flying&&(Game.Input.Held("Jump")||Game.Input.Held("Crouch")))&&(Game.Input.Held("Sprint")||doubleTapSprint);
+                float speed=Flying?(Sprinting?12f:7f):Height<1.5f?2.2f:Sprinting?6.5f:4.5f;
                 input=Vector2.ClampMagnitude(input,1);
                 Vector3 move=transform.TransformDirection(new Vector3(input.x,0,input.y))*speed;
-                bool jump=!Game.Creative&&control&&Game.Input.Pressed("Jump")&&Grounded;
+                bool jump=!Flying&&control&&Game.Input.Pressed("Jump")&&Grounded;
                 // The requested 1.6-block apex leaves clearance for future half blocks.
                 if(jump)vertical=8f;
                 float dt=Mathf.Min(Time.deltaTime,.05f);
@@ -107,7 +110,7 @@ namespace RivetReach
                 }
                 float nextVertical=swimming?vertical:Mathf.Max(-35,vertical-20*dt);
                 float verticalTravel=(vertical+nextVertical)*.5f*dt;vertical=nextVertical;
-                if(Game.Creative)
+                if(Flying)
                 {
                     // Flight keeps the same voxel collision/streaming authority as walking.
                     vertical=0;fallDistance=0;
@@ -187,7 +190,7 @@ namespace RivetReach
             else{previousSwingPhase=0;hitSoundPlayed=false;}
         }
         void ResetSprint(){doubleTapSprint=false;lastForwardPress=float.NegativeInfinity;Sprinting=false;}
-        public void ResetMotion(){Grounded=false;vertical=0;fallDistance=0;eating=0;MiningProgress=0;VerificationMovement=null;ResetSprint();}
+        public void ResetMotion(){Flying=false;lastJumpPress=float.NegativeInfinity;Grounded=false;vertical=0;fallDistance=0;eating=0;MiningProgress=0;VerificationMovement=null;ResetSprint();}
         void UpdateSprintGesture(bool control)
         {
             if(!control||Game.Input.Rebinding!=null||(VerificationCrouching??Game.Input.Held("Crouch"))){ResetSprint();return;}
@@ -197,7 +200,20 @@ namespace RivetReach
             if(Time.unscaledTime-lastForwardPress<=.3f){doubleTapSprint=true;lastForwardPress=float.NegativeInfinity;}
             else lastForwardPress=Time.unscaledTime;
         }
-        void OnDisable(){ResetSprint();}
+        void UpdateFlightGesture(bool control)
+        {
+            if(!Game.Creative){Flying=false;lastJumpPress=float.NegativeInfinity;return;}
+            if(!control||Game.Input.Rebinding!=null){lastJumpPress=float.NegativeInfinity;return;}
+            if(!Game.Input.Pressed("Jump"))return;
+            if(Time.unscaledTime-lastJumpPress<=.3f)
+            {
+                Flying=!Flying;vertical=0;fallDistance=0;
+                lastJumpPress=float.NegativeInfinity;
+                Game.Notify(Flying?"Flight enabled":"Flight disabled",2);
+            }
+            else lastJumpPress=Time.unscaledTime;
+        }
+        void OnDisable(){ResetSprint();lastJumpPress=float.NegativeInfinity;}
         void TargetAndMine()
         {
             if(Game.Mode!=ScreenMode.Play||Game.Health.Dead)return;
