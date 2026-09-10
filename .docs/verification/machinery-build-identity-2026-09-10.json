@@ -1,0 +1,12 @@
+{
+  "baseCommit": "0142dcf5854bea045960b15b39287effa3e6bcea",
+  "unity": "6000.4.4f1",
+  "runtimeTimestamp": "2026-09-10T14:09:11.1367590Z",
+  "playerExeSha256": "413a04009d5fc13e03fe4e5c6941a8606c63c103edd08853efc6c9bd57e6151b",
+  "gameAssemblySha256": "2104239f471e82d742b84837a6e40d1033c098fb15c86e9e9b538b1d93b9cfef",
+  "buildSummary": "Succeeded; errors 0; warnings 0; seconds 11,289586",
+  "imageWidth": 3840,
+  "imageHeight": 2160,
+  "runtimeAssertions": 197,
+  "scope": "Committed multiblock baseline plus connected-pipe revision and staged capture fixture; concurrent player/avatar work excluded."
+}

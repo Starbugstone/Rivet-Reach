@@ -8,6 +8,8 @@ namespace RivetReach
     {
         IEnumerator ReviewMultiblocks()
         {
+            if(System.Array.Exists(System.Environment.GetCommandLineArgs(),arg=>arg=="-rr-machinery-showcase"))
+            {yield return CaptureMachineryShowcase();yield break;}
             var world=game.World;var player=game.Player;var sim=game.Industry.Simulation;
             game.Mobs.enabled=false;player.enabled=false;game.Items.enabled=false;game.Diagnostics=false;
             player.Arms.gameObject.SetActive(false);player.Body.gameObject.SetActive(false);

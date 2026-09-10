@@ -19,11 +19,17 @@ namespace RivetReach
         readonly List<MachineState> nearby=new List<MachineState>();
         MaterialPropertyBlock properties,statusProperties;
         public int ViewCount=>views.Count;
+        public GameObject ViewAt(BlockPos position)=>views.TryGetValue(position,out var view)?view.Root:null;
         public void Initialize(Expedition game){this.game=game;properties=new MaterialPropertyBlock();statusProperties=new MaterialPropertyBlock();game.World.OriginShifted+=Shift;}
         void SetAddition(GameObject root,NetworkTopology topology,MachineState m)
         {
             if(root==null)return;topology.Connections.TryGetValue(m.Position,out int mask);
             properties.SetColor("_EmissionColor",topology.Kind==NetworkKind.Signal&&m.Signal?new Color(1.5f,1.5f,1.5f):new Color(.12f,.12f,.12f));
+            if(ConnectedPipeVisuals.UsesConnectedMesh(m.Definition.Id))
+            {
+                ConnectedPipeVisuals.Set(root,topology.Kind==NetworkKind.Signal?"pipe_signal_addition":"pipe_power_addition",mask);
+                root.GetComponentInChildren<Renderer>().SetPropertyBlock(properties);return;
+            }
             foreach(Transform t in root.transform)
             {
                 if(t.name.StartsWith("Arm")&&t.name.Length>3){int face=t.name[3]-'0';t.gameObject.SetActive((mask&(1<<IndustryDefinition.RotateFace(face,m.Rotation)))!=0);}
@@ -48,7 +54,7 @@ namespace RivetReach
                     if(!views.TryGetValue(m.Position,out var v))
                     {
                         var prefab=Resources.Load<GameObject>("Industry/Runtime/"+m.Definition.Key);if(prefab==null)continue;
-                        var root=Instantiate(prefab,transform,false);root.name=m.Definition.Name;
+                        var root=ConnectedPipeVisuals.UsesConnectedMesh(m.Definition.Id)?ConnectedPipeVisuals.Create(m.Definition.Key,transform):Instantiate(prefab,transform,false);root.name=m.Definition.Name;
                         v=new View{Root=root,State=m,Parts=root.GetComponentsInChildren<Transform>(),Renderers=root.GetComponentsInChildren<Renderer>()};
                         v.Rest=new Vector3[v.Parts.Length];v.RestRotation=new Quaternion[v.Parts.Length];for(int j=0;j<v.Parts.Length;j++){v.Rest[j]=v.Parts[j].localPosition;v.RestRotation[j]=v.Parts[j].localRotation;}
                         foreach(var r in v.Renderers){r.sharedMaterial=Resources.Load<Material>(r.name=="StatusLight"?"Industry/Status":"Industry/Workshop");r.shadowCastingMode=ShadowCastingMode.On;}
@@ -56,13 +62,13 @@ namespace RivetReach
                         views.Add(m.Position,v);
                     }
                     v.Root.transform.position=game.World.Local(m.Position)+Vector3.one*.5f;
-                    v.Root.transform.rotation=Quaternion.Euler(0,m.Rotation*90,0);
+                    v.Root.transform.rotation=ConnectedPipeVisuals.UsesConnectedMesh(m.Definition.Id)?Quaternion.identity:Quaternion.Euler(0,m.Rotation*90,0);
                     // Exported geometry occupies [0,1]^3. Rotate about the footprint centre.
                     v.Root.transform.position-=v.Root.transform.rotation*(Vector3.one*.5f);
                     if(PipeConnections.IsTransport(m.Definition.Id))
                     {
-                        if((m.Additions&PipeAddition.Signal)!=0&&v.SignalAddition==null)v.SignalAddition=Instantiate(Resources.Load<GameObject>("Industry/Runtime/pipe_signal_addition"),v.Root.transform,false);
-                        if((m.Additions&PipeAddition.Power)!=0&&v.PowerAddition==null)v.PowerAddition=Instantiate(Resources.Load<GameObject>("Industry/Runtime/pipe_power_addition"),v.Root.transform,false);
+                        if((m.Additions&PipeAddition.Signal)!=0&&v.SignalAddition==null)v.SignalAddition=ConnectedPipeVisuals.Create("pipe_signal_addition",v.Root.transform);
+                        if((m.Additions&PipeAddition.Power)!=0&&v.PowerAddition==null)v.PowerAddition=ConnectedPipeVisuals.Create("pipe_power_addition",v.Root.transform);
                         SetAddition(v.SignalAddition,sim.Signals.Topology,m);SetAddition(v.PowerAddition,sim.Power.Topology,m);
                     }
                     if(v.Light!=null){v.Light.enabled=m.Running&&lights++<8;v.Light.intensity=2.5f*m.ReceivedWatts/Mathf.Max(1,m.Definition.Watts);}
@@ -73,10 +79,11 @@ namespace RivetReach
             {
                 var m=v.State;bool active=m.Signal||m.Source;
                 if(!game.Paused&&m.Running)v.Phase+=Time.deltaTime*180*(m.Definition.Watts==0?1:m.ReceivedWatts/(float)m.Definition.Watts);
-                if(revision)
+                if(revision||v.Mask<0)
                 {
                     var topology=m.Definition.Id==IndustryId.PowerCable?sim.Power.Topology:m.Definition.Id==IndustryId.ItemPipe?sim.ItemNetwork:m.Definition.Id==IndustryId.FluidPipe?sim.FluidNetwork:sim.Signals.Topology;
                     topology.Connections.TryGetValue(m.Position,out int mask);
+                    if(ConnectedPipeVisuals.UsesConnectedMesh(m.Definition.Id))ConnectedPipeVisuals.Set(v.Root,m.Definition.Key,mask,m.Rotation);
                     if(v.Mask!=mask)
                     {v.Mask=mask;foreach(var t in v.Parts)if(t.name.StartsWith("Arm")&&t.name.Length>3&&char.IsDigit(t.name[3])){int face=t.name[3]-'0';int rotated=IndustryDefinition.RotateFace(face,m.Rotation);t.gameObject.SetActive((mask&(1<<rotated))!=0);}}
                     if(!v.MaterialShown||v.Active!=active)

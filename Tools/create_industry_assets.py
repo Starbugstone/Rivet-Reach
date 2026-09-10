@@ -310,6 +310,8 @@ def machine(id,key):
     return root,merged,tris
 
 assets=[(120,'azure_ore'),(121,'azure_crystal'),(122,'copper_wire'),(123,'copper_plate'),(124,'iron_plate'),(125,'cog'),(126,'rivets'),(127,'machine_casing'),(128,'glass'),(150,'crushed_copper'),(151,'crushed_iron'),(152,'crushed_gold'),(130,'machinist_bench'),(131,'signal_wire'),(132,'signal_conduit'),(133,'signal_relay'),(134,'lever'),(135,'button'),(136,'signal_indicator'),(137,'workshop_hatch'),(138,'power_cable'),(139,'workshop_lamp'),(140,'boiler_engine'),(141,'alternator'),(142,'crusher'),(143,'pump'),(144,'drill'),(145,'water_tank'),(146,'item_pipe'),(147,'fluid_pipe'),(148,'extractor'),(149,'inventory_sensor')]
+# Connected enclosed routes are owned by create_connected_pipes.py. Never overwrite them here.
+assets=[entry for entry in assets if entry[0] not in (132,138,146,147)]
 all_assets=[];report={}
 for id,key in assets:
     r,objects,tris=machine(id,key);all_assets.append((id,r,objects));report[key]={'triangles':tris,'meshParts':len(objects),'materials':1}

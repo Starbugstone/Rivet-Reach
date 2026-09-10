@@ -104,31 +104,11 @@ def export(key,groups):
     bpy.context.view_layer.objects.active=groups[0]
     bpy.ops.export_scene.fbx(filepath=str(OUT/(key+'.fbx')),use_selection=True,object_types={'MESH'},apply_unit_scale=True,axis_forward='-Z',axis_up='Y',add_leaf_bones=False,bake_anim=False)
 
-def addon(key,power):
-    global parts
-    parts=[];groups=[]
-    for f in range(6):
-        first=len(parts)
-        # Offset external insulated leads preserve separate visible pipe/channel paths.
-        x=.69 if power else .32;z=.69 if power else .32
-        tube('Offset lead shoulder',[(.5,.5,.5),(x,.52,z)],.028 if power else .018,8 if power else 5)
-        cyl('Insulated lead',(x,.76,z),.028 if power else .018,.48,8 if power else 5,'Y',12)
-        ring('Brass ferrule',(x,.96,z),.036 if power else .026,.01,3,'Y')
-        if power:
-            for dz in [-.008,.008]:cyl('Copper contact',(x,.992,z+dz),.007,.014,2,'Y',8)
-        else:box('Blue keyed tip',(x,.99,z),(.045,.018,.045),6,.004)
-        rotate_group(parts[first:],f);groups.append(merge(parts[first:],'Arm'+str(f)))
-    first=len(parts)
-    box('Fitted channel terminal',(.68 if power else .32,.5,.68 if power else .32),(.10,.16,.10),8 if power else 5,.008)
-    groups.append(merge(parts[first:],'Body'))
-    export(key,groups);return groups
+# Pipe channel meshes are authored by create_connected_pipes.py.
 
 assets=[];report={}
 for id,key in [(160,'tank_frame'),(161,'tank_wall'),(162,'tank_glass'),(163,'tank_controller'),(164,'tank_port'),(165,'tank_hatch'),(166,'tank_valve'),(167,'tank_sensor')]:
     groups=panel(id,key);assets.append((id,key,groups));report[key]={'triangles':sum(sum(len(p.vertices)-2 for p in o.data.polygons) for o in groups),'sourceParts':len(groups)}
-    for o in groups:o.hide_render=True
-for key,power in [('pipe_signal_addition',False),('pipe_power_addition',True)]:
-    groups=addon(key,power);assets.append((0,key,groups))
     for o in groups:o.hide_render=True
 scene.render.engine='CYCLES';scene.cycles.samples=24;scene.cycles.use_denoising=True
 scene.world.color=(.20,.20,.20);scene.render.image_settings.file_format='PNG';scene.render.film_transparent=True

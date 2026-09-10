@@ -98,20 +98,32 @@ namespace RivetReach.Editor
             m.SetColor("_BaseColor",color);m.SetFloat("_Surface",1);m.SetFloat("_Blend",0);m.SetFloat("_SrcBlend",5);m.SetFloat("_DstBlend",10);m.SetFloat("_ZWrite",0);m.SetFloat("_Cull",0);m.SetFloat("_Smoothness",smoothness);
             m.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");m.renderQueue=key=="TankGlass"?3010:3000;m.SetOverrideTag("RenderType","Transparent");m.enableInstancing=true;EditorUtility.SetDirty(m);
         }
-        static void NormalizeModels(Material material)
+        public static void PrepareConnectedPipes()
+        {
+            var keys=new[]{"item_pipe","fluid_pipe","power_cable","signal_conduit","pipe_signal_addition","pipe_power_addition"};
+            AssetDatabase.Refresh();var material=Resources.Load<Material>("Industry/Workshop");
+            foreach(string key in keys)
+            {
+                var importer=(ModelImporter)AssetImporter.GetAtPath("Assets/RivetReach/Resources/Industry/"+key+".fbx");
+                importer.materialImportMode=ModelImporterMaterialImportMode.ImportStandard;importer.importAnimation=false;importer.isReadable=true;
+                importer.AddRemap(new AssetImporter.SourceAssetIdentifier(typeof(Material),"WorkshopAtlas"),material);importer.SaveAndReimport();
+            }
+            NormalizeModels(material,keys);
+        }
+        static void NormalizeModels(Material material,string[] keys=null)
         {
             const string directory="Assets/RivetReach/Resources/Industry/Runtime";
             Directory.CreateDirectory(directory);AssetDatabase.Refresh();
             Vector3 Convert(Vector3 v)=>new Vector3(-v.x,v.y,v.z+1);
             foreach(string path in Directory.GetFiles("Assets/RivetReach/Resources/Industry","*.fbx"))
             {
-                string key=Path.GetFileNameWithoutExtension(path);var source=AssetDatabase.LoadAssetAtPath<GameObject>(path);
+                string key=Path.GetFileNameWithoutExtension(path);if(keys!=null&&!keys.Contains(key))continue;var source=AssetDatabase.LoadAssetAtPath<GameObject>(path);
                 var root=new GameObject(key);int index=0;
                 try
                 {
                     foreach(var filter in source.GetComponentsInChildren<MeshFilter>())
                     {
-                        var sourceMesh=filter.sharedMesh;var pivot=Convert(filter.transform.position);
+                        var sourceMesh=filter.sharedMesh;var pivot=filter.name.StartsWith("Mask")?Vector3.zero:Convert(filter.transform.position);
                         var vertices=sourceMesh.vertices;var normals=sourceMesh.normals;
                         for(int i=0;i<vertices.Length;i++)
                         {vertices[i]=Convert(filter.transform.TransformPoint(vertices[i]))-pivot;var n=filter.transform.TransformDirection(normals[i]);normals[i]=new Vector3(-n.x,n.y,n.z).normalized;}
