@@ -53,10 +53,9 @@ namespace RivetReach
             for(int i=0;i<4;i++)yield return ClickCraftUI(CraftCell+i,true);
             Check(game.Crafting.Preview?.Output.Id==BlockId.Workbench,"Four planks preview a workbench");
             yield return Capture("personal-workbench-ready");
-            var guideButton=game.UI.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b=>b.GetComponentInChildren<UnityEngine.UI.Text>().text=="RECIPES");
-            guideButton.onClick.Invoke();yield return null;
-            Check(game.UI.GetComponentsInChildren<UnityEngine.UI.Text>().Any(t=>t.text=="PERSONAL RECIPES"),"Personal recipe guide opens from the catalog");
-            yield return Capture("personal-recipe-guide");guideButton.onClick.Invoke();yield return null;
+            game.UI.InspectBrowserItem(BlockId.Workbench,false);yield return null;
+            Check(game.UI.GetComponentsInChildren<UnityEngine.UI.Text>().Any(t=>t.text=="Personal crafting · 2 × 2"),"Recipe browser shows the personal workbench layout");
+            yield return Capture("personal-recipe-browser");game.UI.CloseBrowserRecipe();yield return null;
             yield return ClickCraftUI(CraftResultSlot);yield return ClickCraftUI(14);
             Check(game.Inventory.Total(BlockId.Workbench)==1&&game.Crafting.Preview==null,"One workbench consumes four planks");
             yield return DragCraftUI(12,CraftCell);yield return ClickCraftUI(14);yield return ClickCraftUI(CraftResultSlot,false,true);

@@ -148,7 +148,7 @@ namespace RivetReach
             m.Status=m.ReceivedWatts<m.RequestedWatts?MachineStatus.Underpowered:MachineStatus.Running;
             if(id==IndustryId.Lamp)return;
             m.Work+=m.ReceivedWatts/(double)m.Definition.Watts;
-            int duration=id==IndustryId.Crusher?100:id==IndustryId.Pump?40:120;
+            int duration=id==IndustryId.Crusher?MachineState.CrusherTicks:id==IndustryId.Pump?40:120;
             if(m.Work+1e-9<duration)return;
             if(id==IndustryId.Crusher)
             {byte output=MachineState.Crushed(m.Items.Slots[0].Id);if(output==0||m.Items.Capacity(output,2,3)<2)return;m.Items.Take(0,1);m.Items.Add(output,2,2,3);}

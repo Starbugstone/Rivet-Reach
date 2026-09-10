@@ -21,7 +21,7 @@ Craft a Machinist's Bench from a workbench, four iron ingots and two copper ingo
 | Signal Conduit | 2 copper plates + 1 Signal Wire | 2 |
 | Power Cable | 4 Copper Wire + 1 plank | 4 |
 
-The different component layouts avoid ambiguous matches; a larger stack in the same single cell cannot choose a different recipe. Other industrial recipes are shapeless, with quantities shown on each ingredient cell. Editable assets live in `Assets/RivetReach/Resources/Definitions/Recipes/Industry*.asset`; processing uses `Process*.asset`. Existing survival layouts and quantities remain unchanged. Sand smelts to Glass for indicators and lamps. The complete machine and connector recipes are available through the bench's Recipes button.
+The different component layouts avoid ambiguous matches; a larger stack in the same single cell cannot choose a different recipe. Other industrial recipes are shapeless, with quantities shown on each ingredient cell. Editable assets live in `Assets/RivetReach/Resources/Definitions/Recipes/Industry*.asset`; processing uses `Process*.asset`. Existing survival layouts and quantities remain unchanged. Sand smelts to Glass for indicators and lamps. The complete machine and connector recipes are available through the [item sidebar](CRAFTING.md#item-sidebar-and-recipe-discovery--2026-09-10), including the 4×4 station requirement and upstream processing paths.
 
 ## Placement and ports
 

@@ -16,11 +16,11 @@ The long-term vision combines:
 
 ## Current status
 
-The current Unity **6000.4.4f1 / URP 17.4.0** review build includes FPS movement, block mining/placement, inventory, **81 modular recipes**, personal 2×2 and workbench 3×3 crafting, five tool tiers, craftable light-emitting torches, furnaces, chests, potato farming, hunger, hearts and armor. It also includes seven biomes including seas and rivers, bucket water flow and caves, depth-banded ores, protected bedrock, generated trees, male/female appearances with two skins, a moving day/night sky, and native beetle/prowler enemies.
+The current Unity **6000.4.4f1 / URP 17.4.0** review build includes FPS movement, block mining/placement, inventory, **89 modular recipes**, personal 2×2 and workbench 3×3 crafting, five tool tiers, craftable light-emitting torches, furnaces, chests, potato farming, hunger, hearts and armor. It also includes seven biomes including seas and rivers, bucket water flow and caves, depth-banded ores, protected bedrock, generated trees, male/female appearances with two skins, a moving day/night sky, and native beetle/prowler enemies.
 
 For testing, the Escape menu now offers [Creative mode](.docs/GAMEPLAY.md#creative-testing-mode): flight, invincibility and a searchable catalog of every current item. The local Creative review build is `Builds/Creative/RivetReach.exe`.
 
-Open `Assets/RivetReach/Scenes/Main.unity` in the pinned Editor and press Play, or launch the current local review build **`Builds/Industry/RivetReach.exe`**. [Run instructions and controls](.docs/FIRST_POC.md) explain the first crafting steps: logs → planks → workbench; place it, then **E or right-click** to open 3×3 crafting. Recipes are editable through the [authoring workflow](.docs/CRAFTING.md).
+Open `Assets/RivetReach/Scenes/Main.unity` in the pinned Editor and press Play, or launch the current local review build **`Builds/RecipeBrowser/RivetReach.exe`**. [Run instructions and controls](.docs/FIRST_POC.md) explain the first crafting steps: logs → planks → workbench; place it, then **E or right-click** to open 3×3 crafting. Recipes are editable through the [authoring workflow](.docs/CRAFTING.md). The [item sidebar](.docs/CRAFTING.md#item-sidebar-and-recipe-discovery--2026-09-10) provides searchable icons, recipe/uses navigation, required stations and Ctrl-click recipe placement.
 
 [Current verification and screenshots](.docs/verification/README.md) link the maintained report for each feature. [Starter recipe verification](.docs/verification/CRAFTING_RESULTS.md) checks the actual layouts and quantities. Superseded screenshots/reports remain in Git history.
 

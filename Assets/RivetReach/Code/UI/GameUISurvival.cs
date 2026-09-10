@@ -45,24 +45,13 @@ namespace RivetReach
         void BuildFurnace(Transform parent)
         {
             Label(parent,"FURNACE",821,115,300,42,27);
-            GameObject guide=null;
-            Button(parent,"RECIPES & FUEL",821,164,282,32,()=>guide.SetActive(!guide.activeSelf));
+            Button(parent,"RECIPES & FUEL",821,164,282,32,()=>InspectBrowserItem(BlockId.Furnace,true));
             Label(parent,"INGREDIENT",821,213,120,24,13,gold);Slot(parent,StationSlotStart,837,242,60);
             Label(parent,"FUEL",821,356,100,24,13,gold);Slot(parent,StationSlotStart+1,837,384,60);
             Label(parent,"RESULT",1010,261,120,24,13,gold);Slot(parent,StationSlotStart+2,1021,290,72);
             var cookTrack=Panel(parent,925,314,72,10,slate);cookBar=Panel(cookTrack.transform,0,0,0,10,gold);
             var burnTrack=Panel(parent,837,327,60,8,slate);burnBar=Panel(burnTrack.transform,0,0,0,8,new Color(1,.40f,.13f));
             furnaceText=Label(parent,"",821,469,300,64,15,gold);
-            guide=Panel(parent,816,204,329,330,ink).gameObject;
-            Label(guide.transform,"10 seconds per item",12,10,305,24,17,gold);
-            var viewport=Panel(guide.transform,7,42,315,165,slate);viewport.gameObject.AddComponent<Mask>().showMaskGraphic=true;
-            var content=Rect(viewport.transform,"Furnace recipes",0,0,315,game.Processing.Recipes.Count*28);
-            var scroll=viewport.gameObject.AddComponent<ScrollRect>();scroll.viewport=viewport.rectTransform;scroll.content=content;scroll.horizontal=false;scroll.movementType=ScrollRect.MovementType.Clamped;
-            int row=0;
-            foreach(var recipe in game.Processing.Recipes)
-                Label(content,game.Registry.Get(recipe.Input.Id).displayName+" → "+game.Registry.Get(recipe.Output.Id).displayName,8,row++*28,299,26,14);
-            Label(guide.transform,"Coal / charcoal: 8 items\nLog / plank: 1½ items · Stick: ½ item\nBurning fuel runs down while idle.\nDrag logs to FUEL to burn them.",12,226,305,94,14,gold);
-            guide.SetActive(false);
         }
         void BuildChest(Transform parent)
         {

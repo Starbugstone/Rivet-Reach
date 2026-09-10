@@ -21,7 +21,7 @@ flowchart LR
     I[Stable item registry] --> B
     B --> C[Immutable RecipeRegistry]
     C --> D[CraftingSession]
-    C --> G[Inventory recipe guide]
+    C --> G[Item sidebar and recipe/uses index]
     E[2×2 / 3×3 / 4×4 grid] --> D
     D --> F[Cursor or inventory transaction]
 ```
@@ -42,7 +42,7 @@ Compilation rejects missing assets, unknown items, blank/duplicate recipe IDs, u
 
 Two recipes cannot claim the same canonical input pattern, even when their quantities, outputs or minimum-grid gates differ. The same rule covers mirrors and permuted shapeless lists. A shapeless recipe cannot use the same occupied-item multiset as any shaped recipe. A symmetric mirrored layout with differing count requirements is also rejected. These conservative rules eliminate load-order precedence: resolving a conflict means changing its inputs or expressing it in a later explicitly designed processing system. Multiple nonoverlapping shaped layouts may use the same materials.
 
-Each output is a single item type and bundle. Ingredient alternatives/tags, catalysts, reusable containers/byproducts, durability/metadata-sensitive matching, powered/fluid machine recipes, mod hot reload and a full recipe/uses graph are future extensions. The present compiler rejects ambiguity instead of pretending those semantics already exist.
+Each output is a single item type and bundle. Ingredient alternatives/tags, catalysts, reusable containers/byproducts, durability/metadata-sensitive matching, powered/fluid machine recipes and mod hot reload are future extensions. The present compiler rejects ambiguity instead of pretending those semantics already exist.
 
 ## Transactions and performance boundaries
 
@@ -91,3 +91,33 @@ The user explicitly requires the implemented beginning recipes to use Minecraft'
 ## Authorized industrial extension — 2026-09-10
 
 The user selected implementation of [GitHub issue #2](https://github.com/Starbugstone/Rivet-Reach/issues/2), including original Blender machines, animated operating states, matching interfaces and stability/performance checks. [INDUSTRY.md](INDUSTRY.md) owns the current Azure/Copper unlock, 4×4 Machinist’s Bench, separate signal/power/item/fluid graphs, steam/electrical bootstrap, crusher/pump/drill and fixed sensor/relay behavior. This supersedes earlier statements excluding this bounded industrial content; hybrid transport/control variants, advanced logic and durable saves remain later extensions. [Industry verification](verification/INDUSTRY_RESULTS.md) owns evidence and remaining limits.
+
+## Item sidebar and recipe discovery — 2026-09-10
+
+The user selected a JEI/NEI-style item browser while retaining the actual crafting transactions. The working interaction maps **click → recipes** and **Shift-click or right-click → uses** on browser icons. Inventory, crafting, equipment and station slots keep their stack gestures; hover and press **R** for recipes or **U** for uses. **Ctrl-click** on a sidebar icon fills an available compatible recipe into the open grid. Ctrl-click on a recipe output, or **Fill grid**, fills that exact shown recipe. These shortcuts do not run while typing in a text field, and typing the bound Inventory key into search does not close the screen.
+
+The sidebar is visible alongside personal crafting, workbenches, the Machinist's Bench, furnaces, chests, machines and Creative inventory. It includes every registered item, with case-insensitive multiword search, explicit empty results, wheel/button paging and 60 reusable icon cells. Search and the selected item-list page survive interface rebuilds during the session. Creative's existing grant catalog remains separately available; browser clicks never grant items.
+
+Recipe details expose the canonical shaped layout (including holes and mirror permission) or shapeless ingredients, bundle output, aggregated material counts, and the required station. Ingredients, outputs and station icons can be followed recursively; Back restores the previous lookup and recipe page, and Done restores the inventory. Alternative recipes have their own previous/next controls. All grid tiers are discoverable from any station. Recipe/uses lookup never moves stacks. Explicit recipe placement fills one craft using inventory and existing grid ingredients; it does not craft the output or bypass station access. The cursor stack stays untouched. An already matching, ready grid is left unchanged. A furnace, chest, machine control screen or Creative grant catalog is not a crafting grid. The personal grid supports compatible 2×2 recipes; placed workbenches and the Machinist’s Bench support their respective sizes.
+
+`RecipeBrowserIndex` compiles direct production/usage indices once from the live session's crafting and furnace registries and the crusher's shared input mapping. Uses include consumed ingredients, furnace fuels and stations that perform a process; the detail view labels the latter two roles. Furnace recipes show their authored time and alternative fuel quantities for one craft starting unlit (ceiling of recipe ticks / fuel burn ticks). Residual fuel, shared batches and idle burn can change actual fuel use. Crusher recipes show its shared cycle duration and definition's full-power requirement. Gathering, pump/drill extraction, boiler fluid/energy conversion and other world interactions are not invented as item recipes; items without a production recipe say so explicitly.
+
+### Edit browser content and presentation
+
+- Add/edit an item through `Definitions/Items.asset`; it appears automatically with the existing game icon. Recipe changes follow the normal grid/furnace authoring workflow above. Restart Play to compile changed definitions.
+- [`Definitions/ItemBrowser.asset`](../Assets/RivetReach/Resources/Definitions/ItemBrowser.asset) provides optional presentation overrides: stable item ID, replacement icon texture, extra search keywords and sort order. Lower sort orders appear first, followed by display name and stable ID. Unlisted items still appear. The default asset needs no per-item bookkeeping. Unity's **Rivet Reach → Interface → Item browser settings** Create menu can create this asset if rebuilding a content package; the active Resources path is `Definitions/ItemBrowser`.
+- [`GameUIBrowser.cs`](../Assets/RivetReach/Code/UI/GameUIBrowser.cs) owns layout and navigation; [`RecipeBrowserIndex.cs`](../Assets/RivetReach/Code/Crafting/RecipeBrowserIndex.cs) owns recipe adaptation and lookup. The immutable recipe registry and `CraftingSession` still own matching and transactions.
+
+The interaction reference is [JEI's published controls](https://www.curseforge.com/minecraft/mc-mods/jei); Rivet Reach uses original code and its existing original icons. No mod code, assets or dependency were imported. [Recipe-browser verification](verification/RECIPE_BROWSER_RESULTS.md) records the tested build, pointer coverage and visual evidence.
+
+## Interface performance
+
+The interface keeps an unchanged portrait model and animation graph when opening crafting again; model or skin changes still rebuild it. Slot graphics refresh only when their displayed stack or selection changes. A screen is configured while inactive and enabled once complete, and the cursor item uses a child Canvas so its motion can update separately. Recipe matching remains revision-cached and all item transactions use the existing authority. [Performance verification](verification/PERFORMANCE_RESULTS.md) records Editor measurements and remaining screen-construction costs.
+
+### Recipe placement transaction
+
+`CraftingSession.FillRecipe` accepts a stable recipe ID and resolves it from its own compiled registry. It rejects an unknown recipe, an undersized grid, missing ingredients or insufficient inventory space for displaced ingredients. Planning reserves materials from the existing grid first, then inventory, and returns surplus grid contents into the planned inventory. Reserving first allows the operation to use slots freed by the selected ingredients. Both final containers are validated and materialized before a paired publish; failure leaves their contents and revisions unchanged. The cursor, output claims and station access remain outside this container transaction and under their existing UI/authority guards.
+
+From the sidebar, Ctrl-click tries compatible grid variants in catalog order until one can be filled without partial changes. In a recipe detail view, Ctrl-clicking its output or using Fill grid always selects that exact variant; it never silently substitutes another fuel/layout. Processing outputs direct the player to their machine instead of loading an unrelated grid recipe. Missing resources and wrong-station requests show a reason. Fuel options in processing views are alternatives, not cumulative ingredients.
+
+`RecipeTransferChecks` exercises every current recipe in every supported larger grid, canonical preview, conservation, repeated placement, wrong station, unknown identity, missing materials, a blocked return, an exchange that frees the required inventory space, reuse of existing grid materials, and repeated shapeless inputs. `Tools/Verify-RecipeBrowser.ps1 -Build` snapshots the project into its own ignored verification project, builds the review player, and runs native pointer/keyboard checks including Ctrl-click and Fill grid on actual personal, 3×3 and 4×4 grids.

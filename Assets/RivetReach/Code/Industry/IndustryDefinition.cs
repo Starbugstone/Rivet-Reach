@@ -97,6 +97,7 @@ namespace RivetReach
         public bool Enabled=>!SignalAttached||Signal;
         public bool Running=>Status==MachineStatus.Running||Status==MachineStatus.Underpowered;
         public bool Accepts(int slot,byte id)=>slot==0&&(Definition.Id==IndustryId.Boiler?(id==BlockId.Coal||id==BlockId.Charcoal):Definition.Id==IndustryId.Crusher&&Crushed(id)!=0);
+        public const int CrusherTicks = 100;
         public static byte Crushed(byte id)=>id==BlockId.RawCopper?IndustryId.CrushedCopper:id==BlockId.RawIron?IndustryId.CrushedIron:id==BlockId.RawGold?IndustryId.CrushedGold:(byte)0;
         public void Click(int slot,ref ItemStack held,bool right)
         {if(slot<0||slot>=3)return;if(!held.Empty&&!Accepts(slot,held.Id))return;Items.Click(slot,ref held,right);}

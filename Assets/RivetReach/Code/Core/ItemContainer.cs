@@ -34,6 +34,45 @@ namespace RivetReach
         }
 
         public int FindSlot(Predicate<ItemStack> predicate) => Array.FindIndex(slots, predicate);
+
+        // Command planning works on private copies. Publishing a pair validates both
+        // containers before either write, so recipe transfer cannot partially clear a grid.
+        internal ItemContainer Snapshot()
+        {
+            var copy = new ItemContainer(Count, stackLimit);
+            Array.Copy(slots, copy.slots, Count);
+            return copy;
+        }
+        internal static void CommitPair(ItemContainer first, IReadOnlyList<ItemStack> firstPlan,
+            ItemContainer second, IReadOnlyList<ItemStack> secondPlan)
+        {
+            if (ReferenceEquals(first, second)) throw new ArgumentException("A transfer needs distinct containers.");
+            ItemStack[] Prepare(ItemContainer container, IReadOnlyList<ItemStack> plan)
+            {
+                if (plan.Count != container.Count) throw new ArgumentException("Mismatched transfer plan.");
+                var copy = new ItemStack[container.Count];
+                for (int i = 0; i < copy.Length; i++)
+                {
+                    var stack = plan[i];
+                    if (stack.Empty ? stack.Id != 0 || stack.Count != 0 : stack.Count > container.Limit(stack.Id))
+                        throw new ArgumentException("Invalid planned stack.");
+                    copy[i] = stack;
+                }
+                return copy;
+            }
+            var firstCopy = Prepare(first, firstPlan); var secondCopy = Prepare(second, secondPlan);
+            void Publish(ItemContainer container, ItemStack[] plan)
+            {
+                bool changed = false;
+                for (int i = 0; i < container.Count; i++)
+                {
+                    changed |= container.slots[i].Id != plan[i].Id || container.slots[i].Count != plan[i].Count;
+                    container.slots[i] = plan[i];
+                }
+                if (changed) container.Revision++;
+            }
+            Publish(first, firstCopy); Publish(second, secondCopy);
+        }
         public int Total(byte id)
         {
             int total = 0;

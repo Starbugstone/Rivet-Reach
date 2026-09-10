@@ -3,6 +3,7 @@ using System;
 namespace RivetReach
 {
     public enum CraftStatus { Crafted, NoRecipe, OutputFull, CursorOccupied, InvalidRequest }
+    public enum RecipeFillStatus { Filled, AlreadyReady, UnknownRecipe, RequiresLargerGrid, MissingIngredients, InventoryFull }
 
     public readonly struct CraftResult
     {
@@ -72,6 +73,40 @@ namespace RivetReach
         {
             for (int i = 0; i < Grid.Count; i++)
                 if (consumption[i] != 0) Grid.Take(i, consumption[i] * crafts);
+        }
+
+        public RecipeFillStatus FillRecipe(string recipeId, Inventory inventory)
+        {
+            if (inventory == null) throw new ArgumentNullException(nameof(inventory));
+            RecipeInfo recipe = null;
+            foreach (var entry in registry.Recipes) if (entry.Id == recipeId) { recipe = entry; break; }
+            if (recipe == null) return RecipeFillStatus.UnknownRecipe;
+            if (recipe.MinimumGridSize > Grid.Size) return RecipeFillStatus.RequiresLargerGrid;
+            if (Preview == recipe) return RecipeFillStatus.AlreadyReady;
+            var source = inventory.Snapshot(); var leftovers = Grid.Snapshot();
+            var target = new ItemStack[Grid.Count];
+            int Reserve(ItemContainer from, byte id, int count)
+            {
+                for (int i = 0; i < from.Count && count > 0; i++)
+                    if (from.Slots[i].Id == id) count -= from.Take(i, count).Count;
+                return count;
+            }
+            for (int i = 0; i < recipe.Ingredients.Count; i++)
+            {
+                var ingredient = recipe.Ingredients[i]; if (ingredient.Empty) continue;
+                int remaining = Reserve(leftovers, ingredient.Id, ingredient.Count);
+                if (Reserve(source, ingredient.Id, remaining) != 0) return RecipeFillStatus.MissingIngredients;
+                int cell = recipe.Kind == RecipeKind.Shaped ? i % recipe.Width + i / recipe.Width * Grid.Size : i;
+                target[cell] = ingredient;
+            }
+            // Reserve first: consumed inventory stacks can free room for old grid contents.
+            for (int i = 0; i < leftovers.Count; i++)
+            {
+                var stack = leftovers.Slots[i];
+                if (!stack.Empty && source.Add(stack.Id, stack.Count) != 0) return RecipeFillStatus.InventoryFull;
+            }
+            ItemContainer.CommitPair(inventory, source.Slots, Grid, target);
+            return RecipeFillStatus.Filled;
         }
 
         // Partial returns keep the remainder in the grid, so a full inventory cannot lose it.

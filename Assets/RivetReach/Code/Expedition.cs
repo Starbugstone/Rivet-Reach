@@ -110,7 +110,7 @@ namespace RivetReach
             if(Health.Dead)return;
             if(Input.PollRebind()){UI.Rebuild();return;}
             if(Input.Pressed("Pause"))SetMode(Mode==ScreenMode.Play?ScreenMode.Pause:Started?ScreenMode.Play:ScreenMode.Title);
-            if(Started&&Input.Pressed("Inventory"))SetMode(InventoryOpen?ScreenMode.Play:ScreenMode.Inventory);
+            if(Started&&!UI.EditingText&&Input.Pressed("Inventory"))SetMode(InventoryOpen?ScreenMode.Play:ScreenMode.Inventory);
             if(Input.Pressed("Diagnostics"))Diagnostics=!Diagnostics;
             if(Mode==ScreenMode.Play)
             {
