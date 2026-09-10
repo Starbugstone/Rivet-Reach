@@ -6,6 +6,7 @@ This directory maintains the latest report and useful evidence for each feature.
 | --- | --- |
 | Starter recipes and block interaction | [Crafting verification](CRAFTING_RESULTS.md) — exact layouts/quantities, placed workbench and 3×3 UI |
 | Furnaces, farming, hunger, health and armor | [Survival verification](SURVIVAL_RESULTS.md), including the latest ore and placement regressions |
+| Seas, rivers, buckets and fluid physics | [Fluid verification](FLUID_RESULTS.md) — per-fluid renewal, bucket controls, source/flow and session streaming |
 | Biomes, caves and streaming | [Terrain verification](TERRAIN_GENERATION_RESULTS.md) |
 | Creatures and combat | [Mob verification](MOB_RESULTS.md), plus the current [beetle wall-climbing extension](BEETLE_WALL_CLIMB_RESULTS.md) |
 | Sun, moon and time | [Day/night verification](DAY_NIGHT_RESULTS.md) |

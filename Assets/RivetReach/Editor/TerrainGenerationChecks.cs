@@ -15,7 +15,7 @@ namespace RivetReach.Editor
             var report=new StringBuilder();int overallMin=int.MaxValue,overallMax=int.MinValue,entrances=0;
             foreach(int seed in new[]{246813,777,-917,int.MinValue})
             {
-                var g=new TerrainGenerator(seed);var biomes=new int[5];int low=999,high=-999;
+                var g=new TerrainGenerator(seed);var biomes=new int[Enum.GetValues(typeof(BiomeId)).Length];int low=999,high=-999;
                 for(int z=-768;z<=768;z+=16)for(int x=-768;x<=768;x+=16)
                 {
                     var column=g.Column(x,z);biomes[(int)column.Biome]++;low=Math.Min(low,column.Height);high=Math.Max(high,column.Height);

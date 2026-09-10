@@ -8,14 +8,15 @@ using UnityEngine.Rendering;
 
 namespace RivetReach
 {
-    public sealed class VoxelWorld : MonoBehaviour,IGrassWorld,ITreeWorld
+    public sealed class VoxelWorld : MonoBehaviour,IGrassWorld,ITreeWorld,IFluidWorld
     {
         sealed class Resident
         {
             public int Revision, Token;
             public byte[] Cells;
             public GameObject View;
-            public Mesh Mesh;
+            public Mesh Mesh,FluidMesh;
+            public GameObject FluidView;
             public bool Busy,Dirty=true;
         }
         readonly Dictionary<ChunkPos,Resident> chunks=new Dictionary<ChunkPos,Resident>();
@@ -30,6 +31,10 @@ namespace RivetReach
         public float FogStart => Math.Max(48,(ViewDistance*32-24)*.80f);
         public float FogEnd => ViewDistance*32-16;
         public Material TerrainMaterial;
+        Material fluidMaterial;
+        public FluidSimulation FluidSimulation {get;private set;}
+        float fluidAccumulator;
+        public double LastFluidTickMs {get;private set;}
         public int ResidentCount => chunks.Count;
         public int ReadyCount => chunks.Values.Count(c=>c.Cells!=null);
         public int PendingCount => chunks.Values.Count(c=>c.Dirty);
@@ -60,6 +65,8 @@ namespace RivetReach
         {
             Generator=new TerrainGenerator(seed);Origin=new BlockPos(0,0,0);
             Grass=new GrassSimulation(seed);Trees=new TreeSimulation();
+            FluidSimulation=new FluidSimulation(Fluids.Registry);
+            fluidMaterial=Resources.Load<Material>("Materials/Water");
             TerrainMaterial=Resources.Load<Material>("Materials/Terrain");
         }
         public Vector3 Local(BlockPos p) => new Vector3((float)(p.X-Origin.X),p.Y-Origin.Y,(float)(p.Z-Origin.Z));
@@ -74,7 +81,33 @@ namespace RivetReach
         }
         public bool Solid(BlockPos p) => !Ready(p)||BlockId.Solid(Get(p));
         public bool Remove(BlockPos p,byte expected) => expected!=0&&expected!=BlockId.Bedrock&&Change(p,expected,0);
-        public bool Place(BlockPos p,byte id) => BlockId.Placeable(id)&&Change(p,0,id);
+        public bool Place(BlockPos p,byte id) => BlockId.Placeable(id)&&(Get(p)==0||Fluids.IsFluid(Get(p)))&&Change(p,Get(p),id);
+        public bool ChangeFluid(BlockPos p,byte expected,byte replacement)
+            =>(expected==0||Fluids.IsFluid(expected))&&(replacement==0||Fluids.IsFluid(replacement))&&Change(p,expected,replacement,false);
+        public bool Submerged(Vector3 point,out FluidDefinition fluid,out byte cell)
+        {
+            var p=Address(point);cell=Ready(p)?Get(p):(byte)0;fluid=Fluids.Registry.Get(cell);
+            return fluid!=null&&point.y-Local(p).y<(Fluids.Registry.Get(Get(p.Offset(0,1,0)))==fluid?1:fluid.Height(cell));
+        }
+        public Vector3 Current(BlockPos p)
+        {
+            byte cell=Get(p);var f=Fluids.Registry.Get(cell);if(f==null)return Vector3.zero;
+            Vector3 direction=f.IsFalling(cell)?Vector3.down:Vector3.zero;
+            foreach(var d in FluidSimulation.Sides)
+            {
+                var n=p.Offset(d.x,0,d.z);if(!Ready(n))continue;byte other=Get(n);
+                if(other==0||Fluids.Registry.Get(other)==f&&f.Level(other)>f.Level(cell))direction+=new Vector3(d.x,0,d.z);
+            }
+            return direction.normalized*f.CurrentSpeed;
+        }
+        public void AdvanceFluids(float dt)
+        {
+            if(stopped)return;fluidAccumulator+=dt;int steps=0;
+            var clock=Stopwatch.StartNew();
+            while(fluidAccumulator>=FluidSimulation.StepSeconds&&steps++<4)
+            {FluidSimulation.Step(this);fluidAccumulator-=FluidSimulation.StepSeconds;}
+            LastFluidTickMs=clock.Elapsed.TotalMilliseconds;
+        }
         public bool Mine(BlockPos p,byte expected,ToolCapability tool,ToolTier tier=ToolTier.Diamond)
         {
             if(!BlockId.Mineable(expected,tool,tier))return false;
@@ -155,8 +188,10 @@ namespace RivetReach
             if(BlockId.Opaque(replacement))column.Add(p.Y);else column.Remove(p.Y);
             if(BlockId.Opaque(expected)!=BlockId.Opaque(replacement))skyHeights.Remove(columnKey);
             // Update every resident halo touching the edit. Collision sees the change now.
-            foreach(var kv in chunks)
+            for(int cz=-1;cz<=1;cz++)for(int cy=-1;cy<=1;cy++)for(int cx=-1;cx<=1;cx++)
             {
+                var key=p.Chunk.Offset(cx,cy,cz);if(!chunks.TryGetValue(key,out var resident))continue;
+                var kv=new KeyValuePair<ChunkPos,Resident>(key,resident);
                 var min=kv.Key.Min;long x=p.X-min.X,z=p.Z-min.Z;int y=p.Y-min.Y;
                 if(x < -1 || x>32 || y < -1 || y>32 || z < -1 || z>32)continue;
                 var c=kv.Value;c.Revision++;c.Dirty=true;
@@ -169,6 +204,7 @@ namespace RivetReach
             // Automatically decaying leaves cannot be part of another leaf's valid
             // support path. The original support removal already scheduled affected leaves.
             if((expected==BlockId.Log||expected==BlockId.Leaves&&requireReady)&&replacement!=expected)Trees.SupportRemoved(this,p);
+            FluidSimulation.Changed(this,p);
             if(!immediate){BlockChanged?.Invoke(p);return true;}
             var editClock=Stopwatch.StartNew();
             foreach(var kv in chunks.ToArray())
@@ -294,13 +330,34 @@ namespace RivetReach
             mesh.vertices=result.Vertices;mesh.normals=result.Normals;mesh.uv=result.UV;mesh.uv2=result.Tiles;mesh.triangles=result.Triangles;mesh.RecalculateBounds();
             c.View.GetComponent<MeshFilter>().sharedMesh=mesh;
             if(c.Mesh!=null)Destroy(c.Mesh);
+            bool first=c.Cells==null;
             c.Mesh=mesh;c.Cells=result.Cells;c.Dirty=false;
+            bool visibleFluid=result.FluidMesh.Indices.Length>0;
+            if(c.FluidView==null&&visibleFluid)
+            {
+                c.FluidView=new GameObject("Fluid surface");c.FluidView.transform.SetParent(c.View.transform,false);
+                c.FluidView.AddComponent<MeshFilter>();var renderer=c.FluidView.AddComponent<MeshRenderer>();
+                renderer.sharedMaterial=fluidMaterial;renderer.shadowCastingMode=ShadowCastingMode.Off;
+            }
+            if(c.FluidMesh!=null)Destroy(c.FluidMesh);
+            c.FluidMesh=visibleFluid?result.FluidMesh.ToMesh():null;
+            if(c.FluidView!=null)
+            {c.FluidView.SetActive(visibleFluid);c.FluidView.GetComponent<MeshFilter>().sharedMesh=c.FluidMesh;}
+            if(first)
+            {
+                FluidSimulation.Ready(result.Position);
+                // The worker identifies exposed/unsettled cells. Stable source interiors and
+                // shared source boundaries never enter the scheduled queue on mere residency.
+                var min=result.Position.Min;
+                foreach(int i in result.FluidMesh.ActiveCells)
+                    FluidSimulation.Changed(this,min.Offset(i%32,i/32%32,i/1024));
+            }
         }
         static void Release(Resident c)
-        {if(c.View!=null)Destroy(c.View);if(c.Mesh!=null)Destroy(c.Mesh);}
+        {if(c.View!=null)Destroy(c.View);if(c.Mesh!=null)Destroy(c.Mesh);if(c.FluidMesh!=null)Destroy(c.FluidMesh);}
         public bool Raycast(Vector3 start,Vector3 direction,float reach,out BlockPos hit,out byte id)
             => Raycast(start,direction,reach,out hit,out id,out _);
-        public bool Raycast(Vector3 start,Vector3 direction,float reach,out BlockPos hit,out byte id,out Vector3Int face)
+        public bool Raycast(Vector3 start,Vector3 direction,float reach,out BlockPos hit,out byte id,out Vector3Int face,bool fluidSources=false)
         {
             hit=default;id=0;face=Vector3Int.zero;var cell=Address(start);
             Vector3 localCell=Local(cell),step=new Vector3(Math.Sign(direction.x),Math.Sign(direction.y),Math.Sign(direction.z));
@@ -311,7 +368,7 @@ namespace RivetReach
             for(int i=0;i<64&&distance<=reach;i++)
             {
                 if(!Ready(cell))return false;
-                byte b=Get(cell);if(b!=0){hit=cell;id=b;return true;}
+                byte b=Get(cell);var fluid=Fluids.Registry.Get(b);if(b!=0&&(fluid==null||fluidSources&&fluid.IsSource(b))){hit=cell;id=b;return true;}
                 int axis=t.x<t.y?(t.x<t.z?0:2):(t.y<t.z?1:2);
                 distance=t[axis];t[axis]+=delta[axis];
                 face=Vector3Int.zero;face[axis]=-(int)step[axis];

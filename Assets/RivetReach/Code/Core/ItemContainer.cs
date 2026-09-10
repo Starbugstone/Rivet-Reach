@@ -94,6 +94,14 @@ namespace RivetReach
             return remaining;
         }
 
+        public bool CanReplaceSingle(int index,byte expected,byte replacement)
+            =>slots[index].Id==expected&&slots[index].Count==1&&Limit(replacement)>=1;
+        public bool ReplaceSingle(int index,byte expected,byte replacement)
+        {
+            if(!CanReplaceSingle(index,expected,replacement))return false;
+            slots[index]=new ItemStack(replacement,1);Revision++;return true;
+        }
+
         public ItemStack Take(int index, int count)
         {
             var stack = slots[index];

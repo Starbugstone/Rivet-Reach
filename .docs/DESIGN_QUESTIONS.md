@@ -36,7 +36,7 @@ All decisions below were selected on 2026-09-08. Full details and acceptance cas
 | S08 | Infinite coordinates/height had no numeric/storage contract | Int64 authority, initial 32-cubed chunks, configured finite Y, checked supported X/Z envelope and local origin shifts | Avoid float/negative-coordinate errors. Validate seams, overflow, generation limits and origin shifts |
 | S09 | Merging could reset despawn or duplicate contested piles | Local compatible merges, normal stack-size cap, oldest eligible lifetime, ordered pickup/merge/expiry; ordinary lifetime initially 20 active minutes | Prevent immortal piles and lost amounts. Death caches are durable containers. Tune radius/cadence/timer through load tests |
 | S10 | General physics cost was unspecified | Start with swept custom voxel-item movement, sleeping and interpolated presentation | Share collision truth with edits; compare measured alternatives only if needed |
-| S11 | Water forces/source rules could imply an expensive fluid solver | Scheduled source/level block flow; default sink, tagged buoyancy, capped current response; no automatic source multiplication | Retain readable channels and renewable industrial water. Test drainage loops, surfaces/bottoms and dormant boundaries |
+| S11 | Water forces/source rules could imply an expensive fluid solver | Scheduled source/level block flow; default sink, tagged buoyancy, capped current response; per-fluid `RenewsSources` policy, enabled for water under the explicit liquid request | Retain readable channels and renewable industrial water. Test drainage loops, surfaces/bottoms and dormant boundaries |
 | S12 | Terrain removal, collision and visuals could disagree | Atomic voxel/collision edits with versioned visual patches, queued meshes/light and revalidated local paths | No invisible collision lag or stale job publication. Test rapid edits while moving/streaming |
 
 ## 4. Transport decisions
@@ -132,3 +132,9 @@ The user explicitly selected basic Minecraft-style recipes, five tool tiers incl
 **Explicit requirement:** Blender-authored enemies, AI and spawning; the user selected Rustback beetle and Dusk prowler. [MOBS.md](MOBS.md) owns the working combat, spawn, navigation and lifecycle defaults. Population limits, detection distances, attack timing, body dimensions and health are implementation choices, not individually approved balance numbers.
 
 **Nonblocking review:** assess the creature silhouettes and animation, prowler visibility under different moon phases, warning/attack readability, and encounter density while gathering and crafting. The [56-check runtime report and actual renders](verification/MOB_RESULTS.md) establish the stated checks, not artistic acceptance or long-session balance. Loot, broader ecology, persistent named creatures and multiplayer remain separate future choices.
+
+## World-fluid increment — 2026-09-10
+
+The user explicitly selected seas, rivers, bucket movement and Minecraft-style source/flow behaviour, then confirmed two-source renewal as a boolean that varies by liquid. [FLUIDS.md](FLUIDS.md) owns the implementation. Water enables renewal; future liquids can disable it. The initial source encoding, 0.25-second water delay, river/sea scale and material presentation are working defaults for play review. Actual lava, reactions, irrigation and industry remain future requests.
+
+Remaining review: river width and continuity across many seeds, coast composition, swimming feel, transparent-water appearance and sustained edits across large fluid regions. Focused measured evidence belongs in [fluid verification](verification/FLUID_RESULTS.md).

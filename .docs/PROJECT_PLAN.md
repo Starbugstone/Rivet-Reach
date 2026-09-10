@@ -1429,7 +1429,7 @@ These scenarios provide evidence for the tested foundations, not proof of unlimi
 
 ## 39. Deferred scope
 
-The locked first step's exclusions are owned by [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence). In particular, all generated structures, 4×4 station interfaces, water simulation and industry remain deferred from that step. The subsequently selected [survival progression](GAMEPLAY.md#survival-progression-farming-health-and-armor) includes the workbench, furnace, five tool tiers, farming, hunger, health and armor. The following larger content areas also remain outside the broader early POC ambition:
+The locked first step's exclusions are owned by [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence). In particular, all generated structures, 4×4 station interfaces and industry remain deferred from that step. The subsequently authorized [world-fluid increment](FLUIDS.md) adds seas, rivers, buckets and per-fluid source/flow policies. The subsequently selected [survival progression](GAMEPLAY.md#survival-progression-farming-health-and-armor) includes the workbench, furnace, five tool tiers, farming, hunger, health and armor. The following larger content areas also remain outside the broader early POC ambition:
 
 - huge biome library;
 - polished villages;

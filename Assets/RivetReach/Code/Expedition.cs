@@ -105,7 +105,7 @@ namespace RivetReach
         void Update()
         {
             if(Input==null)return;
-            if(Started&&!Paused){Sky.Advance(Time.deltaTime);World.AdvanceGrass(Time.deltaTime);World.AdvanceTrees(Time.deltaTime);Health.Advance(Survival.Advance(Time.deltaTime),Hunger);}
+            if(Started&&!Paused){Sky.Advance(Time.deltaTime);World.AdvanceGrass(Time.deltaTime);World.AdvanceTrees(Time.deltaTime);World.AdvanceFluids(Time.deltaTime);Health.Advance(Survival.Advance(Time.deltaTime),Hunger);}
             if(OpenStation!=null&&(!World.Ready(StationPosition)||(World.Local(StationPosition)+Vector3.one*.5f-Player.transform.position).sqrMagnitude>36))SetMode(ScreenMode.Play);
             if(Health.Dead)return;
             if(Input.PollRebind()){UI.Rebuild();return;}
@@ -197,7 +197,7 @@ namespace RivetReach
             var selected=Inventory.Slots[Selected];reason="Select a terrain block in the hotbar";
             if(selected.Empty||!BlockId.Placeable(selected.Id))return false;
             reason="Waiting for nearby terrain";if(!World.Ready(cell))return false;
-            reason="This cell is occupied";if(World.Get(cell)!=0)return false;
+            reason="This cell is occupied";if(World.Get(cell)!=0&&!Fluids.IsFluid(World.Get(cell)))return false;
             // Use the movement collider's exact occupied-cell rule, including its skin.
             // Touching the supporting face is legal; occupying the player's body is not.
             reason=PlayerOverlapReason;if(World.OccupiesCell(Player.transform.position,.6f,Player.Height,cell))return false;
@@ -213,6 +213,21 @@ namespace RivetReach
             // One local authority turn: recheck occupancy, commit the voxel, then consume exactly one.
             if(!World.Place(cell,selected.Id))return false;
             Inventory.Take(Selected,1);Sound.Place(selected.Id,World.Local(cell)+Vector3.one*.5f);ArcadePresentation.Active?.Place(World.Local(cell)+Vector3.one*.5f,selected.Id);PlacementDiagnostic="Placed "+Registry.Get(selected.Id).displayName;Notify(PlacementDiagnostic,1);return true;
+        }
+        public bool TryUseBucket()
+        {
+            if(Mode!=ScreenMode.Play||Player.Inspecting||Health.Dead)return false;
+            byte item=Inventory.Slots[Selected].Id;if(!Fluids.IsBucket(item))return false;
+            bool collect=item==Fluids.EmptyBucket;
+            if(!World.Raycast(Player.Camera.transform.position,Player.Camera.transform.forward,5,out var hit,out byte id,out var face,collect))
+            {Notify(collect?"Aim at a fluid source":"Aim at a block face",1);return false;}
+            var fluid=collect?Fluids.Registry.Get(id):Fluids.Registry.FromBucket(item);
+            if(fluid==null||collect&&!fluid.IsSource(id))return false;
+            var target=collect?hit:hit.Offset(face.x,face.y,face.z);
+            if(!collect&&face==Vector3Int.zero)return false;
+            bool success=BucketTransfer.TryUse(World,Inventory,Selected,target,Fluids.Registry);
+            if(success){Sound.Pickup();Notify(collect?"Bucket filled":fluid.DisplayName+" placed",1);}
+            return success;
         }
         public void Drop(ItemStack stack)
         {

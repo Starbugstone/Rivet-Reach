@@ -5,7 +5,7 @@ namespace RivetReach
 {
     public sealed class TerrainGenerator
     {
-        public const string Version="terrain-4-biomes-caves";
+        public const string Version="terrain-5-seas-rivers";
         public const string WorldId="surface";
         public const int MinY=-256,MaxY=767;
         public const long HorizontalLimit=1000000000;
@@ -138,13 +138,14 @@ namespace RivetReach
         byte GroundAt(BlockPos p,TerrainColumn column)
         {
             byte id=SolidAt(p,column);
-            return id!=0&&id!=BlockId.Bedrock&&CaveGenerator.Air(Seed,p,column)?(byte)0:id;
+            return id!=0&&id!=BlockId.Bedrock&&!Fluids.IsFluid(id)&&Carvable(p,column)&&CaveGenerator.Air(Seed,p,column)?(byte)0:id;
         }
+        static bool Carvable(BlockPos p,TerrainColumn column)=>column.WaterLevel==int.MinValue||p.Y<column.Height-4;
         static byte SolidAt(BlockPos p,TerrainColumn column)
         {
             if(p.Y<=MinY||Math.Abs(p.X)>HorizontalLimit||Math.Abs(p.Z)>HorizontalLimit)return BlockId.Bedrock;
             if(p.Y>MaxY)return BlockId.Air;
-            if(p.Y>column.Height)return 0;
+            if(p.Y>column.Height)return p.Y<=column.WaterLevel?Fluids.Water.Source:(byte)0;
             if(p.Y==column.Height)return column.Surface;
             return p.Y>=column.Height-column.SoilDepth?column.Subsoil:BlockId.Stone;
         }
@@ -157,12 +158,12 @@ namespace RivetReach
             for(int z=0;z<34;z++)for(int x=0;x<34;x++)
             {
                 long wx=min.X+x-1,wz=min.Z+z-1;var column=Column(wx,wz);
-                surfaceMin=Math.Min(surfaceMin,column.Height);surfaceMax=Math.Max(surfaceMax,column.Height+MaxTreeHeight+2);
+                surfaceMin=Math.Min(surfaceMin,column.Height);surfaceMax=Math.Max(surfaceMax,Math.Max(column.Height+MaxTreeHeight+2,column.WaterLevel+1));
                 for(int y=0;y<34;y++)
                 {
                     int wy=min.Y+y-1;
                     var p=new BlockPos(wx,wy,wz);byte id=SolidAt(p,column);
-                    if(id!=0&&id!=BlockId.Bedrock)
+                    if(id!=0&&id!=BlockId.Bedrock&&!Fluids.IsFluid(id)&&Carvable(p,column))
                     {
                         if(caves==null)caves=new CaveGenerator.ChunkSampler(Seed,chunk);
                         if(caves.Air(x-1,y-1,z-1,p,column))id=0;

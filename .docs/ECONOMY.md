@@ -125,7 +125,7 @@ Furnaces take 200 ticks (10 seconds) for one log → charcoal, raw copper/iron/g
 
 Wild ripe potatoes provide the initial food/seed source. One potato plants one crop on tilled soil. Three growth stages take 60 seconds each while the crop has suitable loaded, exposed terrain; ripe harvests yield 2–4 potatoes, and immature harvests return one. Raw potatoes restore 1 food point, baked potatoes 5. [Gameplay survival rules](GAMEPLAY.md#survival-progression-farming-health-and-armor) own controls and survival behavior.
 
-The industrial component recipes above remain future content. This extension provides a playable gather → craft → mine → smelt → farm/eat chain; it does not select industry, water simulation, enchantments or durable saves.
+The industrial component recipes above remain future content. This extension provides a playable gather → craft → mine → smelt → farm/eat chain; it does not select industry, enchantments or durable saves. The subsequently authorized [fluid increment](FLUIDS.md) implements the three-iron bucket and source-water transport; industrial fluid machines remain future content.
 
 ### Current ore generation and bedrock
 

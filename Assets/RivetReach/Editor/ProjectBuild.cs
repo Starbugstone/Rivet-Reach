@@ -38,6 +38,8 @@ namespace RivetReach.Editor
             command=command.Replace("|ready","");File.Delete(request);
             try
             {
+                if(command=="fluid-checks")
+                {FluidChecks.Run();File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="craft-checks")
                 {
                     CraftingChecks.Run();File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;
@@ -48,8 +50,9 @@ namespace RivetReach.Editor
                     if(command=="terrain-build")Build("Terrain");
                     File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;
                 }
-                Prepare();DomainChecks.Run();
+                Prepare();DomainChecks.Run();FluidChecks.Run();
                 if(command=="build")Build();
+                if(command=="fluid-build")Build("Fluids");
                 if(command=="survival-build")Build("Survival");
                 File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));
             }
@@ -146,8 +149,9 @@ namespace RivetReach.Editor
                 new ItemDefinition{runtimeId=BlockId.RawGold,stableId="rivet:raw_gold",displayName="Raw gold",colour=new Color(.85f,.65f,.19f)},
                 new ItemDefinition{runtimeId=BlockId.Diamond,stableId="rivet:diamond",displayName="Diamond",colour=new Color(.44f,.84f,.88f)}})
                 if(!registry.items.Any(i=>i.runtimeId==item.runtimeId))registry.items=registry.items.Append(item).ToArray();
-            BiomeTerrainAssets.Items(registry);
+            BiomeTerrainAssets.Items(registry);FluidAssets.Prepare(registry);
             registry.Get(1).fistDropId=2;EditorUtility.SetDirty(registry);
+            MaterialAsset("Water","RivetReach/Fluid");
             var tiles=TerrainTiles.Build();
             MaterialAsset("Terrain","RivetReach/VoxelTerrain").SetTexture("_Tiles",tiles);
             var player=MaterialAsset("Player","RivetReach/ExplorerSkin");player.shader=Shader.Find("RivetReach/ExplorerSkin");
@@ -182,8 +186,8 @@ namespace RivetReach.Editor
             EditorUtility.SetDirty(material);return material;
         }
         [MenuItem("Rivet Reach/Build Windows first POC")]
-        public static void PrepareAndBuild(){Prepare();DomainChecks.Run();Build();}
-        public static void PrepareAndBuildSurvival(){Prepare();DomainChecks.Run();Build("Survival");}
+        public static void PrepareAndBuild(){Prepare();DomainChecks.Run();FluidChecks.Run();Build();}
+        public static void PrepareAndBuildSurvival(){Prepare();DomainChecks.Run();FluidChecks.Run();Build("Survival");}
         static void Build(string outputFolder="PlayerRevision4")
         {
             string output=Path.Combine("Builds",outputFolder);Directory.CreateDirectory(output);

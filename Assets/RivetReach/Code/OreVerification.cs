@@ -11,7 +11,7 @@ namespace RivetReach
         IEnumerator ReviewOres()
         {
             var world=game.World;var player=game.Player;var mined=new List<BlockPos>();
-            Check(TerrainGenerator.Version=="terrain-4-biomes-caves","Ore generation and base layer have a new deterministic version");
+            Check(TerrainGenerator.Version=="terrain-5-seas-rivers","Ore generation and base layer have a new deterministic version");
             game.Inventory.Add(BlockId.IronPickaxe,1,10,11); // Explicit review fixture, sufficient for every ore tier.
             foreach(var band in OreGenerator.Bands)
             {

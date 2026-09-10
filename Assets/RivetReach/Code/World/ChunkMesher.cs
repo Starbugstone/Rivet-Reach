@@ -13,6 +13,7 @@ namespace RivetReach
         public Vector3[] Vertices,Normals;
         public Vector2[] UV, Tiles;
         public int[] Triangles;
+        public FluidMeshData FluidMesh;
         public double Milliseconds;
     }
 
@@ -35,7 +36,7 @@ namespace RivetReach
                         int address=Index(0,0,0)+layer*stride[axis]+i*stride[u]+j*stride[v];
                         byte a=cells[address],b=cells[address+sign*stride[axis]];
                         if(axis==0&&sign==-1&&BlockId.Crop(a))plants.Add((new Vector3(layer,i,j),a));
-                        mask[i+j*32]=a!=0&&!BlockId.Crop(a)&&(b==0||BlockId.Crop(b))?a:(byte)0;
+                        mask[i+j*32]=a!=0&&!Fluids.IsFluid(a)&&!BlockId.Crop(a)&&(b==0||BlockId.Crop(b)||Fluids.IsFluid(b))?a:(byte)0;
                     }
                     for(int j=0;j<32;j++)for(int i=0;i<32;)
                     {
@@ -86,7 +87,7 @@ namespace RivetReach
                     Leaf(start,Vector3.Lerp(start,end,.5f)-across*h*.19f,end,Vector3.Lerp(start,end,.5f)+across*h*.19f);
                 }
             }
-            return new ChunkBuild{Position=pos,Revision=revision,Cells=cells,Vertices=vertices.ToArray(),Normals=normals.ToArray(),UV=uv.ToArray(),Tiles=tiles.ToArray(),Triangles=indices.ToArray()};
+            return new ChunkBuild{FluidMesh=FluidMesher.Build(cells),Position=pos,Revision=revision,Cells=cells,Vertices=vertices.ToArray(),Normals=normals.ToArray(),UV=uv.ToArray(),Tiles=tiles.ToArray(),Triangles=indices.ToArray()};
         }
     }
 }

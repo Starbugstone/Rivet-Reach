@@ -51,3 +51,7 @@ Build the pinned Unity **6000.4.4f1** project, then run:
 ```
 
 [CRAFTING.md](../CRAFTING.md) owns editable recipe assets, the factory/compiled registry and transaction boundaries. [Current run instructions](../FIRST_POC.md) identify the review executable and controls. The 4×4 engine is checked, but only personal 2×2 and workbench 3×3 interfaces are implemented. Session progress resets on quit; play balance and visual acceptance remain subject to user review.
+
+## Subsequent bucket recipe
+
+The fluid increment adds the three-iron bucket as recipe 53. [Fluid verification](FLUID_RESULTS.md) records the extended independent acceptance checks and bucket player interaction. Earlier crafting screenshots retain their original 52-recipe build identity.

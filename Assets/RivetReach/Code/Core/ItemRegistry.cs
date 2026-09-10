@@ -35,7 +35,7 @@ namespace RivetReach
             (RequiredTier(id)==ToolTier.None||(tool&ToolCapability.Pickaxe)!=0&&tier>=RequiredTier(id));
         public static string MiningHint(byte id,ToolCapability tool,ToolTier tier=ToolTier.Diamond)=>id==Bedrock?"Unbreakable":!Mineable(id,tool,tier)&&RequiredTier(id)!=ToolTier.None?"Requires "+RequiredTier(id).ToString().ToLowerInvariant()+" pickaxe or better":"";
         public static bool Placeable(byte id)=>id>=Grass&&id<=Leaves||BiomeBlock(id)||id==Planks||id==Cobblestone||Station(id)||id>=CoalBlock&&id<=DiamondBlock;
-        public static bool Solid(byte id)=>id!=Air&&!Crop(id);
+        public static bool Solid(byte id)=>id!=Air&&!Crop(id)&&!Fluids.IsFluid(id);
         public static bool Opaque(byte id)=>Solid(id)&&id!=Leaves;
         public static int Tile(byte id,int axis,int sign)=>id==Planks?18:id==Cobblestone?19:id==Workbench?(axis==1&&sign>0?20:21):id==Furnace?(axis==1?19:22):id==Chest?23:id==Farmland?(axis==1&&sign>0?24:2):Crop(id)?25+id-PotatoPlant:id>=CoalBlock&&id<=DiamondBlock?29+id-CoalBlock:
             BiomeBlock(id)?40+id-Sand:Ore(id)?7+id-IronOre:RawMaterial(id)?13+id-RawIron:id==Bedrock?12:id==Grass?(axis==1?(sign>0?0:2):1):id==Dirt?2:id==Log?(axis==1?5:4):id==Leaves?6:3;
@@ -58,6 +58,7 @@ namespace RivetReach
         public ArmorSlot armorSlot;
         public int armorPoints;
         public int attackDamage=1;
+        public bool buoyant;
     }
 
     [CreateAssetMenu(menuName="Rivet Reach/Block and item registry")]
@@ -76,6 +77,7 @@ namespace RivetReach
             {
                 if(item==null||item.runtimeId==0||string.IsNullOrWhiteSpace(item.stableId)||item.stackLimit<=0)
                     throw new InvalidOperationException("Each item needs nonzero runtime ID, stable ID and positive stack limit.");
+                if(Fluids.IsFluid(item.runtimeId))throw new InvalidOperationException("Fluid cell encoding cannot be an item: "+item.stableId);
                 if(ids[item.runtimeId]!=null||stable.ContainsKey(item.stableId))
                     throw new InvalidOperationException("Duplicate item identity: "+item.stableId);
                 if(item.attackDamage<1||item.foodPoints<0||item.foodPoints>HungerState.Maximum||

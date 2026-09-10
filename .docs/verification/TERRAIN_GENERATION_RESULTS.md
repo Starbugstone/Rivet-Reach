@@ -54,3 +54,7 @@ The current cave capture and readiness checks cover the corrected bounded vertic
 ## Review limits
 
 Biome scale, entrance frequency, cave navigation, exposed ore availability and traversal feel remain user play-review questions. The new generator changes same-seed terrain; durable saves/migration remain unimplemented. There are no generated structures or water in this terrain change. Other sessions' day/night, survival and mob evidence remains in their own reports.
+
+## Subsequent fluid generator
+
+The authorized sea/river extension advances generation to `terrain-5-seas-rivers`. [Fluid verification](FLUID_RESULTS.md) records the new terrain/domain checks and sea/river player views. The focused land/cave screenshots and timings above retain their original build identity.

@@ -282,13 +282,9 @@ Lighting begins with sunlight plus bounded voxel light propagation for local emi
 
 ### Block water
 
-Represent source/flow level and downward-flow state as compact voxel state. Use a 5 Hz scheduled water queue initially; process only dirty active regions rather than every water block. Compute a cell from an immutable previous water step and commit next states in stable coordinate order. Downward flow takes precedence; supported water spreads horizontally with decreasing level up to 7 cells. Source/falling-column provenance determines valid feeding paths, and flow disappears when no valid feeder remains.
+The implemented [fluid scheduling and session contract](FLUIDS.md#scheduling-rendering-and-session-lifetime) owns compact cell state, per-fluid definitions, bounded due-time scheduling, closed unready frontiers, asynchronous meshes and session edits. Its sequential authority updates supersede the earlier proposed whole-step immutable snapshot/coordinate-sort rule. [Playable fluid rules](FLUIDS.md#playable-water-rules) own bucket and renewal semantics.
 
-Source removal invalidates its dependent local flow region and recomputes it from surviving sources; a loop of old flow cells must not sustain itself without a source. Queue work at chunk edges until both sides have water-simulation eligibility. Dormant frontiers are temporarily closed, not sinks that delete water or portals that wake an unlimited flood.
-
-Physical water requires player-proximity world simulation. Portal-following tickets permit bounded entity movement using the already prepared water state but do not propagate an unbounded new water region. Background industrial pumps query only an eligible source intake and add measured inventory fluid; they do not cause nearby rivers to tick. On waking, pending water changes resolve within a budget before entities enter newly prepared hazard space.
-
-This is a renewable-source block-fluid model, not mass-conserving ocean simulation. Industrial fluid amounts after intake are conserved. Bucket and source rules in [GAMEPLAY.md](GAMEPLAY.md) are the player-visible source/sink definitions.
+This is a renewable-source block-fluid model, not mass-conserving ocean simulation. Future industrial fluid amounts after intake remain conserved. Portal tickets, pumps, tanks and pipe transport retain their later-scope contracts and do not become active from this extension.
 
 ### Item movement, merge and lifetime
 

@@ -28,6 +28,12 @@ namespace RivetReach
                     if(item.armorSlot==ArmorSlot.Legs)body=Mathf.Abs(px)<14&&py>-20&&py<19&&!(Mathf.Abs(px)<4&&py<9);
                     if(item.armorSlot==ArmorSlot.Feet)body=Mathf.Abs(px)>3&&Mathf.Abs(px)<(py<0?20:15)&&py>-13&&py<13;
                 }
+                else if(Fluids.IsBucket(item.runtimeId))
+                {
+                    body=py>-17&&py<9&&Mathf.Abs(px)<12+(py+17)*.16f;
+                    handle=Mathf.Abs(px*px+(py-10)*(py-10)-180)<36&&py>8;
+                    if(body&&py>3)color=item.runtimeId==Fluids.EmptyBucket?new Color(.14f,.2f,.24f):new Color(.1f,.6f,.85f);
+                }
                 else if(item.runtimeId==BlockId.Stick)body=Mathf.Abs(px-py*.4f)<3&&py>-20&&py<20;
                 else if(item.foodPoints>0)
                 {body=px*px/330+py*py/210<1;color*=((x*7+y*13)%29<3?.72f:1);if(item.runtimeId==BlockId.BakedPotato&&Mathf.Abs(py)<3&&Mathf.Abs(px)<13)color=new Color(1,.84f,.44f);}

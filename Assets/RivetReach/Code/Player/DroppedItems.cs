@@ -126,9 +126,26 @@ namespace RivetReach
                     {clear=p.EscapeRetry<=0&&Escape(p,World.Address(local+Vector3.up*(CollisionHeight*.5f)));local=p.Position.Local(World.Origin);}
                     if(clear)
                     {
-                        p.Velocity.y=Mathf.Max(-18,p.Velocity.y-18*dt);
+                        bool wet=World.Submerged(local+Vector3.up*.1f,out var fluid,out _);
+                        if(wet)
+                        {
+                            var current=World.Current(World.Address(local+Vector3.up*.1f));
+                            float rise=Game.Registry.Get(p.Stack.Id).buoyant?.7f:-1.2f;
+                            p.Velocity=Vector3.Lerp(p.Velocity,current+Vector3.up*rise,Mathf.Clamp01(fluid.Drag*dt));
+                        }
+                        else p.Velocity.y=Mathf.Max(-18,p.Velocity.y-18*dt);
+                        var wetCell=World.Address(local+Vector3.up*.1f);
                         local=World.Move(local,p.Velocity*dt,CollisionWidth,CollisionHeight,out bool grounded);
-                        if(grounded){p.Velocity=Vector3.Lerp(p.Velocity,Vector3.zero,.7f);p.Velocity.y=0;if(p.Velocity.sqrMagnitude<.02f)p.Sleeping=true;}
+                        if(wet&&Game.Registry.Get(p.Stack.Id).buoyant&&Fluids.Registry.Get(World.Get(wetCell.Offset(0,1,0)))!=fluid)
+                        {
+                            float surface=World.Local(wetCell).y+fluid.Height(World.Get(wetCell))-.101f;
+                            if(local.y>=surface)
+                            {
+                                local.y=surface;p.Velocity.y=0;
+                                if(p.Velocity.sqrMagnitude<.02f&&World.Current(wetCell).sqrMagnitude<.01f)p.Sleeping=true;
+                            }
+                        }
+                        if(grounded){p.Velocity=Vector3.Lerp(p.Velocity,Vector3.zero,.7f);p.Velocity.y=0;if(p.Velocity.sqrMagnitude<.02f&&(!wet||World.Current(World.Address(local+Vector3.up*.1f)).sqrMagnitude<.01f))p.Sleeping=true;}
                         p.Position=WorldPoint.FromLocal(local,World.Origin);
                     }
                 }

@@ -234,20 +234,21 @@ This document owns milestone scope and sequencing, mirrored by PROJECT_PLAN.md. 
 
 ### Stage 0 - First playable terrain, FPS and visual concept (locked scope)
 
-The user authorized the first terrain/FPS/inventory increment and subsequently selected crafting, ore/tier progression, survival, day/night, varied terrain and native creatures. [FIRST_POC.md](FIRST_POC.md) is the current run/control guide; [verification](verification/README.md) maintains the latest useful evidence for each feature.
+The user authorized the first terrain/FPS/inventory increment and subsequently selected crafting, ore/tier progression, survival, day/night, varied terrain native creatures, and world fluids. [FIRST_POC.md](FIRST_POC.md) is the current run/control guide; [verification](verification/README.md) maintains the latest useful evidence for each feature.
 
 Implemented under those explicit requests:
 
-- Deterministic terrain with five biomes, caves, seeded trees, depth-banded ores and protected bedrock; bounded chunk streaming and a floating render origin.
+- Deterministic terrain with seven biomes, caves, seeded trees, depth-banded ores and protected bedrock; bounded chunk streaming and a floating render origin.
 - Responsive FPS movement, fist mining, terrain placement, physical item drops/pickup and real inventory.
 - Male/female 3D player models, matching first-person hands and two changeable skins with identical gameplay dimensions.
-- Modular personal 2×2 and placed workbench 3×3 crafting, a tested future 4×4 core, 52 basic recipes and five tool tiers.
+- Modular personal 2×2 and placed workbench 3×3 crafting, a tested future 4×4 core, 53 basic recipes and five tool tiers.
 - Furnaces, chests, potatoes, farming, hunger, hearts, armor, death and respawn.
 - A moving day/night sky, lunar phases, original native creatures, AI and melee combat.
+- [Seas, rivers and bucket water](FLUIDS.md), reusable per-fluid flow/renewal rules, swimming and item currents.
 
 The user requires the beginning recipe layouts and quantities to match Minecraft. [CRAFTING.md](CRAFTING.md) owns authoring, independent acceptance checks and station interaction; [GAMEPLAY.md](GAMEPLAY.md) owns controls and progression. Implementation uses original code/assets and the real item/world authorities.
 
-Current exclusions include generated structures, water/irrigation, equipment wear, fitted armor meshes, 4×4 station UI, industry and durable saves. Session edits, inventory, stations and unexpired drops survive chunk unload/reload; quitting resets them. This boundary does not remove the eventual persistent-save requirement.
+Current exclusions include generated structures, irrigation, equipment wear, fitted armor meshes, 4×4 station UI, industry and durable saves. Session edits, inventory, stations and unexpired drops survive chunk unload/reload; quitting resets them. This boundary does not remove the eventual persistent-save requirement.
 
 Architectural requirements remain world-aware integer addresses, authoritative item transactions, voxel-grid collision, revision-safe asynchronous meshes, bounded heavy work and sleeping simulation. No GameObject per ordinary voxel. Appearance does not define collision or survival capabilities.
 

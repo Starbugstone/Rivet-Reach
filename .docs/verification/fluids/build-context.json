@@ -1,0 +1,23 @@
+{
+  "builtUtc": "2026-09-10T06:38:08.5932373Z",
+  "verifiedUtc": "2026-09-10T06:39:31.2907408Z",
+  "unity": "6000.4.4f1",
+  "urp": "17.4.0",
+  "generator": "terrain-5-seas-rivers",
+  "build": "Builds/Fluids/RivetReach.exe",
+  "sourceBaseCommit": "17e6f56019a0e78da711bce82d9a6f08b31ed042",
+  "builtFromUncommittedTaskChanges": true,
+  "sourceHashScope": "Sorted paths plus staged bytes of all .cs and .shader files under Assets/RivetReach, excluding concurrent creative-mode work introduced after this build",
+  "sourceTreeSha256": "946d9604fc5949f1db65483942b29f411d97b079b231fcfd209b3491d81fc449",
+  "sourceFiles": 95,
+  "playerAssemblySha256": "24494e2fb9d8529751ba7921d87173f6ecfdf882cf72f8780fcab5856f836379",
+  "runtimeAssertions": 36,
+  "domainAssertions": 92296,
+  "fluidChecks": 49,
+  "recipeAssertions": 1770,
+  "hardware": {
+    "cpu": "Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz",
+    "gpu": "NVIDIA GeForce RTX 2060",
+    "memoryMB": 32553
+  }
+}

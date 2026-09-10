@@ -2,23 +2,23 @@ using System;
 
 namespace RivetReach
 {
-    public enum BiomeId { Grassland,Forest,Desert,Badlands,Alpine }
+    public enum BiomeId { Grassland,Forest,Desert,Badlands,Alpine,Sea,River }
 
     public readonly struct TerrainColumn
     {
-        public readonly int Height,SoilDepth;
+        public readonly int Height,SoilDepth,WaterLevel;
         public readonly BiomeId Biome;
         public readonly byte Surface,Subsoil;
         public readonly double Entrance;
-        public TerrainColumn(int height,BiomeId biome,byte surface,byte subsoil,int soilDepth,double entrance)
-        {Height=height;Biome=biome;Surface=surface;Subsoil=subsoil;SoilDepth=soilDepth;Entrance=entrance;}
+        public TerrainColumn(int height,BiomeId biome,byte surface,byte subsoil,int soilDepth,double entrance,int waterLevel=int.MinValue)
+        {WaterLevel=waterLevel;Height=height;Biome=biome;Surface=surface;Subsoil=subsoil;SoilDepth=soilDepth;Entrance=entrance;}
     }
 
     // Immutable initial surface-world profile. Changing these defaults bumps the generator version.
     public static class TerrainProfile
     {
-        public const int BiomeSpacing=224;
-        public static string Name(BiomeId id)=>id==BiomeId.Grassland?"Grassland":id==BiomeId.Forest?"Forest":id==BiomeId.Desert?"Dunes":id==BiomeId.Badlands?"Badlands":"Alpine";
+        public const int BiomeSpacing=224,SeaLevel=32;
+        public static string Name(BiomeId id)=>id==BiomeId.Sea?"Sea":id==BiomeId.River?"River":id==BiomeId.Grassland?"Grassland":id==BiomeId.Forest?"Forest":id==BiomeId.Desert?"Dunes":id==BiomeId.Badlands?"Badlands":"Alpine";
         public static int TreeChance(BiomeId id)=>id==BiomeId.Forest?68:id==BiomeId.Grassland?24:id==BiomeId.Alpine?12:0;
         public static TerrainColumn Sample(long x,long z,int seed)
         {
@@ -49,7 +49,19 @@ namespace RivetReach
             double distance=Math.Sqrt((double)x*x+(double)z*z),spawn=1-WorldNoise.Ramp(24,96,distance);
             height=WorldNoise.Blend(total>0?height/total:plains,plains,spawn);
             if(spawn>.5)dominant=BiomeId.Grassland;
+            // Broad seeded basins and continuous meandering channels share a fixed datum.
+            // Spawn exclusion blends the land before carving; banks end above the datum.
+            double sea=WorldNoise.Two(x,z,720,seed^8101);
+            double ocean=WorldNoise.Ramp(.51,.65,sea)*(1-spawn);
+            height=WorldNoise.Blend(height,8+rolling*8,ocean);
+            double river=Math.Abs(WorldNoise.Two(wx,wz,220,seed^8111)-.5);
+            double uncutHeight=height;
+            double riverBed=SeaLevel-4+Math.Max(0,river-.012)*600;
+            height=WorldNoise.Blend(height,Math.Min(height,riverBed),1-spawn);
+            int waterLevel=int.MinValue;
+            if(height<SeaLevel){waterLevel=SeaLevel;dominant=riverBed<uncutHeight&&riverBed<SeaLevel?BiomeId.River:BiomeId.Sea;}
             int h=(int)Math.Floor(height);byte surface=BlockId.Grass,subsoil=BlockId.Dirt;int depth=3;
+            if(dominant==BiomeId.Sea||dominant==BiomeId.River){surface=BlockId.Sand;subsoil=BlockId.Sandstone;depth=4;}
             if(dominant==BiomeId.Desert){surface=BlockId.Sand;subsoil=BlockId.Sandstone;depth=6;}
             if(dominant==BiomeId.Badlands){surface=subsoil=BlockId.RedClay;depth=12;}
             if(dominant==BiomeId.Alpine)
@@ -57,7 +69,7 @@ namespace RivetReach
                 if(h>=112+(int)(detail*8)){surface=BlockId.Snow;subsoil=BlockId.Stone;depth=1;}
                 else if(ridge>.8){surface=subsoil=BlockId.Stone;depth=0;}
             }
-            return new TerrainColumn(h,dominant,surface,subsoil,depth,WorldNoise.Ramp(.56,.72,WorldNoise.Two(wx,wz,96,seed^1249)));
+            return new TerrainColumn(h,dominant,surface,subsoil,depth,WorldNoise.Ramp(.56,.72,WorldNoise.Two(wx,wz,96,seed^1249)),waterLevel);
         }
     }
 }

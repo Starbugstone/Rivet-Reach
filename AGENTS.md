@@ -14,6 +14,8 @@ The user subsequently authorized varied terrain, caves and biomes. [TERRAIN_GENE
 
 The user subsequently authorized native mobs, Blender-authored enemies, AI and spawning, selecting Rustback beetle and Dusk prowler. [MOBS.md](.docs/MOBS.md) owns the working species, combat, spawning, voxel navigation and lifecycle rules; [mob verification](.docs/verification/MOB_RESULTS.md) separates measured results from remaining review. Integrate with the shared `WorldClock.IsNight`, item `attackDamage`, `Expedition.TakeDamage` and `Respawned` interfaces instead of duplicating clock or player survival state. Broader ecology, raids, mob loot and durable mob saves remain future scope.
 
+The user subsequently authorized [world fluids](.docs/FLUIDS.md): a sea biome, rivers, buckets and Minecraft-style source/flow physics. Two-source renewal is explicitly a per-fluid boolean (`RenewsSources`), enabled for water and independently configurable for future liquids such as lava. Preserve ore bands, bedrock, dry spawn and existing farming hooks. Actual lava, mixing reactions, irrigation, industrial fluids and durable saves remain later scope.
+
 ## Licensing and ownership
 
 - Rivet Reach is **proprietary, all rights reserved, and not open source**. Read `LICENSE.md` before introducing code, assets, dependencies or contribution workflows.

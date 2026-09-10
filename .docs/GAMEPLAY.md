@@ -1,6 +1,6 @@
 # Rivet Reach - Player Experience and Complete-Game Scope
 
-> **Status:** brainstorming specification with working resolutions dated 2026-09-08. Existing pillars and world-item rules remain agreed direction. Sections 9-12 select the interaction, survival and water baseline under the user's request to resolve design gaps. No feature is implemented or playtested.
+> **Status:** brainstorming specification with working resolutions dated 2026-09-08. Existing pillars and world-item rules remain agreed direction. Sections 9-12 select the interaction, survival and water baseline under the user's request to resolve design gaps. Subsequent authorized increments are implemented; [current verification](verification/README.md) distinguishes measured evidence from remaining play review.
 
 Related: [PROJECT_PLAN.md](PROJECT_PLAN.md), [LORE.md](LORE.md), [TRANSPORT.md](TRANSPORT.md), [DESIGN_QUESTIONS.md](DESIGN_QUESTIONS.md).
 
@@ -235,13 +235,11 @@ Personal waypoints and a death marker are available early. Maps record visited t
 
 ## 11. Initial world-water behaviour visible to players
 
-Water occupies voxel cells as source or flowing water. Sources produce descending flow and a limited horizontal spread; water routes around simple block obstacles, pushes entities and can be redirected by construction. The initial horizontal reach is 7 cells from a source/falling column on one level. Flow does not form new sources merely because two sources are adjacent. Generated lakes/rivers contain authored seeded source cells; a placed bucket source is explicitly marked as a source too.
+The implemented [world-fluid rules](FLUIDS.md#playable-water-rules) now own source/flow behaviour, bucket use, two-source renewal, player immersion and item currents. The user explicitly confirmed `RenewsSources` as a per-liquid boolean: water enables it; future liquids may disable it. This supersedes the earlier proposal that adjacent sources could not renew water.
 
-A bucket takes one source into a 10 L container and removes that placed/generated source cell; nearby sources may refill it with flowing water, which is not a newly created source. Emptying the bucket places one source in a legal empty cell. Interacting with a tank instead transfers 10 L from the bucket into available tank capacity atomically; if less than 10 L is free the operation is rejected without loss. Filling a bucket from a tank removes exactly 10 L and never creates extra fluid. Pumps read an eligible source as a renewable water intake at their defined rate; flowing water is not a pump source. Removing or blocking the intake stops it. This deliberate source abstraction makes water renewable without simulating an entire lake's volume or distant flow.
+The current bucket moves one source cell. The future industrial model maps that placement to 10 L, conserves tank/pipe contents after intake and treats eligible source-water pumping as renewable. Tanks, pumps, pipe ejection and physical collectors remain later scope; they must reuse fluid identity and source policy rather than introducing a separate water type.
 
-Source water is inexhaustible for pumping, but tank/pipe quantities are conserved after intake. A pipe leak/ejector cannot create a source for less than a full 10 L placement action. Ordinary industrial flow stays in buffers; visual pipe particles do not wet terrain.
-
-Items continue to sink by default and float only with `buoyant=true`. Currents act on both. Channel transport needs physical piles and a physical intake/collector, with merge and pickup rules; pipes transfer inventory data directly. Channels remain a valid early construction choice. They lack filters, sealed routing and the controlled throughput of pipes; no arbitrary rule makes an otherwise valid water channel stop working because pipes are available.
+Future industrial interaction contract: transferring a bucket to a tank requires the full 10 L of available capacity or rejects without loss; filling from a tank removes exactly 10 L. Pumps require an eligible source and stop when it is removed or blocked. Flowing water is not an intake source. A pipe leak/ejector needs a full 10 L placement action to create a source; ordinary buffer transfers and visual particles do not wet terrain. Physical water channels remain a valid transport option with physical collectors and pile merge/pickup rules. Pipes provide filters, sealed routing and controlled throughput rather than arbitrarily disabling channels.
 
 ## 12. Interaction acceptance cases
 

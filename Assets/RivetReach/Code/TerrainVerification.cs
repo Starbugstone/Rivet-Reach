@@ -13,7 +13,7 @@ namespace RivetReach
         IEnumerator ReviewTerrain()
         {
             var world=game.World;var g=world.Generator;var player=game.Player;var sites=new StringBuilder();
-            Check(TerrainGenerator.Version=="terrain-4-biomes-caves","Session uses the biome/cave generator version");
+            Check(TerrainGenerator.Version=="terrain-5-seas-rivers","Session uses the biome/cave generator version");
             var tiles=Resources.Load<Texture2DArray>("Materials/BlockTiles");
             Check(tiles.depth>=44&&tiles.width==64,"All four biome material layers load in the player");
             Check(!world.Overlaps(player.transform.position,.6f,1.8f),"Natural spawn has support and clear player volume");

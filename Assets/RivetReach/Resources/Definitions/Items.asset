@@ -27,6 +27,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 2
     stableId: rivet:dirt
     displayName: Dirt
@@ -41,6 +42,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 3
     stableId: rivet:stone
     displayName: Stone
@@ -55,6 +57,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 4
     stableId: rivet:log
     displayName: Log
@@ -69,6 +72,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 5
     stableId: rivet:leaves
     displayName: Leaves
@@ -83,6 +87,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 6
     stableId: rivet:starter_axe
     displayName: Starter axe
@@ -97,6 +102,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 5
+    buoyant: 0
   - runtimeId: 7
     stableId: rivet:starter_pickaxe
     displayName: Starter pickaxe
@@ -111,6 +117,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 3
+    buoyant: 0
   - runtimeId: 8
     stableId: rivet:starter_dagger
     displayName: Starter dagger
@@ -125,6 +132,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 4
+    buoyant: 0
   - runtimeId: 9
     stableId: rivet:iron_ore
     displayName: Iron ore
@@ -139,6 +147,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 10
     stableId: rivet:copper_ore
     displayName: Copper ore
@@ -153,6 +162,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 11
     stableId: rivet:coal_ore
     displayName: Coal ore
@@ -167,6 +177,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 12
     stableId: rivet:gold_ore
     displayName: Gold ore
@@ -181,6 +192,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 13
     stableId: rivet:diamond_ore
     displayName: Diamond ore
@@ -195,6 +207,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 14
     stableId: rivet:bedrock
     displayName: Bedrock
@@ -209,6 +222,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 15
     stableId: rivet:raw_iron
     displayName: Raw iron
@@ -223,6 +237,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 16
     stableId: rivet:raw_copper
     displayName: Raw copper
@@ -237,6 +252,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 17
     stableId: rivet:coal
     displayName: Coal
@@ -251,6 +267,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 18
     stableId: rivet:raw_gold
     displayName: Raw gold
@@ -265,6 +282,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 19
     stableId: rivet:diamond
     displayName: Diamond
@@ -279,6 +297,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 20
     stableId: rivet:planks
     displayName: Planks
@@ -293,6 +312,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 21
     stableId: rivet:stick
     displayName: Stick
@@ -307,6 +327,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 22
     stableId: rivet:cobblestone
     displayName: Cobblestone
@@ -321,6 +342,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 23
     stableId: rivet:workbench
     displayName: Workbench
@@ -335,6 +357,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 24
     stableId: rivet:furnace
     displayName: Furnace
@@ -349,6 +372,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 25
     stableId: rivet:chest
     displayName: Chest
@@ -363,6 +387,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 26
     stableId: rivet:charcoal
     displayName: Charcoal
@@ -377,6 +402,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 27
     stableId: rivet:copper_ingot
     displayName: Copper ingot
@@ -391,6 +417,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 28
     stableId: rivet:iron_ingot
     displayName: Iron ingot
@@ -405,6 +432,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 29
     stableId: rivet:gold_ingot
     displayName: Gold ingot
@@ -419,6 +447,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 30
     stableId: rivet:potato
     displayName: Potato
@@ -433,6 +462,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 31
     stableId: rivet:baked_potato
     displayName: Baked potato
@@ -447,6 +477,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 32
     stableId: rivet:farmland
     displayName: Farmland
@@ -461,6 +492,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 33
     stableId: rivet:potato_plant_0
     displayName: Potato seedlings
@@ -475,6 +507,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 34
     stableId: rivet:potato_plant_1
     displayName: Young potatoes
@@ -489,6 +522,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 35
     stableId: rivet:potato_plant_2
     displayName: Flowering potatoes
@@ -503,6 +537,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 36
     stableId: rivet:potato_plant_3
     displayName: Ripe potatoes
@@ -517,6 +552,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 40
     stableId: rivet:wood_axe
     displayName: Wood axe
@@ -531,6 +567,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 3
+    buoyant: 0
   - runtimeId: 41
     stableId: rivet:wood_pickaxe
     displayName: Wood pickaxe
@@ -545,6 +582,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 2
+    buoyant: 0
   - runtimeId: 42
     stableId: rivet:wood_sword
     displayName: Wood sword
@@ -559,6 +597,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 4
+    buoyant: 0
   - runtimeId: 43
     stableId: rivet:wood_shovel
     displayName: Wood shovel
@@ -573,6 +612,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 2
+    buoyant: 0
   - runtimeId: 44
     stableId: rivet:wood_hoe
     displayName: Wood hoe
@@ -587,6 +627,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 2
+    buoyant: 0
   - runtimeId: 45
     stableId: rivet:stone_axe
     displayName: Stone axe
@@ -601,6 +642,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 4
+    buoyant: 0
   - runtimeId: 46
     stableId: rivet:stone_pickaxe
     displayName: Stone pickaxe
@@ -615,6 +657,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 3
+    buoyant: 0
   - runtimeId: 47
     stableId: rivet:stone_sword
     displayName: Stone sword
@@ -629,6 +672,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 5
+    buoyant: 0
   - runtimeId: 48
     stableId: rivet:stone_shovel
     displayName: Stone shovel
@@ -643,6 +687,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 3
+    buoyant: 0
   - runtimeId: 49
     stableId: rivet:stone_hoe
     displayName: Stone hoe
@@ -657,6 +702,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 3
+    buoyant: 0
   - runtimeId: 50
     stableId: rivet:copper_axe
     displayName: Copper axe
@@ -671,6 +717,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 4
+    buoyant: 0
   - runtimeId: 51
     stableId: rivet:copper_pickaxe
     displayName: Copper pickaxe
@@ -685,6 +732,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 3
+    buoyant: 0
   - runtimeId: 52
     stableId: rivet:copper_sword
     displayName: Copper sword
@@ -699,6 +747,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 5
+    buoyant: 0
   - runtimeId: 53
     stableId: rivet:copper_shovel
     displayName: Copper shovel
@@ -713,6 +762,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 3
+    buoyant: 0
   - runtimeId: 54
     stableId: rivet:copper_hoe
     displayName: Copper hoe
@@ -727,6 +777,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 3
+    buoyant: 0
   - runtimeId: 55
     stableId: rivet:iron_axe
     displayName: Iron axe
@@ -741,6 +792,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 5
+    buoyant: 0
   - runtimeId: 56
     stableId: rivet:iron_pickaxe
     displayName: Iron pickaxe
@@ -755,6 +807,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 4
+    buoyant: 0
   - runtimeId: 57
     stableId: rivet:iron_sword
     displayName: Iron sword
@@ -769,6 +822,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 6
+    buoyant: 0
   - runtimeId: 58
     stableId: rivet:iron_shovel
     displayName: Iron shovel
@@ -783,6 +837,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 4
+    buoyant: 0
   - runtimeId: 59
     stableId: rivet:iron_hoe
     displayName: Iron hoe
@@ -797,6 +852,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 4
+    buoyant: 0
   - runtimeId: 60
     stableId: rivet:diamond_axe
     displayName: Diamond axe
@@ -811,6 +867,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 6
+    buoyant: 0
   - runtimeId: 61
     stableId: rivet:diamond_pickaxe
     displayName: Diamond pickaxe
@@ -825,6 +882,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 5
+    buoyant: 0
   - runtimeId: 62
     stableId: rivet:diamond_sword
     displayName: Diamond sword
@@ -839,6 +897,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 7
+    buoyant: 0
   - runtimeId: 63
     stableId: rivet:diamond_shovel
     displayName: Diamond shovel
@@ -853,6 +912,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 5
+    buoyant: 0
   - runtimeId: 64
     stableId: rivet:diamond_hoe
     displayName: Diamond hoe
@@ -867,6 +927,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 5
+    buoyant: 0
   - runtimeId: 65
     stableId: rivet:coal_block
     displayName: Coal block
@@ -881,6 +942,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 66
     stableId: rivet:iron_block
     displayName: Iron block
@@ -895,6 +957,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 67
     stableId: rivet:copper_block
     displayName: Copper block
@@ -909,6 +972,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 68
     stableId: rivet:gold_block
     displayName: Gold block
@@ -923,6 +987,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 69
     stableId: rivet:diamond_block
     displayName: Diamond block
@@ -937,6 +1002,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 70
     stableId: rivet:copper_helmet
     displayName: Copper helmet
@@ -951,6 +1017,7 @@ MonoBehaviour:
     armorSlot: 1
     armorPoints: 2
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 71
     stableId: rivet:copper_chestplate
     displayName: Copper chestplate
@@ -965,6 +1032,7 @@ MonoBehaviour:
     armorSlot: 2
     armorPoints: 5
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 72
     stableId: rivet:copper_leggings
     displayName: Copper leggings
@@ -979,6 +1047,7 @@ MonoBehaviour:
     armorSlot: 3
     armorPoints: 4
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 73
     stableId: rivet:copper_boots
     displayName: Copper boots
@@ -993,6 +1062,7 @@ MonoBehaviour:
     armorSlot: 4
     armorPoints: 1
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 74
     stableId: rivet:iron_helmet
     displayName: Iron helmet
@@ -1007,6 +1077,7 @@ MonoBehaviour:
     armorSlot: 1
     armorPoints: 2
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 75
     stableId: rivet:iron_chestplate
     displayName: Iron chestplate
@@ -1021,6 +1092,7 @@ MonoBehaviour:
     armorSlot: 2
     armorPoints: 6
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 76
     stableId: rivet:iron_leggings
     displayName: Iron leggings
@@ -1035,6 +1107,7 @@ MonoBehaviour:
     armorSlot: 3
     armorPoints: 5
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 77
     stableId: rivet:iron_boots
     displayName: Iron boots
@@ -1049,6 +1122,7 @@ MonoBehaviour:
     armorSlot: 4
     armorPoints: 2
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 78
     stableId: rivet:diamond_helmet
     displayName: Diamond helmet
@@ -1063,6 +1137,7 @@ MonoBehaviour:
     armorSlot: 1
     armorPoints: 3
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 79
     stableId: rivet:diamond_chestplate
     displayName: Diamond chestplate
@@ -1077,6 +1152,7 @@ MonoBehaviour:
     armorSlot: 2
     armorPoints: 8
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 80
     stableId: rivet:diamond_leggings
     displayName: Diamond leggings
@@ -1091,6 +1167,7 @@ MonoBehaviour:
     armorSlot: 3
     armorPoints: 6
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 81
     stableId: rivet:diamond_boots
     displayName: Diamond boots
@@ -1105,6 +1182,7 @@ MonoBehaviour:
     armorSlot: 4
     armorPoints: 3
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 90
     stableId: rivet:sand
     displayName: Sand
@@ -1119,6 +1197,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 91
     stableId: rivet:sandstone
     displayName: Sandstone
@@ -1133,6 +1212,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 92
     stableId: rivet:snow
     displayName: Snow
@@ -1147,6 +1227,7 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
   - runtimeId: 93
     stableId: rivet:red_clay
     displayName: Red clay
@@ -1161,3 +1242,34 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
+    buoyant: 0
+  - runtimeId: 94
+    stableId: rivet:bucket
+    displayName: Bucket
+    stackLimit: 1
+    fistSeconds: 0.6
+    colour: {r: 0.66, g: 0.72, b: 0.76, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 95
+    stableId: rivet:water_bucket
+    displayName: Water bucket
+    stackLimit: 1
+    fistSeconds: 0.6
+    colour: {r: 0.12, g: 0.56, b: 0.77, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0

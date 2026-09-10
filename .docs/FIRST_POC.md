@@ -49,7 +49,7 @@ Keyboard controls can be rebound; conflicting actions swap keys. New Interact bi
 5. Aim at the placed workbench and press **E** or **right-click** to open its **3×3 grid**. Interaction needs a visible block within five-block targeting reach.
 6. Put **three planks across the top row and two sticks down the center** to make one wooden pickaxe. Mine stone to collect cobblestone for stone tools and a furnace.
 
-**Recipes** displays layouts from the same editable catalog used by crafting. Click the result to craft once; Shift-click crafts complete outputs that fit. Closing the inventory returns ingredients; leftovers stay in the grid if the inventory is full. [CRAFTING.md](CRAFTING.md) owns the shared 2×2/3×3/4×4 engine and authoring; [ECONOMY.md](ECONOMY.md#current-survival-recipes-and-tiers) owns the 52 active recipes and progression. The 4×4 core has tests but no station interface yet.
+**Recipes** displays layouts from the same editable catalog used by crafting. Click the result to craft once; Shift-click crafts complete outputs that fit. Closing the inventory returns ingredients; leftovers stay in the grid if the inventory is full. [CRAFTING.md](CRAFTING.md) owns the shared 2×2/3×3/4×4 engine and authoring; [ECONOMY.md](ECONOMY.md#current-survival-recipes-and-tiers) owns the 53 active recipes and progression. The 4×4 core has tests but no station interface yet.
 
 ## Survival and exploration
 
@@ -72,3 +72,7 @@ F12 shows frame timing, seed/coordinates, chunk demand, meshing, render triangle
 ## Verification
 
 Use `Verify-POC.ps1` with `-StarterCrafting`, `-Crafting`, `-Survival`, `-Ores`, `-PlacementItems`, `-Trees`, `-Audio` or `-Arcade` for the relevant scenario. Terrain, day/night, player imports and mobs have their documented dedicated checks. Explicit verification modes supply fixtures and virtual input; ordinary sessions do neither. [The evidence index](verification/README.md) links only the maintained report for each feature.
+
+## Seas, rivers and buckets — liquid increment
+
+The current liquid review executable is **`Builds/Fluids/RivetReach.exe`** (Unity 6000.4.4f1 / URP). Craft a bucket on a workbench using three iron ingots in `I.I / .I.`. Use an empty bucket on source water to collect it; use a filled bucket on a block face to place it. Water renews in a supported two-source pool. Jump rises while immersed; Crouch descends. [Fluid rules](FLUIDS.md) and [verification](verification/FLUID_RESULTS.md) record scope and evidence. Existing feature screenshots retain their original artifact identity.

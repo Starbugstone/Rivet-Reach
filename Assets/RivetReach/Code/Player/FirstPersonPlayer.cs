@@ -98,7 +98,14 @@ namespace RivetReach
                 // The requested 1.6-block apex leaves clearance for future half blocks.
                 if(jump)vertical=8f;
                 float dt=Mathf.Min(Time.deltaTime,.05f);
-                float nextVertical=Mathf.Max(-35,vertical-20*dt);
+                bool swimming=Game.World.Submerged(transform.position+Vector3.up*.7f,out var fluid,out _);
+                if(swimming)
+                {
+                    move*=.48f;move+=Game.World.Current(Game.World.Address(transform.position+Vector3.up*.7f));
+                    float targetVertical=control&&Game.Input.Held("Jump")?3:control&&Game.Input.Held("Crouch")?-3:-.65f;
+                    vertical=Mathf.MoveTowards(vertical,targetVertical,12*dt);fallDistance=0;
+                }
+                float nextVertical=swimming?vertical:Mathf.Max(-35,vertical-20*dt);
                 float verticalTravel=(vertical+nextVertical)*.5f*dt;vertical=nextVertical;
                 if(crouch&&Grounded&&!jump&&!Game.World.Overlaps(transform.position+move*dt-Vector3.up*.12f,.6f,.12f))move=Vector3.zero;
                 Vector3 previous=transform.position;
@@ -190,12 +197,13 @@ namespace RivetReach
             {MiningProgress=0;eating=0;eatingItem=0;Game.TryInteractTarget();return;}
             if(!Game.Input.Place&&Game.Mobs!=null&&Game.Mobs.HandlePlayerTarget(Game.Input.Mine||VerificationMining))
             {HasTarget=false;MiningProgress=0;eating=0;eatingItem=0;return;}
-            bool found=Game.World.Raycast(Camera.transform.position,Camera.transform.forward,5,out var pos,out byte id);
+            bool found=Game.World.Raycast(Camera.transform.position,Camera.transform.forward,5,out var pos,out byte id,out _,heldId==Fluids.EmptyBucket);
             if(!found||!HasTarget||!pos.Equals(Target)||id!=TargetId)MiningProgress=0;
             HasTarget=found;Target=pos;TargetId=id;
             if(Game.Input.Place)
             {
                 MiningProgress=0;
+                if(Fluids.IsBucket(heldId)){if(Game.Input.PlacePressed&&Game.TryUseBucket())Arms.TriggerSwing();return;}
                 if(found&&BlockId.Station(id)&&!Game.Input.Held("Crouch"))
                 {eating=0;eatingItem=0;if(Game.Input.PlacePressed)Game.TryInteractTarget();return;}
                 if(found&&(tool&ToolCapability.Hoe)!=0&&(id==BlockId.Grass||id==BlockId.Dirt))
