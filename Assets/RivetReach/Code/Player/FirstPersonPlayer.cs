@@ -86,15 +86,15 @@ namespace RivetReach
             transform.rotation=Quaternion.Euler(0,Yaw,0);
             if(!Game.Paused && Game.World.Ready(Game.World.Address(transform.position)))
             {
-                bool crouch=control&&(VerificationCrouching??Game.Input.Held("Crouch"));
+                bool crouch=!Game.Creative&&control&&(VerificationCrouching??Game.Input.Held("Crouch"));
                 float desired=crouch?1.25f:1.8f;
                 if(desired<Height||!Game.World.Overlaps(transform.position,.6f,desired))Height=desired;
                 Vector2 input=VerificationMovement??(control?Game.Input.Move:Vector2.zero);
-                Sprinting=control&&Game.Hunger.CanSprint&&Height>=1.5f&&input.sqrMagnitude>0&&(Game.Input.Held("Sprint")||doubleTapSprint);
-                float speed=Height<1.5f?2.2f:Sprinting?6.5f:4.5f;
+                Sprinting=control&&(Game.Creative||Game.Hunger.CanSprint)&&Height>=1.5f&&(input.sqrMagnitude>0||Game.Creative&&(Game.Input.Held("Jump")||Game.Input.Held("Crouch")))&&(Game.Input.Held("Sprint")||doubleTapSprint);
+                float speed=Game.Creative?(Sprinting?12f:7f):Height<1.5f?2.2f:Sprinting?6.5f:4.5f;
                 input=Vector2.ClampMagnitude(input,1);
                 Vector3 move=transform.TransformDirection(new Vector3(input.x,0,input.y))*speed;
-                bool jump=control&&Game.Input.Pressed("Jump")&&Grounded;
+                bool jump=!Game.Creative&&control&&Game.Input.Pressed("Jump")&&Grounded;
                 // The requested 1.6-block apex leaves clearance for future half blocks.
                 if(jump)vertical=8f;
                 float dt=Mathf.Min(Time.deltaTime,.05f);
@@ -107,6 +107,14 @@ namespace RivetReach
                 }
                 float nextVertical=swimming?vertical:Mathf.Max(-35,vertical-20*dt);
                 float verticalTravel=(vertical+nextVertical)*.5f*dt;vertical=nextVertical;
+                if(Game.Creative)
+                {
+                    // Flight keeps the same voxel collision/streaming authority as walking.
+                    vertical=0;fallDistance=0;
+                    float rise=control?((Game.Input.Held("Jump")?1:0)-(Game.Input.Held("Crouch")?1:0)):0;
+                    move=transform.TransformDirection(Vector3.ClampMagnitude(new Vector3(input.x,rise,input.y),1))*speed;
+                    verticalTravel=0;
+                }
                 if(crouch&&Grounded&&!jump&&!Game.World.Overlaps(transform.position+move*dt-Vector3.up*.12f,.6f,.12f))move=Vector3.zero;
                 Vector3 previous=transform.position;
                 transform.position=Game.World.Move(transform.position,move*dt+Vector3.up*verticalTravel,.6f,Height,out bool ground);
@@ -115,8 +123,8 @@ namespace RivetReach
                 Grounded=ground;if(ground)vertical=-1;
                 Vector3 travelled=transform.position-previous;travelled.y=0;
                 float distance=travelled.magnitude,motion=Mathf.Clamp01(distance/Mathf.Max(.001f,speed*dt));
-                if(control)Game.Hunger.Exert(distance*(Sprinting?.1:.01)+(jump?.2:0));
-                if(!ground&&transform.position.y<previous.y)fallDistance+=previous.y-transform.position.y;
+                if(control&&!Game.Creative)Game.Hunger.Exert(distance*(Sprinting?.1:.01)+(jump?.2:0));
+                if(!Game.Creative&&!ground&&transform.position.y<previous.y)fallDistance+=previous.y-transform.position.y;
                 if(ground){if(fallDistance>3)Game.TakeDamage(Mathf.Floor(fallDistance-3),DamageKind.Fall);fallDistance=0;}
                 // Footfalls follow the same distance-driven phase as the authored feet.
                 int priorContact=Mathf.FloorToInt(phase/Mathf.PI);
@@ -176,7 +184,7 @@ namespace RivetReach
             else{previousSwingPhase=0;hitSoundPlayed=false;}
         }
         void ResetSprint(){doubleTapSprint=false;lastForwardPress=float.NegativeInfinity;Sprinting=false;}
-        public void ResetMotion(){vertical=0;fallDistance=0;eating=0;MiningProgress=0;VerificationMovement=null;ResetSprint();}
+        public void ResetMotion(){Grounded=false;vertical=0;fallDistance=0;eating=0;MiningProgress=0;VerificationMovement=null;ResetSprint();}
         void UpdateSprintGesture(bool control)
         {
             if(!control||Game.Input.Rebinding!=null||(VerificationCrouching??Game.Input.Held("Crouch"))){ResetSprint();return;}
@@ -208,13 +216,13 @@ namespace RivetReach
                 {eating=0;eatingItem=0;if(Game.Input.PlacePressed)Game.TryInteractTarget();return;}
                 if(found&&(tool&ToolCapability.Hoe)!=0&&(id==BlockId.Grass||id==BlockId.Dirt))
                 {
-                    if(Time.time>=nextPlace&&Game.World.Till(pos)){nextPlace=Time.time+.22f;Arms.TriggerSwing();Game.Hunger.Exert(.05);}
+                    if(Time.time>=nextPlace&&Game.World.Till(pos)){nextPlace=Time.time+.22f;Arms.TriggerSwing();if(!Game.Creative)Game.Hunger.Exert(.05);}
                     return;
                 }
                 if(found&&id==BlockId.Farmland&&selected.Id==BlockId.Potato)
-                {if(Game.World.Plant(pos.Offset(0,1,0))){Game.Inventory.Take(Game.Selected,1);Arms.TriggerSwing();}return;}
+                {if(Game.World.Plant(pos.Offset(0,1,0))){if(!Game.Creative)Game.Inventory.Take(Game.Selected,1);Arms.TriggerSwing();}return;}
                 int food=selected.Empty?0:Game.Registry.Get(selected.Id).foodPoints;
-                if(food>0)
+                if(food>0&&!Game.Creative)
                 {
                     if(eatingItem!=selected.Id){eating=0;eatingItem=selected.Id;}
                     if(Game.Hunger.Food<HungerState.Maximum)eating+=Time.deltaTime;
@@ -236,7 +244,7 @@ namespace RivetReach
             MiningProgress=0;
             if(Game.World.Mine(pos,id,tool,Game.Registry.Tier(selected)))
             {
-                Game.Hunger.Exert(.05);
+                if(!Game.Creative)Game.Hunger.Exert(.05);
                 byte drop=Game.Registry.FistDrop(id);
                 Game.Sound.Mine(id,Game.World.Local(pos)+Vector3.one*.5f);Game.Notify("Gathered "+Game.Registry.Get(drop).displayName+" — walk close to collect",1);
             }

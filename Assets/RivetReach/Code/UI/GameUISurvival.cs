@@ -106,7 +106,7 @@ namespace RivetReach
             }
             bool eating=game.Player.EatingProgress>0;
             if(hungerText!=null&&(shownFood!=game.Hunger.Food||shownEating!=eating))
-            {shownFood=game.Hunger.Food;shownEating=eating;hungerText.text="FOOD "+shownFood+" / 20"+(eating?" · Eating…":game.Hunger.CanSprint?"":" · Eat to sprint");}
+            {shownFood=game.Hunger.Food;shownEating=eating;hungerText.text="FOOD "+shownFood+" / 20"+(eating?" · Eating…":game.Creative?" · Frozen":game.Hunger.CanSprint?"":" · Eat to sprint");}
             if(armorText!=null&&shownArmor!=game.Equipment.Protection){shownArmor=game.Equipment.Protection;armorText.text="ARMOR "+shownArmor+" / 20";}
             var furnace=game.OpenStation?.Furnace;
             if(furnaceText!=null&&furnace!=null&&(shownProgress!=furnace.ProgressTicks||shownBurn!=furnace.BurnTicks||shownFurnaceRevision!=furnace.Revision))

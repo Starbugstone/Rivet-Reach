@@ -107,7 +107,8 @@ namespace RivetReach
         {
             Label(root,"RIVET REACH",28,22,300,28,19);
             worldTime=Label(root,"",870,22,380,52,16,pale);worldTime.alignment=TextAnchor.UpperRight;
-            Label(root,"FIRST EXPEDITION",29,52,280,22,11,gold);
+            Label(root,game.Creative?"CREATIVE · INVINCIBLE":"FIRST EXPEDITION",29,52,280,22,11,gold);
+            if(game.Creative)Label(root,$"{game.Input.Keys["Jump"]} Rise · {game.Input.Keys["Crouch"]} Descend · {game.Input.Keys["Sprint"]} Fly faster",29,76,600,22,13,gold);
             foreach(var bar in new[]{new Rect(632,359,5,2),new Rect(643,359,5,2),new Rect(639,352,2,5),new Rect(639,363,2,5)})
             {
                 Panel(root,bar.x-1,bar.y-1,bar.width+2,bar.height+2,new Color(.025f,.04f,.035f,.65f));
@@ -129,14 +130,16 @@ namespace RivetReach
         void BuildInventory()
         {
             Panel(root,0,0,1280,720,new Color(0,0,0,.23f));var p=Panel(root,55,42,1170,634,ink);
-            Label(p.transform,game.OpenStation==null?"INVENTORY":game.Registry.Get(game.OpenStation.Block).displayName.ToUpperInvariant(),28,20,500,45,30);Label(p.transform,"Drag stacks · Right-click split / place one · Shift-click transfer",28,66,880,28,15,gold);
+            Label(p.transform,game.OpenStation==null?(game.Creative?"CREATIVE INVENTORY":"INVENTORY"):game.Registry.Get(game.OpenStation.Block).displayName.ToUpperInvariant(),28,20,500,45,30);Label(p.transform,"Drag stacks · Right-click split / place one · Shift-click transfer",28,66,880,28,15,gold);
             Button(p.transform,"CLOSE",1033,20,108,40,()=>game.SetMode(ScreenMode.Play));
+            if(game.Creative&&game.OpenStation==null)Button(p.transform,creativeCrafting?"ALL ITEMS":"CRAFTING",821,20,192,40,()=>{creativeCrafting=!creativeCrafting;Rebuild();});
             var backdrop=Panel(p.transform,28,113,210,270,slate);var portrait=Rect(backdrop.transform,"Portrait",0,0,210,270).gameObject.AddComponent<RawImage>();portrait.texture=previewTexture;portrait.uvRect=PortraitUV(210,270);portrait.gameObject.AddComponent<PortraitDrag>().Owner=this;
             for(int row=0;row<6;row++)for(int col=0;col<8;col++)Slot(p.transform,12+row*8+col,266+col*62,113+row*62,56);
             BuildEquipment(p.transform);
             GameObject guide=null;
             if(game.OpenStation?.Furnace!=null)BuildFurnace(p.transform);
             else if(game.OpenStation?.Storage!=null)BuildChest(p.transform);
+            else if(game.Creative&&game.OpenStation==null&&!creativeCrafting)BuildCreativeCatalog(p.transform);
             else
             {
                 int size=game.Crafting.Grid.Size,cell=size==2?60:48,gap=size==2?70:56;
@@ -152,11 +155,11 @@ namespace RivetReach
                 if(size==2)Label(p.transform,$"4 planks → Workbench\nPlace it, then {game.Input.Keys["Interact"]} / {game.Input.UseButtonName} for 3 × 3",821,194,318,26,12,gold);
             }
             Label(p.transform,"HOTBAR",266,502,250,24,14,gold);BuildHotbar(p.transform,266,534,53,4);
-            inventoryHint=Label(p.transform,"Use Recipes to see available layouts. Leftover ingredients stay in the grid if your inventory is full.",28,604,1090,24,14);
+            inventoryHint=Label(p.transform,game.Creative&&game.OpenStation==null&&!creativeCrafting?"Choose items from the catalog, then move them to your hotbar. Crafting opens the personal grid.":"Use Recipes to see available layouts. Leftover ingredients stay in the grid if your inventory is full.",28,604,1090,24,14);
             Button(p.transform,"APPEARANCE",28,527,210,40,()=>game.SetMode(ScreenMode.Appearance));
             heldRoot=Rect(root,"Held stack",0,0,52,65);heldRoot.gameObject.SetActive(false);heldIcon=heldRoot.gameObject.AddComponent<RawImage>();heldIcon.raycastTarget=false;heldLabel=Label(heldRoot,"",0,37,55,25,16);heldLabel.alignment=TextAnchor.LowerRight;
             tooltip=Label(p.transform,"",28,604,1090,24,14,gold);
-            if(game.OpenStation?.Furnace==null&&game.OpenStation?.Storage==null){guide=BuildCraftingGuide(p.transform);guide.SetActive(false);}
+            if((!game.Creative||creativeCrafting||game.OpenStation!=null)&&game.OpenStation?.Furnace==null&&game.OpenStation?.Storage==null){guide=BuildCraftingGuide(p.transform);guide.SetActive(false);}
             RefreshPreview();
         }
         GameObject BuildCraftingGuide(Transform parent)
@@ -227,7 +230,8 @@ namespace RivetReach
                 Button(p.transform,"PLAYER & SKIN",180,204,430,46,()=>game.SetMode(ScreenMode.Appearance));
                 Button(p.transform,"SETTINGS",180,268,430,46,()=>game.SetMode(ScreenMode.Settings));
                 Button(p.transform,"CONTROLS",180,332,430,46,()=>game.SetMode(ScreenMode.Controls));
-                Button(p.transform,"QUIT — SESSION WILL RESET",180,442,430,46,game.Quit);
+                Button(p.transform,game.Creative?"CREATIVE MODE: ON":"CREATIVE MODE: OFF",180,396,430,46,()=>game.SetCreative(!game.Creative),game.Creative);
+                Button(p.transform,"QUIT — SESSION WILL RESET",180,466,430,46,game.Quit);
                 Label(p.transform,"Terrain edits and inventory survive chunk unloading,\nbut this first slice does not yet save progress between sessions.",115,530,610,60,17);
             }
             else if(game.Mode==ScreenMode.Appearance)

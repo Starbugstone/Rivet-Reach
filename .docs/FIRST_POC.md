@@ -6,7 +6,7 @@ The Unity **6000.4.4f1 / URP 17.4.0** project now includes terrain and caves, FP
 
 Open this repository in the pinned Unity Editor, open `Assets/RivetReach/Scenes/Main.unity`, then press Play. `Expedition.Bootstrap` creates the voxel world and UI at runtime; the unplayed scene is not a populated map. After cloning, run `git lfs pull` to retrieve binary assets.
 
-The current local review executable is **`Builds/Survival/RivetReach.exe`**. Keep its adjacent data folder, DLLs and Mono runtime together. Start Expedition uses a fresh random world seed, or the optional signed 32-bit seed entered on the title screen. Nearby terrain prepares before movement can enter it.
+The current local review executable is **`Builds/Creative/RivetReach.exe`**. Keep its adjacent data folder, DLLs and Mono runtime together. Start Expedition uses a fresh random world seed, or the optional signed 32-bit seed entered on the title screen. Nearby terrain prepares before movement can enter it.
 
 The normal build entry point is **Rivet Reach → Build Windows first POC**, or Windows PowerShell:
 
@@ -16,7 +16,7 @@ The normal build entry point is **Rivet Reach → Build Windows first POC**, or 
 .\Tools\Verify-POC.ps1 -Survival
 ```
 
-The normal script builds `Builds/PlayerRevision4/RivetReach.exe`. To test the delivered review executable, supply `-Executable Builds/Survival/RivetReach.exe`. The Editor entry point `RivetReach.Editor.ProjectBuild.PrepareAndBuildSurvival` produces that dedicated review build. Runtime assets are versioned; ordinary Play requires no Blender or asset-generation step.
+The normal script builds `Builds/PlayerRevision4/RivetReach.exe`. To test the delivered review executable, supply `-Executable Builds/Creative/RivetReach.exe`. `Tools/Verify-Creative.ps1 -Build` produces and checks this dedicated review build through the open Editor. Runtime assets are versioned; ordinary Play requires no Blender or asset-generation step.
 
 The build script reuses this project's open Editor through its existing local file request, or starts the pinned Editor in batch mode when the project is closed. Preserve open scenes and unsaved work. An explicit Editor startup check is available through **Rivet Reach → Verify Editor Play startup**; the latest [player/audio report](verification/HIFI_PLAYER_AND_AUDIO_RESULTS.md) records its evidence.
 
@@ -76,3 +76,9 @@ Use `Verify-POC.ps1` with `-StarterCrafting`, `-Crafting`, `-Survival`, `-Ores`,
 ## Seas, rivers and buckets — liquid increment
 
 The current liquid review executable is **`Builds/Fluids/RivetReach.exe`** (Unity 6000.4.4f1 / URP). Craft a bucket on a workbench using three iron ingots in `I.I / .I.`. Use an empty bucket on source water to collect it; use a filled bucket on a block face to place it. Water renews in a supported two-source pool. Jump rises while immersed; Crouch descends. [Fluid rules](FLUIDS.md) and [verification](verification/FLUID_RESULTS.md) record scope and evidence. Existing feature screenshots retain their original artifact identity.
+
+## Creative testing
+
+The Creative review executable is **`Builds/Creative/RivetReach.exe`**. Start an expedition, then press **Escape → Creative Mode: Off** to enable it. Fly with **WASD**, **Space** to rise, **Left Ctrl** to descend and **Left Shift** to fly faster. Open **Tab → All Items**, search or scroll, and click an item for a full stack. You are invincible, hunger is frozen, and placed blocks are not consumed. Use the same Escape toggle to return to Survival; gravity and damage resume and your items remain. See [the full rules](GAMEPLAY.md#creative-testing-mode) and [verification](verification/CREATIVE_RESULTS.md).
+
+Run `Tools/Verify-Creative.ps1 -Build` with this project's pinned Editor open to rebuild and exercise the focused Creative scenario.

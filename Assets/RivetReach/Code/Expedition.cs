@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 namespace RivetReach
 {
     public enum ScreenMode { Title, Play, Inventory, Pause, Appearance, Settings, Controls, Death }
-    public sealed class Expedition : MonoBehaviour
+    public sealed partial class Expedition : MonoBehaviour
     {
         public static Expedition Instance;
         public VoxelWorld World {get;private set;}
@@ -62,7 +62,7 @@ namespace RivetReach
         }
         void CreateSession(int seed)
         {
-            Seed=seed;
+            Seed=seed;Creative=false;
             invulnerableUntil=0;
             Sky.ResetClock();
             Inventory=new Inventory(id=>Registry.Get(id).stackLimit);
@@ -105,7 +105,7 @@ namespace RivetReach
         void Update()
         {
             if(Input==null)return;
-            if(Started&&!Paused){Sky.Advance(Time.deltaTime);World.AdvanceGrass(Time.deltaTime);World.AdvanceTrees(Time.deltaTime);World.AdvanceFluids(Time.deltaTime);Health.Advance(Survival.Advance(Time.deltaTime),Hunger);}
+            if(Started&&!Paused){Sky.Advance(Time.deltaTime);World.AdvanceGrass(Time.deltaTime);World.AdvanceTrees(Time.deltaTime);World.AdvanceFluids(Time.deltaTime);int ticks=Survival.Advance(Time.deltaTime);if(!Creative)Health.Advance(ticks,Hunger);}
             if(OpenStation!=null&&(!World.Ready(StationPosition)||(World.Local(StationPosition)+Vector3.one*.5f-Player.transform.position).sqrMagnitude>36))SetMode(ScreenMode.Play);
             if(Health.Dead)return;
             if(Input.PollRebind()){UI.Rebuild();return;}
@@ -147,7 +147,7 @@ namespace RivetReach
         }
         public float TakeDamage(float amount,DamageKind kind=DamageKind.Impact)
         {
-            if(!Started||Paused||Health.Dead||Time.time<invulnerableUntil)return 0;
+            if(Creative||!Started||Paused||Health.Dead||Time.time<invulnerableUntil)return 0;
             float accepted=Health.Damage(amount,kind,Equipment.Protection);
             if(!Health.Dead)return accepted;
             SetMode(ScreenMode.Death);
@@ -212,7 +212,7 @@ namespace RivetReach
             var selected=Inventory.Slots[Selected];
             // One local authority turn: recheck occupancy, commit the voxel, then consume exactly one.
             if(!World.Place(cell,selected.Id))return false;
-            Inventory.Take(Selected,1);Sound.Place(selected.Id,World.Local(cell)+Vector3.one*.5f);ArcadePresentation.Active?.Place(World.Local(cell)+Vector3.one*.5f,selected.Id);PlacementDiagnostic="Placed "+Registry.Get(selected.Id).displayName;Notify(PlacementDiagnostic,1);return true;
+            if(!Creative)Inventory.Take(Selected,1);Sound.Place(selected.Id,World.Local(cell)+Vector3.one*.5f);ArcadePresentation.Active?.Place(World.Local(cell)+Vector3.one*.5f,selected.Id);PlacementDiagnostic="Placed "+Registry.Get(selected.Id).displayName;Notify(PlacementDiagnostic,1);return true;
         }
         public bool TryUseBucket()
         {

@@ -400,3 +400,15 @@ These controls and values form the current playable survival slice. Tool durabil
 ## Terrain and biome rework — 2026-09-09
 
 The user-requested terrain rework adds five distinct landscape profiles, naturally exposed entrances, connected passages and caverns. Sand, sandstone, snow and red clay follow the existing mining/drop/placement paths. [TERRAIN_GENERATION.md](TERRAIN_GENERATION.md) owns the surface/cave/material defaults, safe start and limits; [terrain verification](verification/TERRAIN_GENERATION_RESULTS.md) records actual checks. Bedrock remains unbreakable and existing ore Y bands remain in force. Terrain generation supplies the mature wild-potato locations agreed with survival; survival owns harvesting and growth.
+
+## Creative testing mode
+
+The user authorized a session-only Creative mode for testing. Start an expedition, press **Escape**, and click **Creative Mode: Off/On**. New sessions default to Survival. The toggle preserves carried items, equipment, health and hunger; items obtained in Creative remain when returning to Survival.
+
+- Creative automatically enables hovering flight: movement bindings steer horizontally, Jump rises, Crouch descends, and Sprint accelerates. The same voxel collision, creature collision and ready-chunk boundaries apply. Working speeds are 7 blocks/second, or 12 while sprinting, with normalized diagonal movement. Inventory blocks flight input and holds position; Escape pauses the world.
+- Incoming damage and automatic starvation cannot reduce health. Movement, mining and tilling do not spend hunger; existing health/food values freeze while world clocks, stations, crops, fluids and creatures keep simulating.
+- **Tab → All Items** shows the full registered item catalog with icons, names, search and scrolling. Clicking supplies one legal full stack through the normal inventory authority. A full inventory rejects the entire grant with visible feedback. **Crafting** switches back to the personal grid; placed stations retain their regular interfaces.
+- Block placement and potato planting retain the selected stack. Buckets retain their normal fill/empty behavior. Mining, tool requirements, reach and protected bedrock retain their current rules.
+- Turning Creative off resets accumulated movement/fall state, restores gravity, damage, hunger expenditure and item consumption, and removes catalog access. Disabling it in midair begins an ordinary fall from that position. Quitting or starting a replacement world resets Creative to off.
+
+These defaults are working implementation choices under the testing request. Flight feel remains subject to user review. [Creative verification](verification/CREATIVE_RESULTS.md) records measured evidence and limits.

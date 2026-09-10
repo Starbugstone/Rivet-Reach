@@ -417,3 +417,9 @@ A frame contributes elapsed scaled time to a retained tick remainder; at most 10
 ## Terrain and biome rework — 2026-09-09
 
 Generator `terrain-4-biomes-caves` supersedes the original height/cave/tree profile described above. [TERRAIN_GENERATION.md](TERRAIN_GENERATION.md#data-streaming-and-compatibility) owns the immutable column and density representation, bounded thread caches and worker-published surface extrema. The same ore replacement and authoritative edit overlays remain in use; no durable-save migration is added. Full surface ranges and the bounded player view volume are streamed together. The local volume now includes vertical sight distance so large caves cannot expose missing floors through the original three-chunk band; surface coverage beyond that volume remains separate.
+
+## Creative session override
+
+`Expedition.Creative` is a session-local authority flag, reset by `CreateSession`. `SetCreative` preserves inventory/equipment and health/food while resetting player motion. `TakeDamage` rejects Creative damage; the session loop skips only `Health.Advance`, continuing `WorldSurvival.Advance` and other world clocks. Player exertion is gated at its normal movement/mining/tilling call sites.
+
+`TryGiveCreativeItem` requires Creative and an open inventory, resolves the actual registry definition and uses `Inventory.TryAddExact` for a full legal stack. Catalog UI owns no item definitions or backing inventory arrays. Creative flight uses the existing swept voxel movement and mob collision constraints. [Gameplay](GAMEPLAY.md#creative-testing-mode) owns controls and transition semantics. This local testing override adds no network permission or durable-save system.
