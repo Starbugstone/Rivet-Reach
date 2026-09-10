@@ -20,6 +20,9 @@ Shader "RivetReach/VoxelTerrain"
             #pragma vertex Vert
             #pragma fragment Frag
             #pragma target 3.5
+            #pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
+            #pragma multi_compile _ _CLUSTER_LIGHT_LOOP
+            #pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
             #pragma multi_compile_fragment _ _SHADOWS_SOFT _SHADOWS_SOFT_LOW _SHADOWS_SOFT_MEDIUM _SHADOWS_SOFT_HIGH
             #pragma multi_compile_fragment _ _SCREEN_SPACE_OCCLUSION
@@ -73,6 +76,14 @@ Shader "RivetReach/VoxelTerrain"
                 if(i.tile==6)lighting+=half3(.30,.42,.12)*sun.color*saturate(dot(-normal,sun.direction))*.32*sun.shadowAttenuation;
                 float3 view=GetWorldSpaceNormalizeViewDir(i.positionWS),halfVector=normalize(view+sun.direction);
                 float sheen=pow(saturate(dot(normal,halfVector)),lerp(18,48,1-detail.a))*.035*sun.shadowAttenuation;
+                // URP cluster iteration handles point lights across large greedy-meshed chunks.
+                InputData inputData=(InputData)0;inputData.positionWS=i.positionWS;
+                inputData.normalizedScreenSpaceUV=GetNormalizedScreenSpaceUV(i.positionCS);
+                uint lightCount=GetAdditionalLightsCount();
+                LIGHT_LOOP_BEGIN(lightCount)
+                    Light localLight=GetAdditionalLight(lightIndex,i.positionWS,half4(1,1,1,1));
+                    lighting+=localLight.color*saturate(dot(normal,localLight.direction))*localLight.distanceAttenuation*localLight.shadowAttenuation;
+                LIGHT_LOOP_END
                 colour=colour*lighting+sun.color*sheen;
                 if(_RRImpactLight.w>0)
                 {

@@ -38,6 +38,8 @@ namespace RivetReach.Editor
             command=command.Replace("|ready","");File.Delete(request);
             try
             {
+                if(command=="torch-build")
+                {TorchAssets.Prepare();DomainChecks.Run();FluidChecks.Run();Build("Torches");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="creative-build")
                 {DomainChecks.Run();Build("Creative");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="fluid-checks")

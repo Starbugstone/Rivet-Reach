@@ -12,7 +12,7 @@ namespace RivetReach
             else
             {
                 var placed=registry.FromBucket(held.Id);
-                if(placed==null||cell!=0&&(fluid!=placed||fluid.IsSource(cell)))return false;
+                if(placed==null||cell!=0&&cell!=BlockId.Torch&&(fluid!=placed||fluid.IsSource(cell)))return false;
                 output=Fluids.EmptyBucket;replacement=placed.Source;
             }
             // Validate both phases before world callbacks. Inventory is private to this authority.

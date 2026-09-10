@@ -1,0 +1,53 @@
+PASS Flat source spreads exactly seven cells
+PASS Horizontal attenuation uses path length
+PASS Settled water sleeps
+PASS Removing a source drains all dependent flow
+PASS Two horizontal sources renew supported water
+PASS Collected renewable source refills
+PASS Dry scheduled torch is preserved
+PASS Falling water displaces a torch
+PASS Horizontal water flows through a torch
+PASS Second fluid disables renewal independently
+PASS Second fluid owns its horizontal reach
+PASS Second fluid respects a slower tick delay
+PASS Slower fluid eventually propagates
+PASS Unsupported adjacent sources do not renew in midair
+PASS Water descends vertically
+PASS Falling column resets horizontal reach on landing
+PASS Nearby drop attracts initial flow
+PASS Solid wall blocks flow
+PASS Opening a dam wakes neighbouring water
+PASS Rebuilding a dam drains disconnected flow
+PASS Unready chunks are closed to flow
+PASS Chunk arrival resumes blocked flow
+PASS Flow crosses negative-coordinate chunk seams
+PASS Bucket collection replaces its slot in a full inventory
+PASS Bucket placement returns one empty bucket
+PASS Buckets reject flowing cells without item loss
+PASS Rejected world mutation preserves bucket and source
+PASS Cannot empty a bucket inside solid terrain
+PASS Fluid mesh excludes shared faces and opaque terrain mesh
+PASS Settled ocean interiors and shared source seams create no activation work or faces
+PASS Fluid cells are neither solid nor mineable inventory blocks
+PASS Dry supported spawn, seed 246813
+PASS Generated Sea has shared sea datum, seed 246813
+PASS Fluid point and chunk reads agree for Sea
+PASS Water bed and protected bedrock retained for Sea
+PASS Generated River has shared sea datum, seed 246813
+PASS Fluid point and chunk reads agree for River
+PASS Water bed and protected bedrock retained for River
+PASS Dry supported spawn, seed 17
+PASS Generated Sea has shared sea datum, seed 17
+PASS Fluid point and chunk reads agree for Sea
+PASS Water bed and protected bedrock retained for Sea
+PASS Generated River has shared sea datum, seed 17
+PASS Fluid point and chunk reads agree for River
+PASS Water bed and protected bedrock retained for River
+PASS Dry supported spawn, seed -99
+PASS Generated Sea has shared sea datum, seed -99
+PASS Fluid point and chunk reads agree for Sea
+PASS Water bed and protected bedrock retained for Sea
+PASS Generated River has shared sea datum, seed -99
+PASS Fluid point and chunk reads agree for River
+PASS Water bed and protected bedrock retained for River
+Checks: 52; generated sea sites: 3; river sites: 3; elapsed ms: 559,4

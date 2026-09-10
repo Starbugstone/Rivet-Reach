@@ -1273,3 +1273,18 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+  - runtimeId: 96
+    stableId: rivet:torch
+    displayName: Torch
+    stackLimit: 64
+    fistSeconds: 0.1
+    colour: {r: 1, g: 0.65, b: 0.18, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 1

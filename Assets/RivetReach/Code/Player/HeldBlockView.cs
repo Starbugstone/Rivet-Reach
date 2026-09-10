@@ -63,7 +63,7 @@ namespace RivetReach
             if(id!=ItemId)
             {
                 ItemId=id;
-                if(BlockId.Placeable(id)||BlockId.RawMaterial(id))
+                if(id!=BlockId.Torch&&(BlockId.Placeable(id)||BlockId.RawMaterial(id)))
                 {
                     if(!meshes.TryGetValue(id,out var mesh))
                     {
@@ -78,7 +78,7 @@ namespace RivetReach
                 {
                     var definition=game.Registry.Get(id);var tint=definition.tier==ToolTier.None?Color.white:Color.Lerp(Color.white,definition.colour,.70f);
                     toolMaterial.SetColor("_BaseColor",tint);axeMaterial.SetColor("_BaseColor",tint);plainToolMaterial.SetColor("_BaseColor",definition.colour);
-                    if(!BlockId.Placeable(id)&&!BlockId.RawMaterial(id)&&definition.toolCapabilities==ToolCapability.None)
+                    if((id==BlockId.Torch||!BlockId.Placeable(id)&&!BlockId.RawMaterial(id))&&definition.toolCapabilities==ToolCapability.None)
                     {
                         if(card==null)
                         {
@@ -100,7 +100,7 @@ namespace RivetReach
             float boneUnits=rig.transform.InverseTransformVector(Socket.TransformVector(Vector3.up)).magnitude;
             view.transform.localPosition=Vector3.zero;view.transform.localRotation=Quaternion.identity;view.transform.localScale=Vector3.one/boneUnits;
             block.SetActive(grip==GripPose.Block);
-            bool showCard=id!=0&&!BlockId.Placeable(id)&&!BlockId.RawMaterial(id)&&game.Registry.Get(id).toolCapabilities==ToolCapability.None;
+            bool showCard=id!=0&&(id==BlockId.Torch||!BlockId.Placeable(id)&&!BlockId.RawMaterial(id))&&game.Registry.Get(id).toolCapabilities==ToolCapability.None;
             filter.GetComponent<Renderer>().enabled=!showCard;if(card!=null)card.SetActive(showCard);
             if(showCard)card.transform.rotation=Player.Camera.transform.rotation;
             bool useAxe=!PreviewGrip.HasValue&&(game.Registry.Capabilities(selected)&ToolCapability.Axe)!=0;

@@ -25,6 +25,7 @@ namespace RivetReach
         long nextId=1;
         float accumulator,mergeAt;
         readonly Dictionary<byte,Material> materials=new Dictionary<byte,Material>();
+        Texture2D torchIcon;
         readonly Dictionary<byte,Mesh> meshes=new Dictionary<byte,Mesh>();
         readonly Dictionary<(byte,long,int,long),List<Pile>> mergeBuckets=new Dictionary<(byte,long,int,long),List<Pile>>();
         readonly Stack<List<Pile>> spareBuckets=new Stack<List<Pile>>();
@@ -209,7 +210,18 @@ namespace RivetReach
         {
             var view=new GameObject("World item display");
             var capability=Game.Registry.Capabilities(new ItemStack(id,1));
-            if(capability!=ToolCapability.None)
+            if(id==BlockId.Torch)
+            {
+                if(!materials.TryGetValue(id,out var material))
+                {
+                    torchIcon=SurvivalItemArt.Icon(Game.Registry.Get(id));
+                    material=new Material(Shader.Find("RivetReach/HeldTool"));material.SetTexture("_BaseMap",torchIcon);
+                    material.SetFloat("_Cutoff",.1f);material.SetFloat("_Cull",0);material.SetFloat("_FirstPerson",0);materials.Add(id,material);
+                }
+                var card=GameObject.CreatePrimitive(PrimitiveType.Quad);Destroy(card.GetComponent<Collider>());
+                card.transform.SetParent(view.transform,false);card.GetComponent<MeshRenderer>().sharedMaterial=material;
+            }
+            else if(capability!=ToolCapability.None)
             {
                 bool axe=(capability&ToolCapability.Axe)!=0;
                 string path=axe?"Tools/StarterAxe":(capability&ToolCapability.Pickaxe)!=0?"Characters/GripPickaxe":"Characters/GripSword";
@@ -232,6 +244,6 @@ namespace RivetReach
             }
             return view;
         }
-        void OnDestroy(){foreach(var m in materials.Values)Destroy(m);foreach(var mesh in meshes.Values)Destroy(mesh);}
+        void OnDestroy(){if(torchIcon!=null)Destroy(torchIcon);foreach(var m in materials.Values)Destroy(m);foreach(var mesh in meshes.Values)Destroy(mesh);}
     }
 }

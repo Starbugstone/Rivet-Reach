@@ -6,7 +6,7 @@ The Unity **6000.4.4f1 / URP 17.4.0** project now includes terrain and caves, FP
 
 Open this repository in the pinned Unity Editor, open `Assets/RivetReach/Scenes/Main.unity`, then press Play. `Expedition.Bootstrap` creates the voxel world and UI at runtime; the unplayed scene is not a populated map. After cloning, run `git lfs pull` to retrieve binary assets.
 
-The current local review executable is **`Builds/Creative/RivetReach.exe`**. Keep its adjacent data folder, DLLs and Mono runtime together. Start Expedition uses a fresh random world seed, or the optional signed 32-bit seed entered on the title screen. Nearby terrain prepares before movement can enter it.
+The current local review executable is **`Builds/Torches/RivetReach.exe`**. Keep its adjacent data folder, DLLs and Mono runtime together. Start Expedition uses a fresh random world seed, or the optional signed 32-bit seed entered on the title screen. Nearby terrain prepares before movement can enter it.
 
 The normal build entry point is **Rivet Reach → Build Windows first POC**, or Windows PowerShell:
 
@@ -16,7 +16,7 @@ The normal build entry point is **Rivet Reach → Build Windows first POC**, or 
 .\Tools\Verify-POC.ps1 -Survival
 ```
 
-The normal script builds `Builds/PlayerRevision4/RivetReach.exe`. To test the delivered review executable, supply `-Executable Builds/Creative/RivetReach.exe`. `Tools/Verify-Creative.ps1 -Build` produces and checks this dedicated review build through the open Editor. Runtime assets are versioned; ordinary Play requires no Blender or asset-generation step.
+The normal script builds `Builds/PlayerRevision4/RivetReach.exe`. To test the delivered review executable, supply `-Executable Builds/Torches/RivetReach.exe`. `Tools/Verify-Creative.ps1 -Build` produces and checks this dedicated review build through the open Editor. Runtime assets are versioned; ordinary Play requires no Blender or asset-generation step.
 
 The build script reuses this project's open Editor through its existing local file request, or starts the pinned Editor in batch mode when the project is closed. Preserve open scenes and unsaved work. An explicit Editor startup check is available through **Rivet Reach → Verify Editor Play startup**; the latest [player/audio report](verification/HIFI_PLAYER_AND_AUDIO_RESULTS.md) records its evidence.
 
@@ -49,7 +49,9 @@ Keyboard controls can be rebound; conflicting actions swap keys. New Interact bi
 5. Aim at the placed workbench and press **E** or **right-click** to open its **3×3 grid**. Interaction needs a visible block within five-block targeting reach.
 6. Put **three planks across the top row and two sticks down the center** to make one wooden pickaxe. Mine stone to collect cobblestone for stone tools and a furnace.
 
-**Recipes** displays layouts from the same editable catalog used by crafting. Click the result to craft once; Shift-click crafts complete outputs that fit. Closing the inventory returns ingredients; leftovers stay in the grid if the inventory is full. [CRAFTING.md](CRAFTING.md) owns the shared 2×2/3×3/4×4 engine and authoring; [ECONOMY.md](ECONOMY.md#current-survival-recipes-and-tiers) owns the 53 active recipes and progression. The 4×4 core has tests but no station interface yet.
+Once you have coal or furnace-made charcoal, place **one above one stick** in either crafting grid to make **four torches**. Select a torch and right-click a floor or wall to light the area. Mine it to recover it. [Torch rules](GAMEPLAY.md#torches) describe attachment and lighting limits.
+
+**Recipes** displays layouts from the same editable catalog used by crafting. Click the result to craft once; Shift-click crafts complete outputs that fit. Closing the inventory returns ingredients; leftovers stay in the grid if the inventory is full. [CRAFTING.md](CRAFTING.md) owns the shared 2×2/3×3/4×4 engine and authoring; [ECONOMY.md](ECONOMY.md#current-survival-recipes-and-tiers) owns the 55 active recipes and progression. The 4×4 core has tests but no station interface yet.
 
 ## Survival and exploration
 
@@ -82,3 +84,8 @@ The current liquid review executable is **`Builds/Fluids/RivetReach.exe`** (Unit
 The Creative review executable is **`Builds/Creative/RivetReach.exe`**. Start an expedition, then press **Escape → Creative Mode: Off** to enable it. Fly with **WASD**, **Space** to rise, **Left Ctrl** to descend and **Left Shift** to fly faster. Open **Tab → All Items**, search or scroll, and click an item for a full stack. You are invincible, hunger is frozen, and placed blocks are not consumed. Use the same Escape toggle to return to Survival; gravity and damage resume and your items remain. See [the full rules](GAMEPLAY.md#creative-testing-mode) and [verification](verification/CREATIVE_RESULTS.md).
 
 Run `Tools/Verify-Creative.ps1 -Build` with this project's pinned Editor open to rebuild and exercise the focused Creative scenario.
+
+
+## Torches review build
+
+The latest local executable is **`Builds/Torches/RivetReach.exe`**. `Tools/Verify-Torches.ps1 -Build` rebuilds through the pinned open Editor and runs the focused crafting, placement, light, water and streaming scenario. [Torch verification](verification/TORCH_RESULTS.md) includes matching lit/unlit screenshots and remaining limits. Earlier dedicated review executables retain their own artifact identities.

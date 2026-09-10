@@ -14,6 +14,7 @@ namespace RivetReach
         public const byte Air=0,Grass=1,Dirt=2,Stone=3,Log=4,Leaves=5,StarterAxe=6,StarterPickaxe=7,StarterDagger=8;
         public const byte IronOre=9,CopperOre=10,CoalOre=11,GoldOre=12,DiamondOre=13,Bedrock=14;
         public const byte RawIron=15,RawCopper=16,Coal=17,RawGold=18,Diamond=19;
+        public const byte Torch=96;
         public const byte Sand=90,Sandstone=91,Snow=92,RedClay=93;
         public static bool BiomeBlock(byte id)=>id>=Sand&&id<=RedClay;
         public const byte Planks=20,Stick=21,Cobblestone=22,Workbench=23,Furnace=24,Chest=25,Charcoal=26,CopperIngot=27,IronIngot=28,GoldIngot=29;
@@ -34,8 +35,8 @@ namespace RivetReach
         public static bool Mineable(byte id,ToolCapability tool,ToolTier tier=ToolTier.Diamond)=>id!=Air&&id!=Bedrock&&(Placeable(id)||Ore(id)||id==Farmland||Crop(id))&&
             (RequiredTier(id)==ToolTier.None||(tool&ToolCapability.Pickaxe)!=0&&tier>=RequiredTier(id));
         public static string MiningHint(byte id,ToolCapability tool,ToolTier tier=ToolTier.Diamond)=>id==Bedrock?"Unbreakable":!Mineable(id,tool,tier)&&RequiredTier(id)!=ToolTier.None?"Requires "+RequiredTier(id).ToString().ToLowerInvariant()+" pickaxe or better":"";
-        public static bool Placeable(byte id)=>id>=Grass&&id<=Leaves||BiomeBlock(id)||id==Planks||id==Cobblestone||Station(id)||id>=CoalBlock&&id<=DiamondBlock;
-        public static bool Solid(byte id)=>id!=Air&&!Crop(id)&&!Fluids.IsFluid(id);
+        public static bool Placeable(byte id)=>id==Torch||id>=Grass&&id<=Leaves||BiomeBlock(id)||id==Planks||id==Cobblestone||Station(id)||id>=CoalBlock&&id<=DiamondBlock;
+        public static bool Solid(byte id)=>id!=Air&&id!=Torch&&!Crop(id)&&!Fluids.IsFluid(id);
         public static bool Opaque(byte id)=>Solid(id)&&id!=Leaves;
         public static int Tile(byte id,int axis,int sign)=>id==Planks?18:id==Cobblestone?19:id==Workbench?(axis==1&&sign>0?20:21):id==Furnace?(axis==1?19:22):id==Chest?23:id==Farmland?(axis==1&&sign>0?24:2):Crop(id)?25+id-PotatoPlant:id>=CoalBlock&&id<=DiamondBlock?29+id-CoalBlock:
             BiomeBlock(id)?40+id-Sand:Ore(id)?7+id-IronOre:RawMaterial(id)?13+id-RawIron:id==Bedrock?12:id==Grass?(axis==1?(sign>0?0:2):1):id==Dirt?2:id==Log?(axis==1?5:4):id==Leaves?6:3;

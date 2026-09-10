@@ -121,3 +121,10 @@ The subsequently authorized Rustback beetle and Dusk prowler extend the natural 
 ## Terrain and biome rework — 2026-09-09
 
 [Biome terrain materials](TERRAIN_GENERATION.md#materials-and-authoring) add original sand, sandstone, snow and red-clay swatches through `BiomeTerrainAssets`, at layers 40–43 of the shared 64² array. The builder retains other owners’ layers; the arcade detail pass matches the expanded array depth. IDs and helper contracts belong to the terrain specification. No external art or dependency was introduced.
+
+
+## Torch presentation
+
+The [torch extension](GAMEPLAY.md#torches) uses original procedural geometry in `TorchPresentation` (handle, binding and block-shaped flame) and a generated transparent silhouette in `SurvivalItemArt`. Held and dropped displays reuse the existing item-card path. These are repository-authored visuals with no imported third-party art or character-source revisions. The flame uses unlit HDR color; the environment receives separate shadowed point lights through URP's clustered additional-light loop in the terrain shader. The player skin shader compiles the same additional-light variants.
+
+`Resources/TorchLight.prefab` is the authored light template, including the URP low shadow-resolution tier and per-light shadow bias. `TorchAssets.Prepare` creates only a missing initial prefab and preserves subsequent authored tuning. The session instantiates a fixed light pool separately from attachment records. [Verification](verification/TORCH_RESULTS.md) contains actual Unity lit/unlit captures; visual tuning and broader scene cost remain subject to review.

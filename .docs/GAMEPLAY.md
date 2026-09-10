@@ -412,3 +412,12 @@ The user authorized a session-only Creative mode for testing. Start an expeditio
 - Turning Creative off resets accumulated movement/fall state, restores gravity, damage, hunger expenditure and item consumption, and removes catalog access. Disabling it in midair begins an ordinary fall from that position. Quitting or starting a replacement world resets Creative to off.
 
 These defaults are working implementation choices under the testing request. Flight feel remains subject to user review. [Creative verification](verification/CREATIVE_RESULTS.md) records measured evidence and limits.
+
+
+### Torches
+
+**User-authorized extension, 2026-09-10:** craftable torches that illuminate the world. One coal above one stick, or one charcoal above one stick, produces **four torches** in the personal 2×2 grid or on a workbench. The two independent recipe assets appear in Recipes; Creative's registry catalog also includes Torch. [ECONOMY.md](ECONOMY.md#current-survival-recipes-and-tiers) owns the ingredient/output table.
+
+Use a selected torch against a solid floor or wall within normal five-block reach. Torches occupy a dry air cell, attach to that face, and do not block movement or skylight. Ceiling and underwater placement reject without spending an item. Survival consumes one torch per successful placement; Creative retains its stack. Torches are targetable with the normal voxel outline and can be mined by hand to recover one item. Removing their supporting block or flowing water entering their cell also returns exactly one torch and removes the light. They stay lit without fuel expenditure or burnout. Held/dropped torches use an original item silhouette; illumination comes from placed torches.
+
+Attachments and voxel edits survive chunk unloading and floating-origin shifts during the session; quitting still resets them. The working presentation uses warm point lights with a ten-block range and real terrain shadows. Eight nearby lights are active at once within 24 blocks of the observer; the nearest torches receive those pooled lights. Torch geometry is displayed within 48 blocks. This is a bounded first rendering implementation, not a measured final lighting budget. Artificial light currently changes rendering only; grass/crops still use geometric skylight and mobs retain their clock-based spawning rules. Torch brightness, appearance and dense-room lighting need player review. [Torch verification](verification/TORCH_RESULTS.md) records the actual build, checks and captures.

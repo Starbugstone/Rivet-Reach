@@ -31,7 +31,7 @@ Unready frontiers are closed. Requests wait by chunk and resume when that chunk 
 
 `FluidMesher` emits only exposed surfaces into a separate transparent mesh, with level-dependent heights and definition colours. Its URP shader adds subtle animated ripples, directional lighting and world fog. Water contributes no ordinary terrain collider and uses no imported texture. Fluid surfaces are currently stepped between levels, with standard transparent sorting rather than screen-space refraction.
 
-Sources and flow edits survive unloading during the session; **quitting still resets the world**. Durable saves, fluid reactions, lava gameplay, waterlogging, irrigation, drowning, boats, pumps, tanks and pipes are outside this increment. Crops and stations currently block flow; fluid destruction of those blocks is not implemented.
+Sources and flow edits survive unloading during the session; **quitting still resets the world**. Durable saves, fluid reactions, lava gameplay, waterlogging, irrigation, drowning, boats, pumps, tanks and pipes are outside this increment. [Placed torches](GAMEPLAY.md#torches) are displaced by incoming water and drop one recoverable item. Crops and stations currently block flow; fluid destruction of those blocks is not implemented.
 
 ## Generation and verification
 

@@ -190,7 +190,10 @@ namespace RivetReach
             cell=default;reason="Aim at a block face";
             if(!World.Raycast(Player.Camera.transform.position,Player.Camera.transform.forward,5,out var support,out _,out var face)||face==Vector3Int.zero)return false;
             cell=support.Offset(face.x,face.y,face.z);
-            return CanPlace(cell,out reason);
+            if(!CanPlace(cell,out reason))return false;
+            if(Inventory.Slots[Selected].Id==BlockId.Torch&&!World.CanPlaceTorch(cell,support))
+            {reason="Torches need a dry floor or wall face";return false;}
+            return true;
         }
         public bool CanPlace(BlockPos cell,out string reason)
         {
@@ -198,6 +201,8 @@ namespace RivetReach
             if(selected.Empty||!BlockId.Placeable(selected.Id))return false;
             reason="Waiting for nearby terrain";if(!World.Ready(cell))return false;
             reason="This cell is occupied";if(World.Get(cell)!=0&&!Fluids.IsFluid(World.Get(cell)))return false;
+            if(selected.Id==BlockId.Torch)
+            {bool dry=World.Get(cell)==BlockId.Air;reason=dry?"Place Torch":"Torches need a dry floor or wall face";return dry;}
             // Use the movement collider's exact occupied-cell rule, including its skin.
             // Touching the supporting face is legal; occupying the player's body is not.
             reason=PlayerOverlapReason;if(World.OccupiesCell(Player.transform.position,.6f,Player.Height,cell))return false;
@@ -211,7 +216,11 @@ namespace RivetReach
             {PlacementDiagnostic=reason;if(reason!=PlayerOverlapReason)Notify(reason,1);return false;}
             var selected=Inventory.Slots[Selected];
             // One local authority turn: recheck occupancy, commit the voxel, then consume exactly one.
-            if(!World.Place(cell,selected.Id))return false;
+            if(selected.Id==BlockId.Torch)
+            {
+                if(!World.Raycast(Player.Camera.transform.position,Player.Camera.transform.forward,5,out var support,out _)||!World.PlaceTorch(cell,support))return false;
+            }
+            else if(!World.Place(cell,selected.Id))return false;
             if(!Creative)Inventory.Take(Selected,1);Sound.Place(selected.Id,World.Local(cell)+Vector3.one*.5f);ArcadePresentation.Active?.Place(World.Local(cell)+Vector3.one*.5f,selected.Id);PlacementDiagnostic="Placed "+Registry.Get(selected.Id).displayName;Notify(PlacementDiagnostic,1);return true;
         }
         public bool TryUseBucket()

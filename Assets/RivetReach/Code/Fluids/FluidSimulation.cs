@@ -32,10 +32,11 @@ namespace RivetReach
             ScheduleAffected(world,p);ScheduleAffected(world,p.Offset(0,1,0));ScheduleAffected(world,p.Offset(0,-1,0));
             foreach(var d in Sides)ScheduleAffected(world,p.Offset(d.x,0,d.z));
         }
+        static bool Displaceable(byte cell)=>cell==0||cell==BlockId.Torch;
         void ScheduleAffected(IFluidWorld world,BlockPos p)
         {
             if(!world.TryRead(p,out byte cell)){Sleep(p,p.Chunk);return;}
-            var own=registry.Get(cell);if(cell!=0&&own==null)return;
+            var own=registry.Get(cell);if(!Displaceable(cell)&&own==null)return;
             int delay=own?.TickDelay??int.MaxValue;
             void Neighbour(BlockPos n)
             {if(world.TryRead(n,out byte id)&&registry.Get(id) is FluidDefinition f)delay=Math.Min(delay,f.TickDelay);}
@@ -69,7 +70,7 @@ namespace RivetReach
         void Evaluate(IFluidWorld world,BlockPos p)
         {
             if(!Read(world,p,p,out byte cell))return;
-            var own=registry.Get(cell);if(cell!=0&&own==null)return;
+            var own=registry.Get(cell);if(!Displaceable(cell)&&own==null)return;
             // Sources remain explicit; unsupported sources still produce waterfalls.
             if(own!=null&&own.IsSource(cell)){Spread(world,p,cell,own);return;}
             if(!Read(world,p.Offset(0,1,0),p,out byte above)||!Read(world,p.Offset(0,-1,0),p,out byte below))return;
@@ -82,21 +83,21 @@ namespace RivetReach
                 if(f.IsSource(n))sources++;
                 // A falling stream spreads sideways only on a supported level.
                 if(!Read(world,neighbour.Offset(0,-1,0),p,out byte floor)){complete=false;continue;}
-                if(floor==0||registry.Get(floor)==f&&!f.IsSource(floor))continue;
+                if(Displaceable(floor)||registry.Get(floor)==f&&!f.IsSource(floor))continue;
                 if(FlowsToward(world,neighbour,p,f,n))best=Math.Min(best,f.Level(n)+1);
             }
             if(!complete)return; // Closed unready frontiers never drain an otherwise supplied stream.
             if(type==null)return;
             byte next=0;
-            bool support=below!=0&&registry.Get(below)==null||type.IsSource(below);
+            bool support=!Displaceable(below)&&registry.Get(below)==null||type.IsSource(below);
             if(type.RenewsSources&&sources>=2&&support)next=type.Source;
             else if(registry.Get(above)==type)next=type.Falling;
             else if(best<=type.Reach)next=type.Flow(best);
-            if(next!=cell&&world.ChangeFluid(p,cell,next))Changed(world,p);
+            if(next!=cell&&(next!=0||cell!=BlockId.Torch)&&world.ChangeFluid(p,cell,next))Changed(world,p);
             if(next!=0)Spread(world,p,next,type);
         }
         bool Open(IFluidWorld world,BlockPos p,FluidDefinition f)
-            =>world.TryRead(p,out byte id)&&(id==0||registry.Get(id)==f&&!f.IsSource(id));
+            =>world.TryRead(p,out byte id)&&(Displaceable(id)||registry.Get(id)==f&&!f.IsSource(id));
         // Bounded lookahead chooses equally short routes to a drop, otherwise spreads on the flat.
         readonly Queue<(BlockPos p,int distance)> routes=new Queue<(BlockPos,int)>();
         readonly HashSet<BlockPos> visited=new HashSet<BlockPos>();
@@ -133,17 +134,17 @@ namespace RivetReach
         {
             var down=p.Offset(0,-1,0);
             if(!Read(world,down,p,out byte floor))return;
-            if(floor==0||registry.Get(floor)==f&&!f.IsSource(floor)&&!f.IsFalling(floor))Wake(down,f.TickDelay);
-            if(floor==0||registry.Get(floor)==f&&!f.IsSource(floor))return;
+            if(Displaceable(floor)||registry.Get(floor)==f&&!f.IsSource(floor)&&!f.IsFalling(floor))Wake(down,f.TickDelay);
+            if(Displaceable(floor)||registry.Get(floor)==f&&!f.IsSource(floor))return;
             if(f.Level(cell)>=f.Reach)return;
             foreach(var d in Sides)
             {
                 var n=p.Offset(d.x,0,d.z);
                 if(!Read(world,n,p,out byte id))continue;
-                if((id==0||registry.Get(id)==f&&!f.IsSource(id))&&FlowsToward(world,p,n,f,cell))
+                if((Displaceable(id)||registry.Get(id)==f&&!f.IsSource(id))&&FlowsToward(world,p,n,f,cell))
                 {
                     // Unchanged neighbours sleep; only weaker/empty cells need propagation.
-                    if(id==0||f.Level(id)>f.Level(cell)+1)Wake(n,f.TickDelay);
+                    if(Displaceable(id)||f.Level(id)>f.Level(cell)+1)Wake(n,f.TickDelay);
                 }
             }
         }

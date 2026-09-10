@@ -55,3 +55,5 @@ Build the pinned Unity **6000.4.4f1** project, then run:
 ## Subsequent bucket recipe
 
 The fluid increment adds the three-iron bucket as recipe 53. [Fluid verification](FLUID_RESULTS.md) records the extended independent acceptance checks and bucket player interaction. Earlier crafting screenshots retain their original 52-recipe build identity.
+
+The torch increment adds separate coal and charcoal recipes, taking the catalog to **55 recipes**. [Torch verification](TORCH_RESULTS.md) records the latest 1,862 independent acceptance checks and the actual lighting/placement build. The earlier reference comparison and screenshots above retain their dated 52-recipe artifact identity.

@@ -34,6 +34,12 @@ namespace RivetReach
                     handle=Mathf.Abs(px*px+(py-10)*(py-10)-180)<36&&py>8;
                     if(body&&py>3)color=item.runtimeId==Fluids.EmptyBucket?new Color(.14f,.2f,.24f):new Color(.1f,.6f,.85f);
                 }
+                else if(item.runtimeId==BlockId.Torch)
+                {
+                    handle=Mathf.Abs(px)<3&&py>-20&&py<7;
+                    body=py>3&&py<22&&Mathf.Abs(px)<(22-py)*.43f;
+                    color=Mathf.Abs(px)<3&&py<13?new Color(1,1,.66f):new Color(1,.48f,.08f);
+                }
                 else if(item.runtimeId==BlockId.Stick)body=Mathf.Abs(px-py*.4f)<3&&py>-20&&py<20;
                 else if(item.foodPoints>0)
                 {body=px*px/330+py*py/210<1;color*=((x*7+y*13)%29<3?.72f:1);if(item.runtimeId==BlockId.BakedPotato&&Mathf.Abs(py)<3&&Mathf.Abs(px)<13)color=new Color(1,.84f,.44f);}

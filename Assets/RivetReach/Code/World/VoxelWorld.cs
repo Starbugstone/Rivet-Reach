@@ -8,7 +8,7 @@ using UnityEngine.Rendering;
 
 namespace RivetReach
 {
-    public sealed class VoxelWorld : MonoBehaviour,IGrassWorld,ITreeWorld,IFluidWorld
+    public sealed partial class VoxelWorld : MonoBehaviour,IGrassWorld,ITreeWorld,IFluidWorld
     {
         sealed class Resident
         {
@@ -68,6 +68,7 @@ namespace RivetReach
             FluidSimulation=new FluidSimulation(Fluids.Registry);
             fluidMaterial=Resources.Load<Material>("Materials/Water");
             TerrainMaterial=Resources.Load<Material>("Materials/Terrain");
+            TorchView=gameObject.AddComponent<TorchPresentation>();TorchView.Initialize(this);
         }
         public Vector3 Local(BlockPos p) => new Vector3((float)(p.X-Origin.X),p.Y-Origin.Y,(float)(p.Z-Origin.Z));
         public BlockPos Address(Vector3 local) => WorldPoint.FromLocal(local,Origin).Cell;
@@ -81,9 +82,9 @@ namespace RivetReach
         }
         public bool Solid(BlockPos p) => !Ready(p)||BlockId.Solid(Get(p));
         public bool Remove(BlockPos p,byte expected) => expected!=0&&expected!=BlockId.Bedrock&&Change(p,expected,0);
-        public bool Place(BlockPos p,byte id) => BlockId.Placeable(id)&&(Get(p)==0||Fluids.IsFluid(Get(p)))&&Change(p,Get(p),id);
+        public bool Place(BlockPos p,byte id) => id==BlockId.Torch?PlaceTorch(p,p.Offset(0,-1,0)):BlockId.Placeable(id)&&(Get(p)==0||Fluids.IsFluid(Get(p)))&&Change(p,Get(p),id);
         public bool ChangeFluid(BlockPos p,byte expected,byte replacement)
-            =>(expected==0||Fluids.IsFluid(expected))&&(replacement==0||Fluids.IsFluid(replacement))&&Change(p,expected,replacement,false);
+            =>(expected==0||expected==BlockId.Torch||Fluids.IsFluid(expected))&&(replacement==0||Fluids.IsFluid(replacement))&&Change(p,expected,replacement,false);
         public bool Submerged(Vector3 point,out FluidDefinition fluid,out byte cell)
         {
             var p=Address(point);cell=Ready(p)?Get(p):(byte)0;fluid=Fluids.Registry.Get(cell);
@@ -204,6 +205,7 @@ namespace RivetReach
             // Automatically decaying leaves cannot be part of another leaf's valid
             // support path. The original support removal already scheduled affected leaves.
             if((expected==BlockId.Log||expected==BlockId.Leaves&&requireReady)&&replacement!=expected)Trees.SupportRemoved(this,p);
+            TorchChanged(p,expected,replacement);
             FluidSimulation.Changed(this,p);
             if(!immediate){BlockChanged?.Invoke(p);return true;}
             var editClock=Stopwatch.StartNew();
@@ -410,7 +412,7 @@ namespace RivetReach
             }
             return feet;
         }
-        public void Stop() {stopped=true;foreach(var c in chunks.Values)Release(c);chunks.Clear();surfaceRanges.Clear();}
+        public void Stop() {stopped=true;if(TorchView!=null)TorchView.Clear();foreach(var c in chunks.Values)Release(c);chunks.Clear();surfaceRanges.Clear();}
         void OnDestroy() {Stop();}
     }
 }

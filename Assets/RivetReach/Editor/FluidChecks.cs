@@ -39,7 +39,13 @@ namespace RivetReach.Editor
             w=World();w.Put(origin,water.Source);w.Put(origin.Offset(2,0,0),water.Source);w.Run();
             Check(w.Get(origin.Offset(1,0,0))==water.Source,"Two horizontal sources renew supported water");
             w.Put(origin.Offset(1,0,0),0);w.Run();Check(w.Get(origin.Offset(1,0,0))==water.Source,"Collected renewable source refills");
-            var testFluid=new FluidDefinition("test:nonrenewing",120,96,3,9,false,6,.4f,.8f,.3f,.1f);
+            w=World();w.Put(origin,BlockId.Torch);w.Simulation.Wake(origin,1);w.Run();
+            Check(w.Get(origin)==BlockId.Torch,"Dry scheduled torch is preserved");
+            w.Put(origin.Offset(0,1,0),water.Source);w.Run(6);
+            Check(w.Get(origin)==water.Falling,"Falling water displaces a torch");
+            w=World();w.Put(origin.Offset(1,0,0),BlockId.Torch);w.Put(origin,water.Source);w.Run();
+            Check(w.Get(origin.Offset(1,0,0))==water.Flow(1),"Horizontal water flows through a torch");
+            var testFluid=new FluidDefinition("test:nonrenewing",120,97,3,9,false,6,.4f,.8f,.3f,.1f);
             var registry=new FluidRegistry(water,testFluid);w=World(registry);
             w.Put(origin,testFluid.Source);w.Put(origin.Offset(2,0,0),testFluid.Source);w.Run();
             Check(w.Get(origin.Offset(1,0,0))==testFluid.Flow(1),"Second fluid disables renewal independently");

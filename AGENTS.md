@@ -16,6 +16,8 @@ The user subsequently authorized native mobs, Blender-authored enemies, AI and s
 
 The user subsequently authorized [world fluids](.docs/FLUIDS.md): a sea biome, rivers, buckets and Minecraft-style source/flow physics. Two-source renewal is explicitly a per-fluid boolean (`RenewsSources`), enabled for water and independently configurable for future liquids such as lava. Preserve ore bands, bedrock, dry spawn and existing farming hooks. Actual lava, mixing reactions, irrigation, industrial fluids and durable saves remain later scope.
 
+The user subsequently authorized craftable torches and placed lighting. [GAMEPLAY.md](.docs/GAMEPLAY.md#torches) owns attachment, recovery and lighting behavior; [torch verification](.docs/verification/TORCH_RESULTS.md) records the current build and evidence. Preserve coal/charcoal-over-stick recipes, session attachments, and water displacement when changing these systems.
+
 ## Licensing and ownership
 
 - Rivet Reach is **proprietary, all rights reserved, and not open source**. Read `LICENSE.md` before introducing code, assets, dependencies or contribution workflows.
