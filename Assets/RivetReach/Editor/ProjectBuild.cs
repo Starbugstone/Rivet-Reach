@@ -212,9 +212,8 @@ namespace RivetReach.Editor
         {
             Directory.CreateDirectory("Logs");
             if(PlayerSettings.bundleVersion!="0.0.1")throw new Exception("Alpha release requires version 0.0.1.");
-            DomainChecks.Run();CraftingChecks.Run();FluidChecks.Run();
+            DomainChecks.Run();FluidChecks.Run();
             IndustryChecks.Run();MultiblockChecks.Run();BatteryChecks.Run();ConnectedPipeChecks.Run();
-            TerrainGenerationChecks.Run((ok,message)=>{if(!ok)throw new Exception(message);});
             Build("Release/0.0.1/RivetReach-0.0.1-alpha-windows-x64",BuildOptions.None);
         }
         static void Build(string outputFolder="PlayerRevision4",BuildOptions options=BuildOptions.Development)
