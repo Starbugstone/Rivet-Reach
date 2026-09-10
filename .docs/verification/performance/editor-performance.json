@@ -1,0 +1,113 @@
+{
+    "timestamp": "2026-09-10T16:18:56.9599758Z",
+    "unity": "6000.4.4f1",
+    "cpu": "Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz",
+    "gpu": "NVIDIA GeForce RTX 2060",
+    "context": "Unity Editor Play mode",
+    "result": "PASS",
+    "probeVersion": "2",
+    "seed": 246813,
+    "viewDistance": 10,
+    "inventoryObjects": 386,
+    "guideObjects": 425,
+    "residentCount": 3051,
+    "width": 2560,
+    "height": 1440,
+    "measurements": [
+        {
+            "name": "settled gameplay frames",
+            "samples": 180,
+            "medianMs": 11.983099393546582,
+            "p95Ms": 23.930704221129419,
+            "maxMs": 44.70819979906082,
+            "medianAllocatedBytes": -1.0
+        },
+        {
+            "name": "open personal inventory",
+            "samples": 10,
+            "medianMs": 60.6986,
+            "p95Ms": 81.0225,
+            "maxMs": 88.7625,
+            "medianAllocatedBytes": 0.0
+        },
+        {
+            "name": "unchanged portrait refresh",
+            "samples": 10,
+            "medianMs": 0.0011,
+            "p95Ms": 0.0013,
+            "maxMs": 0.0027,
+            "medianAllocatedBytes": 0.0
+        },
+        {
+            "name": "inventory idle frames",
+            "samples": 180,
+            "medianMs": 12.828401289880276,
+            "p95Ms": 15.44990111142397,
+            "maxMs": 18.593700602650644,
+            "medianAllocatedBytes": -1.0
+        },
+        {
+            "name": "craft one via UI",
+            "samples": 32,
+            "medianMs": 0.0372,
+            "p95Ms": 0.0555,
+            "maxMs": 0.3498,
+            "medianAllocatedBytes": 0.0
+        },
+        {
+            "name": "open recipe detail",
+            "samples": 6,
+            "medianMs": 5.5696,
+            "p95Ms": 8.6422,
+            "maxMs": 20.3245,
+            "medianAllocatedBytes": 0.0
+        },
+        {
+            "name": "recipe detail frames",
+            "samples": 180,
+            "medianMs": 12.815101072192192,
+            "p95Ms": 14.646697789430619,
+            "maxMs": 158.04049372673036,
+            "medianAllocatedBytes": -1.0
+        },
+        {
+            "name": "place and remove block",
+            "samples": 12,
+            "medianMs": 5.9087,
+            "p95Ms": 6.843,
+            "maxMs": 8.3555,
+            "medianAllocatedBytes": 0.0
+        },
+        {
+            "name": "post-edit gameplay frames",
+            "samples": 180,
+            "medianMs": 13.012995943427086,
+            "p95Ms": 21.9729021191597,
+            "maxMs": 66.27040356397629,
+            "medianAllocatedBytes": -1.0
+        },
+        {
+            "name": "paused settled frames",
+            "samples": 60,
+            "medianMs": 13.290802016854287,
+            "p95Ms": 15.367900021374226,
+            "maxMs": 18.58169585466385,
+            "medianAllocatedBytes": -1.0
+        }
+    ],
+    "checks": [
+        "Personal recipe preview matches logs to planks",
+        "Output-full cursor preserves remaining ingredients",
+        "Shift craft preserves exact input/output quantities",
+        "Browser displays the selected recipe",
+        "Terrain edit fixture is ready and empty",
+        "Terrain edits and workers finish without errors",
+        "Stationary settled residency does not rebuild its demand plan",
+        "Deferred fluid edit is accepted",
+        "Dirty resident pages remesh without terrain regeneration",
+        "Deferred fluid source can be removed",
+        "Immediate edit supersedes pending remesh",
+        "Worker completion cannot overwrite a newer collision edit",
+        "Live session animation graphs remain valid"
+    ]
+}

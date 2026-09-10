@@ -1,0 +1,50 @@
+PASS 3³ tank forms from 26 real shell members at 250 L
+PASS Formation obeys independent hard cell budget
+PASS Deposit exact water quantity
+PASS Nonempty controller dismantle requires draining
+PASS Edit invalidates immediately, before the next transfer phase
+PASS Breach retains all emergency-contained contents
+PASS Repair reforms same storage without duplicating contents
+PASS Interior obstruction invalidates a formed tank
+PASS World source inside cannot be captured as stored fluid
+PASS Removing interior obstruction restores tank
+PASS Glass roof rejected
+PASS Two controllers cannot claim one cavity
+PASS Removing extra controller permits formation
+PASS Inward controller orientation rejected
+PASS Correct orientation restores structure
+PASS Residency invalidates immediately
+PASS Unready interior sleeps without losing storage
+PASS Reload restores same structure identity
+PASS Independent dimensions 5×4×8 form with volume-based 9,000 L
+PASS Touching tanks remain separate instances
+PASS Validator rejects another owner's claim
+PASS Hard scanner budget fails safely even for a legal shape
+PASS Configured 9³ maximum forms
+9³ formation plus topology: 0,95 ms; reads 729
+PASS 10-block dimension is bounded and rejected
+PASS Undersized repair retains excess fluid and explains failure
+PASS Draining excess allows smaller tank to form
+PASS Empty controller can be dismantled
+PASS Dismantling releases membership and controller
+PASS Two ports in different graphs drain one authoritative tank conservatively
+PASS Two ports cannot overdraw final 100 mL
+PASS Breached storage cannot transfer through stale graphs
+PASS Explicit breached-controller outlet recovers sub-bucket remainder exactly
+PASS Inputs in separate graphs reserve one shared final 50 mL of capacity
+PASS Expansion to 5×4×5 preserves controller identity and contents
+PASS Conflicting fluid identities in one pipe component stop before withdrawal and expose a fault
+PASS Generic storage rejects wrong identity before mutation
+PASS Zero clears identity and full storage rejects overflow
+PASS Capacity and withdrawal cannot discard or create liquid
+PASS Ordinary pipe has one channel: 146
+PASS Same pipe connection rules isolate vertical power and horizontal signal: 146
+PASS Control additions do not connect transport to cables: 146
+PASS One physical pipe exposes three independent channel vertices: 146
+PASS Ordinary pipe has one channel: 147
+PASS Same pipe connection rules isolate vertical power and horizontal signal: 147
+PASS Control additions do not connect transport to cables: 147
+PASS One physical pipe exposes three independent channel vertices: 147
+PASS Shared lifecycle accepts a different validator and non-fluid machine data
+PASS Generic dismantle consults machine data without assuming a tank
+Assertions: 48

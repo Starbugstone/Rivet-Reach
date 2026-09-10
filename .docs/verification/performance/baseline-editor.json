@@ -1,0 +1,95 @@
+{
+    "timestamp": "2026-09-10T15:44:30.0190754Z",
+    "unity": "6000.4.4f1",
+    "cpu": "Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz",
+    "gpu": "NVIDIA GeForce RTX 2060",
+    "context": "Unity Editor Play mode",
+    "result": "PASS",
+    "seed": 246813,
+    "viewDistance": 10,
+    "inventoryObjects": 3847,
+    "guideObjects": 73,
+    "residentCount": 3051,
+    "measurements": [
+        {
+            "name": "settled gameplay frames",
+            "samples": 180,
+            "medianMs": 10.774198919534684,
+            "p95Ms": 16.969600692391397,
+            "maxMs": 24.34460073709488,
+            "medianAllocatedBytes": -1.0
+        },
+        {
+            "name": "open personal inventory",
+            "samples": 10,
+            "medianMs": 107.6556,
+            "p95Ms": 138.4241,
+            "maxMs": 165.4247,
+            "medianAllocatedBytes": 0.0
+        },
+        {
+            "name": "unchanged portrait refresh",
+            "samples": 10,
+            "medianMs": 8.0051,
+            "p95Ms": 10.036,
+            "maxMs": 11.1446,
+            "medianAllocatedBytes": 0.0
+        },
+        {
+            "name": "inventory idle frames",
+            "samples": 180,
+            "medianMs": 17.754102125763894,
+            "p95Ms": 19.61600035429001,
+            "maxMs": 30.814696103334428,
+            "medianAllocatedBytes": -1.0
+        },
+        {
+            "name": "craft one via UI",
+            "samples": 32,
+            "medianMs": 0.1386,
+            "p95Ms": 0.1988,
+            "maxMs": 0.6699,
+            "medianAllocatedBytes": 0.0
+        },
+        {
+            "name": "toggle recipe guide",
+            "samples": 6,
+            "medianMs": 1.3838,
+            "p95Ms": 1.4311,
+            "maxMs": 1.7372,
+            "medianAllocatedBytes": 0.0
+        },
+        {
+            "name": "recipe guide frames",
+            "samples": 180,
+            "medianMs": 18.032001331448556,
+            "p95Ms": 19.12049949169159,
+            "maxMs": 246.94490432739259,
+            "medianAllocatedBytes": -1.0
+        },
+        {
+            "name": "place and remove block",
+            "samples": 12,
+            "medianMs": 16.633,
+            "p95Ms": 17.1359,
+            "maxMs": 28.9861,
+            "medianAllocatedBytes": 0.0
+        },
+        {
+            "name": "post-edit gameplay frames",
+            "samples": 180,
+            "medianMs": 12.75139581412077,
+            "p95Ms": 16.818303614854814,
+            "maxMs": 26.035798713564874,
+            "medianAllocatedBytes": -1.0
+        }
+    ],
+    "checks": [
+        "Personal recipe preview matches logs to planks",
+        "Output-full cursor preserves remaining ingredients",
+        "Shift craft preserves exact input/output quantities",
+        "Recipe guide reaches last personal recipe",
+        "Terrain edit fixture is ready and empty",
+        "Terrain edits and workers finish without errors"
+    ]
+}

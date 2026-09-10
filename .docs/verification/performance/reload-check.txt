@@ -1,0 +1,2 @@
+PASS: compile request during locked Play preserved session authorities and animation graph for 60 frames.
+PASS: Play exit released the reload lock.

@@ -19,6 +19,12 @@ namespace RivetReach
 
     public static class ChunkMesher
     {
+        // Registry and block identities are immutable for the process lifetime.
+        static readonly bool[] terrainSolid=BuildSolidTable();
+        static bool[] BuildSolidTable()
+        {
+            var table=new bool[256];for(int i=0;i<table.Length;i++)table[i]=BlockId.Solid((byte)i)&&!IndustryId.Placed((byte)i);return table;
+        }
         public static int Index(int x,int y,int z) => x+1+34*(y+1+34*(z+1));
         public static ChunkBuild Build(ChunkPos pos,int revision,byte[] cells)
         {
@@ -36,7 +42,7 @@ namespace RivetReach
                         int address=Index(0,0,0)+layer*stride[axis]+i*stride[u]+j*stride[v];
                         byte a=cells[address],b=cells[address+sign*stride[axis]];
                         if(axis==0&&sign==-1&&BlockId.Crop(a))plants.Add((new Vector3(layer,i,j),a));
-                        mask[i+j*32]=BlockId.Solid(a)&&!IndustryId.Placed(a)&&(!BlockId.Solid(b)||IndustryId.Placed(b))?a:(byte)0;
+                        mask[i+j*32]=terrainSolid[a]&&!terrainSolid[b]?a:(byte)0;
                     }
                     for(int j=0;j<32;j++)for(int i=0;i<32;)
                     {

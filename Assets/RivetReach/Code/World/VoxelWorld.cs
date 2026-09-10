@@ -24,6 +24,11 @@ namespace RivetReach
         readonly Dictionary<ChunkPos,Dictionary<int,byte>> edits=new Dictionary<ChunkPos,Dictionary<int,byte>>();
         readonly List<Task<ChunkBuild>> work=new List<Task<ChunkBuild>>();
         int nextToken;
+        readonly HashSet<ChunkPos> wanted=new HashSet<ChunkPos>();
+        readonly HashSet<(long,long)> wantedColumns=new HashSet<(long,long)>();
+        readonly List<ChunkPos> releaseChunks=new List<ChunkPos>();
+        readonly List<(long,long)> releaseColumns=new List<(long,long)>();
+        readonly List<(long x,long z)> releaseSky=new List<(long x,long z)>();
         public TerrainGenerator Generator { get; private set; }
         public BlockPos Origin { get; private set; }
         public Transform Observer;
@@ -38,10 +43,14 @@ namespace RivetReach
         public int ResidentCount => chunks.Count;
         public int ReadyCount => chunks.Values.Count(c=>c.Cells!=null);
         public int PendingCount => chunks.Values.Count(c=>c.Dirty);
+        public int RunningJobs=>work.Count;
         public int EditCount => edits.Values.Sum(e=>e.Count);
         public int MeshTriangles => chunks.Values.Sum(c=>c.Mesh==null||c.Mesh.subMeshCount==0?0:(int)c.Mesh.GetIndexCount(0)/3);
         public double LastBuildMs { get; private set; }
         public int RejectedJobs { get; private set; }
+        public int GenerationJobs {get;private set;}
+        public int RemeshJobs {get;private set;}
+        public int DemandPasses {get;private set;}
         public string Error { get; private set; }
         public event Action<Vector3> OriginShifted;
         public event Action<BlockPos> BlockChanged;
@@ -54,6 +63,8 @@ namespace RivetReach
         public double LastTreeTickMs {get;private set;}
         public double MaxTreeTickMs {get;private set;}
         float nextDemand;
+        int lastViewDistance=-1;
+        bool demandChanged=true;
         ChunkPos lastCentre;
         bool stopped;
         readonly Dictionary<(long x,long z),SortedSet<int>> editedColumns=new Dictionary<(long,long),SortedSet<int>>();
@@ -212,9 +223,10 @@ namespace RivetReach
             FluidSimulation.Changed(this,p);
             if(!immediate){BlockChanged?.Invoke(p);return true;}
             var editClock=Stopwatch.StartNew();
-            foreach(var kv in chunks.ToArray())
+            for(int z=-1;z<=1;z++)for(int y=-1;y<=1;y++)for(int x=-1;x<=1;x++)
             {
-                var c=kv.Value;if(!c.Dirty||c.Cells==null)continue;
+                var key=p.Chunk.Offset(x,y,z);if(!chunks.TryGetValue(key,out var c)||!c.Dirty||c.Cells==null)continue;
+                var kv=new KeyValuePair<ChunkPos,Resident>(key,c);
                 var min=kv.Key.Min;
                 if(Math.Abs(p.X-min.X)>33||Math.Abs(p.Z-min.Z)>33||Math.Abs(p.Y-min.Y)>33)continue;
                 var mesh=ChunkMesher.Build(kv.Key,c.Revision,c.Cells);Apply(mesh,c);
@@ -239,8 +251,8 @@ namespace RivetReach
             // before converting to float so shifts and distant coordinates preserve its phase.
             Shader.SetGlobalVector("_RRWorldOffset",new Vector4((Origin.X%1024+1024)%1024,0,(Origin.Z%1024+1024)%1024,0));
             var centre=Address(Observer.position).Chunk;
-            if(Time.unscaledTime>=nextDemand||!centre.Equals(lastCentre))
-            {nextDemand=Time.unscaledTime+0.4f;lastCentre=centre;Demand(centre);}
+            if(!centre.Equals(lastCentre)||lastViewDistance!=ViewDistance||demandChanged&&Time.unscaledTime>=nextDemand)
+            {nextDemand=Time.unscaledTime+0.4f;lastCentre=centre;lastViewDistance=ViewDistance;demandChanged=false;Demand(centre);}
             var clock=Stopwatch.StartNew();
             for(int i=work.Count-1;i>=0;i--)
             {
@@ -251,32 +263,43 @@ namespace RivetReach
                 c.Busy=false;
                 if(c.Revision!=result.Revision){RejectedJobs++;c.Dirty=true;continue;}
                 if(result.HasSurfaceRange&&!surfaceRanges.ContainsKey((result.Position.X,result.Position.Z)))
-                {surfaceRanges[(result.Position.X,result.Position.Z)]=(result.SurfaceMin,result.SurfaceMax);nextDemand=0;}
+                {surfaceRanges[(result.Position.X,result.Position.Z)]=(result.SurfaceMin,result.SurfaceMax);demandChanged=true;}
                 Apply(result,c);LastBuildMs=result.Milliseconds;
                 if(clock.Elapsed.TotalMilliseconds>4)break;
             }
             if(work.Count<2)
             {
-                var candidates=chunks.Where(k=>k.Value.Dirty&&!k.Value.Busy).OrderBy(k=>Distance(k.Key,centre)).Take(2-work.Count).ToArray();
-                foreach(var kv in candidates)Launch(kv.Key,kv.Value);
+                // Select the nearest two without allocating and sorting the whole resident set.
+                Resident first=null,second=null;ChunkPos firstKey=default,secondKey=default;
+                double firstDistance=double.MaxValue,secondDistance=double.MaxValue;
+                foreach(var kv in chunks)
+                {
+                    if(!kv.Value.Dirty||kv.Value.Busy)continue;
+                    double distance=Distance(kv.Key,centre);
+                    if(distance<firstDistance){second=first;secondKey=firstKey;secondDistance=firstDistance;first=kv.Value;firstKey=kv.Key;firstDistance=distance;}
+                    else if(distance<secondDistance){second=kv.Value;secondKey=kv.Key;secondDistance=distance;}
+                }
+                if(first!=null)Launch(firstKey,first);
+                if(second!=null&&work.Count<2)Launch(secondKey,second);
             }
         }
         static double Distance(ChunkPos a,ChunkPos b) {double x=a.X-b.X,z=a.Z-b.Z,y=a.Y-b.Y;return x*x+z*z+y*y*0.5;}
         void Demand(ChunkPos centre)
         {
-            var wanted=new HashSet<ChunkPos>();
-            var columns=new HashSet<(long,long)>();
+            DemandPasses++;
+            wanted.Clear();wantedColumns.Clear();
             for(int z=-ViewDistance;z<=ViewDistance;z++)for(int x=-ViewDistance;x<=ViewDistance;x++)
             {
                 if(x*x+z*z>ViewDistance*ViewDistance+1)continue;
                 long cx=centre.X+x,cz=centre.Z+z;
                 if(cx < -TerrainGenerator.HorizontalLimit/32||cx>=TerrainGenerator.HorizontalLimit/32||cz < -TerrainGenerator.HorizontalLimit/32||cz>=TerrainGenerator.HorizontalLimit/32)continue;
-                columns.Add((cx,cz));
-                int surface=Generator.Height(cx*32+16,cz*32+16)/32,lowest=surface-1,highest=surface+1;
+                wantedColumns.Add((cx,cz));
+                int lowest,highest;
                 // Workers publish exact extrema with their first page. Mountain coverage expands
                 // without a second synchronous column scan or an unbounded world-height cache.
                 if(surfaceRanges.TryGetValue((cx,cz),out var range))
                 {lowest=(int)BlockPos.FloorDiv(range.min,32)-1;highest=(int)BlockPos.FloorDiv(range.max,32);}
+                else {int surface=Generator.Height(cx*32+16,cz*32+16)/32;lowest=surface-1;highest=surface+1;}
                 // Large cavities can expose floors/ceilings far beyond the former three-layer
                 // player band. Cover the view sphere vertically too, with one seam margin.
                 int vertical=(int)Math.Ceiling(Math.Sqrt(Math.Max(0,ViewDistance*ViewDistance+1-x*x-z*z)))+1;
@@ -291,21 +314,26 @@ namespace RivetReach
                     if(!chunks.ContainsKey(p))chunks.Add(p,new Resident{Token=++nextToken});
                 }
             }
-            foreach(var key in chunks.Keys.Where(k=>!wanted.Contains(k)).ToArray())
-            {Release(chunks[key]);chunks.Remove(key);ResidencyChanged?.Invoke();}
-            foreach(var key in surfaceRanges.Keys.Where(k=>!columns.Contains(k)).ToArray())surfaceRanges.Remove(key);
+            releaseChunks.Clear();foreach(var key in chunks.Keys)if(!wanted.Contains(key))releaseChunks.Add(key);
+            foreach(var key in releaseChunks){Release(chunks[key]);chunks.Remove(key);}
+            if(releaseChunks.Count>0)ResidencyChanged?.Invoke();
+            releaseColumns.Clear();foreach(var key in surfaceRanges.Keys)if(!wantedColumns.Contains(key))releaseColumns.Add(key);
+            foreach(var key in releaseColumns)surfaceRanges.Remove(key);
             grassChunks.Clear();
             // Only a bounded neighbourhood ticks; unloaded/distant terrain receives no catch-up.
             grassChunks.AddRange(wanted.Where(p=>Math.Abs(p.X-centre.X)<=2&&Math.Abs(p.Z-centre.Z)<=2&&Math.Abs(p.Y-centre.Y)<=1)
                 .OrderBy(p=>p.X).ThenBy(p=>p.Y).ThenBy(p=>p.Z));
-            foreach(var key in skyHeights.Keys.Where(k=>Math.Abs(BlockPos.FloorDiv(k.x,32)-centre.X)>2||Math.Abs(BlockPos.FloorDiv(k.z,32)-centre.Z)>2).ToArray())skyHeights.Remove(key);
+            releaseSky.Clear();foreach(var key in skyHeights.Keys)if(Math.Abs(BlockPos.FloorDiv(key.x,32)-centre.X)>2||Math.Abs(BlockPos.FloorDiv(key.z,32)-centre.Z)>2)releaseSky.Add(key);
+            foreach(var key in releaseSky)skyHeights.Remove(key);
         }
         void Launch(ChunkPos p,Resident c)
         {
             c.Busy=true;int revision=c.Revision,token=c.Token;var generator=Generator;
             // Immutable edit snapshot prevents worker/main-thread dictionary races.
+            var snapshot=c.Cells==null?null:(byte[])c.Cells.Clone();
+            if(snapshot==null)GenerationJobs++;else RemeshJobs++;
             var changes=new List<KeyValuePair<BlockPos,byte>>();
-            for(int z=-1;z<=1;z++)for(int y=-1;y<=1;y++)for(int x=-1;x<=1;x++)
+            if(snapshot==null)for(int z=-1;z<=1;z++)for(int y=-1;y<=1;y++)for(int x=-1;x<=1;x++)
             {
                 var key=p.Offset(x,y,z);
                 if(!edits.TryGetValue(key,out var e))continue;
@@ -313,39 +341,52 @@ namespace RivetReach
             }
             work.Add(Task.Run(()=>
             {
-                var sw=Stopwatch.StartNew();byte[] cells=generator.Generate(p,out int surfaceMin,out int surfaceMax);var min=p.Min;
+                var sw=Stopwatch.StartNew();int surfaceMin=0,surfaceMax=0;
+                // Loaded pages already contain current edits and halos. Remesh an immutable
+                // copy; regenerate only genuinely new residency pages.
+                byte[] cells=snapshot??generator.Generate(p,out surfaceMin,out surfaceMax);var min=p.Min;
                 foreach(var e in changes)
                 {
                     long x=e.Key.X-min.X,z=e.Key.Z-min.Z;int y=e.Key.Y-min.Y;
                     if(x>=-1&&x<=32&&y>=-1&&y<=32&&z>=-1&&z<=32)cells[ChunkMesher.Index((int)x,y,(int)z)]=e.Value;
                 }
-                var result=ChunkMesher.Build(p,revision,cells);result.Token=token;result.HasSurfaceRange=true;result.SurfaceMin=surfaceMin;result.SurfaceMax=surfaceMax;result.Milliseconds=sw.Elapsed.TotalMilliseconds;return result;
+                var result=ChunkMesher.Build(p,revision,cells);result.Token=token;result.HasSurfaceRange=snapshot==null;result.SurfaceMin=surfaceMin;result.SurfaceMax=surfaceMax;result.Milliseconds=sw.Elapsed.TotalMilliseconds;return result;
             }));
         }
         void Apply(ChunkBuild result,Resident c)
         {
-            if(c.View==null)
+            bool first=c.Cells==null;
+            bool visibleTerrain=result.Triangles.Length>0,visibleFluid=result.FluidMesh.Indices.Length>0;
+            c.Cells=result.Cells;c.Dirty=false;
+            // Empty underground/sky pages still provide collision and residency data,
+            // but need neither an empty renderer nor an empty native Mesh.
+            if(c.View==null&&(visibleTerrain||visibleFluid))
             {
                 c.View=new GameObject("Chunk");c.View.transform.SetParent(transform,false);
                 c.View.AddComponent<MeshFilter>();var r=c.View.AddComponent<MeshRenderer>();r.sharedMaterial=TerrainMaterial;
                 r.shadowCastingMode=ShadowCastingMode.On;
             }
-            c.View.transform.position=Local(result.Position.Min);
-            var mesh=new Mesh{name="Voxel chunk",indexFormat=IndexFormat.UInt32};
-            mesh.vertices=result.Vertices;mesh.normals=result.Normals;mesh.uv=result.UV;mesh.uv2=result.Tiles;mesh.triangles=result.Triangles;mesh.RecalculateBounds();
-            c.View.GetComponent<MeshFilter>().sharedMesh=mesh;
-            if(c.Mesh!=null)Destroy(c.Mesh);
-            bool first=c.Cells==null;
-            c.Mesh=mesh;c.Cells=result.Cells;c.Dirty=false;
-            bool visibleFluid=result.FluidMesh.Indices.Length>0;
+            if(c.View!=null)
+            {
+                c.View.SetActive(visibleTerrain||visibleFluid);c.View.transform.position=Local(result.Position.Min);
+                c.View.GetComponent<MeshRenderer>().enabled=visibleTerrain;
+            }
+            if(visibleTerrain)
+            {
+                if(c.Mesh==null)c.Mesh=new Mesh{name="Voxel chunk",indexFormat=IndexFormat.UInt32};
+                else c.Mesh.Clear();
+                c.Mesh.vertices=result.Vertices;c.Mesh.normals=result.Normals;c.Mesh.uv=result.UV;c.Mesh.uv2=result.Tiles;c.Mesh.triangles=result.Triangles;c.Mesh.RecalculateBounds();
+                c.View.GetComponent<MeshFilter>().sharedMesh=c.Mesh;
+            }
+            else if(c.Mesh!=null){c.View.GetComponent<MeshFilter>().sharedMesh=null;Destroy(c.Mesh);c.Mesh=null;}
             if(c.FluidView==null&&visibleFluid)
             {
                 c.FluidView=new GameObject("Fluid surface");c.FluidView.transform.SetParent(c.View.transform,false);
                 c.FluidView.AddComponent<MeshFilter>();var renderer=c.FluidView.AddComponent<MeshRenderer>();
                 renderer.sharedMaterial=fluidMaterial;renderer.shadowCastingMode=ShadowCastingMode.Off;
             }
-            if(c.FluidMesh!=null)Destroy(c.FluidMesh);
-            c.FluidMesh=visibleFluid?result.FluidMesh.ToMesh():null;
+            if(visibleFluid)c.FluidMesh=result.FluidMesh.ToMesh(c.FluidMesh);
+            else if(c.FluidMesh!=null){Destroy(c.FluidMesh);c.FluidMesh=null;}
             if(c.FluidView!=null)
             {c.FluidView.SetActive(visibleFluid);c.FluidView.GetComponent<MeshFilter>().sharedMesh=c.FluidMesh;}
             if(first)

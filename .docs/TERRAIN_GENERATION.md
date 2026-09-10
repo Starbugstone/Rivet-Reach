@@ -42,6 +42,14 @@ Each worker also returns the minimum surface height and a conservative maximum s
 
 The version change deliberately changes regenerated terrain for a given seed. Current progress is session-only, so there is no on-disk world migration in this change. Durable worlds must retain the [generator-version compatibility policy](SIMULATION.md#5-coordinates-and-generation-compatibility). The subsequently authorized liquid extension adds seas, rivers and [world-fluid simulation](FLUIDS.md). Generated buildings, structures and new planets remain outside this extension.
 
+## Streaming and presentation performance
+
+The 2026-09-10 performance pass keeps the same demand volume and voxel rules. Demand is rebuilt when the observer changes chunk, the view distance changes, or a worker supplies a previously unknown surface range. Unchanged residency does no periodic re-planning. Nearest-job selection avoids sorting the full resident dictionary, and removals reuse scratch collections.
+
+New pages still generate from immutable seed/edit snapshots. Dirty resident pages instead mesh a cloned current cell/halo buffer. Residency tokens and revisions reject obsolete results; collision sees edits immediately. Player edits and tree felling retain synchronous local presentation, using the faster but geometrically identical solid-face lookup. Empty pages retain their data without allocating empty Unity renderers/meshes. Visible terrain and fluid meshes reuse their native Mesh objects when possible.
+
+[Performance verification](verification/PERFORMANCE_RESULTS.md) records geometry equivalence, edit races, fluid residency and measured costs. These changes do not reduce view distance, terrain detail, ore bands or fluid simulation work budgets.
+
 ## Materials and authoring
 
 | Block | Stable ID | Runtime ID | Texture layer |

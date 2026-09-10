@@ -33,6 +33,8 @@ namespace RivetReach
         RenderTexture previewTexture;
         GameObject previewRoot;
         AvatarView preview;
+        bool previewBuilt,previewFemale;
+        int previewSkin;
         float frameAverage;
         string titleSeedText="";
         public void Initialize(Expedition expedition)
@@ -69,14 +71,15 @@ namespace RivetReach
             ResetBrowserUI();ResetSurvivalUI();machineStatus=machineDetail=null;machineProgress=null;
             if(root!=null){root.gameObject.SetActive(false);Destroy(root.gameObject);}slots.Clear();message=null;diagnostics=null;diagnosticsPanel=null;targetLabel=null;progress=null;heldRoot=null;heldLabel=null;loading=null;tooltip=null;craftStatus=null;craftOutputName=null;inventoryHint=null;hoveredSlot=-1;lastRevision=-1;lastCraftRevision=-1;
             if(previewRoot!=null)previewRoot.SetActive(game.Mode==ScreenMode.Inventory||game.Mode==ScreenMode.Appearance);
-            root=Rect(canvas.transform,"Screen",0,0,1280,720);root.anchorMin=root.anchorMax=root.pivot=new Vector2(.5f,.5f);root.anchoredPosition=Vector2.zero;
+            root=Rect(canvas.transform,"Screen",0,0,1280,720);root.gameObject.SetActive(false);
+            root.anchorMin=root.anchorMax=root.pivot=new Vector2(.5f,.5f);root.anchoredPosition=Vector2.zero;
             float scale=Mathf.Clamp(PlayerPrefs.GetFloat("uiScale",1),.85f,1);root.localScale=Vector3.one*scale;
             if(game.Mode==ScreenMode.Play)BuildHUD();
             else if(game.Mode==ScreenMode.Inventory)BuildItemBrowserInventory();
             else if(game.Mode==ScreenMode.Title)BuildTitle();
             else if(game.Mode==ScreenMode.Death)BuildDeath();
             else BuildMenu();
-            RefreshSlots();
+            RefreshSlots();root.gameObject.SetActive(true);
         }
         void BuildTitle()
         {
@@ -258,9 +261,12 @@ namespace RivetReach
         {
             foreach(var view in slots)
             {
-                var stack=StackAt(view.Index);view.Icon.enabled=!stack.Empty;view.Count.text=stack.Empty?"":stack.Count.ToString();
-                if(!stack.Empty)view.Icon.texture=icons[stack.Id];
+                var stack=StackAt(view.Index);
                 bool selected=view.Index<Inventory.HotbarCount&&view.Index==game.Selected;
+                if(view.Shown&&view.ShownId==stack.Id&&view.ShownCount==stack.Count&&view.ShownSelected==selected)continue;
+                view.Shown=true;view.ShownId=stack.Id;view.ShownCount=stack.Count;view.ShownSelected=selected;
+                view.Icon.enabled=!stack.Empty;view.Count.text=stack.Empty?"":stack.Count.ToString();
+                if(!stack.Empty)view.Icon.texture=icons[stack.Id];
                 view.Background.color=selected?new Color(.40f,.43f,.31f):view.Index==CraftOutputSlot?new Color(.22f,.34f,.32f):slate;
                 view.Border.effectColor=selected||view.Index==CraftOutputSlot?gold:new Color(.25f,.33f,.36f,.85f);
             }
@@ -330,7 +336,9 @@ namespace RivetReach
         }
         public void RefreshPreview()
         {
-            if(preview==null)return;preview.Build(game.Player.Female,game.Player.Skin);
+            if(preview==null)return;
+            if(previewBuilt&&previewFemale==game.Player.Female&&previewSkin==game.Player.Skin&&preview.AnimationReady)return;
+            preview.Build(game.Player.Female,game.Player.Skin);previewBuilt=preview.AnimationReady;previewFemale=game.Player.Female;previewSkin=game.Player.Skin;
             foreach(var t in preview.GetComponentsInChildren<Transform>())t.gameObject.layer=30;
         }
         readonly HashSet<Texture2D> sharedToolIcons=new HashSet<Texture2D>();
@@ -380,6 +388,7 @@ namespace RivetReach
     {public GameUI Owner;public void OnDrag(PointerEventData e)=>Owner.RotatePreview(e.delta.x);}
     public sealed class SlotView : MonoBehaviour,IPointerClickHandler,IBeginDragHandler,IDragHandler,IEndDragHandler,IPointerEnterHandler,IPointerExitHandler
     {
+        public bool Shown,ShownSelected;public byte ShownId;public int ShownCount;
         public GameUI Owner;public int Index;public Image Background;public Outline Border;public RawImage Icon;public Text Count;
         public void OnPointerEnter(PointerEventData e)=>Owner.HoverSlot(Index);
         public void OnPointerExit(PointerEventData e)=>Owner.HoverSlot(-1);

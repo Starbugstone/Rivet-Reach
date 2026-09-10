@@ -102,7 +102,11 @@ namespace RivetReach
             // Feet touching a block face share movement's 1 mm skin. The slight overlap
             // accepted by collision resolution must not make adjacent floor placement fail.
             Set(cell.Offset(1,-1,0),0);player.transform.position=at+new Vector3(.95f,-.0008f,.5f);
-            Check(!world.Overlaps(player.transform.position,.6f,player.Height)&&game.CanPlace(cell.Offset(1,-1,0),out _),"A block below touching feet is legal at the same collision skin used by movement");
+            // A preceding cave fixture may have released these sky pages. Let the
+            // teleported observer demand its full body volume before checking collision.
+            player.ResetMotion();yield return null;yield return Settle();
+            bool floorClear=!world.Overlaps(player.transform.position,.6f,player.Height),floorPlace=game.CanPlace(cell.Offset(1,-1,0),out string floorReason);
+            Check(floorClear&&floorPlace,$"A block below touching feet is legal at the same collision skin used by movement (clear={floorClear}; reason={floorReason}; cell={cell}; feet={player.transform.position}; origin={world.Origin}; height={player.Height}; cells={world.Get(cell)}/{world.Get(cell.Offset(1,0,0))}/{world.Get(cell.Offset(0,1,0))}/{world.Get(cell.Offset(1,1,0))})");
             Check(!game.CanPlace(cell,out _),"A block intersecting the player's legs still rejects placement");
             Set(cell.Offset(1,-1,0),3);
             var placeButton=PlayerPrefs.GetInt("mineButton",0)==0?MouseButton.Right:MouseButton.Left;

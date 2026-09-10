@@ -215,26 +215,38 @@ namespace RivetReach
             Check(game.Items.Piles.Any(p=>p.Stack.Id==3&&p.Stack.Count==64)&&game.Items.Piles.Any(p=>p.Stack.Id==3&&p.Stack.Count==38),"Settled piles merge with exact stack-limit overflow");
             float oldest=game.Items.Piles.Max(p=>p.Age);
             var far=new BlockPos(640,world.Generator.Height(640,0)+2,0);
-            player.transform.position=world.Local(far)+new Vector3(.5f,0,.5f);yield return null;yield return Settle();
+            player.ResetMotion();player.transform.position=world.Local(far)+new Vector3(.5f,0,.5f);yield return null;yield return Settle();
             Check(world.Origin.X!=0,"Long traversal shifts the rendering origin");Check(!world.Ready(seam),"Old chunks unload");
             Check(game.Items.Piles.Max(p=>p.Age)<=oldest+.15f,"Unloaded item lifetime is suspended");
             sampling=true;
             for(int i=0;i<180;i++)
             {
                 // A controlled flight path exercises continuous streaming independent of slopes.
-                var p=new BlockPos(640+i,world.Generator.Height(640+i,0)+3,0);player.transform.position=world.Local(p)+new Vector3(.5f,0,.5f);
+                // Artificial fixture teleports must not accumulate survival fall velocity/distance.
+                var p=new BlockPos(640+i,world.Generator.Height(640+i,0)+3,0);player.ResetMotion();player.transform.position=world.Local(p)+new Vector3(.5f,0,.5f);
                 yield return new WaitForSecondsRealtime(.025f);
             }
             yield return Settle();sampling=false;report.triangles=world.MeshTriangles;
-            player.transform.position=saved.Local(world.Origin)+Vector3.up;yield return null;yield return Settle();
+            player.ResetMotion();player.transform.position=saved.Local(world.Origin)+Vector3.up;yield return null;yield return Settle();
+            Check(!game.Health.Dead,"Controlled teleport traversal does not accumulate artificial fall damage");
             Check(world.Get(seam)==0&&world.Get(seam2)==0,"Mined seam remains empty after unload/reload/origin shift");
             Check(game.Items.Total(3)>=550,"Dropped quantities survive chunk unloading");
             Check(world.Get(placed)==3,"Placed voxel survives chunk unload, reload and origin shifts");
             // Remine the placed stone with an explicit wooden pickaxe fixture.
             game.Inventory.Add(BlockId.WoodPickaxe,1,10,11);game.Selected=10;
-            Vector3 aim=(world.Local(placed)+Vector3.one*.5f)-(player.transform.position+Vector3.up*1.64f);
-            player.Yaw=Mathf.Atan2(aim.x,aim.z)*Mathf.Rad2Deg;player.Pitch=-Mathf.Atan2(aim.y,new Vector2(aim.x,aim.z).magnitude)*Mathf.Rad2Deg;
-            yield return null;Check(player.HasTarget&&player.Target.Equals(placed),"Placed block is targetable for pickaxe mining");
+            // Aim from the actual smoothed/clearance-adjusted eye after traversal.
+            for(int aimFrame=0;aimFrame<3;aimFrame++)
+            {
+                Vector3 aim=world.Local(placed)+Vector3.one*.5f-player.Camera.transform.position;
+                player.Yaw=Mathf.Atan2(aim.x,aim.z)*Mathf.Rad2Deg;player.Pitch=-Mathf.Atan2(aim.y,new Vector2(aim.x,aim.z).magnitude)*Mathf.Rad2Deg;
+                yield return null;
+            }
+            if(!player.HasTarget||!player.Target.Equals(placed))
+            {
+                File.WriteAllText(Path.Combine(output,"remine-diagnostic.txt"),$"mode={game.Mode}; player={player.transform.position}; eye={player.Camera.transform.position}; pitch={player.Pitch}; placed={placed}; local={world.Local(placed)}; hasTarget={player.HasTarget}; target={player.Target}; targetId={player.TargetId}; overlap={world.Overlaps(player.transform.position,.6f,player.Height)}");
+                yield return Capture("remine-failure");
+            }
+            Check(player.HasTarget&&player.Target.Equals(placed),"Placed block is targetable for pickaxe mining");
             int remineBefore=game.Items.TotalSpawned;player.VerificationMining=true;until=Time.realtimeSinceStartup+3;
             while(world.Get(placed)!=0&&Time.realtimeSinceStartup<until)yield return null;
             player.VerificationMining=false;yield return null;

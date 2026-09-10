@@ -1,0 +1,7 @@
+fixture 0: identical 6DB65FD59FD356F6729140571B5BCD6BB3B83492A16E1BF0A3884442FC3C8A0E; before 2,063 ms; after 1,637 ms; terrain triangles 0; fluid triangles 0
+fixture 1: identical 6DB65FD59FD356F6729140571B5BCD6BB3B83492A16E1BF0A3884442FC3C8A0E; before 6,278 ms; after 1,777 ms; terrain triangles 0; fluid triangles 0
+fixture 2: identical CA552034F0C5500E012157A273D2483B4988577B6418C6F6E120FBF444D3C9A5; before 4,929 ms; after 2,270 ms; terrain triangles 1272; fluid triangles 0
+fixture 3: identical 5A25408993FBF5E00B0073CD8B7EA7B1907CE444B698A3B50226E16A0350AAD3; before 3,595 ms; after 2,253 ms; terrain triangles 1044; fluid triangles 0
+fixture 4: identical 8A5CE840F13B5762E3E605732727627DAEFEF90271480D98BEC76F055BC335FF; before 2,770 ms; after 2,443 ms; terrain triangles 0; fluid triangles 2048
+fixture 5: identical 39A693073E56F449759C39EA861BE0DD9E5F0FADBB70EE82FB6C92E10AE5C36E; before 2,876 ms; after 2,465 ms; terrain triangles 2668; fluid triangles 108
+fixture 6: identical 67FDDE1B0826A9F9D04881FDE7A07E8F2E17743282430CFB0B7618C2FAFBF229; before 42,677 ms; after 40,190 ms; terrain triangles 161696; fluid triangles 26286

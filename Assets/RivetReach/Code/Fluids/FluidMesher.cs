@@ -9,9 +9,9 @@ namespace RivetReach
         public Vector3[] Vertices,Normals;
         public Color[] Colours;
         public int[] Indices,ActiveCells;
-        public Mesh ToMesh()
+        public Mesh ToMesh(Mesh mesh=null)
         {
-            var mesh=new Mesh{name="Fluid surfaces",indexFormat=IndexFormat.UInt32};
+            if(mesh==null)mesh=new Mesh{name="Fluid surfaces",indexFormat=IndexFormat.UInt32};else mesh.Clear();
             mesh.vertices=Vertices;mesh.normals=Normals;mesh.colors=Colours;mesh.triangles=Indices;mesh.RecalculateBounds();return mesh;
         }
     }
@@ -25,7 +25,7 @@ namespace RivetReach
             {
                 int start=vertices.Count;vertices.Add(a);vertices.Add(b);vertices.Add(c);vertices.Add(d);
                 for(int k=0;k<4;k++){normals.Add(normal);colours.Add(color);}
-                indices.AddRange(new[]{start,start+1,start+2,start,start+2,start+3});
+                indices.Add(start);indices.Add(start+1);indices.Add(start+2);indices.Add(start);indices.Add(start+2);indices.Add(start+3);
             }
             for(int z=0;z<32;z++)for(int y=0;y<32;y++)for(int x=0;x<32;x++)
             {

@@ -1,0 +1,10 @@
+{
+  "builtUtc": "2026-09-10T16:36:40.772086+00:00",
+  "baseCommit": "814e325",
+  "note": "Windows Development build from the integrated workspace after the recipe-browser commit, with this performance pass applied. Hashes identify actual player files.",
+  "sha256": {
+    "Builds/Performance/RivetReach.exe": "7d52ee70fb22771f4608d810d1015f539c37dd8b7b2fbb1a0ea9f6bc5c32d5c9",
+    "Builds/Performance/RivetReach_Data/Managed/Assembly-CSharp.dll": "2629acb26518e1835e275b8a372e69c29529792e9fabb896430ae372bac6aa55",
+    "Builds/Performance/UnityPlayer.dll": "cb09f8415239daaf1c41ed4568943adc8fa3ba25c17e2553a8f322403c011b8c"
+  }
+}
