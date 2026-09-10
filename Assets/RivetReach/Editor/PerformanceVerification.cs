@@ -66,14 +66,31 @@ namespace RivetReach.Editor
             Directory.CreateDirectory(output);foreach(var name in new[]{"errors.txt","result.txt","performance.json"})if(File.Exists(output+"/"+name))File.Delete(output+"/"+name);
             SessionState.SetString(Key,output);EditorApplication.EnterPlaymode();
         }
-        public static void Build(string output="Builds/Performance",string logDirectory="Logs/Performance")
+        public static void Build(string output="Builds/Performance",string logDirectory="Logs/Performance",bool frameTimings=false)
         {
             Directory.CreateDirectory(output);Directory.CreateDirectory(logDirectory);
-            var report=BuildPipeline.BuildPlayer(new BuildPlayerOptions
+            bool previousTimings=PlayerSettings.enableFrameTimingStats;
+            const string settingsPath="ProjectSettings/ProjectSettings.asset";
+            string timingLine=File.ReadLines(settingsPath).Single(l=>l.TrimStart().StartsWith("enableFrameTimingStats:"));
+            UnityEditor.Build.Reporting.BuildReport report;
+            try
             {
-                scenes=EditorBuildSettings.scenes.Where(s=>s.enabled).Select(s=>s.path).ToArray(),
-                locationPathName=output+"/RivetReach.exe",target=BuildTarget.StandaloneWindows64,options=BuildOptions.Development
-            });
+                if(frameTimings)PlayerSettings.enableFrameTimingStats=true;
+                report=BuildPipeline.BuildPlayer(new BuildPlayerOptions
+                {
+                    scenes=EditorBuildSettings.scenes.Where(s=>s.enabled).Select(s=>s.path).ToArray(),
+                    locationPathName=output+"/RivetReach.exe",target=BuildTarget.StandaloneWindows64,options=BuildOptions.Development
+                });
+            }
+            finally
+            {
+                PlayerSettings.enableFrameTimingStats=previousTimings;
+                // BuildPlayer saves ProjectSettings; restoring only the in-memory property
+                // leaves its temporary instrumentation flag serialized on disk.
+                string settings=File.ReadAllText(settingsPath);
+                string savedLine=File.ReadLines(settingsPath).Single(l=>l.TrimStart().StartsWith("enableFrameTimingStats:"));
+                if(savedLine!=timingLine)File.WriteAllText(settingsPath,settings.Replace(savedLine,timingLine));
+            }
             File.WriteAllText(logDirectory+"/build-summary.txt",$"{report.summary.result}; errors {report.summary.totalErrors}; warnings {report.summary.totalWarnings}; seconds {report.summary.totalTime.TotalSeconds}\n");
             if(report.summary.result!=BuildResult.Succeeded)throw new Exception("Performance build failed");
             File.Copy("LICENSE.md",output+"/LICENSE.md",true);File.Copy(".docs/THIRD_PARTY_NOTICES.md",output+"/THIRD_PARTY_NOTICES.md",true);
@@ -98,7 +115,7 @@ namespace RivetReach.Editor
                         File.WriteAllText("Logs/Performance/checks-result.txt","PASS");
                     }
                     else if(output=="build")Build();
-                    else if(output=="shadow-build")Build("Builds/Shadows","Logs/Shadows");
+                    else if(output=="shadow-build")Build("Builds/Shadows","Logs/Shadows",true);
                     else Begin(output);
                 }
                 catch(Exception e){string directory=output=="shadow-build"?"Logs/Shadows":(output=="checks"||output=="build")?"Logs/Performance":output;Directory.CreateDirectory(directory);File.WriteAllText(directory+((output=="build"||output=="shadow-build")?"/build-result.txt":output=="checks"?"/checks-result.txt":"/result.txt"),"FAIL: "+e);}

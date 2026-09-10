@@ -12,6 +12,12 @@ namespace RivetReach
         public Vector3 SunDirection {get;private set;}
         public Vector3 MoonDirection=>-SunDirection;
         public float Daylight {get;private set;}
+        // Presentation only: one angular sample per in-world minute (0.25 degrees).
+        // Authoritative time and the sky/ambient gradients continue at their normal rate.
+        public const int ShadowTicksPerDay=24*60;
+        public long ShadowTick=>(long)System.Math.Floor(Clock.TotalDays*ShadowTicksPerDay);
+        long appliedShadowTick=long.MinValue;
+        bool appliedSunUp;
         Material sky,previousSky;
         Light previousSun;
 
@@ -27,7 +33,7 @@ namespace RivetReach
             RenderSettings.fog=true;RenderSettings.fogMode=FogMode.Linear;
             ResetClock();
         }
-        public void ResetClock(){Clock=new WorldClock(DayLengthMinutes*60);Apply();}
+        public void ResetClock(){Clock=new WorldClock(DayLengthMinutes*60);appliedShadowTick=long.MinValue;Apply();}
         public void Advance(double seconds){Clock.Advance(seconds);Apply();}
         public void Apply()
         {
@@ -40,7 +46,14 @@ namespace RivetReach
             // URP's existing custom surfaces consume one shadowed main directional light.
             // Switch only at the horizon where both direct intensities are zero.
             bool sunUp=SunDirection.y>=0;
-            MainLight.transform.rotation=Quaternion.LookRotation(-(sunUp?SunDirection:MoonDirection),Vector3.up);
+            long tick=ShadowTick;
+            if(tick!=appliedShadowTick||sunUp!=appliedSunUp)
+            {
+                float shadowAngle=(float)((tick%ShadowTicksPerDay-ShadowTicksPerDay/4)*System.Math.PI*2/ShadowTicksPerDay);
+                var direction=new Vector3(Mathf.Cos(shadowAngle),Mathf.Sin(shadowAngle)*.9063078f,Mathf.Sin(shadowAngle)*.4226183f).normalized;
+                MainLight.transform.rotation=Quaternion.LookRotation(-(sunUp?direction:-direction),Vector3.up);
+                appliedShadowTick=tick;appliedSunUp=sunUp;
+            }
             MainLight.color=sunUp?Color.Lerp(new Color(1,.40f,.17f),new Color(1,.91f,.72f),sunPower):new Color(.48f,.63f,1);
             MainLight.intensity=sunUp?1.45f*sunPower:.24f*moonPower;
             var nightSky=new Color(.055f,.078f,.135f);

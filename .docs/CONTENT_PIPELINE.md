@@ -146,3 +146,9 @@ Held assemblies resolve through `IndustryDefinition.All`, including tank parts a
 ## Stable ambient occlusion — 2026-09-10
 
 The PC renderer uses Interleaved Gradient SSAO sampling to keep stationary terrain and tree contact shading stable. Preserve the authored AO intensity/radius and directional shadow quality when adjusting it. The native [shadow stability check](verification/SHADOW_RESULTS.md) records the Blue Noise comparison, temporary fixture controls and remaining limits; Editor test defines can mask Blue Noise animation.
+
+## Lighting cost and shadow stability — 2026-09-10
+
+Keep one shadowed celestial directional light. Its rotation advances on the clock samples specified in [SIMULATION.md](SIMULATION.md#session-world-clock-and-celestial-presentation); do not couple light direction to terrain/chunk simulation ticks or add a directional light per chunk. Preserve soft shadows and the existing 2048 atlas, four cascades and 160 m shadow range unless a measured comparison supports a quality/cost change. The GPU still renders dynamic casters between sun samples; a rotation hold is not a shadow-map cache.
+
+Local lighting already has bounded presentation: at most eight nearby torch lights (10 m light range, active within 24 m, 256 shadow-face tier) and eight powered workshop lamp lights (7 m range, no shadow maps). Torch view selection refreshes at 5 Hz; lamp selection shares the nearby workshop view refresh. Torch geometry does not cast shadows; portrait fill lighting has no shadows and is restricted to its preview layer. Keep these caps when adding content, and preserve wall occlusion and nearby light quality when changing their allocation. Large-factory and densely overlapping light stress remain separate measured workloads; a cap alone does not prove their cost acceptable. [Sun-shadow results](verification/SUN_SHADOW_RESULTS.md) separates edge stability, render timings and remaining limits.

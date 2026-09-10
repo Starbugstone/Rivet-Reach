@@ -81,6 +81,13 @@ namespace RivetReach
         {
             // Nested enumerators are driven by Unity. Check failures are also captured by Log().
             yield return null; // Allow the title's initialization rebuild to retire its previous UI tree.
+            if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-sun-shadow-review"))
+            {
+                report.workload="Ticked sun shadow stability and lighting cost";
+                yield return SunShadowProbe.Run(game,output);
+                Check(SunShadowProbe.LastReport.result=="PASS","Sun shadows hold between clock samples; native lighting measurements completed");
+                yield break;
+            }
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-shadow-review"))
             {
                 report.workload="Stationary terrain shadow and ambient-occlusion stability";

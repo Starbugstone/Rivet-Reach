@@ -2,6 +2,8 @@
 
 The standalone fixture reproduced animated shading on stationary terrain and tree contact areas. Changing PC renderer SSAO from Blue Noise to Interleaved Gradient eliminated all measured frame differences with camera and sun frozen. The shadows-off control also became stable. One enabled directional light and zero duplicate chunk views were found in this fixture.
 
+The user subsequently reported a moving jagged cast-shadow edge after this change. This frozen-light AO check did not certify moving-sun stability. The [sun-shadow follow-up](SUN_SHADOW_RESULTS.md) records that separate correction and lighting-cost measurements.
+
 ## Change and diagnosis
 
 `PC_Renderer.asset` changes only `AOMethod` from 0 to 1. Unity regenerated the two matching SSAO shader prefilter flags in `PC_RPAsset.asset`. AO remains enabled at full resolution, intensity/radius 0.65 and eight samples. Shadow resolution, cascades, distance, bias, filtering, antialiasing and normal gameplay lighting settings remain intact. No gameplay rules changed.

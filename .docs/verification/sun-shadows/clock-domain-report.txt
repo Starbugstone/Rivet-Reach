@@ -1,0 +1,3 @@
+PASS: 144 assertions
+Unity 6000.4.4f1
+Clock rollover, three lunar cycles, midnight stability, frame batching, duration, precision and invalid-input boundaries.

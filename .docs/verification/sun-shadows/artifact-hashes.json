@@ -1,0 +1,15 @@
+{
+  "baseCommit": "899bd3f",
+  "note": "Both continuous-direction control and ticked production behavior ran in this one development player. GPU frame timing enabled only in the review build; project setting restored afterward.",
+  "sha256": {
+    "Assets/RivetReach/Code/World/DayNightCycle.cs": "cf7f98b54773fa1c846a1194fd0808e16b86fe3694a8ff9bf993e8ecfd64d034",
+    "Assets/RivetReach/Code/SunShadowProbe.cs": "59e1f14f587df90ba9c80e769173e9000ba99290d28379e51f9aabce5c46cfc2",
+    "Assets/RivetReach/Code/RuntimeVerification.cs": "b027e967371e05cbdb011fdca2180e35186bf53b00ab3b1625165613156feb81",
+    "Assets/RivetReach/Resources/Materials/Terrain.shader": "052f78ed2297d22d0ce17cdd0cb407719edf9702dae186df0fe66209c3c0eb71",
+    "Assets/RivetReach/Settings/PC_Renderer.asset": "ab3ec0c69a11877fccfef9a4ef4ce419ee57ad64c5d8c70cd0fcbb0ea07f0246",
+    "Assets/RivetReach/Settings/PC_RPAsset.asset": "6d858e908b9c60c0c1e3e1367fff7fd0b8d3c1b1ac0662ab6963c14f6cac180e",
+    "Builds/Shadows/RivetReach.exe": "7d52ee70fb22771f4608d810d1015f539c37dd8b7b2fbb1a0ea9f6bc5c32d5c9",
+    "Builds/Shadows/RivetReach_Data/Managed/Assembly-CSharp.dll": "202141f01274c9bd0b6303541b2ca7b25ecdf8170d262d625e0ebf8f75258b4d",
+    "Builds/Shadows/RivetReach_Data/globalgamemanagers": "b9706326f77730cea9f3e2ac089c22c239e3736f627d20e8c64ff9bdf86fcb15"
+  }
+}

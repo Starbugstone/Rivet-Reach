@@ -6,7 +6,7 @@ This directory maintains the latest report and useful evidence for each feature.
 | --- | --- |
 | Item sidebar, recipe/uses navigation and Ctrl-click placement | [Recipe browser verification](RECIPE_BROWSER_RESULTS.md) |
 | Performance and live Editor script reloads | [Performance pass](PERFORMANCE_RESULTS.md) — measured UI/meshing costs, streaming checks and preserved gameplay |
-| Stationary terrain/tree shading | [Shadow stability](SHADOW_RESULTS.md) — native AO sampling A/B and duplicate-view control |
+| Terrain/tree shadow stability and lighting cost | [Sun-shadow ticks](SUN_SHADOW_RESULTS.md), plus the earlier [AO sampling check](SHADOW_RESULTS.md) |
 | Multiblock tanks and shared pipe channel fittings | [Multiblock verification](MULTIBLOCK_RESULTS.md) |
 | Blue Signal, power and the first workshop | [Industry verification](INDUSTRY_RESULTS.md) — screenshots, gameplay clip, machine interfaces and measured limits |
 | Pass-through props, camera clearance and Editor icons | [Clearance verification](PROP_CLEARANCE_RESULTS.md) |
