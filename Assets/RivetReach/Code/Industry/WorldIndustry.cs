@@ -10,7 +10,7 @@ namespace RivetReach
         {
             this.game=game;Simulation=new IndustrySimulation(this,id=>game.Registry.Get(id).stackLimit);
             game.World.BlockChanged+=Changed;game.World.ResidencyChanged+=Simulation.Multiblocks.ResidencyChanged;
-            game.World.CanRemoveMachine=p=>{if(Simulation.Multiblocks.CanRemove(p))return true;game.Notify("Drain the tank at its controller before dismantling it",3);return false;};
+            game.World.CanRemoveMachine=p=>{if(Simulation.Multiblocks.CanRemove(p))return true;game.Notify(Simulation.At(p)?.Definition.Id==IndustryId.Battery?"Discharge this battery before mining it":"Drain the tank at its controller before dismantling it",3);return false;};
             game.World.IsOpenMachine=p=>Simulation.At(p)?.Definition.Id==IndustryId.Door&&Simulation.At(p).Running;
         }
         public bool Ready(BlockPos p)=>game.World.Ready(p);

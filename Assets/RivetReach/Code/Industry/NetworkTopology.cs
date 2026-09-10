@@ -97,6 +97,21 @@ namespace RivetReach
                 int supply=0,demand=0;
                 foreach(var p in group.Ports)
                 {if(p.Port.Role==PortRole.Output)supply+=p.Machine.SupplyWatts;if(p.Port.Role==PortRole.Input){demand+=p.Machine.RequestedWatts;p.Machine.ReceivedWatts=0;}}
+                // Serve live demand first. Only generator surplus charges storage; batteries
+                // never charge each other or burn energy into an idle circuit.
+                int generated=supply;
+                if(demand>generated)
+                {
+                    int deficit=demand-generated;
+                    foreach(var p in group.Ports)if(p.Port.Role==PortRole.Storage)
+                    {int take=Math.Min(deficit,BatteryPower.Available(p.Machine,false));BatteryPower.Transfer(p.Machine,take,false);supply+=take;deficit-=take;}
+                }
+                else
+                {
+                    int surplus=generated-demand;
+                    foreach(var p in group.Ports)if(p.Port.Role==PortRole.Storage)
+                    {int take=Math.Min(surplus,BatteryPower.Available(p.Machine,true));BatteryPower.Transfer(p.Machine,take,true);surplus-=take;}
+                }
                 group.Supply=supply;group.Demand=demand;
                 for(int priority=0;priority<3&&supply>0;priority++)
                 {

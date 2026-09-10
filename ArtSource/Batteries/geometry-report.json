@@ -1,0 +1,10 @@
+{
+  "battery_block": {
+    "triangles": 4264,
+    "parts": 2
+  },
+  "battery_controller": {
+    "triangles": 2152,
+    "parts": 2
+  }
+}

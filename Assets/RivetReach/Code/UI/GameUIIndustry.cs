@@ -11,6 +11,7 @@ namespace RivetReach
         void BuildMachine(Transform parent)
         {
             var m=game.OpenMachine;
+            if(IndustryId.BatteryPart(m.Definition.Id)){BuildBatteryMachine(parent,m);return;}
             if(IndustryId.TankPart(m.Definition.Id)){BuildMultiblockMachine(parent,m);return;}
             Label(parent,"MACHINE CONTROL",821,115,315,32,23);
             Label(parent,m.Definition.Help,821,157,307,62,15,gold);
@@ -31,6 +32,18 @@ namespace RivetReach
                 Button(parent,(m.Additions&PipeAddition.Signal)!=0?"WITH SIGNAL":"FIT SIGNAL",821,455,146,34,()=>{if(!game.Industry.AddPipeChannel(m,PipeAddition.Signal))game.Notify("Requires one Signal Conduit",3);Rebuild();});
                 Button(parent,(m.Additions&PipeAddition.Power)!=0?"WITH POWER":"FIT POWER",977,455,147,34,()=>{if(!game.Industry.AddPipeChannel(m,PipeAddition.Power))game.Notify("Requires one Power Cable",3);Rebuild();});
             }
+            nextMachineRefresh=0;
+        }
+        void BuildBatteryMachine(Transform parent,MachineState m)
+        {
+            Label(parent,m.Definition.Id==IndustryId.Battery?"BATTERY":"BATTERY BANK",821,115,315,32,23);
+            Label(parent,m.Definition.Help,821,157,307,62,15,gold);
+            var status=Panel(parent,821,228,310,55,slate);machineStatus=Label(status.transform,"",12,10,290,40,18,gold);
+            machineDetail=Label(parent,"",821,299,307,112,14);
+            var track=Panel(parent,821,415,303,7,slate);machineProgress=Panel(track.transform,0,0,0,7,gold);
+            Button(parent,"MODE: "+m.BatteryMode,821,437,303,34,()=>{m.BatteryMode=(BatteryMode)(((int)m.BatteryMode+1)%4);Rebuild();});
+            Button(parent,"ROTATE 90°",821,478,146,34,()=>{game.Industry.Simulation.Rotate(m);Rebuild();});
+            if(m.Definition.Id==IndustryId.BatteryController)Button(parent,"RE-SCAN",977,478,147,34,()=>game.Industry.Simulation.Multiblocks.Request(m.Structure));
             nextMachineRefresh=0;
         }
         void BuildMultiblockMachine(Transform parent,MachineState m)
@@ -76,6 +89,7 @@ namespace RivetReach
             if(m.Definition.Watts>0)detail+=$"\nPower: {m.ReceivedWatts} / {m.RequestedWatts} W";
             if(m.Definition.Id==IndustryId.Alternator)detail+=$"\nElectrical output: {m.SupplyWatts} W";
             if(m.Definition.WaterCapacity>0)detail+=$"\nWater: {m.WaterMl/1000f:0.0} / {m.Definition.WaterCapacity/1000} L";
+            if(m.Definition.Id==IndustryId.Pump){byte intake=game.World.Get(IndustrySimulation.Neighbor(m,3));detail+="\nBelow: "+(intake==Fluids.Water.Source?"water source":intake==0?"air — needs source":"blocked / not a source");}
             if(m.Definition.Id==IndustryId.Boiler)detail+=$"\nFuel remaining: {m.BurnTicks/20f:0.0} s";
             if(m.Definition.Id==IndustryId.Drill)detail+=$"\nCutting depth: {m.DrillDepth} blocks";
             if(IndustryId.TankPart(m.Definition.Id))
@@ -85,6 +99,17 @@ namespace RivetReach
                 detail=c==null?"Build hollow · frame edges · solid roof/floor":$"{c.Fluid.Fluid?.DisplayName??"Empty"}: {c.Fluid.Amount/1000.0:0.###} / {c.Fluid.Capacity/1000.0:0.###} L\nController: {c.Controller.Position}";
                 if(c!=null&&!c.Formed)detail+="\n"+c.Validation.Message+(c.Validation.Fault.HasValue?" @ "+c.Validation.Fault:"");
                 machineDetail.fontSize=c!=null&&!c.Formed?12:14;
+            }
+            if(IndustryId.BatteryPart(m.Definition.Id))
+            {
+                var c=m.Structure;bool member=m.Definition.Id==IndustryId.Battery&&c!=null;
+                long amount=member?m.EnergyCells[0].Amount:BatteryPower.Amount(m),capacity=member?m.EnergyCells[0].Capacity:BatteryPower.Capacity(m);
+                machineStatus.text=member?"Controlled by battery bank":m.Definition.Id==IndustryId.BatteryController&&c?.Formed!=true?"BANK INCOMPLETE":m.BatteryWatts>0?"Charging":m.BatteryWatts<0?"Delivering electricity":m.BatteryMode==BatteryMode.Isolated?"Isolated":amount==0?"Empty · connect generation":amount==capacity?"Fully charged":"Ready · no power transfer";
+                detail=$"Stored: {amount/1000000.0:0.###} / {capacity/1000000.0:0.###} kJ\nCharge: {Mathf.Max(0,m.BatteryWatts)} W · Output: {Mathf.Max(0,-m.BatteryWatts)} W";
+                detail+=member?"\nBank mode overrides cell mode":$"\nLimit: {BatteryPower.Cells(m).Count*BatteryStorage.CellWatts} W each way";
+                if(c!=null)detail+=c.Formed?"\nFORMED · "+c.Bounds:"\n"+c.Validation.Message;
+                machineProgress.rectTransform.sizeDelta=new Vector2(capacity>0?303*(float)(amount/(double)capacity):0,7);
+                machineDetail.text=detail;return;
             }
             if(PipeConnections.IsTransport(m.Definition.Id))detail+="\nAdditional channels: "+m.Additions;
             machineDetail.text=detail;

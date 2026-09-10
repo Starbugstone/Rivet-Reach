@@ -99,9 +99,11 @@ namespace RivetReach
             seedField=game.UI.GetComponentInChildren<UnityEngine.UI.InputField>();seedField.text="246813";StartButton().onClick.Invoke();
             Check(game.Seed==246813&&game.World.Generator.Seed==246813,"Entering an explicit seed starts that reproducible world");
             game.World.ViewDistance=Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-fluid-review")?4:10;game.Diagnostics=true;
-            if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-browser-review"||arg=="-rr-creative-review"||arg=="-rr-torch-review"||arg=="-rr-industry-review"||arg=="-rr-multiblock-review"||arg=="-rr-clearance-review"))game.World.ViewDistance=4;
+            if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-workshop-followup-review"||arg=="-rr-browser-review"||arg=="-rr-creative-review"||arg=="-rr-torch-review"||arg=="-rr-industry-review"||arg=="-rr-multiblock-review"||arg=="-rr-clearance-review"))game.World.ViewDistance=4;
             yield return Settle();report.firstReadySeconds=Time.realtimeSinceStartup-began;
             var player=game.Player;var world=game.World;report.viewRadius=world.ViewDistance;report.fogStart=world.FogStart;report.fogEnd=world.FogEnd;var start=world.Address(player.transform.position);var saved=WorldPoint.FromLocal(player.transform.position,world.Origin);
+            if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-workshop-followup-review"))
+            {report.workload="Creative batteries, bank, pump power and renewal, controller orientation, rendered held-item pixels";yield return ReviewWorkshopFollowup();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-browser-review"))
             {report.workload="Item sidebar, recipe/uses navigation, machine requirements, Ctrl-click recipe placement and preserved crafting transactions";yield return ReviewRecipeBrowser();yield return ReviewCrafting();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-clearance-review"))

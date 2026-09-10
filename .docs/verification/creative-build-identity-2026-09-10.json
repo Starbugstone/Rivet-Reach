@@ -2,52 +2,70 @@
   "build": "Builds/Creative/RivetReach.exe",
   "unity": "6000.4.4f1",
   "configuration": "Windows x64 Development",
-  "baseCommit": "25838e424b6452853ed371a20e1896db5b72e3d3",
-  "sourceState": "Base commit plus task modifications; source hashes below identify the tested code.",
-  "buildResult": "SUCCESS 2026-09-10T17:31:26.6419738Z",
+  "baseCommit": "13be675",
+  "sourceState": "Task runtime source hashes and executable below identify this run. Concurrent shadow-diagnostic work was present in the shared workspace; this is not claimed as a clean whole-repository checkout. Battery domain code was unchanged after its separate recorded Editor checks.",
+  "buildResult": "SUCCESS 2026-09-10T18:31:39.6089582Z",
   "sha256": {
     "Builds/Creative/RivetReach.exe": "7d52ee70fb22771f4608d810d1015f539c37dd8b7b2fbb1a0ea9f6bc5c32d5c9",
-    "Builds/Creative/RivetReach_Data/Managed/Assembly-CSharp.dll": "aaf4961776934ed19b3faa035f5fc2ab98dbcfb22b4730aa8adf826864056309",
-    "Assets/RivetReach/Code/CreativeMode.cs": "5d737fed236dff7a12149b3f7fa962c9889ae7b2d9db98f147a7b47ab7943a78",
-    "Assets/RivetReach/Code/CreativeVerification.cs": "f06c7d292d24fa99535e9b64c83d164a7dc4bb89db2081586d5b88c6dceafe8c",
-    "Assets/RivetReach/Code/IndustryVerification.cs": "87ef895586c930fe18e828e86ee6c81166721255d983907d511e96be6daf7639",
-    "Assets/RivetReach/Code/MultiblockVerification.cs": "f782ab58337c05b1435a7d92f8eef3225df3f7313aa4420c51a65a4e0938e319",
-    "Assets/RivetReach/Code/Player/FirstPersonPlayer.cs": "160bf4acbee27e19c3245f16acb7e99a71f94849598064bc967ec4e632f9ee5b",
-    "Assets/RivetReach/Code/Player/PlayerInput.cs": "bca2e9d9c1f36289ab921399376609e214849c3dc9a12ac565221bbf55a5e34f",
-    "Assets/RivetReach/Code/SurvivalVerification.cs": "6bcf25587d1c25c9ab94de1fadfd3b8bb65c6742c7ed79e985d4f1ccbccd4a73",
-    "Assets/RivetReach/Code/UI/GameUI.cs": "e6bd0c3e43a592e6a448c3dc60d1497463c5c91519b76360bd0a4d4430244ca5",
-    "Assets/RivetReach/Code/UI/GameUIBrowser.cs": "64cbdc9e4dd7ccca24bdcee39e642c16947461287116ee69fd72e4f0753a391d",
-    "Assets/RivetReach/Editor/ProjectBuild.cs": "b0a00e94f78856bd85d6bc6b45051ca059ea9787a17bccc1200e5f5c18666a74"
+    "Builds/Creative/RivetReach_Data/Managed/Assembly-CSharp.dll": "c2417cfcc1cf7688df7b4c72f447c5335ada25d7bde3c23e7472c4dfc6c299ab",
+    "Assets/RivetReach/Code/CreativeVerification.cs": "c573923c2af478e763e578674f75abccf9a56c935444eaa574ae63add9bed174",
+    "Assets/RivetReach/Code/Expedition.cs": "924609a330726b07ab84ab05f8c20440a33f3c61747b9cf297e1cfe29fa2ebb0",
+    "Assets/RivetReach/Code/Player/HeldBlockView.cs": "6e19c80940ed4ca08ff4b0726a477df8ba0f9e57c4192cf5fa4ab0e3ded59d0c",
+    "Assets/RivetReach/Code/UI/GameUIIndustry.cs": "a1d1bbfece3c2902e0b232c37d47bbe83bd0d5db258ab78d5d5fd1b02e6ada7d",
+    "Assets/RivetReach/Code/RuntimeVerification.cs": "548f306d110049c346bcc0e548790d16f99a9b78f5481960f76d43499f159ed2",
+    "Assets/RivetReach/Code/WorkshopFollowupVerification.cs": "ddf074d7d3193ca58d2579240ce556f5ed4f3afa1d885aff63ac6a42e8b193b6",
+    "Assets/RivetReach/Resources/Materials/HeldGlass.shader": "9542381b18d34f450ffa7e7035b87805378490fdc4c792ea553f9fdbbf0d2181",
+    "Assets/RivetReach/Resources/Definitions/Items.asset": "0c32dac4495f5b028943d335e6bd2a64b1d643144f751b09fa66e41ba7f4bc5c",
+    "Assets/RivetReach/Resources/Definitions/Recipes.asset": "08cd768a61af5f71562766ae957650c0325ab83b1fa785577da37e83b7cc6ca4",
+    "Assets/RivetReach/Code/Industry/BatteryStorage.cs": "6e7caff1af75687b9ff3e3ed92023ae0bae059738d3613b9fd8e710888e91dcb",
+    "Assets/RivetReach/Code/Industry/ConnectedPipeVisuals.cs": "5107a6a57894e4d9a7136914ac599c7193171c2eb55ea6d465c0c3f495966803",
+    "Assets/RivetReach/Code/Industry/FluidStorage.cs": "af0b5fa4c2385818d2b393c0b959fbfb22eb49b52884eb3b27d169f525ddde0c",
+    "Assets/RivetReach/Code/Industry/IndustryDefinition.cs": "d9e599f67dc998df4437f98590d01329e9277937eddaff9d4363f033eb4b2104",
+    "Assets/RivetReach/Code/Industry/IndustryPresentation.cs": "0e291bf3ea88884960ad1586aecc8d4d2be103a61bf90ddd6298072f49e03adb",
+    "Assets/RivetReach/Code/Industry/IndustrySimulation.cs": "ae14989e6fb6815db53257b44e23573dde8c20a5125adc5b4587ead478b33674",
+    "Assets/RivetReach/Code/Industry/NetworkTopology.cs": "113612b4761b13bdcca7de48cc5ac37b32c18259a1dc44a1a30d71a0c88c6e55",
+    "Assets/RivetReach/Code/Industry/PipeConnections.cs": "e138655a48a1a1a25e920c92383990e32458dc876fe0b81a8eb925b3a98dbaf5",
+    "Assets/RivetReach/Code/Industry/WorldIndustry.cs": "513c139a69068d907c6db7242efc2605539cf8cdef1125fdd37e409c23c3023c",
+    "Assets/RivetReach/Code/Multiblocks/BatteryBankValidator.cs": "19d49ca799a5bea0b0895affebf590368bf0545d39496b32c0670125e4f5d6e9",
+    "Assets/RivetReach/Code/Multiblocks/CuboidTankValidator.cs": "3087a70c25f1103d216cbf0a950c07029c23d83a485c824f44153881203dc8e4",
+    "Assets/RivetReach/Code/Multiblocks/MultiblockDefinition.cs": "335c1c8e6d4b888d83b1e440919db4192cfdfc4cff2209058c1f47eff487703d",
+    "Assets/RivetReach/Code/Multiblocks/MultiblockPresentation.cs": "ce4fd9404e0a83518a58cc460988adb1e93880f3cd3712a7ee473f9c3865b2c3",
+    "Assets/RivetReach/Code/Multiblocks/MultiblockService.cs": "69421550a160e321f471d0b5ad768c8a181b01f6a952c838b4c3334feffc4465"
   },
   "runs": {
     "controls": {
-      "timestamp": "2026-09-10T17:32:10.0871830Z",
-      "assertions": 308,
+      "timestamp": "2026-09-10T18:32:23.1367771Z",
+      "assertions": 312,
       "result": "PASS"
     },
     "industry": {
-      "timestamp": "2026-09-10T17:33:02.2556039Z",
+      "timestamp": "2026-09-10T18:33:15.0574553Z",
       "assertions": 163,
       "result": "PASS"
     },
     "multiblock": {
-      "timestamp": "2026-09-10T17:33:31.2855486Z",
+      "timestamp": "2026-09-10T18:33:44.3887957Z",
       "assertions": 287,
       "result": "PASS"
     },
     "placement-items": {
-      "timestamp": "2026-09-10T17:34:12.5072352Z",
+      "timestamp": "2026-09-10T18:34:25.5409533Z",
       "assertions": 96,
       "result": "PASS"
     },
     "browser": {
-      "timestamp": "2026-09-10T17:34:34.2620690Z",
+      "timestamp": "2026-09-10T18:34:47.1618514Z",
       "assertions": 491,
       "result": "PASS"
     },
     "survival": {
-      "timestamp": "2026-09-10T17:36:08.8045017Z",
+      "timestamp": "2026-09-10T18:36:20.9465515Z",
       "assertions": 86,
+      "result": "PASS"
+    },
+    "workshop-followup": {
+      "timestamp": "2026-09-10T18:37:56.7819775Z",
+      "assertions": 471,
       "result": "PASS"
     }
   }

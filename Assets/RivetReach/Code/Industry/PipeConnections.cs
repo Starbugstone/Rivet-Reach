@@ -14,6 +14,7 @@ namespace RivetReach
         public static bool Matches(int a,int b,int face)=>(a&(1<<face))!=0&&(b&(1<<(face^1)))!=0;
         public static IEnumerable<MachinePort> Ports(MachineState m)
         {
+            if(IndustryId.BatteryPart(m.Definition.Id)&&BatteryPower.Cells(m).Count==0)yield break;
             foreach(var p in m.Definition.Ports)
             {
                 if(IndustryId.TankPart(m.Definition.Id))

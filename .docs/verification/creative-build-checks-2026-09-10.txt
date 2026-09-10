@@ -1,19 +1,19 @@
 build-summary:
-Succeeded; errors 0; warnings 0; seconds 15,4776157; bytes 291158218
+Succeeded; errors 0; warnings 1; seconds 15,4701184; bytes 292202090
 
 domain-checks:
-PASS: 92348 assertions. Signed coordinates, precision, deterministic terrain/halos, mesh winding/greedy occlusion, inventory overflow/split/transfer, 10,000 randomized stack operations, grass drops and deterministic light-gated random ticks; deterministic trees, axe capabilities, upward felling and leaf decay; ore bands, hosts, worker determinism, signed/distant halos and bedrock.
+PASS: 92350 assertions. Signed coordinates, precision, deterministic terrain/halos, mesh winding/greedy occlusion, inventory overflow/split/transfer, 10,000 randomized stack operations, grass drops and deterministic light-gated random ticks; deterministic trees, axe capabilities, upward felling and leaf decay; ore bands, hosts, worker determinism, signed/distant halos and bedrock.
 
 crafting-checks:
-PASS: 1158808 crafting assertions. UTC 2026-09-10T17:31:09.8802771Z; Unity 6000.4.4f1; Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
-10 recipes; compile 0,082 ms; 4x4 hit 0,605 us, miss 0,586 us; 100000 iterations each; 0 bytes per loop after warmup.
-1000 recipes; compile 1,763 ms; 4x4 hit 0,583 us, miss 0,589 us; 100000 iterations each; 0 bytes per loop after warmup.
-10000 recipes; compile 18,430 ms; 4x4 hit 0,585 us, miss 0,589 us; 100000 iterations each; 0 bytes per loop after warmup.
-Cached preview: 4,228 ms / 1,000,000 reads, 0 bytes. Editor Mono, isolated synchronous workload; not whole-game frame timings.
+PASS: 1158852 crafting assertions. UTC 2026-09-10T18:31:22.9879929Z; Unity 6000.4.4f1; Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
+10 recipes; compile 0,087 ms; 4x4 hit 0,582 us, miss 0,582 us; 100000 iterations each; 0 bytes per loop after warmup.
+1000 recipes; compile 6,928 ms; 4x4 hit 0,596 us, miss 0,620 us; 100000 iterations each; 0 bytes per loop after warmup.
+10000 recipes; compile 19,146 ms; 4x4 hit 0,605 us, miss 0,612 us; 100000 iterations each; 0 bytes per loop after warmup.
+Cached preview: 4,343 ms / 1,000,000 reads, 0 bytes. Editor Mono, isolated synchronous workload; not whole-game frame timings.
 
 survival-checks:
-PASS: 47316 assertions. 89 crafting recipes, 11 furnace recipes; bootstrap graph, tier gates, furnace boundaries/filters/conservation/time partition equivalence, hunger, health, equipment.
-1000 active furnaces × 200 one-tick advances: 34,352 ms total; 0 managed bytes in measured loop.
+PASS: 47318 assertions. 91 crafting recipes, 11 furnace recipes; bootstrap graph, tier gates, furnace boundaries/filters/conservation/time partition equivalence, hunger, health, equipment.
+1000 active furnaces × 200 one-tick advances: 31,297 ms total; 0 managed bytes in measured loop.
 
 starter-recipe-checks:
 PASS: 1862 independent recipe acceptance checks; all 55 active layouts and output quantities.
@@ -75,13 +75,64 @@ Diamond block × 1 | MMM/MMM/MMM | M=Diamond; S=Stick | min 3×3
 Diamond × 9 | M | M=Diamond block; S=Stick | min 2×2
 
 multiblock-checks:
+PASS 3³ tank forms from 26 real shell members at 250 L
+PASS Formation obeys independent hard cell budget
+PASS Deposit exact water quantity
+PASS Nonempty controller dismantle requires draining
+PASS Edit invalidates immediately, before the next transfer phase
+PASS Breach retains all emergency-contained contents
+PASS Repair reforms same storage without duplicating contents
+PASS Interior obstruction invalidates a formed tank
+PASS World source inside cannot be captured as stored fluid
+PASS Removing interior obstruction restores tank
+PASS Glass roof rejected
+PASS Two controllers cannot claim one cavity
+PASS Removing extra controller permits formation
+PASS Inward controller orientation rejected
+PASS Correct orientation restores structure
+PASS Residency invalidates immediately
+PASS Unready interior sleeps without losing storage
+PASS Reload restores same structure identity
+PASS Independent dimensions 5×4×8 form with volume-based 9,000 L
+PASS Touching tanks remain separate instances
+PASS Validator rejects another owner's claim
+PASS Hard scanner budget fails safely even for a legal shape
+PASS Configured 9³ maximum forms
+9³ formation plus topology: 0,861 ms; reads 729
+PASS 10-block dimension is bounded and rejected
+PASS Undersized repair retains excess fluid and explains failure
+PASS Draining excess allows smaller tank to form
+PASS Empty controller can be dismantled
+PASS Dismantling releases membership and controller
+PASS Two ports in different graphs drain one authoritative tank conservatively
+PASS Two ports cannot overdraw final 100 mL
+PASS Breached storage cannot transfer through stale graphs
+PASS Explicit breached-controller outlet recovers sub-bucket remainder exactly
+PASS Inputs in separate graphs reserve one shared final 50 mL of capacity
+PASS Expansion to 5×4×5 preserves controller identity and contents
+PASS Conflicting fluid identities in one pipe component stop before withdrawal and expose a fault
+PASS Generic storage rejects wrong identity before mutation
+PASS Zero clears identity and full storage rejects overflow
+PASS Capacity and withdrawal cannot discard or create liquid
+PASS Ordinary pipe has one channel: 146
+PASS Same pipe connection rules isolate vertical power and horizontal signal: 146
+PASS Control additions do not connect transport to cables: 146
+PASS One physical pipe exposes three independent channel vertices: 146
+PASS Ordinary pipe has one channel: 147
+PASS Same pipe connection rules isolate vertical power and horizontal signal: 147
+PASS Control additions do not connect transport to cables: 147
+PASS One physical pipe exposes three independent channel vertices: 147
+PASS Shared lifecycle accepts a different validator and non-fluid machine data
+PASS Generic dismantle consults machine data without assuming a tank
 Assertions: 48
 
 industry-checks:
-Assertions: 320
+Assertions: 324
+Full log: Logs/industry-checks.txt
 
 connected-pipe-checks:
-PASS 4736 assertions
+PASS Rotated 147 discovers the real six-face transport and independent channel mask 63
+Full log: Logs/connected-pipe-checks.txt
 
 creative-transfer-checks:
-PASS 636 recipe transfer assertions
+PASS 644 recipe transfer assertions

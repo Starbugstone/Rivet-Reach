@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace RivetReach
 {
-    public enum MultiblockRole { None, Frame, Wall, Glass, Controller, FluidPort, Hatch, Valve, Sensor }
+    public enum MultiblockRole { None, Frame, Wall, Glass, Controller, FluidPort, Hatch, Valve, Sensor, Battery }
     public enum MultiblockState { Pending, Formed, Invalid, Waiting }
     public readonly struct StructureBounds
     {
@@ -43,6 +43,7 @@ namespace RivetReach
             StableId=id;MaxDimension=maxDimension;CellBudget=cellBudget;Parts=parts;Validator=validator;CreateMachine=createMachine;
         }
         public MultiblockRole Role(byte id)=>Parts.TryGetValue(id,out var role)?role:MultiblockRole.None;
+        public static readonly MultiblockDefinition BatteryBank=new MultiblockDefinition("rivet:battery_bank",5,1024,new Dictionary<byte,MultiblockRole>{{IndustryId.Battery,MultiblockRole.Battery},{IndustryId.BatteryController,MultiblockRole.Controller}},new BatteryBankValidator(),()=>new BatteryBankData());
         public static readonly MultiblockDefinition Tank=new MultiblockDefinition("rivet:rectangular_tank",9,4096,new Dictionary<byte,MultiblockRole>{
             {IndustryId.TankFrame,MultiblockRole.Frame},{IndustryId.TankWall,MultiblockRole.Wall},{IndustryId.TankGlass,MultiblockRole.Glass},
             {IndustryId.TankController,MultiblockRole.Controller},{IndustryId.TankPort,MultiblockRole.FluidPort},{IndustryId.TankHatch,MultiblockRole.Hatch},

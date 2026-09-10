@@ -38,6 +38,8 @@ namespace RivetReach.Editor
             command=command.Replace("|ready","");File.Delete(request);
             try
             {
+                if(command=="battery-build"||command=="battery-checks")
+                {IndustryAssets.Prepare();BatteryChecks.Run();MultiblockChecks.Run();IndustryChecks.Run();DomainChecks.Run();FluidChecks.Run();ConnectedPipeChecks.Run();if(command=="battery-build")Build("Creative");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="multiblock-player")
                 {Build("Multiblocks");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="multiblock-logic")
@@ -53,7 +55,7 @@ namespace RivetReach.Editor
                 if(command=="torch-build")
                 {TorchAssets.Prepare();DomainChecks.Run();FluidChecks.Run();Build("Torches");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="creative-build")
-                {DomainChecks.Run();MultiblockChecks.Run();IndustryChecks.Run();ConnectedPipeChecks.Run();File.WriteAllText("Logs/creative-transfer-checks.txt","PASS "+RecipeTransferChecks.Run(ItemRegistry.Load(),RecipeCatalogAsset.Load().Compile(ItemRegistry.Load()))+" recipe transfer assertions");Build("Creative");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
+                {DomainChecks.Run();MultiblockChecks.Run();IndustryChecks.Run();BatteryChecks.Run();ConnectedPipeChecks.Run();File.WriteAllText("Logs/creative-transfer-checks.txt","PASS "+RecipeTransferChecks.Run(ItemRegistry.Load(),RecipeCatalogAsset.Load().Compile(ItemRegistry.Load()))+" recipe transfer assertions");Build("Creative");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="fluid-checks")
                 {FluidChecks.Run();File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="craft-checks")

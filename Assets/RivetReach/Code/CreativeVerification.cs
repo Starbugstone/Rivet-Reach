@@ -58,10 +58,14 @@ namespace RivetReach
                 game.Inventory.Click(0,ref transfer,false);game.Inventory.Click(slot,ref transfer,false);slot=0;
             }
             game.Selected=slot;
-            var support=cell.Offset(0,-1,0);bool scaffold=world.Get(support)==0;
+            var support=cell.Offset(0,-1,0);
+            // A ray passes through water to the basin floor. Use an overhead support
+            // when testing placement ABOVE water, preserving the intake source.
+            if(Fluids.IsFluid(world.Get(support)))support=cell.Offset(0,1,0);
+            bool scaffold=world.Get(support)==0;
             if(scaffold)Check(world.Place(support,BlockId.Stone),"Temporary building support");
             player.transform.position=world.Local(cell)+new Vector3(2.5f,0,.5f);
-            player.transform.rotation=Quaternion.Euler(0,180,0);
+            player.transform.rotation=Quaternion.identity;
             player.Camera.transform.position=world.Local(cell)+new Vector3(.5f,.8f,.5f);
             player.Camera.transform.LookAt(world.Local(support)+new Vector3(.5f,.5f,.5f));
             int count=game.Inventory.Slots[slot].Count;

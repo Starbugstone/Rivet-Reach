@@ -59,6 +59,8 @@ namespace RivetReach.Editor
             Recipe(IndustryId.TankHatch,1,4,(IndustryId.TankWall,1),(IndustryId.CopperPlate,2));
             Recipe(IndustryId.TankValve,1,4,(IndustryId.TankPort,1),(IndustryId.SignalConduit,1));
             Recipe(IndustryId.TankSensor,1,4,(IndustryId.TankWall,1),(IndustryId.SignalWire,1),(IndustryId.Glass,1));
+            Recipe(IndustryId.Battery,1,4,(IndustryId.Casing,1),(IndustryId.CopperPlate,2),(IndustryId.CopperWire,4),(BlockId.Coal,2));
+            Recipe(IndustryId.BatteryController,1,4,(IndustryId.Casing,1),(IndustryId.CopperWire,4),(IndustryId.AzureCrystal,1),(IndustryId.Glass,1));
             var processing=ProcessingCatalogAsset.Load();
             foreach(var pair in new[]{(IndustryId.AzureOre,IndustryId.AzureCrystal),(BlockId.Sand,IndustryId.Glass),(IndustryId.CrushedCopper,BlockId.CopperIngot),(IndustryId.CrushedIron,BlockId.IronIngot),(IndustryId.CrushedGold,BlockId.GoldIngot)})
             {

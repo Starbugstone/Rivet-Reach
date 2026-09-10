@@ -54,7 +54,7 @@ namespace RivetReach
         Material cardMaterial,torchMaterial,waterMaterial;
         Texture2D cardIcon;
         MeshFilter filter;
-        Material material,toolMaterial,axeMaterial;
+        Material material,toolMaterial,axeMaterial,industryMaterial,industryGlass;
         Vector3 bladeAxis,handleAxis;
         public Vector3 AxeBladeForward=>axe==null?Vector3.zero:axe.transform.TransformVector(bladeAxis).normalized;
         readonly Dictionary<byte,Mesh> meshes=new Dictionary<byte,Mesh>();
@@ -69,6 +69,8 @@ namespace RivetReach
             toolMaterial=new Material(Shader.Find("RivetReach/HeldTool"));toolMaterial.SetTexture("_BaseMap",Resources.Load<Texture2D>("Characters/SkinField"));
             axeMaterial=new Material(Shader.Find("RivetReach/HeldTool"));axeMaterial.SetTexture("_BaseMap",Resources.Load<Texture2D>("Tools/StarterAxe"));
             axeMaterial.SetFloat("_AxePalette",1);
+            industryMaterial=new Material(Shader.Find("RivetReach/HeldTool"));industryMaterial.SetTexture("_BaseMap",Resources.Load<Texture2D>("Industry/Atlas"));
+            industryGlass=new Material(Shader.Find("RivetReach/HeldGlass"));industryGlass.SetColor("_BaseColor",new Color(.37f,.68f,.76f,.22f));
             view.SetActive(false);
         }
         GameObject Tool(string path)
@@ -85,12 +87,19 @@ namespace RivetReach
             {
                 ItemId=id;
                 if(industryItem!=null){Destroy(industryItem);industryItem=null;}
-                if(id>=IndustryId.AzureOre&&id<=IndustryId.CrushedGold)
+                if(IndustryDefinition.All.TryGetValue(id,out var assembly))
                 {
-                    var prefab=Resources.Load<GameObject>("Industry/Runtime/"+game.Registry.Get(id).stableId.Substring(6));
-                    if(prefab!=null){industryItem=Instantiate(prefab,block.transform,false);industryItem.transform.localPosition=-Vector3.one*.5f;foreach(var r in industryItem.GetComponentsInChildren<Renderer>()){r.sharedMaterial=Resources.Load<Material>("Industry/Workshop");r.shadowCastingMode=ShadowCastingMode.Off;}}
+                    var prefab=Resources.Load<GameObject>("Industry/Runtime/"+assembly.Key);
+                    if(prefab!=null)
+                    {
+                        industryItem=ConnectedPipeVisuals.UsesConnectedMesh(id)?ConnectedPipeVisuals.Create(assembly.Key,block.transform):Instantiate(prefab,block.transform,false);
+                        industryItem.transform.localRotation=Quaternion.Euler(0,180,0);
+                        industryItem.transform.localPosition=-(industryItem.transform.localRotation*(Vector3.one*.5f));
+                        foreach(var r in industryItem.GetComponentsInChildren<Renderer>())
+                        {r.sharedMaterial=r.name.StartsWith("Glass")?industryGlass:industryMaterial;r.shadowCastingMode=ShadowCastingMode.Off;}
+                    }
                 }
-                if(id!=BlockId.Torch&&(BlockId.Placeable(id)||BlockId.RawMaterial(id)))
+                if(industryItem==null&&id!=BlockId.Torch&&(BlockId.Placeable(id)||BlockId.RawMaterial(id)))
                 {
                     if(!meshes.TryGetValue(id,out var mesh))
                     {
@@ -178,6 +187,7 @@ namespace RivetReach
             if(sword!=null)sword.SetActive(grip==GripPose.Tool&&!isTorch&&!useAxe&&!useShovel&&!useHoe);if(pickaxe!=null)pickaxe.SetActive(grip==GripPose.TwoHandTool);
             float firstPerson=Player.Inspecting?0:1;
             material.SetFloat("_FirstPerson",firstPerson);toolMaterial.SetFloat("_FirstPerson",firstPerson);axeMaterial.SetFloat("_FirstPerson",firstPerson);
+            industryMaterial.SetFloat("_FirstPerson",firstPerson);industryGlass.SetFloat("_FirstPerson",firstPerson);
             if(waterMaterial!=null)waterMaterial.SetFloat("_FirstPerson",firstPerson);
             if(torchMaterial!=null)torchMaterial.SetFloat("_FirstPerson",firstPerson);
             if(cardMaterial!=null)cardMaterial.SetFloat("_FirstPerson",firstPerson);
@@ -189,6 +199,6 @@ namespace RivetReach
             arm.localRotation=Quaternion.Euler(12*amount,0,-6*amount);
             arm.localPosition+=new Vector3(.025f,-.52f,.08f)*amount*arm.localScale.x;
         }
-        void OnDestroy(){if(view!=null)Destroy(view);if(material!=null)Destroy(material);if(toolMaterial!=null)Destroy(toolMaterial);if(axeMaterial!=null)Destroy(axeMaterial);if(torchMaterial!=null)Destroy(torchMaterial);if(waterMaterial!=null)Destroy(waterMaterial);if(cardMaterial!=null)Destroy(cardMaterial);if(cardIcon!=null)Destroy(cardIcon);foreach(var mesh in meshes.Values)Destroy(mesh);}
+        void OnDestroy(){if(industryMaterial!=null)Destroy(industryMaterial);if(industryGlass!=null)Destroy(industryGlass);if(view!=null)Destroy(view);if(material!=null)Destroy(material);if(toolMaterial!=null)Destroy(toolMaterial);if(axeMaterial!=null)Destroy(axeMaterial);if(torchMaterial!=null)Destroy(torchMaterial);if(waterMaterial!=null)Destroy(waterMaterial);if(cardMaterial!=null)Destroy(cardMaterial);if(cardIcon!=null)Destroy(cardIcon);foreach(var mesh in meshes.Values)Destroy(mesh);}
     }
 }

@@ -20,7 +20,7 @@ namespace RivetReach
         {if(controllers.TryGetValue(p,out var c))return c;if(claims.TryGetValue(p,out c))return c;return null;}
         public void Register(MachineState m,MultiblockDefinition definition)
         {var instance=new MultiblockInstance(WorldId,definition,m);controllers.Add(m.Position,instance);m.Structure=instance;Watch(instance,true);Request(instance);}
-        public bool CanRemove(BlockPos p)=>!controllers.TryGetValue(p,out var c)||c.MachineData.CanDismantle;
+        public bool CanRemove(BlockPos p)=>(simulation.At(p)?.EnergyCells.Length!=1||simulation.At(p).EnergyCells[0].Amount==0)&&(!controllers.TryGetValue(p,out var c)||c.MachineData.CanDismantle);
         void Release(MultiblockInstance c)
         {
             foreach(var p in c.Validation.Members.Keys)
@@ -75,6 +75,8 @@ namespace RivetReach
                 c.State=result.Valid?MultiblockState.Formed:result.Waiting?MultiblockState.Waiting:MultiblockState.Invalid;
                 // An invalid candidate never claims members. Recovery always remains available at its controller.
                 if(c.Formed){c.LastFormed=result;foreach(var p in result.Members.Keys){claims[p]=c;var m=simulation.At(p);if(m!=null)m.Structure=c;}}
+                if(c.MachineData is BatteryBankData bank)
+                {bank.Cells.Clear();if(c.Formed){var positions=new List<BlockPos>(result.Members.Keys);positions.Sort((a,b)=>{int n=a.X.CompareTo(b.X);if(n!=0)return n;n=a.Y.CompareTo(b.Y);return n!=0?n:a.Z.CompareTo(b.Z);});foreach(var p in positions){var cell=simulation.At(p);if(cell?.EnergyCells.Length==1)bank.Cells.Add(cell.EnergyCells[0]);}}}
                 c.Controller.Structure=c;c.Revision++;simulation.Invalidate();return;
             }
         }

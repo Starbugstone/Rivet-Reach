@@ -22,6 +22,8 @@ The user subsequently authorized [issue #2 industry](.docs/INDUSTRY.md): Azure r
 
 The user subsequently authorized [issue #3 multiblocks](.docs/MULTIBLOCKS.md): reusable validation/lifecycle, scalable hollow tanks, exact shared fluid storage, individually mineable connected Blender shells, signal valves/level sensors, and independent power/signal fittings on both item and fluid pipes. Preserve breach recovery and drain-first controller removal. [Multiblock verification](.docs/verification/MULTIBLOCK_RESULTS.md) distinguishes measured checks from review. Session chunk residency is supported; whole-world durable saves remain later scope.
 
+The user subsequently authorized [batteries and battery banks](.docs/BATTERIES.md): initially empty electrical storage, surplus charging, demand-driven discharge and solid rectangular packs using the shared multiblock lifecycle. Preserve exact per-cell energy through formation, repair and controller removal. [Player wiki sources](.docs/wiki/Home.md) are maintained here and published to the GitHub wiki with `Tools/publish_wiki.py`.
+
 ## Licensing and ownership
 
 - Rivet Reach is **proprietary, all rights reserved, and not open source**. Read `LICENSE.md` before introducing code, assets, dependencies or contribution workflows.

@@ -139,6 +139,10 @@ The user selected implementation of [GitHub issue #2](https://github.com/Starbug
 
 The user selected [issue #3](https://github.com/Starbugstone/Rivet-Reach/issues/3): reusable multiblock lifecycle, player-built liquid tanks, connected Blender shell surfaces and shared pipe connections. [MULTIBLOCKS.md](MULTIBLOCKS.md) owns construction, exact shared storage, breach/resize recovery, signal valves/level sensors and independent signal/power fittings on both item and fluid pipes. This supersedes earlier exclusions of those specific hybrid channels and tank controls. [Verification](verification/MULTIBLOCK_RESULTS.md) records the measured build and remaining review. Whole-world durable saves remain later scope.
 
+## Held industrial items and battery kit — 2026-09-10
+
+Held assemblies resolve through `IndustryDefinition.All`, including tank parts and batteries. They use the first-person depth convention shared by hands and tools; glass uses a separate transparent held shader. Connected pipes select one authored connection mesh, not all 64 masks in their export family. [Workshop follow-up evidence](verification/WORKSHOP_FOLLOWUP_RESULTS.md) checks actual item contribution to the player framebuffer rather than treating an active empty object as visible. The battery kit uses the existing original Workshop atlas; [BATTERIES.md](BATTERIES.md) owns source paths, current dimensions and gameplay rules.
+
 ## Stable ambient occlusion — 2026-09-10
 
 The PC renderer uses Interleaved Gradient SSAO sampling to keep stationary terrain and tree contact shading stable. Preserve the authored AO intensity/radius and directional shadow quality when adjusting it. The native [shadow stability check](verification/SHADOW_RESULTS.md) records the Blue Noise comparison, temporary fixture controls and remaining limits; Editor test defines can mask Blue Noise animation.

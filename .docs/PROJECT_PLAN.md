@@ -1623,3 +1623,7 @@ The user selected implementation of [GitHub issue #2](https://github.com/Starbug
 ## Authorized multiblock and pipe extension — 2026-09-10
 
 The user selected [issue #3](https://github.com/Starbugstone/Rivet-Reach/issues/3): reusable multiblock lifecycle, player-built liquid tanks, connected Blender shell surfaces and shared pipe connections. [MULTIBLOCKS.md](MULTIBLOCKS.md) owns construction, exact shared storage, breach/resize recovery, signal valves/level sensors and independent signal/power fittings on both item and fluid pipes. This supersedes earlier exclusions of those specific hybrid channels and tank controls. [Verification](verification/MULTIBLOCK_RESULTS.md) records the measured build and remaining review. Whole-world durable saves remain later scope.
+
+## Authorized electrical storage — 2026-09-10
+
+The user requested standalone battery blocks and a battery-bank multiblock. [BATTERIES.md](BATTERIES.md) owns the solid-pack construction, exact per-cell storage, electrical allocation and dismantling rules. [The player wiki guide](wiki/Home.md) explains tanks, pump intake height, power and signal connections. [Workshop follow-up verification](verification/WORKSHOP_FOLLOWUP_RESULTS.md) records measured evidence.

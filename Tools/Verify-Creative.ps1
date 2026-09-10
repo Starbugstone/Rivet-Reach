@@ -28,13 +28,13 @@ if ($process.ExitCode -ne 0 -or (Get-Content -Raw $report | ConvertFrom-Json).re
 
 if ($FullRun) {
     # All scenarios use the exact player just checked above. Workshop fixtures opt into Creative.
-    foreach ($scenario in @('industry','multiblock','placement-items','browser','survival')) {
+    foreach ($scenario in @('industry','multiblock','placement-items','browser','survival','workshop-followup')) {
         $scenarioOutput = Join-Path $OutputDirectory $scenario
         New-Item -ItemType Directory -Force $scenarioOutput | Out-Null
         $scenarioReport = Join-Path $scenarioOutput 'runtime-report.json'
         if (Test-Path $scenarioReport) { Remove-Item $scenarioReport }
         $arguments = @('-screen-fullscreen','0','-screen-width','1280','-screen-height','720','-rr-verify',('-rr-'+$scenario+'-review'),'-rr-output',('"'+$scenarioOutput+'"'),'-logFile',('"'+(Join-Path $scenarioOutput 'player.log')+'"'))
-        if ($scenario -in @('industry','multiblock')) { $arguments += '-rr-creative-workshop' }
+        if ($scenario -in @('industry','multiblock','workshop-followup')) { $arguments += '-rr-creative-workshop' }
         $process = Start-Process -FilePath $executable -ArgumentList $arguments -PassThru
         if (!$process.WaitForExit(900000)) { throw "$scenario exceeded fifteen minutes; player preserved for diagnosis." }
         if (!(Test-Path $scenarioReport)) { throw "No $scenario report; inspect player.log." }

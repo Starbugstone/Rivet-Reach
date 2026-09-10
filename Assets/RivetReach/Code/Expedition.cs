@@ -222,7 +222,7 @@ namespace RivetReach
                 if(!World.Raycast(Player.Camera.transform.position,Player.Camera.transform.forward,5,out var support,out _)||!World.PlaceTorch(cell,support))return false;
             }
             else if(!World.Place(cell,selected.Id))return false;
-            if(IndustryId.Placed(selected.Id)){var machine=Industry.Simulation.At(cell);machine.Rotation=((Mathf.RoundToInt(Player.transform.eulerAngles.y/90)+2)%4);Industry.Simulation.Invalidate();}
+            if(IndustryId.Placed(selected.Id)){var machine=Industry.Simulation.At(cell);machine.Rotation=(Mathf.RoundToInt(Player.transform.eulerAngles.y/90)%4);Industry.Simulation.Invalidate();}
             if(!Creative)Inventory.Take(Selected,1);Sound.Place(selected.Id,World.Local(cell)+Vector3.one*.5f);ArcadePresentation.Active?.Place(World.Local(cell)+Vector3.one*.5f,selected.Id);PlacementDiagnostic="Placed "+Registry.Get(selected.Id).displayName;Notify(PlacementDiagnostic,1);return true;
         }
         public bool TryUseBucket()

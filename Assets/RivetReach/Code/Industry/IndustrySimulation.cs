@@ -34,7 +34,7 @@ namespace RivetReach
         public MachineState At(BlockPos p)=>machines.TryGetValue(p,out var m)?m:null;
         public void Invalidate(){dirty=true;signalsDirty=true;Revision++;}
         public MachineState Add(BlockPos p,byte id)
-        {if(machines.ContainsKey(p))throw new InvalidOperationException("Occupied machine anchor");var m=new MachineState(p,id,limit);machines.Add(p,m);if(id==IndustryId.TankController)Multiblocks.Register(m,MultiblockDefinition.Tank);Multiblocks.Changed(p);Invalidate();return m;}
+        {if(machines.ContainsKey(p))throw new InvalidOperationException("Occupied machine anchor");var m=new MachineState(p,id,limit);machines.Add(p,m);if(id==IndustryId.TankController)Multiblocks.Register(m,MultiblockDefinition.Tank);if(id==IndustryId.BatteryController)Multiblocks.Register(m,MultiblockDefinition.BatteryBank);Multiblocks.Changed(p);Invalidate();return m;}
         public MachineState Remove(BlockPos p)
         {var m=At(p);if(m!=null){if(!Multiblocks.CanRemove(p))return null;Multiblocks.RemoveController(p);machines.Remove(p);Multiblocks.Changed(p);Invalidate();}return m;}
         public void Rotate(MachineState m){m.Rotation=(m.Rotation+1)%4;Multiblocks.Changed(m.Position);Invalidate();}
@@ -58,7 +58,8 @@ namespace RivetReach
             }
             foreach(var m in devices)
             {
-                m.RequestedWatts=m.ReceivedWatts=m.SupplyWatts=0;
+                m.RequestedWatts=m.ReceivedWatts=m.SupplyWatts=m.BatteryWatts=0;
+                if(IndustryId.BatteryPart(m.Definition.Id))m.Status=m.Definition.Id==IndustryId.BatteryController&&m.Structure?.Formed!=true?MachineStatus.StructureInvalid:MachineStatus.Ready;
                 if(m.Definition.Id==IndustryId.Relay&&m.Source!=m.NextSource){m.Source=m.NextSource;signalsDirty=true;}
                 if(IndustryId.TankPart(m.Definition.Id))
                 {
@@ -87,6 +88,7 @@ namespace RivetReach
                 Prepare(m);
             }
             Power.Allocate(Tick);
+            foreach(var m in devices)if(IndustryId.BatteryPart(m.Definition.Id)&&m.BatteryWatts!=0)m.Status=MachineStatus.Running;
             // Transfers precede processing: new products cannot be forwarded in their producing tick.
             TransferItems();TransferFluids();
             foreach(var m in devices)Advance(m);

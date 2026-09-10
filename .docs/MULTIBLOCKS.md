@@ -66,3 +66,7 @@ The user's [component sheet](concepts/multiblock/tank-concept.png), [constructio
 Pipe bodies and their channel leads are authored separately by [create_connected_pipes.py](../Tools/create_connected_pipes.py); [industry](INDUSTRY.md#connected-pipe-presentation) owns their shape and connection rules.
 
 Formed views select outward faces, activate the frame’s authored sealing skins and suppress shared borders between matching neighboring panels. Loose frames retain their open construction appearance. Selected Blender meshes are combined and cached by surface configuration, retaining individual per-cell views for mining. Glass has its own shared transparent material; metal retains the industrial atlas. The fluid is one presentation-only volume with a horizontal top surface, scaled from quantity and colored by `FluidDefinition`. Internal world cells remain air. Views follow floating origins and are culled beyond 64 m. Reported source/import triangle counts are distinct from the smaller formed meshes; rendering quality and performance depend on the measured scene in the verification report.
+
+## Authorized electrical storage — 2026-09-10
+
+The user requested standalone battery blocks and a battery-bank multiblock. [BATTERIES.md](BATTERIES.md) owns the solid-pack construction, exact per-cell storage, electrical allocation and dismantling rules. [The player wiki guide](wiki/Home.md) explains tanks, pump intake height, power and signal connections. [Workshop follow-up verification](verification/WORKSHOP_FOLLOWUP_RESULTS.md) records measured evidence.
