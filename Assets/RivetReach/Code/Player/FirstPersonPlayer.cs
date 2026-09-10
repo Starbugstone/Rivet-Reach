@@ -135,7 +135,10 @@ namespace RivetReach
                 bool swing=control&&(Game.Input.Mine||VerificationMining)&&!Game.Input.Place;
                 var held=Game.Inventory.Slots[Game.Selected];byte heldId=held.Empty?(byte)0:held.Id;
                 if(heldId!=previousHeld){Game.Sound.Equip();previousHeld=heldId;}
+                HeldBlock.PrepareFrame(dt);
                 var grip=HeldBlock.DesiredGrip;Body.SetGrip(grip);Arms.SetGrip(grip);
+                bool guard=control&&Game.Input.Place&&(Game.Registry.Capabilities(held)&ToolCapability.Blade)!=0;
+                Body.SetGuard(guard);Arms.SetGuard(guard);
                 Body.Animate(motion,swing,phase,Grounded,speed>5,Height<1.5f,input,impact);
                 Arms.Animate(motion,swing,phase,Grounded,speed>5,Height<1.5f,input,impact);
                 audibleSwing=swing;
@@ -211,16 +214,17 @@ namespace RivetReach
             if(Game.Input.Place)
             {
                 MiningProgress=0;
-                if(Fluids.IsBucket(heldId)){if(Game.Input.PlacePressed&&Game.TryUseBucket())Arms.TriggerSwing();return;}
+                if(Fluids.IsBucket(heldId)){if(Game.Input.PlacePressed&&Game.TryUseBucket()){Arms.TriggerSwing();Body.TriggerSwing();}return;}
                 if(found&&(BlockId.Station(id)||IndustryId.Placed(id))&&!Game.Input.Held("Crouch"))
                 {eating=0;eatingItem=0;if(Game.Input.PlacePressed)Game.TryInteractTarget();return;}
+                if((tool&ToolCapability.Blade)!=0){eating=0;eatingItem=0;return;}
                 if(found&&(tool&ToolCapability.Hoe)!=0&&(id==BlockId.Grass||id==BlockId.Dirt))
                 {
-                    if(Time.time>=nextPlace&&Game.World.Till(pos)){nextPlace=Time.time+.22f;Arms.TriggerSwing();if(!Game.Creative)Game.Hunger.Exert(.05);}
+                    if(Time.time>=nextPlace&&Game.World.Till(pos)){nextPlace=Time.time+.22f;Arms.TriggerSwing();Body.TriggerSwing();if(!Game.Creative)Game.Hunger.Exert(.05);}
                     return;
                 }
                 if(found&&id==BlockId.Farmland&&selected.Id==BlockId.Potato)
-                {if(Game.World.Plant(pos.Offset(0,1,0))){if(!Game.Creative)Game.Inventory.Take(Game.Selected,1);Arms.TriggerSwing();}return;}
+                {if(Game.World.Plant(pos.Offset(0,1,0))){if(!Game.Creative)Game.Inventory.Take(Game.Selected,1);Arms.TriggerSwing();Body.TriggerSwing();}return;}
                 int food=selected.Empty?0:Game.Registry.Get(selected.Id).foodPoints;
                 if(food>0&&!Game.Creative)
                 {

@@ -94,6 +94,10 @@ The dedicated torch review executable is **`Builds/Torches/RivetReach.exe`**. `T
 
 Run `Builds/Multiblocks/RivetReach.exe` for the current industrial review. [Industry](INDUSTRY.md) owns progression, recipes, machine interfaces, port directions and power/signal rules. Interact / mouse Use opens machines; levers toggle and buttons pulse. Machines rotate through their interface. The Machinist’s Bench opens 4×4 crafting. Creative’s existing catalog includes every new component for session testing. [Verification](verification/INDUSTRY_RESULTS.md) distinguishes measured evidence from remaining review.
 
+## Avatar rework review
+
+The 2026-09-10 [avatar rework](AVATAR_REWORK.md) is available in `Builds/AvatarRework/RivetReach.exe`. Run `Tools/Build-AvatarRework.ps1` to build with the pinned Editor; use `Tools/Verify-AvatarRework.ps1` and its `-Gameplay` option for the focused checks. Existing movement, inventory, appearance and Creative controls apply. Tools rest horizontally below the aim point, rise vertically to attack, and return after recovery. Hold the bound Use button with a blade for its vertical guard stance. [Evidence and limits](verification/AVATAR_REWORK_RESULTS.md) include both skins, held tools and selection transitions.
+
 
 ## Multiblock tanks and pipe fittings
 

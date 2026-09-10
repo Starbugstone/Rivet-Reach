@@ -28,6 +28,8 @@ This is an early playable increment. Progress survives chunk unloading during a 
 
 [Industrial verification](.docs/verification/INDUSTRY_RESULTS.md) includes in-game screenshots, a gameplay clip and measured limits.
 
+The [avatar rework](.docs/AVATAR_REWORK.md) updates both explorers, fitted fingerless gloves, tool grips and animations, and held equipment. Try `Builds/AvatarRework/RivetReach.exe`; [source and Unity evidence](.docs/verification/AVATAR_REWORK_RESULTS.md) records the checks and remaining visual review.
+
 ## License and ownership
 
 **Rivet Reach is proprietary and is not an open-source project.** Copyright © 2026 Starbugstone. All rights reserved.

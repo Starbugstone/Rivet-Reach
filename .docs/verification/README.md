@@ -14,7 +14,8 @@ This directory maintains the latest report and useful evidence for each feature.
 | Biomes, caves and streaming | [Terrain verification](TERRAIN_GENERATION_RESULTS.md) |
 | Creatures and combat | [Mob verification](MOB_RESULTS.md), plus the current [beetle wall-climbing extension](BEETLE_WALL_CLIMB_RESULTS.md) |
 | Sun, moon and time | [Day/night verification](DAY_NIGHT_RESULTS.md) |
-| Player model, hands, animation, Editor startup and audio | [Player and audio verification](HIFI_PLAYER_AND_AUDIO_RESULTS.md) |
+| Player model, hands, held equipment and animation | [Avatar rework verification](AVATAR_REWORK_RESULTS.md) |
+| Audio and dated Editor startup | [Audio and earlier startup verification](HIFI_PLAYER_AND_AUDIO_RESULTS.md) |
 | Mining, placement and pickup effects | [Effects verification](ARCADE_VISUAL_RESULTS.md) |
 | Generated trees, felling and placed-wood protection | [Tree verification](TREE_RESULTS.md) |
 

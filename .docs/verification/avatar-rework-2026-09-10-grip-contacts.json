@@ -1,0 +1,1082 @@
+[
+  {
+    "model": "ExplorerMale",
+    "clip": "FP_HoldAxe",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.01819813996553421,
+    "minShaftUp": 0.996821403503418,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.01877629902885046,
+      "penetration": 0.00042370097114953834
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "FP_HoldBlock",
+    "maxWristDegrees": 1.5136193322246023,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": 0.542127251625061,
+    "minShaftUp": -1.564621925354004e-07,
+    "contact": {
+      "blockBottom": 0.0335,
+      "highestHandSurface": 0.033365894109010696,
+      "penetration": 0
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "FP_HoldHoe",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.016854651272296906,
+    "minShaftUp": 0.9966736435890198,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018776271435402277,
+      "penetration": 0.00042372856459772096
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "FP_HoldShovel",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.016854651272296906,
+    "minShaftUp": 0.9966736435890198,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018776271435402277,
+      "penetration": 0.00042372856459772096
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "FP_HoldTool",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.015877727419137955,
+    "minShaftUp": 0.9965620636940002,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018776402427011507,
+      "penetration": 0.00042359757298849124
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "FP_HoldTwoHandTool",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.17117176949977875,
+    "minShaftUp": 0.9696575403213501,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018776186837411828,
+      "penetration": 0.00042381316258817067
+    },
+    "supportContactErrorMetres": 5.230286352272107e-07,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "FP_MineAxe",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": {
+      "elbow": 0.33219754695892334,
+      "hand": 0.5639016032218933
+    },
+    "maxShaftForward": 0.8668243288993835,
+    "minShaftUp": 0.48908597230911255,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018776308579449834,
+      "penetration": 0.0004236914205501645
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "FP_MineBlock",
+    "maxWristDegrees": 20.594311253341576,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": 0.6416525840759277,
+    "minShaftUp": -1.5646217832454568e-07,
+    "contact": {
+      "blockBottom": 0.0335,
+      "highestHandSurface": 0.033365894109010696,
+      "penetration": 0
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "FP_MineHoe",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": {
+      "elbow": 0.31792402267456055,
+      "hand": 0.5581167340278625
+    },
+    "maxShaftForward": 0.8479330539703369,
+    "minShaftUp": 0.5241491198539734,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018776195866652266,
+      "penetration": 0.000423804133347732
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "FP_MineShovel",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": {
+      "elbow": 0.24130022525787354,
+      "hand": 0.48180723190307617
+    },
+    "maxShaftForward": 0.7704551219940186,
+    "minShaftUp": 0.6325506567955017,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018776195866652266,
+      "penetration": 0.000423804133347732
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "FP_MineTool",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": {
+      "elbow": 0.259252667427063,
+      "hand": 0.48423486948013306
+    },
+    "maxShaftForward": 0.8310770392417908,
+    "minShaftUp": 0.5520222783088684,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018776271435402277,
+      "penetration": 0.00042372856459772096
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "FP_MineTwoHandTool",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": {
+      "elbow": 0.2926901578903198,
+      "hand": 0.5291966199874878
+    },
+    "maxShaftForward": 0.7898762226104736,
+    "minShaftUp": 0.5872259140014648,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.01877636189451435,
+      "penetration": 0.0004236381054856485
+    },
+    "supportContactErrorMetres": 3.2098083538618706e-07,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "FP_RestAxe",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.4132690131664276,
+    "minShaftUp": 0.11571528762578964,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018776042762699344,
+      "penetration": 0.00042395723730065393
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "FP_RestHoe",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.4132690131664276,
+    "minShaftUp": 0.11571528762578964,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018776042762699344,
+      "penetration": 0.00042395723730065393
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "FP_RestShovel",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.4132690131664276,
+    "minShaftUp": 0.11571528762578964,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018776042762699344,
+      "penetration": 0.00042395723730065393
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "FP_RestTool",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.4132690131664276,
+    "minShaftUp": 0.11571528762578964,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018776042762699344,
+      "penetration": 0.00042395723730065393
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "FP_RestTwoHandTool",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.4132690131664276,
+    "minShaftUp": 0.11571528762578964,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018776042762699344,
+      "penetration": 0.00042395723730065393
+    },
+    "supportContactErrorMetres": 7.505512392200845e-07,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "HoldAxe",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": 0.09556062519550323,
+    "minShaftUp": 0.9912765622138977,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018747300409746818,
+      "penetration": 0.0004526995902531805
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "HoldBlock",
+    "maxWristDegrees": 22.525487477007445,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": 0.8872170448303223,
+    "minShaftUp": -2.011657045386528e-07,
+    "contact": {
+      "blockBottom": 0.0335,
+      "highestHandSurface": 0.03336603194475174,
+      "penetration": 0
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "HoldHoe",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": 0.08638046681880951,
+    "minShaftUp": 0.993089497089386,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.01874730785335311,
+      "penetration": 0.00045269214664688667
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "HoldShovel",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": 0.08638046681880951,
+    "minShaftUp": 0.993089497089386,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.01874730785335311,
+      "penetration": 0.00045269214664688667
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "HoldTool",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": 0.07996754348278046,
+    "minShaftUp": 0.99422687292099,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018747244437118164,
+      "penetration": 0.000452755562881834
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "HoldTwoHandTool",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.1218501403927803,
+    "minShaftUp": 0.9749695062637329,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018747181665750276,
+      "penetration": 0.0004528183342497223
+    },
+    "supportContactErrorMetres": 5.291486056019277e-07,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "MineAxe",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": {
+      "elbow": 0.20683884620666504,
+      "hand": 0.4739055633544922
+    },
+    "maxShaftForward": 0.9745191931724548,
+    "minShaftUp": 0.1860320121049881,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018747276145185468,
+      "penetration": 0.0004527238548145303
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "MineBlock",
+    "maxWristDegrees": 27.329152690088243,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": 0.8872168660163879,
+    "minShaftUp": -1.6391280155403365e-07,
+    "contact": {
+      "blockBottom": 0.0335,
+      "highestHandSurface": 0.03336603194475174,
+      "penetration": 0
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "MineHoe",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": {
+      "elbow": 0.1889960765838623,
+      "hand": 0.4635504484176636
+    },
+    "maxShaftForward": 0.949163019657135,
+    "minShaftUp": 0.3062295615673065,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018747300409746818,
+      "penetration": 0.0004526995902531805
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "MineShovel",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": {
+      "elbow": 0.1367281675338745,
+      "hand": 0.3985479474067688
+    },
+    "maxShaftForward": 0.9176809191703796,
+    "minShaftUp": 0.3904544711112976,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018747300409746818,
+      "penetration": 0.0004526995902531805
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "MineTool",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": {
+      "elbow": 0.14801430702209473,
+      "hand": 0.3999757170677185
+    },
+    "maxShaftForward": 0.9516730904579163,
+    "minShaftUp": 0.30503737926483154,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.01874729103239957,
+      "penetration": 0.0004527089676004299
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "MineTwoHandTool",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": {
+      "elbow": 0.19243228435516357,
+      "hand": 0.439075767993927
+    },
+    "maxShaftForward": 0.8363903760910034,
+    "minShaftUp": 0.5193464159965515,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018747178443540083,
+      "penetration": 0.0004528215564599154
+    },
+    "supportContactErrorMetres": 5.183912452101397e-07,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "RestAxe",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.27597641944885254,
+    "minShaftUp": 0.07727350294589996,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018747477315678742,
+      "penetration": 0.00045252268432125625
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "RestHoe",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.27597641944885254,
+    "minShaftUp": 0.07727350294589996,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018747477315678742,
+      "penetration": 0.00045252268432125625
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "RestShovel",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.27597641944885254,
+    "minShaftUp": 0.07727350294589996,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018747477315678742,
+      "penetration": 0.00045252268432125625
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "RestTool",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.27597641944885254,
+    "minShaftUp": 0.07727350294589996,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018747477315678742,
+      "penetration": 0.00045252268432125625
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerMale",
+    "clip": "RestTwoHandTool",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.27597641944885254,
+    "minShaftUp": 0.07727350294589996,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018747477315678742,
+      "penetration": 0.00045252268432125625
+    },
+    "supportContactErrorMetres": 6.02714670185944e-07,
+    "supportWristDegrees": 0.3488659190822851
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "FP_HoldAxe",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.001029647421091795,
+    "minShaftUp": 0.9968245625495911,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018721160231251182,
+      "penetration": 0.00047883976874881634
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "FP_HoldBlock",
+    "maxWristDegrees": 4.291856513570116,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": 0.542127251625061,
+    "minShaftUp": -1.341104365337742e-07,
+    "contact": {
+      "blockBottom": 0.0335,
+      "highestHandSurface": 0.03324388712644577,
+      "penetration": 0
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "FP_HoldHoe",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.0009632553556002676,
+    "minShaftUp": 0.9968147873878479,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018721038551504133,
+      "penetration": 0.0004789614484958654
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "FP_HoldShovel",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.0009632553556002676,
+    "minShaftUp": 0.9968147873878479,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018721038551504133,
+      "penetration": 0.0004789614484958654
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "FP_HoldTool",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.0009142193594016135,
+    "minShaftUp": 0.9968075752258301,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018721098149046444,
+      "penetration": 0.0004789018509535545
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "FP_HoldTwoHandTool",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.13440261781215668,
+    "minShaftUp": 0.975253164768219,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.01872110286561905,
+      "penetration": 0.0004788971343809498
+    },
+    "supportContactErrorMetres": 6.47643620136402e-07,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "FP_MineAxe",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": {
+      "elbow": 0.3266662359237671,
+      "hand": 0.5686222910881042
+    },
+    "maxShaftForward": 0.8657903075218201,
+    "minShaftUp": 0.4909586012363434,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.01872099483078361,
+      "penetration": 0.0004790051692163885
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "FP_MineBlock",
+    "maxWristDegrees": 23.79388092663549,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": 0.6416527032852173,
+    "minShaftUp": -1.043081283569336e-07,
+    "contact": {
+      "blockBottom": 0.0335,
+      "highestHandSurface": 0.03324388712644577,
+      "penetration": 0
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "FP_MineHoe",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": {
+      "elbow": 0.31355714797973633,
+      "hand": 0.5617443919181824
+    },
+    "maxShaftForward": 0.8471983075141907,
+    "minShaftUp": 0.5253338813781738,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018721094800894032,
+      "penetration": 0.00047890519910596605
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "FP_MineShovel",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": {
+      "elbow": 0.24161076545715332,
+      "hand": 0.48482614755630493
+    },
+    "maxShaftForward": 0.769531786441803,
+    "minShaftUp": 0.6336719989776611,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018721094800894032,
+      "penetration": 0.00047890519910596605
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "FP_MineTool",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": {
+      "elbow": 0.2574499845504761,
+      "hand": 0.4892476201057434
+    },
+    "maxShaftForward": 0.8307139277458191,
+    "minShaftUp": 0.5525600910186768,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.01872108896821184,
+      "penetration": 0.00047891103178815744
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "FP_MineTwoHandTool",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": {
+      "elbow": 0.2896829843521118,
+      "hand": 0.5332297682762146
+    },
+    "maxShaftForward": 0.797813892364502,
+    "minShaftUp": 0.5764457583427429,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018721110474274664,
+      "penetration": 0.0004788895257253345
+    },
+    "supportContactErrorMetres": 5.031211082975308e-07,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "FP_RestAxe",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.3527873158454895,
+    "minShaftUp": 0.09878052771091461,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.01872099977560596,
+      "penetration": 0.00047900022439403833
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "FP_RestHoe",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.3527873158454895,
+    "minShaftUp": 0.09878052771091461,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.01872099977560596,
+      "penetration": 0.00047900022439403833
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "FP_RestShovel",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.3527873158454895,
+    "minShaftUp": 0.09878052771091461,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.01872099977560596,
+      "penetration": 0.00047900022439403833
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "FP_RestTool",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.3527873158454895,
+    "minShaftUp": 0.09878052771091461,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.01872099977560596,
+      "penetration": 0.00047900022439403833
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "FP_RestTwoHandTool",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.3527873158454895,
+    "minShaftUp": 0.09878052771091461,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.01872099977560596,
+      "penetration": 0.00047900022439403833
+    },
+    "supportContactErrorMetres": 6.22290760809812e-07,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "HoldAxe",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": 0.13965439796447754,
+    "minShaftUp": 0.9855741858482361,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.0187211328925355,
+      "penetration": 0.0004788671074645
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "HoldBlock",
+    "maxWristDegrees": 26.74300805363255,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": 0.8872170448303223,
+    "minShaftUp": -2.831220911048149e-07,
+    "contact": {
+      "blockBottom": 0.0335,
+      "highestHandSurface": 0.03324397653341293,
+      "penetration": 0
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "HoldHoe",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": 0.1281794011592865,
+    "minShaftUp": 0.9885926246643066,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018721105757864096,
+      "penetration": 0.00047889424213590215
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "HoldShovel",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": 0.1281794011592865,
+    "minShaftUp": 0.9885926246643066,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018721105757864096,
+      "penetration": 0.00047889424213590215
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "HoldTool",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": 0.11993459612131119,
+    "minShaftUp": 0.9905016422271729,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018721179961246323,
+      "penetration": 0.0004788200387536752
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "HoldTwoHandTool",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.053504496812820435,
+    "minShaftUp": 0.9818658232688904,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018720988135046128,
+      "penetration": 0.00047901186495387035
+    },
+    "supportContactErrorMetres": 7.562981570034933e-07,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "MineAxe",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": {
+      "elbow": 0.2097376585006714,
+      "hand": 0.4796842932701111
+    },
+    "maxShaftForward": 0.9737298488616943,
+    "minShaftUp": 0.1903180032968521,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.01872107796311482,
+      "penetration": 0.0004789220368851786
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "MineBlock",
+    "maxWristDegrees": 29.253556781192042,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": 0.8872169256210327,
+    "minShaftUp": -2.086162709247219e-07,
+    "contact": {
+      "blockBottom": 0.0335,
+      "highestHandSurface": 0.03324397653341293,
+      "penetration": 0
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "MineHoe",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": {
+      "elbow": 0.1928105354309082,
+      "hand": 0.46744000911712646
+    },
+    "maxShaftForward": 0.9489089846611023,
+    "minShaftUp": 0.3070097863674164,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018721092112657517,
+      "penetration": 0.0004789078873424814
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "MineShovel",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": {
+      "elbow": 0.14345216751098633,
+      "hand": 0.40191566944122314
+    },
+    "maxShaftForward": 0.9173294901847839,
+    "minShaftUp": 0.3912743330001831,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018721092112657517,
+      "penetration": 0.0004789078873424814
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "MineTool",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": {
+      "elbow": 0.1551264524459839,
+      "hand": 0.40667521953582764
+    },
+    "maxShaftForward": 0.9519420862197876,
+    "minShaftUp": 0.30420932173728943,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.01872114521775567,
+      "penetration": 0.0004788547822443291
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "MineTwoHandTool",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": {
+      "elbow": 0.19440758228302002,
+      "hand": 0.43670517206192017
+    },
+    "maxShaftForward": 0.8337017297744751,
+    "minShaftUp": 0.5236091613769531,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018721132436476034,
+      "penetration": 0.0004788675635239645
+    },
+    "supportContactErrorMetres": 4.874866546081183e-07,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "RestAxe",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.2115890085697174,
+    "minShaftUp": 0.059245094656944275,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018721105529903345,
+      "penetration": 0.0004788944700966531
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "RestHoe",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.2115890085697174,
+    "minShaftUp": 0.059245094656944275,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018721105529903345,
+      "penetration": 0.0004788944700966531
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "RestShovel",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.2115890085697174,
+    "minShaftUp": 0.059245094656944275,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018721105529903345,
+      "penetration": 0.0004788944700966531
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "RestTool",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.2115890085697174,
+    "minShaftUp": 0.059245094656944275,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018721105529903345,
+      "penetration": 0.0004788944700966531
+    },
+    "supportContactErrorMetres": 0,
+    "supportWristDegrees": 0
+  },
+  {
+    "model": "ExplorerFemale",
+    "clip": "RestTwoHandTool",
+    "maxWristDegrees": 0,
+    "windupToContactDescentMetres": null,
+    "maxShaftForward": -0.2115890085697174,
+    "minShaftUp": 0.059245094656944275,
+    "contact": {
+      "shaftEnvelopeRadius": 0.0192,
+      "closestFingerRadius": 0.018721105529903345,
+      "penetration": 0.0004788944700966531
+    },
+    "supportContactErrorMetres": 5.803806213781371e-07,
+    "supportWristDegrees": 0
+  }
+]

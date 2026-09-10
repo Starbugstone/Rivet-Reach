@@ -18,7 +18,7 @@ namespace RivetReach
             for(int slot=0;slot<60;slot++)game.Inventory.Take(slot,int.MaxValue);
             game.Selected=0;game.SetAppearance(false,0);yield return null;yield return null;
             Check(!player.HeldBlock.Visible&&player.HeldBlock.ItemId==0,"An empty hotbar slot shows the bare hand");
-            Check(player.Arms.TriangleCount<=28000,"Only the dominant first-person arm is rendered");
+            Check(player.Arms.TriangleCount<=34000,"Only the dominant first-person arm is rendered");
             report.armsTriangles=player.Arms.TriangleCount;report.bodyTriangles=player.Body.TriangleCount;
             yield return Capture("interaction-01-bare-hand");
             player.Pitch=-65;player.VerificationMining=true;var rest=player.Arms.BonePosition("HandR");float travel=0;

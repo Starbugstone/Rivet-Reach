@@ -143,3 +143,7 @@ Remaining review: river width and continuity across many seeds, coast compositio
 ## Multiblock working defaults — 2026-09-10
 
 The user selected issue #3 and shared pipe connections, with Blender assets and individually editable connected shells. [MULTIBLOCKS.md](MULTIBLOCKS.md) owns the implementation. The 3–9 axis limits, 250 L/interior cell, 4,096-read scan limit, component costs, 10% sensor threshold increments and drain-first/recovery-out controls are working decisions selected to implement that request. Review construction cost versus the 100 L tank, frame/window proportions, diagnosis clarity, dense-factory rendering and long-session resize behavior. They are not individually user-selected tuning or proven survival balance.
+
+## Avatar visual and motion review — 2026-09-10
+
+The user authorized a full player-avatar and handling rework with artistic liberties. [The working revision](AVATAR_REWORK.md) selects fitted fingerless gloves, revised workwear, per-tool animation timing and a lowered equip transition. These are implementation choices for review, not user-approved final numerical tuning. [Verification](verification/AVATAR_REWORK_RESULTS.md) records source/import and gameplay evidence. The follow-up explicitly requires horizontal visible rest and vertical use/swing/guard. Remaining nonblocking review: glove styling, hand framing and perceived weight/cadence of each tool; no further character customization or fitted armor scope follows automatically.

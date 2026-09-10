@@ -6,7 +6,7 @@ These generated 2D sheets are the retained character and equipment art direction
 
 ![Male and female player turnaround reference](player-male-female-turnaround-v3.png)
 
-Both models share practical workwear and support changeable skins. The longer tied-back female hair and balanced front/back coverage reflect the selected concept revision. Appearance remains separate from gameplay dimensions and abilities. [Current model and hand evidence](../verification/HIFI_PLAYER_AND_AUDIO_RESULTS.md) records actual Blender renders, Unity imports, measured geometry and remaining artistic review.
+Both models share practical workwear and support changeable skins. The longer tied-back female hair and balanced front/back coverage reflect the selected concept revision. Appearance remains separate from gameplay dimensions and abilities. [Current model and hand evidence](../verification/AVATAR_REWORK_RESULTS.md) records actual Blender renders, Unity imports, measured geometry and remaining artistic review.
 
 ## Equipment direction
 

@@ -16,7 +16,7 @@ for arm,side in [(model,'R'),(left,'L')]:
  remove=[v.index for v in arm.data.vertices if sum(g.weight for g in v.groups if g.group in allowed)<.5]
  bm=bmesh.new();bm.from_mesh(arm.data);bm.verts.ensure_lookup_table();bmesh.ops.delete(bm,geom=[bm.verts[i] for i in remove],context='VERTS');bm.to_mesh(arm.data);bm.free()
 props={}
-for name in ['GripSword','GripPickaxe']:
+for name in ['GripSword','GripPickaxe','GripHoe']:
  with bpy.data.libraries.load(str(root/'ArtSource/Characters'/(name+'.blend'))) as (src,dst):dst.objects=[name]
  ob=dst.objects[0];bpy.context.collection.objects.link(ob);props[name]=ob
 bpy.ops.mesh.primitive_cube_add(size=.14);cube=bpy.context.object;cube.name='Palm supported cube'
@@ -29,11 +29,14 @@ scene=bpy.context.scene;scene.camera=cam;scene.render.engine='CYCLES';scene.cycl
 if '--low-memory' in sys.argv:
  scene.render.threads_mode='FIXED';scene.render.threads=2;scene.cycles.use_denoising=False;scene.cycles.samples=48
 if '--denoise' in sys.argv:scene.cycles.use_denoising=True
+if '--eevee' in sys.argv:scene.render.engine=next(e.identifier for e in scene.render.bl_rna.properties['engine'].enum_items if 'EEVEE' in e.identifier)
 results=[]
-for action,prop in [('FP_Idle',None),('FP_HoldBlock',cube),('FP_HoldTool',props['GripSword']),('FP_HoldTwoHandTool',props['GripPickaxe'])]:
+cases=[(a,p,1) for a,p in [('FP_Idle',None),('FP_HoldBlock',cube),('FP_RestTool',props['GripSword']),('FP_RestTwoHandTool',props['GripPickaxe']),('FP_HoldTool',props['GripSword']),('FP_HoldTwoHandTool',props['GripPickaxe']),('FP_HoldHoe',props['GripHoe'])]]
+if '--swing' in sys.argv:cases=[(a,props[p],f) for a,p in [('FP_MineTool','GripSword'),('FP_MineTwoHandTool','GripPickaxe'),('FP_MineHoe','GripHoe')] for f in [1,5,10,13,19]]
+for action,prop,frame in cases:
  if '--idle-only' in sys.argv and action!='FP_Idle':continue
  if '--twohand' in sys.argv and 'TwoHandTool' not in action:continue
- rig.animation_data.action=bpy.data.actions[action];scene.frame_set(1);left.hide_render='TwoHandTool' not in action
+ rig.animation_data.action=bpy.data.actions[action];scene.frame_set(frame);left.hide_render='TwoHandTool' not in action
  for o in [cube,*props.values()]:o.hide_render=o!=prop
  if prop:
   socket=rig.pose.bones['BlockSocket' if prop==cube else 'ToolSocket'].matrix
@@ -45,6 +48,6 @@ for action,prop in [('FP_Idle',None),('FP_HoldBlock',cube),('FP_HoldTool',props[
   if close:
    target=h.head+h.matrix.to_3x3() @ Vector((0,.06,.02));cam.location=target+Vector((-.34,-.35,.20));cam.rotation_euler=(target-cam.location).to_track_quat('-Z','Y').to_euler();c.lens=55;c.sensor_fit='AUTO'
   else:
-   cam.location=(.12 if 'TwoHandTool' in action else 0,.02,1.5);cam.rotation_euler=Vector((0,-1,0)).to_track_quat('-Z','Y').to_euler();c.lens=24;c.sensor_fit='VERTICAL';c.sensor_height=36
-  scene.render.filepath=str(root/'Logs'/('grip-'+action+('-contact' if close else '-view')+'.png'));bpy.ops.render.render(write_still=True)
+   cam.location=(0,.02,1.5);cam.rotation_euler=Vector((0,-1,0)).to_track_quat('-Z','Y').to_euler();c.lens=24;c.sensor_fit='VERTICAL';c.sensor_height=36
+  scene.render.filepath=str(root/'Logs'/('grip-'+action+('-f%02d'%frame if '--swing' in sys.argv else '')+('-contact' if close else '-view')+'.png'));bpy.ops.render.render(write_still=True)
 (root/'Logs/grip-source-measurements.json').write_text(json.dumps(results,indent=2))

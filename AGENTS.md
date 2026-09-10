@@ -81,4 +81,4 @@ Start the required application when needed without asking the user to launch it.
 
 For actual Blender model authoring and visual-quality revisions, also use [blender-game-art](.docs/skills/blender-game-art/SKILL.md), installed locally under `~/.codex/skills/blender-game-art/`. Compare actual Blender renders and Unity imports with the approved concept before delivery. Keep its installed and versioned copies synchronized.
 
-Current parallel ownership: the user assigned actual player modeling and animation to another agent. See [PLAYER_ASSET_HANDOFF.md](.docs/PLAYER_ASSET_HANDOFF.md) before changing character sources/exports or animation; preserve the terrain/placement and portrait-rendering changes during integration.
+Player asset ownership: the earlier separate modeling handoff is complete. The user authorized the 2026-09-10 [avatar rework](.docs/AVATAR_REWORK.md), including both models, hand grips, animations and held equipment. See [PLAYER_ASSET_HANDOFF.md](.docs/PLAYER_ASSET_HANDOFF.md) before subsequent overlapping changes; preserve concurrent terrain/industry work, placement and portrait rendering.

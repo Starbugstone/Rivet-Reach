@@ -113,7 +113,7 @@ namespace RivetReach.Editor
             {
                 view.FirstPersonArms=arms;view.Build(female,skin);
                 var animator=view.GetComponentsInChildren<Animator>().Single();
-                Check(view.AnimationReady&&view.ClipCount==28&&animator.isActiveAndEnabled,$"{(female?"Female":"Male")} skin {skin} {(arms?"hands":"body")} creates its Animator");
+                Check(view.AnimationReady&&view.ClipCount==50&&animator.isActiveAndEnabled,$"{(female?"Female":"Male")} skin {skin} {(arms?"hands":"body")} creates its Animator");
                 var before=view.BonePosition("HandR");
                 view.SamplePose(arms?"FP_Mine":"Mine",.216f);
                 Check(Vector3.Distance(before,view.BonePosition("HandR"))>.03f,"Authored mining clip moves the initialized hand");

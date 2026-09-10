@@ -8,12 +8,15 @@ using UnityEngine.Rendering;
 
 namespace RivetReach
 {
-    public enum GripPose { Empty, Block, Tool, TwoHandTool }
+    public enum GripPose { Empty, Block, Tool, TwoHandTool, Axe, Shovel, Hoe }
 
     // The Blender library owns poses and joint motion. Gameplay supplies state only.
     public sealed class AvatarView : MonoBehaviour
     {
-        const float SwingSpeed=2.5f;
+        const int GripCount=7;
+        // Source clips keep complete anticipation/contact/recovery curves.
+        float SwingSpeed=>Grip==GripPose.Empty||Grip==GripPose.Block?1.35f:
+            Grip==GripPose.Tool?1.55f:Grip==GripPose.Axe?1.2f:1.05f;
         readonly Dictionary<string,Transform> bones=new Dictionary<string,Transform>();
         readonly List<Mesh> derivedMeshes=new List<Mesh>();
         GameObject model;
@@ -21,15 +24,36 @@ namespace RivetReach
         AvatarMask miningMask,gripMask;
         SkinnedMeshRenderer supportHand;
         int supportTriangles,supportVertices;
-        readonly float[] gripWeights={1,0,0,0};
+        readonly float[] gripWeights={1,0,0,0,0,0,0};
         public GripPose Grip {get;private set;}
         public float GripWeight=>gripWeights[(int)Grip];
-        public void SetGrip(GripPose grip)=>Grip=grip;
+        public void SetGrip(GripPose grip)
+        {
+            if(Grip==grip)return;
+            Grip=grip;swingActive=swingRequested=wasMining=false;strikeTime=0;miningBlend=0;toolUseBlend=0;guarding=false;
+        }
         PlayableGraph graph;
-        AnimationMixerPlayable locomotion,holding,strikes;
+        AnimationMixerPlayable locomotion,holding,strikes,resting;
         AnimationLayerMixerPlayable layers;
         AnimationClipPlayable[] movement;
-        AnimationClipPlayable[] holds,strikeClips;
+        AnimationClipPlayable[] holds,strikeClips,rests;
+        float toolUseBlend;
+        float supportAlong,supportAcross,supportUpperLength,supportForeLength;
+        Quaternion supportOrientation;
+        Vector3 supportContactLocal;
+        public float SupportContactError
+        {
+            get
+            {
+                if(model==null||!bones.ContainsKey("HandL"))return 0;
+                var frame=model.transform;var socket=bones["ToolSocket"];
+                var expected=frame.InverseTransformPoint(socket.position)+frame.InverseTransformDirection(socket.up)*.12f;
+                return Vector3.Distance(frame.InverseTransformPoint(bones["HandL"].TransformPoint(supportContactLocal)),expected);
+            }
+        }
+        bool guarding;
+        public float ToolUseWeight=>toolUseBlend;
+        public void SetGuard(bool value)=>guarding=value;
         float motionBlend,runBlend,airBlend,crouchBlend,miningBlend,strikeTime,strikeLength;
         float landingTime=1,landingStrength,landingBlend;
         Vector2 directionBlend;
@@ -127,27 +151,32 @@ namespace RivetReach
             AnimationClip Find(string name)=>clips.FirstOrDefault(c=>c.name==name||c.name.EndsWith("|"+name));
             string[] names=FirstPersonArms?new[]{"FP_Idle","FP_Walk","FP_Run","FP_Airborne","FP_Crouch","FP_CrouchWalk","FP_Land"}:new[]{"Idle","Walk","Run","Airborne","CrouchIdle","CrouchWalk","Land"};
             string mine=FirstPersonArms?"FP_Mine":"Mine";
-            if(names.Any(n=>Find(n)==null)||Find(mine)==null){Debug.LogError("Incomplete explorer animation library: "+path);return;}
+            if(names.Any(n=>Find(n)==null)||Find(mine)==null||new[]{"Block","Tool","TwoHandTool","Axe","Shovel","Hoe"}.Any(g=>Find((FirstPersonArms?"FP_":"")+"Hold"+g)==null||Find((FirstPersonArms?"FP_":"")+"Mine"+g)==null||g!="Block"&&Find((FirstPersonArms?"FP_":"")+"Rest"+g)==null)){Debug.LogError("Incomplete explorer animation library: "+path);return;}
             // Unity's missing-component sentinel in the Editor is not a CLR null.
             // Use the component API so the runtime Animator is created in Play mode too.
             if(!model.TryGetComponent<Animator>(out var animator))animator=model.AddComponent<Animator>();
             animator.applyRootMotion=false;animator.cullingMode=AnimatorCullingMode.AlwaysAnimate;
+            // Calibrate from the imported authored contact, including FBX bone axes/units.
+            Find((FirstPersonArms?"FP_":"")+"HoldTwoHandTool").SampleAnimation(model,0);
+            CalibrateSupport();
             graph=PlayableGraph.Create(name+" Explorer animation");graph.SetTimeUpdateMode(DirectorUpdateMode.Manual);
             locomotion=AnimationMixerPlayable.Create(graph,names.Length);
             movement=new AnimationClipPlayable[names.Length];
             for(int i=0;i<names.Length;i++)
             {movement[i]=AnimationClipPlayable.Create(graph,Find(names[i]));graph.Connect(movement[i],0,locomotion,i);}
             locomotion.SetInputWeight(0,1);
-            holding=AnimationMixerPlayable.Create(graph,3);strikes=AnimationMixerPlayable.Create(graph,4);
-            holds=new AnimationClipPlayable[3];strikeClips=new AnimationClipPlayable[4];
-            string prefix=FirstPersonArms?"FP_":"";string[] suffixes={"","Block","Tool","TwoHandTool"};
-            for(int i=0;i<4;i++)
+            resting=AnimationMixerPlayable.Create(graph,GripCount-1);
+            holding=AnimationMixerPlayable.Create(graph,GripCount-1);strikes=AnimationMixerPlayable.Create(graph,GripCount);
+            rests=new AnimationClipPlayable[GripCount-1];holds=new AnimationClipPlayable[GripCount-1];strikeClips=new AnimationClipPlayable[GripCount];
+            string prefix=FirstPersonArms?"FP_":"";string[] suffixes={"","Block","Tool","TwoHandTool","Axe","Shovel","Hoe"};
+            for(int i=0;i<GripCount;i++)
             {
                 strikeClips[i]=AnimationClipPlayable.Create(graph,Find(prefix+"Mine"+suffixes[i]));graph.Connect(strikeClips[i],0,strikes,i);
-                if(i>0){holds[i-1]=AnimationClipPlayable.Create(graph,Find(prefix+"Hold"+suffixes[i]));graph.Connect(holds[i-1],0,holding,i-1);}
+                if(i>0){holds[i-1]=AnimationClipPlayable.Create(graph,Find(prefix+"Hold"+suffixes[i]));graph.Connect(holds[i-1],0,holding,i-1);
+                    rests[i-1]=AnimationClipPlayable.Create(graph,Find(prefix+(i==1?"Hold":"Rest")+suffixes[i]));graph.Connect(rests[i-1],0,resting,i-1);}
             }
             strikeLength=strikeClips[(int)Grip].GetAnimationClip().length;
-            layers=AnimationLayerMixerPlayable.Create(graph,3);graph.Connect(locomotion,0,layers,0);graph.Connect(holding,0,layers,1);graph.Connect(strikes,0,layers,2);layers.SetInputWeight(0,1);
+            layers=AnimationLayerMixerPlayable.Create(graph,4);graph.Connect(locomotion,0,layers,0);graph.Connect(holding,0,layers,1);graph.Connect(strikes,0,layers,2);layers.SetInputWeight(0,1);graph.Connect(resting,0,layers,3);
             var hierarchy=model.GetComponentsInChildren<Transform>();
             gripMask=new AvatarMask{transformCount=hierarchy.Length};miningMask=new AvatarMask{transformCount=hierarchy.Length};
             for(int i=0;i<hierarchy.Length;i++)
@@ -158,8 +187,9 @@ namespace RivetReach
                 gripMask.SetTransformPath(i,bonePath);gripMask.SetTransformActive(i,arm);
                 miningMask.SetTransformPath(i,bonePath);miningMask.SetTransformActive(i,FirstPersonArms?arm:t==bones["Chest"]||t.IsChildOf(bones["Chest"]));
             }
-            layers.SetLayerMaskFromAvatarMask(1,gripMask);layers.SetLayerMaskFromAvatarMask(2,miningMask);
-            for(int i=0;i<4;i++)gripWeights[i]=i==(int)Grip?1:0;
+            layers.SetLayerMaskFromAvatarMask(1,gripMask);layers.SetLayerMaskFromAvatarMask(2,miningMask);layers.SetLayerMaskFromAvatarMask(3,gripMask);
+            toolUseBlend=0;guarding=false;
+            for(int i=0;i<GripCount;i++)gripWeights[i]=i==(int)Grip?1:0;
             UpdateGrip(0);
             var output=AnimationPlayableOutput.Create(graph,"Explorer",animator);output.SetSourcePlayable(layers);
             motionBlend=runBlend=airBlend=crouchBlend=miningBlend=strikeTime=landingBlend=0;landingTime=1;directionBlend=Vector2.zero;wasMining=swingRequested=swingActive=false;graph.Play();graph.Evaluate(0);
@@ -220,17 +250,17 @@ namespace RivetReach
                 if(strikeTime>=strikeLength){if(mining)strikeTime%=Mathf.Max(.01f,strikeLength);else{strikeTime=strikeLength;swingActive=false;}}
             }
             wasMining=mining;miningBlend=Follow(miningBlend,swingActive?1:0,swingActive?.014f:.035f,dt*SwingSpeed);
+            bool usingTool=swingActive||mining||guarding;
+            toolUseBlend=Follow(toolUseBlend,usingTool?1:0,usingTool?.025f:.08f,dt);
             UpdateGrip(dt);
-            for(int i=0;i<4;i++)strikeClips[i].SetTime(SwingPhase*strikeClips[i].GetAnimationClip().length);
+            for(int i=0;i<GripCount;i++)strikeClips[i].SetTime(SwingPhase*strikeClips[i].GetAnimationClip().length);
             layers.SetInputWeight(2,miningBlend);graph.Evaluate(0);
+            if(Grip==GripPose.TwoHandTool&&gripWeights[3]>.9f)SolveSupportContact();
             if(FirstPersonArms)
             {
                 // Move the entire held assembly, preserving every palm/handle contact.
-                model.transform.localPosition=new Vector3(.12f*gripWeights[3]+Mathf.Cos(phase)*.0035f*motionBlend,Mathf.Sin(phase*2)*.005f*motionBlend-.016f*crouchBlend-landingBlend*.025f,0);
-                // Bring the support arm in from below the frame before exposing the prop.
-                // This moves the whole limb, leaving its authored wrist/finger pose intact.
-                float supportDrop=.45f*Mathf.Clamp01((.985f-gripWeights[3])/.985f);
-                bones["ClavicleL"].position-=transform.TransformVector(Vector3.up*supportDrop);
+                model.transform.localPosition=new Vector3(Mathf.Cos(phase)*.0025f*motionBlend,Mathf.Sin(phase*2)*.005f*motionBlend-.016f*crouchBlend-landingBlend*.025f,0);
+
             }
             if(!Preview&&!FirstPersonArms)
             {
@@ -244,16 +274,69 @@ namespace RivetReach
                 chest.rotation=upperRotation*Quaternion.Euler(directionBlend.y*motionBlend*2,0,-directionBlend.x*motionBlend*5);
             }
         }
+        void CalibrateSupport()
+        {
+            var frame=model.transform;var upper=bones["UpperArmL"];var fore=bones["ForearmL"];var hand=bones["HandL"];var socket=bones["ToolSocket"];
+            Vector3 Point(Transform bone)=>frame.InverseTransformPoint(bone.position);
+            var direction=(Point(hand)-Point(fore)).normalized;var shaft=frame.InverseTransformDirection(socket.up).normalized;
+            var palm=Vector3.Cross(shaft,direction).normalized;
+            var centre=Point(socket)+shaft*.12f;var offset=centre-Point(hand);
+            supportAlong=Vector3.Dot(offset,direction);supportAcross=Vector3.Dot(offset,palm);
+            supportUpperLength=Vector3.Distance(Point(upper),Point(fore));supportForeLength=Vector3.Distance(Point(fore),Point(hand));
+            supportOrientation=Quaternion.Inverse(Quaternion.LookRotation(palm,direction))*Quaternion.Inverse(frame.rotation)*hand.rotation;
+            supportContactLocal=hand.InverseTransformPoint(frame.TransformPoint(centre));
+        }
+        void SolveSupportContact()
+        {
+            // The baked poses own the trajectory. Close the two-hand chain after blending:
+            // independently interpolating both arms otherwise slides the support palm.
+            var frame=model.transform;var upper=bones["UpperArmL"];var fore=bones["ForearmL"];var hand=bones["HandL"];var socket=bones["ToolSocket"];
+            Vector3 Point(Transform bone)=>frame.InverseTransformPoint(bone.position);
+            var root=Point(upper);var shaft=frame.InverseTransformDirection(socket.up).normalized;
+            var centre=Point(socket)+shaft*.12f;var delta=centre-root;
+            var radial=delta-shaft*Vector3.Dot(delta,shaft);if(radial.sqrMagnitude<.000001f)return;
+            float reach=supportForeLength+supportAlong,radius=Mathf.Sqrt(reach*reach+supportAcross*supportAcross);
+            float cosine=(delta.sqrMagnitude+radius*radius-supportUpperLength*supportUpperLength)/(2*radial.magnitude*radius);
+            float angle=Mathf.Acos(Mathf.Clamp(cosine,-1,1))*Mathf.Rad2Deg,roll=Mathf.Atan2(supportAcross,reach)*Mathf.Rad2Deg;
+            Vector3 chosenDirection=default,chosenPalm=default,chosenWrist=default,chosenElbow=default;float best=float.PositiveInfinity;
+            for(int sign=-1;sign<=1;sign+=2)
+            {
+                var direction=Quaternion.AngleAxis(sign*angle-roll,shaft)*radial.normalized;var palm=Vector3.Cross(shaft,direction);
+                var wrist=centre-direction*supportAlong-palm*supportAcross;var elbow=wrist-direction*supportForeLength;
+                float distance=(elbow-Point(fore)).sqrMagnitude;
+                if(distance<best){best=distance;chosenDirection=direction;chosenPalm=palm;chosenWrist=wrist;chosenElbow=elbow;}
+            }
+            void Aim(Transform bone,Transform child,Vector3 target)
+            {
+                var turn=Quaternion.FromToRotation(Point(child)-Point(bone),target-Point(bone));
+                bone.rotation=frame.rotation*turn*Quaternion.Inverse(frame.rotation)*bone.rotation;
+            }
+            if(Mathf.Abs(cosine)>1)
+            {
+                // A body transition can require modest wrist flexion. Solve the same
+                // wrist target with the real limb lengths instead of stretching a bone.
+                var deltaWrist=chosenWrist-root;float distance=deltaWrist.magnitude;
+                if(distance>.00001f&&distance<supportUpperLength+supportForeLength)
+                {
+                    var direction=deltaWrist/distance;var bend=Vector3.ProjectOnPlane(chosenElbow-root,direction).normalized;
+                    float along=(supportUpperLength*supportUpperLength-supportForeLength*supportForeLength+distance*distance)/(2*distance);
+                    chosenElbow=root+direction*along+bend*Mathf.Sqrt(Mathf.Max(0,supportUpperLength*supportUpperLength-along*along));
+                }
+            }
+            Aim(upper,fore,chosenElbow);Aim(fore,hand,chosenWrist);
+            hand.rotation=frame.rotation*Quaternion.LookRotation(chosenPalm,chosenDirection)*supportOrientation;
+        }
         void UpdateGrip(float dt)
         {
-            for(int i=0;i<4;i++)gripWeights[i]=Follow(gripWeights[i],i==(int)Grip?1:0,.025f,dt);
-            float held=1-gripWeights[0];layers.SetInputWeight(1,held);
-            for(int i=0;i<4;i++)
+            for(int i=0;i<GripCount;i++)gripWeights[i]=Follow(gripWeights[i],i==(int)Grip?1:0,.025f,dt);
+            float held=1-gripWeights[0];layers.SetInputWeight(1,held);layers.SetInputWeight(3,held*(1-toolUseBlend));
+            for(int i=0;i<GripCount;i++)
             {
                 strikes.SetInputWeight(i,gripWeights[i]);
-                if(i>0){holding.SetInputWeight(i-1,held>.00001f?gripWeights[i]/held:0);holds[i-1].SetTime((holds[i-1].GetTime()+dt)%holds[i-1].GetAnimationClip().length);}
+                if(i>0){holding.SetInputWeight(i-1,held>.00001f?gripWeights[i]/held:0);holds[i-1].SetTime((holds[i-1].GetTime()+dt)%holds[i-1].GetAnimationClip().length);
+                    resting.SetInputWeight(i-1,held>.00001f?gripWeights[i]/held:0);rests[i-1].SetTime((rests[i-1].GetTime()+dt)%rests[i-1].GetAnimationClip().length);}
             }
-            if(supportHand!=null)supportHand.enabled=gripWeights[3]>.005f;
+            if(supportHand!=null)supportHand.enabled=gripWeights[3]>(Grip==GripPose.TwoHandTool?.05f:.25f);
         }
         // Explicit deterministic pose sampling for source/import comparison and regression evidence.
         void RestoreAnimatedPose()
@@ -268,7 +351,7 @@ namespace RivetReach
             var c=Resources.LoadAll<AnimationClip>("Characters/"+(model.name=="Female"?"ExplorerFemale":"ExplorerMale")).FirstOrDefault(a=>a.name==clip||a.name.EndsWith("|"+clip));
             if(c==null)throw new InvalidOperationException("Missing pose "+clip);
             c.SampleAnimation(model,seconds);
-            model.transform.localPosition=FirstPersonArms&&clip.Contains("TwoHandTool")?Vector3.right*.12f:Vector3.zero;
+            model.transform.localPosition=Vector3.zero;
             if(supportHand!=null)supportHand.enabled=clip.Contains("TwoHandTool");
         }
         public Vector3 BonePosition(string name)=>bones[name].position;

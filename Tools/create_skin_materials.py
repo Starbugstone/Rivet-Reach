@@ -48,6 +48,11 @@ def generate():
                 output[y:y+24,x:x+24,:3]=nail
                 detail[y:y+24,x:x+24,1]=.35
                 normal[y:y+24,x:x+24,:3]=(.5,.5,1)
+                # u > .953 is reserved for the fitted leather glove overlay.
+                glove=np.array((.12,.16,.19) if alternate else (.22,.105,.052))
+                output[y:y+tile,x+244:x+tile,:3]=glove[None,None,:]*(1+noise[:,244:,None]*.024)
+                detail[y:y+tile,x+244:x+tile,:3]=(0,.65,0)
+                normal[y:y+tile,x+244:x+tile,:3]=(.5,.5,1)
         save(name,output)
     save('SkinSurface',detail,True);save('SkinNormal',normal,True)
     print('SKIN_MATERIALS_PASS',flush=True)

@@ -8,12 +8,12 @@
       {
         "clip": "Airborne",
         "maxEdgeMetres": 0.1506,
-        "loopSeamMetres": 1.354314500387026e-18
+        "loopSeamMetres": 1.3309619554827069e-18
       },
       {
         "clip": "CrouchIdle",
         "maxEdgeMetres": 0.1506,
-        "loopSeamMetres": 1.2202733713677674e-18
+        "loopSeamMetres": 1.2020812144482475e-18
       },
       {
         "clip": "CrouchWalk",
@@ -36,7 +36,22 @@
         "loopSeamMetres": 0.0
       },
       {
+        "clip": "FP_HoldAxe",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 0.0
+      },
+      {
         "clip": "FP_HoldBlock",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 0.0
+      },
+      {
+        "clip": "FP_HoldHoe",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 0.0
+      },
+      {
+        "clip": "FP_HoldShovel",
         "maxEdgeMetres": 0.1506,
         "loopSeamMetres": 0.0
       },
@@ -66,7 +81,22 @@
         "loopSeamMetres": null
       },
       {
+        "clip": "FP_MineAxe",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": null
+      },
+      {
         "clip": "FP_MineBlock",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": null
+      },
+      {
+        "clip": "FP_MineHoe",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": null
+      },
+      {
+        "clip": "FP_MineShovel",
         "maxEdgeMetres": 0.1506,
         "loopSeamMetres": null
       },
@@ -81,6 +111,31 @@
         "loopSeamMetres": null
       },
       {
+        "clip": "FP_RestAxe",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 0.0
+      },
+      {
+        "clip": "FP_RestHoe",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 0.0
+      },
+      {
+        "clip": "FP_RestShovel",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 0.0
+      },
+      {
+        "clip": "FP_RestTool",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 0.0
+      },
+      {
+        "clip": "FP_RestTwoHandTool",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 0.0
+      },
+      {
         "clip": "FP_Run",
         "maxEdgeMetres": 0.1506,
         "loopSeamMetres": 0.0
@@ -91,24 +146,39 @@
         "loopSeamMetres": 0.0
       },
       {
+        "clip": "HoldAxe",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 1.3309619554827069e-18
+      },
+      {
         "clip": "HoldBlock",
         "maxEdgeMetres": 0.1506,
-        "loopSeamMetres": 1.354314500387026e-18
+        "loopSeamMetres": 1.3309619554827069e-18
+      },
+      {
+        "clip": "HoldHoe",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 1.3309619554827069e-18
+      },
+      {
+        "clip": "HoldShovel",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 1.3309619554827069e-18
       },
       {
         "clip": "HoldTool",
         "maxEdgeMetres": 0.1506,
-        "loopSeamMetres": 1.354314500387026e-18
+        "loopSeamMetres": 1.3309619554827069e-18
       },
       {
         "clip": "HoldTwoHandTool",
         "maxEdgeMetres": 0.1506,
-        "loopSeamMetres": 1.354314500387026e-18
+        "loopSeamMetres": 1.3309619554827069e-18
       },
       {
         "clip": "Idle",
         "maxEdgeMetres": 0.1506,
-        "loopSeamMetres": 1.354314500387026e-18
+        "loopSeamMetres": 1.3309619554827069e-18
       },
       {
         "clip": "Land",
@@ -121,7 +191,22 @@
         "loopSeamMetres": null
       },
       {
+        "clip": "MineAxe",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": null
+      },
+      {
         "clip": "MineBlock",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": null
+      },
+      {
+        "clip": "MineHoe",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": null
+      },
+      {
+        "clip": "MineShovel",
         "maxEdgeMetres": 0.1506,
         "loopSeamMetres": null
       },
@@ -136,14 +221,39 @@
         "loopSeamMetres": null
       },
       {
+        "clip": "RestAxe",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 1.3309619554827069e-18
+      },
+      {
+        "clip": "RestHoe",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 1.3309619554827069e-18
+      },
+      {
+        "clip": "RestShovel",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 1.3309619554827069e-18
+      },
+      {
+        "clip": "RestTool",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 1.3309619554827069e-18
+      },
+      {
+        "clip": "RestTwoHandTool",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 1.3309619554827069e-18
+      },
+      {
         "clip": "Run",
         "maxEdgeMetres": 0.1506,
-        "loopSeamMetres": 6.563441600241618e-18
+        "loopSeamMetres": 6.471492252166153e-18
       },
       {
         "clip": "Walk",
         "maxEdgeMetres": 0.1506,
-        "loopSeamMetres": 6.587191542872962e-18
+        "loopSeamMetres": 6.493670573558146e-18
       }
     ]
   },
@@ -156,12 +266,12 @@
       {
         "clip": "Airborne",
         "maxEdgeMetres": 0.1506,
-        "loopSeamMetres": 1.354314500387026e-18
+        "loopSeamMetres": 1.3309619554827069e-18
       },
       {
         "clip": "CrouchIdle",
         "maxEdgeMetres": 0.1506,
-        "loopSeamMetres": 1.2202733713677674e-18
+        "loopSeamMetres": 1.2020812144482475e-18
       },
       {
         "clip": "CrouchWalk",
@@ -184,7 +294,22 @@
         "loopSeamMetres": 0.0
       },
       {
+        "clip": "FP_HoldAxe",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 0.0
+      },
+      {
         "clip": "FP_HoldBlock",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 0.0
+      },
+      {
+        "clip": "FP_HoldHoe",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 0.0
+      },
+      {
+        "clip": "FP_HoldShovel",
         "maxEdgeMetres": 0.1506,
         "loopSeamMetres": 0.0
       },
@@ -214,7 +339,22 @@
         "loopSeamMetres": null
       },
       {
+        "clip": "FP_MineAxe",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": null
+      },
+      {
         "clip": "FP_MineBlock",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": null
+      },
+      {
+        "clip": "FP_MineHoe",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": null
+      },
+      {
+        "clip": "FP_MineShovel",
         "maxEdgeMetres": 0.1506,
         "loopSeamMetres": null
       },
@@ -229,6 +369,31 @@
         "loopSeamMetres": null
       },
       {
+        "clip": "FP_RestAxe",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 0.0
+      },
+      {
+        "clip": "FP_RestHoe",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 0.0
+      },
+      {
+        "clip": "FP_RestShovel",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 0.0
+      },
+      {
+        "clip": "FP_RestTool",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 0.0
+      },
+      {
+        "clip": "FP_RestTwoHandTool",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 0.0
+      },
+      {
         "clip": "FP_Run",
         "maxEdgeMetres": 0.1506,
         "loopSeamMetres": 0.0
@@ -239,24 +404,39 @@
         "loopSeamMetres": 0.0
       },
       {
+        "clip": "HoldAxe",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 1.3309619554827069e-18
+      },
+      {
         "clip": "HoldBlock",
         "maxEdgeMetres": 0.1506,
-        "loopSeamMetres": 1.354314500387026e-18
+        "loopSeamMetres": 1.3309619554827069e-18
+      },
+      {
+        "clip": "HoldHoe",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 1.3309619554827069e-18
+      },
+      {
+        "clip": "HoldShovel",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 1.3309619554827069e-18
       },
       {
         "clip": "HoldTool",
         "maxEdgeMetres": 0.1506,
-        "loopSeamMetres": 1.354314500387026e-18
+        "loopSeamMetres": 1.3309619554827069e-18
       },
       {
         "clip": "HoldTwoHandTool",
         "maxEdgeMetres": 0.1506,
-        "loopSeamMetres": 1.354314500387026e-18
+        "loopSeamMetres": 1.3309619554827069e-18
       },
       {
         "clip": "Idle",
         "maxEdgeMetres": 0.1506,
-        "loopSeamMetres": 1.354314500387026e-18
+        "loopSeamMetres": 1.3309619554827069e-18
       },
       {
         "clip": "Land",
@@ -269,7 +449,22 @@
         "loopSeamMetres": null
       },
       {
+        "clip": "MineAxe",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": null
+      },
+      {
         "clip": "MineBlock",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": null
+      },
+      {
+        "clip": "MineHoe",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": null
+      },
+      {
+        "clip": "MineShovel",
         "maxEdgeMetres": 0.1506,
         "loopSeamMetres": null
       },
@@ -284,14 +479,39 @@
         "loopSeamMetres": null
       },
       {
+        "clip": "RestAxe",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 1.3309619554827069e-18
+      },
+      {
+        "clip": "RestHoe",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 1.3309619554827069e-18
+      },
+      {
+        "clip": "RestShovel",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 1.3309619554827069e-18
+      },
+      {
+        "clip": "RestTool",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 1.3309619554827069e-18
+      },
+      {
+        "clip": "RestTwoHandTool",
+        "maxEdgeMetres": 0.1506,
+        "loopSeamMetres": 1.3309619554827069e-18
+      },
+      {
         "clip": "Run",
         "maxEdgeMetres": 0.1506,
-        "loopSeamMetres": 6.563441600241618e-18
+        "loopSeamMetres": 6.471492252166153e-18
       },
       {
         "clip": "Walk",
         "maxEdgeMetres": 0.1506,
-        "loopSeamMetres": 6.587191542872962e-18
+        "loopSeamMetres": 6.493670573558146e-18
       }
     ]
   }

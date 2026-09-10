@@ -451,6 +451,8 @@ def build(female):
     from refine_player_surfaces import refine
     from polish_player_rig import polish,material
     refine(rig,model);polish(rig,model);material(model)
+    from rework_player_avatar import sculpt
+    sculpt(rig,model)
     mod=model.modifiers.new('Weighted explorer skeleton','ARMATURE');mod.object=rig;model.parent=rig
     clips=animate(rig,shoulder,female)
     rig.animation_data.action=bpy.data.actions['Idle'];scene.frame_set(1)
@@ -473,7 +475,7 @@ def ensure_grip_sockets(rig):
     bpy.ops.object.mode_set(mode='EDIT')
     hand=rig.data.edit_bones['HandR'];basis=hand.matrix.copy()
     for name,offset,up,forward in [
-        ('BlockSocket',(0,.045,.102),(0,0,1),(0,-1,0)),
+        ('BlockSocket',(0,.045,.1035),(0,0,1),(0,-1,0)),
         ('ToolSocket',(0,.082,.047),(1,0,0),(0,0,1))]:
         b=rig.data.edit_bones.get(name) or rig.data.edit_bones.new(name)
         b.parent=hand;b.use_deform=False
@@ -537,8 +539,9 @@ def animate(rig,shoulder,female,only=None):
         aim('ThumbB'+side,h.matrix @ Vector((sign*.087,.065,.002)))
     def shaft_fingers(side):
         for f in range(4):
-            rotate('Finger%dA%s'%(f,side),51-f*.8);rotate('Finger%dB%s'%(f,side),47 if 'Finger%dC%s'%(f,side) in bones else 52)
-            if 'Finger%dC%s'%(f,side) in bones:rotate('Finger%dC%s'%(f,side),8)
+            a,b,c=[(53,47,44),(47,63,44),(51,55,44),(49,55,44)][f]
+            rotate('Finger%dA%s'%(f,side),a-f*.8);rotate('Finger%dB%s'%(f,side),b)
+            if 'Finger%dC%s'%(f,side) in bones:rotate('Finger%dC%s'%(f,side),c)
         h=bones['Hand'+side];sign=1 if side=='R' else -1
         aim('ThumbA'+side,h.matrix @ Vector((sign*.020,.056,.068)))
         aim('ThumbB'+side,h.matrix @ Vector((sign*.010,.082,.091)))
@@ -565,15 +568,17 @@ def animate(rig,shoulder,female,only=None):
            ('CrouchIdle',90),('CrouchWalk',36),('Land',12),
            ('FP_Idle',90),('FP_Walk',30),('FP_Run',24),('FP_Airborne',30),('FP_Crouch',90),('FP_CrouchWalk',36),('FP_Land',12),('FP_Mine',9)]
     for prefix in ['', 'FP_']:
-        for grip in ['Block','Tool','TwoHandTool']:
+        for grip in ['Block','Tool','TwoHandTool','Axe','Shovel','Hoe']:
             specs.extend([(prefix+'Hold'+grip,90),(prefix+'Mine'+grip,9 if grip=='Block' else 18)])
+            if grip!='Block':specs.append((prefix+'Rest'+grip,90))
     if only is not None:specs=[entry for entry in specs if entry[0] in only]
     for name,length in specs:
         action=bpy.data.actions.new(name);action.use_fake_user=True;rig.animation_data.action=action
         scene.frame_start=1;scene.frame_end=length+1
         previous={}
-        grip=next((g for g in ['TwoHandTool','Block','Tool'] if name.endswith(g)),None)
+        grip=next((g for g in ['TwoHandTool','Block','Tool','Axe','Shovel','Hoe'] if name.endswith(g)),None)
         striking='Mine' in name
+        resting='Rest' in name
         for frame in range(1,length+2):
             t=(frame-1)/length;a=t*math.tau;reset()
             for side in ['L','R']:curl(side,.32)
@@ -623,27 +628,54 @@ def animate(rig,shoulder,female,only=None):
                     bob=math.sin(armphase)*(.012 if run else .007) if walk else math.sin(a)*.0018
                     sway=math.cos(armphase)*(.011 if run else .004) if walk else 0
                     up=.026 if name=='FP_Airborne' else -.016 if name in ['FP_Crouch','FP_CrouchWalk'] else 0
-                    target=(sign*.29+sway+(across if bare_striking else 0),-.34+(forward if bare_striking else 0),1.295+bob+(lift if bare_striking else 0)+up-landing*.045)
+                    target=(sign*.285+sway+(across if bare_striking else 0),-.43+(forward if bare_striking else 0),1.255+bob+(lift if bare_striking else 0)+up-landing*.045)
                     # Lower, outward viewmodel shoulders keep the connected sleeve below the camera.
                     translate('Clavicle'+side,x=sign*.08,y=-.07,z=-.15)
                     arm_ik(side,target,(sign*.53,-.01,target[2]-.035),None,(0,0,-1))
-                    curl(side,.92)
+                    curl(side,.72 if not bare_striking else .92)
             if grip is not None:
-                fp=name.startswith('FP_');hit=swing_arc(t) if striking else (0,0,0)
+                fp=name.startswith('FP_')
+                # Baked anticipation, accelerating contact and a longer recovery.
+                # All tool contacts are solved after the complete assembly trajectory.
+                def keycurve(keys):
+                    for (a,va),(b,vb) in zip(keys,keys[1:]):
+                        if t<=b:return Vector(va).lerp(Vector(vb),smooth((t-a)/(b-a)))
+                    return Vector(keys[-1][1])
+                trajectories={
+                    'Tool':[(0,(0,0,0)),(.22,(-.04,.035,.055)),(.48,(.16,-.15,.02)),(.65,(.19,-.12,-.035)),(1,(0,0,0))],
+                    'Axe':[(0,(0,0,0)),(.28,(-.025,.02,.10)),(.53,(.13,-.12,-.025)),(.67,(.15,-.10,-.055)),(1,(0,0,0))],
+                    'TwoHandTool':[(0,(0,0,0)),(.28,(-.025,.025,.075)),(.54,(.095,-.095,-.025)),(.70,(.10,-.07,-.045)),(1,(0,0,0))],
+                    'Shovel':[(0,(0,0,0)),(.22,(-.02,.04,.025)),(.50,(.07,-.13,-.055)),(.72,(.12,-.06,.04)),(1,(0,0,0))],
+                    'Hoe':[(0,(0,0,0)),(.28,(-.015,.025,.075)),(.54,(.09,-.12,-.05)),(.72,(.12,-.06,-.025)),(1,(0,0,0))]}
+                hit=keycurve(trajectories[grip]) if striking and grip in trajectories else Vector(swing_arc(t)) if striking else Vector((0,0,0))
                 across,forward,lift=hit
+                swing_pitch=0
+                if striking and grip in trajectories:
+                    peak={'Tool':46,'Axe':48,'TwoHandTool':46,'Shovel':44,'Hoe':48}[grip]
+                    windup=.22 if grip in ['Tool','Shovel'] else .28
+                    swing_pitch=keycurve([(0,(0,0,0)),(windup,(-18,0,0)),(.54,(peak,0,0)),(.69,(peak+4,0,0)),(1,(0,0,0))]).x
+                    if not fp:rotate('Chest',-2+swing_pitch*.07,0,-math.sin(math.pi*t)*5)
                 if grip=='Block':across*=.55;forward*=.55;lift*=.55
-                wrist=Vector(((-.26 if fp else -.25)+across,(-.40 if fp else -.31)+forward,(1.24 if fp and grip=='TwoHandTool' else 1.265 if fp else 1.25)+lift))
-                if fp:translate('ClavicleR',x=-.08,y=-.07,z=-.15+lift)
+                wrist=Vector(((-.30 if fp else -.25)+across,(-.49 if fp else -.31)+forward,(1.225 if fp and grip=='TwoHandTool' else 1.235 if fp else 1.25)+lift))
+                if resting:
+                    wrist=Vector((-.32,-.59,1.27)) if fp else Vector((-.28,-.38,1.19))
+                if fp:translate('ClavicleR',x=-.08,y=-.15 if resting else -.07,z=-.15+lift*.2)
                 if grip=='Block':
                     # Horizontal forearm and fully flat palm form a tray below the block socket.
                     root=bones['UpperArmR'].head;direction=(wrist-Vector((-.50,-.18,wrist.z))).normalized();direction.z=0
                     arm_ik('R',wrist,(-.53,-.01,wrist.z),direction,(0,0,1));tray_fingers('R')
                 else:
-                    normal=(1,0,-.18 if grip=='TwoHandTool' else .08)
+                    normal=(0,.28,-1) if resting else (1,-.12 if grip=='Axe' else .10 if grip=='Tool' else 0,-.18 if grip=='TwoHandTool' else .08)
                     arm_ik('R',wrist,(-.53,-.01,wrist.z-.015),None,normal);shaft_fingers('R')
+                    if striking:
+                        # Lead from the shoulder: carry the elbow, wrist and held prop
+                        # through one descending arc while retaining the solved elbow bend.
+                        upper=bones['UpperArmR'];q=Quaternion(Vector((1,0,0)),math.radians(swing_pitch))
+                        upper.matrix=Matrix.Translation(upper.head) @ q.to_matrix().to_4x4() @ upper.matrix.to_3x3().to_4x4()
+                        scene.view_layers[0].update()
                     if grip=='TwoHandTool':
-                        if fp:translate('ClavicleL',x=-.14,y=-.14,z=-.22+lift)
-                        else:translate('ClavicleL',x=-.13,y=-.12,z=0)
+                        if fp:translate('ClavicleL',x=-.36 if resting else -.14,y=-.25 if resting else -.14,z=-.22+lift*.2)
+                        else:translate('ClavicleL',x=-.25 if resting else -.13,y=-.12,z=0)
                         scene.view_layers[0].update();socket=bones['ToolSocket'].matrix
                         shaft=socket.to_3x3().col[1].normalized();centre=socket.translation+shaft*.12
                         # Solve the grip around the shaft so the wrist, forearm and elbow

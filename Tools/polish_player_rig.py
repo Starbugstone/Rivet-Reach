@@ -50,7 +50,7 @@ def polish(rig,model):
     renew_nails(rig,model)
     model['distal_joints_version']=1;rig.data.pose_position='POSE'
 
-def renew_nails(rig,model):
+def renew_nails(rig,model,rings=4,sides=20):
     rig.data.pose_position='REST'
     old={i for p in model.data.polygons for i in p.vertices
          if .258<model.data.uv_layers.active.data[p.loop_start].uv.y<.26
@@ -67,7 +67,7 @@ def renew_nails(rig,model):
             normal=-bone.matrix_local.to_3x3().col[2];across=direction.cross(normal).normalized()
             centre=bone.head_local.lerp(bone.tail_local,.53 if digit<4 else .64)
             half_length=bone.length*(.37 if digit<4 else .20);width=.0058 if digit<4 else .006
-            verts=[];faces=[];weights=[];rings=4;sides=20
+            verts=[];faces=[];weights=[]
             for ring in range(rings):
                 radius=max(.001,ring/(rings-1))
                 for i in range(sides):

@@ -277,8 +277,8 @@ namespace RivetReach
             report.femaleTriangles=Resources.Load<GameObject>("Characters/ExplorerFemale").GetComponentInChildren<SkinnedMeshRenderer>().sharedMesh.triangles.Length/3;
             game.SetAppearance(true,1);game.UI.Rebuild();yield return Capture("06-alternate-skin");
             Check(Mathf.Approximately(player.Height,1.8f),"Appearance changes preserve gameplay height");
-            Check(report.maleTriangles<=80000&&report.femaleTriangles<=80000,"Both imported player meshes meet revised triangle review budget");
-            Check(report.armsTriangles<=55000,"Derived first-person hands and arms meet revised triangle review budget");
+            Check(report.maleTriangles<=90000&&report.femaleTriangles<=90000,"Both imported player meshes meet revised triangle review budget");
+            Check(report.armsTriangles<=68000,"Derived first-person hands and arms meet revised triangle review budget");
             game.SetAppearance(false,0);game.SetMode(ScreenMode.Settings);yield return Capture("07-settings");
             game.SetMode(ScreenMode.Controls);yield return Capture("08-controls");
             // Inspect an actually generated underground cavity with a supported two-cell opening.

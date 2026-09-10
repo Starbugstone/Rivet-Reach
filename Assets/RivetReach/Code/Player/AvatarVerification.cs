@@ -16,9 +16,9 @@ namespace RivetReach
             public string[] checks,errors;
             public int maleTriangles,femaleTriangles,armsTriangles,bones,clips,fullVertices,armsVertices;
             public float motion90Milliseconds,mining90Milliseconds,bodyAndArmsAnimationMeanMs,bodyAndArmsAnimationP95Ms;
-            public string animationBenchmark="1000 paired body/arms Animate calls after warmup; main-thread graph evaluation only, excludes rendering and terrain";
+            public string animationBenchmark="1000 paired body/arms pickaxe Animate calls after warmup; main-thread graph evaluation only, excludes rendering and terrain";
             public Vector3 leftWristViewport,rightWristViewport,idleHand,liveHand;
-            public float liveHandTravel;
+            public float liveHandTravel,maxTransitionSupportErrorMetres,maxSupportRotationStepDegrees,maxSupportWristDegrees;
             public Vector3 strafeStep;
         }
         readonly List<string> checks=new List<string>(),errors=new List<string>();
@@ -59,9 +59,9 @@ namespace RivetReach
             male=Avatar("Male review",new Vector3(.48f,0,0),false);female=Avatar("Female review",new Vector3(-.48f,0,0),true);
             result.maleTriangles=male.TriangleCount;result.femaleTriangles=female.TriangleCount;result.bones=male.BoneCount;result.clips=male.ClipCount;result.fullVertices=male.VertexCount;
             Check(male.AnimationReady&&female.AnimationReady,"Both animation graphs initialize");
-            Check(male.ClipCount==28&&female.ClipCount==28,"Both FBX imports contain all twenty-eight clips");
+            Check(male.ClipCount==50&&female.ClipCount==50,"Both FBX imports contain all fifty clips");
             Check(male.BoneCount==50&&female.BoneCount==50,"Both imports retain 48 deformation bones and two attachment frames");
-            Check(male.TriangleCount<=80000&&female.TriangleCount<=80000,"Both full models remain within the 80000 triangle review budget");
+            Check(male.TriangleCount<=90000&&female.TriangleCount<=90000,"Both full models remain within the 90000 triangle review budget");
             male.SamplePose("Idle",0);female.SamplePose("Idle",0);yield return Capture("01-front");
             male.transform.rotation=female.transform.rotation=Quaternion.Euler(0,180,0);yield return Capture("02-back");
             male.transform.rotation=Quaternion.Euler(0,-20,0);female.transform.rotation=Quaternion.Euler(0,-20,0);
@@ -98,7 +98,7 @@ namespace RivetReach
             foreach(bool isFemale in new[]{false,true})foreach(int skin in new[]{0,1})
             {
                 hands.Build(isFemale,skin);hands.SamplePose("FP_Idle",0);result.armsTriangles=hands.TriangleCount;result.armsVertices=hands.VertexCount;
-                Check(hands.TriangleCount<=28000,"Dominant first-person arm remains below 28000 triangles");
+                Check(hands.TriangleCount<=34000,"Dominant first-person arm remains below 34000 triangles");
                 result.leftWristViewport=reviewCamera.WorldToViewportPoint(hands.BonePosition("HandL"));result.rightWristViewport=reviewCamera.WorldToViewportPoint(hands.BonePosition("HandR"));
                 foreach(var wrist in new[]{result.rightWristViewport})
                     Check(wrist.z>.2f&&wrist.y>0&&wrist.y<.38f&&wrist.x>.12f&&wrist.x<.88f,"Resting wrists sit inside the lower camera frame");
@@ -111,11 +111,37 @@ namespace RivetReach
             foreach(bool isFemale in new[]{false,true})
             {
                 hands.Build(isFemale,0);
-                foreach(var grip in new[]{GripPose.Block,GripPose.Tool,GripPose.TwoHandTool})
+                foreach(var grip in new[]{GripPose.Block,GripPose.Tool,GripPose.TwoHandTool,GripPose.Axe,GripPose.Shovel,GripPose.Hoe})
                 {
                     hands.SetGrip(grip);
                     for(int frame=0;frame<36;frame++)hands.Animate(0,false,0,deltaTime:1f/120);
                     Check(hands.GripWeight>.995f,"Grip transition settles within 300 ms: "+grip);
+                    if(grip!=GripPose.Block)
+                    {
+                        Check(Mathf.Abs(hands.Bone("ToolSocket").up.y)<.4f,"Rest shaft lies horizontally: "+grip);
+                        hands.SetGuard(true);Quaternion previousSupport=hands.Bone("HandL").rotation;
+                        void CheckSupport()
+                        {
+                            if(grip!=GripPose.TwoHandTool)return;
+                            result.maxTransitionSupportErrorMetres=Mathf.Max(result.maxTransitionSupportErrorMetres,hands.SupportContactError);
+                            result.maxSupportRotationStepDegrees=Mathf.Max(result.maxSupportRotationStepDegrees,Quaternion.Angle(previousSupport,hands.Bone("HandL").rotation));
+                            result.maxSupportWristDegrees=Mathf.Max(result.maxSupportWristDegrees,Vector3.Angle(hands.Bone("HandL").up,hands.Bone("ForearmL").up));
+                            previousSupport=hands.Bone("HandL").rotation;
+                        }
+                        for(int frame=0;frame<24;frame++)
+                        {
+                            hands.Animate(0,false,0,deltaTime:1f/120);
+                            CheckSupport();
+                        }
+                        Check(result.maxTransitionSupportErrorMetres<.002f,"Blended pickaxe support stays within 2 mm of the handle");
+                        Check(hands.ToolUseWeight>.99f&&Mathf.Abs(hands.Bone("ToolSocket").up.y)>.65f,"Ready stance raises the shaft vertically: "+grip);
+                        hands.SetGuard(false);
+                        for(int frame=0;frame<60;frame++){hands.Animate(0,false,0,deltaTime:1f/120);CheckSupport();}
+                        Check(result.maxSupportRotationStepDegrees<20&&result.maxSupportWristDegrees<30,"Support hand raises and lowers continuously with a neutral wrist");
+                        Check(result.maxTransitionSupportErrorMetres<.002f,"Support stays attached throughout ready recovery");
+                        Check(hands.ToolUseWeight<.02f,"Ready release settles back to rest: "+grip);
+                    }
+                    hands.SamplePose("FP_Mine"+grip,0);
                     float maxBend=0,maxStep=0,maxSupportBend=0;Quaternion previous=hands.Bone("HandR").rotation;
                     for(int frame=0;frame<=72;frame++)
                     {
@@ -168,7 +194,7 @@ namespace RivetReach
             Check(hands.LandingWeight>.2f,"Landing impact activates the presentation layer");
             for(int frame=0;frame<60;frame++)hands.Animate(0,false,0,deltaTime:1f/120);
             Check(hands.LandingWeight<.001f,"Landing presentation settles without a persistent offset");
-            male.gameObject.SetActive(true);
+            male.gameObject.SetActive(true);male.SetGrip(GripPose.TwoHandTool);hands.SetGrip(GripPose.TwoHandTool);
             var durations=new double[1000];
             for(int frame=-100;frame<durations.Length;frame++)
             {

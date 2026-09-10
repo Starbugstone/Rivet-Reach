@@ -15,10 +15,13 @@ namespace RivetReach
             get
             {
                 if(PreviewGrip.HasValue)return PreviewGrip.Value;
-                var stack=Player.Game.Inventory.Slots[Player.Game.Selected];
+                var stack=displayed;
                 if(stack.Empty)return GripPose.Empty;
+                if(stack.Id==BlockId.Torch)return GripPose.Tool;
                 var tool=Player.Game.Registry.Capabilities(stack);
-                if((tool&ToolCapability.Axe)!=0)return GripPose.Tool;
+                if((tool&ToolCapability.Axe)!=0)return GripPose.Axe;
+                if((tool&ToolCapability.Shovel)!=0)return GripPose.Shovel;
+                if((tool&ToolCapability.Hoe)!=0)return GripPose.Hoe;
                 if((tool&ToolCapability.Pickaxe)!=0)return GripPose.TwoHandTool;
                 return tool!=ToolCapability.None?GripPose.Tool:GripPose.Block;
             }
@@ -28,9 +31,27 @@ namespace RivetReach
         public Transform Socket {get;private set;}
         public Vector3 Centre=>view.transform.position;
         public void SetPreview(GripPose? grip){PreviewGrip=grip;}
+        ItemStack displayed;
+        int displayedSlot=-1;
+        float equipLowering;
+        bool equipping;
+        public float EquipLowering=>equipLowering;
+        // Cache presentation only. The selected inventory stack still owns every action.
+        public void PrepareFrame(float dt)
+        {
+            var selected=Player.Game.Inventory.Slots[Player.Game.Selected];
+            byte next=selected.Empty?(byte)0:selected.Id;
+            byte current=displayed.Empty?(byte)0:displayed.Id;
+            // A depleted source slot cannot leave a ghost item during a selection change.
+            if(current!=0&&displayedSlot>=0&&Player.Game.Inventory.Slots[displayedSlot].Empty)
+            {displayed=default;equipLowering=0;equipping=false;return;}
+            equipping=next!=current;
+            equipLowering=Mathf.MoveTowards(equipLowering,equipping?1:0,dt/(equipping?.09f:.14f));
+            if(equipLowering>=1||next==current){displayed=selected;displayedSlot=Player.Game.Selected;}
+        }
         GameObject industryItem;
-        GameObject view,block,sword,pickaxe,axe,shovel,hoe,card;
-        Material cardMaterial,plainToolMaterial;
+        GameObject view,block,sword,pickaxe,axe,shovel,hoe,card,torch,bucket,bucketWater;
+        Material cardMaterial,torchMaterial,waterMaterial;
         Texture2D cardIcon;
         MeshFilter filter;
         Material material,toolMaterial,axeMaterial;
@@ -48,7 +69,6 @@ namespace RivetReach
             toolMaterial=new Material(Shader.Find("RivetReach/HeldTool"));toolMaterial.SetTexture("_BaseMap",Resources.Load<Texture2D>("Characters/SkinField"));
             axeMaterial=new Material(Shader.Find("RivetReach/HeldTool"));axeMaterial.SetTexture("_BaseMap",Resources.Load<Texture2D>("Tools/StarterAxe"));
             axeMaterial.SetFloat("_AxePalette",1);
-            plainToolMaterial=new Material(Shader.Find("RivetReach/HeldTool"));
             view.SetActive(false);
         }
         GameObject Tool(string path)
@@ -60,7 +80,7 @@ namespace RivetReach
         void LateUpdate()
         {
             if(Player==null||Player.Game==null)return;
-            var game=Player.Game;var selected=game.Inventory.Slots[game.Selected];byte id=selected.Empty?(byte)0:selected.Id;
+            var game=Player.Game;var selected=displayed;byte id=selected.Empty?(byte)0:selected.Id;
             if(id!=ItemId)
             {
                 ItemId=id;
@@ -84,7 +104,7 @@ namespace RivetReach
                 if(id!=0)
                 {
                     var definition=game.Registry.Get(id);var tint=definition.tier==ToolTier.None?Color.white:Color.Lerp(Color.white,definition.colour,.70f);
-                    toolMaterial.SetColor("_BaseColor",tint);axeMaterial.SetColor("_BaseColor",tint);plainToolMaterial.SetColor("_BaseColor",definition.colour);
+                    toolMaterial.SetColor("_BaseColor",tint);axeMaterial.SetColor("_BaseColor",tint);
                     if((id==BlockId.Torch||!BlockId.Placeable(id)&&!BlockId.RawMaterial(id))&&definition.toolCapabilities==ToolCapability.None)
                     {
                         if(card==null)
@@ -99,16 +119,33 @@ namespace RivetReach
                 }
             }
             var grip=DesiredGrip;var rig=Player.Inspecting?Player.Body:Player.Arms;
-            // The object appears once the fingers have reached their new contact pose.
-            bool show=grip!=GripPose.Empty&&game.Started&&!game.Paused&&!game.InventoryOpen&&rig.Grip==grip&&rig.GripWeight>.985f;
+            // Selection changes below the frame; the visible object stays attached throughout recovery.
+            bool show=grip!=GripPose.Empty&&game.Started&&!game.Paused&&!game.InventoryOpen&&rig.Grip==grip;
             view.SetActive(show);if(!show)return;
             Hand=rig.Bone("HandR");Socket=rig.Bone(grip==GripPose.Block?"BlockSocket":"ToolSocket");
             if(view.transform.parent!=Socket)view.transform.SetParent(Socket,false);
             float boneUnits=rig.transform.InverseTransformVector(Socket.TransformVector(Vector3.up)).magnitude;
             view.transform.localPosition=Vector3.zero;view.transform.localRotation=Quaternion.identity;view.transform.localScale=Vector3.one/boneUnits;
             block.SetActive(grip==GripPose.Block);
-            bool showCard=id!=0&&(id==BlockId.Torch||!BlockId.Placeable(id)&&!BlockId.RawMaterial(id))&&game.Registry.Get(id).toolCapabilities==ToolCapability.None;
-            filter.GetComponent<Renderer>().enabled=!showCard&&industryItem==null;if(card!=null)card.SetActive(showCard&&industryItem==null);
+            bool isBucket=Fluids.IsBucket(id),isTorch=id==BlockId.Torch;
+            bool showCard=!isBucket&&!isTorch&&id!=0&&(id==BlockId.Torch||!BlockId.Placeable(id)&&!BlockId.RawMaterial(id))&&game.Registry.Get(id).toolCapabilities==ToolCapability.None;
+            filter.GetComponent<Renderer>().enabled=!showCard&&!isBucket&&industryItem==null;
+            if(isBucket&&bucket==null)
+            {
+                bucket=Tool("PalmBucket");bucket.transform.SetParent(block.transform,false);
+                bucketWater=GameObject.CreatePrimitive(PrimitiveType.Cylinder);Destroy(bucketWater.GetComponent<Collider>());bucketWater.transform.SetParent(block.transform,false);
+                bucketWater.transform.localPosition=new Vector3(0,.32f,0);bucketWater.transform.localScale=new Vector3(.80f,.008f,.80f);
+                waterMaterial=new Material(Shader.Find("RivetReach/HeldTool"));waterMaterial.SetColor("_BaseColor",new Color(.08f,.42f,.58f));
+                var waterRenderer=bucketWater.GetComponent<Renderer>();waterRenderer.sharedMaterial=waterMaterial;waterRenderer.shadowCastingMode=ShadowCastingMode.Off;
+            }
+            if(bucketWater!=null)bucketWater.SetActive(isBucket&&id!=Fluids.EmptyBucket);
+            if(bucket!=null)bucket.SetActive(isBucket);
+            if(isTorch&&torch==null)
+            {
+                torch=Tool("GripTorch");torchMaterial=new Material(toolMaterial);torchMaterial.SetFloat("_Torch",1);torchMaterial.SetColor("_BaseColor",Color.white);
+                foreach(var r in torch.GetComponentsInChildren<Renderer>())r.sharedMaterial=torchMaterial;
+            }
+            if(torch!=null)torch.SetActive(isTorch);if(card!=null)card.SetActive(showCard&&industryItem==null);
             if(showCard)card.transform.rotation=Player.Camera.transform.rotation;
             bool useAxe=!PreviewGrip.HasValue&&(game.Registry.Capabilities(selected)&ToolCapability.Axe)!=0;
             if(useAxe&&axe==null)
@@ -124,57 +161,34 @@ namespace RivetReach
             if(axe!=null)axe.SetActive(useAxe);
             if(useAxe)
             {
-                // Roll only around the handle: the shaft remains in the authored grip,
-                // while the cutting edge points toward the intended strike direction.
+                // Keep the cutting edge fixed to the grip through the complete arc.
+                // Re-aiming at the camera direction flips the head as the shaft passes it.
                 var shaft=axe.transform.localRotation*handleAxis;
                 var blade=axe.transform.localRotation*bladeAxis;
-                var aim=Player.Inspecting?Player.transform.forward:Player.Camera.transform.forward;
-                var desired=Vector3.ProjectOnPlane(axe.transform.parent.InverseTransformVector(aim),shaft);
+                var desired=Vector3.ProjectOnPlane(axe.transform.parent.InverseTransformDirection(Hand.up),shaft);
                 if(desired.sqrMagnitude>.0001f)
                     axe.transform.localRotation=Quaternion.AngleAxis(Vector3.SignedAngle(blade,desired,shaft),shaft)*axe.transform.localRotation;
             }
-            var capability=game.Registry.Capabilities(selected);bool useShovel=(capability&ToolCapability.Shovel)!=0,useHoe=(capability&ToolCapability.Hoe)!=0;
-            if(useShovel&&shovel==null)shovel=GardenTool(false);
-            if(useHoe&&hoe==null)hoe=GardenTool(true);
+            var capability=game.Registry.Capabilities(selected);bool useShovel=!PreviewGrip.HasValue&&(capability&ToolCapability.Shovel)!=0,useHoe=!PreviewGrip.HasValue&&(capability&ToolCapability.Hoe)!=0;
+            if(useShovel&&shovel==null)shovel=Tool("GripShovel");
+            if(useHoe&&hoe==null)hoe=Tool("GripHoe");
             if(shovel!=null)shovel.SetActive(useShovel);if(hoe!=null)hoe.SetActive(useHoe);
-            if(grip==GripPose.Tool&&!useAxe&&!useShovel&&!useHoe&&sword==null)sword=Tool("GripSword");
+            if(grip==GripPose.Tool&&!isTorch&&!useAxe&&!useShovel&&!useHoe&&sword==null)sword=Tool("GripSword");
             if(grip==GripPose.TwoHandTool&&pickaxe==null)pickaxe=Tool("GripPickaxe");
-            if(sword!=null)sword.SetActive(grip==GripPose.Tool&&!useAxe&&!useShovel&&!useHoe);if(pickaxe!=null)pickaxe.SetActive(grip==GripPose.TwoHandTool);
+            if(sword!=null)sword.SetActive(grip==GripPose.Tool&&!isTorch&&!useAxe&&!useShovel&&!useHoe);if(pickaxe!=null)pickaxe.SetActive(grip==GripPose.TwoHandTool);
             float firstPerson=Player.Inspecting?0:1;
             material.SetFloat("_FirstPerson",firstPerson);toolMaterial.SetFloat("_FirstPerson",firstPerson);axeMaterial.SetFloat("_FirstPerson",firstPerson);
-            plainToolMaterial.SetFloat("_FirstPerson",firstPerson);
+            if(waterMaterial!=null)waterMaterial.SetFloat("_FirstPerson",firstPerson);
+            if(torchMaterial!=null)torchMaterial.SetFloat("_FirstPerson",firstPerson);
             if(cardMaterial!=null)cardMaterial.SetFloat("_FirstPerson",firstPerson);
         }
-        GameObject GardenTool(bool isHoe)
-        {
-            var root=new GameObject(isHoe?"Hoe":"Shovel");root.transform.SetParent(view.transform,false);
-            void Part(Vector3 position,Vector3 size)
-            {
-                var part=GameObject.CreatePrimitive(PrimitiveType.Cube);Destroy(part.GetComponent<Collider>());part.transform.SetParent(root.transform,false);
-                part.transform.localPosition=position;part.transform.localScale=size;part.GetComponent<Renderer>().sharedMaterial=plainToolMaterial;
-                part.GetComponent<Renderer>().shadowCastingMode=ShadowCastingMode.Off;
-            }
-            Part(new Vector3(0,.04f,0),new Vector3(.033f,.50f,.033f));
-            if(isHoe)Part(new Vector3(.075f,.32f,0),new Vector3(.20f,.035f,.075f));
-            else Part(new Vector3(0,.34f,0),new Vector3(.14f,.20f,.022f));
-            return root;
-        }
-        float axeFraming;
         public void FrameFirstPerson()
         {
-            var arm=Player.Arms.transform;arm.localRotation=Quaternion.identity;
-            var stack=Player.Game.Inventory.Slots[Player.Game.Selected];
-            bool selected=!PreviewGrip.HasValue&&(Player.Game.Registry.Capabilities(stack)&ToolCapability.Axe)!=0;
-            axeFraming=Mathf.MoveTowards(axeFraming,selected?1:0,Time.deltaTime*8);
-            if(axeFraming<=0)return;
-            // Reframe the entire hand/tool assembly around its authored contact point.
-            // The world body, socket grip, aim ray and reach retain their normal transforms.
-            Vector3 pivot=Player.Camera.transform.InverseTransformPoint(Player.Arms.Bone("ToolSocket").position);
-            Quaternion roll=Quaternion.Euler(0,0,22*axeFraming);
-            float scale=arm.localScale.x;
-            arm.localPosition=pivot+roll*(arm.localPosition-pivot)+new Vector3(.42f*scale,-.12f*scale,.18f)*axeFraming;
-            arm.localRotation=roll;
+            var arm=Player.Arms.transform;
+            float amount=equipLowering*equipLowering*(3-2*equipLowering);
+            arm.localRotation=Quaternion.Euler(12*amount,0,-6*amount);
+            arm.localPosition+=new Vector3(.025f,-.52f,.08f)*amount*arm.localScale.x;
         }
-        void OnDestroy(){if(view!=null)Destroy(view);if(material!=null)Destroy(material);if(toolMaterial!=null)Destroy(toolMaterial);if(axeMaterial!=null)Destroy(axeMaterial);if(plainToolMaterial!=null)Destroy(plainToolMaterial);if(cardMaterial!=null)Destroy(cardMaterial);if(cardIcon!=null)Destroy(cardIcon);foreach(var mesh in meshes.Values)Destroy(mesh);}
+        void OnDestroy(){if(view!=null)Destroy(view);if(material!=null)Destroy(material);if(toolMaterial!=null)Destroy(toolMaterial);if(axeMaterial!=null)Destroy(axeMaterial);if(torchMaterial!=null)Destroy(torchMaterial);if(waterMaterial!=null)Destroy(waterMaterial);if(cardMaterial!=null)Destroy(cardMaterial);if(cardIcon!=null)Destroy(cardIcon);foreach(var mesh in meshes.Values)Destroy(mesh);}
     }
 }

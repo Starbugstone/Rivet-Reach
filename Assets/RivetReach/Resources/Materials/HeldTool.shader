@@ -1,6 +1,6 @@
 Shader "RivetReach/HeldTool"
 {
-    Properties { _BaseColor("Tint",Color)=(1,1,1,1) _BaseMap("Tool palette",2D)="white" {} [HideInInspector] _FirstPerson("First person",Float)=1 [HideInInspector] _AxePalette("Axe palette",Float)=0 [HideInInspector] _Cutoff("Alpha cutoff",Float)=0 [HideInInspector] _Cull("Cull",Float)=2 }
+    Properties { _BaseColor("Tint",Color)=(1,1,1,1) _BaseMap("Tool palette",2D)="white" {} [HideInInspector] _FirstPerson("First person",Float)=1 [HideInInspector] _Torch("Torch flame",Float)=0 [HideInInspector] _AxePalette("Axe palette",Float)=0 [HideInInspector] _Cutoff("Alpha cutoff",Float)=0 [HideInInspector] _Cull("Cull",Float)=2 }
     SubShader
     {
         Tags { "RenderPipeline"="UniversalPipeline" "RenderType"="Opaque" "Queue"="Geometry+50" }
@@ -12,10 +12,12 @@ Shader "RivetReach/HeldTool"
             HLSLPROGRAM
             #pragma vertex Vert
             #pragma fragment Frag
+            #pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
+            #pragma multi_compile _ _CLUSTER_LIGHT_LOOP
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
             TEXTURE2D(_BaseMap);SAMPLER(sampler_BaseMap);
-            float _FirstPerson,_AxePalette,_Cutoff;float4 _BaseColor;
+            float _FirstPerson,_Torch,_AxePalette,_Cutoff;float4 _BaseColor;
             struct A {float3 positionOS:POSITION;float3 normalOS:NORMAL;float2 uv:TEXCOORD0;float2 tile:TEXCOORD1;};
             struct V {float4 positionCS:SV_POSITION;float3 normalWS:TEXCOORD0;float2 uv:TEXCOORD1;float tile:TEXCOORD2;float3 positionWS:TEXCOORD3;};
             V Vert(A i){V o;o.positionCS=TransformObjectToHClip(i.positionOS);o.positionWS=TransformObjectToWorld(i.positionOS);o.normalWS=TransformObjectToWorldNormal(i.normalOS);o.uv=i.uv;o.tile=i.tile.x;
@@ -38,7 +40,9 @@ Shader "RivetReach/HeldTool"
                 input.viewDirectionWS=GetWorldSpaceNormalizeViewDir(i.positionWS);input.bakedGI=SampleSH(input.normalWS);
                 input.shadowMask=half4(1,1,1,1);input.normalizedScreenSpaceUV=GetNormalizedScreenSpaceUV(i.positionCS);
                 SurfaceData surface=(SurfaceData)0;surface.albedo=colour.rgb*_BaseColor.rgb;
-                surface.metallic=metal*.8;surface.smoothness=lerp(.23,.66,metal);surface.alpha=1;surface.occlusion=1;
+                surface.metallic=metal*.62;surface.smoothness=lerp(.23,.48,metal);
+                surface.emission=colour.rgb*SampleSH(input.normalWS)*metal*.13;surface.alpha=1;surface.occlusion=1;
+                if(_Torch>.5&&region==12){surface.metallic=0;surface.emission=half3(2.4,.72,.10)*(1+.06*sin(_Time.y*11));}
                 return UniversalFragmentPBR(input,surface);
             }
             ENDHLSL

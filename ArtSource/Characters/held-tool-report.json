@@ -1,0 +1,26 @@
+[
+  {
+    "model": "GripSword",
+    "triangles": 7536,
+    "materials": 1,
+    "shaftRadius": 0.019
+  },
+  {
+    "model": "GripPickaxe",
+    "triangles": 10988,
+    "materials": 1,
+    "shaftRadius": 0.019
+  },
+  {
+    "model": "GripShovel",
+    "triangles": 10708,
+    "materials": 1,
+    "shaftRadius": 0.019
+  },
+  {
+    "model": "GripHoe",
+    "triangles": 10762,
+    "materials": 1,
+    "shaftRadius": 0.019
+  }
+]
