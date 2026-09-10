@@ -13,6 +13,8 @@ namespace RivetReach
             public WorldPoint Position;
             public Vector3 Velocity;
             public float Age,Delay;
+            public bool ActionCreated {get;internal set;}
+            public float CollectionRadius=>ActionCreated?ActionPickupRadius:PickupRadius;
             internal float EscapeRetry;
             public bool Sleeping;
             public GameObject View;
@@ -30,7 +32,7 @@ namespace RivetReach
         readonly Dictionary<(byte,long,int,long),List<Pile>> mergeBuckets=new Dictionary<(byte,long,int,long),List<Pile>>();
         readonly Stack<List<Pile>> spareBuckets=new Stack<List<Pile>>();
         // Enclose the rotated 23 cm display cube as well as its physical height.
-        public const float CollisionWidth=.33f,CollisionHeight=.23f,PickupRadius=1.7f;
+        public const float CollisionWidth=.33f,CollisionHeight=.23f,PickupRadius=1.7f*1.2f,ActionPickupRadius=PickupRadius*1.2f;
         public int Total(byte id){int total=0;foreach(var p in Piles)if(p.Stack.Id==id)total+=p.Stack.Count;return total;}
         public void Initialize(Expedition game)
         {
@@ -83,13 +85,13 @@ namespace RivetReach
             // the pile. Retain it and retry when terrain changes or space becomes available.
             pile.Velocity=Vector3.zero;pile.EscapeRetry=.25f;return false;
         }
-        public void Spawn(ItemStack stack,Vector3 local,Vector3 velocity,float delay=0)
+        public void Spawn(ItemStack stack,Vector3 local,Vector3 velocity,float delay=0,bool actionCreated=false)
         {
             if(stack.Empty)return;int max=Game.Registry.Get(stack.Id).stackLimit;
             while(stack.Count>0)
             {
                 int n=Math.Min(stack.Count,max);stack.Count-=n;
-                Piles.Add(new Pile{Id=nextId++,Stack=new ItemStack(stack.Id,n),Position=WorldPoint.FromLocal(local,World.Origin),Velocity=velocity,Delay=delay});
+                Piles.Add(new Pile{Id=nextId++,Stack=new ItemStack(stack.Id,n),Position=WorldPoint.FromLocal(local,World.Origin),Velocity=velocity,Delay=delay,ActionCreated=actionCreated});
                 TotalSpawned+=n;
             }
         }
@@ -150,7 +152,7 @@ namespace RivetReach
                         p.Position=WorldPoint.FromLocal(local,World.Origin);
                     }
                 }
-                if(clear&&p.Delay<=0&&Vector3.Distance(local,player+Vector3.up*.5f)<=PickupRadius)
+                if(clear&&p.Delay<=0&&Vector3.Distance(local,player+Vector3.up*.5f)<=p.CollectionRadius)
                 {
                     Vector3 start=player+Vector3.up*.9f,delta=local+Vector3.up*.1f-start;
                     if(!World.Raycast(start,delta.normalized,delta.magnitude-.05f,out _,out _))
@@ -183,7 +185,8 @@ namespace RivetReach
                         if(!mergeBuckets.TryGetValue((key.Item1,key.Item2+x,key.Item3+y,key.Item4+z),out var nearby))continue;
                         foreach(var other in nearby)
                         {
-                            if(other.Stack.Count>=limit||other.Sleeping!=p.Sleeping)continue;
+                            // Keep the action bonus on its own drops, even beside the same item type.
+                            if(other.Stack.Count>=limit||other.Sleeping!=p.Sleeping||other.ActionCreated!=p.ActionCreated)continue;
                             Vector3 toward=other.Position.Local(World.Origin)-local;
                             if(toward.sqrMagnitude>1)continue;
                             if(World.Raycast(local+Vector3.up*.1f,toward.normalized,toward.magnitude,out _,out _))continue;

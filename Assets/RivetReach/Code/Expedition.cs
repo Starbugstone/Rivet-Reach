@@ -83,7 +83,7 @@ namespace RivetReach
         {
             byte drop=Registry.FistDrop(id);
             int count=id==BlockId.MaturePotatoPlant?2+(int)(TerrainGenerator.Hash(pos.X,pos.Y,pos.Z,Seed)%3):1;
-            Items.Spawn(new ItemStack(drop,count),World.Local(pos)+new Vector3(.5f,.3f,.5f),Vector3.up*1.6f);
+            Items.Spawn(new ItemStack(drop,count),World.Local(pos)+new Vector3(.5f,.3f,.5f),Vector3.up*1.6f,actionCreated:true);
         }
         public void StartSession(int seed)
         {

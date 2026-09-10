@@ -8,6 +8,61 @@ namespace RivetReach
 {
     public sealed partial class RuntimeVerification
     {
+        IEnumerator ReviewPickupRanges()
+        {
+            var world=game.World;var player=game.Player;var items=game.Items;
+            var saved=WorldPoint.FromLocal(player.transform.position,world.Origin);var carried=game.Inventory.Slots.ToArray();
+            var existing=items.Piles.ToArray();var cell=world.Address(player.transform.position).Offset(0,12,0);
+            var at=world.Local(cell);byte previous=world.Get(cell);
+            player.enabled=false;items.enabled=false;
+            player.transform.position=at+new Vector3(.5f,-.2f,-1.7f);
+            void ClearInventory(){for(int i=0;i<game.Inventory.Count;i++)game.Inventory.Take(i,int.MaxValue);}
+            void ClearDrops(){foreach(var p in items.Piles.Except(existing).ToArray()){if(p.View!=null)Destroy(p.View);items.Piles.Remove(p);}}
+            DroppedItems.Pile Spawn(float distance,bool action=false,int count=1,float delay=0)
+            {
+                items.Spawn(new ItemStack(BlockId.Dirt,count),player.transform.position+Vector3.up*.5f+Vector3.forward*distance,Vector3.zero,delay,action);
+                var pile=items.Piles.Last();pile.Sleeping=true;return pile;
+            }
+            ClearInventory();
+            var normal=Spawn(2.03f);var outside=Spawn(2.05f);
+            items.Step(0);
+            Check(!items.Piles.Contains(normal)&&items.Piles.Contains(outside)&&game.Inventory.Total(BlockId.Dirt)==1,"Ordinary pickup includes 2.03 m and excludes 2.05 m around the new 2.04 m radius");
+            ClearDrops();ClearInventory();
+            if(previous!=0)world.Remove(cell,previous);
+            Check(world.Place(cell,BlockId.Dirt)&&world.Mine(cell,BlockId.Dirt,ToolCapability.None),"Real mining commits the pickup fixture and creates its drop");
+            var mined=items.Piles.Except(existing).Single();mined.Sleeping=true;
+            var unrelated=Spawn(2.2f);
+            items.Step(0);
+            Check(mined.ActionCreated&&!items.Piles.Contains(mined)&&items.Piles.Contains(unrelated)&&game.Inventory.Total(BlockId.Dirt)==1,"Only the exact mined pile is collected at 2.2 m; an identical existing item stays");
+            ClearDrops();ClearInventory();
+            var boosted=Spawn(2.44f,true);var beyond=Spawn(2.46f,true);
+            items.Step(0);
+            Check(!items.Piles.Contains(boosted)&&items.Piles.Contains(beyond),"Action pickup includes 2.44 m and excludes 2.46 m around the 2.448 m radius");
+            ClearDrops();ClearInventory();
+            int capacity=game.Inventory.Count*game.Registry.Get(BlockId.Dirt).stackLimit;
+            game.Inventory.Add(BlockId.Dirt,capacity-1);
+            var partial=Spawn(2.2f,true,3);items.Step(0);
+            Check(partial.Stack.Count==2&&partial.ActionCreated&&game.Inventory.Total(BlockId.Dirt)==capacity,"Partial action pickup conserves the remainder and its own range");
+            var ordinary=Spawn(2.2f);var matching=Spawn(2.2f,true,2);items.Step(.5f);
+            Check(items.Piles.Contains(ordinary)&&ordinary.Stack.Count==1&&items.Piles.Contains(partial)&&partial.Stack.Count==4&&!items.Piles.Contains(matching),"Matching action piles merge but cannot transfer their bonus to ordinary piles of the same item");
+            ClearDrops();ClearInventory();
+            var delayed=Spawn(2.2f,true,1,1);items.Step(.5f);
+            Check(items.Piles.Contains(delayed)&&game.Inventory.Total(BlockId.Dirt)==0,"Action pickup still honors a pickup delay");
+            items.Step(.5f);Check(!items.Piles.Contains(delayed),"Eligible action pile is collected after its delay");
+            ClearDrops();ClearInventory();
+            var blocked=Spawn(2.2f,true);var barrier=cell.Offset(0,0,-1);
+            byte oldBarrier=world.Get(barrier);if(oldBarrier!=0)world.Remove(barrier,oldBarrier);
+            Check(world.Place(barrier,BlockId.Stone),"Pickup barrier fixture is resident");items.Step(0);
+            Check(items.Piles.Contains(blocked)&&game.Inventory.Total(BlockId.Dirt)==0,"The action bonus cannot collect through a solid barrier");
+            world.Remove(barrier,BlockId.Stone);items.Step(0);
+            Check(!items.Piles.Contains(blocked),"Removing the barrier allows action pickup");
+            if(oldBarrier!=0)world.Place(barrier,oldBarrier);
+            ClearDrops();ClearInventory();
+            if(previous!=0)world.Place(cell,previous);
+            for(int i=0;i<carried.Length;i++)if(!carried[i].Empty)game.Inventory.Add(carried[i].Id,carried[i].Count,i,i+1);
+            player.transform.position=saved.Local(world.Origin);player.enabled=true;items.enabled=true;
+            yield return null;
+        }
         IEnumerator ReviewPlacementItems()
         {
             var world=game.World;var player=game.Player;var items=game.Items;

@@ -139,6 +139,8 @@ namespace RivetReach
             {report.workload="Five ore depth bands, pickaxe mining, raw drops, bedrock and depletion across streaming";yield return ReviewOres();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-interaction-review"))
             {report.workload="Grass and hand interaction review";yield return ReviewInteractions();yield break;}
+            if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-pickup-review"))
+            {report.workload="Normal and per-pile action pickup ranges, exact-item isolation, partial pickup, merging, delays and barriers";yield return ReviewPickupRanges();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-placement-items-review"))
             {report.workload="Dropped-item stacking, placement and movement interactions";yield return ReviewPlacementItems();yield return ReviewMovementInteractions();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-tree-review"))
