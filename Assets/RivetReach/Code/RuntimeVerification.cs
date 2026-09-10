@@ -81,6 +81,13 @@ namespace RivetReach
         {
             // Nested enumerators are driven by Unity. Check failures are also captured by Log().
             yield return null; // Allow the title's initialization rebuild to retire its previous UI tree.
+            if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-shadow-review"))
+            {
+                report.workload="Stationary terrain shadow and ambient-occlusion stability";
+                yield return ShadowProbe.Run(game,output);
+                Check(ShadowProbe.LastReport.result!="FAIL","Shadow probe completed with one directional light, no duplicate chunk views and the expected sampling stability");
+                yield break;
+            }
             float began=Time.realtimeSinceStartup;report.startupSeed=game.Seed;
             var seedField=game.UI.GetComponentInChildren<UnityEngine.UI.InputField>();
             Check(seedField!=null&&string.IsNullOrEmpty(seedField.text),"Normal startup leaves the optional seed field blank for a random world (seed "+game.Seed+")");

@@ -138,3 +138,7 @@ The user selected implementation of [GitHub issue #2](https://github.com/Starbug
 ## Authorized multiblock and pipe extension — 2026-09-10
 
 The user selected [issue #3](https://github.com/Starbugstone/Rivet-Reach/issues/3): reusable multiblock lifecycle, player-built liquid tanks, connected Blender shell surfaces and shared pipe connections. [MULTIBLOCKS.md](MULTIBLOCKS.md) owns construction, exact shared storage, breach/resize recovery, signal valves/level sensors and independent signal/power fittings on both item and fluid pipes. This supersedes earlier exclusions of those specific hybrid channels and tank controls. [Verification](verification/MULTIBLOCK_RESULTS.md) records the measured build and remaining review. Whole-world durable saves remain later scope.
+
+## Stable ambient occlusion — 2026-09-10
+
+The PC renderer uses Interleaved Gradient SSAO sampling to keep stationary terrain and tree contact shading stable. Preserve the authored AO intensity/radius and directional shadow quality when adjusting it. The native [shadow stability check](verification/SHADOW_RESULTS.md) records the Blue Noise comparison, temporary fixture controls and remaining limits; Editor test defines can mask Blue Noise animation.

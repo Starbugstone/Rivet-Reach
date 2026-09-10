@@ -1,0 +1,33 @@
+{
+    "timestamp": "2026-09-10T18:25:48.6639566Z",
+    "unity": "6000.4.4f1",
+    "gpu": "NVIDIA GeForce RTX 2060",
+    "result": "PASS",
+    "width": 960,
+    "height": 540,
+    "activeDirectionalLights": 1,
+    "duplicateChunkViews": 0,
+    "antialiasing": "SubpixelMorphologicalAntiAliasing",
+    "aoMethod": "InterleavedGradient",
+    "originalShadowDepthBias": 0.10000000149011612,
+    "samples": [
+        {
+            "mode": "frozen-shadow",
+            "frames": 30,
+            "meanChannelDelta": 0.0,
+            "changedPixelsPercent": 0.0
+        },
+        {
+            "mode": "frozen-no-shadow",
+            "frames": 30,
+            "meanChannelDelta": 0.0,
+            "changedPixelsPercent": 0.0
+        },
+        {
+            "mode": "moving-shadow",
+            "frames": 120,
+            "meanChannelDelta": 0.012215549028253278,
+            "changedPixelsPercent": 0.15793585952899678
+        }
+    ]
+}

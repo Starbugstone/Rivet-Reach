@@ -43,7 +43,8 @@ namespace RivetReach.Editor
         {
             yield return null;
             if(!PlaySessionReloadGuard.Locked)throw new InvalidOperationException("Live Play must defer assembly reloads");
-            if(!Output.EndsWith("/Reload"))yield return PerformanceProbe.Run(Expedition.Instance,Output);
+            if(Output.EndsWith("/Shadow"))yield return ShadowProbe.Run(Expedition.Instance,Output);
+            else if(!Output.EndsWith("/Reload"))yield return PerformanceProbe.Run(Expedition.Instance,Output);
             // Request compilation during a live session. The loaded authorities must survive;
             // pending code is allowed to load only after the explicit ExitPlaymode below.
             var game=Expedition.Instance;var inventory=game.Inventory;var world=game.World;
@@ -65,20 +66,20 @@ namespace RivetReach.Editor
             Directory.CreateDirectory(output);foreach(var name in new[]{"errors.txt","result.txt","performance.json"})if(File.Exists(output+"/"+name))File.Delete(output+"/"+name);
             SessionState.SetString(Key,output);EditorApplication.EnterPlaymode();
         }
-        public static void Build()
+        public static void Build(string output="Builds/Performance",string logDirectory="Logs/Performance")
         {
-            const string output="Builds/Performance";Directory.CreateDirectory(output);Directory.CreateDirectory("Logs/Performance");
+            Directory.CreateDirectory(output);Directory.CreateDirectory(logDirectory);
             var report=BuildPipeline.BuildPlayer(new BuildPlayerOptions
             {
                 scenes=EditorBuildSettings.scenes.Where(s=>s.enabled).Select(s=>s.path).ToArray(),
                 locationPathName=output+"/RivetReach.exe",target=BuildTarget.StandaloneWindows64,options=BuildOptions.Development
             });
-            File.WriteAllText("Logs/Performance/build-summary.txt",$"{report.summary.result}; errors {report.summary.totalErrors}; warnings {report.summary.totalWarnings}; seconds {report.summary.totalTime.TotalSeconds}\n");
+            File.WriteAllText(logDirectory+"/build-summary.txt",$"{report.summary.result}; errors {report.summary.totalErrors}; warnings {report.summary.totalWarnings}; seconds {report.summary.totalTime.TotalSeconds}\n");
             if(report.summary.result!=BuildResult.Succeeded)throw new Exception("Performance build failed");
             File.Copy("LICENSE.md",output+"/LICENSE.md",true);File.Copy(".docs/THIRD_PARTY_NOTICES.md",output+"/THIRD_PARTY_NOTICES.md",true);
             foreach(string source in Directory.GetFiles(".docs/licenses","*",SearchOption.AllDirectories))
             {string target=Path.Combine(output,"licenses",Path.GetRelativePath(".docs/licenses",source));Directory.CreateDirectory(Path.GetDirectoryName(target));File.Copy(source,target,true);}
-            File.WriteAllText("Logs/Performance/build-result.txt","PASS");
+            File.WriteAllText(logDirectory+"/build-result.txt","PASS");
         }
         static void Poll()
         {
@@ -97,9 +98,10 @@ namespace RivetReach.Editor
                         File.WriteAllText("Logs/Performance/checks-result.txt","PASS");
                     }
                     else if(output=="build")Build();
+                    else if(output=="shadow-build")Build("Builds/Shadows","Logs/Shadows");
                     else Begin(output);
                 }
-                catch(Exception e){string directory=(output=="checks"||output=="build")?"Logs/Performance":output;Directory.CreateDirectory(directory);File.WriteAllText(directory+(output=="build"?"/build-result.txt":output=="checks"?"/checks-result.txt":"/result.txt"),"FAIL: "+e);}
+                catch(Exception e){string directory=output=="shadow-build"?"Logs/Shadows":(output=="checks"||output=="build")?"Logs/Performance":output;Directory.CreateDirectory(directory);File.WriteAllText(directory+((output=="build"||output=="shadow-build")?"/build-result.txt":output=="checks"?"/checks-result.txt":"/result.txt"),"FAIL: "+e);}
                 return;
             }
             if(routines==null||!EditorApplication.isPlaying||frame==Time.frameCount)return;
