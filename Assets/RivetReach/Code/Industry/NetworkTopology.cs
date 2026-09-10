@@ -19,6 +19,7 @@ namespace RivetReach
         public readonly List<Group> Groups=new List<Group>();
         public readonly Dictionary<BlockPos,int> Connections=new Dictionary<BlockPos,int>();
         public readonly NetworkKind Kind;
+        public Func<BlockPos,int> ExternalEndpointFaces;
         public NetworkTopology(NetworkKind kind){Kind=kind;}
         public IEnumerable<int> Rebuild(IReadOnlyList<MachineState> machines)
         {
@@ -26,10 +27,9 @@ namespace RivetReach
             var nodes=new List<Endpoint>();var byPosition=new Dictionary<BlockPos,List<int>>();
             foreach(var m in machines)
             {
-                foreach(var p in m.Definition.Ports)
+                foreach(var p in PipeConnections.Ports(m))
                 {
-                    if(p.Kind!=Kind)continue;int faces=0;
-                    for(int f=0;f<6;f++)if((p.Faces&(1<<f))!=0)faces|=1<<IndustryDefinition.RotateFace(f,m.Rotation);
+                    if(p.Kind!=Kind)continue;int faces=PipeConnections.WorldFaces(p,m.Rotation);
                     if(!byPosition.TryGetValue(m.Position,out var list))byPosition.Add(m.Position,list=new List<int>());
                     list.Add(nodes.Count);nodes.Add(new Endpoint{Machine=m,Port=p,Faces=faces,Group=-1});
                 }
@@ -47,10 +47,16 @@ namespace RivetReach
                     {
                         if((a.Faces&(1<<face))==0)continue;
                         var next=IndustryDefinition.Neighbor(a.Machine.Position,face);
-                        if(!byPosition.TryGetValue(next,out var candidates))continue;
+                        if(!byPosition.TryGetValue(next,out var candidates))
+                        {
+                            // External inventories terminate a route; they never become a hidden bridge.
+                            if(PipeConnections.Matches(a.Faces,ExternalEndpointFaces?.Invoke(next)??0,face))
+                            {Connections.TryGetValue(a.Machine.Position,out int externalMask);Connections[a.Machine.Position]=externalMask|(1<<face);}
+                            continue;
+                        }
                         foreach(int j in candidates)
                         {
-                            var b=nodes[j];if((b.Faces&(1<<(face^1)))==0)continue;
+                            var b=nodes[j];if(!PipeConnections.Matches(a.Faces,b.Faces,face))continue;
                             Connections.TryGetValue(a.Machine.Position,out int mask);Connections[a.Machine.Position]=mask|(1<<face);
                             if(b.Group>=0)continue;b.Group=group.Id;queue.Enqueue(j);
                         }

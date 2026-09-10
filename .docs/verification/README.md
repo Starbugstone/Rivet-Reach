@@ -4,6 +4,7 @@ This directory maintains the latest report and useful evidence for each feature.
 
 | Feature | Current evidence |
 | --- | --- |
+| Multiblock tanks and shared pipe channel fittings | [Multiblock verification](MULTIBLOCK_RESULTS.md) |
 | Blue Signal, power and the first workshop | [Industry verification](INDUSTRY_RESULTS.md) — screenshots, gameplay clip, machine interfaces and measured limits |
 | Craftable torches and local lighting | [Torch verification](TORCH_RESULTS.md) |
 | Creative testing, flight and item catalog | [Creative verification](CREATIVE_RESULTS.md) |

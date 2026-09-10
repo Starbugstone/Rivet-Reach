@@ -138,3 +138,8 @@ The user explicitly selected basic Minecraft-style recipes, five tool tiers incl
 The user explicitly selected seas, rivers, bucket movement and Minecraft-style source/flow behaviour, then confirmed two-source renewal as a boolean that varies by liquid. [FLUIDS.md](FLUIDS.md) owns the implementation. Water enables renewal; future liquids can disable it. The initial source encoding, 0.25-second water delay, river/sea scale and material presentation are working defaults for play review. Actual lava, reactions, irrigation and industry remain future requests.
 
 Remaining review: river width and continuity across many seeds, coast composition, swimming feel, transparent-water appearance and sustained edits across large fluid regions. Focused measured evidence belongs in [fluid verification](verification/FLUID_RESULTS.md).
+
+
+## Multiblock working defaults — 2026-09-10
+
+The user selected issue #3 and shared pipe connections, with Blender assets and individually editable connected shells. [MULTIBLOCKS.md](MULTIBLOCKS.md) owns the implementation. The 3–9 axis limits, 250 L/interior cell, 4,096-read scan limit, component costs, 10% sensor threshold increments and drain-first/recovery-out controls are working decisions selected to implement that request. Review construction cost versus the 100 L tank, frame/window proportions, diagnosis clarity, dense-factory rendering and long-session resize behavior. They are not individually user-selected tuning or proven survival balance.

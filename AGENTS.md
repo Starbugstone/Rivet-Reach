@@ -20,6 +20,8 @@ The user subsequently authorized craftable torches and placed lighting. [GAMEPLA
 
 The user subsequently authorized [issue #2 industry](.docs/INDUSTRY.md): Azure resources, a 4×4 Machinist’s Bench, Blue Signal, separate electricity, boiler/alternator, crusher/pump/drill, tanks and initial item/fluid logistics, with original Blender assets and matching interfaces. [Industry verification](.docs/verification/INDUSTRY_RESULTS.md) records measured evidence. Keep signal, electricity, items and fluid channels independent; preserve dormant boundaries, fixed-step resource conservation and current player assets.
 
+The user subsequently authorized [issue #3 multiblocks](.docs/MULTIBLOCKS.md): reusable validation/lifecycle, scalable hollow tanks, exact shared fluid storage, individually mineable connected Blender shells, signal valves/level sensors, and independent power/signal fittings on both item and fluid pipes. Preserve breach recovery and drain-first controller removal. [Multiblock verification](.docs/verification/MULTIBLOCK_RESULTS.md) distinguishes measured checks from review. Session chunk residency is supported; whole-world durable saves remain later scope.
+
 ## Licensing and ownership
 
 - Rivet Reach is **proprietary, all rights reserved, and not open source**. Read `LICENSE.md` before introducing code, assets, dependencies or contribution workflows.

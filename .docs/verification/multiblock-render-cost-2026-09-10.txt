@@ -1,0 +1,1 @@
+6×4×5 formed tank: 104594 active triangles, 122 mesh renderers, 23 glass renderers, 96 shell views. Includes one 12-triangle liquid volume; excludes pipes and the surrounding scene. Combined surface meshes are shared by configuration; renderer count is not a measured draw-call count.

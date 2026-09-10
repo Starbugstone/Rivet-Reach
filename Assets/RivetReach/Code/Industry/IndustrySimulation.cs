@@ -16,8 +16,10 @@ namespace RivetReach
         readonly List<MachineState> eligible=new List<MachineState>();
         IEnumerator<int> rebuild;bool dirty=true,signalsDirty=true;
         readonly List<MachineState> devices=new List<MachineState>();
-        readonly Dictionary<MachineState,int> fluidAvailable=new Dictionary<MachineState,int>(),fluidCapacity=new Dictionary<MachineState,int>();
-        readonly List<(MachineState from,MachineState to,int amount)> fluidTransfers=new List<(MachineState,MachineState,int)>();
+        readonly Dictionary<FluidStorage,long> fluidAvailable=new Dictionary<FluidStorage,long>(),fluidCapacity=new Dictionary<FluidStorage,long>();
+        readonly Dictionary<FluidStorage,FluidDefinition> fluidTypes=new Dictionary<FluidStorage,FluidDefinition>();
+        readonly List<(FluidStorage from,FluidStorage to,FluidDefinition fluid,long amount)> fluidTransfers=new List<(FluidStorage,FluidStorage,FluidDefinition,long)>();
+        public readonly MultiblockService Multiblocks;
         public readonly SignalNetworkService Signals=new SignalNetworkService();
         public readonly PowerNetworkService Power=new PowerNetworkService();
         public readonly NetworkTopology ItemNetwork=new NetworkTopology(NetworkKind.Item),FluidNetwork=new NetworkTopology(NetworkKind.Fluid);
@@ -28,24 +30,24 @@ namespace RivetReach
         public int TopologyRebuilds {get;private set;}
         public bool Rebuilding=>dirty||rebuild!=null;
         public double LastStepMs {get;private set;}
-        public IndustrySimulation(IIndustryWorld world,Func<byte,int> limit){this.world=world;this.limit=limit;}
+        public IndustrySimulation(IIndustryWorld world,Func<byte,int> limit){this.world=world;this.limit=limit;Multiblocks=new MultiblockService(world,this);ItemNetwork.ExternalEndpointFaces=p=>world.Ready(p)&&world.Storage(p)!=null?63:0;}
         public MachineState At(BlockPos p)=>machines.TryGetValue(p,out var m)?m:null;
         public void Invalidate(){dirty=true;signalsDirty=true;Revision++;}
         public MachineState Add(BlockPos p,byte id)
-        {if(machines.ContainsKey(p))throw new InvalidOperationException("Occupied machine anchor");var m=new MachineState(p,id,limit);machines.Add(p,m);Invalidate();return m;}
+        {if(machines.ContainsKey(p))throw new InvalidOperationException("Occupied machine anchor");var m=new MachineState(p,id,limit);machines.Add(p,m);if(id==IndustryId.TankController)Multiblocks.Register(m,MultiblockDefinition.Tank);Multiblocks.Changed(p);Invalidate();return m;}
         public MachineState Remove(BlockPos p)
-        {var m=At(p);if(m!=null){machines.Remove(p);Invalidate();}return m;}
-        public void Rotate(MachineState m){m.Rotation=(m.Rotation+1)%4;Invalidate();}
+        {var m=At(p);if(m!=null){if(!Multiblocks.CanRemove(p))return null;Multiblocks.RemoveController(p);machines.Remove(p);Multiblocks.Changed(p);Invalidate();}return m;}
+        public void Rotate(MachineState m){m.Rotation=(m.Rotation+1)%4;Multiblocks.Changed(m.Position);Invalidate();}
         public void Activate(MachineState m)
         {if(m.Definition.Id==IndustryId.Lever)m.Source=!m.Source;else if(m.Definition.Id==IndustryId.Button){m.Source=true;m.PulseTicks=20;}signalsDirty=true;Revision++;}
         public void Step()
         {
-            long start=Stopwatch.GetTimestamp();Tick++;
+            long start=Stopwatch.GetTimestamp();Tick++;Multiblocks.Step();
             if(dirty)
             {
                 rebuild?.Dispose();dirty=false;eligible.Clear();devices.Clear();
                 foreach(var m in machines.Values)
-                {m.Eligible=world.Ready(m.Position);m.ReceivedWatts=m.RequestedWatts=m.SupplyWatts=0;m.Signal=false;m.SignalAttached=false;if(m.Eligible)eligible.Add(m);else m.Status=MachineStatus.Dormant;}
+                {m.Eligible=world.Ready(m.Position);m.ReceivedWatts=m.RequestedWatts=m.SupplyWatts=0;m.Signal=false;m.SignalAttached=false;m.FluidConflict=false;if(m.Eligible)eligible.Add(m);else m.Status=MachineStatus.Dormant;}
                 eligible.Sort((a,b)=>Compare(a.Position,b.Position));foreach(var m in eligible)if(!IndustryId.Route(m.Definition.Id))devices.Add(m);rebuild=Rebuild().GetEnumerator();TopologyRebuilds++;
             }
             if(rebuild!=null)
@@ -58,6 +60,11 @@ namespace RivetReach
             {
                 m.RequestedWatts=m.ReceivedWatts=m.SupplyWatts=0;
                 if(m.Definition.Id==IndustryId.Relay&&m.Source!=m.NextSource){m.Source=m.NextSource;signalsDirty=true;}
+                if(IndustryId.TankPart(m.Definition.Id))
+                {
+                    m.Status=m.Structure?.Formed==true?MachineStatus.Ready:MachineStatus.StructureInvalid;
+                    if(m.Definition.Id==IndustryId.TankSensor){var tank=m.Structure;bool source=tank?.Formed==true&&tank.Fluid.Amount*100>=tank.Fluid.Capacity*m.LevelThreshold;if(m.Source!=source){m.Source=source;signalsDirty=true;}}
+                }
                 if(m.Definition.Id==IndustryId.Sensor)
                 {var c=world.Storage(Neighbor(m,4));int count=0;if(world.Ready(Neighbor(m,4))&&c!=null)foreach(var s in c.Slots)count+=s.Count;bool source=count>=32;if(source!=m.Source){m.Source=source;signalsDirty=true;}}
             }
@@ -175,7 +182,7 @@ namespace RivetReach
                     {
                         if(route.Port.Role!=PortRole.Route)continue;
                         for(int face=0;face<6;face++)
-                        {var pos=Neighbor(route.Machine,face);var dest=world.Ready(pos)?world.Storage(pos):null;if(dest==null||ReferenceEquals(dest,source)||dest.Capacity(stack.Id)==0)continue;dest.Add(stack.Id,1);source.Take(slot,1);sent=true;break;}
+                        {if((route.Faces&(1<<face))==0)continue;var pos=IndustryDefinition.Neighbor(route.Machine.Position,face);var dest=world.Ready(pos)?world.Storage(pos):null;if(dest==null||ReferenceEquals(dest,source)||dest.Capacity(stack.Id)==0)continue;dest.Add(stack.Id,1);source.Take(slot,1);sent=true;break;}
                         if(sent)break;
                     }
                     if(m.Definition.Id==IndustryId.Extractor)m.Status=sent?MachineStatus.Running:MachineStatus.OutputFull;
@@ -184,22 +191,50 @@ namespace RivetReach
         }
         void TransferFluids()
         {
-            // Reserve all transfers from the pre-transfer amounts, preventing same-step multi-hop forwarding.
-            var available=fluidAvailable;var capacity=fluidCapacity;var transfers=fluidTransfers;available.Clear();capacity.Clear();transfers.Clear();
+            // Reservations are keyed by storage identity across ALL ports and graphs, never by shell block.
+            var available=fluidAvailable;var capacity=fluidCapacity;var transfers=fluidTransfers;
+            available.Clear();capacity.Clear();transfers.Clear();fluidTypes.Clear();
             foreach(var g in FluidNetwork.Groups)
-            foreach(var p in g.Ports)if(p.Port.Role!=PortRole.Route){available[p.Machine]=p.Machine.WaterMl;capacity[p.Machine]=p.Machine.Definition.WaterCapacity-p.Machine.WaterMl;}
+            foreach(var p in g.Ports)
+            {
+                p.Machine.FluidConflict=false;
+                if(p.Port.Role==PortRole.Route||!PipeConnections.FluidEnabled(p.Machine))continue;
+                var storage=PipeConnections.Storage(p.Machine);if(storage==null||available.ContainsKey(storage))continue;
+                available[storage]=storage.Amount;capacity[storage]=storage.Capacity-storage.Amount;fluidTypes[storage]=storage.Fluid;
+            }
             foreach(var g in FluidNetwork.Groups)
             {
+                FluidDefinition networkFluid=null;bool conflict=false;
+                foreach(var endpoint in g.Ports)
+                {
+                    if(endpoint.Port.Role==PortRole.Route||!PipeConnections.FluidEnabled(endpoint.Machine))continue;
+                    var storage=PipeConnections.Storage(endpoint.Machine);if(storage?.Fluid==null)continue;
+                    if(networkFluid!=null&&networkFluid.StableId!=storage.Fluid.StableId)conflict=true;
+                    networkFluid=storage.Fluid;
+                }
+                if(conflict){foreach(var endpoint in g.Ports)endpoint.Machine.FluidConflict=true;continue;}
                 int count=g.Ports.Count,start=(int)(Tick%Math.Max(1,count));
                 for(int n=0;n<count;n++)
                 {
-                    var source=g.Ports[(start+n)%count];if(source.Port.Role!=PortRole.Output||available[source.Machine]==0)continue;
-                    int budget=Math.Min(100,available[source.Machine]);
+                    var source=g.Ports[(start+n)%count];
+                    if(source.Port.Role!=PortRole.Output||!PipeConnections.FluidEnabled(source.Machine))continue;
+                    var from=PipeConnections.Storage(source.Machine);
+                    if(from==null||!available.TryGetValue(from,out long amount)||amount==0)continue;
+                    long budget=Math.Min(100,amount);var fluid=from.Fluid;
                     for(int k=0;k<count&&budget>0;k++)
-                    {var dest=g.Ports[(start+k)%count];if(dest.Port.Role!=PortRole.Input||dest.Machine==source.Machine)continue;int take=Math.Min(budget,capacity[dest.Machine]);if(take<=0)continue;transfers.Add((source.Machine,dest.Machine,take));available[source.Machine]-=take;capacity[dest.Machine]-=take;budget-=take;}
+                    {
+                        var dest=g.Ports[(start+k)%count];
+                        if(dest.Port.Role!=PortRole.Input||!PipeConnections.FluidEnabled(dest.Machine)||!PipeConnections.Accepts(dest.Machine,fluid))continue;
+                        var to=PipeConnections.Storage(dest.Machine);
+                        if(to==null||to==from||!capacity.ContainsKey(to)||fluidTypes[to]!=null&&fluidTypes[to].StableId!=fluid.StableId)continue;
+                        long take=Math.Min(budget,capacity[to]);if(take<=0)continue;
+                        transfers.Add((from,to,fluid,take));available[from]-=take;capacity[to]-=take;fluidTypes[to]=fluid;budget-=take;
+                    }
                 }
             }
-            foreach(var t in transfers){t.from.WaterMl-=t.amount;t.to.WaterMl+=t.amount;}
+            // Synchronous authority turn: edits cannot interleave reservation and commit.
+            foreach(var t in transfers)if(!t.from.Withdraw(t.amount))throw new InvalidOperationException("Stale fluid withdrawal");
+            foreach(var t in transfers)if(!t.to.Deposit(t.fluid,t.amount))throw new InvalidOperationException("Stale fluid deposit");
         }
     }
 }

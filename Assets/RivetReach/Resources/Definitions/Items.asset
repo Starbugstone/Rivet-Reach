@@ -1768,3 +1768,123 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+  - runtimeId: 160
+    stableId: rivet:tank_frame
+    displayName: Reinforced Tank Frame
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 161
+    stableId: rivet:tank_wall
+    displayName: Tank Wall
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 162
+    stableId: rivet:tank_glass
+    displayName: Reinforced Tank Glass
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 163
+    stableId: rivet:tank_controller
+    displayName: Tank Controller
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 164
+    stableId: rivet:tank_port
+    displayName: Tank Fluid Port
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 165
+    stableId: rivet:tank_hatch
+    displayName: Tank Access Hatch
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 166
+    stableId: rivet:tank_valve
+    displayName: Signal Valve Port
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+  - runtimeId: 167
+    stableId: rivet:tank_sensor
+    displayName: Tank Level Sensor
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0

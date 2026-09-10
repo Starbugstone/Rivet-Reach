@@ -76,7 +76,7 @@ namespace RivetReach
             var drops=new GameObject("World item stacks");drops.transform.SetParent(transform,false);Items=drops.AddComponent<DroppedItems>();Items.Initialize(this);
             World.BlockMined+=SpawnMinedDrop;
             World.OriginShifted+=Sound.ShiftOrigin;
-            Survival=new WorldSurvival(this);Industry=new WorldIndustry(this);root.AddComponent<IndustryPresentation>().Initialize(this);
+            Survival=new WorldSurvival(this);Industry=new WorldIndustry(this);root.AddComponent<IndustryPresentation>().Initialize(this);root.AddComponent<MultiblockPresentation>().Initialize(this);
             Mobs=root.AddComponent<MobSystem>();Mobs.Initialize(this);
         }
         void SpawnMinedDrop(BlockPos pos,byte id)

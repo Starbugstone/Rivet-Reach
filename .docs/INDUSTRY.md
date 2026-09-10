@@ -2,7 +2,7 @@
 
 Working implementation under [issue #2](https://github.com/Starbugstone/Rivet-Reach/issues/2), selected by the user on 2026-09-10. Numerical tuning and the original Blender assets remain subject to play and artistic review. [Verification](verification/INDUSTRY_RESULTS.md) records the measured build and limitations.
 
-**Power makes machines work. Signal tells machines what to do.** Blue control, electrical power, items and water use four separate networks. Neither ordinary blocks nor ordinary item/fluid pipes conduct blue signal. Explicit hybrid pipes, programmable logic, broader sensors and durable saves remain later issue extensions.
+**Power makes machines work. Signal tells machines what to do.** Blue control, electrical power, items and water use four separate networks. Neither ordinary blocks nor ordinary item/fluid pipes conduct blue signal. [Pipe channel fittings and multiblock controls](MULTIBLOCKS.md) subsequently add explicit hybrids. Programmable logic, broader sensors and durable saves remain later extensions.
 
 ## Progression and authoring
 
@@ -79,3 +79,8 @@ Controls evaluate before power allocation; signal changes propagate through cach
 The user's [Blue Signal](concepts/signal-power/blue-signal-components.jpg), [electrical components](concepts/signal-power/electric-power-components.jpg) and [workshop](concepts/signal-power/automation-workshop-scene.jpg) sheets guide silhouette, dark iron, copper/brass fittings and cyan signal accents. They are low-resolution visual direction, not production meshes.
 
 `Tools/create_industry_assets.py` creates original metric Blender geometry, moving pivots, a source animation timeline, a shared original atlas and individual rendered icons. `ArtSource/Industry/WorkshopKit.blend` is editable source; runtime FBX/PNG files live under `Assets/RivetReach/Resources/Industry`. Unity uses state-driven pivot animation, avoiding an Animator on every connector; the source timeline remains available to inspect motions. Sources and exports are separate, so running the game does not require Blender. No third-party art or new dependency is introduced.
+
+
+## Authorized multiblock and pipe extension — 2026-09-10
+
+The user selected [issue #3](https://github.com/Starbugstone/Rivet-Reach/issues/3): reusable multiblock lifecycle, player-built liquid tanks, connected Blender shell surfaces and shared pipe connections. [MULTIBLOCKS.md](MULTIBLOCKS.md) owns construction, exact shared storage, breach/resize recovery, signal valves/level sensors and independent signal/power fittings on both item and fluid pipes. This supersedes earlier exclusions of those specific hybrid channels and tank controls. [Verification](verification/MULTIBLOCK_RESULTS.md) records the measured build and remaining review. Whole-world durable saves remain later scope.

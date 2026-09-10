@@ -9,7 +9,7 @@ namespace RivetReach
     {
         sealed class View
         {
-            public GameObject Root;public MachineState State;public Transform[] Parts;public Vector3[] Rest;public Quaternion[] RestRotation;
+            public GameObject Root,SignalAddition,PowerAddition;public MachineState State;public Transform[] Parts;public Vector3[] Rest;public Quaternion[] RestRotation;
             public Renderer[] Renderers;public Light Light;public float Phase;public int Mask=-1;public bool Active,MaterialShown;public MachineStatus ShownStatus=(MachineStatus)(-1);
         }
         Expedition game;float nextRefresh;long shownRevision=-1;
@@ -20,6 +20,16 @@ namespace RivetReach
         MaterialPropertyBlock properties,statusProperties;
         public int ViewCount=>views.Count;
         public void Initialize(Expedition game){this.game=game;properties=new MaterialPropertyBlock();statusProperties=new MaterialPropertyBlock();game.World.OriginShifted+=Shift;}
+        void SetAddition(GameObject root,NetworkTopology topology,MachineState m)
+        {
+            if(root==null)return;topology.Connections.TryGetValue(m.Position,out int mask);
+            properties.SetColor("_EmissionColor",topology.Kind==NetworkKind.Signal&&m.Signal?new Color(1.5f,1.5f,1.5f):new Color(.12f,.12f,.12f));
+            foreach(Transform t in root.transform)
+            {
+                if(t.name.StartsWith("Arm")&&t.name.Length>3){int face=t.name[3]-'0';t.gameObject.SetActive((mask&(1<<IndustryDefinition.RotateFace(face,m.Rotation)))!=0);}
+                var r=t.GetComponent<Renderer>();if(r!=null)r.SetPropertyBlock(properties);
+            }
+        }
         void Shift(Vector3 delta){nextRefresh=0;foreach(var v in views.Values)v.Root.transform.position-=delta;}
         void Update()
         {
@@ -27,7 +37,7 @@ namespace RivetReach
             if(Time.unscaledTime>=nextRefresh)
             {
                 nextRefresh=Time.unscaledTime+.25f;nearby.Clear();visible.Clear();
-                foreach(var m in sim.EligibleMachines)if(game.World.Ready(m.Position)&&(game.World.Local(m.Position)-game.Player.transform.position).sqrMagnitude<64*64){nearby.Add(m);visible.Add(m);}
+                foreach(var m in sim.EligibleMachines)if(!IndustryId.TankPart(m.Definition.Id)&&game.World.Ready(m.Position)&&(game.World.Local(m.Position)-game.Player.transform.position).sqrMagnitude<64*64){nearby.Add(m);visible.Add(m);}
                 nearby.Sort((a,b)=>(game.World.Local(a.Position)-game.Player.transform.position).sqrMagnitude.CompareTo((game.World.Local(b.Position)-game.Player.transform.position).sqrMagnitude));
                 remove.Clear();foreach(var pair in views)if(!visible.Contains(pair.Value.State))remove.Add(pair.Key);
                 foreach(var p in remove){Destroy(views[p].Root);views.Remove(p);}
@@ -49,6 +59,12 @@ namespace RivetReach
                     v.Root.transform.rotation=Quaternion.Euler(0,m.Rotation*90,0);
                     // Exported geometry occupies [0,1]^3. Rotate about the footprint centre.
                     v.Root.transform.position-=v.Root.transform.rotation*(Vector3.one*.5f);
+                    if(PipeConnections.IsTransport(m.Definition.Id))
+                    {
+                        if((m.Additions&PipeAddition.Signal)!=0&&v.SignalAddition==null)v.SignalAddition=Instantiate(Resources.Load<GameObject>("Industry/Runtime/pipe_signal_addition"),v.Root.transform,false);
+                        if((m.Additions&PipeAddition.Power)!=0&&v.PowerAddition==null)v.PowerAddition=Instantiate(Resources.Load<GameObject>("Industry/Runtime/pipe_power_addition"),v.Root.transform,false);
+                        SetAddition(v.SignalAddition,sim.Signals.Topology,m);SetAddition(v.PowerAddition,sim.Power.Topology,m);
+                    }
                     if(v.Light!=null){v.Light.enabled=m.Running&&lights++<8;v.Light.intensity=2.5f*m.ReceivedWatts/Mathf.Max(1,m.Definition.Watts);}
                 }
             }

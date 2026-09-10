@@ -1,0 +1,34 @@
+{
+  "tank_frame": {
+    "triangles": 8160,
+    "sourceParts": 30
+  },
+  "tank_wall": {
+    "triangles": 8160,
+    "sourceParts": 30
+  },
+  "tank_glass": {
+    "triangles": 7500,
+    "sourceParts": 30
+  },
+  "tank_controller": {
+    "triangles": 9200,
+    "sourceParts": 32
+  },
+  "tank_port": {
+    "triangles": 9120,
+    "sourceParts": 31
+  },
+  "tank_hatch": {
+    "triangles": 8468,
+    "sourceParts": 31
+  },
+  "tank_valve": {
+    "triangles": 9344,
+    "sourceParts": 31
+  },
+  "tank_sensor": {
+    "triangles": 8780,
+    "sourceParts": 32
+  }
+}

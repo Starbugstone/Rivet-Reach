@@ -92,9 +92,11 @@ namespace RivetReach
             seedField=game.UI.GetComponentInChildren<UnityEngine.UI.InputField>();seedField.text="246813";StartButton().onClick.Invoke();
             Check(game.Seed==246813&&game.World.Generator.Seed==246813,"Entering an explicit seed starts that reproducible world");
             game.World.ViewDistance=Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-fluid-review")?4:10;game.Diagnostics=true;
-            if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-creative-review"||arg=="-rr-torch-review"||arg=="-rr-industry-review"))game.World.ViewDistance=4;
+            if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-creative-review"||arg=="-rr-torch-review"||arg=="-rr-industry-review"||arg=="-rr-multiblock-review"))game.World.ViewDistance=4;
             yield return Settle();report.firstReadySeconds=Time.realtimeSinceStartup-began;
             var player=game.Player;var world=game.World;report.viewRadius=world.ViewDistance;report.fogStart=world.FogStart;report.fogEnd=world.FogEnd;var start=world.Address(player.transform.position);var saved=WorldPoint.FromLocal(player.transform.position,world.Origin);
+            if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-multiblock-review"))
+            {report.workload="Multiblock tank: connected Blender shell, wired fluid valve, shared storage, transactional buckets, breach/repair, chunk residency";yield return ReviewMultiblocks();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-industry-review"))
             {report.workload="Industrial workshop: steam, electricity, signal control, ore processing, item/fluid transport, machine interfaces and residency";yield return ReviewIndustry();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-torch-review"))

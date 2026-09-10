@@ -434,3 +434,8 @@ The [user-authorized torch rules](GAMEPLAY.md#torches) store occupied cells thro
 ## Authorized industrial extension — 2026-09-10
 
 The user selected implementation of [GitHub issue #2](https://github.com/Starbugstone/Rivet-Reach/issues/2), including original Blender machines, animated operating states, matching interfaces and stability/performance checks. [INDUSTRY.md](INDUSTRY.md) owns the current Azure/Copper unlock, 4×4 Machinist’s Bench, separate signal/power/item/fluid graphs, steam/electrical bootstrap, crusher/pump/drill and fixed sensor/relay behavior. This supersedes earlier statements excluding this bounded industrial content; hybrid transport/control variants, advanced logic and durable saves remain later extensions. [Industry verification](verification/INDUSTRY_RESULTS.md) owns evidence and remaining limits.
+
+
+## Multiblock and shared pipe implementation — 2026-09-10
+
+[MULTIBLOCKS.md](MULTIBLOCKS.md) owns the selected issue #3 lifecycle, bounded cavity validation, session identity/revisions, storage-keyed fluid reservations across multiple ports/graphs, and independent channel fittings on both transport pipes. Tank machine data is separate from the generic membership service and validator interface. The whole candidate must be resident for ordinary operation. The selected drain-first controller rule, with explicit exact-quantity recovery output, conserves breached contents within today’s session world; it does not yet implement the proposed durable recovery parcels or whole-world saves.

@@ -1,0 +1,9 @@
+{
+  "baseCommit": "a963423",
+  "buildCompletedUtc": "2026-09-10T13:15:30.072162+00:00",
+  "unity": "6000.4.4f1",
+  "runtimeTimestamp": "2026-09-10T13:16:19.5777368Z",
+  "playerExeSha256": "7d52ee70fb22771f4608d810d1015f539c37dd8b7b2fbb1a0ea9f6bc5c32d5c9",
+  "gameAssemblySha256": "b9cca855ebb38db7e895e68f0c9682cd467a7ee2d8fda26b3740997759524fb3",
+  "scope": "Committed player assets with multiblock/pipe feature overlay; concurrent avatar work excluded."
+}

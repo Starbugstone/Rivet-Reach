@@ -5,7 +5,7 @@ namespace RivetReach
 {
     public enum NetworkKind { Signal, Power, Item, Fluid }
     public enum PortRole { Route, Input, Output }
-    public enum MachineStatus { Ready, Running, NoPower, Underpowered, DisabledBySignal, OutputFull, NoInput, NoFuel, NoWater, NoShaft, Dormant, Depleted }
+    public enum MachineStatus { Ready, Running, NoPower, Underpowered, DisabledBySignal, OutputFull, NoInput, NoFuel, NoWater, NoShaft, Dormant, Depleted, StructureInvalid }
     public readonly struct MachinePort
     {
         public readonly NetworkKind Kind; public readonly PortRole Role; public readonly int Faces;
@@ -16,7 +16,9 @@ namespace RivetReach
         public const byte AzureOre=120,AzureCrystal=121,CopperWire=122,CopperPlate=123,IronPlate=124,Cog=125,Rivets=126,Casing=127,Glass=128;
         public const byte Bench=130,SignalWire=131,SignalConduit=132,Relay=133,Lever=134,Button=135,Indicator=136,Door=137,PowerCable=138,Lamp=139,Boiler=140,Alternator=141,Crusher=142,Pump=143,Drill=144,Tank=145,ItemPipe=146,FluidPipe=147,Extractor=148,Sensor=149;
         public const byte CrushedCopper=150,CrushedIron=151,CrushedGold=152;
-        public static bool Placed(byte id)=>id>=Bench&&id<=Sensor;
+        public const byte TankFrame=160,TankWall=161,TankGlass=162,TankController=163,TankPort=164,TankHatch=165,TankValve=166,TankSensor=167;
+        public static bool TankPart(byte id)=>id>=TankFrame&&id<=TankSensor;
+        public static bool Placed(byte id)=>id>=Bench&&id<=Sensor||TankPart(id);
         public static bool Route(byte id)=>id==SignalWire||id==SignalConduit||id==PowerCable||id==ItemPipe||id==FluidPipe;
         public static bool Thin(byte id)=>Route(id)||id==Lever||id==Button||id==Indicator||id==Relay||id==Sensor;
     }
@@ -57,6 +59,14 @@ namespace RivetReach
             Add(IndustryId.Tank,"water_tank","Water Tank","100 L · use bucket controls to fill / empty",0,100000,P(NetworkKind.Fluid,PortRole.Input,2),P(NetworkKind.Fluid,PortRole.Output,1));
             Add(IndustryId.Extractor,"extractor","Extractor","Chest on left → pipe on right · 4 items / sec",0,0,si,io);
             Add(IndustryId.Sensor,"inventory_sensor","Inventory Sensor","Chest behind · ON at 32 items",0,0,P(NetworkKind.Signal,PortRole.Output,32));
+            Add(IndustryId.TankFrame,"tank_frame","Reinforced Tank Frame","Use on every edge and corner · outer size 3–9 per axis");
+            Add(IndustryId.TankWall,"tank_wall","Tank Wall","Solid panel · required floor and roof");
+            Add(IndustryId.TankGlass,"tank_glass","Reinforced Tank Glass","Side windows connect when the hollow tank forms");
+            Add(IndustryId.TankController,"tank_controller","Tank Controller","Exactly one · face outward · empty before dismantling",0,0,P(NetworkKind.Fluid,PortRole.Output,32));
+            Add(IndustryId.TankPort,"tank_port","Tank Fluid Port","Face outward · configure INPUT / OUTPUT / DISABLED",0,0,P(NetworkKind.Fluid,PortRole.Input,32));
+            Add(IndustryId.TankHatch,"tank_hatch","Tank Access Hatch","10 L bucket transfers · one shared tank inventory");
+            Add(IndustryId.TankValve,"tank_valve","Signal Valve Port","Front fluid nozzle + keyed signal · ON opens valve",0,0,P(NetworkKind.Fluid,PortRole.Input,32),P(NetworkKind.Signal,PortRole.Input,32));
+            Add(IndustryId.TankSensor,"tank_sensor","Tank Level Sensor","Front Blue Signal output · threshold adjustable",0,0,P(NetworkKind.Signal,PortRole.Output,32));
             return d;
         }
         public static int RotateFace(int face,int turns)
@@ -70,13 +80,20 @@ namespace RivetReach
         public readonly ItemContainer Items;
         public int Rotation {get;internal set;}
         public MachineStatus Status {get;internal set;}
-        public bool Signal,SignalAttached,Source,NextSource,Eligible;
-        public int PulseTicks,WaterMl,BurnTicks,RequestedWatts,ReceivedWatts,SupplyWatts,DrillDepth=1;
+        public bool Signal,SignalAttached,Source,NextSource,Eligible,FluidConflict;
+        public int PulseTicks,BurnTicks,RequestedWatts,ReceivedWatts,SupplyWatts,DrillDepth=1;
+        public readonly FluidStorage Fluid;
+        public int WaterMl {get=>(int)Fluid.Amount;set=>Fluid.SetWater(value);}
+        public MultiblockInstance Structure;
+        public PipeAddition Additions;
+        public bool RecoveryOutput;
+        public FluidPortMode PortMode;
+        public int LevelThreshold=80;
         public double Work;
         public byte WorkInput;
         public int Priority=1;
         public MachineState(BlockPos p,byte id,Func<byte,int> limit)
-        {Position=p;Definition=IndustryDefinition.All[id];Items=new ItemContainer(3,limit);}
+        {Position=p;Definition=IndustryDefinition.All[id];Fluid=new FluidStorage(Definition.WaterCapacity);Items=new ItemContainer(3,limit);}
         public bool Enabled=>!SignalAttached||Signal;
         public bool Running=>Status==MachineStatus.Running||Status==MachineStatus.Underpowered;
         public bool Accepts(int slot,byte id)=>slot==0&&(Definition.Id==IndustryId.Boiler?(id==BlockId.Coal||id==BlockId.Charcoal):Definition.Id==IndustryId.Crusher&&Crushed(id)!=0);

@@ -38,6 +38,12 @@ namespace RivetReach.Editor
             command=command.Replace("|ready","");File.Delete(request);
             try
             {
+                if(command=="multiblock-player")
+                {Build("Multiblocks");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
+                if(command=="multiblock-logic")
+                {MultiblockChecks.Run();File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
+                if(command=="multiblock-build"||command=="multiblock-checks")
+                {IndustryAssets.Prepare();MultiblockChecks.Run();IndustryChecks.Run();DomainChecks.Run();StarterRecipeChecks.Run(ItemRegistry.Load(),RecipeCatalogAsset.Load().Compile(ItemRegistry.Load()));FluidChecks.Run();if(command=="multiblock-build")Build("Multiblocks");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="industry-regression")
                 {DomainChecks.Run();StarterRecipeChecks.Run(ItemRegistry.Load(),RecipeCatalogAsset.Load().Compile(ItemRegistry.Load()));FluidChecks.Run();File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="industry-logic")
@@ -196,6 +202,7 @@ namespace RivetReach.Editor
             EditorUtility.SetDirty(material);return material;
         }
         [MenuItem("Rivet Reach/Build Windows first POC")]
+        public static void PrepareAndBuildMultiblocks(){IndustryAssets.Prepare();MultiblockChecks.Run();IndustryChecks.Run();DomainChecks.Run();StarterRecipeChecks.Run(ItemRegistry.Load(),RecipeCatalogAsset.Load().Compile(ItemRegistry.Load()));FluidChecks.Run();Build("Multiblocks");}
         public static void PrepareAndBuild(){Prepare();DomainChecks.Run();FluidChecks.Run();Build();}
         public static void PrepareAndBuildSurvival(){Prepare();DomainChecks.Run();FluidChecks.Run();Build("Survival");}
         static void Build(string outputFolder="PlayerRevision4")

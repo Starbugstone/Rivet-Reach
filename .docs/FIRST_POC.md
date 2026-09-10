@@ -6,7 +6,7 @@ The Unity **6000.4.4f1 / URP 17.4.0** project now includes terrain and caves, FP
 
 Open this repository in the pinned Unity Editor, open `Assets/RivetReach/Scenes/Main.unity`, then press Play. `Expedition.Bootstrap` creates the voxel world and UI at runtime; the unplayed scene is not a populated map. After cloning, run `git lfs pull` to retrieve binary assets.
 
-The current local review executable is **`Builds/Industry/RivetReach.exe`**. Keep its adjacent data folder, DLLs and Mono runtime together. Start Expedition uses a fresh random world seed, or the optional signed 32-bit seed entered on the title screen. Nearby terrain prepares before movement can enter it.
+The current local review executable is **`Builds/Multiblocks/RivetReach.exe`**. Keep its adjacent data folder, DLLs and Mono runtime together. Start Expedition uses a fresh random world seed, or the optional signed 32-bit seed entered on the title screen. Nearby terrain prepares before movement can enter it.
 
 The normal build entry point is **Rivet Reach → Build Windows first POC**, or Windows PowerShell:
 
@@ -16,7 +16,7 @@ The normal build entry point is **Rivet Reach → Build Windows first POC**, or 
 .\Tools\Verify-POC.ps1 -Survival
 ```
 
-`Tools/Verify-Industry.ps1 -Build` prepares, builds and verifies the current industrial review through the open Editor. The older general script builds `Builds/PlayerRevision4/RivetReach.exe`. To test the delivered review executable, supply `-Executable Builds/Industry/RivetReach.exe`. `Tools/Verify-Creative.ps1 -Build` produces and checks the separate Creative review build through the open Editor. Runtime assets are versioned; ordinary Play requires no Blender or asset-generation step.
+`Tools/Verify-Multiblocks.ps1 -Build` prepares, builds and verifies the current tank/pipe review through the open Editor. `Tools/Verify-Industry.ps1 -Build` retains the earlier workshop scenario. The older general script builds `Builds/PlayerRevision4/RivetReach.exe`. To test the delivered review executable, supply `-Executable Builds/Multiblocks/RivetReach.exe`. `Tools/Verify-Creative.ps1 -Build` produces and checks the separate Creative review build through the open Editor. Runtime assets are versioned; ordinary Play requires no Blender or asset-generation step.
 
 The build script reuses this project's open Editor through its existing local file request, or starts the pinned Editor in batch mode when the project is closed. Preserve open scenes and unsaved work. An explicit Editor startup check is available through **Rivet Reach → Verify Editor Play startup**; the latest [player/audio report](verification/HIFI_PLAYER_AND_AUDIO_RESULTS.md) records its evidence.
 
@@ -51,7 +51,7 @@ Keyboard controls can be rebound; conflicting actions swap keys. New Interact bi
 
 Once you have coal or furnace-made charcoal, place **one above one stick** in either crafting grid to make **four torches**. Select a torch and right-click a floor or wall to light the area. Mine it to recover it. [Torch rules](GAMEPLAY.md#torches) describe attachment and lighting limits.
 
-**Recipes** displays layouts from the same editable catalog used by crafting. Click the result to craft once; Shift-click crafts complete outputs that fit. Closing the inventory returns ingredients; leftovers stay in the grid if the inventory is full. [CRAFTING.md](CRAFTING.md) owns the shared 2×2/3×3/4×4 engine and authoring; [ECONOMY.md](ECONOMY.md#current-survival-recipes-and-tiers) owns the 55 survival recipes and progression. The [Machinist’s Bench](INDUSTRY.md) now opens the 4×4 interface and adds 26 industrial recipes.
+**Recipes** displays layouts from the same editable catalog used by crafting. Click the result to craft once; Shift-click crafts complete outputs that fit. Closing the inventory returns ingredients; leftovers stay in the grid if the inventory is full. [CRAFTING.md](CRAFTING.md) owns the shared 2×2/3×3/4×4 engine and authoring; [ECONOMY.md](ECONOMY.md#current-survival-recipes-and-tiers) owns the 55 survival recipes and progression. The [Machinist’s Bench](INDUSTRY.md) now opens the 4×4 interface and adds 34 industrial recipes, including the [tank component family](MULTIBLOCKS.md).
 
 ## Survival and exploration
 
@@ -92,4 +92,11 @@ The dedicated torch review executable is **`Builds/Torches/RivetReach.exe`**. `T
 
 ## Industrial workshop — issue #2
 
-Run `Builds/Industry/RivetReach.exe` for the current industrial review. [Industry](INDUSTRY.md) owns progression, recipes, machine interfaces, port directions and power/signal rules. Interact / mouse Use opens machines; levers toggle and buttons pulse. Machines rotate through their interface. The Machinist’s Bench opens 4×4 crafting. Creative’s existing catalog includes every new component for session testing. [Verification](verification/INDUSTRY_RESULTS.md) distinguishes measured evidence from remaining review.
+Run `Builds/Multiblocks/RivetReach.exe` for the current industrial review. [Industry](INDUSTRY.md) owns progression, recipes, machine interfaces, port directions and power/signal rules. Interact / mouse Use opens machines; levers toggle and buttons pulse. Machines rotate through their interface. The Machinist’s Bench opens 4×4 crafting. Creative’s existing catalog includes every new component for session testing. [Verification](verification/INDUSTRY_RESULTS.md) distinguishes measured evidence from remaining review.
+
+
+## Multiblock tanks and pipe fittings
+
+At the Machinist’s Bench, craft tank frames, walls, glass, one controller and any ports/hatches. Build a hollow 3–9 block rectangular shell: frames on edges/corners, solid floor/roof, glass or solid sides. Functional parts face outside. The tank forms automatically, shares capacity across ports, and keeps the actual cells individually mineable. [MULTIBLOCKS.md](MULTIBLOCKS.md) owns the construction, connected art, valve/sensor controls and breach/resize recovery rules.
+
+Interact with either Item Pipe or Fluid Pipe to fit a Signal Conduit and/or Power Cable from your inventory. A tank controller must be emptied before mining it; Recovery Out drains small remainders through its front pipe outlet. World progress remains session-only. [Current tank verification](verification/MULTIBLOCK_RESULTS.md) records the tested executable and evidence.

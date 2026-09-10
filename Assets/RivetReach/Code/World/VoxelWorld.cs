@@ -83,7 +83,8 @@ namespace RivetReach
             return Generator.At(p);
         }
         public bool Solid(BlockPos p) => !Ready(p)||BlockId.Solid(Get(p))&&!(IsOpenMachine?.Invoke(p)??false);
-        public bool Remove(BlockPos p,byte expected) => expected!=0&&expected!=BlockId.Bedrock&&Change(p,expected,0);
+        public Func<BlockPos,bool> CanRemoveMachine;
+        public bool Remove(BlockPos p,byte expected) => (CanRemoveMachine?.Invoke(p)??true)&&expected!=0&&expected!=BlockId.Bedrock&&Change(p,expected,0);
         public bool Place(BlockPos p,byte id) => id==BlockId.Torch?PlaceTorch(p,p.Offset(0,-1,0)):BlockId.Placeable(id)&&(Get(p)==0||Fluids.IsFluid(Get(p)))&&Change(p,Get(p),id);
         public bool ChangeFluid(BlockPos p,byte expected,byte replacement)
             =>(expected==0||expected==BlockId.Torch||Fluids.IsFluid(expected))&&(replacement==0||Fluids.IsFluid(replacement))&&Change(p,expected,replacement,false);
