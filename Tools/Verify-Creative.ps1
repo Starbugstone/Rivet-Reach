@@ -1,4 +1,4 @@
-param([string]$OutputDirectory,[switch]$Build,[switch]$FullRun)
+param([string]$OutputDirectory,[switch]$Build,[switch]$FullRun,[string]$Executable)
 $ErrorActionPreference = 'Stop'
 $project = Split-Path $PSScriptRoot -Parent
 if (!$OutputDirectory) { $OutputDirectory = Join-Path $project 'Logs\CreativeVerification' }
@@ -14,7 +14,7 @@ if ($Build) {
     if (!(Test-Path $result)) { throw 'Editor build timed out; inspect its log.' }
     if (!(Get-Content -Raw $result).StartsWith('SUCCESS')) { throw (Get-Content -Raw $result) }
 }
-$executable = Join-Path $project 'Builds\Creative\RivetReach.exe'
+if (!$Executable) { $Executable = Join-Path $project 'Builds\Creative\RivetReach.exe' }
 if (!(Test-Path $executable)) { throw 'Use -Build with the pinned Editor open.' }
 $report = Join-Path $OutputDirectory 'runtime-report.json'
 if (Test-Path $report) { Remove-Item $report }

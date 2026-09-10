@@ -207,10 +207,20 @@ namespace RivetReach.Editor
         public static void PrepareAndBuildMultiblocks(){IndustryAssets.Prepare();MultiblockChecks.Run();IndustryChecks.Run();DomainChecks.Run();StarterRecipeChecks.Run(ItemRegistry.Load(),RecipeCatalogAsset.Load().Compile(ItemRegistry.Load()));FluidChecks.Run();Build("Multiblocks");}
         public static void PrepareAndBuild(){Prepare();DomainChecks.Run();FluidChecks.Run();Build();}
         public static void PrepareAndBuildSurvival(){Prepare();DomainChecks.Run();FluidChecks.Run();Build("Survival");}
-        static void Build(string outputFolder="PlayerRevision4")
+        // Build the versioned assets as committed, without rerunning asset authoring.
+        public static void BuildAlpha()
+        {
+            Directory.CreateDirectory("Logs");
+            if(PlayerSettings.bundleVersion!="0.0.1")throw new Exception("Alpha release requires version 0.0.1.");
+            DomainChecks.Run();CraftingChecks.Run();FluidChecks.Run();
+            IndustryChecks.Run();MultiblockChecks.Run();BatteryChecks.Run();ConnectedPipeChecks.Run();
+            TerrainGenerationChecks.Run((ok,message)=>{if(!ok)throw new Exception(message);});
+            Build("Release/0.0.1/RivetReach-0.0.1-alpha-windows-x64",BuildOptions.None);
+        }
+        static void Build(string outputFolder="PlayerRevision4",BuildOptions options=BuildOptions.Development)
         {
             string output=Path.Combine("Builds",outputFolder);Directory.CreateDirectory(output);
-            var report=BuildPipeline.BuildPlayer(new BuildPlayerOptions{scenes=EditorBuildSettings.scenes.Select(s=>s.path).ToArray(),locationPathName=Path.Combine(output,"RivetReach.exe"),target=BuildTarget.StandaloneWindows64,options=BuildOptions.Development});
+            var report=BuildPipeline.BuildPlayer(new BuildPlayerOptions{scenes=EditorBuildSettings.scenes.Where(s=>s.enabled).Select(s=>s.path).ToArray(),locationPathName=Path.Combine(output,"RivetReach.exe"),target=BuildTarget.StandaloneWindows64,options=options});
             File.WriteAllText("Logs/build-summary.txt",report.summary.result+"; errors "+report.summary.totalErrors+"; warnings "+report.summary.totalWarnings+"; seconds "+report.summary.totalTime.TotalSeconds+"; bytes "+report.summary.totalSize);
             File.WriteAllLines("Logs/build-messages.txt",report.steps.SelectMany(step=>step.messages).Where(message=>message.type==LogType.Warning||message.type==LogType.Error).Select(message=>message.type+": "+message.content));
             if(report.summary.result!=BuildResult.Succeeded||report.summary.totalErrors>0)throw new Exception("Windows build failed: "+report.summary.result+"; errors "+report.summary.totalErrors);

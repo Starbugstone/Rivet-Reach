@@ -4,6 +4,8 @@ The Unity **6000.4.4f1 / URP 17.4.0** project now includes terrain and caves, FP
 
 ## Run and build
 
+The downloadable [0.0.1 alpha](releases/0.0.1.md) is a Windows x64 prerelease. Extract its complete ZIP and run `RivetReach.exe`. Build it from a clean checkout with `Tools/Build-Release.ps1`; output is `Builds/Release/0.0.1/RivetReach-0.0.1-alpha-windows-x64/RivetReach.exe`. It uses the pinned Editor and a non-development build. Supply that path to `Tools/Verify-Creative.ps1 -Executable <path> -FullRun` to check the release player.
+
 Open this repository in the pinned Unity Editor, open `Assets/RivetReach/Scenes/Main.unity`, then press Play. `Expedition.Bootstrap` creates the voxel world and UI at runtime; the unplayed scene is not a populated map. After cloning, run `git lfs pull` to retrieve binary assets.
 
 The current local review executable is **`Builds/Creative/RivetReach.exe`**. Keep its adjacent data folder, DLLs and Mono runtime together. Start Expedition uses a fresh random world seed, or the optional signed 32-bit seed entered on the title screen. Nearby terrain prepares before movement can enter it.
@@ -65,7 +67,7 @@ Gather wild ripe potatoes. Use a hoe to till grass/dirt, use a potato to plant, 
 
 [Five biomes and caves](TERRAIN_GENERATION.md), the [day/night clock](GAMEPLAY.md#day-night-and-lunar-phases), and [Rustback beetles and Dusk prowlers](MOBS.md) are integrated. Aim and hold Mine to attack with the selected item or fists. Night affects prowler spawning. Health and equipment remain independent of male/female appearance and skin selection.
 
-**Progress is session-only.** Quitting resets terrain edits, inventory, crops, stations and creatures. Durable saves, 4×4 interfaces, equipment wear, fitted armor meshes, irrigation, structures, water and industry remain future scope.
+**Progress is session-only.** Quitting resets terrain edits, inventory, crops, stations and creatures. Durable saves, equipment wear, fitted armor meshes, irrigation and generated structures remain future scope.
 
 ## Foundation and diagnostics
 
