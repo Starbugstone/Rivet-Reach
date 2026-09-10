@@ -291,7 +291,7 @@ namespace RivetReach
             if(index==CraftOutputSlot)
             {
                 var recipe=game.Crafting.Preview;
-                var result=shift?(HeldStack.Empty?game.Crafting.CraftToInventory(game.Inventory):new CraftResult(CraftStatus.CursorOccupied)):game.Crafting.CraftToCursor(ref HeldStack);
+                var result=shift?game.Crafting.CraftToInventory(game.Inventory):game.Crafting.CraftToCursor(ref HeldStack);
                 RefreshSlots();
                 if(craftStatus!=null)craftStatus.text=result.Succeeded?"Crafted "+(result.Crafts*recipe.Output.Count)+" × "+game.Registry.Get(recipe.Output.Id).displayName:CraftFailure(result.Status);
                 return;

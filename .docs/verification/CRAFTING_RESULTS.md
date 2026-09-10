@@ -57,3 +57,14 @@ Build the pinned Unity **6000.4.4f1** project, then run:
 The fluid increment adds the three-iron bucket as recipe 53. [Fluid verification](FLUID_RESULTS.md) records the extended independent acceptance checks and bucket player interaction. Earlier crafting screenshots retain their original 52-recipe build identity.
 
 The torch increment adds separate coal and charcoal recipes, taking the catalog to **55 recipes**. [Torch verification](TORCH_RESULTS.md) records the latest 1,862 independent acceptance checks and the actual lighting/placement build. The earlier reference comparison and screenshots above retain their dated 52-recipe artifact identity.
+
+
+## Shift crafting with an occupied cursor — 2026-09-10
+
+Shift-clicking a crafting result now sends the batch directly to inventory while preserving the cursor stack. Personal crafting and all crafting benches share the corrected output handler. [GAMEPLAY.md](../GAMEPLAY.md#16-modular-grid-crafting) owns the interaction rule.
+
+The focused Windows player passed **38 personal-crafting checks** and **45 starter/workbench checks**, with **zero runtime errors**. Real pointer input covers an unrelated held workbench, a full matching plank cursor stack, and full-inventory rejection without ingredient consumption or cursor changes. At a placed 3×3 workbench, Shift-click crafts a wooden pickaxe into inventory while two sticks remain on the cursor. The 4×4 interface shares the handler but was not separately pointer-tested in this run.
+
+[Personal input results](crafting/cursor-shift/personal-runtime-report.json), [workbench input results](crafting/cursor-shift/workbench-runtime-report.json), [crafting core checks](crafting/cursor-shift/crafting-checks.txt) and [build summary](crafting/cursor-shift/build-summary.txt) record **1,158,808 core assertions** and a successful Unity 6000.4.4f1 build with zero errors/warnings. [Build identity and limits](crafting/cursor-shift/build-context.json) record the source snapshot and binary hashes. Verification used an isolated project copy to preserve the active Editor Play session; concurrent recipe-browser and UI performance changes made afterwards are outside this evidence. Earlier screenshots above retain their original build identity.
+
+The local verified player is `Builds/CraftingCursor/RivetReach.exe`. Reproduce with `Tools/Verify-POC.ps1 -Crafting` and `-StarterCrafting`, each with `-Executable Builds/CraftingCursor/RivetReach.exe` and a separate output directory.

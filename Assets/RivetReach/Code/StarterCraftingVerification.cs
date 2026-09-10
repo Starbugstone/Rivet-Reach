@@ -59,8 +59,10 @@ namespace RivetReach
             Check(game.OpenStation?.Block==BlockId.Workbench&&game.Crafting.Grid.Size==3,"Interact with an empty hand opens the placed workbench's 3x3 interface");
             Check(game.UI.GetComponentsInChildren<SlotView>().Count(v=>v.Index>=CraftCell&&v.Index<CraftCell+16)==9,"Workbench displays all nine input slots");
             yield return ClickCraftUI(Slot(BlockId.Planks));for(int i=0;i<3;i++)yield return ClickCraftUI(CraftCell+i,true);yield return ClickCraftUI(0);
-            int sticks=Slot(BlockId.Stick);yield return ClickCraftUI(sticks);yield return ClickCraftUI(CraftCell+4,true);yield return ClickCraftUI(CraftCell+7,true);yield return ClickCraftUI(sticks);
+            int sticks=Slot(BlockId.Stick);yield return ClickCraftUI(sticks);yield return ClickCraftUI(CraftCell+4,true);yield return ClickCraftUI(CraftCell+7,true);
             yield return Capture("starter-pickaxe");yield return ClickCraftUI(CraftResultSlot,false,true);
+            Check(game.Inventory.Total(BlockId.WoodPickaxe)==1&&game.UI.HeldStack.Id==BlockId.Stick&&game.UI.HeldStack.Count==2,"Workbench Shift crafting sends the tool to inventory while preserving sticks on the cursor");
+            yield return ClickCraftUI(sticks);
             Check(game.Inventory.Total(BlockId.WoodPickaxe)==1&&game.Inventory.Total(BlockId.Planks)==3&&game.Inventory.Total(BlockId.Stick)==2&&game.Crafting.Grid.Slots.All(s=>s.Empty),"3 planks across the top and 2 centered sticks craft exactly one wooden pickaxe");
             yield return StarterKey(game.Input.Keys["Inventory"]);game.Selected=Slot(BlockId.Planks);Aim(bench);yield return null;yield return StarterUse();
             Check(game.OpenStation?.Block==BlockId.Workbench&&game.Inventory.Total(BlockId.Planks)==3,"Mouse Use opens a station before placing the held block");

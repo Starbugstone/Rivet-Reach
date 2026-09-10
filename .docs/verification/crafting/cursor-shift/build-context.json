@@ -1,0 +1,18 @@
+{
+  "sourceBaseCommit": "5cb92ccc36cb7fa0f07642a44d969a21c3d3afa7",
+  "unity": "6000.4.4f1",
+  "buildMethod": "Isolated project copy; CraftingChecks.Run and BuildPipeline.BuildPlayer (Development Windows64)",
+  "executable": "Builds/CraftingCursor/RivetReach.exe",
+  "sourceSha256": {
+    "Assets/RivetReach/Code/UI/GameUI.cs": "75b75faf0b5f707bfe3da82f1b931262bf8d0802b0034c7673d85ed0c3225e62",
+    "Assets/RivetReach/Code/CraftingVerification.cs": "5193c891a6e2430fcf863974d4e65cc476c95fa8382a8a716b503a982898f89d",
+    "Assets/RivetReach/Code/StarterCraftingVerification.cs": "d7fa977a941fd90bb6b58fc738ff68aa0925c7120bb6ac489c1bfa5893963aa5"
+  },
+  "scope": "Snapshot includes unrelated pre-existing local edits; only crafting handler and crafting regressions belong to this fix.",
+  "binarySha256": {
+    "Builds/CraftingCursor/RivetReach.exe": "7d52ee70fb22771f4608d810d1015f539c37dd8b7b2fbb1a0ea9f6bc5c32d5c9",
+    "Builds/CraftingCursor/RivetReach_Data/Managed/Assembly-CSharp.dll": "c2fbd0ad3fb1d7d21b64c6e60eb77180a96038e110e476cacdb217c61829f0d7"
+  },
+  "verificationDateUtc": "2026-09-10",
+  "limits": "Focused input evidence from the isolated snapshot. Concurrent recipe-browser and UI performance edits made afterwards are not included or validated by these runs. The 4x4 bench uses the same corrected handler but was not separately exercised with pointer input."
+}
