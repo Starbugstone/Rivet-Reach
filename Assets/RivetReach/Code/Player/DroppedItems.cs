@@ -18,6 +18,7 @@ namespace RivetReach
             internal float EscapeRetry;
             public bool Sleeping;
             public GameObject View;
+            internal int ViewCopies;
         }
         public readonly List<Pile> Piles=new List<Pile>();
         public VoxelWorld World;
@@ -106,9 +107,12 @@ namespace RivetReach
             {
                 bool visible=World.Ready(p.Position.Cell)&&Vector3.Distance(p.Position.Local(World.Origin),Game.Player.transform.position)<96;
                 if(!visible){if(p.View!=null){Destroy(p.View);p.View=null;}continue;}
-                if(p.View==null)
+                int copies=Math.Min(p.Stack.Count,3);
+                if(p.View==null||p.ViewCopies!=copies)
                 {
-                    p.View=CreateView(p.Stack.Id);p.View.name="Item stack "+p.Id;p.View.transform.SetParent(transform,false);p.View.transform.localScale=Vector3.one*.23f;
+                    if(p.View!=null){p.View.SetActive(false);Destroy(p.View);}
+                    p.View=CreatePileView(p.Stack.Id,copies);p.ViewCopies=copies;
+                    p.View.name="Item stack "+p.Id;p.View.transform.SetParent(transform,false);p.View.transform.localScale=Vector3.one*.23f;
                 }
                 p.View.transform.position=p.Position.Local(World.Origin)+Vector3.up*.115f;
                 p.View.transform.rotation=Quaternion.Euler(0,(p.Id*37)%360+Time.time*18,0);
@@ -209,6 +213,21 @@ namespace RivetReach
             for(int i=Piles.Count-1;i>=0;i--)if(Piles[i].Stack.Empty)Delete(i);
         }
         void Delete(int i){if(Piles[i].View!=null)Destroy(Piles[i].View);Piles.RemoveAt(i);}
+        GameObject CreatePileView(byte id,int copies)
+        {
+            if(copies==1)return CreateView(id);
+            var view=new GameObject("Stacked world item display");
+            // A compact stair-step silhouette distinguishes quantity without changing
+            // collision/pickup bounds. Cap geometry at three copies even for full stacks.
+            for(int i=0;i<copies;i++)
+            {
+                var item=CreateView(id);item.transform.SetParent(view.transform,false);
+                float offset=copies==2?(i==0?-.14f:.14f):(i-1)*.16f;
+                item.transform.localPosition=new Vector3(offset,offset,offset*.5f);
+                item.transform.localScale=Vector3.one*.64f;
+            }
+            return view;
+        }
         GameObject CreateView(byte id)
         {
             var view=new GameObject("World item display");
