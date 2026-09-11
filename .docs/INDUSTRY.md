@@ -12,6 +12,8 @@ Azure Ore is another finite stone replacement in `OreGenerator`: Y −96 through
 
 Craft a Machinist's Bench from a workbench, four iron ingots and two copper ingots at the workbench. Place it and use Interact or mouse Use to open the common inventory with a 4×4 crafting grid. Its recipe browser reads the same compiled registry as personal and workbench crafting. There is no XP or hidden research gate.
 
+The 2026-09-11 Azure art revision follows the [Blue Signal concept sheet](concepts/signal-power/blue-signal-components.jpg): fractured dark stone with connected blue mineral seams. [create_azure_ore.py](../Tools/create_azure_ore.py) owns the dedicated [AzureOre.blend](../ArtSource/Industry/AzureOre.blend), exported mesh and inventory icon. Its orthographic face render supplies terrain tile 44; deposits retain the shared chunk mesher and one-cell collision. Held and dropped ore use the authored mesh. This replaces the old flecked cube in `WorkshopKit.blend`; the general kit generator excludes Azure ore. [Azure art verification](verification/AZURE_ORE_RESULTS.md) records the current source/import and player evidence. Ore generation, mining tiers, processing and saved identities are unchanged.
+
 | Component | Ingredients | Output / layout |
 |---|---|---|
 | Copper Wire | 1 copper ingot | 4; one cell |

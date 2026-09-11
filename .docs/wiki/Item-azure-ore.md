@@ -8,7 +8,11 @@
 
 <a href="Item-azure-ore.md" title="Azure Ore"><img src="icons/120.png" width="96" height="96" alt="Azure Ore"></a>
 
-A finite underground deposit found at **Y −96 to 8**, with the strongest generation preference near **Y −40**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining. Smelt the mined ore into an [Azure Crystal](Item-azure-crystal.md).
+Dark fractured stone threaded with bright blue crystal seams. A finite underground deposit found at **Y −96 to 8**, with the strongest generation preference near **Y −40**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining. Smelt the mined ore into an [Azure Crystal](Item-azure-crystal.md).
+
+![Azure ore seams in a natural underground deposit](images/azure-natural-deposit.png)
+
+![The Azure ore model held in game](images/azure-held.png)
 
 ## At a glance
 

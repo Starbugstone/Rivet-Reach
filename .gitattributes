@@ -32,6 +32,7 @@ Assets/RivetReach/Resources/Mobs/*.png filter=lfs diff=lfs merge=lfs -text
 Assets/RivetReach/Resources/Industry/*.fbx filter=lfs diff=lfs merge=lfs -text
 
 .docs/verification/industry-workshop-preview.mp4 filter=lfs diff=lfs merge=lfs -text
+.docs/verification/azure-ore/*.png filter=lfs diff=lfs merge=lfs -text
 
 .docs/concepts/multiblock/*.png filter=lfs diff=lfs merge=lfs -text
 

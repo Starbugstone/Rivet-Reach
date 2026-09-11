@@ -89,6 +89,8 @@ Connector totals include all optional branches: runtime disables unused arms. A 
 
 ## Remaining limits
 
+The [2026-09-11 Azure art revision](AZURE_ORE_RESULTS.md) supersedes the ore mesh/icon shown in the original kit render. Its dedicated source and evidence are separate from the dated workshop checks above.
+
 - The eight-second frame sample covers this small workshop at a 90 fps cap and view radius 4. It does not establish uncapped GPU cost or sustained performance for thousands of rendered machines.
 - The 1,000-chain benchmark exercises simulation without Unity rendering. Large topology rebuilds spread traversal over ticks, but initial eligible-node collection/sorting remains synchronous and production currently pauses across this world during a rebuild.
 - Industrial view objects are culled at 64 m; active electrical lamp lights are limited to the nearest eight. Dense factories still need rendered stress and long-session tests.

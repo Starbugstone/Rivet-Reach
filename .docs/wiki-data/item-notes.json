@@ -47,7 +47,7 @@
     "description": "A finite underground deposit found at **Y −255 to −160**, with the strongest generation preference near **Y −224**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining."
   },
   "rivet:azure_ore": {
-    "description": "A finite underground deposit found at **Y −96 to 8**, with the strongest generation preference near **Y −40**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining. Smelt the mined ore into an [Azure Crystal](Item-azure-crystal.md)."
+    "description": "Dark fractured stone threaded with bright blue crystal seams. A finite underground deposit found at **Y −96 to 8**, with the strongest generation preference near **Y −40**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining. Smelt the mined ore into an [Azure Crystal](Item-azure-crystal.md).\n\n![Azure ore seams in a natural underground deposit](images/azure-natural-deposit.png)\n\n![The Azure ore model held in game](images/azure-held.png)"
   },
   "rivet:bedrock": {
     "description": "The protected base of the world at **Y −256**. It stops hand mining, tools and drills.",

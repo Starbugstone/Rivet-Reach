@@ -7888,6 +7888,10 @@
             "sha256": "e8c13983301cf7994edea3915897b3d55d9681e90a3065fdbe4873e3df82e6b9"
         },
         {
+            "path": "Assets/RivetReach/Code/AzureOreVerification.cs",
+            "sha256": "fe21a6c9fdd7b89daf40c9b278c6c45b1d5d42fd434338c262cb3be64860ae78"
+        },
+        {
             "path": "Assets/RivetReach/Code/Core/Coordinates.cs",
             "sha256": "e27ca6b81541bb93d58558f809dbbaefa77031f42aff0059b3ca3cbd3560e058"
         },
@@ -8125,7 +8129,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Player/HeldBlockView.cs",
-            "sha256": "6e19c80940ed4ca08ff4b0726a477df8ba0f9e57c4192cf5fa4ab0e3ded59d0c"
+            "sha256": "fbdb3299451b60cdc1884c31261dc11710b3af5cef1fb8b120468494bb7569ef"
         },
         {
             "path": "Assets/RivetReach/Code/Player/PlayerInput.cs",
@@ -8141,7 +8145,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/RuntimeVerification.cs",
-            "sha256": "23dd6a1d0c8d153709c7147436f3d8479ccfd7cc89c733a1659da76ec274816f"
+            "sha256": "edd50a1c1d519ef735da0697d4ce8a7b264a58698bed49564270bc3f6e1becfa"
         },
         {
             "path": "Assets/RivetReach/Code/SaveVerification.cs",
@@ -9181,7 +9185,7 @@
         },
         {
             "path": "Assets/RivetReach/Resources/Industry/Icons/120.png",
-            "sha256": "8e701e1eb5f8004760fb597adad3886f01aa7abbd698fa96f8828cc51f78882e"
+            "sha256": "81efa21a3e18bbd176d68b2583cd74f77fdda7a5c3a0e95a168012611ffc4679"
         },
         {
             "path": "Assets/RivetReach/Resources/Industry/Icons/121.png",
@@ -9349,7 +9353,7 @@
         },
         {
             "path": "Assets/RivetReach/Resources/Materials/BlockTiles.asset",
-            "sha256": "43904b4d2a40876c6647aa4cf4f58b57a42deb58066f89cfdddc4510f6146e29"
+            "sha256": "6df5c2213e86592282685f946118281c24b7b7459e6a9e8cf060f71247d9f4fa"
         },
         {
             "path": "Assets/RivetReach/Resources/Tools/StarterAxeIcon.png",

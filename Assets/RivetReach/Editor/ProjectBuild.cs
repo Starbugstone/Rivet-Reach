@@ -38,6 +38,8 @@ namespace RivetReach.Editor
             command=command.Replace("|ready","");File.Delete(request);
             try
             {
+                if(command=="azure-art-build")
+                {IndustryAssets.PrepareAzureOre();IndustryChecks.Run();WikiExport.Export();Build("AzureOre");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="battery-build"||command=="battery-checks")
                 {IndustryAssets.Prepare();BatteryChecks.Run();MultiblockChecks.Run();IndustryChecks.Run();DomainChecks.Run();FluidChecks.Run();ConnectedPipeChecks.Run();if(command=="battery-build")Build("Creative");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="multiblock-player")

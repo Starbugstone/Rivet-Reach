@@ -84,7 +84,9 @@ Shader "RivetReach/VoxelTerrain"
                     Light localLight=GetAdditionalLight(lightIndex,i.positionWS,half4(1,1,1,1));
                     lighting+=localLight.color*saturate(dot(normal,localLight.direction))*localLight.distanceAttenuation*localLight.shadowAttenuation;
                 LIGHT_LOOP_END
-                colour=colour*lighting+sun.color*sheen;
+                // Azure crystal seams retain their blue identity underground without per-ore lights.
+                half3 mineralEmission=abs(i.tile-44)<.5?colour*half3(.15,.55,1)*saturate((colour.b-colour.r-.08)*4)*.65:half3(0,0,0);
+                colour=colour*lighting+sun.color*sheen+mineralEmission;
                 if(_RRImpactLight.w>0)
                 {
                     float3 toLight=_RRImpactLight.xyz-i.positionWS;float distanceSquared=max(dot(toLight,toLight),.01);

@@ -109,7 +109,10 @@ namespace RivetReach
             Check(game.Seed==246813&&game.World.Generator.Seed==246813,"Entering an explicit seed starts that reproducible world");
             game.World.ViewDistance=Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-fluid-review")?4:10;game.Diagnostics=true;
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-save-review"||arg=="-rr-workshop-followup-review"||arg=="-rr-browser-review"||arg=="-rr-creative-review"||arg=="-rr-torch-review"||arg=="-rr-industry-review"||arg=="-rr-multiblock-review"||arg=="-rr-clearance-review"))game.World.ViewDistance=4;
+            if(Environment.GetCommandLineArgs().Contains("-rr-azure-review"))game.World.ViewDistance=4;
             yield return Settle();report.firstReadySeconds=Time.realtimeSinceStartup-began;
+            if(Environment.GetCommandLineArgs().Contains("-rr-azure-review"))
+            {report.workload="Azure ore authored mesh, natural deposit, mining, held model and inventory artwork";yield return ReviewAzureOre();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-save-review"))
             {report.workload="Save/load all persistent systems, corruption/backup recovery, menus and distant coordinates";yield return ReviewSaveGame();yield break;}
             var player=game.Player;var world=game.World;report.viewRadius=world.ViewDistance;report.fogStart=world.FogStart;report.fogEnd=world.FogEnd;var start=world.Address(player.transform.position);var saved=WorldPoint.FromLocal(player.transform.position,world.Origin);

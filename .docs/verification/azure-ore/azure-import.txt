@@ -1,0 +1,1 @@
+Unity 6000.4.4f1; 4129 triangles; 1 mesh; one material; bounds Center: (0.50, 0.50, 0.50), Extents: (0.50, 0.50, 0.50)

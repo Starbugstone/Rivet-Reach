@@ -112,6 +112,14 @@ namespace RivetReach.Editor
             }
             NormalizeModels(material,keys);
         }
+        public static void PrepareAzureOre()
+        {
+            AssetDatabase.Refresh();
+            NormalizeModels(Resources.Load<Material>("Industry/Workshop"),new[]{"azure_ore"});
+            var tiles=TerrainTiles.Build();
+            ArcadeTerrainArt.Apply(tiles,Resources.Load<Material>("Materials/Terrain"),AssetDatabase.LoadAssetAtPath<UnityEngine.Rendering.VolumeProfile>("Assets/RivetReach/Settings/SampleSceneProfile.asset"));
+            AssetDatabase.SaveAssets();
+        }
         static void NormalizeModels(Material material,string[] keys=null)
         {
             const string directory="Assets/RivetReach/Resources/Industry/Runtime";

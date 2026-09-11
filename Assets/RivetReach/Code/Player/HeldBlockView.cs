@@ -87,9 +87,10 @@ namespace RivetReach
             {
                 ItemId=id;
                 if(industryItem!=null){Destroy(industryItem);industryItem=null;}
-                if(IndustryDefinition.All.TryGetValue(id,out var assembly))
+                if(IndustryDefinition.All.TryGetValue(id,out var assembly)||id==IndustryId.AzureOre)
                 {
-                    var prefab=Resources.Load<GameObject>("Industry/Runtime/"+assembly.Key);
+                    string key=id==IndustryId.AzureOre?"azure_ore":assembly.Key;
+                    var prefab=Resources.Load<GameObject>("Industry/Runtime/"+key);
                     if(prefab!=null)
                     {
                         industryItem=ConnectedPipeVisuals.UsesConnectedMesh(id)?ConnectedPipeVisuals.Create(assembly.Key,block.transform):Instantiate(prefab,block.transform,false);
@@ -137,7 +138,7 @@ namespace RivetReach
             view.transform.localPosition=Vector3.zero;view.transform.localRotation=Quaternion.identity;view.transform.localScale=Vector3.one/boneUnits;
             block.SetActive(grip==GripPose.Block);
             bool isBucket=Fluids.IsBucket(id),isTorch=id==BlockId.Torch;
-            bool showCard=!isBucket&&!isTorch&&id!=0&&(id==BlockId.Torch||!BlockId.Placeable(id)&&!BlockId.RawMaterial(id))&&game.Registry.Get(id).toolCapabilities==ToolCapability.None;
+            bool showCard=industryItem==null&&!isBucket&&!isTorch&&id!=0&&(id==BlockId.Torch||!BlockId.Placeable(id)&&!BlockId.RawMaterial(id))&&game.Registry.Get(id).toolCapabilities==ToolCapability.None;
             filter.GetComponent<Renderer>().enabled=!showCard&&!isBucket&&industryItem==null;
             if(isBucket&&bucket==null)
             {
