@@ -8072,6 +8072,10 @@
             "sha256": "ba8bc0df8c771e3b1754810900ff8602d5088756646b04eb575c99c69c8987af"
         },
         {
+            "path": "Assets/RivetReach/Code/OreVariantsVerification.cs",
+            "sha256": "6888397a61b3cb623311f8d78b96fa879bec0f0b8072a677deeba371666b0bf8"
+        },
+        {
             "path": "Assets/RivetReach/Code/OreVerification.cs",
             "sha256": "290e976c9c37daea7ddccb5c4f830d76b40ee9f6a87d5bd9ffc127139316746e"
         },
@@ -8121,7 +8125,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Player/DroppedItems.cs",
-            "sha256": "66a5fcfa9cf9e431ab7ae6dae5abcc64abf938f672527b5440a474a596266f0e"
+            "sha256": "425461f71525dac9d2943a944d3a3bbde0b25c0bc641ffe4016a6a24bac01a2b"
         },
         {
             "path": "Assets/RivetReach/Code/Player/FirstPersonPlayer.cs",
@@ -8129,7 +8133,11 @@
         },
         {
             "path": "Assets/RivetReach/Code/Player/HeldBlockView.cs",
-            "sha256": "fbdb3299451b60cdc1884c31261dc11710b3af5cef1fb8b120468494bb7569ef"
+            "sha256": "62bc8fb638f15fb0a9d1be2d26f26331c8356983ef86eaba6ffc3f9599bd521e"
+        },
+        {
+            "path": "Assets/RivetReach/Code/Player/OreVisuals.cs",
+            "sha256": "cce99aa15e754ed63e24760fc5b5c63d18217fde226a3bcf56be88896e50e8e3"
         },
         {
             "path": "Assets/RivetReach/Code/Player/PlayerInput.cs",
@@ -8145,7 +8153,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/RuntimeVerification.cs",
-            "sha256": "edd50a1c1d519ef735da0697d4ce8a7b264a58698bed49564270bc3f6e1becfa"
+            "sha256": "b22d25fbc820c8a09e9f8f637c86c1ab19b0b4cef66b5bb09fa76828205abf82"
         },
         {
             "path": "Assets/RivetReach/Code/SaveVerification.cs",
@@ -9184,6 +9192,18 @@
             "sha256": "47f2e91c35f6c0a2ce577d94267890ec2c63aaffb1fbec67e85beb7a86b1d211"
         },
         {
+            "path": "Assets/RivetReach/Resources/Industry/Icons/10.png",
+            "sha256": "e25c31c3de4b04133a903d393c5a01a5a7d9d1383a4f1c7de594f2d75a1d4c39"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Industry/Icons/11.png",
+            "sha256": "7a2395cb3e4e86092a396dc25a33793d5207414a7ff609b72dc81d71328f2027"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Industry/Icons/12.png",
+            "sha256": "f66b8c12eb9cf10ad06547cfbf493c5f5a094bebc375fae2c882a47ecda7e398"
+        },
+        {
             "path": "Assets/RivetReach/Resources/Industry/Icons/120.png",
             "sha256": "81efa21a3e18bbd176d68b2583cd74f77fdda7a5c3a0e95a168012611ffc4679"
         },
@@ -9218,6 +9238,10 @@
         {
             "path": "Assets/RivetReach/Resources/Industry/Icons/128.png",
             "sha256": "75198cd97f4a9ffb5a41b459bd8bd25df9dc8743976f9e3eef2c6125de6d7cb0"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Industry/Icons/13.png",
+            "sha256": "cf30921792b981ce87849053c64a476ac11ab5f4ad14ebfe0df405a40895ff10"
         },
         {
             "path": "Assets/RivetReach/Resources/Industry/Icons/130.png",
@@ -9352,8 +9376,12 @@
             "sha256": "0c35327b162f041acb2aee6573cc4864ed01db1b3f3a407a2e3c308e8989787a"
         },
         {
+            "path": "Assets/RivetReach/Resources/Industry/Icons/9.png",
+            "sha256": "754544f87fed6ca4749806d4dc87cd797a33e5f926eb2739cb311b37616f14de"
+        },
+        {
             "path": "Assets/RivetReach/Resources/Materials/BlockTiles.asset",
-            "sha256": "6df5c2213e86592282685f946118281c24b7b7459e6a9e8cf060f71247d9f4fa"
+            "sha256": "09f908ef7074708f8a17dc516dc4acac7cd4dc1181a37b6ee242091c43e8cd64"
         },
         {
             "path": "Assets/RivetReach/Resources/Tools/StarterAxeIcon.png",

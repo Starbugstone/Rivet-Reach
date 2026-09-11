@@ -1,0 +1,5 @@
+Shared mesh: 917326 runtime bytes, 9028 vertices, 4129 triangles
+256 objects; one mesh reference; six shared world materials; maximum visible geometry 1057024 triangles before culling, excluding shadow passes
+Baseline median/p95 ms: 3,884/5,599
+256-prop median/p95 ms: 5,349/6,912
+Each sample 3 seconds; frame cap -1; vSync 0; uncapped whole-frame timing, not isolated GPU time or a large-factory benchmark.

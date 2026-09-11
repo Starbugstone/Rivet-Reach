@@ -8,7 +8,7 @@
 
 <a href="Item-coal-ore.md" title="Coal ore"><img src="icons/11.png" width="96" height="96" alt="Coal ore"></a>
 
-A finite underground deposit found at **Y 0 to 80**, with the strongest generation preference near **Y 40**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining.
+Black coal pockets in lighter fractured host rock. A finite underground deposit found at **Y 0 to 80**, with the strongest generation preference near **Y 40**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining.
 
 ## At a glance
 

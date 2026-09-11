@@ -32,19 +32,19 @@
     "obtain": "Available from the Creative catalog. Its old starter recipe is not part of the active recipe registry."
   },
   "rivet:coal_ore": {
-    "description": "A finite underground deposit found at **Y 0 to 80**, with the strongest generation preference near **Y 40**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining."
+    "description": "Black coal pockets in lighter fractured host rock. A finite underground deposit found at **Y 0 to 80**, with the strongest generation preference near **Y 40**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining."
   },
   "rivet:copper_ore": {
-    "description": "A finite underground deposit found at **Y −48 to 64**, with the strongest generation preference near **Y 16**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining."
+    "description": "Orange copper seams and pockets in fractured dark stone. A finite underground deposit found at **Y −48 to 64**, with the strongest generation preference near **Y 16**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining."
   },
   "rivet:iron_ore": {
-    "description": "A finite underground deposit found at **Y −160 to 48**, with the strongest generation preference near **Y −48**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining."
+    "description": "Silver-grey mineral pockets in fractured dark stone. A finite underground deposit found at **Y −160 to 48**, with the strongest generation preference near **Y −48**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining."
   },
   "rivet:gold_ore": {
-    "description": "A finite underground deposit found at **Y −240 to −64**, with the strongest generation preference near **Y −160**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining."
+    "description": "Golden seams and pockets in fractured dark stone. A finite underground deposit found at **Y −240 to −64**, with the strongest generation preference near **Y −160**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining."
   },
   "rivet:diamond_ore": {
-    "description": "A finite underground deposit found at **Y −255 to −160**, with the strongest generation preference near **Y −224**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining."
+    "description": "Green-tinted turquoise crystal pockets in fractured dark stone. A finite underground deposit found at **Y −255 to −160**, with the strongest generation preference near **Y −224**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining."
   },
   "rivet:azure_ore": {
     "description": "Dark fractured stone threaded with bright blue crystal seams. A finite underground deposit found at **Y −96 to 8**, with the strongest generation preference near **Y −40**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining. Smelt the mined ore into an [Azure Crystal](Item-azure-crystal.md).\n\n![Azure ore seams in a natural underground deposit](images/azure-natural-deposit.png)\n\n![The Azure ore model held in game](images/azure-held.png)"

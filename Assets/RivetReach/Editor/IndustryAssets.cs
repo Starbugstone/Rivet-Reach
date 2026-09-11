@@ -120,6 +120,22 @@ namespace RivetReach.Editor
             ArcadeTerrainArt.Apply(tiles,Resources.Load<Material>("Materials/Terrain"),AssetDatabase.LoadAssetAtPath<UnityEngine.Rendering.VolumeProfile>("Assets/RivetReach/Settings/SampleSceneProfile.asset"));
             AssetDatabase.SaveAssets();
         }
+        public static void PrepareOreVariants()
+        {
+            AssetDatabase.Refresh();
+            for(byte id=BlockId.IronOre;id<=BlockId.DiamondOre;id++)
+            {
+                var icon=(TextureImporter)AssetImporter.GetAtPath("Assets/RivetReach/Resources/Industry/Icons/"+id+".png");
+                icon.alphaIsTransparency=true;icon.mipmapEnabled=false;icon.SaveAndReimport();
+                string path="Assets/RivetReach/Resources/Ores/"+id+".mat";
+                var material=AssetDatabase.LoadAssetAtPath<Material>(path);
+                if(material==null){material=new Material(Shader.Find("Universal Render Pipeline/Lit"));AssetDatabase.CreateAsset(material,path);}
+                material.SetTexture("_BaseMap",Resources.Load<Texture2D>("Ores/"+id+"Atlas"));
+                material.SetFloat("_Metallic",id==BlockId.CoalOre?0:.3f);material.SetFloat("_Smoothness",id==BlockId.CoalOre?.15f:.45f);
+                material.enableInstancing=true;EditorUtility.SetDirty(material);
+            }
+            PrepareAzureOre();
+        }
         static void NormalizeModels(Material material,string[] keys=null)
         {
             const string directory="Assets/RivetReach/Resources/Industry/Runtime";

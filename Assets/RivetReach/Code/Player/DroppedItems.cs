@@ -213,7 +213,11 @@ namespace RivetReach
         {
             var view=new GameObject("World item display");
             var capability=Game.Registry.Capabilities(new ItemStack(id,1));
-            if(id>=IndustryId.AzureOre&&id<=IndustryId.CrushedGold)
+            if(BlockId.Ore(id))
+            {
+                var model=OreVisuals.Create(id,view.transform);model.transform.localPosition=-Vector3.one*.5f;
+            }
+            else if(id>=IndustryId.AzureOre&&id<=IndustryId.CrushedGold)
             {
                 var prefab=Resources.Load<GameObject>("Industry/Runtime/"+Game.Registry.Get(id).stableId.Substring(6));
                 if(prefab!=null){var model=Instantiate(prefab,view.transform,false);model.transform.localPosition=-Vector3.one*.5f;foreach(var renderer in model.GetComponentsInChildren<Renderer>())renderer.sharedMaterial=Resources.Load<Material>("Industry/Workshop");}

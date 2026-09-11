@@ -8,7 +8,7 @@
 
 <a href="Item-diamond-ore.md" title="Diamond ore"><img src="icons/13.png" width="96" height="96" alt="Diamond ore"></a>
 
-A finite underground deposit found at **Y −255 to −160**, with the strongest generation preference near **Y −224**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining.
+Green-tinted turquoise crystal pockets in fractured dark stone. A finite underground deposit found at **Y −255 to −160**, with the strongest generation preference near **Y −224**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining.
 
 ## At a glance
 

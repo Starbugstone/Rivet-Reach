@@ -98,6 +98,17 @@ namespace RivetReach.Editor
                 tiles.SetPixels(azure.GetPixels(),44);
             }
             finally{Object.DestroyImmediate(azure);}
+            for(byte id=BlockId.IronOre;id<=BlockId.DiamondOre;id++)
+            {
+                var face=new Texture2D(size,size,TextureFormat.RGBA32,false);
+                try
+                {
+                    if(!face.LoadImage(System.IO.File.ReadAllBytes("Assets/RivetReach/Resources/Ores/"+id+"Tile.png"))||face.width!=size||face.height!=size)
+                        throw new System.InvalidOperationException("Ore requires its authored 64×64 face render: "+id);
+                    tiles.SetPixels(face.GetPixels(),BlockId.Tile(id,1,1));
+                }
+                finally{Object.DestroyImmediate(face);}
+            }
             tiles.Apply(true,false);EditorUtility.SetDirty(tiles);return tiles;
         }
         static Color MineralColour(int index)=>index==0?new Color(.66f,.39f,.28f):index==1?new Color(.87f,.49f,.22f):index==2?new Color(.12f,.15f,.19f):index==3?new Color(.94f,.73f,.20f):new Color(.43f,.86f,.91f);

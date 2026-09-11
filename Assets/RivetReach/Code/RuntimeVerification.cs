@@ -109,8 +109,10 @@ namespace RivetReach
             Check(game.Seed==246813&&game.World.Generator.Seed==246813,"Entering an explicit seed starts that reproducible world");
             game.World.ViewDistance=Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-fluid-review")?4:10;game.Diagnostics=true;
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-save-review"||arg=="-rr-workshop-followup-review"||arg=="-rr-browser-review"||arg=="-rr-creative-review"||arg=="-rr-torch-review"||arg=="-rr-industry-review"||arg=="-rr-multiblock-review"||arg=="-rr-clearance-review"))game.World.ViewDistance=4;
-            if(Environment.GetCommandLineArgs().Contains("-rr-azure-review"))game.World.ViewDistance=4;
+            if(Environment.GetCommandLineArgs().Contains("-rr-azure-review")||Environment.GetCommandLineArgs().Contains("-rr-ore-variants-review"))game.World.ViewDistance=4;
             yield return Settle();report.firstReadySeconds=Time.realtimeSinceStartup-began;
+            if(Environment.GetCommandLineArgs().Contains("-rr-ore-variants-review"))
+            {report.workload="Six ore materials, shared geometry, hidden terrain, held reuse and 256-object sample";yield return ReviewOreVariants();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-azure-review"))
             {report.workload="Azure ore authored mesh, natural deposit, mining, held model and inventory artwork";yield return ReviewAzureOre();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-save-review"))

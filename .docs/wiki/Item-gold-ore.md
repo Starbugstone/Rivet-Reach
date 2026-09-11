@@ -8,7 +8,7 @@
 
 <a href="Item-gold-ore.md" title="Gold ore"><img src="icons/12.png" width="96" height="96" alt="Gold ore"></a>
 
-A finite underground deposit found at **Y −240 to −64**, with the strongest generation preference near **Y −160**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining.
+Golden seams and pockets in fractured dark stone. A finite underground deposit found at **Y −240 to −64**, with the strongest generation preference near **Y −160**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining.
 
 ## At a glance
 

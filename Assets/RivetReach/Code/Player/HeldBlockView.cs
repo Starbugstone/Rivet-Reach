@@ -85,13 +85,14 @@ namespace RivetReach
             var game=Player.Game;var selected=displayed;byte id=selected.Empty?(byte)0:selected.Id;
             if(id!=ItemId)
             {
+                bool reuseOre=industryItem!=null&&BlockId.Ore(ItemId)&&BlockId.Ore(id);
                 ItemId=id;
-                if(industryItem!=null){Destroy(industryItem);industryItem=null;}
-                if(IndustryDefinition.All.TryGetValue(id,out var assembly)||id==IndustryId.AzureOre)
+                if(industryItem!=null&&!reuseOre){Destroy(industryItem);industryItem=null;}
+                industryMaterial.SetTexture("_BaseMap",BlockId.Ore(id)?OreVisuals.Palette(id):Resources.Load<Texture2D>("Industry/Atlas"));
+                if(IndustryDefinition.All.TryGetValue(id,out var assembly)||BlockId.Ore(id))
                 {
-                    string key=id==IndustryId.AzureOre?"azure_ore":assembly.Key;
-                    var prefab=Resources.Load<GameObject>("Industry/Runtime/"+key);
-                    if(prefab!=null)
+                    var prefab=BlockId.Ore(id)?OreVisuals.Prefab:Resources.Load<GameObject>("Industry/Runtime/"+assembly.Key);
+                    if(prefab!=null&&!reuseOre)
                     {
                         industryItem=ConnectedPipeVisuals.UsesConnectedMesh(id)?ConnectedPipeVisuals.Create(assembly.Key,block.transform):Instantiate(prefab,block.transform,false);
                         industryItem.transform.localRotation=Quaternion.Euler(0,180,0);
@@ -115,7 +116,7 @@ namespace RivetReach
                 {
                     var definition=game.Registry.Get(id);var tint=definition.tier==ToolTier.None?Color.white:Color.Lerp(Color.white,definition.colour,.70f);
                     toolMaterial.SetColor("_BaseColor",tint);axeMaterial.SetColor("_BaseColor",tint);
-                    if((id==BlockId.Torch||!BlockId.Placeable(id)&&!BlockId.RawMaterial(id))&&definition.toolCapabilities==ToolCapability.None)
+                    if(industryItem==null&&(id==BlockId.Torch||!BlockId.Placeable(id)&&!BlockId.RawMaterial(id))&&definition.toolCapabilities==ToolCapability.None)
                     {
                         if(card==null)
                         {

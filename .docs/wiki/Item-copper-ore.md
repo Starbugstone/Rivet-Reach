@@ -8,7 +8,7 @@
 
 <a href="Item-copper-ore.md" title="Copper ore"><img src="icons/10.png" width="96" height="96" alt="Copper ore"></a>
 
-A finite underground deposit found at **Y −48 to 64**, with the strongest generation preference near **Y 16**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining.
+Orange copper seams and pockets in fractured dark stone. A finite underground deposit found at **Y −48 to 64**, with the strongest generation preference near **Y 16**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining.
 
 ## At a glance
 
