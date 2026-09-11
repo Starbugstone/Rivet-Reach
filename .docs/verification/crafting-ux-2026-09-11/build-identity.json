@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-09-11T18:30:29.5319253Z",
+  "unity": "6000.4.4f1",
+  "gitBaseAtEvidenceCapture": "7ce968669136cdd7f6ceac61ebf7f638bae06487",
+  "context": "Isolated integrated workspace snapshot; feature code was uncommitted when built. Existing ore artwork and other committed work are included.",
+  "sourceSha256": {
+    "Assets/RivetReach/Code/Core/ItemContainer.cs": "04daf84ed7f98c0b62d21be1a2637ad358f37ece84b4d0c5397168764d155d90",
+    "Assets/RivetReach/Code/Crafting/CraftingSession.cs": "e8261c66661209fc7b1aee78e8ec1c190c895a5fe932b0b2a55bbd6aa3ccee1e",
+    "Assets/RivetReach/Code/UI/GameUI.cs": "604f0cff82c1c3e8e9f5b46065217701ec651bd43e6b90694d3bd860d19d02c4",
+    "Assets/RivetReach/Code/UI/GameUIBrowser.cs": "76d9b290cab2913765f7f74adfe611894cbdc672420b5b591249421c57540e39",
+    "Assets/RivetReach/Code/RecipeBrowserVerification.cs": "e6d9914641c5061ae192a9cebb5c16aa77372def368f8d209d7eef48b37f206e",
+    "Assets/RivetReach/Editor/RecipeTransferChecks.cs": "ab1c91796c52bcd4404a2a138e8c6c1385c98038fce76f793d5c8897298c7040",
+    "Assets/RivetReach/Editor/RecipeBrowserBuild.cs": "c9f93e5f338f044730eb6a79efd0246dd6f3b651363dcc229238ea870011ba7d"
+  },
+  "artifactSha256": {
+    "Builds/RecipeBrowser/RivetReach.exe": "7d52ee70fb22771f4608d810d1015f539c37dd8b7b2fbb1a0ea9f6bc5c32d5c9",
+    "Builds/RecipeBrowser/RivetReach_Data/Managed/Assembly-CSharp.dll": "444e9c48fc11a8ad179d0407e08b90f9d7eaa6d02f7f5286f2e8cf7757e40d7c"
+  }
+}

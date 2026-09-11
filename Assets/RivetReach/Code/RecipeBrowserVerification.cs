@@ -15,7 +15,7 @@ namespace RivetReach
         {
             var rect = (RectTransform)target.transform;
             Vector2 point = RectTransformUtility.WorldToScreenPoint(null, rect.TransformPoint(rect.rect.center));
-            InputSystem.QueueStateEvent(Keyboard.current, control ? new KeyboardState(Key.LeftCtrl) : shift ? new KeyboardState(Key.LeftShift) : new KeyboardState());
+            InputSystem.QueueStateEvent(Keyboard.current, control && shift ? new KeyboardState(Key.LeftCtrl, Key.LeftShift) : control ? new KeyboardState(Key.LeftCtrl) : shift ? new KeyboardState(Key.LeftShift) : new KeyboardState());
             InputSystem.QueueStateEvent(Mouse.current, new MouseState { position = point }); yield return null; yield return null;
             var hits = new List<RaycastResult>(); EventSystem.current.RaycastAll(new PointerEventData(EventSystem.current) { position = point }, hits);
             Check(hits.Count > 0 && (hits[0].gameObject == target.gameObject || hits[0].gameObject.transform.IsChildOf(target.transform)), "Pointer reaches " + target.name);
@@ -23,10 +23,94 @@ namespace RivetReach
             InputSystem.QueueStateEvent(Mouse.current, new MouseState { position = point }); yield return null; yield return null;
             InputSystem.QueueStateEvent(Keyboard.current, new KeyboardState()); yield return null;
         }
+        IEnumerator PaintCraftUI(int[] cells)
+        {
+            InputSystem.QueueStateEvent(Keyboard.current, new KeyboardState());
+            var point = CraftPoint(cells[0]);
+            InputSystem.QueueStateEvent(Mouse.current, new MouseState { position = point }); yield return null; yield return null;
+            foreach (int cell in cells)
+            {
+                point = CraftPoint(cell);
+                InputSystem.QueueStateEvent(Mouse.current, new MouseState { position = point }.WithButton(MouseButton.Right));
+                yield return null; yield return null; yield return null;
+            }
+            // Remaining on a cell does not repeat deposits.
+            yield return null; yield return null;
+            InputSystem.QueueStateEvent(Mouse.current, new MouseState { position = point }); yield return null; yield return null;
+        }
+        IEnumerator MeasureCraftingInterface()
+        {
+            var lines = new List<string> { "Unity " + Application.unityVersion + " | " + SystemInfo.processorType + " | " + SystemInfo.graphicsDeviceName,
+                "Stopwatch action CPU only; Canvas.ForceUpdateCanvases includes managed layout/geometry updates, not subsequent native batching or GPU work.",
+                "name,samples,median_ms,p95_ms,max_ms" };
+            IEnumerator Measure(string name, int count, System.Action setup, System.Action action)
+            {
+                var times = new List<double>();
+                for (int i = 0; i < count; i++)
+                {
+                    setup?.Invoke(); yield return null;
+                    long start = System.Diagnostics.Stopwatch.GetTimestamp(); action();
+                    times.Add((System.Diagnostics.Stopwatch.GetTimestamp() - start) * 1000.0 / System.Diagnostics.Stopwatch.Frequency);
+                    yield return null;
+                }
+                times.Sort(); lines.Add(System.FormattableString.Invariant($"{name},{count},{times[count / 2]:F6},{times[(int)((count - 1) * .95)]:F6},{times[count - 1]:F6}"));
+            }
+            yield return Measure("open inventory and flush canvas", 12, () => game.SetMode(ScreenMode.Play), () => { game.SetMode(ScreenMode.Inventory); Canvas.ForceUpdateCanvases(); });
+            void Prepare()
+            {
+                game.UI.HeldStack = default;
+                for (int i = 0; i < game.Crafting.Grid.Count; i++) game.Crafting.Grid.Take(i, int.MaxValue);
+                game.Crafting.Grid.Add(BlockId.Log, 1);
+            }
+            yield return Measure("craft transaction only", 48, Prepare, () => game.Crafting.CraftToCursor(ref game.UI.HeldStack));
+            yield return Measure("craft UI and flush canvas", 48, Prepare, () => { game.UI.ClickSlot(CraftResultSlot, false, false); Canvas.ForceUpdateCanvases(); });
+            yield return Measure("open recipe detail and flush canvas", 12, () => game.UI.CloseBrowserRecipe(), () => { game.UI.InspectBrowserItem(BlockId.Workbench, false); Canvas.ForceUpdateCanvases(); });
+            game.UI.CloseBrowserRecipe(); game.UI.HeldStack = default;
+            for (int i = 0; i < game.Crafting.Grid.Count; i++) game.Crafting.Grid.Take(i, int.MaxValue);
+            System.IO.File.WriteAllLines(System.IO.Path.Combine(output, "crafting-timings.csv"), lines);
+            yield return MeasureCraftingFrames();
+        }
+        IEnumerator MeasureCraftingFrames()
+        {
+            var handles = new List<Unity.Profiling.LowLevel.Unsafe.ProfilerRecorderHandle>();
+            Unity.Profiling.LowLevel.Unsafe.ProfilerRecorderHandle.GetAvailable(handles);
+            var selected = handles.Select(Unity.Profiling.LowLevel.Unsafe.ProfilerRecorderHandle.GetDescription)
+                .Where(d => d.Name.Contains("Canvas") || d.Name.Contains("RivetReach.UI") || d.Name == "Main Thread" || d.Name == "GPU Frame Time" || d.Name == "GC.Alloc" || d.Name == "EventSystem.Update").ToArray();
+            var recorders = selected.Select(d => Unity.Profiling.ProfilerRecorder.StartNew(d.Category, d.Name, 1)).ToArray();
+            var lines = new List<string> { "phase,counter,unit,samples,median,p95,max", "Raw profiler units are retained; zero or missing GPU counters do not establish GPU cost." };
+            try
+            {
+                foreach (bool crafting in new[] { false, true })
+                {
+                    var samples = recorders.Select(r => new List<long>()).ToArray();
+                    for (int frame = 0; frame < 150; frame++)
+                    {
+                        if (crafting)
+                        {
+                            game.UI.HeldStack = default;
+                            game.Crafting.Grid.Add(BlockId.Log, 1);
+                            game.UI.ClickSlot(CraftResultSlot, false, false);
+                        }
+                        yield return null;
+                        if (frame < 30) continue;
+                        for (int i = 0; i < recorders.Length; i++) if (recorders[i].Valid) samples[i].Add(recorders[i].LastValue);
+                    }
+                    for (int i = 0; i < recorders.Length; i++)
+                    {
+                        var values = samples[i]; if (values.Count == 0) continue; values.Sort();
+                        lines.Add($"{(crafting ? "craft every frame" : "idle inventory")},{selected[i].Name},{selected[i].UnitType},{values.Count},{values[values.Count / 2]},{values[(int)((values.Count - 1) * .95)]},{values[values.Count - 1]}");
+                    }
+                }
+            }
+            finally { foreach (var recorder in recorders) recorder.Dispose(); }
+            game.UI.HeldStack = default;
+            System.IO.File.WriteAllLines(System.IO.Path.Combine(output, "crafting-frame-counters.csv"), lines);
+        }
         IEnumerator ReviewRecipeBrowser()
         {
             game.Mobs.enabled = false; game.Diagnostics = false;
             game.SetMode(ScreenMode.Inventory); yield return null; yield return null;
+            yield return MeasureCraftingInterface();
             InputField Search() => game.UI.GetComponentsInChildren<InputField>().Single(f => f.name == "Item browser search");
             BrowserItemView Item(byte id) => game.UI.GetComponentsInChildren<BrowserItemView>().First(v => v.Item == id && v.name.StartsWith("Browse "));
             Button Named(string name) => game.UI.GetComponentsInChildren<Button>().Single(b => b.GetComponentInChildren<Text>().text == name);
@@ -45,8 +129,8 @@ namespace RivetReach
             Search().text = "RAW IRON"; yield return null;
             Check(game.UI.GetComponentsInChildren<BrowserItemView>().Count(v => v.name.StartsWith("Browse ")) == 1, "Search matches case-insensitive multiword item names");
             long inventoryRevision = game.Inventory.Revision, gridRevision = game.Crafting.Grid.Revision;
-            yield return BrowserPointer(Item(BlockId.RawIron), shift: true);
-            Check(TextContains("Furnace") && TextContains("1 / 2"), "Shift-click shows raw iron uses including direct smelting");
+            yield return BrowserPointer(Item(BlockId.RawIron), right: true);
+            Check(TextContains("Furnace") && TextContains("1 / 2"), "Right-click shows raw iron uses including direct smelting");
             yield return Capture("raw-iron-uses");
             // Recipe navigation arrows are scoped to the detail panel, independently of item pages.
             var detail = game.UI.GetComponentsInChildren<Transform>().Single(t => t.name == "Recipe detail");
@@ -150,6 +234,45 @@ namespace RivetReach
             Check(TextContains("No grid recipe is available") && game.Inventory.Total(BlockId.IronBlock) == 1 && game.Crafting.Grid.Slots.All(s => s.Empty),
                 "Ctrl-click on a smelting output cannot silently unpack a metal block through an unrelated grid recipe");
             game.UI.CloseBrowserRecipe(); game.Inventory.Take(game.Inventory.FindSlot(s => s.Id == BlockId.IronBlock), 1);
+            for (int i = 0; i < game.Inventory.Count; i++) game.Inventory.Take(i, int.MaxValue);
+            game.Crafting.ReturnIngredients(game.Inventory);
+            game.Inventory.Add(BlockId.Planks, 19);
+            Search().text = "workbench"; yield return null;
+            yield return BrowserPointer(Item(BlockId.Workbench), shift: true);
+            Check(game.Crafting.MaximumCrafts == 1 && game.Crafting.Grid.Total(BlockId.Planks) == 4, "Shift-click sidebar prepares one correctly arranged recipe");
+            yield return BrowserPointer(Item(BlockId.Workbench), shift: true, control: true);
+            Check(game.Crafting.MaximumCrafts == 4 && game.Inventory.Total(BlockId.Planks) == 3, "Ctrl+Shift-click tops up the ready grid to the maximum complete batch");
+            yield return Capture("maximum-recipe-fill");
+            game.Crafting.ReturnIngredients(game.Inventory);
+            yield return ClickCraftUI(game.Inventory.FindSlot(s => s.Id == BlockId.Planks));
+            yield return PaintCraftUI(new[] { CraftCell, CraftCell + 1, CraftCell + 3, CraftCell + 2, CraftCell });
+            Check(game.Crafting.Preview?.Output.Id == BlockId.Workbench && game.Crafting.Grid.Slots.All(s => s.Count == 1) && game.UI.HeldStack.Count == 15,
+                "Held right-drag paints each crossed crafting cell once without a release deposit or revisit duplication");
+            yield return Capture("right-drag-pattern");
+            game.UI.ReturnHeld();
+            for (int i = 0; i < game.Inventory.Count; i++) game.Inventory.Take(i, int.MaxValue);
+            game.UI.HeldStack = new ItemStack(BlockId.Planks, 2);
+            yield return PaintCraftUI(new[] { CraftCell, CraftCell + 1, CraftCell + 3, CraftCell });
+            Check(game.UI.HeldStack.Empty && game.Crafting.Grid.Total(BlockId.Planks) == 2 && game.Crafting.Grid.Slots[3].Empty,
+                "Exhausted right-drag cannot pick placed ingredients back up");
+            game.Crafting.ReturnIngredients(game.Inventory);
+            for (int i = 0; i < game.Inventory.Count; i++) game.Inventory.Take(i, int.MaxValue);
+            game.Crafting.Grid.Add(BlockId.Log, 1, 1, 2); game.Crafting.Grid.Add(BlockId.Planks, 64, 2, 3);
+            game.UI.HeldStack = new ItemStack(BlockId.Planks, 4);
+            yield return PaintCraftUI(new[] { CraftCell, CraftCell + 1, CraftCell + 2, CraftCell + 3 });
+            Check(game.UI.HeldStack.Count == 2 && game.Crafting.Grid.Slots[1].Id == BlockId.Log && game.Crafting.Grid.Slots[2].Count == 64,
+                "Right-drag skips incompatible and full cells without swapping or losing held items");
+            yield return ClickCraftUI(CraftCell, right: true);
+            Check(game.UI.HeldStack.Count == 1 && game.Crafting.Grid.Slots[0].Count == 2, "A new right press can deposit into a previously visited cell");
+            game.UI.ReturnHeld();
+            for (int i = 0; i < game.Inventory.Count; i++) game.Inventory.Take(i, int.MaxValue);
+            game.Inventory.Add(BlockId.Planks, 7, 12, 13);
+            yield return PaintCraftUI(new[] { 12, CraftCell, CraftCell + 1 });
+            Check(game.Inventory.Slots[12].Count == 3 && game.Crafting.Grid.Total(BlockId.Planks) == 2 && game.UI.HeldStack.Count == 2,
+                "Right-drag starting empty-handed splits the source once and paints the picked-up half");
+            game.UI.ReturnHeld();
+            for (int i = 0; i < game.Inventory.Count; i++) game.Inventory.Take(i, int.MaxValue);
+            Search().text = "";
             // Open real placed stations so the sidebar is checked against each inventory layout.
             game.SetMode(ScreenMode.Play); var savedPosition = game.Player.transform.position;
             game.Player.enabled = false;
@@ -182,7 +305,21 @@ namespace RivetReach
                     else yield return BrowserPointer(game.UI.GetComponentsInChildren<BrowserItemView>().Single(v => v.RecipeId == toFill.Id), control: true);
                     Check(game.Crafting.Preview?.Id == toFill.Id && game.Inventory.Total(outputItem) == 0,
                         "Fill prepares the actual open " + game.Crafting.Grid.Size + " × " + game.Crafting.Grid.Size + " bench without crafting the output");
+                    foreach (var ingredient in toFill.Ingredients) if (!ingredient.Empty) game.Inventory.Add(ingredient.Id, ingredient.Count * 2);
+                    game.UI.InspectBrowserItem(outputItem, false); yield return null;
+                    yield return BrowserPointer(game.UI.GetComponentsInChildren<BrowserItemView>().Single(v => v.RecipeId == toFill.Id), shift: true, control: true);
+                    Check(game.Crafting.Preview?.Id == toFill.Id && game.Crafting.MaximumCrafts == 3, "Exact recipe Ctrl+Shift-click fills maximum at bench size " + game.Crafting.Grid.Size);
                     yield return Capture(stationId == BlockId.Workbench ? "ctrl-fill-workbench" : "ctrl-fill-machinist");
+                }
+                if (stationId == BlockId.Furnace || stationId == BlockId.Chest || stationId == IndustryId.Crusher)
+                {
+                    game.Inventory.Add(BlockId.Planks, 4); Search().text = "workbench"; yield return null;
+                    long bagRevision = game.Inventory.Revision, craftRevision = game.Crafting.Grid.Revision;
+                    yield return BrowserPointer(Item(BlockId.Workbench), shift: true);
+                    yield return BrowserPointer(Item(BlockId.Workbench), shift: true, control: true);
+                    Check(game.Inventory.Revision == bagRevision && game.Crafting.Grid.Revision == craftRevision && TextContains("Open a crafting grid"),
+                        "Fill shortcuts reject non-crafting station " + stationId + " without moving materials");
+                    Search().text = "";
                 }
                 if (stationId == IndustryId.Bench) { Check(game.Crafting.Grid.Size == 4, "Machinist retains its 4 × 4 crafting grid"); yield return Capture("machinist-sidebar"); }
                 if (stationId == BlockId.Furnace) { yield return Capture("furnace-sidebar"); yield return BrowserPointer(Named("RECIPES & FUEL")); Check(TextContains("Used here as the station"), "Furnace guide opens station uses in the shared browser"); game.UI.CloseBrowserRecipe(); }

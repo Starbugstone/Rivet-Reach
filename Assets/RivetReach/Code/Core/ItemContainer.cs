@@ -46,11 +46,24 @@ namespace RivetReach
         internal static void CommitPair(ItemContainer first, IReadOnlyList<ItemStack> firstPlan,
             ItemContainer second, IReadOnlyList<ItemStack> secondPlan)
         {
-            if (ReferenceEquals(first, second)) throw new ArgumentException("A transfer needs distinct containers.");
-            ItemStack[] Prepare(ItemContainer container, IReadOnlyList<ItemStack> plan)
+            CommitMany(new[] { first, second }, new[] { firstPlan, secondPlan });
+        }
+        internal int StackLimit(byte id) => Limit(id);
+
+        // Validate and materialize every plan before publishing any container. Sources are
+        // resolved by the station authority; the UI must never discover remote storage itself.
+        internal static void CommitMany(IReadOnlyList<ItemContainer> containers, IReadOnlyList<IReadOnlyList<ItemStack>> plans)
+        {
+            if (containers.Count != plans.Count) throw new ArgumentException("Mismatched transfer plans.");
+            var copies = new ItemStack[containers.Count][];
+            for (int n = 0; n < containers.Count; n++)
             {
+                var container = containers[n] ?? throw new ArgumentNullException(nameof(containers));
+                for (int j = 0; j < n; j++)
+                    if (ReferenceEquals(container, containers[j])) throw new ArgumentException("Duplicate transfer container.");
+                var plan = plans[n];
                 if (plan.Count != container.Count) throw new ArgumentException("Mismatched transfer plan.");
-                var copy = new ItemStack[container.Count];
+                var copy = copies[n] = new ItemStack[container.Count];
                 for (int i = 0; i < copy.Length; i++)
                 {
                     var stack = plan[i];
@@ -58,12 +71,10 @@ namespace RivetReach
                         throw new ArgumentException("Invalid planned stack.");
                     copy[i] = stack;
                 }
-                return copy;
             }
-            var firstCopy = Prepare(first, firstPlan); var secondCopy = Prepare(second, secondPlan);
-            void Publish(ItemContainer container, ItemStack[] plan)
+            for (int n = 0; n < containers.Count; n++)
             {
-                bool changed = false;
+                var container = containers[n]; var plan = copies[n]; bool changed = false;
                 for (int i = 0; i < container.Count; i++)
                 {
                     changed |= container.slots[i].Id != plan[i].Id || container.slots[i].Count != plan[i].Count;
@@ -71,7 +82,6 @@ namespace RivetReach
                 }
                 if (changed) container.Revision++;
             }
-            Publish(first, firstCopy); Publish(second, secondCopy);
         }
         public int Total(byte id)
         {

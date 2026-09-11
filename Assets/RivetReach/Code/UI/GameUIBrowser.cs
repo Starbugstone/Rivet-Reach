@@ -57,7 +57,7 @@ namespace RivetReach
             string title = game.OpenMachine != null ? game.OpenMachine.Definition.Name : game.OpenStation != null ?
                 game.Registry.Get(game.OpenStation.Block).displayName : game.Creative ? "Creative inventory" : "Inventory";
             Label(p.transform, title.ToUpperInvariant(), 28, 20, 620, 44, 28);
-            Label(p.transform, "Drag stacks · Right-click split / place one · Shift-click transfer", 28, 70, 880, 25, 14, gold);
+            Label(p.transform, "Drag stacks · Right-drag: place one per slot · Shift-click: transfer", 28, 70, 880, 25, 14, gold);
             Button(p.transform, "CLOSE", 822, 22, 104, 38, () => game.SetMode(ScreenMode.Play));
             if (game.Creative && game.OpenStation == null && game.OpenMachine == null)
                 Button(p.transform, creativeCrafting ? "ALL ITEMS" : "CRAFTING", 658, 22, 148, 38, () => { creativeCrafting = !creativeCrafting; Rebuild(); });
@@ -113,7 +113,7 @@ namespace RivetReach
             browserPrevious = Button(panel.transform, "‹", 14, 539, 38, 34, () => ChangeBrowserPage(-1));
             browserNext = Button(panel.transform, "›", 232, 539, 38, 34, () => ChangeBrowserPage(1));
             browserPageLabel = Label(panel.transform, "", 54, 542, 176, 30, 13, gold); browserPageLabel.alignment = TextAnchor.MiddleCenter;
-            browserTip = Label(panel.transform, "Click: recipes\nShift / right-click: uses\nCtrl-click: fill crafting grid", 16, 580, 252, 50, 12, gold);
+            browserTip = Label(panel.transform, "Click: recipes · Right-click: uses\nShift-click: fill one recipe\nCtrl+Shift-click: fill maximum", 16, 580, 252, 50, 12, gold);
             browserSearchField.onValueChanged.AddListener(value => { browserSearch = value; browserPage = 0; FilterBrowser(); });
             FilterBrowser();
         }
@@ -174,7 +174,7 @@ namespace RivetReach
         public void HoverBrowserItem(byte id)
         {
             browserHovered = id;
-            if (browserTip != null) browserTip.text = (id == 0 ? "Click: recipes · Right-click: uses" : game.Registry.Get(id).displayName) + "\nCtrl-click: fill crafting grid\nShift-click: uses" + BrowserDragHint;
+            if (browserTip != null) browserTip.text = (id == 0 ? "Click: recipes · Right-click: uses" : game.Registry.Get(id).displayName) + "\nShift-click: fill one · Ctrl+Shift: max\nRight-click / U: uses" + BrowserDragHint;
         }
         public void InspectBrowserItem(byte id, bool usages)
         {
@@ -188,11 +188,14 @@ namespace RivetReach
             if (recipePanel != null) { recipePanel.SetActive(false); Destroy(recipePanel); recipePanel = null; }
             browserItem = 0; recipeTransferStatus = null; browserHistory.Clear(); HoverBrowserItem(0);
         }
+        static readonly Unity.Profiling.ProfilerMarker recipeViewMarker = new Unity.Profiling.ProfilerMarker("RivetReach.UI.RecipeView");
+        static readonly Unity.Profiling.ProfilerMarker recipeFillMarker = new Unity.Profiling.ProfilerMarker("RivetReach.UI.RecipeFill");
         void DrawBrowserRecipe()
         {
+            using var measurement = recipeViewMarker.Auto();
             if (recipePanel != null) { recipePanel.SetActive(false); Destroy(recipePanel); }
             HoverBrowserItem(0); hoveredSlot = -1; RefreshTooltip();
-            var panel = Panel(browserHost, 246, 104, 688, 418, new Color(ink.r, ink.g, ink.b, 1)); recipePanel = panel.gameObject; recipePanel.name = "Recipe detail";
+            var panel = Panel(browserHost, 246, 104, 688, 418, new Color(ink.r, ink.g, ink.b, 1)); recipePanel = panel.gameObject; recipePanel.name = "Recipe detail"; recipePanel.SetActive(false);
             // Opaque, raycastable backing prevents clicks from falling through to held stacks or the grid.
             Panel(panel.transform, 0, 0, 688, 3, gold);
             var back = Button(panel.transform, "‹ BACK", 12, 14, 98, 32, () =>
@@ -212,7 +215,7 @@ namespace RivetReach
             {
                 BrowserIcon(panel.transform, new ItemStack(browserItem, 1), 30, 130, 64);
                 Label(panel.transform, browserUses ? "No registered recipe uses this item." : "No crafting or processing recipe.\nFind this item through exploration or other world interactions.", 116, 134, 532, 88, 19);
-                Label(panel.transform, "Browse another item, or select the other tab.", 30, 272, 620, 50, 16, gold); return;
+                Label(panel.transform, "Browse another item, or select the other tab.", 30, 272, 620, 50, 16, gold); recipePanel.SetActive(true); return;
             }
             var recipe = matches[recipePage];
             if (recipe.GridRecipe != null)
@@ -258,10 +261,12 @@ namespace RivetReach
                 Label(panel.transform, "FUEL · choose one", 24, 376, 160, 24, 13, gold);
                 for (int i = 0; i < recipe.Fuels.Count; i++) BrowserIcon(panel.transform, new ItemStack(recipe.Fuels[i], (recipe.Ticks + game.Processing.FuelTicks(recipe.Fuels[i]) - 1) / game.Processing.FuelTicks(recipe.Fuels[i])), 190 + i * 36, 369, 32);
             }
-            else Label(panel.transform, "Click: recipes · Shift-click: uses · Ctrl-click output: fill this recipe", 24, 380, 640, 24, 13, gold);
+            else Label(panel.transform, "Shift-click output: fill one · Ctrl+Shift: max · Right-click: uses", 24, 380, 640, 24, 13, gold);
+            recipePanel.SetActive(true);
         }
-        public void FillBrowserRecipe(byte item, string recipeId = null)
+        public void FillBrowserRecipe(byte item, string recipeId = null, bool maximum = false)
         {
+            using var measurement = recipeFillMarker.Auto();
             if (!game.InventoryOpen) return;
             void Notice(string text)
             {
@@ -276,7 +281,7 @@ namespace RivetReach
             RecipeFillStatus failure = RecipeFillStatus.RequiresLargerGrid;
             foreach (var recipe in candidates)
             {
-                var result = game.Crafting.FillRecipe(recipe.Id, game.Inventory);
+                var result = game.Crafting.FillRecipe(recipe.Id, game.Inventory, maximum);
                 if (result == RecipeFillStatus.Filled || result == RecipeFillStatus.AlreadyReady)
                 {
                     CloseBrowserRecipe(); RefreshSlots();
@@ -315,9 +320,10 @@ namespace RivetReach
         public void OnPointerClick(PointerEventData e)
         {
             if (dragging || e.dragging || (e.button != PointerEventData.InputButton.Left && e.button != PointerEventData.InputButton.Right)) return;
-            if (e.button == PointerEventData.InputButton.Left && Keyboard.current?.ctrlKey.isPressed == true)
-                Owner.FillBrowserRecipe(Item, RecipeId);
-            else Owner.InspectBrowserItem(Item, e.button == PointerEventData.InputButton.Right || Keyboard.current?.shiftKey.isPressed == true);
+            bool shift = Keyboard.current?.shiftKey.isPressed == true, control = Keyboard.current?.ctrlKey.isPressed == true;
+            if (e.button == PointerEventData.InputButton.Left && (shift || control))
+                Owner.FillBrowserRecipe(Item, RecipeId, shift && control);
+            else Owner.InspectBrowserItem(Item, e.button == PointerEventData.InputButton.Right);
         }
     }
     public sealed class BrowserPageScroll : MonoBehaviour, IScrollHandler

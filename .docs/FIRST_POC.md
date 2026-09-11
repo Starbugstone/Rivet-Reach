@@ -38,8 +38,9 @@ The build script reuses this project's open Editor through its existing local fi
 | Drop one / selected stack | Q / Shift+Q |
 | Inspect body / diagnostics | F5 / F12 |
 | Move an inventory stack | Click source then destination, or drag |
-| Split / place one in a slot | Right-click |
-| Transfer / craft all that fit | Shift-click |
+| Split / place one in a slot | Right-click; hold and drag to place one per inventory/crafting slot |
+| Transfer / craft all that fit | Shift-click inventory slots / crafting result |
+| Fill recipe from the item browser | Shift-click: one recipe; Ctrl+Shift-click: maximum |
 | Rotate the appearance preview | Drag the player portrait |
 
 Keyboard controls can be rebound; conflicting actions swap keys. The old default Sprint/Crouch pair migrates to Ctrl/Shift; other customized pairs are preserved. New Interact bindings preserve existing customized keys. Mining can use either mouse button; use/placement follows the opposite button, including the displayed prompts. Appearance, audio and settings are remembered locally.
@@ -55,7 +56,7 @@ Keyboard controls can be rebound; conflicting actions swap keys. The old default
 
 Once you have coal or furnace-made charcoal, place **one above one stick** in either crafting grid to make **four torches**. Select a torch and right-click a floor or wall to light the area. Mine it to recover it. [Torch rules](GAMEPLAY.md#torches) describe attachment and lighting limits.
 
-The **item sidebar** displays all registered icons. Click an icon for recipes; Shift-click or right-click for uses. Ctrl-click fills a compatible recipe into the open crafting grid from your materials; Ctrl-click a recipe output or choose Fill grid to place that exact recipe. The detail view shows materials and the required station, with clickable ingredients and Back navigation. Hover inventory slots and press R/U for the same lookups. Try `Builds/RecipeBrowser/RivetReach.exe` for this interface. Click the result to craft once; Shift-click crafts complete outputs that fit. Closing the inventory returns ingredients; leftovers stay in the grid if the inventory is full. [CRAFTING.md](CRAFTING.md) owns the shared 2×2/3×3/4×4 engine and authoring; [ECONOMY.md](ECONOMY.md#current-survival-recipes-and-tiers) owns the 55 survival recipes and progression. The [Machinist’s Bench](INDUSTRY.md) now opens the 4×4 interface and adds 36 industrial recipes, including the [tank component family](MULTIBLOCKS.md).
+The **item sidebar** displays all registered icons. Click an icon for recipes; right-click for uses. Shift-click (or Ctrl-click) fills one compatible recipe into the open crafting grid from your materials; Ctrl+Shift-click fills the maximum complete batch. The same shortcuts on a recipe output select that exact recipe; Fill grid prepares it once. The detail view shows materials and the required station, with clickable ingredients and Back navigation. Hover inventory slots and press R/U for the same lookups. Try `Builds/RecipeBrowser/RivetReach.exe` for this interface. Click the result to craft once; Shift-click crafts complete outputs that fit. Closing the inventory returns ingredients; leftovers stay in the grid if the inventory is full. [CRAFTING.md](CRAFTING.md) owns the shared 2×2/3×3/4×4 engine and authoring; [ECONOMY.md](ECONOMY.md#current-survival-recipes-and-tiers) owns the 55 survival recipes and progression. The [Machinist’s Bench](INDUSTRY.md) now opens the 4×4 interface and adds 36 industrial recipes, including the [tank component family](MULTIBLOCKS.md).
 
 ## Survival and exploration
 

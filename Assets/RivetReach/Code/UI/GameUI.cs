@@ -25,6 +25,7 @@ namespace RivetReach
         RectTransform heldRoot;
         RawImage heldIcon;
         public ItemStack HeldStack;
+        ItemStack shownHeld;
         long lastRevision=-1,lastCraftRevision=-1;
         int lastSelected=-1;
         const int CraftSlotStart=Inventory.SlotCount, CraftOutputSlot=Inventory.SlotCount+16;
@@ -65,10 +66,14 @@ namespace RivetReach
             var label=Label(image.transform,text,10,0,w-20,h,18);label.alignment=TextAnchor.MiddleCenter;
             button.onClick.AddListener(()=>action());return button;
         }
+        static readonly Unity.Profiling.ProfilerMarker rebuildMarker = new Unity.Profiling.ProfilerMarker("RivetReach.UI.Rebuild");
+        static readonly Unity.Profiling.ProfilerMarker slotInputMarker = new Unity.Profiling.ProfilerMarker("RivetReach.UI.SlotInput");
+        static readonly Unity.Profiling.ProfilerMarker slotRefreshMarker = new Unity.Profiling.ProfilerMarker("RivetReach.UI.RefreshSlots");
         public void Rebuild()
         {
+            using var measurement = rebuildMarker.Auto();
             if(canvas==null)return;
-            ResetBrowserUI();ResetSurvivalUI();machineStatus=machineDetail=null;machineProgress=null;
+            shownHeld = default;EndRightPaint();ResetBrowserUI();ResetSurvivalUI();machineStatus=machineDetail=null;machineProgress=null;
             if(root!=null){root.gameObject.SetActive(false);Destroy(root.gameObject);}slots.Clear();message=null;diagnostics=null;diagnosticsPanel=null;targetLabel=null;progress=null;heldRoot=null;heldLabel=null;loading=null;tooltip=null;craftStatus=null;craftOutputName=null;inventoryHint=null;hoveredSlot=-1;lastRevision=-1;lastCraftRevision=-1;
             if(previewRoot!=null)previewRoot.SetActive(game.Mode==ScreenMode.Inventory||game.Mode==ScreenMode.Appearance);
             root=Rect(canvas.transform,"Screen",0,0,1280,720);root.gameObject.SetActive(false);
@@ -231,8 +236,32 @@ namespace RivetReach
             slider.handleRect=handle.rectTransform;slider.targetGraphic=handle;
             slider.value=initial;slider.onValueChanged.AddListener(v=>{change(v);value.text=v.ToString("0.##");});
         }
+        bool rightPainting;
+        readonly HashSet<int> paintedSlots = new HashSet<int>();
+        bool PaintableSlot(int index) => index >= 0 && (index < Inventory.SlotCount ||
+            index >= CraftSlotStart && index < CraftSlotStart + game.Crafting.Grid.Count) && recipePanel == null;
+        public bool BeginRightPaint(int index, bool shift)
+        {
+            EndRightPaint();
+            if (!game.InventoryOpen || !PaintableSlot(index)) return false;
+            paintedSlots.Add(index);
+            ClickSlot(index, true, shift);
+            rightPainting = !HeldStack.Empty;
+            return true;
+        }
+        public void PaintSlot(int index)
+        {
+            if (!rightPainting || Mouse.current?.rightButton.isPressed != true || HeldStack.Empty ||
+                !game.InventoryOpen || !PaintableSlot(index) || !paintedSlots.Add(index)) return;
+            // Deposit only. An exhausted cursor must never pick ingredients back up.
+            ClickSlot(index, true, false);
+        }
+        public void EndRightPaint() { rightPainting = false; paintedSlots.Clear(); }
+        void OnApplicationFocus(bool focus) { if (!focus) EndRightPaint(); }
+
         public void ClickSlot(int index,bool right,bool shift)
         {
+            using var measurement = slotInputMarker.Auto();
             if(!game.InventoryOpen)return;
             if(ClickStationSlot(index,right,shift)){RefreshSlots();return;}
             if(index==CraftOutputSlot)
@@ -268,6 +297,7 @@ namespace RivetReach
         }
         void RefreshSlots()
         {
+            using var measurement = slotRefreshMarker.Auto();
             foreach(var view in slots)
             {
                 var stack=StackAt(view.Index);
@@ -291,6 +321,7 @@ namespace RivetReach
         void Update()
         {
             if(game==null)return;
+            if (Mouse.current?.rightButton.isPressed != true) EndRightPaint();
             UpdateBrowserInput();
             if(lastRevision!=game.Inventory.Revision||lastCraftRevision!=game.Crafting.Grid.Revision||lastStationRevision!=StationRevision||lastEquipmentRevision!=game.Equipment.Revision||lastSelected!=game.Selected)RefreshSlots();
             RefreshSurvival();RefreshMachine();
@@ -314,7 +345,9 @@ namespace RivetReach
                 if(!cursorStack.Empty&&Mouse.current!=null)
                 {
                     RectTransformUtility.ScreenPointToLocalPointInRectangle(root,Mouse.current.position.ReadValue(),null,out var point);
-                    heldRoot.localPosition=new Vector3(point.x+10,point.y-10,0);heldIcon.texture=icons[cursorStack.Id];heldLabel.text=cursorStack.Count.ToString();
+                    heldRoot.localPosition=new Vector3(point.x+10,point.y-10,0);
+                    if (shownHeld.Id != cursorStack.Id || shownHeld.Count != cursorStack.Count)
+                    { heldIcon.texture=icons[cursorStack.Id];heldLabel.text=cursorStack.Count.ToString();shownHeld=cursorStack; }
                 }
             }
             frameAverage=Mathf.Lerp(frameAverage,Time.unscaledDeltaTime,.05f);
@@ -396,17 +429,45 @@ namespace RivetReach
     }
     public sealed class PortraitDrag : MonoBehaviour,IDragHandler
     {public GameUI Owner;public void OnDrag(PointerEventData e)=>Owner.RotatePreview(e.delta.x);}
-    public sealed class SlotView : MonoBehaviour,IPointerClickHandler,IBeginDragHandler,IDragHandler,IEndDragHandler,IPointerEnterHandler,IPointerExitHandler
+    public sealed class SlotView : MonoBehaviour,IPointerDownHandler,IPointerUpHandler,IPointerClickHandler,IBeginDragHandler,IDragHandler,IEndDragHandler,IPointerEnterHandler,IPointerExitHandler
     {
         public bool Shown,ShownSelected;public byte ShownId;public int ShownCount;
         public GameUI Owner;public int Index;public Image Background;public Outline Border;public RawImage Icon;public Text Count;
-        public void OnPointerEnter(PointerEventData e)=>Owner.HoverSlot(Index);
-        public void OnPointerExit(PointerEventData e)=>Owner.HoverSlot(-1);
-        bool dragged;
-        public void OnPointerClick(PointerEventData e){if(e.button!=PointerEventData.InputButton.Left&&e.button!=PointerEventData.InputButton.Right)return;if(dragged){dragged=false;return;}Owner.ClickSlot(Index,e.button==PointerEventData.InputButton.Right,Keyboard.current?.shiftKey.isPressed==true);}
-        public void OnBeginDrag(PointerEventData e){dragged=true;if(Owner.HeldStack.Empty)Owner.ClickSlot(Index,false,false);}
-        public void OnDrag(PointerEventData e){}
+        bool dragged, rightPressHandled;
+        public void OnPointerEnter(PointerEventData e) { Owner.HoverSlot(Index); Owner.PaintSlot(Index); }
+        public void OnPointerExit(PointerEventData e) => Owner.HoverSlot(-1);
+        public void OnPointerDown(PointerEventData e)
+        {
+            dragged = false;
+            if (e.button == PointerEventData.InputButton.Right)
+                rightPressHandled = Owner.BeginRightPaint(Index, Keyboard.current?.shiftKey.isPressed == true);
+        }
+        public void OnPointerUp(PointerEventData e) { if (e.button == PointerEventData.InputButton.Right) Owner.EndRightPaint(); }
+        public void OnPointerClick(PointerEventData e)
+        {
+            if (e.button != PointerEventData.InputButton.Left && e.button != PointerEventData.InputButton.Right) return;
+            if (dragged || e.dragging || e.button == PointerEventData.InputButton.Right && rightPressHandled) return;
+            Owner.ClickSlot(Index, e.button == PointerEventData.InputButton.Right, Keyboard.current?.shiftKey.isPressed == true);
+        }
+        public void OnBeginDrag(PointerEventData e)
+        {
+            if (e.button != PointerEventData.InputButton.Left && e.button != PointerEventData.InputButton.Right) return;
+            dragged = true;
+            if (e.button == PointerEventData.InputButton.Left && Owner.HeldStack.Empty) Owner.ClickSlot(Index, false, false);
+        }
+        public void OnDrag(PointerEventData e)
+        {
+            if (e.button != PointerEventData.InputButton.Right) return;
+            var slot = e.pointerCurrentRaycast.gameObject?.GetComponentInParent<SlotView>();
+            if (slot != null && slot.Owner == Owner) Owner.PaintSlot(slot.Index);
+        }
         public void OnEndDrag(PointerEventData e)
-        {var target=e.pointerCurrentRaycast.gameObject;if(target!=null){var slot=target.GetComponentInParent<SlotView>();if(slot!=null)Owner.ClickSlot(slot.Index,false,false);}dragged=false;}
+        {
+            if (e.button == PointerEventData.InputButton.Right) { Owner.EndRightPaint(); return; }
+            if (e.button != PointerEventData.InputButton.Left) return;
+            var slot = e.pointerCurrentRaycast.gameObject?.GetComponentInParent<SlotView>();
+            if (slot != null && slot.Owner == Owner) Owner.ClickSlot(slot.Index, false, false);
+        }
+        void OnDisable() { if (rightPressHandled && Owner != null) Owner.EndRightPaint(); rightPressHandled = dragged = false; }
     }
 }

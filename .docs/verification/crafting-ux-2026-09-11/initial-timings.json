@@ -1,0 +1,34 @@
+{
+  "timestamp": "2026-09-11T18:27:49.4163197Z",
+  "context": "First development player run, before profiler markers, inactive recipe-panel construction and cursor-count caching; same new fill/drag behavior. Separate runs are not a controlled speedup benchmark.",
+  "measurements": [
+    {
+      "name": "open inventory and flush canvas",
+      "samples": 12,
+      "medianMs": 24.7814,
+      "p95Ms": 25.6731,
+      "maxMs": 27.0433
+    },
+    {
+      "name": "craft transaction only",
+      "samples": 48,
+      "medianMs": 0.0008,
+      "p95Ms": 0.0015,
+      "maxMs": 0.3351
+    },
+    {
+      "name": "craft UI and flush canvas",
+      "samples": 48,
+      "medianMs": 0.1346,
+      "p95Ms": 0.1855,
+      "maxMs": 1.5193
+    },
+    {
+      "name": "open recipe detail and flush canvas",
+      "samples": 12,
+      "medianMs": 3.7752,
+      "p95Ms": 5.1176,
+      "maxMs": 21.6239
+    }
+  ]
+}

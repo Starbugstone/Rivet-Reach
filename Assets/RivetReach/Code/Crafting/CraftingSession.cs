@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace RivetReach
 {
@@ -75,16 +76,49 @@ namespace RivetReach
                 if (consumption[i] != 0) Grid.Take(i, consumption[i] * crafts);
         }
 
-        public RecipeFillStatus FillRecipe(string recipeId, Inventory inventory)
+        public RecipeFillStatus FillRecipe(string recipeId, Inventory inventory, bool maximum = false)
+            => FillRecipe(recipeId, new ItemContainer[] { inventory }, maximum);
+
+        // Ordered, authority-approved ingredient sources. Only the backpack is wired today.
+        // Source 0 also receives displaced grid ingredients. Adjacent discovery/access/wake
+        // policies remain WIP; future stations can supply additional sources here.
+        public RecipeFillStatus FillRecipe(string recipeId, IReadOnlyList<ItemContainer> sources, bool maximum = false)
         {
-            if (inventory == null) throw new ArgumentNullException(nameof(inventory));
+            if (sources == null || sources.Count == 0) throw new ArgumentException("At least one ingredient source is required.");
+            for (int i = 0; i < sources.Count; i++)
+            {
+                if (sources[i] == null) throw new ArgumentNullException(nameof(sources));
+                if (ReferenceEquals(sources[i], Grid)) throw new ArgumentException("The grid is already an ingredient source.");
+                for (int j = 0; j < i; j++)
+                    if (ReferenceEquals(sources[i], sources[j])) throw new ArgumentException("Duplicate ingredient source.");
+            }
             RecipeInfo recipe = null;
             foreach (var entry in registry.Recipes) if (entry.Id == recipeId) { recipe = entry; break; }
             if (recipe == null) return RecipeFillStatus.UnknownRecipe;
             if (recipe.MinimumGridSize > Grid.Size) return RecipeFillStatus.RequiresLargerGrid;
-            if (Preview == recipe) return RecipeFillStatus.AlreadyReady;
-            var source = inventory.Snapshot(); var leftovers = Grid.Snapshot();
-            var target = new ItemStack[Grid.Count];
+            if (!maximum && Preview == recipe) return RecipeFillStatus.AlreadyReady;
+            int crafts = 1;
+            if (maximum)
+            {
+                Span<long> available = stackalloc long[256]; available.Clear();
+                Span<int> required = stackalloc int[256]; required.Clear();
+                foreach (var source in sources) foreach (var stack in source.Slots) available[stack.Id] += stack.Count;
+                foreach (var stack in Grid.Slots) available[stack.Id] += stack.Count;
+                crafts = int.MaxValue;
+                foreach (var ingredient in recipe.Ingredients)
+                {
+                    if (ingredient.Empty) continue;
+                    required[ingredient.Id] = checked(required[ingredient.Id] + ingredient.Count);
+                    crafts = Math.Min(crafts, Grid.StackLimit(ingredient.Id) / ingredient.Count);
+                }
+                for (int id = 1; id < required.Length; id++)
+                    if (required[id] > 0) crafts = (int)Math.Min(crafts, available[id] / required[id]);
+                if (crafts == 0) return RecipeFillStatus.MissingIngredients;
+                if (Preview == recipe && MaximumCrafts == crafts) return RecipeFillStatus.AlreadyReady;
+            }
+            var plans = new ItemContainer[sources.Count];
+            for (int i = 0; i < sources.Count; i++) plans[i] = sources[i].Snapshot();
+            var leftovers = Grid.Snapshot(); var target = new ItemStack[Grid.Count];
             int Reserve(ItemContainer from, byte id, int count)
             {
                 for (int i = 0; i < from.Count && count > 0; i++)
@@ -94,18 +128,21 @@ namespace RivetReach
             for (int i = 0; i < recipe.Ingredients.Count; i++)
             {
                 var ingredient = recipe.Ingredients[i]; if (ingredient.Empty) continue;
-                int remaining = Reserve(leftovers, ingredient.Id, ingredient.Count);
-                if (Reserve(source, ingredient.Id, remaining) != 0) return RecipeFillStatus.MissingIngredients;
+                int count = checked(ingredient.Count * crafts);
+                int remaining = Reserve(leftovers, ingredient.Id, count);
+                foreach (var plan in plans) remaining = Reserve(plan, ingredient.Id, remaining);
+                if (remaining != 0) return RecipeFillStatus.MissingIngredients;
                 int cell = recipe.Kind == RecipeKind.Shaped ? i % recipe.Width + i / recipe.Width * Grid.Size : i;
-                target[cell] = ingredient;
+                target[cell] = new ItemStack(ingredient.Id, count);
             }
-            // Reserve first: consumed inventory stacks can free room for old grid contents.
-            for (int i = 0; i < leftovers.Count; i++)
-            {
-                var stack = leftovers.Slots[i];
-                if (!stack.Empty && source.Add(stack.Id, stack.Count) != 0) return RecipeFillStatus.InventoryFull;
-            }
-            ItemContainer.CommitPair(inventory, source.Slots, Grid, target);
+            // Reserve first: consumed backpack stacks can free room for old grid contents.
+            foreach (var stack in leftovers.Slots)
+                if (!stack.Empty && plans[0].Add(stack.Id, stack.Count) != 0) return RecipeFillStatus.InventoryFull;
+            var containers = new ItemContainer[sources.Count + 1];
+            var contents = new IReadOnlyList<ItemStack>[containers.Length];
+            for (int i = 0; i < sources.Count; i++) { containers[i] = sources[i]; contents[i] = plans[i].Slots; }
+            containers[sources.Count] = Grid; contents[sources.Count] = target;
+            ItemContainer.CommitMany(containers, contents);
             return RecipeFillStatus.Filled;
         }
 
