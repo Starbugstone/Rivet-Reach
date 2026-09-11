@@ -1,0 +1,56 @@
+name: Sync GitHub Wiki
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.docs/wiki/**'
+      - '.github/workflows/sync-wiki.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-github-wiki
+  cancel-in-progress: true
+
+jobs:
+  sync-wiki:
+    name: Publish .docs/wiki to GitHub Wiki
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Clone wiki repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git clone --depth 1 \
+            "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.wiki.git" \
+            "$RUNNER_TEMP/wiki"
+
+      - name: Mirror player wiki files
+        run: |
+          set -euo pipefail
+          rsync -av --delete --exclude='.git/' .docs/wiki/ "$RUNNER_TEMP/wiki/"
+
+      - name: Commit and publish changes
+        working-directory: ${{ runner.temp }}/wiki
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+
+          if git diff --cached --quiet; then
+            echo "Wiki already matches .docs/wiki; nothing to publish."
+            exit 0
+          fi
+
+          git commit -m "Sync wiki from ${GITHUB_SHA::7}"
+          git push
