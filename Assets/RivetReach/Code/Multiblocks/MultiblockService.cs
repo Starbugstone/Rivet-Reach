@@ -12,7 +12,7 @@ namespace RivetReach
         readonly Dictionary<ChunkPos,HashSet<MultiblockInstance>> watchers=new Dictionary<ChunkPos,HashSet<MultiblockInstance>>();
         readonly Queue<MultiblockInstance> pending=new Queue<MultiblockInstance>();
         readonly HashSet<MultiblockInstance> queued=new HashSet<MultiblockInstance>();
-        public readonly Guid WorldId=Guid.NewGuid();
+        public Guid WorldId {get;internal set;}=Guid.NewGuid();
         public IEnumerable<MultiblockInstance> Instances=>controllers.Values;
         public int PendingCount=>queued.Count;
         public MultiblockService(IIndustryWorld world,IndustrySimulation simulation){this.world=world;this.simulation=simulation;}

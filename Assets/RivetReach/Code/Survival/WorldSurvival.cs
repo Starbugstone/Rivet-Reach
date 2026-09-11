@@ -21,7 +21,7 @@ namespace RivetReach
     }
     // Owned by one world/session. Compact block entities outlive their streamed presentation.
     // Idle furnaces never enter the active set; crops schedule their next stage, not frame updates.
-    public sealed class WorldSurvival
+    public sealed partial class WorldSurvival
     {
         public const int TicksPerSecond=20,CropStageTicks=1200;
         readonly Expedition game;

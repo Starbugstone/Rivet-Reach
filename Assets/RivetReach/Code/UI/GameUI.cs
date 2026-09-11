@@ -78,6 +78,7 @@ namespace RivetReach
             else if(game.Mode==ScreenMode.Inventory)BuildItemBrowserInventory();
             else if(game.Mode==ScreenMode.Title)BuildTitle();
             else if(game.Mode==ScreenMode.Death)BuildDeath();
+            else if(game.Mode==ScreenMode.Save||game.Mode==ScreenMode.Load)BuildSaveMenu();
             else BuildMenu();
             RefreshSlots();root.gameObject.SetActive(true);
         }
@@ -102,7 +103,11 @@ namespace RivetReach
             Button(p.transform,"PLAYER",36,494,112,40,()=>game.SetMode(ScreenMode.Appearance));
             Button(p.transform,"SETTINGS",161,494,114,40,()=>game.SetMode(ScreenMode.Settings));
             Button(p.transform,"QUIT",289,494,112,40,game.Quit);
-            Label(p.transform,"Early POC · Session progress resets on quit",36,565,372,35,14,new Color(.72f,.76f,.73f));
+            Label(p.transform,"0.0.1 Alpha · Save and resume expeditions",36,565,372,35,14,new Color(.72f,.76f,.73f));
+            var saves=game.Saves.List();
+            Button(root,"CONTINUE LATEST SAVE",735,365,480,54,()=>{if(!game.ContinueLatestSave())Rebuild();},true).interactable=saves.Count>0;
+            Button(root,"LOAD GAME",735,435,480,50,()=>game.SetMode(ScreenMode.Load));
+            Label(root,game.SaveStatus??game.Saves.ScanWarning??(saves.Count>0?"Latest: "+saves[0].Name:"No saves yet. Start your first expedition."),735,508,480,95,18,gold);
             Label(root,"TERRAIN / MOVEMENT / DISCOVERY",735,632,480,24,16,gold);
             Label(root,"An open world, one playable step at a time.",735,661,480,28,20);
         }
@@ -124,7 +129,7 @@ namespace RivetReach
             selectedLabel=Label(root,"",420,611,440,24,15);selectedLabel.alignment=TextAnchor.MiddleCenter;
             Label(root,$"{game.Input.Keys["Inventory"]}  Inventory    {game.Input.Keys["Interact"]}  Interact    {game.Input.UseButtonName}  Use / place    {game.Input.Keys["Drop"]}  Drop",28,694,850,22,13);
             BuildSurvivalHUD();
-            Label(root,"Session-only world",1090,694,172,22,12,new Color(.75f,.77f,.73f));
+            Label(root,"Escape · Save game",1090,694,172,22,12,new Color(.75f,.77f,.73f));
             message=Label(root,"",330,555,620,40,18,gold);message.alignment=TextAnchor.MiddleCenter;
             loading=Label(root,"",435,457,410,50,20);loading.alignment=TextAnchor.MiddleCenter;
             var debug=Panel(root,20,94,680,210,new Color(.025f,.045f,.055f,.9f));diagnosticsPanel=debug.gameObject;
@@ -166,13 +171,17 @@ namespace RivetReach
             Label(p.transform,title,34,28,650,52,32);Button(p.transform,"BACK",650,26,106,38,()=>game.SetMode(game.Mode==ScreenMode.Pause?ScreenMode.Play:game.Started?ScreenMode.Pause:ScreenMode.Title));
             if(game.Mode==ScreenMode.Pause)
             {
-                Button(p.transform,"RESUME EXPLORATION",180,130,430,54,()=>game.SetMode(ScreenMode.Play),true);
-                Button(p.transform,"PLAYER & SKIN",180,204,430,46,()=>game.SetMode(ScreenMode.Appearance));
-                Button(p.transform,"SETTINGS",180,268,430,46,()=>game.SetMode(ScreenMode.Settings));
-                Button(p.transform,"CONTROLS",180,332,430,46,()=>game.SetMode(ScreenMode.Controls));
-                Button(p.transform,game.Creative?"CREATIVE MODE: ON":"CREATIVE MODE: OFF",180,396,430,46,()=>game.SetCreative(!game.Creative),game.Creative);
-                Button(p.transform,"QUIT — SESSION WILL RESET",180,466,430,46,game.Quit);
-                Label(p.transform,"Terrain edits and inventory survive chunk unloading,\nbut this first slice does not yet save progress between sessions.",115,530,610,60,17);
+                Button(p.transform,"RESUME EXPLORATION",36,112,716,48,()=>game.SetMode(ScreenMode.Play),true);
+                Button(p.transform,"SAVE GAME",36,178,346,48,()=>{saveNameText=null;game.SetMode(ScreenMode.Save);},true);
+                Button(p.transform,"LOAD GAME",406,178,346,48,()=>game.SetMode(ScreenMode.Load));
+                Button(p.transform,"PLAYER & SKIN",36,244,346,46,()=>game.SetMode(ScreenMode.Appearance));
+                Button(p.transform,"SETTINGS",406,244,346,46,()=>game.SetMode(ScreenMode.Settings));
+                Button(p.transform,"CONTROLS",36,308,346,46,()=>game.SetMode(ScreenMode.Controls));
+                Button(p.transform,game.Creative?"CREATIVE MODE: ON":"CREATIVE MODE: OFF",406,308,346,46,()=>game.SetCreative(!game.Creative),game.Creative);
+                Button(p.transform,"SAVE & TITLE",36,388,346,48,game.SaveAndTitle);
+                Button(p.transform,"SAVE & QUIT",406,388,346,48,game.SaveAndQuit);
+                Button(p.transform,"QUIT WITHOUT SAVING",406,456,346,44,game.Quit);
+                Label(p.transform,game.SaveStatus??"Save your expedition before leaving.\nClosing the window does not automatically save.",36,529,716,68,17,gold);
             }
             else if(game.Mode==ScreenMode.Appearance)
             {

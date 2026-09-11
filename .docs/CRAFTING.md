@@ -1,5 +1,7 @@
 # Modular crafting implementation
 
+> **2026-09-11 persistence extension:** [SAVES.md](SAVES.md) owns the implemented Save Game, Load Game and Continue Latest Save behavior. Its bounded surface-world persistence supersedes earlier session-only/durable-save exclusions below; older verification retains its original artifact identity.
+
 Implemented under the user's explicit crafting request on 2026-09-08. The same core supports square 2×2, 3×3 and 4×4 grids; the personal 2×2 inventory and placed 3×3 workbench are playable interfaces. [GAMEPLAY.md section 16](GAMEPLAY.md#16-modular-grid-crafting) owns interaction rules, [ECONOMY.md](ECONOMY.md#current-survival-recipes-and-tiers) owns the progression recipes, and [verification](verification/CRAFTING_RESULTS.md) records measured evidence.
 
 ## Author or change a recipe

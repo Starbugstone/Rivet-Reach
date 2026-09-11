@@ -9,7 +9,7 @@ namespace RivetReach
         bool ChangeFluid(BlockPos position,byte expected,byte replacement);
     }
     // One world authority; deterministic scheduled work, no scan of settled fluid volumes.
-    public sealed class FluidSimulation
+    public sealed partial class FluidSimulation
     {
         public const float StepSeconds=.05f;
         public const int WorkBudget=512;

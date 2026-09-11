@@ -16,7 +16,7 @@ The long-term vision combines:
 
 ## Current status
 
-**Download:** [Rivet Reach 0.0.1 Alpha for Windows x64](https://github.com/Starbugstone/Rivet-Reach/releases/tag/v0.0.1). Extract the complete Windows ZIP and run `RivetReach.exe`; no Unity installation is needed. **World progress resets when you quit.** See the [alpha notes](.docs/releases/0.0.1.md).
+**Download:** [Rivet Reach 0.0.1 Alpha for Windows x64](https://github.com/Starbugstone/Rivet-Reach/releases/tag/v0.0.1). Extract the complete Windows ZIP and run `RivetReach.exe`; no Unity installation is needed. **Save Game, Load Game and Continue Latest Save are included.** See the [alpha notes](.docs/releases/0.0.1.md).
 
 The current Unity **6000.4.4f1 / URP 17.4.0** review build includes FPS movement, block mining/placement, inventory, **91 modular recipes**, personal 2×2 and workbench 3×3 crafting, five tool tiers, craftable light-emitting torches, furnaces, chests, potato farming, hunger, hearts and armor. It also includes seven biomes including seas and rivers, bucket water flow and caves, depth-banded ores, protected bedrock, generated trees, male/female appearances with two skins, a moving day/night sky, and native beetle/prowler enemies.
 
@@ -26,7 +26,7 @@ Open `Assets/RivetReach/Scenes/Main.unity` in the pinned Editor and press Play, 
 
 [Current verification and screenshots](.docs/verification/README.md) link the maintained report for each feature. [Starter recipe verification](.docs/verification/CRAFTING_RESULTS.md) checks the actual layouts and quantities. Superseded screenshots/reports remain in Git history.
 
-This is an early playable increment. Progress survives chunk unloading during a session and resets on quit. Durable saves, generated structures and the wider game remain planned. The [first industrial workshop](.docs/INDUSTRY.md) adds a 4×4 Machinist’s Bench, Azure resources, Blue Signal, steam/electricity, machines and separate item/fluid pipes. [Multiblock tanks](.docs/MULTIBLOCKS.md) add player-built shared storage, connected glass, valve/level controls and independent signal/power fittings on either transport pipe. [The development strategy](.docs/DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence) requires playable review before selecting further scope. Art, balance and long-session performance remain subject to review.
+This is an early playable increment. [Named saves](.docs/SAVES.md) preserve progress across restarts. Generated structures and the wider game remain planned. The [first industrial workshop](.docs/INDUSTRY.md) adds a 4×4 Machinist’s Bench, Azure resources, Blue Signal, steam/electricity, machines and separate item/fluid pipes. [Multiblock tanks](.docs/MULTIBLOCKS.md) add player-built shared storage, connected glass, valve/level controls and independent signal/power fittings on either transport pipe. [The development strategy](.docs/DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence) requires playable review before selecting further scope. Art, balance and long-session performance remain subject to review.
 
 [Industrial verification](.docs/verification/INDUSTRY_RESULTS.md) includes in-game screenshots, a gameplay clip and measured limits.
 
@@ -46,6 +46,7 @@ See [LICENSE.md](LICENSE.md) for the complete terms.
 - [PROJECT_PLAN.md](.docs/PROJECT_PLAN.md) - technical plan, architecture, POC and long-term target.
 - [DEVELOPMENT_STRATEGY.md](.docs/DEVELOPMENT_STRATEGY.md) - how to build the final architecture incrementally while keeping gameplay responsive and performance-aware.
 - [GAMEPLAY.md](.docs/GAMEPLAY.md) - responsive play, progression, exploration rewards and full-game completeness.
+- [SAVES.md](.docs/SAVES.md) - saving, loading, continuing and backup recovery.
 - [SIMULATION.md](.docs/SIMULATION.md) - working simulation/persistence contracts and candidate benchmark budgets.
 - [LORE.md](.docs/LORE.md) - hidden lore, world history, Gatebuilders and current mob/world rules.
 - [TRANSPORT.md](.docs/TRANSPORT.md) - Gate networks, rockets, coordinate-preserving travel, portal state and future transport systems.

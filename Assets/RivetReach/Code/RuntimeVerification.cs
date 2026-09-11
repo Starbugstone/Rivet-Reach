@@ -95,6 +95,8 @@ namespace RivetReach
                 Check(ShadowProbe.LastReport.result!="FAIL","Shadow probe completed with one directional light, no duplicate chunk views and the expected sampling stability");
                 yield break;
             }
+            if(Environment.GetCommandLineArgs().Contains("-rr-save-resume-review"))
+            {report.workload="Fresh-process Continue latest disk save";yield return ReviewSaveGame();yield break;}
             float began=Time.realtimeSinceStartup;report.startupSeed=game.Seed;
             var seedField=game.UI.GetComponentInChildren<UnityEngine.UI.InputField>();
             Check(seedField!=null&&string.IsNullOrEmpty(seedField.text),"Normal startup leaves the optional seed field blank for a random world (seed "+game.Seed+")");
@@ -106,8 +108,10 @@ namespace RivetReach
             seedField=game.UI.GetComponentInChildren<UnityEngine.UI.InputField>();seedField.text="246813";StartButton().onClick.Invoke();
             Check(game.Seed==246813&&game.World.Generator.Seed==246813,"Entering an explicit seed starts that reproducible world");
             game.World.ViewDistance=Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-fluid-review")?4:10;game.Diagnostics=true;
-            if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-workshop-followup-review"||arg=="-rr-browser-review"||arg=="-rr-creative-review"||arg=="-rr-torch-review"||arg=="-rr-industry-review"||arg=="-rr-multiblock-review"||arg=="-rr-clearance-review"))game.World.ViewDistance=4;
+            if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-save-review"||arg=="-rr-workshop-followup-review"||arg=="-rr-browser-review"||arg=="-rr-creative-review"||arg=="-rr-torch-review"||arg=="-rr-industry-review"||arg=="-rr-multiblock-review"||arg=="-rr-clearance-review"))game.World.ViewDistance=4;
             yield return Settle();report.firstReadySeconds=Time.realtimeSinceStartup-began;
+            if(Environment.GetCommandLineArgs().Contains("-rr-save-review"))
+            {report.workload="Save/load all persistent systems, corruption/backup recovery, menus and distant coordinates";yield return ReviewSaveGame();yield break;}
             var player=game.Player;var world=game.World;report.viewRadius=world.ViewDistance;report.fogStart=world.FogStart;report.fogEnd=world.FogEnd;var start=world.Address(player.transform.position);var saved=WorldPoint.FromLocal(player.transform.position,world.Origin);
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-workshop-followup-review"))
             {report.workload="Creative batteries, bank, pump power and renewal, controller orientation, rendered held-item pixels";yield return ReviewWorkshopFollowup();yield break;}

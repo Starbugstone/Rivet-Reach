@@ -5,7 +5,7 @@ using UnityEngine;
 namespace RivetReach
 {
     // One session authority with bounded simulation and searches; views contain no combat state.
-    public sealed class MobSystem : MonoBehaviour
+    public sealed partial class MobSystem : MonoBehaviour
     {
         public const int MaximumPopulation=14;
         public const float SpawnMinimum=24, SpawnMaximum=48, SleepDistance=68, DespawnDistance=112;

@@ -12,7 +12,7 @@ namespace RivetReach
 
     // World-addressed random ticks, independent of render frames and mesh job completion.
     // Three samples per 16^3 section; no per-block objects or scans of all resident voxels.
-    public sealed class GrassSimulation
+    public sealed partial class GrassSimulation
     {
         public const float StepSeconds=.05f;
         public long Tick {get;private set;}

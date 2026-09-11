@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace RivetReach
 {
-    public enum ScreenMode { Title, Play, Inventory, Pause, Appearance, Settings, Controls, Death }
+    public enum ScreenMode { Title, Play, Inventory, Pause, Appearance, Settings, Controls, Death, Save, Load }
     public sealed partial class Expedition : MonoBehaviour
     {
         public static Expedition Instance;
@@ -32,7 +32,7 @@ namespace RivetReach
         public ScreenMode Mode {get;private set;}=ScreenMode.Title;
         public bool Started {get;private set;}
         public bool InventoryOpen=>Mode==ScreenMode.Inventory;
-        public bool Paused=>Mode!=ScreenMode.Play&&Mode!=ScreenMode.Inventory;
+        public bool Paused=>LoadingSave||Mode!=ScreenMode.Play&&Mode!=ScreenMode.Inventory;
         public bool Diagnostics;
         public int Selected;
         public int Seed {get;private set;}
@@ -55,14 +55,14 @@ namespace RivetReach
             foreach(var camera in FindObjectsByType<Camera>())camera.gameObject.SetActive(false);
             Sky=gameObject.AddComponent<DayNightCycle>();Sky.Initialize();
             Input=new PlayerInput();Registry=ItemRegistry.Load();Recipes=RecipeCatalogAsset.Load().Compile(Registry);Processing=ProcessingCatalogAsset.Load().Compile(Registry);Sound=gameObject.AddComponent<WorldSound>();
-            CreateSession(NewRandomSeed());
+            CreateSession(NewRandomSeed());InitializeSaves();
             var effects=new GameObject("Arcade presentation");effects.transform.SetParent(transform,false);effects.AddComponent<ArcadePresentation>();
             UI=gameObject.AddComponent<GameUI>();UI.Initialize(this);SetMode(ScreenMode.Title);
             if(Array.Exists(Environment.GetCommandLineArgs(),s=>s=="-rr-verify"))gameObject.AddComponent<RuntimeVerification>();
         }
         void CreateSession(int seed)
         {
-            Seed=seed;Creative=false;
+            Seed=seed;Creative=false;LoadingSave=false;Selected=0;WorldId=Guid.NewGuid().ToString("N");SaveId=null;SaveName="Expedition";
             invulnerableUntil=0;
             Sky.ResetClock();
             Inventory=new Inventory(id=>Registry.Get(id).stackLimit);
@@ -77,6 +77,7 @@ namespace RivetReach
             World.BlockMined+=SpawnMinedDrop;
             World.OriginShifted+=Sound.ShiftOrigin;
             Survival=new WorldSurvival(this);Industry=new WorldIndustry(this);root.AddComponent<IndustryPresentation>().Initialize(this);root.AddComponent<MultiblockPresentation>().Initialize(this);
+            Industry.Simulation.Multiblocks.WorldId=Guid.ParseExact(WorldId,"N");
             Mobs=root.AddComponent<MobSystem>();Mobs.Initialize(this);
         }
         void SpawnMinedDrop(BlockPos pos,byte id)
@@ -87,15 +88,15 @@ namespace RivetReach
         }
         public void StartSession(int seed)
         {
-            if(seed!=Seed)
+            if(seed!=Seed||SaveId!=null||Started)
             {
-                World.Stop();Destroy(World.gameObject);Destroy(Player.gameObject);Destroy(Items.gameObject);CreateSession(seed);UI.RefreshPreview();
+                World.Stop();World.gameObject.SetActive(false);Player.gameObject.SetActive(false);Items.gameObject.SetActive(false);Destroy(World.gameObject);Destroy(Player.gameObject);Destroy(Items.gameObject);CreateSession(seed);UI.RefreshPreview();
             }
             Started=true;SetMode(ScreenMode.Play);
         }
         public void SetMode(ScreenMode mode)
         {
-            if(Health?.Dead==true&&mode!=ScreenMode.Title)mode=ScreenMode.Death;
+            if(Health?.Dead==true&&mode!=ScreenMode.Title&&mode!=ScreenMode.Load&&mode!=ScreenMode.Save)mode=ScreenMode.Death;
             if(InventoryOpen&&mode!=ScreenMode.Inventory)UI.ReturnHeld();
             if(mode!=ScreenMode.Inventory){OpenStation=null;OpenMachine=null;}
             Mode=mode;Time.timeScale=Paused?0:1;
@@ -105,6 +106,7 @@ namespace RivetReach
         void Update()
         {
             if(Input==null)return;
+            if(LoadingSave&&ReadyToPlay){LoadingSave=false;SetMode(Mode);}
             if(Started&&!Paused){Sky.Advance(Time.deltaTime);World.AdvanceGrass(Time.deltaTime);World.AdvanceTrees(Time.deltaTime);World.AdvanceFluids(Time.deltaTime);int ticks=Survival.Advance(Time.deltaTime);Industry.Advance(ticks);if(!Creative)Health.Advance(ticks,Hunger);}
             if((OpenStation!=null||OpenMachine!=null)&&(!World.Ready(StationPosition)||(World.Local(StationPosition)+Vector3.one*.5f-Player.transform.position).sqrMagnitude>36))SetMode(ScreenMode.Play);
             if(Health.Dead)return;

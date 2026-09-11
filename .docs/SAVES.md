@@ -1,0 +1,40 @@
+# Save, load and continue
+
+The user authorized durable single-player saves and a rebuilt **0.0.1 Alpha** on 2026-09-11. This supersedes earlier session-only limitations for the implemented surface world. [Verification](verification/SAVE_RESULTS.md) records measured evidence and remaining limits.
+
+## Player controls
+
+- **Escape → Save Game** names a checkpoint. **Update This Save** replaces the current slot; **Save As New Slot** creates an independent checkpoint. New expeditions start empty-handed and have no save until written.
+- **Escape → Load Game** lists named saves and previous backups, newest first, with local date/time and seed. Loading replaces unsaved progress. Failed loads preserve the current expedition.
+- **Continue Latest Save** on the title screen loads the most recently saved compatible checkpoint, falling back to an earlier checkpoint or previous backup if necessary. The button is disabled when none are available.
+- **Save & Title** and **Save & Quit** save before leaving; a write failure keeps the game open with an error. **Quit Without Saving**, closing the window and terminating the process discard changes since the last checkpoint. There is no periodic autosave.
+- Death offers Save Game and Load Game alongside Respawn. Saving a dead player preserves the death state and the dropped possessions.
+
+Saves live in `%USERPROFILE%\AppData\LocalLow\Starbugstone\Rivet Reach\Saves`. Each slot uses a generated identifier as its `.rrsave` filename; the display name stays inside the file. Its `.rrsave.bak` file is the previous checkpoint. Copy both files to back them up or transfer them between installations with matching content. Save names never become filesystem paths.
+
+## Persisted state
+
+A checkpoint captures one coherent paused authority turn, including:
+
+- Seed, generator/content compatibility, owning world identity, day/time and lunar phase.
+- Integer player position plus local fractions, look direction, crouched height, vertical/fall state, selected hotbar slot, model/skin, health, hunger, exhaustion, regeneration and short respawn immunity.
+- Every inventory/equipment slot and retained personal, workbench and Machinist's Bench grid ingredient. Cursor contents return through the existing conservation path before saving; overflow remains a dropped stack.
+- All terrain edits, including unloaded chunks, mined ores, placement provenance, crops, water sources/flow cells and floor/wall torch attachments. Untouched terrain regenerates using the pinned generator.
+- Chest contents, furnace input/fuel/output, remaining burn and partial work, crop deadlines and the survival clock.
+- Machine inventories, partial work, fuel, water, drill depth, orientation, priority, signal source/relay/button state, pipe fittings, valve/port/sensor configuration, tank identity and exact fluid quantity/capacity, and exact energy on each physical battery cell. A breached tank keeps its recovery contents.
+- Dropped-stack identity, position, velocity, age, pickup delay/provenance and sleeping state. Existing creatures retain identity/species, health, position/home, intent, combat timers and movement state.
+- Pending felling/leaf-decay jobs, fluid deadlines and sleeping frontiers, grass tick and simulation remainders.
+
+Creative mode and flight remain **session-only** and reset to Survival/off when loading. Items/buildings obtained in Creative persist. Input bindings, graphics/audio/UI settings remain local preferences. Network graphs, multiblock membership, mesh jobs and AI paths are rebuilt from saved authority data; mob wandering uses a newly seeded random sequence rather than preserving `System.Random` internals. Save/load is not a deterministic replay of every future presentation or wandering choice.
+
+Simulation waits for terrain at the restored player before resuming. It grants no offline time, item production, crop growth or lifetime expiration. Existing chunk residency rules still control distant production.
+
+## Storage and compatibility
+
+Schema **1** is an explicit binary snapshot with a bounded payload and SHA-256 integrity checksum, written on the main authority thread while paused. It stores a world-definition identity (`rivet:surface`) separately from the owning world GUID. The current payload supports this implemented world; other planets, multiplayer and cross-world transaction journals remain later work.
+
+The file pins `TerrainGenerator.Version` (currently `terrain-6-azure`) and a content fingerprint built from stable ordered item, recipe, fuel and mob definitions. Incompatible versions/content reject visibly. There is no silent regeneration under a new generator, dropped unknown item or automatic migration. Changes to code-defined simulation/storage rules must deliberately revise the schema or compatibility boundary. SHA-256 detects damage; it is not authentication or cheat prevention.
+
+Capture precedes filesystem mutation. A new temporary file in the same directory is flushed, then moved into a new slot or atomically replaces the existing file while retaining the previous checkpoint. A corrupt primary never overwrites a valid backup during recovery. Incomplete temporary files are ignored. Loading validates the envelope, stages and validates all state, and only then retires the previous session. Invalid body data restores the original references and mode; the load error remains visible.
+
+This alpha uses complete snapshots, capped at **256 MiB payload**, and synchronous save/load. Disk usage grows with edited terrain and retained state. Region-level incremental saves, background serialization, format migrations, cloud sync, exhaustive power-loss testing and large-world save-latency guarantees are not part of this increment.

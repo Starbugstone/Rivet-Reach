@@ -1,5 +1,7 @@
 # Batteries and battery banks
 
+> **2026-09-11 persistence extension:** [SAVES.md](SAVES.md) owns the implemented Save Game, Load Game and Continue Latest Save behavior. Its bounded surface-world persistence supersedes earlier session-only/durable-save exclusions below; older verification retains its original artifact identity.
+
 ## Authorization and working rules
 
 The user requested electrical storage as a standalone battery block and as cells in a battery-bank multiblock on 2026-09-10, alongside explicit confirmation that an unpowered pump must not operate. This document owns battery semantics; [INDUSTRY.md](INDUSTRY.md) owns generators and electrical consumers, and [MULTIBLOCKS.md](MULTIBLOCKS.md) owns the shared validation/lifecycle infrastructure. [The player guide](wiki/Electricity-and-batteries.md) provides construction instructions.

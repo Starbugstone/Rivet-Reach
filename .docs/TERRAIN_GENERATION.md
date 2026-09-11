@@ -1,5 +1,7 @@
 # Terrain, caves and biomes
 
+> **2026-09-11 persistence extension:** [SAVES.md](SAVES.md) owns the implemented Save Game, Load Game and Continue Latest Save behavior. Its bounded surface-world persistence supersedes earlier session-only/durable-save exclusions below; older verification retains its original artifact identity.
+
 The user requested a terrain rework with caves, varied landscapes and biomes. The current working profile is generator **`terrain-5-seas-rivers`**, in the existing `surface` world. It replaces the previous height/cave algorithm while preserving the [finite ore profile and bedrock base](ECONOMY.md#current-ore-generation-and-bedrock), integer coordinates, chunk streaming and authoritative session edits. Numerical shapes, frequencies and material choices below are implementation defaults for review, not user-selected tuning or proven gameplay quality.
 
 ## Surface profile

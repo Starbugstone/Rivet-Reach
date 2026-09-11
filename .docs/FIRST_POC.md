@@ -67,7 +67,7 @@ Gather wild ripe potatoes. Use a hoe to till grass/dirt, use a potato to plant, 
 
 [Five biomes and caves](TERRAIN_GENERATION.md), the [day/night clock](GAMEPLAY.md#day-night-and-lunar-phases), and [Rustback beetles and Dusk prowlers](MOBS.md) are integrated. Aim and hold Mine to attack with the selected item or fists. Night affects prowler spawning. Health and equipment remain independent of male/female appearance and skin selection.
 
-**Progress is session-only.** Quitting resets terrain edits, inventory, crops, stations and creatures. Durable saves, equipment wear, fitted armor meshes, irrigation and generated structures remain future scope.
+**Save progress with Escape → Save Game.** Load a checkpoint through Load Game, or use Continue Latest Save on the title. Save & Quit writes before exiting; closing the window does not autosave. [SAVES.md](SAVES.md) owns storage, recovery and compatibility. Equipment wear, fitted armor meshes, irrigation and generated structures remain future scope.
 
 ## Foundation and diagnostics
 

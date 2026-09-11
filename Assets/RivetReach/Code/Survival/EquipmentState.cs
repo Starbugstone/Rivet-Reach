@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace RivetReach
 {
-    public sealed class EquipmentState
+    public sealed partial class EquipmentState
     {
         readonly ItemContainer contents;
         readonly Func<byte,ItemDefinition> definition;
@@ -26,7 +26,7 @@ namespace RivetReach
         public ItemStack Take(int slot)=>contents.Take(slot,1);
     }
     public enum DamageKind { Impact, Fall, Starvation }
-    public sealed class HealthState
+    public sealed partial class HealthState
     {
         public const float Maximum=20;
         public float Hearts {get;private set;}=Maximum;

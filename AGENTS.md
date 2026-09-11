@@ -24,6 +24,8 @@ The user subsequently authorized [issue #3 multiblocks](.docs/MULTIBLOCKS.md): r
 
 The user subsequently authorized [batteries and battery banks](.docs/BATTERIES.md): initially empty electrical storage, surplus charging, demand-driven discharge and solid rectangular packs using the shared multiblock lifecycle. Preserve exact per-cell energy through formation, repair and controller removal. [Player wiki sources](.docs/wiki/Home.md) are maintained here and published to the GitHub wiki with `Tools/publish_wiki.py`.
 
+The user subsequently authorized [durable saves](.docs/SAVES.md): named Save Game, Load Game, Continue Latest Save, previous-checkpoint recovery and rebuilding alpha 0.0.1. This supersedes earlier whole-world durable-save exclusions for the implemented surface world. Preserve full-state conservation, compatibility checks, atomic replacement and failed-load rollback. Creative mode/flight remain session-only; no offline production or periodic autosave is implied. [Save verification](.docs/verification/SAVE_RESULTS.md) distinguishes measured checks from remaining limits.
+
 ## Licensing and ownership
 
 - Rivet Reach is **proprietary, all rights reserved, and not open source**. Read `LICENSE.md` before introducing code, assets, dependencies or contribution workflows.
@@ -55,6 +57,7 @@ The user subsequently authorized [batteries and battery banks](.docs/BATTERIES.m
 
 - `PROJECT_PLAN.md`: vision, architecture overview, scope and milestones.
 - `DEVELOPMENT_STRATEGY.md`: implementation philosophy, playable incremental development and the relationship between responsiveness, performance and final architecture.
+- `SAVES.md`: implemented single-player save/load, recovery and compatibility.
 - `SIMULATION.md`: proposed timing, network boundaries, persistence and technical validation contracts.
 - `GAMEPLAY.md`: player experience, responsiveness, progression and full-game completeness.
 - `TRANSPORT.md`: Gate/rocket/teleporter behaviour, traversal and transport exceptions.

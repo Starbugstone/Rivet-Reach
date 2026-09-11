@@ -16,3 +16,7 @@ In Creative, drag items from the catalog into an empty inventory or hotbar slot.
 New machines face you when placed. Use **ROTATE 90°** in their interface to adjust existing placements.
 
 Rivet Reach is proprietary. © Starbugstone. All rights reserved.
+
+## Save and resume
+
+Use Escape → Save Game to create or update a checkpoint. Load Game chooses a named save or previous backup; Continue Latest Save on the title resumes the newest checkpoint. Save & Quit saves first. Closing the window does not autosave. Creative mode and flight reset on load, while saved items and construction remain.

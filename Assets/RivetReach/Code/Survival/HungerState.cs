@@ -3,7 +3,7 @@ using System;
 namespace RivetReach
 {
     // One player's authoritative food state. Rendering and input do not own food accounting.
-    public sealed class HungerState
+    public sealed partial class HungerState
     {
         public const int Maximum=20;
         public int Food {get;private set;}=Maximum;

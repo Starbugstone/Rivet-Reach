@@ -9,7 +9,7 @@ namespace RivetReach
         bool Ready(BlockPos p);byte Get(BlockPos p);bool Remove(BlockPos p,byte expected);
         ItemContainer Storage(BlockPos p);byte Drop(byte block);bool PlayerInside(BlockPos p);
     }
-    public sealed class IndustrySimulation
+    public sealed partial class IndustrySimulation
     {
         readonly IIndustryWorld world;readonly Func<byte,int> limit;
         readonly Dictionary<BlockPos,MachineState> machines=new Dictionary<BlockPos,MachineState>();

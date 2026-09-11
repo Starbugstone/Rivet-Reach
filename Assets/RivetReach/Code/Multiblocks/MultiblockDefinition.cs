@@ -68,7 +68,7 @@ namespace RivetReach
     }
     public sealed class MultiblockInstance
     {
-        public readonly Guid StructureId=Guid.NewGuid();
+        public Guid StructureId {get;internal set;}=Guid.NewGuid();
         public readonly Guid WorldId;
         public readonly MultiblockDefinition Definition;
         public readonly MachineState Controller;

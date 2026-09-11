@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace RivetReach
 {
-    public sealed class DroppedItems : MonoBehaviour
+    public sealed partial class DroppedItems : MonoBehaviour
     {
         public sealed class Pile
         {

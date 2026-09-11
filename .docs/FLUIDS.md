@@ -1,5 +1,7 @@
 # World fluids, seas and rivers
 
+> **2026-09-11 persistence extension:** [SAVES.md](SAVES.md) owns the implemented Save Game, Load Game and Continue Latest Save behavior. Its bounded surface-world persistence supersedes earlier session-only/durable-save exclusions below; older verification retains its original artifact identity.
+
 The user authorized world liquids, a sea biome, rivers and bucket collection/placement, with Minecraft-style behaviour. They explicitly confirmed that **two-source renewal is a per-fluid boolean**, enabled for water and independently disabled for other liquids. This supersedes the earlier no-renewal water proposal. These are original implementations; no third-party code or assets were imported.
 
 ## Playable water rules

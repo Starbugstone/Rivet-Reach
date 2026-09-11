@@ -1,5 +1,7 @@
 # Blue Signal and the first industrial workshop
 
+> **2026-09-11 persistence extension:** [SAVES.md](SAVES.md) owns the implemented Save Game, Load Game and Continue Latest Save behavior. Its bounded surface-world persistence supersedes earlier session-only/durable-save exclusions below; older verification retains its original artifact identity.
+
 Working implementation under [issue #2](https://github.com/Starbugstone/Rivet-Reach/issues/2), selected by the user on 2026-09-10. Numerical tuning and the original Blender assets remain subject to play and artistic review. [Verification](verification/INDUSTRY_RESULTS.md) records the measured build and limitations.
 
 **Power makes machines work. Signal tells machines what to do.** Blue control, electrical power, items and water use four separate networks. Neither ordinary blocks nor ordinary item/fluid pipes conduct blue signal. [Pipe channel fittings and multiblock controls](MULTIBLOCKS.md) subsequently add explicit hybrids. Programmable logic, broader sensors and durable saves remain later extensions.

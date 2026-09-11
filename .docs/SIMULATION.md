@@ -1,5 +1,7 @@
 # Rivet Reach - Simulation and Persistence Contracts
 
+> **2026-09-11 persistence extension:** [SAVES.md](SAVES.md) owns the implemented Save Game, Load Game and Continue Latest Save behavior. Its bounded surface-world persistence supersedes earlier session-only/durable-save exclusions below; older verification retains its original artifact identity.
+
 > **Status:** full-game working specifications with resolutions dated 2026-09-08. Sections 12–13 describe the selected first-step implementation boundary; [FIRST_POC.md](FIRST_POC.md) links measured evidence. Industrial, water and durable-save contracts remain later work.
 >
 > Existing agreed constraints come from [PROJECT_PLAN.md](PROJECT_PLAN.md). Sections 9-11 select concrete behaviour for the earlier contracts and the newly agreed water/item rules. Numerical defaults remain tuning values; unselected alternatives are not competing requirements. Open choices are tracked in [DESIGN_QUESTIONS.md](DESIGN_QUESTIONS.md).

@@ -1,10 +1,12 @@
 # Current verification evidence
 
+- [Save/load/continue verification](SAVE_RESULTS.md) — full-state persistence, failure recovery and fresh-process continuation.
+
 This directory maintains the latest report and useful evidence for each feature. Superseded reports, obsolete recipe screenshots, earlier character models and intermediate failing captures are kept in Git history rather than maintained here. Dates and artifact identities matter: a focused check of one feature does not certify every system or whole-game performance.
 
 | Feature | Current evidence |
 | --- | --- |
-| Downloadable Windows 0.0.1 alpha | [Alpha build and release verification](ALPHA_0_0_1_RESULTS.md) — exact source tag, runtime checks and download integrity |
+| Downloadable Windows 0.0.1 alpha | [Alpha build and release verification](ALPHA_0_0_1_RESULTS.md) — exact source commit, runtime checks and download integrity |
 | Item sidebar, recipe/uses navigation and Ctrl-click placement | [Recipe browser verification](RECIPE_BROWSER_RESULTS.md) |
 | Performance and live Editor script reloads | [Performance pass](PERFORMANCE_RESULTS.md) — measured UI/meshing costs, streaming checks and preserved gameplay |
 | Terrain/tree shadow stability and lighting cost | [Sun-shadow ticks](SUN_SHADOW_RESULTS.md), plus the earlier [AO sampling check](SHADOW_RESULTS.md) |
@@ -26,4 +28,4 @@ This directory maintains the latest report and useful evidence for each feature.
 | Mining, placement and pickup effects | [Effects verification](ARCADE_VISUAL_RESULTS.md) |
 | Generated trees, felling and placed-wood protection | [Tree verification](TREE_RESULTS.md) |
 
-[Run instructions and controls](../FIRST_POC.md) identify the current review executable. Feature reports preserve their own tested build and workload; older measurements are not relabeled as tests of the latest executable. Artistic acceptance and long-session play balance still need play review. World progress remains session-only.
+[Run instructions and controls](../FIRST_POC.md) identify the current review executable. Feature reports preserve their own tested build and workload; older measurements are not relabeled as tests of the latest executable. Artistic acceptance and long-session play balance still need play review. [Named saves](../SAVES.md) now preserve implemented surface-world progress across restarts.

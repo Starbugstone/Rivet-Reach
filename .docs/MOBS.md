@@ -1,5 +1,7 @@
 # Native mobs — first playable implementation
 
+> **2026-09-11 persistence extension:** [SAVES.md](SAVES.md) owns the implemented Save Game, Load Game and Continue Latest Save behavior. Its bounded surface-world persistence supersedes earlier session-only/durable-save exclusions below; older verification retains its original artifact identity.
+
 The user authorized Blender-authored enemies, AI and spawning on 2026-09-09 and chose **Rustback beetle** and **Dusk prowler**. These are original native creatures; they do not imply ancient technology, generated structures, raids or the rest of the full-game roadmap. Art and tuning remain available for user review.
 
 ## Playable rules

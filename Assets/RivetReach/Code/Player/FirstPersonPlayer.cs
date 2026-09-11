@@ -5,7 +5,7 @@ using UnityEngine.Rendering.Universal;
 
 namespace RivetReach
 {
-    public sealed class FirstPersonPlayer : MonoBehaviour
+    public sealed partial class FirstPersonPlayer : MonoBehaviour
     {
         public Expedition Game;
         public Camera Camera;

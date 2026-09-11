@@ -1,5 +1,7 @@
 # Player-built multiblock machinery
 
+> **2026-09-11 persistence extension:** [SAVES.md](SAVES.md) owns the implemented Save Game, Load Game and Continue Latest Save behavior. Its bounded surface-world persistence supersedes earlier session-only/durable-save exclusions below; older verification retains its original artifact identity.
+
 Working implementation selected by the user from [issue #3](https://github.com/Starbugstone/Rivet-Reach/issues/3) on 2026-09-10, including shared pipe connections, original Blender assets and individually editable connected shell blocks. [In-game showcase](verification/MACHINERY_SHOWCASE.md) presents the tank and working workshop. [Verification](verification/MULTIBLOCK_RESULTS.md) separates measured checks from artistic and survival-play acceptance. Existing [industry](INDUSTRY.md), [world fluids](FLUIDS.md) and session-only world lifetime remain in place.
 
 ## Build and operate a tank

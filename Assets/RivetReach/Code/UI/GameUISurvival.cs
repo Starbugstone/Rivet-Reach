@@ -40,7 +40,9 @@ namespace RivetReach
             Label(root,"YOU DIED",450,220,400,55,42).alignment=TextAnchor.MiddleCenter;
             Label(root,"Your items remain where you fell.",390,290,520,40,20).alignment=TextAnchor.MiddleCenter;
             Button(root,"RESPAWN",490,366,300,55,game.Respawn,true);
-            message=Label(root,"",310,450,660,70,18,gold);message.alignment=TextAnchor.MiddleCenter;
+            Button(root,"LOAD GAME",490,436,300,48,()=>game.SetMode(ScreenMode.Load));
+            Button(root,"SAVE GAME",490,499,300,48,()=>game.SetMode(ScreenMode.Save));
+            message=Label(root,"",310,575,660,70,18,gold);message.alignment=TextAnchor.MiddleCenter;
         }
         void BuildFurnace(Transform parent)
         {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace RivetReach
 {
     // Input/fuel/output authority: callers can never insert into the result slot.
-    public sealed class FurnaceState
+    public sealed partial class FurnaceState
     {
         readonly ProcessingRegistry registry;
         readonly ItemContainer contents;

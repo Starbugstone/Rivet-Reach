@@ -1,5 +1,7 @@
 # Rivet Reach - Project Plan and Long-Term Vision
 
+> **2026-09-11 persistence extension:** [SAVES.md](SAVES.md) owns the implemented Save Game, Load Game and Continue Latest Save behavior. Its bounded surface-world persistence supersedes earlier session-only/durable-save exclusions below; older verification retains its original artifact identity.
+
 > **Status:** first terrain/FPS/inventory POC implemented for review; later milestones remain planned
 >
 > Rivet Reach is intentionally **evolutive**. The design will continue to change while we brainstorm, prototype, benchmark and test the POC. The current documents describe the agreed direction, not an immutable final specification.

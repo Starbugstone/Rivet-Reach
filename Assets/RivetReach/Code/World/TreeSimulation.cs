@@ -12,7 +12,7 @@ namespace RivetReach
     }
 
     // Event-driven tree work; no per-tree objects or whole-world leaf scans.
-    public sealed class TreeSimulation
+    public sealed partial class TreeSimulation
     {
         public const int SupportDistance=4,WorkPerStep=32,LeafWorkPerStep=8;
         public const float StepSeconds=.1f;
