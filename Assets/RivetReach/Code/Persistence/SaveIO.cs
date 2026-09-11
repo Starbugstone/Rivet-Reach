@@ -22,7 +22,8 @@ namespace RivetReach
     public sealed class SaveReader : BinaryReader
     {
         public readonly ItemRegistry Registry;
-        public SaveReader(Stream stream,ItemRegistry registry) : base(stream,Encoding.UTF8,true){Registry=registry;}
+        public readonly int Format;
+        public SaveReader(Stream stream,ItemRegistry registry,int format=2) : base(stream,Encoding.UTF8,true){Registry=registry;Format=format;}
         public static void Require(bool ok,string message){if(!ok)throw new InvalidDataException(message);}
         public int Count(int max=2000000){int n=ReadInt32();Require(n>=0&&n<=max,"Invalid save collection size.");return n;}
         public int Int(int min,int max){int n=ReadInt32();Require(n>=min&&n<=max,"Invalid saved integer.");return n;}
@@ -52,7 +53,7 @@ namespace RivetReach
     }
     public sealed class SaveStore
     {
-        const int Format=1,MaxBytes=256*1024*1024;
+        const int Format=2,MaxBytes=256*1024*1024;
         public string DirectoryPath {get;}
         readonly ItemRegistry registry;
         readonly string content;
@@ -83,11 +84,12 @@ namespace RivetReach
         {
             using var envelope=new BinaryReader(new MemoryStream(bytes));
             SaveReader.Require(bytes.Length<=MaxBytes+128&&envelope.ReadString()=="RIVET REACH SAVE","Not a Rivet Reach save.");
-            SaveReader.Require(envelope.ReadInt32()==Format,"This save requires a different save-format version.");
+            int format=envelope.ReadInt32();
+            SaveReader.Require(format>=1&&format<=Format,"This save requires a different save-format version.");
             int length=envelope.ReadInt32();SaveReader.Require(length>0&&length<=MaxBytes&&length==envelope.BaseStream.Length-envelope.BaseStream.Position-32,"Save is incomplete or truncated.");
             byte[] data=envelope.ReadBytes(length),hash=envelope.ReadBytes(32);
             SaveReader.Require(hash.SequenceEqual(Hash(data)),"Save checksum failed; the file is damaged.");
-            var r=new SaveReader(new MemoryStream(data),registry);
+            var r=new SaveReader(new MemoryStream(data),registry,format);
             try
             {
                 entry=new SaveEntry{Id=r.Text(32),Name=r.Text(48),WorldId=r.Text(32),UtcTicks=r.Long(1,DateTime.MaxValue.Ticks),Seed=r.ReadInt32()};

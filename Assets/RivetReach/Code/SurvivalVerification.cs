@@ -73,6 +73,7 @@ namespace RivetReach
             Check(world.Plant(crop),"Farmland accepts replanting");game.Inventory.Take(6,1);world.Remove(soil,BlockId.Farmland);
             Check(world.Get(crop)==0&&game.Survival.ScheduledCrops==0,"Removing supporting soil uproots the crop");
             // Inspect hunger/health/equipment through the same game-facing authority used by input and attacks.
+            VerifyHealingSave();
             game.Hunger.Exert(60);Check(game.Hunger.Food<=5&&!game.Hunger.CanSprint,"Exertion makes the player hungry and disables sprinting");
             game.Inventory.Add(BlockId.BakedPotato,2,7,8);game.Selected=7;player.Pitch=-60;yield return null;
             int foodBefore=game.Hunger.Food;
@@ -88,6 +89,11 @@ namespace RivetReach
             Check(game.Equipment.Protection==20,"Four equipment slots activate a complete diamond set");yield return Capture("armor-equipped");game.SetMode(ScreenMode.Play);yield return null;
             float hp=game.Health.Hearts;Check(Math.Abs(game.TakeDamage(10)-2)<.001f&&Math.Abs(game.Health.Hearts-(hp-2))<.001f,"Game damage applies the equipped armor defense");
             yield return new WaitForSeconds(.5f);yield return Capture("hearts-hunger-armor");
+            var meters=game.UI.GetComponentsInChildren<SurvivalMeter>().Where(m=>m.GetComponentInParent<Canvas>().isActiveAndEnabled).ToArray();
+            Check(meters.Length==2&&meters.Single(m=>m.MeterKind==SurvivalMeter.Kind.Armor).Points==20&&meters.Single(m=>m.MeterKind==SurvivalMeter.Kind.Food).Points==game.Hunger.Food,"HUD uses fixed icon meters bound to food and equipped protection");
+            var helmet=game.Equipment.Take(0);game.Hunger.Exert(4);yield return null;yield return null;
+            Check(meters.Single(m=>m.MeterKind==SurvivalMeter.Kind.Armor).Points==17,"Unequipping updates armor icons, including half shields");
+            yield return Capture("survival-half-icons");game.Equipment.Click(0,ref helmet,false);
             // Cross a real origin shift and unload, preserving the same block-entity authorities.
             var chestPos=baseCell.Offset(-1,0,2);world.Place(chestPos,BlockId.Chest);var chest=game.Survival.At(chestPos);
             Check(game.TryOpenStation(chestPos),"Placed chest opens its world storage interface");yield return null;yield return null;
@@ -119,9 +125,25 @@ namespace RivetReach
             game.TakeDamage(100,DamageKind.Fall);Check(game.Health.Dead&&game.Mode==ScreenMode.Death,"Lethal damage enters the death screen");
             Check(game.Inventory.Slots.All(s=>s.Empty)&&game.Equipment.Slots.All(s=>s.Empty),"Death releases inventory and equipped armor once");
             yield return Capture("death-and-respawn");game.Respawn();Check(!game.Health.Dead&&game.Health.Hearts==20&&game.Hunger.Food==20,"Respawn restores survival state");
+            yield return null;yield return null;
+            meters=game.UI.GetComponentsInChildren<SurvivalMeter>().Where(m=>m.GetComponentInParent<Canvas>().isActiveAndEnabled).ToArray();
+            Check(meters.Length==2&&meters.Single(m=>m.MeterKind==SurvivalMeter.Kind.Armor).Points==0&&meters.Single(m=>m.MeterKind==SurvivalMeter.Kind.Food).Points==20,"Respawn retains fixed meters with full food and empty armor");
+            yield return Capture("survival-full-food-empty-armor");
             Check(game.TakeDamage(20)==0,"Respawn immunity rejects immediate damage");
             Check(world.Get(bench)==BlockId.Workbench,"Respawn retains world construction");
             player.transform.position=original.Local(world.Origin);player.ResetMotion();yield return null;
+        }
+        void VerifyHealingSave()
+        {
+            var food=new HungerState();food.Exert(32);var health=new HealthState();health.Damage(10,DamageKind.Fall,0);health.Advance(120,food);
+            using var stream=new System.IO.MemoryStream();using(var writer=new SaveWriter(stream)){food.WriteSave(writer);health.WriteSave(writer);writer.Write(12345);}
+            stream.Position=0;var loadedFood=new HungerState();var loadedHealth=new HealthState();
+            using(var reader=new SaveReader(stream,game.Registry)){loadedFood.ReadSave(reader);loadedHealth.ReadSave(reader);Check(reader.ReadInt32()==12345,"Schema 2 survival state preserves the following section boundary");}
+            Check(loadedHealth.Regenerating&&loadedFood.Food==11,"Save restores active healing inside the 55 percent band");
+            health.Advance(40,food);loadedHealth.Advance(40,loadedFood);
+            Check(health.Hearts==loadedHealth.Hearts&&food.Food==loadedFood.Food&&food.Exhaustion==loadedFood.Exhaustion&&health.Regenerating==loadedHealth.Regenerating,"Save restores exact hunger, healing timer and threshold history");
+            using var legacy=new System.IO.MemoryStream();using(var writer=new SaveWriter(legacy)){writer.Write(10f);writer.Write(0);writer.Write(12345);}
+            legacy.Position=0;using(var reader=new SaveReader(legacy,game.Registry,1)){loadedHealth.ReadSave(reader);Check(reader.ReadInt32()==12345&&!loadedHealth.Regenerating,"Schema 1 health loads without consuming the next section or inventing healing history");}
         }
     }
 }

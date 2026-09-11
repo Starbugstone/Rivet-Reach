@@ -1,0 +1,18 @@
+{
+  "build": "Builds/SurvivalHUD/RivetReach.exe",
+  "unity": "6000.4.4f1",
+  "buildCompletedUtc": "2026-09-11T19:07:48.8947570Z",
+  "baseCommit": "07e48bf6972eb988f97fa1cc27a889f67cadf186",
+  "assemblySha256": "d81f6ef75c9c082247e57325e09bd91270548b7eac55545a560411e3a9331899",
+  "sourceSha256": {
+    "Assets/RivetReach/Code/Survival/EquipmentState.cs": "3257c5ad2e0f94e3e119bf8f37f795208eff0dc6ab112e392f76e980cb67aa55",
+    "Assets/RivetReach/Code/Survival/HungerState.cs": "e210806e8574e87a224dd7c5dde9b18d236424fe63222b1ec7483c0577fe0af9",
+    "Assets/RivetReach/Code/UI/GameUISurvival.cs": "fb7c1bb9030ef4a80c6947dad6ead2bab9547e392197bd5a29e63382a0a634e2",
+    "Assets/RivetReach/Code/UI/SurvivalMeter.cs": "caf53dcd0a807d1c39c4b387ac2eeea244ba6858b9cf7abca544623340268945",
+    "Assets/RivetReach/Code/Persistence/SaveIO.cs": "3edd918fcd52194884fb37dbe22375ae49c641ee61f01f7013fb27997cf358f1",
+    "Assets/RivetReach/Code/Persistence/EntitySaveState.cs": "dfbfce5148890e2a0fdd46b119103e5ce40ca70a28ca3bd19b70958ac24c8318",
+    "Assets/RivetReach/Code/SurvivalVerification.cs": "0aabbee844b39cfe520ec8cb1a54d43a97b949b337c32e8056b2147b6a343369",
+    "Assets/RivetReach/Editor/SurvivalChecks.cs": "c0b6c2db8b4b73b9b37da31be41576cc73666c2faa1bd27d9d0c2862afc3cb94"
+  },
+  "scope": "Shared workspace includes concurrent inventory-screen reuse work; focused survival checks do not certify that separate feature or performance."
+}

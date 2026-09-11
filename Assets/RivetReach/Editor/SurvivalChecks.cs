@@ -110,6 +110,32 @@ namespace RivetReach.Editor
             var health=new HealthState();Check(Math.Abs(health.Damage(10,DamageKind.Impact,equipment.Protection)-2)<.001f,"Armor mitigates contact damage");
             Check(health.Damage(3,DamageKind.Fall,20)==3,"Armor does not erase fall damage");
             hunger=new HungerState();health.Advance(80,hunger);Check(health.Hearts==16&&hunger.Food==19,"High food heals a heart point and spends exhaustion");
+            var idleFood=new HungerState();var idleHealth=new HealthState();idleHealth.Advance(2047,idleFood);
+            Check(idleFood.Food==20,"Passive hunger waits for the complete food-point cost");
+            idleHealth.Advance(1,idleFood);Check(idleFood.Food==19&&idleFood.Exhaustion==0,"Idle survival drains food after 102.4 seconds without a healing surcharge");
+            var bandFood=new HungerState();bandFood.Exert(32);var bandHealth=new HealthState();bandHealth.Damage(10,DamageKind.Fall,0);
+            bandHealth.Advance(79,bandFood);Check(bandHealth.Hearts==10&&bandHealth.Regenerating,"Healing starts at 60 percent, but waits four seconds");
+            bandHealth.Advance(1,bandFood);Check(bandHealth.Hearts==11&&bandFood.Food==11&&bandHealth.Regenerating,"Healing costs extra food and continues at 55 percent");
+            bandHealth.Advance(80,bandFood);Check(bandHealth.Hearts==12&&bandFood.Food==9&&!bandHealth.Regenerating,"Healing stops once its food cost reaches the lower threshold");
+            bandHealth.Advance(80,bandFood);Check(bandHealth.Hearts==12,"Low food cannot continue healing");
+            var coldFood=new HungerState();coldFood.Exert(36);var coldHealth=new HealthState();coldHealth.Damage(10,DamageKind.Fall,0);
+            coldHealth.Advance(80,coldFood);Check(coldHealth.Hearts==10&&!coldHealth.Regenerating,"55 percent food cannot start a fresh healing cycle");
+            coldFood.TryEat(inventory,0,1);coldHealth.Advance(1,coldFood);
+            Check(coldFood.Food==12&&coldHealth.Regenerating,"Eating back to 60 percent restarts healing");
+            coldFood.Exert(8);coldHealth.Advance(80,coldFood);Check(coldFood.Food==10&&coldHealth.Hearts==10&&!coldHealth.Regenerating,"Exactly 50 percent food stops healing immediately");
+            var oneFood=new HungerState();var manyFood=new HungerState();var oneHealth=new HealthState();var manyHealth=new HealthState();
+            oneHealth.Damage(15,DamageKind.Fall,0);manyHealth.Damage(15,DamageKind.Fall,0);
+            oneHealth.Advance(5000,oneFood);for(int i=0;i<5000;i++)manyHealth.Advance(1,manyFood);
+            Check(oneHealth.Hearts==manyHealth.Hearts&&oneFood.Food==manyFood.Food&&oneFood.Exhaustion==manyFood.Exhaustion&&oneHealth.Regenerating==manyHealth.Regenerating,"Batched and individual survival ticks agree across healing and passive hunger boundaries");
+            foreach(float incoming in new[]{.01f,1f,10f})
+            {
+                float previous=incoming;
+                for(int armor=-1;armor<=100;armor++)
+                {
+                    float taken=new HealthState().Damage(incoming,DamageKind.Impact,armor);
+                    Check(taken>0&&taken<=previous&&taken>=incoming*.1999f,"Armor remains monotonic, positive and capped, including excess protection");previous=taken;
+                }
+            }
             hunger.Exert(200);health.Advance(80*30,hunger);Check(health.Hearts==1&&!health.Dead,"Starvation reaches one health point");
             health.Damage(1,DamageKind.Fall,0);Check(health.Dead,"Lethal damage reaches death");health.Respawn();Check(health.Hearts==20&&!health.Dead,"Respawn restores health");
             Reject(()=>health.Damage(float.NaN,DamageKind.Impact,0),"Invalid damage accepted");

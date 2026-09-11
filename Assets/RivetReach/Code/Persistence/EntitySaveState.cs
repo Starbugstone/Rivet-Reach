@@ -11,8 +11,13 @@ namespace RivetReach
     }
     public sealed partial class HealthState
     {
-        internal void WriteSave(SaveWriter w){w.Write(Hearts);w.Write(foodTimer);}
-        internal void ReadSave(SaveReader r){Hearts=r.Float(0,Maximum);foodTimer=r.Int(0,79);}
+        internal void WriteSave(SaveWriter w){w.Write(Hearts);w.Write(foodTimer);w.Write(Regenerating);}
+        internal void ReadSave(SaveReader r)
+        {
+            Hearts=r.Float(0,Maximum);foodTimer=r.Int(0,79);
+            // Schema 1 predates the 60%/50% healing band; decide from food on its next tick.
+            Regenerating=r.Format>=2&&r.ReadBoolean();
+        }
     }
     public sealed partial class EquipmentState
     {

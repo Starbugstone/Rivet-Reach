@@ -31,6 +31,7 @@ namespace RivetReach
         public const float Maximum=20;
         public float Hearts {get;private set;}=Maximum;
         public bool Dead=>Hearts<=0;
+        public bool Regenerating {get;private set;}
         int foodTimer;
         public float Damage(float amount,DamageKind kind,int protection)
         {
@@ -42,15 +43,23 @@ namespace RivetReach
         public void Advance(int ticks,HungerState hunger)
         {
             if(ticks<0)throw new ArgumentOutOfRangeException(nameof(ticks));
-            if(Dead||hunger.Food>0&&(hunger.Food<18||Hearts>=Maximum)){foodTimer=0;return;}
-            foodTimer+=ticks;
-            while(foodTimer>=80&&!Dead)
+            // Use the same fixed ticks for passive hunger and healing, independent of frame batching.
+            for(int tick=0;tick<ticks&&!Dead;tick++)
             {
-                foodTimer-=80;
+                hunger.Exert(HungerState.PassiveExhaustionPerTick);
+                if(hunger.Food<=10||Hearts>=Maximum)Regenerating=false;
+                else if(hunger.Food>=12)Regenerating=true;
+                if(hunger.Food>0&&!Regenerating){foodTimer=0;continue;}
+                if(++foodTimer<80)continue;
+                foodTimer=0;
                 if(hunger.Food==0)Damage(1,DamageKind.Starvation,0);
-                else if(hunger.Food>=18&&Hearts<Maximum){Hearts=Math.Min(Maximum,Hearts+1);hunger.Exert(6);}
+                else
+                {
+                    Hearts=Math.Min(Maximum,Hearts+1);hunger.Exert(6);
+                    if(hunger.Food<=10||Hearts>=Maximum)Regenerating=false;
+                }
             }
         }
-        public void Respawn(){Hearts=Maximum;foodTimer=0;}
+        public void Respawn(){Hearts=Maximum;foodTimer=0;Regenerating=false;}
     }
 }

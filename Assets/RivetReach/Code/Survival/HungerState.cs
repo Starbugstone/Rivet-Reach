@@ -6,6 +6,8 @@ namespace RivetReach
     public sealed partial class HungerState
     {
         public const int Maximum=20;
+        // At 20 ticks/second, idle survival spends one food point every 102.4 seconds.
+        public const double PassiveExhaustionPerTick=1d/512;
         public int Food {get;private set;}=Maximum;
         public double Exhaustion {get;private set;}
         public bool CanSprint=>Food>6;

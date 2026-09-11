@@ -25,14 +25,17 @@ namespace RivetReach
             Label(parent,"ARMOR",28,392,200,24,14,gold);
             string[] labels={"HEAD","BODY","LEGS","FEET"};
             for(int i=0;i<4;i++){Slot(parent,ArmorSlotStart+i,28+i*53,423,46);Label(parent,labels[i],28+i*53,476,52,18,10,gold);}
-            armorText=Label(parent,"",28,500,210,24,13,gold);
+            BuildSurvivalMeter(parent,SurvivalMeter.Kind.Armor,28,500,210,22);
         }
+        void BuildSurvivalMeter(Transform parent,SurvivalMeter.Kind kind,float x,float y,float width,float height)
+        {Rect(parent,kind+" icons",x,y,width,height).gameObject.AddComponent<SurvivalMeter>().Initialize(game,kind);}
         void BuildSurvivalHUD()
         {
             Panel(root,296,558,688,53,new Color(.045f,.08f,.085f,.70f));
             healthText=Label(root,"",304,580,335,30,24,new Color(.95f,.27f,.29f));
-            hungerText=Label(root,"",655,586,322,26,16,gold);hungerText.alignment=TextAnchor.UpperRight;
-            armorText=Label(root,"",304,563,350,22,13,new Color(.66f,.80f,.87f));
+            BuildSurvivalMeter(root,SurvivalMeter.Kind.Food,655,583,322,26);
+            BuildSurvivalMeter(root,SurvivalMeter.Kind.Armor,304,562,260,18);
+            hungerText=Label(root,"",655,563,322,18,12,gold);hungerText.alignment=TextAnchor.UpperRight;
         }
         void BuildDeath()
         {
@@ -102,8 +105,7 @@ namespace RivetReach
             }
             bool eating=game.Player.EatingProgress>0;
             if(hungerText!=null&&(shownFood!=game.Hunger.Food||shownEating!=eating))
-            {shownFood=game.Hunger.Food;shownEating=eating;hungerText.text="FOOD "+shownFood+" / 20"+(eating?" · Eating…":game.Creative?" · Frozen":game.Hunger.CanSprint?"":" · Eat to sprint");}
-            if(armorText!=null&&shownArmor!=game.Equipment.Protection){shownArmor=game.Equipment.Protection;armorText.text="ARMOR "+shownArmor+" / 20";}
+            {shownFood=game.Hunger.Food;shownEating=eating;hungerText.text=eating?"Eating…":game.Creative?"Frozen":game.Hunger.CanSprint?"":"Eat to sprint";}
             var furnace=game.OpenStation?.Furnace;
             if(furnaceText!=null&&furnace!=null&&(shownProgress!=furnace.ProgressTicks||shownBurn!=furnace.BurnTicks||shownFurnaceRevision!=furnace.Revision))
             {
