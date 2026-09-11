@@ -1,0 +1,273 @@
+{
+  "rivet:grass": {
+    "description": "The grassy surface of temperate terrain. Breaking it gives [Dirt](Item-dirt.md).",
+    "obtain": "Find it on the surface. Mining drops dirt, so use the Creative catalog to obtain the grass block item."
+  },
+  "rivet:dirt": {
+    "description": "A common building block and the base material for farmland.",
+    "obtain": "Dig dirt or grassy ground with your hands; a shovel makes digging faster.",
+    "use": "Use a [hoe](Item-wood-hoe.md) on exposed dirt or grass to make [Farmland](Item-farmland.md)."
+  },
+  "rivet:stone": {
+    "description": "The solid rock beneath the surface. Mining it drops [Cobblestone](Item-cobblestone.md); smelting cobblestone makes a placeable stone block."
+  },
+  "rivet:log": {
+    "description": "Wood from tree trunks. It starts the plank, tool and charcoal crafting chains.",
+    "obtain": "Break a tree trunk with your hands, or use an axe for faster chopping and upward tree felling."
+  },
+  "rivet:leaves": {
+    "description": "Leaf blocks form tree canopies and can be used for foliage decoration.",
+    "obtain": "Break leaves in a tree canopy. Hoes and blades make clearing leaves faster."
+  },
+  "rivet:starter_axe": {
+    "description": "Legacy equipment retained for historical test fixtures. Ordinary Survival expeditions start empty-handed and use the wood-to-diamond tool progression.",
+    "obtain": "Available from the Creative catalog. Its old starter recipe is not part of the active recipe registry."
+  },
+  "rivet:starter_pickaxe": {
+    "description": "Legacy equipment retained for historical test fixtures. Ordinary Survival expeditions start empty-handed and use the wood-to-diamond tool progression.",
+    "obtain": "Available from the Creative catalog. Its old starter recipe is not part of the active recipe registry."
+  },
+  "rivet:starter_dagger": {
+    "description": "Legacy equipment retained for historical test fixtures. Ordinary Survival expeditions start empty-handed and use the wood-to-diamond tool progression.",
+    "obtain": "Available from the Creative catalog. Its old starter recipe is not part of the active recipe registry."
+  },
+  "rivet:coal_ore": {
+    "description": "A finite underground deposit found at **Y 0 to 80**, with the strongest generation preference near **Y 40**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining."
+  },
+  "rivet:copper_ore": {
+    "description": "A finite underground deposit found at **Y −48 to 64**, with the strongest generation preference near **Y 16**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining."
+  },
+  "rivet:iron_ore": {
+    "description": "A finite underground deposit found at **Y −160 to 48**, with the strongest generation preference near **Y −48**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining."
+  },
+  "rivet:gold_ore": {
+    "description": "A finite underground deposit found at **Y −240 to −64**, with the strongest generation preference near **Y −160**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining."
+  },
+  "rivet:diamond_ore": {
+    "description": "A finite underground deposit found at **Y −255 to −160**, with the strongest generation preference near **Y −224**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining."
+  },
+  "rivet:azure_ore": {
+    "description": "A finite underground deposit found at **Y −96 to 8**, with the strongest generation preference near **Y −40**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining. Smelt the mined ore into an [Azure Crystal](Item-azure-crystal.md)."
+  },
+  "rivet:bedrock": {
+    "description": "The protected base of the world at **Y −256**. It stops hand mining, tools and drills.",
+    "obtain": "Occurs naturally at the world floor. It cannot be mined or collected in Survival. Its registered catalog entry is not a placeable item."
+  },
+  "rivet:raw_iron": {
+    "description": "Raw metal obtained from an ore deposit. Smelt it directly for one ingot, or use a [Crusher](Item-crusher.md) to make two crushed pieces and smelt those for two ingots. Raw ore items cannot be placed back as ore blocks."
+  },
+  "rivet:raw_copper": {
+    "description": "Raw metal obtained from an ore deposit. Smelt it directly for one ingot, or use a [Crusher](Item-crusher.md) to make two crushed pieces and smelt those for two ingots. Raw ore items cannot be placed back as ore blocks."
+  },
+  "rivet:raw_gold": {
+    "description": "Raw metal obtained from an ore deposit. Smelt it directly for one ingot, or use a [Crusher](Item-crusher.md) to make two crushed pieces and smelt those for two ingots. Raw ore items cannot be placed back as ore blocks."
+  },
+  "rivet:coal": {
+    "description": "A mined fuel and torch ingredient. It powers a [Furnace](Item-furnace.md) or [Boiler Engine](Item-boiler-engine.md) and is also used to craft batteries."
+  },
+  "rivet:diamond": {
+    "description": "A deep-mined gem used for the highest current tool tier and armor. It can also be packed into storage blocks."
+  },
+  "rivet:planks": {
+    "description": "Processed wood for early tools, sticks, stations and building. One log makes four planks."
+  },
+  "rivet:stick": {
+    "description": "A wooden handle used in tools and torches. Two planks arranged vertically make four sticks."
+  },
+  "rivet:cobblestone": {
+    "description": "Rough stone used for stone tools, furnaces and construction. Smelting it produces [Stone](Item-stone.md)."
+  },
+  "rivet:workbench": {
+    "description": "A placed crafting station with a **3×3 grid** for tools, armor, storage and the first Machinist’s Bench.",
+    "use": "Place it, then press **E or right-click** to open it. The workbench can also make personal 2×2 recipes. See the [crafting guide](Crafting-Recipes.md) for the first steps."
+  },
+  "rivet:furnace": {
+    "description": "A fuel-burning station for smelting ore, making charcoal and glass, and cooking potatoes.",
+    "use": "Place and open it with **E or right-click**. Add an input, add fuel separately, and collect the output. Fuel continues burning after ignition even if input runs out. The recipes below list processing time and accepted fuels."
+  },
+  "rivet:chest": {
+    "description": "A placed container with **27 inventory slots**.",
+    "use": "Open with **E or right-click** to store items. An [Extractor](Item-extractor.md) can move items from a chest into [Item Pipe](Item-item-pipe.md). An [Inventory Sensor](Item-inventory-sensor.md) can monitor its contents."
+  },
+  "rivet:charcoal": {
+    "description": "Wood converted into fuel. It works as an alternative to coal in torches, furnaces and boiler engines."
+  },
+  "rivet:potato": {
+    "description": "A food item and planting material. Eat it raw for 1 food point, or bake it for 5.",
+    "obtain": "Harvest naturally occurring ripe potatoes on grassy terrain, or grow your own crop. A ripe crop yields **2–4 potatoes**; an immature crop returns one.",
+    "use": "Till grass or dirt with a hoe, then use one potato on the exposed [Farmland](Item-farmland.md). Each of the three growth stages takes 60 seconds while suitable exposed terrain is loaded. Water irrigation is not required by the current crop system."
+  },
+  "rivet:baked_potato": {
+    "description": "Cooked food that restores **5 food points**, compared with 1 for a raw potato. Baked potatoes cannot be planted."
+  },
+  "rivet:farmland": {
+    "description": "Tilled soil used to grow potatoes.",
+    "obtain": "Use a [hoe](Item-wood-hoe.md) on grass or dirt with open space above it. Farmland is made in the world, not crafted or placed as an inventory block.",
+    "use": "Use a [Potato](Item-potato.md) to plant a crop. Keep the crop exposed and its terrain loaded while it grows."
+  },
+  "rivet:potato_plant_0": {
+    "description": "Potato seedlings are stage 1 of the potato crop. Harvesting early returns one potato; wait until ripe for a larger yield.",
+    "obtain": "Plant a [Potato](Item-potato.md) on [Farmland](Item-farmland.md).",
+    "use": "After 60 seconds under suitable conditions, this becomes [Young potatoes](Item-potato-plant-1.md). Crop stages are world states, not placeable inventory plants."
+  },
+  "rivet:potato_plant_1": {
+    "description": "Young potatoes are stage 2 of the potato crop. Harvesting early returns one potato; wait until ripe for a larger yield.",
+    "obtain": "Let [Potato seedlings](Item-potato-plant-0.md) grow for 60 seconds on suitable loaded, exposed terrain.",
+    "use": "After 60 seconds under suitable conditions, this becomes [Flowering potatoes](Item-potato-plant-2.md). Crop stages are world states, not placeable inventory plants."
+  },
+  "rivet:potato_plant_2": {
+    "description": "Flowering potatoes are stage 3 of the potato crop. Harvesting early returns one potato; wait until ripe for a larger yield.",
+    "obtain": "Let [Young potatoes](Item-potato-plant-1.md) grow for 60 seconds on suitable loaded, exposed terrain.",
+    "use": "After 60 seconds under suitable conditions, this becomes [Ripe potatoes](Item-potato-plant-3.md). Crop stages are world states, not placeable inventory plants."
+  },
+  "rivet:potato_plant_3": {
+    "description": "Ripe potatoes are stage 4 of the potato crop. Harvest for **2–4 potatoes**.",
+    "obtain": "Find wild ripe crops on grassy ground, or let flowering potatoes finish growing.",
+    "use": "Use harvested potatoes for food or replanting."
+  },
+  "rivet:sand": {
+    "description": "A pale building material that can be smelted into [Glass](Item-glass.md).",
+    "obtain": "Gather sand from sandy terrain, including desert surfaces and water beds."
+  },
+  "rivet:sandstone": {
+    "description": "A solid desert building block.",
+    "obtain": "Mine sandstone beneath sandy terrain."
+  },
+  "rivet:snow": {
+    "description": "A white surface block used for building.",
+    "obtain": "Gather it from snowy terrain."
+  },
+  "rivet:red_clay": {
+    "description": "A red building block from badlands terrain.",
+    "obtain": "Gather it from exposed red clay in the badlands."
+  },
+  "rivet:bucket": {
+    "description": "An empty container for moving one water source, equivalent to **10 L**.",
+    "obtain": "Craft it from iron ingots, or empty a [Water bucket](Item-water-bucket.md).",
+    "use": "Use it on a source cell to collect water; flowing water cannot be collected. Machine bucket controls can also fill it. See [Pumps and water](Pumps-and-water.md)."
+  },
+  "rivet:water_bucket": {
+    "description": "A bucket holding one water source, equivalent to **10 L**.",
+    "obtain": "Use an empty [Bucket](Item-bucket.md) on source water, or remove 10 L through a filled machine’s bucket controls. This is a fluid transfer, not a grid recipe.",
+    "use": "Use it to place source water in the world, or add 10 L through a boiler or tank interface. Emptying it returns a [Bucket](Item-bucket.md). See the [renewable pool guide](Pumps-and-water.md)."
+  },
+  "rivet:torch": {
+    "description": "A recoverable light source that attaches to a solid block’s top or side. Coal and charcoal recipes each produce four torches.",
+    "obtain": "Craft it using either recipe below.",
+    "use": "Place it on a supported top or side face to light the area. Removing its support drops the torch; water can wash it away. Torches do not burn fuel or need electricity after placement."
+  },
+  "rivet:azure_crystal": {
+    "description": "A smelted industrial material used in the Machinist’s Bench, Blue Signal parts and other assemblies."
+  },
+  "rivet:copper_wire": {
+    "description": "Drawn copper used in electrical cables, signals and machine assemblies."
+  },
+  "rivet:copper_plate": {
+    "description": "A shaped copper component for fluid equipment, tanks and other assemblies."
+  },
+  "rivet:iron_plate": {
+    "description": "A shaped iron component for machine casings, structural parts and assemblies."
+  },
+  "rivet:cog": {
+    "description": "An iron mechanical component used in machines and item extraction."
+  },
+  "rivet:rivets": {
+    "description": "Small iron fasteners used in industrial and multiblock assemblies."
+  },
+  "rivet:machine_casing": {
+    "description": "The common frame used to assemble machinery and batteries."
+  },
+  "rivet:glass": {
+    "description": "Smelted sand used as a component in lamps, tank windows and controllers. This glass item is not a standalone placeable window block."
+  },
+  "rivet:tank_frame": {
+    "use": "Use this part in a sealed hollow tank. The [tank construction guide](Tanks.md) gives the shopping list, layer diagrams, outward-facing controls and repair instructions."
+  },
+  "rivet:tank_wall": {
+    "use": "Use this part in a sealed hollow tank. The [tank construction guide](Tanks.md) gives the shopping list, layer diagrams, outward-facing controls and repair instructions."
+  },
+  "rivet:tank_glass": {
+    "use": "Use this part in a sealed hollow tank. The [tank construction guide](Tanks.md) gives the shopping list, layer diagrams, outward-facing controls and repair instructions."
+  },
+  "rivet:tank_controller": {
+    "use": "Use this part in a sealed hollow tank. The [tank construction guide](Tanks.md) gives the shopping list, layer diagrams, outward-facing controls and repair instructions. Use exactly one controller and drain stored fluid before mining it."
+  },
+  "rivet:tank_port": {
+    "use": "Use this part in a sealed hollow tank. The [tank construction guide](Tanks.md) gives the shopping list, layer diagrams, outward-facing controls and repair instructions."
+  },
+  "rivet:tank_hatch": {
+    "use": "Use this part in a sealed hollow tank. The [tank construction guide](Tanks.md) gives the shopping list, layer diagrams, outward-facing controls and repair instructions."
+  },
+  "rivet:tank_valve": {
+    "use": "Use this part in a sealed hollow tank. The [tank construction guide](Tanks.md) gives the shopping list, layer diagrams, outward-facing controls and repair instructions. Set INPUT or OUTPUT mode and attach an ON [Blue Signal](Blue-Signal.md) to open the valve; missing or OFF signal keeps it closed."
+  },
+  "rivet:tank_sensor": {
+    "use": "Use this part in a sealed hollow tank. The [tank construction guide](Tanks.md) gives the shopping list, layer diagrams, outward-facing controls and repair instructions."
+  },
+  "rivet:signal_wire": {
+    "use": "See [Blue Signal](Blue-Signal.md) for connection directions and control examples. Signal carries an ON/OFF instruction; machines still need their separate resources and electricity."
+  },
+  "rivet:signal_conduit": {
+    "use": "See [Blue Signal](Blue-Signal.md) for connection directions and control examples. Signal carries an ON/OFF instruction; machines still need their separate resources and electricity."
+  },
+  "rivet:signal_relay": {
+    "use": "See [Blue Signal](Blue-Signal.md) for connection directions and control examples. Signal carries an ON/OFF instruction; machines still need their separate resources and electricity."
+  },
+  "rivet:lever": {
+    "use": "See [Blue Signal](Blue-Signal.md) for connection directions and control examples. Signal carries an ON/OFF instruction; machines still need their separate resources and electricity."
+  },
+  "rivet:button": {
+    "use": "See [Blue Signal](Blue-Signal.md) for connection directions and control examples. Signal carries an ON/OFF instruction; machines still need their separate resources and electricity."
+  },
+  "rivet:signal_indicator": {
+    "use": "See [Blue Signal](Blue-Signal.md) for connection directions and control examples. Signal carries an ON/OFF instruction; machines still need their separate resources and electricity."
+  },
+  "rivet:workshop_hatch": {
+    "use": "See [Blue Signal](Blue-Signal.md) for connection directions and control examples. Signal carries an ON/OFF instruction; machines still need their separate resources and electricity."
+  },
+  "rivet:inventory_sensor": {
+    "use": "See [Blue Signal](Blue-Signal.md) for connection directions and control examples. Signal carries an ON/OFF instruction; machines still need their separate resources and electricity."
+  },
+  "rivet:power_cable": {
+    "use": "See [Electricity and batteries](Electricity-and-batteries.md) for generator placement, power sockets and example circuits."
+  },
+  "rivet:alternator": {
+    "use": "See [Electricity and batteries](Electricity-and-batteries.md) for generator placement, power sockets and example circuits."
+  },
+  "rivet:boiler_engine": {
+    "use": "See [Electricity and batteries](Electricity-and-batteries.md) for generator placement, power sockets and example circuits."
+  },
+  "rivet:workshop_lamp": {
+    "use": "See [Electricity and batteries](Electricity-and-batteries.md) for generator placement, power sockets and example circuits."
+  },
+  "rivet:battery_block": {
+    "use": "Starts **empty**, even in Creative. Stores **100 kJ** and charges or discharges at up to **400 W**. Surplus generation charges it; real demand draws power from it. A charged cell cannot be mined. See [batteries and battery banks](Electricity-and-batteries.md)."
+  },
+  "rivet:battery_controller": {
+    "use": "Place exactly one controller in a solid rectangular pack of battery blocks, with its front facing out. The controller adds no storage of its own. See the [battery bank guide](Electricity-and-batteries.md) for dimensions, wiring and charge-preserving repairs."
+  },
+  "rivet:pump": {
+    "use": "Position its intake one block **above** source water, connect **80 W** at the rear, and route water from its right outlet. It moves one 10 L source in two seconds at full power. Follow the [renewable pool guide](Pumps-and-water.md) for exact placement."
+  },
+  "rivet:water_tank": {
+    "use": "Stores **100 L** in one block. Use bucket controls or separate input/output fluid connections. For larger storage, build a [multiblock tank](Tanks.md)."
+  },
+  "rivet:item_pipe": {
+    "use": "Connect an [Extractor](Item-extractor.md) and chest for item supply. Open the pipe to add signal and power fittings; each channel remains separate. See [pipe fittings](Blue-Signal.md)."
+  },
+  "rivet:fluid_pipe": {
+    "use": "Join machine fluid outputs to accepting inputs. Open the pipe to add signal and power fittings; each channel remains separate. See [tank plumbing](Tanks.md) and [pipe fittings](Blue-Signal.md)."
+  },
+  "rivet:extractor": {
+    "use": "Place a [Chest](Item-chest.md) on its left and an [Item Pipe](Item-item-pipe.md) on its right. It transfers four items per second and supports optional signal control."
+  },
+  "rivet:crusher": {
+    "use": "Connect power at the rear, optional signal at the front, input items on the left and output on the right. One raw copper, iron or gold makes two matching crushed pieces in five seconds at **160 W**. Smelt each piece in a [Furnace](Item-furnace.md)."
+  },
+  "rivet:drill": {
+    "use": "Supply **240 W** at the rear. It mines the finite column directly below, outputs items on the right and stops at protected bedrock. An attached OFF signal at the front disables it."
+  },
+  "rivet:machinist_bench": {
+    "use": "Place and open it with **E or right-click** for 4×4 crafting. It also accepts smaller crafting recipes. Industrial recipes are shapeless unless their page specifies a pattern; keep the required count in each occupied slot."
+  }
+}

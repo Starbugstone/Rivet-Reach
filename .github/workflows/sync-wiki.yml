@@ -1,0 +1,59 @@
+name: Sync GitHub Wiki
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.docs/wiki/**'
+      - '.docs/wiki-data/**'
+      - 'Tools/generate_wiki_items.py'
+      - 'Tools/publish_wiki.py'
+      - '.github/workflows/sync-wiki.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-github-wiki
+  cancel-in-progress: true
+
+jobs:
+  sync-wiki:
+    name: Publish .docs/wiki to GitHub Wiki
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository with Git LFS assets
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Clone wiki repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git clone --depth 1 \
+            "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.wiki.git" \
+            "$RUNNER_TEMP/wiki"
+
+      - name: Validate and publish maintained wiki pages and graphics
+        run: python3 Tools/publish_wiki.py "$RUNNER_TEMP/wiki"
+
+      - name: Commit and publish changes
+        working-directory: ${{ runner.temp }}/wiki
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+
+          if git diff --cached --quiet; then
+            echo "Wiki already matches .docs/wiki; nothing to publish."
+            exit 0
+          fi
+
+          git commit -m "Sync wiki from ${GITHUB_SHA::7}"
+          git push

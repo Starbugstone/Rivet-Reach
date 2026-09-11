@@ -61,4 +61,4 @@ Project specifications live in `.docs/`. Contributor and agent workflow is recor
 
 **Decision status:** agreed direction describes existing project intent; working decisions resolve design gaps under the user's delegated request; proposals remain subject to brainstorming and future tests; open questions are not settled requirements. Numerical targets are provisional until measured.
 
-Player construction guides: [GitHub wiki](https://github.com/Starbugstone/Rivet-Reach/wiki) · [repository copy](.docs/wiki/Home.md). Includes tanks, pumps, batteries and separate power/signal connections.
+Player guides: [GitHub wiki](https://github.com/Starbugstone/Rivet-Reach/wiki) · [repository copy](.docs/wiki/Home.md). Browse the [visual item catalog](.docs/wiki/Items.md) for individual item explanations, linked icons and crafting/processing recipes, alongside the tank, pump, battery and connection guides. [Wiki authoring and publishing](.docs/WIKI_AUTHORING.md) explains how to maintain and deploy the local copy.

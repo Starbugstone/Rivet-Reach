@@ -15,6 +15,7 @@ ArtSource/**/*.blend filter=lfs diff=lfs merge=lfs -text
 Assets/RivetReach/Resources/Characters/*.fbx filter=lfs diff=lfs merge=lfs -text
 Assets/RivetReach/Resources/Characters/*.png filter=lfs diff=lfs merge=lfs -text
 .docs/verification/*.png filter=lfs diff=lfs merge=lfs -text
+.docs/wiki/images/*.png filter=lfs diff=lfs merge=lfs -text
 
 Assets/RivetReach/Resources/Tools/*.fbx filter=lfs diff=lfs merge=lfs -text
 Assets/RivetReach/Resources/Tools/*.png filter=lfs diff=lfs merge=lfs -text
