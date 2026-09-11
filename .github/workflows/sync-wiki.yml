@@ -6,6 +6,8 @@ on:
       - main
     paths:
       - '.docs/wiki/**'
+      - '.docs/verification/**'
+      - 'Assets/RivetReach/Resources/Industry/Icons/**'
       - '.github/workflows/sync-wiki.yml'
   workflow_dispatch:
 
@@ -22,8 +24,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out repository
+      - name: Check out repository with Git LFS assets
         uses: actions/checkout@v4
+        with:
+          lfs: true
 
       - name: Clone wiki repository
         env:
@@ -34,12 +38,22 @@ jobs:
             "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.wiki.git" \
             "$RUNNER_TEMP/wiki"
 
-      - name: Mirror player wiki files
+      - name: Mirror player wiki files and assets
         run: |
           set -euo pipefail
           rsync -av --delete --exclude='.git/' .docs/wiki/ "$RUNNER_TEMP/wiki/"
 
-      - name: Convert repository links to GitHub Wiki page links
+          mkdir -p "$RUNNER_TEMP/wiki/images" "$RUNNER_TEMP/wiki/icons"
+
+          cp \
+            .docs/verification/machinery-02-tank-hero-2026-09-10.png \
+            "$RUNNER_TEMP/wiki/images/machinery-02-tank-hero-2026-09-10.png"
+
+          rsync -av --delete \
+            Assets/RivetReach/Resources/Industry/Icons/ \
+            "$RUNNER_TEMP/wiki/icons/"
+
+      - name: Convert links and image URLs for GitHub Wiki
         run: |
           set -euo pipefail
           python - <<'PY'
@@ -48,9 +62,18 @@ jobs:
           from pathlib import Path
 
           wiki_dir = Path(os.environ["RUNNER_TEMP"]) / "wiki"
+          raw_wiki_base = "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach"
+
           local_md_link = re.compile(
               r'\((?:\./)?([A-Za-z0-9_-]+)\.md(#[^)]+)?\)'
           )
+
+          replacements = {
+              "https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/.docs/verification/machinery-02-tank-hero-2026-09-10.png":
+                  f"{raw_wiki_base}/images/machinery-02-tank-hero-2026-09-10.png",
+              "https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/":
+                  f"{raw_wiki_base}/icons/",
+          }
 
           for path in wiki_dir.rglob("*.md"):
               original = path.read_text(encoding="utf-8")
@@ -58,10 +81,21 @@ jobs:
                   lambda match: f"({match.group(1)}{match.group(2) or ''})",
                   original,
               )
+
+              for source, destination in replacements.items():
+                  converted = converted.replace(source, destination)
+
               if converted != original:
                   path.write_text(converted, encoding="utf-8")
-                  print(f"Converted local wiki links in {path.name}")
+                  print(f"Converted wiki links/assets in {path.name}")
           PY
+
+      - name: Verify copied image assets are real files
+        run: |
+          set -euo pipefail
+          test "$(stat -c%s "$RUNNER_TEMP/wiki/images/machinery-02-tank-hero-2026-09-10.png")" -gt 100000
+          file "$RUNNER_TEMP/wiki/images/machinery-02-tank-hero-2026-09-10.png" | grep -q 'PNG image data'
+          file "$RUNNER_TEMP/wiki/icons/160.png" | grep -q 'PNG image data'
 
       - name: Commit and publish changes
         working-directory: ${{ runner.temp }}/wiki
