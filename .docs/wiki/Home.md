@@ -4,6 +4,7 @@ Build, connect, and troubleshoot your workshop. These guides describe the curren
 
 Start here:
 
+- [Crafting recipes](Crafting-Recipes.md) — complete reference for crafting and processing recipes.
 - [Build a multiblock tank](Tanks.md) — exact shopping list, each layer, outward-facing controls, filling and repairs.
 - [Pumps and renewable water](Pumps-and-water.md) — intake height, a 2×2 source pool, and why water can renew without electricity.
 - [Electricity, batteries and battery banks](Electricity-and-batteries.md) — generate power, store surplus, and keep machines running when generation stops.
