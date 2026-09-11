@@ -15,7 +15,7 @@ namespace RivetReach
     {
         [Serializable] public sealed class Report
         {
-            public string timestamp,unity,cpu,gpu,result,workload;
+            public string timestamp,unity,cpu,gpu,graphicsApi,result,workload;
             public int bodyShadowTriangles,terrainTilePixels;
             public int memoryMB,width,height,assertions,residentPeak,triangles,maleTriangles,femaleTriangles,armsTriangles,bodyTriangles,drawCallsPeak;
             public long allocatedMemoryBytes;
@@ -56,7 +56,7 @@ namespace RivetReach
                 if(current is IEnumerator nested){routines.Push(nested);continue;}
                 yield return current;
             }
-            sampling=false;report.timestamp=DateTime.UtcNow.ToString("O");report.unity=Application.unityVersion;report.cpu=SystemInfo.processorType;report.gpu=SystemInfo.graphicsDeviceName;
+            sampling=false;report.timestamp=DateTime.UtcNow.ToString("O");report.unity=Application.unityVersion;report.cpu=SystemInfo.processorType;report.gpu=SystemInfo.graphicsDeviceName;report.graphicsApi=SystemInfo.graphicsDeviceType.ToString();
             report.memoryMB=SystemInfo.systemMemorySize;report.width=Screen.width;report.height=Screen.height;report.assertions=checks.Count;
             report.drawCallsPeak=report.drawCallsPeak>0?report.drawCallsPeak:-1;
             report.checks=checks.ToArray();report.errors=errors.ToArray();report.result=errors.Count==0?"PASS":"FAIL";

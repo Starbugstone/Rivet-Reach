@@ -32,6 +32,6 @@ The actual player screenshots were inspected for readable controls and save stat
 
 ## Reproduce and limits
 
-Run `Tools/Build-Release.ps1` in a clean checkout using the pinned Editor, then `Tools/Verify-Saves.ps1 -Executable <player> -OutputDirectory <new-directory>`. Both processes must return PASS and exit 0. The launcher uses a retained .NET process handle so exit status remains available after termination.
+Run `Tools/Build-Release.ps1` in a clean checkout using the pinned Editor, then `Tools/Verify-Saves.ps1 -Executable <player> -OutputDirectory <new-directory>`. Both processes must return PASS and exit 0. The launcher uses a retained .NET process handle so exit status remains available after termination. Subsequent D3D12 runs exposed a native shutdown fault despite passing runtime reports; Windows identified `D3D12Core.dll` with exception `0xc0000005`. Three Direct3D 11 continuation runs passed and exited 0. The alpha build now selects Direct3D 11 explicitly; final artifact evidence is recorded in the alpha report.
 
 No periodic autosave, offline catch-up, schema migration, cloud save or multiplayer persistence is implemented. Save/load uses synchronous full snapshots. Testing did not interrupt electrical power or certify every filesystem failure, every seed, huge edited worlds or future content migrations. AI paths and world/network presentation rebuild after loading; the save is not a deterministic future-replay system.

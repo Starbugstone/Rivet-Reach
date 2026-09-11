@@ -30,7 +30,7 @@ files = sorted(p for p in args.player.rglob('*') if p.is_file()
                and p.name != 'build-manifest.json')
 manifest = {
     'product': 'Rivet Reach', 'version': '0.0.1', 'channel': 'alpha',
-    'platform': 'Windows x64', 'unity': '6000.4.4f1', 'save_schema': 1,
+    'platform': 'Windows x64', 'graphics_api': 'Direct3D11', 'unity': '6000.4.4f1', 'save_schema': 1,
     'source_commit': git('rev-parse', 'HEAD'), 'source_tree': git('rev-parse', 'HEAD^{tree}'),
     'packaged_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),
     'files': [{'path': p.relative_to(args.player).as_posix(), 'bytes': p.stat().st_size,

@@ -65,7 +65,7 @@ Repair the pack or add cells to make a larger filled rectangle. Its combined cap
 
 A charged battery cell cannot be mined. Discharge it into a real load first; use DischargeOnly to prevent replenishment. The controller can be removed because it owns no charge. The remaining cells keep their exact energy and return to standalone operation.
 
-Unloaded cells contribute no power; the bank waits until the required terrain returns. There is no offline charging, and stored energy currently lasts only for the running world session.
+Unloaded cells contribute no power; the bank waits until the required terrain returns. There is no offline charging, and saved checkpoints retain the exact energy stored in every battery cell.
 
 ## Crafting
 

@@ -214,7 +214,21 @@ namespace RivetReach.Editor
             if(PlayerSettings.bundleVersion!="0.0.1")throw new Exception("Alpha release requires version 0.0.1.");
             DomainChecks.Run();FluidChecks.Run();
             IndustryChecks.Run();MultiblockChecks.Run();BatteryChecks.Run();ConnectedPipeChecks.Run();
-            Build("Release/0.0.1/RivetReach-0.0.1-alpha-windows-x64",BuildOptions.None);
+            // D3D12Core.dll intermittently faults during shutdown after session restoration
+            // on the alpha verification workstation. Ship the verified D3D11 renderer.
+            bool automatic=PlayerSettings.GetUseDefaultGraphicsAPIs(BuildTarget.StandaloneWindows64);
+            var graphics=PlayerSettings.GetGraphicsAPIs(BuildTarget.StandaloneWindows64);
+            try
+            {
+                PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.StandaloneWindows64,false);
+                PlayerSettings.SetGraphicsAPIs(BuildTarget.StandaloneWindows64,new[]{GraphicsDeviceType.Direct3D11});
+                Build("Release/0.0.1/RivetReach-0.0.1-alpha-windows-x64",BuildOptions.None);
+            }
+            finally
+            {
+                PlayerSettings.SetGraphicsAPIs(BuildTarget.StandaloneWindows64,graphics);
+                PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.StandaloneWindows64,automatic);
+            }
         }
         static void Build(string outputFolder="PlayerRevision4",BuildOptions options=BuildOptions.Development)
         {

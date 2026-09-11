@@ -1,6 +1,6 @@
 # Rivet Reach field guide
 
-Build, connect, and troubleshoot your workshop. These guides describe the current playable game, including Creative testing. Worlds and their stored resources currently last for the session.
+Build, connect, and troubleshoot your workshop. These guides describe the current playable game, including Creative testing. Save checkpoints preserve worlds and their stored resources across restarts.
 
 Start here:
 
