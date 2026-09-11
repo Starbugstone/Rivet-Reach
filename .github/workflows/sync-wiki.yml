@@ -39,6 +39,30 @@ jobs:
           set -euo pipefail
           rsync -av --delete --exclude='.git/' .docs/wiki/ "$RUNNER_TEMP/wiki/"
 
+      - name: Convert repository links to GitHub Wiki page links
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import os
+          import re
+          from pathlib import Path
+
+          wiki_dir = Path(os.environ["RUNNER_TEMP"]) / "wiki"
+          local_md_link = re.compile(
+              r'\((?:\./)?([A-Za-z0-9_-]+)\.md(#[^)]+)?\)'
+          )
+
+          for path in wiki_dir.rglob("*.md"):
+              original = path.read_text(encoding="utf-8")
+              converted = local_md_link.sub(
+                  lambda match: f"({match.group(1)}{match.group(2) or ''})",
+                  original,
+              )
+              if converted != original:
+                  path.write_text(converted, encoding="utf-8")
+                  print(f"Converted local wiki links in {path.name}")
+          PY
+
       - name: Commit and publish changes
         working-directory: ${{ runner.temp }}/wiki
         run: |
