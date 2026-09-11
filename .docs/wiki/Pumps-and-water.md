@@ -1,42 +1,204 @@
-# Pumps and renewable water
+# Pump water automatically
 
-A Pump draws from the **water source cell directly below it**. It requires **80 W** and takes two seconds at full power to move one source block into its 10 L output buffer. It stops when that buffer is full, power is absent, or an attached Blue Signal is OFF.
+A **Pump** extracts the **water source cell directly below it** and stores that water in its internal 10 L buffer. At full power it needs **80 W** and takes **2 seconds** to complete one extraction.
 
-The pump does not create water. Ordinary water simulation can renew a source without any pump or electricity.
+> **The Pump does not create water.** For continuous pumping, place it above a source that can renew naturally — the simple 2×2 pool below is the easiest setup.
 
-## Build a small renewable pool
+The most common mistake is placing the Pump **inside** the water layer. The Pump must occupy the block **above** the source water, with water directly beneath its intake.
 
-1. Dig a 2×2 basin, one block deep, with a solid floor beneath all four cells.
-2. Empty Water Buckets into two opposite corners. Allow water to update: all four cells become sources.
-3. Place the Pump **one cell above** one corner of the pool, leaving the water cell underneath.
-4. Connect Power Cable to the pump’s rear and Fluid Pipe to its right-hand outlet. Connect that fluid route to a tank INPUT or another accepting machine.
+## What renewable water looks like
+
+This is an actual in-game 2×2 renewable pool. Once two opposite corners have been filled and the water settles, all four cells are source water.
+
+![Actual in-game renewable water pool](https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/.docs/verification/fluids/fluid-renewable-pool.png)
+
+## Start here: build this simple pump setup
+
+### Blocks to bring
+
+| In-game block | Count | What it does |
+|---|---:|---|
+| <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/143.png" width="72"><br>**Pump** | **1** | Removes the source block directly below it and buffers 10 L |
+| <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/138.png" width="72"><br>**Power Cable** | As needed | Supplies the Pump's rear electrical socket |
+| <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/147.png" width="72"><br>**Fluid Pipe** | As needed | Carries water from the Pump's right-hand outlet |
+| <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/145.png" width="72"><br>**Water Tank** | **1** optional | Easy destination for your first test; a multiblock tank or another water-consuming machine also works |
+
+Also bring **two Water Buckets**, or one bucket plus a nearby source where you can refill it.
+
+## Build it step by step
+
+### 1 — Dig a 2×2 pool
+
+Dig four water cells, one block deep. All four cells need a **solid floor underneath**.
 
 ```text
-Side view                     Top view: water layer
+Top view
 
-       P  ← pump cell          S S
-       S  ← source below       S S
-████████  ← solid basin floor
-
-P is above S; they are separate cells.
+. .
+. .
 ```
 
-To place the pump over the water, use the side of a temporary block at the pump’s intended height, then remove that support. **Clicking the bottom of the basin places the pump inside the water layer.** That replaces a water cell and leaves solid ground directly below the intake.
+The floor below this layer must remain solid. Water source renewal needs that support.
 
-Open the pump to check **Below: water source**. “Blocked / not a source” means the intake height or block is wrong. Flowing water is not a source.
+### 2 — Fill opposite corners
 
-## Why does water return with no power?
+Place source water in two diagonally opposite corners:
 
-A missing water cell renews when two horizontal neighbours are sources and it has a solid floor or another source beneath it. This is natural fluid behaviour. A correctly positioned, unpowered pump leaves the source intact; if a bucket removes that source, the pool may refill it independently.
+```text
+S .
+. S
+```
 
-Water cannot renew through a machine or solid ground. If the pump occupies the fourth square of your pool and the block under it is sandstone, waiting or adding power cannot turn that sandstone into water. Move the pump up one cell.
+`S` = source water
 
-## Power and connection checks
+Allow the water simulation to update. The other two cells should fill and become sources too:
 
-- **No electrical power:** attach a running generator or a charged [battery](Electricity-and-batteries.md) to the rear power socket. Blue Signal does not supply energy.
-- **Disabled by signal:** turn the connected signal ON, or remove that optional control connection.
-- **Output full:** connect an accepting tank or take out a 10 L bucket.
-- **Waiting for source water:** check the cell directly below, not merely adjacent water.
-- **Underpowered:** the pump works proportionally more slowly. With zero watts, it makes no progress and extracts no water.
+```text
+S S
+S S
+```
 
-The boiler needs water before it can drive an alternator. Fill it manually with buckets for startup, then use the powered pump to supply more water.
+If the pool only contains flowing water, wait for it to settle and check that you really started with **two opposite source cells**.
+
+### 3 — Put the Pump ABOVE one source
+
+This is the important part. The Pump and its source occupy **two different vertical cells**.
+
+```text
+Side view
+
+       P  ← Pump
+       S  ← source water directly below
+████████  ← solid basin floor
+```
+
+Use the side of a temporary support block to place the Pump at the correct height, then remove the support.
+
+> **Do not click the bottom of the basin to place the Pump.** That puts the Pump inside the water layer, replaces the source cell, and leaves solid ground under its intake. The Pump will then report that there is no valid source below it.
+
+### 4 — Connect the correct ports
+
+The Pump has separate connections for power, water and optional automation:
+
+- **Rear:** Power Cable — the Pump needs up to **80 W**.
+- **Right:** Fluid Pipe output — connect this to storage or a machine that accepts water.
+- **Front:** optional Blue Signal input — leave it disconnected for normal always-on operation.
+- **Bottom:** the world-water intake — this is not a pipe connection; the source block itself must be directly below.
+
+If the ports face the wrong direction, open the Pump and use **Rotate ports 90°**. Rotation turns all of its ports together.
+
+**Power Cable does not carry water, and Fluid Pipe does not carry electricity.** Blue Signal is control only; it never supplies electrical power.
+
+### 5 — Give the water somewhere to go
+
+For a first test, connect the Fluid Pipe to a **Water Tank**. You can also connect it to:
+
+- a [multiblock tank](Tanks.md) through a Tank Fluid Port set to **INPUT**;
+- a Boiler Engine;
+- another machine or vessel that accepts water.
+
+The Pump stops when its 10 L buffer cannot accept another source extraction, so a valid output route matters for continuous operation.
+
+## Check the Pump interface
+
+The in-game Pump interface shows its source-water check, electrical allocation, signal state and internal water buffer.
+
+![Actual in-game Pump interface](https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/.docs/verification/industry-pump-ui.png)
+
+A healthy setup has all three basics:
+
+1. **source water directly below**;
+2. **electrical power** reaching the rear socket;
+3. **room in the output buffer**, normally because a Fluid Pipe is draining it.
+
+At full allocation the Pump completes its extraction after two seconds. If it receives less than 80 W, progress continues proportionally more slowly. With zero watts it makes no progress and removes no water.
+
+## Why the 2×2 pool keeps refilling
+
+The Pump removes a real source block. It is the **water simulation**, not the Pump, that replaces it.
+
+Suppose the Pump extracts the top-left source:
+
+```text
+Before extraction       Immediately after
+
+S S                     . S
+S S                     S S
+```
+
+The empty cell has two horizontal source neighbours and solid support underneath. Water is configured to renew sources in that situation, so the missing corner becomes a source again:
+
+```text
+S S
+S S
+```
+
+That renewal happens independently of electrical power. An unpowered Pump does not consume its source, while a source removed with a bucket can still be renewed by the pool.
+
+### What counts as renewable water?
+
+A missing water cell becomes a new source only when:
+
+- it has at least **two horizontally adjacent water sources**;
+- water source renewal is enabled — it is enabled for normal water;
+- the missing cell has **solid support or another water source underneath**.
+
+**Flowing water does not count as a source.** The Pump also refuses flowing water.
+
+Water cannot renew through a Pump, machine or solid block. If you accidentally place the Pump in the fourth square of the pool, the block beneath it is still basin floor — no amount of waiting or extra power can turn that floor into water. Move the Pump up one block.
+
+## Crafting the Pump
+
+The Pump is crafted at the **4×4 Machinist's Bench**. Its recipe is shapeless, so the ingredient positions do not matter.
+
+<table>
+<tr>
+<td align="center"><img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/127.png" width="64"><br><b>Machine Casing ×1</b></td>
+<td>+</td>
+<td align="center"><img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/125.png" width="64"><br><b>Iron Cog ×1</b></td>
+<td>+</td>
+<td align="center"><img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/122.png" width="64"><br><b>Copper Wire ×4</b></td>
+<td>+</td>
+<td align="center"><img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/123.png" width="64"><br><b>Copper Plate ×2</b></td>
+<td>→</td>
+<td align="center"><img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/143.png" width="72"><br><b>Pump ×1</b></td>
+</tr>
+</table>
+
+The Power Cable and Fluid Pipe are also Machinist's Bench components. Use the in-game recipe browser if you need their upstream components.
+
+## Water buckets and source water
+
+A Water Bucket places a **source** water cell. An empty Bucket can collect source water, but it cannot collect ordinary flowing water.
+
+For the 2×2 setup, place water in two opposite corners and let the other two cells renew naturally. Once all four are sources, the pool is ready for the Pump.
+
+Buckets are also useful for machine startup and emergency transfers. One filled bucket represents the same **10 L** quantity that the Pump holds after one completed extraction.
+
+## Starting a steam power loop
+
+There is a startup dependency to remember:
+
+- the Pump needs electricity;
+- the Boiler needs water before it can run;
+- the Alternator only produces electricity while its Boiler is running.
+
+If the Pump is meant to supply the same Boiler/Alternator pair that will eventually power it, the loop cannot start from completely empty machines. **Put water into the Boiler manually with buckets first**, or temporarily power the Pump from a charged [battery](Electricity-and-batteries.md) or another electrical source.
+
+Once the Boiler is running and the Alternator is supplying the electrical network, the Pump can take over the ongoing water supply.
+
+## Troubleshooting
+
+| Pump status or symptom | What it means / what to check |
+|---|---|
+| **No water / Below: blocked or not a source** | Check the cell directly below the Pump. The Pump must be one block above a genuine source, not sitting in the water layer. Flowing water is not accepted. |
+| **No electrical power** | Connect a powered network to the Pump's rear socket. A Blue Signal connection does not provide watts. |
+| **Underpowered** | The Pump is receiving less than 80 W. It still progresses, but more slowly. |
+| **Disabled by signal** | A Blue Signal connection is attached and currently OFF. Turn it ON or remove the optional control connection. |
+| **Output full** | The 10 L internal buffer cannot accept another extraction. Connect the right-hand Fluid Pipe output to something with free water capacity. |
+| **Works once, then stops** | Usually the output buffer is not draining, or the removed source is not renewing. Check both the fluid route and the 2×2 source layout. |
+| **Pool does not refill** | Make sure there are two horizontal source neighbours, solid support below, and that you did not replace a water cell with the Pump itself. |
+| **Pipe is connected but destination stays empty** | Check that the pipe reaches the Pump's right-hand nozzle, the destination accepts water, and a multiblock Tank Fluid Port is set to INPUT. |
+| **Boiler cannot start the Pump that feeds it** | Seed the Boiler with bucket water first or temporarily power the Pump from a battery/other source. |
+
+For larger storage setups, continue with [Build a multiblock tank](Tanks.md). For generators, cables and storage, see [Electricity and batteries](Electricity-and-batteries.md).
