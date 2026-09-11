@@ -6,6 +6,7 @@ This directory maintains the latest report and useful evidence for each feature.
 
 | Feature | Current evidence |
 | --- | --- |
+| Quit Without Saving, origin respawn and pickaxe balance | [Gameplay fixes](GAMEPLAY_FIX_RESULTS.md) — Editor/standalone quit, checkpoint preservation, surface spawning and ore timing |
 | Downloadable Windows 0.0.1 alpha | [Alpha build and release verification](ALPHA_0_0_1_RESULTS.md) — exact source commit, runtime checks and download integrity |
 | Item sidebar, recipe/uses navigation and Shift/Ctrl+Shift placement | [Recipe browser verification](RECIPE_BROWSER_RESULTS.md) |
 | Mouse feedback in menus and crafting | [Pointer responsiveness](POINTER_RESULTS.md) — moving-pointer timings and same-frame held-stack display |

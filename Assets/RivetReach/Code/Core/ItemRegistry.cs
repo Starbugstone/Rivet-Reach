@@ -113,9 +113,12 @@ namespace RivetReach
                 ((blockId==BlockId.Log||blockId==BlockId.Planks||blockId==BlockId.Workbench||blockId==BlockId.Chest)&&(tool&ToolCapability.Axe)!=0)||
                 ((blockId==BlockId.Dirt||blockId==BlockId.Grass||blockId==BlockId.Farmland)&&(tool&ToolCapability.Shovel)!=0)||
                 (blockId==BlockId.Leaves&&(tool&(ToolCapability.Hoe|ToolCapability.Blade))!=0);
-            return Get(blockId).fistSeconds/(effective?Math.Max(.1f,Get(held.Id).miningSpeed):1);
+            return MiningWorkSeconds(blockId)/(effective?Math.Max(.1f,Get(held.Id).miningSpeed):1);
         }
-        public float MiningSeconds(byte blockId,ToolCapability tool)=>!BlockId.Mineable(blockId,tool)?float.PositiveInfinity:Get(blockId).fistSeconds*
+        // Ores embedded in stone take at least 25% more work than their host.
+        // Keep harder authored ores and apply the held tool's speed after this floor.
+        float MiningWorkSeconds(byte blockId)=>BlockId.Ore(blockId)?Math.Max(Get(blockId).fistSeconds,Get(BlockId.Stone).fistSeconds*1.25f):Get(blockId).fistSeconds;
+        public float MiningSeconds(byte blockId,ToolCapability tool)=>!BlockId.Mineable(blockId,tool)?float.PositiveInfinity:MiningWorkSeconds(blockId)*
             (blockId==BlockId.Log&&(tool&ToolCapability.Axe)!=0?.3f:1f);
         public byte FistDrop(byte blockId){var item=Get(blockId);return item.fistDropId==0?blockId:item.fistDropId;}
     }

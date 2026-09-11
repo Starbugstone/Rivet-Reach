@@ -29,6 +29,13 @@ namespace RivetReach.Editor
                 Check(BlockId.Mineable(BlockId.DiamondOre,ToolCapability.Pickaxe,tier)==(tier>=ToolTier.Iron),"Diamond extraction gate");
                 Check(!BlockId.Mineable(BlockId.Bedrock,ToolCapability.Pickaxe,tier),"All tiers preserve bedrock");
                 if(tier>ToolTier.Wood)Check(items.MiningSeconds(BlockId.Stone,held)<items.MiningSeconds(BlockId.Stone,new ItemStack((byte)(pick-5),1)),"Higher tiers mine faster");
+                foreach(var ore in items.items.Where(i=>BlockId.Ore(i.runtimeId)))
+                {
+                    float seconds=items.MiningSeconds(ore.runtimeId,held);
+                    if(tier<BlockId.RequiredTier(ore.runtimeId)){Check(float.IsPositiveInfinity(seconds),"Under-tier pick cannot mine "+ore.stableId);continue;}
+                    Check(seconds>=items.MiningSeconds(BlockId.Stone,held)*1.25f-.0001f,"Ore takes at least 25% longer than stone with "+tier+": "+ore.stableId);
+                    if(tier>BlockId.RequiredTier(ore.runtimeId))Check(seconds<items.MiningSeconds(ore.runtimeId,new ItemStack((byte)(pick-5),1)),"Next pick tier mines ore faster: "+ore.stableId);
+                }
             }
             Check(!BlockId.Mineable(BlockId.Stone,ToolCapability.None,ToolTier.None)&&BlockId.Mineable(BlockId.Log,ToolCapability.None,ToolTier.None),"Bare hands gather wood before stone");
             Bootstrap(items,recipes,processing);

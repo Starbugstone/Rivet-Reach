@@ -1,0 +1,22 @@
+Safe origin spawn for seed 0
+Seed has dry supported feet
+Safe origin spawn for seed 1
+Seed has dry supported feet
+Safe origin spawn for seed 246813
+Seed has dry supported feet
+Safe origin spawn for seed 777
+Seed has dry supported feet
+Safe origin spawn for seed 2147483647
+Seed has dry supported feet
+Flooded origin selects another dry column
+Flooded surface cannot redirect respawn into a dry cave underneath
+Tall player construction provides a supported roof spawn
+Deep excavation can respawn safely above protected bedrock
+Search reaches dry ground near the 100-block boundary
+Fully blocked area fails without searching outside the circle
+One-block headroom cannot be a respawn destination
+Create isolated Editor checkpoint
+Real pause-menu quit button is available
+Editor Quit preserves checkpoint bytes after unsaved inventory edits
+Editor Quit creates no new checkpoint or backup
+Quit Without Saving exits Editor Play mode

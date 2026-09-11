@@ -12,6 +12,8 @@ The current local review executable is **`Builds/Creative/RivetReach.exe`**. Kee
 
 For the latest menu/crafting responsiveness changes, use **`Builds/RecipeBrowser/RivetReach.exe`**; [pointer verification](verification/POINTER_RESULTS.md) identifies this focused build and its checks.
 
+For the latest quit, respawn and mining-speed corrections, use **`Builds/GameplayFixes/RivetReach.exe`**; [gameplay verification](verification/GAMEPLAY_FIX_RESULTS.md) records the tested build. In an already-running Editor Play session, stop and restart Play to load the updated scripts.
+
 The normal build entry point is **Rivet Reach → Build Windows first POC**, or Windows PowerShell:
 
 ```powershell

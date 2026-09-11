@@ -32,7 +32,8 @@ namespace RivetReach
         public ScreenMode Mode {get;private set;}=ScreenMode.Title;
         public bool Started {get;private set;}
         public bool InventoryOpen=>Mode==ScreenMode.Inventory;
-        public bool Paused=>LoadingSave||Mode!=ScreenMode.Play&&Mode!=ScreenMode.Inventory;
+        public bool WaitingForRespawn {get;private set;}
+        public bool Paused=>LoadingSave||WaitingForRespawn||Mode!=ScreenMode.Play&&Mode!=ScreenMode.Inventory;
         public bool Diagnostics;
         public int Selected;
         public int Seed {get;private set;}
@@ -42,7 +43,7 @@ namespace RivetReach
         const string PlayerOverlapReason="Cannot place inside the player";
         float messageUntil;
         float invulnerableUntil;
-        public bool ReadyToPlay => Player!=null&&World.Ready(World.Address(Player.transform.position))&&World.Ready(World.Address(Player.transform.position+Vector3.up*2));
+        public bool ReadyToPlay => Player!=null&&World.Ready(World.Address(Player.transform.position-Vector3.up*.1f))&&World.Ready(World.Address(Player.transform.position))&&World.Ready(World.Address(Player.transform.position+Vector3.up*2));
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void Bootstrap()
         {
@@ -63,7 +64,7 @@ namespace RivetReach
         void CreateSession(int seed)
         {
             Seed=seed;Creative=false;LoadingSave=false;Selected=0;WorldId=Guid.NewGuid().ToString("N");SaveId=null;SaveName="Expedition";
-            invulnerableUntil=0;
+            invulnerableUntil=0;WaitingForRespawn=false;
             Sky.ResetClock();
             Inventory=new Inventory(id=>Registry.Get(id).stackLimit);
             OpenMachine=null;OpenStation=null;PersonalCrafting=new CraftingSession(Recipes,2,id=>Registry.Get(id).stackLimit);
@@ -107,6 +108,7 @@ namespace RivetReach
         void Update()
         {
             if(Input==null)return;
+            if(WaitingForRespawn&&ReadyToPlay){WaitingForRespawn=false;invulnerableUntil=Time.time+2;SetMode(Mode);}
             if(LoadingSave&&ReadyToPlay){LoadingSave=false;SetMode(Mode);}
             if(Started&&!Paused){Sky.Advance(Time.deltaTime);World.AdvanceGrass(Time.deltaTime);World.AdvanceTrees(Time.deltaTime);World.AdvanceFluids(Time.deltaTime);int ticks=Survival.Advance(Time.deltaTime);Industry.Advance(ticks);if(!Creative)Health.Advance(ticks,Hunger);}
             if((OpenStation!=null||OpenMachine!=null)&&(!World.Ready(StationPosition)||(World.Local(StationPosition)+Vector3.one*.5f-Player.transform.position).sqrMagnitude>36))SetMode(ScreenMode.Play);
@@ -162,31 +164,10 @@ namespace RivetReach
         public void Respawn()
         {
             if(!Health.Dead)return;
-            if(!TrySafeRespawn(out var spawn)){Notify("No safe respawn location found. Clear space near the original spawn.",8);return;}
+            if(!RespawnPlacement.TryFind(World.Get,out var spawn)){Notify("No safe respawn location within 100 blocks of world 0:0. Load a checkpoint or clear space near the origin.",8);return;}
             Health.Respawn();Hunger=new HungerState();invulnerableUntil=Time.time+2;
-            Player.ResetMotion();Player.transform.position=World.Local(spawn)+new Vector3(.5f,.02f,.5f);SetMode(ScreenMode.Play);Respawned?.Invoke();
-        }
-        bool TrySafeRespawn(out BlockPos spawn)
-        {
-            spawn=default;
-            // Search around the original spawn without deleting construction or creating blocks.
-            for(int radius=0;radius<=16;radius++)for(int z=-radius;z<=radius;z++)for(int x=-radius;x<=radius;x++)
-            {
-                if(Math.Max(Math.Abs(x),Math.Abs(z))!=radius)continue;
-                int h=World.Generator.Height(x,z);
-                for(int y=Math.Min(TerrainGenerator.MaxY-2,h+32);y>=h-8;y--)
-                {
-                    var p=new BlockPos(x,y,z);
-                    if(BlockId.Solid(World.Get(p.Offset(0,-1,0)))&&!BlockId.Solid(World.Get(p))&&!BlockId.Solid(World.Get(p.Offset(0,1,0)))){spawn=p;return true;}
-                }
-            }
-            // An extensively excavated/covered spawn is recoverable in an untouched nearby column.
-            for(int x=32;x<TerrainGenerator.HorizontalLimit;x*=2)
-            {
-                int h=World.Generator.Height(x,0);var p=new BlockPos(x,h+1,0);
-                if(BlockId.Solid(World.Get(p.Offset(0,-1,0)))&&!BlockId.Solid(World.Get(p))&&!BlockId.Solid(World.Get(p.Offset(0,1,0)))){spawn=p;return true;}
-            }
-            return false;
+            Player.ResetMotion();Player.transform.position=World.Local(spawn)+new Vector3(.5f,.02f,.5f);
+            WaitingForRespawn=!ReadyToPlay;SetMode(ScreenMode.Play);Respawned?.Invoke();
         }
         public bool PlacementPreview(out BlockPos cell,out string reason)
         {
@@ -254,7 +235,15 @@ namespace RivetReach
         {if(Message==text&&Time.unscaledTime<messageUntil)return;Message=text;messageUntil=Time.unscaledTime+seconds;}
         public void SetAppearance(bool female,int skin)
         {Player.Female=female;Player.Skin=skin;Player.RefreshAppearance();UI.RefreshPreview();}
-        public void Quit(){PlayerPrefs.Save();Application.Quit();}
+        public void Quit()
+        {
+            PlayerPrefs.Save();
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.ExitPlaymode();
+#else
+            Application.Quit();
+#endif
+        }
         void OnDestroy(){Time.timeScale=1;Cursor.lockState=CursorLockMode.None;Cursor.visible=true;if(Instance==this)Instance=null;}
     }
 

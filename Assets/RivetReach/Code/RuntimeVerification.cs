@@ -62,7 +62,9 @@ namespace RivetReach
             report.checks=checks.ToArray();report.errors=errors.ToArray();report.result=errors.Count==0?"PASS":"FAIL";
             if(frames.Count>0){frames.Sort();report.frameMedianMs=frames[frames.Count/2];report.frameP95Ms=frames[(int)((frames.Count-1)*.95f)];report.frameMaxMs=frames[frames.Count-1];}
             File.WriteAllText(Path.Combine(output,"runtime-report.json"),JsonUtility.ToJson(report,true));
-            Application.Quit(errors.Count==0?0:1);
+            if(errors.Count==0&&args.Contains("-rr-gameplay-fixes-review"))
+                game.UI.VisibleRoot.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b=>b.GetComponentInChildren<UnityEngine.UI.Text>().text=="QUIT WITHOUT SAVING").onClick.Invoke();
+            else Application.Quit(errors.Count==0?0:1);
         }
         void Update(){if(miningSample)report.miningFrameMaxMs=Math.Max(report.miningFrameMaxMs,Time.unscaledDeltaTime*1000);if(sampling){frames.Add(Time.unscaledDeltaTime*1000);if(drawCalls.Valid)report.drawCallsPeak=Math.Max(report.drawCallsPeak,(int)drawCalls.LastValue);report.allocatedMemoryBytes=Math.Max(report.allocatedMemoryBytes,UnityEngine.Profiling.Profiler.GetTotalAllocatedMemoryLong());}if(game!=null)report.residentPeak=Math.Max(report.residentPeak,game.World.ResidentCount);}
         void Check(bool value,string message){if(!value)throw new Exception("Runtime check failed: "+message);checks.Add(message);}
@@ -108,9 +110,11 @@ namespace RivetReach
             seedField=game.UI.VisibleRoot.GetComponentInChildren<UnityEngine.UI.InputField>();seedField.text="246813";StartButton().onClick.Invoke();
             Check(game.Seed==246813&&game.World.Generator.Seed==246813,"Entering an explicit seed starts that reproducible world");
             game.World.ViewDistance=Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-fluid-review")?4:10;game.Diagnostics=true;
-            if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-save-review"||arg=="-rr-workshop-followup-review"||arg=="-rr-browser-review"||arg=="-rr-creative-review"||arg=="-rr-torch-review"||arg=="-rr-industry-review"||arg=="-rr-multiblock-review"||arg=="-rr-clearance-review"))game.World.ViewDistance=4;
+            if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-gameplay-fixes-review"||arg=="-rr-save-review"||arg=="-rr-workshop-followup-review"||arg=="-rr-browser-review"||arg=="-rr-creative-review"||arg=="-rr-torch-review"||arg=="-rr-industry-review"||arg=="-rr-multiblock-review"||arg=="-rr-clearance-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-azure-review")||Environment.GetCommandLineArgs().Contains("-rr-ore-variants-review"))game.World.ViewDistance=4;
             yield return Settle();report.firstReadySeconds=Time.realtimeSinceStartup-began;
+            if(Environment.GetCommandLineArgs().Contains("-rr-gameplay-fixes-review"))
+            {report.workload="Origin respawn, ore mining progression and Quit Without Saving";yield return ReviewGameplayFixes();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-ore-variants-review"))
             {report.workload="Six ore materials, shared geometry, hidden terrain, held reuse and 256-object sample";yield return ReviewOreVariants();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-azure-review"))
