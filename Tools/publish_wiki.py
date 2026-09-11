@@ -1,6 +1,8 @@
 """Validate and copy .docs/wiki into a GitHub wiki checkout; commit/push separately."""
 from html import unescape
 from html.parser import HTMLParser
+from functools import cache
+from hashlib import sha256
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 import argparse
@@ -91,12 +93,19 @@ def validate():
     print(f'Validated {len(pages)} pages and {count} local links/images; all item icons link to their item page.')
 
 
+@cache
+def image_url(value):
+    # Raw GitHub URLs can otherwise keep serving the old art after a wiki push.
+    version = sha256((SOURCE / value).read_bytes()).hexdigest()[:12]
+    return RAW + value + '?v=' + version
+
+
 def render(text):
     def target(value):
         if re.fullmatch(r'[A-Za-z0-9_-]+\.md(?:#[^\s]*)?', value):
             return value.replace('.md', '', 1)
         if value.startswith(('icons/', 'images/')):
-            return RAW + value
+            return image_url(value)
         return value
     text = re.sub(r'\]\(([^\s)]+)\)', lambda m: '](' + target(m[1]) + ')', text)
     return re.sub(r'\b(href|src)="([^"]+)"', lambda m: m[1] + '="' + target(m[2]) + '"', text)

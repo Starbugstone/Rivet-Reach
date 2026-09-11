@@ -30,4 +30,6 @@ Run the focused player check with `-rr-verify -rr-azure-review -rr-output <absol
 
 The [Azure ore page](../wiki/Item-azure-ore.md), catalog and ingredient references use refreshed icon 120 exported from the actual game UI source. The page also includes the current deposit and held-model screenshots. Azure Crystal and the other items retain their existing artwork. Wiki sources are checked with `Tools/generate_wiki_items.py` and `Tools/publish_wiki.py --check` before publishing.
 
+Live browser review exposed GitHub's cached old icon despite the correct published PNG. The publisher now versions image URLs using their content hash; this also applies to future artwork updates.
+
 Source renders and actual Unity screenshots were visually inspected against the concept. The low-resolution concept is a direction, not an exact surface specification; final artistic acceptance remains with the user. The terrain representation remains a textured chunk mesh, so its silhouette is cubic while the held/dropped model has geometric relief. These focused checks do not measure sustained performance or revalidate every gameplay system. The existing downloadable alpha is not rebuilt or replaced by this asset review build.

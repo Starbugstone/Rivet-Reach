@@ -36,6 +36,8 @@ git -C /path/to/Rivet-Reach.wiki status --short
 
 The tool converts local `.md` page links, including HTML icon links and section fragments, into GitHub wiki page URLs. It copies image directories and uses raw wiki image URLs for reliable GitHub embedding. A manifest tracks published files so later removals affect only previously managed files; unrelated wiki files are preserved. The first publish removes Unity icon `.meta` files left by the older workflow. Screenshots use Git LFS in the main repository; published images must be real PNG bytes, never LFS pointer text.
 
+Published image URLs include a content-hash version query. Updating an icon or screenshot changes its URL so GitHub/browser caches cannot retain the previous artwork under the same address. Local wiki sources keep their ordinary relative image paths.
+
 Commit and push the owned repository changes to the current branch, then commit and push the reviewed wiki checkout. This is covered by the repository's standing publishing authorization. Verify the live item index and representative ingredient links after deployment. If a push races with remote edits, fetch and reconcile; do not force-push.
 
 On `main`, [Sync GitHub Wiki](../.github/workflows/sync-wiki.yml) runs the same publishing tool automatically when wiki pages, exported data or publishing scripts change. It checks out LFS content, validates the sources, copies all inventory icons, converts links and pushes the wiki commit. A successful workflow can fulfill the wiki deployment step; inspect its result before also pushing a manual checkout.
