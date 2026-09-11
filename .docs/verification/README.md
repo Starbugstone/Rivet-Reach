@@ -8,6 +8,7 @@ This directory maintains the latest report and useful evidence for each feature.
 | --- | --- |
 | Downloadable Windows 0.0.1 alpha | [Alpha build and release verification](ALPHA_0_0_1_RESULTS.md) — exact source commit, runtime checks and download integrity |
 | Item sidebar, recipe/uses navigation and Shift/Ctrl+Shift placement | [Recipe browser verification](RECIPE_BROWSER_RESULTS.md) |
+| Mouse feedback in menus and crafting | [Pointer responsiveness](POINTER_RESULTS.md) — moving-pointer timings and same-frame held-stack display |
 | Retained crafting screens and stale-input protection | [Screen reuse verification](SCREEN_REUSE_RESULTS.md) — opening costs, station/save rebinding and conservation |
 | Performance and live Editor script reloads | [Performance pass](PERFORMANCE_RESULTS.md) — measured UI/meshing costs, streaming checks and preserved gameplay |
 | Terrain/tree shadow stability and lighting cost | [Sun-shadow ticks](SUN_SHADOW_RESULTS.md), plus the earlier [AO sampling check](SHADOW_RESULTS.md) |

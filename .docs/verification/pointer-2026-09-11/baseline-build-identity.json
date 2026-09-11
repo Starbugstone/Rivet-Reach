@@ -1,0 +1,12 @@
+{
+  "role": "baseline production source with new pointer benchmark",
+  "commit": "ebe7e9f8de003e8201f121ac07312c5161695250",
+  "assemblySha256": "cf03c3e72057da60146b05add08879a996d2d8f1b53139575611652772cb19e2",
+  "sourceHashes": {
+    "Assets/RivetReach/Code/UI/GameUI.cs": "de327ade212830b7e64c6b74f0e42d91170cee2520e7d01942d0a276f7b4f536",
+    "Assets/RivetReach/Code/UI/GameUIBrowser.cs": "8e216af4320b6c98cf7c8992e9a43a5614a41786885ebf0c9979ba945f8bbc7f",
+    "Assets/RivetReach/Code/UI/GameUIScreenReuse.cs": "7960b5af30562b959f1afa2396000e6156521cb8ec1dfc96027e81999c279445",
+    "Assets/RivetReach/Code/RecipeBrowserVerification.cs": "846c45056a017e3c4c6faecf589dda64b32a3aa56e592fc48f5d5beb59e2e06f",
+    "Assets/RivetReach/Code/ScreenReuseVerification.cs": "a06cffbca8f585e58c1e3dbf9a71d6cbc5d4ceee83e31656c4bc1e7fd04fbc70"
+  }
+}

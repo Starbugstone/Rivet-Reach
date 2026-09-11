@@ -16,6 +16,8 @@ namespace RivetReach
             public Button creativeToggle;
             public Canvas canvas;
             public GraphicRaycaster raycaster;
+            public readonly List<Canvas> childCanvases=new List<Canvas>();
+            public readonly List<GraphicRaycaster> childRaycasters=new List<GraphicRaycaster>();
             public readonly List<Selectable> selectables=new List<Selectable>();
             public int selectableRevision=-1;
             public RectTransform stationHost;
@@ -180,11 +182,15 @@ namespace RivetReach
             RefreshSelectableCache(currentScreen);
             foreach(var selectable in currentScreen.selectables)if(selectable!=null)selectable.enabled=true;
             currentScreen.canvas.enabled=true;currentScreen.raycaster.enabled=true;
+            foreach(var child in currentScreen.childCanvases)child.enabled=true;
+            foreach(var child in currentScreen.childRaycasters)child.enabled=true;
         }
         void HideRetainedScreen(ScreenWidgets screen)
         {
             using var measurement=hideScreenMarker.Auto();
             screen.canvas.enabled=false;screen.raycaster.enabled=false;
+            foreach(var child in screen.childCanvases)child.enabled=false;
+            foreach(var child in screen.childRaycasters)child.enabled=false;
             RefreshSelectableCache(screen);
             foreach(var selectable in screen.selectables)if(selectable!=null)selectable.enabled=false;
         }
@@ -202,6 +208,13 @@ namespace RivetReach
             screen.raycaster=screen.root.gameObject.AddComponent<GraphicRaycaster>();screen.raycaster.enabled=false;
             screen.root.anchorMin=screen.root.anchorMax=screen.root.pivot=new Vector2(.5f,.5f);screen.root.anchoredPosition=Vector2.zero;
             return screen;
+        }
+        void IsolateCanvas(RectTransform region,bool interactive=false)
+        {
+            // Keep frequently changing controls/text from rebatching the entire inventory.
+            // Retained child canvases must follow the published screen's visibility/input.
+            currentScreen.childCanvases.Add(region.gameObject.AddComponent<Canvas>());
+            if(interactive)currentScreen.childRaycasters.Add(region.gameObject.AddComponent<GraphicRaycaster>());
         }
         void ResetDisplayedState()
         {

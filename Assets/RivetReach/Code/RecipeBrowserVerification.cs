@@ -108,10 +108,72 @@ namespace RivetReach
             game.UI.HeldStack = default;
             System.IO.File.WriteAllLines(System.IO.Path.Combine(output, "crafting-frame-counters.csv"), lines);
         }
+        IEnumerator MeasurePointerFrames()
+        {
+            int cap=Application.targetFrameRate;
+            Application.targetFrameRate=-1;
+            var lines=new List<string>{"Unity "+Application.unityVersion+" | "+SystemInfo.processorType+" | "+SystemInfo.graphicsDeviceName,
+                "Uncapped moving-pointer workload; 60 warmup + 240 measured frames per phase. Profiler times overlap; frame time is not physical mouse-to-display latency.",
+                "phase,counter,median_ms,p95_ms,max_ms"};
+            string[] names={"Main Thread","GPU Frame Time","Canvas.GeometryJob","Canvas.BuildBatch","UIEvents.WillRenderCanvases"};
+            var handles=new List<Unity.Profiling.LowLevel.Unsafe.ProfilerRecorderHandle>();
+            Unity.Profiling.LowLevel.Unsafe.ProfilerRecorderHandle.GetAvailable(handles);
+            var descriptions=handles.Select(Unity.Profiling.LowLevel.Unsafe.ProfilerRecorderHandle.GetDescription).Where(d=>names.Contains(d.Name)).ToArray();
+            var recorders=descriptions.Select(d=>Unity.Profiling.ProfilerRecorder.StartNew(d.Category,d.Name,1)).ToArray();
+            Vector2 Center(Component widget)
+            {
+                var rect=(RectTransform)widget.transform;
+                return RectTransformUtility.WorldToScreenPoint(null,rect.TransformPoint(rect.rect.center));
+            }
+            try
+            {
+                foreach(string phase in new[]{"menu hover","sidebar hover","held stack motion","crafting hover"})
+                {
+                    game.UI.HeldStack=default;
+                    game.SetMode(phase=="menu hover"?ScreenMode.Pause:ScreenMode.Inventory);
+                    Canvas.ForceUpdateCanvases();yield return null;
+                    Vector2[] points;
+                    if(phase=="menu hover")points=game.UI.VisibleRoot.GetComponentsInChildren<Button>().Select(Center).ToArray();
+                    else if(phase=="sidebar hover")points=game.UI.VisibleRoot.GetComponentsInChildren<BrowserItemView>().Where(v=>v.Item!=0).Select(Center).ToArray();
+                    else points=game.UI.VisibleRoot.GetComponentsInChildren<SlotView>().Where(v=>v.Index<Inventory.SlotCount).Select(Center).ToArray();
+                    if(phase=="held stack motion")game.UI.HeldStack=new ItemStack(BlockId.Log,32);
+                    var frameTimes=new List<double>();
+                    var samples=recorders.Select(r=>new List<double>()).ToArray();
+                    for(int frame=0;frame<300;frame++)
+                    {
+                        if(phase=="crafting hover")
+                        {
+                            game.UI.HeldStack=default;game.Crafting.Grid.Add(BlockId.Log,1);
+                            game.UI.ClickSlot(CraftResultSlot,false,false);
+                        }
+                        InputSystem.QueueStateEvent(Mouse.current,new MouseState{position=points[frame%points.Length]});
+                        yield return null;
+                        if(frame<60)continue;
+                        frameTimes.Add(Time.unscaledDeltaTime*1000.0);
+                        for(int i=0;i<recorders.Length;i++)if(recorders[i].Valid)samples[i].Add(recorders[i].LastValue/1000000.0);
+                    }
+                    void Record(string name,List<double> values)
+                    {
+                        if(values.Count==0)return;values.Sort();
+                        lines.Add(System.FormattableString.Invariant($"{phase},{name},{values[values.Count/2]:F6},{values[(int)((values.Count-1)*.95)]:F6},{values[values.Count-1]:F6}"));
+                    }
+                    Record("Frame interval",frameTimes);
+                    for(int i=0;i<recorders.Length;i++)Record(descriptions[i].Name,samples[i]);
+                }
+            }
+            finally
+            {
+                foreach(var recorder in recorders)recorder.Dispose();
+                Application.targetFrameRate=cap;game.UI.HeldStack=default;
+            }
+            System.IO.File.WriteAllLines(System.IO.Path.Combine(output,"pointer-timings.csv"),lines);
+            InputSystem.QueueStateEvent(Mouse.current,new MouseState{position=Vector2.zero});yield return null;
+        }
         IEnumerator ReviewRecipeBrowser()
         {
             game.Mobs.enabled = false; game.Diagnostics = false;
             game.SetMode(ScreenMode.Inventory); yield return null; yield return null;
+            yield return MeasurePointerFrames();
             yield return MeasureCraftingInterface();
             InputField Search() => game.UI.VisibleRoot.GetComponentsInChildren<InputField>().Single(f => f.name == "Item browser search");
             BrowserItemView Item(byte id) => game.UI.VisibleRoot.GetComponentsInChildren<BrowserItemView>().First(v => v.Item == id && v.name.StartsWith("Browse "));

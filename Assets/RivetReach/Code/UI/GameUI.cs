@@ -51,8 +51,13 @@ namespace RivetReach
         {
             var image=Panel(parent,x,y,w,h,primary?new Color(.29f,.45f,.43f):slate);var button=image.gameObject.AddComponent<BoundUIButton>();button.Owner=this;button.targetGraphic=image;
             var colours=button.colors;colours.highlightedColor=new Color(1.2f,1.2f,1.15f);colours.pressedColor=new Color(.7f,.8f,.75f);button.colors=colours;
+            ImmediateFeedback(button);
             var label=Label(image.transform,text,10,0,w-20,h,18);label.alignment=TextAnchor.MiddleCenter;
             button.onClick.AddListener(()=>{if(AcceptWidget(button))action();});return button;
+        }
+        static void ImmediateFeedback(Selectable widget)
+        {
+            var colours=widget.colors;colours.fadeDuration=0;widget.colors=colours;
         }
         static readonly Unity.Profiling.ProfilerMarker rebuildMarker = new Unity.Profiling.ProfilerMarker("RivetReach.UI.Rebuild");
         static readonly Unity.Profiling.ProfilerMarker slotInputMarker = new Unity.Profiling.ProfilerMarker("RivetReach.UI.SlotInput");
@@ -208,7 +213,7 @@ namespace RivetReach
             slider.fillRect=fill.rectTransform;
             var handle=Panel(track.transform,0,0,18,24,pale);
             handle.rectTransform.anchorMin=handle.rectTransform.anchorMax=handle.rectTransform.pivot=new Vector2(.5f,.5f);handle.rectTransform.anchoredPosition=Vector2.zero;
-            slider.handleRect=handle.rectTransform;slider.targetGraphic=handle;
+            slider.handleRect=handle.rectTransform;slider.targetGraphic=handle;ImmediateFeedback(slider);
             slider.value=initial;slider.onValueChanged.AddListener(v=>{change(v);value.text=v.ToString("0.##");});
         }
         bool rightPainting;
@@ -316,6 +321,21 @@ namespace RivetReach
                 progress.rectTransform.sizeDelta=new Vector2(120*Mathf.Clamp01(game.Player.MiningProgress),3);
             }
             if(selectedLabel!=null){var s=game.Inventory.Slots[game.Selected];selectedLabel.text=s.Empty?"BARE HAND":game.Registry.Get(s.Id).displayName+"  ·  "+s.Count;}
+            frameAverage=Mathf.Lerp(frameAverage,Time.unscaledDeltaTime,.05f);
+            if(diagnosticsPanel!=null)diagnosticsPanel.SetActive(game.Diagnostics);
+            if(worldTime!=null)
+            {
+                var clock=game.Sky.Clock;int minute=(int)(clock.Hour*60);
+                worldTime.text=$"Day {clock.DayNumber} · {minute/60:00}:{minute%60:00}\n{clock.MoonPhaseName}";
+            }
+            if(diagnostics!=null)diagnostics.text=game.Diagnostics?$"{1/Mathf.Max(.001f,frameAverage):0} fps · {frameAverage*1000:0.0} ms\nWorld: {TerrainGenerator.WorldId} · seed {game.Seed} · {game.World.Address(game.Player.transform.position)}\nChunks {game.World.ReadyCount}/{game.World.ResidentCount} · queue {game.World.PendingCount}\nGeneration + mesh {game.World.LastBuildMs:0.0} ms · edit mesh {game.World.LastEditMeshMs:0.0} ms\nTriangles {game.World.MeshTriangles:N0} · changes {game.World.EditCount} · piles {game.Items.Piles.Count}\nStale jobs rejected {game.World.RejectedJobs} · origin {game.World.Origin}\nPlacement: {game.PlacementDiagnostic??"No attempt yet"}\nIndustry: {game.Industry.Simulation.Machines.Count} assemblies · tick {game.Industry.Simulation.LastStepMs:0.00} ms · {(game.Industry.Simulation.Rebuilding?"Connecting":"Ready")}":"";
+            if(preview!=null&&previewRoot.activeSelf)preview.Animate(.12f,false,Time.unscaledTime*2);
+        }
+        void LateUpdate()
+        {
+            // EventSystem may run after Update. Publish the held item after this frame's
+            // clicks/drags so pickup and count changes do not wait another rendered frame.
+            if(game==null)return;
             if(heldRoot!=null)
             {
                 var cursorStack=creativeDrag.Empty?HeldStack:creativeDrag;
@@ -328,15 +348,6 @@ namespace RivetReach
                     { heldIcon.texture=icons[cursorStack.Id];heldLabel.text=cursorStack.Count.ToString();shownHeld=cursorStack; }
                 }
             }
-            frameAverage=Mathf.Lerp(frameAverage,Time.unscaledDeltaTime,.05f);
-            if(diagnosticsPanel!=null)diagnosticsPanel.SetActive(game.Diagnostics);
-            if(worldTime!=null)
-            {
-                var clock=game.Sky.Clock;int minute=(int)(clock.Hour*60);
-                worldTime.text=$"Day {clock.DayNumber} · {minute/60:00}:{minute%60:00}\n{clock.MoonPhaseName}";
-            }
-            if(diagnostics!=null)diagnostics.text=game.Diagnostics?$"{1/Mathf.Max(.001f,frameAverage):0} fps · {frameAverage*1000:0.0} ms\nWorld: {TerrainGenerator.WorldId} · seed {game.Seed} · {game.World.Address(game.Player.transform.position)}\nChunks {game.World.ReadyCount}/{game.World.ResidentCount} · queue {game.World.PendingCount}\nGeneration + mesh {game.World.LastBuildMs:0.0} ms · edit mesh {game.World.LastEditMeshMs:0.0} ms\nTriangles {game.World.MeshTriangles:N0} · changes {game.World.EditCount} · piles {game.Items.Piles.Count}\nStale jobs rejected {game.World.RejectedJobs} · origin {game.World.Origin}\nPlacement: {game.PlacementDiagnostic??"No attempt yet"}\nIndustry: {game.Industry.Simulation.Machines.Count} assemblies · tick {game.Industry.Simulation.LastStepMs:0.00} ms · {(game.Industry.Simulation.Rebuilding?"Connecting":"Ready")}":"";
-            if(preview!=null&&previewRoot.activeSelf)preview.Animate(.12f,false,Time.unscaledTime*2);
         }
         Rect PortraitUV(float width,float height)
         {

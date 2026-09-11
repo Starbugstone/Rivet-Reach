@@ -10,6 +10,8 @@ Open this repository in the pinned Unity Editor, open `Assets/RivetReach/Scenes/
 
 The current local review executable is **`Builds/Creative/RivetReach.exe`**. Keep its adjacent data folder, DLLs and Mono runtime together. Start Expedition uses a fresh random world seed, or the optional signed 32-bit seed entered on the title screen. Nearby terrain prepares before movement can enter it.
 
+For the latest menu/crafting responsiveness changes, use **`Builds/RecipeBrowser/RivetReach.exe`**; [pointer verification](verification/POINTER_RESULTS.md) identifies this focused build and its checks.
+
 The normal build entry point is **Rivet Reach → Build Windows first POC**, or Windows PowerShell:
 
 ```powershell

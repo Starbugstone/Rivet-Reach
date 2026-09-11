@@ -1,0 +1,113 @@
+phase,counter,unit,samples,median,p95,max
+Raw profiler units are retained; zero or missing GPU counters do not establish GPU cost.
+idle inventory,Main Thread,TimeNanoseconds,120,11098200,11111100,11306000
+idle inventory,Profiler.CollectUICanvasStats,TimeNanoseconds,120,200,700,900
+idle inventory,GC.Alloc,TimeNanoseconds,120,400,1400,7700
+idle inventory,Canvas.RenderSubBatch,TimeNanoseconds,120,0,0,0
+idle inventory,Canvas.PrepareBatches,TimeNanoseconds,120,0,0,0
+idle inventory,Canvas.GeometryJob,TimeNanoseconds,120,0,0,0
+idle inventory,Canvas.PrepareBatchesJob,TimeNanoseconds,120,0,0,0
+idle inventory,Canvas.SortJob,TimeNanoseconds,120,0,0,0
+idle inventory,Canvas.CombineInstructionsJob,TimeNanoseconds,120,0,0,0
+idle inventory,Canvas.SplitInstructionsJob,TimeNanoseconds,120,0,0,0
+idle inventory,Canvas.Sort,TimeNanoseconds,120,0,0,0
+idle inventory,CanvasRenderer.SyncClipRect,TimeNanoseconds,120,0,0,0
+idle inventory,CanvasRenderer.SyncWorldRect,TimeNanoseconds,120,0,0,0
+idle inventory,CanvasRenderer.SyncTransform,TimeNanoseconds,120,0,0,0
+idle inventory,Canvas.OnAllAssetImport,TimeNanoseconds,120,0,0,0
+idle inventory,Canvas.BuildBatch,TimeNanoseconds,120,0,0,0
+idle inventory,Canvas.RenderOverlays,TimeNanoseconds,120,397200,647200,857100
+idle inventory,GPU Frame Time,TimeNanoseconds,120,3400192,4181759,4847872
+idle inventory,RivetReach.UI.Rebuild,TimeNanoseconds,120,0,0,0
+idle inventory,RivetReach.UI.SlotInput,TimeNanoseconds,120,0,0,0
+idle inventory,RivetReach.UI.RefreshSlots,TimeNanoseconds,120,0,0,0
+idle inventory,RivetReach.UI.BuildInventoryShell,TimeNanoseconds,120,0,0,0
+idle inventory,RivetReach.UI.RecipeView,TimeNanoseconds,120,0,0,0
+idle inventory,RivetReach.UI.RecipeFill,TimeNanoseconds,120,0,0,0
+idle inventory,RivetReach.UI.HideScreen,TimeNanoseconds,120,0,0,0
+idle inventory,RivetReach.UI.BindStation,TimeNanoseconds,120,0,0,0
+idle inventory,RivetReach.UI.RefreshBinding,TimeNanoseconds,120,0,0,0
+idle inventory,RivetReach.UI.CreateScreen,TimeNanoseconds,120,0,0,0
+idle inventory,EarlyUpdate.UpdateCanvasRectTransform,TimeNanoseconds,120,10000,16000,25300
+idle inventory,PostLateUpdate.PlayerUpdateCanvases,TimeNanoseconds,120,21500,33600,43600
+idle inventory,UIEvents.UpdateCanvasRectTransform,TimeNanoseconds,120,6900,9200,22900
+idle inventory,UIEvents.AlignCanvasRectTransformWithCamera,TimeNanoseconds,120,100,100,600
+idle inventory,UIEvents.WillRenderCanvases,TimeNanoseconds,120,13900,20200,28000
+idle inventory,PostLateUpdate.PlayerEmitCanvasGeometry,TimeNanoseconds,120,1500,2100,16600
+idle inventory,UIEvents.CanvasManagerEmitOffScreenGeometry,TimeNanoseconds,120,900,1500,16200
+idle inventory,UIEvents.CanvasmanagerEmitOnScreenGeometry,TimeNanoseconds,120,200,500,900
+idle inventory,UIEvents.CanvasManagerRenderOverlays,TimeNanoseconds,120,46800,73600,89600
+craft every frame,Main Thread,TimeNanoseconds,120,11098800,11139000,11744000
+craft every frame,Profiler.CollectUICanvasStats,TimeNanoseconds,120,200,300,800
+craft every frame,GC.Alloc,TimeNanoseconds,120,500,1200,2000
+craft every frame,Canvas.RenderSubBatch,TimeNanoseconds,120,0,0,0
+craft every frame,Canvas.PrepareBatches,TimeNanoseconds,120,6900,8900,35200
+craft every frame,Canvas.GeometryJob,TimeNanoseconds,120,45500,84800,112700
+craft every frame,Canvas.PrepareBatchesJob,TimeNanoseconds,120,7200,9300,35600
+craft every frame,Canvas.SortJob,TimeNanoseconds,120,8200,10200,31000
+craft every frame,Canvas.CombineInstructionsJob,TimeNanoseconds,120,600,800,1100
+craft every frame,Canvas.SplitInstructionsJob,TimeNanoseconds,120,5000,6700,29300
+craft every frame,Canvas.Sort,TimeNanoseconds,120,7600,9400,30000
+craft every frame,CanvasRenderer.SyncClipRect,TimeNanoseconds,120,0,0,0
+craft every frame,CanvasRenderer.SyncWorldRect,TimeNanoseconds,120,300,500,900
+craft every frame,CanvasRenderer.SyncTransform,TimeNanoseconds,120,0,0,0
+craft every frame,Canvas.OnAllAssetImport,TimeNanoseconds,120,0,0,0
+craft every frame,Canvas.BuildBatch,TimeNanoseconds,120,9600,11700,34700
+craft every frame,Canvas.RenderOverlays,TimeNanoseconds,120,383100,479900,732900
+craft every frame,GPU Frame Time,TimeNanoseconds,120,3387392,3981312,4660992
+craft every frame,RivetReach.UI.Rebuild,TimeNanoseconds,120,0,0,0
+craft every frame,RivetReach.UI.SlotInput,TimeNanoseconds,120,23800,40700,57700
+craft every frame,RivetReach.UI.RefreshSlots,TimeNanoseconds,120,13800,21200,46800
+craft every frame,RivetReach.UI.BuildInventoryShell,TimeNanoseconds,120,0,0,0
+craft every frame,RivetReach.UI.RecipeView,TimeNanoseconds,120,0,0,0
+craft every frame,RivetReach.UI.RecipeFill,TimeNanoseconds,120,0,0,0
+craft every frame,RivetReach.UI.HideScreen,TimeNanoseconds,120,0,0,0
+craft every frame,RivetReach.UI.BindStation,TimeNanoseconds,120,0,0,0
+craft every frame,RivetReach.UI.RefreshBinding,TimeNanoseconds,120,0,0,0
+craft every frame,RivetReach.UI.CreateScreen,TimeNanoseconds,120,0,0,0
+craft every frame,EarlyUpdate.UpdateCanvasRectTransform,TimeNanoseconds,120,9500,16500,41400
+craft every frame,PostLateUpdate.PlayerUpdateCanvases,TimeNanoseconds,120,93700,123600,142800
+craft every frame,UIEvents.UpdateCanvasRectTransform,TimeNanoseconds,120,6100,20200,24900
+craft every frame,UIEvents.AlignCanvasRectTransformWithCamera,TimeNanoseconds,120,100,100,600
+craft every frame,UIEvents.WillRenderCanvases,TimeNanoseconds,120,86800,110100,135200
+craft every frame,PostLateUpdate.PlayerEmitCanvasGeometry,TimeNanoseconds,120,1200,15400,18100
+craft every frame,UIEvents.CanvasManagerEmitOffScreenGeometry,TimeNanoseconds,120,700,14700,17600
+craft every frame,UIEvents.CanvasmanagerEmitOnScreenGeometry,TimeNanoseconds,120,200,300,16300
+craft every frame,UIEvents.CanvasManagerRenderOverlays,TimeNanoseconds,120,43900,69200,91600
+open every frame,Main Thread,TimeNanoseconds,120,11100800,12473500,15727300
+open every frame,Profiler.CollectUICanvasStats,TimeNanoseconds,120,200,200,700
+open every frame,GC.Alloc,TimeNanoseconds,120,6400,7600,11900
+open every frame,Canvas.RenderSubBatch,TimeNanoseconds,120,0,0,0
+open every frame,Canvas.PrepareBatches,TimeNanoseconds,120,79800,126300,167100
+open every frame,Canvas.GeometryJob,TimeNanoseconds,120,556400,725000,855200
+open every frame,Canvas.PrepareBatchesJob,TimeNanoseconds,120,81400,129100,168800
+open every frame,Canvas.SortJob,TimeNanoseconds,120,154100,211400,242700
+open every frame,Canvas.CombineInstructionsJob,TimeNanoseconds,120,4100,5000,6000
+open every frame,Canvas.SplitInstructionsJob,TimeNanoseconds,120,30200,54300,72800
+open every frame,Canvas.Sort,TimeNanoseconds,120,151000,206400,238600
+open every frame,CanvasRenderer.SyncClipRect,TimeNanoseconds,120,10500,12300,38700
+open every frame,CanvasRenderer.SyncWorldRect,TimeNanoseconds,120,28800,42600,64200
+open every frame,CanvasRenderer.SyncTransform,TimeNanoseconds,120,57700,74700,102400
+open every frame,Canvas.OnAllAssetImport,TimeNanoseconds,120,0,0,0
+open every frame,Canvas.BuildBatch,TimeNanoseconds,120,32400,45400,63600
+open every frame,Canvas.RenderOverlays,TimeNanoseconds,120,360700,468400,798500
+open every frame,GPU Frame Time,TimeNanoseconds,120,3452928,4032511,4676608
+open every frame,RivetReach.UI.Rebuild,TimeNanoseconds,120,4155500,5333200,7637200
+open every frame,RivetReach.UI.SlotInput,TimeNanoseconds,120,0,0,0
+open every frame,RivetReach.UI.RefreshSlots,TimeNanoseconds,120,36700,45200,76700
+open every frame,RivetReach.UI.BuildInventoryShell,TimeNanoseconds,120,0,0,0
+open every frame,RivetReach.UI.RecipeView,TimeNanoseconds,120,0,0,0
+open every frame,RivetReach.UI.RecipeFill,TimeNanoseconds,120,0,0,0
+open every frame,RivetReach.UI.HideScreen,TimeNanoseconds,120,1701900,1871900,3413100
+open every frame,RivetReach.UI.BindStation,TimeNanoseconds,120,110500,135800,201800
+open every frame,RivetReach.UI.RefreshBinding,TimeNanoseconds,120,46800,57700,89500
+open every frame,RivetReach.UI.CreateScreen,TimeNanoseconds,120,0,0,0
+open every frame,EarlyUpdate.UpdateCanvasRectTransform,TimeNanoseconds,120,6600,8300,30600
+open every frame,PostLateUpdate.PlayerUpdateCanvases,TimeNanoseconds,120,2877300,3566000,3930000
+open every frame,UIEvents.UpdateCanvasRectTransform,TimeNanoseconds,120,6400,22600,26100
+open every frame,UIEvents.AlignCanvasRectTransformWithCamera,TimeNanoseconds,120,100,100,300
+open every frame,UIEvents.WillRenderCanvases,TimeNanoseconds,120,2869200,3557900,3920900
+open every frame,PostLateUpdate.PlayerEmitCanvasGeometry,TimeNanoseconds,120,1300,2600,17400
+open every frame,UIEvents.CanvasManagerEmitOffScreenGeometry,TimeNanoseconds,120,800,1300,16300
+open every frame,UIEvents.CanvasmanagerEmitOnScreenGeometry,TimeNanoseconds,120,300,400,1100
+open every frame,UIEvents.CanvasManagerRenderOverlays,TimeNanoseconds,120,39900,58300,86300

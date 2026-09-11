@@ -77,16 +77,18 @@ namespace RivetReach
             BuildEquipment(p.transform);
             // Existing station controls retain their own layouts inside this bounded column.
             currentScreen.stationHost=Rect(p.transform,"Station controls",-14,28,1170,634);currentScreen.stationHost.localScale=Vector3.one*.82f;
+            IsolateCanvas(currentScreen.stationHost,true);
             Label(p.transform, "HOTBAR", 250, 500, 400, 24, 14, gold); BuildHotbar(p.transform, 250, 534, 42, 4);
             Button(p.transform, "APPEARANCE", 28, 534, 210, 40, () => game.SetMode(ScreenMode.Appearance));
-            inventoryHint = Label(p.transform, "Hover an item: R recipes · U uses. Browse all items in the sidebar →", 28, 604, 892, 24, 14);
-            tooltip = Label(p.transform, "", 28, 604, 892, 24, 14, gold);
+            var hints=Rect(p.transform,"Inventory hints",28,604,892,24);IsolateCanvas(hints);
+            inventoryHint = Label(hints, "Hover an item: R recipes · U uses. Browse all items in the sidebar →", 0, 0, 892, 24, 14);
+            tooltip = Label(hints, "", 0, 0, 892, 24, 14, gold);
             currentScreen.commonSlots=slots.Count;
         }
         void BuildInventoryCursor()
         {
             if(inventoryCursorBuilt)return;inventoryCursorBuilt=true;
-            heldRoot = Rect(root, "Held stack", 0, 0, 52, 65); heldRoot.gameObject.AddComponent<Canvas>(); heldRoot.gameObject.SetActive(false);
+            heldRoot = Rect(root, "Held stack", 0, 0, 52, 65); IsolateCanvas(heldRoot); heldRoot.gameObject.SetActive(false);
             heldIcon = heldRoot.gameObject.AddComponent<RawImage>(); heldIcon.raycastTarget = false;
             heldLabel = Label(heldRoot, "", 0, 37, 55, 25, 16); heldLabel.alignment = TextAnchor.LowerRight;
         }
@@ -106,6 +108,7 @@ namespace RivetReach
         void BuildItemSidebar()
         {
             var panel = Panel(root, 978, 42, 284, 634, ink); panel.gameObject.name = "Item browser";
+            IsolateCanvas(panel.rectTransform,true);
             Label(panel.transform, "ITEMS", 16, 16, 250, 30, 23);
             var searchPanel = Panel(panel.transform, 14, 57, 214, 35, slate);
             browserSearchField = searchPanel.gameObject.AddComponent<InputField>(); browserSearchField.name = "Item browser search";
@@ -120,6 +123,7 @@ namespace RivetReach
             browserNext = Button(panel.transform, "›", 232, 539, 38, 34, () => ChangeBrowserPage(1));
             browserPageLabel = Label(panel.transform, "", 54, 542, 176, 30, 13, gold); browserPageLabel.alignment = TextAnchor.MiddleCenter;
             browserTip = Label(panel.transform, "Click: recipes · Right-click: uses\nShift-click: fill one recipe\nCtrl+Shift-click: fill maximum", 16, 580, 252, 50, 12, gold);
+            IsolateCanvas(browserTip.rectTransform);
             browserSearchField.onValueChanged.AddListener(value => { browserSearch = value; browserPage = 0; FilterBrowser(); });
             FilterBrowser();
         }
@@ -158,6 +162,7 @@ namespace RivetReach
             var panel = Panel(parent, x, y, size, size, slate);
             var view = panel.gameObject.AddComponent<BrowserItemView>(); view.Owner = this; view.Item = stack.Id;
             var selectable = panel.gameObject.AddComponent<Selectable>(); selectable.targetGraphic = panel;
+            ImmediateFeedback(selectable);
             view.Icon = Rect(panel.transform, "Icon", 4, 4, size - 8, size - 8).gameObject.AddComponent<RawImage>(); view.Icon.raycastTarget = false;
             if (!stack.Empty) { view.Icon.texture = BrowserTexture(stack.Id); panel.gameObject.name = "Inspect " + game.Registry.Get(stack.Id).stableId; }
             view.CountLabel=Label(panel.transform,stack.Count>1?stack.Count.ToString():"",1,size-19,size-3,19,13);view.CountLabel.alignment=TextAnchor.LowerRight;

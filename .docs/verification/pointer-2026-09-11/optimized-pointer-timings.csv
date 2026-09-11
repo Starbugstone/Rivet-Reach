@@ -1,0 +1,27 @@
+Unity 6000.4.4f1 | Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz | NVIDIA GeForce RTX 2060
+Uncapped moving-pointer workload; 60 warmup + 240 measured frames per phase. Profiler times overlap; frame time is not physical mouse-to-display latency.
+phase,counter,median_ms,p95_ms,max_ms
+menu hover,Frame interval,3.401006,4.397399,8.482001
+menu hover,Main Thread,3.391100,4.392300,8.575700
+menu hover,Canvas.GeometryJob,0.058200,0.098900,0.208500
+menu hover,Canvas.BuildBatch,0.009200,0.013200,0.028600
+menu hover,GPU Frame Time,2.926592,3.713024,6.160384
+menu hover,UIEvents.WillRenderCanvases,0.017600,0.025300,0.038200
+sidebar hover,Frame interval,5.281002,5.978897,7.528699
+sidebar hover,Main Thread,5.269300,5.940100,7.502400
+sidebar hover,Canvas.GeometryJob,0.066000,0.097900,0.157100
+sidebar hover,Canvas.BuildBatch,0.012200,0.014100,0.019800
+sidebar hover,GPU Frame Time,2.745600,3.360000,3.886080
+sidebar hover,UIEvents.WillRenderCanvases,0.133500,0.170500,0.220600
+held stack motion,Frame interval,5.215802,5.663705,7.225801
+held stack motion,Main Thread,5.207600,5.649500,7.197600
+held stack motion,Canvas.GeometryJob,0.002800,0.003500,0.005800
+held stack motion,Canvas.BuildBatch,0.005400,0.006700,0.010100
+held stack motion,GPU Frame Time,2.723840,3.190784,3.408896
+held stack motion,UIEvents.WillRenderCanvases,0.041800,0.059600,0.098400
+crafting hover,Frame interval,5.190901,5.698902,13.678897
+crafting hover,Main Thread,5.181000,5.681600,13.663300
+crafting hover,Canvas.GeometryJob,0.046300,0.063900,0.081600
+crafting hover,Canvas.BuildBatch,0.009800,0.012600,0.028700
+crafting hover,GPU Frame Time,2.682880,3.174400,3.411456
+crafting hover,UIEvents.WillRenderCanvases,0.097100,0.135800,0.179100

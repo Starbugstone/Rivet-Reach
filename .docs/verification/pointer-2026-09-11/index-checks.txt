@@ -1,0 +1,1 @@
+PASS 368 assertions; 127 items; 91 grid recipes; 11 furnace recipes; 105 total indexed recipes

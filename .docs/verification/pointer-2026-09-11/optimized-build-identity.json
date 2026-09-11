@@ -1,0 +1,12 @@
+{
+  "role": "optimized UI and same-frame pointer regression checks",
+  "baseCommit": "ebe7e9f8de003e8201f121ac07312c5161695250",
+  "assemblySha256": "db0b242a3421c4d4766dfaeb742b75f6f7ec20c16d755d5c8299a0c2bfb1efa1",
+  "sourceHashes": {
+    "Assets/RivetReach/Code/UI/GameUI.cs": "94729dc2749256564f54b9e9ca8ac7ba2b6eed1ba2a515f0082676e003861e2d",
+    "Assets/RivetReach/Code/UI/GameUIBrowser.cs": "17d3b41a3a29f96e063112d53384140472e562a2e784715ed478d88bc5e19ffa",
+    "Assets/RivetReach/Code/UI/GameUIScreenReuse.cs": "8688f4f273fe40e5b0e22985cf077fe27f6de6232b21d4aeeda8bbff7485ff0a",
+    "Assets/RivetReach/Code/RecipeBrowserVerification.cs": "846c45056a017e3c4c6faecf589dda64b32a3aa56e592fc48f5d5beb59e2e06f",
+    "Assets/RivetReach/Code/ScreenReuseVerification.cs": "8c56b067ae4d15b721e5f414b925c2da3e69bfb5aadddaa87610fc636b77580a"
+  }
+}

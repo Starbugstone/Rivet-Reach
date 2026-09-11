@@ -40,10 +40,30 @@ namespace RivetReach
             game.SetMode(ScreenMode.Play);
             var hits=new System.Collections.Generic.List<RaycastResult>();
             EventSystem.current.RaycastAll(new PointerEventData(EventSystem.current){position=new Vector2(300,300)},hits);
-            Check(!inventoryRoot.GetComponent<Canvas>().enabled && !inventoryRoot.GetComponent<GraphicRaycaster>().enabled &&
+            Check(inventoryRoot.GetComponentsInChildren<Canvas>(true).All(v=>!v.enabled) &&
+                inventoryRoot.GetComponentsInChildren<GraphicRaycaster>(true).All(v=>!v.enabled) &&
                 inventoryRoot.GetComponentsInChildren<Selectable>().All(v=>!v.enabled) && hits.All(h=>!h.gameObject.transform.IsChildOf(inventoryRoot)),
                 "Hidden inventory has no rendering, raycasting or keyboard-selectable controls");
             game.SetMode(ScreenMode.Inventory);
+            Check(inventoryRoot.GetComponentsInChildren<Canvas>(true).All(v=>v.enabled) &&
+                inventoryRoot.GetComponentsInChildren<GraphicRaycaster>(true).All(v=>v.enabled),
+                "Reopening restores all inventory canvas regions and their pointer input");
+            // Coroutine resumes after Update; a transaction here must reach the cursor
+            // before rendering, even when EventSystem ran after the UI's Update.
+            yield return null;
+            game.Inventory.Add(BlockId.Log,3,12,13);game.UI.ClickSlot(12,false,false);
+            yield return new WaitForEndOfFrame();
+            var held=inventoryRoot.GetComponentsInChildren<RectTransform>().Single(t=>t.name=="Held stack");
+            Check(held.gameObject.activeInHierarchy&&held.GetComponentInChildren<Text>().text=="3"&&held.GetComponent<RawImage>().texture!=null,
+                "A stack picked up after Update is visible with its count in the same rendered frame");
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(inventoryRoot,Mouse.current.position.ReadValue(),null,out var cursorPoint);
+            Check(Vector2.Distance((Vector2)held.localPosition,cursorPoint+new Vector2(10,-10))<.01f,
+                "Held stack uses the current pointer position without interpolation");
+            yield return null;game.UI.ClickSlot(12,false,false);
+            yield return new WaitForEndOfFrame();
+            Check(!held.gameObject.activeSelf,"Depositing a stack hides its cursor image in the same rendered frame");
+            game.Inventory.Take(12,3);
+            yield return null;
             // Complete a native mouse press only after the same slot has been rebound.
             var point=CraftPoint(12);game.Inventory.Add(BlockId.Log,3,12,13);yield return null;
             InputSystem.QueueStateEvent(Mouse.current,new MouseState{position=point});yield return null;yield return null;

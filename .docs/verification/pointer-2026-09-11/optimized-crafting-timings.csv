@@ -1,0 +1,7 @@
+Unity 6000.4.4f1 | Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz | NVIDIA GeForce RTX 2060
+Stopwatch action CPU only; Canvas.ForceUpdateCanvases includes managed layout/geometry updates, not subsequent native batching or GPU work.
+name,samples,median_ms,p95_ms,max_ms
+open inventory and flush canvas,12,4.683400,4.948000,5.874400
+craft transaction only,48,0.000900,0.001500,0.072600
+craft UI and flush canvas,48,0.139100,0.155200,0.298900
+open recipe detail and flush canvas,12,1.240800,1.481100,10.395000
