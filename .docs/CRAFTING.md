@@ -116,7 +116,13 @@ The interaction reference is [JEI's published controls](https://www.curseforge.c
 
 ## Interface performance
 
-The interface keeps an unchanged portrait model and animation graph when opening crafting again; model or skin changes still rebuild it. Slot graphics refresh only when their displayed stack or selection changes. A screen is configured while inactive and enabled once complete, and the cursor item uses a child Canvas so its motion can update separately. Recipe matching remains revision-cached and all item transactions use the existing authority. [Performance verification](verification/PERFORMANCE_RESULTS.md) records Editor measurements and remaining screen-construction costs.
+The HUD and common inventory shell are retained. Each view owns its widget references and displayed revisions; switching views binds the current backpack, crafting session, station/machine identity and address before enabling its Canvas. Hiding disables its rendering, raycasting and Selectable components, clears focus and cancels gestures. Only the published view receives `GameUI` refreshes; `VisibleRoot` identifies that view for input/layout verification.
+
+The shared inventory shell contains the backpack, hotbar, armor, portrait and 60 sidebar cells. Station panels are cached by finite layout/type, never by placed station instance. Machine buttons resolve the current validated machine when invoked, and refresh their labels locally. A same-type replacement station is rebound even if its container revision matches the previous one. Recipe details reuse a bounded grid, ingredient totals and fuel widgets; binding clears unused icons, counts, recipe IDs, feedback and scroll movement before showing the new recipe. Search/page preferences survive reopening, while selected recipe history and in-progress input do not.
+
+Pointer presses carry a binding version. Releases/clicks/drags from an older screen, recipe, search/page binding or session are rejected. Hidden controls also fail active-view checks. UI caches contain presentation and current bindings, never independent item storage or output claims. New-session input is discarded deliberately; successful save replacement cannot return an old cursor/grid into a new session. Existing item/container transactions remain authoritative.
+
+Preparation is staged over title/terrain-loading frames: common shell, sidebar, cursor, recipe widgets, initial recipe binding and personal station panel. If the player opens early, remaining shell work completes before publication. The unchanged portrait model/animation graph is reused; model or skin changes still rebuild it. [Retained-screen verification](verification/SCREEN_REUSE_RESULTS.md) records measured opening costs, bounded widget checks and stale-state/conservation coverage. [Earlier performance verification](verification/PERFORMANCE_RESULTS.md) retains its original broader runtime measurements.
 
 ### Recipe placement transaction
 

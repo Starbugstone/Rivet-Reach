@@ -1,0 +1,44 @@
+{
+  "save": {
+    "runtimeTimestamp": "2026-09-11T19:20:12.8240286Z",
+    "result": "PASS",
+    "assertions": 183,
+    "exitCode": 0,
+    "graphicsApi": "Direct3D11"
+  },
+  "save-resume": {
+    "runtimeTimestamp": "2026-09-11T19:20:22.1250144Z",
+    "result": "PASS",
+    "assertions": 5,
+    "exitCode": 0,
+    "graphicsApi": "Direct3D11"
+  },
+  "creative": {
+    "runtimeTimestamp": "2026-09-11T19:21:04.7193852Z",
+    "result": "PASS",
+    "assertions": 312,
+    "exitCode": 0,
+    "graphicsApi": "Direct3D12"
+  },
+  "survival": {
+    "runtimeTimestamp": "2026-09-11T19:23:04.4262211Z",
+    "result": "PASS",
+    "assertions": 93,
+    "exitCode": 0,
+    "graphicsApi": "Direct3D12"
+  },
+  "industry": {
+    "runtimeTimestamp": "2026-09-11T19:23:55.4428014Z",
+    "result": "PASS",
+    "assertions": 89,
+    "exitCode": 0,
+    "graphicsApi": "Direct3D12"
+  },
+  "multiblock": {
+    "runtimeTimestamp": "2026-09-11T19:24:22.9848102Z",
+    "result": "PASS",
+    "assertions": 140,
+    "exitCode": 0,
+    "graphicsApi": "Direct3D12"
+  }
+}

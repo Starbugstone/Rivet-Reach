@@ -25,9 +25,9 @@ namespace RivetReach
         }
         IEnumerator CreativeDragTo(byte id,Vector2 destination,bool right=false)
         {
-            var search=game.UI.GetComponentsInChildren<InputField>().Single(f=>f.name=="Item browser search");
+            var search=game.UI.VisibleRoot.GetComponentsInChildren<InputField>().Single(f=>f.name=="Item browser search");
             search.text=game.Registry.Get(id).displayName;yield return null;yield return null;
-            var view=game.UI.GetComponentsInChildren<BrowserItemView>().Single(v=>v.CatalogSource&&v.Item==id);
+            var view=game.UI.VisibleRoot.GetComponentsInChildren<BrowserItemView>().Single(v=>v.CatalogSource&&v.Item==id);
             var rect=(RectTransform)view.transform;
             Vector2 from=RectTransformUtility.WorldToScreenPoint(null,rect.TransformPoint(rect.rect.center));
             var button=right?MouseButton.Right:MouseButton.Left;
@@ -110,7 +110,7 @@ namespace RivetReach
             CheckMovementBindingMigration();
             var player=game.Player;var world=game.World;
             game.Mobs.enabled=false;game.Diagnostics=false;
-            Button Named(string text)=>game.UI.GetComponentsInChildren<Button>().Single(b=>b.GetComponentsInChildren<Text>().Any(t=>t.text==text));
+            Button Named(string text)=>game.UI.VisibleRoot.GetComponentsInChildren<Button>().Single(b=>b.GetComponentsInChildren<Text>().Any(t=>t.text==text));
             Check(!game.Creative&&game.Inventory.Slots.All(s=>s.Empty),"Ordinary session starts in Survival with an empty inventory");
             game.Inventory.Add(BlockId.Dirt,3);
             game.Hunger.Exert(80);game.TakeDamage(4);
@@ -127,7 +127,7 @@ namespace RivetReach
             Check(game.Health.Hearts==health&&game.Hunger.Food==0,"Automatic starvation cannot damage Creative players");
             Check(world.Grass.Tick>0&&game.Sky.Clock.TotalDays>0,"World simulation continues in Creative");
             yield return CreativeHold(.06f,game.Input.Keys["Inventory"]);
-            var entries=game.UI.GetComponentsInChildren<Button>().Where(b=>b.name.StartsWith("Creative item ")).ToArray();
+            var entries=game.UI.VisibleRoot.GetComponentsInChildren<Button>().Where(b=>b.name.StartsWith("Creative item ")).ToArray();
             Check(entries.Length==game.Registry.items.Length,"Catalog contains every registered current item");
             yield return CreativeClick(entries[0]);
             Check(game.Inventory.Slots.Sum(s=>s.Count)>3,"Pointer click on catalog supplies an item stack");
@@ -150,7 +150,7 @@ namespace RivetReach
             Check(game.Inventory.Slots[0].Count==game.Registry.Get(BlockId.Planks).stackLimit,"Matching target tops up to its legal limit");
             long dragRevision=game.Inventory.Revision;
             yield return CreativeDragTo(BlockId.Dirt,CraftPoint(0));
-            Check(game.UI.GetComponentsInChildren<Text>().Any(t=>t.text.Contains("Drop into an empty inventory slot")),"Rejected drop shows feedback inside the visible sidebar");
+            Check(game.UI.VisibleRoot.GetComponentsInChildren<Text>().Any(t=>t.text.Contains("Drop into an empty inventory slot")),"Rejected drop shows feedback inside the visible sidebar");
             yield return CreativeDragTo(BlockId.Planks,CraftPoint(0));
             yield return CreativeDragTo(BlockId.Dirt,new Vector2(5,5));
             yield return CreativeDragTo(BlockId.Dirt,CraftPoint(13),true);
@@ -160,21 +160,21 @@ namespace RivetReach
             yield return CreativeDragTo(BlockId.Dirt,CraftPoint(13));
             Check(game.Inventory.Revision==dragRevision&&game.UI.HeldStack.Id==BlockId.Log&&game.UI.HeldStack.Count==3,"Sidebar drag preserves an existing cursor stack");
             yield return ClickCraftUI(14);
-            game.UI.GetComponentsInChildren<InputField>().Single(f=>f.name=="Item browser search").text="";
+            game.UI.VisibleRoot.GetComponentsInChildren<InputField>().Single(f=>f.name=="Item browser search").text="";
             for(int i=0;i<game.Inventory.Count;i++)game.Inventory.Take(i,int.MaxValue);
             for(int i=0;i<game.Inventory.Count;i++)game.Inventory.Add(BlockId.Dirt,64,i,i+1);
             long revision=game.Inventory.Revision;
             Check(!game.TryGiveCreativeItem(BlockId.Log)&&game.Inventory.Revision==revision,"Full inventory rejects grants without changing existing stacks");
             for(int i=0;i<game.Inventory.Count;i++)game.Inventory.Take(i,int.MaxValue);
-            var search=game.UI.GetComponentInChildren<InputField>();search.text="Diamond pickaxe";yield return null;
-            Check(game.UI.GetComponentsInChildren<Button>().Count(b=>b.name.StartsWith("Creative item "))==1,"Search filters items by name");
+            var search=game.UI.VisibleRoot.GetComponentInChildren<InputField>();search.text="Diamond pickaxe";yield return null;
+            Check(game.UI.VisibleRoot.GetComponentsInChildren<Button>().Count(b=>b.name.StartsWith("Creative item "))==1,"Search filters items by name");
             search.text="no such item";yield return null;
-            Check(!game.UI.GetComponentsInChildren<Button>().Any(b=>b.name.StartsWith("Creative item ")),"Empty search result is safe");
+            Check(!game.UI.VisibleRoot.GetComponentsInChildren<Button>().Any(b=>b.name.StartsWith("Creative item ")),"Empty search result is safe");
             search.text="";yield return null;
             game.TryGiveCreativeItem(BlockId.Planks);game.TryGiveCreativeItem(BlockId.DiamondPickaxe);game.TryGiveCreativeItem(BlockId.Potato);
             yield return Capture("creative-catalog");
             yield return CreativeClick(Named("CRAFTING"));
-            Check(game.UI.GetComponentsInChildren<SlotView>().Count(v=>v.Index>=60&&v.Index<64)==4,"Creative retains personal crafting access");
+            Check(game.UI.VisibleRoot.GetComponentsInChildren<SlotView>().Count(v=>v.Index>=60&&v.Index<64)==4,"Creative retains personal crafting access");
             yield return CreativeClick(Named("ALL ITEMS"));
             yield return CreativeHold(.06f,game.Input.Keys["Inventory"]);
             Check(!game.TryGiveCreativeItem(BlockId.Log),"Catalog grant requires an inventory screen");
@@ -241,7 +241,7 @@ namespace RivetReach
             yield return CreativeClick(Named("CREATIVE MODE: ON"));
             Check(!game.Creative&&game.Inventory.Slots[0].Count==count,"Pointer toggle restores Survival and retains items");
             game.SetMode(ScreenMode.Inventory);
-            Check(!game.TryGiveCreativeItem(BlockId.Log)&&!game.UI.GetComponentsInChildren<Button>().Any(b=>b.name.StartsWith("Creative item ")),"Survival hides the catalog and rejects item grants");
+            Check(!game.TryGiveCreativeItem(BlockId.Log)&&!game.UI.VisibleRoot.GetComponentsInChildren<Button>().Any(b=>b.name.StartsWith("Creative item ")),"Survival hides the catalog and rejects item grants");
             yield return CreativeDragTo(BlockId.Dirt,CraftPoint(13));
             Check(game.Inventory.Slots[13].Empty,"Survival sidebar drag cannot grant items");
             game.SetMode(ScreenMode.Play);

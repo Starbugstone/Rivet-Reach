@@ -13,24 +13,11 @@ namespace RivetReach
     {
         Expedition game;
         Canvas canvas;
-        RectTransform root;
         Font font;
         readonly Color ink=new Color(.045f,.075f,.09f,.97f),slate=new Color(.105f,.16f,.185f,.96f),gold=new Color(.85f,.72f,.47f),pale=new Color(.91f,.92f,.85f);
-        readonly List<SlotView> slots=new List<SlotView>();
         readonly Dictionary<byte,Texture2D> icons=new Dictionary<byte,Texture2D>();
-        Text message,diagnostics,targetLabel,heldLabel,selectedLabel,loading,tooltip;
-        Text worldTime;
-        GameObject diagnosticsPanel;
-        Image progress;
-        RectTransform heldRoot;
-        RawImage heldIcon;
         public ItemStack HeldStack;
-        ItemStack shownHeld;
-        long lastRevision=-1,lastCraftRevision=-1;
-        int lastSelected=-1;
         const int CraftSlotStart=Inventory.SlotCount, CraftOutputSlot=Inventory.SlotCount+16;
-        Text craftStatus,craftOutputName,inventoryHint;
-        int hoveredSlot=-1;
         RenderTexture previewTexture;
         GameObject previewRoot;
         AvatarView preview;
@@ -50,6 +37,7 @@ namespace RivetReach
         }
         RectTransform Rect(Transform parent,string name,float x,float y,float w,float h)
         {
+            CreatedWidgets++;
             var o=new GameObject(name,typeof(RectTransform));var r=o.GetComponent<RectTransform>();r.SetParent(parent,false);
             r.anchorMin=r.anchorMax=r.pivot=new Vector2(0,1);r.anchoredPosition=new Vector2(x,-y);r.sizeDelta=new Vector2(w,h);return r;
         }
@@ -61,10 +49,10 @@ namespace RivetReach
         }
         Button Button(Transform parent,string text,float x,float y,float w,float h,Action action,bool primary=false)
         {
-            var image=Panel(parent,x,y,w,h,primary?new Color(.29f,.45f,.43f):slate);var button=image.gameObject.AddComponent<Button>();button.targetGraphic=image;
+            var image=Panel(parent,x,y,w,h,primary?new Color(.29f,.45f,.43f):slate);var button=image.gameObject.AddComponent<BoundUIButton>();button.Owner=this;button.targetGraphic=image;
             var colours=button.colors;colours.highlightedColor=new Color(1.2f,1.2f,1.15f);colours.pressedColor=new Color(.7f,.8f,.75f);button.colors=colours;
             var label=Label(image.transform,text,10,0,w-20,h,18);label.alignment=TextAnchor.MiddleCenter;
-            button.onClick.AddListener(()=>action());return button;
+            button.onClick.AddListener(()=>{if(AcceptWidget(button))action();});return button;
         }
         static readonly Unity.Profiling.ProfilerMarker rebuildMarker = new Unity.Profiling.ProfilerMarker("RivetReach.UI.Rebuild");
         static readonly Unity.Profiling.ProfilerMarker slotInputMarker = new Unity.Profiling.ProfilerMarker("RivetReach.UI.SlotInput");
@@ -72,20 +60,7 @@ namespace RivetReach
         public void Rebuild()
         {
             using var measurement = rebuildMarker.Auto();
-            if(canvas==null)return;
-            shownHeld = default;EndRightPaint();ResetBrowserUI();ResetSurvivalUI();machineStatus=machineDetail=null;machineProgress=null;
-            if(root!=null){root.gameObject.SetActive(false);Destroy(root.gameObject);}slots.Clear();message=null;diagnostics=null;diagnosticsPanel=null;targetLabel=null;progress=null;heldRoot=null;heldLabel=null;loading=null;tooltip=null;craftStatus=null;craftOutputName=null;inventoryHint=null;hoveredSlot=-1;lastRevision=-1;lastCraftRevision=-1;
-            if(previewRoot!=null)previewRoot.SetActive(game.Mode==ScreenMode.Inventory||game.Mode==ScreenMode.Appearance);
-            root=Rect(canvas.transform,"Screen",0,0,1280,720);root.gameObject.SetActive(false);
-            root.anchorMin=root.anchorMax=root.pivot=new Vector2(.5f,.5f);root.anchoredPosition=Vector2.zero;
-            float scale=Mathf.Clamp(PlayerPrefs.GetFloat("uiScale",1),.85f,1);root.localScale=Vector3.one*scale;
-            if(game.Mode==ScreenMode.Play)BuildHUD();
-            else if(game.Mode==ScreenMode.Inventory)BuildItemBrowserInventory();
-            else if(game.Mode==ScreenMode.Title)BuildTitle();
-            else if(game.Mode==ScreenMode.Death)BuildDeath();
-            else if(game.Mode==ScreenMode.Save||game.Mode==ScreenMode.Load)BuildSaveMenu();
-            else BuildMenu();
-            RefreshSlots();root.gameObject.SetActive(true);
+            SwitchScreen();
         }
         void BuildTitle()
         {
@@ -120,8 +95,8 @@ namespace RivetReach
         {
             Label(root,"RIVET REACH",28,22,300,28,19);
             worldTime=Label(root,"",870,22,380,52,16,pale);worldTime.alignment=TextAnchor.UpperRight;
-            Label(root,game.Creative?"CREATIVE · INVINCIBLE":"FIRST EXPEDITION",29,52,280,22,11,gold);
-            if(game.Creative)Label(root,$"Double-tap {game.Input.Keys["Jump"]}: toggle flight · {game.Input.Keys["Crouch"]}: crouch / descend · {game.Input.Keys["Sprint"]}: run",29,76,950,22,13,gold);
+            currentScreen.hudMode=Label(root,"",29,52,280,22,11,gold);
+            currentScreen.hudFlight=Label(root,"",29,76,950,22,13,gold);
             foreach(var bar in new[]{new Rect(632,359,5,2),new Rect(643,359,5,2),new Rect(639,352,2,5),new Rect(639,363,2,5)})
             {
                 Panel(root,bar.x-1,bar.y-1,bar.width+2,bar.height+2,new Color(.025f,.04f,.035f,.65f));
@@ -132,7 +107,7 @@ namespace RivetReach
             Panel(root,296,635,688,67,new Color(.025f,.045f,.055f,.75f));
             BuildHotbar(root,304,642,52,4);
             selectedLabel=Label(root,"",420,611,440,24,15);selectedLabel.alignment=TextAnchor.MiddleCenter;
-            Label(root,$"{game.Input.Keys["Inventory"]}  Inventory    {game.Input.Keys["Interact"]}  Interact    {game.Input.UseButtonName}  Use / place    {game.Input.Keys["Drop"]}  Drop",28,694,850,22,13);
+            currentScreen.hudControls=Label(root,"",28,694,850,22,13);
             BuildSurvivalHUD();
             Label(root,"Escape · Save game",1090,694,172,22,12,new Color(.75f,.77f,.73f));
             message=Label(root,"",330,555,620,40,18,gold);message.alignment=TextAnchor.MiddleCenter;
@@ -239,11 +214,11 @@ namespace RivetReach
         bool rightPainting;
         readonly HashSet<int> paintedSlots = new HashSet<int>();
         bool PaintableSlot(int index) => index >= 0 && (index < Inventory.SlotCount ||
-            index >= CraftSlotStart && index < CraftSlotStart + game.Crafting.Grid.Count) && recipePanel == null;
+            index >= CraftSlotStart && index < CraftSlotStart + game.Crafting.Grid.Count) && !RecipeVisible;
         public bool BeginRightPaint(int index, bool shift)
         {
             EndRightPaint();
-            if (!game.InventoryOpen || !PaintableSlot(index)) return false;
+            if (!HasInventoryBinding || !PaintableSlot(index)) return false;
             paintedSlots.Add(index);
             ClickSlot(index, true, shift);
             rightPainting = !HeldStack.Empty;
@@ -252,17 +227,17 @@ namespace RivetReach
         public void PaintSlot(int index)
         {
             if (!rightPainting || Mouse.current?.rightButton.isPressed != true || HeldStack.Empty ||
-                !game.InventoryOpen || !PaintableSlot(index) || !paintedSlots.Add(index)) return;
+                !HasInventoryBinding || !PaintableSlot(index) || !paintedSlots.Add(index)) return;
             // Deposit only. An exhausted cursor must never pick ingredients back up.
             ClickSlot(index, true, false);
         }
         public void EndRightPaint() { rightPainting = false; paintedSlots.Clear(); }
-        void OnApplicationFocus(bool focus) { if (!focus) EndRightPaint(); }
+        void OnApplicationFocus(bool focus) { if (!focus) {BindingVersion++;EndRightPaint();creativeDrag=default;} }
 
         public void ClickSlot(int index,bool right,bool shift)
         {
             using var measurement = slotInputMarker.Auto();
-            if(!game.InventoryOpen)return;
+            if(!HasInventoryBinding || !slots.Exists(v=>v.Index==index && v.gameObject.activeInHierarchy))return;
             if(ClickStationSlot(index,right,shift)){RefreshSlots();return;}
             if(index==CraftOutputSlot)
             {
@@ -315,12 +290,15 @@ namespace RivetReach
                 craftOutputName.text=recipe==null?"RESULT":game.Registry.Get(recipe.Output.Id).displayName;
                 craftStatus.text=recipe==null?"Place ingredients in the grid":"Ready · "+game.Crafting.MaximumCrafts+" craft(s)";
             }
+            if(selectedLabel!=null){var stack=game.Inventory.Slots[game.Selected];selectedLabel.text=stack.Empty?"BARE HAND":game.Registry.Get(stack.Id).displayName+"  ·  "+stack.Count;}
             RefreshTooltip();
             lastRevision=game.Inventory.Revision;lastCraftRevision=game.Crafting.Grid.Revision;lastStationRevision=StationRevision;lastEquipmentRevision=game.Equipment.Revision;lastSelected=game.Selected;
         }
         void Update()
         {
             if(game==null)return;
+            if(game.InventoryOpen && !HasInventoryBinding) { game.SetMode(ScreenMode.Play); return; }
+            PrewarmInventory();
             if (Mouse.current?.rightButton.isPressed != true) EndRightPaint();
             UpdateBrowserInput();
             if(lastRevision!=game.Inventory.Revision||lastCraftRevision!=game.Crafting.Grid.Revision||lastStationRevision!=StationRevision||lastEquipmentRevision!=game.Equipment.Revision||lastSelected!=game.Selected)RefreshSlots();
@@ -434,10 +412,13 @@ namespace RivetReach
         public bool Shown,ShownSelected;public byte ShownId;public int ShownCount;
         public GameUI Owner;public int Index;public Image Background;public Outline Border;public RawImage Icon;public Text Count;
         bool dragged, rightPressHandled;
-        public void OnPointerEnter(PointerEventData e) { Owner.HoverSlot(Index); Owner.PaintSlot(Index); }
-        public void OnPointerExit(PointerEventData e) => Owner.HoverSlot(-1);
+        long pressVersion=-1;
+        public void OnPointerEnter(PointerEventData e) { if(Owner.AcceptWidget(this)){Owner.HoverSlot(Index); Owner.PaintSlot(Index);} }
+        public void OnPointerExit(PointerEventData e) { if(Owner.AcceptWidget(this))Owner.HoverSlot(-1); }
         public void OnPointerDown(PointerEventData e)
         {
+            pressVersion=Owner.AcceptWidget(this)?Owner.BindingVersion:-1;
+            if(pressVersion<0)return;
             dragged = false;
             if (e.button == PointerEventData.InputButton.Right)
                 rightPressHandled = Owner.BeginRightPaint(Index, Keyboard.current?.shiftKey.isPressed == true);
@@ -445,29 +426,30 @@ namespace RivetReach
         public void OnPointerUp(PointerEventData e) { if (e.button == PointerEventData.InputButton.Right) Owner.EndRightPaint(); }
         public void OnPointerClick(PointerEventData e)
         {
-            if (e.button != PointerEventData.InputButton.Left && e.button != PointerEventData.InputButton.Right) return;
+            if (!Owner.AcceptGesture(this,pressVersion) || (e.button != PointerEventData.InputButton.Left && e.button != PointerEventData.InputButton.Right)) return;
             if (dragged || e.dragging || e.button == PointerEventData.InputButton.Right && rightPressHandled) return;
             Owner.ClickSlot(Index, e.button == PointerEventData.InputButton.Right, Keyboard.current?.shiftKey.isPressed == true);
         }
         public void OnBeginDrag(PointerEventData e)
         {
-            if (e.button != PointerEventData.InputButton.Left && e.button != PointerEventData.InputButton.Right) return;
+            if (!Owner.AcceptGesture(this,pressVersion) || (e.button != PointerEventData.InputButton.Left && e.button != PointerEventData.InputButton.Right)) return;
             dragged = true;
             if (e.button == PointerEventData.InputButton.Left && Owner.HeldStack.Empty) Owner.ClickSlot(Index, false, false);
         }
         public void OnDrag(PointerEventData e)
         {
-            if (e.button != PointerEventData.InputButton.Right) return;
+            if (!Owner.AcceptGesture(this,pressVersion) || e.button != PointerEventData.InputButton.Right) return;
             var slot = e.pointerCurrentRaycast.gameObject?.GetComponentInParent<SlotView>();
             if (slot != null && slot.Owner == Owner) Owner.PaintSlot(slot.Index);
         }
         public void OnEndDrag(PointerEventData e)
         {
+            if (!Owner.AcceptGesture(this,pressVersion))return;
             if (e.button == PointerEventData.InputButton.Right) { Owner.EndRightPaint(); return; }
             if (e.button != PointerEventData.InputButton.Left) return;
             var slot = e.pointerCurrentRaycast.gameObject?.GetComponentInParent<SlotView>();
             if (slot != null && slot.Owner == Owner) Owner.ClickSlot(slot.Index, false, false);
         }
-        void OnDisable() { if (rightPressHandled && Owner != null) Owner.EndRightPaint(); rightPressHandled = dragged = false; }
+        void OnDisable() { pressVersion=-1; if (rightPressHandled && Owner != null) Owner.EndRightPaint(); rightPressHandled = dragged = false; }
     }
 }

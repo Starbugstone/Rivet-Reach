@@ -37,7 +37,7 @@ namespace RivetReach
                 Vector3 direction=(world.Local(cell)+Vector3.one*.5f-player.Camera.transform.position).normalized;
                 player.Yaw=Mathf.Atan2(direction.x,direction.z)*Mathf.Rad2Deg;player.Pitch=-Mathf.Asin(direction.y)*Mathf.Rad2Deg;
             }
-            bool HasText(string text)=>game.UI.GetComponentsInChildren<Text>().Any(t=>t.text.Contains(text));
+            bool HasText(string text)=>game.UI.VisibleRoot.GetComponentsInChildren<Text>().Any(t=>t.text.Contains(text));
             int Slot(byte id)=>Enumerable.Range(0,game.Inventory.Count).First(i=>game.Inventory.Slots[i].Id==id);
             for(int i=0;i<game.Inventory.Count;i++)game.Inventory.Take(i,int.MaxValue);
             game.Inventory.Add(BlockId.Log,3,12,13);
@@ -57,7 +57,7 @@ namespace RivetReach
             Check(HasText(game.Input.Keys["Interact"]+" / "+game.Input.UseButtonName)&&HasText("3 × 3 crafting"),"Target prompt names the actual interaction controls and crafting size");
             yield return StarterKey(game.Input.Keys["Interact"]);
             Check(game.OpenStation?.Block==BlockId.Workbench&&game.Crafting.Grid.Size==3,"Interact with an empty hand opens the placed workbench's 3x3 interface");
-            Check(game.UI.GetComponentsInChildren<SlotView>().Count(v=>v.Index>=CraftCell&&v.Index<CraftCell+16)==9,"Workbench displays all nine input slots");
+            Check(game.UI.VisibleRoot.GetComponentsInChildren<SlotView>().Count(v=>v.Index>=CraftCell&&v.Index<CraftCell+16)==9,"Workbench displays all nine input slots");
             yield return ClickCraftUI(Slot(BlockId.Planks));for(int i=0;i<3;i++)yield return ClickCraftUI(CraftCell+i,true);yield return ClickCraftUI(0);
             int sticks=Slot(BlockId.Stick);yield return ClickCraftUI(sticks);yield return ClickCraftUI(CraftCell+4,true);yield return ClickCraftUI(CraftCell+7,true);
             yield return Capture("starter-pickaxe");yield return ClickCraftUI(CraftResultSlot,false,true);

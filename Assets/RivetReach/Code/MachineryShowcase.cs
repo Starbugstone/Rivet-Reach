@@ -14,7 +14,7 @@ namespace RivetReach
             var world=game.World;var player=game.Player;var sim=game.Industry.Simulation;
             game.Mobs.enabled=false;player.enabled=false;game.Items.enabled=false;game.Diagnostics=false;
             player.Arms.gameObject.SetActive(false);player.Body.gameObject.SetActive(false);
-            foreach(var canvas in game.UI.GetComponentsInChildren<Canvas>())canvas.enabled=false;
+            foreach(var canvas in game.UI.VisibleRoot.GetComponentsInChildren<Canvas>())canvas.enabled=false;
             Debug.developerConsoleVisible=false;
             var origin=world.Address(player.transform.position).Offset(-3,0,7);
             for(int x=-5;x<=10;x++)for(int z=-9;z<=7;z++)for(int y=-2;y<=8;y++)
@@ -98,7 +98,7 @@ namespace RivetReach
             Check(presentation.ViewAt(origin.Offset(6,1,-5)).GetComponentsInChildren<MeshRenderer>().Length==3,"Vertical item pipe has one surface plus two independent fitted leads");
             // The session is paused between stills to hold fluid level, animated machinery and clock.
             game.SetMode(ScreenMode.Pause);
-            foreach(var canvas in game.UI.GetComponentsInChildren<Canvas>())canvas.enabled=false;
+            foreach(var canvas in game.UI.VisibleRoot.GetComponentsInChildren<Canvas>())canvas.enabled=false;
             player.Arms.gameObject.SetActive(false);player.Body.gameObject.SetActive(false);
             IEnumerator Shot(string name,Vector3 position,Vector3 target,float fov,double time)
             {

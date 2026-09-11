@@ -9,7 +9,7 @@ namespace RivetReach
 {
     public sealed partial class RuntimeVerification
     {
-        Button SaveButton(string label)=>game.UI.GetComponentsInChildren<Button>().Single(b=>b.GetComponentInChildren<Text>().text==label);
+        Button SaveButton(string label)=>game.UI.VisibleRoot.GetComponentsInChildren<Button>().Single(b=>b.GetComponentInChildren<Text>().text==label);
         void FreezeSaveFixture(){game.SetMode(ScreenMode.Pause);game.Player.enabled=false;game.Items.enabled=false;game.Mobs.enabled=false;game.World.ViewDistance=4;game.Diagnostics=false;}
         IEnumerator ReviewSaveGame()
         {
@@ -66,7 +66,7 @@ namespace RivetReach
             if(natural.HasValue)world.Trees.FellAbove(world,natural.Value);
             for(int slot=1;slot<game.Inventory.Count;slot++)if(game.Inventory.Slots[slot].Empty)game.Inventory.Add(BlockId.Stone,64,slot,slot+1);
             game.Sky.Clock.SetTime(12.875);game.Sky.Apply();game.SetMode(ScreenMode.Save);yield return null;
-            var name=game.UI.GetComponentInChildren<InputField>();name.text="Cross-process expedition";SaveButton("SAVE GAME").onClick.Invoke();
+            var name=game.UI.VisibleRoot.GetComponentInChildren<InputField>();name.text="Cross-process expedition";SaveButton("SAVE GAME").onClick.Invoke();
             Check(game.SaveId!=null&&game.Inventory.Total(BlockId.Stick)==11&&game.UI.HeldStack.Empty,"Save button commits named slot and cursor items: "+game.SaveStatus);File.WriteAllText(Path.Combine(output,"save-cost.txt"),$"Fixture save: {game.LastSaveBytes} bytes; {game.LastSaveMilliseconds:0.###} ms synchronous capture, checksum, flush and publish. Single bounded workshop on this workstation; not a large-world guarantee.\n");yield return Capture("save-game");
             var entry=game.Saves.List().First(e=>!e.Backup);byte[] original=game.Saves.Read(entry);int edits=world.EditCount,pending=world.FluidSimulation.Pending,leaves=world.Trees.PendingLeaves,fells=world.Trees.PendingFells;long cropTick=game.Survival.Tick;
             int furnaceProgress=f.ProgressTicks,burn=f.BurnTicks;
@@ -111,7 +111,7 @@ namespace RivetReach
             File.WriteAllText(Path.Combine(directory,"ignored.rrsave.tmp"),"interrupted");Check(game.Saves.List().Count==2,"Interrupted temporary file is not a Continue candidate");
             string blocked=Path.Combine(output,"not-a-directory");File.WriteAllText(blocked,"fixture");game.InitializeSaves(blocked);Check(!game.SaveGame(),"Disk path failure is reported without discarding progress");game.InitializeSaves(directory);
             Check(game.SaveGame("Second slot",true),"Save As creates another named slot");string secondId=game.SaveId;Check(secondId!=entry.Id,"Save As uses a distinct slot identity");
-            game.SetMode(ScreenMode.Load);yield return null;Check(game.UI.GetComponentsInChildren<Text>().Any(t=>t.text.Contains("Cross-process expedition")),"Load menu lists named checkpoints");yield return Capture("load-game");
+            game.SetMode(ScreenMode.Load);yield return null;Check(game.UI.VisibleRoot.GetComponentsInChildren<Text>().Any(t=>t.text.Contains("Cross-process expedition")),"Load menu lists named checkpoints");yield return Capture("load-game");
             Check(game.LoadGame(entry),"Choose older named save independently of latest");FreezeSaveFixture();
             // Preserve edits and stations while the player is beyond the original chunk residency.
             game.Player.transform.position+=Vector3.right*704;yield return null;yield return Settle(120);var remote=WorldPoint.FromLocal(game.Player.transform.position,game.World.Origin);

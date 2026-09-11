@@ -7,7 +7,8 @@ This directory maintains the latest report and useful evidence for each feature.
 | Feature | Current evidence |
 | --- | --- |
 | Downloadable Windows 0.0.1 alpha | [Alpha build and release verification](ALPHA_0_0_1_RESULTS.md) — exact source commit, runtime checks and download integrity |
-| Item sidebar, recipe/uses navigation and Ctrl-click placement | [Recipe browser verification](RECIPE_BROWSER_RESULTS.md) |
+| Item sidebar, recipe/uses navigation and Shift/Ctrl+Shift placement | [Recipe browser verification](RECIPE_BROWSER_RESULTS.md) |
+| Retained crafting screens and stale-input protection | [Screen reuse verification](SCREEN_REUSE_RESULTS.md) — opening costs, station/save rebinding and conservation |
 | Performance and live Editor script reloads | [Performance pass](PERFORMANCE_RESULTS.md) — measured UI/meshing costs, streaming checks and preserved gameplay |
 | Terrain/tree shadow stability and lighting cost | [Sun-shadow ticks](SUN_SHADOW_RESULTS.md), plus the earlier [AO sampling check](SHADOW_RESULTS.md) |
 | Multiblock tanks and shared pipe channel fittings | [Multiblock verification](MULTIBLOCK_RESULTS.md) |

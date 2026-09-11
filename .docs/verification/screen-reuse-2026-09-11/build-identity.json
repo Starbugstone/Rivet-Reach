@@ -1,0 +1,28 @@
+{
+  "runtimeTimestamp": "2026-09-11T19:26:02.1391012Z",
+  "baseCommit": "1e27f2eb855f4eddeb8e34d2bbbb410c00673cd5",
+  "identity": "Isolated source snapshot of screen reuse changes atop the base commit; includes the committed survival HUD work. Hashes identify the actual built files; the base commit alone does not contain screen reuse. The concurrent dropped-stack presentation commit is not included.",
+  "unity": "6000.4.4f1",
+  "player": "Builds/RecipeBrowser/RivetReach.exe",
+  "graphicsApi": "Direct3D12 (action/frame measurements); separate resume check uses -force-d3d11",
+  "binarySha256": {
+    "Builds/RecipeBrowser/RivetReach.exe": "7d52ee70fb22771f4608d810d1015f539c37dd8b7b2fbb1a0ea9f6bc5c32d5c9",
+    "Builds/RecipeBrowser/RivetReach_Data/Managed/Assembly-CSharp.dll": "a12907989702bf2d9d89b0cd6a6b4e1156e925462a6dbebb00ad0dc71789db07"
+  },
+  "snapshotSourceSha256": {
+    "Assets/RivetReach/Code/UI/GameUI.cs": "de327ade212830b7e64c6b74f0e42d91170cee2520e7d01942d0a276f7b4f536",
+    "Assets/RivetReach/Code/UI/GameUIBrowser.cs": "8e216af4320b6c98cf7c8992e9a43a5614a41786885ebf0c9979ba945f8bbc7f",
+    "Assets/RivetReach/Code/UI/GameUICreative.cs": "479d7b573ebe3081001cc43fb107e78d49cad646739f54436e2721485c2704b1",
+    "Assets/RivetReach/Code/UI/GameUIIndustry.cs": "29b49412e2b1901592f241213d105f2cf85db8eb2200bda909503cb48f0aebd6",
+    "Assets/RivetReach/Code/UI/GameUIRecipeDetails.cs": "c461dd31b5624058fe3dd76e4f34f3399a04e9431f0f93f7501b4c67d9acc510",
+    "Assets/RivetReach/Code/UI/GameUISaves.cs": "8325a8e5de2dc44628e1857aed07882009eb802a7281b5a902a2746d85161503",
+    "Assets/RivetReach/Code/UI/GameUIScreenReuse.cs": "7960b5af30562b959f1afa2396000e6156521cb8ec1dfc96027e81999c279445",
+    "Assets/RivetReach/Code/UI/GameUISurvival.cs": "fb7c1bb9030ef4a80c6947dad6ead2bab9547e392197bd5a29e63382a0a634e2",
+    "Assets/RivetReach/Code/UI/SurvivalMeter.cs": "caf53dcd0a807d1c39c4b387ac2eeea244ba6858b9cf7abca544623340268945",
+    "Assets/RivetReach/Code/Expedition.cs": "4e5bb6c79703bb766ba51e671de117db5249bf4f926eabbaa724360a2575b626",
+    "Assets/RivetReach/Code/ScreenReuseVerification.cs": "a06cffbca8f585e58c1e3dbf9a71d6cbc5d4ceee83e31656c4bc1e7fd04fbc70",
+    "Assets/RivetReach/Code/RecipeBrowserVerification.cs": "5c1d99c98a82b5b605561b89c0aca03e41b026bab2525aedff3b6eee251e4be3",
+    "Assets/RivetReach/Code/SurvivalVerification.cs": "0aabbee844b39cfe520ec8cb1a54d43a97b949b337c32e8056b2147b6a343369",
+    "Assets/RivetReach/Editor/RecipeBrowserBuild.cs": "c9f93e5f338f044730eb6a79efd0246dd6f3b651363dcc229238ea870011ba7d"
+  }
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "runtimeTimestamp": "2026-09-11T19:07:34.4753756Z",
+    "context": "Same UI production implementation before final search/page gesture invalidation; Delivery includes updated survival fixture selecting visible meters.",
+    "timingsCsv": "Unity 6000.4.4f1 | Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz | NVIDIA GeForce RTX 2060\nStopwatch action CPU only; Canvas.ForceUpdateCanvases includes managed layout/geometry updates, not subsequent native batching or GPU work.\nname,samples,median_ms,p95_ms,max_ms\nopen inventory and flush canvas,12,4.446100,4.526500,6.349200\ncraft transaction only,48,0.000800,0.001300,0.389600\ncraft UI and flush canvas,48,0.136900,0.172600,1.854200\nopen recipe detail and flush canvas,12,1.202200,1.473500,14.229900\n",
+    "assemblySha256": "6312788d7f064d629dbb918c2af0d0129a9a5590423f5daa0e235caef8d7a8e5"
+  },
+  {
+    "runtimeTimestamp": "2026-09-11T19:16:56.1317774Z",
+    "context": "Same UI production implementation before final search/page gesture invalidation; Delivery includes updated survival fixture selecting visible meters.",
+    "timingsCsv": "Unity 6000.4.4f1 | Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz | NVIDIA GeForce RTX 2060\nStopwatch action CPU only; Canvas.ForceUpdateCanvases includes managed layout/geometry updates, not subsequent native batching or GPU work.\nname,samples,median_ms,p95_ms,max_ms\nopen inventory and flush canvas,12,4.452800,5.542700,5.762600\ncraft transaction only,48,0.000600,0.001100,0.337300\ncraft UI and flush canvas,48,0.147500,0.213300,1.903800\nopen recipe detail and flush canvas,12,1.286900,1.454300,11.385500\n",
+    "identityLimit": "Intermediate executable was superseded; timing timestamp and source context are retained, but its binary hash is not certified."
+  }
+]

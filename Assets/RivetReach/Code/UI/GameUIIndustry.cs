@@ -6,7 +6,6 @@ namespace RivetReach
 {
     public sealed partial class GameUI
     {
-        Text machineStatus,machineDetail;Image machineProgress;float nextMachineRefresh;
         const int MachineSlotStart=300;
         void BuildMachine(Transform parent)
         {
@@ -23,14 +22,14 @@ namespace RivetReach
             var track=Panel(parent,892,346,155,9,slate);machineProgress=Panel(track.transform,0,0,0,9,gold);
             machineDetail=Label(parent,"",821,391,311,62,14);
             if(m.Definition.WaterCapacity>0||m.Definition.Id==IndustryId.TankController||m.Definition.Id==IndustryId.TankHatch)
-            {Button(parent,"ADD 10 L",821,455,146,34,()=>{if(!game.Industry.Bucket(m,true))game.Notify("Need a water bucket and 10 L of free space",3);});Button(parent,"TAKE 10 L",977,455,147,34,()=>{if(!game.Industry.Bucket(m,false))game.Notify("Need an empty bucket and 10 L of water",3);});}
+            {MachineButton(parent,live=>"ADD 10 L",821,455,146,34,live=>{if(!game.Industry.Bucket(live,true))game.Notify("Need a water bucket and 10 L of free space",3);});MachineButton(parent,live=>"TAKE 10 L",977,455,147,34,live=>{if(!game.Industry.Bucket(live,false))game.Notify("Need an empty bucket and 10 L of water",3);});}
             else if(m.Definition.Watts>0)
-            {Button(parent,"PRIORITY: "+new[]{"HIGH","NORMAL","LOW"}[m.Priority],821,455,303,34,()=>{m.Priority=(m.Priority+1)%3;Rebuild();});}
-            Button(parent,"ROTATE PORTS 90°",821,495,303,34,()=>{game.Industry.Simulation.Rotate(m);Rebuild();});
+            {MachineButton(parent,live=>"PRIORITY: "+new[]{"HIGH","NORMAL","LOW"}[live.Priority],821,455,303,34,live=>{live.Priority=(live.Priority+1)%3;});}
+            MachineButton(parent,live=>"ROTATE PORTS 90°",821,495,303,34,live=>{game.Industry.Simulation.Rotate(live);});
             if(PipeConnections.IsTransport(m.Definition.Id))
             {
-                Button(parent,(m.Additions&PipeAddition.Signal)!=0?"WITH SIGNAL":"FIT SIGNAL",821,455,146,34,()=>{if(!game.Industry.AddPipeChannel(m,PipeAddition.Signal))game.Notify("Requires one Signal Conduit",3);Rebuild();});
-                Button(parent,(m.Additions&PipeAddition.Power)!=0?"WITH POWER":"FIT POWER",977,455,147,34,()=>{if(!game.Industry.AddPipeChannel(m,PipeAddition.Power))game.Notify("Requires one Power Cable",3);Rebuild();});
+                MachineButton(parent,live=>(live.Additions&PipeAddition.Signal)!=0?"WITH SIGNAL":"FIT SIGNAL",821,455,146,34,live=>{if(!game.Industry.AddPipeChannel(live,PipeAddition.Signal))game.Notify("Requires one Signal Conduit",3);});
+                MachineButton(parent,live=>(live.Additions&PipeAddition.Power)!=0?"WITH POWER":"FIT POWER",977,455,147,34,live=>{if(!game.Industry.AddPipeChannel(live,PipeAddition.Power))game.Notify("Requires one Power Cable",3);});
             }
             nextMachineRefresh=0;
         }
@@ -41,9 +40,9 @@ namespace RivetReach
             var status=Panel(parent,821,228,310,55,slate);machineStatus=Label(status.transform,"",12,10,290,40,18,gold);
             machineDetail=Label(parent,"",821,299,307,112,14);
             var track=Panel(parent,821,415,303,7,slate);machineProgress=Panel(track.transform,0,0,0,7,gold);
-            Button(parent,"MODE: "+m.BatteryMode,821,437,303,34,()=>{m.BatteryMode=(BatteryMode)(((int)m.BatteryMode+1)%4);Rebuild();});
-            Button(parent,"ROTATE 90°",821,478,146,34,()=>{game.Industry.Simulation.Rotate(m);Rebuild();});
-            if(m.Definition.Id==IndustryId.BatteryController)Button(parent,"RE-SCAN",977,478,147,34,()=>game.Industry.Simulation.Multiblocks.Request(m.Structure));
+            MachineButton(parent,live=>"MODE: "+live.BatteryMode,821,437,303,34,live=>{live.BatteryMode=(BatteryMode)(((int)live.BatteryMode+1)%4);});
+            MachineButton(parent,live=>"ROTATE 90°",821,478,146,34,live=>{game.Industry.Simulation.Rotate(live);});
+            if(m.Definition.Id==IndustryId.BatteryController)MachineButton(parent,live=>"RE-SCAN",977,478,147,34,live=>game.Industry.Simulation.Multiblocks.Request(live.Structure));
             nextMachineRefresh=0;
         }
         void BuildMultiblockMachine(Transform parent,MachineState m)
@@ -55,17 +54,17 @@ namespace RivetReach
             var track=Panel(parent,821,388,303,7,slate);machineProgress=Panel(track.transform,0,0,0,7,gold);
             if(m.Definition.Id==IndustryId.TankController||m.Definition.Id==IndustryId.TankHatch)
             {
-                Button(parent,"ADD 10 L",821,415,146,34,()=>{if(!game.Industry.Bucket(m,true))game.Notify("Need a formed tank, compatible bucket and 10 L free capacity",3);});
-                Button(parent,"TAKE 10 L",977,415,147,34,()=>{if(!game.Industry.Bucket(m,false))game.Notify("Need an empty bucket and 10 L stored fluid",3);});
+                MachineButton(parent,live=>"ADD 10 L",821,415,146,34,live=>{if(!game.Industry.Bucket(live,true))game.Notify("Need a formed tank, compatible bucket and 10 L free capacity",3);});
+                MachineButton(parent,live=>"TAKE 10 L",977,415,147,34,live=>{if(!game.Industry.Bucket(live,false))game.Notify("Need an empty bucket and 10 L stored fluid",3);});
             }
             if(m.Definition.Id==IndustryId.TankPort||m.Definition.Id==IndustryId.TankValve)
-                Button(parent,"PORT: "+m.PortMode,821,415,303,34,()=>{m.PortMode=(FluidPortMode)(((int)m.PortMode+1)%3);game.Industry.Simulation.Invalidate();Rebuild();});
+                MachineButton(parent,live=>"PORT: "+live.PortMode,821,415,303,34,live=>{live.PortMode=(FluidPortMode)(((int)live.PortMode+1)%3);game.Industry.Simulation.Invalidate();});
             if(m.Definition.Id==IndustryId.TankSensor)
-                Button(parent,"ON AT: "+m.LevelThreshold+"%",821,415,303,34,()=>{m.LevelThreshold=m.LevelThreshold==100?10:m.LevelThreshold+10;Rebuild();});
-            Button(parent,"ROTATE 90°",821,456,146,34,()=>{game.Industry.Simulation.Rotate(m);Rebuild();});
-            Button(parent,"RE-SCAN",977,456,147,34,()=>{var c=m.Structure??game.Industry.Simulation.Multiblocks.At(m.Position);if(c!=null)game.Industry.Simulation.Multiblocks.Request(c);else game.Notify("Build a sealed shell with one outward-facing controller",3);});
+                MachineButton(parent,live=>"ON AT: "+live.LevelThreshold+"%",821,415,303,34,live=>{live.LevelThreshold=live.LevelThreshold==100?10:live.LevelThreshold+10;});
+            MachineButton(parent,live=>"ROTATE 90°",821,456,146,34,live=>{game.Industry.Simulation.Rotate(live);});
+            MachineButton(parent,live=>"RE-SCAN",977,456,147,34,live=>{var c=live.Structure??game.Industry.Simulation.Multiblocks.At(live.Position);if(c!=null)game.Industry.Simulation.Multiblocks.Request(c);else game.Notify("Build a sealed shell with one outward-facing controller",3);});
             if(m.Definition.Id==IndustryId.TankController)
-                Button(parent,"RECOVERY OUT: "+(m.RecoveryOutput?"ON":"OFF"),821,497,303,30,()=>{m.RecoveryOutput=!m.RecoveryOutput;game.Industry.Simulation.Invalidate();Rebuild();});
+                MachineButton(parent,live=>"RECOVERY OUT: "+(live.RecoveryOutput?"ON":"OFF"),821,497,303,30,live=>{live.RecoveryOutput=!live.RecoveryOutput;game.Industry.Simulation.Invalidate();});
             nextMachineRefresh=0;
         }
         static string MachinePortSummary(MachineState m)

@@ -126,11 +126,11 @@ namespace RivetReach
                 if(fps==20)
                 {
                     InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState(game.Input.Keys["Diagnostics"]));yield return null;yield return null;
-                    Check(game.Diagnostics&&game.UI.GetComponentsInChildren<UnityEngine.UI.Text>().Any(t=>t.text.Contains("Placement: Cannot place inside the player")),"The debug action opens the panel with the last placement rejection");
+                    Check(game.Diagnostics&&game.UI.VisibleRoot.GetComponentsInChildren<UnityEngine.UI.Text>().Any(t=>t.text.Contains("Placement: Cannot place inside the player")),"The debug action opens the panel with the last placement rejection");
                     yield return Capture("f12-placement-debug");
                     InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState());yield return null;yield return null;
                     InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState(game.Input.Keys["Diagnostics"]));yield return null;yield return null;
-                    Check(!game.Diagnostics&&!game.UI.GetComponentsInChildren<UnityEngine.UI.Text>().Any(t=>t.text.Contains("Placement: Cannot place inside the player")),"Toggling debug off hides the panel and its placement message");
+                    Check(!game.Diagnostics&&!game.UI.VisibleRoot.GetComponentsInChildren<UnityEngine.UI.Text>().Any(t=>t.text.Contains("Placement: Cannot place inside the player")),"Toggling debug off hides the panel and its placement message");
                     InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState());yield return null;yield return null;
                 }
                 InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState(game.Input.Keys["Jump"]));

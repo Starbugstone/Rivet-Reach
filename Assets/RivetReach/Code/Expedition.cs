@@ -90,6 +90,7 @@ namespace RivetReach
         {
             if(seed!=Seed||SaveId!=null||Started)
             {
+                UI?.DiscardSessionInput();
                 World.Stop();World.gameObject.SetActive(false);Player.gameObject.SetActive(false);Items.gameObject.SetActive(false);Destroy(World.gameObject);Destroy(Player.gameObject);Destroy(Items.gameObject);CreateSession(seed);UI.RefreshPreview();
             }
             Started=true;SetMode(ScreenMode.Play);
@@ -97,7 +98,7 @@ namespace RivetReach
         public void SetMode(ScreenMode mode)
         {
             if(Health?.Dead==true&&mode!=ScreenMode.Title&&mode!=ScreenMode.Load&&mode!=ScreenMode.Save)mode=ScreenMode.Death;
-            if(InventoryOpen&&mode!=ScreenMode.Inventory)UI.ReturnHeld();
+            if(InventoryOpen&&mode!=ScreenMode.Inventory&&UI.BoundToCurrentSession)UI.ReturnHeld();
             if(mode!=ScreenMode.Inventory){OpenStation=null;OpenMachine=null;}
             Mode=mode;Time.timeScale=Paused?0:1;
             bool capture=Mode==ScreenMode.Play;if(Player!=null)Player.Arms.gameObject.SetActive(capture&&!Player.Inspecting);Cursor.lockState=capture?CursorLockMode.Locked:CursorLockMode.None;Cursor.visible=!capture;

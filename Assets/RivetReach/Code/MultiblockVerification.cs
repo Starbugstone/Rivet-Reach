@@ -66,8 +66,8 @@ namespace RivetReach
             game.Inventory.Add(IndustryId.SignalConduit,1);game.Inventory.Add(IndustryId.PowerCable,1);
             if(CreativeWorkshop)
             {
-                yield return BrowserPointer(game.UI.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b=>b.GetComponentInChildren<UnityEngine.UI.Text>().text=="FIT SIGNAL"));
-                yield return BrowserPointer(game.UI.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b=>b.GetComponentInChildren<UnityEngine.UI.Text>().text=="FIT POWER"));
+                yield return BrowserPointer(game.UI.VisibleRoot.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b=>b.GetComponentInChildren<UnityEngine.UI.Text>().text=="FIT SIGNAL"));
+                yield return BrowserPointer(game.UI.VisibleRoot.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b=>b.GetComponentInChildren<UnityEngine.UI.Text>().text=="FIT POWER"));
                 Check(upgrade.Additions==(PipeAddition.Signal|PipeAddition.Power),"Pointer installs independent signal and power fittings on Item Pipe");
             }
             else Check(game.Industry.AddPipeChannel(upgrade,PipeAddition.Signal)&&game.Industry.AddPipeChannel(upgrade,PipeAddition.Power)&&upgrade.Additions==(PipeAddition.Signal|PipeAddition.Power),"Install both independent channels through the real pipe interface authority");

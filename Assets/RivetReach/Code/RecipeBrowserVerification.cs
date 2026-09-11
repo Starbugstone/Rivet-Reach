@@ -80,17 +80,19 @@ namespace RivetReach
             var lines = new List<string> { "phase,counter,unit,samples,median,p95,max", "Raw profiler units are retained; zero or missing GPU counters do not establish GPU cost." };
             try
             {
-                foreach (bool crafting in new[] { false, true })
+                foreach (int phase in new[] { 0, 1, 2 })
                 {
+                    game.UI.HeldStack=default;
                     var samples = recorders.Select(r => new List<long>()).ToArray();
                     for (int frame = 0; frame < 150; frame++)
                     {
-                        if (crafting)
+                        if (phase==1)
                         {
                             game.UI.HeldStack = default;
                             game.Crafting.Grid.Add(BlockId.Log, 1);
                             game.UI.ClickSlot(CraftResultSlot, false, false);
                         }
+                        if(phase==2){game.SetMode(ScreenMode.Play);game.SetMode(ScreenMode.Inventory);}
                         yield return null;
                         if (frame < 30) continue;
                         for (int i = 0; i < recorders.Length; i++) if (recorders[i].Valid) samples[i].Add(recorders[i].LastValue);
@@ -98,7 +100,7 @@ namespace RivetReach
                     for (int i = 0; i < recorders.Length; i++)
                     {
                         var values = samples[i]; if (values.Count == 0) continue; values.Sort();
-                        lines.Add($"{(crafting ? "craft every frame" : "idle inventory")},{selected[i].Name},{selected[i].UnitType},{values.Count},{values[values.Count / 2]},{values[(int)((values.Count - 1) * .95)]},{values[values.Count - 1]}");
+                        lines.Add($"{(phase==1 ? "craft every frame" : phase==2 ? "open every frame" : "idle inventory")},{selected[i].Name},{selected[i].UnitType},{values.Count},{values[values.Count / 2]},{values[(int)((values.Count - 1) * .95)]},{values[values.Count - 1]}");
                     }
                 }
             }
@@ -111,14 +113,14 @@ namespace RivetReach
             game.Mobs.enabled = false; game.Diagnostics = false;
             game.SetMode(ScreenMode.Inventory); yield return null; yield return null;
             yield return MeasureCraftingInterface();
-            InputField Search() => game.UI.GetComponentsInChildren<InputField>().Single(f => f.name == "Item browser search");
-            BrowserItemView Item(byte id) => game.UI.GetComponentsInChildren<BrowserItemView>().First(v => v.Item == id && v.name.StartsWith("Browse "));
-            Button Named(string name) => game.UI.GetComponentsInChildren<Button>().Single(b => b.GetComponentInChildren<Text>().text == name);
-            bool TextContains(string value) => game.UI.GetComponentsInChildren<Text>().Any(t => t.text.Contains(value));
+            InputField Search() => game.UI.VisibleRoot.GetComponentsInChildren<InputField>().Single(f => f.name == "Item browser search");
+            BrowserItemView Item(byte id) => game.UI.VisibleRoot.GetComponentsInChildren<BrowserItemView>().First(v => v.Item == id && v.name.StartsWith("Browse "));
+            Button Named(string name) => game.UI.VisibleRoot.GetComponentsInChildren<Button>().Single(b => b.GetComponentInChildren<Text>().text == name);
+            bool TextContains(string value) => game.UI.VisibleRoot.GetComponentsInChildren<Text>().Any(t => t.text.Contains(value));
             var seen = new HashSet<byte>();
             for (int page = 0; page < (game.Registry.items.Length + 59) / 60; page++)
             {
-                var cells = game.UI.GetComponentsInChildren<BrowserItemView>().Where(v => v.name.StartsWith("Browse ")).ToArray();
+                var cells = game.UI.VisibleRoot.GetComponentsInChildren<BrowserItemView>().Where(v => v.name.StartsWith("Browse ")).ToArray();
                 Check(cells.Length <= 60 && cells.All(v => v.Icon.texture != null), "Sidebar page has at most 60 rendered, textured icons");
                 foreach (var cell in cells) seen.Add(cell.Item);
                 game.UI.ChangeBrowserPage(1); yield return null;
@@ -127,18 +129,18 @@ namespace RivetReach
             game.UI.ChangeBrowserPage(-100); yield return null;
             yield return Capture("sidebar-inventory");
             Search().text = "RAW IRON"; yield return null;
-            Check(game.UI.GetComponentsInChildren<BrowserItemView>().Count(v => v.name.StartsWith("Browse ")) == 1, "Search matches case-insensitive multiword item names");
+            Check(game.UI.VisibleRoot.GetComponentsInChildren<BrowserItemView>().Count(v => v.name.StartsWith("Browse ")) == 1, "Search matches case-insensitive multiword item names");
             long inventoryRevision = game.Inventory.Revision, gridRevision = game.Crafting.Grid.Revision;
             yield return BrowserPointer(Item(BlockId.RawIron), right: true);
             Check(TextContains("Furnace") && TextContains("1 / 2"), "Right-click shows raw iron uses including direct smelting");
             yield return Capture("raw-iron-uses");
             // Recipe navigation arrows are scoped to the detail panel, independently of item pages.
-            var detail = game.UI.GetComponentsInChildren<Transform>().Single(t => t.name == "Recipe detail");
+            var detail = game.UI.VisibleRoot.GetComponentsInChildren<Transform>().Single(t => t.name == "Recipe detail");
             var next = detail.GetComponentsInChildren<Button>().Single(b => b.GetComponentInChildren<Text>().text == "›");
             yield return BrowserPointer(next);
             Check(TextContains("Crusher") && TextContains("160 W") && TextContains("5 seconds"), "Next use shows crusher, duration and full-power requirement");
             yield return Capture("crusher-recipe");
-            var machine = game.UI.GetComponentsInChildren<Transform>().Single(t => t.name == "Recipe detail");
+            var machine = game.UI.VisibleRoot.GetComponentsInChildren<Transform>().Single(t => t.name == "Recipe detail");
             yield return BrowserPointer(machine.GetComponentsInChildren<BrowserItemView>().First(v => v.Item == IndustryId.Crusher));
             Check(TextContains("4 × 4"), "Clicking the crusher station follows its construction recipe at the Machinist bench");
             yield return Capture("machine-construction");
@@ -150,7 +152,7 @@ namespace RivetReach
             yield return BrowserPointer(Item(BlockId.IronIngot));
             for (int i = 0; i < 4 && !TextContains("10 seconds"); i++)
             {
-                var current = game.UI.GetComponentsInChildren<Transform>().Single(t => t.name == "Recipe detail");
+                var current = game.UI.VisibleRoot.GetComponentsInChildren<Transform>().Single(t => t.name == "Recipe detail");
                 yield return BrowserPointer(current.GetComponentsInChildren<Button>().Single(b => b.GetComponentInChildren<Text>().text == "›"));
             }
             Check(TextContains("Furnace") && TextContains("10 seconds"), "Left-click shows iron production and processing time");
@@ -164,7 +166,7 @@ namespace RivetReach
             Check(TextContains("No crafting or processing recipe"), "Gathered resources show an explicit empty recipe state");
             yield return BrowserPointer(Named("DONE"));
             Search().text = "zz nonexistent"; yield return null;
-            Check(TextContains("No matching items") && !game.UI.GetComponentsInChildren<BrowserItemView>().Any(v => v.name.StartsWith("Browse ")), "Empty search hides all cells and shows useful feedback");
+            Check(TextContains("No matching items") && !game.UI.VisibleRoot.GetComponentsInChildren<BrowserItemView>().Any(v => v.name.StartsWith("Browse ")), "Empty search hides all cells and shows useful feedback");
             Search().text = ""; yield return BrowserPointer(Search());
             InputSystem.QueueStateEvent(Keyboard.current, new KeyboardState(game.Input.Keys["Inventory"])); yield return null; yield return null;
             InputSystem.QueueStateEvent(Keyboard.current, new KeyboardState()); yield return null;
@@ -175,7 +177,7 @@ namespace RivetReach
             InputSystem.QueueStateEvent(Mouse.current, new MouseState { position = slotPoint }); yield return null; yield return null;
             InputSystem.QueueStateEvent(Keyboard.current, new KeyboardState(Key.R)); yield return null; yield return null;
             InputSystem.QueueStateEvent(Keyboard.current, new KeyboardState()); yield return null;
-            Check(TextContains("Iron ingot") && game.UI.GetComponentsInChildren<Transform>().Any(t => t.name == "Recipe detail") && game.Inventory.Total(BlockId.IronIngot) == 3, "R on an inventory stack opens recipes without moving it");
+            Check(TextContains("Iron ingot") && game.UI.VisibleRoot.GetComponentsInChildren<Transform>().Any(t => t.name == "Recipe detail") && game.Inventory.Total(BlockId.IronIngot) == 3, "R on an inventory stack opens recipes without moving it");
             game.UI.CloseBrowserRecipe(); yield return null;
             InputSystem.QueueStateEvent(Mouse.current, new MouseState { position = slotPoint }); yield return null; yield return null;
             InputSystem.QueueStateEvent(Keyboard.current, new KeyboardState(Key.U)); yield return null; yield return null;
@@ -211,7 +213,7 @@ namespace RivetReach
             byte otherFuel = firstTorch.Ingredients.Any(s => s.Id == BlockId.Coal) ? BlockId.Charcoal : BlockId.Coal;
             game.Inventory.Add(otherFuel, 1); game.Inventory.Add(BlockId.Stick, 1);
             Search().text = "torch"; yield return null; yield return BrowserPointer(Item(BlockId.Torch));
-            var exactOutput = game.UI.GetComponentsInChildren<BrowserItemView>().Single(v => v.RecipeId == firstTorch.Id);
+            var exactOutput = game.UI.VisibleRoot.GetComponentsInChildren<BrowserItemView>().Single(v => v.RecipeId == firstTorch.Id);
             yield return BrowserPointer(exactOutput, control: true);
             Check(TextContains("Missing ingredients") && game.Crafting.Grid.Slots.All(s => s.Empty) && game.Inventory.Total(otherFuel) == 1,
                 "Ctrl-click in recipe details respects the exact shown variant and fails without partial changes");
@@ -225,12 +227,12 @@ namespace RivetReach
             // A processing output must not transfer a different grid recipe for the same item.
             game.Inventory.Add(BlockId.IronBlock, 1); game.UI.InspectBrowserItem(BlockId.IronIngot, false); yield return null;
             string furnaceRecipeId = game.Processing.Find(BlockId.RawIron).Id;
-            for (int i = 0; i < 4 && !game.UI.GetComponentsInChildren<BrowserItemView>().Any(v => v.RecipeId == furnaceRecipeId); i++)
+            for (int i = 0; i < 4 && !game.UI.VisibleRoot.GetComponentsInChildren<BrowserItemView>().Any(v => v.RecipeId == furnaceRecipeId); i++)
             {
-                var current = game.UI.GetComponentsInChildren<Transform>().Single(t => t.name == "Recipe detail");
+                var current = game.UI.VisibleRoot.GetComponentsInChildren<Transform>().Single(t => t.name == "Recipe detail");
                 yield return BrowserPointer(current.GetComponentsInChildren<Button>().Single(b => b.GetComponentInChildren<Text>().text == "›"));
             }
-            yield return BrowserPointer(game.UI.GetComponentsInChildren<BrowserItemView>().Single(v => v.RecipeId == furnaceRecipeId), control: true);
+            yield return BrowserPointer(game.UI.VisibleRoot.GetComponentsInChildren<BrowserItemView>().Single(v => v.RecipeId == furnaceRecipeId), control: true);
             Check(TextContains("No grid recipe is available") && game.Inventory.Total(BlockId.IronBlock) == 1 && game.Crafting.Grid.Slots.All(s => s.Empty),
                 "Ctrl-click on a smelting output cannot silently unpack a metal block through an unrelated grid recipe");
             game.UI.CloseBrowserRecipe(); game.Inventory.Take(game.Inventory.FindSlot(s => s.Id == BlockId.IronBlock), 1);
@@ -289,8 +291,8 @@ namespace RivetReach
                 game.Player.Camera.transform.LookAt(game.World.Local(stationPosition) + Vector3.one * .5f);
                 Check(stationId == IndustryId.Crusher ? game.TryOpenMachine(stationPosition) : game.TryOpenStation(stationPosition), "Open actual station with sidebar: " + stationId);
                 yield return null; yield return null;
-                Check(Search() != null && game.UI.GetComponentsInChildren<BrowserItemView>().Any(v => v.name.StartsWith("Browse ")), "Sidebar remains available at station " + stationId);
-                foreach (var slot in game.UI.GetComponentsInChildren<SlotView>())
+                Check(Search() != null && game.UI.VisibleRoot.GetComponentsInChildren<BrowserItemView>().Any(v => v.name.StartsWith("Browse ")), "Sidebar remains available at station " + stationId);
+                foreach (var slot in game.UI.VisibleRoot.GetComponentsInChildren<SlotView>())
                 {
                     var bounds = new Vector3[4]; ((RectTransform)slot.transform).GetWorldCorners(bounds);
                     Check(bounds.All(c => c.x >= 0 && c.x < Screen.width * .77f && c.y >= 0 && c.y <= Screen.height), "Station slot remains inside inventory column: " + stationId + "/" + slot.Index);
@@ -302,12 +304,12 @@ namespace RivetReach
                     foreach (var ingredient in toFill.Ingredients) if (!ingredient.Empty) game.Inventory.Add(ingredient.Id, ingredient.Count);
                     game.UI.InspectBrowserItem(outputItem, false); yield return null;
                     if (stationId == BlockId.Workbench) yield return BrowserPointer(Named("FILL GRID"));
-                    else yield return BrowserPointer(game.UI.GetComponentsInChildren<BrowserItemView>().Single(v => v.RecipeId == toFill.Id), control: true);
+                    else yield return BrowserPointer(game.UI.VisibleRoot.GetComponentsInChildren<BrowserItemView>().Single(v => v.RecipeId == toFill.Id), control: true);
                     Check(game.Crafting.Preview?.Id == toFill.Id && game.Inventory.Total(outputItem) == 0,
                         "Fill prepares the actual open " + game.Crafting.Grid.Size + " × " + game.Crafting.Grid.Size + " bench without crafting the output");
                     foreach (var ingredient in toFill.Ingredients) if (!ingredient.Empty) game.Inventory.Add(ingredient.Id, ingredient.Count * 2);
                     game.UI.InspectBrowserItem(outputItem, false); yield return null;
-                    yield return BrowserPointer(game.UI.GetComponentsInChildren<BrowserItemView>().Single(v => v.RecipeId == toFill.Id), shift: true, control: true);
+                    yield return BrowserPointer(game.UI.VisibleRoot.GetComponentsInChildren<BrowserItemView>().Single(v => v.RecipeId == toFill.Id), shift: true, control: true);
                     Check(game.Crafting.Preview?.Id == toFill.Id && game.Crafting.MaximumCrafts == 3, "Exact recipe Ctrl+Shift-click fills maximum at bench size " + game.Crafting.Grid.Size);
                     yield return Capture(stationId == BlockId.Workbench ? "ctrl-fill-workbench" : "ctrl-fill-machinist");
                 }
@@ -331,11 +333,12 @@ namespace RivetReach
             // Verify an actual small-window render, then restore the acceptance resolution.
             Screen.SetResolution(1024, 768, false); yield return new WaitForSecondsRealtime(1);
             yield return Capture("sidebar-1024x768");
-            var sidebar = game.UI.GetComponentsInChildren<Transform>().Single(t => t.name == "Item browser");
+            var sidebar = game.UI.VisibleRoot.GetComponentsInChildren<Transform>().Single(t => t.name == "Item browser");
             var corners = new Vector3[4]; ((RectTransform)sidebar).GetWorldCorners(corners);
             Check(corners.All(c => c.x >= 0 && c.x <= Screen.width && c.y >= 0 && c.y <= Screen.height), "Sidebar stays inside the 1024 × 768 window");
             Screen.SetResolution(1280, 720, false); yield return new WaitForSecondsRealtime(.5f);
             game.SetMode(ScreenMode.Play);
+            yield return ReviewScreenReuse();
         }
     }
 }

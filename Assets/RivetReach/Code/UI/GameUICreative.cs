@@ -25,7 +25,7 @@ namespace RivetReach
             var scroll=viewport.gameObject.AddComponent<ScrollRect>();
             scroll.viewport=viewport.rectTransform;scroll.content=content;scroll.horizontal=false;
             scroll.movementType=ScrollRect.MovementType.Clamped;
-            var status=Label(parent,"Scroll for more items",821,497,315,35,14,gold);
+            var status=Label(parent,"Scroll for more items",821,497,315,35,14,gold);currentStation.creativeStatus=status;
             void Populate(string query)
             {
                 creativeSearch=query;

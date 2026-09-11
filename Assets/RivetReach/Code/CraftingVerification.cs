@@ -11,7 +11,7 @@ namespace RivetReach
     public sealed partial class RuntimeVerification
     {
         const int CraftCell=Inventory.SlotCount, CraftResultSlot=Inventory.SlotCount+16;
-        SlotView CraftView(int index)=>game.UI.GetComponentsInChildren<SlotView>().Single(v=>v.Index==index);
+        SlotView CraftView(int index)=>game.UI.VisibleRoot.GetComponentsInChildren<SlotView>().Single(v=>v.Index==index);
         Vector2 CraftPoint(int index)
         {
             var rect=CraftView(index).GetComponent<RectTransform>();
@@ -54,7 +54,7 @@ namespace RivetReach
             Check(game.Crafting.Preview?.Output.Id==BlockId.Workbench,"Four planks preview a workbench");
             yield return Capture("personal-workbench-ready");
             game.UI.InspectBrowserItem(BlockId.Workbench,false);yield return null;
-            Check(game.UI.GetComponentsInChildren<UnityEngine.UI.Text>().Any(t=>t.text=="Personal crafting · 2 × 2"),"Recipe browser shows the personal workbench layout");
+            Check(game.UI.VisibleRoot.GetComponentsInChildren<UnityEngine.UI.Text>().Any(t=>t.text=="Personal crafting · 2 × 2"),"Recipe browser shows the personal workbench layout");
             yield return Capture("personal-recipe-browser");game.UI.CloseBrowserRecipe();yield return null;
             yield return ClickCraftUI(CraftResultSlot);yield return ClickCraftUI(14);
             Check(game.Inventory.Total(BlockId.Workbench)==1&&game.Crafting.Preview==null,"One workbench consumes four planks");

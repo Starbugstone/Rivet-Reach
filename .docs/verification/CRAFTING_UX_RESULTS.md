@@ -1,5 +1,7 @@
 # Crafting interactions and bottleneck measurements — 2026-09-11
 
+> This is the dated baseline before screen reuse. [Retained-screen results](SCREEN_REUSE_RESULTS.md) record the subsequent implementation and timings; the baseline measurements below retain their original build identity.
+
 The Windows review player is `Builds/RecipeBrowser/RivetReach.exe`, built with Unity 6000.4.4f1. Right-drag now deposits one ingredient per visited crafting/inventory cell; Shift-click a browser icon to prepare one recipe, or Ctrl+Shift-click to prepare the maximum complete batch. Ctrl-click remains a one-recipe alias and right-click opens uses. [CRAFTING.md](../CRAFTING.md#right-drag-placement-and-future-ingredient-sources--2026-09-11) owns exact behavior and the adjacent-inventory WIP boundary.
 
 ## Measured bottleneck

@@ -6,13 +6,6 @@ namespace RivetReach
     public sealed partial class GameUI
     {
         const int StationSlotStart=100,ArmorSlotStart=200;
-        long lastStationRevision=-1,lastEquipmentRevision=-1;
-        float shownHealth=float.NaN;
-        int shownFood=-1,shownArmor=-1,shownProgress=-1,shownBurn=-1;
-        long shownFurnaceRevision=-1;
-        bool shownEating;
-        Text healthText,hungerText,armorText,furnaceText;
-        Image cookBar,burnBar;
         long StationRevision=>game.OpenMachine?.Items.Revision??game.OpenStation?.Furnace?.Revision??game.OpenStation?.Storage?.Revision??0;
         ItemStack StationStack(int slot)
         {

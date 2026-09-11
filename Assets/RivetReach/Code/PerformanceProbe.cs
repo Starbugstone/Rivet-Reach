@@ -54,7 +54,7 @@ namespace RivetReach
             report.residentCount=game.World.ResidentCount;
             yield return Frames(report,"settled gameplay frames",180);
             yield return Measure(report,"open personal inventory",10,()=>{game.SetMode(ScreenMode.Play);game.SetMode(ScreenMode.Inventory);});
-            report.inventoryObjects=game.UI.transform.Find("Interface").GetComponentsInChildren<Transform>().Length;
+            report.inventoryObjects=game.UI.VisibleRoot.GetComponentsInChildren<Transform>().Length;
             yield return Measure(report,"unchanged portrait refresh",10,game.UI.RefreshPreview);
             yield return Frames(report,"inventory idle frames",180);
             game.Inventory.Add(BlockId.Log,32);
@@ -72,15 +72,15 @@ namespace RivetReach
             {
                 yield return Measure(report,"open recipe detail",6,()=>inspect.Invoke(game.UI,new object[]{BlockId.Planks,false}));
                 yield return null;
-                Check(report,game.UI.GetComponentsInChildren<Text>().Any(t=>t.text.Contains("Planks")),"Browser displays the selected recipe");
+                Check(report,game.UI.VisibleRoot.GetComponentsInChildren<Text>().Any(t=>t.text.Contains("Planks")),"Browser displays the selected recipe");
             }
             else
             {
-                var button=game.UI.GetComponentsInChildren<Button>().Single(b=>b.GetComponentInChildren<Text>().text=="RECIPES");
+                var button=game.UI.VisibleRoot.GetComponentsInChildren<Button>().Single(b=>b.GetComponentInChildren<Text>().text=="RECIPES");
                 button.onClick.Invoke();yield return null;
-                Check(report,game.UI.GetComponentsInChildren<ScrollRect>().Length==1,"Recipe guide is available");
+                Check(report,game.UI.VisibleRoot.GetComponentsInChildren<ScrollRect>().Length==1,"Recipe guide is available");
             }
-            report.guideObjects=game.UI.transform.Find("Interface").GetComponentsInChildren<Transform>().Length;
+            report.guideObjects=game.UI.VisibleRoot.GetComponentsInChildren<Transform>().Length;
             ScreenCapture.CaptureScreenshot(Path.Combine(output,"crafting.png"));yield return Frames(report,"recipe detail frames",180);
             typeof(GameUI).GetMethod("CloseBrowserRecipe")?.Invoke(game.UI,null);
             game.SetMode(ScreenMode.Play);

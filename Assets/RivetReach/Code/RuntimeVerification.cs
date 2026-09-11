@@ -98,14 +98,14 @@ namespace RivetReach
             if(Environment.GetCommandLineArgs().Contains("-rr-save-resume-review"))
             {report.workload="Fresh-process Continue latest disk save";yield return ReviewSaveGame();yield break;}
             float began=Time.realtimeSinceStartup;report.startupSeed=game.Seed;
-            var seedField=game.UI.GetComponentInChildren<UnityEngine.UI.InputField>();
+            var seedField=game.UI.VisibleRoot.GetComponentInChildren<UnityEngine.UI.InputField>();
             Check(seedField!=null&&string.IsNullOrEmpty(seedField.text),"Normal startup leaves the optional seed field blank for a random world (seed "+game.Seed+")");
             yield return Capture("random-seed-title");
-            UnityEngine.UI.Button StartButton()=>game.UI.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b=>b.GetComponentInChildren<UnityEngine.UI.Text>().text=="START EXPEDITION");
+            UnityEngine.UI.Button StartButton()=>game.UI.VisibleRoot.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b=>b.GetComponentInChildren<UnityEngine.UI.Text>().text=="START EXPEDITION");
             StartButton().onClick.Invoke();
             Check(game.Started&&game.Seed==report.startupSeed&&game.World.Generator.Seed==report.startupSeed,"Starting with a blank seed uses the randomly prepared world");
             game.SetMode(ScreenMode.Title);yield return null;
-            seedField=game.UI.GetComponentInChildren<UnityEngine.UI.InputField>();seedField.text="246813";StartButton().onClick.Invoke();
+            seedField=game.UI.VisibleRoot.GetComponentInChildren<UnityEngine.UI.InputField>();seedField.text="246813";StartButton().onClick.Invoke();
             Check(game.Seed==246813&&game.World.Generator.Seed==246813,"Entering an explicit seed starts that reproducible world");
             game.World.ViewDistance=Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-fluid-review")?4:10;game.Diagnostics=true;
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-save-review"||arg=="-rr-workshop-followup-review"||arg=="-rr-browser-review"||arg=="-rr-creative-review"||arg=="-rr-torch-review"||arg=="-rr-industry-review"||arg=="-rr-multiblock-review"||arg=="-rr-clearance-review"))game.World.ViewDistance=4;

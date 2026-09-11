@@ -49,18 +49,26 @@ namespace RivetReach
             browserItems = game.Registry.items.OrderBy(i => browserSettings.TryGetValue(i.runtimeId, out var entry) ? entry.sortOrder : 0)
                 .ThenBy(i => i.displayName, StringComparer.OrdinalIgnoreCase).ThenBy(i => i.stableId, StringComparer.Ordinal).ToArray();
         }
+        bool inventoryShellBuilt,inventorySidebarBuilt,inventoryCursorBuilt;
+        static readonly Unity.Profiling.ProfilerMarker shellMarker=new Unity.Profiling.ProfilerMarker("RivetReach.UI.BuildInventoryShell");
         void BuildItemBrowserInventory()
         {
+            BuildInventoryShell();
+            if(!inventorySidebarBuilt){BuildItemSidebar();inventorySidebarBuilt=true;}
+            BuildInventoryCursor();
+        }
+        void BuildInventoryShell()
+        {
+            if(inventoryShellBuilt)return;
+            using var measurement=shellMarker.Auto();
+            inventoryShellBuilt=true;
             EnsureBrowserIndex();
             Panel(root, 0, 0, 1280, 720, new Color(0, 0, 0, .36f));
             var p = Panel(root, 18, 42, 948, 634, ink); browserHost = p.rectTransform;
-            string title = game.OpenMachine != null ? game.OpenMachine.Definition.Name : game.OpenStation != null ?
-                game.Registry.Get(game.OpenStation.Block).displayName : game.Creative ? "Creative inventory" : "Inventory";
-            Label(p.transform, title.ToUpperInvariant(), 28, 20, 620, 44, 28);
-            Label(p.transform, "Drag stacks · Right-drag: place one per slot · Shift-click: transfer", 28, 70, 880, 25, 14, gold);
-            Button(p.transform, "CLOSE", 822, 22, 104, 38, () => game.SetMode(ScreenMode.Play));
-            if (game.Creative && game.OpenStation == null && game.OpenMachine == null)
-                Button(p.transform, creativeCrafting ? "ALL ITEMS" : "CRAFTING", 658, 22, 148, 38, () => { creativeCrafting = !creativeCrafting; Rebuild(); });
+            currentScreen.inventoryTitle=Label(p.transform,"INVENTORY",28,20,620,44,28);
+            Label(p.transform,"Drag stacks · Right-drag: place one per slot · Shift-click: transfer",28,70,880,25,14,gold);
+            Button(p.transform,"CLOSE",822,22,104,38,()=>game.SetMode(ScreenMode.Play));
+            currentScreen.creativeToggle=Button(p.transform,"CRAFTING",658,22,148,38,()=>{creativeCrafting=!creativeCrafting;Rebuild();});
             var backdrop = Panel(p.transform, 28, 113, 210, 270, slate);
             var portrait = Rect(backdrop.transform, "Portrait", 0, 0, 210, 270).gameObject.AddComponent<RawImage>();
             portrait.texture = previewTexture; portrait.uvRect = PortraitUV(210, 270); portrait.gameObject.AddComponent<PortraitDrag>().Owner = this;
@@ -68,21 +76,19 @@ namespace RivetReach
             for (int row = 0; row < 6; row++) for (int col = 0; col < 8; col++) Slot(p.transform, 12 + row * 8 + col, 250 + col * 50, 131 + row * 50, 44);
             BuildEquipment(p.transform);
             // Existing station controls retain their own layouts inside this bounded column.
-            var station = Rect(p.transform, "Station controls", -14, 28, 1170, 634); station.localScale = Vector3.one * .82f;
-            if (game.OpenMachine != null) BuildMachine(station);
-            else if (game.OpenStation?.Furnace != null) BuildFurnace(station);
-            else if (game.OpenStation?.Storage != null) BuildChest(station);
-            else if (game.Creative && game.OpenStation == null && !creativeCrafting) BuildCreativeCatalog(station);
-            else BuildCraftingStation(station);
+            currentScreen.stationHost=Rect(p.transform,"Station controls",-14,28,1170,634);currentScreen.stationHost.localScale=Vector3.one*.82f;
             Label(p.transform, "HOTBAR", 250, 500, 400, 24, 14, gold); BuildHotbar(p.transform, 250, 534, 42, 4);
             Button(p.transform, "APPEARANCE", 28, 534, 210, 40, () => game.SetMode(ScreenMode.Appearance));
             inventoryHint = Label(p.transform, "Hover an item: R recipes · U uses. Browse all items in the sidebar →", 28, 604, 892, 24, 14);
             tooltip = Label(p.transform, "", 28, 604, 892, 24, 14, gold);
-            BuildItemSidebar();
+            currentScreen.commonSlots=slots.Count;
+        }
+        void BuildInventoryCursor()
+        {
+            if(inventoryCursorBuilt)return;inventoryCursorBuilt=true;
             heldRoot = Rect(root, "Held stack", 0, 0, 52, 65); heldRoot.gameObject.AddComponent<Canvas>(); heldRoot.gameObject.SetActive(false);
             heldIcon = heldRoot.gameObject.AddComponent<RawImage>(); heldIcon.raycastTarget = false;
             heldLabel = Label(heldRoot, "", 0, 37, 55, 25, 16); heldLabel.alignment = TextAnchor.LowerRight;
-            RefreshPreview();
         }
         void BuildCraftingStation(Transform parent)
         {
@@ -131,14 +137,15 @@ namespace RivetReach
         public void ChangeBrowserPage(int delta) { browserPage += delta; PopulateBrowserPage(); }
         void PopulateBrowserPage()
         {
+            if(!constructing){BindingVersion++;EndRightPaint();creativeDrag=default;}
             int pages = Math.Max(1, (browserFiltered.Count + BrowserPageSize - 1) / BrowserPageSize);
             browserPage = Mathf.Clamp(browserPage, 0, pages - 1);
             for (int i = 0; i < browserCells.Count; i++)
             {
                 int index = browserPage * BrowserPageSize + i;
                 var view = browserCells[i]; view.gameObject.SetActive(index < browserFiltered.Count);
-                if (index >= browserFiltered.Count) continue;
-                var item = browserFiltered[index]; view.Item = item.runtimeId; view.Icon.texture = BrowserTexture(item.runtimeId);
+                if (index >= browserFiltered.Count) {BindBrowserIcon(view,default);continue;}
+                var item = browserFiltered[index]; BindBrowserIcon(view,new ItemStack(item.runtimeId,1));
                 view.gameObject.name = "Browse " + item.stableId;
             }
             browserPageLabel.text = browserFiltered.Count == 0 ? "No matching items" : $"{browserPage + 1} / {pages} · {browserFiltered.Count} items";
@@ -153,13 +160,13 @@ namespace RivetReach
             var selectable = panel.gameObject.AddComponent<Selectable>(); selectable.targetGraphic = panel;
             view.Icon = Rect(panel.transform, "Icon", 4, 4, size - 8, size - 8).gameObject.AddComponent<RawImage>(); view.Icon.raycastTarget = false;
             if (!stack.Empty) { view.Icon.texture = BrowserTexture(stack.Id); panel.gameObject.name = "Inspect " + game.Registry.Get(stack.Id).stableId; }
-            if (stack.Count > 1) Label(panel.transform, stack.Count.ToString(), 1, size - 19, size - 3, 19, 13).alignment = TextAnchor.LowerRight;
+            view.CountLabel=Label(panel.transform,stack.Count>1?stack.Count.ToString():"",1,size-19,size-3,19,13);view.CountLabel.alignment=TextAnchor.LowerRight;
             return view;
         }
         ItemStack creativeDrag;
         public bool BeginCreativeDrag(byte id)
         {
-            if(!game.Creative||!game.InventoryOpen||!HeldStack.Empty||id==0)return false;
+            if(!game.Creative||!HasInventoryBinding||!HeldStack.Empty||id==0)return false;
             creativeDrag=new ItemStack(id,game.Registry.Get(id).stackLimit);return true;
         }
         public void EndCreativeDrag(SlotView slot)
@@ -178,96 +185,28 @@ namespace RivetReach
         }
         public void InspectBrowserItem(byte id, bool usages)
         {
-            if (!game.InventoryOpen || id == 0) return;
+            if (!HasInventoryBinding || id == 0) return;
             if (browserItem != 0) browserHistory.Push((browserItem, browserUses, recipePage));
             browserSearchField?.DeactivateInputField();
             browserItem = id; browserUses = usages; recipePage = 0; DrawBrowserRecipe();
         }
         public void CloseBrowserRecipe()
         {
-            if (recipePanel != null) { recipePanel.SetActive(false); Destroy(recipePanel); recipePanel = null; }
+            if (recipePanel != null) recipePanel.SetActive(false);
+            shownRecipe=null;
             browserItem = 0; recipeTransferStatus = null; browserHistory.Clear(); HoverBrowserItem(0);
         }
         static readonly Unity.Profiling.ProfilerMarker recipeViewMarker = new Unity.Profiling.ProfilerMarker("RivetReach.UI.RecipeView");
         static readonly Unity.Profiling.ProfilerMarker recipeFillMarker = new Unity.Profiling.ProfilerMarker("RivetReach.UI.RecipeFill");
         void DrawBrowserRecipe()
         {
-            using var measurement = recipeViewMarker.Auto();
-            if (recipePanel != null) { recipePanel.SetActive(false); Destroy(recipePanel); }
-            HoverBrowserItem(0); hoveredSlot = -1; RefreshTooltip();
-            var panel = Panel(browserHost, 246, 104, 688, 418, new Color(ink.r, ink.g, ink.b, 1)); recipePanel = panel.gameObject; recipePanel.name = "Recipe detail"; recipePanel.SetActive(false);
-            // Opaque, raycastable backing prevents clicks from falling through to held stacks or the grid.
-            Panel(panel.transform, 0, 0, 688, 3, gold);
-            var back = Button(panel.transform, "‹ BACK", 12, 14, 98, 32, () =>
-            {
-                var previous = browserHistory.Pop(); browserItem = previous.item; browserUses = previous.uses; recipePage = previous.page; DrawBrowserRecipe();
-            }); back.interactable = browserHistory.Count > 0;
-            Label(panel.transform, game.Registry.Get(browserItem).displayName, 124, 15, 424, 30, 22);
-            Button(panel.transform, "DONE", 578, 14, 98, 32, CloseBrowserRecipe);
-            Button(panel.transform, "RECIPES", 12, 58, 130, 34, () => { browserUses = false; recipePage = 0; DrawBrowserRecipe(); }, !browserUses);
-            Button(panel.transform, "USES", 150, 58, 130, 34, () => { browserUses = true; recipePage = 0; DrawBrowserRecipe(); }, browserUses);
-            var matches = browserIndex.Find(browserItem, browserUses);
-            recipePage = Mathf.Clamp(recipePage, 0, Math.Max(0, matches.Count - 1));
-            var previousButton = Button(panel.transform, "‹", 514, 58, 36, 34, () => { recipePage--; DrawBrowserRecipe(); }); previousButton.interactable = recipePage > 0;
-            var nextButton = Button(panel.transform, "›", 640, 58, 36, 34, () => { recipePage++; DrawBrowserRecipe(); }); nextButton.interactable = recipePage < matches.Count - 1;
-            Label(panel.transform, matches.Count == 0 ? "0 / 0" : $"{recipePage + 1} / {matches.Count}", 555, 65, 82, 26, 15, gold).alignment = TextAnchor.UpperCenter;
-            if (matches.Count == 0)
-            {
-                BrowserIcon(panel.transform, new ItemStack(browserItem, 1), 30, 130, 64);
-                Label(panel.transform, browserUses ? "No registered recipe uses this item." : "No crafting or processing recipe.\nFind this item through exploration or other world interactions.", 116, 134, 532, 88, 19);
-                Label(panel.transform, "Browse another item, or select the other tab.", 30, 272, 620, 50, 16, gold); recipePanel.SetActive(true); return;
-            }
-            var recipe = matches[recipePage];
-            if (recipe.GridRecipe != null)
-                Button(panel.transform, "FILL GRID", 294, 58, 204, 34, () => FillBrowserRecipe(recipe.Output.Id, recipe.Id));
-            recipeTransferStatus = Label(panel.transform, "", 16, 140, 658, 17, 12, gold);
-            if (recipe.Station != 0) BrowserIcon(panel.transform, new ItemStack(recipe.Station, 1), 16, 106, 34);
-            Label(panel.transform, recipe.StationName, recipe.Station == 0 ? 16 : 60, 111, 445, 26, 18, gold);
-            string role = recipe.Station == browserItem && browserUses ? "Used here as the station" : recipe.Fuels.Contains(browserItem) && browserUses ? "Used here as fuel" : "";
-            Label(panel.transform, role, 410, 116, 260, 26, 13, gold);
-            var gridRecipe = recipe.GridRecipe;
-            int width = gridRecipe == null ? 1 : gridRecipe.MinimumGridSize;
-            int cellCount = gridRecipe == null ? recipe.Ingredients.Count : width * width;
-            for (int i = 0; i < cellCount; i++)
-            {
-                int col = i % width, row = i / width;
-                ItemStack stack = default;
-                if (gridRecipe == null || gridRecipe.Kind == RecipeKind.Shapeless)
-                { if (i < recipe.Ingredients.Count) stack = recipe.Ingredients[i]; }
-                else if (col < gridRecipe.Width && row < gridRecipe.Height)
-                    stack = recipe.Ingredients[row * gridRecipe.Width + col];
-                float x = 24 + col * 42, y = 158 + row * 42;
-                if (stack.Empty) Panel(panel.transform, x, y, 38, 38, slate); else BrowserIcon(panel.transform, stack, x, y, 38);
-            }
-            float centreY = 156 + width * 21;
-            Label(panel.transform, "→", 207, centreY - 22, 45, 45, 32, gold);
-            BrowserIcon(panel.transform, recipe.Output, 261, centreY - 30, 60).RecipeId = recipe.Id;
-            Label(panel.transform, game.Registry.Get(recipe.Output.Id).displayName + " × " + recipe.Output.Count, 232, centreY + 38, 130, 50, 16, gold).alignment = TextAnchor.UpperCenter;
-            string method = gridRecipe != null ? gridRecipe.Kind == RecipeKind.Shapeless ? "Any arrangement" : gridRecipe.AllowsMirroring ? "Shown layout or mirror" : "Shown layout" :
-                (recipe.Ticks / 20f).ToString("0.#") + " seconds" + (recipe.Watts > 0 ? " · " + recipe.Watts + " W at full power" : " · Requires fuel");
-            Label(panel.transform, method, 24, 334, 640, 24, 14, gold);
-            Label(panel.transform, "MATERIALS / CRAFT", 386, 155, 276, 24, 13, gold);
-            var totals = recipe.Ingredients.Where(s => !s.Empty).GroupBy(s => s.Id).Select(g => new ItemStack(g.Key, g.Sum(s => s.Count))).ToArray();
-            var viewport = Panel(panel.transform, 382, 185, 286, 138, ink); viewport.gameObject.AddComponent<RectMask2D>();
-            var content = Rect(viewport.transform, "Material totals", 0, 0, 282, Math.Max(138, totals.Length * 38));
-            var scroll = viewport.gameObject.AddComponent<ScrollRect>(); scroll.viewport = viewport.rectTransform; scroll.content = content; scroll.horizontal = false; scroll.movementType = ScrollRect.MovementType.Clamped; scroll.scrollSensitivity = 25;
-            for (int i = 0; i < totals.Length; i++)
-            {
-                var stack = totals[i]; BrowserIcon(content, stack, 2, i * 38, 32);
-                Label(content, stack.Count + " × " + game.Registry.Get(stack.Id).displayName, 42, i * 38 + 6, 234, 30, 14);
-            }
-            if (recipe.Fuels.Count > 0)
-            {
-                Label(panel.transform, "FUEL · choose one", 24, 376, 160, 24, 13, gold);
-                for (int i = 0; i < recipe.Fuels.Count; i++) BrowserIcon(panel.transform, new ItemStack(recipe.Fuels[i], (recipe.Ticks + game.Processing.FuelTicks(recipe.Fuels[i]) - 1) / game.Processing.FuelTicks(recipe.Fuels[i])), 190 + i * 36, 369, 32);
-            }
-            else Label(panel.transform, "Shift-click output: fill one · Ctrl+Shift: max · Right-click: uses", 24, 380, 640, 24, 13, gold);
-            recipePanel.SetActive(true);
+            using var measurement=recipeViewMarker.Auto();
+            BindRecipeDetails();
         }
         public void FillBrowserRecipe(byte item, string recipeId = null, bool maximum = false)
         {
             using var measurement = recipeFillMarker.Auto();
-            if (!game.InventoryOpen) return;
+            if (!HasInventoryBinding) return;
             void Notice(string text)
             {
                 if (recipeTransferStatus != null) recipeTransferStatus.text = text;
@@ -290,7 +229,7 @@ namespace RivetReach
                 }
                 if (result != RecipeFillStatus.RequiresLargerGrid) failure = result;
             }
-            if (recipePanel == null) InspectBrowserItem(item, false);
+            if (!RecipeVisible) InspectBrowserItem(item, false);
             Notice(failure == RecipeFillStatus.RequiresLargerGrid ? "Requires " + candidates.OrderBy(r => r.GridRecipe.MinimumGridSize).First().StationName :
                 failure == RecipeFillStatus.InventoryFull ? "Make room in your inventory for the ingredients already in the grid." :
                 "Missing ingredients · Inventory and crafting grid are unchanged.");
@@ -304,22 +243,24 @@ namespace RivetReach
             else if (Keyboard.current.uKey.wasPressedThisFrame) InspectBrowserItem(item, true);
         }
     }
-    public sealed class BrowserItemView : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public sealed class BrowserItemView : MonoBehaviour, IPointerDownHandler, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
-        public GameUI Owner; public byte Item; public string RecipeId; public RawImage Icon;
+        public GameUI Owner; public byte Item; public string RecipeId; public RawImage Icon; public Text CountLabel;
         public bool CatalogSource;
         bool dragging;
+        long pressVersion=-1;
+        public void OnPointerDown(PointerEventData e) {pressVersion=Owner.AcceptWidget(this)?Owner.BindingVersion:-1;}
         public void OnBeginDrag(PointerEventData e)
-        {dragging=CatalogSource&&e.button==PointerEventData.InputButton.Left&&Owner.BeginCreativeDrag(Item);}
+        {dragging=Owner.AcceptGesture(this,pressVersion)&&CatalogSource&&e.button==PointerEventData.InputButton.Left&&Owner.BeginCreativeDrag(Item);}
         public void OnDrag(PointerEventData e){}
         public void OnEndDrag(PointerEventData e)
-        {if(dragging)Owner.EndCreativeDrag(e.pointerCurrentRaycast.gameObject?.GetComponentInParent<SlotView>());dragging=false;}
-        void OnDisable(){if(dragging)Owner.EndCreativeDrag(null);dragging=false;}
-        public void OnPointerEnter(PointerEventData e) => Owner.HoverBrowserItem(Item);
-        public void OnPointerExit(PointerEventData e) => Owner.HoverBrowserItem(0);
+        {if(dragging&&Owner.AcceptGesture(this,pressVersion))Owner.EndCreativeDrag(e.pointerCurrentRaycast.gameObject?.GetComponentInParent<SlotView>());dragging=false;}
+        void OnDisable(){pressVersion=-1;if(dragging)Owner.EndCreativeDrag(null);dragging=false;}
+        public void OnPointerEnter(PointerEventData e) {if(Owner.AcceptWidget(this))Owner.HoverBrowserItem(Item);}
+        public void OnPointerExit(PointerEventData e) {if(Owner.AcceptWidget(this))Owner.HoverBrowserItem(0);}
         public void OnPointerClick(PointerEventData e)
         {
-            if (dragging || e.dragging || (e.button != PointerEventData.InputButton.Left && e.button != PointerEventData.InputButton.Right)) return;
+            if (Item==0 || !Owner.AcceptGesture(this,pressVersion) || dragging || e.dragging || (e.button != PointerEventData.InputButton.Left && e.button != PointerEventData.InputButton.Right)) return;
             bool shift = Keyboard.current?.shiftKey.isPressed == true, control = Keyboard.current?.ctrlKey.isPressed == true;
             if (e.button == PointerEventData.InputButton.Left && (shift || control))
                 Owner.FillBrowserRecipe(Item, RecipeId, shift && control);
@@ -329,6 +270,6 @@ namespace RivetReach
     public sealed class BrowserPageScroll : MonoBehaviour, IScrollHandler
     {
         public GameUI Owner;
-        public void OnScroll(PointerEventData e) { if (e.scrollDelta.y != 0) Owner.ChangeBrowserPage(e.scrollDelta.y > 0 ? -1 : 1); }
+        public void OnScroll(PointerEventData e) { if (Owner.AcceptWidget(this) && e.scrollDelta.y != 0) Owner.ChangeBrowserPage(e.scrollDelta.y > 0 ? -1 : 1); }
     }
 }

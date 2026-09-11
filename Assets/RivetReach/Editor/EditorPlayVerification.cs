@@ -102,8 +102,8 @@ namespace RivetReach.Editor
             var game=Expedition.Instance;
             Check(game!=null&&game.World!=null&&game.Player!=null&&game.Items!=null&&game.UI!=null,"Ordinary Bootstrap completed the whole session");
             Check(game.Mode==ScreenMode.Title&&!game.Started,"Play opens on the title screen");
-            Check(game.UI.GetComponentInChildren<Canvas>().isActiveAndEnabled,"Title canvas is active");
-            var start=game.UI.GetComponentsInChildren<Button>().Single(b=>b.GetComponentInChildren<Text>().text=="START EXPEDITION");
+            Check(game.UI.VisibleRoot.GetComponentInChildren<Canvas>().isActiveAndEnabled,"Title canvas is active");
+            var start=game.UI.VisibleRoot.GetComponentsInChildren<Button>().Single(b=>b.GetComponentInChildren<Text>().text=="START EXPEDITION");
             Check(start.isActiveAndEnabled&&start.interactable,"Start Expedition button is available");
             Check(game.Player.Body.AnimationReady&&game.Player.Arms.AnimationReady,"Player body and hand animation graphs are ready");
             var preview=UnityEngine.Object.FindObjectsByType<AvatarView>(FindObjectsInactive.Include).Single(v=>v.Preview);

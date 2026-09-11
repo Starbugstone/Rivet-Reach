@@ -101,10 +101,10 @@ namespace RivetReach
             Aim(tank);Check(game.TryOpenMachine(tank.Position),"Open tank for bucket transfer");game.Inventory.Add(Fluids.WaterBucket,1);int before=tank.WaterMl;
             // Pause simulation ticks during pointer transactions so the connected pump cannot change the exact amount.
             float transactionScale=Time.timeScale;Time.timeScale=0;
-            if(CreativeWorkshop)yield return BrowserPointer(game.UI.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b=>b.GetComponentInChildren<UnityEngine.UI.Text>().text=="ADD 10 L"));
+            if(CreativeWorkshop)yield return BrowserPointer(game.UI.VisibleRoot.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b=>b.GetComponentInChildren<UnityEngine.UI.Text>().text=="ADD 10 L"));
             else Check(game.Industry.Bucket(tank,true),"Tank accepts filled bucket");
             Check(tank.WaterMl==before+10000&&game.Inventory.Total(Fluids.EmptyBucket)==1,"Bucket transfer conserves 10 L and returns empty container");
-            if(CreativeWorkshop)yield return BrowserPointer(game.UI.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b=>b.GetComponentInChildren<UnityEngine.UI.Text>().text=="TAKE 10 L"));
+            if(CreativeWorkshop)yield return BrowserPointer(game.UI.VisibleRoot.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b=>b.GetComponentInChildren<UnityEngine.UI.Text>().text=="TAKE 10 L"));
             else Check(game.Industry.Bucket(tank,false),"Tank accepts empty bucket");
             Check(tank.WaterMl==before&&game.Inventory.Total(Fluids.WaterBucket)==1,"Tank fill/empty round trip conserves water and bucket");Time.timeScale=transactionScale;game.SetMode(ScreenMode.Play);
             // Stored machine state survives unload. Clock is paused so this measures lifecycle only.

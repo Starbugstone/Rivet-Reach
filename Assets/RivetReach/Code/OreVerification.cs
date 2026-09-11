@@ -37,7 +37,7 @@ namespace RivetReach
                     Check(!world.Mine(target,band.Block,tool)&&world.Get(target)==band.Block,"Authority rejects unsuitable tool for "+band.Block);
                 player.VerificationMining=true;yield return new WaitForSecondsRealtime(.8f);player.VerificationMining=false;
                 Check(world.Get(target)==band.Block&&player.MiningProgress==0&&game.Items.TotalSpawned==spawned,"Holding Mine barehanded leaves ore and drops unchanged");
-                Check(game.UI.GetComponentsInChildren<UnityEngine.UI.Text>().Any(t=>t.text.Contains("pickaxe or better")),"HUD explains ore's required tool");
+                Check(game.UI.VisibleRoot.GetComponentsInChildren<UnityEngine.UI.Text>().Any(t=>t.text.Contains("pickaxe or better")),"HUD explains ore's required tool");
                 yield return Capture("ore-"+band.Block+"-natural");
                 game.Selected=10;yield return new WaitForSecondsRealtime(.5f);
                 Check(player.HeldBlock.Visible&&player.HeldBlock.ItemId==BlockId.IronPickaxe,"Selected iron pickaxe is displayed before extraction");
@@ -76,7 +76,7 @@ namespace RivetReach
             float floorTop=world.Local(floor).y+1;
             // Swept collision intentionally permits the existing 1 mm skin at a face.
             Check(grounded&&moved.y>=floorTop-.0011f&&moved.y<floorTop+.01f&&!world.Overlaps(moved,.6f,1.8f)&&player.Grounded,"Bedrock collision stops at its top face within the movement skin: "+moved.y);
-            Check(game.UI.GetComponentsInChildren<UnityEngine.UI.Text>().Any(t=>t.text.Contains("Unbreakable")),"HUD explains bedrock is unbreakable");
+            Check(game.UI.VisibleRoot.GetComponentsInChildren<UnityEngine.UI.Text>().Any(t=>t.text.Contains("Unbreakable")),"HUD explains bedrock is unbreakable");
             yield return Capture("bedrock-floor");
             player.enabled=false;player.transform.position+=Vector3.right*1024;yield return null;yield return Settle();
             Check(mined.All(p=>!world.Ready(p)&&world.Get(p)==0),"All mined ores stay depleted while their chunks are nonresident");

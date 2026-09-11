@@ -1,5 +1,7 @@
 # Item sidebar, recipe discovery and recipe placement
 
+> [Retained-screen verification](SCREEN_REUSE_RESULTS.md) supersedes the UI construction behavior with a newer build and reruns browser/crafting acceptance. The report below preserves the earlier crafting-UX artifact and its evidence.
+
 Verified on **2026-09-11** in Unity **6000.4.4f1 / URP 17.4.0**. Review player: **`Builds/RecipeBrowser/RivetReach.exe`**. [Crafting rules and authoring](../CRAFTING.md#item-sidebar-and-recipe-discovery--2026-09-10) own the implementation contract.
 
 The sidebar contains **127 registered items** and indexes **91 grid recipes, 11 furnace recipes and 3 crusher processes**. Click an icon for production recipes; right-click for uses; Shift-click (or Ctrl-click) to place one recipe, or Ctrl+Shift-click to fill the maximum complete batch in the open compatible crafting grid. Recipe outputs and the Fill grid button select the exact displayed variant. R/U inspect hovered inventory slots while preserving stack gestures.
