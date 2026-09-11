@@ -1,0 +1,7 @@
+Same player/process/camera; 256 props; original versus Mesh.Optimize clone; 1 second settle then 5 seconds uncapped per sample. ABBAAB order. Whole-frame times, not isolated GPU measurements.
+original: median 4,828 ms; p95 6,170 ms; frames 1036
+optimized: median 5,037 ms; p95 6,555 ms; frames 980
+optimized: median 5,387 ms; p95 6,565 ms; frames 948
+original: median 5,411 ms; p95 6,935 ms; frames 926
+original: median 5,403 ms; p95 6,773 ms; frames 931
+optimized: median 5,595 ms; p95 6,949 ms; frames 902

@@ -38,6 +38,8 @@ namespace RivetReach.Editor
             command=command.Replace("|ready","");File.Delete(request);
             try
             {
+                if(command=="ore-refinement-build")
+                {Build("OreRefinement");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="ore-art-build")
                 {IndustryAssets.PrepareOreVariants();IndustryChecks.Run();WikiExport.Export();Build("OreVariants");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="azure-art-build")

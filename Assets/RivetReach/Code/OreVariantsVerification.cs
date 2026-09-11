@@ -54,7 +54,10 @@ namespace RivetReach
             }
             fixture.SetActive(true);yield return new WaitForSecondsRealtime(.5f);yield return Sample();
             File.WriteAllText(Path.Combine(output,"ore-sharing.txt"),$"Shared mesh: {Profiler.GetRuntimeMemorySizeLong(mesh)} runtime bytes, {mesh.vertexCount} vertices, 4129 triangles\n256 objects; one mesh reference; six shared world materials; maximum visible geometry 1057024 triangles before culling, excluding shadow passes\nBaseline median/p95 ms: {baseline:F3}/{baseline95:F3}\n256-prop median/p95 ms: {samples[samples.Count/2]:F3}/{samples[(int)(samples.Count*.95f)]:F3}\nEach sample 3 seconds; frame cap {Application.targetFrameRate}; vSync {QualitySettings.vSyncCount}; uncapped whole-frame timing, not isolated GPU time or a large-factory benchmark.\n");
-            yield return Capture("ore-sharing-256");Application.targetFrameRate=savedCap;player.Camera.fieldOfView=savedFov;Destroy(fixture);foreach(var m in tempMeshes)Destroy(m);
+            yield return Capture("ore-sharing-256");
+            if(System.Array.IndexOf(System.Environment.GetCommandLineArgs(),"-rr-ore-refinement-review")>=0)
+                yield return CompareOreMeshOrder(fixture,mesh);
+            Application.targetFrameRate=savedCap;player.Camera.fieldOfView=savedFov;Destroy(fixture);foreach(var m in tempMeshes)Destroy(m);
             player.enabled=true;player.Arms.gameObject.SetActive(true);player.Body.gameObject.SetActive(true);player.Pitch=12;
             MeshFilter heldInstance=null;
             for(int i=0;i<ids.Length;i++)
@@ -67,6 +70,26 @@ namespace RivetReach
                 yield return Capture("ore-held-"+ids[i]);
             }
             game.SetMode(ScreenMode.Inventory);yield return Capture("ore-variants-inventory");
+        }
+        IEnumerator CompareOreMeshOrder(GameObject fixture,Mesh original)
+        {
+            // Diagnostic only: never mutate the shared authored resource.
+            var optimized=Instantiate(original);optimized.name="Ore mesh-order experiment";optimized.Optimize();
+            var filters=fixture.GetComponentsInChildren<MeshFilter>();
+            Check(optimized.vertexCount==original.vertexCount&&optimized.triangles.Length==original.triangles.Length&&optimized.bounds==original.bounds,"Mesh ordering preserves counts and bounds");
+            var report=new System.Text.StringBuilder("Same player/process/camera; 256 props; original versus Mesh.Optimize clone; 1 second settle then 5 seconds uncapped per sample. ABBAAB order. Whole-frame times, not isolated GPU measurements.\n");
+            foreach(bool useOptimized in new[]{false,true,true,false,false,true})
+            {
+                foreach(var filter in filters)filter.sharedMesh=useOptimized?optimized:original;
+                yield return new WaitForSecondsRealtime(1);
+                var times=new List<float>();float until=Time.realtimeSinceStartup+5;
+                while(Time.realtimeSinceStartup<until){yield return null;times.Add(Time.unscaledDeltaTime*1000);}
+                times.Sort();report.AppendLine($"{(useOptimized?"optimized":"original")}: median {times[times.Count/2]:F3} ms; p95 {times[(int)(times.Count*.95f)]:F3} ms; frames {times.Count}");
+            }
+            File.WriteAllText(Path.Combine(output,"ore-mesh-order.txt"),report.ToString());
+            yield return Capture("ore-mesh-order-optimized");
+            foreach(var filter in filters)filter.sharedMesh=original;
+            yield return Capture("ore-mesh-order-original");Destroy(optimized);
         }
     }
 }

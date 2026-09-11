@@ -48,3 +48,21 @@ For a large factory, the next profiling decision should use a representative mix
 ## Wiki
 
 The five new icons are exported by Unity's actual item UI and used by the item catalog and ore pages. The publisher's content-versioned image URLs refresh the artwork without stale cached icons. Azure's wiki icon is unchanged. Current generated source/link checks cover 136 pages and 5,407 local links/images.
+
+## Small refinement experiment — 2026-09-11, 18:38 UTC
+
+The user requested small refinements to the measured frame time. **No reliable gain was found in the tested mesh-order refinement, so the production mesh and renderer remain unchanged.** This does not establish that every possible small optimization has been exhausted.
+
+The normalized mesh has 9,028 distinct complete vertex records (position, normal, tangent and UV); exact duplicate removal offers no reduction. A diagnostic-only clone then exercised Unity's [Mesh.Optimize](https://docs.unity3d.com/6000.4/Documentation/ScriptReference/Mesh.Optimize.html), which reorders indices/vertices for vertex-cache use without reducing geometry. All 256 props alternated between the shared original and shared clone in one player/process/camera. Materials, shadows, resolution and geometry counts stayed the same. The clone is destroyed afterward and never replaces the authored asset.
+
+[Raw timings](ore-refinement/ore-mesh-order.txt), in execution order:
+
+| Sample | Original median / p95 | Reordered median / p95 |
+|---|---|---|
+| A then B | 4.828 / 6.170 ms | 5.037 / 6.555 ms |
+| B then A | 5.411 / 6.935 ms | 5.387 / 6.565 ms |
+| A then B | 5.403 / 6.773 ms | 5.595 / 6.949 ms |
+
+Each sample settles for one second and measures five seconds uncapped. The changing timings show background/thermal/scene variation; this is a bounded whole-frame experiment, not an isolated GPU benchmark. The reordered mesh was only 0.024 ms faster in the middle pair and slower in the other two, which gives no basis for shipping it as a frame-time improvement. Both actual Unity captures were visually inspected. The earlier 5.349 ms result remains a dated sample from its original build, not a universal baseline to subtract from this run.
+
+Reproduction: request `ore-refinement-build` through `Logs/build-request.txt`, then launch `Builds/OreRefinement/RivetReach.exe` at 1280×720 with `-rr-verify -rr-ore-variants-review -rr-ore-refinement-review -rr-output <absolute-folder>`. The [build](ore-refinement/build.txt) has zero errors/warnings; the [runtime report](ore-refinement/runtime-report.json) passes 310 assertions. This build includes committed crafting changes through `f8ac9f2`, so it is not byte-identical to the earlier ore build. Ordinary play has no added optimisation work or test fixture. Future experiments can assess distant detail or shadow cost, with explicit visual comparison; no such quality tradeoff was introduced here.
