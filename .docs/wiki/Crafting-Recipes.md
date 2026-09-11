@@ -1,96 +1,154 @@
 # Crafting recipes
 
-This page lists the current playable crafting and processing recipes in **Rivet Reach**. It is intended as a quick player reference; the in-game item browser remains the live source of truth when recipes change.
+This page lists the current playable crafting and processing recipes in **Rivet Reach**, presented as the player sees them: by crafting station and grid size.
 
 Last checked against `main`: **2026-09-11**.
+
+> **Visuals:** industrial and automation items below use the same exported inventory icons shipped with the game in `Assets/RivetReach/Resources/Industry/Icons/`. The original survival items are rendered by the game rather than stored as standalone PNG inventory icons, so those slots use their in-game item names instead of substitute artwork.
 
 ## Crafting stations
 
 | Station | Grid / process | Used for |
 |---|---:|---|
-| Personal crafting | 2×2 | Early wood recipes, torches and unpacking storage blocks |
-| Workbench | 3×3 | Tools, armor, storage, furnace/chest, bucket and the Machinist's Bench |
-| Machinist's Bench | 4×4 | Industrial components, machines, networks, tanks and batteries |
+| Personal crafting | **2×2** | Early wood recipes, torches and unpacking storage blocks |
+| Workbench | **3×3** | Tools, armor, storage, furnace/chest, bucket and the Machinist's Bench |
+| Machinist's Bench | **4×4** | Industrial components, machines, networks, tanks and batteries |
 | Furnace | Processing | Smelting, charcoal, stone, glass and food |
-| Crusher | Powered processing | Turns raw metal into two crushed ore |
+| Crusher | Powered processing | Turns one raw metal into two crushed ore |
 
-For shaped recipes, `·` means an empty slot. A shaped recipe may be moved around inside a larger compatible grid. **Axe and hoe recipes may also be mirrored horizontally.** Industrial recipes are shapeless unless a layout is explicitly shown.
-
----
-
-## Personal crafting — 2×2
-
-| Output | Ingredients / layout | Output count |
-|---|---|---:|
-| Planks | 1 Log, shapeless | 4 |
-| Sticks | 2 Planks vertically | 4 |
-| Torch | 1 Coal directly above 1 Stick | 4 |
-| Torch | 1 Charcoal directly above 1 Stick | 4 |
-| Workbench | 2×2 Planks | 1 |
-| Coal | 1 Coal Block | 9 |
-| Copper Ingot | 1 Copper Block | 9 |
-| Iron Ingot | 1 Iron Block | 9 |
-| Gold Ingot | 1 Gold Block | 9 |
-| Diamond | 1 Diamond Block | 9 |
-
-### Basic layouts
-
-**Sticks**
-
-```text
-P
-P
-```
-
-**Torch** — use Coal or Charcoal for `F`.
-
-```text
-F
-S
-```
-
-**Workbench**
-
-```text
-PP
-PP
-```
+For shaped recipes, empty cells are real empty crafting slots. A shaped recipe may be moved around inside a larger compatible grid. **Axe and hoe recipes may also be mirrored horizontally.** Industrial recipes are shapeless unless a layout is explicitly shown.
 
 ---
 
-## Workbench — 3×3
+# Personal crafting — 2×2
 
-### Utility blocks
+## Planks ×4
 
-| Output | Ingredients / layout | Output count |
-|---|---|---:|
-| Furnace | 8 Cobblestone in a 3×3 ring, centre empty | 1 |
-| Chest | 8 Planks in a 3×3 ring, centre empty | 1 |
-| Bucket | 3 Iron Ingots in a bucket shape | 1 |
-| Machinist's Bench | 1 Workbench + 4 Iron Ingots + 2 Copper Ingots, shapeless | 1 |
-| Lever | 1 Stick + 1 Cobblestone + 1 Azure Crystal, shapeless | 1 |
-| Button | 1 Stone + 1 Azure Crystal, shapeless | 1 |
+**Shapeless**
 
-**Furnace / Chest ring** — use Cobblestone for the Furnace or Planks for the Chest.
+| | |
+|---|---|
+| **Log** | |
+| | |
 
-```text
-MMM
-M·M
-MMM
-```
+➡️ **4 × Planks**
 
-**Bucket**
+## Sticks ×4
 
-```text
-I·I
-·I·
-```
+| | |
+|---|---|
+| **Planks** | |
+| **Planks** | |
 
-### Tools
+➡️ **4 × Sticks**
 
-All five tool types exist in **Wood, Stone, Copper, Iron and Diamond** tiers.
+## Torch ×4
 
-| Tier | `M` material |
+| | |
+|---|---|
+| **Coal / Charcoal** | |
+| **Stick** | |
+
+➡️ **4 × Torch**
+
+## Workbench
+
+| | |
+|---|---|
+| **Planks** | **Planks** |
+| **Planks** | **Planks** |
+
+➡️ **1 × Workbench**
+
+## Unpacking storage blocks
+
+These are all **shapeless 1-slot recipes**.
+
+| Put in the grid | Result |
+|---|---:|
+| Coal Block | 9 × Coal |
+| Copper Block | 9 × Copper Ingot |
+| Iron Block | 9 × Iron Ingot |
+| Gold Block | 9 × Gold Ingot |
+| Diamond Block | 9 × Diamond |
+
+---
+
+# Workbench — 3×3
+
+## Furnace
+
+| | | |
+|---|---|---|
+| **Cobblestone** | **Cobblestone** | **Cobblestone** |
+| **Cobblestone** | | **Cobblestone** |
+| **Cobblestone** | **Cobblestone** | **Cobblestone** |
+
+➡️ **1 × Furnace**
+
+## Chest
+
+| | | |
+|---|---|---|
+| **Planks** | **Planks** | **Planks** |
+| **Planks** | | **Planks** |
+| **Planks** | **Planks** | **Planks** |
+
+➡️ **1 × Chest**
+
+## Bucket
+
+| | | |
+|---|---|---|
+| **Iron Ingot** | | **Iron Ingot** |
+| | **Iron Ingot** | |
+| | | |
+
+➡️ **1 × Bucket**
+
+## Machinist's Bench
+
+**Shapeless** — the ingredients can occupy any seven Workbench slots.
+
+| | | |
+|---|---|---|
+| **Workbench** | **Iron Ingot** | **Iron Ingot** |
+| **Iron Ingot** | **Iron Ingot** | **Copper Ingot** |
+| **Copper Ingot** | | |
+
+➡️ <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/130.png" alt="Machinist's Bench" width="64"><br>**1 × Machinist's Bench**
+
+## Lever
+
+**Shapeless**
+
+| | | |
+|---|---|---|
+| **Stick** | **Cobblestone** | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/121.png" alt="Azure Crystal" width="48"><br>Azure Crystal |
+| | | |
+| | | |
+
+➡️ <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/134.png" alt="Lever" width="64"><br>**1 × Lever**
+
+## Button
+
+**Shapeless**
+
+| | | |
+|---|---|---|
+| **Stone** | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/121.png" alt="Azure Crystal" width="48"><br>Azure Crystal | |
+| | | |
+| | | |
+
+➡️ <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/135.png" alt="Button" width="64"><br>**1 × Button**
+
+---
+
+## Tools
+
+The same five shapes are used for **Wood, Stone, Copper, Iron and Diamond** tools.
+
+| Tier | Head material |
 |---|---|
 | Wood | Planks |
 | Stone | Cobblestone |
@@ -98,195 +156,319 @@ All five tool types exist in **Wood, Stone, Copper, Iron and Diamond** tiers.
 | Iron | Iron Ingot |
 | Diamond | Diamond |
 
-**Pickaxe**
+### Pickaxe
 
-```text
-MMM
-·S·
-·S·
-```
+| | | |
+|---|---|---|
+| **Material** | **Material** | **Material** |
+| | **Stick** | |
+| | **Stick** | |
 
-**Axe** — horizontal mirror is also valid.
+### Axe
 
-```text
-MM·
-MS·
-·S·
-```
+| | | |
+|---|---|---|
+| **Material** | **Material** | |
+| **Material** | **Stick** | |
+| | **Stick** | |
 
-**Sword**
+The Axe can also be mirrored horizontally.
 
-```text
-M
-M
-S
-```
+### Sword
 
-**Shovel**
+| | | |
+|---|---|---|
+| | **Material** | |
+| | **Material** | |
+| | **Stick** | |
 
-```text
-M
-S
-S
-```
+### Shovel
 
-**Hoe** — horizontal mirror is also valid.
+| | | |
+|---|---|---|
+| | **Material** | |
+| | **Stick** | |
+| | **Stick** | |
 
-```text
-MM·
-·S·
-·S·
-```
+### Hoe
 
-### Armor
+| | | |
+|---|---|---|
+| **Material** | **Material** | |
+| | **Stick** | |
+| | **Stick** | |
 
-Armor can be crafted from **Copper Ingots, Iron Ingots or Diamonds**. Wood and Stone armor do not exist.
-
-**Helmet**
-
-```text
-MMM
-M·M
-```
-
-**Chestplate**
-
-```text
-M·M
-MMM
-MMM
-```
-
-**Leggings**
-
-```text
-MMM
-M·M
-M·M
-```
-
-**Boots**
-
-```text
-M·M
-M·M
-```
-
-### Storage blocks
-
-| Output | Recipe | Output count |
-|---|---|---:|
-| Coal Block | 3×3 Coal | 1 |
-| Copper Block | 3×3 Copper Ingots | 1 |
-| Iron Block | 3×3 Iron Ingots | 1 |
-| Gold Block | 3×3 Gold Ingots | 1 |
-| Diamond Block | 3×3 Diamonds | 1 |
-
-Each storage block can be unpacked back into **9** of its original material using personal crafting.
+The Hoe can also be mirrored horizontally.
 
 ---
 
-## Machinist's Bench — 4×4
+## Armor
 
-The Machinist's Bench is the main industrial crafting station. Most recipes below are **shapeless**, so ingredient position does not matter. The few shaped component recipes are shown explicitly.
+Armor is available in **Copper, Iron and Diamond**. Replace `Material` below with the chosen tier material.
 
-### Core industrial components
+### Helmet
 
-| Output | Ingredients / layout | Output count |
-|---|---|---:|
-| Copper Wire | 1 Copper Ingot | 4 |
-| Copper Plate | 3 Copper Ingots in one horizontal row | 3 |
-| Iron Plate | 3 Iron Ingots in one horizontal row | 3 |
-| Iron Cog | 2 Iron Ingots in one horizontal row | 1 |
-| Rivets | 1 Iron Ingot | 8 |
-| Machine Casing | 4 Iron Plates + 4 Rivets | 1 |
-| Signal Wire | 1 Copper Wire + 1 Azure Crystal | 4 |
-| Signal Conduit | 2 Copper Plates + 1 Signal Wire | 2 |
-| Power Cable | 4 Copper Wire + 1 Plank | 4 |
+| | | |
+|---|---|---|
+| **Material** | **Material** | **Material** |
+| **Material** | | **Material** |
+| | | |
 
-**Copper / Iron Plate**
+### Chestplate
 
-```text
-MMM
-```
+| | | |
+|---|---|---|
+| **Material** | | **Material** |
+| **Material** | **Material** | **Material** |
+| **Material** | **Material** | **Material** |
 
-**Iron Cog**
+### Leggings
 
-```text
-II
-```
+| | | |
+|---|---|---|
+| **Material** | **Material** | **Material** |
+| **Material** | | **Material** |
+| **Material** | | **Material** |
 
-### Blue Signal and workshop controls
+### Boots
 
-| Output | Ingredients | Output count |
-|---|---|---:|
-| Signal Relay | 2 Signal Conduits + 1 Azure Crystal + 1 Iron Plate | 1 |
-| Signal Indicator | 1 Glass + 1 Azure Crystal + 1 Copper Wire | 1 |
-| Workshop Hatch | 4 Iron Plates + 1 Iron Cog + 1 Signal Wire | 1 |
-| Workshop Lamp | 2 Glass + 2 Copper Wire + 1 Iron Plate | 1 |
-
-> The **Lever** and **Button** are 3×3 Workbench recipes and are listed in the Workbench section above.
-
-### Machines and transport
-
-| Output | Ingredients | Output count |
-|---|---|---:|
-| Boiler Engine | 1 Machine Casing + 4 Copper Plates + 2 Iron Cogs | 1 |
-| Alternator | 1 Machine Casing + 2 Iron Cogs + 8 Copper Wire | 1 |
-| Crusher | 1 Machine Casing + 2 Iron Cogs + 4 Iron Plates | 1 |
-| Pump | 1 Machine Casing + 1 Iron Cog + 4 Copper Wire + 2 Copper Plates | 1 |
-| Drill | 1 Machine Casing + 2 Iron Cogs + 4 Iron Plates + 4 Copper Wire | 1 |
-| Water Tank | 4 Copper Plates + 2 Iron Plates | 1 |
-| Item Pipe | 2 Iron Plates + 2 Copper Wire | 4 |
-| Fluid Pipe | 2 Copper Plates | 4 |
-| Extractor | 1 Iron Cog + 2 Copper Wire | 1 |
-| Inventory Sensor | 2 Signal Wire + 1 Copper Plate + 1 Glass | 1 |
-
-### Multiblock tank parts
-
-| Output | Ingredients | Output count |
-|---|---|---:|
-| Reinforced Tank Frame | 3 Iron Plates + 4 Rivets + 1 Copper Plate | 4 |
-| Tank Wall | 1 Machine Casing + 4 Iron Plates | 4 |
-| Reinforced Tank Glass | 4 Glass + 4 Rivets | 4 |
-| Tank Controller | 1 Tank Wall + 1 Iron Cog + 1 Azure Crystal | 1 |
-| Tank Fluid Port | 1 Tank Wall + 1 Fluid Pipe | 1 |
-| Tank Access Hatch | 1 Tank Wall + 2 Copper Plates | 1 |
-| Signal Valve Port | 1 Tank Fluid Port + 1 Signal Conduit | 1 |
-| Tank Level Sensor | 1 Tank Wall + 1 Signal Wire + 1 Glass | 1 |
-
-For the actual shell construction rules, see [Build a multiblock tank](Tanks.md).
-
-### Batteries
-
-| Output | Ingredients | Output count |
-|---|---|---:|
-| Battery Block | 1 Machine Casing + 2 Copper Plates + 4 Copper Wire + 2 Coal | 1 |
-| Battery Bank Controller | 1 Machine Casing + 4 Copper Wire + 1 Azure Crystal + 1 Glass | 1 |
-
-For bank construction and electrical behaviour, see [Electricity and batteries](Electricity-and-batteries.md).
+| | | |
+|---|---|---|
+| | | |
+| **Material** | | **Material** |
+| **Material** | | **Material** |
 
 ---
 
-## Furnace recipes
+## Storage blocks
+
+All storage blocks use the full 3×3 grid:
+
+| | | |
+|---|---|---|
+| **Material** | **Material** | **Material** |
+| **Material** | **Material** | **Material** |
+| **Material** | **Material** | **Material** |
+
+| Material | Output |
+|---|---|
+| Coal | Coal Block |
+| Copper Ingot | Copper Block |
+| Iron Ingot | Iron Block |
+| Gold Ingot | Gold Block |
+| Diamond | Diamond Block |
+
+Each block can be unpacked back into **9** materials in the Personal 2×2 grid.
+
+---
+
+# Machinist's Bench — 4×4
+
+The Machinist's Bench is the main industrial crafting station. The icons below are the **actual inventory graphics used by the game**.
+
+For shapeless recipes, the example grid simply packs the ingredients from left to right. Their exact slot position does not matter.
+
+## Core components
+
+### Copper Wire ×4
+
+| | | | |
+|---|---|---|---|
+| **Copper Ingot** | | | |
+| | | | |
+| | | | |
+| | | | |
+
+➡️ <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/122.png" alt="Copper Wire" width="72"><br>**4 × Copper Wire**
+
+### Copper Plate ×3
+
+| | | | |
+|---|---|---|---|
+| **Copper Ingot** | **Copper Ingot** | **Copper Ingot** | |
+| | | | |
+| | | | |
+| | | | |
+
+➡️ <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/123.png" alt="Copper Plate" width="72"><br>**3 × Copper Plate**
+
+### Iron Plate ×3
+
+| | | | |
+|---|---|---|---|
+| **Iron Ingot** | **Iron Ingot** | **Iron Ingot** | |
+| | | | |
+| | | | |
+| | | | |
+
+➡️ <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/124.png" alt="Iron Plate" width="72"><br>**3 × Iron Plate**
+
+### Iron Cog
+
+| | | | |
+|---|---|---|---|
+| **Iron Ingot** | **Iron Ingot** | | |
+| | | | |
+| | | | |
+| | | | |
+
+➡️ <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/125.png" alt="Iron Cog" width="72"><br>**1 × Iron Cog**
+
+### Rivets ×8
+
+| | | | |
+|---|---|---|---|
+| **Iron Ingot** | | | |
+| | | | |
+| | | | |
+| | | | |
+
+➡️ <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/126.png" alt="Rivets" width="72"><br>**8 × Rivets**
+
+### Machine Casing
+
+**Shapeless**
+
+| | | | |
+|---|---|---|---|
+| <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/124.png" alt="Iron Plate" width="44"><br>Iron Plate ×4 | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/126.png" alt="Rivets" width="44"><br>Rivets ×4 | | |
+| | | | |
+| | | | |
+| | | | |
+
+➡️ <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/127.png" alt="Machine Casing" width="72"><br>**1 × Machine Casing**
+
+### Signal Wire ×4
+
+| | | | |
+|---|---|---|---|
+| <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/122.png" alt="Copper Wire" width="44"><br>Copper Wire | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/121.png" alt="Azure Crystal" width="44"><br>Azure Crystal | | |
+| | | | |
+| | | | |
+| | | | |
+
+➡️ <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/131.png" alt="Signal Wire" width="72"><br>**4 × Signal Wire**
+
+### Signal Conduit ×2
+
+| | | | |
+|---|---|---|---|
+| <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/123.png" alt="Copper Plate" width="44"><br>Copper Plate ×2 | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/131.png" alt="Signal Wire" width="44"><br>Signal Wire | | |
+| | | | |
+| | | | |
+| | | | |
+
+➡️ <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/132.png" alt="Signal Conduit" width="72"><br>**2 × Signal Conduit**
+
+### Power Cable ×4
+
+| | | | |
+|---|---|---|---|
+| <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/122.png" alt="Copper Wire" width="44"><br>Copper Wire ×4 | **Planks** | | |
+| | | | |
+| | | | |
+| | | | |
+
+➡️ <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/138.png" alt="Power Cable" width="72"><br>**4 × Power Cable**
+
+---
+
+## Blue Signal and workshop controls
+
+| Output | In-game icon | Ingredients — shapeless 4×4 |
+|---|---|---|
+| Signal Relay | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/133.png" alt="Signal Relay" width="64"> | 2 × Signal Conduit + Azure Crystal + Iron Plate |
+| Signal Indicator | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/136.png" alt="Signal Indicator" width="64"> | Glass + Azure Crystal + Copper Wire |
+| Workshop Hatch | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/137.png" alt="Workshop Hatch" width="64"> | 4 × Iron Plate + Iron Cog + Signal Wire |
+| Workshop Lamp | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/139.png" alt="Workshop Lamp" width="64"> | 2 × Glass + 2 × Copper Wire + Iron Plate |
+
+The **Lever** and **Button** are Workbench recipes shown above.
+
+---
+
+## Machines and transport
+
+Every recipe in this section is **shapeless in the 4×4 Machinist's Bench**.
+
+| Machine | In-game icon | Ingredients | Output |
+|---|---|---|---:|
+| Boiler Engine | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/140.png" alt="Boiler Engine" width="72"> | Machine Casing + 4 × Copper Plate + 2 × Iron Cog | 1 |
+| Alternator | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/141.png" alt="Alternator" width="72"> | Machine Casing + 2 × Iron Cog + 8 × Copper Wire | 1 |
+| Crusher | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/142.png" alt="Crusher" width="72"> | Machine Casing + 2 × Iron Cog + 4 × Iron Plate | 1 |
+| Pump | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/143.png" alt="Pump" width="72"> | Machine Casing + Iron Cog + 4 × Copper Wire + 2 × Copper Plate | 1 |
+| Drill | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/144.png" alt="Drill" width="72"> | Machine Casing + 2 × Iron Cog + 4 × Iron Plate + 4 × Copper Wire | 1 |
+| Water Tank | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/145.png" alt="Water Tank" width="72"> | 4 × Copper Plate + 2 × Iron Plate | 1 |
+| Item Pipe | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/146.png" alt="Item Pipe" width="72"> | 2 × Iron Plate + 2 × Copper Wire | 4 |
+| Fluid Pipe | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/147.png" alt="Fluid Pipe" width="72"> | 2 × Copper Plate | 4 |
+| Extractor | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/148.png" alt="Extractor" width="72"> | Iron Cog + 2 × Copper Wire | 1 |
+| Inventory Sensor | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/149.png" alt="Inventory Sensor" width="72"> | 2 × Signal Wire + Copper Plate + Glass | 1 |
+
+### Example: Pump in the 4×4 grid
+
+Because it is shapeless, this is just one valid arrangement:
+
+| | | | |
+|---|---|---|---|
+| <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/127.png" alt="Machine Casing" width="46"><br>Machine Casing | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/125.png" alt="Iron Cog" width="46"><br>Iron Cog | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/122.png" alt="Copper Wire" width="46"><br>Wire ×4 | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/123.png" alt="Copper Plate" width="46"><br>Plate ×2 |
+| | | | |
+| | | | |
+| | | | |
+
+➡️ <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/143.png" alt="Pump" width="80"><br>**1 × Pump**
+
+---
+
+## Multiblock tank parts
+
+All are **shapeless 4×4** recipes.
+
+| Part | In-game icon | Ingredients | Output |
+|---|---|---|---:|
+| Reinforced Tank Frame | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/160.png" alt="Reinforced Tank Frame" width="72"> | 3 × Iron Plate + 4 × Rivets + Copper Plate | 4 |
+| Tank Wall | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/161.png" alt="Tank Wall" width="72"> | Machine Casing + 4 × Iron Plate | 4 |
+| Reinforced Tank Glass | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/162.png" alt="Reinforced Tank Glass" width="72"> | 4 × Glass + 4 × Rivets | 4 |
+| Tank Controller | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/163.png" alt="Tank Controller" width="72"> | Tank Wall + Iron Cog + Azure Crystal | 1 |
+| Tank Fluid Port | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/164.png" alt="Tank Fluid Port" width="72"> | Tank Wall + Fluid Pipe | 1 |
+| Tank Access Hatch | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/165.png" alt="Tank Access Hatch" width="72"> | Tank Wall + 2 × Copper Plate | 1 |
+| Signal Valve Port | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/166.png" alt="Signal Valve Port" width="72"> | Tank Fluid Port + Signal Conduit | 1 |
+| Tank Level Sensor | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/167.png" alt="Tank Level Sensor" width="72"> | Tank Wall + Signal Wire + Glass | 1 |
+
+For shell construction, port placement and validation rules, see **[Build a multiblock tank](Tanks.md)**.
+
+---
+
+## Batteries
+
+Both are **shapeless 4×4** recipes.
+
+| Part | In-game icon | Ingredients |
+|---|---|---|
+| Battery Block | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/168.png" alt="Battery Block" width="80"> | Machine Casing + 2 × Copper Plate + 4 × Copper Wire + 2 × Coal |
+| Battery Bank Controller | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/169.png" alt="Battery Bank Controller" width="80"> | Machine Casing + 4 × Copper Wire + Azure Crystal + Glass |
+
+For bank construction and electrical behaviour, see **[Electricity and batteries](Electricity-and-batteries.md)**.
+
+---
+
+# Furnace recipes
 
 All current furnace recipes take **200 simulation ticks / 10 seconds** per item.
 
-| Input | Output |
-|---|---|
-| Log | Charcoal |
-| Raw Copper | Copper Ingot |
-| Raw Iron | Iron Ingot |
-| Raw Gold | Gold Ingot |
-| Cobblestone | Stone |
-| Potato | Baked Potato |
-| Azure Ore | Azure Crystal |
-| Sand | Glass |
-| Crushed Copper | Copper Ingot |
-| Crushed Iron | Iron Ingot |
-| Crushed Gold | Gold Ingot |
+| Input | | Furnace | | Output |
+|---|:---:|:---:|:---:|---|
+| Log | → | **Furnace** | → | Charcoal |
+| Raw Copper | → | **Furnace** | → | Copper Ingot |
+| Raw Iron | → | **Furnace** | → | Iron Ingot |
+| Raw Gold | → | **Furnace** | → | Gold Ingot |
+| Cobblestone | → | **Furnace** | → | Stone |
+| Potato | → | **Furnace** | → | Baked Potato |
+| <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/120.png" alt="Azure Ore" width="48"><br>Azure Ore | → | **Furnace** | → | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/121.png" alt="Azure Crystal" width="48"><br>Azure Crystal |
+| Sand | → | **Furnace** | → | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/128.png" alt="Glass" width="48"><br>Glass |
+| <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/150.png" alt="Crushed Copper" width="48"><br>Crushed Copper | → | **Furnace** | → | Copper Ingot |
+| <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/151.png" alt="Crushed Iron" width="48"><br>Crushed Iron | → | **Furnace** | → | Iron Ingot |
+| <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/152.png" alt="Crushed Gold" width="48"><br>Crushed Gold | → | **Furnace** | → | Gold Ingot |
 
-### Furnace fuels
+## Furnace fuels
 
 | Fuel | Burn time | Approx. full 10-second recipes |
 |---|---:|---:|
@@ -302,31 +484,47 @@ Fuel keeps burning after ignition even if the furnace becomes temporarily idle.
 
 ---
 
-## Crusher recipes
+# Crusher recipes
 
 The Crusher draws **160 W** and takes **5 seconds at full power** for one operation.
 
-| Input | Output | Output count |
-|---|---|---:|
-| Raw Copper | Crushed Copper | 2 |
-| Raw Iron | Crushed Iron | 2 |
-| Raw Gold | Crushed Gold | 2 |
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/142.png" alt="Crusher" width="110">
+</p>
 
-Each Crushed Ore then smelts into one matching ingot in the Furnace, making the Crusher the higher-yield metal-processing route.
+| Input | | Crusher | | Output |
+|---|:---:|:---:|:---:|---|
+| Raw Copper | → | **160 W / 5 s** | → | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/150.png" alt="Crushed Copper" width="56"><br>**2 × Crushed Copper** |
+| Raw Iron | → | **160 W / 5 s** | → | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/151.png" alt="Crushed Iron" width="56"><br>**2 × Crushed Iron** |
+| Raw Gold | → | **160 W / 5 s** | → | <img src="https://raw.githubusercontent.com/Starbugstone/Rivet-Reach/main/Assets/RivetReach/Resources/Industry/Icons/152.png" alt="Crushed Gold" width="56"><br>**2 × Crushed Gold** |
+
+Each Crushed Ore then smelts into one matching ingot in the Furnace, so routing raw metal through the Crusher **doubles the ingot yield** compared with direct smelting.
 
 ---
 
-## Using the in-game recipe browser
+# Using the in-game recipe browser
 
-Open the inventory or a station and use the item catalog on the right. Clicking an item shows recipes; **Shift-click / right-click** shows uses. Hover an item and press **R** for recipes or **U** for uses. **Ctrl-click** can fill one compatible recipe into the currently open crafting grid when you have the ingredients.
+Open the inventory or a station and use the item catalog on the right.
 
-The browser shows the exact required station, layout, quantities and alternative recipes. It is particularly useful for 4×4 industrial recipes and for following intermediate components such as plates, wire, rivets and Machine Casings.
+- **Click** an item to show its recipes.
+- **Shift-click / right-click** to show uses.
+- Hover an item and press **R** for recipes or **U** for uses.
+- **Ctrl-click** fills one compatible recipe into the currently open crafting grid when you have the ingredients.
+
+The browser is the live source of truth and shows the required station, grid, quantities and alternatives.
 
 ## Notes
 
-- Only recipes registered in the active catalogs are listed here. Historical `Starter axe`, `Starter pickaxe` and `Starter dagger` definition files are legacy verification content and are **not normal playable recipes**.
-- Grid recipes consume the quantities shown in each occupied slot. A recipe cannot be substituted with a different material unless that alternative has its own registered recipe.
+- Only recipes registered in the active catalogs are listed here.
+- Historical `Starter axe`, `Starter pickaxe` and `Starter dagger` definitions are legacy verification content and are **not normal playable recipes**.
+- Grid recipes consume the quantities shown in each occupied slot.
+- A material cannot be substituted unless an alternative recipe is actually registered.
 - Horizontal mirroring is only available where the recipe explicitly allows it.
-- Machine processing is separate from grid crafting: Furnace and Crusher recipes cannot be performed by simply arranging their input in a crafting grid.
+- Furnace and Crusher processing are separate from grid crafting.
+- Industrial inventory art is linked directly from the game assets so documentation does not maintain a second copy of those graphics.
 
-For implementation details, the authoritative content lives in `Assets/RivetReach/Resources/Definitions/Recipes/`, `Definitions/Recipes.asset` and `Definitions/Processing.asset`.
+For implementation details, the authoritative content lives in:
+
+- `Assets/RivetReach/Resources/Definitions/Recipes/`
+- `Assets/RivetReach/Resources/Definitions/Recipes.asset`
+- `Assets/RivetReach/Resources/Definitions/Processing.asset`
