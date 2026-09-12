@@ -1,5 +1,7 @@
 # Current verification evidence
 
+[Starter station graphics](STARTER_STATION_RESULTS.md) — chest, workbench and furnace brought into the Machinist’s Bench material family; actual Blender source and focused Unity review.
+
 - [Save/load/continue verification](SAVE_RESULTS.md) — full-state persistence, failure recovery and fresh-process continuation.
 
 This directory maintains the latest report and useful evidence for each feature. Superseded reports, obsolete recipe screenshots, earlier character models and intermediate failing captures are kept in Git history rather than maintained here. Dates and artifact identities matter: a focused check of one feature does not certify every system or whole-game performance.

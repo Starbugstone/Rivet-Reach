@@ -136,7 +136,7 @@ namespace RivetReach.Editor
             }
             PrepareAzureOre();
         }
-        static void NormalizeModels(Material material,string[] keys=null)
+        internal static void NormalizeModels(Material material,string[] keys=null)
         {
             const string directory="Assets/RivetReach/Resources/Industry/Runtime";
             Directory.CreateDirectory(directory);AssetDatabase.Refresh();
@@ -159,7 +159,7 @@ namespace RivetReach.Editor
                         if(mesh==null){mesh=new Mesh();AssetDatabase.CreateAsset(mesh,meshPath);}else mesh.Clear();
                         mesh.name=Path.GetFileNameWithoutExtension(meshPath);mesh.vertices=vertices;mesh.normals=normals;mesh.uv=sourceMesh.uv;mesh.triangles=indices;mesh.RecalculateBounds();mesh.RecalculateTangents();EditorUtility.SetDirty(mesh);
                         var part=new GameObject(filter.name.Split('.')[0]);part.transform.SetParent(root.transform,false);part.transform.localPosition=pivot;
-                        part.AddComponent<MeshFilter>().sharedMesh=mesh;part.AddComponent<MeshRenderer>().sharedMaterial=part.name=="StatusLight"?Resources.Load<Material>("Industry/Status"):part.name.StartsWith("Glass")?Resources.Load<Material>("Industry/TankGlass"):material;
+                        part.AddComponent<MeshFilter>().sharedMesh=mesh;part.AddComponent<MeshRenderer>().sharedMaterial=part.name=="Embers"?Resources.Load<Material>("Industry/StarterEmbers"):part.name=="StatusLight"?Resources.Load<Material>("Industry/Status"):part.name.StartsWith("Glass")?Resources.Load<Material>("Industry/TankGlass"):material;
                     }
                     PrefabUtility.SaveAsPrefabAsset(root,directory+"/"+key+".prefab");
                     // Remove only superseded generated meshes for this export; preserve retained GUIDs.

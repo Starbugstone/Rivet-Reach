@@ -101,9 +101,9 @@ namespace RivetReach
                 }
                 if(industryItem!=null&&!reuseOre){Destroy(industryItem);industryItem=null;}
                 industryMaterial.SetTexture("_BaseMap",OreVisuals.UsesModel(id)?OreVisuals.Palette(id):Resources.Load<Texture2D>("Industry/Atlas"));
-                if(IndustryDefinition.All.TryGetValue(id,out var assembly)||OreVisuals.UsesModel(id))
+                if(IndustryDefinition.All.TryGetValue(id,out var assembly)||OreVisuals.UsesModel(id)||StarterStationVisuals.UsesModel(id))
                 {
-                    var prefab=OreVisuals.UsesModel(id)?OreVisuals.Prefab:Resources.Load<GameObject>("Industry/Runtime/"+assembly.Key);
+                    var prefab=StarterStationVisuals.UsesModel(id)?StarterStationVisuals.Prefab(id):OreVisuals.UsesModel(id)?OreVisuals.Prefab:Resources.Load<GameObject>("Industry/Runtime/"+assembly.Key);
                     if(prefab!=null&&!reuseOre)
                     {
                         industryItem=ConnectedPipeVisuals.UsesConnectedMesh(id)?ConnectedPipeVisuals.Create(assembly.Key,block.transform):Instantiate(prefab,block.transform,false);

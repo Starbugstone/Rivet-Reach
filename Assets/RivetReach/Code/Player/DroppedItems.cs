@@ -237,6 +237,10 @@ namespace RivetReach
             {
                 var model=OreVisuals.Create(id,view.transform);model.transform.localPosition=-Vector3.one*.5f;
             }
+            else if(StarterStationVisuals.UsesModel(id))
+            {
+                var model=Instantiate(StarterStationVisuals.Prefab(id),view.transform,false);model.transform.localPosition=-Vector3.one*.5f;
+            }
             else if(id>=IndustryId.AzureOre&&id<=IndustryId.CrushedGold)
             {
                 var prefab=Resources.Load<GameObject>("Industry/Runtime/"+Game.Registry.Get(id).stableId.Substring(6));

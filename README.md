@@ -32,6 +32,8 @@ This is an early playable increment. [Named saves](.docs/SAVES.md) preserve prog
 
 The [avatar rework](.docs/AVATAR_REWORK.md) updates both explorers, fitted fingerless gloves, tool grips and animations, and held equipment. Try `Builds/AvatarRework/RivetReach.exe`; [source and Unity evidence](.docs/verification/AVATAR_REWORK_RESULTS.md) records the checks and remaining visual review.
 
+The chest, workbench and furnace now have [detailed station models](.docs/verification/STARTER_STATION_RESULTS.md) in the Machinist’s Bench material family, with matching held items and icons. The focused review build is `Builds/StarterStations/RivetReach.exe`.
+
 ## License and ownership
 
 **Rivet Reach is proprietary and is not an open-source project.** Copyright © 2026 Starbugstone. All rights reserved.

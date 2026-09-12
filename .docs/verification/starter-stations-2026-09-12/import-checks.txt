@@ -1,0 +1,4 @@
+workbench: 3012 triangles; 1 renderers; bounds (0.03, 0.00, 0.01) to (0.97, 0.90, 0.95)
+furnace: 3648 triangles; 2 renderers; bounds (0.03, 0.00, 0.00) to (0.97, 0.99, 0.96)
+chest: 3684 triangles; 1 renderers; bounds (0.04, 0.00, 0.03) to (0.99, 0.86, 0.94)
+PASS 26 import/mesh assertions

@@ -1,0 +1,20 @@
+{
+  "date": "2026-09-12",
+  "unity": "6000.4.4f1",
+  "player": "Builds/StarterStations/RivetReach.exe",
+  "executableSha256": "7d52ee70fb22771f4608d810d1015f539c37dd8b7b2fbb1a0ea9f6bc5c32d5c9",
+  "verificationFlag": "-rr-starter-stations-review",
+  "fixtureSeed": 246813,
+  "runtimeChecks": 47,
+  "sourceTriangles": {
+    "workbench": 3012,
+    "chest": 3684,
+    "furnace": 3672
+  },
+  "importedTriangles": {
+    "workbench": 3012,
+    "chest": 3684,
+    "furnace": 3648
+  },
+  "scope": "Isolated station review build; runtime code based on 71ace54 plus the station graphics changes. Later ore-drop commit da9761d is separate evidence."
+}

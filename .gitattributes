@@ -47,3 +47,6 @@ Assets/RivetReach/Resources/Industry/*.fbx filter=lfs diff=lfs merge=lfs -text
 .docs/verification/ore-drops-2026-09-12/*.png filter=lfs diff=lfs merge=lfs -text
 
 Assets/RivetReach/Resources/Food/*.fbx filter=lfs diff=lfs merge=lfs -text
+
+.docs/verification/starter-stations-2026-09-12/*.png filter=lfs diff=lfs merge=lfs -text
+ArtSource/Stations/*.png filter=lfs diff=lfs merge=lfs -text

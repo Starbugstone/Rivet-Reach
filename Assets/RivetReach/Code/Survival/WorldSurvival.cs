@@ -33,6 +33,7 @@ namespace RivetReach
         double fraction;
         public long Tick {get;private set;}
         public int StationCount=>stations.Count;
+        public IEnumerable<KeyValuePair<BlockPos,StationState>> Stations=>stations;
         public int ActiveFurnaces=>active.Count;
         public int ScheduledCrops=>scheduled.Count;
         readonly struct CropJob : IComparable<CropJob>
