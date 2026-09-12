@@ -8,7 +8,7 @@
 
 <a href="Item-iron-chestplate.md" title="Iron chestplate"><img src="icons/75.png" width="96" height="96" alt="Iron chestplate"></a>
 
-Equip in the chest armor slot to add 6 protection points. Armor reduces incoming damage and currently has no durability loss.
+Equip in the chest armor slot to add 6 protection points. The equipped piece appears on your explorer and the inventory portrait. Armor reduces incoming damage and currently has no durability loss.
 
 ## At a glance
 

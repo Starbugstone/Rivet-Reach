@@ -8,7 +8,7 @@
 
 <a href="Item-diamond-chestplate.md" title="Diamond chestplate"><img src="icons/79.png" width="96" height="96" alt="Diamond chestplate"></a>
 
-Equip in the chest armor slot to add 8 protection points. Armor reduces incoming damage and currently has no durability loss.
+Equip in the chest armor slot to add 8 protection points. The equipped piece appears on your explorer and the inventory portrait. Armor reduces incoming damage and currently has no durability loss.
 
 ## At a glance
 

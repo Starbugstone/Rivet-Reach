@@ -8,7 +8,7 @@
 
 <a href="Item-copper-boots.md" title="Copper boots"><img src="icons/73.png" width="96" height="96" alt="Copper boots"></a>
 
-Equip in the feet armor slot to add 1 protection points. Armor reduces incoming damage and currently has no durability loss.
+Equip in the feet armor slot to add 1 protection points. The equipped piece appears on your explorer and the inventory portrait. Armor reduces incoming damage and currently has no durability loss.
 
 ## At a glance
 

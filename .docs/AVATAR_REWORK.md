@@ -26,7 +26,7 @@ Source durations remain 0.3 s for the empty/block sweep and 0.6 s for tools. Run
 
 [rework_held_tools.py](../Tools/rework_held_tools.py) authors the dagger/sword, pickaxe, shovel and hoe with shaped metal sections, edge bevels, ferrules and bound grips. The existing authored axe uses its blade/handle markers to keep its edge fixed to the grip throughout the arc, including when the shaft passes the camera direction. All current tiers use the corresponding model with the registered tint; this does not add tool tiers or new weapon capabilities.
 
-[create_held_utility_items.py](../Tools/create_held_utility_items.py) authors a 3D torch and a double-wall bucket. The torch follows the shaft grip and uses an emissive flame; the bucket rests on the palm, with a water surface when filled. Placed torch lighting and authoritative bucket transactions remain in their existing systems. Other small resources/food continue to use their existing presentation.
+[create_held_utility_items.py](../Tools/create_held_utility_items.py) authors a 3D torch and a double-wall bucket. The torch follows the shaft grip and uses an emissive flame; the bucket rests on the palm, with a water surface when filled. Placed torch lighting and authoritative bucket transactions remain in their existing systems. The later [equipment art revision](EQUIPMENT_ART.md) adds matching 3D ingots and armor items, fitted armor on both explorers and first-person bracers. Other small resources/food retain their respective presentation.
 
 ## Skin and cost contract
 

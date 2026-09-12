@@ -114,7 +114,7 @@ class Reference:
             return purpose[d['toolCapabilities']] + ' Tools currently have no durability loss.'
         if d['armorSlot']:
             slot = ['', 'head', 'chest', 'legs', 'feet'][d['armorSlot']]
-            return f'Equip in the {slot} armor slot to add {d["armorPoints"]} protection points. Armor reduces incoming damage and currently has no durability loss.'
+            return f'Equip in the {slot} armor slot to add {d["armorPoints"]} protection points. The equipped piece appears on your explorer and the inventory portrait. Armor reduces incoming damage and currently has no durability loss.'
         if item_id.endswith('_block'):
             return 'A placeable storage block. Pack nine units into one block, then unpack it when you need the material again.'
         if item_id.startswith('rivet:crushed_'):

@@ -375,6 +375,7 @@ namespace RivetReach
         public void RefreshPreview()
         {
             if(preview==null)return;
+            preview.Equipment=game.Equipment;preview.RefreshEquipment();
             if(previewBuilt&&previewFemale==game.Player.Female&&previewSkin==game.Player.Skin&&preview.AnimationReady)return;
             preview.Build(game.Player.Female,game.Player.Skin);previewBuilt=preview.AnimationReady;previewFemale=game.Player.Female;previewSkin=game.Player.Skin;
             foreach(var t in preview.GetComponentsInChildren<Transform>())t.gameObject.layer=30;
@@ -391,6 +392,8 @@ namespace RivetReach
             {
                 if(ItemAppearance.BakedIcon(item))
                 {var baked=Resources.Load<Texture2D>("ItemIcons/"+item.runtimeId);if(baked==null)throw new System.InvalidOperationException("Rebake missing held-model icon: "+item.displayName);icons[item.runtimeId]=baked;sharedToolIcons.Add(baked);continue;}
+                if(EquipmentVisuals.UsesModel(item.runtimeId))
+                {var icon=EquipmentVisuals.Icon(item.runtimeId);icons[item.runtimeId]=icon;sharedToolIcons.Add(icon);continue;}
                 if(FoodVisuals.UsesModel(item.runtimeId))
                 {var foodIcon=FoodVisuals.Icon(item.runtimeId);icons[item.runtimeId]=foodIcon;sharedToolIcons.Add(foodIcon);continue;}
                 var industrialIcon=Resources.Load<Texture2D>("Industry/Icons/"+OreVisuals.VisualId(item.runtimeId));if(industrialIcon!=null){icons[item.runtimeId]=industrialIcon;sharedToolIcons.Add(industrialIcon);continue;}

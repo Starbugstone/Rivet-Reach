@@ -8,7 +8,7 @@
 
 <a href="Item-iron-leggings.md" title="Iron leggings"><img src="icons/76.png" width="96" height="96" alt="Iron leggings"></a>
 
-Equip in the legs armor slot to add 5 protection points. Armor reduces incoming damage and currently has no durability loss.
+Equip in the legs armor slot to add 5 protection points. The equipped piece appears on your explorer and the inventory portrait. Armor reduces incoming damage and currently has no durability loss.
 
 ## At a glance
 

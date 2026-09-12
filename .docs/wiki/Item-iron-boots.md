@@ -8,7 +8,7 @@
 
 <a href="Item-iron-boots.md" title="Iron boots"><img src="icons/77.png" width="96" height="96" alt="Iron boots"></a>
 
-Equip in the feet armor slot to add 2 protection points. Armor reduces incoming damage and currently has no durability loss.
+Equip in the feet armor slot to add 2 protection points. The equipped piece appears on your explorer and the inventory portrait. Armor reduces incoming damage and currently has no durability loss.
 
 ## At a glance
 

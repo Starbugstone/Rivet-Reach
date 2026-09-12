@@ -8,7 +8,7 @@
 
 <a href="Item-copper-helmet.md" title="Copper helmet"><img src="icons/70.png" width="96" height="96" alt="Copper helmet"></a>
 
-Equip in the head armor slot to add 2 protection points. Armor reduces incoming damage and currently has no durability loss.
+Equip in the head armor slot to add 2 protection points. The equipped piece appears on your explorer and the inventory portrait. Armor reduces incoming damage and currently has no durability loss.
 
 ## At a glance
 

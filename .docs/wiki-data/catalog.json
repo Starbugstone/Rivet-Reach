@@ -8100,6 +8100,10 @@
             "sha256": "fe21a6c9fdd7b89daf40c9b278c6c45b1d5d42fd434338c262cb3be64860ae78"
         },
         {
+            "path": "Assets/RivetReach/Code/BatteryFillVerification.cs",
+            "sha256": "7bd6edb0e4c348ce111aaa08910ba1186e9e091d78e316c9ed59bb300e7e27c2"
+        },
+        {
             "path": "Assets/RivetReach/Code/Core/Coordinates.cs",
             "sha256": "e27ca6b81541bb93d58558f809dbbaefa77031f42aff0059b3ca3cbd3560e058"
         },
@@ -8168,6 +8172,10 @@
             "sha256": "45d2c6c90ae7f56dac37ecc114044a2ea1a22053c5345afc00551cd83b8aab99"
         },
         {
+            "path": "Assets/RivetReach/Code/EquipmentArtVerification.cs",
+            "sha256": "45056a7107192d0462d7dbbf1032f9729f4a657dd6cae31e0ebffb6258371f2b"
+        },
+        {
             "path": "Assets/RivetReach/Code/Expedition.cs",
             "sha256": "8e70c8c836cd88af59ace730551f09a9a045a7a22207f91b92c73d6f7613d1a7"
         },
@@ -8217,7 +8225,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustryPresentation.cs",
-            "sha256": "ee473ea29032ab01b4b179e0d8205115ab0d67293c98f43f09c59c82fccde34b"
+            "sha256": "2acc344dcf3815fad767798aad012af0f4c58e42512c93d40f69e9c309e78fe1"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustrySimulation.cs",
@@ -8345,7 +8353,11 @@
         },
         {
             "path": "Assets/RivetReach/Code/Player/ArcadePresentation.cs",
-            "sha256": "563a8c6ed3ad69009249fc2407b255e73eb12f03dda7aed8c06a0de68bb552fd"
+            "sha256": "05c6d0f80ca674d4572757c6dce0a6f5a74c36f4ae5d9b50f6d0633f6cc1291d"
+        },
+        {
+            "path": "Assets/RivetReach/Code/Player/AvatarEquipment.cs",
+            "sha256": "ace2627c29faf7d1531e95d2c01391b24aeb6137c83bdb85b8d079586d0d95f8"
         },
         {
             "path": "Assets/RivetReach/Code/Player/AvatarReworkVerification.cs",
@@ -8357,19 +8369,23 @@
         },
         {
             "path": "Assets/RivetReach/Code/Player/AvatarView.cs",
-            "sha256": "701d02e21fd877bfdc6d80a5ba766fa7536e3d761a008a3382f6d5c1da6cb803"
+            "sha256": "a25a7dc86fdc14eed82df29a03bd513d403cfcbdb50d8ccfbcc51306a77a676a"
         },
         {
             "path": "Assets/RivetReach/Code/Player/DroppedItems.cs",
-            "sha256": "79410c0ae1d9632613580a6f8c94c59167d6f6f7a358f3bfbf26c28acd2ffae2"
+            "sha256": "2e2ab2e5e43185620a4e86ff5e5916c03a162a818ea95e1b140c2fec6de34aea"
         },
         {
             "path": "Assets/RivetReach/Code/Player/EatingCrumbs.cs",
             "sha256": "49eb21da26e6c7890f483ce380d6839c7f371c7a10d27c57d16550eaa3b95387"
         },
         {
+            "path": "Assets/RivetReach/Code/Player/EquipmentVisuals.cs",
+            "sha256": "843d8a74cf1ff7b50e3a4d3d54dd249171e4ca63b208c207274a72cdf4fcffc5"
+        },
+        {
             "path": "Assets/RivetReach/Code/Player/FirstPersonPlayer.cs",
-            "sha256": "66463233bdeed12a6c0128e1f538dc6b0c1111f1e73229922f266cd1d2c0193b"
+            "sha256": "46dfa440471b078cb233767cbebcf4f9b7902f156725b9c08015785de6bbeac1"
         },
         {
             "path": "Assets/RivetReach/Code/Player/FoodVisuals.cs",
@@ -8377,7 +8393,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Player/HeldBlockView.cs",
-            "sha256": "3c0cecfbdfeac817a30800cc956e1393486d911e44b9b7896984c1f7091cc26f"
+            "sha256": "8c7b8349de7ac0fdaa686cc93dc056cea20d64a2e28c896dd43870ff1651411b"
         },
         {
             "path": "Assets/RivetReach/Code/Player/ItemAppearance.cs",
@@ -8409,7 +8425,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/RuntimeVerification.cs",
-            "sha256": "6246025498e1c4cc4f2650d761ee198bea2633eb86ffde24effd896c2f55d208"
+            "sha256": "cfe13e82e13736fa3808ebe71d0344d7f7f38d5c21e96e9d6c1e23bedfc0e419"
         },
         {
             "path": "Assets/RivetReach/Code/SaveVerification.cs",
@@ -8485,7 +8501,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUI.cs",
-            "sha256": "8b9c99084e1dd1a0e66d8f7abf79701b139637be4128960d1266db7fea4513c2"
+            "sha256": "765e4b89e1924d87ae294e08acd745c10d1a6999ab07d531c7a6c8898a0551d7"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIBrowser.cs",
@@ -8605,7 +8621,7 @@
         },
         {
             "path": "Assets/RivetReach/Editor/WikiExport.cs",
-            "sha256": "3a8fb496fb7aa7200be988c2dd4d1f5107260b6a5ae7edb3ab9c19ae1929e007"
+            "sha256": "f161c78264c45e1ebcb20450f88e27484b68e62bd4bc4ecdbfdd3139a3ba6791"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/BucketRecipe.asset",
@@ -9502,6 +9518,82 @@
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes/workbench.asset.meta",
             "sha256": "47f2e91c35f6c0a2ce577d94267890ec2c63aaffb1fbec67e85beb7a86b1d211"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Equipment/CopperChestIcon.png",
+            "sha256": "560e67ec4317a57d92e39274349b2a1e7e2c62a53990efbbadee02cee5096442"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Equipment/CopperFeetIcon.png",
+            "sha256": "e1acf4db6dad31a4d6d6470645fa625c0fc6256bd38de8df7c6115edd60fc081"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Equipment/CopperHeadIcon.png",
+            "sha256": "597ff88c7ce3c01efd3bc67bd973e0cfa4cfd71ff2a6f496bb63166e6338072f"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Equipment/CopperIngotIcon.png",
+            "sha256": "11fc74df22d56e7d9b80188b4cb72252bd56db178b407009c0e50ddf2d8ff083"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Equipment/CopperLegsIcon.png",
+            "sha256": "9e47d8cd30f095197710740712e415b48446fcdebfc4d409419d57e15e6f403f"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Equipment/CopperPalette.png",
+            "sha256": "00ef828bdc3201da7dd27733bde9362e12de72978ba770b266269ccfd3ed3d10"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Equipment/DiamondChestIcon.png",
+            "sha256": "65b2f87dedea478dac699fde0d0ce781ce773ef7d4418b10b1630a7da801a13b"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Equipment/DiamondFeetIcon.png",
+            "sha256": "6a20754ab5ef838bb095ca0ab21ed78ac7d7c2f140cadad31685dd77bcbdd639"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Equipment/DiamondHeadIcon.png",
+            "sha256": "b12b571e5bc72332cb02f2f12dc0cddaae8da52074e0c248f45ef6008df4a4a3"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Equipment/DiamondLegsIcon.png",
+            "sha256": "97da63463494fba26a68604254a1aec79ec4eea47f96043361fc27b5071cb058"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Equipment/DiamondPalette.png",
+            "sha256": "70a8e7d85b3d98142adae5712f9b5f443dca8970bbb9642283a8a90bbaedbd7c"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Equipment/GoldIngotIcon.png",
+            "sha256": "ac7a28de53f5ce92ac5c7c1702e1900facf59776502cd864284bc7742977bec0"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Equipment/GoldPalette.png",
+            "sha256": "aaf871065013a9808ba0eba2e30ae30c0e590525b3e1f280a07e6977bb536a20"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Equipment/IronChestIcon.png",
+            "sha256": "b122f0af5fc72678ace2760877ab2864a39717dac6643cb0dce24a253799bdb3"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Equipment/IronFeetIcon.png",
+            "sha256": "7c33e132ae94b16e21b7675e78c783250ad5b519c244781eb8517b975916020a"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Equipment/IronHeadIcon.png",
+            "sha256": "5a956e38d4df678ee8f700b4d438aea3d20e35139c3b522a10e82f9e076bf272"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Equipment/IronIngotIcon.png",
+            "sha256": "8f9fc145fd35ba2098d5eb1bbedbbdbd51420998a76397694b43f9a6630f0c1c"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Equipment/IronLegsIcon.png",
+            "sha256": "f0513a34301181eedd28195e87f005269460e0d8bda606c8585c6abcea6d5c7c"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Equipment/IronPalette.png",
+            "sha256": "a3c023e663ac998ea111c4093f35817687d1e0e66870ddfaf741d824176daab7"
         },
         {
             "path": "Assets/RivetReach/Resources/Food/BakedPotatoIcon.png",

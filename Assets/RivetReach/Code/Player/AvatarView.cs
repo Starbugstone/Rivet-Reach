@@ -11,7 +11,7 @@ namespace RivetReach
     public enum GripPose { Empty, Block, Tool, TwoHandTool, Axe, Shovel, Hoe }
 
     // The Blender library owns poses and joint motion. Gameplay supplies state only.
-    public sealed class AvatarView : MonoBehaviour
+    public sealed partial class AvatarView : MonoBehaviour
     {
         const int GripCount=7;
         // Source clips keep complete anticipation/contact/recovery curves.
@@ -126,7 +126,7 @@ namespace RivetReach
                 triangles+=r.sharedMesh.triangles.Length/3;
                 vertices+=r.sharedMesh.vertexCount;
             }
-            CreateAnimation(path);
+            CreateAnimation(path);BuildArmor(female);
         }
         Mesh ExtractMesh(Mesh source,Transform[] skeleton,Func<string,bool> visible)
         {
@@ -358,7 +358,7 @@ namespace RivetReach
         public Transform Bone(string name)=>bones[name];
         void Release()
         {
-            if(graph.IsValid())graph.Destroy();
+            ReleaseArmor();if(graph.IsValid())graph.Destroy();
             if(model!=null){model.SetActive(false);Destroy(model);}if(material!=null)Destroy(material);if(miningMask!=null)Destroy(miningMask);if(gripMask!=null)Destroy(gripMask);supportHand=null;
             foreach(var mesh in derivedMeshes)if(mesh!=null)Destroy(mesh);derivedMeshes.Clear();
         }

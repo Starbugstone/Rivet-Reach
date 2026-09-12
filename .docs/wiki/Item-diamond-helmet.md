@@ -8,7 +8,7 @@
 
 <a href="Item-diamond-helmet.md" title="Diamond helmet"><img src="icons/78.png" width="96" height="96" alt="Diamond helmet"></a>
 
-Equip in the head armor slot to add 3 protection points. Armor reduces incoming damage and currently has no durability loss.
+Equip in the head armor slot to add 3 protection points. The equipped piece appears on your explorer and the inventory portrait. Armor reduces incoming damage and currently has no durability loss.
 
 ## At a glance
 

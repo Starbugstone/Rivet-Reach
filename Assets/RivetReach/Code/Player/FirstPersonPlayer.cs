@@ -62,7 +62,7 @@ namespace RivetReach
         public void RefreshAppearance()
         {
             if(HeldBlock!=null)HeldBlock.Detach();
-            Body.HideHeadAndArms=!Inspecting;Body.Build(Female,Skin);Arms.Build(Female,Skin);
+            Body.Equipment=Arms.Equipment=Game.Equipment;Body.HideHeadAndArms=!Inspecting;Body.Build(Female,Skin);Arms.Build(Female,Skin);
             PlayerPrefs.SetInt("female",Female?1:0);PlayerPrefs.SetInt("skin",Skin);PlayerPrefs.Save();
         }
         void Update()

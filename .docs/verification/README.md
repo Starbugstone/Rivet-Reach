@@ -48,3 +48,5 @@ This directory maintains the latest report and useful evidence for each feature.
 - [Saplings and apples](ORCHARD_RESULTS.md): natural leaf loot, replanting, blocked growth, apple eating, original art and durable tree state.
 
 - [Battery charge fill](BATTERY_FILL_RESULTS.md): visible stored-energy level, individual bank cells and save/load reconstruction.
+
+- [Fitted armor and ingots](EQUIPMENT_ART_RESULTS.md): matching 3D inventory/held/dropped art, equipped male/female avatars, first-person bracers and portrait synchronization.
