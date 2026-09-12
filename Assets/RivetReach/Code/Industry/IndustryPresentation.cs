@@ -63,7 +63,7 @@ namespace RivetReach
                     }
                     v.Root.transform.position=game.World.Local(m.Position)+Vector3.one*.5f;
                     v.Root.transform.rotation=ConnectedPipeVisuals.UsesConnectedMesh(m.Definition.Id)?Quaternion.identity:Quaternion.Euler(0,m.Rotation*90,0);
-                    // Exported geometry occupies [0,1]^3. Rotate about the footprint centre.
+                    // Exported geometry has a [0,1] horizontal footprint. Rotate about its centre.
                     v.Root.transform.position-=v.Root.transform.rotation*(Vector3.one*.5f);
                     if(PipeConnections.IsTransport(m.Definition.Id))
                     {
@@ -103,6 +103,7 @@ namespace RivetReach
                     {var axis=m.Definition.Id==IndustryId.Boiler||m.Definition.Id==IndustryId.Alternator?Vector3.right:m.Definition.Id==IndustryId.Crusher||m.Definition.Id==IndustryId.Pump?Vector3.forward:m.Definition.Id==IndustryId.HandCrank?Vector3.forward:Vector3.up;t.localRotation=Quaternion.AngleAxis(v.Phase*(n.StartsWith("MotionSpinB")?-1:1),axis)*v.RestRotation[i];}
                     else if(n.StartsWith("MotionPiston"))t.localPosition=v.Rest[i]+Vector3.up*(m.Definition.Id==IndustryId.Button?(m.Source?-.035f:0):m.Running?Mathf.Sin(v.Phase*Mathf.Deg2Rad)*.035f:0);
                     else if(n.StartsWith("MotionLever"))t.localRotation=Quaternion.Slerp(t.localRotation,Quaternion.Euler(m.Source?30:-30,0,0),1-Mathf.Exp(-18*Time.deltaTime));
+                    else if(n=="MotionDoor")t.localRotation=v.RestRotation[i]*Quaternion.Euler(0,m.WorkInput==1?-90:0,0);
                     else if(n.StartsWith("MotionHatch")){t.localScale=Vector3.Lerp(t.localScale,new Vector3(1,m.Running?.08f:1,1),1-Mathf.Exp(-12*Time.deltaTime));t.localPosition=v.Rest[i]+Vector3.up*(m.Running?.37f:0);}
                 }
             }

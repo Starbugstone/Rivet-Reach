@@ -22,7 +22,7 @@ namespace RivetReach
             foreach(var corner in supportCorners)
             {
                 var cell=world.Address(feet+corner*r-Vector3.up*.03f);
-                if(!world.Ready(cell)||!BlockId.Solid(world.Get(cell)))return false;
+                if(!world.Ready(cell)||!world.Solid(cell))return false;
             }
             return true;
         }
@@ -38,7 +38,7 @@ namespace RivetReach
                 for(int side=-1;side<=1;side+=2)
                 {
                     var cell=world.Address(probe+tangent*side);
-                    if(!world.Ready(cell)||!BlockId.Solid(world.Get(cell)))return false;
+                    if(!world.Ready(cell)||!world.Solid(cell))return false;
                 }
                 return true;
             }

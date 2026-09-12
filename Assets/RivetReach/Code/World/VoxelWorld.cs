@@ -95,8 +95,8 @@ namespace RivetReach
         }
         public bool Solid(BlockPos p) => !Ready(p)||BlockId.Solid(Get(p))&&!(IsOpenMachine?.Invoke(p)??false);
         public Func<BlockPos,bool> CanRemoveMachine;
-        public bool Remove(BlockPos p,byte expected) => (CanRemoveMachine?.Invoke(p)??true)&&expected!=0&&expected!=BlockId.Bedrock&&Change(p,expected,0);
-        public bool Place(BlockPos p,byte id) => id==BlockId.Torch?PlaceTorch(p,p.Offset(0,-1,0)):BlockId.Placeable(id)&&(Get(p)==0||Fluids.IsFluid(Get(p)))&&Change(p,Get(p),id);
+        public bool Remove(BlockPos p,byte expected) => IndustryId.DoorPart(expected)?RemoveDoor(p,expected): (CanRemoveMachine?.Invoke(p)??true)&&expected!=0&&expected!=BlockId.Bedrock&&Change(p,expected,0);
+        public bool Place(BlockPos p,byte id) => id==IndustryId.WoodenDoor?PlaceDoor(p): id==BlockId.Torch?PlaceTorch(p,p.Offset(0,-1,0)):BlockId.Placeable(id)&&(Get(p)==0||Fluids.IsFluid(Get(p)))&&Change(p,Get(p),id);
         public bool ChangeFluid(BlockPos p,byte expected,byte replacement)
             =>(expected==0||expected==BlockId.Torch||Fluids.IsFluid(expected))&&(replacement==0||Fluids.IsFluid(replacement))&&Change(p,expected,replacement,false);
         public bool Submerged(Vector3 point,out FluidDefinition fluid,out byte cell)
@@ -219,6 +219,7 @@ namespace RivetReach
             // Automatically decaying leaves cannot be part of another leaf's valid
             // support path. The original support removal already scheduled affected leaves.
             if((expected==BlockId.Log||expected==BlockId.Leaves&&requireReady)&&replacement!=expected)Trees.SupportRemoved(this,p);
+            DoorSupportChanged(p,replacement);
             TorchChanged(p,expected,replacement);
             FluidSimulation.Changed(this,p);
             if(!immediate){BlockChanged?.Invoke(p);return true;}

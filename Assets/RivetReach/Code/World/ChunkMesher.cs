@@ -23,7 +23,7 @@ namespace RivetReach
         static readonly bool[] terrainSolid=BuildSolidTable();
         static bool[] BuildSolidTable()
         {
-            var table=new bool[256];for(int i=0;i<table.Length;i++)table[i]=BlockId.Solid((byte)i)&&!IndustryId.Placed((byte)i)&&!StarterStationVisuals.UsesModel((byte)i);return table;
+            var table=new bool[256];for(int i=0;i<table.Length;i++)table[i]=BlockId.Solid((byte)i)&&!IndustryId.Placed((byte)i)&&i!=IndustryId.DoorUpper&&!StarterStationVisuals.UsesModel((byte)i);return table;
         }
         public static int Index(int x,int y,int z) => x+1+34*(y+1+34*(z+1));
         public static ChunkBuild Build(ChunkPos pos,int revision,byte[] cells)

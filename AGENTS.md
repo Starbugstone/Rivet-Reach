@@ -89,3 +89,7 @@ Start the required application when needed without asking the user to launch it.
 For actual Blender model authoring and visual-quality revisions, also use [blender-game-art](.docs/skills/blender-game-art/SKILL.md), installed locally under `~/.codex/skills/blender-game-art/`. Compare actual Blender renders and Unity imports with the approved concept before delivery. Keep its installed and versioned copies synchronized.
 
 Player asset ownership: the earlier separate modeling handoff is complete. The user authorized the 2026-09-10 [avatar rework](.docs/AVATAR_REWORK.md), including both models, hand grips, animations and held equipment. See [PLAYER_ASSET_HANDOFF.md](.docs/PLAYER_ASSET_HANDOFF.md) before subsequent overlapping changes; preserve concurrent terrain/industry work, placement and portrait rendering.
+
+## Authorized wooden doors
+
+The user authorized [craftable wooden doors](.docs/DOORS.md) with right-click/Interact toggling and Blue Signal control. Preserve the two-cell footprint, single-item recovery, occupied-doorway closing protection, signal-edge/manual precedence and additive durable-save compatibility. [Door verification](.docs/verification/DOOR_RESULTS.md) owns measured evidence.

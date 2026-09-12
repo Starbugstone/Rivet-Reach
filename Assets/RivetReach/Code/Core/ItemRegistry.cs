@@ -32,12 +32,12 @@ namespace RivetReach
         public static ToolTier RequiredTier(byte id)=>id==IndustryId.AzureOre?ToolTier.Copper:id==DiamondOre||id==GoldOre||id==GoldBlock||id==DiamondBlock?ToolTier.Iron:
             id==IronOre||id==CopperOre||id==IronBlock||id==CopperBlock?ToolTier.Stone:
             id==Stone||id==Cobblestone||id==CoalOre||id==Furnace||id==CoalBlock?ToolTier.Wood:ToolTier.None;
-        public static bool Mineable(byte id,ToolCapability tool,ToolTier tier=ToolTier.Diamond)=>id!=Air&&id!=Bedrock&&(Placeable(id)||Ore(id)||id==Farmland||Crop(id))&&
+        public static bool Mineable(byte id,ToolCapability tool,ToolTier tier=ToolTier.Diamond)=>id!=Air&&id!=Bedrock&&(Placeable(id)||id==IndustryId.DoorUpper||Ore(id)||id==Farmland||Crop(id))&&
             (RequiredTier(id)==ToolTier.None||(tool&ToolCapability.Pickaxe)!=0&&tier>=RequiredTier(id));
         public static string MiningHint(byte id,ToolCapability tool,ToolTier tier=ToolTier.Diamond)=>id==Bedrock?"Unbreakable":!Mineable(id,tool,tier)&&RequiredTier(id)!=ToolTier.None?"Requires "+RequiredTier(id).ToString().ToLowerInvariant()+" pickaxe or better":"";
         public static bool Placeable(byte id)=>IndustryId.Placed(id)||id==Torch||id>=Grass&&id<=Leaves||BiomeBlock(id)||id==Planks||id==Cobblestone||Station(id)||id>=CoalBlock&&id<=DiamondBlock;
         public static bool Solid(byte id)=>id!=Air&&id!=Torch&&!IndustryId.Thin(id)&&!Crop(id)&&!Fluids.IsFluid(id);
-        public static bool Opaque(byte id)=>Solid(id)&&id!=Leaves&&!IndustryId.Placed(id);
+        public static bool Opaque(byte id)=>Solid(id)&&id!=Leaves&&!IndustryId.Placed(id)&&id!=IndustryId.DoorUpper;
         public static int Tile(byte id,int axis,int sign)=>id==IndustryId.AzureOre?44:id==Planks?18:id==Cobblestone?19:id==Workbench?(axis==1&&sign>0?20:21):id==Furnace?(axis==1?19:22):id==Chest?23:id==Farmland?(axis==1&&sign>0?24:2):Crop(id)?25+id-PotatoPlant:id>=CoalBlock&&id<=DiamondBlock?29+id-CoalBlock:
             BiomeBlock(id)?40+id-Sand:Ore(id)?7+id-IronOre:RawMaterial(id)?13+id-RawIron:id==Bedrock?12:id==Grass?(axis==1?(sign>0?0:2):1):id==Dirt?2:id==Log?(axis==1?5:4):id==Leaves?6:3;
     }
@@ -95,6 +95,7 @@ namespace RivetReach
         public ItemDefinition Get(byte id)
         {
             if(byId==null)BuildIndex();
+            if(id==IndustryId.DoorUpper)id=IndustryId.WoodenDoor;
             return byId[id]??throw new ArgumentOutOfRangeException(nameof(id), $"Unknown item {id}");
         }
         public byte ResolveId(string stableId)
@@ -110,7 +111,7 @@ namespace RivetReach
             var tool=Capabilities(held);
             if(!BlockId.Mineable(blockId,tool,Tier(held)))return float.PositiveInfinity;
             bool effective=(BlockId.RequiredTier(blockId)!=ToolTier.None&&(tool&ToolCapability.Pickaxe)!=0)||
-                ((blockId==BlockId.Log||blockId==BlockId.Planks||blockId==BlockId.Workbench||blockId==BlockId.Chest)&&(tool&ToolCapability.Axe)!=0)||
+                ((blockId==BlockId.Log||blockId==BlockId.Planks||blockId==BlockId.Workbench||blockId==BlockId.Chest||IndustryId.DoorPart(blockId))&&(tool&ToolCapability.Axe)!=0)||
                 ((blockId==BlockId.Dirt||blockId==BlockId.Grass||blockId==BlockId.Farmland)&&(tool&ToolCapability.Shovel)!=0)||
                 (blockId==BlockId.Leaves&&(tool&(ToolCapability.Hoe|ToolCapability.Blade))!=0);
             return MiningWorkSeconds(blockId)/(effective?Math.Max(.1f,Get(held.Id).miningSpeed):1);
@@ -120,7 +121,7 @@ namespace RivetReach
         float MiningWorkSeconds(byte blockId)=>BlockId.Ore(blockId)?Math.Max(Get(blockId).fistSeconds,Get(BlockId.Stone).fistSeconds*1.25f):Get(blockId).fistSeconds;
         public float MiningSeconds(byte blockId,ToolCapability tool)=>!BlockId.Mineable(blockId,tool)?float.PositiveInfinity:MiningWorkSeconds(blockId)*
             (blockId==BlockId.Log&&(tool&ToolCapability.Axe)!=0?.3f:1f);
-        public byte FistDrop(byte blockId){var item=Get(blockId);return item.fistDropId==0?blockId:item.fistDropId;}
+        public byte FistDrop(byte blockId){if(blockId==IndustryId.DoorUpper)return IndustryId.WoodenDoor;var item=Get(blockId);return item.fistDropId==0?blockId:item.fistDropId;}
     }
 
 }

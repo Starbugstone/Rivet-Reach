@@ -11,7 +11,7 @@ namespace RivetReach
             this.game=game;Simulation=new IndustrySimulation(this,id=>game.Registry.Get(id).stackLimit);
             game.World.BlockChanged+=Changed;game.World.ResidencyChanged+=Simulation.Multiblocks.ResidencyChanged;
             game.World.CanRemoveMachine=p=>{if(Simulation.Multiblocks.CanRemove(p))return true;game.Notify(Simulation.At(p)?.Definition.Id==IndustryId.Battery?"Discharge this battery before mining it":"Drain the tank at its controller before dismantling it",3);return false;};
-            game.World.IsOpenMachine=p=>Simulation.At(p)?.Definition.Id==IndustryId.Door&&Simulation.At(p).Running;
+            game.World.IsOpenMachine=p=>{var m=Simulation.At(game.World.DoorAnchor(p));return m!=null&&(m.Definition.Id==IndustryId.WoodenDoor?m.WorkInput==1:m.Definition.Id==IndustryId.Door&&m.Running);};
         }
         public bool Ready(BlockPos p)=>game.World.Ready(p);
         public byte Get(BlockPos p)=>game.World.Get(p);
@@ -78,7 +78,9 @@ namespace RivetReach
         public bool TryOpenMachine(BlockPos position)
         {
             if(Mode!=ScreenMode.Play||!World.Ready(position)||!World.Raycast(Player.Camera.transform.position,Player.Camera.transform.forward,5,out var visible,out _)||!visible.Equals(position))return false;
-            var machine=Industry.Simulation.At(position);if(machine==null)return false;
+            var machine=Industry.Simulation.At(World.DoorAnchor(position));if(machine==null)return false;
+            if(machine.Definition.Id==IndustryId.WoodenDoor)
+            {Industry.Simulation.ToggleDoor(machine);Sound.Place(machine.Definition.Id,World.Local(position));return true;}
             if(machine.Definition.Id==IndustryId.HandCrank)
             {
                 if(Industry.Simulation.TryCrank(machine))

@@ -18,9 +18,11 @@ namespace RivetReach
         public const byte CrushedCopper=150,CrushedIron=151,CrushedGold=152;
         public const byte TankFrame=160,TankWall=161,TankGlass=162,TankController=163,TankPort=164,TankHatch=165,TankValve=166,TankSensor=167;
         public const byte Battery=168,BatteryController=169,HandCrank=170;
+        public const byte WoodenDoor=171,DoorUpper=172;
+        public static bool DoorPart(byte id)=>id==WoodenDoor||id==DoorUpper;
         public static bool BatteryPart(byte id)=>id==Battery||id==BatteryController;
         public static bool TankPart(byte id)=>id>=TankFrame&&id<=TankSensor;
-        public static bool Placed(byte id)=>id>=Bench&&id<=Sensor||TankPart(id)||BatteryPart(id)||id==HandCrank;
+        public static bool Placed(byte id)=>id>=Bench&&id<=Sensor||TankPart(id)||BatteryPart(id)||id==HandCrank||id==WoodenDoor;
         public static bool Route(byte id)=>id==SignalWire||id==SignalConduit||id==PowerCable||id==ItemPipe||id==FluidPipe;
         public static bool Thin(byte id)=>Route(id)||id==Lever||id==Button||id==Indicator||id==Relay||id==Sensor;
     }
@@ -29,7 +31,7 @@ namespace RivetReach
         public readonly byte Id; public readonly string Name,Key,Help;
         public readonly int Watts,WaterCapacity;
         public readonly MachinePort[] Ports;
-        // One occupied cell, lower-corner anchor; four horizontal rotations. Faces: right,left,top,bottom,back,front.
+        // Lower-corner anchor; the wooden door also reserves its upper cell. Four horizontal rotations. Faces: right,left,top,bottom,back,front.
         public static readonly (int x,int y,int z)[] Directions={(1,0,0),(-1,0,0),(0,1,0),(0,-1,0),(0,0,1),(0,0,-1)};
         public static readonly IReadOnlyDictionary<byte,IndustryDefinition> All=Build();
         IndustryDefinition(byte id,string key,string name,string help,int watts,int water,params MachinePort[] ports)
@@ -72,6 +74,7 @@ namespace RivetReach
             Add(IndustryId.Battery,"battery_block","Battery Block","100 kJ · 400 W · power connections on all faces",0,0,P(NetworkKind.Power,PortRole.Storage,63));
             Add(IndustryId.BatteryController,"battery_controller","Battery Bank Controller","Solid pack of batteries · one controller facing out",0,0,P(NetworkKind.Power,PortRole.Storage,32));
             Add(IndustryId.HandCrank,"hand_crank","Hand Crank","Use / hold Use: 50 J per turn · rear power socket",0,0,P(NetworkKind.Power,PortRole.Output,16));
+            Add(IndustryId.WoodenDoor,"wooden_door","Wooden Door","Use to open / close · Blue Signal connects at the base",0,0,P(NetworkKind.Signal,PortRole.Input,63));
             return d;
         }
         public static int RotateFace(int face,int turns)
