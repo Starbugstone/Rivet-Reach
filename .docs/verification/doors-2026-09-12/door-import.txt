@@ -1,0 +1,1 @@
+2196 triangles; 2 renderers; 1 shared material; bounds (0.00, 0.00, 0.01) to (1.00, 2.00, 0.30); UVs, normals and hinge pivot present.

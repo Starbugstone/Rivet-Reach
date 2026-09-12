@@ -1963,3 +1963,18 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 1
+  - runtimeId: 171
+    stableId: rivet:wooden_door
+    displayName: Wooden Door
+    stackLimit: 64
+    fistSeconds: 1.5
+    colour: {r: 0.58, g: 0.34, b: 0.15, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0

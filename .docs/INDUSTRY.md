@@ -104,3 +104,7 @@ The user requested standalone battery blocks and a battery-bank multiblock. [BAT
 ## Manual generator — 2026-09-12
 
 The user authorized a [Hand Crank](HAND_CRANK.md) for early-game electrical bootstrap. Its inexpensive workbench recipe, battery-side attachment and click/hold interaction supply 100 W during paid manual turns through a rear power endpoint. It shares the existing independent electrical network and load-before-storage allocation.
+
+## Wooden door control
+
+[Wooden doors](DOORS.md#blue-signal) accept Blue Signal at the lower cell without electricity. Signal transitions set open/closed, with manual Use available between transitions and occupied-doorway protection. The Workshop Hatch remains a separate assembly.

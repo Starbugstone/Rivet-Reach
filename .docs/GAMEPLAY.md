@@ -463,3 +463,7 @@ The user selected [issue #3](https://github.com/Starbugstone/Rivet-Reach/issues/
 ## Manual electrical bootstrap — 2026-09-12
 
 The user authorized a craftable [Hand Crank](HAND_CRANK.md) that attaches to a battery side and generates a small amount of electricity when used. Right-click or Interact pays for one turn; held mouse Use repeats without opening a machine inventory. The linked specification owns its workbench ingredients, 50 J turn, rear electrical socket, battery-mode behavior and save compatibility. Existing beginning survival recipes and battery storage rules are preserved.
+
+## Wooden doors
+
+[Wooden doors](DOORS.md) add a two-cell doorway: six planks craft three doors at a workbench. Use either half to open/close; Blue Signal changes at the base control the same door. Closing waits for players/creatures to clear. The linked specification owns placement, recovery and manual/signal precedence.

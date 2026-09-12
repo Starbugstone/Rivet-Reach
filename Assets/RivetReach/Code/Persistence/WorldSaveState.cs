@@ -28,7 +28,7 @@ namespace RivetReach
                 {
                     int index=r.Int(0,32767);byte id=r.ReadByte();var p=min.Offset(index%32,index/32%32,index/1024);
                     SaveReader.Require(p.Y>TerrainGenerator.MinY&&p.Y<=TerrainGenerator.MaxY&&p.X>=-TerrainGenerator.HorizontalLimit&&p.X<=TerrainGenerator.HorizontalLimit&&p.Z>=-TerrainGenerator.HorizontalLimit&&p.Z<=TerrainGenerator.HorizontalLimit,"Invalid edited terrain position.");
-                    SaveReader.Require(id==0||Fluids.IsFluid(id)||BlockId.Placeable(id)||BlockId.Crop(id)||id==BlockId.Farmland,"Invalid saved terrain cell.");page.Add(index,id);
+                    SaveReader.Require(id==0||Fluids.IsFluid(id)||BlockId.Placeable(id)||BlockId.Crop(id)||id==IndustryId.DoorUpper||id==BlockId.Farmland,"Invalid saved terrain cell.");page.Add(index,id);
                     if(BlockId.Opaque(id)){var key=(p.X,p.Z);if(!editedColumns.TryGetValue(key,out var column))editedColumns[key]=column=new SortedSet<int>();column.Add(p.Y);}
                 }
             }
@@ -42,12 +42,21 @@ namespace RivetReach
             foreach(var page in edits)foreach(var e in page.Value)if(e.Value==BlockId.Torch)
             {var p=page.Key.Min.Offset(e.Key%32,e.Key/32%32,e.Key/1024);SaveReader.Require(TorchSupport(p,out _),"Missing saved torch attachment.");}
             grassAccumulator=r.Float(0);treeAccumulator=r.Float(0);fluidAccumulator=r.Float(0);
+            ValidateDoors();
             Grass.ReadSave(r);Trees.ReadSave(r);FluidSimulation.ReadSave(r);
             if(r.Format>=3)
             {
                 leafHarvestSequence=r.Long();
                 foreach(var p in r.Positions())
                     SaveReader.Require((Get(p)==BlockId.Log||Get(p)==BlockId.Leaves)&&edits.TryGetValue(p.Chunk,out var page)&&page.ContainsKey(p.Index)&&grownTreeCells.Add(p),"Invalid grown tree provenance.");
+            }
+        }
+        internal void ValidateDoors()
+        {
+            foreach(var p in SavedBlocks())
+            {
+                if(p.Value==IndustryId.WoodenDoor)SaveReader.Require(Get(p.Key.Offset(0,1,0))==IndustryId.DoorUpper&&DoorFloor(Get(p.Key.Offset(0,-1,0))),"Invalid door footprint or support.");
+                if(p.Value==IndustryId.DoorUpper)SaveReader.Require(Get(p.Key.Offset(0,-1,0))==IndustryId.WoodenDoor,"Orphaned upper door cell.");
             }
         }
         internal IEnumerable<KeyValuePair<BlockPos,byte>> SavedBlocks()
@@ -163,6 +172,8 @@ namespace RivetReach
                     }
                 }
             }
+            foreach(var m in machines.Values)if(m.Definition.Id==IndustryId.WoodenDoor)
+                SaveReader.Require(world.Get(m.Position.Offset(0,1,0))==IndustryId.DoorUpper&&m.WorkInput<=1&&m.Work==0&&m.PulseTicks==0&&m.BurnTicks==0&&m.Items.Slots.All(s=>s.Empty),"Invalid saved door.");
             // Graphs and shared cell membership are rebuilt from restored terrain when it is resident.
             Invalidate();
         }
