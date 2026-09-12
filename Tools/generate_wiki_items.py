@@ -289,6 +289,10 @@ class Reference:
                   '- **Ingredients:** the table below each grid totals the cost of one operation. The output count is per operation, not per ingredient.',
                   '- **Stations:** a larger crafting grid can make smaller-grid recipes. Furnaces and crushers process items separately from grid crafting.', '',
                   'In the game’s item sidebar, left-click an item for recipes and right-click for uses. **Ctrl-click the recipe output** to place its ingredients from your inventory into a compatible open crafting grid; click the resulting crafting output to craft.', '',
+                  'Opening a recipe immediately shows **red borders around missing ingredient types** in both the recipe layout and the materials list, which also says how many more you need. Counts include your backpack and ingredients already in the crafting grid. Borders update as you supply the shortfall or browse another recipe; no button click is needed. Processing fuel choices remain alternatives.', '',
+                  '**Fill grid** prepares the displayed recipe; **Shift-click Fill grid** prepares the largest complete batch. Nothing moves until the whole recipe can be filled.', '',
+                  '![The recipe preview outlines missing coal while the available stick remains unmarked](images/missing-torch-ingredient-2026-09-12.png)', '',
+                  '*In-game capture, 2026-09-12: this torch variant needs coal; charcoal belongs to a different recipe variant.*', '',
                   '## Browse recipes by station', '', 'Choose a result below to open its item page at the exact recipe.', '']
         headings = [('', 'Personal crafting — 2×2'), ('rivet:workbench', 'Workbench — 3×3'), ('rivet:machinist_bench', "Machinist’s Bench — 4×4"), ('rivet:furnace', 'Furnace processing'), ('rivet:crusher', 'Crusher processing')]
         for station, heading in headings:

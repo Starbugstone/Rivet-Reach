@@ -21,6 +21,37 @@ namespace RivetReach
         }
         RecipeWidgets recipeWidgets;
         BrowserRecipe shownRecipe;
+        void AddMissingIngredientBorder(BrowserItemView view)
+        {
+            float size=((RectTransform)view.transform).sizeDelta.x;
+            var border=Rect(view.transform,"Missing ingredient border",0,0,size,size);
+            var color=new Color(1f,.32f,.25f,1f);
+            Panel(border,0,0,size,3,color).raycastTarget=false;
+            Panel(border,0,size-3,size,3,color).raycastTarget=false;
+            Panel(border,0,3,3,size-6,color).raycastTarget=false;
+            Panel(border,size-3,3,3,size-6,color).raycastTarget=false;
+            view.MissingBorder=border.gameObject;view.MissingBorder.SetActive(false);
+        }
+        void RefreshMissingIngredients()
+        {
+            if(!RecipeVisible||shownRecipe==null)return;
+            // The fill action uses the backpack and existing grid, never the held cursor.
+            // Aggregate repeated ingredients so a partial supply cannot satisfy every cell.
+            var missing=new HashSet<byte>();var w=recipeWidgets;
+            foreach(var group in shownRecipe.Ingredients.Where(s=>!s.Empty).GroupBy(s=>s.Id))
+            {
+                int required=group.Sum(s=>s.Count);
+                int available=game.Inventory.Total(group.Key)+game.Crafting.Grid.Total(group.Key);
+                bool shortfall=available<required;
+                if(shortfall)missing.Add(group.Key);
+                int index=w.totals.FindIndex(v=>v.gameObject.activeSelf&&v.Item==group.Key);
+                if(index>=0)w.totalNames[index].text=required+" × "+game.Registry.Get(group.Key).displayName+
+                    (shortfall?" · missing "+(required-available):"");
+            }
+            foreach(var cell in w.cells)cell.MissingBorder.SetActive(missing.Contains(cell.Item));
+            foreach(var total in w.totals)total.MissingBorder.SetActive(missing.Contains(total.Item));
+            w.transfer.text=missing.Count>0?"Missing ingredients outlined in red.":shownRecipe.GridRecipe!=null?"Ingredients available · Fill grid to continue.":"";
+        }
         void BuildRecipeDetails()
         {
             var panel=Panel(browserHost,246,104,688,418,new Color(ink.r,ink.g,ink.b,1));recipePanel=panel.gameObject;recipePanel.name="Recipe detail";recipePanel.SetActive(false);
@@ -40,7 +71,7 @@ namespace RivetReach
             w.stationIcon=BrowserIcon(panel.transform,default,16,106,34);
             w.station=Label(panel.transform,"",16,111,445,26,18,gold);
             w.role=Label(panel.transform,"",410,116,260,26,13,gold);
-            for(int i=0;i<16;i++)w.cells.Add(BrowserIcon(panel.transform,default,24+i%4*42,158+i/4*42,38));
+            for(int i=0;i<16;i++){var cell=BrowserIcon(panel.transform,default,24+i%4*42,158+i/4*42,38);AddMissingIngredientBorder(cell);w.cells.Add(cell);}
             w.arrow=Label(panel.transform,"→",207,156,45,45,32,gold).rectTransform;
             w.result=BrowserIcon(panel.transform,default,261,156,60);
             w.output=Label(panel.transform,"",232,156,130,50,16,gold);w.output.alignment=TextAnchor.UpperCenter;
@@ -52,7 +83,7 @@ namespace RivetReach
             // Capacity follows the immutable catalog, never the number of navigation visits.
             int totalCapacity=browserIndex.Recipes.Max(r=>r.Ingredients.Where(s=>!s.Empty).Select(s=>s.Id).Distinct().Count());
             for(int i=0;i<totalCapacity;i++)
-            {w.totals.Add(BrowserIcon(w.content,default,2,i*38,32));w.totalNames.Add(Label(w.content,"",42,i*38+6,234,30,14));}
+            {var total=BrowserIcon(w.content,default,2,i*38,32);AddMissingIngredientBorder(total);w.totals.Add(total);w.totalNames.Add(Label(w.content,"",42,i*38+6,234,30,14));}
             int fuelCapacity=browserIndex.Recipes.Max(r=>r.Fuels.Count);
             for(int i=0;i<fuelCapacity;i++)w.fuels.Add(BrowserIcon(panel.transform,default,190+i*36,369,32));
             w.footer=Label(panel.transform,"",24,380,640,24,13,gold);
@@ -61,6 +92,7 @@ namespace RivetReach
         }
         void BindBrowserIcon(BrowserItemView view,ItemStack stack)
         {
+            if(view.MissingBorder!=null)view.MissingBorder.SetActive(false);
             view.Item=stack.Id;view.RecipeId=null;view.Icon.enabled=!stack.Empty;
             view.Icon.texture=stack.Empty?null:BrowserTexture(stack.Id);
             view.CountLabel.text=stack.Count>1?stack.Count.ToString():"";
@@ -123,7 +155,7 @@ namespace RivetReach
             w.footer.text=recipe.Fuels.Count>0?"FUEL · choose one":"Shift-click Fill grid: max · Output: Shift one / Ctrl+Shift max";
             for(int i=0;i<recipe.Fuels.Count;i++)
             {BindBrowserIcon(w.fuels[i],new ItemStack(recipe.Fuels[i],(recipe.Ticks+game.Processing.FuelTicks(recipe.Fuels[i])-1)/game.Processing.FuelTicks(recipe.Fuels[i])));w.fuels[i].gameObject.SetActive(true);}
-            recipePanel.SetActive(true);
+            recipePanel.SetActive(true);RefreshMissingIngredients();
         }
     }
 }

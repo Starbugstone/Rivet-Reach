@@ -8572,7 +8572,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/RecipeBrowserVerification.cs",
-            "sha256": "ce9394e17b0d2cd4277c865467c4c1e18751a400c5023bcf9fc6261db0f7a693"
+            "sha256": "efa78e8f987691984105c6c279c3979e370749ac528ab6c775dadba14b01a2d6"
         },
         {
             "path": "Assets/RivetReach/Code/RuntimeVerification.cs",
@@ -8652,11 +8652,11 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUI.cs",
-            "sha256": "df8e587a950739d24a1caa41d2a371a01bcbc198cf1a4a55ec3223eb8b56b771"
+            "sha256": "e7307e88eae6dabfe4e40d2684a994535a7300a240084236ba95e1da059a8e6b"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIBrowser.cs",
-            "sha256": "9e47bc02e915b522b8ba032c26eeeb4511825a20cdf090ae3ced5ac59120216a"
+            "sha256": "270bf1cad136712593841052b80e6098121a14d5549d9866aefdd9aabd951ca4"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUICreative.cs",
@@ -8668,7 +8668,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIRecipeDetails.cs",
-            "sha256": "a74d6bd742d23b700bee8b365b8081a022e75f79338596f310d0d8aad8fae28b"
+            "sha256": "1d4359ab2371f9e37fcfe4c949816b3387ce4b7479ca1abded964e156a187283"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUISaves.cs",

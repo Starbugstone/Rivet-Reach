@@ -1,0 +1,15 @@
+{
+  "captured": "2026-09-12",
+  "unity": "6000.4.4f1",
+  "build": "Builds/RecipeBrowser/RivetReach.exe",
+  "sourceSha256": {
+    "Assets/RivetReach/Code/UI/GameUI.cs": "e7307e88eae6dabfe4e40d2684a994535a7300a240084236ba95e1da059a8e6b",
+    "Assets/RivetReach/Code/UI/GameUIBrowser.cs": "270bf1cad136712593841052b80e6098121a14d5549d9866aefdd9aabd951ca4",
+    "Assets/RivetReach/Code/UI/GameUIRecipeDetails.cs": "1d4359ab2371f9e37fcfe4c949816b3387ce4b7479ca1abded964e156a187283",
+    "Assets/RivetReach/Code/RecipeBrowserVerification.cs": "efa78e8f987691984105c6c279c3979e370749ac528ab6c775dadba14b01a2d6"
+  },
+  "artifactSha256": {
+    "Builds/RecipeBrowser/RivetReach.exe": "7d52ee70fb22771f4608d810d1015f539c37dd8b7b2fbb1a0ea9f6bc5c32d5c9",
+    "Builds/RecipeBrowser/RivetReach_Data/Managed/Assembly-CSharp.dll": "ef6f02eee51b232819832576ef344d5bc693f585c5e3f6371417029ca60269c8"
+  }
+}

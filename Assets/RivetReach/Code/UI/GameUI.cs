@@ -299,6 +299,7 @@ namespace RivetReach
             if(selectedLabel!=null){var stack=game.Inventory.Slots[game.Selected];selectedLabel.text=stack.Empty?"BARE HAND":game.Registry.Get(stack.Id).displayName+"  ·  "+stack.Count;}
             RefreshTooltip();
             lastRevision=game.Inventory.Revision;lastCraftRevision=game.Crafting.Grid.Revision;lastStationRevision=StationRevision;lastEquipmentRevision=game.Equipment.Revision;lastSelected=game.Selected;
+            RefreshMissingIngredients();
         }
         void Update()
         {

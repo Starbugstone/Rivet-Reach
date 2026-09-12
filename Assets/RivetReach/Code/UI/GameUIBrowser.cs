@@ -225,6 +225,7 @@ namespace RivetReach
             var candidates = browserIndex.Find(item, false).Where(r => r.GridRecipe != null && (recipeId == null || r.Id == recipeId)).ToArray();
             if (candidates.Length == 0) { Notice("No grid recipe is available for this selection."); return; }
             RecipeFillStatus failure = RecipeFillStatus.RequiresLargerGrid;
+            BrowserRecipe failedRecipe = null;
             foreach (var recipe in candidates)
             {
                 var result = game.Crafting.FillRecipe(recipe.Id, game.Inventory, maximum);
@@ -234,7 +235,19 @@ namespace RivetReach
                     if (craftStatus != null) craftStatus.text = result == RecipeFillStatus.AlreadyReady ? "Recipe already ready" : "Recipe placed · Click result to craft";
                     return;
                 }
-                if (result != RecipeFillStatus.RequiresLargerGrid) failure = result;
+                if (result != RecipeFillStatus.RequiresLargerGrid) { failure = result; failedRecipe = recipe; }
+            }
+            if (failure == RecipeFillStatus.MissingIngredients && failedRecipe != null)
+            {
+                // Sidebar shortcuts may try several variants; show the one being diagnosed.
+                if (shownRecipe != failedRecipe || !RecipeVisible)
+                {
+                    InspectBrowserItem(item, false);
+                    recipePage=browserIndex.Find(item,false).ToList().IndexOf(failedRecipe);
+                    DrawBrowserRecipe();
+                }
+                RefreshMissingIngredients();
+                return;
             }
             if (!RecipeVisible) InspectBrowserItem(item, false);
             Notice(failure == RecipeFillStatus.RequiresLargerGrid ? "Requires " + candidates.OrderBy(r => r.GridRecipe.MinimumGridSize).First().StationName :
@@ -253,6 +266,7 @@ namespace RivetReach
     public sealed class BrowserItemView : MonoBehaviour, IPointerDownHandler, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         public GameUI Owner; public byte Item; public string RecipeId; public RawImage Icon; public Text CountLabel;
+        public GameObject MissingBorder;
         public bool CatalogSource;
         bool dragging;
         long pressVersion=-1;

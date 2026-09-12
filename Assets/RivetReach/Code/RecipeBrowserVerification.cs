@@ -241,6 +241,8 @@ namespace RivetReach
             InputSystem.QueueStateEvent(Keyboard.current, new KeyboardState()); yield return null;
             Check(TextContains("Iron ingot") && game.UI.VisibleRoot.GetComponentsInChildren<Transform>().Any(t => t.name == "Recipe detail") && game.Inventory.Total(BlockId.IronIngot) == 3, "R on an inventory stack opens recipes without moving it");
             game.UI.CloseBrowserRecipe(); yield return null;
+            // Recipe binding clears hover state; exercise a fresh pointer entry for U.
+            InputSystem.QueueStateEvent(Mouse.current, new MouseState { position = Vector2.zero }); yield return null; yield return null;
             InputSystem.QueueStateEvent(Mouse.current, new MouseState { position = slotPoint }); yield return null; yield return null;
             InputSystem.QueueStateEvent(Keyboard.current, new KeyboardState(Key.U)); yield return null; yield return null;
             InputSystem.QueueStateEvent(Keyboard.current, new KeyboardState()); yield return null;
@@ -275,10 +277,35 @@ namespace RivetReach
             byte otherFuel = firstTorch.Ingredients.Any(s => s.Id == BlockId.Coal) ? BlockId.Charcoal : BlockId.Coal;
             game.Inventory.Add(otherFuel, 1); game.Inventory.Add(BlockId.Stick, 1);
             Search().text = "torch"; yield return null; yield return BrowserPointer(Item(BlockId.Torch));
+            var missingFuel=firstTorch.Ingredients.First(s=>s.Id!=BlockId.Stick&&!s.Empty).Id;
+            BrowserItemView[] Bordered()=>game.UI.VisibleRoot.GetComponentsInChildren<BrowserItemView>()
+                .Where(v=>v.MissingBorder!=null&&v.MissingBorder.activeSelf).ToArray();
+            Check(Bordered().Length==2&&Bordered().All(v=>v.Item==missingFuel),
+                "Opening a recipe immediately outlines only its missing ingredient in both layout and totals, before any fill click");
+            yield return Capture("missing-torch-ingredient");
             var exactOutput = game.UI.VisibleRoot.GetComponentsInChildren<BrowserItemView>().Single(v => v.RecipeId == firstTorch.Id);
             yield return BrowserPointer(exactOutput, control: true);
             Check(TextContains("Missing ingredients") && game.Crafting.Grid.Slots.All(s => s.Empty) && game.Inventory.Total(otherFuel) == 1,
                 "Ctrl-click in recipe details respects the exact shown variant and fails without partial changes");
+            Check(Bordered().Length==2&&Bordered().All(v=>v.Item==missingFuel),
+                "Only the missing exact-variant fuel is bordered in the recipe and material totals; available sticks are unmarked");
+            yield return BrowserPointer(Named("FILL GRID"));
+            game.UI.InspectBrowserItem(BlockId.Workbench,false);yield return null;
+            Check(Bordered().Length==5&&Bordered().All(v=>v.Item==BlockId.Planks),
+                "Navigating recomputes default borders for the new recipe without retaining the previous ingredient");
+            game.Inventory.Add(BlockId.Planks,2);game.Crafting.Grid.Add(BlockId.Planks,1);
+            var missingBagRevision=game.Inventory.Revision;var missingGridRevision=game.Crafting.Grid.Revision;
+            yield return BrowserPointer(Named("FILL GRID"),shift:true);
+            Check(Bordered().Length==5&&Bordered().All(v=>v.Item==BlockId.Planks)&&TextContains("missing 1"),
+                "Maximum fill aggregates repeated planks and counts both backpack and existing grid materials");
+            Check(game.Inventory.Revision==missingBagRevision&&game.Crafting.Grid.Revision==missingGridRevision,
+                "Missing-ingredient feedback leaves containers unchanged");
+            yield return Capture("missing-workbench-ingredient");
+            game.Inventory.Add(BlockId.Planks,1);yield return null;yield return null;
+            Check(Bordered().Length==0&&TextContains("Ingredients available"),"Borders clear when the shortfall is supplied");
+            yield return BrowserPointer(Named("FILL GRID"));
+            Check(game.Crafting.Preview?.Output.Id==BlockId.Workbench,"Fill succeeds after supplying the missing material");
+            for(int i=0;i<game.Crafting.Grid.Count;i++)game.Crafting.Grid.Take(i,int.MaxValue);
             game.UI.CloseBrowserRecipe(); yield return null;
             yield return BrowserPointer(Item(BlockId.Torch), control: true);
             Check(game.Crafting.Preview?.Output.Id == BlockId.Torch && game.Crafting.Grid.Total(otherFuel) == 1,
