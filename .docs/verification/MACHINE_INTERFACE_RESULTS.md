@@ -26,3 +26,7 @@ These are native 1280×720 captures from the artifact above, taken on 2026-09-12
 With the pinned Editor idle, write `machine-interface-build` to `Logs/build-request.txt`; wait for a fresh success result and the actual player artifact. Run `Tools/Capture-MachineInterfaces.ps1` with a fresh output directory; use `-Width 1920 -Height 1080` for the second layout. The capture helper drains its temporary charged cell before replacing it, respecting the normal charged-battery dismantling gate.
 
 The retained card adds no camera, 3D model, simulation component or save field. These checks establish the focused interaction and presentation results, not whole-game performance, all possible resolutions or final artistic acceptance. Initial capture cleanup failed at the charged-cell gate and was corrected before both passing runs. Older feature reports and the downloadable alpha retain their own build dates.
+
+## Wiki deployment
+
+The isolated commit sources passed **144 wiki pages / 5,742 local links and images**, plus 126 specialist-document links/sections. [Deployment run 34699264469](https://github.com/Starbugstone/Rivet-Reach/actions/runs/34699264469) succeeded for implementation commit `5cafbfb`. Live Chromium review opened the [published guide](https://github.com/Starbugstone/Rivet-Reach/wiki/Machine-interfaces), loaded all three 1280-pixel native captures, visually inspected the page, and followed Battery Block to its updated item page and reciprocal guide link. The source models and inventory icons were unchanged, so no new icon bake was required.
