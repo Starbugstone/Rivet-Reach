@@ -40,7 +40,11 @@ The [rear view](starter-stations-2026-09-12/station-back.png), [cold firebox](st
 
 ## Player wiki
 
-The item pages receive matching inventory icons and actual in-game close-ups; the Home page receives the workshop comparison. Wiki export and publication checks are recorded after deployment.
+The [workbench](https://github.com/Starbugstone/Rivet-Reach/wiki/Item-workbench), [chest](https://github.com/Starbugstone/Rivet-Reach/wiki/Item-chest) and [furnace](https://github.com/Starbugstone/Rivet-Reach/wiki/Item-furnace) pages now contain matching inventory icons and actual in-game close-ups. The Home page includes the workshop comparison.
+
+The [source checks](starter-stations-2026-09-12/wiki-source-checks.txt) passed for **128 item pages, 106 recipes, 137 total pages and 5,480 local links/images**. All **401** export source fingerprints matched the staged tree. The export includes the separately committed ore, potato and hand-crank updates; these catalog additions do not change the identity of the earlier station game build.
+
+[Automatic deployment 34686544958](https://github.com/Starbugstone/Rivet-Reach/actions/runs/34686544958) succeeded from repository commit `15aef1a`, publishing wiki commit `ddb4466`. All **280** published files, including the manifest, matched the reviewed publisher output byte-for-byte. Live Chromium review loaded the three station close-ups and Home workshop image without missing images, and followed the chest’s Planks ingredient icon to the correct item page. The live item index loaded all 128 icons with no missing or unlinked images. The three public station PNG URLs returned the exact reviewed 256×256 icon bytes. The [live chest page screenshot](starter-stations-2026-09-12/wiki-chest.png) records the rendered result.
 
 ## Remaining limits
 
