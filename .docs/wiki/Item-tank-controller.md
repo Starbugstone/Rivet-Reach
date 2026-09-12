@@ -25,6 +25,8 @@ Make this item using the crafting or processing recipes below.
 
 Use exactly one outward-facing controller in a sealed [multiblock tank](Tanks.md). Drain all stored fluid before mining it. Recovery Out allows red Output pipe ends on its exposed faces to drain even a breached tank; a blue Input end never fills a recovery controller. Select a [Wrench](Item-wrench.md) to configure the pipe end. See [Pipes](Pipes.md).
 
+Opening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md).
+
 ## Crafting and processing
 
 ### Recipe 1

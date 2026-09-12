@@ -25,6 +25,8 @@ Make this item using the crafting or processing recipes below.
 
 Connect to any of the six faces of generators, powered machines or eligible batteries. Electricity flows automatically; it has no wrench direction setting. Bank member cells are disconnected while claimed, so use the bank controller. See [Electricity and batteries](Electricity-and-batteries.md) and [Pipes](Pipes.md).
 
+Opening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md).
+
 ## Crafting and processing
 
 ### Recipe 1

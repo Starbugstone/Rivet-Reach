@@ -14,6 +14,9 @@ namespace RivetReach
             public readonly List<SlotView> slots = new List<SlotView>();
             public Text hudMode, hudFlight, hudControls, inventoryTitle;
             public Button creativeToggle;
+            public GameObject inventoryPortrait, stationIllustration;
+            public RawImage stationImage;
+            public Text stationImageName;
             public Canvas canvas;
             public GraphicRaycaster raycaster;
             public readonly List<Canvas> childCanvases=new List<Canvas>();
@@ -248,6 +251,7 @@ namespace RivetReach
             foreach(var control in panel.controls)control.label.text=control.value(game.OpenMachine);
             if(panel.creativeStatus!=null)panel.creativeStatus.text="Click an item to receive a full stack";
             panel.root.gameObject.SetActive(true);
+            BindStationIllustration();
         }
         void RefreshMachineControls()
         {

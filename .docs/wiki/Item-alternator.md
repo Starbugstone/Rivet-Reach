@@ -25,6 +25,8 @@ Make this item using the crafting or processing recipes below.
 
 Place immediately on the Boiler Engine’s right with the shafts meeting. Electrical cables can connect on any of its six faces. See [Electricity and batteries](Electricity-and-batteries.md).
 
+Opening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md).
+
 ## Crafting and processing
 
 ### Recipe 1

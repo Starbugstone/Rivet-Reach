@@ -25,6 +25,8 @@ Make this item using the crafting or processing recipes below.
 
 Use this part in a sealed hollow tank. The [tank construction guide](Tanks.md) gives the shopping list, layer diagrams, outward-facing controls and repair instructions.
 
+Opening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md).
+
 ## Crafting and processing
 
 ### Recipe 1

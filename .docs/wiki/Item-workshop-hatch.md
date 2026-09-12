@@ -25,6 +25,8 @@ Make this item using the crafting or processing recipes below.
 
 See [Blue Signal](Blue-Signal.md) for connection directions and control examples. Signal carries an ON/OFF instruction; machines still need their separate resources and electricity.
 
+Opening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md).
+
 ## Crafting and processing
 
 ### Recipe 1

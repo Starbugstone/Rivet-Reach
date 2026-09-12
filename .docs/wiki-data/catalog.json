@@ -8572,7 +8572,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/RuntimeVerification.cs",
-            "sha256": "94e85adbf213f13c635d3b5bb6ce8bab55d0a9d99ddbf613d79c8caea2711ee4"
+            "sha256": "dd9ff38eed563e240655df26b7ddfcf8db47e87615d6646ee6e9470b447966ff"
         },
         {
             "path": "Assets/RivetReach/Code/SaveVerification.cs",
@@ -8652,7 +8652,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIBrowser.cs",
-            "sha256": "f7d4a743c92ec878cc5d12c4abc0b8f27c308a5c294184e7d3f95e5088993eca"
+            "sha256": "9e47bc02e915b522b8ba032c26eeeb4511825a20cdf090ae3ced5ac59120216a"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUICreative.cs",
@@ -8672,7 +8672,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIScreenReuse.cs",
-            "sha256": "8688f4f273fe40e5b0e22985cf077fe27f6de6232b21d4aeeda8bbff7485ff0a"
+            "sha256": "2a59f4c2829c3a20bb6020569385a1d72696580b536d3086cc625297315ba76a"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUISurvival.cs",
@@ -10121,6 +10121,14 @@
         {
             "path": "Assets/RivetReach/Resources/Tools/StarterPickaxeIcon.png",
             "sha256": "5ad93ed0c14f88ce0a4424b6b547b8572c0a5e252ba909b861dd7dfa4308bb81"
+        },
+        {
+            "path": "Assets/RivetReach/Code/UI/GameUIStationIllustration.cs",
+            "sha256": "adb3adabc3d5d5d5584fbda65998011341ac9f90ca0393d91bae3aa6a2c4721d"
+        },
+        {
+            "path": "Assets/RivetReach/Code/MachineInterfaceShowcase.cs",
+            "sha256": "5210516224197439c8158a2f46ec960bae5b24bafe2258c19a5a350ef584f40e"
         }
     ]
 }

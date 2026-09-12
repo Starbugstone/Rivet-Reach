@@ -32,6 +32,8 @@ A stone furnace with a recessed arched firebox. The embers glow while fuel is bu
 
 Connect [Item Pipes](Item-item-pipe.md) on any face. Blue Input at the back accepts fuel only; the other five faces accept smeltable ingredients only. Rear-fed logs burn as fuel, while logs entering another face become charcoal. Red Output takes finished products only. Use a [Wrench](Item-wrench.md) to set each end. See [the crusher → furnace setup](Pipes.md#example-crusher--furnace--chest).
 
+Opening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md).
+
 ## Crafting and processing
 
 ### Recipe 1

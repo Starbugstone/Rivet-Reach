@@ -29,6 +29,8 @@ A wooden carpenter’s bench with iron-bound trestles, a vise and hand tools.
 
 ![Placed workbench in the game](images/starter-workbench.png)
 
+Opening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md).
+
 ## Crafting and processing
 
 ### Recipe 1

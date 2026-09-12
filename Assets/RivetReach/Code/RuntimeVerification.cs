@@ -123,7 +123,10 @@ namespace RivetReach
             if(Environment.GetCommandLineArgs().Contains("-rr-potato-art-review")||Environment.GetCommandLineArgs().Contains("-rr-orchard-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-connections-review")||Environment.GetCommandLineArgs().Contains("-rr-facing-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-inventory-review"))game.World.ViewDistance=4;
+            if(Environment.GetCommandLineArgs().Contains("-rr-machine-interface-review"))game.World.ViewDistance=4;
             yield return Settle();report.firstReadySeconds=Time.realtimeSinceStartup-began;
+            if(Environment.GetCommandLineArgs().Contains("-rr-machine-interface-review"))
+            {yield return CaptureMachineInterfaces();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-inventory-review"))
             {report.workload="56 backpack slots, 15-slot hotbar, input, transfers and durable saves";yield return ReviewInventoryExpansion();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-facing-review"))

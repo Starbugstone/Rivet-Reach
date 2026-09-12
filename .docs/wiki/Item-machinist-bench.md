@@ -25,6 +25,8 @@ Make this item using the crafting or processing recipes below.
 
 Place and open it with **E or right-click** for 4×4 crafting. It also accepts smaller crafting recipes. Industrial recipes are shapeless unless their page specifies a pattern; keep the required count in each occupied slot.
 
+Opening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md).
+
 ## Crafting and processing
 
 ### Recipe 1

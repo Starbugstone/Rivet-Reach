@@ -25,6 +25,8 @@ Make this item using the crafting or processing recipes below.
 
 Use this part in a sealed [multiblock tank](Tanks.md), facing outward for formation. Enable its port in the interface; attach Fluid Pipe on an accessible face and use a selected [Wrench](Item-wrench.md) to choose blue Input or red Output at each end. See [Pipes](Pipes.md).
 
+Opening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md).
+
 ## Crafting and processing
 
 ### Recipe 1

@@ -72,6 +72,8 @@ namespace RivetReach
             var backdrop = Panel(p.transform, 28, 113, 210, 270, slate);
             var portrait = Rect(backdrop.transform, "Portrait", 0, 0, 210, 270).gameObject.AddComponent<RawImage>();
             portrait.texture = previewTexture; portrait.uvRect = PortraitUV(210, 270); portrait.gameObject.AddComponent<PortraitDrag>().Owner = this;
+            currentScreen.inventoryPortrait = portrait.gameObject;
+            BuildStationIllustration(backdrop.transform);
             Label(p.transform, "BACKPACK", 250, 103, 380, 20, 12, gold);
             for (int row = 0; row < Inventory.MainRows; row++) for (int col = 0; col < Inventory.MainColumns; col++) Slot(p.transform, Inventory.HotbarCount + row * Inventory.MainColumns + col, 250 + col * 50, 131 + row * 50, 44);
             BuildEquipment(p.transform);

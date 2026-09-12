@@ -25,6 +25,7 @@ This directory maintains the latest report and useful evidence for each feature.
 | Performance and live Editor script reloads | [Performance pass](PERFORMANCE_RESULTS.md) — measured UI/meshing costs, streaming checks and preserved gameplay |
 | Terrain/tree shadow stability and lighting cost | [Sun-shadow ticks](SUN_SHADOW_RESULTS.md), plus the earlier [AO sampling check](SHADOW_RESULTS.md) |
 | Multiblock tanks and shared pipe channel fittings | [Multiblock verification](MULTIBLOCK_RESULTS.md) |
+| Machine illustrations in interaction panels | [Machine interface verification](MACHINE_INTERFACE_RESULTS.md) — native station captures and retained controls |
 | Blue Signal, power and the first workshop | [Industry verification](INDUSTRY_RESULTS.md) — screenshots, gameplay clip, machine interfaces and measured limits |
 | Stone and cobblestone processing into sand | [Crusher sand recipes](CRUSHER_SAND_RESULTS.md) — quantities, power, backpressure and discovery checks |
 | Inventory icons and held item agreement | [Item appearance audit](ITEM_APPEARANCE_RESULTS.md) — complete registry, shared models/tints and visual comparisons |

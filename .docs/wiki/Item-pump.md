@@ -27,6 +27,8 @@ Make this item using the crafting or processing recipes below.
 
 Position it one block **above** source water. It requires **no electricity**. Attach Fluid Pipe on a free face; use a selected [Wrench](Item-wrench.md) to set the pump-facing end to red Output. Keep the cell directly below free for source water. One extraction moves 10 L in two eligible seconds. Optional Blue Signal can pause it; pumping can start and recover boiler generation during a blackout. See [Pipes](Pipes.md) and the [renewable pool guide](Pumps-and-water.md).
 
+Opening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md).
+
 ## Crafting and processing
 
 ### Recipe 1

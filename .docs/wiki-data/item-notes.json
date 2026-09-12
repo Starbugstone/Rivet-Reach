@@ -80,15 +80,15 @@
   },
   "rivet:workbench": {
     "description": "A placed crafting station with a **3×3 grid** for tools, armor, storage and the first Machinist’s Bench.",
-    "use": "Place it, then press **E or right-click** to open it. The workbench can also make personal 2×2 recipes. See the [crafting guide](Crafting-Recipes.md) for the first steps.\n\nA wooden carpenter’s bench with iron-bound trestles, a vise and hand tools.\n\n![Placed workbench in the game](images/starter-workbench.png)"
+    "use": "Place it, then press **E or right-click** to open it. The workbench can also make personal 2×2 recipes. See the [crafting guide](Crafting-Recipes.md) for the first steps.\n\nA wooden carpenter’s bench with iron-bound trestles, a vise and hand tools.\n\n![Placed workbench in the game](images/starter-workbench.png)\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:furnace": {
     "description": "A fuel-burning station for smelting ore, making charcoal and glass, and cooking potatoes.",
-    "use": "Place and open it with **E or right-click**. Add an input, add fuel separately, and collect the output. Fuel continues burning after ignition even if input runs out. The recipes below list processing time and accepted fuels.\n\nA stone furnace with a recessed arched firebox. The embers glow while fuel is burning and go dark when it runs out.\n\n![Placed furnace in the game](images/starter-furnace.png)\n\nConnect [Item Pipes](Item-item-pipe.md) on any face. Blue Input at the back accepts fuel only; the other five faces accept smeltable ingredients only. Rear-fed logs burn as fuel, while logs entering another face become charcoal. Red Output takes finished products only. Use a [Wrench](Item-wrench.md) to set each end. See [the crusher → furnace setup](Pipes.md#example-crusher--furnace--chest)."
+    "use": "Place and open it with **E or right-click**. Add an input, add fuel separately, and collect the output. Fuel continues burning after ignition even if input runs out. The recipes below list processing time and accepted fuels.\n\nA stone furnace with a recessed arched firebox. The embers glow while fuel is burning and go dark when it runs out.\n\n![Placed furnace in the game](images/starter-furnace.png)\n\nConnect [Item Pipes](Item-item-pipe.md) on any face. Blue Input at the back accepts fuel only; the other five faces accept smeltable ingredients only. Rear-fed logs burn as fuel, while logs entering another face become charcoal. Red Output takes finished products only. Use a [Wrench](Item-wrench.md) to set each end. See [the crusher → furnace setup](Pipes.md#example-crusher--furnace--chest).\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:chest": {
     "description": "A placed container with **27 inventory slots**.",
-    "use": "Open with **E or right-click** to store items. An [Extractor](Item-extractor.md) can move items from a chest into [Item Pipe](Item-item-pipe.md). An [Inventory Sensor](Item-inventory-sensor.md) can monitor its contents.\n\nA wooden storage chest with an iron-banded lid and brass latch.\n\n![Placed chest in the game](images/starter-chest.png) Item Pipes can connect on every face. A selected [Wrench](Item-wrench.md) sets each chest-facing pipe end to blue Input (store) or red Output (supply). See [Pipes](Pipes.md)."
+    "use": "Open with **E or right-click** to store items. An [Extractor](Item-extractor.md) can move items from a chest into [Item Pipe](Item-item-pipe.md). An [Inventory Sensor](Item-inventory-sensor.md) can monitor its contents.\n\nA wooden storage chest with an iron-banded lid and brass latch.\n\n![Placed chest in the game](images/starter-chest.png) Item Pipes can connect on every face. A selected [Wrench](Item-wrench.md) sets each chest-facing pipe end to blue Input (store) or red Output (supply). See [Pipes](Pipes.md).\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:charcoal": {
     "description": "Wood converted into fuel. It works as an alternative to coal in torches, furnaces and boiler engines."
@@ -182,37 +182,37 @@
     "description": "Smelted sand used as a component in lamps, tank windows and controllers. This glass item is not a standalone placeable window block."
   },
   "rivet:tank_frame": {
-    "use": "Use this part in a sealed hollow tank. The [tank construction guide](Tanks.md) gives the shopping list, layer diagrams, outward-facing controls and repair instructions."
+    "use": "Use this part in a sealed hollow tank. The [tank construction guide](Tanks.md) gives the shopping list, layer diagrams, outward-facing controls and repair instructions.\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:tank_wall": {
-    "use": "Use this part in a sealed hollow tank. The [tank construction guide](Tanks.md) gives the shopping list, layer diagrams, outward-facing controls and repair instructions."
+    "use": "Use this part in a sealed hollow tank. The [tank construction guide](Tanks.md) gives the shopping list, layer diagrams, outward-facing controls and repair instructions.\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:tank_glass": {
-    "use": "Use this part in a sealed hollow tank. The [tank construction guide](Tanks.md) gives the shopping list, layer diagrams, outward-facing controls and repair instructions."
+    "use": "Use this part in a sealed hollow tank. The [tank construction guide](Tanks.md) gives the shopping list, layer diagrams, outward-facing controls and repair instructions.\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:tank_controller": {
-    "use": "Use exactly one outward-facing controller in a sealed [multiblock tank](Tanks.md). Drain all stored fluid before mining it. Recovery Out allows red Output pipe ends on its exposed faces to drain even a breached tank; a blue Input end never fills a recovery controller. Select a [Wrench](Item-wrench.md) to configure the pipe end. See [Pipes](Pipes.md)."
+    "use": "Use exactly one outward-facing controller in a sealed [multiblock tank](Tanks.md). Drain all stored fluid before mining it. Recovery Out allows red Output pipe ends on its exposed faces to drain even a breached tank; a blue Input end never fills a recovery controller. Select a [Wrench](Item-wrench.md) to configure the pipe end. See [Pipes](Pipes.md).\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:tank_port": {
-    "use": "Use this part in a sealed [multiblock tank](Tanks.md), facing outward for formation. Enable its port in the interface; attach Fluid Pipe on an accessible face and use a selected [Wrench](Item-wrench.md) to choose blue Input or red Output at each end. See [Pipes](Pipes.md)."
+    "use": "Use this part in a sealed [multiblock tank](Tanks.md), facing outward for formation. Enable its port in the interface; attach Fluid Pipe on an accessible face and use a selected [Wrench](Item-wrench.md) to choose blue Input or red Output at each end. See [Pipes](Pipes.md).\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:tank_hatch": {
-    "use": "Use this part in a sealed hollow tank. The [tank construction guide](Tanks.md) gives the shopping list, layer diagrams, outward-facing controls and repair instructions."
+    "use": "Use this part in a sealed hollow tank. The [tank construction guide](Tanks.md) gives the shopping list, layer diagrams, outward-facing controls and repair instructions.\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:tank_valve": {
-    "use": "Use this part in a sealed [multiblock tank](Tanks.md), facing outward for formation. Enable its port in the interface; attach Fluid Pipe on an accessible face and use a selected [Wrench](Item-wrench.md) to choose blue Input or red Output at each end. An attached ON [Blue Signal](Blue-Signal.md) is also required; OFF or missing signal keeps the valve closed. See [Pipes](Pipes.md)."
+    "use": "Use this part in a sealed [multiblock tank](Tanks.md), facing outward for formation. Enable its port in the interface; attach Fluid Pipe on an accessible face and use a selected [Wrench](Item-wrench.md) to choose blue Input or red Output at each end. An attached ON [Blue Signal](Blue-Signal.md) is also required; OFF or missing signal keeps the valve closed. See [Pipes](Pipes.md).\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:tank_sensor": {
-    "use": "Use this part in a sealed hollow tank. The [tank construction guide](Tanks.md) gives the shopping list, layer diagrams, outward-facing controls and repair instructions."
+    "use": "Use this part in a sealed hollow tank. The [tank construction guide](Tanks.md) gives the shopping list, layer diagrams, outward-facing controls and repair instructions.\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:signal_wire": {
-    "use": "See [Blue Signal](Blue-Signal.md) for connection directions and control examples. Signal carries an ON/OFF instruction; machines still need their separate resources and electricity."
+    "use": "See [Blue Signal](Blue-Signal.md) for connection directions and control examples. Signal carries an ON/OFF instruction; machines still need their separate resources and electricity.\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:signal_conduit": {
-    "use": "See [Blue Signal](Blue-Signal.md) for connection directions and control examples. Signal carries an ON/OFF instruction; machines still need their separate resources and electricity."
+    "use": "See [Blue Signal](Blue-Signal.md) for connection directions and control examples. Signal carries an ON/OFF instruction; machines still need their separate resources and electricity.\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:signal_relay": {
-    "use": "See [Blue Signal](Blue-Signal.md) for connection directions and control examples. Signal carries an ON/OFF instruction; machines still need their separate resources and electricity."
+    "use": "See [Blue Signal](Blue-Signal.md) for connection directions and control examples. Signal carries an ON/OFF instruction; machines still need their separate resources and electricity.\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:lever": {
     "use": "See [Blue Signal](Blue-Signal.md) for connection directions and control examples. Signal carries an ON/OFF instruction; machines still need their separate resources and electricity."
@@ -221,55 +221,55 @@
     "use": "See [Blue Signal](Blue-Signal.md) for connection directions and control examples. Signal carries an ON/OFF instruction; machines still need their separate resources and electricity."
   },
   "rivet:signal_indicator": {
-    "use": "See [Blue Signal](Blue-Signal.md) for connection directions and control examples. Signal carries an ON/OFF instruction; machines still need their separate resources and electricity."
+    "use": "See [Blue Signal](Blue-Signal.md) for connection directions and control examples. Signal carries an ON/OFF instruction; machines still need their separate resources and electricity.\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:workshop_hatch": {
-    "use": "See [Blue Signal](Blue-Signal.md) for connection directions and control examples. Signal carries an ON/OFF instruction; machines still need their separate resources and electricity."
+    "use": "See [Blue Signal](Blue-Signal.md) for connection directions and control examples. Signal carries an ON/OFF instruction; machines still need their separate resources and electricity.\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:inventory_sensor": {
-    "use": "See [Blue Signal](Blue-Signal.md) for connection directions and control examples. Signal carries an ON/OFF instruction; machines still need their separate resources and electricity."
+    "use": "See [Blue Signal](Blue-Signal.md) for connection directions and control examples. Signal carries an ON/OFF instruction; machines still need their separate resources and electricity.\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:power_cable": {
-    "use": "Connect to any of the six faces of generators, powered machines or eligible batteries. Electricity flows automatically; it has no wrench direction setting. Bank member cells are disconnected while claimed, so use the bank controller. See [Electricity and batteries](Electricity-and-batteries.md) and [Pipes](Pipes.md)."
+    "use": "Connect to any of the six faces of generators, powered machines or eligible batteries. Electricity flows automatically; it has no wrench direction setting. Bank member cells are disconnected while claimed, so use the bank controller. See [Electricity and batteries](Electricity-and-batteries.md) and [Pipes](Pipes.md).\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:alternator": {
-    "use": "Place immediately on the Boiler Engine’s right with the shafts meeting. Electrical cables can connect on any of its six faces. See [Electricity and batteries](Electricity-and-batteries.md)."
+    "use": "Place immediately on the Boiler Engine’s right with the shafts meeting. Electrical cables can connect on any of its six faces. See [Electricity and batteries](Electricity-and-batteries.md).\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:boiler_engine": {
-    "use": "Supply coal/charcoal and water manually or through configured item/fluid pipe inputs on any face. Use a selected [Wrench](Item-wrench.md) to set blue input arrows. Its right-hand mechanical shaft must still meet an [Alternator](Item-alternator.md). See [Pipes](Pipes.md) and [Electricity](Electricity-and-batteries.md). Item Pipe supplies coal or charcoal only through the back, relative to placement rotation. Water pipes can enter any face."
+    "use": "Supply coal/charcoal and water manually or through configured item/fluid pipe inputs on any face. Use a selected [Wrench](Item-wrench.md) to set blue input arrows. Its right-hand mechanical shaft must still meet an [Alternator](Item-alternator.md). See [Pipes](Pipes.md) and [Electricity](Electricity-and-batteries.md). Item Pipe supplies coal or charcoal only through the back, relative to placement rotation. Water pipes can enter any face.\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:workshop_lamp": {
-    "use": "Connect electricity on any face; it needs **20 W**. Front Blue Signal control is optional. See [Electricity and batteries](Electricity-and-batteries.md)."
+    "use": "Connect electricity on any face; it needs **20 W**. Front Blue Signal control is optional. See [Electricity and batteries](Electricity-and-batteries.md).\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:battery_block": {
-    "use": "Starts **empty**, even in Creative. Stores **100 kJ**, captures all surplus while it has room and supplies connected demand while it has charge. Separate cable grids can charge and draw from the same battery simultaneously. A charged cell cannot be mined. See [batteries and battery banks](Electricity-and-batteries.md)."
+    "use": "Starts **empty**, even in Creative. Stores **100 kJ**, captures all surplus while it has room and supplies connected demand while it has charge. Separate cable grids can charge and draw from the same battery simultaneously. A charged cell cannot be mined. See [batteries and battery banks](Electricity-and-batteries.md).\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:battery_controller": {
-    "use": "Place exactly one controller in a solid rectangular pack of battery blocks, with its front facing out. The controller adds no storage of its own. See the [battery bank guide](Electricity-and-batteries.md) for dimensions, wiring and charge-preserving repairs. Connect electricity to any exposed controller face; claimed member-cell sockets remain inactive."
+    "use": "Place exactly one controller in a solid rectangular pack of battery blocks, with its front facing out. The controller adds no storage of its own. See the [battery bank guide](Electricity-and-batteries.md) for dimensions, wiring and charge-preserving repairs. Connect electricity to any exposed controller face; claimed member-cell sockets remain inactive.\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:pump": {
-    "use": "Position it one block **above** source water. It requires **no electricity**. Attach Fluid Pipe on a free face; use a selected [Wrench](Item-wrench.md) to set the pump-facing end to red Output. Keep the cell directly below free for source water. One extraction moves 10 L in two eligible seconds. Optional Blue Signal can pause it; pumping can start and recover boiler generation during a blackout. See [Pipes](Pipes.md) and the [renewable pool guide](Pumps-and-water.md)."
+    "use": "Position it one block **above** source water. It requires **no electricity**. Attach Fluid Pipe on a free face; use a selected [Wrench](Item-wrench.md) to set the pump-facing end to red Output. Keep the cell directly below free for source water. One extraction moves 10 L in two eligible seconds. Optional Blue Signal can pause it; pumping can start and recover boiler generation during a blackout. See [Pipes](Pipes.md) and the [renewable pool guide](Pumps-and-water.md).\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:water_tank": {
-    "use": "Stores **100 L** in one block. Use bucket controls or Fluid Pipes on any face. With a selected [Wrench](Item-wrench.md), right-click each tank-facing pipe end to set blue Input or red Output. Separate ends keep separate settings. See [Pipes](Pipes.md); for larger storage build a [multiblock tank](Tanks.md)."
+    "use": "Stores **100 L** in one block. Use bucket controls or Fluid Pipes on any face. With a selected [Wrench](Item-wrench.md), right-click each tank-facing pipe end to set blue Input or red Output. Separate ends keep separate settings. See [Pipes](Pipes.md); for larger storage build a [multiblock tank](Tanks.md).\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:item_pipe": {
-    "use": "Connect any face of a supported item machine, furnace or chest. Select a [Wrench](Item-wrench.md) and right-click each machine-facing pipe end to cycle blue Input, red Output and No connection. Arrows show only while holding the wrench; No connection removes the arm, and clicking that side again reconnects it. A chest can supply items directly through an output end. Machines accept only compatible ingredients or fuel; rejected cargo stays at its source, and mixed chests can send other compatible stacks. Receivers prefer cargo matching their current input or output before starting another compatible type. Fuel-burning machines accept fuel only at the back and ingredients through other input faces. Machines without fuel requirements also accept ordinary input at the back. Furnaces can burn rear-fed logs to turn side-fed logs into charcoal and output only finished products. Open the pipe normally to add independent signal or power fittings. See [Pipes](Pipes.md)."
+    "use": "Connect any face of a supported item machine, furnace or chest. Select a [Wrench](Item-wrench.md) and right-click each machine-facing pipe end to cycle blue Input, red Output and No connection. Arrows show only while holding the wrench; No connection removes the arm, and clicking that side again reconnects it. A chest can supply items directly through an output end. Machines accept only compatible ingredients or fuel; rejected cargo stays at its source, and mixed chests can send other compatible stacks. Receivers prefer cargo matching their current input or output before starting another compatible type. Fuel-burning machines accept fuel only at the back and ingredients through other input faces. Machines without fuel requirements also accept ordinary input at the back. Furnaces can burn rear-fed logs to turn side-fed logs into charcoal and output only finished products. Open the pipe normally to add independent signal or power fittings. See [Pipes](Pipes.md).\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:fluid_pipe": {
-    "use": "Connect any face of a water machine or functional tank fluid port. A selected [Wrench](Item-wrench.md) plus right-click on the machine-facing end cycles blue Input, red Output and No connection. Arrows show only while holding the wrench; No connection removes the arm, and clicking that side again reconnects it. Opening the pipe normally gives access to separate signal/power fittings. See [Pipes](Pipes.md) and [tanks](Tanks.md)."
+    "use": "Connect any face of a water machine or functional tank fluid port. A selected [Wrench](Item-wrench.md) plus right-click on the machine-facing end cycles blue Input, red Output and No connection. Arrows show only while holding the wrench; No connection removes the arm, and clicking that side again reconnects it. Opening the pipe normally gives access to separate signal/power fittings. See [Pipes](Pipes.md) and [tanks](Tanks.md).\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:extractor": {
-    "use": "Place a [Chest](Item-chest.md) on its left. Attach [Item Pipe](Item-item-pipe.md) on any free face, with a red Output arrow set using a selected [Wrench](Item-wrench.md). It transfers up to four items per second and supports optional signal control. Direct chest-to-pipe output is also available; the Extractor adds signal control. See [Pipes](Pipes.md)."
+    "use": "Place a [Chest](Item-chest.md) on its left. Attach [Item Pipe](Item-item-pipe.md) on any free face, with a red Output arrow set using a selected [Wrench](Item-wrench.md). It transfers up to four items per second and supports optional signal control. Direct chest-to-pipe output is also available; the Extractor adds signal control. See [Pipes](Pipes.md).\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:crusher": {
-    "use": "Connect power on any face. Use [Item Pipes](Item-item-pipe.md) on any face and a selected [Wrench](Item-wrench.md) to set blue ingredient inputs and red product outputs. Optional Blue Signal remains at the front. One raw copper, iron or gold makes two matching crushed pieces in five seconds at **160 W**. Smelt each piece in a [Furnace](Item-furnace.md). One [Stone](Item-stone.md) or [Cobblestone](Item-cobblestone.md) instead makes one [Sand](Item-sand.md), with the same time and power. See [Pipes](Pipes.md)."
+    "use": "Connect power on any face. Use [Item Pipes](Item-item-pipe.md) on any face and a selected [Wrench](Item-wrench.md) to set blue ingredient inputs and red product outputs. Optional Blue Signal remains at the front. One raw copper, iron or gold makes two matching crushed pieces in five seconds at **160 W**. Smelt each piece in a [Furnace](Item-furnace.md). One [Stone](Item-stone.md) or [Cobblestone](Item-cobblestone.md) instead makes one [Sand](Item-sand.md), with the same time and power. See [Pipes](Pipes.md).\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:drill": {
-    "use": "Supply **240 W** on any face. It mines the finite column directly below and stops at protected bedrock. Attach Item Pipe on any face and use a selected [Wrench](Item-wrench.md) to set the drill-facing end to red Output. An attached OFF signal at the front disables it. See [Pipes](Pipes.md)."
+    "use": "Supply **240 W** on any face. It mines the finite column directly below and stops at protected bedrock. Attach Item Pipe on any face and use a selected [Wrench](Item-wrench.md) to set the drill-facing end to red Output. An attached OFF signal at the front disables it. See [Pipes](Pipes.md).\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:machinist_bench": {
-    "use": "Place and open it with **E or right-click** for 4×4 crafting. It also accepts smaller crafting recipes. Industrial recipes are shapeless unless their page specifies a pattern; keep the required count in each occupied slot."
+    "use": "Place and open it with **E or right-click** for 4×4 crafting. It also accepts smaller crafting recipes. Industrial recipes are shapeless unless their page specifies a pattern; keep the required count in each occupied slot.\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
   },
   "rivet:hand_crank": {
     "description": "A manual generator for a small starting electricity reserve. It supplies 100 W during each half-second turn (50 J), using no fuel or water.",

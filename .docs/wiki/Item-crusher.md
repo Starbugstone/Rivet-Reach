@@ -27,6 +27,8 @@ Make this item using the crafting or processing recipes below.
 
 Connect power on any face. Use [Item Pipes](Item-item-pipe.md) on any face and a selected [Wrench](Item-wrench.md) to set blue ingredient inputs and red product outputs. Optional Blue Signal remains at the front. One raw copper, iron or gold makes two matching crushed pieces in five seconds at **160 W**. Smelt each piece in a [Furnace](Item-furnace.md). One [Stone](Item-stone.md) or [Cobblestone](Item-cobblestone.md) instead makes one [Sand](Item-sand.md), with the same time and power. See [Pipes](Pipes.md).
 
+Opening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md).
+
 ## Crafting and processing
 
 ### Recipe 1
