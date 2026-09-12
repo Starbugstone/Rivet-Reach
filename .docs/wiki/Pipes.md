@@ -120,6 +120,8 @@ Both fittings may share an Item Pipe or Fluid Pipe. Each channel follows its own
 
 ## Connected network versus available electricity
 
+Electrical grids follow physically connected cables and power fittings. Machine faces terminate their cable runs; a battery can charge from one grid and supply another without joining the cables. See [separate input and output grids](Electricity-and-batteries.md#separate-input-and-output-grids).
+
 A registered electrical connection remains connected when its generator stops or its battery empties. The machine shows **Power network: connected** separately from its received/requested watts. **No electrical power** means the machine has no supplied electricity; **Power network: not connected** means it also lacks a registered electrical link. Check fuel, charge and battery mode before rebuilding a correctly connected cable route.
 
 ## Troubleshooting

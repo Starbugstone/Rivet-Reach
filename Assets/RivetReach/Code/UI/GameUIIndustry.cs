@@ -105,13 +105,22 @@ namespace RivetReach
             {
                 var c=m.Structure;bool member=m.Definition.Id==IndustryId.Battery&&c!=null;
                 long amount=member?m.EnergyCells[0].Amount:BatteryPower.Amount(m),capacity=member?m.EnergyCells[0].Capacity:BatteryPower.Capacity(m);
-                machineStatus.text=member?"Controlled by battery bank":m.Definition.Id==IndustryId.BatteryController&&c?.Formed!=true?"BANK INCOMPLETE":m.BatteryWatts>0?"Charging":m.BatteryWatts<0?"Delivering electricity":m.BatteryMode==BatteryMode.Isolated?"Isolated":amount==0?"Empty · connect generation":amount==capacity?"Fully charged":"Ready · no power transfer";
-                detail=$"Stored: {amount/1000000.0:0.###} / {capacity/1000000.0:0.###} kJ\nCharge: {Mathf.Max(0,m.BatteryWatts)} W · Output: {Mathf.Max(0,-m.BatteryWatts)} W";
-                detail+=member?"\nBank mode overrides cell mode":$"\nLimit: {BatteryPower.Cells(m).Count*BatteryStorage.CellWatts} W each way";
+                machineStatus.text=member?"Controlled by battery bank":m.Definition.Id==IndustryId.BatteryController&&c?.Formed!=true?"BANK INCOMPLETE":m.BatteryInputWatts>0&&m.BatteryOutputWatts>0?"Charging and supplying":m.BatteryWatts>0?"Charging":m.BatteryWatts<0?"Delivering electricity":m.BatteryMode==BatteryMode.Isolated?"Isolated":amount==0?"Empty · connect generation":amount==capacity?"Fully charged":"Ready · no power transfer";
+                detail=$"Stored: {amount/1000000.0:0.###} / {capacity/1000000.0:0.###} kJ\nCharge: {m.BatteryInputWatts} W · Output: {m.BatteryOutputWatts} W";
+                detail+=member?"\nBank mode overrides cell mode":"\nStores surplus · supplies connected loads";
                 if(powerConnection.Length>0)detail+="\n"+powerConnection;
                 if(c!=null)detail+=c.Formed?"\nFORMED · "+c.Bounds:"\n"+c.Validation.Message;
                 machineProgress.rectTransform.sizeDelta=new Vector2(capacity>0?303*(float)(amount/(double)capacity):0,7);
                 machineDetail.text=detail;return;
+            }
+            if(m.Definition.Id==IndustryId.PowerCable)
+            {
+                var grid=game.Industry.Simulation.Power.Topology.Groups.FirstOrDefault(g=>g.Ports.Any(p=>p.Machine==m));
+                if(grid!=null)
+                {
+                    long stored=0;foreach(var p in grid.Ports)if(p.Port.Role==PortRole.Storage)stored+=BatteryPower.Amount(p.Machine);
+                    detail+=$"\nGrid input: {grid.Supply} W · Required: {grid.Demand} W\nConnected storage: {stored/1000000.0:0.###} kJ";
+                }
             }
             if(PipeConnections.IsTransport(m.Definition.Id))detail+="\nAdditional channels: "+m.Additions;
             machineDetail.text=detail;
@@ -119,7 +128,7 @@ namespace RivetReach
             float fraction=(float)m.Work/ticks;
             if(m.Definition.Id==IndustryId.Boiler)fraction=m.BurnTicks/1600f;
             if(m.Definition.Id==IndustryId.Tank)fraction=m.WaterMl/(float)m.Definition.WaterCapacity;
-            if(m.Definition.Id==IndustryId.Alternator)fraction=m.SupplyWatts/400f;
+            if(m.Definition.Id==IndustryId.Alternator)fraction=m.SupplyWatts/(float)IndustrySimulation.AlternatorWatts;
             if(m.Definition.Id==IndustryId.Lamp)fraction=m.ReceivedWatts/20f;
             if(IndustryId.TankPart(m.Definition.Id))fraction=m.Structure?.Fluid.Capacity>0?(float)(m.Structure.Fluid.Amount/(double)m.Structure.Fluid.Capacity):0;
             machineProgress.rectTransform.sizeDelta=new Vector2((IndustryId.TankPart(m.Definition.Id)?303:155)*Mathf.Clamp01(fraction),IndustryId.TankPart(m.Definition.Id)?7:9);

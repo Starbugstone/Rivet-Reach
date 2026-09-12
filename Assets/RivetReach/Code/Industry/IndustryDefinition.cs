@@ -58,7 +58,7 @@ namespace RivetReach
             Add(IndustryId.Door,"workshop_hatch","Workshop Hatch","Signal opens the hatch · no electricity needed",0,0,si);
             Add(IndustryId.Lamp,"workshop_lamp","Workshop Lamp","Power on any face · optional signal at front",20,0,pi,si);
             Add(IndustryId.Boiler,"boiler_engine","Boiler Engine","Coal / charcoal + water → right-hand shaft",0,100000,P(NetworkKind.Fluid,PortRole.Input,16),ii);
-            Add(IndustryId.Alternator,"alternator","Alternator","Left shaft couples to Boiler · 400 W output",0,0,P(NetworkKind.Power,PortRole.Output,16));
+            Add(IndustryId.Alternator,"alternator","Alternator","Left shaft couples to Boiler · 800 W output",0,0,P(NetworkKind.Power,PortRole.Output,16));
             Add(IndustryId.Crusher,"crusher","Crusher","1 raw ore → 2 crushed ore\n1 stone / cobblestone → 1 sand",160,0,pi,si,ii,io);
             Add(IndustryId.Pump,"pump","Pump","Source below → 10 L in 2 seconds\nNo electricity required",0,10000,si,P(NetworkKind.Fluid,PortRole.Output,1));
             Add(IndustryId.Drill,"drill","Drill","Mines a finite column below · stops at bedrock",240,0,pi,si,io);
@@ -73,7 +73,7 @@ namespace RivetReach
             Add(IndustryId.TankHatch,"tank_hatch","Tank Access Hatch","10 L bucket transfers · one shared tank inventory");
             Add(IndustryId.TankValve,"tank_valve","Signal Valve Port","Front fluid nozzle + keyed signal · ON opens valve",0,0,P(NetworkKind.Fluid,PortRole.Input,32),P(NetworkKind.Signal,PortRole.Input,32));
             Add(IndustryId.TankSensor,"tank_sensor","Tank Level Sensor","Front Blue Signal output · threshold adjustable",0,0,P(NetworkKind.Signal,PortRole.Output,32));
-            Add(IndustryId.Battery,"battery_block","Battery Block","100 kJ · 400 W · power connections on all faces",0,0,P(NetworkKind.Power,PortRole.Storage,63));
+            Add(IndustryId.Battery,"battery_block","Battery Block","100 kJ · stores grid surplus · separate connections on all faces",0,0,P(NetworkKind.Power,PortRole.Storage,63));
             Add(IndustryId.BatteryController,"battery_controller","Battery Bank Controller","Solid pack of batteries · one controller facing out",0,0,P(NetworkKind.Power,PortRole.Storage,32));
             Add(IndustryId.HandCrank,"hand_crank","Hand Crank","Use / hold Use: 50 J per turn · power on all faces",0,0,P(NetworkKind.Power,PortRole.Output,16));
             Add(IndustryId.WoodenDoor,"wooden_door","Wooden Door","Use to open / close · Blue Signal connects at the base",0,0,P(NetworkKind.Signal,PortRole.Input,63));
@@ -107,7 +107,7 @@ namespace RivetReach
         public int PipeDirections;
         public readonly BatteryStorage[] EnergyCells;
         public BatteryMode BatteryMode;
-        public int BatteryWatts;
+        public int BatteryWatts,BatteryInputWatts,BatteryOutputWatts;
         public bool RecoveryOutput;
         public FluidPortMode PortMode;
         public int LevelThreshold=80;

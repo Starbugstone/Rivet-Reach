@@ -47,7 +47,7 @@ namespace RivetReach.Editor
             var alt=sim.Add(P(21),IndustryId.Alternator);
             for(int x=21;x<=24;x++)sim.Add(P(x,0,1),IndustryId.PowerCable);
             var crusher=sim.Add(P(24),IndustryId.Crusher);crusher.Items.Add(BlockId.RawIron,5,0,1);Settle();
-            Check(alt.SupplyWatts==400&&crusher.ReceivedWatts==160,"Adjacent mechanical shaft generates electricity for crusher");
+            Check(alt.SupplyWatts==800&&crusher.ReceivedWatts==160,"Adjacent mechanical shaft generates electricity for crusher");
             for(int i=0;i<100;i++)sim.Step();Check(crusher.Items.Total(IndustryId.CrushedIron)==2&&crusher.Items.Total(BlockId.RawIron)==4,"Crusher conserves one raw input into two authored outputs");
             var control=sim.Add(P(24,0,-1),IndustryId.Lever);Settle();double work=crusher.Work;
             Check(crusher.SignalAttached&&!crusher.Signal&&crusher.RequestedWatts==0,"Attached OFF signal requests zero processing watts");
@@ -58,9 +58,11 @@ namespace RivetReach.Editor
             sim.Add(P(22,0,1),IndustryId.PowerCable);
             var c2=sim.Add(P(23,0,2),IndustryId.Crusher);sim.Rotate(c2);sim.Rotate(c2);c2.Items.Add(BlockId.RawIron,5,0,1);
             var c3=sim.Add(P(22,0,2),IndustryId.Crusher);sim.Rotate(c3);sim.Rotate(c3);c3.Items.Add(BlockId.RawIron,5,0,1);Settle();
-            Check(crusher.ReceivedWatts+c2.ReceivedWatts+c3.ReceivedWatts==400,"Allocator distributes exactly the available supply");
+            var c4=sim.Add(P(21,0,2),IndustryId.Crusher);var c5=sim.Add(P(22),IndustryId.Crusher);var c6=sim.Add(P(23),IndustryId.Crusher);
+            foreach(var extra in new[]{c4,c5,c6})extra.Items.Add(BlockId.RawIron,5,0,1);Settle();
+            Check(crusher.ReceivedWatts+c2.ReceivedWatts+c3.ReceivedWatts+c4.ReceivedWatts+c5.ReceivedWatts+c6.ReceivedWatts==800,"Allocator distributes exactly the available supply");
             Check(Math.Abs(crusher.ReceivedWatts-c2.ReceivedWatts)<=1&&c3.Status==MachineStatus.Underpowered,"Equal priorities share shortages proportionally");
-            c3.Priority=0;sim.Step();Check(c3.ReceivedWatts==160&&crusher.ReceivedWatts+c2.ReceivedWatts==240,"Priority loads are served before proportional lower-priority loads");
+            c3.Priority=0;sim.Step();Check(c3.ReceivedWatts==160&&crusher.ReceivedWatts+c2.ReceivedWatts+c4.ReceivedWatts+c5.ReceivedWatts+c6.ReceivedWatts==640,"Priority loads are served before proportional lower-priority loads");
             var source=sim.Add(P(40),IndustryId.Tank);var pipe=sim.Add(P(41),IndustryId.FluidPipe);var dest=sim.Add(P(42),IndustryId.Tank);source.WaterMl=10000;Settle();
             Check(source.WaterMl+dest.WaterMl==10000&&dest.WaterMl>0,"Fluid transfers conserve exact millilitres");
             world.Sleeping.Add(P(41));sim.Invalidate();Settle();int water=dest.WaterMl;sim.Step();Check(dest.WaterMl==water,"Dormant fluid segment blocks transfer");
@@ -167,12 +169,12 @@ namespace RivetReach.Editor
             var boiler=cold.Add(new BlockPos(2,20,0),IndustryId.Boiler);boiler.Items.Add(BlockId.Charcoal,1,0,1);
             var alternator=cold.Add(new BlockPos(3,20,0),IndustryId.Alternator);
             for(int i=0;i<45;i++)cold.Step();
-            check(boiler.Running&&alternator.SupplyWatts==400&&supply.RequestedWatts==0,"Pump and pipe cold-start an empty fueled boiler and alternator without electricity");
+            check(boiler.Running&&alternator.SupplyWatts==800&&supply.RequestedWatts==0,"Pump and pipe cold-start an empty fueled boiler and alternator without electricity");
             check(supply.WaterMl+boiler.WaterMl+(1600-boiler.BurnTicks)*5==10000,"Cold startup conserves source volume including boiler consumption");
             boiler.WaterMl=0;supply.WaterMl=0;coldWorld.Cells[supply.Position.Offset(0,-1,0)]=Fluids.Water.Source;
             cold.Step();check(alternator.SupplyWatts==0,"Water starvation stops electrical generation");
             for(int i=0;i<45;i++)cold.Step();
-            check(boiler.Running&&alternator.SupplyWatts==400&&supply.ReceivedWatts==0,"Pump restores water and generation after a complete blackout");
+            check(boiler.Running&&alternator.SupplyWatts==800&&supply.ReceivedWatts==0,"Pump restores water and generation after a complete blackout");
         }
         static void CrusherRecipes(Action<bool,string> check)
         {

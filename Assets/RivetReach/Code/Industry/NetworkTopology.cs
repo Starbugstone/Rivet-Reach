@@ -37,7 +37,13 @@ namespace RivetReach
                 {
                     if(p.Kind!=Kind)continue;members.Add(m);int faces=PipeConnections.WorldFaces(p,m.Rotation);
                     if(!byPosition.TryGetValue(m.Position,out var list))byPosition.Add(m.Position,list=new List<int>());
-                    list.Add(nodes.Count);nodes.Add(new Endpoint{Machine=m,Port=p,Faces=faces,Group=-1});
+                    // Electrical devices terminate each face; only conductors join cable runs.
+                    if(Kind==NetworkKind.Power&&p.Role!=PortRole.Route)
+                    {
+                        for(int face=0;face<6;face++)if((faces&(1<<face))!=0)
+                        {list.Add(nodes.Count);nodes.Add(new Endpoint{Machine=m,Port=p,Faces=1<<face,Group=-1});}
+                    }
+                    else {list.Add(nodes.Count);nodes.Add(new Endpoint{Machine=m,Port=p,Faces=faces,Group=-1});}
                 }
                 yield return 0;
             }
@@ -70,6 +76,15 @@ namespace RivetReach
                     yield return 0;
                 }
             }
+            if(Kind==NetworkKind.Power)
+            {
+                // Several faces on the same cable grid still represent one device budget.
+                foreach(var group in groups)
+                {
+                    var seen=new HashSet<MachineState>();
+                    group.Ports.RemoveAll(p=>!seen.Add(p.Machine));
+                }
+            }
             Groups=groups;Connections=connections;registered=members;
         }
     }
@@ -96,43 +111,90 @@ namespace RivetReach
     public sealed class PowerNetworkService
     {
         public readonly NetworkTopology Topology=new NetworkTopology(NetworkKind.Power);
-        // Whole watts with deterministic rotating residuals; priority 0 is served before 1 and 2.
+        readonly Dictionary<MachineState,int> generation=new Dictionary<MachineState,int>();
+        // Shared device budgets prevent multiple faces/grids from duplicating generation,
+        // demand or storage. Only cable vertices connect grids, never a device interior.
         public void Allocate(long tick)
+        {
+            generation.Clear();
+            foreach(var group in Topology.Groups)
+            {
+                group.Supply=group.Demand=0;
+                foreach(var p in group.Ports)
+                {
+                    var m=p.Machine;
+                    if(p.Port.Role==PortRole.Output)generation[m]=m.SupplyWatts;
+                    if(p.Port.Role==PortRole.Input){m.ReceivedWatts=0;group.Demand+=m.RequestedWatts;}
+                    if(p.Port.Role==PortRole.Storage)m.BatteryWatts=m.BatteryInputWatts=m.BatteryOutputWatts=0;
+                }
+            }
+            // First all ordinary loads consume generation, before any storage charge.
+            foreach(var group in Topology.Groups)
+            {
+                int used=Serve(group,AvailableGeneration(group),tick);
+                ConsumeGeneration(group,used);group.Supply+=used;
+            }
+            // Charge before discharge so even an empty battery can relay this tick's
+            // generation to a separate load grid, independent of traversal order.
+            ChargeSurplus();
+            foreach(var group in Topology.Groups)
+            {
+                int available=0;
+                foreach(var p in group.Ports)if(p.Port.Role==PortRole.Storage)available=(int)Math.Min(int.MaxValue,(long)available+BatteryPower.Available(p.Machine,false));
+                int used=Serve(group,available,tick);group.Supply+=used;
+                foreach(var p in group.Ports)if(p.Port.Role==PortRole.Storage&&used>0)
+                {int take=Math.Min(used,BatteryPower.Available(p.Machine,false));BatteryPower.Transfer(p.Machine,take,false);used-=take;}
+            }
+            // A full battery may have freed room while feeding another grid.
+            ChargeSurplus();
+        }
+        int AvailableGeneration(NetworkTopology.Group group)
+        {
+            int watts=0;
+            foreach(var p in group.Ports)if(p.Port.Role==PortRole.Output)watts+=generation[p.Machine];
+            return watts;
+        }
+        void ConsumeGeneration(NetworkTopology.Group group,int watts)
+        {
+            foreach(var p in group.Ports)if(p.Port.Role==PortRole.Output&&watts>0)
+            {int take=Math.Min(watts,generation[p.Machine]);generation[p.Machine]-=take;watts-=take;}
+        }
+        void ChargeSurplus()
         {
             foreach(var group in Topology.Groups)
             {
-                int supply=0,demand=0;
-                foreach(var p in group.Ports)
-                {if(p.Port.Role==PortRole.Output)supply+=p.Machine.SupplyWatts;if(p.Port.Role==PortRole.Input){demand+=p.Machine.RequestedWatts;p.Machine.ReceivedWatts=0;}}
-                // Serve live demand first. Only generator surplus charges storage; batteries
-                // never charge each other or burn energy into an idle circuit.
-                int generated=supply;
-                if(demand>generated)
+                int surplus=AvailableGeneration(group),used=0;
+                foreach(var p in group.Ports)if(p.Port.Role==PortRole.Storage&&surplus>0)
                 {
-                    int deficit=demand-generated;
-                    foreach(var p in group.Ports)if(p.Port.Role==PortRole.Storage)
-                    {int take=Math.Min(deficit,BatteryPower.Available(p.Machine,false));BatteryPower.Transfer(p.Machine,take,false);supply+=take;deficit-=take;}
+                    int take=Math.Min(surplus,BatteryPower.Available(p.Machine,true));
+                    BatteryPower.Transfer(p.Machine,take,true);surplus-=take;used+=take;
                 }
-                else
-                {
-                    int surplus=generated-demand;
-                    foreach(var p in group.Ports)if(p.Port.Role==PortRole.Storage)
-                    {int take=Math.Min(surplus,BatteryPower.Available(p.Machine,true));BatteryPower.Transfer(p.Machine,take,true);surplus-=take;}
-                }
-                group.Supply=supply;group.Demand=demand;
-                for(int priority=0;priority<3&&supply>0;priority++)
-                {
-                    int requested=0;
-                    foreach(var p in group.Ports)if(p.Port.Role==PortRole.Input&&p.Machine.Priority==priority)requested+=p.Machine.RequestedWatts;
-                    if(requested==0)continue;int available=Math.Min(supply,requested),used=0;
-                    foreach(var p in group.Ports)if(p.Port.Role==PortRole.Input&&p.Machine.Priority==priority)
-                    {int amount=(int)((long)p.Machine.RequestedWatts*available/requested);p.Machine.ReceivedWatts=amount;used+=amount;}
-                    int residual=available-used,count=group.Ports.Count,start=(int)(tick%count);
-                    for(int n=0;n<count&&residual>0;n++)
-                    {var p=group.Ports[(start+n)%count];if(p.Port.Role==PortRole.Input&&p.Machine.Priority==priority&&p.Machine.ReceivedWatts<p.Machine.RequestedWatts){p.Machine.ReceivedWatts++;residual--;}}
-                    supply-=available;
-                }
+                ConsumeGeneration(group,used);group.Supply+=used;
             }
+        }
+        static int Need(MachineState m)=>Math.Max(0,m.RequestedWatts-m.ReceivedWatts);
+        // Whole watts, priorities and proportional shortfall within each cable grid.
+        static int Serve(NetworkTopology.Group group,int supply,long tick)
+        {
+            int total=0;
+            for(int priority=0;priority<3&&supply>0;priority++)
+            {
+                int requested=0;
+                foreach(var p in group.Ports)if(p.Port.Role==PortRole.Input&&p.Machine.Priority==priority)requested+=Need(p.Machine);
+                if(requested==0)continue;
+                int available=Math.Min(supply,requested),used=0;
+                foreach(var p in group.Ports)if(p.Port.Role==PortRole.Input&&p.Machine.Priority==priority)
+                {int amount=(int)((long)Need(p.Machine)*available/requested);p.Machine.ReceivedWatts+=amount;used+=amount;}
+                int residual=available-used,count=group.Ports.Count,start=(int)(tick%count);
+                for(int n=0;n<count&&residual>0;n++)
+                {
+                    var p=group.Ports[(start+n)%count];
+                    if(p.Port.Role==PortRole.Input&&p.Machine.Priority==priority&&Need(p.Machine)>0)
+                    {p.Machine.ReceivedWatts++;residual--;}
+                }
+                supply-=available;total+=available;
+            }
+            return total;
         }
     }
 }

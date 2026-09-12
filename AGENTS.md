@@ -115,3 +115,7 @@ The user requested pumps that consume no electricity to avoid a water/power star
 ## Authorized disconnected pipe ends and wrench-only arrows
 
 The user requested an additional **No connection** state: selected-wrench right-click cycles **Input → Output → No connection → Input**. Disconnected ends transfer nothing and show no arm/arrow, while the same side remains a wrench target for reconnection. Direction arrows appear only while the wrench is selected in hand. Preserve independent ends, pipe-to-pipe routing, fitted power/signal channels and saved states. [Industry rules](.docs/INDUSTRY.md#wrench-and-configurable-pipe-ends--2026-09-12) own behavior; [verification](.docs/verification/PIPE_DISCONNECT_RESULTS.md) records measured evidence.
+
+## Authorized cable-defined electrical grids
+
+The user requested [separate battery input/output cable grids](.docs/BATTERIES.md#cable-defined-grids--2026-09-12), automatic recovery after cable edits, capture of all surplus without per-cell wattage caps, and doubled boiler/alternator output (**800 W**). Only physically connected cables/power fittings join grids; each machine face terminates its run. Preserve shared generation/demand budgets, exact shared cell storage, battery modes, bank lifecycle and durable-save compatibility. [Power-grid verification](.docs/verification/POWER_GRID_RESULTS.md) records measured evidence.

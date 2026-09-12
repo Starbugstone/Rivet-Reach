@@ -8,25 +8,33 @@ The user requested electrical storage as a standalone battery block and as cells
 
 Working defaults chosen for this increment, not individually user-approved balance values:
 
-- Battery Block, runtime ID 168: 100 kJ capacity, 400 W maximum input or output, initially empty. Its six faces share one electrical storage endpoint.
-- Battery Bank Controller, ID 169: no capacity by itself, one electrical storage endpoint on all six faces, initially Automatic mode.
+- Battery Block, runtime ID 168: 100 kJ capacity, initially empty. Each face terminates its cable grid while accessing the same exact storage. There is no separate charge/discharge wattage cap.
+- Battery Bank Controller, ID 169: no capacity by itself, separate electrical terminals on all six faces sharing the claimed cells, initially Automatic mode.
 - Four modes: Automatic, ChargeOnly, DischargeOnly and Isolated. A formed bank's controller mode overrides its cells' modes; those cell modes resume after release.
-- Storage is lossless in this first increment. No passive decay, offline progress or free Creative charge. All stored charge is session state.
+- Storage is lossless in this first increment. No passive decay, offline progress or free Creative charge. Stored charge persists through the existing durable saves.
 - Crafting at the 4×4 Machinist's Bench: cell = casing ×1, copper plate ×2, copper wire ×4, coal ×2; controller = casing ×1, copper wire ×4, Azure crystal ×1, glass ×1. These are original industry assemblies; beginning survival recipes remain unchanged.
 
 ## Electrical allocation and conservation
 
-Existing generator watts first serve ordinary machine demand, using the established priorities and proportional shortfall allocation. Only generation exceeding that demand may charge storage. When demand exceeds generation, eligible batteries discharge just enough to reduce that shortfall, limited by their rate and current charge. Storage never charges other storage within this allocation. Isolated and direction-restricted endpoints obey their selected mode.
+Existing generator watts first serve ordinary machine demand, using the established priorities and proportional shortfall allocation. Only generation exceeding that demand may charge storage. When demand exceeds generation, eligible batteries discharge just enough to reduce that shortfall, limited by current charge. Storage never charges other storage within this allocation. Isolated and direction-restricted endpoints obey their selected mode.
 
 `BatteryStorage` holds exact integer millijoules. A 20 Hz step uses 50 mJ per supplied watt, with per-cell capacity checks before mutation. Full cells accept only available room; exhausted cells stop delivery and may provide partial watts on their final step. Idle networks, full pump buffers and disabled consumers do not discharge batteries. Generator surplus may be unused when storage is full, as electricity generation is a power budget rather than a stored resource itself.
 
-`PortRole.Storage` is one bidirectional endpoint, never simultaneous input/output vertices that could count its capacity twice. An eligible formed bank exposes only its controller. All cell sockets are removed from topology until those cells are released. Rebuilding networks suspend allocation; dormant cells never generate offline credit.
+Each `PortRole.Storage` face is a separate terminal. Only face-connected conductors join grids; batteries, generators and loads never act as hidden cable bridges. Multiple faces on the same grid count the device once; generation, demand and cell energy budgets are shared across all its grids. An eligible formed bank exposes only its controller. All cell sockets are removed from topology until those cells are released. Rebuilding networks suspend allocation; dormant cells never generate offline credit.
 
-Battery order is deterministic by topology/position. This increment does not promise balanced cell wear, equal state of charge or charging priorities. Stored energy and input/output limits are separate quantities; displayed watts are actual transfer during the latest fixed step.
+Battery order is deterministic by topology/position. This increment does not promise balanced cell wear, equal state of charge or charging priorities. Displayed input and output watts are separate actual transfers during the latest fixed step, including simultaneous charging and supply. Shared-source and shared-load allocation between grids follows deterministic topology order; equal treatment across independent grids is not promised.
+
+## Cable-defined grids — 2026-09-12
+
+The user requested cable-break recovery, storage of all surplus and separate generator/battery/load wiring. Allocation first serves directly connected loads from generation across all grids, then charges batteries with remaining generation, then supplies unmet loads from shared storage. A final surplus pass refills capacity freed by supplying another grid. This allows an empty or full battery to charge and supply in one step without exceeding capacity, duplicating generation or charging other batteries from stored energy.
+
+Example: boiler/alternator → cable grid A → battery → separate cable grid B → crusher. The 800 W input supplies 160 W to the crusher and adds exactly 32 J per eligible 50 ms tick. Cutting A leaves B running from the reserve; cutting B stores the entire generator output. Replacing cable restores the physical route after the bounded topology rebuild. Connecting A and B with actual cable merges them; battery mode cannot bypass a physical cable connection.
+
+The former 400 W per-cell transfer cap is removed: two 800 W generators can charge a single cell at 1,600 W while it has room. Generator output is doubled from 400 W to 800 W as requested: the focused single-generator checks did not establish lost generation that would justify skipping the increase. Fuel/water use, recipes, bank lifecycle and save fields are unchanged. Transient input/output diagnostics are rebuilt after loading. [Power-grid verification](verification/POWER_GRID_RESULTS.md) records measured checks and limits.
 
 ## Bank shape and lifecycle
 
-The shared `MultiblockService` hosts `BatteryBankValidator` as a second production validator, alongside hollow tanks. A bank is one face-connected, completely filled rectangular pack of Battery Blocks and exactly one Battery Bank Controller. Each dimension is 1–5 inclusive, with at least one cell plus the controller. The controller's front must point outside the bounding box. The bounded scan allows at most 1,024 reads; a largest 5×5×5 pack has 124 storage cells, 12.4 MJ capacity and 49.6 kW transfer limit.
+The shared `MultiblockService` hosts `BatteryBankValidator` as a second production validator, alongside hollow tanks. A bank is one face-connected, completely filled rectangular pack of Battery Blocks and exactly one Battery Bank Controller. Each dimension is 1–5 inclusive, with at least one cell plus the controller. The controller's front must point outside the bounding box. The bounded scan allows at most 1,024 reads; a largest 5×5×5 pack has 124 storage cells, 12.4 MJ capacity.
 
 This solid pack is a working construction choice: players reuse the functional battery block itself, without an additional shell or hidden storage item. Separate banks must not touch; a connected pack containing two controllers is invalid. Missing cells, inward controls, oversized packs and unavailable neighbouring terrain produce actionable validation failures. Successful validation claims members exclusively through the existing world service.
 

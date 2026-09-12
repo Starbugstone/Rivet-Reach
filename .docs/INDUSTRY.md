@@ -56,7 +56,7 @@ Mining an assembly removes its network membership, closes its open interface, dr
 | Workshop Hatch | Opens under signal; avoids closing on a player or creature |
 | Workshop Lamp | 20 W; defaults enabled without a signal connection; light scales with received power |
 | Boiler Engine | Coal/charcoal burns for 80 eligible seconds; consumes 100 mL water/s; right shaft rotates while fueled and watered |
-| Alternator | Correctly aligned adjacent running boiler supplies 400 W electricity; no remote shaft teleportation |
+| Alternator | Correctly aligned adjacent running boiler supplies 800 W electricity; no remote shaft teleportation |
 | Crusher | 160 W; 5 seconds at full allocation; 1 raw copper/iron/gold → 2 crushed corresponding ore; 1 stone or cobblestone → 1 sand |
 | Pump | No electricity required; 2 eligible seconds; removes one actual source below for 10 L in its buffer; flowing water is not accepted |
 | Drill | 240 W; 6 seconds per block at full allocation; excavates the finite column below, through iron-tier mineable materials; stops at bedrock or an obstacle |
@@ -127,7 +127,7 @@ The user requested standalone battery blocks and a battery-bank multiblock. [BAT
 
 ## Manual generator — 2026-09-12
 
-The user authorized a [Hand Crank](HAND_CRANK.md) for early-game electrical bootstrap. Its inexpensive workbench recipe, battery-side attachment and click/hold interaction supply 100 W during paid manual turns through one electrical endpoint shared by all six faces. It shares the existing independent electrical network and load-before-storage allocation.
+The user authorized a [Hand Crank](HAND_CRANK.md) for early-game electrical bootstrap. Its inexpensive workbench recipe, battery-side attachment and click/hold interaction supply 100 W during paid manual turns through separate face terminals sharing one generation budget. It shares the existing independent electrical network and load-before-storage allocation.
 
 ## Wooden door control
 
@@ -135,7 +135,7 @@ The user authorized a [Hand Crank](HAND_CRANK.md) for early-game electrical boot
 
 ## Wrench and configurable pipe ends — 2026-09-12
 
-The user requires machine power connections on **all six faces**, including top and bottom. Generators, loads and eligible battery/controller endpoints expose all faces through one electrical vertex, so a machine is allocated once regardless of how many cables touch it. Bank member sockets remain inactive while claimed; bank formation still requires an outward-facing controller. Power remains automatic and has no wrench direction mode.
+The user requires machine power connections on **all six faces**, including top and bottom. Generators, loads and eligible battery/controller endpoints expose separate terminals on all faces. Only cables (including power fittings) join electrical grids. Device generation, demand and exact storage budgets are shared across terminals, so multiple connections cannot multiply a machine’s power. [Batteries](BATTERIES.md#cable-defined-grids--2026-09-12) can charge on one grid and supply another simultaneously. Bank member sockets remain inactive while claimed; bank formation still requires an outward-facing controller. Power remains automatic and has no wrench direction mode.
 
 Item/fluid connections also accept every face of a machine that supports that channel. Each machine-facing **pipe end** independently cycles **Input into the machine → Output from the machine → No connection → Input**. No connection blocks transport at that end and removes its visible arm and arrow. The pipe remains placed; aiming at the same machine-facing side with the wrench reconnects it on the next click. Other ends and fitted power/signal channels remain independent. Directions belong to the pipe's world-facing ends, not the machine's orientation. New connections default from the previous layout where available (e.g. a crusher's left inlet/right outlet), otherwise prefer input for machines with an input buffer and output for output-only machines. Chest ends initially receive items. Once an endpoint exists its default is stored, so rotating/replacing the machine or disabling/re-enabling a tank port does not flip the arrow. An unattached end retains its stored setting for reconnection; mining the pipe removes its settings.
 

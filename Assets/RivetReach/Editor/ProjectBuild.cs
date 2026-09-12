@@ -50,6 +50,8 @@ namespace RivetReach.Editor
                 {IndustryAssets.PrepareOreVariants();IndustryChecks.Run();WikiExport.Export();Build("OreVariants");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="azure-art-build")
                 {IndustryAssets.PrepareAzureOre();IndustryChecks.Run();WikiExport.Export();Build("AzureOre");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
+                if(command=="power-grid-build"||command=="power-grid-checks")
+                {BatteryChecks.Run();IndustryChecks.Run();ConnectionChecks.Run();HandCrankChecks.Run();MultiblockChecks.Run();DomainChecks.Run();ConnectedPipeChecks.Run();if(command=="power-grid-build"){WikiExport.Export();Build("Creative");}File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="battery-fill-build")
                 {BatteryChecks.Run();Build("BatteryFill");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="battery-build"||command=="battery-checks")
@@ -89,6 +91,12 @@ namespace RivetReach.Editor
                 File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));
             }
             catch(Exception ex){Debug.LogException(ex);File.WriteAllText("Logs/build-result.txt","FAILED\n"+ex);}
+        }
+        // Also callable in an isolated pinned-Editor batch project for reproducible checks.
+        public static void PowerGridReview()
+        {
+            Directory.CreateDirectory("Logs");BatteryChecks.Run();IndustryChecks.Run();ConnectionChecks.Run();HandCrankChecks.Run();MultiblockChecks.Run();DomainChecks.Run();ConnectedPipeChecks.Run();
+            WikiExport.Export();Build("Creative");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));
         }
         [MenuItem("Rivet Reach/Prepare assets and validate")]
         public static void Prepare()

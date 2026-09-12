@@ -3657,7 +3657,7 @@
             },
             "drop": "rivet:alternator",
             "requiredTier": "None",
-            "help": "Left shaft couples to Boiler · 400 W output",
+            "help": "Left shaft couples to Boiler · 800 W output",
             "placeable": true,
             "ore": false,
             "crop": false,
@@ -4152,7 +4152,7 @@
             },
             "drop": "rivet:battery_block",
             "requiredTier": "None",
-            "help": "100 kJ · 400 W · power connections on all faces",
+            "help": "100 kJ · stores grid surplus · separate connections on all faces",
             "placeable": true,
             "ore": false,
             "crop": false,
@@ -8216,7 +8216,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/ConnectionVerification.cs",
-            "sha256": "bccf4734a92214f9b8ae565010631dd5cb65df64663dcd70363d58910fb6324f"
+            "sha256": "1d5aa3cd9df49b9291edeeb7b3f357c2cd0f273e1bb2b540596c3c3f4f16f151"
         },
         {
             "path": "Assets/RivetReach/Code/Core/Coordinates.cs",
@@ -8332,7 +8332,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Industry/BatteryStorage.cs",
-            "sha256": "6e7caff1af75687b9ff3e3ed92023ae0bae059738d3613b9fd8e710888e91dcb"
+            "sha256": "162e5e4895310bde22f0084d25349d5571c7d0364eb865235ffc1b73a76cedb4"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/ConnectedPipeVisuals.cs",
@@ -8344,7 +8344,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustryDefinition.cs",
-            "sha256": "be3b67543f2445863df2330350f6799239bdcda60d36efdddf1b2eaa54068d1a"
+            "sha256": "2962901e40324916cabd159d35bac71d1952e7b9af3e9bec3ff483ed56208e9b"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustryPresentation.cs",
@@ -8352,11 +8352,11 @@
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustrySimulation.cs",
-            "sha256": "a27a245abcfd6fe0bcef981de12098252c52bc985fdf92f3a2c94391ee0023c0"
+            "sha256": "9f18b014d73eae0cc6a43f6da6f03223da92eb1c458c5278eeb55fee60c2699e"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/NetworkTopology.cs",
-            "sha256": "b53f0f3b1dc6177a0221c255ed66da5819118820b8e1c4f86de23f8b2ce2828c"
+            "sha256": "faeac1b01f207abc57b5daf878013a0e24d7565b0982d52be0353094cc27fffc"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/PipeConnections.cs",
@@ -8380,7 +8380,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/IndustryVerification.cs",
-            "sha256": "c4e2b974849c120834d6fcd9a7bf6c62061c7afa2f1ea94236477f01aa913e08"
+            "sha256": "795e425e1e26878981840fd1957161842377dca97a588e36b870b18d96877236"
         },
         {
             "path": "Assets/RivetReach/Code/InteractionVerification.cs",
@@ -8396,7 +8396,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/MachineryShowcase.cs",
-            "sha256": "eca4a163d975807a5faec20c6885fd56d6595d9a02cb1c9596a7b706fb762bd2"
+            "sha256": "748d26f3a222df3bd0aa2eadc413e8ff0954595a9cb3b679acf049698e89133b"
         },
         {
             "path": "Assets/RivetReach/Code/Mobs/MobDefinition.cs",
@@ -8660,7 +8660,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIIndustry.cs",
-            "sha256": "401f931a9a8213df57b3ff000ba4798c1b697670b67fb06041bb6ef8ad159636"
+            "sha256": "63f361338a2955fa1c80be6019bea32bd4695ea46bed7df3bd65b0fcf6246259"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIRecipeDetails.cs",
@@ -8692,7 +8692,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/WorkshopFollowupVerification.cs",
-            "sha256": "b0b6f36157981c7733f616a02e725835ff0089dc621e53385f36d84c892d820c"
+            "sha256": "6db7a0e4e4a16f4dec09596ea758d3e41d67dfd58551939410bb0e01edfe0790"
         },
         {
             "path": "Assets/RivetReach/Code/World/CaveGenerator.cs",
@@ -10112,15 +10112,15 @@
         },
         {
             "path": "Assets/RivetReach/Resources/Tools/StarterAxeIcon.png",
-            "sha256": "5fce17e3fc02ce15de0ac39ee84cab1e193145688ee4665742a9fdd64e9dc5e1"
+            "sha256": "5392c30a25d178bc4ed791ba17ba4b337b493743c37c2d2855d4874f746ed3b9"
         },
         {
             "path": "Assets/RivetReach/Resources/Tools/StarterDaggerIcon.png",
-            "sha256": "f817596bbb1881759fbb0ddce31cf5fb21e29f53b8336386d54378f53e5c3653"
+            "sha256": "6c4bc9aa4f3242ef280fecde189ba5d6eb1556c3b30e687d6b0b795536669f68"
         },
         {
             "path": "Assets/RivetReach/Resources/Tools/StarterPickaxeIcon.png",
-            "sha256": "16ffb6bd88f459cb37137daa7b77026ffaa7d8fa468f54b28509153f9884b25e"
+            "sha256": "5ad93ed0c14f88ce0a4424b6b547b8572c0a5e252ba909b861dd7dfa4308bb81"
         }
     ]
 }

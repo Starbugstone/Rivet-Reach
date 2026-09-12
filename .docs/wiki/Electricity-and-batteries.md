@@ -17,7 +17,7 @@ For the first test, keep it small. You need:
 | What to bring | What it does |
 |---|---|
 | **1 Boiler Engine** | Burns Coal or Charcoal and turns fuel + water into mechanical power |
-| **1 Alternator** | Converts the Boiler Engine's shaft power into up to **400 W** of electricity |
+| **1 Alternator** | Converts the Boiler Engine's shaft power into up to **800 W** of electricity |
 | **Power Cable** | Carries electricity between the Alternator, batteries and machines |
 | **Coal or Charcoal** | Fuel for the Boiler Engine |
 | **Water** | The Boiler Engine consumes up to **100 mL/s** while running |
@@ -47,7 +47,7 @@ A boiler with fuel but no water cannot drive the Alternator. A [Pump](Pumps-and-
 
 Run Power Cable from **any free face of the Alternator** to any free face of your powered machine.
 
-For a very easy first test, connect a **Workshop Lamp**. It only needs **20 W**, so a single 400 W Alternator has plenty of headroom.
+For a very easy first test, connect a **Workshop Lamp**. It only needs **20 W**, so a single 800 W Alternator has plenty of headroom.
 
 ### 5. Check the machine
 
@@ -57,7 +57,7 @@ If the machine runs, you now have a working electrical network.
 
 ## How much power do machines need?
 
-A correctly coupled Boiler Engine + Alternator can supply up to **400 W**.
+A correctly coupled Boiler Engine + Alternator can supply up to **800 W**.
 
 | Machine | Full-power demand |
 |---|---:|
@@ -68,7 +68,7 @@ A correctly coupled Boiler Engine + Alternator can supply up to **400 W**.
 
 You can run several machines on the same network as long as generation can cover their combined demand.
 
-For example, a Drill + Crusher requests exactly **400 W**. Adding a Lamp at the same time would raise demand to **420 W**, which is more than one Alternator can provide.
+For example, two Drills + two Crushers request exactly **800 W**. Adding a Lamp raises demand to **820 W**, exceeding one Alternator’s output.
 
 ### What happens when demand is too high?
 
@@ -92,7 +92,7 @@ A single Battery Block is the easiest way to add energy storage before building 
 A Battery Block:
 
 - stores **100 kJ**;
-- charges or discharges at up to **400 W**;
+- captures all available surplus and supplies demand while it has charge, with no separate wattage cap;
 - starts **empty**, including when placed in Creative;
 - can connect to Power Cable on **any face**;
 - does not lose charge while simply sitting idle.
@@ -105,7 +105,17 @@ Connect it to the same electrical network as your generator and machines.
 
 When generation later falls below demand, a charged battery automatically supplies the missing power.
 
-At a continuous **400 W** of surplus, an empty 100 kJ Battery Block takes **250 seconds** to fill. A completely full block could power a lone 20 W Workshop Lamp for **5,000 seconds**.
+At a continuous **800 W** of surplus, an empty 100 kJ Battery Block takes **125 seconds** to fill. A completely full block could power a lone 20 W Workshop Lamp for **5,000 seconds**.
+
+## Separate input and output grids
+
+You can wire **Alternator → cable grid A → Battery → cable grid B → Crusher**. Grid A and grid B remain separate until their cables physically touch. Each battery face works automatically; no wrench setting is needed.
+
+With one running alternator and one crusher, the battery shows **800 W charge**, **160 W output**, and gains **640 J per second**. It can charge and supply at the same time, including when starting empty. Two alternators can put all **1,600 W** into one battery when loads are idle and there is room.
+
+Breaking the input cable leaves the crusher running from stored charge. Breaking the output cable lets the battery keep charging. Replacing a cable restores the route after the network recalculates. Other machines also terminate cable runs: run actual cable around them to join separate grids.
+
+Open a Power Cable to inspect that grid's actual input, requirements and connected stored energy. Storage attached to several grids is the same shared reserve, not a separate copy for each grid.
 
 ## Battery modes
 
@@ -134,7 +144,7 @@ This actual in-game bank is supplying a Workshop Lamp after generation has stopp
 
 | In-game block | What it does |
 |---|---|
-| <a href="Item-battery-block.md"><img src="icons/168.png" width="72" alt="Battery Block"></a><br>**Battery Block** | Stores **100 kJ** and contributes up to **400 W** of bank transfer capacity |
+| <a href="Item-battery-block.md"><img src="icons/168.png" width="72" alt="Battery Block"></a><br>**Battery Block** | Stores **100 kJ** in the shared bank |
 | <a href="Item-battery-controller.md"><img src="icons/169.png" width="72" alt="Battery Bank Controller"></a><br>**Battery Bank Controller** | Forms and controls the bank; the controller itself stores **no energy** |
 
 A valid battery bank is very different from a multiblock tank:
@@ -174,7 +184,7 @@ C front faces outward
 With three battery cells, this bank stores:
 
 - **300 kJ** total energy;
-- up to **1,200 W** charge/discharge rate.
+- charge and output determined by connected generation, demand and available storage.
 
 The controller contributes control and the external socket, but **zero storage capacity**.
 
@@ -247,7 +257,7 @@ Once the basic generator → cable → machine → battery setup works, scale it
 - batteries rarely or never reach full charge;
 - the bank continuously discharges while the workshop is busy;
 - high-priority machines are starving lower-priority machines;
-- your normal continuous load is close to or above **400 W**.
+- your normal continuous load is close to or above **800 W**.
 
 Batteries smooth out shortages, but they are **storage, not generation**. If the workshop consumes more energy over time than the generators produce, even a huge bank will eventually empty.
 
@@ -257,7 +267,7 @@ Battery charge belongs to the individual Battery Blocks.
 
 If a block is removed and the remaining shape is no longer a filled rectangle, the bank becomes invalid. Unclaimed cells return to standalone operation and their own sockets work again.
 
-To enlarge a bank, add Battery Blocks until the whole structure forms a new filled rectangular pack. Its total capacity and transfer rate update when the controller validates the new shape.
+To enlarge a bank, add Battery Blocks until the whole structure forms a new filled rectangular pack. Its total capacity updates when the controller validates the new shape.
 
 Adding an empty Battery Block adds **capacity**, not free energy.
 

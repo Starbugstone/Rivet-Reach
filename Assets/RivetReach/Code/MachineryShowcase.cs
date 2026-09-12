@@ -78,7 +78,7 @@ namespace RivetReach
             Check(controller.Structure.Formed,"Photographed 6 x 5 x 5 tank forms from real editable blocks");
             controller.Structure.Fluid.Deposit(Fluids.Water,6600000);
             yield return new WaitForSecondsRealtime(1);
-            Check(alternator.SupplyWatts==400&&crusher.ReceivedWatts>0,"Photographed workshop is running on boiler power");
+            Check(alternator.SupplyWatts==800&&crusher.ReceivedWatts>0,"Photographed workshop is running on boiler power");
             foreach(var lamp in lamps)Check(lamp.Running,"Photographed workshop lamp has real electrical supply");
             Check(sensor.Source,"Photographed level sensor responds to shared tank contents");
             sim.Invalidate();yield return new WaitForSecondsRealtime(.5f);

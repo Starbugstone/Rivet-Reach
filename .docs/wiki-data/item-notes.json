@@ -242,7 +242,7 @@
     "use": "Connect electricity on any face; it needs **20 W**. Front Blue Signal control is optional. See [Electricity and batteries](Electricity-and-batteries.md)."
   },
   "rivet:battery_block": {
-    "use": "Starts **empty**, even in Creative. Stores **100 kJ** and charges or discharges at up to **400 W**. Surplus generation charges it; real demand draws power from it. A charged cell cannot be mined. See [batteries and battery banks](Electricity-and-batteries.md)."
+    "use": "Starts **empty**, even in Creative. Stores **100 kJ**, captures all surplus while it has room and supplies connected demand while it has charge. Separate cable grids can charge and draw from the same battery simultaneously. A charged cell cannot be mined. See [batteries and battery banks](Electricity-and-batteries.md)."
   },
   "rivet:battery_controller": {
     "use": "Place exactly one controller in a solid rectangular pack of battery blocks, with its front facing out. The controller adds no storage of its own. See the [battery bank guide](Electricity-and-batteries.md) for dimensions, wiring and charge-preserving repairs. Connect electricity to any exposed controller face; claimed member-cell sockets remain inactive."

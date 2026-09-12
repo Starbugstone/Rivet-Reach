@@ -8,7 +8,7 @@
 
 <a href="Item-alternator.md" title="Alternator"><img src="icons/141.png" width="96" height="96" alt="Alternator"></a>
 
-Left shaft couples to Boiler · 400 W output.
+Left shaft couples to Boiler · 800 W output.
 
 ## At a glance
 

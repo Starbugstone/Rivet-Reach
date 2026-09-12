@@ -42,7 +42,7 @@ namespace RivetReach
             player.Camera.transform.position=world.Local(origin)+new Vector3(12,6,-9);player.Camera.transform.LookAt(world.Local(origin)+new Vector3(4.5f,.3f,.8f));
             game.Sky.Clock.SetTime(.40);game.Sky.Apply();
             yield return new WaitForSecondsRealtime(2);Check(!sim.Rebuilding,"Workshop topology settles in the running player");
-            Check(alternator.SupplyWatts==400&&crusher.ReceivedWatts>0,"Blender workshop runs on actual boiler/alternator power");
+            Check(alternator.SupplyWatts==800&&crusher.ReceivedWatts>0,"Blender workshop runs on actual boiler/alternator power");
             sim.Activate(pulse);yield return new WaitForSecondsRealtime(.15f);Check(hatch.Running,"Button through delayed relay and wire opens signal-only hatch");
             yield return Capture("industry-workshop-running");
             player.Camera.transform.position=world.Local(origin)+new Vector3(3.1f,2.7f,-4.4f);player.Camera.transform.LookAt(world.Local(origin)+new Vector3(2.7f,.5f,.1f));

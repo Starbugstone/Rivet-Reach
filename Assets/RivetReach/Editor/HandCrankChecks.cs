@@ -46,7 +46,7 @@ namespace RivetReach.Editor
             Check(BatteryPower.Amount(battery)==50000,"Rotated crank still transfers power through any attached face");
             battery.EnergyCells[0].Discharge(BatteryPower.Amount(battery));
             for(int i=0;i<3;i++)sim.Rotate(crank);Settle();
-            var lamp=Add(1,1,IndustryId.Lamp);for(int i=0;i<3;i++)sim.Rotate(lamp);Settle();sim.TryCrank(crank);Steps(10);
+            Add(1,0,IndustryId.PowerCable);var lamp=Add(1,1,IndustryId.Lamp);for(int i=0;i<3;i++)sim.Rotate(lamp);Settle();sim.TryCrank(crank);Steps(10);
             Check(lamp.ReceivedWatts==20&&BatteryPower.Amount(battery)==40000,"Lamp receives 20 W before 80 W surplus charges battery");
             world.Sleeping.Add(crank.Position);sim.Invalidate();Settle();
             Check(!sim.TryCrank(crank),"Dormant crank rejects use");long before=BatteryPower.Amount(battery);Steps(20);Check(before==BatteryPower.Amount(battery),"Dormant generator earns no offline charge");

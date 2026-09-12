@@ -8,7 +8,7 @@ namespace RivetReach
     public sealed class BatteryStorage
     {
         public const long CellCapacity=100000000;
-        public const int CellWatts=400, MillijoulesPerWattTick=50;
+        public const int MillijoulesPerWattTick=50;
         public long Amount {get;private set;}
         public long Capacity=>CellCapacity;
         public bool Charge(long amount){if(amount<0||amount>Capacity-Amount)return false;Amount+=amount;return true;}
@@ -30,16 +30,16 @@ namespace RivetReach
         public static int Available(MachineState m,bool charge)
         {
             if(m.BatteryMode==BatteryMode.Isolated||charge&&m.BatteryMode==BatteryMode.DischargeOnly||!charge&&m.BatteryMode==BatteryMode.ChargeOnly)return 0;
-            int watts=0;foreach(var cell in Cells(m))watts+=(int)Math.Min(BatteryStorage.CellWatts,(charge?cell.Capacity-cell.Amount:cell.Amount)/BatteryStorage.MillijoulesPerWattTick);return watts;
+            int watts=0;foreach(var cell in Cells(m))watts+=(int)((charge?cell.Capacity-cell.Amount:cell.Amount)/BatteryStorage.MillijoulesPerWattTick);return watts;
         }
         public static void Transfer(MachineState m,int watts,bool charge)
         {
             foreach(var cell in Cells(m))
             {
-                int take=(int)Math.Min(watts,Math.Min(BatteryStorage.CellWatts,(charge?cell.Capacity-cell.Amount:cell.Amount)/BatteryStorage.MillijoulesPerWattTick));
+                int take=(int)Math.Min(watts,((charge?cell.Capacity-cell.Amount:cell.Amount)/BatteryStorage.MillijoulesPerWattTick));
                 long energy=(long)take*BatteryStorage.MillijoulesPerWattTick;
                 if(!(charge?cell.Charge(energy):cell.Discharge(energy)))throw new InvalidOperationException("Invalid battery reservation");
-                watts-=take;m.BatteryWatts+=charge?take:-take;if(watts==0)break;
+                watts-=take;m.BatteryWatts+=charge?take:-take;if(charge)m.BatteryInputWatts+=take;else m.BatteryOutputWatts+=take;if(watts==0)break;
             }
             if(watts!=0)throw new InvalidOperationException("Unfulfilled battery reservation");
         }

@@ -59,7 +59,7 @@ namespace RivetReach
             else if(!world.PlayerInside(m.Position)&&!world.PlayerInside(m.Position.Offset(0,1,0)))m.WorkInput=0;
             m.Status=m.WorkInput==1?MachineStatus.Running:MachineStatus.Ready;
         }
-        public const int CrankTicks=10,CrankWatts=100;
+        public const int CrankTicks=10,CrankWatts=100,AlternatorWatts=800;
         // One paid stroke at a time; the fixed simulation clock also bounds rapid clicks.
         public bool TryCrank(MachineState m)
         {
@@ -84,7 +84,7 @@ namespace RivetReach
             }
             foreach(var m in devices)
             {
-                m.RequestedWatts=m.ReceivedWatts=m.SupplyWatts=m.BatteryWatts=0;
+                m.RequestedWatts=m.ReceivedWatts=m.SupplyWatts=m.BatteryWatts=m.BatteryInputWatts=m.BatteryOutputWatts=0;
                 if(IndustryId.BatteryPart(m.Definition.Id))m.Status=m.Definition.Id==IndustryId.BatteryController&&m.Structure?.Formed!=true?MachineStatus.StructureInvalid:MachineStatus.Ready;
                 if(m.Definition.Id==IndustryId.Relay&&m.Source!=m.NextSource){m.Source=m.NextSource;signalsDirty=true;}
                 if(IndustryId.TankPart(m.Definition.Id))
@@ -109,7 +109,7 @@ namespace RivetReach
                 {
                     var engine=At(Neighbor(m,1));
                     bool coupled=engine!=null&&engine.Eligible&&engine.Definition.Id==IndustryId.Boiler&&Neighbor(engine,0).Equals(m.Position)&&engine.Running;
-                    m.SupplyWatts=coupled?400:0;m.Status=coupled?MachineStatus.Running:MachineStatus.NoShaft;
+                    m.SupplyWatts=coupled?AlternatorWatts:0;m.Status=coupled?MachineStatus.Running:MachineStatus.NoShaft;
                 }
                 if(m.Definition.Id==IndustryId.HandCrank)
                 {
@@ -120,14 +120,14 @@ namespace RivetReach
                 Prepare(m);
             }
             Power.Allocate(Tick);
-            foreach(var m in devices)if(IndustryId.BatteryPart(m.Definition.Id)&&m.BatteryWatts!=0)m.Status=MachineStatus.Running;
+            foreach(var m in devices)if(IndustryId.BatteryPart(m.Definition.Id)&&(m.BatteryInputWatts>0||m.BatteryOutputWatts>0))m.Status=MachineStatus.Running;
             // Transfers precede processing: new products cannot be forwarded in their producing tick.
             TransferConfiguredItems();TransferFluids();
             foreach(var m in devices)Advance(m);
             Revision++;LastStepMs=(Stopwatch.GetTimestamp()-start)*1000.0/Stopwatch.Frequency;
         }
         static void ResetNetworkState(MachineState m)
-        {m.ReceivedWatts=m.RequestedWatts=m.SupplyWatts=m.BatteryWatts=0;m.Signal=false;m.SignalAttached=false;m.FluidConflict=false;}
+        {m.ReceivedWatts=m.RequestedWatts=m.SupplyWatts=m.BatteryWatts=m.BatteryInputWatts=m.BatteryOutputWatts=0;m.Signal=false;m.SignalAttached=false;m.FluidConflict=false;}
         IEnumerable<int> Rebuild()
         {foreach(var graph in new[]{Signals.Topology,Power.Topology,ItemNetwork,FluidNetwork})foreach(var unit in graph.Rebuild(eligible))yield return unit;}
         static int Compare(BlockPos a,BlockPos b){int c=a.X.CompareTo(b.X);if(c!=0)return c;c=a.Y.CompareTo(b.Y);return c!=0?c:a.Z.CompareTo(b.Z);}

@@ -8,7 +8,7 @@
 
 <a href="Item-battery-block.md" title="Battery Block"><img src="icons/168.png" width="96" height="96" alt="Battery Block"></a>
 
-100 kJ · 400 W · power connections on all faces.
+100 kJ · stores grid surplus · separate connections on all faces.
 
 ## At a glance
 
@@ -23,7 +23,7 @@ Make this item using the crafting or processing recipes below.
 
 ## Using it
 
-Starts **empty**, even in Creative. Stores **100 kJ** and charges or discharges at up to **400 W**. Surplus generation charges it; real demand draws power from it. A charged cell cannot be mined. See [batteries and battery banks](Electricity-and-batteries.md).
+Starts **empty**, even in Creative. Stores **100 kJ**, captures all surplus while it has room and supplies connected demand while it has charge. Separate cable grids can charge and draw from the same battery simultaneously. A charged cell cannot be mined. See [batteries and battery banks](Electricity-and-batteries.md).
 
 ## Crafting and processing
 

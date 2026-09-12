@@ -25,6 +25,7 @@ namespace RivetReach
             for(int i=0;i<10;i++)sim.Step();Check(battery.EnergyCells[0].Amount==50000,"Crank charges through a side independent of its facing");
             battery.EnergyCells[0].Charge(2100000);crusher.Items.Add(BlockId.RawIron,4,0,1);sim.Step();
             Check(crusher.ReceivedWatts==160&&battery.BatteryWatts==-160,"Screenshot layout: battery → side cable → crusher supplies 160 W");
+            yield return ReviewSeparatePowerGrids(origin);
             yield return ReviewPowerConnectionStatus(battery,crusher);
             var itemMachine=Machine(0,0,3,IndustryId.Crusher);var itemPipe=Machine(1,0,3,IndustryId.ItemPipe);
             var chestPos=origin.Offset(2,0,3);Put(chestPos,BlockId.Chest);itemMachine.Items.Add(IndustryId.CrushedIron,64,2,3);
@@ -158,6 +159,46 @@ namespace RivetReach
             yield return Capture("restored-connection-directions");
             Check(game.Inventory.Slots[1].Id==IndustryId.Wrench,"Wrench inventory identity survives save/load");
             yield return ReviewFurnacePipes(origin);
+        }
+
+        IEnumerator ReviewSeparatePowerGrids(BlockPos origin)
+        {
+            var sim=game.Industry.Simulation;var world=game.World;var player=game.Player;
+            game.enabled=false;
+            MachineState Put(int x,byte id)
+            {var p=origin.Offset(x,0,-2);Check(world.Place(p,id),"Place separate power-grid fixture");return sim.At(p);}
+            var boiler=Put(-3,IndustryId.Boiler);boiler.WaterMl=100000;boiler.Items.Add(BlockId.Coal,1);
+            var alt=Put(-2,IndustryId.Alternator);var input=Put(-1,IndustryId.PowerCable);
+            var cell=Put(0,IndustryId.Battery);Put(1,IndustryId.PowerCable);var load=Put(2,IndustryId.Crusher);load.Items.Add(BlockId.RawIron,64,0,1);
+            for(int i=0;i<100;i++){sim.Step();if(!sim.Rebuilding&&sim.Multiblocks.PendingCount==0)break;}
+            long before=BatteryPower.Amount(cell);sim.Step();
+            Check(cell.BatteryInputWatts==800&&cell.BatteryOutputWatts==160&&load.ReceivedWatts==160&&BatteryPower.Amount(cell)-before==32000,"Native separate cable grids: 800 W generator charges battery while crusher receives 160 W");
+            Check(!sim.Power.Topology.Groups.Any(g=>g.Ports.Any(p=>p.Machine==alt)&&g.Ports.Any(p=>p.Machine==load)),"Native battery does not connect separate cable grids");
+            game.SetMode(ScreenMode.Play);player.transform.position=world.Local(cell.Position)+new Vector3(.5f,.1f,-2);
+            player.Camera.transform.position=world.Local(cell.Position)+new Vector3(.5f,3,.5f);
+            player.Camera.transform.LookAt(world.Local(cell.Position)+Vector3.one*.5f);
+            Check(game.TryOpenMachine(cell.Position),"Open separate-grid battery interface");yield return new WaitForSecondsRealtime(.2f);
+            UnityEngine.UI.Text Field(string name)=>(UnityEngine.UI.Text)typeof(GameUI).GetProperty(name,System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance).GetValue(game.UI);
+            Check(Field("machineStatus").text=="Charging and supplying"&&Field("machineDetail").text.Contains("Charge: 800 W · Output: 160 W"),"Battery UI reports simultaneous grid input and output, not just net charge");
+            yield return Capture("battery-separate-grids");
+            foreach(var cable in new[]{input,sim.At(origin.Offset(1,0,-2))})
+            {
+                game.SetMode(ScreenMode.Play);player.transform.position=world.Local(cable.Position)+new Vector3(.5f,.1f,-2);
+                player.Camera.transform.position=world.Local(cable.Position)+new Vector3(.5f,3,.5f);player.Camera.transform.LookAt(world.Local(cable.Position)+Vector3.one*.5f);
+                Check(game.TryOpenMachine(cable.Position),"Open actual cable-grid diagnostics");yield return new WaitForSecondsRealtime(.2f);
+                string expected=cable==input?"Grid input: 800 W · Required: 0 W":"Grid input: 160 W · Required: 160 W";
+                Check(Field("machineDetail").text.Contains(expected)&&Field("machineDetail").text.Contains("Connected storage:"),"Each cable reports only its own grid input and requirements plus shared storage");
+                yield return Capture(cable==input?"power-input-grid":"power-output-grid");
+            }
+            game.SetMode(ScreenMode.Pause);
+            Check(world.Remove(input.Position,IndustryId.PowerCable),"Break native generator cable");sim.Step();before=BatteryPower.Amount(cell);sim.Step();
+            Check(load.ReceivedWatts==160&&cell.BatteryInputWatts==0&&before-BatteryPower.Amount(cell)==8000,"Cable break leaves independent crusher grid supplied from stored energy");
+            Check(world.Place(input.Position,IndustryId.PowerCable),"Replace native generator cable");sim.Step();before=BatteryPower.Amount(cell);sim.Step();
+            Check(load.ReceivedWatts==160&&BatteryPower.Amount(cell)-before==32000,"Native cable replacement restores charging automatically");
+            // Remove only this disposable fixture so the existing UI/save scenario stays isolated.
+            cell.EnergyCells[0].Discharge(BatteryPower.Amount(cell));
+            for(int x=-3;x<=2;x++){var p=origin.Offset(x,0,-2);Check(world.Remove(p,world.Get(p)),"Remove separate-grid fixture");}
+            sim.Step();game.enabled=true;
         }
 
         IEnumerator ReviewPowerConnectionStatus(MachineState battery,MachineState crusher)

@@ -64,7 +64,7 @@ namespace RivetReach
             for(int x=0;x<=5;x++)Place(pack.Offset(x,0,-1),IndustryId.PowerCable);
             Place(pack.Offset(5,0,1),IndustryId.PowerCable);Place(pack.Offset(6,0,1),IndustryId.PowerCable);Place(pack.Offset(6,0,0),IndustryId.PowerCable);Place(pack.Offset(6,0,-1),IndustryId.PowerCable);
             player.transform.position=world.Local(origin)+new Vector3(4,1,-3);yield return new WaitForSecondsRealtime(1);
-            Check(BatteryPower.Amount(controller)>0&&controller.BatteryWatts==400,"Actual alternator charges formed bank through cables");
+            Check(BatteryPower.Amount(controller)>0&&controller.BatteryWatts==800,"Actual alternator charges formed bank through cables");
             engine.WaterMl=0;var lamp=Place(pack.Offset(-1,0,-1),IndustryId.Lamp);sim.Rotate(lamp);
             player.transform.position=world.Local(origin)+new Vector3(4,1,-3);yield return new WaitForSecondsRealtime(.6f);
             Check(lamp.ReceivedWatts==20&&controller.BatteryWatts==-20,"Bank supplies lamp after generation stops");

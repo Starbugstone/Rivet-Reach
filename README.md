@@ -76,3 +76,5 @@ Craft [wooden doors](.docs/DOORS.md) from six planks at a workbench. Right-click
 [All-face connections and wrench verification](.docs/verification/CONNECTION_RESULTS.md) covers the craftable wrench, machine-facing pipe controls and saved directions. Players can follow the [Pipes guide](.docs/wiki/Pipes.md).
 
 The player now carries **56 backpack slots (seven rows of eight)** and a **15-slot hotbar**. Try `Builds/Inventory/RivetReach.exe`; [inventory verification](.docs/verification/INVENTORY_RESULTS.md) records the layout, controls and older-save migration checks.
+
+[Electrical grids](.docs/BATTERIES.md#cable-defined-grids--2026-09-12) now follow connected cables, with separate battery input/output networks, storage of all surplus and **800 W** boiler/alternator generation. The focused review player is `Builds/PowerGrid/RivetReach.exe`; [power-grid verification](.docs/verification/POWER_GRID_RESULTS.md) records the checks.
