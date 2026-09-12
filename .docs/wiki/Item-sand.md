@@ -19,11 +19,33 @@ A pale building material that can be smelted into [Glass](Item-glass.md).
 
 ## How to obtain
 
-Gather sand from sandy terrain, including desert surfaces and water beds.
+Gather sand from sandy terrain, including desert surfaces and water beds, or crush one [Stone](Item-stone.md) or [Cobblestone](Item-cobblestone.md) into one sand in a powered [Crusher](Item-crusher.md).
 
 ## Crafting and processing
 
-There is no registered crafting or processing recipe for this item. Use the acquisition method above.
+### Recipe 1
+
+**Station:** <a href="Item-crusher.md" title="Crusher"><img src="icons/142.png" width="40" height="40" alt="Crusher"><br>Crusher</a>
+
+**Processing time:** 5 seconds per operation at **160 W**. Reduced power slows progress.
+
+**Output:** <a href="Item-sand.md" title="Sand"><img src="icons/90.png" width="56" height="56" alt="Sand"><br>Sand</a> ×1
+
+| Ingredient | Total per operation |
+|---|---:|
+| <a href="Item-stone.md" title="Stone"><img src="icons/3.png" width="32" height="32" alt="Stone"></a> [Stone](Item-stone.md) | 1 |
+
+### Recipe 2
+
+**Station:** <a href="Item-crusher.md" title="Crusher"><img src="icons/142.png" width="40" height="40" alt="Crusher"><br>Crusher</a>
+
+**Processing time:** 5 seconds per operation at **160 W**. Reduced power slows progress.
+
+**Output:** <a href="Item-sand.md" title="Sand"><img src="icons/90.png" width="56" height="56" alt="Sand"><br>Sand</a> ×1
+
+| Ingredient | Total per operation |
+|---|---:|
+| <a href="Item-cobblestone.md" title="Cobblestone"><img src="icons/22.png" width="32" height="32" alt="Cobblestone"></a> [Cobblestone](Item-cobblestone.md) | 1 |
 
 ## Used to make
 

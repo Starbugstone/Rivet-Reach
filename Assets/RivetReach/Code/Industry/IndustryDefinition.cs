@@ -58,7 +58,7 @@ namespace RivetReach
             Add(IndustryId.Lamp,"workshop_lamp","Workshop Lamp","Power on any face · optional signal at front",20,0,pi,si);
             Add(IndustryId.Boiler,"boiler_engine","Boiler Engine","Coal / charcoal + water → right-hand shaft",0,100000,P(NetworkKind.Fluid,PortRole.Input,16),ii);
             Add(IndustryId.Alternator,"alternator","Alternator","Left shaft couples to Boiler · 400 W output",0,0,P(NetworkKind.Power,PortRole.Output,16));
-            Add(IndustryId.Crusher,"crusher","Crusher","1 raw copper / iron / gold → 2 crushed ore",160,0,pi,si,ii,io);
+            Add(IndustryId.Crusher,"crusher","Crusher","1 raw ore → 2 crushed ore\n1 stone / cobblestone → 1 sand",160,0,pi,si,ii,io);
             Add(IndustryId.Pump,"pump","Pump","Source directly below · consumes 10 L per source",80,10000,pi,si,P(NetworkKind.Fluid,PortRole.Output,1));
             Add(IndustryId.Drill,"drill","Drill","Mines a finite column below · stops at bedrock",240,0,pi,si,io);
             Add(IndustryId.Tank,"water_tank","Water Tank","100 L · use bucket controls to fill / empty",0,100000,P(NetworkKind.Fluid,PortRole.Input,2),P(NetworkKind.Fluid,PortRole.Output,1));
@@ -111,9 +111,16 @@ namespace RivetReach
         {Position=p;Definition=IndustryDefinition.All[id];EnergyCells=id==IndustryId.Battery?new[]{new BatteryStorage()}:Array.Empty<BatteryStorage>();Fluid=new FluidStorage(Definition.WaterCapacity);Items=new ItemContainer(3,limit);}
         public bool Enabled=>!SignalAttached||Signal;
         public bool Running=>Status==MachineStatus.Running||Status==MachineStatus.Underpowered;
-        public bool Accepts(int slot,byte id)=>slot==0&&(Definition.Id==IndustryId.Boiler?(id==BlockId.Coal||id==BlockId.Charcoal):Definition.Id==IndustryId.Crusher&&Crushed(id)!=0);
+        public bool Accepts(int slot,byte id)=>slot==0&&(Definition.Id==IndustryId.Boiler?(id==BlockId.Coal||id==BlockId.Charcoal):Definition.Id==IndustryId.Crusher&&!CrusherOutput(id).Empty);
         public const int CrusherTicks = 100;
-        public static byte Crushed(byte id)=>id==BlockId.RawCopper?IndustryId.CrushedCopper:id==BlockId.RawIron?IndustryId.CrushedIron:id==BlockId.RawGold?IndustryId.CrushedGold:(byte)0;
+        public static ItemStack CrusherOutput(byte id)=>id switch
+        {
+            BlockId.RawCopper=>new ItemStack(IndustryId.CrushedCopper,2),
+            BlockId.RawIron=>new ItemStack(IndustryId.CrushedIron,2),
+            BlockId.RawGold=>new ItemStack(IndustryId.CrushedGold,2),
+            BlockId.Stone or BlockId.Cobblestone=>new ItemStack(BlockId.Sand,1),
+            _=>default
+        };
         public void Click(int slot,ref ItemStack held,bool right)
         {if(slot<0||slot>=3)return;if(!held.Empty&&!Accepts(slot,held.Id))return;Items.Click(slot,ref held,right);}
         public void TransferIn(ItemContainer from,int slot)

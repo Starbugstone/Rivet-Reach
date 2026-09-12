@@ -52,7 +52,7 @@ namespace RivetReach
                 var recipe=game.Processing.Find(raw);var furnace=new FurnaceState(game.Processing,id=>game.Registry.Get(id).stackLimit);
                 var input=new ItemStack(raw,1);furnace.Click(0,ref input,false);var fuel=new ItemStack(BlockId.Coal,1);furnace.Click(1,ref fuel,false);furnace.Advance(200);
                 Check(input.Empty&&furnace.Slots[0].Empty&&furnace.Slots[2].Id==(ore==BlockId.CopperOre?BlockId.CopperIngot:BlockId.IronIngot)&&furnace.Slots[2].Count==1&&recipe.Ticks==200,"Stylised drop still smelts one ingot in 200 ticks: "+raw);
-                Check(MachineState.Crushed(raw)==(ore==BlockId.CopperOre?IndustryId.CrushedCopper:IndustryId.CrushedIron),"Stylised drop retains its crusher input: "+raw);
+                Check(MachineState.CrusherOutput(raw).Id==(ore==BlockId.CopperOre?IndustryId.CrushedCopper:IndustryId.CrushedIron)&&MachineState.CrusherOutput(raw).Count==2,"Stylised drop retains its crusher input and yield: "+raw);
                 game.SetMode(ScreenMode.Inventory);yield return new WaitForSecondsRealtime(.2f);
                 Check(game.UI.VisibleRoot.GetComponentsInChildren<UnityEngine.UI.RawImage>().Any(i=>i.texture==Resources.Load<Texture2D>("Industry/Icons/"+ore)),"Inventory shows the authored ore icon: "+raw);
                 yield return Capture("ore-drop-inventory-"+raw);game.SetMode(ScreenMode.Play);

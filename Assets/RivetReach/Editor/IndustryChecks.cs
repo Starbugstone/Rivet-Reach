@@ -26,6 +26,7 @@ namespace RivetReach.Editor
         {
             var report=new StringBuilder();int assertions=0;
             void Check(bool ok,string message){if(!ok)throw new Exception("Industry: "+message);assertions++;report.AppendLine("PASS "+message);}
+            CrusherRecipes(Check);
             BlockPos P(int x,int y=0,int z=0)=>new BlockPos(x,y,z);
             var world=new World();var sim=new IndustrySimulation(world,id=>64);
             void Settle(){for(int n=0;n<10000;n++){sim.Step();if(!sim.Rebuilding)return;}throw new Exception("Topology did not settle");}
@@ -118,6 +119,46 @@ namespace RivetReach.Editor
                 imported.AppendLine($"{d.Name}: {triangles} triangles; {prefab.GetComponentsInChildren<Renderer>().Length} renderers; bounds {bounds}; root scale {prefab.transform.localScale}, rotation {prefab.transform.localEulerAngles}; first child {prefab.transform.GetChild(0).localPosition}, scale {prefab.transform.GetChild(0).localScale}");
             }
             File.WriteAllText("Logs/industry-models.txt",imported.ToString());report.AppendLine("Assertions: "+assertions);File.WriteAllText("Logs/industry-checks.txt",report.ToString());
+        }
+        static void CrusherRecipes(Action<bool,string> check)
+        {
+            var registry=ItemRegistry.Load();
+            var index=new RecipeBrowserIndex(registry,RecipeCatalogAsset.Load().Compile(registry),ProcessingCatalogAsset.Load().Compile(registry));
+            foreach(var recipe in new[]{(BlockId.Stone,BlockId.Sand,1),(BlockId.Cobblestone,BlockId.Sand,1),
+                (BlockId.RawCopper,IndustryId.CrushedCopper,2),(BlockId.RawIron,IndustryId.CrushedIron,2),(BlockId.RawGold,IndustryId.CrushedGold,2)})
+            {
+                var (input,output,count)=recipe;string label=registry.Get(input).displayName;
+                var world=new World();var sim=new IndustrySimulation(world,id=>64);
+                var crusher=sim.Add(new BlockPos(0,20,0),IndustryId.Crusher);
+                var battery=sim.Add(new BlockPos(0,21,0),IndustryId.Battery);
+                while(sim.Rebuilding)sim.Step();sim.Step();
+                var held=new ItemStack(input,2);crusher.Click(0,ref held,false);
+                check(held.Empty&&crusher.Items.Total(input)==2,"Crusher accepts manual input: "+label);
+                sim.Step();check(crusher.Status==MachineStatus.NoPower&&crusher.Work==0&&crusher.Items.Total(input)==2,"Blackout retains input without progress: "+label);
+                battery.EnergyCells[0].Charge(10000000);
+                crusher.Items.Add(output,64-count,2,3);
+                for(int i=0;i<99;i++)sim.Step();
+                check(crusher.Items.Total(input)==2&&crusher.Items.Slots[2].Count==64-count,"No completion before five powered seconds: "+label);
+                sim.Step();
+                check(crusher.Items.Total(input)==1&&crusher.Items.Slots[2].Id==output&&crusher.Items.Slots[2].Count==64,"Exact output fits remaining capacity: "+label);
+                check(battery.EnergyCells[0].Amount==9200000,"Five-second cycle consumes exactly 800 J: "+label);
+                sim.Step();check(crusher.Status==MachineStatus.OutputFull&&crusher.RequestedWatts==0&&crusher.Items.Total(input)==1,"Full output blocks input consumption and power demand: "+label);
+                crusher.Items.Take(2,64);crusher.Items.Add(BlockId.Dirt,1,2,3);sim.Step();
+                check(crusher.Status==MachineStatus.OutputFull&&crusher.Items.Total(input)==1,"Incompatible output blocks processing: "+label);
+                var shown=index.Find(output,false).Single(r=>r.Station==IndustryId.Crusher&&r.Ingredients[0].Id==input);
+                check(shown.Output.Count==count&&shown.Ingredients[0].Count==1&&shown.Ticks==100&&shown.Watts==160&&index.Find(input,true).Contains(shown),"Recipe and uses browser show actual quantity, time and power: "+label);
+                check(!crusher.Accepts(0,BlockId.Sand)&&!crusher.Accepts(0,BlockId.Dirt),"Sand and dirt are not crusher inputs: "+label);
+            }
+            // Both inputs make sand, but changing their identity must still discard paid work.
+            var switching=new IndustrySimulation(new World(),id=>64);
+            var machine=switching.Add(new BlockPos(0,20,0),IndustryId.Crusher);
+            var source=switching.Add(new BlockPos(0,21,0),IndustryId.Battery);
+            switching.Step();source.EnergyCells[0].Charge(10000000);machine.Items.Add(BlockId.Stone,1,0,1);
+            for(int i=0;i<50;i++)switching.Step();
+            check(machine.Work==50,"Stone accumulates half a powered cycle");
+            machine.Items.Take(0,1);var inventory=new ItemContainer(1,id=>64);inventory.Add(BlockId.Cobblestone,1);
+            machine.TransferIn(inventory,0);switching.Step();
+            check(inventory.Total(BlockId.Cobblestone)==0&&machine.Work==1&&machine.Items.Total(BlockId.Sand)==0,"Inventory transfer accepts cobblestone and input swap resets paid progress");
         }
     }
 }

@@ -48,13 +48,13 @@ namespace RivetReach
             foreach (var recipe in processing.Recipes)
                 all.Add(new BrowserRecipe(recipe.Id, items.Get(BlockId.Furnace).displayName, BlockId.Furnace,
                     recipe.Output, new[] { recipe.Input }, ticks: recipe.Ticks, fuels: fuels));
-            // Adapt the same mapping used by the simulation, including future registered raw ores.
+            // Share output identities and quantities with processing and input acceptance.
             foreach (var item in items.items)
             {
-                byte crushed = MachineState.Crushed(item.runtimeId);
-                if (crushed == 0) continue;
+                var crushed = MachineState.CrusherOutput(item.runtimeId);
+                if (crushed.Empty) continue;
                 all.Add(new BrowserRecipe("crusher:" + item.stableId, items.Get(IndustryId.Crusher).displayName,
-                    IndustryId.Crusher, new ItemStack(crushed, 2), new[] { new ItemStack(item.runtimeId, 1) },
+                    IndustryId.Crusher, crushed, new[] { new ItemStack(item.runtimeId, 1) },
                     ticks: MachineState.CrusherTicks, watts: IndustryDefinition.All[IndustryId.Crusher].Watts));
             }
             Recipes = all.AsReadOnly();

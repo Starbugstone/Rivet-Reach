@@ -150,10 +150,10 @@ namespace RivetReach
             byte id=m.Definition.Id;
             if(id==IndustryId.Crusher)
             {
-                var input=m.Items.Slots[0];byte output=MachineState.Crushed(input.Id);
+                var input=m.Items.Slots[0];var output=MachineState.CrusherOutput(input.Id);
                 if(input.Id!=m.WorkInput){m.Work=0;m.WorkInput=input.Id;}
-                if(output==0||input.Empty){m.Status=MachineStatus.NoInput;return;}
-                if(m.Items.Capacity(output,2,3)<2){m.Status=MachineStatus.OutputFull;return;}
+                if(output.Empty||input.Empty){m.Status=MachineStatus.NoInput;return;}
+                if(m.Items.Capacity(output.Id,2,3)<output.Count){m.Status=MachineStatus.OutputFull;return;}
             }
             if(id==IndustryId.Pump)
             {
@@ -193,7 +193,7 @@ namespace RivetReach
             int duration=id==IndustryId.Crusher?MachineState.CrusherTicks:id==IndustryId.Pump?40:120;
             if(m.Work+1e-9<duration)return;
             if(id==IndustryId.Crusher)
-            {byte output=MachineState.Crushed(m.Items.Slots[0].Id);if(output==0||m.Items.Capacity(output,2,3)<2)return;m.Items.Take(0,1);m.Items.Add(output,2,2,3);}
+            {var output=MachineState.CrusherOutput(m.Items.Slots[0].Id);if(output.Empty||m.Items.Capacity(output.Id,2,3)<output.Count)return;m.Items.Take(0,1);m.Items.Add(output.Id,output.Count,2,3);}
             if(id==IndustryId.Pump)
             {var p=Neighbor(m,3);if(world.Get(p)!=Fluids.Water.Source||!world.Remove(p,Fluids.Water.Source))return;m.WaterMl+=10000;}
             if(id==IndustryId.Drill)

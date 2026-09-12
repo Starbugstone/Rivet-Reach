@@ -8,7 +8,8 @@
 
 <a href="Item-crusher.md" title="Crusher"><img src="icons/142.png" width="96" height="96" alt="Crusher"></a>
 
-1 raw copper / iron / gold → 2 crushed ore.
+1 raw ore → 2 crushed ore
+1 stone / cobblestone → 1 sand.
 
 ## At a glance
 
@@ -24,7 +25,7 @@ Make this item using the crafting or processing recipes below.
 
 ## Using it
 
-Connect power on any face. Use [Item Pipes](Item-item-pipe.md) on any face and a selected [Wrench](Item-wrench.md) to set blue raw-ore inputs and red product outputs. Optional Blue Signal remains at the front. One raw copper, iron or gold makes two matching crushed pieces in five seconds at **160 W**. Smelt each piece in a [Furnace](Item-furnace.md). See [Pipes](Pipes.md).
+Connect power on any face. Use [Item Pipes](Item-item-pipe.md) on any face and a selected [Wrench](Item-wrench.md) to set blue ingredient inputs and red product outputs. Optional Blue Signal remains at the front. One raw copper, iron or gold makes two matching crushed pieces in five seconds at **160 W**. Smelt each piece in a [Furnace](Item-furnace.md). One [Stone](Item-stone.md) or [Cobblestone](Item-cobblestone.md) instead makes one [Sand](Item-sand.md), with the same time and power. See [Pipes](Pipes.md).
 
 ## Crafting and processing
 
@@ -75,6 +76,8 @@ The station is reusable; it is not consumed by these recipes.
 
 | Result | Station | Recipe |
 |---|---|---|
+| <a href="Item-sand.md#recipe-1" title="Sand"><img src="icons/90.png" width="32" height="32" alt="Sand"></a> ×1 [Sand](Item-sand.md) | [Crusher](Item-crusher.md) | [View recipe](Item-sand.md#recipe-1) |
 | <a href="Item-crushed-iron.md#recipe-1" title="Crushed Iron"><img src="icons/151.png" width="32" height="32" alt="Crushed Iron"></a> ×2 [Crushed Iron](Item-crushed-iron.md) | [Crusher](Item-crusher.md) | [View recipe](Item-crushed-iron.md#recipe-1) |
 | <a href="Item-crushed-copper.md#recipe-1" title="Crushed Copper"><img src="icons/150.png" width="32" height="32" alt="Crushed Copper"></a> ×2 [Crushed Copper](Item-crushed-copper.md) | [Crusher](Item-crusher.md) | [View recipe](Item-crushed-copper.md#recipe-1) |
 | <a href="Item-crushed-gold.md#recipe-1" title="Crushed Gold"><img src="icons/152.png" width="32" height="32" alt="Crushed Gold"></a> ×2 [Crushed Gold](Item-crushed-gold.md) | [Crusher](Item-crusher.md) | [View recipe](Item-crushed-gold.md#recipe-1) |
+| <a href="Item-sand.md#recipe-2" title="Sand"><img src="icons/90.png" width="32" height="32" alt="Sand"></a> ×1 [Sand](Item-sand.md) | [Crusher](Item-crusher.md) | [View recipe](Item-sand.md#recipe-2) |

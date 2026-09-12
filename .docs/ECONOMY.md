@@ -74,6 +74,7 @@ The broader industrial bootstrap table below remains a future specification wher
 | 4 power cables | 4 copper wire + 1 plank | Workbench; cable item bundle, insulation represented by recipe |
 | Crusher | 1 casing + 2 gears + 4 iron plates | Workbench; first powered ore-yield improvement |
 | 2 crushed ore | 1 matching raw ore | Crusher; each intermediate smelts into 1 ingot |
+| 1 sand | 1 stone or 1 cobblestone | Crusher; 5 seconds at 160 W |
 | 4 item pipes | 2 iron plates + 2 copper wire | Workbench; inventory-to-inventory logistics |
 | Extractor attachment | 1 gear + 2 copper wire | Workbench; chooses extraction side of an item connection |
 | Switch + 4 signal conduits | 1 handle + 1 stone + 2 copper wire | Workbench; one small control bundle |

@@ -4,7 +4,7 @@
 
 Start with the [visual item index](Items.md), then click an item to see its purpose, how to obtain it, every recipe that makes it, and what uses it. Every item icon links to its own page.
 
-This reference covers **94 grid recipes, 11 furnace recipes and 3 crusher recipes** in the current playable alpha. The recipe grids and icons come from the same catalog and artwork used by the inventory browser.
+This reference covers **94 grid recipes, 11 furnace recipes and 5 crusher recipes** in the current playable alpha. The recipe grids and icons come from the same catalog and artwork used by the inventory browser.
 
 ## First crafting steps
 
@@ -166,9 +166,11 @@ Choose a result below to open its item page at the exact recipe.
 
 | Result | Station | Recipe |
 |---|---|---|
+| <a href="Item-sand.md#recipe-1" title="Sand"><img src="icons/90.png" width="32" height="32" alt="Sand"></a> ×1 [Sand](Item-sand.md) | [Crusher](Item-crusher.md) | [View recipe](Item-sand.md#recipe-1) |
 | <a href="Item-crushed-iron.md#recipe-1" title="Crushed Iron"><img src="icons/151.png" width="32" height="32" alt="Crushed Iron"></a> ×2 [Crushed Iron](Item-crushed-iron.md) | [Crusher](Item-crusher.md) | [View recipe](Item-crushed-iron.md#recipe-1) |
 | <a href="Item-crushed-copper.md#recipe-1" title="Crushed Copper"><img src="icons/150.png" width="32" height="32" alt="Crushed Copper"></a> ×2 [Crushed Copper](Item-crushed-copper.md) | [Crusher](Item-crusher.md) | [View recipe](Item-crushed-copper.md#recipe-1) |
 | <a href="Item-crushed-gold.md#recipe-1" title="Crushed Gold"><img src="icons/152.png" width="32" height="32" alt="Crushed Gold"></a> ×2 [Crushed Gold](Item-crushed-gold.md) | [Crusher](Item-crusher.md) | [View recipe](Item-crushed-gold.md#recipe-1) |
+| <a href="Item-sand.md#recipe-2" title="Sand"><img src="icons/90.png" width="32" height="32" alt="Sand"></a> ×1 [Sand](Item-sand.md) | [Crusher](Item-crusher.md) | [View recipe](Item-sand.md#recipe-2) |
 
 ## Workshop guides
 

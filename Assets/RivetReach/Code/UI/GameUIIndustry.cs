@@ -16,7 +16,7 @@ namespace RivetReach
             Label(parent,PipeConnections.IsTransport(m.Definition.Id)?"Hold a Wrench and right-click a machine-facing end. Blue: input · Red: output.":m.Definition.Help+(m.Definition.Watts>0?"\nPower connects on all six faces." : ""),821,157,307,62,15,gold);
             var status=Panel(parent,821,228,310,55,slate);machineStatus=Label(status.transform,"",12,10,290,40,19,gold);
             if(m.Definition.Id==IndustryId.Crusher||m.Definition.Id==IndustryId.Boiler)
-            {Label(parent,m.Definition.Id==IndustryId.Boiler?"FUEL":"RAW ORE",821,299,150,22,13,gold);Slot(parent,MachineSlotStart,821,325,55);}
+            {Label(parent,m.Definition.Id==IndustryId.Boiler?"FUEL":"INPUT",821,299,150,22,13,gold);Slot(parent,MachineSlotStart,821,325,55);}
             if(m.Definition.Id==IndustryId.Crusher||m.Definition.Id==IndustryId.Drill)
             {Label(parent,"OUTPUT",1053,299,90,22,13,gold);Slot(parent,MachineSlotStart+2,1069,325,55);}
             var track=Panel(parent,892,346,155,9,slate);machineProgress=Panel(track.transform,0,0,0,9,gold);

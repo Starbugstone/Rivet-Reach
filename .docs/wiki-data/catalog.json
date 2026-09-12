@@ -3690,7 +3690,7 @@
             },
             "drop": "rivet:crusher",
             "requiredTier": "None",
-            "help": "1 raw copper / iron / gold → 2 crushed ore",
+            "help": "1 raw ore → 2 crushed ore\n1 stone / cobblestone → 1 sand",
             "placeable": true,
             "ore": false,
             "crop": false,
@@ -8091,6 +8091,28 @@
             "mirror": false
         },
         {
+            "id": "crusher:rivet:stone",
+            "station": "rivet:crusher",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:sand",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:stone",
+                    "count": 1
+                }
+            ],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 100,
+            "watts": 160,
+            "mirror": false
+        },
+        {
             "id": "crusher:rivet:raw_iron",
             "station": "rivet:crusher",
             "kind": "Processing",
@@ -8155,6 +8177,28 @@
             "ticks": 100,
             "watts": 160,
             "mirror": false
+        },
+        {
+            "id": "crusher:rivet:cobblestone",
+            "station": "rivet:crusher",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:sand",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:cobblestone",
+                    "count": 1
+                }
+            ],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 100,
+            "watts": 160,
+            "mirror": false
         }
     ],
     "sources": [
@@ -8204,7 +8248,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Crafting/RecipeBrowserIndex.cs",
-            "sha256": "4a17f8aa0470bfbf9dcefe245b27d229296529d530c7db28568650cb0d2d8d7a"
+            "sha256": "6c8357b95909f7c883dde09d820797a39a994b48123e5aed376e2491b91f3cdf"
         },
         {
             "path": "Assets/RivetReach/Code/Crafting/RecipeCatalogAsset.cs",
@@ -8248,7 +8292,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Expedition.cs",
-            "sha256": "5137e9c624a638ebc9d4d5d578a6a944244df5a74c9fcaaddf75a0fc3d5d26e7"
+            "sha256": "aacf7e7d52c004642a78503fb03e42584bae35703e49e4e5007f3a02655a6b9d"
         },
         {
             "path": "Assets/RivetReach/Code/FluidVerification.cs",
@@ -8292,7 +8336,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustryDefinition.cs",
-            "sha256": "168a6d6597480431e8eaa07e56efca8244c79f0a36977db2e2a9da18986f40a5"
+            "sha256": "773e9f437e980ca55a555b911db0c07d34882ec7aed63f4dfd4154ec29ece394"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustryPresentation.cs",
@@ -8300,7 +8344,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustrySimulation.cs",
-            "sha256": "1285cce0004343b4ad41146234235d829888a1d18bc7ecc6335859db424539da"
+            "sha256": "d33d230fce940de8801e5ce876999a8ebf9e8dbe8c39afbffa1bba22f14f28fe"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/NetworkTopology.cs",
@@ -8400,7 +8444,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/OreVariantsVerification.cs",
-            "sha256": "4ea0392767b3c9cbebcdcf8bf67cc608c70a1d90e94abe8a938e94b8adc64ab1"
+            "sha256": "0e9e8dbf831c82e2de1973e939af466b8aebcd43f552edcf71b611fe96ca8f47"
         },
         {
             "path": "Assets/RivetReach/Code/OreVerification.cs",
@@ -8596,7 +8640,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIIndustry.cs",
-            "sha256": "1fea6d92a2cc9f0cdefe5a989c2ec38fe0224c0c8376c96dd0dfa549524dc6cd"
+            "sha256": "efd78f71d61cea1ba8518c4e82d71064b1c50053818347e1161721de18a224e7"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIRecipeDetails.cs",

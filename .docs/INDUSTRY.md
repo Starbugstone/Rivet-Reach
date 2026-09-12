@@ -57,7 +57,7 @@ Mining an assembly removes its network membership, closes its open interface, dr
 | Workshop Lamp | 20 W; defaults enabled without a signal connection; light scales with received power |
 | Boiler Engine | Coal/charcoal burns for 80 eligible seconds; consumes 100 mL water/s; right shaft rotates while fueled and watered |
 | Alternator | Correctly aligned adjacent running boiler supplies 400 W electricity; no remote shaft teleportation |
-| Crusher | 160 W; 5 seconds at full allocation; 1 raw copper/iron/gold → 2 crushed corresponding ore |
+| Crusher | 160 W; 5 seconds at full allocation; 1 raw copper/iron/gold → 2 crushed corresponding ore; 1 stone or cobblestone → 1 sand |
 | Pump | 80 W; 2 seconds at full allocation; removes one actual source below for 10 L in its buffer; flowing water is not accepted |
 | Drill | 240 W; 6 seconds per block at full allocation; excavates the finite column below, through iron-tier mineable materials; stops at bedrock or an obstacle |
 | Water Tank | 100 L; full 10 L bucket transfers or rejection without consuming the bucket |
@@ -65,6 +65,8 @@ Mining an assembly removes its network membership, closes its open interface, dr
 | Inventory Sensor | Reads the chest behind it; emits ON at 32 total items; fixed initial threshold |
 
 Crushed copper, iron and gold smelt to one corresponding ingot each in the normal furnace. A full output buffer requests no processing power and consumes no new input. Underpower advances work proportionally; no input is destroyed by a blackout or signal shutdown. Changing a crusher's input identity resets its paid progress. A drill revalidates the target before removal and produces its inventory output through the same synchronous authority turn, without also creating a mined world drop.
+
+The user authorized stone and cobblestone crushing into sand on 2026-09-12. The working yield is one sand per block, with the existing cycle and power requirement. Recipe discovery and machine processing share both output identity and quantity; ore recipes retain their doubled yield. [Crusher sand verification](verification/CRUSHER_SAND_RESULTS.md) records the focused checks.
 
 Item pipes deliver machine outputs, extractor contents or configured chest outputs to compatible machine inputs or a chest inlet. A chest and each individual machine face terminate a graph; they cannot invisibly bridge separate pipe runs. One source inventory advances at most four items/s across all of its output ends, with deterministic rotating source/destination order. Source candidates are captured before transfers so a newly received item cannot be forwarded by an initially empty chest in the same phase. Fluid pipes carry water quantities, never world flow cells or particles. Each source port transfers at most 100 mL/tick, and all fluid transfers reserve against amounts at the beginning of the transfer phase. A tank cannot forward newly received water in that same phase.
 

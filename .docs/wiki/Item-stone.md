@@ -47,3 +47,4 @@ Follow a result to see its complete ingredients and recipe.
 | Result | Station | Recipe |
 |---|---|---|
 | <a href="Item-button.md#recipe-1" title="Button"><img src="icons/135.png" width="32" height="32" alt="Button"></a> ×1 [Button](Item-button.md) | [Workbench](Item-workbench.md) | [View recipe](Item-button.md#recipe-1) |
+| <a href="Item-sand.md#recipe-1" title="Sand"><img src="icons/90.png" width="32" height="32" alt="Sand"></a> ×1 [Sand](Item-sand.md) | [Crusher](Item-crusher.md) | [View recipe](Item-sand.md#recipe-1) |

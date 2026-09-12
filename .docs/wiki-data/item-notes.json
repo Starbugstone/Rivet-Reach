@@ -128,7 +128,7 @@
   },
   "rivet:sand": {
     "description": "A pale building material that can be smelted into [Glass](Item-glass.md).",
-    "obtain": "Gather sand from sandy terrain, including desert surfaces and water beds."
+    "obtain": "Gather sand from sandy terrain, including desert surfaces and water beds, or crush one [Stone](Item-stone.md) or [Cobblestone](Item-cobblestone.md) into one sand in a powered [Crusher](Item-crusher.md)."
   },
   "rivet:sandstone": {
     "description": "A solid desert building block.",
@@ -263,7 +263,7 @@
     "use": "Place a [Chest](Item-chest.md) on its left. Attach [Item Pipe](Item-item-pipe.md) on any free face, with a red Output arrow set using a selected [Wrench](Item-wrench.md). It transfers up to four items per second and supports optional signal control. Direct chest-to-pipe output is also available; the Extractor adds signal control. See [Pipes](Pipes.md)."
   },
   "rivet:crusher": {
-    "use": "Connect power on any face. Use [Item Pipes](Item-item-pipe.md) on any face and a selected [Wrench](Item-wrench.md) to set blue raw-ore inputs and red product outputs. Optional Blue Signal remains at the front. One raw copper, iron or gold makes two matching crushed pieces in five seconds at **160 W**. Smelt each piece in a [Furnace](Item-furnace.md). See [Pipes](Pipes.md)."
+    "use": "Connect power on any face. Use [Item Pipes](Item-item-pipe.md) on any face and a selected [Wrench](Item-wrench.md) to set blue ingredient inputs and red product outputs. Optional Blue Signal remains at the front. One raw copper, iron or gold makes two matching crushed pieces in five seconds at **160 W**. Smelt each piece in a [Furnace](Item-furnace.md). One [Stone](Item-stone.md) or [Cobblestone](Item-cobblestone.md) instead makes one [Sand](Item-sand.md), with the same time and power. See [Pipes](Pipes.md)."
   },
   "rivet:drill": {
     "use": "Supply **240 W** on any face. It mines the finite column directly below and stops at protected bedrock. Attach Item Pipe on any face and use a selected [Wrench](Item-wrench.md) to set the drill-facing end to red Output. An attached OFF signal at the front disables it. See [Pipes](Pipes.md)."
