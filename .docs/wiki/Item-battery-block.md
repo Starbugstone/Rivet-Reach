@@ -27,6 +27,8 @@ Starts **empty**, even in Creative. Stores **100 kJ**, captures all surplus whil
 
 Opening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md). Batteries on the same grid share surplus charging and deficit discharge equally, skipping full or empty cells.
 
+If a boiler burns fuel but this battery receives **0 W**, check for a separate, correctly coupled alternator. A cable attached directly to the boiler cannot charge it. See [boiler and battery troubleshooting](Electricity-and-batteries.md#why-running-can-still-mean-zero-electricity).
+
 ## Crafting and processing
 
 ### Recipe 1

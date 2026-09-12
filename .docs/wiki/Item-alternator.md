@@ -27,6 +27,8 @@ Place immediately on the Boiler Engine’s right with the shafts meeting. Electr
 
 Opening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md).
 
+This is the electrical generator in a boiler setup. It supplies **800 W** only when its left shaft directly meets the right shaft of an eligible running boiler; both machines must face the same direction. A cable, pipe or gap between the machines prevents coupling. The boiler can still burn fuel without this connection. See [the complete generation route](Electricity-and-batteries.md#check-the-complete-route).
+
 ## Crafting and processing
 
 ### Recipe 1

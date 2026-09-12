@@ -140,6 +140,12 @@ A registered electrical connection remains connected when its generator stops or
 
 Related guides: [Wrench recipe](Item-wrench.md), [electricity and batteries](Electricity-and-batteries.md), [pumps](Pumps-and-water.md), [tanks](Tanks.md), [Blue Signal](Blue-Signal.md).
 
+## Boiler shaft versus electrical cable
+
+A **Boiler Engine** burns fuel and water to drive a mechanical shaft. A separate **Alternator** must sit directly against its right-hand shaft, facing the same direction. Power Cable connects to the alternator. A cable touching the boiler does not carry its shaft power or turn it into electricity.
+
+A boiler can show **Running** and consume fuel while supplying **0 W** to your battery because the alternator is missing or uncoupled. See the [illustrated boiler troubleshooting guide](Electricity-and-batteries.md#why-running-can-still-mean-zero-electricity). Fluid Pipe supplies the boiler with water; Item Pipe can deliver fuel through its rear input. Neither replaces the alternator.
+
 ## Sharing a branched grid
 
 Connected pipes define each grid. A chest or tank can receive through one pipe run and supply another without joining those runs together. Newly received items or water can leave on a later transfer step.

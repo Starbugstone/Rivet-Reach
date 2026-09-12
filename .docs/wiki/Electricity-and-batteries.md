@@ -4,6 +4,38 @@ Electricity is what turns a collection of machines into a working workshop. Star
 
 > **Power, Blue Signal, items and water are separate networks.** Power Cable carries electricity. It does not carry water, items or Blue Signal.
 
+## Why Running can still mean zero electricity
+
+**The Boiler Engine and Alternator are two separate machines.** The boiler burns coal/charcoal and water to turn its right-hand mechanical shaft. The alternator converts that shaft power into **800 W of electricity**. A boiler has no electrical output of its own.
+
+**Boiler Engine → directly coupled Alternator → Power Cable → Battery or powered machines**
+
+Place the alternator **immediately beside the boiler’s right-hand shaft**, with both machines facing the same direction. The alternator’s left-hand shaft must meet the boiler’s right-hand shaft. There must be no cable, pipe or air gap between the two machines. Connect the electrical cable to a free face of the **alternator**.
+
+A Power Cable that appears to touch the boiler’s shaft does not convert mechanical power into electricity. The shaft is not an electrical socket. Moving the cable to another boiler face will not produce power either.
+
+### What the boiler status actually means
+
+**Running** confirms that the boiler is consuming fuel and water and driving its shaft. It does **not** confirm that an alternator is attached, that electricity is reaching a cable grid, or that a battery is charging.
+
+The boiler currently keeps consuming fuel and water when no alternator is attached, when cables are disconnected, when loads are idle, or when batteries are full. It does not automatically stop for lack of electrical demand. Complete the generator and cable setup before adding fuel. A declining fuel timer is not proof of electrical generation; inspect the **alternator** and then the **battery**.
+
+These player-provided screenshots from September 12, 2026 illustrate the problem. The upright copper machine is the boiler. The black cable runs from its shaft area to the battery, but the setup has no coupled alternator, so this route supplies **0 W**.
+
+![Incorrect setup: power cable runs from the boiler shaft area to the battery without an alternator](images/boiler-missing-alternator-2026-09-12.png)
+
+The boiler below reports **Running** and has a decreasing fuel timer. Its description says **Coal / charcoal + water → right-hand shaft**: this panel reports boiler operation, not electrical output.
+
+![Boiler control panel showing Running, fuel and water despite the missing alternator](images/boiler-running-shaft-2026-09-12.png)
+
+### Check the complete route
+
+1. Supply the boiler with coal/charcoal and water.
+2. Check that the adjacent alternator’s shafts meet the boiler’s shaft and both machines face the same direction. A correctly coupled running boiler lets the alternator supply **800 W**.
+3. Run Power Cable from the **alternator**, through connected cable cells, to the battery. A separate output cable grid may run from that battery to a crusher.
+4. Leave the battery on **Automatic** for charging and supply, or **ChargeOnly** if you only want it to charge. Full batteries cannot store more energy.
+5. Inspect actual battery input/output and stored energy. On one shared grid, machines receive power first and batteries share the surplus. With only one running boiler/alternator and an otherwise idle battery connection, the battery should receive the full **800 W** while it has room.
+
 ## What a working power system looks like
 
 This is an actual in-game Rivet Reach workshop. The Boiler Engine drives the Alternator mechanically, and the Alternator feeds the electrical network through Power Cable.
@@ -33,7 +65,7 @@ A single Coal or Charcoal item keeps the boiler running for **80 eligible second
 
 The Boiler Engine and Alternator must face the **same direction**. Place the Alternator immediately on the Boiler Engine's **right-hand side** so their mechanical shafts meet.
 
-If the shaft connection is wrong, rotating the machines changes all their ports together.
+If the shafts do not meet, reposition or rotate the machines to align them. The boiler’s right and alternator’s left are relative to their facing direction; placing the alternator on another side does not couple it. Configured pipe-end directions remain independent.
 
 ![Boiler, Alternator and Crusher in-game](images/industry-workshop-close.png)
 
@@ -293,10 +325,11 @@ The Battery Bank Controller can be removed without draining because the controll
 
 | Symptom | What to check |
 |---|---|
+| **Boiler is Running and consuming fuel, but the battery gets nothing** | The boiler can run without an alternator and has no electrical output. Couple an alternator directly to its right-hand shaft, then connect the cable to the alternator. Fuel consumption alone does not establish electricity production. |
 | **Alternator produces no power** | Make sure the Boiler Engine has both fuel and water, the machines face the same direction, and the Alternator is immediately on the boiler's right with the shafts meeting. |
 | **Machine receives 0 W** | Check that Power Cable reaches any machine face through a continuous cable route and that a Blue Signal connection is not holding the machine OFF. |
 | **Machine runs slowly** | Open it and compare requested vs received watts. Total demand may exceed generation, or a higher-priority load may be taking power first. |
-| **Battery never charges** | Batteries only receive true surplus. Disconnect or stop some loads and check whether generation now exceeds demand. Also check that the battery is not DischargeOnly or Isolated. |
+| **Battery never charges** | First confirm the source is a coupled, running **alternator**, not a cable attached to a boiler. Batteries only receive true surplus. Disconnect or stop some loads and check whether generation now exceeds demand. Also check that the battery is not DischargeOnly or Isolated. |
 | **Battery never discharges** | Check that it contains energy and is not ChargeOnly or Isolated. The network must also have real unmet electrical demand. |
 | **Battery bank will not form** | The pack must be a completely filled rectangular solid, 1–5 blocks along each dimension, with exactly one controller and at least one Battery Block. Remove gaps and unrelated blocks. |
 | **Controller formed but cable does nothing** | Connect Power Cable to the controller on any exposed face. Member-cell sockets are inactive while the bank is formed. |

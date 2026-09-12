@@ -27,6 +27,8 @@ Connect to any of the six faces of generators, powered machines or eligible batt
 
 Opening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md).
 
+For boiler generation, connect this cable to the **Alternator**, not the boiler’s mechanical shaft. The boiler needs a directly adjacent, correctly aligned alternator to generate electricity. See [the illustrated setup](Electricity-and-batteries.md#why-running-can-still-mean-zero-electricity).
+
 ## Crafting and processing
 
 ### Recipe 1
