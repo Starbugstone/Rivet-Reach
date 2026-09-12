@@ -1,5 +1,19 @@
 # Item sidebar, recipe discovery and recipe placement
 
+## Shift-click Fill grid — 2026-09-12
+
+**Shift-click Fill grid now loads the maximum complete recipe batch into the active personal 2×2, workbench 3×3 or Machinist’s Bench 4×4 grid.** Plain click still prepares one set. The button uses the existing inventory/grid transaction and preserves the exact displayed recipe. [Crafting controls](../CRAFTING.md#item-sidebar-and-recipe-discovery--2026-09-10) own the behavior.
+
+The rebuilt `Builds/RecipeBrowser/RivetReach.exe` passed **843 native pointer/UI assertions with no runtime errors**, including plain-click single fill with surplus materials, Shift-click top-up, unchanged repeated maximum fill, and maximum fill at both placed benches. The personal fixture starts with 19 planks: four go into each crafting slot and three remain in inventory; no output is crafted. The capture was visually inspected.
+
+- [Runtime report](shift-fill-grid-2026-09-12/runtime-report.json) and [personal-grid capture](shift-fill-grid-2026-09-12/shift-fill-grid-personal.png).
+- [Build/source identity](shift-fill-grid-2026-09-12/build-identity.json) and [successful build, zero errors/warnings](shift-fill-grid-2026-09-12/build-summary.txt), Unity 6000.4.4f1.
+- [1,105 transfer assertions](shift-fill-grid-2026-09-12/transfer-checks.txt), [1,158,852 crafting assertions](shift-fill-grid-2026-09-12/crafting-checks.txt), [1,862 starter checks](shift-fill-grid-2026-09-12/starter-recipe-checks.txt) and [368 browser-index assertions](shift-fill-grid-2026-09-12/index-checks.txt) passed.
+
+This isolated development build preserves the open main Editor. These are functional checks; earlier performance and visual evidence below retains its original build identity.
+
+## Earlier browser acceptance — 2026-09-11
+
 > [Retained-screen verification](SCREEN_REUSE_RESULTS.md) supersedes the UI construction behavior with a newer build and reruns browser/crafting acceptance. The report below preserves the earlier crafting-UX artifact and its evidence.
 
 Verified on **2026-09-11** in Unity **6000.4.4f1 / URP 17.4.0**. Review player: **`Builds/RecipeBrowser/RivetReach.exe`**. [Crafting rules and authoring](../CRAFTING.md#item-sidebar-and-recipe-discovery--2026-09-10) own the implementation contract.

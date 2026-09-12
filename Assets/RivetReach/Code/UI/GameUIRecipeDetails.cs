@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace RivetReach
@@ -34,7 +35,7 @@ namespace RivetReach
             w.previous=Button(panel.transform,"‹",514,58,36,34,()=>{recipePage--;DrawBrowserRecipe();});
             w.next=Button(panel.transform,"›",640,58,36,34,()=>{recipePage++;DrawBrowserRecipe();});
             w.page=Label(panel.transform,"",555,65,82,26,15,gold);w.page.alignment=TextAnchor.UpperCenter;
-            w.fill=Button(panel.transform,"FILL GRID",294,58,204,34,()=>{if(shownRecipe!=null)FillBrowserRecipe(shownRecipe.Output.Id,shownRecipe.Id);});
+            w.fill=Button(panel.transform,"FILL GRID",294,58,204,34,()=>{if(shownRecipe!=null)FillBrowserRecipe(shownRecipe.Output.Id,shownRecipe.Id,Keyboard.current?.shiftKey.isPressed==true);});
             w.transfer=recipeTransferStatus=Label(panel.transform,"",16,140,658,17,12,gold);
             w.stationIcon=BrowserIcon(panel.transform,default,16,106,34);
             w.station=Label(panel.transform,"",16,111,445,26,18,gold);
@@ -119,7 +120,7 @@ namespace RivetReach
             w.content.sizeDelta=new Vector2(282,Math.Max(138,totals.Length*38));
             for(int i=0;i<totals.Length;i++)
             {BindBrowserIcon(w.totals[i],totals[i]);w.totals[i].gameObject.SetActive(true);w.totalNames[i].text=totals[i].Count+" × "+game.Registry.Get(totals[i].Id).displayName;w.totalNames[i].gameObject.SetActive(true);}
-            w.footer.text=recipe.Fuels.Count>0?"FUEL · choose one":"Shift-click output: fill one · Ctrl+Shift: max · Right-click: uses";
+            w.footer.text=recipe.Fuels.Count>0?"FUEL · choose one":"Shift-click Fill grid: max · Output: Shift one / Ctrl+Shift max";
             for(int i=0;i<recipe.Fuels.Count;i++)
             {BindBrowserIcon(w.fuels[i],new ItemStack(recipe.Fuels[i],(recipe.Ticks+game.Processing.FuelTicks(recipe.Fuels[i])-1)/game.Processing.FuelTicks(recipe.Fuels[i])));w.fuels[i].gameObject.SetActive(true);}
             recipePanel.SetActive(true);

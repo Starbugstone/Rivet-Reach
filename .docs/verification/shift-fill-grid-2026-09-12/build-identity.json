@@ -1,0 +1,15 @@
+{
+  "date": "2026-09-12",
+  "unity": "6000.4.4f1",
+  "base_commit": "ad2e38d5d1f98570e7c44f042b0406a5031c7dd8",
+  "source_sha256": {
+    "Assets/RivetReach/Code/UI/GameUIRecipeDetails.cs": "a74d6bd742d23b700bee8b365b8081a022e75f79338596f310d0d8aad8fae28b",
+    "Assets/RivetReach/Code/RecipeBrowserVerification.cs": "ce9394e17b0d2cd4277c865467c4c1e18751a400c5023bcf9fc6261db0f7a693",
+    "Assets/RivetReach/Code/UI/GameUIBrowser.cs": "17d3b41a3a29f96e063112d53384140472e562a2e784715ed478d88bc5e19ffa",
+    "Assets/RivetReach/Code/Crafting/CraftingSession.cs": "e8261c66661209fc7b1aee78e8ec1c190c895a5fe932b0b2a55bbd6aa3ccee1e"
+  },
+  "player_sha256": {
+    "Builds/RecipeBrowser/RivetReach.exe": "7d52ee70fb22771f4608d810d1015f539c37dd8b7b2fbb1a0ea9f6bc5c32d5c9",
+    "Builds/RecipeBrowser/RivetReach_Data/Managed/Assembly-CSharp.dll": "429e32b80dc54adf66b1ff0c5b26e9a4a307231f24d0ca1f1cfb1d80d9f32e9e"
+  }
+}

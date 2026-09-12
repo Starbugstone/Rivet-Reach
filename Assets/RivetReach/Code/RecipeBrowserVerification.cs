@@ -308,6 +308,20 @@ namespace RivetReach
             Check(game.Crafting.MaximumCrafts == 4 && game.Inventory.Total(BlockId.Planks) == 3, "Ctrl+Shift-click tops up the ready grid to the maximum complete batch");
             yield return Capture("maximum-recipe-fill");
             game.Crafting.ReturnIngredients(game.Inventory);
+            game.UI.InspectBrowserItem(BlockId.Workbench, false); yield return null;
+            yield return BrowserPointer(Named("FILL GRID"));
+            Check(game.Crafting.MaximumCrafts == 1 && game.Inventory.Total(BlockId.Planks) == 15, "Plain Fill grid prepares only one recipe with surplus inventory");
+            game.UI.InspectBrowserItem(BlockId.Workbench, false); yield return null;
+            yield return BrowserPointer(Named("FILL GRID"), shift: true);
+            Check(game.Crafting.MaximumCrafts == 4 && game.Crafting.Grid.Slots.All(s => s.Id == BlockId.Planks && s.Count == 4) &&
+                game.Inventory.Total(BlockId.Planks) == 3 && game.Inventory.Total(BlockId.Workbench) == 0 && game.UI.HeldStack.Empty,
+                "Shift-click Fill grid tops up the personal grid to the maximum complete batch without crafting output");
+            filledInventory = game.Inventory.Revision; filledGrid = game.Crafting.Grid.Revision;
+            game.UI.InspectBrowserItem(BlockId.Workbench, false); yield return null;
+            yield return BrowserPointer(Named("FILL GRID"), shift: true);
+            Check(game.Inventory.Revision == filledInventory && game.Crafting.Grid.Revision == filledGrid, "Repeated Shift-click Fill grid leaves a maximum-filled grid unchanged");
+            yield return Capture("shift-fill-grid-personal");
+            game.Crafting.ReturnIngredients(game.Inventory);
             yield return ClickCraftUI(game.Inventory.FindSlot(s => s.Id == BlockId.Planks));
             yield return PaintCraftUI(new[] { CraftCell, CraftCell + 1, CraftCell + 3, CraftCell + 2, CraftCell });
             Check(game.Crafting.Preview?.Output.Id == BlockId.Workbench && game.Crafting.Grid.Slots.All(s => s.Count == 1) && game.UI.HeldStack.Count == 15,
@@ -373,6 +387,11 @@ namespace RivetReach
                     game.UI.InspectBrowserItem(outputItem, false); yield return null;
                     yield return BrowserPointer(game.UI.VisibleRoot.GetComponentsInChildren<BrowserItemView>().Single(v => v.RecipeId == toFill.Id), shift: true, control: true);
                     Check(game.Crafting.Preview?.Id == toFill.Id && game.Crafting.MaximumCrafts == 3, "Exact recipe Ctrl+Shift-click fills maximum at bench size " + game.Crafting.Grid.Size);
+                    game.Crafting.ReturnIngredients(game.Inventory);
+                    game.UI.InspectBrowserItem(outputItem, false); yield return null;
+                    yield return BrowserPointer(Named("FILL GRID"), shift: true);
+                    Check(game.Crafting.Preview?.Id == toFill.Id && game.Crafting.MaximumCrafts == 3 && game.Inventory.Total(outputItem) == 0,
+                        "Shift-click Fill grid fills maximum into the active bench size " + game.Crafting.Grid.Size);
                     yield return Capture(stationId == BlockId.Workbench ? "ctrl-fill-workbench" : "ctrl-fill-machinist");
                 }
                 if (stationId == BlockId.Furnace || stationId == BlockId.Chest || stationId == IndustryId.Crusher)
