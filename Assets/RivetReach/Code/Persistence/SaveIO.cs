@@ -56,19 +56,23 @@ namespace RivetReach
         const int Format=2,MaxBytes=256*1024*1024;
         public string DirectoryPath {get;}
         readonly ItemRegistry registry;
-        readonly string content;
+        readonly string content,preCrankContent;
         public string ScanWarning {get;private set;}
         public SaveStore(string path,ItemRegistry registry)
         {
             DirectoryPath=path;this.registry=registry;
-            // Pin the ID map and authored behavior. Later content changes require an explicit migration.
+            // Accept the additive hand-crank extension only; every pre-existing definition must still match.
             var processing=ProcessingCatalogAsset.Load();
-            string definitions=string.Join("\n",registry.items.OrderBy(i=>i.runtimeId).Select(i=>JsonUtility.ToJson(i)))
-                +string.Join("\n",processing.recipes.OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
-                +string.Join("\n",processing.fuels.OrderBy(i=>i.itemId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
-                +string.Join("\n",RecipeCatalogAsset.Load().recipes.OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
-                +string.Join("\n",Resources.LoadAll<MobDefinition>("Mobs/Definitions").OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)));
-            content=Convert.ToBase64String(Hash(Encoding.UTF8.GetBytes(definitions)));
+            string Fingerprint(bool legacy)
+            {
+                string definitions=string.Join("\n",registry.items.Where(i=>!legacy||i.stableId!="rivet:hand_crank").OrderBy(i=>i.runtimeId).Select(i=>JsonUtility.ToJson(i)))
+                    +string.Join("\n",processing.recipes.OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
+                    +string.Join("\n",processing.fuels.OrderBy(i=>i.itemId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
+                    +string.Join("\n",RecipeCatalogAsset.Load().recipes.Where(i=>!legacy||i.stableId!="rivet:industry_170").OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
+                    +string.Join("\n",Resources.LoadAll<MobDefinition>("Mobs/Definitions").OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)));
+                return Convert.ToBase64String(Hash(Encoding.UTF8.GetBytes(definitions)));
+            }
+            content=Fingerprint(false);preCrankContent=Fingerprint(true);
         }
         static byte[] Hash(byte[] bytes){using var sha=SHA256.Create();return sha.ComputeHash(bytes);}
         string SlotPath(string id){SaveReader.Require(Guid.TryParseExact(id,"N",out _),"Invalid save slot.");return System.IO.Path.Combine(DirectoryPath,id+".rrsave");}
@@ -95,7 +99,8 @@ namespace RivetReach
                 entry=new SaveEntry{Id=r.Text(32),Name=r.Text(48),WorldId=r.Text(32),UtcTicks=r.Long(1,DateTime.MaxValue.Ticks),Seed=r.ReadInt32()};
                 SaveReader.Require(Guid.TryParseExact(entry.Id,"N",out _)&&Guid.TryParseExact(entry.WorldId,"N",out _)&&!string.IsNullOrWhiteSpace(entry.Name),"Invalid save identity.");
                 SaveReader.Require(r.Text()==TerrainGenerator.Version,"This save requires a different terrain generator.");
-                SaveReader.Require(r.Text()==content,"This save requires different content definitions; migration is not available.");
+                string savedContent=r.Text();
+                SaveReader.Require(savedContent==content||savedContent==preCrankContent,"This save requires different content definitions; migration is not available.");
                 return r;
             }
             catch{r.Dispose();throw;}

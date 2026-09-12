@@ -24,6 +24,8 @@ The user subsequently authorized [issue #3 multiblocks](.docs/MULTIBLOCKS.md): r
 
 The user subsequently authorized [batteries and battery banks](.docs/BATTERIES.md): initially empty electrical storage, surplus charging, demand-driven discharge and solid rectangular packs using the shared multiblock lifecycle. Preserve exact per-cell energy through formation, repair and controller removal. [Player wiki sources](.docs/wiki/Home.md) are maintained here and published to the GitHub wiki with `Tools/publish_wiki.py`.
 
+The user subsequently authorized a [hand crank](.docs/HAND_CRANK.md) for early-game electricity: a workbench recipe, direct battery-side attachment, right-click/Interact turns and held Use repetition. Preserve fixed-step generation limits, ordinary power allocation and exact battery storage. Its additive save compatibility must retain all pre-existing content checks. [Hand crank verification](.docs/verification/HAND_CRANK_RESULTS.md) records measured evidence.
+
 The user subsequently authorized [durable saves](.docs/SAVES.md): named Save Game, Load Game, Continue Latest Save, previous-checkpoint recovery and rebuilding alpha 0.0.1. This supersedes earlier whole-world durable-save exclusions for the implemented surface world. Preserve full-state conservation, compatibility checks, atomic replacement and failed-load rollback. Creative mode/flight remain session-only; no offline production or periodic autosave is implied. [Save verification](.docs/verification/SAVE_RESULTS.md) distinguishes measured checks from remaining limits.
 
 ## Licensing and ownership

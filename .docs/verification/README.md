@@ -37,3 +37,5 @@ This directory maintains the latest report and useful evidence for each feature.
 | Generated trees, felling and placed-wood protection | [Tree verification](TREE_RESULTS.md) |
 
 [Run instructions and controls](../FIRST_POC.md) identify the current review executable. Feature reports preserve their own tested build and workload; older measurements are not relabeled as tests of the latest executable. Artistic acceptance and long-session play balance still need play review. [Named saves](../SAVES.md) now preserve implemented surface-world progress across restarts.
+
+[Hand crank results](HAND_CRANK_RESULTS.md) record manual battery charging, pointer click/hold behavior, the original Blender/Unity asset and additive save compatibility for the 2026-09-12 increment.

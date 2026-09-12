@@ -190,12 +190,3 @@ The chest, personal-progression 3×3 Workbench and Furnace now use original Blen
 ## Manual generator — 2026-09-12
 
 [The hand-crank specification](HAND_CRANK.md) owns the original `ArtSource/HandCrank/HandCrank.blend`, reproducible `Tools/create_hand_crank.py`, FBX export and inventory icon. Its housing and animated crank use two mesh parts with the shared Workshop atlas; the named pivot follows paid simulation turns. [Verification](verification/HAND_CRANK_RESULTS.md) separates source/import measurements and actual player screenshots from artistic acceptance.
-
-
-## Inventory and held item agreement — 2026-09-12
-
-An item's inventory, hotbar and recipe-browser icon must depict the same object as its held appearance: matching geometry, palette and tier tint, with framing and lighting allowed to differ. Crafting-only industrial components use their original Workshop models through `ItemAppearance.TryIndustryKey`; a lack of machine behavior must not send them to generic artwork. This includes the copper-wire spool, Azure crystal, plates, cog, rivets, casing, glass and crushed minerals.
-
-Tool icons and torch/bucket icons are baked from the imported held models with their palette and registered tint, using deterministic studio shading for readability. Run **Rivet Reach → Bake held item icons** (`ItemAppearanceBuild.Bake`) after changing those inputs; the resulting transparent PNGs live in `Resources/ItemIcons`. The shared tool path/tint contract drives the held view and the baker. Missing baked icons fail explicitly. Remaining flat held cards borrow their exact UI texture without taking ownership of it. Raw resources that still use the terrain-block display receive matching block-shaped icons; the collected iron/copper ore art contract above remains authoritative.
-
-[Item appearance verification](verification/ITEM_APPEARANCE_RESULTS.md) records the native-player catalog audit, visual comparison sheets and remaining limits. Refresh the [wiki export](WIKI_AUTHORING.md#refresh-the-reference) whenever icon assets change.

@@ -18,7 +18,7 @@ The long-term vision combines:
 
 **Download:** [Rivet Reach 0.0.1 Alpha for Windows x64](https://github.com/Starbugstone/Rivet-Reach/releases/tag/v0.0.1). Extract the complete Windows ZIP and run `RivetReach.exe`; no Unity installation is needed. **Save Game, Load Game and Continue Latest Save are included.** See the [alpha notes](.docs/releases/0.0.1.md).
 
-The current Unity **6000.4.4f1 / URP 17.4.0** review build includes FPS movement, block mining/placement, inventory, **91 modular recipes**, personal 2×2 and workbench 3×3 crafting, five tool tiers, craftable light-emitting torches, furnaces, chests, potato farming, hunger, hearts and armor. It also includes seven biomes including seas and rivers, bucket water flow and caves, depth-banded ores, protected bedrock, generated trees, male/female appearances with two skins, a moving day/night sky, and native beetle/prowler enemies.
+The current Unity **6000.4.4f1 / URP 17.4.0** review build includes FPS movement, block mining/placement, inventory, **92 modular recipes**, personal 2×2 and workbench 3×3 crafting, five tool tiers, craftable light-emitting torches, furnaces, chests, potato farming, hunger, hearts and armor. It also includes seven biomes including seas and rivers, bucket water flow and caves, depth-banded ores, protected bedrock, generated trees, male/female appearances with two skins, a moving day/night sky, and native beetle/prowler enemies.
 
 For testing, the Escape menu now offers [Creative mode](.docs/GAMEPLAY.md#creative-testing-mode): double-tap Space flight, invincibility and a searchable catalog with sidebar dragging into inventory. The local Creative review build is `Builds/Creative/RivetReach.exe`.
 
@@ -29,6 +29,8 @@ Open `Assets/RivetReach/Scenes/Main.unity` in the pinned Editor and press Play, 
 This is an early playable increment. [Named saves](.docs/SAVES.md) preserve progress across restarts. Generated structures and the wider game remain planned. The [first industrial workshop](.docs/INDUSTRY.md) adds a 4×4 Machinist’s Bench, Azure resources, Blue Signal, steam/electricity, machines and separate item/fluid pipes. [Multiblock tanks](.docs/MULTIBLOCKS.md) add player-built shared storage, connected glass, valve/level controls and independent signal/power fittings on either transport pipe. [The development strategy](.docs/DEVELOPMENT_STRATEGY.md#6-locked-first-step-and-provisional-later-sequence) requires playable review before selecting further scope. Art, balance and long-session performance remain subject to review.
 
 [Industrial verification](.docs/verification/INDUSTRY_RESULTS.md) includes in-game screenshots, a gameplay clip and measured limits.
+
+For early electricity, craft a [Hand Crank](.docs/HAND_CRANK.md) at a workbench, attach it to a battery side and right-click or hold right-click to generate and store a small reserve. The focused review player is `Builds/HandCrank/RivetReach.exe`.
 
 The [avatar rework](.docs/AVATAR_REWORK.md) updates both explorers, fitted fingerless gloves, tool grips and animations, and held equipment. Try `Builds/AvatarRework/RivetReach.exe`; [source and Unity evidence](.docs/verification/AVATAR_REWORK_RESULTS.md) records the checks and remaining visual review.
 

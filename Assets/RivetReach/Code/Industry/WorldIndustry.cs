@@ -79,6 +79,12 @@ namespace RivetReach
         {
             if(Mode!=ScreenMode.Play||!World.Ready(position)||!World.Raycast(Player.Camera.transform.position,Player.Camera.transform.forward,5,out var visible,out _)||!visible.Equals(position))return false;
             var machine=Industry.Simulation.At(position);if(machine==null)return false;
+            if(machine.Definition.Id==IndustryId.HandCrank)
+            {
+                if(Industry.Simulation.TryCrank(machine))
+                {Sound.Place(machine.Definition.Id,World.Local(position));Player.Arms.TriggerSwing();Player.Body.TriggerSwing();}
+                return true;
+            }
             if(machine.Definition.Id==IndustryId.Lever||machine.Definition.Id==IndustryId.Button)
             {Industry.Simulation.Activate(machine);Sound.Place(machine.Definition.Id,World.Local(position));return true;}
             if(machine.Definition.Id==IndustryId.Bench)return TryOpenStation(position);

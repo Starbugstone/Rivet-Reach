@@ -1918,3 +1918,18 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+  - runtimeId: 170
+    stableId: rivet:hand_crank
+    displayName: Hand Crank
+    stackLimit: 64
+    fistSeconds: 1.2
+    colour: {r: 0.75, g: 0.44, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0

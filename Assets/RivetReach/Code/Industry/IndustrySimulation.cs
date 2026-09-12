@@ -40,6 +40,13 @@ namespace RivetReach
         public void Rotate(MachineState m){m.Rotation=(m.Rotation+1)%4;Multiblocks.Changed(m.Position);Invalidate();}
         public void Activate(MachineState m)
         {if(m.Definition.Id==IndustryId.Lever)m.Source=!m.Source;else if(m.Definition.Id==IndustryId.Button){m.Source=true;m.PulseTicks=20;}signalsDirty=true;Revision++;}
+        public const int CrankTicks=10,CrankWatts=100;
+        // One paid stroke at a time; the fixed simulation clock also bounds rapid clicks.
+        public bool TryCrank(MachineState m)
+        {
+            if(m==null||m.Definition.Id!=IndustryId.HandCrank||At(m.Position)!=m||!world.Ready(m.Position)||Rebuilding||m.PulseTicks!=0)return false;
+            m.PulseTicks=CrankTicks;Revision++;return true;
+        }
         public void Step()
         {
             long start=Stopwatch.GetTimestamp();Tick++;Multiblocks.Step();
@@ -84,6 +91,12 @@ namespace RivetReach
                     var engine=At(Neighbor(m,1));
                     bool coupled=engine!=null&&engine.Eligible&&engine.Definition.Id==IndustryId.Boiler&&Neighbor(engine,0).Equals(m.Position)&&engine.Running;
                     m.SupplyWatts=coupled?400:0;m.Status=coupled?MachineStatus.Running:MachineStatus.NoShaft;
+                }
+                if(m.Definition.Id==IndustryId.HandCrank)
+                {
+                    m.SupplyWatts=m.PulseTicks>0?CrankWatts:0;
+                    m.Status=m.PulseTicks>0?MachineStatus.Running:MachineStatus.Ready;
+                    if(m.PulseTicks>0)m.PulseTicks--;
                 }
                 Prepare(m);
             }

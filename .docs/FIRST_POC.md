@@ -114,3 +114,11 @@ The 2026-09-10 [avatar rework](AVATAR_REWORK.md) is available in `Builds/AvatarR
 At the Machinist’s Bench, craft tank frames, walls, glass, one controller and any ports/hatches. Build a hollow 3–9 block rectangular shell: frames on edges/corners, solid floor/roof, glass or solid sides. Functional parts face outside. The tank forms automatically, shares capacity across ports, and keeps the actual cells individually mineable. [MULTIBLOCKS.md](MULTIBLOCKS.md) owns the construction, connected art, valve/sensor controls and breach/resize recovery rules.
 
 Interact with either Item Pipe or Fluid Pipe to fit a Signal Conduit and/or Power Cable from your inventory. A tank controller must be emptied before mining it; Recovery Out drains small remainders through its front pipe outlet. World progress remains session-only. [Current tank verification](verification/MULTIBLOCK_RESULTS.md) records the tested executable and evidence.
+
+## Hand crank review — 2026-09-12
+
+Run `Builds/HandCrank/RivetReach.exe` for the [manual electricity increment](HAND_CRANK.md). At a workbench, craft one Hand Crank from 2 copper ingots, 1 iron ingot, 1 stick and 2 planks. Select it and right-click a battery side to attach it. Aim at the placed crank and right-click (or Interact) for one 50 J turn; hold right-click to repeat. Battery modes and connected loads control how much is stored. [Verification](verification/HAND_CRANK_RESULTS.md) records the tested build and remaining review.
+
+### Door review
+
+`Builds/Doors/RivetReach.exe` is the focused [wooden door](DOORS.md) review player. Craft three from six planks in two full columns at a workbench, place above a solid floor with two free cells, then right-click either half. Connect Blue Signal at the lower cell for automated opening/closing. [Verification](verification/DOOR_RESULTS.md) records this artifact and its limits.

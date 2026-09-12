@@ -180,6 +180,8 @@ namespace RivetReach
             if(!World.Raycast(Player.Camera.transform.position,Player.Camera.transform.forward,5,out var support,out _,out var face)||face==Vector3Int.zero)return false;
             cell=support.Offset(face.x,face.y,face.z);
             if(!CanPlace(cell,out reason))return false;
+            if(Inventory.Slots[Selected].Id==IndustryId.HandCrank&&IndustryId.BatteryPart(World.Get(support))&&face.y!=0)
+            {reason="Attach the Hand Crank to a battery side";return false;}
             if(Inventory.Slots[Selected].Id==BlockId.Torch&&!World.CanPlaceTorch(cell,support))
             {reason="Torches need a dry floor or wall face";return false;}
             return true;
@@ -205,13 +207,18 @@ namespace RivetReach
             if(!PlacementPreview(out var cell,out string reason))
             {PlacementDiagnostic=reason;if(reason!=PlayerOverlapReason)Notify(reason,1);return false;}
             var selected=Inventory.Slots[Selected];
+            BlockPos? crankSupport=null;
+            if(selected.Id==IndustryId.HandCrank&&World.Raycast(Player.Camera.transform.position,Player.Camera.transform.forward,5,out var attachment,out _))crankSupport=attachment;
             // One local authority turn: recheck occupancy, commit the voxel, then consume exactly one.
             if(selected.Id==BlockId.Torch)
             {
                 if(!World.Raycast(Player.Camera.transform.position,Player.Camera.transform.forward,5,out var support,out _)||!World.PlaceTorch(cell,support))return false;
             }
             else if(!World.Place(cell,selected.Id))return false;
-            if(IndustryId.Placed(selected.Id)){var machine=Industry.Simulation.At(cell);machine.Rotation=(Mathf.RoundToInt(Player.transform.eulerAngles.y/90)%4);Industry.Simulation.Invalidate();}
+            if(IndustryId.Placed(selected.Id)){var machine=Industry.Simulation.At(cell);machine.Rotation=(Mathf.RoundToInt(Player.transform.eulerAngles.y/90)%4);
+                if(crankSupport.HasValue)for(int rotation=0;rotation<4;rotation++)
+                    if(IndustryDefinition.Neighbor(cell,4,rotation).Equals(crankSupport.Value)){machine.Rotation=rotation;break;}
+                Industry.Simulation.Invalidate();}
             if(!Creative)Inventory.Take(Selected,1);Sound.Place(selected.Id,World.Local(cell)+Vector3.one*.5f);ArcadePresentation.Active?.Place(World.Local(cell)+Vector3.one*.5f,selected.Id);PlacementDiagnostic="Placed "+Registry.Get(selected.Id).displayName;Notify(PlacementDiagnostic,1);return true;
         }
         public bool TryUseBucket()

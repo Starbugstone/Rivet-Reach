@@ -78,7 +78,7 @@ namespace RivetReach
             foreach(var v in views.Values)
             {
                 var m=v.State;bool active=m.Signal||m.Source;
-                if(!game.Paused&&m.Running)v.Phase+=Time.deltaTime*180*(m.Definition.Watts==0?1:m.ReceivedWatts/(float)m.Definition.Watts);
+                if(!game.Paused&&m.Running)v.Phase+=Time.deltaTime*(m.Definition.Id==IndustryId.HandCrank?720:180)*(m.Definition.Watts==0?1:m.ReceivedWatts/(float)m.Definition.Watts);
                 if(revision||v.Mask<0)
                 {
                     var topology=m.Definition.Id==IndustryId.PowerCable?sim.Power.Topology:m.Definition.Id==IndustryId.ItemPipe?sim.ItemNetwork:m.Definition.Id==IndustryId.FluidPipe?sim.FluidNetwork:sim.Signals.Topology;
@@ -100,7 +100,7 @@ namespace RivetReach
                 {
                     var t=v.Parts[i];string n=t.name;
                     if(n.StartsWith("MotionSpin"))
-                    {var axis=m.Definition.Id==IndustryId.Boiler||m.Definition.Id==IndustryId.Alternator?Vector3.right:m.Definition.Id==IndustryId.Crusher||m.Definition.Id==IndustryId.Pump?Vector3.forward:Vector3.up;t.localRotation=Quaternion.AngleAxis(v.Phase*(n.StartsWith("MotionSpinB")?-1:1),axis)*v.RestRotation[i];}
+                    {var axis=m.Definition.Id==IndustryId.Boiler||m.Definition.Id==IndustryId.Alternator?Vector3.right:m.Definition.Id==IndustryId.Crusher||m.Definition.Id==IndustryId.Pump?Vector3.forward:m.Definition.Id==IndustryId.HandCrank?Vector3.forward:Vector3.up;t.localRotation=Quaternion.AngleAxis(v.Phase*(n.StartsWith("MotionSpinB")?-1:1),axis)*v.RestRotation[i];}
                     else if(n.StartsWith("MotionPiston"))t.localPosition=v.Rest[i]+Vector3.up*(m.Definition.Id==IndustryId.Button?(m.Source?-.035f:0):m.Running?Mathf.Sin(v.Phase*Mathf.Deg2Rad)*.035f:0);
                     else if(n.StartsWith("MotionLever"))t.localRotation=Quaternion.Slerp(t.localRotation,Quaternion.Euler(m.Source?30:-30,0,0),1-Mathf.Exp(-18*Time.deltaTime));
                     else if(n.StartsWith("MotionHatch")){t.localScale=Vector3.Lerp(t.localScale,new Vector3(1,m.Running?.08f:1,1),1-Mathf.Exp(-12*Time.deltaTime));t.localPosition=v.Rest[i]+Vector3.up*(m.Running?.37f:0);}

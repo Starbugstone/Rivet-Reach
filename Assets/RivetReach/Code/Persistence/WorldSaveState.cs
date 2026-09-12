@@ -141,7 +141,7 @@ namespace RivetReach
             for(int i=0;i<n;i++)
             {
                 var p=r.Pos();byte id=r.ReadByte();SaveReader.Require(IndustryId.Placed(id)&&world.Get(p)==id,"Saved machine does not match terrain.");var m=Add(p,id);
-                r.Slots(m.Items);m.Rotation=r.Int(0,3);m.Source=r.ReadBoolean();m.NextSource=r.ReadBoolean();m.PulseTicks=r.Int(0,20);m.BurnTicks=r.Int(0,1600);
+                r.Slots(m.Items);m.Rotation=r.Int(0,3);m.Source=r.ReadBoolean();m.NextSource=r.ReadBoolean();m.PulseTicks=r.Int(0,id==IndustryId.HandCrank?IndustrySimulation.CrankTicks:20);m.BurnTicks=r.Int(0,1600);
                 m.WaterMl=r.Int(0,m.Definition.WaterCapacity);m.DrillDepth=r.Int(1,TerrainGenerator.MaxY-TerrainGenerator.MinY+2);m.Work=r.Number(0,120);m.WorkInput=r.ReadByte();m.Priority=r.Int(0,2);
                 m.Additions=(PipeAddition)r.Int(0,3);SaveReader.Require(m.Additions==0||PipeConnections.IsTransport(id),"Invalid pipe fittings.");m.BatteryMode=(BatteryMode)r.Int(0,3);
                 m.RecoveryOutput=r.ReadBoolean();m.PortMode=(FluidPortMode)r.Int(0,2);m.LevelThreshold=r.Int(0,100);m.Status=(MachineStatus)r.Int(0,Enum.GetValues(typeof(MachineStatus)).Length-1);

@@ -100,3 +100,7 @@ The user selected [issue #3](https://github.com/Starbugstone/Rivet-Reach/issues/
 ## Authorized electrical storage — 2026-09-10
 
 The user requested standalone battery blocks and a battery-bank multiblock. [BATTERIES.md](BATTERIES.md) owns the solid-pack construction, exact per-cell storage, electrical allocation and dismantling rules. [The player wiki guide](wiki/Home.md) explains tanks, pump intake height, power and signal connections. [Workshop follow-up verification](verification/WORKSHOP_FOLLOWUP_RESULTS.md) records measured evidence.
+
+## Manual generator — 2026-09-12
+
+The user authorized a [Hand Crank](HAND_CRANK.md) for early-game electrical bootstrap. Its inexpensive workbench recipe, battery-side attachment and click/hold interaction supply 100 W during paid manual turns through a rear power endpoint. It shares the existing independent electrical network and load-before-storage allocation.

@@ -39,3 +39,7 @@ A pending bank suspends its endpoints. Invalid or waiting validation releases me
 The original Blender kit and icons come from [create_battery_assets.py](../Tools/create_battery_assets.py), with editable [BatteryKit.blend](../ArtSource/Batteries/BatteryKit.blend). It reuses the project's original Workshop atlas and geometry helpers. Battery cells expose visible accumulator cans and six electrical fittings; the controller has a front gauge, power socket and pilot light. Geometry is imported as two shared mesh groups per item, without a controller animation pretending to generate power.
 
 Machine interfaces show exact stored kJ, capacity, charge/output watts, mode and bank status. A member cell indicates controller ownership. The same item registry feeds Creative catalog grants, crafting and held rendering. [Verification](verification/WORKSHOP_FOLLOWUP_RESULTS.md) records measured checks and remaining limits.
+
+## Manual early-game charging — 2026-09-12
+
+The [Hand Crank](HAND_CRANK.md) attaches directly to a battery side and generates a small amount of electricity with Interact or right-click, repeating while mouse Use is held. It uses ordinary generator allocation, capacity limits and battery modes. Its workbench recipe, 50 J turns, rear-socket placement and save compatibility are owned by that specification.

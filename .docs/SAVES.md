@@ -38,3 +38,11 @@ The file pins `TerrainGenerator.Version` (currently `terrain-6-azure`) and a con
 Capture precedes filesystem mutation. A new temporary file in the same directory is flushed, then moved into a new slot or atomically replaces the existing file while retaining the previous checkpoint. A corrupt primary never overwrites a valid backup during recovery. Incomplete temporary files are ignored. Loading validates the envelope, stages and validates all state, and only then retires the previous session. Invalid body data restores the original references and mode; the load error remains visible.
 
 This alpha uses complete snapshots, capped at **256 MiB payload**, and synchronous save/load. Disk usage grows with edited terrain and retained state. Region-level incremental saves, background serialization, format migrations, cloud sync, exhaustive power-loss testing and large-world save-latency guarantees are not part of this increment.
+
+## Additive hand-crank compatibility — 2026-09-12
+
+[The hand-crank extension](HAND_CRANK.md) retains schema 2 and adds an explicit compatibility fingerprint omitting only the new `rivet:hand_crank` item and `rivet:industry_170` recipe. Pre-crank checkpoints are accepted only if all previously fingerprinted definitions still match. Changes to other definitions remain incompatible. New checkpoints use the complete new fingerprint and require the newer executable. Crank placement/orientation uses ordinary saved machine state; its existing `PulseTicks` field preserves up to ten remaining paid ticks without offline progress. Exact battery energy remains on physical cells.
+
+### Wooden door compatibility
+
+[Doors](DOORS.md#state-and-assets) preserve their paired cells, orientation, manual request, physical latch and last signal using the existing machine record. Loading validates the footprint and state. Older pre-door fingerprints remain acceptable only when all earlier content definitions still match; the existing pre-crank compatibility remains supported.
