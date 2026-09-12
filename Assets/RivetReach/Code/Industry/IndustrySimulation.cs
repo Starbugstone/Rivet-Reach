@@ -40,19 +40,6 @@ namespace RivetReach
         public void Rotate(MachineState m){m.Rotation=(m.Rotation+1)%4;Multiblocks.Changed(m.Position);Invalidate();}
         public void Activate(MachineState m)
         {if(m.Definition.Id==IndustryId.Lever)m.Source=!m.Source;else if(m.Definition.Id==IndustryId.Button){m.Source=true;m.PulseTicks=20;}signalsDirty=true;Revision++;}
-        public void ToggleDoor(MachineState m)
-        {
-            if(m==null||m.Definition.Id!=IndustryId.WoodenDoor||At(m.Position)!=m||!world.Ready(m.Position)||!world.Ready(m.Position.Offset(0,1,0)))return;
-            m.Source=m.WorkInput==0;ApplyDoor(m);Revision++;
-        }
-        void ApplyDoor(MachineState m)
-        {
-            // Source is the requested opening; WorkInput stores the physical latch independently
-            // of transient Running/Dormant status. Both fields already persist in machine saves.
-            if(m.Source)m.WorkInput=1;
-            else if(!world.PlayerInside(m.Position)&&!world.PlayerInside(m.Position.Offset(0,1,0)))m.WorkInput=0;
-            m.Status=m.WorkInput==1?MachineStatus.Running:MachineStatus.Ready;
-        }
         public const int CrankTicks=10,CrankWatts=100;
         // One paid stroke at a time; the fixed simulation clock also bounds rapid clicks.
         public bool TryCrank(MachineState m)
@@ -67,7 +54,7 @@ namespace RivetReach
             {
                 rebuild?.Dispose();dirty=false;eligible.Clear();devices.Clear();
                 foreach(var m in machines.Values)
-                {m.Eligible=world.Ready(m.Position)&&(m.Definition.Id!=IndustryId.WoodenDoor||world.Ready(m.Position.Offset(0,1,0)));m.ReceivedWatts=m.RequestedWatts=m.SupplyWatts=0;m.Signal=false;m.SignalAttached=false;m.FluidConflict=false;if(m.Eligible)eligible.Add(m);else m.Status=MachineStatus.Dormant;}
+                {m.Eligible=world.Ready(m.Position);m.ReceivedWatts=m.RequestedWatts=m.SupplyWatts=0;m.Signal=false;m.SignalAttached=false;m.FluidConflict=false;if(m.Eligible)eligible.Add(m);else m.Status=MachineStatus.Dormant;}
                 eligible.Sort((a,b)=>Compare(a.Position,b.Position));foreach(var m in eligible)if(!IndustryId.Route(m.Definition.Id))devices.Add(m);rebuild=Rebuild().GetEnumerator();TopologyRebuilds++;
             }
             if(rebuild!=null)
@@ -169,12 +156,6 @@ namespace RivetReach
         void Advance(MachineState m)
         {
             byte id=m.Definition.Id;
-            if(id==IndustryId.WoodenDoor)
-            {
-                // Signal edges set the requested position; manual use remains available between edges.
-                if(m.Signal!=m.NextSource){m.Source=m.Signal;m.NextSource=m.Signal;}
-                ApplyDoor(m);return;
-            }
             if(id==IndustryId.Door){m.Status=m.Signal&&!world.PlayerInside(m.Position)?MachineStatus.Running:world.PlayerInside(m.Position)?m.Status:MachineStatus.Ready;return;}
             if(id==IndustryId.Indicator||id==IndustryId.Relay||id==IndustryId.Lever||id==IndustryId.Button||id==IndustryId.Sensor)
             {m.Status=(id==IndustryId.Lever||id==IndustryId.Button||id==IndustryId.Sensor?m.Source:m.Signal)?MachineStatus.Running:MachineStatus.Ready;return;}

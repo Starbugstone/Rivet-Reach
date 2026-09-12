@@ -1,0 +1,1 @@
+PASS: apple import 782 triangles, one mesh/material, bounds Center: (0.00, 0.07, 0.00), Extents: (0.44, 0.43, 0.44); 100000 leaf rolls: 4949 saplings, 2062 apples, 104 both; food consumption and sapling meshing.

@@ -23,7 +23,7 @@ namespace RivetReach
     // Idle furnaces never enter the active set; crops schedule their next stage, not frame updates.
     public sealed partial class WorldSurvival
     {
-        public const int TicksPerSecond=20,CropStageTicks=1200;
+        public const int TicksPerSecond=20,CropStageTicks=1200,SaplingGrowthTicks=3600;
         readonly Expedition game;
         readonly Dictionary<BlockPos,StationState> stations=new Dictionary<BlockPos,StationState>();
         readonly HashSet<BlockPos> active=new HashSet<BlockPos>();
@@ -72,11 +72,11 @@ namespace RivetReach
                 stations.Remove(p);active.Remove(p);DropContents(p,station);
             }
             if(BlockId.Station(id)&&!stations.ContainsKey(p))stations.Add(p,new StationState(id,game.Recipes,game.Processing,item=>game.Registry.Get(item).stackLimit));
-            if(BlockId.Crop(id)&&id<BlockId.MaturePotatoPlant)
-            {if(!scheduled.ContainsKey(p))Schedule(p,Tick+CropStageTicks);}
+            if(BlockId.GrowingPlant(id))
+            {if(!scheduled.ContainsKey(p))Schedule(p,Tick+(id==BlockId.Sapling?SaplingGrowthTicks:CropStageTicks));}
             else if(scheduled.TryGetValue(p,out var old)){crops.Remove(old);scheduled.Remove(p);}
             var above=p.Offset(0,1,0);byte plant=game.World.Get(above);
-            if(id!=BlockId.Farmland&&BlockId.Crop(plant))game.World.Uproot(above,plant);
+            if(id!=BlockId.Farmland&&BlockId.Crop(plant)||plant==BlockId.Sapling&&!BlockId.SaplingSoil(id))game.World.Uproot(above,plant);
         }
         public int Advance(float seconds)
         {
@@ -100,8 +100,10 @@ namespace RivetReach
             {
                 var job=crops.Min;if(job.Due>Tick)break;crops.Remove(job);scheduled.Remove(job.Position);
                 byte id=game.World.Get(job.Position);
-                if(!BlockId.Crop(id)||id==BlockId.MaturePotatoPlant)continue;
+                if(!BlockId.GrowingPlant(id))continue;
                 if(!game.World.Ready(job.Position)||game.World.SkyLight(job.Position)<9)Schedule(job.Position,Tick+20);
+                else if(id==BlockId.Sapling)
+                {if(!game.World.GrowSapling(job.Position))Schedule(job.Position,Tick+TicksPerSecond*5);}
                 else game.World.Grow(job.Position,id);
             }
         }

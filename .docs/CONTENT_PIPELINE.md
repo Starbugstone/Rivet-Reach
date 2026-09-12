@@ -198,3 +198,10 @@ An item's inventory, hotbar and recipe-browser icon must depict the same object 
 Tool icons and torch/bucket icons are baked from the imported held models with their palette and registered tint, using deterministic studio shading for readability. Run **Rivet Reach → Bake held item icons** (`ItemAppearanceBuild.Bake`) after changing those inputs; the resulting transparent PNGs live in `Resources/ItemIcons`. The shared tool path/tint contract drives the held view and the baker. Missing baked icons fail explicitly. Remaining flat held cards borrow their exact UI texture without taking ownership of it. Raw resources that still use the terrain-block display receive matching block-shaped icons; the collected iron/copper ore art contract above remains authoritative.
 
 [Item appearance verification](verification/ITEM_APPEARANCE_RESULTS.md) records the native-player catalog audit, visual comparison sheets and remaining limits. Refresh the [wiki export](WIKI_AUTHORING.md#refresh-the-reference) whenever icon assets change.
+
+
+## Apple and sapling presentation — 2026-09-12
+
+`Tools/create_apple_asset.py` authors the original apple in `ArtSource/Orchard/Apple.blend`, exports `Resources/Orchard/Apple.fbx`, and renders its inventory icon from that mesh. A red lobed fruit body, recessed stem well, curved woody stem and folded green leaf distinguish it from potatoes. The import has one mesh/material and 782 triangles; its UVs avoid held-tool metallic regions. `FoodVisuals` selects the orchard palette for apples while retaining the potato family palette. `OrchardBuild` validates imported geometry, bounds, UVs, normals and material assignment.
+
+Saplings extend the existing code-authored plant mesh in `ChunkMesher`: leafy shoots use the leaf tile, the upright stem uses bark, and the entire plant is part of the chunk mesh. Held/dropped saplings reuse that geometry; the sidebar uses an original matching stem-and-leaf silhouette from `SurvivalItemArt`. No per-plant scene object is required. [Orchard verification](verification/ORCHARD_RESULTS.md) records source and in-game review.

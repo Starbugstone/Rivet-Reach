@@ -77,6 +77,7 @@ namespace RivetReach
             int h=World.Generator.Height(0,0);Player.transform.position=new Vector3(.5f,h+1.01f,.5f);World.Observer=Player.transform;
             var drops=new GameObject("World item stacks");drops.transform.SetParent(transform,false);Items=drops.AddComponent<DroppedItems>();Items.Initialize(this);
             World.BlockMined+=SpawnMinedDrop;
+            World.GrowthObstructed=cell=>World.OccupiesCell(Player.transform.position,.6f,Player.Height,cell)||(Mobs?.Occupies(cell)??false);
             World.OriginShifted+=Sound.ShiftOrigin;
             Survival=new WorldSurvival(this);Industry=new WorldIndustry(this);root.AddComponent<IndustryPresentation>().Initialize(this);root.AddComponent<StarterStationPresentation>().Initialize(this);root.AddComponent<MultiblockPresentation>().Initialize(this);
             Industry.Simulation.Multiblocks.WorldId=Guid.ParseExact(WorldId,"N");
@@ -141,7 +142,7 @@ namespace RivetReach
             // Do not reuse a UI-closing press to immediately reopen the targeted station.
             if(Mode!=ScreenMode.Play||Health.Dead||modeChangedFrame==Time.frameCount)return false;
             var eye=Player.Camera.transform;
-            return World.Raycast(eye.position,eye.forward,5,out var position,out var id)&&(IndustryId.Placed(id)||id==IndustryId.DoorUpper?TryOpenMachine(position):BlockId.Station(id)&&TryOpenStation(position));
+            return World.Raycast(eye.position,eye.forward,5,out var position,out var id)&&(IndustryId.Placed(id)?TryOpenMachine(position):BlockId.Station(id)&&TryOpenStation(position));
         }
         public bool TryOpenStation(BlockPos position)
         {
@@ -193,13 +194,8 @@ namespace RivetReach
             reason="Waiting for nearby terrain";if(!World.Ready(cell))return false;
             reason="This cell is occupied";if(World.Get(cell)!=0&&!Fluids.IsFluid(World.Get(cell)))return false;
             if(selected.Id==IndustryId.SignalWire&&(!World.Ready(cell.Offset(0,-1,0))||!BlockId.Solid(World.Get(cell.Offset(0,-1,0))))){reason="Signal Wire needs a solid floor";return false;}
-            if(selected.Id==IndustryId.WoodenDoor)
-            {
-                reason="Doors need two empty cells above a solid floor";if(!World.CanPlaceDoor(cell))return false;
-                var upper=cell.Offset(0,1,0);reason=PlayerOverlapReason;
-                if(World.OccupiesCell(Player.transform.position,.6f,Player.Height,upper))return false;
-                reason="Cannot place inside a creature";if(Mobs!=null&&Mobs.Occupies(upper))return false;
-            }
+            if(selected.Id==BlockId.Sapling)
+            {bool valid=World.CanPlantSapling(cell);reason=valid?"Plant Sapling":"Saplings need dry grass or dirt";return valid;}
             if(selected.Id==BlockId.Torch)
             {bool dry=World.Get(cell)==BlockId.Air;reason=dry?"Place Torch":"Torches need a dry floor or wall face";return dry;}
             // Use the movement collider's exact occupied-cell rule, including its skin.

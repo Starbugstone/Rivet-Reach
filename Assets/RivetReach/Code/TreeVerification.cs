@@ -10,6 +10,7 @@ namespace RivetReach
         IEnumerator ReviewTrees()
         {
             var world=game.World;var player=game.Player;sampling=true;
+            int spawnedLogs=0;world.BlockMined+=(p,id)=>{if(id==BlockId.Log)spawnedLogs++;};
             // Explicit presentation fixtures; ordinary survival sessions start empty-handed.
             game.Inventory.Add(BlockId.StarterAxe,1,11,12);game.Inventory.Add(BlockId.StarterDagger,1,9,10);game.Inventory.Add(BlockId.StarterPickaxe,1,10,11);
             Check(game.Inventory.Slots[11].Id==BlockId.StarterAxe&&game.Inventory.Slots[11].Count==1,"Tree review supplies one explicit axe fixture in hotbar slot 12");
@@ -52,13 +53,13 @@ namespace RivetReach
             for(int i=0;i<100;i++){player.Arms.Animate(0,false,0,true,false,false,Vector2.zero,0);player.Arms.FitFirstPersonFov(player.Camera.fieldOfView);player.HeldBlock.FrameFirstPerson();yield return null;}
             Check(player.HeldBlock.DesiredGrip==GripPose.Tool,"Selected gameplay axe uses the authored tool grip");
             yield return Capture("trees-before-cut");
-            int before=game.Items.TotalSpawned;
+            int before=spawnedLogs;
             var cutClock=System.Diagnostics.Stopwatch.StartNew();
             Check(world.Mine(natural.Root,BlockId.Log,ToolCapability.Axe),"Axe can cut generated tree at its base");
             report.treeCutMs=cutClock.Elapsed.TotalMilliseconds;
             yield return new WaitForSecondsRealtime(4);
             Check(Enumerable.Range(0,natural.Logs).All(y=>world.Get(natural.Root.Offset(0,y,0))==0),"Axe removes every generated trunk log");
-            Check(game.Items.TotalSpawned==before+natural.Logs,"Generated tree creates exactly one physical item per log");
+            Check(spawnedLogs==before+natural.Logs,"Generated tree creates exactly one physical item per log");
             Check(world.Get(natural.Root.Offset(0,natural.Logs,0))==0,"Unsupported natural crown decays after felling");
             yield return Capture("trees-after-cut");
             // High fixture crosses both horizontal and vertical chunk seams.
@@ -70,12 +71,12 @@ namespace RivetReach
                 var branch=cut.Offset(1,2,0);if(world.Get(branch)!=0)world.Remove(branch,world.Get(branch));Check(world.Place(branch,BlockId.Log),"Connected branch crosses x seam");
                 var separated=cut.Offset(3,2,0);if(world.Get(separated)!=0)world.Remove(separated,world.Get(separated));world.Place(separated,BlockId.Log);
                 var bridge=cut.Offset(2,2,0);if(world.Get(bridge)!=0)world.Remove(bridge,world.Get(bridge));world.Place(bridge,BlockId.Leaves);
-                before=game.Items.TotalSpawned;Check(world.Mine(cut,BlockId.Log,tool),"Mine command accepts "+tool);
+                before=spawnedLogs;Check(world.Mine(cut,BlockId.Log,tool),"Mine command accepts "+tool);
                 yield return new WaitForSecondsRealtime(.5f);
                 bool axe=false; // Every fixture log here was placed by the player.
                 Check(world.Get(cut.Offset(0,1,0))==(axe?0:BlockId.Log)&&world.Get(branch)==(axe?0:BlockId.Log),"Player-placed upper/branch logs survive every tool type: "+tool);
                 Check(world.Get(cut.Offset(0,-1,0))==BlockId.Log&&world.Get(separated)==BlockId.Log,"Stump and leaf-connected neighbouring logs survive: "+tool);
-                Check(game.Items.TotalSpawned==before+(axe?5:1),"No lost or duplicated log drops: "+tool);
+                Check(spawnedLogs==before+(axe?5:1),"No lost or duplicated log drops: "+tool);
                 Check(!world.Mine(cut,BlockId.Log,tool),"Repeated stale mining command produces no drops");
             }
             game.Selected=11;int axeCount=game.Inventory.Total(BlockId.StarterAxe);
@@ -90,11 +91,11 @@ namespace RivetReach
             player.Yaw=90;player.Pitch=3;player.enabled=true;game.Selected=11;
             yield return new WaitForSecondsRealtime(.4f);
             Check(player.HasTarget&&player.Target.Equals(cut),"Player aims at the fixture's middle log");
-            before=game.Items.TotalSpawned;player.VerificationMining=true;
+            before=spawnedLogs;player.VerificationMining=true;
             float until=Time.realtimeSinceStartup+4;
             while(world.Get(cut)!=0&&Time.realtimeSinceStartup<until)yield return null;
             player.VerificationMining=false;yield return new WaitForSecondsRealtime(.7f);
-            Check(world.Get(cut)==0&&world.Get(cut.Offset(0,3,0))==BlockId.Log&&game.Items.TotalSpawned==before+1,"Holding Mine with the selected axe removes only the targeted player-placed base block");
+            Check(world.Get(cut)==0&&world.Get(cut.Offset(0,3,0))==BlockId.Log&&spawnedLogs==before+1,"Holding Mine with the selected axe removes only the targeted player-placed base block");
             Check(player.HeldBlock.Visible&&player.HeldBlock.ItemId==BlockId.StarterAxe,"Axe is visibly held after grip transition");
             yield return Capture("axe-held-after-mining");
             float originalFov=player.Camera.fieldOfView;bool originalFemale=player.Female;int originalSkin=player.Skin;
@@ -135,23 +136,23 @@ namespace RivetReach
             {
                 var tree=naturalTests[treeIndex++];var middle=tree.Root.Offset(0,1,0);var baseLog=middle.Offset(1,0,0);
                 if(world.Get(baseLog)!=0)world.Remove(baseLog,world.Get(baseLog));world.Place(baseLog,BlockId.Log);
-                before=game.Items.TotalSpawned;Check(world.Mine(middle,BlockId.Log,tool),"Middle cut of a generated tree accepts "+tool);
+                before=spawnedLogs;Check(world.Mine(middle,BlockId.Log,tool),"Middle cut of a generated tree accepts "+tool);
                 yield return new WaitForSecondsRealtime(.5f);bool axeTool=(tool&ToolCapability.Axe)!=0;
                 Check(world.Get(tree.Root)==BlockId.Log&&world.Get(baseLog)==BlockId.Log,"Generated stump and adjoining player construction remain intact: "+tool);
-                Check(world.Get(tree.Root.Offset(0,tree.Logs-1,0))==(axeTool?0:BlockId.Log)&&game.Items.TotalSpawned==before+(axeTool?tree.Logs-1:1),"Only axe capability fells generated logs above the cut: "+tool);
+                Check(world.Get(tree.Root.Offset(0,tree.Logs-1,0))==(axeTool?0:BlockId.Log)&&spawnedLogs==before+(axeTool?tree.Logs-1:1),"Only axe capability fells generated logs above the cut: "+tool);
             }
-            var replacedTree=naturalTests[5];before=game.Items.TotalSpawned;
+            var replacedTree=naturalTests[5];before=spawnedLogs;
             Check(world.Mine(replacedTree.Root,BlockId.Log,ToolCapability.Axe),"Generated cut queues upper logs");
             var replacedLog=replacedTree.Root.Offset(0,1,0);world.Remove(replacedLog,BlockId.Log);world.Place(replacedLog,BlockId.Log);
             yield return new WaitForSecondsRealtime(.5f);
-            Check(world.Get(replacedLog)==BlockId.Log&&world.Get(replacedLog.Offset(0,1,0))==BlockId.Log&&game.Items.TotalSpawned==before+1,"Queued felling rechecks origin and stops at a replaced player log");
-            var unloadedTree=naturalTests[6];game.SetMode(ScreenMode.Pause);before=game.Items.TotalSpawned;
+            Check(world.Get(replacedLog)==BlockId.Log&&world.Get(replacedLog.Offset(0,1,0))==BlockId.Log&&spawnedLogs==before+1,"Queued felling rechecks origin and stops at a replaced player log");
+            var unloadedTree=naturalTests[6];game.SetMode(ScreenMode.Pause);before=spawnedLogs;
             Check(world.Mine(unloadedTree.Root,BlockId.Log,ToolCapability.Axe),"Generated felling operation is queued before unloading");
             var returnPoint=WorldPoint.FromLocal(player.transform.position,world.Origin);
             player.transform.position+=new Vector3(1024,0,0);yield return Settle();
             Check(!world.Ready(unloadedTree.Root)&&world.Trees.PendingFells>0,"Generated log queue persists while its chunks are unloaded and paused");
             game.SetMode(ScreenMode.Play);yield return new WaitForSecondsRealtime(.7f);
-            Check(world.Get(unloadedTree.Root.Offset(0,unloadedTree.Logs-1,0))==0&&game.Items.TotalSpawned==before+unloadedTree.Logs,"Generated upper logs fell once even after their chunks unload");
+            Check(world.Get(unloadedTree.Root.Offset(0,unloadedTree.Logs-1,0))==0&&spawnedLogs==before+unloadedTree.Logs,"Generated upper logs fell once even after their chunks unload");
             player.transform.position=returnPoint.Local(world.Origin);yield return Settle();
             Check(world.Get(unloadedTree.Root)==0&&world.Get(unloadedTree.Root.Offset(0,unloadedTree.Logs-1,0))==0,"Generated felling edits survive reloading the tree chunks");
             var saved=WorldPoint.FromLocal(player.transform.position,world.Origin);

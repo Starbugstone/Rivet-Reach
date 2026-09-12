@@ -23,7 +23,7 @@ namespace RivetReach
     {
         public readonly ItemRegistry Registry;
         public readonly int Format;
-        public SaveReader(Stream stream,ItemRegistry registry,int format=2) : base(stream,Encoding.UTF8,true){Registry=registry;Format=format;}
+        public SaveReader(Stream stream,ItemRegistry registry,int format=3) : base(stream,Encoding.UTF8,true){Registry=registry;Format=format;}
         public static void Require(bool ok,string message){if(!ok)throw new InvalidDataException(message);}
         public int Count(int max=2000000){int n=ReadInt32();Require(n>=0&&n<=max,"Invalid save collection size.");return n;}
         public int Int(int min,int max){int n=ReadInt32();Require(n>=min&&n<=max,"Invalid saved integer.");return n;}
@@ -38,7 +38,7 @@ namespace RivetReach
         public Vector3 Vector(float min=-1e12f,float max=1e12f)=>new Vector3(Float(min,max),Float(min,max),Float(min,max));
         public WorldPoint Point()=>new WorldPoint(Pos(),Vector(0,.99999999f));
         public ItemStack Stack()
-        {byte id=ReadByte();int count=ReadInt32();Require(id==0?count==0:id!=IndustryId.DoorUpper&&count>0&&count<=Registry.Get(id).stackLimit,"Invalid saved item stack.");return new ItemStack(id,count);}
+        {byte id=ReadByte();int count=ReadInt32();Require(id==0?count==0:count>0&&count<=Registry.Get(id).stackLimit,"Invalid saved item stack.");return new ItemStack(id,count);}
         public void Slots(ItemContainer container)
         {Require(Count(256)==container.Count,"Saved container size differs.");for(int i=0;i<container.Count;i++){var s=Stack();if(!s.Empty)Require(container.Add(s.Id,s.Count,i,i+1)==0,"Saved container overflow.");}}
         public List<BlockPos> Positions(){int n=Count();var list=new List<BlockPos>(n);for(int i=0;i<n;i++)list.Add(Pos());return list;}
@@ -53,27 +53,26 @@ namespace RivetReach
     }
     public sealed class SaveStore
     {
-        const int Format=2,MaxBytes=256*1024*1024;
+        const int Format=3,MaxBytes=256*1024*1024;
         public string DirectoryPath {get;}
         readonly ItemRegistry registry;
-        readonly string content;
-        readonly HashSet<string> compatibleContent=new HashSet<string>();
+        readonly string content,preOrchardContent,preCrankContent;
         public string ScanWarning {get;private set;}
         public SaveStore(string path,ItemRegistry registry)
         {
             DirectoryPath=path;this.registry=registry;
-            // Only the additive door and hand-crank extensions may be absent; all older definitions must match.
+            // Accept the additive hand-crank extension only; every pre-existing definition must still match.
             var processing=ProcessingCatalogAsset.Load();
-            string Fingerprint(int legacy)
+            string Fingerprint(bool legacy,bool orchard=false)
             {
-                string definitions=string.Join("\n",registry.items.Where(i=>((legacy&2)==0||i.stableId!="rivet:hand_crank")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.runtimeId).Select(i=>JsonUtility.ToJson(i)))
+                string definitions=string.Join("\n",registry.items.Where(i=>(!legacy||i.stableId!="rivet:hand_crank")&&(orchard||i.stableId!="rivet:sapling"&&i.stableId!="rivet:apple")).OrderBy(i=>i.runtimeId).Select(i=>JsonUtility.ToJson(i)))
                     +string.Join("\n",processing.recipes.OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
                     +string.Join("\n",processing.fuels.OrderBy(i=>i.itemId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
-                    +string.Join("\n",RecipeCatalogAsset.Load().recipes.Where(i=>((legacy&2)==0||i.stableId!="rivet:industry_170")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
+                    +string.Join("\n",RecipeCatalogAsset.Load().recipes.Where(i=>!legacy||i.stableId!="rivet:industry_170").OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
                     +string.Join("\n",Resources.LoadAll<MobDefinition>("Mobs/Definitions").OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)));
                 return Convert.ToBase64String(Hash(Encoding.UTF8.GetBytes(definitions)));
             }
-            content=Fingerprint(0);for(int legacy=0;legacy<4;legacy++)compatibleContent.Add(Fingerprint(legacy));
+            content=Fingerprint(false,true);preOrchardContent=Fingerprint(false);preCrankContent=Fingerprint(true);
         }
         static byte[] Hash(byte[] bytes){using var sha=SHA256.Create();return sha.ComputeHash(bytes);}
         string SlotPath(string id){SaveReader.Require(Guid.TryParseExact(id,"N",out _),"Invalid save slot.");return System.IO.Path.Combine(DirectoryPath,id+".rrsave");}
@@ -101,7 +100,7 @@ namespace RivetReach
                 SaveReader.Require(Guid.TryParseExact(entry.Id,"N",out _)&&Guid.TryParseExact(entry.WorldId,"N",out _)&&!string.IsNullOrWhiteSpace(entry.Name),"Invalid save identity.");
                 SaveReader.Require(r.Text()==TerrainGenerator.Version,"This save requires a different terrain generator.");
                 string savedContent=r.Text();
-                SaveReader.Require(compatibleContent.Contains(savedContent),"This save requires different content definitions; migration is not available.");
+                SaveReader.Require(format==3?savedContent==content:savedContent==preOrchardContent||savedContent==preCrankContent,"This save requires different content definitions; migration is not available.");
                 return r;
             }
             catch{r.Dispose();throw;}

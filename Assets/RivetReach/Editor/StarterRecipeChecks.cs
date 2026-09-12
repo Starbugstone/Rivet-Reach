@@ -51,7 +51,6 @@ namespace RivetReach.Editor
             Recipe(BlockId.Furnace,1,BlockId.Cobblestone,"MMM/M.M/MMM");
             Recipe(Fluids.EmptyBucket,1,BlockId.IronIngot,"M.M/.M.");
             Recipe(BlockId.Chest,1,BlockId.Planks,"MMM/M.M/MMM");
-            Recipe(IndustryId.WoodenDoor,3,BlockId.Planks,"MM/MM/MM");
             byte[] materials={BlockId.Planks,BlockId.Cobblestone,BlockId.CopperIngot,BlockId.IronIngot,BlockId.Diamond};
             for(int tier=0;tier<materials.Length;tier++)
             {
@@ -75,7 +74,7 @@ namespace RivetReach.Editor
                 byte block=blocks[i];Recipe(block,1,stored[i],"MMM/MMM/MMM");
                 Recipe(stored[i],9,block,"M",2,shapeless:true);
             }
-            Check(verified.Count==56&&registry.Recipes.Where(r=>!r.Id.StartsWith("rivet:industry_")).Count()==56,"The survival subset retains exactly the reviewed 56 recipes");
+            Check(verified.Count==55&&registry.Recipes.Where(r=>!r.Id.StartsWith("rivet:industry_")).Count()==55,"The survival subset retains exactly the reviewed 55 recipes");
             var invalid=new CraftingSession(registry,2,Limit);
             invalid.Grid.Add(BlockId.Planks,1,0,1);invalid.Grid.Add(BlockId.Planks,1,1,2);
             Check(invalid.Preview==null,"Horizontal planks cannot substitute for vertical sticks");
@@ -85,7 +84,7 @@ namespace RivetReach.Editor
             invalid.Grid.Take(0,1);invalid.Grid.Take(1,1);invalid.Grid.Take(2,1);invalid.Grid.Take(3,1);
             invalid.Grid.Add(BlockId.Stone,1,0,1);invalid.Grid.Add(BlockId.Stone,1,1,2);invalid.Grid.Add(BlockId.Log,1,3,4);
             Check(invalid.Preview==null,"Obsolete stone/log starter axe is unavailable");
-            string report=$"PASS: {checks} independent recipe acceptance checks; all 56 active layouts and output quantities.\nDots are empty cells; slashes separate rows.\n"+string.Join("\n",lines)+"\n";
+            string report=$"PASS: {checks} independent recipe acceptance checks; all 55 active layouts and output quantities.\nDots are empty cells; slashes separate rows.\n"+string.Join("\n",lines)+"\n";
             File.WriteAllText("Logs/starter-recipe-checks.txt",report);Debug.Log(report);return checks;
         }
     }

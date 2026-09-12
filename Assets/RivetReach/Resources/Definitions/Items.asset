@@ -1933,12 +1933,12 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
-  - runtimeId: 171
-    stableId: rivet:wooden_door
-    displayName: Wooden Door
+  - runtimeId: 97
+    stableId: rivet:sapling
+    displayName: Sapling
     stackLimit: 64
-    fistSeconds: 1.5
-    colour: {r: 0.58, g: 0.34, b: 0.15, a: 1}
+    fistSeconds: 0.2
+    colour: {r: 0.28, g: 0.61, b: 0.2, a: 1}
     fistDropId: 0
     toolCapabilities: 0
     tier: 0
@@ -1947,4 +1947,19 @@ MonoBehaviour:
     armorSlot: 0
     armorPoints: 0
     attackDamage: 1
-    buoyant: 0
+    buoyant: 1
+  - runtimeId: 98
+    stableId: rivet:apple
+    displayName: Apple
+    stackLimit: 64
+    fistSeconds: 0.2
+    colour: {r: 0.8, g: 0.12, b: 0.065, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 4
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 1

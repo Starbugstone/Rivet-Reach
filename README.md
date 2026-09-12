@@ -18,7 +18,7 @@ The long-term vision combines:
 
 **Download:** [Rivet Reach 0.0.1 Alpha for Windows x64](https://github.com/Starbugstone/Rivet-Reach/releases/tag/v0.0.1). Extract the complete Windows ZIP and run `RivetReach.exe`; no Unity installation is needed. **Save Game, Load Game and Continue Latest Save are included.** See the [alpha notes](.docs/releases/0.0.1.md).
 
-The current Unity **6000.4.4f1 / URP 17.4.0** review build includes FPS movement, block mining/placement, inventory, **93 modular recipes**, personal 2×2 and workbench 3×3 crafting, five tool tiers, craftable light-emitting torches, furnaces, chests, potato farming, hunger, hearts and armor. It also includes seven biomes including seas and rivers, bucket water flow and caves, depth-banded ores, protected bedrock, generated trees, male/female appearances with two skins, a moving day/night sky, and native beetle/prowler enemies.
+The current Unity **6000.4.4f1 / URP 17.4.0** review build includes FPS movement, block mining/placement, inventory, **92 modular recipes**, personal 2×2 and workbench 3×3 crafting, five tool tiers, craftable light-emitting torches, furnaces, chests, potato farming, hunger, hearts and armor. It also includes seven biomes including seas and rivers, bucket water flow and caves, depth-banded ores, protected bedrock, generated trees, male/female appearances with two skins, a moving day/night sky, and native beetle/prowler enemies.
 
 For testing, the Escape menu now offers [Creative mode](.docs/GAMEPLAY.md#creative-testing-mode): double-tap Space flight, invincibility and a searchable catalog with sidebar dragging into inventory. The local Creative review build is `Builds/Creative/RivetReach.exe`.
 
@@ -35,6 +35,8 @@ For early electricity, craft a [Hand Crank](.docs/HAND_CRANK.md) at a workbench,
 The [avatar rework](.docs/AVATAR_REWORK.md) updates both explorers, fitted fingerless gloves, tool grips and animations, and held equipment. Try `Builds/AvatarRework/RivetReach.exe`; [source and Unity evidence](.docs/verification/AVATAR_REWORK_RESULTS.md) records the checks and remaining visual review.
 
 The chest, workbench and furnace now have [detailed station models](.docs/verification/STARTER_STATION_RESULTS.md) in the Machinist’s Bench material family, with matching held items and icons. The focused review build is `Builds/StarterStations/RivetReach.exe`.
+
+Natural leaves now occasionally drop **saplings and apples**. Replant saplings on grass or dirt to grow trees; hold Use to eat apples. Try `Builds/Orchard/RivetReach.exe`; [rules](.docs/GAMEPLAY.md#saplings-and-apples) and [verification](.docs/verification/ORCHARD_RESULTS.md) cover growth, drops and save compatibility.
 
 ## License and ownership
 
@@ -66,5 +68,3 @@ Project specifications live in `.docs/`. Contributor and agent workflow is recor
 **Decision status:** agreed direction describes existing project intent; working decisions resolve design gaps under the user's delegated request; proposals remain subject to brainstorming and future tests; open questions are not settled requirements. Numerical targets are provisional until measured.
 
 Player guides: [GitHub wiki](https://github.com/Starbugstone/Rivet-Reach/wiki) · [repository copy](.docs/wiki/Home.md). Browse the [visual item catalog](.docs/wiki/Items.md) for individual item explanations, linked icons and crafting/processing recipes, alongside the tank, pump, battery and connection guides. [Wiki authoring and publishing](.docs/WIKI_AUTHORING.md) explains how to maintain and deploy the local copy.
-
-Craft [wooden doors](.docs/DOORS.md) from six planks at a workbench. Right-click either half to open/close, or connect Blue Signal at the base. The focused review player is `Builds/Doors/RivetReach.exe`; see [door verification](.docs/verification/DOOR_RESULTS.md).

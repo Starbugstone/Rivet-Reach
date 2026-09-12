@@ -114,7 +114,7 @@ namespace RivetReach.Editor
                 int triangles=0;var bounds=new Bounds();bool first=true;
                 foreach(var mesh in prefab.GetComponentsInChildren<MeshFilter>())
                 {triangles+=mesh.sharedMesh.triangles.Length/3;foreach(var v in mesh.sharedMesh.vertices){var p=mesh.transform.TransformPoint(v);if(first){bounds=new Bounds(p,Vector3.zero);first=false;}else bounds.Encapsulate(p);}}
-                Check(triangles>0&&bounds.size.x>.1f&&bounds.size.y>.02f&&bounds.min.x>-.08f&&bounds.min.z>-.08f&&bounds.max.x<1.08f&&bounds.max.z<1.08f&&bounds.size.x<1.15f&&bounds.size.y<(d.Id==IndustryId.WoodenDoor?2.15f:1.15f)&&bounds.size.z<1.15f,"Imported geometry fits declared footprint: "+d.Name);
+                Check(triangles>0&&bounds.size.x>.1f&&bounds.size.y>.02f&&bounds.min.x>-.08f&&bounds.min.z>-.08f&&bounds.max.x<1.08f&&bounds.max.z<1.08f&&bounds.size.x<1.15f&&bounds.size.y<1.15f&&bounds.size.z<1.15f,"Imported geometry fits one-cell budget: "+d.Name);
                 imported.AppendLine($"{d.Name}: {triangles} triangles; {prefab.GetComponentsInChildren<Renderer>().Length} renderers; bounds {bounds}; root scale {prefab.transform.localScale}, rotation {prefab.transform.localEulerAngles}; first child {prefab.transform.GetChild(0).localPosition}, scale {prefab.transform.GetChild(0).localScale}");
             }
             File.WriteAllText("Logs/industry-models.txt",imported.ToString());report.AppendLine("Assertions: "+assertions);File.WriteAllText("Logs/industry-checks.txt",report.ToString());

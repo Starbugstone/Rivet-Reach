@@ -23,7 +23,7 @@ namespace RivetReach
         static readonly bool[] terrainSolid=BuildSolidTable();
         static bool[] BuildSolidTable()
         {
-            var table=new bool[256];for(int i=0;i<table.Length;i++)table[i]=BlockId.Solid((byte)i)&&!IndustryId.Placed((byte)i)&&i!=IndustryId.DoorUpper&&!StarterStationVisuals.UsesModel((byte)i);return table;
+            var table=new bool[256];for(int i=0;i<table.Length;i++)table[i]=BlockId.Solid((byte)i)&&!IndustryId.Placed((byte)i)&&!StarterStationVisuals.UsesModel((byte)i);return table;
         }
         public static int Index(int x,int y,int z) => x+1+34*(y+1+34*(z+1));
         public static ChunkBuild Build(ChunkPos pos,int revision,byte[] cells)
@@ -41,7 +41,7 @@ namespace RivetReach
                     {
                         int address=Index(0,0,0)+layer*stride[axis]+i*stride[u]+j*stride[v];
                         byte a=cells[address],b=cells[address+sign*stride[axis]];
-                        if(axis==0&&sign==-1&&BlockId.Crop(a))plants.Add((new Vector3(layer,i,j),a));
+                        if(axis==0&&sign==-1&&(BlockId.Crop(a)||a==BlockId.Sapling))plants.Add((new Vector3(layer,i,j),a));
                         mask[i+j*32]=terrainSolid[a]&&!terrainSolid[b]?a:(byte)0;
                     }
                     for(int j=0;j<32;j++)for(int i=0;i<32;)
@@ -72,20 +72,20 @@ namespace RivetReach
             }
             foreach(var plant in plants)
             {
-                float h=.22f+(plant.id-BlockId.PotatoPlant)*.16f;var centre=plant.position+new Vector3(.5f,0,.5f);
-                void Leaf(Vector3 a,Vector3 b,Vector3 c,Vector3 d)
+                float h=plant.id==BlockId.Sapling?.8f:.22f+(plant.id-BlockId.PotatoPlant)*.16f;var centre=plant.position+new Vector3(.5f,0,.5f);
+                void Leaf(Vector3 a,Vector3 b,Vector3 c,Vector3 d,bool stem=false)
                 {
                     Vector3 normal=Vector3.Cross(b-a,c-a).normalized;
                     for(int side=0;side<2;side++)
                     {
                         int start=vertices.Count;vertices.Add(a);vertices.Add(b);vertices.Add(c);vertices.Add(d);
                         uv.Add(Vector2.zero);uv.Add(Vector2.right);uv.Add(Vector2.one);uv.Add(Vector2.up);
-                        for(int k=0;k<4;k++){normals.Add(side==0?normal:-normal);tiles.Add(new Vector2(BlockId.Tile(plant.id,1,1),0));}
+                        for(int k=0;k<4;k++){normals.Add(side==0?normal:-normal);tiles.Add(new Vector2(stem&&plant.id==BlockId.Sapling?4:BlockId.Tile(plant.id,1,1),0));}
                         if(side==0)indices.AddRange(new[]{start,start+1,start+2,start,start+2,start+3});
                         else indices.AddRange(new[]{start,start+2,start+1,start,start+3,start+2});
                     }
                 }
-                Leaf(centre+Vector3.left*.025f,centre+Vector3.right*.025f,centre+new Vector3(.025f,h,0),centre+new Vector3(-.025f,h,0));
+                Leaf(centre+Vector3.left*.025f,centre+Vector3.right*.025f,centre+new Vector3(.025f,h,0),centre+new Vector3(-.025f,h,0),true);
                 for(int leaf=0;leaf<6;leaf++)
                 {
                     float angle=leaf*Mathf.PI/3;var direction=new Vector3(Mathf.Cos(angle),0,Mathf.Sin(angle));var across=new Vector3(-direction.z,0,direction.x);

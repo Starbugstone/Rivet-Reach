@@ -1,0 +1,18 @@
+[
+  {
+    "file": "0279efff2146464e80c04297c33c47a1.rrsave",
+    "name": "Death checkpoint",
+    "schema": 2,
+    "seed": 246813,
+    "generator": "terrain-6-azure",
+    "sha256": "a8dce8317f084dd1695931e8eec3c1bc34a1c7ac6f2273e0594b23dbc5128db2"
+  },
+  {
+    "file": "565d6b19c8a24ba998a1a4ad6f0233ca.rrsave",
+    "name": "Hand crank verification",
+    "schema": 2,
+    "seed": 246813,
+    "generator": "terrain-6-azure",
+    "sha256": "022e51f33d67ac6ba9193ec2d49f7f6e9db7807219c9620370a3306ac4763dbc"
+  }
+]

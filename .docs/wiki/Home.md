@@ -9,7 +9,6 @@ Start here:
 - [Build a multiblock tank](Tanks.md) — exact shopping list, each layer, outward-facing controls, filling and repairs.
 - [Pumps and renewable water](Pumps-and-water.md) — intake height, a 2×2 source pool, and why water can renew without electricity.
 - [Electricity, batteries and battery banks](Electricity-and-batteries.md) — generate power, store surplus, and keep machines running when generation stops.
-- [Wooden doors](Doors.md) — crafting, manual opening and blue cable control.
 - [Blue Signal and separate connections](Blue-Signal.md) — switches, valves, sensors and fitted pipes.
 
 Browse the [item pages](Items.md) for crafting grids, processing recipes and gathering instructions. Every item icon opens its page. In the game, open your inventory, find an item in the right-hand catalog, and inspect its recipe. Industrial assemblies require the **Machinist’s Bench (4×4)**; the browser shows the required station and ingredients.

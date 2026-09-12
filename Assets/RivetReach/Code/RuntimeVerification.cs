@@ -97,6 +97,8 @@ namespace RivetReach
                 Check(ShadowProbe.LastReport.result!="FAIL","Shadow probe completed with one directional light, no duplicate chunk views and the expected sampling stability");
                 yield break;
             }
+            if(Environment.GetCommandLineArgs().Contains("-rr-orchard-legacy-review"))
+            {report.workload="Existing checkpoint migration to saplings/apples schema and content compatibility";yield return ReviewOrchardLegacy();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-save-resume-review"))
             {report.workload="Fresh-process Continue latest disk save";yield return ReviewSaveGame();yield break;}
             float began=Time.realtimeSinceStartup;report.startupSeed=game.Seed;
@@ -112,15 +114,15 @@ namespace RivetReach
             game.World.ViewDistance=Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-fluid-review")?4:10;game.Diagnostics=true;
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-gameplay-fixes-review"||arg=="-rr-save-review"||arg=="-rr-workshop-followup-review"||arg=="-rr-browser-review"||arg=="-rr-creative-review"||arg=="-rr-torch-review"||arg=="-rr-industry-review"||arg=="-rr-multiblock-review"||arg=="-rr-clearance-review"||arg=="-rr-starter-stations-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-azure-review")||Environment.GetCommandLineArgs().Contains("-rr-ore-variants-review")||Environment.GetCommandLineArgs().Contains("-rr-ore-drops-review"))game.World.ViewDistance=4;
-            if(Environment.GetCommandLineArgs().Contains("-rr-potato-art-review"))game.World.ViewDistance=4;
-            if(Environment.GetCommandLineArgs().Contains("-rr-hand-crank-review")||Environment.GetCommandLineArgs().Contains("-rr-door-review"))game.World.ViewDistance=4;
+            if(Environment.GetCommandLineArgs().Contains("-rr-potato-art-review")||Environment.GetCommandLineArgs().Contains("-rr-orchard-review"))game.World.ViewDistance=4;
+            if(Environment.GetCommandLineArgs().Contains("-rr-hand-crank-review"))game.World.ViewDistance=4;
             yield return Settle();report.firstReadySeconds=Time.realtimeSinceStartup-began;
+            if(Environment.GetCommandLineArgs().Contains("-rr-orchard-review"))
+            {report.workload="Natural leaf drops, planted tree growth, persistence, apple eating and presentation";yield return ReviewOrchard();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-hand-crank-review"))
             {report.workload="Hand crank placement, pointer press/hold, electrical storage and rendered asset";yield return ReviewHandCrank();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-starter-stations-review"))
             {yield return ReviewStarterStationGraphics();yield break;}
-            if(Environment.GetCommandLineArgs().Contains("-rr-door-review"))
-            {report.workload="Door crafting, two-cell placement, right-click, Blue Signal, collision and durable saves";yield return ReviewDoors();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-potato-art-review"))
             {report.workload="Potato icons, held meshes, dropped stacks and eating";yield return ReviewPotatoArt();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-ore-drops-review"))

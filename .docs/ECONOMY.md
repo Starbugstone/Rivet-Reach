@@ -88,7 +88,7 @@ The wooden tool exists to bootstrap stone without a metal dependency. The furnac
 
 **User-selected extension, 2026-09-09:** basic familiar crafting layouts, wood/stone/copper/iron/diamond tools, a furnace, potatoes and baking, then farming, hunger, health and armor. These rules supersede the three temporary starter-tool recipes and the earlier fuel defaults. Numerical speeds, food/health tuning and growth times are working implementation defaults, subject to play review.
 
-The survival recipe set contains 56 grid recipes and six furnace recipes; [industry](INDUSTRY.md) adds its separate recipes. All ordinary stackable items use 64-item stacks; tools and armor use one. Normal expeditions start without supplied tools. Legacy starter item identities remain available to historical verification fixtures, but their recipes are not registered.
+The active registry contains 55 grid recipes and six furnace recipes. All ordinary stackable items use 64-item stacks; tools and armor use one. Normal expeditions start without supplied tools. Legacy starter item identities remain available to historical verification fixtures, but their recipes are not registered.
 
 | Output | Layout / ingredients | Station |
 |---|---|---|
@@ -98,7 +98,6 @@ The survival recipe set contains 56 grid recipes and six furnace recipes; [indus
 | Workbench | 2×2 planks | Personal |
 | Furnace | 3×3 cobblestone ring, empty centre | Workbench |
 | Chest | 3×3 plank ring, empty centre; 27 storage slots | Workbench |
-| 3 [Wooden Doors](DOORS.md) | 2 adjacent columns of 3 planks | Workbench |
 | Pickaxe | 3 material across top; 2 sticks down centre | Workbench |
 | Axe | `MM / MS / ·S`; horizontal mirror accepted | Workbench |
 | Sword | material, material, stick in one column | Workbench |

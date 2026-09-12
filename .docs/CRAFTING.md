@@ -68,7 +68,7 @@ Test fixtures are enabled only by the existing explicit verification mode. Ordin
 
 ## Survival progression extension — 2026-09-09
 
-The user subsequently selected familiar basic grid recipes, five tool tiers, furnaces, farming, hunger, health and armor. The personal grid and placed workbench now share the compiled registry: **56 survival grid recipes**, including the subsequently authorized [three-iron bucket](FLUIDS.md#playable-water-rules) and the [coal/charcoal torch variants](GAMEPLAY.md#torches), each an independent asset. Ordinary sessions start with empty inventories; obsolete stone/log starter-tool layouts are not registered. [ECONOMY.md](ECONOMY.md#current-survival-recipes-and-tiers) owns quantities and progression. Larger 4×4 interfaces remain future content; the engine still supports them.
+The user subsequently selected familiar basic grid recipes, five tool tiers, furnaces, farming, hunger, health and armor. The personal grid and placed workbench now share the compiled registry: **55 active grid recipes**, including the subsequently authorized [three-iron bucket](FLUIDS.md#playable-water-rules) and the [coal/charcoal torch variants](GAMEPLAY.md#torches), each an independent asset. Ordinary sessions start with empty inventories; obsolete stone/log starter-tool layouts are not registered. [ECONOMY.md](ECONOMY.md#current-survival-recipes-and-tiers) owns quantities and progression. Larger 4×4 interfaces remain future content; the engine still supports them.
 
 ### Stations and processing authoring
 
@@ -88,7 +88,7 @@ Only furnaces with remaining burn time or immediately actionable input/fuel ente
 
 ## Starter recipe and block-interaction acceptance
 
-The user explicitly requires the implemented beginning recipes to use Minecraft's ingredient positions and output quantities. `StarterRecipeChecks` defines independent acceptance fixtures for all 56 starter recipes, including translations, permitted mirrors and exact consumption/output. The catalog-driven compiler checks still validate arbitrary authored content. Deliberately changing this baseline requires updating the acceptance contract, not silently accepting a newly authored layout as its own expected result.
+The user explicitly requires the implemented beginning recipes to use Minecraft's ingredient positions and output quantities. `StarterRecipeChecks` defines independent acceptance fixtures for all 55 current recipes, including translations, permitted mirrors and exact consumption/output. The catalog-driven compiler checks still validate arbitrary authored content. Deliberately changing this baseline requires updating the acceptance contract, not silently accepting a newly authored layout as its own expected result.
 
 `Expedition.TryInteractTarget` resolves the currently aimed voxel within five blocks. The bound **Interact** key (default E) and mouse Use open a workbench, furnace or chest through the same station authority. Direct station-open commands also validate visibility and reach. Crouch + mouse Use bypasses opening for placement against a station; keyboard Interact explicitly opens it. The HUD displays the actual controls after rebinding. `Verify-POC.ps1 -StarterCrafting` exercises crafting a workbench, placing it and opening its nine-slot UI with keyboard/mouse input, plus occlusion, reach and rebinding. [Current evidence](verification/CRAFTING_RESULTS.md) includes the actual screenshots and Minecraft reference links.
 
@@ -145,7 +145,3 @@ Holding the right mouse button deposits one held item into each newly crossed in
 The fill service has an ordered `IReadOnlyList<ItemContainer>` source overload. Today the UI supplies only the player backpack; grid ingredients are reserved first, then sources in order. The first source receives displaced grid contents. Every source and the grid are planned on snapshots and published together after complete validation; aliasing sources or supplying the grid as an external source is rejected. **Adjacent/attached inventory discovery is WIP and is not connected in play.** A future station authority must resolve current access/residency, provide the ordered sources and wake any changed automation storage on its authority thread. The UI does not scan world blocks or bypass station access.
 
 [Crafting interaction verification](verification/CRAFTING_UX_RESULTS.md) records pointer acceptance, source/batch checks and the measured interface bottleneck.
-
-### Wooden doors
-
-[Wooden Door](DOORS.md) uses a shaped 2-column × 3-row plank recipe at a workbench, consuming six planks for three doors. `WoodenDoor.asset` is the shared crafting/browser definition; the internal upper terrain cell has no recipe or catalog item.

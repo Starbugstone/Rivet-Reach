@@ -32,7 +32,7 @@ namespace RivetReach
             ScheduleAffected(world,p);ScheduleAffected(world,p.Offset(0,1,0));ScheduleAffected(world,p.Offset(0,-1,0));
             foreach(var d in Sides)ScheduleAffected(world,p.Offset(d.x,0,d.z));
         }
-        static bool Displaceable(byte cell)=>cell==0||cell==BlockId.Torch;
+        static bool Displaceable(byte cell)=>cell==0||cell==BlockId.Torch||cell==BlockId.Sapling;
         void ScheduleAffected(IFluidWorld world,BlockPos p)
         {
             if(!world.TryRead(p,out byte cell)){Sleep(p,p.Chunk);return;}
@@ -93,7 +93,7 @@ namespace RivetReach
             if(type.RenewsSources&&sources>=2&&support)next=type.Source;
             else if(registry.Get(above)==type)next=type.Falling;
             else if(best<=type.Reach)next=type.Flow(best);
-            if(next!=cell&&(next!=0||cell!=BlockId.Torch)&&world.ChangeFluid(p,cell,next))Changed(world,p);
+            if(next!=cell&&(next!=0||cell!=BlockId.Torch&&cell!=BlockId.Sapling)&&world.ChangeFluid(p,cell,next))Changed(world,p);
             if(next!=0)Spread(world,p,next,type);
         }
         bool Open(IFluidWorld world,BlockPos p,FluidDefinition f)

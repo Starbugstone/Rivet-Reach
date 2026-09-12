@@ -241,7 +241,7 @@ namespace RivetReach
             {
                 MiningProgress=0;
                 if(Fluids.IsBucket(heldId)){if(Game.Input.PlacePressed&&Game.TryUseBucket()){Arms.TriggerSwing();Body.TriggerSwing();}return;}
-                if(found&&(BlockId.Station(id)||IndustryId.Placed(id)||id==IndustryId.DoorUpper)&&!Game.Input.Held("Crouch")&&!(heldId==IndustryId.HandCrank&&IndustryId.BatteryPart(id)))
+                if(found&&(BlockId.Station(id)||IndustryId.Placed(id))&&!Game.Input.Held("Crouch")&&!(heldId==IndustryId.HandCrank&&IndustryId.BatteryPart(id)))
                 {eating=0;eatingItem=0;if(Game.Input.PlacePressed||id==IndustryId.HandCrank)Game.TryInteractTarget();return;}
                 if((tool&ToolCapability.Blade)!=0){eating=0;eatingItem=0;return;}
                 if(found&&(tool&ToolCapability.Hoe)!=0&&(id==BlockId.Grass||id==BlockId.Dirt))

@@ -81,7 +81,7 @@ class Reference:
             return 'Tools and weapons'
         if d['armorSlot']:
             return 'Armor'
-        if item['crop'] or d['foodPoints'] or item_id.endswith(':farmland'):
+        if item['crop'] or d['foodPoints'] or item_id.endswith((':farmland', ':sapling')):
             return 'Food and farming'
         if item['ore'] or item_id.endswith(':bedrock'):
             return 'Ore deposits and bedrock'

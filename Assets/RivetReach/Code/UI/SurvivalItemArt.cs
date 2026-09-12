@@ -40,6 +40,12 @@ namespace RivetReach
                     body=py>3&&py<22&&Mathf.Abs(px)<(22-py)*.43f;
                     color=Mathf.Abs(px)<3&&py<13?new Color(1,1,.66f):new Color(1,.48f,.08f);
                 }
+                else if(item.runtimeId==BlockId.Sapling)
+                {
+                    handle=Mathf.Abs(px)<1.8f&&py>-21&&py<18;
+                    for(int leaf=0;leaf<4;leaf++)
+                    {float side=leaf%2==0?-1:1,cy=-9+leaf*7;float lx=px*side;body|=lx>0&&lx<17&&Mathf.Abs(py-cy-lx*.35f)<4*Mathf.Sin(lx/17*Mathf.PI);}
+                }
                 else if(item.runtimeId==BlockId.Stick)body=Mathf.Abs(px-py*.4f)<3&&py>-20&&py<20;
                 else if(item.foodPoints>0)
                 {body=px*px/330+py*py/210<1;color*=((x*7+y*13)%29<3?.72f:1);if(item.runtimeId==BlockId.BakedPotato&&Mathf.Abs(py)<3&&Mathf.Abs(px)<13)color=new Color(1,.84f,.44f);}

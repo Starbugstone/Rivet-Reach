@@ -28,6 +28,8 @@ The user subsequently authorized a [hand crank](.docs/HAND_CRANK.md) for early-g
 
 The user subsequently authorized [durable saves](.docs/SAVES.md): named Save Game, Load Game, Continue Latest Save, previous-checkpoint recovery and rebuilding alpha 0.0.1. This supersedes earlier whole-world durable-save exclusions for the implemented surface world. Preserve full-state conservation, compatibility checks, atomic replacement and failed-load rollback. Creative mode/flight remain session-only; no offline production or periodic autosave is implied. [Save verification](.docs/verification/SAVE_RESULTS.md) distinguishes measured checks from remaining limits.
 
+The user subsequently authorized [saplings and apples](.docs/GAMEPLAY.md#saplings-and-apples): occasional natural-leaf drops, replanting and broadleaf regrowth, edible apples, and schema-3 persistence of growth/provenance. Preserve player-placed wood/leaves, blocked-growth transactions, legacy-save compatibility and existing food rules. [Orchard verification](.docs/verification/ORCHARD_RESULTS.md) owns measured evidence.
+
 ## Licensing and ownership
 
 - Rivet Reach is **proprietary, all rights reserved, and not open source**. Read `LICENSE.md` before introducing code, assets, dependencies or contribution workflows.
@@ -89,7 +91,3 @@ Start the required application when needed without asking the user to launch it.
 For actual Blender model authoring and visual-quality revisions, also use [blender-game-art](.docs/skills/blender-game-art/SKILL.md), installed locally under `~/.codex/skills/blender-game-art/`. Compare actual Blender renders and Unity imports with the approved concept before delivery. Keep its installed and versioned copies synchronized.
 
 Player asset ownership: the earlier separate modeling handoff is complete. The user authorized the 2026-09-10 [avatar rework](.docs/AVATAR_REWORK.md), including both models, hand grips, animations and held equipment. See [PLAYER_ASSET_HANDOFF.md](.docs/PLAYER_ASSET_HANDOFF.md) before subsequent overlapping changes; preserve concurrent terrain/industry work, placement and portrait rendering.
-
-## Authorized wooden doors
-
-The user authorized [craftable wooden doors](.docs/DOORS.md) with right-click/Interact toggling and Blue Signal control. Preserve the two-cell footprint, single-item recovery, occupied-doorway closing protection, signal-edge/manual precedence and additive durable-save compatibility. [Door verification](.docs/verification/DOOR_RESULTS.md) owns measured evidence.

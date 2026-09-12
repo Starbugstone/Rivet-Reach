@@ -314,8 +314,6 @@ namespace RivetReach
             {
                 string hint=BlockId.MiningHint(game.Player.TargetId,game.Registry.Capabilities(game.Inventory.Slots[game.Selected]),game.Registry.Tier(game.Inventory.Slots[game.Selected]));
                 targetLabel.text=game.Player.HasTarget?(Fluids.Registry.Get(game.Player.TargetId) is FluidDefinition targetFluid?targetFluid.DisplayName+" source · Use bucket":game.Registry.Get(game.Player.TargetId).displayName)+((BlockId.Station(game.Player.TargetId)||IndustryId.Placed(game.Player.TargetId))?$"\n{game.Input.Keys["Interact"]} / {game.Input.UseButtonName} · Open"+(game.Player.TargetId==BlockId.Workbench?" 3 × 3 crafting":""):hint.Length>0?" · "+hint:""):"";
-                if(game.Player.HasTarget&&IndustryId.DoorPart(game.Player.TargetId))
-                    targetLabel.text=$"Wooden Door\n{game.Input.Keys["Interact"]} / {game.Input.UseButtonName}: open / close · Blue Signal at base";
                 if(game.Player.HasTarget&&game.Player.TargetId==IndustryId.HandCrank)
                     targetLabel.text=$"Hand Crank\n{game.Input.Keys["Interact"]} / {game.Input.UseButtonName}: turn · hold {game.Input.UseButtonName} to repeat\n50 J per turn · 100 W while cranking";
             }
@@ -392,7 +390,7 @@ namespace RivetReach
                 if(FoodVisuals.UsesModel(item.runtimeId))
                 {var foodIcon=FoodVisuals.Icon(item.runtimeId);icons[item.runtimeId]=foodIcon;sharedToolIcons.Add(foodIcon);continue;}
                 var industrialIcon=Resources.Load<Texture2D>("Industry/Icons/"+OreVisuals.VisualId(item.runtimeId));if(industrialIcon!=null){icons[item.runtimeId]=industrialIcon;sharedToolIcons.Add(industrialIcon);continue;}
-                if(item.runtimeId==BlockId.Torch||item.runtimeId>=20&&!BlockId.Placeable(item.runtimeId)&&item.runtimeId!=BlockId.Farmland&&!BlockId.Crop(item.runtimeId))
+                if(item.runtimeId==BlockId.Sapling||item.runtimeId==BlockId.Torch||item.runtimeId>=20&&!BlockId.Placeable(item.runtimeId)&&item.runtimeId!=BlockId.Farmland&&!BlockId.Crop(item.runtimeId))
                 {icons[item.runtimeId]=SurvivalItemArt.Icon(item);continue;}
                 var texture=new Texture2D(48,48,TextureFormat.RGBA32,false);texture.filterMode=FilterMode.Point;var pixels=new Color[48*48];
                 for(int y=0;y<48;y++)for(int x=0;x<48;x++)

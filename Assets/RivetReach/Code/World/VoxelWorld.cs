@@ -95,10 +95,10 @@ namespace RivetReach
         }
         public bool Solid(BlockPos p) => !Ready(p)||BlockId.Solid(Get(p))&&!(IsOpenMachine?.Invoke(p)??false);
         public Func<BlockPos,bool> CanRemoveMachine;
-        public bool Remove(BlockPos p,byte expected) => IndustryId.DoorPart(expected)?RemoveDoor(p,expected): (CanRemoveMachine?.Invoke(p)??true)&&expected!=0&&expected!=BlockId.Bedrock&&Change(p,expected,0);
-        public bool Place(BlockPos p,byte id) => id==IndustryId.WoodenDoor?PlaceDoor(p): id==BlockId.Torch?PlaceTorch(p,p.Offset(0,-1,0)):BlockId.Placeable(id)&&(Get(p)==0||Fluids.IsFluid(Get(p)))&&Change(p,Get(p),id);
+        public bool Remove(BlockPos p,byte expected) => (CanRemoveMachine?.Invoke(p)??true)&&expected!=0&&expected!=BlockId.Bedrock&&Change(p,expected,0);
+        public bool Place(BlockPos p,byte id) => id==BlockId.Sapling?PlantSapling(p): id==BlockId.Torch?PlaceTorch(p,p.Offset(0,-1,0)):BlockId.Placeable(id)&&(Get(p)==0||Fluids.IsFluid(Get(p)))&&Change(p,Get(p),id);
         public bool ChangeFluid(BlockPos p,byte expected,byte replacement)
-            =>(expected==0||expected==BlockId.Torch||Fluids.IsFluid(expected))&&(replacement==0||Fluids.IsFluid(replacement))&&Change(p,expected,replacement,false);
+            =>(expected==0||expected==BlockId.Torch||expected==BlockId.Sapling||Fluids.IsFluid(expected))&&(replacement==0||Fluids.IsFluid(replacement))&&Change(p,expected,replacement,false);
         public bool Submerged(Vector3 point,out FluidDefinition fluid,out byte cell)
         {
             var p=Address(point);cell=Ready(p)?Get(p):(byte)0;fluid=Fluids.Registry.Get(cell);
@@ -138,13 +138,13 @@ namespace RivetReach
         public bool Grow(BlockPos p,byte expected)=>Get(p.Offset(0,-1,0))==BlockId.Farmland&&BlockId.Crop(expected)&&expected<BlockId.MaturePotatoPlant&&Change(p,expected,(byte)(expected+1));
         public bool Uproot(BlockPos p,byte expected)
         {
-            if(!BlockId.Crop(expected)||!Change(p,expected,0,false,false))return false;
+            if((!BlockId.Crop(expected)&&expected!=BlockId.Sapling)||!Change(p,expected,0,false,false))return false;
             BlockMined?.Invoke(p,expected);return true;
         }
         public bool NaturalLog(BlockPos p)=>Get(p)==BlockId.Log&&
-            !(edits.TryGetValue(p.Chunk,out var e)&&e.ContainsKey(p.Index));
+            (grownTreeCells.Contains(p)||!(edits.TryGetValue(p.Chunk,out var e)&&e.ContainsKey(p.Index)));
         public bool NaturalLeaf(BlockPos p)=>Get(p)==BlockId.Leaves&&
-            !(edits.TryGetValue(p.Chunk,out var e)&&e.ContainsKey(p.Index));
+            (grownTreeCells.Contains(p)||!(edits.TryGetValue(p.Chunk,out var e)&&e.ContainsKey(p.Index)));
         public bool RemoveTreeBlock(BlockPos p,byte expected,bool drop)
         {
             if(expected==BlockId.Log&&!NaturalLog(p))return false;
@@ -196,6 +196,8 @@ namespace RivetReach
         {
             if(p.Y<=TerrainGenerator.MinY||p.Y>TerrainGenerator.MaxY||Math.Abs(p.X)>TerrainGenerator.HorizontalLimit||Math.Abs(p.Z)>TerrainGenerator.HorizontalLimit||expected==BlockId.Bedrock)return false;
             if((requireReady&&!Ready(p))||Get(p)!=expected)return false;
+            bool harvestLeaf=expected==BlockId.Leaves&&replacement!=expected&&NaturalLeaf(p);
+            grownTreeCells.Remove(p);
             if(!edits.TryGetValue(p.Chunk,out var e)){e=new Dictionary<int,byte>();edits[p.Chunk]=e;}
             e[p.Index]=replacement;
             var columnKey=(p.X,p.Z);
@@ -219,7 +221,8 @@ namespace RivetReach
             // Automatically decaying leaves cannot be part of another leaf's valid
             // support path. The original support removal already scheduled affected leaves.
             if((expected==BlockId.Log||expected==BlockId.Leaves&&requireReady)&&replacement!=expected)Trees.SupportRemoved(this,p);
-            DoorSupportChanged(p,replacement);
+            if(harvestLeaf)HarvestLeaf(p);
+            if(expected==BlockId.Sapling&&Fluids.IsFluid(replacement))BlockMined?.Invoke(p,BlockId.Sapling);
             TorchChanged(p,expected,replacement);
             FluidSimulation.Changed(this,p);
             if(!immediate){BlockChanged?.Invoke(p);return true;}

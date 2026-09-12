@@ -93,6 +93,7 @@ namespace RivetReach
                 {
                     if(foodMaterial==null)
                     {foodMaterial=new Material(Shader.Find("RivetReach/HeldTool"));foodMaterial.SetTexture("_BaseMap",FoodVisuals.Palette);}
+                    foodMaterial.SetTexture("_BaseMap",FoodVisuals.PaletteFor(id));
                     foodItem=FoodVisuals.Create(id,block.transform,foodMaterial);
                     // Long axis crosses the supporting palm; the baked opening faces up.
                     foodItem.transform.localRotation=Quaternion.Euler(0,20,0)*foodItem.transform.localRotation;

@@ -129,6 +129,7 @@ namespace RivetReach.Editor
                 .Concat(Directory.GetFiles("Assets/RivetReach/Code", "*.cs", SearchOption.AllDirectories))
                 .Concat(Directory.GetFiles("Assets/RivetReach/Resources/Industry/Icons", "*.png"))
                 .Concat(Directory.GetFiles("Assets/RivetReach/Resources/Food", "*.png"))
+                .Concat(Directory.GetFiles("Assets/RivetReach/Resources/Orchard", "*.png"))
                 .Concat(Directory.GetFiles("Assets/RivetReach/Resources/Tools", "*Icon.png"))
                 .Concat(Directory.GetFiles("Assets/RivetReach/Resources/ItemIcons", "*.png"))
                 .Concat(new[] { "Assets/RivetReach/Resources/Materials/BlockTiles.asset", "Assets/RivetReach/Editor/WikiExport.cs", "Assets/RivetReach/Editor/ItemAppearanceBuild.cs", "Assets/RivetReach/Editor/ItemIcon.shader" })
