@@ -18,7 +18,7 @@ The starter acceptance suite now independently checks the new layout alongside t
 
 The built-player review exercises the actual placement transaction and right-click input, both collision cells, Blue Signal, imported hinge state, mining/support recovery and durable save/load. Run it with [Verify-Doors.ps1](../../Tools/Verify-Doors.ps1), using `-Build` to reproduce the isolated build.
 
-The final Windows build completed in **34.84 seconds with zero errors and zero warnings**. [Build identity and source hashes](doors-2026-09-12/artifact.json) pin the artifact to the recorded committed base plus the door changes, independently of concurrent workspace work. [Build summary](doors-2026-09-12/door-build.txt) and [import checks](doors-2026-09-12/door-import.txt) record that build.
+The final Windows build completed in **32.22 seconds with zero errors and zero warnings**. [Build identity and source hashes](doors-2026-09-12/artifact.json) pin the final artifact to the combined committed project, including the reconciled orchard save compatibility and current item appearance. [Build summary](doors-2026-09-12/door-build.txt) and [import checks](doors-2026-09-12/door-import.txt) record that build.
 
 [Door domain checks](doors-2026-09-12/door-checks.txt) pass **29 assertions**. The [starter fixtures](doors-2026-09-12/starter-recipe-checks.txt), [domain](doors-2026-09-12/domain-checks.txt), [survival](doors-2026-09-12/survival-checks.txt), [industry](doors-2026-09-12/industry-checks.txt), [battery](doors-2026-09-12/battery-checks.txt) and [multiblock](doors-2026-09-12/multiblock-checks.txt) reports preserve the broader checks.
 

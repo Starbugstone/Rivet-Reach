@@ -21,7 +21,7 @@ PASS Touching tanks remain separate instances
 PASS Validator rejects another owner's claim
 PASS Hard scanner budget fails safely even for a legal shape
 PASS Configured 9³ maximum forms
-9³ formation plus topology: 1,757 ms; reads 729
+9³ formation plus topology: 1,782 ms; reads 729
 PASS 10-block dimension is bounded and rejected
 PASS Undersized repair retains excess fluid and explains failure
 PASS Draining excess allows smaller tank to form
