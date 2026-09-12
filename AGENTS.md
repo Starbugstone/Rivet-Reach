@@ -55,6 +55,13 @@ The user subsequently authorized [saplings and apples](.docs/GAMEPLAY.md#sapling
 - Do not claim performance, gameplay quality or implementation correctness has been proven without measurements or playtests.
 - Maintain the latest useful documentation and evidence for each feature. Remove superseded screenshots/reports and update their incoming links; use Git history for prior versions. Preserve dated artifact identities and remaining limits instead of implying older focused checks ran on a new build.
 
+## Required GitHub wiki updates and visuals
+
+- Every addition or update to an item, machine, or visual presentation must include matching player-facing GitHub wiki updates as part of the same task. Keep the relevant item pages, recipes and usage/setup guides current before considering the work complete.
+- Include current visuals that show the appearance and functionality affected by the change: actual in-game screenshots or captures for placement, interactions, connections and operating states, and refreshed inventory icons when item artwork changes. Use annotated images or diagrams where they help explain setup or behavior; an inventory icon alone does not demonstrate machine functionality.
+- Maintain the sources and visual assets in [.docs/wiki](.docs/wiki/Home.md), following [WIKI_AUTHORING.md](.docs/WIKI_AUTHORING.md). Refresh exported data/icons and generated pages when their inputs change, replace superseded visuals, and preserve honest capture/build dates and any remaining verification limits.
+- Validate page, section and image links with `python3 Tools/publish_wiki.py --check`, review the affected pages and visuals, and publish to the GitHub wiki through the documented workflow. Verify successful deployment and live rendering of the affected content. Local documentation changes alone do not fulfill this requirement; if capture or publication is blocked, report the blocker and the outstanding wiki work explicitly.
+
 ## Document ownership
 
 - `UNITY_SETUP.md`: pinned Editor/packages, project location, startup and initialization evidence.
