@@ -50,6 +50,8 @@ namespace RivetReach
             if(equipLowering>=1||next==current){displayed=selected;displayedSlot=Player.Game.Selected;}
         }
         GameObject industryItem;
+        GameObject foodItem;
+        Material foodMaterial;
         GameObject view,block,sword,pickaxe,axe,shovel,hoe,card,torch,bucket,bucketWater;
         Material cardMaterial,torchMaterial,waterMaterial;
         Texture2D cardIcon;
@@ -87,6 +89,16 @@ namespace RivetReach
             {
                 bool reuseOre=industryItem!=null&&OreVisuals.UsesModel(ItemId)&&OreVisuals.UsesModel(id);
                 ItemId=id;
+                if(foodItem!=null){Destroy(foodItem);foodItem=null;}
+                if(FoodVisuals.UsesModel(id))
+                {
+                    if(foodMaterial==null)
+                    {foodMaterial=new Material(Shader.Find("RivetReach/HeldTool"));foodMaterial.SetTexture("_BaseMap",FoodVisuals.Palette);}
+                    foodItem=FoodVisuals.Create(id,block.transform,foodMaterial);
+                    // Long axis crosses the supporting palm; the baked opening faces up.
+                    foodItem.transform.localRotation=Quaternion.Euler(0,20,0)*foodItem.transform.localRotation;
+                    foodItem.transform.localPosition=new Vector3(0,-.22f,0);
+                }
                 if(industryItem!=null&&!reuseOre){Destroy(industryItem);industryItem=null;}
                 industryMaterial.SetTexture("_BaseMap",OreVisuals.UsesModel(id)?OreVisuals.Palette(id):Resources.Load<Texture2D>("Industry/Atlas"));
                 if(IndustryDefinition.All.TryGetValue(id,out var assembly)||OreVisuals.UsesModel(id))
@@ -116,7 +128,7 @@ namespace RivetReach
                 {
                     var definition=game.Registry.Get(id);var tint=definition.tier==ToolTier.None?Color.white:Color.Lerp(Color.white,definition.colour,.70f);
                     toolMaterial.SetColor("_BaseColor",tint);axeMaterial.SetColor("_BaseColor",tint);
-                    if(industryItem==null&&(id==BlockId.Torch||!BlockId.Placeable(id)&&!BlockId.RawMaterial(id))&&definition.toolCapabilities==ToolCapability.None)
+                    if(foodItem==null&&industryItem==null&&(id==BlockId.Torch||!BlockId.Placeable(id)&&!BlockId.RawMaterial(id))&&definition.toolCapabilities==ToolCapability.None)
                     {
                         if(card==null)
                         {
@@ -139,8 +151,8 @@ namespace RivetReach
             view.transform.localPosition=Vector3.zero;view.transform.localRotation=Quaternion.identity;view.transform.localScale=Vector3.one/boneUnits;
             block.SetActive(grip==GripPose.Block);
             bool isBucket=Fluids.IsBucket(id),isTorch=id==BlockId.Torch;
-            bool showCard=industryItem==null&&!isBucket&&!isTorch&&id!=0&&(id==BlockId.Torch||!BlockId.Placeable(id)&&!BlockId.RawMaterial(id))&&game.Registry.Get(id).toolCapabilities==ToolCapability.None;
-            filter.GetComponent<Renderer>().enabled=!showCard&&!isBucket&&industryItem==null;
+            bool showCard=foodItem==null&&industryItem==null&&!isBucket&&!isTorch&&id!=0&&(id==BlockId.Torch||!BlockId.Placeable(id)&&!BlockId.RawMaterial(id))&&game.Registry.Get(id).toolCapabilities==ToolCapability.None;
+            filter.GetComponent<Renderer>().enabled=!showCard&&!isBucket&&industryItem==null&&foodItem==null;
             if(isBucket&&bucket==null)
             {
                 bucket=Tool("PalmBucket");bucket.transform.SetParent(block.transform,false);
@@ -193,6 +205,7 @@ namespace RivetReach
             if(waterMaterial!=null)waterMaterial.SetFloat("_FirstPerson",firstPerson);
             if(torchMaterial!=null)torchMaterial.SetFloat("_FirstPerson",firstPerson);
             if(cardMaterial!=null)cardMaterial.SetFloat("_FirstPerson",firstPerson);
+            if(foodMaterial!=null)foodMaterial.SetFloat("_FirstPerson",firstPerson);
         }
         public void FrameFirstPerson()
         {
@@ -201,6 +214,6 @@ namespace RivetReach
             arm.localRotation=Quaternion.Euler(12*amount,0,-6*amount);
             arm.localPosition+=new Vector3(.025f,-.52f,.08f)*amount*arm.localScale.x;
         }
-        void OnDestroy(){if(industryMaterial!=null)Destroy(industryMaterial);if(industryGlass!=null)Destroy(industryGlass);if(view!=null)Destroy(view);if(material!=null)Destroy(material);if(toolMaterial!=null)Destroy(toolMaterial);if(axeMaterial!=null)Destroy(axeMaterial);if(torchMaterial!=null)Destroy(torchMaterial);if(waterMaterial!=null)Destroy(waterMaterial);if(cardMaterial!=null)Destroy(cardMaterial);if(cardIcon!=null)Destroy(cardIcon);foreach(var mesh in meshes.Values)Destroy(mesh);}
+        void OnDestroy(){if(foodMaterial!=null)Destroy(foodMaterial);if(industryMaterial!=null)Destroy(industryMaterial);if(industryGlass!=null)Destroy(industryGlass);if(view!=null)Destroy(view);if(material!=null)Destroy(material);if(toolMaterial!=null)Destroy(toolMaterial);if(axeMaterial!=null)Destroy(axeMaterial);if(torchMaterial!=null)Destroy(torchMaterial);if(waterMaterial!=null)Destroy(waterMaterial);if(cardMaterial!=null)Destroy(cardMaterial);if(cardIcon!=null)Destroy(cardIcon);foreach(var mesh in meshes.Values)Destroy(mesh);}
     }
 }

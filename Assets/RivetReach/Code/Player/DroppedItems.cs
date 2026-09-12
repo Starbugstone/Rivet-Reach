@@ -232,7 +232,8 @@ namespace RivetReach
         {
             var view=new GameObject("World item display");
             var capability=Game.Registry.Capabilities(new ItemStack(id,1));
-            if(OreVisuals.UsesModel(id))
+            if(FoodVisuals.UsesModel(id))FoodVisuals.Create(id,view.transform);
+            else if(OreVisuals.UsesModel(id))
             {
                 var model=OreVisuals.Create(id,view.transform);model.transform.localPosition=-Vector3.one*.5f;
             }

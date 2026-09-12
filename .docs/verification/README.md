@@ -21,6 +21,7 @@ This directory maintains the latest report and useful evidence for each feature.
 | Creative sidebar dragging, flight controls and full workshop run | [Creative verification](CREATIVE_RESULTS.md) — current build, Creative industry/tanks and regressions |
 | Batteries, pump intake/power, outward controllers, held items and wiki | [Workshop follow-up](WORKSHOP_FOLLOWUP_RESULTS.md) — electrical storage, construction and rendered item checks |
 | Starter recipes and block interaction | [Crafting verification](CRAFTING_RESULTS.md) — exact layouts/quantities, placed workbench and 3×3 UI |
+| Potato item graphics | [Potato art](POTATO_ART_RESULTS.md) — Blender sources, icons, held items and drops |
 | Furnaces, farming, hunger, health and armor | [Survival verification](SURVIVAL_RESULTS.md), including the latest ore and placement regressions |
 | Seas, rivers, buckets and fluid physics | [Fluid verification](FLUID_RESULTS.md) — per-fluid renewal, bucket controls, source/flow and session streaming |
 | Biomes, caves and streaming | [Terrain verification](TERRAIN_GENERATION_RESULTS.md) |
