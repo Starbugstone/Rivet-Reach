@@ -126,3 +126,7 @@ The user requested an additional **No connection** state: selected-wrench right-
 ## Authorized cable-defined electrical grids
 
 The user requested [separate battery input/output cable grids](.docs/BATTERIES.md#cable-defined-grids--2026-09-12), automatic recovery after cable edits, capture of all surplus without per-cell wattage caps, and doubled boiler/alternator output (**800 W**). Only physically connected cables/power fittings join grids; each machine face terminates its run. Preserve shared generation/demand budgets, exact shared cell storage, battery modes, bank lifecycle and durable-save compatibility. [Power-grid verification](.docs/verification/POWER_GRID_RESULTS.md) records measured evidence.
+
+## Authorized equal grid sharing
+
+The user requested equal surplus charging and deficit discharge among eligible batteries and shared flow rules for item/fluid grids. [BATTERIES.md](.docs/BATTERIES.md) and [INDUSTRY.md](.docs/INDUSTRY.md#shared-grid-allocation--2026-09-12) own the rules. Preserve the shared capped allocator, cable/pipe-defined connectivity, exact storage identity, full/empty redistribution, rotating whole-unit leftovers, resource compatibility, configured directions, processing preferences and durable-save conservation.

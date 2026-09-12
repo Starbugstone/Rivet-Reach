@@ -112,6 +112,7 @@ namespace RivetReach
     {
         public readonly NetworkTopology Topology=new NetworkTopology(NetworkKind.Power);
         readonly Dictionary<MachineState,int> generation=new Dictionary<MachineState,int>();
+        readonly FairAllocation<MachineState> storageShares=new FairAllocation<MachineState>();
         // Shared device budgets prevent multiple faces/grids from duplicating generation,
         // demand or storage. Only cable vertices connect grids, never a device interior.
         public void Allocate(long tick)
@@ -136,17 +137,16 @@ namespace RivetReach
             }
             // Charge before discharge so even an empty battery can relay this tick's
             // generation to a separate load grid, independent of traversal order.
-            ChargeSurplus();
+            ChargeSurplus(tick);
             foreach(var group in Topology.Groups)
             {
                 int available=0;
                 foreach(var p in group.Ports)if(p.Port.Role==PortRole.Storage)available=(int)Math.Min(int.MaxValue,(long)available+BatteryPower.Available(p.Machine,false));
                 int used=Serve(group,available,tick);group.Supply+=used;
-                foreach(var p in group.Ports)if(p.Port.Role==PortRole.Storage&&used>0)
-                {int take=Math.Min(used,BatteryPower.Available(p.Machine,false));BatteryPower.Transfer(p.Machine,take,false);used-=take;}
+                TransferStorage(group,used,false,tick);
             }
             // A full battery may have freed room while feeding another grid.
-            ChargeSurplus();
+            ChargeSurplus(tick);
         }
         int AvailableGeneration(NetworkTopology.Group group)
         {
@@ -159,16 +159,17 @@ namespace RivetReach
             foreach(var p in group.Ports)if(p.Port.Role==PortRole.Output&&watts>0)
             {int take=Math.Min(watts,generation[p.Machine]);generation[p.Machine]-=take;watts-=take;}
         }
-        void ChargeSurplus()
+        int TransferStorage(NetworkTopology.Group group,int watts,bool charge,long tick)
+        {
+            storageShares.Clear();
+            foreach(var p in group.Ports)if(p.Port.Role==PortRole.Storage)storageShares.Add(p.Machine,BatteryPower.Available(p.Machine,charge));
+            return (int)storageShares.Distribute(watts,tick,(m,take)=>{BatteryPower.Transfer(m,(int)take,charge);return take;});
+        }
+        void ChargeSurplus(long tick)
         {
             foreach(var group in Topology.Groups)
             {
-                int surplus=AvailableGeneration(group),used=0;
-                foreach(var p in group.Ports)if(p.Port.Role==PortRole.Storage&&surplus>0)
-                {
-                    int take=Math.Min(surplus,BatteryPower.Available(p.Machine,true));
-                    BatteryPower.Transfer(p.Machine,take,true);surplus-=take;used+=take;
-                }
+                int used=TransferStorage(group,AvailableGeneration(group),true,tick);
                 ConsumeGeneration(group,used);group.Supply+=used;
             }
         }

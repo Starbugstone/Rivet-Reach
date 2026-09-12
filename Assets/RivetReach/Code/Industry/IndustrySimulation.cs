@@ -17,6 +17,8 @@ namespace RivetReach
         IEnumerator<int> rebuild;bool dirty=true,signalsDirty=true;
         readonly List<MachineState> devices=new List<MachineState>();
         readonly Dictionary<FluidStorage,long> fluidAvailable=new Dictionary<FluidStorage,long>(),fluidCapacity=new Dictionary<FluidStorage,long>();
+        readonly FairAllocation<FluidStorage> fluidSources=new FairAllocation<FluidStorage>(),fluidSinks=new FairAllocation<FluidStorage>();
+        readonly Dictionary<FluidStorage,long> fluidSourceLimits=new Dictionary<FluidStorage,long>();
         readonly Dictionary<FluidStorage,FluidDefinition> fluidTypes=new Dictionary<FluidStorage,FluidDefinition>();
         readonly List<(FluidStorage from,FluidStorage to,FluidDefinition fluid,long amount)> fluidTransfers=new List<(FluidStorage,FluidStorage,FluidDefinition,long)>();
         public readonly MultiblockService Multiblocks;
@@ -234,24 +236,43 @@ namespace RivetReach
                     networkFluid=storage.Fluid;
                 }
                 if(conflict){foreach(var endpoint in g.Ports)endpoint.Machine.FluidConflict=true;continue;}
-                int count=g.Ports.Count,start=(int)(Tick%Math.Max(1,count));
-                for(int n=0;n<count;n++)
+                if(networkFluid==null)continue;
+                fluidSources.Clear();fluidSinks.Clear();fluidSourceLimits.Clear();
+                foreach(var endpoint in g.Ports)
                 {
-                    var source=g.Ports[(start+n)%count];
-                    if(source.Port.Role!=PortRole.Output||!PipeConnections.FluidEnabled(source.Machine))continue;
-                    var from=PipeConnections.Storage(source.Machine);
-                    if(from==null||!available.TryGetValue(from,out long amount)||amount==0)continue;
-                    long budget=Math.Min(100,amount);var fluid=from.Fluid;
-                    for(int k=0;k<count&&budget>0;k++)
+                    if(!PipeConnections.FluidEnabled(endpoint.Machine))continue;
+                    var storage=PipeConnections.Storage(endpoint.Machine);
+                    if(storage==null||!available.ContainsKey(storage))continue;
+                    if(endpoint.Port.Role==PortRole.Output)
                     {
-                        var dest=g.Ports[(start+k)%count];
-                        if(dest.Port.Role!=PortRole.Input||!PipeConnections.FluidEnabled(dest.Machine)||!PipeConnections.Accepts(dest.Machine,fluid))continue;
-                        var to=PipeConnections.Storage(dest.Machine);
-                        if(to==null||to==from||!capacity.ContainsKey(to)||fluidTypes[to]!=null&&fluidTypes[to].StableId!=fluid.StableId)continue;
-                        long take=Math.Min(budget,capacity[to]);if(take<=0)continue;
-                        transfers.Add((from,to,fluid,take));available[from]-=take;capacity[to]-=take;fluidTypes[to]=fluid;budget-=take;
+                        fluidSourceLimits.TryGetValue(storage,out long limit);
+                        fluidSourceLimits[storage]=limit+100;
                     }
+                    if(endpoint.Port.Role==PortRole.Input&&PipeConnections.Accepts(endpoint.Machine,networkFluid)&&
+                        (fluidTypes[storage]==null||fluidTypes[storage].StableId==networkFluid.StableId))
+                        fluidSinks.Add(storage,capacity[storage]);
                 }
+                long supply=0;
+                foreach(var entry in fluidSourceLimits)
+                {
+                    long limit=Math.Min(entry.Value,available[entry.Key]);
+                    fluidSources.Add(entry.Key,limit);supply+=limit;
+                }
+                // Reserve equal source shares against total receivable capacity,
+                // then equal destination shares; one tank identity counts once.
+                long room=0;var seen=new HashSet<FluidStorage>();
+                foreach(var endpoint in g.Ports)
+                {
+                    var storage=PipeConnections.Storage(endpoint.Machine);
+                    if(endpoint.Port.Role==PortRole.Input&&storage!=null&&seen.Add(storage)&&PipeConnections.FluidEnabled(endpoint.Machine)&&
+                        PipeConnections.Accepts(endpoint.Machine,networkFluid)&&capacity.ContainsKey(storage)&&
+                        (fluidTypes[storage]==null||fluidTypes[storage].StableId==networkFluid.StableId))room+=capacity[storage];
+                }
+                fluidSources.Distribute(Math.Min(supply,room),Tick,(from,offer)=>
+                    fluidSinks.Distribute(offer,Tick,(to,take)=>
+                    {
+                        transfers.Add((from,to,networkFluid,take));available[from]-=take;capacity[to]-=take;fluidTypes[to]=networkFluid;return take;
+                    },to=>to!=from));
             }
             // Synchronous authority turn: edits cannot interleave reservation and commit.
             foreach(var t in transfers)if(!t.from.Withdraw(t.amount))throw new InvalidOperationException("Stale fluid withdrawal");

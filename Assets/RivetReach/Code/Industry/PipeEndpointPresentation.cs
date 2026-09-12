@@ -50,7 +50,8 @@ namespace RivetReach
                     for(int face=0;face<6;face++)
                     {
                         if(!game.HoldingWrench||!sim.HasPipeEnd(pipe,face)||sim.PipeEndRole(pipe,face)==PortRole.Disabled)continue;var key=(pipe.Position,face);visible.Add(key);
-                        if(views.ContainsKey(key))continue;
+                        // A replacement pipe can reuse the position before the next visual refresh.
+                        if(views.TryGetValue(key,out var existing)){existing.Pipe=pipe;continue;}
                         var root=new GameObject("Pipe end "+face);root.transform.SetParent(transform,false);
                         Surface(root.transform,"Arrow border",outline,1.1f,0);
                         views.Add(key,new View{Root=root.transform,Arrow=Surface(root.transform,"Flow arrow",input,1,.004f),Pipe=pipe,Face=face});

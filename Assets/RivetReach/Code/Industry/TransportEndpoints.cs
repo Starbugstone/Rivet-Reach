@@ -76,6 +76,15 @@ namespace RivetReach
         readonly List<(NetworkTopology.Group graph,MachineState machine,IItemPipeInventory inventory,BlockPos position,int slot,ItemStack stack)> itemSources
             =new List<(NetworkTopology.Group,MachineState,IItemPipeInventory,BlockPos,int,ItemStack)>();
         readonly HashSet<IItemPipeInventory> itemSent=new HashSet<IItemPipeInventory>();
+        readonly List<IItemPipeInventory> itemSourceOrder=new List<IItemPipeInventory>();
+        readonly Dictionary<IItemPipeInventory,List<int>> itemSourceSlots=new Dictionary<IItemPipeInventory,List<int>>();
+        sealed class ItemReceiver
+        {
+            public IItemPipeInventory Inventory;public BlockPos Position;
+            public readonly List<int> Faces=new List<int>();
+        }
+        readonly Dictionary<(NetworkTopology.Group,byte,bool),FairAllocation<ItemReceiver>> itemShares
+            =new Dictionary<(NetworkTopology.Group,byte,bool),FairAllocation<ItemReceiver>>();
 
         void CaptureItemSource(NetworkTopology.Group graph,MachineState machine,IItemPipeInventory source,BlockPos position)
         {
@@ -92,7 +101,7 @@ namespace RivetReach
         void TransferConfiguredItems()
         {
             if(Tick%5!=0)return;
-            itemSources.Clear();itemSent.Clear();
+            itemSources.Clear();itemSent.Clear();itemShares.Clear();
             // Capture before delivery. An inventory emits at most one item per phase,
             // and cannot forward newly received items in that same phase.
             foreach(var graph in ItemNetwork.Groups)
@@ -123,13 +132,22 @@ namespace RivetReach
                     }
                 }
             }
-            int first=(int)(Tick/5%System.Math.Max(1,itemSources.Count));
+            itemSourceOrder.Clear();itemSourceSlots.Clear();
+            for(int i=0;i<itemSources.Count;i++)
+            {
+                var source=itemSources[i].inventory;
+                if(!itemSourceSlots.TryGetValue(source,out var slots))
+                {slots=new List<int>();itemSourceSlots.Add(source,slots);itemSourceOrder.Add(source);}
+                slots.Add(i);
+            }
+            int first=(int)(Tick/5%System.Math.Max(1,itemSourceOrder.Count));
             // Give every receiver a chance to continue its existing input/product
             // before any source offers it a new type. Keep the same source budget.
             for(int priority=0;priority<2;priority++)
-            for(int i=0;i<itemSources.Count;i++)
+            for(int i=0;i<itemSourceOrder.Count;i++)
+            foreach(int slot in itemSourceSlots[itemSourceOrder[(first+i)%itemSourceOrder.Count]])
             {
-                var candidate=itemSources[(first+i)%itemSources.Count];var source=candidate.inventory;
+                var candidate=itemSources[slot];var source=candidate.inventory;
                 if(itemSent.Contains(source)||!world.Ready(candidate.position))continue;
                 var current=source.Slots[candidate.slot];
                 if(current.Empty||current.Id!=candidate.stack.Id||!source.CanExtract(candidate.slot))continue;
@@ -140,33 +158,44 @@ namespace RivetReach
         }
         bool DeliverItem(NetworkTopology.Group graph,IItemPipeInventory source,byte id,bool preferredOnly)
         {
-            int count=graph.Ports.Count,start=(int)(Tick/5%System.Math.Max(1,count));
-            for(int n=0;n<count;n++)
+            var key=(graph,id,preferredOnly);
+            if(!itemShares.TryGetValue(key,out var shares))
             {
-                var endpoint=graph.Ports[(start+n)%count];var m=endpoint.Machine;
-                if(endpoint.Port.Role!=PortRole.Input||ReferenceEquals(source,m)||!world.Ready(m.Position))continue;
-                var destination=(IItemPipeInventory)m;
-                for(int face=0;face<6;face++)
+                shares=new FairAllocation<ItemReceiver>();itemShares.Add(key,shares);
+                var receivers=new Dictionary<IItemPipeInventory,ItemReceiver>();
+                void Add(IItemPipeInventory inventory,BlockPos position,int face)
                 {
-                    if((endpoint.Faces&(1<<face))==0)continue;
-                    int localFace=IndustryDefinition.RotateFace(face,(4-m.Rotation)%4);
-                    if((!preferredOnly||destination.Prefers(id,localFace))&&destination.TryInsert(id,localFace))return true;
+                    if(inventory==null||!world.Ready(position)||preferredOnly&&(inventory is ItemContainer||!inventory.Prefers(id,face)))return;
+                    if(!receivers.TryGetValue(inventory,out var receiver))
+                    {
+                        receiver=new ItemReceiver{Inventory=inventory,Position=position};receivers.Add(inventory,receiver);
+                        shares.Add(receiver,long.MaxValue);
+                    }
+                    if(!receiver.Faces.Contains(face))receiver.Faces.Add(face);
+                }
+                foreach(var endpoint in graph.Ports)
+                {
+                    var m=endpoint.Machine;
+                    for(int face=0;face<6;face++)
+                    {
+                        if((endpoint.Faces&(1<<face))==0)continue;
+                        if(endpoint.Port.Role==PortRole.Input)
+                            Add(m,m.Position,IndustryDefinition.RotateFace(face,(4-m.Rotation)%4));
+                        else if(endpoint.Port.Role==PortRole.Route&&PipeEndRole(m,face)==PortRole.Input)
+                        {
+                            var pos=IndustryDefinition.Neighbor(m.Position,face);
+                            int rotation=world is IIndustryItemEndpoints oriented?oriented.ItemEndpointRotation(pos):0;
+                            Add(ItemEndpoint(pos),pos,IndustryDefinition.RotateFace(face^1,(4-rotation)%4));
+                        }
+                    }
                 }
             }
-            foreach(var endpoint in graph.Ports)
+            return shares.Distribute(1,Tick/5,(receiver,offer)=>
             {
-                if(endpoint.Port.Role!=PortRole.Route)continue;
-                for(int face=0;face<6;face++)
-                {
-                    if((endpoint.Faces&(1<<face))==0||PipeEndRole(endpoint.Machine,face)!=PortRole.Input)continue;
-                    var pos=IndustryDefinition.Neighbor(endpoint.Machine.Position,face);var dest=ItemEndpoint(pos);
-                    int rotation=world is IIndustryItemEndpoints oriented?oriented.ItemEndpointRotation(pos):0;
-                    int localFace=IndustryDefinition.RotateFace(face^1,(4-rotation)%4);
-                    if(dest==null||ReferenceEquals(dest,source)||preferredOnly&&!dest.Prefers(id,localFace)||!dest.TryInsert(id,localFace))continue;
-                    ItemEndpointChanged(pos);return true;
-                }
-            }
-            return false;
+                foreach(int face in receiver.Faces)
+                    if(receiver.Inventory.TryInsert(id,face)){ItemEndpointChanged(receiver.Position);return 1;}
+                return 0;
+            },receiver=>!ReferenceEquals(receiver.Inventory,source))==1;
         }
     }
 }

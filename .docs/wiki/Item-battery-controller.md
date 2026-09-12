@@ -25,7 +25,7 @@ Make this item using the crafting or processing recipes below.
 
 Place exactly one controller in a solid rectangular pack of battery blocks, with its front facing out. The controller adds no storage of its own. See the [battery bank guide](Electricity-and-batteries.md) for dimensions, wiring and charge-preserving repairs. Connect electricity to any exposed controller face; claimed member-cell sockets remain inactive.
 
-Opening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md).
+Opening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md). A formed bank counts as one endpoint when sharing grid power with other batteries.
 
 ## Crafting and processing
 

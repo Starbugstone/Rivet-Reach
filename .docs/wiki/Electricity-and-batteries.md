@@ -117,6 +117,20 @@ Breaking the input cable leaves the crusher running from stored charge. Breaking
 
 Open a Power Cable to inspect that grid's actual input, requirements and connected stored energy. Storage attached to several grids is the same shared reserve, not a separate copy for each grid.
 
+## Sharing power between batteries
+
+Each connected cable grid compares generation with machine demand. If generation is higher, the surplus charges all eligible batteries equally. If demand is higher, batteries with energy share the missing power equally. Full batteries stop taking charge; empty batteries stop supplying it; their unused shares go to the others. Tiny whole-watt leftovers rotate between batteries.
+
+For example, **800 W generation − 160 W crusher demand = 640 W surplus**. Two batteries each charge at **320 W**. When the boiler stops, each supplies **80 W** to keep that crusher running. A formed battery bank counts as one storage endpoint alongside other batteries or banks. Equal transfer rates do not erase differences in starting charge.
+
+Actual September 12, 2026 player captures from that two-battery setup:
+
+![One of two batteries charging at an equal 320 W share](images/grid-battery-charge-2026-09-12.png)
+
+![One of two batteries supplying an equal 80 W share](images/grid-battery-discharge-2026-09-12.png)
+
+The same sharing principle applies to [branched item and fluid pipes](Pipes.md#sharing-a-branched-grid), with their own resource and direction rules.
+
 ## Battery modes
 
 Open a Battery Block to change how it behaves.

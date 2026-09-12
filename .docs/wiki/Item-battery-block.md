@@ -25,7 +25,7 @@ Make this item using the crafting or processing recipes below.
 
 Starts **empty**, even in Creative. Stores **100 kJ**, captures all surplus while it has room and supplies connected demand while it has charge. Separate cable grids can charge and draw from the same battery simultaneously. A charged cell cannot be mined. See [batteries and battery banks](Electricity-and-batteries.md).
 
-Opening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md).
+Opening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md). Batteries on the same grid share surplus charging and deficit discharge equally, skipping full or empty cells.
 
 ## Crafting and processing
 

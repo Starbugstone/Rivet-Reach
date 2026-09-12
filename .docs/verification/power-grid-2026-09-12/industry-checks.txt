@@ -89,9 +89,9 @@ PASS Dormant fluid segment blocks transfer
 PASS Item pipes move existing output to chest without duplication
 PASS 10,000-node topology rebuild is spread over bounded steps
 PASS Stable topology is cached across simulation ticks
-10,000 eligible signal nodes: rebuild steps 25; steady p50 0,001 ms; p95 0,002 ms; max 0,017 ms. Editor CPU: Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
+10,000 eligible signal nodes: rebuild steps 25; steady p50 0,002 ms; p95 0,003 ms; max 0,015 ms. Editor CPU: Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
 PASS 1,000 concurrently powered crushers preserve independent resource accounting
-1,000 active boiler/alternator/crusher chains + 3,000 cable nodes: p50 31,175 ms; p95 35,618 ms; max 45,421 ms. Domain simulation only, no rendering.
+1,000 active boiler/alternator/crusher chains + 3,000 cable nodes: p50 52,642 ms; p95 81,534 ms; max 371,751 ms. Domain simulation only, no rendering.
 PASS Drill removes real finite terrain once and preserves bedrock
 PASS Pump consumes one real source for 10 L and stops when its output is full
 PASS Flowing water cannot create free pump source volume

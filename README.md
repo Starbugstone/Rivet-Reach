@@ -77,4 +77,4 @@ Craft [wooden doors](.docs/DOORS.md) from six planks at a workbench. Right-click
 
 The player now carries **56 backpack slots (seven rows of eight)** and a **15-slot hotbar**. Try `Builds/Inventory/RivetReach.exe`; [inventory verification](.docs/verification/INVENTORY_RESULTS.md) records the layout, controls and older-save migration checks.
 
-[Electrical grids](.docs/BATTERIES.md#cable-defined-grids--2026-09-12) now follow connected cables, with separate battery input/output networks, storage of all surplus and **800 W** boiler/alternator generation. The focused review player is `Builds/PowerGrid/RivetReach.exe`; [power-grid verification](.docs/verification/POWER_GRID_RESULTS.md) records the checks.
+[Electrical grids](.docs/BATTERIES.md#cable-defined-grids--2026-09-12) now follow connected cables, with separate battery input/output networks, storage of all surplus and **800 W** boiler/alternator generation. Batteries share surplus/deficits equally, and item/fluid pipes use the same capped allocation rules. The focused review player is `Builds/PowerGrid/RivetReach.exe`; [power-grid verification](.docs/verification/POWER_GRID_RESULTS.md) records the checks.

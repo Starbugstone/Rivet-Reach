@@ -87,7 +87,7 @@ Current item-pipe endpoints include chests, crusher raw inputs and product outpu
 3. Supply fuel manually or connect a coal/charcoal chest with **red Output at the chest**, **blue Input at the back of the furnace**. The back accepts fuel only; the other five faces accept ingredients only.
 4. Add another pipe to a receiving chest, with **red Output at the furnace** and **blue Input at the chest**. Only finished products leave the furnace.
 
-Incompatible items stay in their source inventory. A mixed supply chest can send compatible stacks even when its first stack is unsuitable. Receivers prefer their existing input or output type: a furnace holding iron ingots requests iron ingredients before copper, and a chest fills item types it already contains first. Other compatible cargo is used when no preferred transfer is available. Full or mismatched furnace slots stop that cargo without losing it. Logs piped into the back burn as fuel; logs piped into another input face become charcoal. A full slot never redirects logs into the other slot. Manual quick-transfer still prefers ingredients. The furnace still needs fuel to smelt; pipes need no electricity.
+Incompatible items stay in their source inventory. A mixed supply chest can send compatible stacks even when its first stack is unsuitable. Receivers prefer their existing input or output type: a furnace holding iron ingots requests iron ingredients before copper, while storage chests share compatible deliveries equally. Other compatible cargo is used when no preferred transfer is available. Full or mismatched furnace slots stop that cargo without losing it. Logs piped into the back burn as fuel; logs piped into another input face become charcoal. A full slot never redirects logs into the other slot. Manual quick-transfer still prefers ingredients. The furnace still needs fuel to smelt; pipes need no electricity.
 
 ## Example: pump → tank → boiler
 
@@ -139,3 +139,24 @@ A registered electrical connection remains connected when its generator stops or
 | The battery has charge but the crusher shows 0 W | Check cable continuity and battery mode. Any crusher face accepts power; leave the battery on Automatic for normal use. |
 
 Related guides: [Wrench recipe](Item-wrench.md), [electricity and batteries](Electricity-and-batteries.md), [pumps](Pumps-and-water.md), [tanks](Tanks.md), [Blue Signal](Blue-Signal.md).
+
+## Sharing a branched grid
+
+Connected pipes define each grid. A chest or tank can receive through one pipe run and supply another without joining those runs together. Newly received items or water can leave on a later transfer step.
+
+Compatible inputs share deliveries equally. Full inputs are skipped and their shares go to inputs with room. Outputs share limited receiving capacity, subject to their normal transport limits and available contents. Items remain whole: when only one item is available, the receiving turn rotates. Processing machines still prefer ingredients for their existing recipe; chests do not gain priority just by receiving the first item.
+
+| Connected setup | Result |
+|---|---|
+| Two item outputs and two empty chest inputs | Each source sends one item and each chest receives one in a transfer step |
+| One item output and two chest inputs | Items alternate between the chests |
+| Two fluid outputs and two tank inputs | Each output can send 100 mL; each tank receives 100 mL |
+| Those two tanks have only 30 mL and 70 mL of room | Each source supplies 50 mL; both destination tanks fill exactly |
+
+These September 12, 2026 player captures show two output branches feeding two input branches on a shared pipe run. Red arrows leave sources; blue arrows enter destinations. The native scenario checks both destination quantities after transfer.
+
+![Item pipe branches sharing two items equally between two chests](images/grid-items-equal-2026-09-12.png)
+
+![Fluid pipe branches sharing 200 mL equally between two tanks](images/grid-fluids-equal-2026-09-12.png)
+
+See [electricity and batteries](Electricity-and-batteries.md#sharing-power-between-batteries) for equal surplus charging and deficit discharge on electrical grids.

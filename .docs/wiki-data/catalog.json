@@ -8216,7 +8216,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/ConnectionVerification.cs",
-            "sha256": "1d5aa3cd9df49b9291edeeb7b3f357c2cd0f273e1bb2b540596c3c3f4f16f151"
+            "sha256": "d49b77d7f6ed1e9a4f8e8691079a58644f5c02b31422590975958f5b6ebace2e"
         },
         {
             "path": "Assets/RivetReach/Code/Core/Coordinates.cs",
@@ -8339,6 +8339,10 @@
             "sha256": "5c8ed9d626c43ed229fcaa31538f575ebd1b210280abda4d0f9e5a9a5fc03694"
         },
         {
+            "path": "Assets/RivetReach/Code/Industry/FairAllocation.cs",
+            "sha256": "3b47ca10365da7e057078f4783e9927281514ae419f4f4148cc1540f9f516b69"
+        },
+        {
             "path": "Assets/RivetReach/Code/Industry/FluidStorage.cs",
             "sha256": "af0b5fa4c2385818d2b393c0b959fbfb22eb49b52884eb3b27d169f525ddde0c"
         },
@@ -8352,11 +8356,11 @@
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustrySimulation.cs",
-            "sha256": "9f18b014d73eae0cc6a43f6da6f03223da92eb1c458c5278eeb55fee60c2699e"
+            "sha256": "8d37adb681b697e7a4bd7ea8e1daa0f3c163294057c15ca21466e771ca9a9028"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/NetworkTopology.cs",
-            "sha256": "faeac1b01f207abc57b5daf878013a0e24d7565b0982d52be0353094cc27fffc"
+            "sha256": "44d4bbe5cb578fb704b8927188b56d1550a55435b326f26bc9733399853fc32c"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/PipeConnections.cs",
@@ -8368,11 +8372,11 @@
         },
         {
             "path": "Assets/RivetReach/Code/Industry/PipeEndpointPresentation.cs",
-            "sha256": "0d0a52dc558c5bce26c281b63c60de71663998e171dc88ebaffcb263fb1cbc93"
+            "sha256": "3108715db2dfe7ba8b1cf314b84638df4288311b4021077de1d4c1719ecfb8ad"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/TransportEndpoints.cs",
-            "sha256": "e3732eac2159903ea1e6741e76b12d8c6620839cf51b17da62060b16f707f219"
+            "sha256": "8fa513a65ea961d9216242fba1fe0be8cccdb91ba6dbaf921aaf1606e1ea98ad"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/WorldIndustry.cs",

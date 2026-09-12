@@ -26,6 +26,7 @@ namespace RivetReach
             battery.EnergyCells[0].Charge(2100000);crusher.Items.Add(BlockId.RawIron,4,0,1);sim.Step();
             Check(crusher.ReceivedWatts==160&&battery.BatteryWatts==-160,"Screenshot layout: battery → side cable → crusher supplies 160 W");
             yield return ReviewSeparatePowerGrids(origin);
+            yield return ReviewBalancedGrids(origin);
             yield return ReviewPowerConnectionStatus(battery,crusher);
             var itemMachine=Machine(0,0,3,IndustryId.Crusher);var itemPipe=Machine(1,0,3,IndustryId.ItemPipe);
             var chestPos=origin.Offset(2,0,3);Put(chestPos,BlockId.Chest);itemMachine.Items.Add(IndustryId.CrushedIron,64,2,3);
@@ -199,6 +200,69 @@ namespace RivetReach
             cell.EnergyCells[0].Discharge(BatteryPower.Amount(cell));
             for(int x=-3;x<=2;x++){var p=origin.Offset(x,0,-2);Check(world.Remove(p,world.Get(p)),"Remove separate-grid fixture");}
             sim.Step();game.enabled=true;
+        }
+
+        IEnumerator ReviewBalancedGrids(BlockPos origin)
+        {
+            var sim=game.Industry.Simulation;var world=game.World;var player=game.Player;game.enabled=false;
+            var placed=new System.Collections.Generic.List<BlockPos>();
+            MachineState Put(int x,int z,byte id)
+            {var p=origin.Offset(x,0,z);Check(world.Place(p,id),"Place balanced grid fixture");placed.Add(p);return sim.At(p);}
+            void Settle(){for(int i=0;i<100;i++){sim.Step();if(!sim.Rebuilding&&sim.Multiblocks.PendingCount==0)return;}Check(false,"Settle balanced grid");}
+            void Clear()
+            {
+                game.SetMode(ScreenMode.Pause);
+                foreach(var pos in placed)
+                {
+                    var m=sim.At(pos);if(m?.Definition.Id==IndustryId.Battery)m.EnergyCells[0].Discharge(BatteryPower.Amount(m));
+                    Check(world.Remove(pos,world.Get(pos)),"Remove balanced grid fixture");
+                }
+                placed.Clear();Settle();
+            }
+            IEnumerator Inspect(MachineState m,string capture)
+            {
+                game.SetMode(ScreenMode.Play);player.transform.position=world.Local(m.Position)+new Vector3(.5f,.1f,-2);
+                player.Camera.transform.position=world.Local(m.Position)+new Vector3(.5f,3,.5f);player.Camera.transform.LookAt(world.Local(m.Position)+Vector3.one*.5f);
+                Check(game.TryOpenMachine(m.Position),"Open balanced grid interface");yield return new WaitForSecondsRealtime(.2f);yield return Capture(capture);
+            }
+            var boiler=Put(-3,-2,IndustryId.Boiler);boiler.WaterMl=100000;boiler.Items.Add(BlockId.Coal,1);
+            Put(-2,-2,IndustryId.Alternator);for(int x=-1;x<=3;x++)Put(x,-2,IndustryId.PowerCable);
+            var a=Put(0,-3,IndustryId.Battery);var b=Put(2,-3,IndustryId.Battery);var load=Put(3,-3,IndustryId.Crusher);load.Items.Add(BlockId.RawIron,64,0,1);Settle();sim.Step();
+            Check(a.BatteryInputWatts==320&&b.BatteryInputWatts==320&&load.ReceivedWatts==160,"Native two batteries equally store the 640 W grid surplus");
+            yield return Inspect(a,"battery-equal-charge");
+            boiler.WaterMl=0;sim.Step();Check(a.BatteryOutputWatts==80&&b.BatteryOutputWatts==80&&load.ReceivedWatts==160,"Native two batteries equally cover the 160 W deficit");
+            yield return Inspect(b,"battery-equal-discharge");Clear();
+            foreach(bool fluid in new[]{false,true})
+            {
+                byte type=fluid?IndustryId.FluidPipe:IndustryId.ItemPipe;
+                for(int x=-1;x<=3;x++)Put(x,-2,type);
+                var positions=new[]{origin.Offset(-1,0,-3),origin.Offset(1,0,-3),origin.Offset(1,0,-1),origin.Offset(3,0,-1)};
+                for(int i=0;i<4;i++)Put((int)(positions[i].X-origin.X),(int)(positions[i].Z-origin.Z),fluid?IndustryId.Tank:BlockId.Chest);
+                for(int i=0;i<4;i++)
+                {
+                    var pipe=sim.At(positions[i].Offset(0,0,i<2?1:-1));int face=i<2?5:4;
+                    var role=i<2?PortRole.Output:PortRole.Input;
+                    for(int n=0;n<3&&sim.PipeEndRole(pipe,face)!=role;n++)Check(sim.TogglePipeEnd(pipe,face),"Configure balanced pipe end");
+                }
+                Settle();
+                if(fluid){sim.At(positions[0]).WaterMl=sim.At(positions[1]).WaterMl=1000;sim.Step();}
+                else
+                {
+                    game.Survival.At(positions[0]).Storage.Add(BlockId.Stone,10);game.Survival.At(positions[1]).Storage.Add(BlockId.Stone,10);
+                    do{sim.Step();}while(sim.Tick%5!=0);
+                }
+                if(fluid)
+                    Check(sim.At(positions[0]).WaterMl==900&&sim.At(positions[1]).WaterMl==900&&sim.At(positions[2]).WaterMl==100&&sim.At(positions[3]).WaterMl==100,"Native fluid inputs share 200 mL equally with exact source withdrawal");
+                else
+                    Check(game.Survival.At(positions[0]).Storage.Total(BlockId.Stone)==9&&game.Survival.At(positions[1]).Storage.Total(BlockId.Stone)==9&&game.Survival.At(positions[2]).Storage.Total(BlockId.Stone)==1&&game.Survival.At(positions[3]).Storage.Total(BlockId.Stone)==1,"Native item inputs share two whole items equally");
+                game.SetMode(ScreenMode.Play);player.transform.position=world.Local(origin)+new Vector3(1,0,-3);
+                player.Camera.transform.position=world.Local(origin)+new Vector3(5,5,-6);player.Camera.transform.LookAt(world.Local(origin)+new Vector3(1,.5f,-2));
+                game.Inventory.Take(0,int.MaxValue);game.Selected=0;game.Inventory.Add(IndustryId.Wrench,1,0,1);
+                yield return new WaitForSecondsRealtime(.3f);
+                Check(world.GetComponent<PipeEndpointPresentation>().ViewCount==4,"Four direction arrows survive replacement with the other pipe channel");
+                yield return Capture(fluid?"fluid-equal-sharing":"item-equal-sharing");Clear();
+            }
+            game.Inventory.Take(0,int.MaxValue);game.enabled=true;
         }
 
         IEnumerator ReviewPowerConnectionStatus(MachineState battery,MachineState crusher)
