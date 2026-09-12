@@ -28,6 +28,8 @@ Light-bulb and speaker markers are Unity Editor annotations, with no gameplay pu
 
 The build script reuses this project's open Editor through its existing local file request, or starts the pinned Editor in batch mode when the project is closed. Preserve open scenes and unsaved work. An explicit Editor startup check is available through **Rivet Reach → Verify Editor Play startup**; the latest [player/audio report](verification/HIFI_PLAYER_AND_AUDIO_RESULTS.md) records its evidence.
 
+The player backpack has **56 slots (seven rows of eight)**, plus the **15-slot hotbar**. The focused local review player is `Builds/Inventory/RivetReach.exe`; [inventory verification](verification/INVENTORY_RESULTS.md) records its checks.
+
 ## Controls
 
 | Action | Default |
@@ -39,7 +41,7 @@ The build script reuses this project's open Editor through its existing local fi
 | Place / use held item | Right-click; Left Shift + right-click places against a station |
 | Inventory / pause | Tab / Escape |
 | Close inventory or station screen | Tab, E (Interact), or Escape; Tab/E shortcuts are ignored while typing in a text field |
-| Select hotbar | Mouse wheel or [ / ]; 1–0 for the first ten slots |
+| Select hotbar | Mouse wheel or [ / ] cycle all 15 slots; 1–0 for the first ten |
 | Drop one / selected stack | Q / Shift+Q |
 | Inspect body / diagnostics | F5 / F12 |
 | Move an inventory stack | Click source then destination, or drag |

@@ -59,7 +59,7 @@ namespace RivetReach
         void RestoreSave(SaveReader r,SaveEntry entry)
         {
             SaveReader.Require(r.Text()=="rivet:surface","Unsupported saved world definition.");var point=r.Point();
-            double daySeconds=r.Number(1,1e9),days=r.Number(0,1e9);int selected=r.Int(0,11);float immunity=r.Float(0,2);
+            double daySeconds=r.Number(1,1e9),days=r.Number(0,1e9);int selected=r.Int(0,r.Format<6?11:Inventory.HotbarCount-1);float immunity=r.Float(0,2);
             // Keep the original session alive until every section has been restored and validated.
             var oldWorld=World;var oldPlayer=Player;var oldItems=Items;var oldMobs=Mobs;var oldInventory=Inventory;var oldCrafting=PersonalCrafting;
             var oldHunger=Hunger;var oldHealth=Health;var oldEquipment=Equipment;var oldSurvival=Survival;var oldIndustry=Industry;
@@ -72,7 +72,7 @@ namespace RivetReach
                 CreateSession(entry.Seed);WorldId=entry.WorldId;
                 // An origin near the player retains integer precision at remote saved coordinates.
                 World.ReadSave(r,new BlockPos(point.Cell.Chunk.Min.X,0,point.Cell.Chunk.Min.Z));Player.ReadSave(r,point);
-                r.Slots(Inventory);r.Slots(PersonalCrafting.Grid);Hunger.ReadSave(r);Health.ReadSave(r);Equipment.ReadSave(r);
+                r.PlayerInventory(Inventory);r.Slots(PersonalCrafting.Grid);Hunger.ReadSave(r);Health.ReadSave(r);Equipment.ReadSave(r);
                 Survival.ReadSave(r);Industry.Simulation.ReadSave(r);
                 SaveReader.Require(Industry.Simulation.Multiblocks.WorldId.ToString("N")==WorldId,"Saved world identities differ.");
                 foreach(var p in World.SavedBlocks())if(IndustryId.Placed(p.Value))SaveReader.Require(Industry.Simulation.At(p.Key)!=null,"Missing saved machine.");

@@ -109,8 +109,9 @@ namespace RivetReach
             }
             targetLabel=Label(root,"",370,395,540,52,17);targetLabel.alignment=TextAnchor.MiddleCenter;
             var track=Panel(root,580,385,120,3,new Color(.1f,.15f,.16f,.5f));progress=Panel(track.transform,0,0,0,3,gold);
-            Panel(root,296,635,688,67,new Color(.025f,.045f,.055f,.75f));
-            BuildHotbar(root,304,642,52,4);
+            float hotbarWidth=Inventory.HotbarCount*56-4,hotbarX=(1280-hotbarWidth)/2;
+            Panel(root,hotbarX-8,635,hotbarWidth+16,67,new Color(.025f,.045f,.055f,.75f));
+            BuildHotbar(root,hotbarX,642,52,4);
             selectedLabel=Label(root,"",420,611,440,24,15);selectedLabel.alignment=TextAnchor.MiddleCenter;
             currentScreen.hudControls=Label(root,"",28,694,850,22,13);
             BuildSurvivalHUD();
@@ -139,14 +140,14 @@ namespace RivetReach
         }
         public void RotatePreview(float delta){if(preview!=null)preview.transform.Rotate(0,-delta*.6f,0,Space.World);}
         void BuildHotbar(Transform parent,float x,float y,int size,int gap)
-        {for(int i=0;i<12;i++)Slot(parent,i,x+i*(size+gap),y,size);}
+        {for(int i=0;i<Inventory.HotbarCount;i++)Slot(parent,i,x+i*(size+gap),y,size);}
         void Slot(Transform parent,int index,float x,float y,int size)
         {
             var image=Panel(parent,x,y,size,size,slate);var slot=image.gameObject.AddComponent<SlotView>();slot.Owner=this;slot.Index=index;slot.Background=image;
             slot.Border=image.gameObject.AddComponent<Outline>();slot.Border.effectDistance=new Vector2(1,-1);slot.Border.useGraphicAlpha=false;
             var icon=Rect(image.transform,"Item",7,6,size-14,size-14).gameObject.AddComponent<RawImage>();icon.raycastTarget=false;slot.Icon=icon;
             slot.Count=Label(image.transform,"",3,size-22,size-7,22,14);slot.Count.alignment=TextAnchor.LowerRight;
-            if(index<12)Label(image.transform,(index+1).ToString(),3,2,20,14,10,new Color(.55f,.64f,.64f));
+            if(index<Inventory.HotbarCount)Label(image.transform,(index+1).ToString(),3,2,20,14,10,new Color(.55f,.64f,.64f));
             slots.Add(slot);
         }
         void BuildMenu()

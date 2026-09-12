@@ -123,7 +123,7 @@ namespace RivetReach.Editor
             cursor=new ItemStack(10,498);
             Check(session.CraftToCursor(ref cursor).Status==CraftStatus.OutputFull&&cursor.Count==498&&session.Grid.Revision==revision,"Partial output never consumed or emitted");
             cursor=new ItemStack(10,496);Check(session.CraftToCursor(ref cursor).Succeeded&&cursor.Count==500&&session.Grid.Total(1)==9,"Exact cursor fit");
-            var inventory=new Inventory(Limit);inventory.Add(2,30000);revision=session.Grid.Revision;
+            var inventory=new Inventory(Limit);inventory.Add(2,500*Inventory.SlotCount);revision=session.Grid.Revision;
             Check(session.CraftToInventory(inventory).Status==CraftStatus.OutputFull&&session.Grid.Revision==revision,"Full inventory consumes nothing");
             inventory.Take(0,500);Put(inventory,0,10,493);
             var result=session.CraftToInventory(inventory);
@@ -138,7 +138,7 @@ namespace RivetReach.Editor
             inventory.Take(1,500);session.ReturnIngredients(inventory);Check(session.Grid.Total(1)==0&&inventory.Total(1)==3,"Retrying return transfers remaining ingredients exactly once");
             session.ReturnIngredients(inventory);Check(inventory.Total(1)==3,"Repeated return is idempotent");
             var tool=Shape("tool",1,1,1);tool.Output=Ingredient(240);var tools=Session(tool);Put(tools.Grid,0,1,100);
-            var toolBag=new Inventory(Limit);toolBag.Add(2,29000);
+            var toolBag=new Inventory(Limit);toolBag.Add(2,500*(Inventory.SlotCount-2));
             Check(tools.CraftToInventory(toolBag).Crafts==2&&toolBag.Total(240)==2&&tools.Grid.Total(1)==98,"Unstackable tools use one destination slot each");
             var large=Shape("largecounts",1,1,1);large.Ingredients[0]=Ingredient(1,500);large.Output=Ingredient(10,500);
             var largeSession=Session(large);Put(largeSession.Grid,0,1,500);cursor=default;
@@ -170,11 +170,11 @@ namespace RivetReach.Editor
             var symmetric=Shape("symmetric",2,1,1,1);symmetric.Mirror=true;symmetric.Ingredients[1]=Ingredient(1,2);Reject(()=>Compile(symmetric),"Ambiguous symmetric counts rejected");
             Reject(()=>new CraftingGrid(1,Limit),"Grid lower bound");Reject(()=>new CraftingGrid(5,Limit),"Grid upper bound");
             var inventory=new Inventory(Limit);Reject(()=>inventory.Add(1,-1),"Negative additions cannot corrupt storage");
-            Reject(()=>inventory.Add(0,1),"Air is never stored as an item");Reject(()=>inventory.Add(1,1,0,61),"Invalid range rejected before writes");
+            Reject(()=>inventory.Add(0,1),"Air is never stored as an item");Reject(()=>inventory.Add(1,1,0,Inventory.SlotCount+1),"Invalid range rejected before writes");
             Check(inventory.Slots is not ItemStack[],"Backing array is not exposed");
             var held=new ItemStack(1,501);Reject(()=>inventory.Click(0,ref held,false),"Over-limit cursor rejected before writes");
             Check(inventory.Total(1)==0&&inventory.Revision==0,"Rejected mutations leave inventory unchanged");
-            inventory.Add(2,30000);inventory.Take(0,500);Put(inventory,0,10,498);
+            inventory.Add(2,500*Inventory.SlotCount);inventory.Take(0,500);Put(inventory,0,10,498);
             long revision=inventory.Revision;
             Check(!inventory.TryAddExact(10,4)&&inventory.Revision==revision&&inventory.Total(10)==498,"Exact insertion never partially writes");
         }
@@ -188,13 +188,13 @@ namespace RivetReach.Editor
             {
                 switch(random.Next(7))
                 {
-                    case 0:inventory.Click(random.Next(60),ref held,random.Next(2)==0);break;
+                    case 0:inventory.Click(random.Next(Inventory.SlotCount),ref held,random.Next(2)==0);break;
                     case 1:session.Grid.Click(random.Next(16),ref held,random.Next(2)==0);break;
                     case 2:session.CraftToCursor(ref held);break;
                     case 3:session.CraftToInventory(inventory,random.Next(1,200));break;
                     case 4:session.Grid.TransferTo(random.Next(16),inventory);break;
                     case 5:session.ReturnIngredients(inventory);break;
-                    case 6:inventory.QuickTransfer(random.Next(60));break;
+                    case 6:inventory.QuickTransfer(random.Next(Inventory.SlotCount));break;
                 }
                 int raw=inventory.Total(1)+session.Grid.Total(1)+(held.Id==1?held.Count:0);
                 int output=inventory.Total(10)+session.Grid.Total(10)+(held.Id==10?held.Count:0);

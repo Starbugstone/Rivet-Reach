@@ -139,9 +139,9 @@ namespace RivetReach
             }
             foreach(var item in game.Registry.items)
             {
-                yield return CreativeDragTo(item.runtimeId,CraftPoint(12));
-                Check(game.Inventory.Slots[12].Id==item.runtimeId&&game.Inventory.Slots[12].Count==item.stackLimit&&game.UI.HeldStack.Empty,"Sidebar pointer drag grants legal stack into selected backpack slot: "+item.displayName);
-                game.Inventory.Take(12,int.MaxValue);
+                yield return CreativeDragTo(item.runtimeId,CraftPoint(Inventory.HotbarCount));
+                Check(game.Inventory.Slots[Inventory.HotbarCount].Id==item.runtimeId&&game.Inventory.Slots[Inventory.HotbarCount].Count==item.stackLimit&&game.UI.HeldStack.Empty,"Sidebar pointer drag grants legal stack into selected backpack slot: "+item.displayName);
+                game.Inventory.Take(Inventory.HotbarCount,int.MaxValue);
             }
             yield return CreativeDragTo(BlockId.Planks,CraftPoint(0));
             Check(game.Inventory.Slots[0].Id==BlockId.Planks,"Sidebar drag targets hotbar slots");
@@ -174,7 +174,7 @@ namespace RivetReach
             game.TryGiveCreativeItem(BlockId.Planks);game.TryGiveCreativeItem(BlockId.DiamondPickaxe);game.TryGiveCreativeItem(BlockId.Potato);
             yield return Capture("creative-catalog");
             yield return CreativeClick(Named("CRAFTING"));
-            Check(game.UI.VisibleRoot.GetComponentsInChildren<SlotView>().Count(v=>v.Index>=60&&v.Index<64)==4,"Creative retains personal crafting access");
+            Check(game.UI.VisibleRoot.GetComponentsInChildren<SlotView>().Count(v=>v.Index>=CraftCell&&v.Index<CraftCell+4)==4,"Creative retains personal crafting access");
             yield return CreativeClick(Named("ALL ITEMS"));
             yield return CreativeHold(.06f,game.Input.Keys["Inventory"]);
             Check(!game.TryGiveCreativeItem(BlockId.Log),"Catalog grant requires an inventory screen");

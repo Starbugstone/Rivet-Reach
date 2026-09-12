@@ -1,0 +1,5 @@
+PASS: 1323898 crafting assertions. UTC 2026-09-12T13:45:54.3612292Z; Unity 6000.4.4f1; Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
+10 recipes; compile 0,144 ms; 4x4 hit 0,958 us, miss 0,924 us; 100000 iterations each; 0 bytes per loop after warmup.
+1000 recipes; compile 2,801 ms; 4x4 hit 0,938 us, miss 1,005 us; 100000 iterations each; 0 bytes per loop after warmup.
+10000 recipes; compile 29,471 ms; 4x4 hit 1,030 us, miss 0,977 us; 100000 iterations each; 0 bytes per loop after warmup.
+Cached preview: 7,082 ms / 1,000,000 reads, 0 bytes. Editor Mono, isolated synchronous workload; not whole-game frame timings.

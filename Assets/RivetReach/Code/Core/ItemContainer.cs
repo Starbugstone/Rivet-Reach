@@ -200,7 +200,8 @@ namespace RivetReach
 
     public sealed class Inventory : ItemContainer
     {
-        public const int HotbarCount = 12, MainCount = 48, SlotCount = 60;
+        public const int HotbarCount = 15, MainColumns = 8, MainRows = 7;
+        public const int MainCount = MainColumns * MainRows, SlotCount = HotbarCount + MainCount;
         public Inventory(Func<byte, int> stackLimit) : base(SlotCount, stackLimit) { }
 
         public void QuickTransfer(int index)

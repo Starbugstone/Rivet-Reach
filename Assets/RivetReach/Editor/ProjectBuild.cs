@@ -38,6 +38,8 @@ namespace RivetReach.Editor
             command=command.Replace("|ready","");File.Delete(request);
             try
             {
+                if(command=="inventory-build")
+                {InventoryChecks.Run();DomainChecks.Run();Build("Inventory");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="placement-facing-build")
                 {SurvivalChecks.Run();Build("PlacementFacing");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="survival-hud-build")

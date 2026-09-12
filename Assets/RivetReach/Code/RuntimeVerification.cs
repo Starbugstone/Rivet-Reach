@@ -122,7 +122,10 @@ namespace RivetReach
             if(Environment.GetCommandLineArgs().Contains("-rr-equipment-art-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-potato-art-review")||Environment.GetCommandLineArgs().Contains("-rr-orchard-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-connections-review")||Environment.GetCommandLineArgs().Contains("-rr-facing-review"))game.World.ViewDistance=4;
+            if(Environment.GetCommandLineArgs().Contains("-rr-inventory-review"))game.World.ViewDistance=4;
             yield return Settle();report.firstReadySeconds=Time.realtimeSinceStartup-began;
+            if(Environment.GetCommandLineArgs().Contains("-rr-inventory-review"))
+            {report.workload="56 backpack slots, 15-slot hotbar, input, transfers and durable saves";yield return ReviewInventoryExpansion();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-facing-review"))
             {report.workload="Player-facing starter stations and machines, rendered cell bounds, right-click, residency and schema 5 persistence";yield return ReviewPlacementFacing();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-connections-review"))
@@ -313,7 +316,7 @@ namespace RivetReach
             player.VerificationMining=false;yield return null;
             Check(world.Get(placed)==0&&game.Items.TotalSpawned==remineBefore+1,"Pickaxe mining a placed block creates exactly one recoverable item");
             // Fill every slot, leave exactly five spaces, then exercise real partial pickup.
-            var carried=game.Inventory.Slots.ToArray();for(int slot=0;slot<60;slot++)game.Inventory.Take(slot,int.MaxValue);
+            var carried=game.Inventory.Slots.ToArray();for(int slot=0;slot<Inventory.SlotCount;slot++)game.Inventory.Take(slot,int.MaxValue);
             int capacity=game.Inventory.Count*game.Registry.Get(3).stackLimit;game.Inventory.Add(3,capacity-5);
             // Isolate this quantity fixture from the just-mined drop: it may still be in
             // pickup/merge range depending on frame timing. Ordinary item rules are unchanged.
@@ -325,7 +328,7 @@ namespace RivetReach
             game.Items.Step(.05f);Check(partial.Stack.Count==5,"Full inventory does not consume remaining world items");
             foreach(var savedDelay in priorDelays)savedDelay.pile.Delay=savedDelay.delay;
             game.Items.Piles.Remove(partial);if(partial.View!=null)Destroy(partial.View);
-            for(int slot=0;slot<60;slot++)game.Inventory.Take(slot,int.MaxValue);
+            for(int slot=0;slot<Inventory.SlotCount;slot++)game.Inventory.Take(slot,int.MaxValue);
             foreach(var stack in carried)if(!stack.Empty)game.Inventory.Add(stack.Id,stack.Count);
             // Walk across a prepared, naturally flat local strip with mapped input.
             BlockPos walk=default;bool strip=false;

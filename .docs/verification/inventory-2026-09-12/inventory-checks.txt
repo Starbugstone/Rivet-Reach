@@ -1,0 +1,1 @@
+PASS: 389 assertions; schemas 1–6, exact slots, malformed layouts, capacity and boundary transfers.

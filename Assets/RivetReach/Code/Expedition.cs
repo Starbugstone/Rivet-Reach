@@ -131,9 +131,9 @@ namespace RivetReach
             if(Input.Pressed("Diagnostics"))Diagnostics=!Diagnostics;
             if(Mode==ScreenMode.Play)
             {
-                if(Input.Pressed("Previous slot"))Selected=(Selected+11)%12;
-                if(Input.Pressed("Next slot"))Selected=(Selected+1)%12;
-                if(Mouse.current!=null){float scroll=Mouse.current.scroll.ReadValue().y;if(scroll!=0)Selected=(Selected+(scroll>0?-1:1)+12)%12;}
+                if(Input.Pressed("Previous slot"))Selected=(Selected+Inventory.HotbarCount-1)%Inventory.HotbarCount;
+                if(Input.Pressed("Next slot"))Selected=(Selected+1)%Inventory.HotbarCount;
+                if(Mouse.current!=null){float scroll=Mouse.current.scroll.ReadValue().y;if(scroll!=0)Selected=(Selected+(scroll>0?-1:1)+Inventory.HotbarCount)%Inventory.HotbarCount;}
                 if(Keyboard.current!=null)
                 {
                     Key[] digits={Key.Digit1,Key.Digit2,Key.Digit3,Key.Digit4,Key.Digit5,Key.Digit6,Key.Digit7,Key.Digit8,Key.Digit9,Key.Digit0};

@@ -73,7 +73,7 @@ namespace RivetReach
             var portrait = Rect(backdrop.transform, "Portrait", 0, 0, 210, 270).gameObject.AddComponent<RawImage>();
             portrait.texture = previewTexture; portrait.uvRect = PortraitUV(210, 270); portrait.gameObject.AddComponent<PortraitDrag>().Owner = this;
             Label(p.transform, "BACKPACK", 250, 103, 380, 20, 12, gold);
-            for (int row = 0; row < 6; row++) for (int col = 0; col < 8; col++) Slot(p.transform, 12 + row * 8 + col, 250 + col * 50, 131 + row * 50, 44);
+            for (int row = 0; row < Inventory.MainRows; row++) for (int col = 0; col < Inventory.MainColumns; col++) Slot(p.transform, Inventory.HotbarCount + row * Inventory.MainColumns + col, 250 + col * 50, 131 + row * 50, 44);
             BuildEquipment(p.transform);
             // Existing station controls retain their own layouts inside this bounded column.
             currentScreen.stationHost=Rect(p.transform,"Station controls",-14,28,1170,634);currentScreen.stationHost.localScale=Vector3.one*.82f;

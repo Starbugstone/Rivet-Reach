@@ -41,6 +41,18 @@ namespace RivetReach
         {byte id=ReadByte();int count=ReadInt32();Require(id==0?count==0:id!=IndustryId.DoorUpper&&count>0&&count<=Registry.Get(id).stackLimit,"Invalid saved item stack.");return new ItemStack(id,count);}
         public void Slots(ItemContainer container)
         {Require(Count(256)==container.Count,"Saved container size differs.");for(int i=0;i<container.Count;i++){var s=Stack();if(!s.Empty)Require(container.Add(s.Id,s.Count,i,i+1)==0,"Saved container overflow.");}}
+        public void PlayerInventory(Inventory inventory)
+        {
+            // Schemas 1–5 stored 12 hotbar slots followed by 48 backpack slots.
+            int savedHotbar=Format<6?12:Inventory.HotbarCount;
+            int savedCount=Format<6?60:Inventory.SlotCount;
+            Require(Count(256)==savedCount,"Saved player inventory size differs.");
+            for(int i=0;i<savedCount;i++)
+            {
+                var stack=Stack();int destination=i<savedHotbar?i:Inventory.HotbarCount+i-savedHotbar;
+                if(!stack.Empty)Require(inventory.Add(stack.Id,stack.Count,destination,destination+1)==0,"Saved inventory overflow.");
+            }
+        }
         public List<BlockPos> Positions(){int n=Count();var list=new List<BlockPos>(n);for(int i=0;i<n;i++)list.Add(Pos());return list;}
         public string Text(int max=256){string s=ReadString();Require(s.Length<=max,"Saved text is too long.");return s;}
     }
@@ -53,7 +65,7 @@ namespace RivetReach
     }
     public sealed class SaveStore
     {
-        public const int Format=5;
+        public const int Format=6;
         const int MaxBytes=256*1024*1024;
         public string DirectoryPath {get;}
         readonly ItemRegistry registry;

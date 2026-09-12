@@ -53,7 +53,7 @@ namespace RivetReach.Editor
             var bad=new ItemStack(BlockId.Dirt,1);furnace.Click(2,ref bad,false);Check(bad.Count==1&&furnace.Slots[2].Id==BlockId.IronIngot,"Output slot rejects insertion");
             furnace.Click(0,ref bad,false);Check(bad.Id==BlockId.Dirt&&furnace.Slots[0].Id==BlockId.RawIron,"Input filter rejects uncookable material");
             furnace.Click(1,ref bad,false);Check(furnace.Slots[1].Id==BlockId.Coal,"Fuel filter rejects dirt");
-            var full=new Inventory(Limit);full.Add(BlockId.Dirt,64*60);furnace.TransferOut(2,full);Check(furnace.Slots[2].Count==64,"Full inventory cannot delete furnace output");
+            var full=new Inventory(Limit);full.Add(BlockId.Dirt,64*Inventory.SlotCount);furnace.TransferOut(2,full);Check(furnace.Slots[2].Count==64,"Full inventory cannot delete furnace output");
             full.Take(0,1);furnace.TransferOut(2,full);Check(furnace.Slots[2].Count==64,"Incompatible partial space cannot take output");
             full.Take(0,64);furnace.TransferOut(2,full);Check(furnace.Slots[2].Empty&&full.Total(BlockId.IronIngot)==64,"Output transfer conserves complete stacks");
             furnace.Advance(1);furnace.Take(0,1);furnace.Advance(1599);Check(furnace.BurnTicks==0&&furnace.ProgressTicks==0,"Lit fuel burns when input is removed, with work reset");

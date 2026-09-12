@@ -74,3 +74,5 @@ Craft [wooden doors](.docs/DOORS.md) from six planks at a workbench. Right-click
 [Upgraded armor and ingots](.docs/EQUIPMENT_ART.md) now have matching 3D held/dropped models and inventory icons. Equipped armor appears on both explorers, the inventory portrait and first-person bracers. Try `Builds/EquipmentArt/RivetReach.exe`; [verification](.docs/verification/EQUIPMENT_ART_RESULTS.md) records source and native-player checks.
 
 [All-face connections and wrench verification](.docs/verification/CONNECTION_RESULTS.md) covers the craftable wrench, machine-facing pipe controls and saved directions. Players can follow the [Pipes guide](.docs/wiki/Pipes.md).
+
+The player now carries **56 backpack slots (seven rows of eight)** and a **15-slot hotbar**. Try `Builds/Inventory/RivetReach.exe`; [inventory verification](.docs/verification/INVENTORY_RESULTS.md) records the layout, controls and older-save migration checks.

@@ -36,15 +36,15 @@ namespace RivetReach.Editor
             for(int z=0;z<32;z++)for(int y=0;y<32;y++)for(int x=0;x<32;x++)cells[ChunkMesher.Index(x,y,z)]=3;
             Check(ChunkMesher.Build(default,0,cells).Triangles.Length==36,"Greedy solid chunk is six quads");
             Array.Fill(cells,(byte)3);Check(ChunkMesher.Build(default,0,cells).Triangles.Length==0,"Occluded chunk emits no faces");
-            var inventory=new Inventory(_=>500);Check(inventory.Add(1,30500)==500,"Overflow preserves remainder");Check(inventory.Total(1)==30000,"All sixty slots used");
+            var inventory=new Inventory(_=>500);Check(inventory.Add(1,500*(Inventory.SlotCount+1))==500,"Overflow preserves remainder");Check(inventory.Total(1)==500*Inventory.SlotCount,"All player inventory slots used");
             var held=default(ItemStack);inventory.Click(0,ref held,true);Check(held.Count==250&&inventory.Slots[0].Count==250,"Right split");
             inventory.Click(0,ref held,true);Check(held.Count==249&&inventory.Slots[0].Count==251,"Place one");
-            inventory.Click(0,ref held,false);Check(held.Empty&&inventory.Total(1)==30000,"Merge conservation");
-            inventory.Take(12,500);inventory.QuickTransfer(0);Check(inventory.Slots[0].Empty&&inventory.Slots[12].Count==500,"Hotbar transfer");
+            inventory.Click(0,ref held,false);Check(held.Empty&&inventory.Total(1)==500*Inventory.SlotCount,"Merge conservation");
+            inventory.Take(Inventory.HotbarCount,500);inventory.QuickTransfer(0);Check(inventory.Slots[0].Empty&&inventory.Slots[Inventory.HotbarCount].Count==500,"Hotbar transfer");
             var random=new System.Random(91);int expected=inventory.Total(1);
             for(int i=0;i<10000;i++)
             {
-                inventory.Click(random.Next(60),ref held,random.Next(2)==0);
+                inventory.Click(random.Next(Inventory.SlotCount),ref held,random.Next(2)==0);
                 Check(inventory.Total(1)+held.Count==expected,"Random inventory operation conservation");
                 Check(inventory.Slots.All(s=>s.Count>=0&&s.Count<=500)&&held.Count<=500,"Stack bounds");
             }

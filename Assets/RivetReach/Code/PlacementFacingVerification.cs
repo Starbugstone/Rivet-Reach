@@ -65,7 +65,7 @@ namespace RivetReach
             Check(Vector3.Dot(View(origin).transform.rotation*Vector3.back,Vector3.right)>.999f,"Facing retained when presentation recreated");
             game.InitializeSaves(Path.Combine(output,"Saves"));Check(game.SaveGame("Placement facing",true),"Save placed facing");
             var entry=game.Saves.List().First(e=>!e.Backup);var bytes=game.Saves.Read(entry);
-            using(var reader=game.Saves.Open(bytes,out _))Check(reader.Format==5,"Station facing uses explicit schema 5");
+            using(var reader=game.Saves.Open(bytes,out _))Check(reader.Format==SaveStore.Format,"Station facing uses the current explicit save schema");
             Check(game.LoadGame(entry),"Load facing checkpoint: "+game.SaveStatus);FreezeSaveFixture();
             Check(game.CaptureSave(entry).SequenceEqual(bytes),"Full checkpoint round-trips byte-exactly with station rotations");
             Check(game.Survival.At(origin).Rotation==3&&game.Survival.At(chest).Rotation==1&&game.Survival.At(bench).Rotation==2&&game.Survival.At(chest).Storage.Total(BlockId.IronIngot)==17,"All starter facings and contents survive load");

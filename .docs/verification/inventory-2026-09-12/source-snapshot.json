@@ -1,0 +1,17 @@
+{
+  "base_commit": "17fb3ace72fe1c3f1b7f891fd5c24ba5a2681a34",
+  "note": "Build includes the current shared working tree, including pre-existing electrical-grid changes. Hashes identify the focused inventory sources and compiled player.",
+  "sha256": {
+    "Assets/RivetReach/Code/Core/ItemContainer.cs": "2654d23e43be87403f0cb7f3d8ffc4646906aeeae8d17605fe38136e3a195d97",
+    "Assets/RivetReach/Code/Expedition.cs": "3647c557f03e3d08ab9f1504df4d7edcc3737b4eceb2dbcba28fa9624e573eaa",
+    "Assets/RivetReach/Code/UI/GameUI.cs": "df8e587a950739d24a1caa41d2a371a01bcbc198cf1a4a55ec3223eb8b56b771",
+    "Assets/RivetReach/Code/UI/GameUIBrowser.cs": "f7d4a743c92ec878cc5d12c4abc0b8f27c308a5c294184e7d3f95e5088993eca",
+    "Assets/RivetReach/Code/Persistence/SaveIO.cs": "a2b0695b9677f15b55be7e317b67a0603f59945e0ddc9d6bd362a6dc048d9223",
+    "Assets/RivetReach/Code/Persistence/ExpeditionSaves.cs": "c978f7c8cc505daf7b85ab7e7e373a51985f31132735a0c379dbf64e1f1c8a2a",
+    "Assets/RivetReach/Code/InventoryVerification.cs": "1afdfdc1877f6213a081598305e3c08e3e0deb2e6e3041a94d9563cce489bced",
+    "Assets/RivetReach/Editor/InventoryChecks.cs": "b540b1538f2e786269e021d0c70a35b98023eb6e64b0cdcfd10d16ba69e9e327",
+    "Builds/Inventory/RivetReach_Data/Managed/Assembly-CSharp.dll": "07c09eda9b9b6484961be6067fedbd8425e731be6a9b9a0ae2ae626987d4d980",
+    "Builds/Inventory/RivetReach.exe": "7d52ee70fb22771f4608d810d1015f539c37dd8b7b2fbb1a0ea9f6bc5c32d5c9"
+  },
+  "build_completed_utc": "2026-09-12T13:46:21.9471014Z"
+}

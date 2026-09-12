@@ -97,7 +97,7 @@ namespace RivetReach
             InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState());InputSystem.QueueStateEvent(Mouse.current,new MouseState());
             player.enabled=false;
             for(int z=-2;z<=28;z++)for(int x=-2;x<=2;x++)Set(cell.Offset(x,-1,z),3);
-            for(int slot=0;slot<60;slot++)game.Inventory.Take(slot,int.MaxValue);
+            for(int slot=0;slot<Inventory.SlotCount;slot++)game.Inventory.Take(slot,int.MaxValue);
             game.Inventory.Add(2,30);game.Selected=0;
             // Feet touching a block face share movement's 1 mm skin. The slight overlap
             // accepted by collision resolution must not make adjacent floor placement fail.
@@ -178,7 +178,7 @@ namespace RivetReach
             Check(player.Sprinting,"Double-tap sprint follows the rebound Forward action");
             yield return Keys();game.Input.Keys["Forward"]=forward;
             foreach(var pair in changes){byte current=world.Get(pair.Key);if(current!=0&&current!=pair.Value)world.Remove(pair.Key,current);if(pair.Value!=0&&world.Get(pair.Key)==0)world.Place(pair.Key,pair.Value);}
-            for(int slot=0;slot<60;slot++){game.Inventory.Take(slot,int.MaxValue);if(!carried[slot].Empty)game.Inventory.Add(carried[slot].Id,carried[slot].Count,slot,slot+1);}
+            for(int slot=0;slot<Inventory.SlotCount;slot++){game.Inventory.Take(slot,int.MaxValue);if(!carried[slot].Empty)game.Inventory.Add(carried[slot].Id,carried[slot].Count,slot,slot+1);}
             game.Selected=selected;player.transform.position=saved.Local(world.Origin);player.Pitch=10;
             Application.targetFrameRate=frameRate;QualitySettings.vSyncCount=vsync;yield return null;
         }

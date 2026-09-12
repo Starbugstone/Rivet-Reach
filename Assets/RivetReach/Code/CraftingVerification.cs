@@ -69,7 +69,7 @@ namespace RivetReach
             yield return ClickCraftUI(CraftResultSlot,false,true);
             Check(game.Inventory.Total(BlockId.Planks)==4&&game.Crafting.Grid.Total(BlockId.Log)==0&&game.UI.HeldStack.Id==BlockId.Planks&&game.UI.HeldStack.Count==game.Registry.Get(BlockId.Planks).stackLimit,"Shift crafting sends output to inventory even when the matching cursor stack is full");
             for(int i=0;i<game.Inventory.Count;i++)game.Inventory.Take(i,int.MaxValue);
-            game.Inventory.Add(BlockId.Dirt,64*60);game.Crafting.Grid.Add(BlockId.Log,1,3,4);
+            game.Inventory.Add(BlockId.Dirt,64*Inventory.SlotCount);game.Crafting.Grid.Add(BlockId.Log,1,3,4);
             yield return null;yield return ClickCraftUI(CraftResultSlot,false,true);
             Check(game.Crafting.Grid.Total(BlockId.Log)==1&&game.Inventory.Total(BlockId.Planks)==0,"Full inventory rejects crafting without consumption");
             Check(game.UI.HeldStack.Id==BlockId.Planks&&game.UI.HeldStack.Count==game.Registry.Get(BlockId.Planks).stackLimit,"Blocked Shift crafting preserves the held stack");

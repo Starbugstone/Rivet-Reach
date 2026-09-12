@@ -15,7 +15,7 @@ namespace RivetReach
             game.SetMode(ScreenMode.Play);game.Diagnostics=false;
             player.transform.position=world.Local(new BlockPos(8,world.Generator.Height(8,-8)+1,-8))+new Vector3(.5f,.01f,.5f);
             player.Yaw=25;player.Pitch=8;yield return null;yield return Settle();
-            for(int slot=0;slot<60;slot++)game.Inventory.Take(slot,int.MaxValue);
+            for(int slot=0;slot<Inventory.SlotCount;slot++)game.Inventory.Take(slot,int.MaxValue);
             game.Selected=0;game.SetAppearance(false,0);yield return null;yield return null;
             Check(!player.HeldBlock.Visible&&player.HeldBlock.ItemId==0,"An empty hotbar slot shows the bare hand");
             Check(player.Arms.TriangleCount<=34000,"Only the dominant first-person arm is rendered");
@@ -128,7 +128,7 @@ namespace RivetReach
             Check(!world.Ready(target),"Grass fixture unloads during long traversal");
             player.transform.position=world.Local(new BlockPos(0,world.Generator.Height(0,0)+1,0))+new Vector3(.5f,.01f,.5f);yield return null;yield return Settle();
             Check(world.Ready(target)&&world.Get(target)==1&&world.Get(coveredGrass)==2,"Grass changes survive chunk reload and origin shifts");
-            for(int slot=0;slot<60;slot++)game.Inventory.Take(slot,int.MaxValue);
+            for(int slot=0;slot<Inventory.SlotCount;slot++)game.Inventory.Take(slot,int.MaxValue);
             foreach(var stack in carried)if(!stack.Empty)game.Inventory.Add(stack.Id,stack.Count);
             game.Selected=selected;game.SetAppearance(female,skin);player.transform.position=saved.Local(world.Origin);player.Pitch=10;
         }

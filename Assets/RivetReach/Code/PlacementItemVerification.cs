@@ -108,7 +108,7 @@ namespace RivetReach
             player.Arms.gameObject.SetActive(false);player.Body.gameObject.SetActive(false);
             for(int z=-2;z<=2;z++)for(int x=-2;x<=2;x++)Set(cell.Offset(x,-1,z),3);
             Set(cell.Offset(0,0,1),3);
-            for(int slot=0;slot<60;slot++)game.Inventory.Take(slot,int.MaxValue);
+            for(int slot=0;slot<Inventory.SlotCount;slot++)game.Inventory.Take(slot,int.MaxValue);
             game.Inventory.Add(3,game.Inventory.Count*game.Registry.Get(3).stackLimit);game.Selected=0;
             items.Spawn(new ItemStack(2,37),at+new Vector3(.5f,.02f,.5f),Vector3.zero,5);
             items.Spawn(new ItemStack(2,11),at+new Vector3(.60f,.02f,.5f),Vector3.zero,5);
@@ -193,7 +193,7 @@ namespace RivetReach
             Check(corner.All(p=>items.Piles.Contains(p))&&corner.Sum(p=>p.Stack.Count)==16,"Nearby matching drops remain separate across a solid corner");
             foreach(var p in items.Piles.Except(existing).ToArray()){if(p.View!=null)Destroy(p.View);items.Piles.Remove(p);}
             foreach(var pair in changes){byte current=world.Get(pair.Key);if(current!=0&&current!=pair.Value)world.Remove(pair.Key,current);if(pair.Value!=0&&world.Get(pair.Key)==0)world.Place(pair.Key,pair.Value);}
-            for(int slot=0;slot<60;slot++){game.Inventory.Take(slot,int.MaxValue);if(!carried[slot].Empty)game.Inventory.Add(carried[slot].Id,carried[slot].Count,slot,slot+1);}
+            for(int slot=0;slot<Inventory.SlotCount;slot++){game.Inventory.Take(slot,int.MaxValue);if(!carried[slot].Empty)game.Inventory.Add(carried[slot].Id,carried[slot].Count,slot,slot+1);}
             items.enabled=true;game.Selected=selected;player.transform.position=saved.Local(world.Origin);player.enabled=true;player.Pitch=10;
             yield return null;
         }
