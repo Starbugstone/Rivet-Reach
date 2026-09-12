@@ -215,6 +215,7 @@ namespace RivetReach.Editor
         public static void PrepareAndBuildMultiblocks(){IndustryAssets.Prepare();MultiblockChecks.Run();IndustryChecks.Run();DomainChecks.Run();StarterRecipeChecks.Run(ItemRegistry.Load(),RecipeCatalogAsset.Load().Compile(ItemRegistry.Load()));FluidChecks.Run();Build("Multiblocks");}
         public static void PrepareAndBuild(){Prepare();DomainChecks.Run();FluidChecks.Run();Build();}
         public static void PrepareAndBuildSurvival(){Prepare();DomainChecks.Run();FluidChecks.Run();Build("Survival");}
+        public static void BuildOreDrops(){Directory.CreateDirectory("Logs");WikiExport.Export();Build("OreDrops");}
         // Build the versioned assets as committed, without rerunning asset authoring.
         public static void BuildAlpha()
         {

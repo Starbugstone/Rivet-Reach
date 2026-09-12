@@ -7901,11 +7901,15 @@
         },
         {
             "path": "Assets/RivetReach/Code/Core/ItemRegistry.cs",
-            "sha256": "d7d55e9eb77bb133a3d408362874558a9eac5e10ade2557b030034831d8bfac7"
+            "sha256": "8dc3e008364b2b1050fbb39a35093eeac99f0738c93355453274d26702aef1ff"
         },
         {
             "path": "Assets/RivetReach/Code/Core/ItemStack.cs",
             "sha256": "af20ef31173b41ca625a94966298a0c22c56c22d885a7a2f67f3818b540a374b"
+        },
+        {
+            "path": "Assets/RivetReach/Code/Core/RespawnPlacement.cs",
+            "sha256": "ded16a8279090f5c4b1184d17fc4d99eb4a25992589c03b66d4b22c0fa391d87"
         },
         {
             "path": "Assets/RivetReach/Code/Crafting/CraftingSession.cs",
@@ -7933,7 +7937,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/CraftingVerification.cs",
-            "sha256": "25ea341d99d6ad7c9802efbe8a048c4c148dcc0209266a5eb7bb678fc1142f75"
+            "sha256": "67900318b7c4130735117b622a126f3a8fbd807c75019f45149f5b72d0736197"
         },
         {
             "path": "Assets/RivetReach/Code/CreativeMode.cs",
@@ -7941,7 +7945,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/CreativeVerification.cs",
-            "sha256": "c573923c2af478e763e578674f75abccf9a56c935444eaa574ae63add9bed174"
+            "sha256": "f148bb06c10ac99f1306825e1885edeaa4415b679a85c723d5015b68d3787ded"
         },
         {
             "path": "Assets/RivetReach/Code/DayNightVerification.cs",
@@ -7949,7 +7953,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Expedition.cs",
-            "sha256": "64845d3fdd8ef2ee3adf87989d52adb7f11b5c33664dd25f89b138a18c83fef0"
+            "sha256": "44fd63b671fe18203e3835b9b729e8bd9715febbb2e9971157c82fdccbc787b1"
         },
         {
             "path": "Assets/RivetReach/Code/FluidVerification.cs",
@@ -7970,6 +7974,10 @@
         {
             "path": "Assets/RivetReach/Code/Fluids/FluidSimulation.cs",
             "sha256": "24b8228884a0936554182b680f3679529fdf352be0c3898ea45af744d779980a"
+        },
+        {
+            "path": "Assets/RivetReach/Code/GameplayFixVerification.cs",
+            "sha256": "8c3425ee463b98cb506e4fadca91e33bd729361af90c530c92231cb55a0b16ee"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/BatteryStorage.cs",
@@ -8009,7 +8017,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/IndustryVerification.cs",
-            "sha256": "87ef895586c930fe18e828e86ee6c81166721255d983907d511e96be6daf7639"
+            "sha256": "c4e2b974849c120834d6fcd9a7bf6c62061c7afa2f1ea94236477f01aa913e08"
         },
         {
             "path": "Assets/RivetReach/Code/InteractionVerification.cs",
@@ -8017,7 +8025,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/MachineryShowcase.cs",
-            "sha256": "0fc81bc49197f6ebad6c006ea0a8b542ef4597bd7cc2895adb970eb7a082e063"
+            "sha256": "eca4a163d975807a5faec20c6885fd56d6595d9a02cb1c9596a7b706fb762bd2"
         },
         {
             "path": "Assets/RivetReach/Code/Mobs/MobDefinition.cs",
@@ -8045,11 +8053,11 @@
         },
         {
             "path": "Assets/RivetReach/Code/MovementInteractionVerification.cs",
-            "sha256": "fa1722e260e189132e3eac9e90d93d383661c48ddb3d26675454d043d6e44583"
+            "sha256": "dc9b367df061f7d2c741b5fabb4742ed6501b800682ff5de01f61defba887fbc"
         },
         {
             "path": "Assets/RivetReach/Code/MultiblockVerification.cs",
-            "sha256": "f782ab58337c05b1435a7d92f8eef3225df3f7313aa4420c51a65a4e0938e319"
+            "sha256": "7608a3cbeba8c1cdb8fbfa0d87848d4b8854c555f51a24062e9cf78a83a03b5f"
         },
         {
             "path": "Assets/RivetReach/Code/Multiblocks/BatteryBankValidator.cs",
@@ -8073,27 +8081,27 @@
         },
         {
             "path": "Assets/RivetReach/Code/OreVariantsVerification.cs",
-            "sha256": "aee2afc6a19b640000681b458a9e17bd8a49cf4c59868eccec9722854e2b62ce"
+            "sha256": "4ea0392767b3c9cbebcdcf8bf67cc608c70a1d90e94abe8a938e94b8adc64ab1"
         },
         {
             "path": "Assets/RivetReach/Code/OreVerification.cs",
-            "sha256": "290e976c9c37daea7ddccb5c4f830d76b40ee9f6a87d5bd9ffc127139316746e"
+            "sha256": "23758a189e54bb1f2f8481baf616b1984e5410a0cd530359b92017e136bc288c"
         },
         {
             "path": "Assets/RivetReach/Code/PerformanceProbe.cs",
-            "sha256": "2c863ed7344d5d01c3d6fb50ecf780b470ba638b27221500bd5cc398fbc30296"
+            "sha256": "8847d6e0d6bb4a598af745031663afe5bc4dc0d905d278cb2f1ac763278808ab"
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/EntitySaveState.cs",
-            "sha256": "cf10e5aa79693198beb4de5641cf31636688bf240d1a2a68c2d3fd8ad9e18bfb"
+            "sha256": "dfbfce5148890e2a0fdd46b119103e5ce40ca70a28ca3bd19b70958ac24c8318"
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/ExpeditionSaves.cs",
-            "sha256": "16995c3aef272b97aa54740e0e76e10a1747ad76a45c1f773de65e5059ac00d3"
+            "sha256": "dbee2d7fef0ae15365ae4ff6159566d80bc7a8d33e324e247663f457fd453d28"
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/SaveIO.cs",
-            "sha256": "38d2cfd94c78a4ee05fdad04d64d1cc42fe58d3da8c1ee49e9d2d1b8dcb0d56a"
+            "sha256": "3edd918fcd52194884fb37dbe22375ae49c641ee61f01f7013fb27997cf358f1"
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/WorldSaveState.cs",
@@ -8125,7 +8133,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Player/DroppedItems.cs",
-            "sha256": "425461f71525dac9d2943a944d3a3bbde0b25c0bc641ffe4016a6a24bac01a2b"
+            "sha256": "821b249c5d15487f7a7ffbbb8ffd4b1899d478aafd1482932eaaa85982d48087"
         },
         {
             "path": "Assets/RivetReach/Code/Player/FirstPersonPlayer.cs",
@@ -8133,11 +8141,11 @@
         },
         {
             "path": "Assets/RivetReach/Code/Player/HeldBlockView.cs",
-            "sha256": "62bc8fb638f15fb0a9d1be2d26f26331c8356983ef86eaba6ffc3f9599bd521e"
+            "sha256": "e38d58d311cded376914f5e2f9ae604847e6614116a674806ff39d0d30f9c2a8"
         },
         {
             "path": "Assets/RivetReach/Code/Player/OreVisuals.cs",
-            "sha256": "cce99aa15e754ed63e24760fc5b5c63d18217fde226a3bcf56be88896e50e8e3"
+            "sha256": "4be2d3ae96ddf9ad7177f3cbe00a859095c1d43fe36192c47a571fb0aa230118"
         },
         {
             "path": "Assets/RivetReach/Code/Player/PlayerInput.cs",
@@ -8149,15 +8157,19 @@
         },
         {
             "path": "Assets/RivetReach/Code/RecipeBrowserVerification.cs",
-            "sha256": "e6d9914641c5061ae192a9cebb5c16aa77372def368f8d209d7eef48b37f206e"
+            "sha256": "ce9394e17b0d2cd4277c865467c4c1e18751a400c5023bcf9fc6261db0f7a693"
         },
         {
             "path": "Assets/RivetReach/Code/RuntimeVerification.cs",
-            "sha256": "b22d25fbc820c8a09e9f8f637c86c1ab19b0b4cef66b5bb09fa76828205abf82"
+            "sha256": "7b95bc6ba31651602c2030480b1d5e328d78c14f6a54bc97fd4126741f357d68"
         },
         {
             "path": "Assets/RivetReach/Code/SaveVerification.cs",
-            "sha256": "da0e51e4f68664ce23af9e464885d581d7df14a47cfe4140ce69d4db6f0812ff"
+            "sha256": "fa0fe6c304f9fd18d582d02135251015f2ac4199e6ba167356997e5a9dfe9502"
+        },
+        {
+            "path": "Assets/RivetReach/Code/ScreenReuseVerification.cs",
+            "sha256": "8c56b067ae4d15b721e5f414b925c2da3e69bfb5aadddaa87610fc636b77580a"
         },
         {
             "path": "Assets/RivetReach/Code/ShadowProbe.cs",
@@ -8165,7 +8177,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/StarterCraftingVerification.cs",
-            "sha256": "d7fa977a941fd90bb6b58fc738ff68aa0925c7120bb6ac489c1bfa5893963aa5"
+            "sha256": "742c804355c17c5c46f3bf045d6b0cdf4e79e85ca6bd8c8b6a4fe8230322b217"
         },
         {
             "path": "Assets/RivetReach/Code/SunShadowProbe.cs",
@@ -8173,7 +8185,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Survival/EquipmentState.cs",
-            "sha256": "8f08979b8439c436b66c45edcf446be60d8394f8691bd07c13fb8fd190e04e43"
+            "sha256": "3257c5ad2e0f94e3e119bf8f37f795208eff0dc6ab112e392f76e980cb67aa55"
         },
         {
             "path": "Assets/RivetReach/Code/Survival/FurnaceState.cs",
@@ -8181,7 +8193,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Survival/HungerState.cs",
-            "sha256": "56089f8bcb6c967a83cf8f69932f1a13aeb609a14b9cc6eebecf0d66f0fb0361"
+            "sha256": "e210806e8574e87a224dd7c5dde9b18d236424fe63222b1ec7483c0577fe0af9"
         },
         {
             "path": "Assets/RivetReach/Code/Survival/ProcessingCatalogAsset.cs",
@@ -8201,7 +8213,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/SurvivalVerification.cs",
-            "sha256": "6bcf25587d1c25c9ab94de1fadfd3b8bb65c6742c7ed79e985d4f1ccbccd4a73"
+            "sha256": "0aabbee844b39cfe520ec8cb1a54d43a97b949b337c32e8056b2147b6a343369"
         },
         {
             "path": "Assets/RivetReach/Code/TerrainVerification.cs",
@@ -8217,27 +8229,35 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUI.cs",
-            "sha256": "604f0cff82c1c3e8e9f5b46065217701ec651bd43e6b90694d3bd860d19d02c4"
+            "sha256": "1ef3fa84b17b465d5c498a819b9fa84a61e5d109b0c0b2b5e88c47c03332b3a4"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIBrowser.cs",
-            "sha256": "76d9b290cab2913765f7f74adfe611894cbdc672420b5b591249421c57540e39"
+            "sha256": "17d3b41a3a29f96e063112d53384140472e562a2e784715ed478d88bc5e19ffa"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUICreative.cs",
-            "sha256": "f258c1a198ec19c7da91ba8eb1e4dfbd76442dbd5034441c4bdfbd7d566ed717"
+            "sha256": "479d7b573ebe3081001cc43fb107e78d49cad646739f54436e2721485c2704b1"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIIndustry.cs",
-            "sha256": "a1d1bbfece3c2902e0b232c37d47bbe83bd0d5db258ab78d5d5fd1b02e6ada7d"
+            "sha256": "29b49412e2b1901592f241213d105f2cf85db8eb2200bda909503cb48f0aebd6"
+        },
+        {
+            "path": "Assets/RivetReach/Code/UI/GameUIRecipeDetails.cs",
+            "sha256": "a74d6bd742d23b700bee8b365b8081a022e75f79338596f310d0d8aad8fae28b"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUISaves.cs",
             "sha256": "8325a8e5de2dc44628e1857aed07882009eb802a7281b5a902a2746d85161503"
         },
         {
+            "path": "Assets/RivetReach/Code/UI/GameUIScreenReuse.cs",
+            "sha256": "8688f4f273fe40e5b0e22985cf077fe27f6de6232b21d4aeeda8bbff7485ff0a"
+        },
+        {
             "path": "Assets/RivetReach/Code/UI/GameUISurvival.cs",
-            "sha256": "09c86be0508fc9c542813cdd212331e07fa68c1b4acd4746ae419e08fb26b791"
+            "sha256": "fb7c1bb9030ef4a80c6947dad6ead2bab9547e392197bd5a29e63382a0a634e2"
         },
         {
             "path": "Assets/RivetReach/Code/UI/ItemBrowserSettings.cs",
@@ -8246,6 +8266,10 @@
         {
             "path": "Assets/RivetReach/Code/UI/SurvivalItemArt.cs",
             "sha256": "1f1d94e3e88b2a9baa7eabae37135d50cd83505dbe8e71509058124e9aedaa6b"
+        },
+        {
+            "path": "Assets/RivetReach/Code/UI/SurvivalMeter.cs",
+            "sha256": "caf53dcd0a807d1c39c4b387ac2eeea244ba6858b9cf7abca544623340268945"
         },
         {
             "path": "Assets/RivetReach/Code/WorkshopFollowupVerification.cs",

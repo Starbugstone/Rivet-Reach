@@ -35,10 +35,10 @@
     "description": "Black coal pockets in lighter fractured host rock. A finite underground deposit found at **Y 0 to 80**, with the strongest generation preference near **Y 40**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining."
   },
   "rivet:copper_ore": {
-    "description": "Orange copper seams and pockets in fractured dark stone. A finite underground deposit found at **Y −48 to 64**, with the strongest generation preference near **Y 16**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining."
+    "description": "Orange copper seams and pockets in fractured dark stone. A finite underground deposit found at **Y −48 to 64**, with the strongest generation preference near **Y 16**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining. Mining drops one [Raw Copper](Item-raw-copper.md) with this same stylised ore-block appearance, ready for smelting or crushing."
   },
   "rivet:iron_ore": {
-    "description": "Silver-grey mineral pockets in fractured dark stone. A finite underground deposit found at **Y −160 to 48**, with the strongest generation preference near **Y −48**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining."
+    "description": "Silver-grey mineral pockets in fractured dark stone. A finite underground deposit found at **Y −160 to 48**, with the strongest generation preference near **Y −48**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining. Mining drops one [Raw Iron](Item-raw-iron.md) with this same stylised ore-block appearance, ready for smelting or crushing."
   },
   "rivet:gold_ore": {
     "description": "Golden seams and pockets in fractured dark stone. A finite underground deposit found at **Y −240 to −64**, with the strongest generation preference near **Y −160**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining."
@@ -54,10 +54,10 @@
     "obtain": "Occurs naturally at the world floor. It cannot be mined or collected in Survival. Its registered catalog entry is not a placeable item."
   },
   "rivet:raw_iron": {
-    "description": "Raw metal obtained from an ore deposit. Smelt it directly for one ingot, or use a [Crusher](Item-crusher.md) to make two crushed pieces and smelt those for two ingots. Raw ore items cannot be placed back as ore blocks."
+    "description": "Silver-grey mineral pockets in fractured stone: mined iron keeps the stylised ore-block appearance on the ground, in your hand and in the inventory. Smelt one directly for one ingot, or use a [Crusher](Item-crusher.md) to make two crushed pieces and smelt those for two ingots. Raw ore items cannot be placed back as terrain."
   },
   "rivet:raw_copper": {
-    "description": "Raw metal obtained from an ore deposit. Smelt it directly for one ingot, or use a [Crusher](Item-crusher.md) to make two crushed pieces and smelt those for two ingots. Raw ore items cannot be placed back as ore blocks."
+    "description": "Orange mineral pockets in fractured stone: mined copper keeps the stylised ore-block appearance on the ground, in your hand and in the inventory. Smelt one directly for one ingot, or use a [Crusher](Item-crusher.md) to make two crushed pieces and smelt those for two ingots. Raw ore items cannot be placed back as terrain."
   },
   "rivet:raw_gold": {
     "description": "Raw metal obtained from an ore deposit. Smelt it directly for one ingot, or use a [Crusher](Item-crusher.md) to make two crushed pieces and smelt those for two ingots. Raw ore items cannot be placed back as ore blocks."

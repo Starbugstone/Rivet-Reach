@@ -8,7 +8,7 @@
 
 <a href="Item-raw-iron.md" title="Raw iron"><img src="icons/15.png" width="96" height="96" alt="Raw iron"></a>
 
-Raw metal obtained from an ore deposit. Smelt it directly for one ingot, or use a [Crusher](Item-crusher.md) to make two crushed pieces and smelt those for two ingots. Raw ore items cannot be placed back as ore blocks.
+Silver-grey mineral pockets in fractured stone: mined iron keeps the stylised ore-block appearance on the ground, in your hand and in the inventory. Smelt one directly for one ingot, or use a [Crusher](Item-crusher.md) to make two crushed pieces and smelt those for two ingots. Raw ore items cannot be placed back as terrain.
 
 ## At a glance
 

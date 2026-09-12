@@ -382,7 +382,7 @@ namespace RivetReach
             {int x=Mathf.Clamp((int)(u*tiles.width),0,tiles.width-1),y=Mathf.Clamp((int)(v*tiles.height),0,tiles.height-1);return swatches[layer][x+y*tiles.width];}
             foreach(var item in game.Registry.items)
             {
-                var industrialIcon=Resources.Load<Texture2D>("Industry/Icons/"+item.runtimeId);if(industrialIcon!=null){icons[item.runtimeId]=industrialIcon;sharedToolIcons.Add(industrialIcon);continue;}
+                var industrialIcon=Resources.Load<Texture2D>("Industry/Icons/"+OreVisuals.VisualId(item.runtimeId));if(industrialIcon!=null){icons[item.runtimeId]=industrialIcon;sharedToolIcons.Add(industrialIcon);continue;}
                 if(item.runtimeId==BlockId.Torch||item.runtimeId>=20&&!BlockId.Placeable(item.runtimeId)&&item.runtimeId!=BlockId.Farmland&&!BlockId.Crop(item.runtimeId))
                 {icons[item.runtimeId]=SurvivalItemArt.Icon(item);continue;}
                 if(item.toolCapabilities!=ToolCapability.None)

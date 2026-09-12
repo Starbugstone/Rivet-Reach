@@ -232,7 +232,7 @@ namespace RivetReach
         {
             var view=new GameObject("World item display");
             var capability=Game.Registry.Capabilities(new ItemStack(id,1));
-            if(BlockId.Ore(id))
+            if(OreVisuals.UsesModel(id))
             {
                 var model=OreVisuals.Create(id,view.transform);model.transform.localPosition=-Vector3.one*.5f;
             }

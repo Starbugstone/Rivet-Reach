@@ -9,6 +9,58 @@ namespace RivetReach
 {
     public sealed partial class RuntimeVerification
     {
+        IEnumerator ReviewOreDrops()
+        {
+            var player=game.Player;var world=game.World;game.SetCreative(true);game.Mobs.enabled=false;game.Diagnostics=false;
+            var mesh=OreVisuals.Prefab.GetComponentInChildren<MeshFilter>().sharedMesh;
+            var lamp=new GameObject("Ore drop review light");var light=lamp.AddComponent<Light>();light.range=18;light.intensity=5;
+            foreach(byte ore in new[]{BlockId.CopperOre,BlockId.IronOre})
+            {
+                var band=OreGenerator.Bands.Single(b=>b.Block==ore);
+                var target=OreGenerator.Veins(game.Seed,new BlockPos(-64,band.PeakY-16,-64),new BlockPos(64,band.PeakY+16,64))
+                    .Where(v=>v.Band.Block==ore&&world.Generator.At(v.Centre)==ore).Select(v=>v.Centre).First();
+                player.enabled=false;player.ResetMotion();player.transform.position=world.Local(target)+new Vector3(.5f,-1,-3);
+                yield return null;yield return Settle();
+                for(int z=-4;z<=0;z++)for(int y=-1;y<=3;y++)for(int x=-1;x<=1;x++)
+                {
+                    var p=target.Offset(x,y,z);if(p.Equals(target))continue;
+                    byte old=world.Get(p);if(old!=0)world.Remove(p,old);
+                }
+                for(int z=-4;z<=0;z++)for(int x=-1;x<=1;x++)world.Place(target.Offset(x,-2,z),BlockId.Stone);
+                lamp.transform.position=world.Local(target)+new Vector3(.5f,1,-2);
+                byte raw=game.Registry.FistDrop(ore);int spawned=game.Items.TotalSpawned;
+                Check(raw==(ore==BlockId.CopperOre?BlockId.RawCopper:BlockId.RawIron),"Mined metal retains its processing and save identity: "+ore);
+                Check(!world.Mine(target,ore,ToolCapability.Pickaxe,ToolTier.Wood),"Under-tier mining preserves metal: "+ore);
+                Check(world.Mine(target,ore,ToolCapability.Pickaxe,ToolTier.Stone)&&game.Items.TotalSpawned==spawned+1,"Natural metal mining creates exactly one item: "+ore);
+                Check(!world.Mine(target,ore,ToolCapability.Pickaxe,ToolTier.Stone)&&game.Items.TotalSpawned==spawned+1,"Repeated mining cannot duplicate the drop: "+ore);
+                var pile=game.Items.Piles.Last(p=>p.Stack.Id==raw);pile.Delay=30;
+                yield return new WaitForSecondsRealtime(.5f);
+                Check(pile.View!=null&&pile.View.GetComponentsInChildren<MeshFilter>().Single().sharedMesh==mesh,"Actual mined drop uses the stylised ore mesh: "+raw);
+                Check(pile.View.GetComponentInChildren<Renderer>().sharedMaterial==OreVisuals.Material(ore),"Actual mined drop shares the correct ore material: "+raw);
+                player.Camera.transform.position=pile.View.transform.position+new Vector3(.6f,.55f,-.75f);player.Camera.transform.LookAt(pile.View.transform.position);
+                player.Arms.gameObject.SetActive(false);player.Body.gameObject.SetActive(false);
+                yield return Capture("ore-drop-"+raw);
+                int before=game.Inventory.Total(raw);pile.Delay=0;player.transform.position=pile.Position.Local(world.Origin);game.Items.Step(0);
+                Check(game.Inventory.Total(raw)==before+1&&!game.Items.Piles.Contains(pile),"Pickup conserves the mined processing item: "+raw);
+                player.transform.position=world.Local(target)+new Vector3(.5f,-1,-3);player.Yaw=0;player.Pitch=12;player.enabled=true;
+                player.Arms.gameObject.SetActive(true);player.Body.gameObject.SetActive(true);
+                game.Selected=game.Inventory.FindSlot(s=>s.Id==raw);yield return new WaitForSecondsRealtime(.7f);
+                Check(player.HeldBlock.ItemId==raw&&player.HeldBlock.Visible,"Collected metal is displayed in hand: "+raw);
+                var held=player.HeldBlock.Socket.GetComponentsInChildren<MeshFilter>().Single(m=>m.sharedMesh==mesh);
+                Check(held.GetComponent<Renderer>().sharedMaterial.GetTexture("_BaseMap")==OreVisuals.Palette(ore),"Collected metal uses its ore palette in hand: "+raw);
+                yield return Capture("ore-drop-held-"+raw);
+                var recipe=game.Processing.Find(raw);var furnace=new FurnaceState(game.Processing,id=>game.Registry.Get(id).stackLimit);
+                var input=new ItemStack(raw,1);furnace.Click(0,ref input,false);var fuel=new ItemStack(BlockId.Coal,1);furnace.Click(1,ref fuel,false);furnace.Advance(200);
+                Check(input.Empty&&furnace.Slots[0].Empty&&furnace.Slots[2].Id==(ore==BlockId.CopperOre?BlockId.CopperIngot:BlockId.IronIngot)&&furnace.Slots[2].Count==1&&recipe.Ticks==200,"Stylised drop still smelts one ingot in 200 ticks: "+raw);
+                Check(MachineState.Crushed(raw)==(ore==BlockId.CopperOre?IndustryId.CrushedCopper:IndustryId.CrushedIron),"Stylised drop retains its crusher input: "+raw);
+                game.SetMode(ScreenMode.Inventory);yield return new WaitForSecondsRealtime(.2f);
+                Check(game.UI.VisibleRoot.GetComponentsInChildren<UnityEngine.UI.RawImage>().Any(i=>i.texture==Resources.Load<Texture2D>("Industry/Icons/"+ore)),"Inventory shows the authored ore icon: "+raw);
+                yield return Capture("ore-drop-inventory-"+raw);game.SetMode(ScreenMode.Play);
+            }
+            Check(game.Registry.FistDrop(BlockId.CoalOre)==BlockId.Coal&&!OreVisuals.UsesModel(BlockId.Coal),"Coal keeps its ordinary resource drop and art");
+            Check(!OreVisuals.UsesModel(BlockId.RawGold)&&!OreVisuals.UsesModel(BlockId.Diamond),"Other mined resource appearances remain unchanged");
+            Destroy(lamp);
+        }
         IEnumerator ReviewOreVariants()
         {
             byte[] ids={IndustryId.AzureOre,BlockId.IronOre,BlockId.CopperOre,BlockId.CoalOre,BlockId.GoldOre,BlockId.DiamondOre};

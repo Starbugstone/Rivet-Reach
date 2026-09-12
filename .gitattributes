@@ -43,3 +43,5 @@ Assets/RivetReach/Resources/Industry/*.fbx filter=lfs diff=lfs merge=lfs -text
 .docs/verification/crafting-ux-2026-09-11/*.png filter=lfs diff=lfs merge=lfs -text
 
 .docs/verification/screen-reuse-2026-09-11/*.png filter=lfs diff=lfs merge=lfs -text
+
+.docs/verification/ore-drops-2026-09-12/*.png filter=lfs diff=lfs merge=lfs -text

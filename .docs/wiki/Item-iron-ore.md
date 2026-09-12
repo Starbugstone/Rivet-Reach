@@ -8,7 +8,7 @@
 
 <a href="Item-iron-ore.md" title="Iron ore"><img src="icons/9.png" width="96" height="96" alt="Iron ore"></a>
 
-Silver-grey mineral pockets in fractured dark stone. A finite underground deposit found at **Y −160 to 48**, with the strongest generation preference near **Y −48**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining.
+Silver-grey mineral pockets in fractured dark stone. A finite underground deposit found at **Y −160 to 48**, with the strongest generation preference near **Y −48**. These are world heights, not depth below the surface. Ore replaces stone and does not regenerate after mining. Mining drops one [Raw Iron](Item-raw-iron.md) with this same stylised ore-block appearance, ready for smelting or crushing.
 
 ## At a glance
 
