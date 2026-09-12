@@ -2,6 +2,8 @@
 
 Implemented on 2026-09-09 (Europe/Paris) following the user's request for AAA-style arcade presentation. This report maintains the effects workload. [Terrain](TERRAIN_GENERATION_RESULTS.md) and [day/night](DAY_NIGHT_RESULTS.md) own current landscape/sky evidence; artistic acceptance remains a review decision.
 
+**2026-09-12 follow-up:** the user requested removal of the cyan glow above the punching hand. `ArcadePresentation` no longer creates or updates the first-person swing ribbon, including held-item swings. The [2026-09-12 build](swing-ribbon-removal-build.txt) of `Builds/Performance/RivetReach.exe` passed with zero errors/warnings, and the existing [effects suite](swing-ribbon-removal-runtime-report.json) passed all 32 assertions with no Unity errors. The [actual punching capture](swing-ribbon-removal-punch.png) was inspected and shows no cyan trail. This local build includes concurrent workspace changes; the focused change owns only the ribbon removal. The captures and measurements below describe the original 2026-09-09 treatment and still show that former effect; they are not verification of this removal.
+
 ## Actual player views
 
 [Watch the actual Unity action sequence](arcade-action-preview.mp4): mining, block break, placement, collection and a pickaxe swing. The silent 2.5-second clip contains 150 consecutive player captures at a fixed 60 fps simulation step. It is a scripted gameplay fixture rendered by Unity, not a concept render or a real-time performance recording.

@@ -23,7 +23,7 @@ namespace RivetReach
         readonly List<Mesh> meshes=new List<Mesh>();
         readonly ParticleSystem.Particle[] shifted=new ParticleSystem.Particle[256];
         readonly System.Random random=new System.Random(9471);
-        TrailRenderer trail;GameObject cracks;Material crackMaterial;
+        GameObject cracks;Material crackMaterial;
         float clock,lastPhase,pulse,nextPollen,lastY,lastFall;bool struck,wasGrounded;
         int burstFrame=-1,frameBursts;Vector3 flashPosition;
         Color flashColour;
@@ -38,10 +38,6 @@ namespace RivetReach
             rings=Pool("Action rings",24,SpriteMaterial(1));
             var ringSize=rings.sizeOverLifetime;ringSize.size=new ParticleSystem.MinMaxCurve(1,AnimationCurve.EaseInOut(0,.3f,1,1.3f));
             var dustSize=dust.sizeOverLifetime;dustSize.size=new ParticleSystem.MinMaxCurve(1,AnimationCurve.EaseInOut(0,.5f,1,1.5f));
-            var t=new GameObject("Swing ribbon");t.transform.SetParent(transform,false);trail=t.AddComponent<TrailRenderer>();
-            trail.sharedMaterial=SpriteMaterial(3,true);trail.time=.10f;trail.minVertexDistance=.012f;trail.widthMultiplier=.075f;
-            trail.startColor=new Color(.70f,1.65f,1.8f,.45f);trail.endColor=new Color(.35f,.85f,1.2f,0);
-            trail.shadowCastingMode=ShadowCastingMode.Off;trail.receiveShadows=false;trail.emitting=false;trail.numCornerVertices=2;
             cracks=GameObject.CreatePrimitive(PrimitiveType.Cube);cracks.name="Mining surface feedback";Destroy(cracks.GetComponent<Collider>());
             cracks.transform.SetParent(transform,false);cracks.transform.localScale=Vector3.one*1.003f;
             crackMaterial=new Material(Shader.Find("RivetReach/ArcadeCracks"));materials.Add(crackMaterial);
@@ -84,14 +80,14 @@ namespace RivetReach
         {
             if(world!=null){world.BlockMined-=Break;world.OriginShifted-=Shift;}
             world=game.World;world.BlockMined+=Break;world.OriginShifted+=Shift;
-            foreach(var system in systems)system.Clear();trail.Clear();cracks.SetActive(false);pulse=0;lastPhase=0;struck=false;
+            foreach(var system in systems)system.Clear();cracks.SetActive(false);pulse=0;lastPhase=0;struck=false;
             lastY=game.Player.transform.position.y;wasGrounded=game.Player.Grounded;
             game.Player.Camera.GetUniversalAdditionalCameraData().antialiasing=AntialiasingMode.SubpixelMorphologicalAntiAliasing;
         }
         public void SetIntensity(float value)
         {
             Intensity=Mathf.Clamp01(value);PlayerPrefs.SetFloat("visual.effects",Intensity);
-            if(Intensity==0){foreach(var system in systems)system.Clear();trail.Clear();trail.emitting=false;pulse=0;}
+            if(Intensity==0){foreach(var system in systems)system.Clear();pulse=0;}
         }
         float Rand(float min,float max)=>Mathf.Lerp(min,max,(float)random.NextDouble());
         Vector3 Spread()=>new Vector3(Rand(-1,1),Rand(-.4f,1),Rand(-1,1)).normalized;
@@ -142,7 +138,7 @@ namespace RivetReach
         void Shift(Vector3 offset)
         {
             foreach(var system in systems){int count=system.GetParticles(shifted);for(int i=0;i<count;i++)shifted[i].position-=offset;system.SetParticles(shifted,count);}
-            trail.Clear();flashPosition-=offset;lastY-=offset.y;
+            flashPosition-=offset;lastY-=offset.y;
         }
         void LateUpdate()
         {
@@ -166,13 +162,6 @@ namespace RivetReach
                 }
             }
             if(!swing)struck=false;lastPhase=phase;
-            bool ribbon=swing&&Intensity>0&&phase>.14f&&phase<.78f;
-            if(ribbon)
-            {
-                var socket=p.Arms.Bone(p.HeldBlock.DesiredGrip==GripPose.Block?"BlockSocket":"ToolSocket");
-                trail.transform.position=p.HeldBlock.Visible?socket.position+socket.up*.28f:p.Arms.Bone("HandR").position+p.Camera.transform.forward*.10f;
-            }
-            if(ribbon&&!trail.emitting)trail.Clear();trail.emitting=ribbon;trail.widthMultiplier=.075f*Intensity;
             cracks.SetActive(playing&&p.HasTarget&&(p.MiningProgress>.015f||pulse>.1f));
             if(cracks.activeSelf){cracks.transform.position=world.Local(p.Target)+Vector3.one*.5f;crackMaterial.SetFloat("_Progress",p.MiningProgress);crackMaterial.SetFloat("_Pulse",pulse*Intensity);}
             if(playing&&!wasGrounded&&p.Grounded&&lastFall<-3&&Allow(p.transform.position))
