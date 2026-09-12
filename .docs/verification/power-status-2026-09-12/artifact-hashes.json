@@ -1,0 +1,12 @@
+{
+  "baseCommit": "a4679ba4a9a5fbbb6feb67843c41dce0328b086e",
+  "sha256": {
+    "Assets/RivetReach/Code/Industry/NetworkTopology.cs": "b53f0f3b1dc6177a0221c255ed66da5819118820b8e1c4f86de23f8b2ce2828c",
+    "Assets/RivetReach/Code/Industry/IndustrySimulation.cs": "1285cce0004343b4ad41146234235d829888a1d18bc7ecc6335859db424539da",
+    "Assets/RivetReach/Code/UI/GameUIIndustry.cs": "1fea6d92a2cc9f0cdefe5a989c2ec38fe0224c0c8376c96dd0dfa549524dc6cd",
+    "Assets/RivetReach/Code/ConnectionVerification.cs": "f3a28c82ee1f0df3861e8b1d2217ec3b5276b0db143fccacc0c09dca19052d78",
+    "Assets/RivetReach/Editor/ConnectionChecks.cs": "6e4714f5b8dbe154ba00439e9d6ba4d9411c74f954b2751a47d7a9105cef3bb0",
+    "Builds/Connections/RivetReach.exe": "7d52ee70fb22771f4608d810d1015f539c37dd8b7b2fbb1a0ea9f6bc5c32d5c9",
+    "Builds/Connections/RivetReach_Data/Managed/Assembly-CSharp.dll": "64b828b69d453afd8b89121912dfec0566b54b6fd3b71ad17fde07e4d3d3a3b4"
+  }
+}

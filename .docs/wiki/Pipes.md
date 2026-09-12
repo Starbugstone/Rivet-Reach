@@ -106,6 +106,10 @@ Open the pipe interface at its centre or with Interact:
 
 Both fittings may share an Item Pipe or Fluid Pipe. Each channel follows its own compatible neighbours. Wrench direction changes affect only item/fluid transport; they do not reverse electricity or change Blue Signal.
 
+## Connected network versus available electricity
+
+A registered electrical connection remains connected when its generator stops or its battery empties. The machine shows **Power network: connected** separately from its received/requested watts. **No electrical power** means the machine has no supplied electricity; **Power network: not connected** means it also lacks a registered electrical link. Check fuel, charge and battery mode before rebuilding a correctly connected cable route.
+
 ## Troubleshooting
 
 | Problem | Check |

@@ -16,21 +16,26 @@ namespace RivetReach
             public readonly List<Endpoint> Ports=new List<Endpoint>();
             public int Id;public bool Signal;public int Supply,Demand;
         }
-        public readonly List<Group> Groups=new List<Group>();
-        public readonly Dictionary<BlockPos,int> Connections=new Dictionary<BlockPos,int>();
+        public List<Group> Groups {get;private set;}=new List<Group>();
+        public Dictionary<BlockPos,int> Connections {get;private set;}=new Dictionary<BlockPos,int>();
+        HashSet<MachineState> registered=new HashSet<MachineState>();
+        public bool Connected(MachineState machine)=>machine!=null&&registered.Contains(machine)&&Connections.TryGetValue(machine.Position,out int faces)&&faces!=0;
         public readonly NetworkKind Kind;
         public Func<BlockPos,int> ExternalEndpointFaces;
         public Func<MachineState,IEnumerable<MachinePort>> ResolvePorts;
         public NetworkTopology(NetworkKind kind){Kind=kind;}
         public IEnumerable<int> Rebuild(IReadOnlyList<MachineState> machines)
         {
-            Groups.Clear();Connections.Clear();
+            // Build privately: yielding or cancelling must not erase the registered
+            // network, its connection geometry or its last allocation snapshot.
+            var groups=new List<Group>();var connections=new Dictionary<BlockPos,int>();
+            var members=new HashSet<MachineState>();
             var nodes=new List<Endpoint>();var byPosition=new Dictionary<BlockPos,List<int>>();
             foreach(var m in machines)
             {
                 foreach(var p in ResolvePorts!=null?ResolvePorts(m):PipeConnections.Ports(m))
                 {
-                    if(p.Kind!=Kind)continue;int faces=PipeConnections.WorldFaces(p,m.Rotation);
+                    if(p.Kind!=Kind)continue;members.Add(m);int faces=PipeConnections.WorldFaces(p,m.Rotation);
                     if(!byPosition.TryGetValue(m.Position,out var list))byPosition.Add(m.Position,list=new List<int>());
                     list.Add(nodes.Count);nodes.Add(new Endpoint{Machine=m,Port=p,Faces=faces,Group=-1});
                 }
@@ -40,7 +45,7 @@ namespace RivetReach
             for(int i=0;i<nodes.Count;i++)
             {
                 if(nodes[i].Group>=0)continue;
-                var group=new Group{Id=Groups.Count};Groups.Add(group);nodes[i].Group=group.Id;queue.Enqueue(i);
+                var group=new Group{Id=groups.Count};groups.Add(group);nodes[i].Group=group.Id;queue.Enqueue(i);
                 while(queue.Count>0)
                 {
                     var a=nodes[queue.Dequeue()];group.Ports.Add(a);
@@ -52,19 +57,20 @@ namespace RivetReach
                         {
                             // External inventories terminate a route; they never become a hidden bridge.
                             if(PipeConnections.Matches(a.Faces,ExternalEndpointFaces?.Invoke(next)??0,face))
-                            {Connections.TryGetValue(a.Machine.Position,out int externalMask);Connections[a.Machine.Position]=externalMask|(1<<face);}
+                            {connections.TryGetValue(a.Machine.Position,out int externalMask);connections[a.Machine.Position]=externalMask|(1<<face);}
                             continue;
                         }
                         foreach(int j in candidates)
                         {
                             var b=nodes[j];if(!PipeConnections.Matches(a.Faces,b.Faces,face))continue;
-                            Connections.TryGetValue(a.Machine.Position,out int mask);Connections[a.Machine.Position]=mask|(1<<face);
+                            connections.TryGetValue(a.Machine.Position,out int mask);connections[a.Machine.Position]=mask|(1<<face);
                             if(b.Group>=0)continue;b.Group=group.Id;queue.Enqueue(j);
                         }
                     }
                     yield return 0;
                 }
             }
+            Groups=groups;Connections=connections;registered=members;
         }
     }
     public sealed class SignalNetworkService

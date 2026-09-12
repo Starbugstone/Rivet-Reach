@@ -282,6 +282,8 @@ The Battery Bank Controller can be removed without draining because the controll
 
 ## All-face machine connections
 
+The machine interface separates **Power network: connected / not connected** from the watts reaching the machine. **Connected** means an electrical link is registered; it does not guarantee generation or stored charge. A connected machine with zero supplied watts shows **No electrical power**. Starting or stopping generation and emptying a battery do not require reconnecting the network.
+
 Power Cable connects to any of the six faces of a generator, battery or powered machine, including top and bottom. Electricity flows automatically and does not need an Input/Output setting or a wrench. A charged battery in Automatic mode can power a crusher through a side cable; it does not need to be fully charged.
 
 For Item Pipes and Fluid Pipes, select a [Wrench](Item-wrench.md) and right-click the machine-facing end. **Blue enters the machine; red exits it.** See [Pipes](Pipes.md) for the complete setup guide.

@@ -20,7 +20,7 @@ namespace RivetReach
             if(m.Definition.Id==IndustryId.Crusher||m.Definition.Id==IndustryId.Drill)
             {Label(parent,"OUTPUT",1053,299,90,22,13,gold);Slot(parent,MachineSlotStart+2,1069,325,55);}
             var track=Panel(parent,892,346,155,9,slate);machineProgress=Panel(track.transform,0,0,0,9,gold);
-            machineDetail=Label(parent,"",821,391,311,62,14);
+            machineDetail=Label(parent,"",821,385,311,68,m.Definition.Id==IndustryId.Pump?12:14);
             if(m.Definition.WaterCapacity>0||m.Definition.Id==IndustryId.TankController||m.Definition.Id==IndustryId.TankHatch)
             {MachineButton(parent,live=>"ADD 10 L",821,455,146,34,live=>{if(!game.Industry.Bucket(live,true))game.Notify("Need a water bucket and 10 L of free space",3);});MachineButton(parent,live=>"TAKE 10 L",977,455,147,34,live=>{if(!game.Industry.Bucket(live,false))game.Notify("Need an empty bucket and 10 L of water",3);});}
             else if(m.Definition.Watts>0)
@@ -81,10 +81,12 @@ namespace RivetReach
         {
             if(machineStatus==null||game.OpenMachine==null||Time.unscaledTime<nextMachineRefresh)return;
             nextMachineRefresh=Time.unscaledTime+.1f;var m=game.OpenMachine;
-            machineStatus.text=m.FluidConflict?"Fluid conflict · drain vessels":game.Industry.Simulation.Rebuilding?"Connecting networks…":m.Status==MachineStatus.NoInput&&m.Definition.Id==IndustryId.Extractor?"Chest empty or missing":m.Status==MachineStatus.NoInput&&m.Definition.Id==IndustryId.Drill?"Cutting path obstructed":StatusName(m.Status);
+            machineStatus.text=m.FluidConflict?"Fluid conflict · drain vessels":m.Status==MachineStatus.NoInput&&m.Definition.Id==IndustryId.Extractor?"Chest empty or missing":m.Status==MachineStatus.NoInput&&m.Definition.Id==IndustryId.Drill?"Cutting path obstructed":StatusName(m.Status);
             machineStatus.color=m.Running?new Color(.35f,.90f,.83f):gold;
             bool signal=PipeConnections.Ports(m).Any(p=>p.Kind==NetworkKind.Signal);
             string detail=signal?"Signal: "+(m.SignalAttached||IndustryId.Route(m.Definition.Id)?(m.Signal?"ON":"OFF"):m.Definition.Ports.Any(p=>p.Kind==NetworkKind.Signal&&p.Role==PortRole.Output)?(m.Source?"ON":"OFF"):"not connected"):"";
+            string powerConnection=PipeConnections.Ports(m).Any(p=>p.Kind==NetworkKind.Power)?"Power network: "+(game.Industry.Simulation.Power.Topology.Connected(m)?"connected":"not connected"):"";
+            if(powerConnection.Length>0)detail+=(detail.Length>0?"\n":"")+powerConnection;
             if(m.Definition.Watts>0)detail+=$"\nPower: {m.ReceivedWatts} / {m.RequestedWatts} W";
             if(m.Definition.Id==IndustryId.Alternator)detail+=$"\nElectrical output: {m.SupplyWatts} W";
             if(m.Definition.WaterCapacity>0)detail+=$"\nWater: {m.WaterMl/1000f:0.0} / {m.Definition.WaterCapacity/1000} L";
@@ -106,6 +108,7 @@ namespace RivetReach
                 machineStatus.text=member?"Controlled by battery bank":m.Definition.Id==IndustryId.BatteryController&&c?.Formed!=true?"BANK INCOMPLETE":m.BatteryWatts>0?"Charging":m.BatteryWatts<0?"Delivering electricity":m.BatteryMode==BatteryMode.Isolated?"Isolated":amount==0?"Empty · connect generation":amount==capacity?"Fully charged":"Ready · no power transfer";
                 detail=$"Stored: {amount/1000000.0:0.###} / {capacity/1000000.0:0.###} kJ\nCharge: {Mathf.Max(0,m.BatteryWatts)} W · Output: {Mathf.Max(0,-m.BatteryWatts)} W";
                 detail+=member?"\nBank mode overrides cell mode":$"\nLimit: {BatteryPower.Cells(m).Count*BatteryStorage.CellWatts} W each way";
+                if(powerConnection.Length>0)detail+="\n"+powerConnection;
                 if(c!=null)detail+=c.Formed?"\nFORMED · "+c.Bounds:"\n"+c.Validation.Message;
                 machineProgress.rectTransform.sizeDelta=new Vector2(capacity>0?303*(float)(amount/(double)capacity):0,7);
                 machineDetail.text=detail;return;

@@ -43,6 +43,25 @@ namespace RivetReach.Editor
             var personal=new CraftingSession(recipes,2,id=>registry.Get(id).stackLimit);
             foreach(int slot in new[]{0,1,3})personal.Grid.Add(BlockId.IronIngot,1,slot,slot+1);
             Check(personal.Preview==null&&registry.Get(IndustryId.Wrench).stackLimit==1&&!BlockId.Placeable(IndustryId.Wrench),"Wrench requires a workbench, does not stack and is not a placeable machine");
+            {
+                var f=new Fixture();var battery=f.Add(origin,IndustryId.Battery);var cable=f.Add(origin.Offset(1,0,0),IndustryId.PowerCable);
+                var crusher=f.Add(origin.Offset(2,0,0),IndustryId.Crusher);crusher.Items.Add(BlockId.RawIron,4,0,1);f.Settle();
+                var topology=f.Sim.Power.Topology;var graph=topology.Groups;int rebuilds=f.Sim.TopologyRebuilds;
+                Check(topology.Connected(crusher)&&crusher.Status==MachineStatus.NoPower&&crusher.RequestedWatts==160,"Empty battery leaves the crusher connected but without electrical power");
+                f.Steps(80);Check(f.Sim.TopologyRebuilds==rebuilds&&ReferenceEquals(graph,topology.Groups),"A sustained blackout does not re-register the power network");
+                battery.EnergyCells[0].Charge(2500);f.Sim.Step();
+                Check(topology.Connected(crusher)&&crusher.ReceivedWatts==50&&crusher.Status==MachineStatus.Underpowered,"Limited stored energy changes allocation without changing connection");
+                f.Sim.Step();Check(topology.Connected(crusher)&&crusher.ReceivedWatts==0&&crusher.Status==MachineStatus.NoPower&&f.Sim.TopologyRebuilds==rebuilds,"Battery depletion retains registration and reports no power");
+                var connections=topology.Connections;
+                using(var pending=topology.Rebuild(new[]{crusher}).GetEnumerator())
+                {Check(pending.MoveNext()&&ReferenceEquals(graph,topology.Groups)&&ReferenceEquals(connections,topology.Connections)&&topology.Connected(crusher),"Partial traversal leaves the last complete graph and cable connections visible");}
+                Check(ReferenceEquals(graph,topology.Groups)&&topology.Connected(crusher),"Cancelled traversal cannot publish a half-built network");
+                for(int i=0;i<800;i++)f.Add(origin.Offset(20+i,0,0),IndustryId.SignalConduit);
+                f.Sim.Step();Check(f.Sim.Rebuilding&&topology.Connected(crusher)&&crusher.RequestedWatts==160&&crusher.Status==MachineStatus.NoPower,"Unrelated budgeted rebuild preserves connected blackout and last completed demand");
+                f.Settle();Check(topology.Connected(crusher)&&crusher.ReceivedWatts==0,"Completed unrelated graph edits preserve a zero-power connection");
+                f.Sim.Remove(cable.Position);f.Settle();Check(!topology.Connected(crusher)&&crusher.ReceivedWatts==0,"Removing the electrical link changes connectivity independently of zero supply");
+                Check(!topology.Connected(new MachineState(battery.Position,IndustryId.Battery,_=>64)),"A replacement at the same position does not inherit another machine's registration");
+            }
             for(int face=0;face<6;face++)for(int rotation=0;rotation<4;rotation++)
             {
                 string label=$"face {face}, rotation {rotation}";

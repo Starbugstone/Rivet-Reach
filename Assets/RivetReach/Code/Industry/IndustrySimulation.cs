@@ -73,14 +73,14 @@ namespace RivetReach
             {
                 rebuild?.Dispose();dirty=false;eligible.Clear();devices.Clear();
                 foreach(var m in machines.Values)
-                {m.Eligible=world.Ready(m.Position)&&(m.Definition.Id!=IndustryId.WoodenDoor||world.Ready(m.Position.Offset(0,1,0)));m.ReceivedWatts=m.RequestedWatts=m.SupplyWatts=0;m.Signal=false;m.SignalAttached=false;m.FluidConflict=false;if(m.Eligible)eligible.Add(m);else m.Status=MachineStatus.Dormant;}
+                {m.Eligible=world.Ready(m.Position)&&(m.Definition.Id!=IndustryId.WoodenDoor||world.Ready(m.Position.Offset(0,1,0)));if(m.Eligible)eligible.Add(m);else{ResetNetworkState(m);m.Status=MachineStatus.Dormant;}}
                 eligible.Sort((a,b)=>Compare(a.Position,b.Position));InitializePipeEnds();foreach(var m in eligible)if(!IndustryId.Route(m.Definition.Id))devices.Add(m);rebuild=Rebuild().GetEnumerator();TopologyRebuilds++;
             }
             if(rebuild!=null)
             {
                 bool done=false;for(int budget=0;budget<2048;budget++)if(!rebuild.MoveNext()){done=true;break;}
                 if(!done){LastStepMs=(Stopwatch.GetTimestamp()-start)*1000.0/Stopwatch.Frequency;return;}
-                rebuild.Dispose();rebuild=null;Revision++;
+                rebuild.Dispose();rebuild=null;foreach(var m in eligible)ResetNetworkState(m);Revision++;
             }
             foreach(var m in devices)
             {
@@ -126,6 +126,8 @@ namespace RivetReach
             foreach(var m in devices)Advance(m);
             Revision++;LastStepMs=(Stopwatch.GetTimestamp()-start)*1000.0/Stopwatch.Frequency;
         }
+        static void ResetNetworkState(MachineState m)
+        {m.ReceivedWatts=m.RequestedWatts=m.SupplyWatts=m.BatteryWatts=0;m.Signal=false;m.SignalAttached=false;m.FluidConflict=false;}
         IEnumerable<int> Rebuild()
         {foreach(var graph in new[]{Signals.Topology,Power.Topology,ItemNetwork,FluidNetwork})foreach(var unit in graph.Rebuild(eligible))yield return unit;}
         static int Compare(BlockPos a,BlockPos b){int c=a.X.CompareTo(b.X);if(c!=0)return c;c=a.Y.CompareTo(b.Y);return c!=0?c:a.Z.CompareTo(b.Z);}

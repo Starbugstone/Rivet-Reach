@@ -8172,7 +8172,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/ConnectionVerification.cs",
-            "sha256": "94a2377880c0d7245795a1c770f16739fd55eba46eb06abc3bf06c384f96cd4a"
+            "sha256": "f3a28c82ee1f0df3861e8b1d2217ec3b5276b0db143fccacc0c09dca19052d78"
         },
         {
             "path": "Assets/RivetReach/Code/Core/Coordinates.cs",
@@ -8300,11 +8300,11 @@
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustrySimulation.cs",
-            "sha256": "1b5ad906865367b87f080f609aa233da8317857ba9ac90d78f02f36d127e3acd"
+            "sha256": "1285cce0004343b4ad41146234235d829888a1d18bc7ecc6335859db424539da"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/NetworkTopology.cs",
-            "sha256": "6c80dc350a5c8dadfbc8fc1462c9c4541f8d682c328c15c59959c91375841428"
+            "sha256": "b53f0f3b1dc6177a0221c255ed66da5819118820b8e1c4f86de23f8b2ce2828c"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/PipeConnections.cs",
@@ -8596,7 +8596,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIIndustry.cs",
-            "sha256": "90b74ef03b63492b0db9d73d64d001ceafe3e9c875d8a0d33304246db9eaff5e"
+            "sha256": "1fea6d92a2cc9f0cdefe5a989c2ec38fe0224c0c8376c96dd0dfa549524dc6cd"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIRecipeDetails.cs",

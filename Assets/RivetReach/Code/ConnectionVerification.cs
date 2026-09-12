@@ -25,6 +25,7 @@ namespace RivetReach
             for(int i=0;i<10;i++)sim.Step();Check(battery.EnergyCells[0].Amount==50000,"Crank charges through a side independent of its facing");
             battery.EnergyCells[0].Charge(2100000);crusher.Items.Add(BlockId.RawIron,4,0,1);sim.Step();
             Check(crusher.ReceivedWatts==160&&battery.BatteryWatts==-160,"Screenshot layout: battery → side cable → crusher supplies 160 W");
+            yield return ReviewPowerConnectionStatus(battery,crusher);
             var itemMachine=Machine(0,0,3,IndustryId.Crusher);var itemPipe=Machine(1,0,3,IndustryId.ItemPipe);
             var chestPos=origin.Offset(2,0,3);Put(chestPos,BlockId.Chest);itemMachine.Items.Add(IndustryId.CrushedIron,64,2,3);
             var source=Machine(0,0,6,IndustryId.Tank);var fluidPipe=Machine(1,0,6,IndustryId.FluidPipe);var destination=Machine(2,0,6,IndustryId.Tank);source.WaterMl=100000;
@@ -135,6 +136,37 @@ namespace RivetReach
             Check(game.World.GetComponent<PipeEndpointPresentation>().ViewAt(fluidPipe.Position,1)!=null,"Restored endpoints rebuild their visible arrows");
             yield return Capture("restored-connection-directions");
             Check(game.Inventory.Slots[1].Id==IndustryId.Wrench,"Wrench inventory identity survives save/load");
+        }
+
+        IEnumerator ReviewPowerConnectionStatus(MachineState battery,MachineState crusher)
+        {
+            var sim=game.Industry.Simulation;var world=game.World;var player=game.Player;
+            long energy=battery.EnergyCells[0].Amount;battery.EnergyCells[0].Discharge(energy);sim.Step();
+            void Aim(MachineState machine)
+            {
+                game.SetMode(ScreenMode.Play);player.transform.position=world.Local(machine.Position)+new Vector3(.5f,.1f,-2);
+                player.Camera.transform.position=world.Local(machine.Position)+new Vector3(.5f,3,.5f);
+                player.Camera.transform.LookAt(world.Local(machine.Position)+Vector3.one*.5f);
+                Check(game.TryOpenMachine(machine.Position),"Open actual machine interface for power-status review");
+            }
+            UnityEngine.UI.Text Field(string name)=>(UnityEngine.UI.Text)typeof(GameUI).GetProperty(name,System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance).GetValue(game.UI);
+            // Freeze only automatic ticks while the real retained UI refreshes from
+            // explicitly advanced authoritative simulation states.
+            game.enabled=false;Aim(crusher);yield return new WaitForSecondsRealtime(.2f);
+            Check(Field("machineStatus").text=="No electrical power"&&Field("machineDetail").text.Contains("Power network: connected")&&Field("machineDetail").text.Contains("Power: 0 / 160 W"),"Live UI separates an already connected electrical network from zero available machine power");
+            yield return Capture("power-connected-empty");
+            sim.Invalidate();yield return new WaitForSecondsRealtime(.2f);
+            Check(sim.Rebuilding&&Field("machineStatus").text=="No electrical power"&&Field("machineDetail").text.Contains("Power network: connected"),"Global topology work cannot replace the machine's blackout status with Connecting networks");
+            battery.EnergyCells[0].Charge(8000);sim.Step();yield return new WaitForSecondsRealtime(.2f);
+            Check(Field("machineStatus").text=="Running"&&Field("machineDetail").text.Contains("Power network: connected")&&Field("machineDetail").text.Contains("Power: 160 / 160 W"),"Receiving electricity changes the operating status while connectivity stays registered");
+            sim.Step();yield return new WaitForSecondsRealtime(.2f);
+            Check(Field("machineStatus").text=="No electrical power"&&Field("machineDetail").text.Contains("Power network: connected"),"Depletion returns to No electrical power without a connection message");
+            var cable=crusher.Position.Offset(-1,0,0);Check(world.Remove(cable,IndustryId.PowerCable),"Remove actual cable for disconnected UI review");sim.Step();yield return new WaitForSecondsRealtime(.2f);
+            Check(Field("machineStatus").text=="No electrical power"&&Field("machineDetail").text.Contains("Power network: not connected"),"Physical cable removal changes the separate connection label");
+            yield return Capture("power-cable-disconnected");Check(world.Place(cable,IndustryId.PowerCable),"Restore electrical cable");sim.Step();
+            var pumpPos=crusher.Position.Offset(3,0,0);Check(world.Place(pumpPos,IndustryId.Pump),"Place pump to review the five-line status layout");sim.Step();Aim(sim.At(pumpPos));yield return new WaitForSecondsRealtime(.2f);
+            Check(Field("machineDetail").text.Contains("Power network: not connected")&&Field("machineDetail").text.Contains("Below:"),"Pump retains connection, power, water and intake diagnostics together");yield return Capture("pump-network-status");
+            game.SetMode(ScreenMode.Pause);world.Remove(pumpPos,IndustryId.Pump);battery.EnergyCells[0].Charge(energy);game.enabled=true;
         }
 
         IEnumerator ReviewConnectionLegacy()
