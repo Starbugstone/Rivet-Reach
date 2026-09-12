@@ -10,6 +10,7 @@ namespace RivetReach
         {
             var world=game.World;var player=game.Player;
             game.Mobs.enabled=false;game.Diagnostics=false;player.enabled=false;game.Items.enabled=false;
+            player.HeldBlock.enabled=false;
             player.Arms.gameObject.SetActive(false);player.Body.gameObject.SetActive(false);
             Check(game.Inventory.Slots.All(s=>s.Empty),"Survival starts without free torches");
             foreach(byte fuel in new[]{BlockId.Coal,BlockId.Charcoal})
@@ -72,6 +73,7 @@ namespace RivetReach
             for(int step=0;step<8;step++)world.FluidSimulation.Step(world);
             Check(Fluids.IsFluid(world.Get(torch))&&game.Items.Total(BlockId.Torch)==dropped+3&&!world.TorchSupport(torch,out _),"Flowing water washes away one torch and returns exactly one item");
             world.ChangeFluid(above,world.Get(above),0);world.ChangeFluid(torch,world.Get(torch),0);
+            yield return ReviewHeldTorch(origin);
             Check(world.PlaceTorch(torch,floor),"Torch can be replaced for streaming check");
             // Pause fluid/grass time during the focused residency round trip.
             game.SetMode(ScreenMode.Pause);
@@ -87,6 +89,54 @@ namespace RivetReach
             world.TorchView.Refresh();
             Check(world.TorchView.ActiveLightCount==TorchPresentation.LightLimit&&world.TorchView.Lights.Count()==TorchPresentation.LightLimit,"Dense torch placement reuses the fixed eight-light pool");
             Check(errors.Count==0,"Torch scenario completes without Unity errors");
+        }
+        IEnumerator ReviewHeldTorch(BlockPos origin)
+        {
+            var player=game.Player;var held=player.HeldBlock;var world=game.World;
+            int slot=game.Selected,quantity=game.Inventory.Total(BlockId.Torch);
+            player.Camera.transform.LookAt(world.Local(origin)+new Vector3(3.5f,1.25f,7.5f));
+            held.PrepareFrame(.2f);player.Arms.SetGrip(GripPose.Tool);player.Arms.gameObject.SetActive(true);
+            held.enabled=true;
+            for(int i=0;i<100;i++)
+            {held.PrepareFrame(.02f);player.Arms.Animate(0,false,0,true,false,false,Vector2.zero,0);player.Arms.FitFirstPersonFov(player.Camera.fieldOfView);held.FrameFirstPerson();yield return null;}
+            // Mining/support-removal particles must expire before comparing pixels.
+            yield return new WaitForSeconds(2);yield return new WaitForEndOfFrame();
+            var light=player.GetComponentsInChildren<Light>().Single(l=>l.name=="Held torch light");
+            Check(light.enabled&&light.type==LightType.Point&&light.shadows!=LightShadows.None&&light.range==TorchPresentation.LightRange,"Selected held torch activates a shadowed ten-block point light");
+            Check(held.Visible&&world.TorchView.ActiveLightCount==0,"Held torch is visible and lights the room without any placed torch lights");
+            held.enabled=false;yield return Capture("held-torch-unlit");yield return new WaitForEndOfFrame();
+            var dark=ScreenCapture.CaptureScreenshotAsTexture();
+            held.enabled=true;yield return Capture("held-torch-lit");yield return new WaitForEndOfFrame();
+            var lit=ScreenCapture.CaptureScreenshotAsTexture();
+            double darkSum=0,litSum=0;int samples=0;
+            for(int y=lit.height/3;y<lit.height*2/3;y++)for(int x=lit.width/4;x<lit.width*3/4;x++)
+            {darkSum+=dark.GetPixel(x,y).grayscale;litSum+=lit.GetPixel(x,y).grayscale;samples++;}
+            Destroy(dark);Destroy(lit);
+            // One carried source is farther from the rear wall than the two placed
+            // fixtures above. Require a visible increase in this terrain-only patch.
+            Check(litSum/samples>darkSum/samples+.01&&litSum>darkSum*1.1,"Held torch brightens rendered room: mean luminance "+(darkSum/samples).ToString("F4")+" → "+(litSum/samples).ToString("F4"));
+            int empty=game.Inventory.FindSlot(s=>s.Empty);game.Selected=empty;yield return null;yield return new WaitForEndOfFrame();
+            Check(!light.enabled,"Switching to an empty slot extinguishes held light immediately");
+            game.Inventory.Add(BlockId.Stone,1,empty,empty+1);yield return null;yield return new WaitForEndOfFrame();
+            Check(!light.enabled,"Holding another item does not emit torch light");game.Inventory.Take(empty,1);
+            game.Selected=slot;yield return null;yield return new WaitForEndOfFrame();
+            Check(light.enabled&&player.GetComponentsInChildren<Light>().Count(l=>l.name=="Held torch light")==1,"Reselecting a torch reuses one held light");
+            game.SetMode(ScreenMode.Inventory);yield return null;yield return new WaitForEndOfFrame();
+            Check(light.enabled&&!held.Visible,"Inventory keeps selected torch lighting while hands are hidden");
+            var before=light.transform.position;player.transform.position+=Vector3.right;
+            yield return null;yield return new WaitForEndOfFrame();
+            Check(Vector3.Distance(light.transform.position,before+Vector3.right)<.001f,"Held light follows player movement while the hand view is hidden");
+            player.transform.position-=Vector3.right;
+            game.SetMode(ScreenMode.Pause);yield return null;yield return new WaitForEndOfFrame();
+            Check(light.enabled,"Pausing preserves selected torch illumination");
+            game.Inventory.Take(slot,game.Inventory.Slots[slot].Count);yield return null;yield return new WaitForEndOfFrame();
+            Check(!light.enabled,"Depleting the selected torch stack clears its light even with hands hidden");
+            game.Inventory.Add(BlockId.Torch,quantity,slot,slot+1);game.SetMode(ScreenMode.Play);
+            yield return null;yield return new WaitForEndOfFrame();
+            Check(light.enabled&&game.Inventory.Total(BlockId.Torch)==quantity,"Held illumination consumes no torch items");
+            game.SetMode(ScreenMode.Title);yield return null;yield return new WaitForEndOfFrame();
+            Check(!light.enabled,"Returning to the title extinguishes held light");game.SetMode(ScreenMode.Play);
+            held.enabled=false;player.Arms.gameObject.SetActive(false);
         }
     }
 }

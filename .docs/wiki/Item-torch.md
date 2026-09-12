@@ -23,7 +23,7 @@ Craft it using either recipe below.
 
 ## Using it
 
-Place it on a supported top or side face to light the area. Removing its support drops the torch; water can wash it away. Torches do not burn fuel or need electricity after placement.
+Select a torch in your hotbar to cast warm light around you as you explore, or place it on a supported top or side face to light the area. Switching items or using the last held torch turns off the carried light. Removing a placed torch’s support drops it; water can wash it away. Held and placed torches do not burn fuel or need electricity.
 
 ## Crafting and processing
 

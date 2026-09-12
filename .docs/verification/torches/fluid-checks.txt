@@ -50,4 +50,4 @@ PASS Water bed and protected bedrock retained for Sea
 PASS Generated River has shared sea datum, seed -99
 PASS Fluid point and chunk reads agree for River
 PASS Water bed and protected bedrock retained for River
-Checks: 52; generated sea sites: 3; river sites: 3; elapsed ms: 559,4
+Checks: 52; generated sea sites: 3; river sites: 3; elapsed ms: 1013,3

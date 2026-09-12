@@ -54,6 +54,7 @@ namespace RivetReach
         Material foodMaterial;
         GameObject view,block,sword,pickaxe,axe,shovel,hoe,card,torch,bucket,bucketWater,wrench;
         Material cardMaterial,torchMaterial,waterMaterial;
+        Light heldTorchLight;
         MeshFilter filter;
         Material material,toolMaterial,axeMaterial,industryMaterial,industryGlass;
         Vector3 bladeAxis,handleAxis;
@@ -82,6 +83,7 @@ namespace RivetReach
         }
         void LateUpdate()
         {
+            UpdateTorchLight(false);
             if(Player==null||Player.Game==null)return;
             var game=Player.Game;var selected=displayed;byte id=selected.Empty?(byte)0:selected.Id;
             if(id!=ItemId)
@@ -212,7 +214,35 @@ namespace RivetReach
             if(torchMaterial!=null)torchMaterial.SetFloat("_FirstPerson",firstPerson);
             if(cardMaterial!=null)cardMaterial.SetFloat("_FirstPerson",firstPerson);
             if(foodMaterial!=null)foodMaterial.SetFloat("_FirstPerson",firstPerson);
+            UpdateTorchLight(isTorch);
         }
+        void UpdateTorchLight(bool atFlame)
+        {
+            var game=Player==null?null:Player.Game;
+            var selected=game==null?default:game.Inventory.Slots[game.Selected];
+            bool lit=game!=null&&game.Started&&game.Mode!=ScreenMode.Title&&!selected.Empty&&selected.Id==BlockId.Torch;
+            if(lit&&heldTorchLight==null)
+            {
+                var source=Instantiate(Resources.Load<GameObject>("TorchLight"),transform,false);
+                source.name="Held torch light";heldTorchLight=source.GetComponent<Light>();
+            }
+            if(heldTorchLight==null)return;
+            heldTorchLight.enabled=lit;if(!lit)return;
+            // Keep selected-torch light through menus/equip transitions. Inspection's
+            // orbit camera must not carry the light away from the player.
+            var eye=Player.transform.position+Vector3.up*Player.VisualEyeHeight;
+            var position=atFlame&&torch!=null?torch.transform.TransformPoint(0,.25f,0):eye;
+            var delta=position-eye;
+            // Hands can visually extend through a nearby wall; the light must stay
+            // on the player's side so it cannot illuminate the adjacent room.
+            if(delta.sqrMagnitude>.0001f&&game.World.RaycastSolid(eye,delta.normalized,delta.magnitude,out var hit,out _))
+            {
+                var bounds=new Bounds(game.World.Local(hit)+Vector3.one*.5f,Vector3.one*1.1f);
+                position=bounds.IntersectRay(new Ray(eye,delta.normalized),out float distance)?eye+delta.normalized*Mathf.Max(0,distance):eye;
+            }
+            heldTorchLight.transform.position=position;
+        }
+        void OnDisable(){if(heldTorchLight!=null)heldTorchLight.enabled=false;}
         public void FrameFirstPerson()
         {
             var arm=Player.Arms.transform;
@@ -220,6 +250,6 @@ namespace RivetReach
             arm.localRotation=Quaternion.Euler(12*amount,0,-6*amount);
             arm.localPosition+=new Vector3(.025f,-.52f,.08f)*amount*arm.localScale.x;
         }
-        void OnDestroy(){if(foodMaterial!=null)Destroy(foodMaterial);if(industryMaterial!=null)Destroy(industryMaterial);if(industryGlass!=null)Destroy(industryGlass);if(view!=null)Destroy(view);if(material!=null)Destroy(material);if(toolMaterial!=null)Destroy(toolMaterial);if(axeMaterial!=null)Destroy(axeMaterial);if(torchMaterial!=null)Destroy(torchMaterial);if(waterMaterial!=null)Destroy(waterMaterial);if(cardMaterial!=null)Destroy(cardMaterial);foreach(var mesh in meshes.Values)Destroy(mesh);}
+        void OnDestroy(){if(heldTorchLight!=null)Destroy(heldTorchLight.gameObject);if(foodMaterial!=null)Destroy(foodMaterial);if(industryMaterial!=null)Destroy(industryMaterial);if(industryGlass!=null)Destroy(industryGlass);if(view!=null)Destroy(view);if(material!=null)Destroy(material);if(toolMaterial!=null)Destroy(toolMaterial);if(axeMaterial!=null)Destroy(axeMaterial);if(torchMaterial!=null)Destroy(torchMaterial);if(waterMaterial!=null)Destroy(waterMaterial);if(cardMaterial!=null)Destroy(cardMaterial);foreach(var mesh in meshes.Values)Destroy(mesh);}
     }
 }
