@@ -108,6 +108,8 @@ namespace RivetReach
             InputSystem.QueueStateEvent(Mouse.current,new MouseState());yield return null;
             Check(sim.PipeEndRole(itemPipe,1)==PortRole.Output&&game.Mode==ScreenMode.Play&&game.Inventory.Slots[1].Id==IndustryId.Wrench&&game.Inventory.Slots[1].Count==1,"Another wrench right-click restores red output without consuming the tool");
             yield return Capture("item-end-red-output");
+            yield return ReviewCrouchedWrench(itemPipe,"item");
+            yield return ReviewCrouchedWrench(fluidPipe,"fluid");
             AimItem(1.5f);yield return new WaitForSecondsRealtime(.3f);
             Check(!game.TryGetPipeEndTarget(out _,out _),"Pipe centre remains a distinct target");
             InputSystem.QueueStateEvent(Mouse.current,new MouseState().WithButton(MouseButton.Right));yield return null;yield return null;
@@ -160,6 +162,30 @@ namespace RivetReach
             yield return Capture("restored-connection-directions");
             Check(game.Inventory.Slots[1].Id==IndustryId.Wrench,"Wrench inventory identity survives save/load");
             yield return ReviewFurnacePipes(origin);
+        }
+
+        IEnumerator ReviewCrouchedWrench(MachineState pipe,string channel)
+        {
+            var player=game.Player;var sim=game.Industry.Simulation;
+            var target=game.World.Local(pipe.Position)+new Vector3(.16f,.5f,.29f);
+            player.transform.position=game.World.Local(pipe.Position)+new Vector3(.16f,0,-2);player.Yaw=0;
+            InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState(game.Input.Keys["Crouch"]));
+            yield return new WaitForSecondsRealtime(.4f);
+            player.Pitch=Mathf.Atan2(player.Camera.transform.position.y-target.y,2.29f)*Mathf.Rad2Deg;
+            yield return null;yield return null;
+            Check(game.Input.Held("Crouch")&&player.Height<1.5f&&game.TryGetPipeEndTarget(out var aimed,out int face)&&aimed==pipe&&face==1,"Crouched camera targets the "+channel+" machine-facing pipe end");
+            var other=sim.PipeEndRole(pipe,0);
+            foreach(var expected in new[]{PortRole.Disabled,PortRole.Input,PortRole.Output})
+            {
+                InputSystem.QueueStateEvent(Mouse.current,new MouseState().WithButton(MouseButton.Right));yield return null;yield return null;
+                Check(game.Mode==ScreenMode.Play&&sim.PipeEndRole(pipe,1)==expected&&sim.PipeEndRole(pipe,0)==other,"Crouch + wrench Use cycles "+channel+" end to "+expected+" without changing the other end or opening inventory");
+                int setting=pipe.PipeDirections;yield return new WaitForSecondsRealtime(.3f);
+                Check(pipe.PipeDirections==setting,"Holding crouch + Use changes "+channel+" end only once per press");
+                Check(game.Message!=null&&game.Message.StartsWith(channel=="item"?"Items:":"Fluid:"),"Held crouched wrench preserves connection feedback instead of attempting block placement");
+                InputSystem.QueueStateEvent(Mouse.current,new MouseState());yield return null;
+            }
+            yield return Capture("shift-wrench-"+channel+"-output");
+            InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState());yield return new WaitForSecondsRealtime(.4f);
         }
 
         IEnumerator ReviewSeparatePowerGrids(BlockPos origin)

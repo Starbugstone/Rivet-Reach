@@ -1,0 +1,5 @@
+System.Exception: Item pipes: Chest fills an existing item type first and still emits at most four per second
+  at RivetReach.Editor.ItemPipeChecks+<>c__DisplayClass2_0.<Run>g__Check|0 (System.Boolean ok, System.String message) [0x0003b] in D:\Dev\github-desktop\Rivet-Reach\Assets\RivetReach\Editor\ItemPipeChecks.cs:31
+  at RivetReach.Editor.ItemPipeChecks.Run () [0x010d7] in D:\Dev\github-desktop\Rivet-Reach\Assets\RivetReach\Editor\ItemPipeChecks.cs:146
+  at RivetReach.Editor.ConnectionBuild.Run (System.Boolean build) [0x00015] in D:\Dev\github-desktop\Rivet-Reach\Assets\RivetReach\Editor\ConnectionBuild.cs:32
+  at RivetReach.Editor.ConnectionBuild.Poll () [0x000a8] in D:\Dev\github-desktop\Rivet-Reach\Assets\RivetReach\Editor\ConnectionBuild.cs:23

@@ -42,6 +42,7 @@ The player backpack has **56 slots (seven rows of eight)**, plus the **15-slot h
 | Inventory / pause | Tab / Escape |
 | Close inventory or station screen | Tab, E (Interact), or Escape; Tab/E shortcuts are ignored while typing in a text field |
 | Select hotbar | Mouse wheel or [ / ] cycle all 15 slots; 1–0 for the first ten |
+| Configure a machine-facing pipe end | Select Wrench, then right-click or Shift + right-click: Input → Output → No connection |
 | Drop one / selected stack | Q / Shift+Q |
 | Inspect body / diagnostics | F5 / F12 |
 | Move an inventory stack | Click source then destination, or drag |

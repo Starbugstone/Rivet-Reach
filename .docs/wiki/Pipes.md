@@ -34,7 +34,7 @@ Put it in your hotbar and **select it so you are holding it**. A wrench elsewher
 1. Place the pipe against any accessible face of a compatible machine or chest.
 2. Hold the **Wrench**.
 3. Aim at the **pipe end touching that machine**, close to the join.
-4. **Right-click** to cycle **Input → Output → No connection → Input**.
+4. **Right-click** or **Shift + right-click** to cycle **Input → Output → No connection → Input**.
 5. Check the arrow and the crosshair's connection label while holding the wrench.
 
 | Arrow | Meaning |
@@ -45,7 +45,11 @@ Put it in your hotbar and **select it so you are holding it**. A wrench elsewher
 
 Directions are always named from the **machine's** point of view. A route normally needs a **red output at its source** and a **blue input at its destination**. Both arrows point along the intended movement.
 
-**Without a selected wrench, you cannot change pipe direction.** Empty hands, other items and the Interact key do not change it. Holding right-click does not repeatedly flip it; each change needs another press. If you remap mouse Use, use that binding while holding the wrench.
+**Without a selected wrench, you cannot change pipe direction.** Empty hands, other items and the Interact key do not change it. Holding right-click does not repeatedly flip it; each change needs another press. Crouching does not block wrench configuration. If you remap mouse Use or Crouch, use those bindings while holding the wrench.
+
+![Crouched explorer holding a wrench after changing an item pipe to red Output](images/shift-wrench-item-output.png)
+
+*Shift + right-click works while crouching. In-game capture: 2026-09-12; the red end supplies items from the crusher and the blue end sends them into the chest.*
 
 Each end is independent. Changing one does not reverse the whole network or its other branches. Configured directions survive machine rotation, chunk unloading and Save Game / Load Game.
 

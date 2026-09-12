@@ -8216,7 +8216,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/ConnectionVerification.cs",
-            "sha256": "d49b77d7f6ed1e9a4f8e8691079a58644f5c02b31422590975958f5b6ebace2e"
+            "sha256": "51b6c053a7e51f6af06075eadcd46bf0f7b39fea44f4e658da274ebb5dbbe9a4"
         },
         {
             "path": "Assets/RivetReach/Code/Core/Coordinates.cs",
@@ -8536,7 +8536,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Player/FirstPersonPlayer.cs",
-            "sha256": "986259de3e162f19055245efa42dc6d83cd4250045e499869eaa13ae7852e76c"
+            "sha256": "bd4ee8acab3560215e3bf26c00ca5352116fdacb250f4755ee4dfa8e8e1b61c1"
         },
         {
             "path": "Assets/RivetReach/Code/Player/FoodVisuals.cs",

@@ -1,0 +1,649 @@
+PASS 648 assertions
+PASS Wrench recipe consumes exactly three iron ingots and produces one tool
+PASS Wrench requires a workbench, does not stack and is not a placeable machine
+PASS Empty battery leaves the crusher connected but without electrical power
+PASS A sustained blackout does not re-register the power network
+PASS Limited stored energy changes allocation without changing connection
+PASS Battery depletion retains registration and reports no power
+PASS Partial traversal leaves the last complete graph and cable connections visible
+PASS Cancelled traversal cannot publish a half-built network
+PASS Unrelated budgeted rebuild preserves connected blackout and last completed demand
+PASS Completed unrelated graph edits preserve a zero-power connection
+PASS Removing the electrical link changes connectivity independently of zero supply
+PASS A replacement at the same position does not inherit another machine's registration
+PASS Battery → cable → crusher delivers exactly 160 W: face 0, rotation 0
+PASS Removing cable disconnects power: face 0, rotation 0
+PASS Configured item input accepts raw ore: face 0, rotation 0
+PASS Reversing item end extracts only product without consuming input: face 0, rotation 0
+PASS Fluid output moves exactly 100 mL on any face: face 0, rotation 0
+PASS Reversing fluid ends sends stored water back without loss: face 0, rotation 0
+PASS Battery → cable → crusher delivers exactly 160 W: face 0, rotation 1
+PASS Removing cable disconnects power: face 0, rotation 1
+PASS Configured item input accepts raw ore: face 0, rotation 1
+PASS Reversing item end extracts only product without consuming input: face 0, rotation 1
+PASS Fluid output moves exactly 100 mL on any face: face 0, rotation 1
+PASS Reversing fluid ends sends stored water back without loss: face 0, rotation 1
+PASS Battery → cable → crusher delivers exactly 160 W: face 0, rotation 2
+PASS Removing cable disconnects power: face 0, rotation 2
+PASS Configured item input accepts raw ore: face 0, rotation 2
+PASS Reversing item end extracts only product without consuming input: face 0, rotation 2
+PASS Fluid output moves exactly 100 mL on any face: face 0, rotation 2
+PASS Reversing fluid ends sends stored water back without loss: face 0, rotation 2
+PASS Battery → cable → crusher delivers exactly 160 W: face 0, rotation 3
+PASS Removing cable disconnects power: face 0, rotation 3
+PASS Configured item input accepts raw ore: face 0, rotation 3
+PASS Reversing item end extracts only product without consuming input: face 0, rotation 3
+PASS Fluid output moves exactly 100 mL on any face: face 0, rotation 3
+PASS Reversing fluid ends sends stored water back without loss: face 0, rotation 3
+PASS Battery → cable → crusher delivers exactly 160 W: face 1, rotation 0
+PASS Removing cable disconnects power: face 1, rotation 0
+PASS Configured item input accepts raw ore: face 1, rotation 0
+PASS Reversing item end extracts only product without consuming input: face 1, rotation 0
+PASS Fluid output moves exactly 100 mL on any face: face 1, rotation 0
+PASS Reversing fluid ends sends stored water back without loss: face 1, rotation 0
+PASS Battery → cable → crusher delivers exactly 160 W: face 1, rotation 1
+PASS Removing cable disconnects power: face 1, rotation 1
+PASS Configured item input accepts raw ore: face 1, rotation 1
+PASS Reversing item end extracts only product without consuming input: face 1, rotation 1
+PASS Fluid output moves exactly 100 mL on any face: face 1, rotation 1
+PASS Reversing fluid ends sends stored water back without loss: face 1, rotation 1
+PASS Battery → cable → crusher delivers exactly 160 W: face 1, rotation 2
+PASS Removing cable disconnects power: face 1, rotation 2
+PASS Configured item input accepts raw ore: face 1, rotation 2
+PASS Reversing item end extracts only product without consuming input: face 1, rotation 2
+PASS Fluid output moves exactly 100 mL on any face: face 1, rotation 2
+PASS Reversing fluid ends sends stored water back without loss: face 1, rotation 2
+PASS Battery → cable → crusher delivers exactly 160 W: face 1, rotation 3
+PASS Removing cable disconnects power: face 1, rotation 3
+PASS Configured item input accepts raw ore: face 1, rotation 3
+PASS Reversing item end extracts only product without consuming input: face 1, rotation 3
+PASS Fluid output moves exactly 100 mL on any face: face 1, rotation 3
+PASS Reversing fluid ends sends stored water back without loss: face 1, rotation 3
+PASS Battery → cable → crusher delivers exactly 160 W: face 2, rotation 0
+PASS Removing cable disconnects power: face 2, rotation 0
+PASS Configured item input accepts raw ore: face 2, rotation 0
+PASS Reversing item end extracts only product without consuming input: face 2, rotation 0
+PASS Fluid output moves exactly 100 mL on any face: face 2, rotation 0
+PASS Reversing fluid ends sends stored water back without loss: face 2, rotation 0
+PASS Battery → cable → crusher delivers exactly 160 W: face 2, rotation 1
+PASS Removing cable disconnects power: face 2, rotation 1
+PASS Configured item input accepts raw ore: face 2, rotation 1
+PASS Reversing item end extracts only product without consuming input: face 2, rotation 1
+PASS Fluid output moves exactly 100 mL on any face: face 2, rotation 1
+PASS Reversing fluid ends sends stored water back without loss: face 2, rotation 1
+PASS Battery → cable → crusher delivers exactly 160 W: face 2, rotation 2
+PASS Removing cable disconnects power: face 2, rotation 2
+PASS Configured item input accepts raw ore: face 2, rotation 2
+PASS Reversing item end extracts only product without consuming input: face 2, rotation 2
+PASS Fluid output moves exactly 100 mL on any face: face 2, rotation 2
+PASS Reversing fluid ends sends stored water back without loss: face 2, rotation 2
+PASS Battery → cable → crusher delivers exactly 160 W: face 2, rotation 3
+PASS Removing cable disconnects power: face 2, rotation 3
+PASS Configured item input accepts raw ore: face 2, rotation 3
+PASS Reversing item end extracts only product without consuming input: face 2, rotation 3
+PASS Fluid output moves exactly 100 mL on any face: face 2, rotation 3
+PASS Reversing fluid ends sends stored water back without loss: face 2, rotation 3
+PASS Battery → cable → crusher delivers exactly 160 W: face 3, rotation 0
+PASS Removing cable disconnects power: face 3, rotation 0
+PASS Configured item input accepts raw ore: face 3, rotation 0
+PASS Reversing item end extracts only product without consuming input: face 3, rotation 0
+PASS Fluid output moves exactly 100 mL on any face: face 3, rotation 0
+PASS Reversing fluid ends sends stored water back without loss: face 3, rotation 0
+PASS Battery → cable → crusher delivers exactly 160 W: face 3, rotation 1
+PASS Removing cable disconnects power: face 3, rotation 1
+PASS Configured item input accepts raw ore: face 3, rotation 1
+PASS Reversing item end extracts only product without consuming input: face 3, rotation 1
+PASS Fluid output moves exactly 100 mL on any face: face 3, rotation 1
+PASS Reversing fluid ends sends stored water back without loss: face 3, rotation 1
+PASS Battery → cable → crusher delivers exactly 160 W: face 3, rotation 2
+PASS Removing cable disconnects power: face 3, rotation 2
+PASS Configured item input accepts raw ore: face 3, rotation 2
+PASS Reversing item end extracts only product without consuming input: face 3, rotation 2
+PASS Fluid output moves exactly 100 mL on any face: face 3, rotation 2
+PASS Reversing fluid ends sends stored water back without loss: face 3, rotation 2
+PASS Battery → cable → crusher delivers exactly 160 W: face 3, rotation 3
+PASS Removing cable disconnects power: face 3, rotation 3
+PASS Configured item input accepts raw ore: face 3, rotation 3
+PASS Reversing item end extracts only product without consuming input: face 3, rotation 3
+PASS Fluid output moves exactly 100 mL on any face: face 3, rotation 3
+PASS Reversing fluid ends sends stored water back without loss: face 3, rotation 3
+PASS Battery → cable → crusher delivers exactly 160 W: face 4, rotation 0
+PASS Removing cable disconnects power: face 4, rotation 0
+PASS Configured item input accepts raw ore: face 4, rotation 0
+PASS Reversing item end extracts only product without consuming input: face 4, rotation 0
+PASS Fluid output moves exactly 100 mL on any face: face 4, rotation 0
+PASS Reversing fluid ends sends stored water back without loss: face 4, rotation 0
+PASS Battery → cable → crusher delivers exactly 160 W: face 4, rotation 1
+PASS Removing cable disconnects power: face 4, rotation 1
+PASS Configured item input accepts raw ore: face 4, rotation 1
+PASS Reversing item end extracts only product without consuming input: face 4, rotation 1
+PASS Fluid output moves exactly 100 mL on any face: face 4, rotation 1
+PASS Reversing fluid ends sends stored water back without loss: face 4, rotation 1
+PASS Battery → cable → crusher delivers exactly 160 W: face 4, rotation 2
+PASS Removing cable disconnects power: face 4, rotation 2
+PASS Configured item input accepts raw ore: face 4, rotation 2
+PASS Reversing item end extracts only product without consuming input: face 4, rotation 2
+PASS Fluid output moves exactly 100 mL on any face: face 4, rotation 2
+PASS Reversing fluid ends sends stored water back without loss: face 4, rotation 2
+PASS Battery → cable → crusher delivers exactly 160 W: face 4, rotation 3
+PASS Removing cable disconnects power: face 4, rotation 3
+PASS Configured item input accepts raw ore: face 4, rotation 3
+PASS Reversing item end extracts only product without consuming input: face 4, rotation 3
+PASS Fluid output moves exactly 100 mL on any face: face 4, rotation 3
+PASS Reversing fluid ends sends stored water back without loss: face 4, rotation 3
+PASS Battery → cable → crusher delivers exactly 160 W: face 5, rotation 0
+PASS Removing cable disconnects power: face 5, rotation 0
+PASS Configured item input accepts raw ore: face 5, rotation 0
+PASS Reversing item end extracts only product without consuming input: face 5, rotation 0
+PASS Fluid output moves exactly 100 mL on any face: face 5, rotation 0
+PASS Reversing fluid ends sends stored water back without loss: face 5, rotation 0
+PASS Battery → cable → crusher delivers exactly 160 W: face 5, rotation 1
+PASS Removing cable disconnects power: face 5, rotation 1
+PASS Configured item input accepts raw ore: face 5, rotation 1
+PASS Reversing item end extracts only product without consuming input: face 5, rotation 1
+PASS Fluid output moves exactly 100 mL on any face: face 5, rotation 1
+PASS Reversing fluid ends sends stored water back without loss: face 5, rotation 1
+PASS Battery → cable → crusher delivers exactly 160 W: face 5, rotation 2
+PASS Removing cable disconnects power: face 5, rotation 2
+PASS Configured item input accepts raw ore: face 5, rotation 2
+PASS Reversing item end extracts only product without consuming input: face 5, rotation 2
+PASS Fluid output moves exactly 100 mL on any face: face 5, rotation 2
+PASS Reversing fluid ends sends stored water back without loss: face 5, rotation 2
+PASS Battery → cable → crusher delivers exactly 160 W: face 5, rotation 3
+PASS Removing cable disconnects power: face 5, rotation 3
+PASS Configured item input accepts raw ore: face 5, rotation 3
+PASS Reversing item end extracts only product without consuming input: face 5, rotation 3
+PASS Fluid output moves exactly 100 mL on any face: face 5, rotation 3
+PASS Reversing fluid ends sends stored water back without loss: face 5, rotation 3
+PASS Machine input faces do not bridge independent pipe networks
+PASS Machine rotation preserves explicit world-facing pipe directions
+PASS Dormant endpoint rejects configuration
+PASS Chest cannot forward a newly received item in the same transfer phase
+PASS Later chest forwarding preserves every item
+PASS A tank cannot forward newly received fluid across graphs in the same phase
+PASS Stored fluid becomes eligible on the next fixed step
+PASS Rear item inlet fills boiler's existing fuel buffer
+PASS An unattached end cannot be configured
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Input cycles to Output
+PASS Output cycles to No connection
+PASS Disconnected end removes only its own connection mask on all faces/rotations
+PASS No connection blocks extraction and conserves resources
+PASS Missing arm remains configurable and reconnects as Input
+PASS Reconnected output resumes exact transport
+PASS No connection also blocks destination insertion
+PASS Both disabled ends survive residency rebuild without restoring defaults
+PASS Rendered closed half retracts from the disabled boundary
+PASS Fully disconnected pipe leaves visible gaps at every boundary
+PASS Transport disconnection preserves independent power and signal fittings
+PASS Stored disabled terminal does not disable a replacement pipe-to-pipe run
+PASS Saved direction packing accepts disconnected ends and rejects out-of-range bits
