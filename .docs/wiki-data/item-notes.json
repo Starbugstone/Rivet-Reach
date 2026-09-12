@@ -17,7 +17,8 @@
   },
   "rivet:leaves": {
     "description": "Leaf blocks form tree canopies and can be used for foliage decoration.",
-    "obtain": "Break leaves in a tree canopy. Hoes and blades make clearing leaves faster."
+    "obtain": "Break leaves in a tree canopy. Hoes and blades make clearing leaves faster.",
+    "use": "Mining natural leaves retains the leaf block and may also drop a [Sapling](Item-sapling.md) (5%) and/or an [Apple](Item-apple.md) (2%). Natural leaves also roll these drops when decaying after trunk removal. Player-placed leaves never produce bonus drops."
   },
   "rivet:starter_axe": {
     "description": "Legacy equipment retained for historical test fixtures. Ordinary Survival expeditions start empty-handed and use the wood-to-diamond tool progression.",
@@ -274,5 +275,15 @@
     "description": "A manual generator for a small starting electricity reserve. It supplies 100 W during each half-second turn (50 J), using no fuel or water.",
     "obtain": "Craft at a 3×3 workbench from 2 copper ingots, 1 iron ingot, 1 stick and 2 planks.",
     "use": "Select it and right-click a battery side to attach its rear power socket. Aim at the placed crank and right-click or press Interact for one turn; hold right-click to repeat. Connected loads use power first, then surplus charges eligible batteries. See [Electricity and batteries](Electricity-and-batteries.md#starting-power-with-a-hand-crank)."
+  },
+  "rivet:sapling": {
+    "description": "A replantable young tree. Place it on dry grass or dirt to renew your wood supply.",
+    "obtain": "Natural leaves have a 5% chance to drop one when destroyed or decayed after chopping a trunk. Mining or uprooting a planted sapling returns it.",
+    "use": "Use on dry grass or dirt. After about three minutes of unpaused world simulation, it can grow into a broadleaf tree with 4–6 logs. The complete footprint needs loaded, clear space and geometric skylight. Buildings, water, foliage and characters postpone growth. Save/load preserves its deadline; time outside the game adds no growth."
+  },
+  "rivet:apple": {
+    "description": "A ready-to-eat fruit restoring four food points (two food icons).",
+    "obtain": "Natural leaves have an independent 2% chance to drop an apple when destroyed, including decay after trunk chopping. Leaves on sapling-grown trees also qualify.",
+    "use": "Hold Use for 1.2 seconds to eat one. Releasing early cancels the bite; full hunger consumes nothing."
   }
 }

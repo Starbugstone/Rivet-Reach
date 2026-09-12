@@ -63,6 +63,7 @@ Follow a result to see its complete ingredients and recipe.
 | <a href="Item-wood-hoe.md#recipe-1" title="Wood hoe"><img src="icons/44.png" width="32" height="32" alt="Wood hoe"></a> ×1 [Wood hoe](Item-wood-hoe.md) | [Workbench](Item-workbench.md) | [View recipe](Item-wood-hoe.md#recipe-1) |
 | <a href="Item-power-cable.md#recipe-1" title="Power Cable"><img src="icons/138.png" width="32" height="32" alt="Power Cable"></a> ×4 [Power Cable](Item-power-cable.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-power-cable.md#recipe-1) |
 | <a href="Item-hand-crank.md#recipe-1" title="Hand Crank"><img src="icons/170.png" width="32" height="32" alt="Hand Crank"></a> ×1 [Hand Crank](Item-hand-crank.md) | [Workbench](Item-workbench.md) | [View recipe](Item-hand-crank.md#recipe-1) |
+| <a href="Item-wooden-door.md#recipe-1" title="Wooden Door"><img src="icons/171.png" width="32" height="32" alt="Wooden Door"></a> ×3 [Wooden Door](Item-wooden-door.md) | [Workbench](Item-workbench.md) | [View recipe](Item-wooden-door.md#recipe-1) |
 
 ## Furnace fuel
 

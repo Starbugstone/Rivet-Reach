@@ -6,7 +6,7 @@ Click any icon or item name for what it does, how to obtain it, its recipes, and
 
 [Crafting guide](Crafting-Recipes.md) · [Home](Home.md)
 
-Includes all **128 registered items and world-block entries** in the current playable alpha. Ore blocks, crops, bedrock and legacy test equipment have pages even when they cannot be crafted or placed.
+Includes all **131 registered items and world-block entries** in the current playable alpha. Ore blocks, crops, bedrock and legacy test equipment have pages even when they cannot be crafted or placed.
 
 [Building blocks](#building-blocks) · [Ore deposits and bedrock](#ore-deposits-and-bedrock) · [Materials and components](#materials-and-components) · [Tools and weapons](#tools-and-weapons) · [Armor](#armor) · [Food and farming](#food-and-farming) · [Light and buckets](#light-and-buckets) · [Stations and machines](#stations-and-machines) · [Connections and controls](#connections-and-controls) · [Multiblock tanks and batteries](#multiblock-tanks-and-batteries) · [Legacy test equipment](#legacy-test-equipment)
 
@@ -61,8 +61,9 @@ Includes all **128 registered items and world-block entries** in the current pla
 
 | | | | |
 |:---:|:---:|:---:|:---:|
-| <a href="Item-baked-potato.md" title="Baked potato"><img src="icons/31.png" width="56" height="56" alt="Baked potato"><br>Baked potato</a> | <a href="Item-farmland.md" title="Farmland"><img src="icons/32.png" width="56" height="56" alt="Farmland"><br>Farmland</a> | <a href="Item-potato-plant-2.md" title="Flowering potatoes"><img src="icons/35.png" width="56" height="56" alt="Flowering potatoes"><br>Flowering potatoes</a> | <a href="Item-potato.md" title="Potato"><img src="icons/30.png" width="56" height="56" alt="Potato"><br>Potato</a> |
-| <a href="Item-potato-plant-0.md" title="Potato seedlings"><img src="icons/33.png" width="56" height="56" alt="Potato seedlings"><br>Potato seedlings</a> | <a href="Item-potato-plant-3.md" title="Ripe potatoes"><img src="icons/36.png" width="56" height="56" alt="Ripe potatoes"><br>Ripe potatoes</a> | <a href="Item-potato-plant-1.md" title="Young potatoes"><img src="icons/34.png" width="56" height="56" alt="Young potatoes"><br>Young potatoes</a> |  |
+| <a href="Item-apple.md" title="Apple"><img src="icons/98.png" width="56" height="56" alt="Apple"><br>Apple</a> | <a href="Item-baked-potato.md" title="Baked potato"><img src="icons/31.png" width="56" height="56" alt="Baked potato"><br>Baked potato</a> | <a href="Item-farmland.md" title="Farmland"><img src="icons/32.png" width="56" height="56" alt="Farmland"><br>Farmland</a> | <a href="Item-potato-plant-2.md" title="Flowering potatoes"><img src="icons/35.png" width="56" height="56" alt="Flowering potatoes"><br>Flowering potatoes</a> |
+| <a href="Item-potato.md" title="Potato"><img src="icons/30.png" width="56" height="56" alt="Potato"><br>Potato</a> | <a href="Item-potato-plant-0.md" title="Potato seedlings"><img src="icons/33.png" width="56" height="56" alt="Potato seedlings"><br>Potato seedlings</a> | <a href="Item-potato-plant-3.md" title="Ripe potatoes"><img src="icons/36.png" width="56" height="56" alt="Ripe potatoes"><br>Ripe potatoes</a> | <a href="Item-sapling.md" title="Sapling"><img src="icons/97.png" width="56" height="56" alt="Sapling"><br>Sapling</a> |
+| <a href="Item-potato-plant-1.md" title="Young potatoes"><img src="icons/34.png" width="56" height="56" alt="Young potatoes"><br>Young potatoes</a> |  |  |  |
 
 ## Light and buckets
 
@@ -92,7 +93,7 @@ Includes all **128 registered items and world-block entries** in the current pla
 |:---:|:---:|:---:|:---:|
 | <a href="Item-battery-controller.md" title="Battery Bank Controller"><img src="icons/169.png" width="56" height="56" alt="Battery Bank Controller"><br>Battery Bank Controller</a> | <a href="Item-battery-block.md" title="Battery Block"><img src="icons/168.png" width="56" height="56" alt="Battery Block"><br>Battery Block</a> | <a href="Item-hand-crank.md" title="Hand Crank"><img src="icons/170.png" width="56" height="56" alt="Hand Crank"><br>Hand Crank</a> | <a href="Item-tank-frame.md" title="Reinforced Tank Frame"><img src="icons/160.png" width="56" height="56" alt="Reinforced Tank Frame"><br>Reinforced Tank Frame</a> |
 | <a href="Item-tank-glass.md" title="Reinforced Tank Glass"><img src="icons/162.png" width="56" height="56" alt="Reinforced Tank Glass"><br>Reinforced Tank Glass</a> | <a href="Item-tank-valve.md" title="Signal Valve Port"><img src="icons/166.png" width="56" height="56" alt="Signal Valve Port"><br>Signal Valve Port</a> | <a href="Item-tank-hatch.md" title="Tank Access Hatch"><img src="icons/165.png" width="56" height="56" alt="Tank Access Hatch"><br>Tank Access Hatch</a> | <a href="Item-tank-controller.md" title="Tank Controller"><img src="icons/163.png" width="56" height="56" alt="Tank Controller"><br>Tank Controller</a> |
-| <a href="Item-tank-port.md" title="Tank Fluid Port"><img src="icons/164.png" width="56" height="56" alt="Tank Fluid Port"><br>Tank Fluid Port</a> | <a href="Item-tank-sensor.md" title="Tank Level Sensor"><img src="icons/167.png" width="56" height="56" alt="Tank Level Sensor"><br>Tank Level Sensor</a> | <a href="Item-tank-wall.md" title="Tank Wall"><img src="icons/161.png" width="56" height="56" alt="Tank Wall"><br>Tank Wall</a> |  |
+| <a href="Item-tank-port.md" title="Tank Fluid Port"><img src="icons/164.png" width="56" height="56" alt="Tank Fluid Port"><br>Tank Fluid Port</a> | <a href="Item-tank-sensor.md" title="Tank Level Sensor"><img src="icons/167.png" width="56" height="56" alt="Tank Level Sensor"><br>Tank Level Sensor</a> | <a href="Item-tank-wall.md" title="Tank Wall"><img src="icons/161.png" width="56" height="56" alt="Tank Wall"><br>Tank Wall</a> | <a href="Item-wooden-door.md" title="Wooden Door"><img src="icons/171.png" width="56" height="56" alt="Wooden Door"><br>Wooden Door</a> |
 
 ## Legacy test equipment
 

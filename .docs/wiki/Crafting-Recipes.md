@@ -4,7 +4,7 @@
 
 Start with the [visual item index](Items.md), then click an item to see its purpose, how to obtain it, every recipe that makes it, and what uses it. Every item icon links to its own page.
 
-This reference covers **92 grid recipes, 11 furnace recipes and 3 crusher recipes** in the current playable alpha. The recipe grids and icons come from the same catalog and artwork used by the inventory browser.
+This reference covers **93 grid recipes, 11 furnace recipes and 3 crusher recipes** in the current playable alpha. The recipe grids and icons come from the same catalog and artwork used by the inventory browser.
 
 ## First crafting steps
 
@@ -105,6 +105,7 @@ Choose a result below to open its item page at the exact recipe.
 | <a href="Item-lever.md#recipe-1" title="Lever"><img src="icons/134.png" width="32" height="32" alt="Lever"></a> ×1 [Lever](Item-lever.md) | [Workbench](Item-workbench.md) | [View recipe](Item-lever.md#recipe-1) |
 | <a href="Item-button.md#recipe-1" title="Button"><img src="icons/135.png" width="32" height="32" alt="Button"></a> ×1 [Button](Item-button.md) | [Workbench](Item-workbench.md) | [View recipe](Item-button.md#recipe-1) |
 | <a href="Item-hand-crank.md#recipe-1" title="Hand Crank"><img src="icons/170.png" width="32" height="32" alt="Hand Crank"></a> ×1 [Hand Crank](Item-hand-crank.md) | [Workbench](Item-workbench.md) | [View recipe](Item-hand-crank.md#recipe-1) |
+| <a href="Item-wooden-door.md#recipe-1" title="Wooden Door"><img src="icons/171.png" width="32" height="32" alt="Wooden Door"></a> ×3 [Wooden Door](Item-wooden-door.md) | [Workbench](Item-workbench.md) | [View recipe](Item-wooden-door.md#recipe-1) |
 
 ## Machinist’s Bench — 4×4
 

@@ -21,6 +21,10 @@ Leaf blocks form tree canopies and can be used for foliage decoration.
 
 Break leaves in a tree canopy. Hoes and blades make clearing leaves faster.
 
+## Using it
+
+Mining natural leaves retains the leaf block and may also drop a [Sapling](Item-sapling.md) (5%) and/or an [Apple](Item-apple.md) (2%). Natural leaves also roll these drops when decaying after trunk removal. Player-placed leaves never produce bonus drops.
+
 ## Crafting and processing
 
 There is no registered crafting or processing recipe for this item. Use the acquisition method above.
