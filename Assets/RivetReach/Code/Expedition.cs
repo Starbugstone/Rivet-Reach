@@ -43,6 +43,7 @@ namespace RivetReach
         const string PlayerOverlapReason="Cannot place inside the player";
         float messageUntil;
         float invulnerableUntil;
+        int modeChangedFrame=-1;
         public bool ReadyToPlay => Player!=null&&World.Ready(World.Address(Player.transform.position-Vector3.up*.1f))&&World.Ready(World.Address(Player.transform.position))&&World.Ready(World.Address(Player.transform.position+Vector3.up*2));
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void Bootstrap()
@@ -101,6 +102,7 @@ namespace RivetReach
             if(Health?.Dead==true&&mode!=ScreenMode.Title&&mode!=ScreenMode.Load&&mode!=ScreenMode.Save)mode=ScreenMode.Death;
             if(InventoryOpen&&mode!=ScreenMode.Inventory&&UI.BoundToCurrentSession)UI.ReturnHeld();
             if(mode!=ScreenMode.Inventory){OpenStation=null;OpenMachine=null;}
+            if(Mode!=mode)modeChangedFrame=Time.frameCount;
             Mode=mode;Time.timeScale=Paused?0:1;
             bool capture=Mode==ScreenMode.Play;if(Player!=null)Player.Arms.gameObject.SetActive(capture&&!Player.Inspecting);Cursor.lockState=capture?CursorLockMode.Locked:CursorLockMode.None;Cursor.visible=!capture;
             UI?.Rebuild();
@@ -116,6 +118,8 @@ namespace RivetReach
             if(Input.PollRebind()){UI.Rebuild();return;}
             if(Input.Pressed("Pause"))SetMode(Mode==ScreenMode.Play?ScreenMode.Pause:Started?ScreenMode.Play:ScreenMode.Title);
             if(Started&&!UI.EditingText&&Input.Pressed("Inventory"))SetMode(InventoryOpen?ScreenMode.Play:ScreenMode.Inventory);
+            // A station may have opened earlier this frame in the player's Update.
+            if(InventoryOpen&&modeChangedFrame!=Time.frameCount&&!UI.EditingText&&Input.Pressed("Interact"))SetMode(ScreenMode.Play);
             if(Input.Pressed("Diagnostics"))Diagnostics=!Diagnostics;
             if(Mode==ScreenMode.Play)
             {
@@ -134,7 +138,8 @@ namespace RivetReach
         }
         public bool TryInteractTarget()
         {
-            if(Mode!=ScreenMode.Play||Health.Dead)return false;
+            // Do not reuse a UI-closing press to immediately reopen the targeted station.
+            if(Mode!=ScreenMode.Play||Health.Dead||modeChangedFrame==Time.frameCount)return false;
             var eye=Player.Camera.transform;
             return World.Raycast(eye.position,eye.forward,5,out var position,out var id)&&(IndustryId.Placed(id)?TryOpenMachine(position):BlockId.Station(id)&&TryOpenStation(position));
         }

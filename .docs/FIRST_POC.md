@@ -38,6 +38,7 @@ The build script reuses this project's open Editor through its existing local fi
 | Interact with stations or machines | E, or right-click while aiming at the block |
 | Place / use held item | Right-click; Left Shift + right-click places against a station |
 | Inventory / pause | Tab / Escape |
+| Close inventory or station screen | Tab, E (Interact), or Escape; Tab/E shortcuts are ignored while typing in a text field |
 | Select hotbar | Mouse wheel or [ / ]; 1–0 for the first ten slots |
 | Drop one / selected stack | Q / Shift+Q |
 | Inspect body / diagnostics | F5 / F12 |
