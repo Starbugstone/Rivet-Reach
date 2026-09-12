@@ -25,7 +25,7 @@ Make this item using the crafting or processing recipes below.
 
 ## Using it
 
-Position its intake one block **above** source water, connect **80 W** at the rear, and route water from its right outlet. It moves one 10 L source in two seconds at full power. Follow the [renewable pool guide](Pumps-and-water.md) for exact placement.
+Position it one block **above** source water and connect **80 W** on any face. Attach Fluid Pipe on a free face; use a selected [Wrench](Item-wrench.md) to set the pump-facing end to red Output. Keep the cell directly below free for source water. One extraction moves 10 L in two seconds at full power. See [Pipes](Pipes.md) and the [renewable pool guide](Pumps-and-water.md).
 
 ## Crafting and processing
 

@@ -24,7 +24,7 @@ Make this item using the crafting or processing recipes below.
 
 ## Using it
 
-Connect power at the rear, optional signal at the front, input items on the left and output on the right. One raw copper, iron or gold makes two matching crushed pieces in five seconds at **160 W**. Smelt each piece in a [Furnace](Item-furnace.md).
+Connect power on any face. Use [Item Pipes](Item-item-pipe.md) on any face and a selected [Wrench](Item-wrench.md) to set blue raw-ore inputs and red product outputs. Optional Blue Signal remains at the front. One raw copper, iron or gold makes two matching crushed pieces in five seconds at **160 W**. Smelt each piece in a [Furnace](Item-furnace.md). See [Pipes](Pipes.md).
 
 ## Crafting and processing
 

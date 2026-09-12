@@ -24,7 +24,7 @@ Make this item using the crafting or processing recipes below.
 
 ## Using it
 
-Stores **100 L** in one block. Use bucket controls or separate input/output fluid connections. For larger storage, build a [multiblock tank](Tanks.md).
+Stores **100 L** in one block. Use bucket controls or Fluid Pipes on any face. With a selected [Wrench](Item-wrench.md), right-click each tank-facing pipe end to set blue Input or red Output. Separate ends keep separate settings. See [Pipes](Pipes.md); for larger storage build a [multiblock tank](Tanks.md).
 
 ## Crafting and processing
 

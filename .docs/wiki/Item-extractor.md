@@ -23,7 +23,7 @@ Make this item using the crafting or processing recipes below.
 
 ## Using it
 
-Place a [Chest](Item-chest.md) on its left and an [Item Pipe](Item-item-pipe.md) on its right. It transfers four items per second and supports optional signal control.
+Place a [Chest](Item-chest.md) on its left. Attach [Item Pipe](Item-item-pipe.md) on any free face, with a red Output arrow set using a selected [Wrench](Item-wrench.md). It transfers up to four items per second and supports optional signal control. Direct chest-to-pipe output is also available; the Extractor adds signal control. See [Pipes](Pipes.md).
 
 ## Crafting and processing
 

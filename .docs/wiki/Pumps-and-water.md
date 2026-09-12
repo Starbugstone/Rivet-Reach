@@ -19,11 +19,11 @@ This is an actual in-game 2×2 renewable pool. Once two opposite corners have be
 | In-game block | Count | What it does |
 |---|---:|---|
 | <a href="Item-pump.md"><img src="icons/143.png" width="72" alt="Pump"></a><br>**Pump** | **1** | Removes the source block directly below it and buffers 10 L |
-| <a href="Item-power-cable.md"><img src="icons/138.png" width="72" alt="Power Cable"></a><br>**Power Cable** | As needed | Supplies the Pump's rear electrical socket |
-| <a href="Item-fluid-pipe.md"><img src="icons/147.png" width="72" alt="Fluid Pipe"></a><br>**Fluid Pipe** | As needed | Carries water from the Pump's right-hand outlet |
+| <a href="Item-power-cable.md"><img src="icons/138.png" width="72" alt="Power Cable"></a><br>**Power Cable** | As needed | Supplies electricity on any free Pump face |
+| <a href="Item-fluid-pipe.md"><img src="icons/147.png" width="72" alt="Fluid Pipe"></a><br>**Fluid Pipe** | As needed | Carries water from a configured output on any free face |
 | <a href="Item-water-tank.md"><img src="icons/145.png" width="72" alt="Water Tank"></a><br>**Water Tank** | **1** optional | Easy destination for your first test; a multiblock tank or another water-consuming machine also works |
 
-Also bring **two Water Buckets**, or one bucket plus a nearby source where you can refill it.
+Bring a [Wrench](Item-wrench.md) to configure the machine-facing pipe ends. Also bring **two Water Buckets**, or one bucket plus a nearby source where you can refill it.
 
 ## Build it step by step
 
@@ -76,16 +76,16 @@ Use the side of a temporary support block to place the Pump at the correct heigh
 
 > **Do not click the bottom of the basin to place the Pump.** That puts the Pump inside the water layer, replaces the source cell, and leaves solid ground under its intake. The Pump will then report that there is no valid source below it.
 
-### 4 — Connect the correct ports
+### 4 — Connect power and pipes
 
 The Pump has separate connections for power, water and optional automation:
 
-- **Rear:** Power Cable — the Pump needs up to **80 W**.
-- **Right:** Fluid Pipe output — connect this to storage or a machine that accepts water.
+- **Any free face:** Power Cable — the Pump needs up to **80 W**.
+- **Any free face:** Fluid Pipe — hold a [Wrench](Item-wrench.md) and right-click the pump-facing end until it shows a **red Output arrow**.
 - **Front:** optional Blue Signal input — leave it disconnected for normal always-on operation.
-- **Bottom:** the world-water intake — this is not a pipe connection; the source block itself must be directly below.
+- **Bottom:** keep this cell available for world-water intake. A pipe placed below would occupy the required source-water cell.
 
-If the ports face the wrong direction, open the Pump and use **Rotate ports 90°**. Rotation turns all of its ports together.
+Use the wrench on the destination end to select **blue Input into the tank or machine**. Rotating the Pump does not change configured pipe directions. See [Pipes](Pipes.md) for illustrated connection steps.
 
 **Power Cable does not carry water, and Fluid Pipe does not carry electricity.** Blue Signal is control only; it never supplies electrical power.
 
@@ -93,7 +93,7 @@ If the ports face the wrong direction, open the Pump and use **Rotate ports 90°
 
 For a first test, connect the Fluid Pipe to a **Water Tank**. You can also connect it to:
 
-- a [multiblock tank](Tanks.md) through a Tank Fluid Port set to **INPUT**;
+- a [multiblock tank](Tanks.md) through an enabled Tank Fluid Port with its pipe end set to **blue Input**;
 - a Boiler Engine;
 - another machine or vessel that accepts water.
 
@@ -108,7 +108,7 @@ The in-game Pump interface shows its source-water check, electrical allocation, 
 A healthy setup has all three basics:
 
 1. **source water directly below**;
-2. **electrical power** reaching the rear socket;
+2. **electrical power** reaching any face;
 3. **room in the output buffer**, normally because a Fluid Pipe is draining it.
 
 At full allocation the Pump completes its extraction after two seconds. If it receives less than 80 W, progress continues proportionally more slowly. With zero watts it makes no progress and removes no water.
@@ -192,13 +192,13 @@ Once the Boiler is running and the Alternator is supplying the electrical networ
 | Pump status or symptom | What it means / what to check |
 |---|---|
 | **No water / Below: blocked or not a source** | Check the cell directly below the Pump. The Pump must be one block above a genuine source, not sitting in the water layer. Flowing water is not accepted. |
-| **No electrical power** | Connect a powered network to the Pump's rear socket. A Blue Signal connection does not provide watts. |
+| **No electrical power** | Connect a powered network to any free Pump face. A Blue Signal connection does not provide watts. |
 | **Underpowered** | The Pump is receiving less than 80 W. It still progresses, but more slowly. |
 | **Disabled by signal** | A Blue Signal connection is attached and currently OFF. Turn it ON or remove the optional control connection. |
-| **Output full** | The 10 L internal buffer cannot accept another extraction. Connect the right-hand Fluid Pipe output to something with free water capacity. |
+| **Output full** | The 10 L internal buffer cannot accept another extraction. Connect a Fluid Pipe on any face, set the pump-facing end to red Output with a held Wrench, and send water to storage with free capacity. |
 | **Works once, then stops** | Usually the output buffer is not draining, or the removed source is not renewing. Check both the fluid route and the 2×2 source layout. |
 | **Pool does not refill** | Make sure there are two horizontal source neighbours, solid support below, and that you did not replace a water cell with the Pump itself. |
-| **Pipe is connected but destination stays empty** | Check that the pipe reaches the Pump's right-hand nozzle, the destination accepts water, and a multiblock Tank Fluid Port is set to INPUT. |
+| **Pipe is connected but destination stays empty** | Use a held Wrench to set the pump-facing pipe end to red Output and the destination end to blue Input; confirm the destination accepts water and any tank port is Enabled. |
 | **Boiler cannot start the Pump that feeds it** | Seed the Boiler with bucket water first or temporarily power the Pump from a battery/other source. |
 
 For larger storage setups, continue with [Build a multiblock tank](Tanks.md). For generators, cables and storage, see [Electricity and batteries](Electricity-and-batteries.md).

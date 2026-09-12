@@ -23,7 +23,7 @@ Make this item using the crafting or processing recipes below.
 
 ## Using it
 
-Use this part in a sealed hollow tank. The [tank construction guide](Tanks.md) gives the shopping list, layer diagrams, outward-facing controls and repair instructions. Use exactly one controller and drain stored fluid before mining it.
+Use exactly one outward-facing controller in a sealed [multiblock tank](Tanks.md). Drain all stored fluid before mining it. Recovery Out allows red Output pipe ends on its exposed faces to drain even a breached tank; a blue Input end never fills a recovery controller. Select a [Wrench](Item-wrench.md) to configure the pipe end. See [Pipes](Pipes.md).
 
 ## Crafting and processing
 

@@ -88,7 +88,7 @@
   },
   "rivet:chest": {
     "description": "A placed container with **27 inventory slots**.",
-    "use": "Open with **E or right-click** to store items. An [Extractor](Item-extractor.md) can move items from a chest into [Item Pipe](Item-item-pipe.md). An [Inventory Sensor](Item-inventory-sensor.md) can monitor its contents.\n\nA wooden storage chest with an iron-banded lid and brass latch.\n\n![Placed chest in the game](images/starter-chest.png)"
+    "use": "Open with **E or right-click** to store items. An [Extractor](Item-extractor.md) can move items from a chest into [Item Pipe](Item-item-pipe.md). An [Inventory Sensor](Item-inventory-sensor.md) can monitor its contents.\n\nA wooden storage chest with an iron-banded lid and brass latch.\n\n![Placed chest in the game](images/starter-chest.png) Item Pipes can connect on every face. A selected [Wrench](Item-wrench.md) sets each chest-facing pipe end to blue Input (store) or red Output (supply). See [Pipes](Pipes.md)."
   },
   "rivet:charcoal": {
     "description": "Wood converted into fuel. It works as an alternative to coal in torches, furnaces and boiler engines."
@@ -191,16 +191,16 @@
     "use": "Use this part in a sealed hollow tank. The [tank construction guide](Tanks.md) gives the shopping list, layer diagrams, outward-facing controls and repair instructions."
   },
   "rivet:tank_controller": {
-    "use": "Use this part in a sealed hollow tank. The [tank construction guide](Tanks.md) gives the shopping list, layer diagrams, outward-facing controls and repair instructions. Use exactly one controller and drain stored fluid before mining it."
+    "use": "Use exactly one outward-facing controller in a sealed [multiblock tank](Tanks.md). Drain all stored fluid before mining it. Recovery Out allows red Output pipe ends on its exposed faces to drain even a breached tank; a blue Input end never fills a recovery controller. Select a [Wrench](Item-wrench.md) to configure the pipe end. See [Pipes](Pipes.md)."
   },
   "rivet:tank_port": {
-    "use": "Use this part in a sealed hollow tank. The [tank construction guide](Tanks.md) gives the shopping list, layer diagrams, outward-facing controls and repair instructions."
+    "use": "Use this part in a sealed [multiblock tank](Tanks.md), facing outward for formation. Enable its port in the interface; attach Fluid Pipe on an accessible face and use a selected [Wrench](Item-wrench.md) to choose blue Input or red Output at each end. See [Pipes](Pipes.md)."
   },
   "rivet:tank_hatch": {
     "use": "Use this part in a sealed hollow tank. The [tank construction guide](Tanks.md) gives the shopping list, layer diagrams, outward-facing controls and repair instructions."
   },
   "rivet:tank_valve": {
-    "use": "Use this part in a sealed hollow tank. The [tank construction guide](Tanks.md) gives the shopping list, layer diagrams, outward-facing controls and repair instructions. Set INPUT or OUTPUT mode and attach an ON [Blue Signal](Blue-Signal.md) to open the valve; missing or OFF signal keeps it closed."
+    "use": "Use this part in a sealed [multiblock tank](Tanks.md), facing outward for formation. Enable its port in the interface; attach Fluid Pipe on an accessible face and use a selected [Wrench](Item-wrench.md) to choose blue Input or red Output at each end. An attached ON [Blue Signal](Blue-Signal.md) is also required; OFF or missing signal keeps the valve closed. See [Pipes](Pipes.md)."
   },
   "rivet:tank_sensor": {
     "use": "Use this part in a sealed hollow tank. The [tank construction guide](Tanks.md) gives the shopping list, layer diagrams, outward-facing controls and repair instructions."
@@ -230,43 +230,43 @@
     "use": "See [Blue Signal](Blue-Signal.md) for connection directions and control examples. Signal carries an ON/OFF instruction; machines still need their separate resources and electricity."
   },
   "rivet:power_cable": {
-    "use": "See [Electricity and batteries](Electricity-and-batteries.md) for generator placement, power sockets and example circuits."
+    "use": "Connect to any of the six faces of generators, powered machines or eligible batteries. Electricity flows automatically; it has no wrench direction setting. Bank member cells are disconnected while claimed, so use the bank controller. See [Electricity and batteries](Electricity-and-batteries.md) and [Pipes](Pipes.md)."
   },
   "rivet:alternator": {
-    "use": "See [Electricity and batteries](Electricity-and-batteries.md) for generator placement, power sockets and example circuits."
+    "use": "Place immediately on the Boiler Engine’s right with the shafts meeting. Electrical cables can connect on any of its six faces. See [Electricity and batteries](Electricity-and-batteries.md)."
   },
   "rivet:boiler_engine": {
-    "use": "See [Electricity and batteries](Electricity-and-batteries.md) for generator placement, power sockets and example circuits."
+    "use": "Supply coal/charcoal and water manually or through configured item/fluid pipe inputs on any face. Use a selected [Wrench](Item-wrench.md) to set blue input arrows. Its right-hand mechanical shaft must still meet an [Alternator](Item-alternator.md). See [Pipes](Pipes.md) and [Electricity](Electricity-and-batteries.md)."
   },
   "rivet:workshop_lamp": {
-    "use": "See [Electricity and batteries](Electricity-and-batteries.md) for generator placement, power sockets and example circuits."
+    "use": "Connect electricity on any face; it needs **20 W**. Front Blue Signal control is optional. See [Electricity and batteries](Electricity-and-batteries.md)."
   },
   "rivet:battery_block": {
     "use": "Starts **empty**, even in Creative. Stores **100 kJ** and charges or discharges at up to **400 W**. Surplus generation charges it; real demand draws power from it. A charged cell cannot be mined. See [batteries and battery banks](Electricity-and-batteries.md)."
   },
   "rivet:battery_controller": {
-    "use": "Place exactly one controller in a solid rectangular pack of battery blocks, with its front facing out. The controller adds no storage of its own. See the [battery bank guide](Electricity-and-batteries.md) for dimensions, wiring and charge-preserving repairs."
+    "use": "Place exactly one controller in a solid rectangular pack of battery blocks, with its front facing out. The controller adds no storage of its own. See the [battery bank guide](Electricity-and-batteries.md) for dimensions, wiring and charge-preserving repairs. Connect electricity to any exposed controller face; claimed member-cell sockets remain inactive."
   },
   "rivet:pump": {
-    "use": "Position its intake one block **above** source water, connect **80 W** at the rear, and route water from its right outlet. It moves one 10 L source in two seconds at full power. Follow the [renewable pool guide](Pumps-and-water.md) for exact placement."
+    "use": "Position it one block **above** source water and connect **80 W** on any face. Attach Fluid Pipe on a free face; use a selected [Wrench](Item-wrench.md) to set the pump-facing end to red Output. Keep the cell directly below free for source water. One extraction moves 10 L in two seconds at full power. See [Pipes](Pipes.md) and the [renewable pool guide](Pumps-and-water.md)."
   },
   "rivet:water_tank": {
-    "use": "Stores **100 L** in one block. Use bucket controls or separate input/output fluid connections. For larger storage, build a [multiblock tank](Tanks.md)."
+    "use": "Stores **100 L** in one block. Use bucket controls or Fluid Pipes on any face. With a selected [Wrench](Item-wrench.md), right-click each tank-facing pipe end to set blue Input or red Output. Separate ends keep separate settings. See [Pipes](Pipes.md); for larger storage build a [multiblock tank](Tanks.md)."
   },
   "rivet:item_pipe": {
-    "use": "Connect an [Extractor](Item-extractor.md) and chest for item supply. Open the pipe to add signal and power fittings; each channel remains separate. See [pipe fittings](Blue-Signal.md)."
+    "use": "Connect any face of a supported item machine or chest. Select a [Wrench](Item-wrench.md) and right-click each machine-facing pipe end to choose blue Input into the machine or red Output from it. A chest can supply items directly through an output end. Open the pipe normally to add independent signal or power fittings. See [Pipes](Pipes.md)."
   },
   "rivet:fluid_pipe": {
-    "use": "Join machine fluid outputs to accepting inputs. Open the pipe to add signal and power fittings; each channel remains separate. See [tank plumbing](Tanks.md) and [pipe fittings](Blue-Signal.md)."
+    "use": "Connect any face of a water machine or functional tank fluid port. A selected [Wrench](Item-wrench.md) plus right-click on the machine-facing end sets blue Input into the machine or red Output from it. Opening the pipe normally gives access to separate signal/power fittings. See [Pipes](Pipes.md) and [tanks](Tanks.md)."
   },
   "rivet:extractor": {
-    "use": "Place a [Chest](Item-chest.md) on its left and an [Item Pipe](Item-item-pipe.md) on its right. It transfers four items per second and supports optional signal control."
+    "use": "Place a [Chest](Item-chest.md) on its left. Attach [Item Pipe](Item-item-pipe.md) on any free face, with a red Output arrow set using a selected [Wrench](Item-wrench.md). It transfers up to four items per second and supports optional signal control. Direct chest-to-pipe output is also available; the Extractor adds signal control. See [Pipes](Pipes.md)."
   },
   "rivet:crusher": {
-    "use": "Connect power at the rear, optional signal at the front, input items on the left and output on the right. One raw copper, iron or gold makes two matching crushed pieces in five seconds at **160 W**. Smelt each piece in a [Furnace](Item-furnace.md)."
+    "use": "Connect power on any face. Use [Item Pipes](Item-item-pipe.md) on any face and a selected [Wrench](Item-wrench.md) to set blue raw-ore inputs and red product outputs. Optional Blue Signal remains at the front. One raw copper, iron or gold makes two matching crushed pieces in five seconds at **160 W**. Smelt each piece in a [Furnace](Item-furnace.md). See [Pipes](Pipes.md)."
   },
   "rivet:drill": {
-    "use": "Supply **240 W** at the rear. It mines the finite column directly below, outputs items on the right and stops at protected bedrock. An attached OFF signal at the front disables it."
+    "use": "Supply **240 W** on any face. It mines the finite column directly below and stops at protected bedrock. Attach Item Pipe on any face and use a selected [Wrench](Item-wrench.md) to set the drill-facing end to red Output. An attached OFF signal at the front disables it. See [Pipes](Pipes.md)."
   },
   "rivet:machinist_bench": {
     "use": "Place and open it with **E or right-click** for 4×4 crafting. It also accepts smaller crafting recipes. Industrial recipes are shapeless unless their page specifies a pattern; keep the required count in each occupied slot."
@@ -274,7 +274,7 @@
   "rivet:hand_crank": {
     "description": "A manual generator for a small starting electricity reserve. It supplies 100 W during each half-second turn (50 J), using no fuel or water.",
     "obtain": "Craft at a 3×3 workbench from 2 copper ingots, 1 iron ingot, 1 stick and 2 planks.",
-    "use": "Select it and right-click a battery side to attach its rear power socket. Aim at the placed crank and right-click or press Interact for one turn; hold right-click to repeat. Connected loads use power first, then surplus charges eligible batteries. See [Electricity and batteries](Electricity-and-batteries.md#starting-power-with-a-hand-crank)."
+    "use": "Select it and right-click a battery side to attach it. Aim at the placed crank and right-click or press Interact for one turn; hold right-click to repeat. Connected loads use power first, then surplus charges eligible batteries. Power cables can connect on any face. See [Electricity and batteries](Electricity-and-batteries.md#starting-power-with-a-hand-crank)."
   },
   "rivet:sapling": {
     "description": "A replantable young tree. Place it on dry grass or dirt to renew your wood supply.",
@@ -285,5 +285,10 @@
     "description": "A ready-to-eat fruit restoring four food points (two food icons).",
     "obtain": "Natural leaves have an independent 2% chance to drop an apple when destroyed, including decay after trunk chopping. Leaves on sapling-grown trees also qualify.",
     "use": "Hold Use for 1.2 seconds to eat one. Releasing early cancels the bite; full hunger consumes nothing."
+  },
+  "rivet:wrench": {
+    "description": "A reusable workshop tool for setting the direction of item and fluid pipe connections.",
+    "obtain": "Craft one at a 3×3 [Workbench](Item-workbench.md) from three iron ingots in the shaped recipe below.",
+    "use": "Select the Wrench in your hotbar and right-click the pipe end touching a compatible machine or chest. Each click switches between a **blue arrow into the machine (Input)** and a **red arrow out (Output)**. The wrench is not consumed. Empty hands, other selected items and Interact cannot change direction. Pipe centres, pipe-to-pipe links and electrical cables have no direction to switch. See [Pipes](Pipes.md) for complete examples."
   }
 }

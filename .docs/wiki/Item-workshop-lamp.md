@@ -8,7 +8,7 @@
 
 <a href="Item-workshop-lamp.md" title="Workshop Lamp"><img src="icons/139.png" width="96" height="96" alt="Workshop Lamp"></a>
 
-Power at rear · optional signal at front.
+Power on any face · optional signal at front.
 
 ## At a glance
 
@@ -24,7 +24,7 @@ Make this item using the crafting or processing recipes below.
 
 ## Using it
 
-See [Electricity and batteries](Electricity-and-batteries.md) for generator placement, power sockets and example circuits.
+Connect electricity on any face; it needs **20 W**. Front Blue Signal control is optional. See [Electricity and batteries](Electricity-and-batteries.md).
 
 ## Crafting and processing
 

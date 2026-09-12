@@ -45,7 +45,7 @@ A boiler with fuel but no water cannot drive the Alternator.
 
 ### 4. Connect the electrical output
 
-The Alternator's electrical socket is on its **rear**. Run Power Cable from that socket to the power input of your machine.
+Run Power Cable from **any free face of the Alternator** to any free face of your powered machine.
 
 For a very easy first test, connect a **Workshop Lamp**. It only needs **20 W**, so a single 400 W Alternator has plenty of headroom.
 
@@ -156,7 +156,7 @@ B = Battery Block
 C = Battery Bank Controller
 ```
 
-Place the controller from outside so its **front power socket faces outward**. Fill the rest of the chosen rectangle with Battery Blocks.
+Place the controller from outside so its **front faces outward**. Fill the rest of the chosen rectangle with Battery Blocks.
 
 ### A useful small bank: 2×1×2
 
@@ -184,7 +184,7 @@ The controller contributes control and the external socket, but **zero storage c
 2. Fill every other position in the rectangular pack with **Battery Blocks**.
 3. Leave **no gaps**, hollow spaces or unrelated blocks inside the rectangle.
 4. Open the controller and check that it reports **FORMED** and the expected dimensions.
-5. Connect Power Cable to the controller's **front socket**.
+5. Connect Power Cable to the controller's accessible faces.
 6. Run your generator and let surplus power charge the bank.
 
 The controller shows the combined stored energy and the current charge/output rate:
@@ -270,15 +270,21 @@ The Battery Bank Controller can be removed without draining because the controll
 | Symptom | What to check |
 |---|---|
 | **Alternator produces no power** | Make sure the Boiler Engine has both fuel and water, the machines face the same direction, and the Alternator is immediately on the boiler's right with the shafts meeting. |
-| **Machine receives 0 W** | Check that Power Cable reaches the correct electrical sockets and that a Blue Signal connection is not holding the machine OFF. |
+| **Machine receives 0 W** | Check that Power Cable reaches any machine face through a continuous cable route and that a Blue Signal connection is not holding the machine OFF. |
 | **Machine runs slowly** | Open it and compare requested vs received watts. Total demand may exceed generation, or a higher-priority load may be taking power first. |
 | **Battery never charges** | Batteries only receive true surplus. Disconnect or stop some loads and check whether generation now exceeds demand. Also check that the battery is not DischargeOnly or Isolated. |
 | **Battery never discharges** | Check that it contains energy and is not ChargeOnly or Isolated. The network must also have real unmet electrical demand. |
 | **Battery bank will not form** | The pack must be a completely filled rectangular solid, 1–5 blocks along each dimension, with exactly one controller and at least one Battery Block. Remove gaps and unrelated blocks. |
-| **Controller formed but cable does nothing** | Connect Power Cable to the controller's **front** socket. Member-cell sockets are inactive while the bank is formed. |
+| **Controller formed but cable does nothing** | Connect Power Cable to the controller on any exposed face. Member-cell sockets are inactive while the bank is formed. |
 | **Two nearby banks interfere with each other** | Leave an air gap between separate packs. Touching battery groups can be interpreted as one connected structure containing multiple controllers. |
 | **Cannot mine a Battery Block** | It still contains charge. Put it in DischargeOnly and drain it into a real load first. |
 | **Battery seems to lose progress after forming a bank** | Formation does not redistribute energy between cells. The controller reports their combined total; each cell retains its exact stored energy. |
+
+## All-face machine connections
+
+Power Cable connects to any of the six faces of a generator, battery or powered machine, including top and bottom. Electricity flows automatically and does not need an Input/Output setting or a wrench. A charged battery in Automatic mode can power a crusher through a side cable; it does not need to be fully charged.
+
+For Item Pipes and Fluid Pipes, select a [Wrench](Item-wrench.md) and right-click the machine-facing end. **Blue enters the machine; red exits it.** See [Pipes](Pipes.md) for the complete setup guide.
 
 ## Related guides
 
@@ -291,6 +297,6 @@ The Battery Bank Controller can be removed without draining because the controll
 
 Craft a **Hand Crank** at a workbench using **2 copper ingots, 1 iron ingot, 1 stick and 2 planks** in any arrangement (one stack for each ingredient). Select it and right-click a battery's side to attach it. Leave room to stand in front of the handle.
 
-Aim at the crank and **right-click once for a turn**, or **hold right-click to keep turning**. Each half-second turn generates **50 J**. The bound Interact key also turns it. Inspect the battery from another side to see the stored charge; use **Automatic** or **ChargeOnly** mode to charge. A bank must receive power through its controller's outward socket.
+Aim at the crank and **right-click once for a turn**, or **hold right-click to keep turning**. Each half-second turn generates **50 J**. The bound Interact key also turns it. Inspect the battery from another side to see the stored charge; use **Automatic** or **ChargeOnly** mode to charge. A bank must receive power through its controller on any exposed face.
 
-Connected machines use power first; the remainder charges storage. A full or isolated battery accepts none. Release the button or look away to stop further turns; the current turn finishes. The crank needs no fuel, water or Azure component, and can also feed a power cable through its rear socket.
+Connected machines use power first; the remainder charges storage. A full or isolated battery accepts none. Release the button or look away to stop further turns; the current turn finishes. The crank needs no fuel, water or Azure component, and can also feed a power cable on any face.

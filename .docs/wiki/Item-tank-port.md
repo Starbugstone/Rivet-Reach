@@ -8,7 +8,7 @@
 
 <a href="Item-tank-port.md" title="Tank Fluid Port"><img src="icons/164.png" width="96" height="96" alt="Tank Fluid Port"></a>
 
-Face outward · configure INPUT / OUTPUT / DISABLED.
+Face outward · wrench sets each pipe end.
 
 ## At a glance
 
@@ -23,7 +23,7 @@ Make this item using the crafting or processing recipes below.
 
 ## Using it
 
-Use this part in a sealed hollow tank. The [tank construction guide](Tanks.md) gives the shopping list, layer diagrams, outward-facing controls and repair instructions.
+Use this part in a sealed [multiblock tank](Tanks.md), facing outward for formation. Enable its port in the interface; attach Fluid Pipe on an accessible face and use a selected [Wrench](Item-wrench.md) to choose blue Input or red Output at each end. See [Pipes](Pipes.md).
 
 ## Crafting and processing
 

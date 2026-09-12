@@ -27,7 +27,7 @@ Open with **E or right-click** to store items. An [Extractor](Item-extractor.md)
 
 A wooden storage chest with an iron-banded lid and brass latch.
 
-![Placed chest in the game](images/starter-chest.png)
+![Placed chest in the game](images/starter-chest.png) Item Pipes can connect on every face. A selected [Wrench](Item-wrench.md) sets each chest-facing pipe end to blue Input (store) or red Output (supply). See [Pipes](Pipes.md).
 
 ## Crafting and processing
 

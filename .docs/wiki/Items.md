@@ -6,7 +6,7 @@ Click any icon or item name for what it does, how to obtain it, its recipes, and
 
 [Crafting guide](Crafting-Recipes.md) · [Home](Home.md)
 
-Includes all **131 registered items and world-block entries** in the current playable alpha. Ore blocks, crops, bedrock and legacy test equipment have pages even when they cannot be crafted or placed.
+Includes all **132 registered items and world-block entries** in the current playable alpha. Ore blocks, crops, bedrock and legacy test equipment have pages even when they cannot be crafted or placed.
 
 [Building blocks](#building-blocks) · [Ore deposits and bedrock](#ore-deposits-and-bedrock) · [Materials and components](#materials-and-components) · [Tools and weapons](#tools-and-weapons) · [Armor](#armor) · [Food and farming](#food-and-farming) · [Light and buckets](#light-and-buckets) · [Stations and machines](#stations-and-machines) · [Connections and controls](#connections-and-controls) · [Multiblock tanks and batteries](#multiblock-tanks-and-batteries) · [Legacy test equipment](#legacy-test-equipment)
 
@@ -47,7 +47,7 @@ Includes all **131 registered items and world-block entries** in the current pla
 | <a href="Item-iron-pickaxe.md" title="Iron pickaxe"><img src="icons/56.png" width="56" height="56" alt="Iron pickaxe"><br>Iron pickaxe</a> | <a href="Item-iron-shovel.md" title="Iron shovel"><img src="icons/58.png" width="56" height="56" alt="Iron shovel"><br>Iron shovel</a> | <a href="Item-iron-sword.md" title="Iron sword"><img src="icons/57.png" width="56" height="56" alt="Iron sword"><br>Iron sword</a> | <a href="Item-stone-axe.md" title="Stone axe"><img src="icons/45.png" width="56" height="56" alt="Stone axe"><br>Stone axe</a> |
 | <a href="Item-stone-hoe.md" title="Stone hoe"><img src="icons/49.png" width="56" height="56" alt="Stone hoe"><br>Stone hoe</a> | <a href="Item-stone-pickaxe.md" title="Stone pickaxe"><img src="icons/46.png" width="56" height="56" alt="Stone pickaxe"><br>Stone pickaxe</a> | <a href="Item-stone-shovel.md" title="Stone shovel"><img src="icons/48.png" width="56" height="56" alt="Stone shovel"><br>Stone shovel</a> | <a href="Item-stone-sword.md" title="Stone sword"><img src="icons/47.png" width="56" height="56" alt="Stone sword"><br>Stone sword</a> |
 | <a href="Item-wood-axe.md" title="Wood axe"><img src="icons/40.png" width="56" height="56" alt="Wood axe"><br>Wood axe</a> | <a href="Item-wood-hoe.md" title="Wood hoe"><img src="icons/44.png" width="56" height="56" alt="Wood hoe"><br>Wood hoe</a> | <a href="Item-wood-pickaxe.md" title="Wood pickaxe"><img src="icons/41.png" width="56" height="56" alt="Wood pickaxe"><br>Wood pickaxe</a> | <a href="Item-wood-shovel.md" title="Wood shovel"><img src="icons/43.png" width="56" height="56" alt="Wood shovel"><br>Wood shovel</a> |
-| <a href="Item-wood-sword.md" title="Wood sword"><img src="icons/42.png" width="56" height="56" alt="Wood sword"><br>Wood sword</a> |  |  |  |
+| <a href="Item-wood-sword.md" title="Wood sword"><img src="icons/42.png" width="56" height="56" alt="Wood sword"><br>Wood sword</a> | <a href="Item-wrench.md" title="Wrench"><img src="icons/173.png" width="56" height="56" alt="Wrench"><br>Wrench</a> |  |  |
 
 ## Armor
 

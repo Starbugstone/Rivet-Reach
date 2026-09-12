@@ -8,7 +8,7 @@
 
 <a href="Item-fluid-pipe.md" title="Fluid Pipe"><img src="icons/147.png" width="96" height="96" alt="Fluid Pipe"></a>
 
-Water only · sealed 100 mL transfers.
+Fluids · wrench sets machine-facing input / output.
 
 ## At a glance
 
@@ -23,7 +23,7 @@ Make this item using the crafting or processing recipes below.
 
 ## Using it
 
-Join machine fluid outputs to accepting inputs. Open the pipe to add signal and power fittings; each channel remains separate. See [tank plumbing](Tanks.md) and [pipe fittings](Blue-Signal.md).
+Connect any face of a water machine or functional tank fluid port. A selected [Wrench](Item-wrench.md) plus right-click on the machine-facing end sets blue Input into the machine or red Output from it. Opening the pipe normally gives access to separate signal/power fittings. See [Pipes](Pipes.md) and [tanks](Tanks.md).
 
 ## Crafting and processing
 

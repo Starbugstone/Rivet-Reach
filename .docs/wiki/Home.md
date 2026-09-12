@@ -6,6 +6,7 @@ Start here:
 
 - [Items](Items.md) — browse icons, item uses and individual recipes.
 - [Crafting recipes](Crafting-Recipes.md) — complete reference for crafting and processing recipes.
+- [Pipes and wrench](Pipes.md) — all-face connections, blue input/red output arrows and hands-on setup.
 - [Build a multiblock tank](Tanks.md) — exact shopping list, each layer, outward-facing controls, filling and repairs.
 - [Pumps and renewable water](Pumps-and-water.md) — intake height, a 2×2 source pool, and why water can renew without electricity.
 - [Electricity, batteries and battery banks](Electricity-and-batteries.md) — generate power, store surplus, and keep machines running when generation stops.
@@ -14,9 +15,9 @@ Start here:
 
 Browse the [item pages](Items.md) for crafting grids, processing recipes and gathering instructions. Every item icon opens its page. In the game, open your inventory, find an item in the right-hand catalog, and inspect its recipe. Industrial assemblies require the **Machinist’s Bench (4×4)**; the browser shows the required station and ingredients.
 
-In Creative, drag items from the catalog into an empty inventory or hotbar slot. Double-tap **Space** to toggle flight; Space rises and **Shift** descends in flight. On foot, **Shift** crouches and **Ctrl** runs; double-tapping forward also starts running. Controls can be rebound. Use **E** or right-click to open machinery; controls are relative to the machine’s visible front.
+In Creative, drag items from the catalog into an empty inventory or hotbar slot. Double-tap **Space** to toggle flight; Space rises and **Shift** descends in flight. On foot, **Shift** crouches and **Ctrl** runs; double-tapping forward also starts running. Controls can be rebound. Use **E** or right-click to open machinery; signal and shaft controls are relative to the machine’s visible front. Power and supported item/fluid pipes connect on every face. To change a pipe-end direction, hold a [Wrench](Item-wrench.md) and right-click its machine-facing end.
 
-New machines face you when placed. Use **ROTATE 90°** in their interface to adjust existing placements.
+New machines face you when placed. Use **ROTATE 90°** in their interface to adjust existing placements. Configured pipe directions stay fixed when the machine rotates.
 
 Rivet Reach is proprietary. © Starbugstone. All rights reserved.
 

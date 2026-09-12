@@ -24,7 +24,7 @@ Make this item using the crafting or processing recipes below.
 
 ## Using it
 
-See [Electricity and batteries](Electricity-and-batteries.md) for generator placement, power sockets and example circuits.
+Supply coal/charcoal and water manually or through configured item/fluid pipe inputs on any face. Use a selected [Wrench](Item-wrench.md) to set blue input arrows. Its right-hand mechanical shaft must still meet an [Alternator](Item-alternator.md). See [Pipes](Pipes.md) and [Electricity](Electricity-and-batteries.md).
 
 ## Crafting and processing
 

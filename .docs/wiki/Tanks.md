@@ -38,8 +38,8 @@ The diagrams below are **top views**. Imagine looking straight down at each hori
 - `W` = Tank Wall
 - `C` = Tank Controller
 - `H` = Tank Access Hatch
-- `I` = Tank Fluid Port configured as INPUT
-- `O` = Tank Fluid Port configured as OUTPUT
+- `I` = Tank Fluid Port whose pipe end is configured as blue INPUT
+- `O` = Tank Fluid Port whose pipe end is configured as red OUTPUT
 - `.` = **empty air — do not place a block here**
 
 ### Layer 1 — floor
@@ -191,10 +191,10 @@ Bring a Water Bucket and open either the **Tank Controller** or **Tank Access Ha
 
 ### With Fluid Pipes
 
-1. Open a Tank Fluid Port and set it to **INPUT**.
-2. Connect a Fluid Pipe to the port's outward-facing nozzle.
-3. Connect that pipe to a machine that actually provides stored water.
-4. Set another Tank Fluid Port to **OUTPUT**.
+1. Enable a Tank Fluid Port and connect a Fluid Pipe on an accessible face.
+2. Hold a [Wrench](Item-wrench.md) and right-click the tank-facing pipe end until its **blue Input arrow** points into the tank.
+3. Connect the source end to stored water, with a **red Output arrow** pointing out of that source.
+4. For delivery, attach another pipe and set its tank-facing end to **red Output** with the wrench.
 5. Connect its outward-facing nozzle to the machine/tank that should receive water.
 
 **Power Cable does not carry water.** Fluid, electrical power and Blue Signal are separate networks.
@@ -237,7 +237,7 @@ These are not needed for your first tank.
 
 Craft **1 Tank Fluid Port + 1 Signal Conduit → 1 Signal Valve Port** at the Machinist's Bench.
 
-It replaces an ordinary side port. Configure its fluid direction and connect Blue Signal to the keyed signal fitting. **ON opens the valve; OFF or no attached signal keeps it closed.** Fluid and signal can share a fitted Fluid Pipe while remaining independent channels.
+It replaces an ordinary side port. Enable its port, set the adjoining pipe end with a held [Wrench](Item-wrench.md), and connect Blue Signal to the keyed signal fitting. **ON opens the valve; OFF or no attached signal keeps it closed.** Fluid and signal can share a fitted Fluid Pipe while remaining independent channels.
 
 ### Tank Level Sensor
 
@@ -257,7 +257,7 @@ It outputs Blue Signal when the stored percentage reaches its configured thresho
 | **Rotate component to face outside** | The named controller, hatch, port, valve or sensor points into the tank. Rotate it 90° until its working face points away from the interior. |
 | **Interior open / shell incomplete** | A required shell position is missing. Close the outside shell while leaving only the inside hollow. |
 | **Waiting for neighbouring chunk** | Part of the structure is not currently loaded. Move close enough that the whole tank is resident. |
-| **Formed, but no fluid arrives** | Check that the port is INPUT, the connected source really contains fluid, the Fluid Pipe reaches the outward nozzle, and any Signal Valve is ON. |
+| **Formed, but no fluid arrives** | Check that the port is Enabled, its pipe end is blue Input, the source end is red Output with stored fluid, and any Signal Valve is ON. |
 
 The controller reports the first failed coordinate and highlights that location in the world.
 
@@ -270,3 +270,7 @@ Breaking any shell block suspends normal transfers, but the stored liquid remain
 If you resize a tank smaller than its current contents can fit, drain enough liquid before the smaller structure can become valid.
 
 A bank of batteries is a different kind of multiblock and is **solid rather than hollow**: see the [battery-bank guide](Electricity-and-batteries.md).
+
+## Pipe direction controls
+
+Fluid Pipes can meet any accessible face of a functional fluid port. Direction changes require a **selected [Wrench](Item-wrench.md) and right-click on the machine-facing pipe end**. Empty hands, other items and Interact cannot change them. Rotating the tank part does not reverse configured ends. The port interface enables/disables transfer; the wrench chooses each end’s direction. See [Pipes](Pipes.md).

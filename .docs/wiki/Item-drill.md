@@ -24,7 +24,7 @@ Make this item using the crafting or processing recipes below.
 
 ## Using it
 
-Supply **240 W** at the rear. It mines the finite column directly below, outputs items on the right and stops at protected bedrock. An attached OFF signal at the front disables it.
+Supply **240 W** on any face. It mines the finite column directly below and stops at protected bedrock. Attach Item Pipe on any face and use a selected [Wrench](Item-wrench.md) to set the drill-facing end to red Output. An attached OFF signal at the front disables it. See [Pipes](Pipes.md).
 
 ## Crafting and processing
 

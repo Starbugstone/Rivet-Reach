@@ -8,7 +8,7 @@
 
 <a href="Item-item-pipe.md" title="Item Pipe"><img src="icons/146.png" width="96" height="96" alt="Item Pipe"></a>
 
-Items only · connect an Extractor to a chest.
+Items · wrench sets machine-facing input / output.
 
 ## At a glance
 
@@ -23,7 +23,7 @@ Make this item using the crafting or processing recipes below.
 
 ## Using it
 
-Connect an [Extractor](Item-extractor.md) and chest for item supply. Open the pipe to add signal and power fittings; each channel remains separate. See [pipe fittings](Blue-Signal.md).
+Connect any face of a supported item machine or chest. Select a [Wrench](Item-wrench.md) and right-click each machine-facing pipe end to choose blue Input into the machine or red Output from it. A chest can supply items directly through an output end. Open the pipe normally to add independent signal or power fittings. See [Pipes](Pipes.md).
 
 ## Crafting and processing
 

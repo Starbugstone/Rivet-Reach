@@ -23,7 +23,7 @@ Make this item using the crafting or processing recipes below.
 
 ## Using it
 
-Place exactly one controller in a solid rectangular pack of battery blocks, with its front facing out. The controller adds no storage of its own. See the [battery bank guide](Electricity-and-batteries.md) for dimensions, wiring and charge-preserving repairs.
+Place exactly one controller in a solid rectangular pack of battery blocks, with its front facing out. The controller adds no storage of its own. See the [battery bank guide](Electricity-and-batteries.md) for dimensions, wiring and charge-preserving repairs. Connect electricity to any exposed controller face; claimed member-cell sockets remain inactive.
 
 ## Crafting and processing
 

@@ -94,7 +94,7 @@ That tiny delay is intentional, not lag or a broken connection.
 
 Item Pipes and Fluid Pipes can carry extra fitted channels alongside their normal transport route.
 
-Open the pipe and choose:
+Right-click the pipe centre or use Interact to open it, then choose:
 
 - **FIT SIGNAL** to add a Blue Signal channel.
 - **FIT POWER** to add an electrical channel.
@@ -104,7 +104,7 @@ In **Survival**:
 - fitting signal consumes **1 Signal Conduit**;
 - fitting power consumes **1 Power Cable**.
 
-In **Creative**, fittings can be added without consuming inventory.
+The fittings are separate from the [Wrench](Item-wrench.md), which changes item/fluid direction at a machine-facing end. See [Pipes](Pipes.md) for input/output arrows and examples.
 
 A pipe may have **both** fittings at the same time.
 
@@ -120,8 +120,8 @@ Multiblock tanks add two Blue Signal components that behave differently from ord
 
 A **Tank Signal Valve Port** is fail-closed: it requires an attached **ON** signal before fluid can pass.
 
-1. Configure the valve's fluid direction as **INPUT** or **OUTPUT**.
-2. Connect the Fluid Pipe to the valve's **front nozzle**.
+1. Enable the valve port and connect a Fluid Pipe on an accessible face.
+2. Hold a [Wrench](Item-wrench.md) and right-click the valve-facing pipe end to select **blue Input** or **red Output**.
 3. Connect Blue Signal to the valve's **keyed signal fitting**.
 4. Send **ON** to open it.
 5. **OFF or no attached signal** keeps it closed.
@@ -201,7 +201,7 @@ They share the physical pipe route but are still separate networks.
 | **The Relay seems one step late** | Correct behaviour. A Relay deliberately delays its rear input by **one simulation tick** before sending it from the front. |
 | **A flat wire route cannot climb vertically** | Use **Signal Conduit** for six-direction routing. Signal Wire is horizontal. |
 | **A machine runs even though I did not wire a signal** | Normal for Pump, Crusher, Drill and Workshop Lamp. No attached signal means signal control is optional; attach a signal if you want to gate operation. |
-| **A Tank Signal Valve stays closed with no signal** | Normal. The valve requires an attached **ON** signal. Also confirm its fluid mode is INPUT or OUTPUT and the Fluid Pipe is connected to the front nozzle. |
+| **A Tank Signal Valve stays closed with no signal** | Normal. The valve requires an attached **ON** signal. Also confirm the port is Enabled and the adjoining pipe end has the required direction, set using a held Wrench. |
 | **A fitted transport pipe carries fluid/items but not signal** | Open the pipe and confirm **FIT SIGNAL** has actually been installed. A plain Item Pipe or Fluid Pipe does not carry Blue Signal. |
 | **The machine has ON signal but still will not run** | Blue Signal is only permission/control. Check the machine's separate electrical supply and its normal item/fluid requirements. |
 | **Signal and power share the same fitted pipe but one is disconnected** | Expected if their connection shapes differ. Signal, power and transport each follow their own actual network connections. |
@@ -216,3 +216,5 @@ The easiest rule to remember is:
 A Workshop Lamp is a good example: it needs electricity to produce light, while Blue Signal can optionally tell it whether it is allowed to turn on.
 
 For generators, cables, batteries and battery banks, see [Electricity and batteries](Electricity-and-batteries.md).
+
+Blue **pipe arrows** indicate Input into a machine; they are separate from Blue Signal. A wrench changes transport direction only and does not toggle the signal. Read [Pipes](Pipes.md) for the full connection guide.

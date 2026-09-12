@@ -23,7 +23,7 @@ Craft at a 3×3 workbench from 2 copper ingots, 1 iron ingot, 1 stick and 2 plan
 
 ## Using it
 
-Select it and right-click a battery side to attach its rear power socket. Aim at the placed crank and right-click or press Interact for one turn; hold right-click to repeat. Connected loads use power first, then surplus charges eligible batteries. See [Electricity and batteries](Electricity-and-batteries.md#starting-power-with-a-hand-crank).
+Select it and right-click a battery side to attach it. Aim at the placed crank and right-click or press Interact for one turn; hold right-click to repeat. Connected loads use power first, then surplus charges eligible batteries. Power cables can connect on any face. See [Electricity and batteries](Electricity-and-batteries.md#starting-power-with-a-hand-crank).
 
 ## Crafting and processing
 

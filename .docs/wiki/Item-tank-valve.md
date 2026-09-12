@@ -23,7 +23,7 @@ Make this item using the crafting or processing recipes below.
 
 ## Using it
 
-Use this part in a sealed hollow tank. The [tank construction guide](Tanks.md) gives the shopping list, layer diagrams, outward-facing controls and repair instructions. Set INPUT or OUTPUT mode and attach an ON [Blue Signal](Blue-Signal.md) to open the valve; missing or OFF signal keeps it closed.
+Use this part in a sealed [multiblock tank](Tanks.md), facing outward for formation. Enable its port in the interface; attach Fluid Pipe on an accessible face and use a selected [Wrench](Item-wrench.md) to choose blue Input or red Output at each end. An attached ON [Blue Signal](Blue-Signal.md) is also required; OFF or missing signal keeps the valve closed. See [Pipes](Pipes.md).
 
 ## Crafting and processing
 

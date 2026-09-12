@@ -23,7 +23,7 @@ Make this item using the crafting or processing recipes below.
 
 ## Using it
 
-See [Electricity and batteries](Electricity-and-batteries.md) for generator placement, power sockets and example circuits.
+Place immediately on the Boiler Engine’s right with the shafts meeting. Electrical cables can connect on any of its six faces. See [Electricity and batteries](Electricity-and-batteries.md).
 
 ## Crafting and processing
 
