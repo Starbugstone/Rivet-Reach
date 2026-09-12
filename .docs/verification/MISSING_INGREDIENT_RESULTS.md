@@ -16,3 +16,7 @@ The two actual player captures below were visually inspected at 1280×720. The t
 ![Repeated plank ingredients outlined with an aggregate shortage of one](../wiki/images/missing-workbench-ingredient-2026-09-12.png)
 
 The retained player is `Builds/RecipeBrowser/RivetReach.exe`. Reproduce with `Tools/Verify-RecipeBrowser.ps1 -Build`. These are focused automated checks and screenshot review, not a new performance claim or user playfeel acceptance. Recipes, items and saves are unchanged; the wiki catalog was re-exported to refresh source fingerprints.
+
+## Wiki publication
+
+The player [crafting guide](../wiki/Crafting-Recipes.md) and screenshot passed **144 pages / 5,760 local links and images**. [Deployment 34701605547](https://github.com/Starbugstone/Rivet-Reach/actions/runs/34701605547) successfully published source commit `4046888`. Live Chromium review of the [published guide](https://github.com/Starbugstone/Rivet-Reach/wiki/Crafting-Recipes) confirmed the default-visibility instructions and loaded screenshot, with no missing images; its rendered screenshot was visually inspected.
