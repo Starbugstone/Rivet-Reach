@@ -38,6 +38,10 @@ A pending bank suspends its endpoints. Invalid or waiting validation releases me
 
 The original Blender kit and icons come from [create_battery_assets.py](../Tools/create_battery_assets.py), with editable [BatteryKit.blend](../ArtSource/Batteries/BatteryKit.blend). It reuses the project's original Workshop atlas and geometry helpers. Battery cells expose visible accumulator cans and six electrical fittings; the controller has a front gauge, power socket and pilot light. Geometry is imported as two shared mesh groups per item, without a controller animation pretending to generate power.
 
+**Visible charge — 2026-09-12:** placed Battery Blocks contain a translucent amber, softly emissive fill. Its height is proportional to the physical cell's exact stored energy: empty hides the fill, 11.8 kJ / 100 kJ fills 11.8% of the internal height, and full reaches the top of the chamber. It updates on energy changes, including charging, discharge and reconstruction after load. A bank member shows its own cell charge, even while its electrical endpoint belongs to the controller; the controller UI remains the aggregate display.
+
+This is an electrical indicator with a liquid-like appearance, not a bucketable fluid or a new stored resource. `IndustryPresentation` adds one shared 12-triangle cube and the shared `BatteryCharge` material to each nearby cell view, inside the original Blender housing. It adds no light, collider, simulation component or save field. The fill inherits rotation, origin shifts and the existing 64 m/residency view lifecycle. The existing source meshes, icons and empty held items remain the battery kit. [Charge-fill verification](verification/BATTERY_FILL_RESULTS.md) records the focused playable build and remaining limits.
+
 Machine interfaces show exact stored kJ, capacity, charge/output watts, mode and bank status. A member cell indicates controller ownership. The same item registry feeds Creative catalog grants, crafting and held rendering. [Verification](verification/WORKSHOP_FOLLOWUP_RESULTS.md) records measured checks and remaining limits.
 
 ## Manual early-game charging — 2026-09-12

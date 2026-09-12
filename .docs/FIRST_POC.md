@@ -122,3 +122,7 @@ Run `Builds/HandCrank/RivetReach.exe` for the [manual electricity increment](HAN
 ### Door review
 
 `Builds/Doors/RivetReach.exe` is the focused [wooden door](DOORS.md) review player. Craft three from six planks in two full columns at a workbench, place above a solid floor with two free cells, then right-click either half. Connect Blue Signal at the lower cell for automated opening/closing. [Verification](verification/DOOR_RESULTS.md) records this artifact and its limits.
+
+### Battery charge appearance review
+
+`Builds/BatteryFill/RivetReach.exe` includes a translucent amber charge fill inside placed batteries. Charge with a hand crank or generator and watch the level rise; connected loads lower it. Each bank cell displays its own reserve. [Rules](BATTERIES.md#presentation-and-diagnostics) and [verification](verification/BATTERY_FILL_RESULTS.md) cover the exact mapping and checked artifact.

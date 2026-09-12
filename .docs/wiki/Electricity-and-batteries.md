@@ -97,6 +97,8 @@ A Battery Block:
 - can connect to Power Cable on **any face**;
 - does not lose charge while simply sitting idle.
 
+The amber liquid-like level inside a placed battery shows its stored charge at a glance. Half height means **50 kJ / 100 kJ**; an empty battery has no fill. The level rises while charging and falls as connected machines consume the reserve. In a bank, each cell shows its own charge; open the controller for the combined total.
+
 Connect it to the same electrical network as your generator and machines.
 
 > **Machines are supplied before batteries charge.** A Battery Block only takes generator power that is left over after the current loads have been served.

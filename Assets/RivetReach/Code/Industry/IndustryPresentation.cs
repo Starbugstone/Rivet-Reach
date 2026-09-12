@@ -9,7 +9,7 @@ namespace RivetReach
     {
         sealed class View
         {
-            public GameObject Root,SignalAddition,PowerAddition;public MachineState State;public Transform[] Parts;public Vector3[] Rest;public Quaternion[] RestRotation;
+            public GameObject Root,SignalAddition,PowerAddition;public Transform ChargeFill;public long ShownCharge=-1;public MachineState State;public Transform[] Parts;public Vector3[] Rest;public Quaternion[] RestRotation;
             public Renderer[] Renderers;public Light Light;public float Phase;public int Mask=-1;public bool Active,MaterialShown;public MachineStatus ShownStatus=(MachineStatus)(-1);
         }
         Expedition game;float nextRefresh;long shownRevision=-1;
@@ -59,6 +59,13 @@ namespace RivetReach
                         v.Rest=new Vector3[v.Parts.Length];v.RestRotation=new Quaternion[v.Parts.Length];for(int j=0;j<v.Parts.Length;j++){v.Rest[j]=v.Parts[j].localPosition;v.RestRotation[j]=v.Parts[j].localRotation;}
                         foreach(var r in v.Renderers){r.sharedMaterial=Resources.Load<Material>(r.name=="StatusLight"?"Industry/Status":"Industry/Workshop");r.shadowCastingMode=ShadowCastingMode.On;}
                         if(m.Definition.Id==IndustryId.Lamp){var bulb=new GameObject("Workshop bulb");bulb.transform.SetParent(root.transform,false);bulb.transform.localPosition=new Vector3(.5f,.8f,.5f);v.Light=bulb.AddComponent<Light>();v.Light.type=LightType.Point;v.Light.color=new Color(1,.77f,.37f);v.Light.range=7;v.Light.shadows=LightShadows.None;}
+                        if(m.Definition.Id==IndustryId.Battery)
+                        {
+                            var fill=GameObject.CreatePrimitive(PrimitiveType.Cube);fill.name="Stored energy fill";
+                            Destroy(fill.GetComponent<Collider>());fill.transform.SetParent(root.transform,false);
+                            var renderer=fill.GetComponent<Renderer>();renderer.sharedMaterial=Resources.Load<Material>("Industry/BatteryCharge");
+                            renderer.shadowCastingMode=ShadowCastingMode.Off;v.ChargeFill=fill.transform;fill.SetActive(false);
+                        }
                         views.Add(m.Position,v);
                     }
                     v.Root.transform.position=game.World.Local(m.Position)+Vector3.one*.5f;
@@ -78,6 +85,18 @@ namespace RivetReach
             foreach(var v in views.Values)
             {
                 var m=v.State;bool active=m.Signal||m.Source;
+                if(v.ChargeFill!=null)
+                {
+                    // Read the physical cell even when a bank owns its electrical endpoint.
+                    var cell=m.EnergyCells[0];
+                    if(v.ShownCharge!=cell.Amount)
+                    {
+                        v.ShownCharge=cell.Amount;float height=.72f*(float)(cell.Amount/(double)cell.Capacity);
+                        v.ChargeFill.localScale=new Vector3(.76f,height,.76f);
+                        v.ChargeFill.localPosition=new Vector3(.5f,.14f+height*.5f,.5f);
+                        v.ChargeFill.gameObject.SetActive(cell.Amount>0);
+                    }
+                }
                 if(!game.Paused&&m.Running)v.Phase+=Time.deltaTime*(m.Definition.Id==IndustryId.HandCrank?720:180)*(m.Definition.Watts==0?1:m.ReceivedWatts/(float)m.Definition.Watts);
                 if(revision||v.Mask<0)
                 {

@@ -45,3 +45,5 @@ This directory maintains the latest report and useful evidence for each feature.
 - [Wooden doors](DOOR_RESULTS.md): crafting, two-cell placement/recovery, right-click, Blue Signal, collision and durable-state checks.
 
 - [Saplings and apples](ORCHARD_RESULTS.md): natural leaf loot, replanting, blocked growth, apple eating, original art and durable tree state.
+
+- [Battery charge fill](BATTERY_FILL_RESULTS.md): visible stored-energy level, individual bank cells and save/load reconstruction.
