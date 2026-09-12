@@ -8488,7 +8488,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/PlacementItemVerification.cs",
-            "sha256": "b42457099f8bbb5361ba0f6ecf8c7993070976bf2ebac6a79ba1c723e516d4c6"
+            "sha256": "97ce69180bd65cb66e2b48008948d8f000e1517d98e8e41d4d8116ab3ce661b8"
         },
         {
             "path": "Assets/RivetReach/Code/Player/ArcadeGrass.cs",
@@ -8516,7 +8516,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Player/DroppedItems.cs",
-            "sha256": "9b56ab62163a959fa67bd0421699e8b558106c7eaaa382bce9aaddcf4a5a137f"
+            "sha256": "7fec66509060f67414c515680d2aafb35db3320b1b471fcdfaf7bd9320c1b924"
         },
         {
             "path": "Assets/RivetReach/Code/Player/EatingCrumbs.cs",
@@ -8568,7 +8568,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/RuntimeVerification.cs",
-            "sha256": "3046416092177aeeaadffa59b84c83cba730025e50650082ced24af2bd3c0a17"
+            "sha256": "755280f1d3d75b5467f696bfe73efe4cb58743f5d3825ad2910c234c9310791c"
         },
         {
             "path": "Assets/RivetReach/Code/SaveVerification.cs",
