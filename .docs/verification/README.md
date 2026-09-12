@@ -40,7 +40,7 @@ This directory maintains the latest report and useful evidence for each feature.
 | Player model, hands, held equipment and animation | [Avatar rework verification](AVATAR_REWORK_RESULTS.md) |
 | Food-to-mouth animation and interrupted bites | [Eating verification](EATING_RESULTS.md) |
 | Audio and dated Editor startup | [Audio and earlier startup verification](HIFI_PLAYER_AND_AUDIO_RESULTS.md) |
-| Normal and action-created item pickup ranges | [Pickup verification](PICKUP_RESULTS.md) |
+| Item pickup ranges and passable-block collection | [Pickup verification](PICKUP_RESULTS.md) |
 | Mining, placement and pickup effects | [Effects verification](ARCADE_VISUAL_RESULTS.md) |
 | Generated trees, felling and placed-wood protection | [Tree verification](TREE_RESULTS.md) |
 

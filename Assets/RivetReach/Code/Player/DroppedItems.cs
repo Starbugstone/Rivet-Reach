@@ -159,7 +159,8 @@ namespace RivetReach
                 if(clear&&p.Delay<=0&&Vector3.Distance(local,player+Vector3.up*.5f)<=p.CollectionRadius)
                 {
                     Vector3 start=player+Vector3.up*.9f,delta=local+Vector3.up*.1f-start;
-                    if(!World.Raycast(start,delta.normalized,delta.magnitude-.05f,out _,out _))
+                    // Collection follows physical passage, including open doors and passable pipes.
+                    if(!World.RaycastSolid(start,delta.normalized,delta.magnitude-.05f,out _,out _))
                     {
                         int left=Game.Inventory.Add(p.Stack.Id,p.Stack.Count);
                         if(left<p.Stack.Count){Game.Sound.Pickup();ArcadePresentation.Active?.Pickup(local,p.Stack.Id);}

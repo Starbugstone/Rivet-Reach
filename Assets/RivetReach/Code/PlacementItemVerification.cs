@@ -56,6 +56,34 @@ namespace RivetReach
             Check(items.Piles.Contains(blocked)&&game.Inventory.Total(BlockId.Dirt)==0,"The action bonus cannot collect through a solid barrier");
             world.Remove(barrier,BlockId.Stone);items.Step(0);
             Check(!items.Piles.Contains(blocked),"Removing the barrier allows action pickup");
+            ClearDrops();ClearInventory();
+            foreach(byte passable in new[]{IndustryId.FluidPipe,IndustryId.ItemPipe,IndustryId.PowerCable,IndustryId.SignalConduit,IndustryId.SignalWire})
+            {
+                Check(world.Place(barrier,passable)&&!world.Solid(barrier),"Placed pickup fixture is passable: "+passable);
+                Vector3 start=player.transform.position+Vector3.up*.9f;
+                Check(world.Raycast(start,Vector3.forward,2,out var target,out _)&&target.Equals(barrier),"Passable fixture remains interaction-targetable: "+passable);
+                var through=Spawn(1.9f);var actionThrough=Spawn(2.2f,true);
+                items.Step(0);
+                Check(!items.Piles.Contains(through)&&!items.Piles.Contains(actionThrough)&&game.Inventory.Total(BlockId.Dirt)==2,"Normal and action pickup pass through placed block: "+passable);
+                ClearInventory();var underneath=Spawn(1.2f);
+                Check(underneath.Position.Cell.Equals(barrier)&&!world.Overlaps(underneath.Position.Local(world.Origin),DroppedItems.CollisionWidth,DroppedItems.CollisionHeight),"Dropped item fits within passable block cell: "+passable);
+                items.Step(0);
+                Check(!items.Piles.Contains(underneath)&&game.Inventory.Total(BlockId.Dirt)==1,"Normal pickup collects an item inside the passable block cell: "+passable);
+                world.Remove(barrier,passable);ClearDrops();ClearInventory();
+            }
+            Check(world.Place(barrier,IndustryId.Crusher),"Place solid machine pickup barrier");
+            var behindMachine=Spawn(1.9f);items.Step(0);
+            Check(items.Piles.Contains(behindMachine)&&game.Inventory.Total(BlockId.Dirt)==0,"Solid placed machines still block normal pickup");
+            world.Remove(barrier,IndustryId.Crusher);ClearDrops();ClearInventory();
+            var support=barrier.Offset(0,-1,0);byte oldSupport=world.Get(support);
+            if(oldSupport!=0)world.Remove(support,oldSupport);
+            Check(world.Place(support,BlockId.Stone)&&world.Place(barrier,IndustryId.WoodenDoor),"Place supported door pickup fixture");
+            var behindDoor=Spawn(1.9f);items.Step(0);
+            Check(items.Piles.Contains(behindDoor)&&game.Inventory.Total(BlockId.Dirt)==0,"Closed door blocks normal pickup");
+            game.Industry.Simulation.ToggleDoor(game.Industry.Simulation.At(barrier));items.Step(0);
+            Check(!world.Solid(barrier)&&!items.Piles.Contains(behindDoor)&&game.Inventory.Total(BlockId.Dirt)==1,"Opening the door immediately allows normal pickup");
+            world.Remove(barrier,IndustryId.WoodenDoor);world.Remove(support,BlockId.Stone);
+            if(oldSupport!=0)world.Place(support,oldSupport);
             if(oldBarrier!=0)world.Place(barrier,oldBarrier);
             ClearDrops();ClearInventory();
             if(previous!=0)world.Place(cell,previous);
