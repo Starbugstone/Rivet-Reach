@@ -248,7 +248,7 @@
     "use": "Place exactly one controller in a solid rectangular pack of battery blocks, with its front facing out. The controller adds no storage of its own. See the [battery bank guide](Electricity-and-batteries.md) for dimensions, wiring and charge-preserving repairs. Connect electricity to any exposed controller face; claimed member-cell sockets remain inactive."
   },
   "rivet:pump": {
-    "use": "Position it one block **above** source water and connect **80 W** on any face. Attach Fluid Pipe on a free face; use a selected [Wrench](Item-wrench.md) to set the pump-facing end to red Output. Keep the cell directly below free for source water. One extraction moves 10 L in two seconds at full power. See [Pipes](Pipes.md) and the [renewable pool guide](Pumps-and-water.md)."
+    "use": "Position it one block **above** source water. It requires **no electricity**. Attach Fluid Pipe on a free face; use a selected [Wrench](Item-wrench.md) to set the pump-facing end to red Output. Keep the cell directly below free for source water. One extraction moves 10 L in two eligible seconds. Optional Blue Signal can pause it; pumping can start and recover boiler generation during a blackout. See [Pipes](Pipes.md) and the [renewable pool guide](Pumps-and-water.md)."
   },
   "rivet:water_tank": {
     "use": "Stores **100 L** in one block. Use bucket controls or Fluid Pipes on any face. With a selected [Wrench](Item-wrench.md), right-click each tank-facing pipe end to set blue Input or red Output. Separate ends keep separate settings. See [Pipes](Pipes.md); for larger storage build a [multiblock tank](Tanks.md)."

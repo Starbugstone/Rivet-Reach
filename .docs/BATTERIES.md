@@ -4,7 +4,7 @@
 
 ## Authorization and working rules
 
-The user requested electrical storage as a standalone battery block and as cells in a battery-bank multiblock on 2026-09-10, alongside explicit confirmation that an unpowered pump must not operate. This document owns battery semantics; [INDUSTRY.md](INDUSTRY.md) owns generators and electrical consumers, and [MULTIBLOCKS.md](MULTIBLOCKS.md) owns the shared validation/lifecycle infrastructure. [The player guide](wiki/Electricity-and-batteries.md) provides construction instructions.
+The user requested electrical storage as a standalone battery block and as cells in a battery-bank multiblock on 2026-09-10, alongside the then-current powered-pump rule. The user superseded that rule on 2026-09-12: [pumps now require no electricity](INDUSTRY.md) so they can start and recover water-dependent generation. This document owns battery semantics; [INDUSTRY.md](INDUSTRY.md) owns generators and electrical consumers, and [MULTIBLOCKS.md](MULTIBLOCKS.md) owns the shared validation/lifecycle infrastructure. [The player guide](wiki/Electricity-and-batteries.md) provides construction instructions.
 
 Working defaults chosen for this increment, not individually user-approved balance values:
 

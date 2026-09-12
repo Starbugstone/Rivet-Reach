@@ -145,7 +145,7 @@ namespace RivetReach
         }
         void Prepare(MachineState m)
         {
-            if(m.Definition.Watts==0)return;
+            if(m.Definition.Watts==0&&m.Definition.Id!=IndustryId.Pump)return;
             if(!m.Enabled){m.Status=MachineStatus.DisabledBySignal;return;}
             byte id=m.Definition.Id;
             if(id==IndustryId.Crusher)
@@ -160,6 +160,7 @@ namespace RivetReach
                 if(m.WaterMl>m.Definition.WaterCapacity-10000){m.Status=MachineStatus.OutputFull;return;}
                 var p=Neighbor(m,3);if(!world.Ready(p)){m.Status=MachineStatus.Dormant;return;}
                 if(world.Get(p)!=Fluids.Water.Source){m.Work=0;m.Status=MachineStatus.NoWater;return;}
+                m.Status=MachineStatus.Ready;return;
             }
             if(id==IndustryId.Drill)
             {
@@ -186,10 +187,19 @@ namespace RivetReach
             if(id==IndustryId.Door){m.Status=m.Signal&&!world.PlayerInside(m.Position)?MachineStatus.Running:world.PlayerInside(m.Position)?m.Status:MachineStatus.Ready;return;}
             if(id==IndustryId.Indicator||id==IndustryId.Relay||id==IndustryId.Lever||id==IndustryId.Button||id==IndustryId.Sensor)
             {m.Status=(id==IndustryId.Lever||id==IndustryId.Button||id==IndustryId.Sensor?m.Source:m.Signal)?MachineStatus.Running:MachineStatus.Ready;return;}
-            if(m.RequestedWatts==0||m.ReceivedWatts==0)return;
-            m.Status=m.ReceivedWatts<m.RequestedWatts?MachineStatus.Underpowered:MachineStatus.Running;
+            if(id==IndustryId.Pump)
+            {
+                // Water supply must be able to start and recover the boiler without electricity.
+                if(m.Status!=MachineStatus.Ready)return;
+                m.Status=MachineStatus.Running;m.Work++;
+            }
+            else
+            {
+                if(m.RequestedWatts==0||m.ReceivedWatts==0)return;
+                m.Status=m.ReceivedWatts<m.RequestedWatts?MachineStatus.Underpowered:MachineStatus.Running;
+                if(id!=IndustryId.Lamp)m.Work+=m.ReceivedWatts/(double)m.Definition.Watts;
+            }
             if(id==IndustryId.Lamp)return;
-            m.Work+=m.ReceivedWatts/(double)m.Definition.Watts;
             int duration=id==IndustryId.Crusher?MachineState.CrusherTicks:id==IndustryId.Pump?40:120;
             if(m.Work+1e-9<duration)return;
             if(id==IndustryId.Crusher)

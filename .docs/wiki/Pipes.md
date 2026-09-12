@@ -88,7 +88,7 @@ Incompatible items stay in their source inventory. A mixed supply chest can send
 
 ## Example: pump → tank → boiler
 
-1. Put a [Pump](Item-pump.md) **above a source-water cell** and supply **80 W** on a free face.
+1. Put a [Pump](Item-pump.md) **above a source-water cell**. It requires **no electricity**.
 2. Run Fluid Pipe from a free pump face to a [Water Tank](Item-water-tank.md).
 3. Set the pump end to **red Output** and the tank end to **blue Input**.
 4. Run another Fluid Pipe from the tank to a [Boiler Engine](Item-boiler-engine.md).

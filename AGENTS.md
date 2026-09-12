@@ -103,3 +103,7 @@ The user authorized [all-face machine power and item/fluid pipe ends](.docs/INDU
 ## Authorized fitted armor and ingot art
 
 The user authorized [fitted armor and ingot presentation](.docs/EQUIPMENT_ART.md): original matching inventory/held/dropped artwork, worn armor on both explorers and the inventory portrait, and first-person bracers following the existing rig. Preserve the current avatar art, skins, gameplay dimensions, armor authority and durable-save format. [Equipment verification](.docs/verification/EQUIPMENT_ART_RESULTS.md) records measured evidence.
+
+## Authorized pumps without electricity
+
+The user requested pumps that consume no electricity to avoid a water/power startup dependency. [INDUSTRY.md](.docs/INDUSTRY.md) owns the 40-tick source extraction, zero electrical demand and absence of a pump power endpoint. Preserve optional signal control, water conservation, full-buffer and residency gates, and existing saved buffers/partial work. [Pump verification](.docs/verification/PUMP_RESULTS.md) records measured evidence.

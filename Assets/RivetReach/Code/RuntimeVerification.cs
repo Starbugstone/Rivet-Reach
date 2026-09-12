@@ -153,7 +153,7 @@ namespace RivetReach
             {report.workload="Save/load all persistent systems, corruption/backup recovery, menus and distant coordinates";yield return ReviewSaveGame();yield break;}
             var player=game.Player;var world=game.World;report.viewRadius=world.ViewDistance;report.fogStart=world.FogStart;report.fogEnd=world.FogEnd;var start=world.Address(player.transform.position);var saved=WorldPoint.FromLocal(player.transform.position,world.Origin);
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-workshop-followup-review"))
-            {report.workload="Creative batteries, bank, pump power and renewal, controller orientation, rendered held-item pixels";yield return ReviewWorkshopFollowup();yield break;}
+            {report.workload="Creative batteries, bank, pump without electricity and renewal, controller orientation, rendered held-item pixels";yield return ReviewWorkshopFollowup();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-browser-review"))
             {report.workload="Item sidebar, recipe/uses navigation, machine requirements, Ctrl-click recipe placement and preserved crafting transactions";yield return ReviewRecipeBrowser();yield return ReviewCrafting();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-clearance-review"))

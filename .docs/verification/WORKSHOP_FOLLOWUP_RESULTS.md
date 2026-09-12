@@ -1,5 +1,7 @@
 # Workshop follow-up — 2026-09-10
 
+> The pump power requirement and electrical UI captured here were superseded on 2026-09-12. See [pumps without electricity](PUMP_RESULTS.md) for current behavior and fresh evidence; this report retains its dated checks of other workshop features.
+
 Scope: outward machine placement, held industrial models, pump intake/power diagnosis, electrical batteries and banks, and published player construction guides. [BATTERIES.md](../BATTERIES.md) owns storage rules; [wiki Home](../wiki/Home.md) owns the maintained player-guide entry point.
 
 Final Windows player build: **0 errors, 0 warnings**. All **seven Creative/regression scenarios passed, 1,906 runtime assertions**, including **471** in the [focused workshop report](workshop-runtime-2026-09-10.json). [Build hashes and timestamps](creative-build-identity-2026-09-10.json) and the [full scenario table](CREATIVE_RESULTS.md) identify the evidence.

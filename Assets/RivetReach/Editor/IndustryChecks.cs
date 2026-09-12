@@ -27,6 +27,7 @@ namespace RivetReach.Editor
             var report=new StringBuilder();int assertions=0;
             void Check(bool ok,string message){if(!ok)throw new Exception("Industry: "+message);assertions++;report.AppendLine("PASS "+message);}
             CrusherRecipes(Check);
+            PumpWithoutPower(Check);
             BlockPos P(int x,int y=0,int z=0)=>new BlockPos(x,y,z);
             var world=new World();var sim=new IndustrySimulation(world,id=>64);
             void Settle(){for(int n=0;n<10000;n++){sim.Step();if(!sim.Rebuilding)return;}throw new Exception("Topology did not settle");}
@@ -119,6 +120,59 @@ namespace RivetReach.Editor
                 imported.AppendLine($"{d.Name}: {triangles} triangles; {prefab.GetComponentsInChildren<Renderer>().Length} renderers; bounds {bounds}; root scale {prefab.transform.localScale}, rotation {prefab.transform.localEulerAngles}; first child {prefab.transform.GetChild(0).localPosition}, scale {prefab.transform.GetChild(0).localScale}");
             }
             File.WriteAllText("Logs/industry-models.txt",imported.ToString());report.AppendLine("Assertions: "+assertions);File.WriteAllText("Logs/industry-checks.txt",report.ToString());
+        }
+        static void PumpWithoutPower(Action<bool,string> check)
+        {
+            var world=new World();var sim=new IndustrySimulation(world,id=>64);
+            var pump=sim.Add(new BlockPos(0,20,0),IndustryId.Pump);var intake=pump.Position.Offset(0,-1,0);
+            var battery=sim.Add(pump.Position.Offset(0,1,0),IndustryId.Battery);
+            battery.EnergyCells[0].Charge(1000000);
+            do{sim.Step();}while(sim.Rebuilding);
+            check(pump.Status==MachineStatus.NoWater,"Pump without a source reports NoWater without electricity");
+            check(!PipeConnections.Ports(pump).Any(p=>p.Kind==NetworkKind.Power)&&!sim.Power.Topology.Connected(pump),"Pump has no electrical endpoint even beside a battery");
+            world.Cells[intake]=Fluids.Water.Source;
+            for(int i=0;i<39;i++)sim.Step();
+            check(pump.Work==39&&pump.WaterMl==0&&world.Get(intake)==Fluids.Water.Source,"Pump retains source until 40 eligible ticks without electricity");
+            sim.Step();
+            check(pump.Work==0&&pump.WaterMl==10000&&world.Get(intake)==0,"Pump extracts exactly one source for 10 L after two seconds");
+            check(pump.RequestedWatts==0&&pump.ReceivedWatts==0&&battery.EnergyCells[0].Amount==1000000,"Pumping requests and consumes zero battery energy");
+            world.Cells[intake]=Fluids.Water.Source;for(int i=0;i<60;i++)sim.Step();
+            check(pump.Status==MachineStatus.OutputFull&&pump.Work==0&&world.Get(intake)==Fluids.Water.Source,"Full pump preserves the next source without accumulating work");
+            pump.WaterMl=1;sim.Step();check(pump.Status==MachineStatus.OutputFull&&pump.WaterMl==1,"Pump requires room for the entire 10 L extraction");
+            pump.WaterMl=0;
+            var lever=sim.Add(pump.Position.Offset(0,0,-1),IndustryId.Lever);
+            do{sim.Step();}while(sim.Rebuilding);
+            pump.Work=17;for(int i=0;i<50;i++)sim.Step();
+            check(pump.Status==MachineStatus.DisabledBySignal&&pump.Work==17&&world.Get(intake)==Fluids.Water.Source,"OFF signal preserves pump source and partial work");
+            sim.Activate(lever);for(int i=0;i<23;i++)sim.Step();
+            check(pump.WaterMl==10000&&pump.Work==0,"ON signal resumes the remaining pump cycle without electricity");
+            pump.WaterMl=0;world.Cells[intake]=Fluids.Water.Source;pump.Work=19;
+            world.Sleeping.Add(intake);sim.Step();
+            check(pump.Status==MachineStatus.Dormant&&pump.Work==19&&pump.WaterMl==0,"Unloaded intake cannot extract or advance work");
+            world.Sleeping.Clear();world.Cells[intake]=Fluids.Water.Flow(1);sim.Step();
+            check(pump.Status==MachineStatus.NoWater&&pump.Work==0&&pump.WaterMl==0,"Flowing water resets work without creating water");
+            world.Cells[intake]=BlockId.Stone;sim.Step();check(pump.Status==MachineStatus.NoWater&&world.Get(intake)==BlockId.Stone,"Blocked intake remains intact");
+            world.Cells[intake]=Fluids.Water.Source;world.Sleeping.Add(pump.Position);sim.Invalidate();
+            do{sim.Step();}while(sim.Rebuilding);
+            for(int i=0;i<50;i++)sim.Step();
+            check(pump.Status==MachineStatus.Dormant&&pump.Work==0&&pump.WaterMl==0,"Dormant pump earns no extraction credit");
+            world.Sleeping.Clear();sim.Invalidate();do{sim.Step();}while(sim.Rebuilding);
+            for(int i=0;i<40;i++)sim.Step();check(pump.WaterMl==10000,"Pump resumes when its chunk becomes eligible");
+
+            // Empty boiler starts from real pumped water with no generator or battery bootstrap.
+            var coldWorld=new World();var cold=new IndustrySimulation(coldWorld,id=>64);
+            var supply=cold.Add(new BlockPos(0,20,0),IndustryId.Pump);
+            coldWorld.Cells[supply.Position.Offset(0,-1,0)]=Fluids.Water.Source;
+            cold.Add(new BlockPos(1,20,0),IndustryId.FluidPipe);
+            var boiler=cold.Add(new BlockPos(2,20,0),IndustryId.Boiler);boiler.Items.Add(BlockId.Charcoal,1,0,1);
+            var alternator=cold.Add(new BlockPos(3,20,0),IndustryId.Alternator);
+            for(int i=0;i<45;i++)cold.Step();
+            check(boiler.Running&&alternator.SupplyWatts==400&&supply.RequestedWatts==0,"Pump and pipe cold-start an empty fueled boiler and alternator without electricity");
+            check(supply.WaterMl+boiler.WaterMl+(1600-boiler.BurnTicks)*5==10000,"Cold startup conserves source volume including boiler consumption");
+            boiler.WaterMl=0;supply.WaterMl=0;coldWorld.Cells[supply.Position.Offset(0,-1,0)]=Fluids.Water.Source;
+            cold.Step();check(alternator.SupplyWatts==0,"Water starvation stops electrical generation");
+            for(int i=0;i<45;i++)cold.Step();
+            check(boiler.Running&&alternator.SupplyWatts==400&&supply.ReceivedWatts==0,"Pump restores water and generation after a complete blackout");
         }
         static void CrusherRecipes(Action<bool,string> check)
         {

@@ -166,7 +166,7 @@ namespace RivetReach
             Check(Field("machineStatus").text=="No electrical power"&&Field("machineDetail").text.Contains("Power network: not connected"),"Physical cable removal changes the separate connection label");
             yield return Capture("power-cable-disconnected");Check(world.Place(cable,IndustryId.PowerCable),"Restore electrical cable");sim.Step();
             var pumpPos=crusher.Position.Offset(3,0,0);Check(world.Place(pumpPos,IndustryId.Pump),"Place pump to review the five-line status layout");sim.Step();Aim(sim.At(pumpPos));yield return new WaitForSecondsRealtime(.2f);
-            Check(Field("machineDetail").text.Contains("Power network: not connected")&&Field("machineDetail").text.Contains("Below:"),"Pump retains connection, power, water and intake diagnostics together");yield return Capture("pump-network-status");
+            Check(!Field("machineDetail").text.Contains("Power network:")&&Field("machineDetail").text.Contains("Below:")&&Field("machineDetail").text.Contains("Water:"),"Pump shows water and intake diagnostics without an electrical connection requirement");yield return Capture("pump-network-status");
             game.SetMode(ScreenMode.Pause);world.Remove(pumpPos,IndustryId.Pump);battery.EnergyCells[0].Charge(energy);game.enabled=true;
         }
 

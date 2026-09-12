@@ -1,5 +1,7 @@
 # Electrical connection and power status — 2026-09-12
 
+> The pump power requirement and electrical UI captured here were superseded on 2026-09-12. See [pumps without electricity](PUMP_RESULTS.md) for current behavior and fresh evidence; this report retains its dated checks of other workshop features.
+
 The machine interface now reports **Power network: connected / not connected** separately from supplied/requested watts and operating status. A registered connection with an empty battery shows **No electrical power**, not a world-wide “Connecting networks” message. [Industry rules](../INDUSTRY.md#simulation-and-rendering) and the [player guide](../wiki/Pipes.md#connected-network-versus-available-electricity) own the behavior.
 
 ## Implementation and boundaries

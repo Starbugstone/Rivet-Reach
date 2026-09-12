@@ -8,14 +8,14 @@
 
 <a href="Item-pump.md" title="Pump"><img src="icons/143.png" width="96" height="96" alt="Pump"></a>
 
-Source directly below · consumes 10 L per source.
+Source below → 10 L in 2 seconds
+No electricity required.
 
 ## At a glance
 
 | Property | Value |
 |---|---|
 | Stack size | 64 |
-| Power demand | 80 W |
 | Internal fluid capacity | 10 L |
 | Placement | Place from the hotbar |
 
@@ -25,7 +25,7 @@ Make this item using the crafting or processing recipes below.
 
 ## Using it
 
-Position it one block **above** source water and connect **80 W** on any face. Attach Fluid Pipe on a free face; use a selected [Wrench](Item-wrench.md) to set the pump-facing end to red Output. Keep the cell directly below free for source water. One extraction moves 10 L in two seconds at full power. See [Pipes](Pipes.md) and the [renewable pool guide](Pumps-and-water.md).
+Position it one block **above** source water. It requires **no electricity**. Attach Fluid Pipe on a free face; use a selected [Wrench](Item-wrench.md) to set the pump-facing end to red Output. Keep the cell directly below free for source water. One extraction moves 10 L in two eligible seconds. Optional Blue Signal can pause it; pumping can start and recover boiler generation during a blackout. See [Pipes](Pipes.md) and the [renewable pool guide](Pumps-and-water.md).
 
 ## Crafting and processing
 

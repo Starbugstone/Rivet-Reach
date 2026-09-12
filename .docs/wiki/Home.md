@@ -8,7 +8,7 @@ Start here:
 - [Crafting recipes](Crafting-Recipes.md) — complete reference for crafting and processing recipes.
 - [Pipes and wrench](Pipes.md) — all-face connections, blue input/red output arrows and hands-on setup.
 - [Build a multiblock tank](Tanks.md) — exact shopping list, each layer, outward-facing controls, filling and repairs.
-- [Pumps and renewable water](Pumps-and-water.md) — intake height, a 2×2 source pool, and why water can renew without electricity.
+- [Pumps and renewable water](Pumps-and-water.md) — intake height, a 2×2 source pool, and pumping without electricity.
 - [Electricity, batteries and battery banks](Electricity-and-batteries.md) — generate power, store surplus, and keep machines running when generation stops.
 - [Wooden doors](Doors.md) — crafting, manual opening and blue cable control.
 - [Blue Signal and separate connections](Blue-Signal.md) — switches, valves, sensors and fitted pipes.

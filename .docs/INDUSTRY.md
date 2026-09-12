@@ -4,7 +4,7 @@
 
 Working implementation under [issue #2](https://github.com/Starbugstone/Rivet-Reach/issues/2), selected by the user on 2026-09-10. Numerical tuning and the original Blender assets remain subject to play and artistic review. [Verification](verification/INDUSTRY_RESULTS.md) records the measured build and limitations.
 
-**Power makes machines work. Signal tells machines what to do.** Blue control, electrical power, items and water use four separate networks. Neither ordinary blocks nor ordinary item/fluid pipes conduct blue signal. [Pipe channel fittings and multiblock controls](MULTIBLOCKS.md) subsequently add explicit hybrids. Programmable logic, broader sensors and durable saves remain later extensions.
+**Electricity powers electrical machines. Signal tells machines what to do.** Pumps operate without electricity so water supply can start and recover steam generation. Blue control, electrical power, items and water use four separate networks. Neither ordinary blocks nor ordinary item/fluid pipes conduct blue signal. [Pipe channel fittings and multiblock controls](MULTIBLOCKS.md) subsequently add explicit hybrids. Programmable logic, broader sensors and durable saves remain later extensions.
 
 ## Progression and authoring
 
@@ -41,7 +41,7 @@ Default model front is −Z. The 2026-09-12 all-face connection revision superse
 | Water input / output | Round nozzle and union | All six faces; each pipe end configurable |
 | Mechanical shaft | Exposed axle / coupling | Boiler right → alternator left |
 
-Boiler water and fuel can enter from any face. Pump world-water intake is still the source cell directly below; placing a pipe in that cell prevents source extraction. Relay receives at its rear and emits at its front. A lever/button connects horizontally; a signal indicator and hatch receive at their front. An unattached control port defaults enabled for electrical machines. Attaching a conductor whose signal is OFF disables processing. Inspecting a machine shows status, received/requested watts, water or fuel where applicable, and its port names. Power priority cycles High / Normal / Low.
+Boiler water and fuel can enter from any face. Pump world-water intake is still the source cell directly below; placing a pipe in that cell prevents source extraction. Relay receives at its rear and emits at its front. A lever/button connects horizontally; a signal indicator and hatch receive at their front. An unattached control port defaults enabled for controlled machines. Attaching a conductor whose signal is OFF disables processing. Inspecting a machine shows status, received/requested watts, water or fuel where applicable, and its port names. Power priority cycles High / Normal / Low.
 
 Mining an assembly removes its network membership, closes its open interface, drops its stored input/output once and returns the placed item through ordinary mining. Already burned fuel, consumed water and spent work are not refunded. Water remaining in a dismantled vessel is discarded; emptying it into buckets first preserves that water. Player and creature overlap checks use the existing placement authority.
 
@@ -58,13 +58,15 @@ Mining an assembly removes its network membership, closes its open interface, dr
 | Boiler Engine | Coal/charcoal burns for 80 eligible seconds; consumes 100 mL water/s; right shaft rotates while fueled and watered |
 | Alternator | Correctly aligned adjacent running boiler supplies 400 W electricity; no remote shaft teleportation |
 | Crusher | 160 W; 5 seconds at full allocation; 1 raw copper/iron/gold → 2 crushed corresponding ore; 1 stone or cobblestone → 1 sand |
-| Pump | 80 W; 2 seconds at full allocation; removes one actual source below for 10 L in its buffer; flowing water is not accepted |
+| Pump | No electricity required; 2 eligible seconds; removes one actual source below for 10 L in its buffer; flowing water is not accepted |
 | Drill | 240 W; 6 seconds per block at full allocation; excavates the finite column below, through iron-tier mineable materials; stops at bedrock or an obstacle |
 | Water Tank | 100 L; full 10 L bucket transfers or rejection without consuming the bucket |
 | Extractor | Adjacent chest on left → configured item output on any face; one item per five ticks; optional signal control |
 | Inventory Sensor | Reads the chest behind it; emits ON at 32 total items; fixed initial threshold |
 
 Crushed copper, iron and gold smelt to one corresponding ingot each in the normal furnace. A full output buffer requests no processing power and consumes no new input. Underpower advances work proportionally; no input is destroyed by a blackout or signal shutdown. Changing a crusher's input identity resets its paid progress. A drill revalidates the target before removal and produces its inventory output through the same synchronous authority turn, without also creating a mined world drop.
+
+The user requested electricity-free pumps on 2026-09-12 to remove the water/power startup dependency. Pumps have no electrical endpoint or demand; an adjacent cable or battery cannot power or slow them. Each extraction takes 40 eligible 20 Hz ticks. Optional Blue Signal still pauses processing and retains partial work; full buffers, invalid sources, unloaded intake and dormant machines still block extraction. Fluid pipes can supply an empty fueled boiler before its alternator produces power, and restore water after a blackout. Existing pump buffers and partial work use the same save fields and content identities. [Pump verification](verification/PUMP_RESULTS.md) records measured checks.
 
 The user authorized stone and cobblestone crushing into sand on 2026-09-12. The working yield is one sand per block, with the existing cycle and power requirement. Recipe discovery and machine processing share both output identity and quantity; ore recipes retain their doubled yield. [Crusher sand verification](verification/CRUSHER_SAND_RESULTS.md) records the focused checks.
 

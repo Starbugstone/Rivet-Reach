@@ -3723,12 +3723,12 @@
             },
             "drop": "rivet:pump",
             "requiredTier": "None",
-            "help": "Source directly below · consumes 10 L per source",
+            "help": "Source below → 10 L in 2 seconds\nNo electricity required",
             "placeable": true,
             "ore": false,
             "crop": false,
             "fuelTicks": 0,
-            "watts": 80,
+            "watts": 0,
             "waterMl": 10000
         },
         {
@@ -8216,7 +8216,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/ConnectionVerification.cs",
-            "sha256": "b456ddcc9d3e4bbabd33390e06b31dc4e9219fda0af5d5bfd1fadd3e5a74f0b8"
+            "sha256": "b980843b03d700e04cc918eb57379cfe05a64d52128cc28fbfe228e88f6b83aa"
         },
         {
             "path": "Assets/RivetReach/Code/Core/Coordinates.cs",
@@ -8344,7 +8344,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustryDefinition.cs",
-            "sha256": "f2f3b0f9a89cccc21e564c1ab0c1f073bebed088d542e764847a772c7c65af2d"
+            "sha256": "4c74883403823f2d858d5581008545a3fa6159d8186258145d4dcae6b52afea7"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustryPresentation.cs",
@@ -8352,7 +8352,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustrySimulation.cs",
-            "sha256": "e2d744d7c4cfded61dd709157d64add9768947bef4a6ccd7afc17350624be7e4"
+            "sha256": "a27a245abcfd6fe0bcef981de12098252c52bc985fdf92f3a2c94391ee0023c0"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/NetworkTopology.cs",
@@ -8568,7 +8568,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/RuntimeVerification.cs",
-            "sha256": "f40865aa75eb55d9f2f31541f4bc9d9780539ef90b0b781ae2a3f9cf175f5720"
+            "sha256": "3046416092177aeeaadffa59b84c83cba730025e50650082ced24af2bd3c0a17"
         },
         {
             "path": "Assets/RivetReach/Code/SaveVerification.cs",
@@ -8688,7 +8688,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/WorkshopFollowupVerification.cs",
-            "sha256": "ddf074d7d3193ca58d2579240ce556f5ed4f3afa1d885aff63ac6a42e8b193b6"
+            "sha256": "b0b6f36157981c7733f616a02e725835ff0089dc621e53385f36d84c892d820c"
         },
         {
             "path": "Assets/RivetReach/Code/World/CaveGenerator.cs",

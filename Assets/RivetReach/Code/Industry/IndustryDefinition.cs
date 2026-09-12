@@ -59,7 +59,7 @@ namespace RivetReach
             Add(IndustryId.Boiler,"boiler_engine","Boiler Engine","Coal / charcoal + water → right-hand shaft",0,100000,P(NetworkKind.Fluid,PortRole.Input,16),ii);
             Add(IndustryId.Alternator,"alternator","Alternator","Left shaft couples to Boiler · 400 W output",0,0,P(NetworkKind.Power,PortRole.Output,16));
             Add(IndustryId.Crusher,"crusher","Crusher","1 raw ore → 2 crushed ore\n1 stone / cobblestone → 1 sand",160,0,pi,si,ii,io);
-            Add(IndustryId.Pump,"pump","Pump","Source directly below · consumes 10 L per source",80,10000,pi,si,P(NetworkKind.Fluid,PortRole.Output,1));
+            Add(IndustryId.Pump,"pump","Pump","Source below → 10 L in 2 seconds\nNo electricity required",0,10000,si,P(NetworkKind.Fluid,PortRole.Output,1));
             Add(IndustryId.Drill,"drill","Drill","Mines a finite column below · stops at bedrock",240,0,pi,si,io);
             Add(IndustryId.Tank,"water_tank","Water Tank","100 L · use bucket controls to fill / empty",0,100000,P(NetworkKind.Fluid,PortRole.Input,2),P(NetworkKind.Fluid,PortRole.Output,1));
             Add(IndustryId.Extractor,"extractor","Extractor","Chest on left → pipe on right · 4 items / sec",0,0,si,io);

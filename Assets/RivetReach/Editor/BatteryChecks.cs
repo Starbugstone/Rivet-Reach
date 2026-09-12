@@ -56,8 +56,8 @@ namespace RivetReach.Editor
             Check(s.Remove(c.Position)==c,"Controller can be removed because it owns no charge");w.Cells.Remove(c.Position);Settle();Check(cells.Skip(1).All(m=>m.Structure==null)&&cells.Sum(m=>m.EnergyCells[0].Amount)==total,"Dismantling returns cells to independent operation without duplication");
             c=Add(20,0,0,IndustryId.BatteryController);Settle();s.Rotate(c);s.Rotate(c);Settle();Check(!c.Structure.Formed,"Inward controller is rejected");s.Rotate(c);s.Rotate(c);Settle();Check(c.Structure.Formed,"Outward rotation repairs bank");
             var other=Add(22,0,0,IndustryId.BatteryController);Settle();Check(!other.Structure.Formed&&!c.Structure.Formed,"Touching controllers cannot claim the same battery pack");
-            // A separate pump cannot consume a source without electricity, even with partial work.
-            var pump=Add(40,0,0,IndustryId.Pump);w.Cells[pump.Position.Offset(0,-1,0)]=Fluids.Water.Source;pump.Work=39;Settle();for(int i=0;i<100;i++)s.Step();Check(pump.Status==MachineStatus.NoPower&&pump.WaterMl==0&&pump.Work==39&&w.Get(pump.Position.Offset(0,-1,0))==Fluids.Water.Source,"Unpowered pump preserves source and partial work");
+            // A pump resumes retained partial work without depending on battery power.
+            var pump=Add(40,0,0,IndustryId.Pump);w.Cells[pump.Position.Offset(0,-1,0)]=Fluids.Water.Source;pump.Work=39;Settle();for(int i=0;i<100;i++)s.Step();Check(pump.Status==MachineStatus.OutputFull&&pump.WaterMl==10000&&pump.Work==0&&pump.RequestedWatts==0&&pump.ReceivedWatts==0&&w.Get(pump.Position.Offset(0,-1,0))==0,"Pump completes retained partial work without electricity and stops at capacity");
             Directory.CreateDirectory("Logs");File.WriteAllText("Logs/battery-checks.txt",report+"Assertions: "+assertions+"\n");
         }
     }

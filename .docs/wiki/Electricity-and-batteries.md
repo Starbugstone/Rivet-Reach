@@ -41,7 +41,7 @@ If the shaft connection is wrong, rotating the machines changes all their ports 
 
 Open the Boiler Engine and add Coal or Charcoal. Supply water through its interface or fluid connection.
 
-A boiler with fuel but no water cannot drive the Alternator.
+A boiler with fuel but no water cannot drive the Alternator. A [Pump](Pumps-and-water.md) needs no electricity, so it can deliver the startup water through Fluid Pipe and restore supply after a blackout.
 
 ### 4. Connect the electrical output
 
@@ -62,7 +62,7 @@ A correctly coupled Boiler Engine + Alternator can supply up to **400 W**.
 | Machine | Full-power demand |
 |---|---:|
 | Workshop Lamp | **20 W** |
-| Pump | **80 W** |
+| Pump | **0 W — no electricity required** |
 | Crusher | **160 W** |
 | Drill | **240 W** |
 

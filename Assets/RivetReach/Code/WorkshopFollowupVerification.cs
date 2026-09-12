@@ -41,14 +41,14 @@ namespace RivetReach
             var pump=Place(source.Offset(0,1,0),IndustryId.Pump);
             player.transform.position=world.Local(origin)+new Vector3(6,1,-3);player.Camera.transform.position=world.Local(origin)+new Vector3(4,3,-3);player.Camera.transform.LookAt(world.Local(source)+Vector3.one*.5f);
             yield return new WaitForSecondsRealtime(3);
-            Check(pump.WaterMl==0&&pump.Work==0&&pump.ReceivedWatts==0&&world.Get(source)==Fluids.Water.Source,"Unpowered pump neither extracts nor erases the source below it");
-            yield return Capture("pump-unpowered-renewal-pool");
-            // Source removal by normal fluid authority renews even while the pump remains OFF.
+            Check(pump.WaterMl==10000&&pump.Work==0&&pump.RequestedWatts==0&&pump.ReceivedWatts==0&&world.Get(source)==Fluids.Water.Source,"Pump extracts 10 L without electricity and the pool renews");
+            yield return Capture("pump-no-electricity-renewal-pool");
+            // Source removal by normal fluid authority renews even while the pump buffer is full.
             Check(world.ChangeFluid(source,Fluids.Water.Source,0),"Remove intake source to exercise natural renewal");yield return new WaitForSecondsRealtime(2);
-            Check(world.Get(source)==Fluids.Water.Source&&pump.WaterMl==0,"Renewal under an unpowered pump is natural fluid behaviour");
+            Check(world.Get(source)==Fluids.Water.Source&&pump.WaterMl==10000,"Renewal under a full pump is natural fluid behaviour");
             var battery=Place(pump.Position.Offset(0,0,1),IndustryId.Battery);Check(battery.EnergyCells[0].Charge(1000000),"Seed a bounded 1 kJ test charge");
-            player.transform.position=world.Local(origin)+new Vector3(6,1,-3);yield return new WaitForSecondsRealtime(3);
-            Check(pump.WaterMl==10000&&battery.EnergyCells[0].Amount==840000&&world.Get(source)==Fluids.Water.Source,"Battery-powered pump uses exactly 160 J for 10 L; pool renews");
+            pump.WaterMl=0;player.transform.position=world.Local(origin)+new Vector3(6,1,-3);yield return new WaitForSecondsRealtime(3);
+            Check(pump.WaterMl==10000&&battery.EnergyCells[0].Amount==1000000&&world.Get(source)==Fluids.Water.Source,"Pump uses no adjacent battery charge for 10 L; pool renews");
             long retained=battery.EnergyCells[0].Amount;yield return new WaitForSecondsRealtime(.5f);Check(retained==battery.EnergyCells[0].Amount,"Full pump requests no more stored electricity");
             player.Camera.transform.position=world.Local(pump.Position)+new Vector3(.5f,3,.5f);player.Camera.transform.LookAt(world.Local(pump.Position)+Vector3.one*.5f);Check(game.TryOpenMachine(pump.Position),"Open pump control");yield return Capture("pump-intake-status");game.SetMode(ScreenMode.Play);
             // A pump at water level replaces that water cell and cannot renew sandstone below.

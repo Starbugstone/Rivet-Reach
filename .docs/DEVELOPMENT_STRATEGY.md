@@ -277,7 +277,7 @@ Add:
 
 - common machine architecture;
 - starter boiler-engine and alternator with manual water/fuel bootstrap;
-- powered crusher, pump and finite-terrain drill;
+- powered crusher and finite-terrain drill, plus a pump requiring no electricity;
 - minimal tank/fluid pipes using the final quantity/type model;
 - containers;
 - item pipes using a logical network;
