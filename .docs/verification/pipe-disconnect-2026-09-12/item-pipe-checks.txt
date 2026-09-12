@@ -1,0 +1,342 @@
+PASS 341 assertions
+PASS Furnace has default blue inlet and geometry on face 0
+PASS Crushed metal enters ingredients with exact conservation on face 0
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Furnace has default blue inlet and geometry on face 0
+PASS Crushed metal enters ingredients with exact conservation on face 0
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Furnace has default blue inlet and geometry on face 0
+PASS Crushed metal enters ingredients with exact conservation on face 0
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Furnace has default blue inlet and geometry on face 1
+PASS Crushed metal enters ingredients with exact conservation on face 1
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Furnace has default blue inlet and geometry on face 1
+PASS Crushed metal enters ingredients with exact conservation on face 1
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Furnace has default blue inlet and geometry on face 1
+PASS Crushed metal enters ingredients with exact conservation on face 1
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Furnace has default blue inlet and geometry on face 2
+PASS Crushed metal enters ingredients with exact conservation on face 2
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Furnace has default blue inlet and geometry on face 2
+PASS Crushed metal enters ingredients with exact conservation on face 2
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Furnace has default blue inlet and geometry on face 2
+PASS Crushed metal enters ingredients with exact conservation on face 2
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Furnace has default blue inlet and geometry on face 3
+PASS Crushed metal enters ingredients with exact conservation on face 3
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Furnace has default blue inlet and geometry on face 3
+PASS Crushed metal enters ingredients with exact conservation on face 3
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Furnace has default blue inlet and geometry on face 3
+PASS Crushed metal enters ingredients with exact conservation on face 3
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Furnace has default blue inlet and geometry on face 4
+PASS Crushed metal enters ingredients with exact conservation on face 4
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Furnace has default blue inlet and geometry on face 4
+PASS Crushed metal enters ingredients with exact conservation on face 4
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Furnace has default blue inlet and geometry on face 4
+PASS Crushed metal enters ingredients with exact conservation on face 4
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Furnace has default blue inlet and geometry on face 5
+PASS Crushed metal enters ingredients with exact conservation on face 5
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Furnace has default blue inlet and geometry on face 5
+PASS Crushed metal enters ingredients with exact conservation on face 5
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Furnace has default blue inlet and geometry on face 5
+PASS Crushed metal enters ingredients with exact conservation on face 5
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Mixed chest skips dirt and routes ingredients and fuel to separate slots
+PASS Furnace authority rejects incompatible inputs and protected extraction
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Full ingredient slot retains excess at source
+PASS Dual-purpose logs follow existing ingredient preference
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine rejects dirt: 142
+PASS Machine accepts only its supported recipe/fuel: 142
+PASS Configure compatible endpoint
+PASS Machine rejects dirt: 140
+PASS Machine accepts only its supported recipe/fuel: 140
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine rejects dirt: 144
+PASS Machine accepts only its supported recipe/fuel: 144
+PASS Configure compatible endpoint
+PASS Furnace prefers ingredients matching existing iron output across source ordering 0
+PASS Output preference preserves every iron ingredient
+PASS Configure compatible endpoint
+PASS Furnace prefers ingredients matching existing iron output across source ordering 1
+PASS Output preference preserves every iron ingredient
+PASS Configure compatible endpoint
+PASS Furnace prefers ingredients matching existing iron output across source ordering 2
+PASS Output preference preserves every iron ingredient
+PASS Configure compatible endpoint
+PASS Furnace prefers ingredients matching existing iron output across source ordering 3
+PASS Output preference preserves every iron ingredient
+PASS Configure compatible endpoint
+PASS Furnace prefers ingredients matching existing iron output across source ordering 4
+PASS Output preference preserves every iron ingredient
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Crusher prefers the raw ore matching its existing crushed output
+PASS Configure compatible endpoint
+PASS Chest fills an existing item type first and still emits at most four per second
+PASS Receiver falls back to other compatible cargo once preferred source is exhausted
+PASS Incompatible fluid retained at source for device 140
+PASS Supported water moves without loss for device 140
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Incompatible fluid retained at source for device 143
+PASS Supported water moves without loss for device 143
+PASS Incompatible fluid retained at source for device 145
+PASS Supported water moves without loss for device 145
+PASS Fluid capability rejects unsupported machines and null fluids

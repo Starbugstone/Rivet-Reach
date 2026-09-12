@@ -39,6 +39,9 @@ namespace RivetReach
             player.Camera.transform.position=world.Local(origin)+new Vector3(6.7f,5.6f,-5.8f);player.Camera.transform.LookAt(world.Local(origin)+new Vector3(1.3f,.75f,2.9f));
             yield return new WaitForSecondsRealtime(.5f);
             var arrows=world.GetComponent<PipeEndpointPresentation>();
+            game.Inventory.Take(0,int.MaxValue);game.Selected=0;yield return new WaitForSecondsRealtime(.3f);
+            Check(arrows.ViewCount==0,"Empty hands hide every pipe arrow");
+            game.Inventory.Add(IndustryId.Wrench,1,0,1);yield return new WaitForSecondsRealtime(.3f);
             Check(arrows.ViewCount==6,"Six machine-facing item/fluid arrows render, including vertical ends");
             Check(Vector3.Dot(arrows.ViewAt(itemPipe.Position,1).up,Vector3.right)>.99f&&Vector3.Dot(arrows.ViewAt(itemPipe.Position,0).up,Vector3.right)>.99f,"Red output exits source and blue input enters destination along the actual flow");
             yield return Capture("connections-workshop");
@@ -77,7 +80,20 @@ namespace RivetReach
             var drop=game.Items.Piles.Last();
             Check(drop.View!=null&&drop.View.GetComponentsInChildren<MeshFilter>().Sum(f=>f.sharedMesh.triangles.Length/3)==Resources.Load<GameObject>("Tools/Wrench").GetComponentsInChildren<MeshFilter>().Sum(f=>f.sharedMesh.triangles.Length/3),"Dropped wrench renders the same original imported geometry");game.Items.enabled=false;
             InputSystem.QueueStateEvent(Mouse.current,new MouseState().WithButton(MouseButton.Right));yield return null;yield return null;
-            Check(game.Mode==ScreenMode.Play&&sim.PipeEndRole(itemPipe,1)==PortRole.Input,"Actual right-click with the selected wrench switches the end to blue input without opening inventory");
+            Check(game.Mode==ScreenMode.Play&&sim.PipeEndRole(itemPipe,1)==PortRole.Disabled,"Actual wrench right-click cycles Output to No connection without opening inventory");
+            int disconnected=itemPipe.PipeDirections;yield return new WaitForSecondsRealtime(.35f);
+            Check(itemPipe.PipeDirections==disconnected,"Held right-click does not cycle past disconnected");
+            InputSystem.QueueStateEvent(Mouse.current,new MouseState());yield return null;
+            Check(arrows.ViewAt(itemPipe.Position,1)==null&&game.TryGetPipeEndTarget(out aimed,out face)&&aimed==itemPipe&&face==1,"Disconnected end hides its arrow but remains aimable at the same side");
+            var pipeView=world.GetComponent<IndustryPresentation>().ViewAt(itemPipe.Position);
+            Check(pipeView.GetComponentInChildren<Renderer>().bounds.min.x>world.Local(itemPipe.Position).x+.2f,"Actual item-pipe rendering leaves a gap at the disconnected machine");
+            yield return Capture("item-end-disconnected");
+            game.Selected=0;yield return new WaitForSecondsRealtime(.3f);
+            Check(arrows.ViewCount==0&&!game.TryConfigurePipeEnd(),"Another selected item hides arrows and cannot reconnect a missing arm");
+            game.Selected=1;yield return new WaitForSecondsRealtime(.3f);
+            Check(arrows.ViewAt(itemPipe.Position,0)!=null&&arrows.ViewAt(itemPipe.Position,1)==null,"Holding wrench again shows only connected-end arrows");
+            InputSystem.QueueStateEvent(Mouse.current,new MouseState().WithButton(MouseButton.Right));yield return null;yield return null;
+            Check(game.Mode==ScreenMode.Play&&sim.PipeEndRole(itemPipe,1)==PortRole.Input,"Actual wrench click on the missing end restores blue Input");
             int setting=itemPipe.PipeDirections;yield return new WaitForSecondsRealtime(.35f);
             Check(itemPipe.PipeDirections==setting,"Holding right-click does not repeatedly flip an endpoint");
             InputSystem.QueueStateEvent(Mouse.current,new MouseState());yield return null;
@@ -102,8 +118,12 @@ namespace RivetReach
             // Fluid end targeting goes through the same visibility/reach authority.
             player.Camera.transform.position=world.Local(fluidPipe.Position)+new Vector3(.16f,1.3f,-2);
             player.Camera.transform.LookAt(world.Local(fluidPipe.Position)+new Vector3(.16f,.5f,.29f));
-            Check(game.TryGetPipeEndTarget(out aimed,out face)&&aimed==fluidPipe&&face==1&&game.TryConfigurePipeEnd(),"Selected wrench can reverse a fluid end through the same targeting authority");
-            Check(sim.PipeEndRole(fluidPipe,1)==PortRole.Input&&sim.PipeEndRole(fluidPipe,0)==PortRole.Input,"Changing one end leaves the other end unchanged");
+            Check(game.TryGetPipeEndTarget(out aimed,out face)&&aimed==fluidPipe&&face==1&&game.TryConfigurePipeEnd(),"Selected wrench can disconnect a fluid end through the same targeting authority");
+            Check(sim.PipeEndRole(fluidPipe,1)==PortRole.Disabled&&sim.PipeEndRole(fluidPipe,0)==PortRole.Input,"Changing one fluid end leaves the other end unchanged");
+            yield return new WaitForSecondsRealtime(.3f);yield return Capture("fluid-end-disconnected");
+            Check(game.TryConfigurePipeEnd()&&sim.PipeEndRole(fluidPipe,1)==PortRole.Input,"Wrench on missing fluid end restores Input");
+            Check(sim.TogglePipeEnd(itemPipe,1)&&sim.PipeEndRole(itemPipe,1)==PortRole.Disabled,"Persist a disconnected item endpoint");
+            Check(sim.TogglePipeEnd(fluidPipe,0)&&sim.TogglePipeEnd(fluidPipe,0)&&sim.PipeEndRole(fluidPipe,0)==PortRole.Disabled,"Persist a disconnected fluid endpoint");
             player.Camera.transform.position+=Vector3.back*5;
             Check(!game.TryConfigurePipeEnd(),"Out-of-reach pipe end cannot be configured");
             player.HeldBlock.enabled=false;
@@ -125,7 +145,7 @@ namespace RivetReach
             Check(game.CaptureSave(entry).SequenceEqual(saved),"All serialized state round-trips byte-for-byte before simulation resumes");
             sim=game.Industry.Simulation;
             var intactWorld=game.World;var restoredPipe=sim.At(itemPipe.Position);int valid=restoredPipe.PipeDirections;
-            restoredPipe.PipeDirections=3;byte[] invalid=game.CaptureSave(entry);restoredPipe.PipeDirections=valid;File.WriteAllBytes(entry.Path,invalid);
+            restoredPipe.PipeDirections=4096;byte[] invalid=game.CaptureSave(entry);restoredPipe.PipeDirections=valid;File.WriteAllBytes(entry.Path,invalid);
             Check(!game.LoadGame(entry)&&game.World==intactWorld&&sim.At(itemPipe.Position).PipeDirections==valid,"Invalid saved end mode rejects and rolls back without changing the current world");File.WriteAllBytes(entry.Path,saved);
             Check(sim.At(itemPipe.Position).PipeDirections==itemSettings&&sim.At(fluidPipe.Position).PipeDirections==fluidSettings&&sim.At(upperPipe.Position).PipeDirections==verticalSettings,"Item, fluid and vertical end settings survive load");
             Check(sim.At(battery.Position).EnergyCells[0].Amount==energy&&sim.At(source.Position).WaterMl+sim.At(destination.Position).WaterMl+sim.At(lowerTank.Position).WaterMl+sim.At(upperTank.Position).WaterMl==water,"Save/load preserves exact battery energy and all fluid");
@@ -133,7 +153,8 @@ namespace RivetReach
             yield return Settle(120);for(int i=0;i<10;i++)sim.Step();
             game.Player.Camera.transform.position=game.World.Local(origin)+new Vector3(3.7f,2.1f,3.5f);game.Player.Camera.transform.LookAt(game.World.Local(fluidPipe.Position)+Vector3.one*.5f);
             yield return new WaitForSecondsRealtime(.3f);
-            Check(game.World.GetComponent<PipeEndpointPresentation>().ViewAt(fluidPipe.Position,1)!=null,"Restored endpoints rebuild their visible arrows");
+            Check(game.World.GetComponent<PipeEndpointPresentation>().ViewAt(fluidPipe.Position,1)!=null,"Restored connected endpoints rebuild their wrench-visible arrows");
+            Check(sim.PipeEndRole(sim.At(itemPipe.Position),1)==PortRole.Disabled&&sim.PipeEndRole(sim.At(fluidPipe.Position),0)==PortRole.Disabled&&game.World.GetComponent<PipeEndpointPresentation>().ViewAt(fluidPipe.Position,0)==null,"Saved disconnected item and fluid ends stay disabled after simulation resumes");
             yield return Capture("restored-connection-directions");
             Check(game.Inventory.Slots[1].Id==IndustryId.Wrench,"Wrench inventory identity survives save/load");
             yield return ReviewFurnacePipes(origin);

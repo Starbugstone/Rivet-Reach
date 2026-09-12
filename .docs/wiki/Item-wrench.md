@@ -22,7 +22,7 @@ Craft one at a 3×3 [Workbench](Item-workbench.md) from three iron ingots in the
 
 ## Using it
 
-Select the Wrench in your hotbar and right-click the pipe end touching a compatible machine or chest. Each click switches between a **blue arrow into the machine (Input)** and a **red arrow out (Output)**. The wrench is not consumed. Empty hands, other selected items and Interact cannot change direction. Pipe centres, pipe-to-pipe links and electrical cables have no direction to switch. See [Pipes](Pipes.md) for complete examples.
+Select the Wrench in your hotbar and right-click the pipe end touching a compatible machine or chest. Each click cycles **Input (blue) → Output (red) → No connection → Input**. No connection removes the arm and blocks transfers at that end; wrench-click the same pipe side to reconnect. Arrows appear only while the Wrench is selected in your hand. The wrench is not consumed. Empty hands, other selected items and Interact cannot change direction. Pipe centres, pipe-to-pipe links and electrical cables have no direction to switch. See [Pipes](Pipes.md) for complete examples.
 
 ## Crafting and processing
 

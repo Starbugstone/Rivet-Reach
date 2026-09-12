@@ -1,5 +1,7 @@
 # All-face connections and wrench — 2026-09-12
 
+The later [disconnected-end follow-up](PIPE_DISCONNECT_RESULTS.md) adds No connection, clicking the missing arm to reconnect, and arrows visible only with the wrench selected.
+
 The later [furnace pipe follow-up](FURNACE_PIPE_RESULTS.md) adds furnace endpoints, compatible cargo and receiver preferences.
 
 The [power-status follow-up](POWER_STATUS_RESULTS.md) identifies the later build that separates registered electrical links from supplied watts. The artifact identities and wrench/art evidence below remain those of the earlier focused run.

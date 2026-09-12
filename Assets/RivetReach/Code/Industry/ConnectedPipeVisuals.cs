@@ -31,12 +31,23 @@ namespace RivetReach
             body.AddComponent<MeshRenderer>().sharedMaterial=Resources.Load<Material>("Industry/Workshop");
             return root;
         }
-        public static void Set(GameObject root,string key,int mask,int isolatedRotation=0)
+        public static void Set(GameObject root,string key,int mask,int isolatedRotation=0,int disconnectedFaces=0)
         {
             if(root==null)return;var body=root.transform.GetChild(0);var filter=body.GetComponent<MeshFilter>();
             var shape=Shape(key,mask);if(filter.sharedMesh!=shape)filter.sharedMesh=shape;
             body.localRotation=mask==0?Quaternion.Euler(0,isolatedRotation*90,0):Quaternion.identity;
-            body.localPosition=Vector3.one*.5f-body.localRotation*(Vector3.one*.5f);
+            var scale=Vector3.one;var center=Vector3.one*.5f;
+            if(disconnectedFaces!=0)
+            {
+                // The authored zero/one-end variants span a full straight cell.
+                // Retract the closed half while retaining the live boundary anchor.
+                if(mask==0)scale=Vector3.one*.4f;
+                else if((mask&(mask-1))==0)
+                    for(int face=0;face<6;face++)if((mask&(1<<face))!=0&&(disconnectedFaces&(1<<(face^1)))!=0)
+                    {scale[face/2]=.65f;var d=IndustryDefinition.Directions[face];center+=new Vector3(d.x,d.y,d.z)*.175f;}
+            }
+            body.localScale=scale;
+            body.localPosition=center-body.localRotation*Vector3.Scale(Vector3.one*.5f,scale);
         }
     }
 }

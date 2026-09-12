@@ -29,9 +29,17 @@ namespace RivetReach
         public bool TogglePipeEnd(MachineState pipe,int face)
         {
             if(!HasPipeEnd(pipe,face))return false;
-            int value=PipeEndRole(pipe,face)==PortRole.Input?2:1;
+            var role=PipeEndRole(pipe,face);
+            int value=role==PortRole.Input?2:role==PortRole.Output?3:1;
             pipe.PipeDirections=(pipe.PipeDirections&~(3<<(face*2)))|(value<<(face*2));
             Invalidate();return true;
+        }
+        public int DisconnectedPipeFaces(MachineState pipe)
+        {
+            int mask=0;
+            for(int face=0;face<6;face++)
+                if(HasPipeEnd(pipe,face)&&PipeEndRole(pipe,face)==PortRole.Disabled)mask|=1<<face;
+            return mask;
         }
         IEnumerable<MachinePort> TransportPorts(MachineState m,NetworkKind kind)
         {
@@ -39,7 +47,14 @@ namespace RivetReach
             foreach(var p in PipeConnections.Ports(m))
             {
                 if(p.Kind!=kind)continue;
-                if(p.Role==PortRole.Route){yield return p;yield break;}
+                if(p.Role==PortRole.Route)
+                {
+                    // Only transport terminals are disabled. Pipe runs and fitted
+                    // power/signal channels retain their independent connections.
+                    int faces=PipeConnections.WorldFaces(p,m.Rotation)&~DisconnectedPipeFaces(m),local=0;
+                    for(int face=0;face<6;face++)if((faces&(1<<face))!=0)local|=1<<IndustryDefinition.RotateFace(face,(4-m.Rotation)%4);
+                    yield return new MachinePort(kind,p.Role,local);yield break;
+                }
                 active=true;
             }
             if(!active)yield break;
@@ -52,7 +67,7 @@ namespace RivetReach
                     ?PipeConnections.EndRole(neighbor,face^1,m):PipeConnections.DefaultRole(m,kind,face);
                 // Recovery remains an explicit drain-only operation, even if an end
                 // has been set to input. A breached tank can never receive new fluid.
-                if(m.Definition.Id==IndustryId.TankController&&role!=PortRole.Output)continue;
+                if(role==PortRole.Disabled||m.Definition.Id==IndustryId.TankController&&role!=PortRole.Output)continue;
                 int localFace=IndustryDefinition.RotateFace(face,(4-m.Rotation)%4);
                 yield return new MachinePort(kind,role,1<<localFace);
             }

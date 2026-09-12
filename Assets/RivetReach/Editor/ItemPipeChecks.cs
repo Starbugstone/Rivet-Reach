@@ -31,7 +31,7 @@ namespace RivetReach.Editor
             var origin=new BlockPos(0,20,0);
             void Steps(IndustrySimulation sim,int count=20){for(int i=0;i<count;i++)sim.Step();}
             void Mode(IndustrySimulation sim,MachineState pipe,int face,PortRole role)
-            {if(sim.PipeEndRole(pipe,face)!=role)Check(sim.TogglePipeEnd(pipe,face),"Configure compatible endpoint");}
+            {for(int i=0;i<3&&sim.PipeEndRole(pipe,face)!=role;i++)Check(sim.TogglePipeEnd(pipe,face),"Configure compatible endpoint");}
             foreach(int face in Enumerable.Range(0,6))
             foreach(byte crushed in new[]{IndustryId.CrushedCopper,IndustryId.CrushedIron,IndustryId.CrushedGold})
             {

@@ -102,7 +102,7 @@ namespace RivetReach
                 {
                     var topology=m.Definition.Id==IndustryId.PowerCable?sim.Power.Topology:m.Definition.Id==IndustryId.ItemPipe?sim.ItemNetwork:m.Definition.Id==IndustryId.FluidPipe?sim.FluidNetwork:sim.Signals.Topology;
                     topology.Connections.TryGetValue(m.Position,out int mask);
-                    if(ConnectedPipeVisuals.UsesConnectedMesh(m.Definition.Id))ConnectedPipeVisuals.Set(v.Root,m.Definition.Key,mask,m.Rotation);
+                    if(ConnectedPipeVisuals.UsesConnectedMesh(m.Definition.Id))ConnectedPipeVisuals.Set(v.Root,m.Definition.Key,mask,m.Rotation,PipeConnections.IsTransport(m.Definition.Id)?sim.DisconnectedPipeFaces(m):0);
                     if(v.Mask!=mask)
                     {v.Mask=mask;foreach(var t in v.Parts)if(t.name.StartsWith("Arm")&&t.name.Length>3&&char.IsDigit(t.name[3])){int face=t.name[3]-'0';int rotated=IndustryDefinition.RotateFace(face,m.Rotation);t.gameObject.SetActive((mask&(1<<rotated))!=0);}}
                     if(!v.MaterialShown||v.Active!=active)

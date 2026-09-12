@@ -49,7 +49,7 @@ namespace RivetReach
                     if(!PipeConnections.IsTransport(pipe.Definition.Id)||(game.World.Local(pipe.Position)-game.Player.transform.position).sqrMagnitude>32*32)continue;
                     for(int face=0;face<6;face++)
                     {
-                        if(!sim.HasPipeEnd(pipe,face))continue;var key=(pipe.Position,face);visible.Add(key);
+                        if(!game.HoldingWrench||!sim.HasPipeEnd(pipe,face)||sim.PipeEndRole(pipe,face)==PortRole.Disabled)continue;var key=(pipe.Position,face);visible.Add(key);
                         if(views.ContainsKey(key))continue;
                         var root=new GameObject("Pipe end "+face);root.transform.SetParent(transform,false);
                         Surface(root.transform,"Arrow border",outline,1.1f,0);
@@ -61,6 +61,7 @@ namespace RivetReach
             }
             foreach(var v in views.Values)
             {
+                v.Root.gameObject.SetActive(game.HoldingWrench&&sim.HasPipeEnd(v.Pipe,v.Face)&&sim.PipeEndRole(v.Pipe,v.Face)!=PortRole.Disabled);
                 var d=IndustryDefinition.Directions[v.Face];var axis=new Vector3(d.x,d.y,d.z);
                 var center=game.World.Local(v.Pipe.Position)+Vector3.one*.5f+axis*.34f;
                 var normal=Vector3.ProjectOnPlane(game.Player.Camera.transform.position-center,axis);

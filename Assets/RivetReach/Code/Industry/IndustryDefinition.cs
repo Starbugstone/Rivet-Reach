@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace RivetReach
 {
     public enum NetworkKind { Signal, Power, Item, Fluid }
-    public enum PortRole { Route, Input, Output, Storage }
+    public enum PortRole { Route, Input, Output, Storage, Disabled }
     public enum MachineStatus { Ready, Running, NoPower, Underpowered, DisabledBySignal, OutputFull, NoInput, NoFuel, NoWater, NoShaft, Dormant, Depleted, StructureInvalid }
     public readonly struct MachinePort
     {

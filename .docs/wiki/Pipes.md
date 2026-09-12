@@ -8,8 +8,8 @@ Machines accept their supported power, item and fluid connections on **all six f
 
 | Connection | Carries | How you control it |
 |---|---|---|
-| [Item Pipe](Item-item-pipe.md) | Items between supported machines and chests | Wrench sets each machine-facing end to Input or Output |
-| [Fluid Pipe](Item-fluid-pipe.md) | Stored water between machines and tanks | Wrench sets each machine-facing end to Input or Output |
+| [Item Pipe](Item-item-pipe.md) | Items between supported machines and chests | Wrench sets each machine-facing end to Input, Output or No connection |
+| [Fluid Pipe](Item-fluid-pipe.md) | Stored water between machines and tanks | Wrench sets each machine-facing end to Input, Output or No connection |
 | [Power Cable](Item-power-cable.md) | Electricity | Automatic; no direction setting |
 | [Signal Wire](Item-signal-wire.md) / [Signal Conduit](Item-signal-conduit.md) | Blue Signal ON/OFF | Separate controls; see [Blue Signal](Blue-Signal.md) |
 
@@ -34,13 +34,14 @@ Put it in your hotbar and **select it so you are holding it**. A wrench elsewher
 1. Place the pipe against any accessible face of a compatible machine or chest.
 2. Hold the **Wrench**.
 3. Aim at the **pipe end touching that machine**, close to the join.
-4. **Right-click** once to reverse that end's direction.
-5. Check the arrow and the crosshair's Input/Output label.
+4. **Right-click** to cycle **Input → Output → No connection → Input**.
+5. Check the arrow and the crosshair's connection label while holding the wrench.
 
 | Arrow | Meaning |
 |---|---|
 | **Blue arrow entering the machine** | **Input**: the machine receives items or water |
 | **Red arrow leaving the machine** | **Output**: the machine supplies items or water |
+| **No arm or arrow at the machine** | **No connection**: this end transfers nothing. Aim at the same pipe side and right-click with the wrench to restore Input. |
 
 Directions are always named from the **machine's** point of view. A route normally needs a **red output at its source** and a **blue input at its destination**. Both arrows point along the intended movement.
 
@@ -50,7 +51,7 @@ Each end is independent. Changing one does not reverse the whole network or its 
 
 Pipe-to-pipe joins and loose ends have no machine direction to configure. Power cables have no direction setting. Right-click the **centre** of a pipe, or use Interact, to open its normal interface.
 
-Arrows show the configured direction even when a machine is idle or a tank is empty. A blue input arrow is not an ON Blue Signal and does not power or enable the machine.
+Arrows appear **only while the Wrench is selected in your hand**. They show the configured direction even when a machine is idle or a tank is empty. Switching to empty hands or another item hides every arrow. A disconnected arm stays absent with any item selected; the pipe itself remains placed. A blue input arrow is not an ON Blue Signal and does not power or enable the machine.
 
 ## Example: chest → crusher → chest
 
@@ -102,7 +103,7 @@ Fluid pipes move stored quantities, not flowing world blocks. Water is the curre
 
 Build a valid [multiblock tank](Tanks.md) and use its functional Tank Fluid Ports or Signal Valve Ports. They share the tank's contents; wall, glass and frame blocks are not fluid endpoints.
 
-Keep the port **Enabled** in its interface, then use a held wrench at the adjoining pipe end to choose Input or Output. A Signal Valve also needs an attached **ON** Blue Signal. The wrench does not bypass a closed valve, an invalid structure or a full tank.
+Keep the port **Enabled** in its interface, then use a held wrench at the adjoining pipe end to choose Input, Output or No connection. A Signal Valve also needs an attached **ON** Blue Signal. The wrench does not bypass a closed valve, an invalid structure or a full tank.
 
 **Recovery Out** at a controller is drain-only, including during a breach. Set its pipe end to red Output. Selecting blue Input does not allow that recovery connection to refill the tank. Drain contents before removing the controller.
 
@@ -113,7 +114,7 @@ Open the pipe interface at its centre or with Interact:
 - **FIT POWER** adds a separate electrical channel using one Power Cable.
 - **FIT SIGNAL** adds a separate control channel using one Signal Conduit.
 
-Both fittings may share an Item Pipe or Fluid Pipe. Each channel follows its own compatible neighbours. Wrench direction changes affect only item/fluid transport; they do not reverse electricity or change Blue Signal.
+Both fittings may share an Item Pipe or Fluid Pipe. Each channel follows its own compatible neighbours. Wrench connection changes, including No connection, affect only item/fluid transport; they do not interrupt electricity or change Blue Signal.
 
 ## Connected network versus available electricity
 
@@ -124,7 +125,7 @@ A registered electrical connection remains connected when its generator stops or
 | Problem | Check |
 |---|---|
 | Right-click opens a menu instead of reversing an arrow | Select the Wrench and aim near the machine-facing pipe end, not the pipe centre. |
-| There is no arrow | This may be a pipe-to-pipe join, a loose end or an unsupported machine/channel. Move close enough to inspect it. |
+| There is no arrow | Hold the Wrench to see arrows. A disconnected end has no arm or arrow: wrench-click the same side to reconnect. Pipe-to-pipe joins, loose ends and unsupported channels have no arrows. |
 | Nothing moves | Use red Output at the source and blue Input at the destination; check contents, accepted items and free destination space. |
 | The crusher receives ore but does not process it | Supply electricity; 160 W gives full speed. No attached Blue Signal is needed. |
 | A tank valve stays closed | Enable the port, form the tank and supply ON Blue Signal. |

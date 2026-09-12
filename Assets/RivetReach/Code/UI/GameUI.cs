@@ -319,7 +319,7 @@ namespace RivetReach
                 if(game.Player.HasTarget&&game.Player.TargetId==IndustryId.HandCrank)
                     targetLabel.text=$"Hand Crank\n{game.Input.Keys["Interact"]} / {game.Input.UseButtonName}: turn · hold {game.Input.UseButtonName} to repeat\n50 J per turn · 100 W while cranking";
                 if(game.TryGetPipeEndTarget(out var pipe,out int pipeFace))
-                    targetLabel.text=(pipe.Definition.Id==IndustryId.ItemPipe?"Item":"Fluid")+" connection · "+(game.Industry.Simulation.PipeEndRole(pipe,pipeFace)==PortRole.Input?"<color=#3399ff>INPUT into machine</color>":"<color=#ff4433>OUTPUT from machine</color>")+(game.HoldingWrench?$"\n{game.Input.UseButtonName} with wrench: reverse direction":"\nHold a Wrench to change direction");
+                    targetLabel.text=(pipe.Definition.Id==IndustryId.ItemPipe?"Item":"Fluid")+" connection · "+(game.Industry.Simulation.PipeEndRole(pipe,pipeFace)==PortRole.Disabled?"NO CONNECTION":game.Industry.Simulation.PipeEndRole(pipe,pipeFace)==PortRole.Input?"<color=#3399ff>INPUT into machine</color>":"<color=#ff4433>OUTPUT from machine</color>")+(game.HoldingWrench?$"\n{game.Input.UseButtonName} with wrench: Input → Output → No connection":"\nHold a Wrench to change direction");
             }
             if(progress!=null)
             {

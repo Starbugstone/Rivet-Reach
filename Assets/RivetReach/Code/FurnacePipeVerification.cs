@@ -19,7 +19,7 @@ namespace RivetReach
             var fp=p.Offset(2,0,0);Put(fp,BlockId.Furnace);
             var input=sim.At(p.Offset(1,0,0));var crusher=sim.At(p);crusher.Items.Add(IndustryId.CrushedIron,4,2,3);
             void Mode(MachineState pipe,int face,PortRole role)
-            {if(sim.PipeEndRole(pipe,face)!=role)Check(sim.TogglePipeEnd(pipe,face),"Set furnace fixture pipe direction");}
+            {for(int i=0;i<3&&sim.PipeEndRole(pipe,face)!=role;i++)Check(sim.TogglePipeEnd(pipe,face),"Set furnace fixture pipe direction");}
             Mode(input,1,PortRole.Output);
             var fuelPipePos=fp.Offset(0,1,0);Put(fuelPipePos,IndustryId.ItemPipe);Put(fp.Offset(0,2,0),BlockId.Chest);
             var supply=game.Survival.At(fp.Offset(0,2,0)).Storage;supply.Add(BlockId.Dirt,7);supply.Add(BlockId.Coal,2);

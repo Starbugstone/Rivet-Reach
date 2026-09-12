@@ -28,7 +28,7 @@ namespace RivetReach.Editor
             public ItemContainer Chest(BlockPos p){World.Cells[p]=BlockId.Chest;var c=new ItemContainer(27,_=>64);World.Chests.Add(p,c);Sim.Invalidate();return c;}
             public void Steps(int count=5){for(int i=0;i<count;i++)Sim.Step();}
             public void Settle(){for(int i=0;i<100;i++){Sim.Step();if(!Sim.Rebuilding&&Sim.Multiblocks.PendingCount==0)return;}throw new Exception("Connections did not settle");}
-            public void Mode(MachineState pipe,int face,PortRole role){if(Sim.PipeEndRole(pipe,face)!=role&&!Sim.TogglePipeEnd(pipe,face))throw new Exception("Cannot set fixture end");}
+            public void Mode(MachineState pipe,int face,PortRole role){for(int i=0;i<3&&Sim.PipeEndRole(pipe,face)!=role;i++)if(!Sim.TogglePipeEnd(pipe,face))throw new Exception("Cannot set fixture end");if(Sim.PipeEndRole(pipe,face)!=role)throw new Exception("Fixture mode not reached");}
         }
         public static void Run()
         {
@@ -115,7 +115,48 @@ namespace RivetReach.Editor
                 chest.Add(BlockId.Coal,2);f.Mode(pipe,2,PortRole.Output);f.Settle();f.Steps();Check(boiler.Items.Total(BlockId.Coal)>0,"Top item inlet fills boiler's existing fuel buffer");
                 Check(!f.Sim.TogglePipeEnd(pipe,0),"An unattached end cannot be configured");
             }
-            Check(PipeConnections.ValidDirections(0)&&PipeConnections.ValidDirections(2730)&&!PipeConnections.ValidDirections(3)&&!PipeConnections.ValidDirections(4096),"Saved direction packing rejects invalid modes and bits");
+            for(int face=0;face<6;face++)for(int rotation=0;rotation<4;rotation++)
+            foreach(byte id in new[]{IndustryId.ItemPipe,IndustryId.FluidPipe})
+            {
+                var f=new Fixture();bool fluid=id==IndustryId.FluidPipe;
+                var pipe=f.Add(origin,id,rotation);var pos=IndustryDefinition.Neighbor(origin,face);
+                var otherPos=IndustryDefinition.Neighbor(origin,face^1);
+                var a=fluid?f.Add(pos,IndustryId.Tank):null;var b=fluid?f.Add(otherPos,IndustryId.Tank):null;
+                var source=fluid?null:f.Chest(pos);var dest=fluid?null:f.Chest(otherPos);
+                f.Mode(pipe,face,PortRole.Input);f.Mode(pipe,face^1,PortRole.Input);
+                Check(f.Sim.TogglePipeEnd(pipe,face)&&f.Sim.PipeEndRole(pipe,face)==PortRole.Output,"Input cycles to Output");
+                Check(f.Sim.TogglePipeEnd(pipe,face)&&f.Sim.PipeEndRole(pipe,face)==PortRole.Disabled,"Output cycles to No connection");
+                if(fluid)a.WaterMl=1000;else source.Add(BlockId.Stone,10);
+                f.Settle();f.Steps(20);var network=fluid?f.Sim.FluidNetwork:f.Sim.ItemNetwork;
+                network.Connections.TryGetValue(pipe.Position,out int mask);
+                Check((mask&(1<<face))==0&&(mask&(1<<(face^1)))!=0,"Disconnected end removes only its own connection mask on all faces/rotations");
+                Check(fluid?a.WaterMl==1000&&b.WaterMl==0:source.Total(BlockId.Stone)==10&&dest.Total(BlockId.Stone)==0,"No connection blocks extraction and conserves resources");
+                Check(f.Sim.HasPipeEnd(pipe,face)&&f.Sim.TogglePipeEnd(pipe,face)&&f.Sim.PipeEndRole(pipe,face)==PortRole.Input,"Missing arm remains configurable and reconnects as Input");
+                f.Mode(pipe,face,PortRole.Output);f.Settle();f.Steps(20);
+                Check(fluid?b.WaterMl>0&&a.WaterMl+b.WaterMl==1000:dest.Total(BlockId.Stone)>0&&source.Total(BlockId.Stone)+dest.Total(BlockId.Stone)==10,"Reconnected output resumes exact transport");
+                f.Mode(pipe,face^1,PortRole.Disabled);f.Settle();int before=fluid?b.WaterMl:dest.Total(BlockId.Stone);f.Steps(20);
+                Check((fluid?b.WaterMl:dest.Total(BlockId.Stone))==before,"No connection also blocks destination insertion");
+                f.Mode(pipe,face,PortRole.Disabled);int settings=pipe.PipeDirections;
+                f.World.Sleeping.Add(origin);f.Sim.Invalidate();f.Settle();f.World.Sleeping.Clear();f.Sim.Invalidate();f.Settle();
+                Check(pipe.PipeDirections==settings&&f.Sim.DisconnectedPipeFaces(pipe)==((1<<face)|(1<<(face^1))),"Both disabled ends survive residency rebuild without restoring defaults");
+                var visual=ConnectedPipeVisuals.Create(fluid?"fluid_pipe":"item_pipe",null);
+                ConnectedPipeVisuals.Set(visual,fluid?"fluid_pipe":"item_pipe",1<<(face^1),rotation,1<<face);
+                var bounds=visual.GetComponentInChildren<UnityEngine.Renderer>().bounds;
+                Check(face%2==0?bounds.max[face/2]<.8f:bounds.min[face/2]>.2f,"Rendered closed half retracts from the disabled boundary");
+                ConnectedPipeVisuals.Set(visual,fluid?"fluid_pipe":"item_pipe",0,rotation,63);
+                bounds=visual.GetComponentInChildren<UnityEngine.Renderer>().bounds;
+                Check(bounds.min.x>0&&bounds.min.y>0&&bounds.min.z>0&&bounds.max.x<1&&bounds.max.y<1&&bounds.max.z<1,"Fully disconnected pipe leaves visible gaps at every boundary");
+                UnityEngine.Object.DestroyImmediate(visual);
+            }
+            {
+                var f=new Fixture();var tank=f.Add(origin,IndustryId.Tank);var pipe=f.Add(origin.Offset(1,0,0),IndustryId.FluidPipe);
+                pipe.Additions=PipeAddition.Power|PipeAddition.Signal;var battery=f.Add(origin.Offset(1,0,1),IndustryId.Battery);var lever=f.Add(origin.Offset(1,0,-1),IndustryId.Lever);
+                f.Mode(pipe,1,PortRole.Disabled);f.Settle();
+                Check(f.Sim.Power.Topology.Connected(battery)&&f.Sim.Signals.Topology.Connections.ContainsKey(pipe.Position),"Transport disconnection preserves independent power and signal fittings");
+                f.Sim.Remove(tank.Position);f.World.Cells.Remove(tank.Position);var next=f.Add(tank.Position,IndustryId.FluidPipe);f.Settle();
+                Check(f.Sim.FluidNetwork.Connections.TryGetValue(pipe.Position,out int mask)&&(mask&2)!=0&&!f.Sim.TogglePipeEnd(pipe,1),"Stored disabled terminal does not disable a replacement pipe-to-pipe run");
+            }
+            Check(PipeConnections.ValidDirections(0)&&PipeConnections.ValidDirections(2730)&&PipeConnections.ValidDirections(4095)&&!PipeConnections.ValidDirections(-1)&&!PipeConnections.ValidDirections(4096),"Saved direction packing accepts disconnected ends and rejects out-of-range bits");
             Directory.CreateDirectory("Logs/Connections");File.WriteAllText("Logs/Connections/checks.txt",$"PASS {count} assertions\n"+log);
         }
     }

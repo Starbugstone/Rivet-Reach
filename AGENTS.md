@@ -107,3 +107,7 @@ The user authorized [fitted armor and ingot presentation](.docs/EQUIPMENT_ART.md
 ## Authorized pumps without electricity
 
 The user requested pumps that consume no electricity to avoid a water/power startup dependency. [INDUSTRY.md](.docs/INDUSTRY.md) owns the 40-tick source extraction, zero electrical demand and absence of a pump power endpoint. Preserve optional signal control, water conservation, full-buffer and residency gates, and existing saved buffers/partial work. [Pump verification](.docs/verification/PUMP_RESULTS.md) records measured evidence.
+
+## Authorized disconnected pipe ends and wrench-only arrows
+
+The user requested an additional **No connection** state: selected-wrench right-click cycles **Input → Output → No connection → Input**. Disconnected ends transfer nothing and show no arm/arrow, while the same side remains a wrench target for reconnection. Direction arrows appear only while the wrench is selected in hand. Preserve independent ends, pipe-to-pipe routing, fitted power/signal channels and saved states. [Industry rules](.docs/INDUSTRY.md#wrench-and-configurable-pipe-ends--2026-09-12) own behavior; [verification](.docs/verification/PIPE_DISCONNECT_RESULTS.md) records measured evidence.

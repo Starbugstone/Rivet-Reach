@@ -33,8 +33,8 @@ namespace RivetReach
         public bool TryConfigurePipeEnd()
         {
             if(!HoldingWrench||!TryGetPipeEndTarget(out var pipe,out int face)||!Industry.Simulation.TogglePipeEnd(pipe,face))return false;
-            bool input=Industry.Simulation.PipeEndRole(pipe,face)==PortRole.Input;
-            Notify((pipe.Definition.Id==IndustryId.ItemPipe?"Items":"Fluid")+(input?": INPUT into machine (blue)":": OUTPUT from machine (red)"),2);
+            var role=Industry.Simulation.PipeEndRole(pipe,face);
+            Notify((pipe.Definition.Id==IndustryId.ItemPipe?"Items":"Fluid")+(role==PortRole.Disabled?": NO CONNECTION · wrench this side to reconnect":role==PortRole.Input?": INPUT into machine (blue)":": OUTPUT from machine (red)"),2);
             Sound.Place(pipe.Definition.Id,World.Local(pipe.Position));Player.Arms.TriggerSwing();Player.Body.TriggerSwing();return true;
         }
     }

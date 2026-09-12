@@ -1,5 +1,7 @@
 # Current verification evidence
 
+[Disconnected pipe ends and wrench-only arrows](PIPE_DISCONNECT_RESULTS.md): three-state cycle, missing-arm reconnection, saved states and native-player evidence.
+
 
 [Starter station graphics](STARTER_STATION_RESULTS.md) — chest, workbench and furnace brought into the Machinist’s Bench material family; actual Blender source and focused Unity review.
 

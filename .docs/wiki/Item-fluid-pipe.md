@@ -23,7 +23,7 @@ Make this item using the crafting or processing recipes below.
 
 ## Using it
 
-Connect any face of a water machine or functional tank fluid port. A selected [Wrench](Item-wrench.md) plus right-click on the machine-facing end sets blue Input into the machine or red Output from it. Opening the pipe normally gives access to separate signal/power fittings. See [Pipes](Pipes.md) and [tanks](Tanks.md).
+Connect any face of a water machine or functional tank fluid port. A selected [Wrench](Item-wrench.md) plus right-click on the machine-facing end cycles blue Input, red Output and No connection. Arrows show only while holding the wrench; No connection removes the arm, and clicking that side again reconnects it. Opening the pipe normally gives access to separate signal/power fittings. See [Pipes](Pipes.md) and [tanks](Tanks.md).
 
 ## Crafting and processing
 

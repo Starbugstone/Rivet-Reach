@@ -72,13 +72,12 @@ namespace RivetReach
         public static PortRole EndRole(MachineState pipe,int face,MachineState machine)
         {
             int configured=(pipe.PipeDirections>>(face*2))&3;
-            return configured==1?PortRole.Input:configured==2?PortRole.Output:machine==null?PortRole.Input:DefaultRole(machine,TransportKind(pipe),face^1);
+            return configured==3?PortRole.Disabled:configured==1?PortRole.Input:configured==2?PortRole.Output:machine==null?PortRole.Input:DefaultRole(machine,TransportKind(pipe),face^1);
         }
         public static bool ValidDirections(int directions)
         {
-            if(directions<0||directions>4095)return false;
-            for(int face=0;face<6;face++)if(((directions>>(face*2))&3)==3)return false;
-            return true;
+            // All four two-bit values are defined: default, input, output, disconnected.
+            return directions>=0&&directions<=4095;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace RivetReach
             if(IndustryId.BatteryPart(m.Definition.Id)){BuildBatteryMachine(parent,m);return;}
             if(IndustryId.TankPart(m.Definition.Id)){BuildMultiblockMachine(parent,m);return;}
             Label(parent,"MACHINE CONTROL",821,115,315,32,23);
-            Label(parent,PipeConnections.IsTransport(m.Definition.Id)?"Hold a Wrench and right-click a machine-facing end. Blue: input · Red: output.":m.Definition.Help+(m.Definition.Watts>0?"\nPower connects on all six faces." : ""),821,157,307,62,15,gold);
+            Label(parent,PipeConnections.IsTransport(m.Definition.Id)?"Wrench + right-click the pipe side: Input → Output → No connection. Click the missing end to reconnect.":m.Definition.Help+(m.Definition.Watts>0?"\nPower connects on all six faces." : ""),821,157,307,62,15,gold);
             var status=Panel(parent,821,228,310,55,slate);machineStatus=Label(status.transform,"",12,10,290,40,19,gold);
             if(m.Definition.Id==IndustryId.Crusher||m.Definition.Id==IndustryId.Boiler)
             {Label(parent,m.Definition.Id==IndustryId.Boiler?"FUEL":"INPUT",821,299,150,22,13,gold);Slot(parent,MachineSlotStart,821,325,55);}
