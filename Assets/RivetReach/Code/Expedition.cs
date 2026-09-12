@@ -118,6 +118,12 @@ namespace RivetReach
             if((OpenStation!=null||OpenMachine!=null)&&(!World.Ready(StationPosition)||(World.Local(StationPosition)+Vector3.one*.5f-Player.transform.position).sqrMagnitude>36))SetMode(ScreenMode.Play);
             if(Health.Dead)return;
             if(Input.PollRebind()){UI.Rebuild();return;}
+            // Escape always dismisses an inventory/station, even with a rebound Pause
+            // action or a focused search field. Consume it before other bound actions.
+            if(InventoryOpen&&Input.Rebinding==null&&Keyboard.current?.escapeKey.wasPressedThisFrame==true)
+            {
+                SetMode(ScreenMode.Play);return;
+            }
             if(Input.Pressed("Pause"))SetMode(Mode==ScreenMode.Play?ScreenMode.Pause:Started?ScreenMode.Play:ScreenMode.Title);
             if(Started&&!UI.EditingText&&Input.Pressed("Inventory"))SetMode(InventoryOpen?ScreenMode.Play:ScreenMode.Inventory);
             // A station may have opened earlier this frame in the player's Update.
