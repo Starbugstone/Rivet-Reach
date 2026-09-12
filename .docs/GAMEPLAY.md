@@ -405,6 +405,14 @@ The user explicitly authorized mobs, Blender-authored enemies, AI and spawning o
 
 These controls and values form the current playable survival slice. Tool durability, enchantments, irrigation, breeding and armor cosmetics are not represented as implemented. [Durable saves](SAVES.md) preserve survival state, including hunger, armor and active healing. [Survival verification](verification/SURVIVAL_RESULTS.md) records checks and outstanding review.
 
+### Eating presentation — 2026-09-12
+
+Holding Use while hungry raises the selected food and dominant hand toward the mouth, just below the camera centre, with small repeated biting motions during the existing 1.2-second consumption timer. Releasing Use lowers the hand without consuming an unfinished bite. Switching inventory slots (including two stacks of the same food), opening a menu, inspecting the body, planting or using a station cancels the unfinished bite. Full hunger and Creative mode do not start eating. Completed bites still use the shared hunger/inventory transaction.
+
+The camera-relative arm pose uses the existing food socket and preserves limb lengths and first-person FOV compensation for both appearances and skins. The 0.20-second lift, 0.16-second recovery and bite amplitude are working presentation choices for play review. [Eating verification](verification/EATING_RESULTS.md) records the tested candidate and limits.
+
+Small peel- and flesh-coloured crumbs drop from the food in time with the bites. These are cosmetic particles under world gravity, with short fading lifetimes and a fixed pool of 32; they never create collectible items or consume additional food. Releasing Use stops new crumbs while the emitted pieces finish falling. Menus, body inspection and Creative mode clear them, and the effects-intensity setting also controls them.
+
 ## Terrain and biome rework — 2026-09-09
 
 The user-requested terrain rework adds five distinct landscape profiles, naturally exposed entrances, connected passages and caverns. Sand, sandstone, snow and red clay follow the existing mining/drop/placement paths. [TERRAIN_GENERATION.md](TERRAIN_GENERATION.md) owns the surface/cave/material defaults, safe start and limits; [terrain verification](verification/TERRAIN_GENERATION_RESULTS.md) records actual checks. Bedrock remains unbreakable and existing ore Y bands remain in force. Terrain generation supplies the mature wild-potato locations agreed with survival; survival owns harvesting and growth.

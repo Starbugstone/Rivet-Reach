@@ -1,5 +1,6 @@
 Shader "RivetReach/ArcadeChip"
 {
+    Properties { _FirstPerson("First person",Float)=0 }
     SubShader
     {
         Tags {"RenderPipeline"="UniversalPipeline" "Queue"="Transparent" "RenderType"="Transparent"}
@@ -11,10 +12,19 @@ Shader "RivetReach/ArcadeChip"
             #pragma fragment Frag
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
-            float4 _RRAmbientSky,_RRAmbientGround;
+            float4 _RRAmbientSky,_RRAmbientGround;float _FirstPerson;
             struct A {float3 positionOS:POSITION;float3 normalOS:NORMAL;half4 colour:COLOR;};
             struct V {float4 positionCS:SV_POSITION;float3 normalWS:TEXCOORD0;half4 colour:COLOR;};
-            V Vert(A i){V o;o.positionCS=TransformObjectToHClip(i.positionOS);o.normalWS=TransformObjectToWorldNormal(i.normalOS);o.colour=i.colour;return o;}
+            V Vert(A i){V o;o.positionCS=TransformObjectToHClip(i.positionOS);o.normalWS=TransformObjectToWorldNormal(i.normalOS);o.colour=i.colour;
+                if(_FirstPerson>.5)
+                {
+                    #if UNITY_REVERSED_Z
+                    o.positionCS.z=lerp(o.positionCS.w,o.positionCS.z,.02);
+                    #else
+                    o.positionCS.z=lerp(UNITY_NEAR_CLIP_VALUE*o.positionCS.w,o.positionCS.z,.02);
+                    #endif
+                }
+                return o;}
             half4 Frag(V i):SV_Target
             {
                 float3 n=normalize(i.normalWS);Light sun=GetMainLight();

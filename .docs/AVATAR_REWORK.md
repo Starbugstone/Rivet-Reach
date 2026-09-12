@@ -30,6 +30,8 @@ Source durations remain 0.3 s for the empty/block sweep and 0.6 s for tools. Run
 
 ## Skin and cost contract
 
+The later [eating presentation](GAMEPLAY.md#eating-presentation--2026-09-12) adds a camera-relative right-arm pose over the imported block grip. It uses the existing food art and socket, with a limb-length-preserving solve during the consumption timer. [Eating verification](verification/EATING_RESULTS.md) owns the later candidate; the dated avatar measurements below remain specific to their original build.
+
 The [content pipeline](CONTENT_PIPELINE.md#6-player-skin-authoring-contract) retains a single material, one semantic UV set and at most four influences. The right edge of each hand tile (`u > .953` within that tile) now reserves a leather swatch for gloves; the cylindrical skin UVs remain below `.94`, and nail swatches retain their existing lower-left patches. The packed surface map marks the leather as nonmetallic and non-skin.
 
 Working review ceilings for this revision are 90,000 full-body triangles, 34,000 per dominant first-person arm and 68,000 per pair. These are review triggers selected during implementation, not user-chosen performance guarantees. Visible body geometry and the full-body shadow remain separate costs. See [verification](verification/AVATAR_REWORK_RESULTS.md) for measured imports, rendering evidence and limits.

@@ -1,0 +1,31 @@
+{
+  "baseline": "71ace54",
+  "unity": "6000.4.4f1",
+  "graphics": "Direct3D 11",
+  "runtimeReport": "eating-2026-09-12-runtime-report.json",
+  "snapshot": "Committed baseline plus eating change and companion food model/held presentation overlay; unrelated concurrent work excluded.",
+  "sha256": {
+    "Assets/RivetReach/Code/Player/FirstPersonPlayer.cs": "86d6f8c53cec113cb3d9e0a51cf6f61a7ffc9cf422125ce88bf062f5e0a5b071",
+    "Assets/RivetReach/Code/Player/PlayerEating.cs": "2f77661a30f2c0513c9b29c64e3419b61155e91dff32110f4c47ca5d3bed9fe3",
+    "Assets/RivetReach/Code/Player/EatingCrumbs.cs": "49eb21da26e6c7890f483ce380d6839c7f371c7a10d27c57d16550eaa3b95387",
+    "Assets/RivetReach/Code/Player/HeldBlockView.cs": "93b3a7013f83b4a93932e34906c7b4ec54932896f775182b1de7461a93fdb817",
+    "Assets/RivetReach/Code/Player/FoodVisuals.cs": "7e05af6bf709e8e08548b7d13effc24577c6b2d179b8d3b86e7c77059a3d449f",
+    "Assets/RivetReach/Code/EatingVerification.cs": "45d2c6c90ae7f56dac37ecc114044a2ea1a22053c5345afc00551cd83b8aab99",
+    "Assets/RivetReach/Editor/EatingBuild.cs": "a398131ab6dd0f3d855d672ce8defeac38356a9e6f0914d462b0a855e4e2c6e4",
+    "Assets/RivetReach/Resources/Materials/ArcadeChip.shader": "f4564572c550ea91e0c3d4adf96bf9ebe69fff3c262b6de300de0e1074d7d504",
+    "Assets/RivetReach/Resources/Food/BakedPotato.fbx": "55fac028f77486de85e9ce93e924813db971a3bcbd7809a3fa17508912893040",
+    "Assets/RivetReach/Resources/Food/BakedPotato.fbx.meta": "dba7ea98d992c2c56006a981f8d47050e50030486d15a1b3b99482aab2410afb",
+    "Assets/RivetReach/Resources/Food/BakedPotatoIcon.png": "c2acdfd2e824a62c31f28274cf6ea462a171ecf334ff748ddbc2d44ac0eb8fd4",
+    "Assets/RivetReach/Resources/Food/BakedPotatoIcon.png.meta": "bbecfeec5507aaf764124d7c33445feb723f71ece401e55d6c2a8bf915fea0a3",
+    "Assets/RivetReach/Resources/Food/Palette.png": "fa08fa0c8245e581f4eca61c01bdbf186e4f311475ff1dfa247a993b9eb91ef7",
+    "Assets/RivetReach/Resources/Food/Palette.png.meta": "94e75850cf92a080f113cbfde2ebeceab4491702934ff7ac33aec161c11443ec",
+    "Assets/RivetReach/Resources/Food/Potato.fbx": "ea7f5f21bf3808577df309def423e451c51978edadb8a68a43562a7474eb4709",
+    "Assets/RivetReach/Resources/Food/Potato.fbx.meta": "3da2864fbbc2627cdd5b4cfbbc2b400cf3d6b1c5607f7f5d8b2782df1ee8356d",
+    "Assets/RivetReach/Resources/Food/Potato.mat": "780a62c3b82c45a7ef6f830389d2c802cbdab397af8b089b41316b6999c83ab6",
+    "Assets/RivetReach/Resources/Food/Potato.mat.meta": "298980bd45f5ea0d960a8c17b69f9079593d32afad57ea8bee716065821c585c",
+    "Assets/RivetReach/Resources/Food/PotatoIcon.png": "93436cc0af9760250bea4c0dcd3f82c5c1b79d4d710b089251860431e77c91bf",
+    "Assets/RivetReach/Resources/Food/PotatoIcon.png.meta": "8f307fe2ebb77f499fec40924d243f953b14527c3f51e15bf4fb7444f15c18a8"
+  },
+  "captureFrames": 110,
+  "captureFps": 60
+}

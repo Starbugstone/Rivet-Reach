@@ -34,6 +34,7 @@ namespace RivetReach
         float nextPlace;
         float eating,fallDistance;
         byte eatingItem;
+        int eatingSlot=-1;
         public float EatingProgress=>eating/1.2f;
         byte miningItem;
         float lastForwardPress=float.NegativeInfinity;
@@ -67,6 +68,7 @@ namespace RivetReach
         void Update()
         {
             if(Game==null)return;
+            RestoreEatingPose();
 
             bool control=Game.Started&&!Game.Paused&&!Game.InventoryOpen;
             if(!control){eating=0;eatingItem=0;}
@@ -173,7 +175,11 @@ namespace RivetReach
             handSway=Vector2.SmoothDamp(handSway,swayTarget,ref handSwayVelocity,.075f,100,Time.deltaTime);
             // Camera aim is direct; only the held hands lag slightly behind a turn.
             Arms.transform.localPosition+=new Vector3(-handSway.x*.0012f,-handSway.y*.001f,0);
-            if(control&&!Inspecting)TargetAndMine();else{HasTarget=false;MiningProgress=0;nextPlace=0;}
+            if(control&&!Inspecting)TargetAndMine();else{HasTarget=false;MiningProgress=0;nextPlace=0;eating=0;eatingItem=0;}
+            // Consumption happens after the normal equip update. Retire the last
+            // food now so it cannot flash back at rest for one frame after eating.
+            if(Game.Inventory.Slots[Game.Selected].Empty)HeldBlock.PrepareFrame(0);
+            AnimateEating();
             UpdateSwingSound(audibleSwing);
             selection.SetActive(HasTarget);
             if(HasTarget)selection.transform.position=Game.World.Local(Target)-Vector3.one*.002f;
@@ -218,6 +224,10 @@ namespace RivetReach
         {
             if(Game.Mode!=ScreenMode.Play||Game.Health.Dead)return;
             var selected=Game.Inventory.Slots[Game.Selected];byte heldId=selected.Empty?(byte)0:selected.Id;
+            // Only the same selected food slot can continue an unfinished bite.
+            // Every other use path (including planting and buckets) cancels it.
+            float previousEating=heldId==eatingItem&&Game.Selected==eatingSlot?eating:0;
+            eating=0;eatingItem=0;eatingSlot=-1;
             if(heldId!=miningItem){MiningProgress=0;miningItem=heldId;}
             ToolCapability tool=Game.Registry.Capabilities(selected);
             if(Game.Input.Pressed("Interact"))
@@ -244,8 +254,8 @@ namespace RivetReach
                 int food=selected.Empty?0:Game.Registry.Get(selected.Id).foodPoints;
                 if(food>0&&!Game.Creative)
                 {
-                    if(eatingItem!=selected.Id){eating=0;eatingItem=selected.Id;}
-                    if(Game.Hunger.Food<HungerState.Maximum)eating+=Time.deltaTime;
+                    if(Game.Hunger.Food<HungerState.Maximum)
+                    {eatingItem=selected.Id;eatingSlot=Game.Selected;eating=previousEating+Time.deltaTime;}
                     if(eating>=1.2f){if(Game.Hunger.TryEat(Game.Inventory,Game.Selected,food)){Game.Sound.Pickup();Game.Notify("Ate "+Game.Registry.Get(selected.Id).displayName,1);}eating=0;}
                     return;
                 }
