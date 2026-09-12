@@ -120,7 +120,7 @@ namespace RivetReach
             int products=itemMachine.Items.Total(IndustryId.CrushedIron)+game.Survival.At(chestPos).Storage.Total(IndustryId.CrushedIron);
             Check(game.SaveGame("Configurable connections"),"Save pipe direction checkpoint: "+game.SaveStatus);
             var entry=game.Saves.List().First(e=>!e.Backup);byte[] saved=game.Saves.Read(entry);
-            using(var reader=game.Saves.Open(saved,out _))Check(reader.Format==4,"New checkpoint uses explicit schema 4");
+            using(var reader=game.Saves.Open(saved,out _))Check(reader.Format==SaveStore.Format,"New checkpoint uses the current explicit schema");
             Check(game.LoadGame(entry),"Load configured pipe ends: "+game.SaveStatus);FreezeSaveFixture();
             Check(game.CaptureSave(entry).SequenceEqual(saved),"All serialized state round-trips byte-for-byte before simulation resumes");
             sim=game.Industry.Simulation;
@@ -185,9 +185,9 @@ namespace RivetReach
                 Check(game.LoadGame(entry),"Load actual earlier checkpoint: "+game.SaveStatus);FreezeSaveFixture();
                 Check(game.Industry.Simulation.Machines.Values.All(m=>m.PipeDirections==0),"Older machine records have no added direction bytes");
                 yield return Settle(120);for(int i=0;i<10;i++)game.Industry.Simulation.Step();
-                game.InitializeSaves(Path.Combine(output,"Migrated"));Check(game.SaveGame(entry.Name,true),"Save migrated checkpoint with wrench-compatible schema 4");
+                game.InitializeSaves(Path.Combine(output,"Migrated"));Check(game.SaveGame(entry.Name,true),"Save migrated checkpoint with the current schema");
                 var migrated=game.Saves.List().First(e=>e.Id==game.SaveId&&!e.Backup);var fresh=game.Saves.Read(migrated);
-                using(var reader=game.Saves.Open(fresh,out _))Check(reader.Format==4,"Migration writes the current schema");
+                using(var reader=game.Saves.Open(fresh,out _))Check(reader.Format==SaveStore.Format,"Migration writes the current schema");
                 Check(game.LoadGame(migrated),"Reload migrated checkpoint: "+game.SaveStatus);FreezeSaveFixture();
                 Check(game.CaptureSave(migrated).SequenceEqual(fresh),"Every migrated serialized field round-trips exactly");
             }

@@ -1,0 +1,8 @@
+{
+  "build": "Builds/PlacementFacing/RivetReach.exe",
+  "unity": "6000.4.4f1",
+  "sha256": {
+    "RivetReach.exe": "7d52ee70fb22771f4608d810d1015f539c37dd8b7b2fbb1a0ea9f6bc5c32d5c9",
+    "RivetReach_Data/Managed/Assembly-CSharp.dll": "ca6820605a1aedfc68c1f800bc8331f9baf914d83b54eb09d030a1576b0c28b3"
+  }
+}

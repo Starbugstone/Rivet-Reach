@@ -48,7 +48,8 @@ namespace RivetReach
                         foreach(var renderer in root.GetComponentsInChildren<Renderer>())if(renderer.name=="Embers")view.Embers=renderer;
                         views.Add(pair.Key,view);
                     }
-                    view.Root.transform.position=game.World.Local(pair.Key);
+                    var rotation=Quaternion.Euler(0,pair.Value.Rotation*90,0);
+                    view.Root.transform.SetPositionAndRotation(game.World.Local(pair.Key)+Vector3.one*.5f-rotation*(Vector3.one*.5f),rotation);
                 }
                 remove.Clear();foreach(var pair in views)if(!nearby.Contains(pair.Key))remove.Add(pair.Key);
                 foreach(var position in remove){Destroy(views[position].Root);views.Remove(position);}

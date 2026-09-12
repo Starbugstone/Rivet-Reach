@@ -7,6 +7,7 @@ namespace RivetReach
     public sealed class StationState
     {
         public byte Block {get;}
+        public int Rotation {get;set;}
         public CraftingSession Crafting {get;}
         public FurnaceState Furnace {get;}
         public ItemContainer Storage {get;}

@@ -103,7 +103,7 @@ namespace RivetReach
             w.Write(Tick);w.Write(fraction);w.Write(stations.Count);
             foreach(var entry in stations)
             {
-                w.Pos(entry.Key);var s=entry.Value;w.Write(s.Block);
+                w.Pos(entry.Key);var s=entry.Value;w.Write(s.Block);w.Write(s.Rotation);
                 if(s.Crafting!=null)w.Slots(s.Crafting.Grid.Slots);if(s.Storage!=null)w.Slots(s.Storage.Slots);s.Furnace?.WriteSave(w);
             }
             w.Write(crops.Count);foreach(var crop in crops){w.Pos(crop.Position);w.Write(crop.Due);}
@@ -115,6 +115,7 @@ namespace RivetReach
             {
                 var p=r.Pos();byte id=r.ReadByte();SaveReader.Require(BlockId.Station(id)&&game.World.Get(p)==id,"Saved station does not match terrain.");
                 var s=new StationState(id,game.Recipes,game.Processing,item=>game.Registry.Get(item).stackLimit);stations.Add(p,s);
+                s.Rotation=r.Format>=5?r.Int(0,3):0;
                 if(s.Crafting!=null)r.Slots(s.Crafting.Grid);if(s.Storage!=null)r.Slots(s.Storage);s.Furnace?.ReadSave(r);Wake(p);
             }
             n=r.Count();for(int i=0;i<n;i++){var p=r.Pos();long due=r.Long();byte id=game.World.Get(p);SaveReader.Require(BlockId.GrowingPlant(id)&&!scheduled.ContainsKey(p),"Invalid crop schedule.");Schedule(p,due);}

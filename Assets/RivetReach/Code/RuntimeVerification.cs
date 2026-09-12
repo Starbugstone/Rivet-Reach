@@ -97,10 +97,12 @@ namespace RivetReach
                 Check(ShadowProbe.LastReport.result!="FAIL","Shadow probe completed with one directional light, no duplicate chunk views and the expected sampling stability");
                 yield break;
             }
+            if(Environment.GetCommandLineArgs().Contains("-rr-facing-legacy-review"))
+            {report.workload="Station facing migration from actual schema 2/3/4 checkpoints";yield return ReviewFacingLegacy();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-orchard-legacy-review"))
             {report.workload="Existing checkpoint migration to saplings/apples schema and content compatibility";yield return ReviewOrchardLegacy();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-connections-legacy-review"))
-            {report.workload="Actual schema-2/3 checkpoint migration to wrench and pipe-end schema 4";yield return ReviewConnectionLegacy();yield break;}
+            {report.workload="Actual schema-2/3 checkpoint migration to the current save schema";yield return ReviewConnectionLegacy();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-save-resume-review"))
             {report.workload="Fresh-process Continue latest disk save";yield return ReviewSaveGame();yield break;}
             float began=Time.realtimeSinceStartup;report.startupSeed=game.Seed;
@@ -119,8 +121,10 @@ namespace RivetReach
             if(Environment.GetCommandLineArgs().Contains("-rr-hand-crank-review")||Environment.GetCommandLineArgs().Contains("-rr-door-review")||Environment.GetCommandLineArgs().Contains("-rr-battery-fill-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-equipment-art-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-potato-art-review")||Environment.GetCommandLineArgs().Contains("-rr-orchard-review"))game.World.ViewDistance=4;
-            if(Environment.GetCommandLineArgs().Contains("-rr-connections-review"))game.World.ViewDistance=4;
+            if(Environment.GetCommandLineArgs().Contains("-rr-connections-review")||Environment.GetCommandLineArgs().Contains("-rr-facing-review"))game.World.ViewDistance=4;
             yield return Settle();report.firstReadySeconds=Time.realtimeSinceStartup-began;
+            if(Environment.GetCommandLineArgs().Contains("-rr-facing-review"))
+            {report.workload="Player-facing starter stations and machines, rendered cell bounds, right-click, residency and schema 5 persistence";yield return ReviewPlacementFacing();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-connections-review"))
             {report.workload="All-face power, configured item/fluid ends, visible direction arrows, pointer use and schema-4 persistence";yield return ReviewConnections();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-battery-fill-review"))

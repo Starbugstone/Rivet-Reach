@@ -9,6 +9,7 @@ This directory maintains the latest report and useful evidence for each feature.
 
 | Feature | Current evidence |
 | --- | --- |
+| Player-facing station and machine placement | [Placement facing](PLACEMENT_FACING_RESULTS.md) — four directions, right-click, rendered starter bounds and schema-5 save compatibility |
 | All-face machine connections, wrench and pipe arrows | [Connection verification](CONNECTION_RESULTS.md) — held-wrench input, exact transfers, schema-4 persistence and earlier checkpoints |
 | Electrical connection versus available power | [Power-status verification](POWER_STATUS_RESULTS.md) — registered connections through blackouts, atomic graph publication and actual machine panels |
 | Quit Without Saving, origin respawn and pickaxe balance | [Gameplay fixes](GAMEPLAY_FIX_RESULTS.md) — Editor/standalone quit, checkpoint preservation, surface spawning and ore timing |

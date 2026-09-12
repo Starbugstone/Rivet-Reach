@@ -23,7 +23,7 @@ namespace RivetReach
     {
         public readonly ItemRegistry Registry;
         public readonly int Format;
-        public SaveReader(Stream stream,ItemRegistry registry,int format=4) : base(stream,Encoding.UTF8,true){Registry=registry;Format=format;}
+        public SaveReader(Stream stream,ItemRegistry registry,int format=SaveStore.Format) : base(stream,Encoding.UTF8,true){Registry=registry;Format=format;}
         public static void Require(bool ok,string message){if(!ok)throw new InvalidDataException(message);}
         public int Count(int max=2000000){int n=ReadInt32();Require(n>=0&&n<=max,"Invalid save collection size.");return n;}
         public int Int(int min,int max){int n=ReadInt32();Require(n>=min&&n<=max,"Invalid saved integer.");return n;}
@@ -53,7 +53,8 @@ namespace RivetReach
     }
     public sealed class SaveStore
     {
-        const int Format=4,MaxBytes=256*1024*1024;
+        public const int Format=5;
+        const int MaxBytes=256*1024*1024;
         public string DirectoryPath {get;}
         readonly ItemRegistry registry;
         readonly string content;
