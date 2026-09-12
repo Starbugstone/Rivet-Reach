@@ -54,7 +54,6 @@ namespace RivetReach
         Material foodMaterial;
         GameObject view,block,sword,pickaxe,axe,shovel,hoe,card,torch,bucket,bucketWater;
         Material cardMaterial,torchMaterial,waterMaterial;
-        Texture2D cardIcon;
         MeshFilter filter;
         Material material,toolMaterial,axeMaterial,industryMaterial,industryGlass;
         Vector3 bladeAxis,handleAxis;
@@ -77,7 +76,7 @@ namespace RivetReach
         }
         GameObject Tool(string path)
         {
-            var tool=Instantiate(Resources.Load<GameObject>("Characters/"+path),view.transform,false);
+            var tool=Instantiate(Resources.Load<GameObject>(path),view.transform,false);
             foreach(var renderer in tool.GetComponentsInChildren<Renderer>()){renderer.sharedMaterial=toolMaterial;renderer.shadowCastingMode=ShadowCastingMode.Off;}
             return tool;
         }
@@ -101,16 +100,16 @@ namespace RivetReach
                 }
                 if(industryItem!=null&&!reuseOre){Destroy(industryItem);industryItem=null;}
                 industryMaterial.SetTexture("_BaseMap",OreVisuals.UsesModel(id)?OreVisuals.Palette(id):Resources.Load<Texture2D>("Industry/Atlas"));
-                if(IndustryDefinition.All.TryGetValue(id,out var assembly)||OreVisuals.UsesModel(id)||StarterStationVisuals.UsesModel(id))
+                if(ItemAppearance.TryIndustryKey(id,out var assemblyKey)||OreVisuals.UsesModel(id)||StarterStationVisuals.UsesModel(id))
                 {
-                    var prefab=StarterStationVisuals.UsesModel(id)?StarterStationVisuals.Prefab(id):OreVisuals.UsesModel(id)?OreVisuals.Prefab:Resources.Load<GameObject>("Industry/Runtime/"+assembly.Key);
+                    var prefab=StarterStationVisuals.UsesModel(id)?StarterStationVisuals.Prefab(id):OreVisuals.UsesModel(id)?OreVisuals.Prefab:Resources.Load<GameObject>("Industry/Runtime/"+assemblyKey);
                     if(prefab!=null&&!reuseOre)
                     {
-                        industryItem=ConnectedPipeVisuals.UsesConnectedMesh(id)?ConnectedPipeVisuals.Create(assembly.Key,block.transform):Instantiate(prefab,block.transform,false);
+                        industryItem=ConnectedPipeVisuals.UsesConnectedMesh(id)?ConnectedPipeVisuals.Create(assemblyKey,block.transform):Instantiate(prefab,block.transform,false);
                         industryItem.transform.localRotation=Quaternion.Euler(0,180,0);
                         industryItem.transform.localPosition=-(industryItem.transform.localRotation*(Vector3.one*.5f));
                         foreach(var r in industryItem.GetComponentsInChildren<Renderer>())
-                        {r.sharedMaterial=r.name.StartsWith("Glass")?industryGlass:industryMaterial;r.shadowCastingMode=ShadowCastingMode.Off;}
+                        {if(!ItemAppearance.VisibleIndustryPart(id,r.name))r.enabled=false;r.sharedMaterial=r.name.StartsWith("Glass")?industryGlass:industryMaterial;r.shadowCastingMode=ShadowCastingMode.Off;}
                     }
                 }
                 if(industryItem==null&&id!=BlockId.Torch&&(BlockId.Placeable(id)||BlockId.RawMaterial(id)))
@@ -126,7 +125,7 @@ namespace RivetReach
                 }
                 if(id!=0)
                 {
-                    var definition=game.Registry.Get(id);var tint=definition.tier==ToolTier.None?Color.white:Color.Lerp(Color.white,definition.colour,.70f);
+                    var definition=game.Registry.Get(id);var tint=ItemAppearance.ToolTint(definition);
                     toolMaterial.SetColor("_BaseColor",tint);axeMaterial.SetColor("_BaseColor",tint);
                     if(foodItem==null&&industryItem==null&&(id==BlockId.Torch||!BlockId.Placeable(id)&&!BlockId.RawMaterial(id))&&definition.toolCapabilities==ToolCapability.None)
                     {
@@ -137,7 +136,7 @@ namespace RivetReach
                             cardMaterial=new Material(Shader.Find("RivetReach/HeldTool"));cardMaterial.SetFloat("_Cutoff",.1f);cardMaterial.SetFloat("_Cull",0);
                             var cardRenderer=card.GetComponent<Renderer>();cardRenderer.sharedMaterial=cardMaterial;cardRenderer.shadowCastingMode=ShadowCastingMode.Off;
                         }
-                        if(cardIcon!=null)Destroy(cardIcon);cardIcon=SurvivalItemArt.Icon(definition);cardMaterial.SetTexture("_BaseMap",cardIcon);
+                        cardMaterial.SetTexture("_BaseMap",game.UI.ItemIcon(id));
                     }
                 }
             }
@@ -155,7 +154,7 @@ namespace RivetReach
             filter.GetComponent<Renderer>().enabled=!showCard&&!isBucket&&industryItem==null&&foodItem==null;
             if(isBucket&&bucket==null)
             {
-                bucket=Tool("PalmBucket");bucket.transform.SetParent(block.transform,false);
+                bucket=Tool("Characters/PalmBucket");bucket.transform.SetParent(block.transform,false);
                 bucketWater=GameObject.CreatePrimitive(PrimitiveType.Cylinder);Destroy(bucketWater.GetComponent<Collider>());bucketWater.transform.SetParent(block.transform,false);
                 bucketWater.transform.localPosition=new Vector3(0,.32f,0);bucketWater.transform.localScale=new Vector3(.80f,.008f,.80f);
                 waterMaterial=new Material(Shader.Find("RivetReach/HeldTool"));waterMaterial.SetColor("_BaseColor",new Color(.08f,.42f,.58f));
@@ -165,7 +164,7 @@ namespace RivetReach
             if(bucket!=null)bucket.SetActive(isBucket);
             if(isTorch&&torch==null)
             {
-                torch=Tool("GripTorch");torchMaterial=new Material(toolMaterial);torchMaterial.SetFloat("_Torch",1);torchMaterial.SetColor("_BaseColor",Color.white);
+                torch=Tool("Characters/GripTorch");torchMaterial=new Material(toolMaterial);torchMaterial.SetFloat("_Torch",1);torchMaterial.SetColor("_BaseColor",Color.white);
                 foreach(var r in torch.GetComponentsInChildren<Renderer>())r.sharedMaterial=torchMaterial;
             }
             if(torch!=null)torch.SetActive(isTorch);if(card!=null)card.SetActive(showCard&&industryItem==null);
@@ -173,7 +172,7 @@ namespace RivetReach
             bool useAxe=!PreviewGrip.HasValue&&(game.Registry.Capabilities(selected)&ToolCapability.Axe)!=0;
             if(useAxe&&axe==null)
             {
-                axe=Instantiate(Resources.Load<GameObject>("Tools/StarterAxe"),view.transform,false);
+                axe=Instantiate(Resources.Load<GameObject>(ItemAppearance.ToolPath(ToolCapability.Axe)),view.transform,false);
                 foreach(var marker in axe.GetComponentsInChildren<Transform>())
                 {
                     if(marker.name=="BladeForward")bladeAxis=axe.transform.InverseTransformPoint(marker.position).normalized;
@@ -193,11 +192,11 @@ namespace RivetReach
                     axe.transform.localRotation=Quaternion.AngleAxis(Vector3.SignedAngle(blade,desired,shaft),shaft)*axe.transform.localRotation;
             }
             var capability=game.Registry.Capabilities(selected);bool useShovel=!PreviewGrip.HasValue&&(capability&ToolCapability.Shovel)!=0,useHoe=!PreviewGrip.HasValue&&(capability&ToolCapability.Hoe)!=0;
-            if(useShovel&&shovel==null)shovel=Tool("GripShovel");
-            if(useHoe&&hoe==null)hoe=Tool("GripHoe");
+            if(useShovel&&shovel==null)shovel=Tool(ItemAppearance.ToolPath(ToolCapability.Shovel));
+            if(useHoe&&hoe==null)hoe=Tool(ItemAppearance.ToolPath(ToolCapability.Hoe));
             if(shovel!=null)shovel.SetActive(useShovel);if(hoe!=null)hoe.SetActive(useHoe);
-            if(grip==GripPose.Tool&&!isTorch&&!useAxe&&!useShovel&&!useHoe&&sword==null)sword=Tool("GripSword");
-            if(grip==GripPose.TwoHandTool&&pickaxe==null)pickaxe=Tool("GripPickaxe");
+            if(grip==GripPose.Tool&&!isTorch&&!useAxe&&!useShovel&&!useHoe&&sword==null)sword=Tool(ItemAppearance.ToolPath(ToolCapability.Blade));
+            if(grip==GripPose.TwoHandTool&&pickaxe==null)pickaxe=Tool(ItemAppearance.ToolPath(ToolCapability.Pickaxe));
             if(sword!=null)sword.SetActive(grip==GripPose.Tool&&!isTorch&&!useAxe&&!useShovel&&!useHoe);if(pickaxe!=null)pickaxe.SetActive(grip==GripPose.TwoHandTool);
             float firstPerson=Player.Inspecting?0:1;
             material.SetFloat("_FirstPerson",firstPerson);toolMaterial.SetFloat("_FirstPerson",firstPerson);axeMaterial.SetFloat("_FirstPerson",firstPerson);
@@ -214,6 +213,6 @@ namespace RivetReach
             arm.localRotation=Quaternion.Euler(12*amount,0,-6*amount);
             arm.localPosition+=new Vector3(.025f,-.52f,.08f)*amount*arm.localScale.x;
         }
-        void OnDestroy(){if(foodMaterial!=null)Destroy(foodMaterial);if(industryMaterial!=null)Destroy(industryMaterial);if(industryGlass!=null)Destroy(industryGlass);if(view!=null)Destroy(view);if(material!=null)Destroy(material);if(toolMaterial!=null)Destroy(toolMaterial);if(axeMaterial!=null)Destroy(axeMaterial);if(torchMaterial!=null)Destroy(torchMaterial);if(waterMaterial!=null)Destroy(waterMaterial);if(cardMaterial!=null)Destroy(cardMaterial);if(cardIcon!=null)Destroy(cardIcon);foreach(var mesh in meshes.Values)Destroy(mesh);}
+        void OnDestroy(){if(foodMaterial!=null)Destroy(foodMaterial);if(industryMaterial!=null)Destroy(industryMaterial);if(industryGlass!=null)Destroy(industryGlass);if(view!=null)Destroy(view);if(material!=null)Destroy(material);if(toolMaterial!=null)Destroy(toolMaterial);if(axeMaterial!=null)Destroy(axeMaterial);if(torchMaterial!=null)Destroy(torchMaterial);if(waterMaterial!=null)Destroy(waterMaterial);if(cardMaterial!=null)Destroy(cardMaterial);foreach(var mesh in meshes.Values)Destroy(mesh);}
     }
 }

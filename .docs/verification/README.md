@@ -17,6 +17,7 @@ This directory maintains the latest report and useful evidence for each feature.
 | Terrain/tree shadow stability and lighting cost | [Sun-shadow ticks](SUN_SHADOW_RESULTS.md), plus the earlier [AO sampling check](SHADOW_RESULTS.md) |
 | Multiblock tanks and shared pipe channel fittings | [Multiblock verification](MULTIBLOCK_RESULTS.md) |
 | Blue Signal, power and the first workshop | [Industry verification](INDUSTRY_RESULTS.md) — screenshots, gameplay clip, machine interfaces and measured limits |
+| Inventory icons and held item agreement | [Item appearance audit](ITEM_APPEARANCE_RESULTS.md) — complete registry, shared models/tints and visual comparisons |
 | Ore materials, shared mesh and held reuse | [Copper/iron drops](ORE_DROPS_RESULTS.md), [ore variants and sharing](ORE_VARIANTS_RESULTS.md), [Azure source review](AZURE_ORE_RESULTS.md) |
 | Pass-through props, camera clearance and Editor icons | [Clearance verification](PROP_CLEARANCE_RESULTS.md) |
 | Craftable torches and local lighting | [Torch verification](TORCH_RESULTS.md) |

@@ -98,7 +98,7 @@ See [avatar verification](verification/AVATAR_REWORK_RESULTS.md) and [audio veri
 
 ## Ore and bedrock material kit
 
-`TerrainTiles.Build` extends the existing original 64×64 texture array with iron/copper/coal/gold/diamond inclusions, a dark fractured bedrock swatch and five raw-resource swatches. Existing layers 0–6 keep their identities; ore layers are 7–11, bedrock 12 and raw resources 13–17. Stable runtime IDs remain separate from these texture indices. Source generation is repository-authored C#; no external textures or models are introduced. Inventory draws faceted resource silhouettes from those swatches; held raw resources use the existing small-block presentation, and physical drops use the textured voxel/tool display described below. [Ore results](verification/SURVIVAL_RESULTS.md) records the actual Unity views. Visual distinction and mining feel remain subject to user review.
+`TerrainTiles.Build` extends the existing original 64×64 texture array with iron/copper/coal/gold/diamond inclusions, a dark fractured bedrock swatch and five raw-resource swatches. Existing layers 0–6 keep their identities; ore layers are 7–11, bedrock 12 and raw resources 13–17. Stable runtime IDs remain separate from these texture indices. Source generation is repository-authored C#; no external textures or models are introduced. Inventory icons and held raw resources follow the shared ore and item appearance contracts below; physical drops use the textured voxel/tool display described below. [Ore results](verification/SURVIVAL_RESULTS.md) records the actual Unity views. Visual distinction and mining feel remain subject to user review.
 
 ## Arcade presentation and dynamic feedback
 
@@ -126,7 +126,7 @@ The subsequently authorized Rustback beetle and Dusk prowler extend the natural 
 
 ## Torch presentation
 
-The [torch extension](GAMEPLAY.md#torches) uses original procedural geometry in `TorchPresentation` (handle, binding and block-shaped flame) and a generated transparent silhouette in `SurvivalItemArt`. Held and dropped displays reuse the existing item-card path. These are repository-authored visuals with no imported third-party art or character-source revisions. The flame uses unlit HDR color; the environment receives separate shadowed point lights through URP's clustered additional-light loop in the terrain shader. The player skin shader compiles the same additional-light variants.
+The [torch extension](GAMEPLAY.md#torches) uses original procedural geometry in `TorchPresentation` (handle, binding and block-shaped flame) and a generated transparent silhouette in `SurvivalItemArt`. The held torch uses the authored `GripTorch` model and matching baked icon described in the avatar and item-appearance contracts; dropped torches retain the generated item card. These are repository-authored visuals with no imported third-party art or character-source revisions. The flame uses unlit HDR color; the environment receives separate shadowed point lights through URP's clustered additional-light loop in the terrain shader. The player skin shader compiles the same additional-light variants.
 
 `Resources/TorchLight.prefab` is the authored light template, including the URP low shadow-resolution tier and per-light shadow bias. `TorchAssets.Prepare` creates only a missing initial prefab and preserves subsequent authored tuning. The session instantiates a fixed light pool separately from attachment records. [Verification](verification/TORCH_RESULTS.md) contains actual Unity lit/unlit captures; visual tuning and broader scene cost remain subject to review.
 
@@ -141,7 +141,7 @@ The user selected [issue #3](https://github.com/Starbugstone/Rivet-Reach/issues/
 
 ## Held industrial items and battery kit — 2026-09-10
 
-Held assemblies resolve through `IndustryDefinition.All`, including tank parts and batteries. They use the first-person depth convention shared by hands and tools; glass uses a separate transparent held shader. Connected pipes select one authored connection mesh, not all 64 masks in their export family. [Workshop follow-up evidence](verification/WORKSHOP_FOLLOWUP_RESULTS.md) checks actual item contribution to the player framebuffer rather than treating an active empty object as visible. The battery kit uses the existing original Workshop atlas; [BATTERIES.md](BATTERIES.md) owns source paths, current dimensions and gameplay rules.
+Held industrial items resolve through `ItemAppearance.TryIndustryKey`, including crafting components, tank parts and batteries. They use the first-person depth convention shared by hands and tools; glass uses a separate transparent held shader. Connected pipes select one authored connection mesh, not all 64 masks in their export family. [Workshop follow-up evidence](verification/WORKSHOP_FOLLOWUP_RESULTS.md) checks actual item contribution to the player framebuffer rather than treating an active empty object as visible. The battery kit uses the existing original Workshop atlas; [BATTERIES.md](BATTERIES.md) owns source paths, current dimensions and gameplay rules.
 
 ## Stable ambient occlusion — 2026-09-10
 
@@ -190,3 +190,11 @@ The chest, personal-progression 3×3 Workbench and Furnace now use original Blen
 ## Manual generator — 2026-09-12
 
 [The hand-crank specification](HAND_CRANK.md) owns the original `ArtSource/HandCrank/HandCrank.blend`, reproducible `Tools/create_hand_crank.py`, FBX export and inventory icon. Its housing and animated crank use two mesh parts with the shared Workshop atlas; the named pivot follows paid simulation turns. [Verification](verification/HAND_CRANK_RESULTS.md) separates source/import measurements and actual player screenshots from artistic acceptance.
+
+## Inventory and held item agreement — 2026-09-12
+
+An item's inventory, hotbar and recipe-browser icon must depict the same object as its held appearance: matching geometry, palette and tier tint, with framing and lighting allowed to differ. Crafting-only industrial components use their original Workshop models through `ItemAppearance.TryIndustryKey`; a lack of machine behavior must not send them to generic artwork. This includes the copper-wire spool, Azure crystal, plates, cog, rivets, casing, glass and crushed minerals. Held tank frames hide their sealing panels to display the open rails shown in their icon; held signal wire uses the icon’s two connection arms. These visibility choices are separate from world connections and formed-tank sealing.
+
+Tool icons and torch/bucket icons are baked from the imported held models with their palette and registered tint, using deterministic studio shading for readability. Run **Rivet Reach → Bake held item icons** (`ItemAppearanceBuild.Bake`) after changing those inputs; the resulting transparent PNGs live in `Resources/ItemIcons`. The shared tool path/tint contract drives the held view and the baker. Missing baked icons fail explicitly. Remaining flat held cards borrow their exact UI texture without taking ownership of it. Raw resources that still use the terrain-block display receive matching block-shaped icons; the collected iron/copper ore art contract above remains authoritative.
+
+[Item appearance verification](verification/ITEM_APPEARANCE_RESULTS.md) records the native-player catalog audit, visual comparison sheets and remaining limits. Refresh the [wiki export](WIKI_AUTHORING.md#refresh-the-reference) whenever icon assets change.

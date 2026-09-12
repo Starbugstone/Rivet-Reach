@@ -376,6 +376,7 @@ namespace RivetReach
             foreach(var t in preview.GetComponentsInChildren<Transform>())t.gameObject.layer=30;
         }
         readonly HashSet<Texture2D> sharedToolIcons=new HashSet<Texture2D>();
+        public Texture2D ItemIcon(byte id)=>icons[id];
         void BuildIcons()
         {
             var tiles=Resources.Load<Texture2DArray>("Materials/BlockTiles");
@@ -384,30 +385,20 @@ namespace RivetReach
             {int x=Mathf.Clamp((int)(u*tiles.width),0,tiles.width-1),y=Mathf.Clamp((int)(v*tiles.height),0,tiles.height-1);return swatches[layer][x+y*tiles.width];}
             foreach(var item in game.Registry.items)
             {
+                if(ItemAppearance.BakedIcon(item))
+                {var baked=Resources.Load<Texture2D>("ItemIcons/"+item.runtimeId);if(baked==null)throw new System.InvalidOperationException("Rebake missing held-model icon: "+item.displayName);icons[item.runtimeId]=baked;sharedToolIcons.Add(baked);continue;}
                 if(FoodVisuals.UsesModel(item.runtimeId))
                 {var foodIcon=FoodVisuals.Icon(item.runtimeId);icons[item.runtimeId]=foodIcon;sharedToolIcons.Add(foodIcon);continue;}
                 var industrialIcon=Resources.Load<Texture2D>("Industry/Icons/"+OreVisuals.VisualId(item.runtimeId));if(industrialIcon!=null){icons[item.runtimeId]=industrialIcon;sharedToolIcons.Add(industrialIcon);continue;}
                 if(item.runtimeId==BlockId.Torch||item.runtimeId>=20&&!BlockId.Placeable(item.runtimeId)&&item.runtimeId!=BlockId.Farmland&&!BlockId.Crop(item.runtimeId))
                 {icons[item.runtimeId]=SurvivalItemArt.Icon(item);continue;}
-                if(item.toolCapabilities!=ToolCapability.None)
-                {
-                    string name=(item.toolCapabilities&ToolCapability.Axe)!=0?"StarterAxeIcon":(item.toolCapabilities&ToolCapability.Pickaxe)!=0?"StarterPickaxeIcon":"StarterDaggerIcon";
-                    var icon=Resources.Load<Texture2D>("Tools/"+name);sharedToolIcons.Add(icon);icons[item.runtimeId]=icon;continue;
-                }
                 var texture=new Texture2D(48,48,TextureFormat.RGBA32,false);texture.filterMode=FilterMode.Point;var pixels=new Color[48*48];
                 for(int y=0;y<48;y++)for(int x=0;x<48;x++)
                 {
                     float dx=x-24,dy=y-32;
                     int top=BlockId.Tile(item.runtimeId,1,1),side=BlockId.Tile(item.runtimeId,0,1);
                     Color c=Color.clear;
-                    if(BlockId.RawMaterial(item.runtimeId))
-                    {
-                        float rx=x-24,ry=y-23;
-                        bool crystal=item.runtimeId==BlockId.Diamond;
-                        bool inside=crystal?Mathf.Abs(rx)/17+Mathf.Abs(ry)/21<1:Mathf.Abs(rx)<18&&Mathf.Abs(ry)<15&&Mathf.Abs(rx)+Mathf.Abs(ry)<26;
-                        if(inside)c=Swatch(top,x/48f,y/48f)*(ry>rx*.5f?1.2f:.72f);
-                    }
-                    else if(Mathf.Abs(dx)/21+Mathf.Abs(dy)/12<1)c=Swatch(top,(dx/21+dy/12+1)*.5f,(dy/12-dx/21+1)*.5f)*1.12f;
+                    if(Mathf.Abs(dx)/21+Mathf.Abs(dy)/12<1)c=Swatch(top,(dx/21+dy/12+1)*.5f,(dy/12-dx/21+1)*.5f)*1.12f;
                     else if(Mathf.Abs(dx)<21)
                     {
                         float bottom=2+Mathf.Abs(dx)*12/21;

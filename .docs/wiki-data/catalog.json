@@ -8099,6 +8099,10 @@
             "sha256": "80febd4e3d3a21e97410fe0aff16e8ff102e11ca0db3fccec17e04cc334ad52b"
         },
         {
+            "path": "Assets/RivetReach/Code/ItemAppearanceVerification.cs",
+            "sha256": "c6ad6416ee1e55baeac67578d40cacd01644676158b06960620c3db8c9963d09"
+        },
+        {
             "path": "Assets/RivetReach/Code/MachineryShowcase.cs",
             "sha256": "eca4a163d975807a5faec20c6885fd56d6595d9a02cb1c9596a7b706fb762bd2"
         },
@@ -8224,7 +8228,11 @@
         },
         {
             "path": "Assets/RivetReach/Code/Player/HeldBlockView.cs",
-            "sha256": "878d113162fe382c176bb23a7814eeed681b5f78c2f97bd9ab5b4d9b5859dd41"
+            "sha256": "9788fbe7a7805c5ff430d8db7cdcccbb44b9222a0435d119d2b21ff81b515035"
+        },
+        {
+            "path": "Assets/RivetReach/Code/Player/ItemAppearance.cs",
+            "sha256": "f2c5c5ccfff6a591a723dde15984f9f8114f8d833e7c4ca5ec8c4dfa88853984"
         },
         {
             "path": "Assets/RivetReach/Code/Player/OreVisuals.cs",
@@ -8328,7 +8336,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUI.cs",
-            "sha256": "fa1a204ee31e6b41bddb9c0e554ca8c7fa7e8918201582f3709b9d7c62f8de27"
+            "sha256": "58a91d7ff6facc8ea84a9567053d2f26aec642378876a04d66dd27a05a4b3c71"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIBrowser.cs",
@@ -8431,8 +8439,16 @@
             "sha256": "016e7a1de5d64db71fae76af465600b842fc50fc355bda9ed1f46b69ae580ad4"
         },
         {
+            "path": "Assets/RivetReach/Editor/ItemAppearanceBuild.cs",
+            "sha256": "b982b6aaa59d430960902d2211d1aac8ddfefe23c5068fa4e255b0fba2f37f92"
+        },
+        {
+            "path": "Assets/RivetReach/Editor/ItemIcon.shader",
+            "sha256": "21fcd3d59fec339d7a15667968a3fba2cb99c9976f80271d3660b3e4e5bb951f"
+        },
+        {
             "path": "Assets/RivetReach/Editor/WikiExport.cs",
-            "sha256": "7acdef509ccad6a04ac50edee06ead41b9c3c3d1695577be34de1b74fc5f1ba8"
+            "sha256": "e4677498094f34a70168befa9c9de6733d8c1f3d7d81415fcd6a86200313d34e"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/BucketRecipe.asset",
@@ -9537,6 +9553,130 @@
         {
             "path": "Assets/RivetReach/Resources/Industry/Icons/9.png",
             "sha256": "754544f87fed6ca4749806d4dc87cd797a33e5f926eb2739cb311b37616f14de"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/40.png",
+            "sha256": "dfff3360c7a203c9804bcb7efa8d40230b923b0e32f9b81469e1628b07fba7af"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/41.png",
+            "sha256": "d8e860fef734ded776b174ef4cba63098c057a86d68b4f725de4cb7e19e29970"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/42.png",
+            "sha256": "20927930c7c454971641874d4d991d4f7a09e78c31f61f5b124f422d2c6c46e9"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/43.png",
+            "sha256": "5dcf5c0526857ce7d4b6986f84819e6ce5a2a5e4d0a94b751644cb5c1b3de3e5"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/44.png",
+            "sha256": "f22b43f76fe984a5554cb10788344c0749d1de533e0de6006b5d63a0eb13cf69"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/45.png",
+            "sha256": "7f2941dd97408c4ea321ca0544f657e7effbf0ec8d2c37e4e00589ec687dc002"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/46.png",
+            "sha256": "5a72f5465acc4a1a5e973963e26af339d783c66b7af31fc96aa9d8c3241dfb0b"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/47.png",
+            "sha256": "20a4a7dc27349de4ca196dbe7952ac16a51eaabf3804692f6e7147c44a9a0b22"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/48.png",
+            "sha256": "be218b575b5f4838a8eea730b930918e3d12a424c3f83f19b44f3aaf820b841b"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/49.png",
+            "sha256": "bb60bb25cff3e35ba31943ca82a2c1cf0ed6a4b92337ac385ea214a8cbf5793e"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/50.png",
+            "sha256": "c6128c281ce948fdaf1144cfb5f500a05c008c4a3e52f39b98a4cf8341ed8acb"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/51.png",
+            "sha256": "4f7567e52300015ec7c5a25cac4bec02ee6471782eb408c0af5e181986b0336b"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/52.png",
+            "sha256": "d596206f8c80b2161cf40cf2667048fbab65cdc0ccc40835344a60cd23ed45fc"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/53.png",
+            "sha256": "e34d5e725645099b7181a32570acd0220810178b67359215c0356ea75edf3bf4"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/54.png",
+            "sha256": "78df55e0732f42997624172ba2cc9cd5cc31e39bcb32acc1325c6c4ce0d01933"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/55.png",
+            "sha256": "1e740ddf3c605516f75e9e227928e968f836ff4190e96ca5f69b626466481705"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/56.png",
+            "sha256": "c46c343f5c20ca165055bbeb8d2c382617ed823077715709a3ed8ab6ab4d561b"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/57.png",
+            "sha256": "d07fd7d4696eb7542aeef1bb75c07402bc4bc44d55e95e96755ec84e8a91afa1"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/58.png",
+            "sha256": "a4380c746e9aa98295b4390b3b1c16e8a5b34aa42051599fbcf9694c041f6c3c"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/59.png",
+            "sha256": "2f4043f0a2dd353c47597b49b5b253e03f6f7f5c23f65327d91785b5970d60f8"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/6.png",
+            "sha256": "80c920eceae2ef1afdb4e9f19d61ff4e084418d93b1f899ac8ed1df03225da2c"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/60.png",
+            "sha256": "c4dc0c9860a9d89421b20203da7b0ff5890a00d9469cd2275dc1f70ba0cb1e77"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/61.png",
+            "sha256": "1d01caaa7344e55679b2826a35e97a331fa6da6802287df0cfc8dedd771d830a"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/62.png",
+            "sha256": "a7e4afecf8bb8a8c7c40225cdbe6f6c6a5a676130a71a3e6db29046aabc5256b"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/63.png",
+            "sha256": "4a1706454e654c8be5a3461ea6b76b8b4056f769601f649e172719891cdd6233"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/64.png",
+            "sha256": "5e9a58366bea5601e2c08664ebddf60796c28a30c50b0e5b8ed81fb8c5ed0ae5"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/7.png",
+            "sha256": "0d60687dec2612900bcace312c9749016b708f5d877f84db542d60b0be29f20f"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/8.png",
+            "sha256": "18be91bba6306ae2c44de915bd34b441f9a91e237b387bb7b14bb3d9cd81af0a"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/94.png",
+            "sha256": "f07cc363023e7315b805ea31933b364818c5cf7fdd7b239e3060693f8a3aafce"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/95.png",
+            "sha256": "c895f4748bc743ca9111bf13534a8b55cb106c8aaf5e23a4a6f51fe04f69791c"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/ItemIcons/96.png",
+            "sha256": "05f5b3c7468e0a3b6f9827f11da95bb1c6c685464a77243ae65099c98b0a9fdc"
         },
         {
             "path": "Assets/RivetReach/Resources/Materials/BlockTiles.asset",
