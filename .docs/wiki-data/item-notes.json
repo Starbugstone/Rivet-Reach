@@ -269,5 +269,10 @@
   },
   "rivet:machinist_bench": {
     "use": "Place and open it with **E or right-click** for 4×4 crafting. It also accepts smaller crafting recipes. Industrial recipes are shapeless unless their page specifies a pattern; keep the required count in each occupied slot."
+  },
+  "rivet:hand_crank": {
+    "description": "A manual generator for a small starting electricity reserve. It supplies 100 W during each half-second turn (50 J), using no fuel or water.",
+    "obtain": "Craft at a 3×3 workbench from 2 copper ingots, 1 iron ingot, 1 stick and 2 planks.",
+    "use": "Select it and right-click a battery side to attach its rear power socket. Aim at the placed crank and right-click or press Interact for one turn; hold right-click to repeat. Connected loads use power first, then surplus charges eligible batteries. See [Electricity and batteries](Electricity-and-batteries.md#starting-power-with-a-hand-crank)."
   }
 }

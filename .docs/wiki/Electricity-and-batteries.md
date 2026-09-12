@@ -284,3 +284,11 @@ The Battery Bank Controller can be removed without draining because the controll
 - [Tanks](Tanks.md) — build larger water storage for an industrial workshop.
 - [Blue Signal](Blue-Signal.md) — control machines without confusing signal wiring with electrical power.
 - [Crafting](Crafting-Recipes.md) — find recipes and use the Machinist's Bench.
+
+## Starting power with a hand crank
+
+Craft a **Hand Crank** at a workbench using **2 copper ingots, 1 iron ingot, 1 stick and 2 planks** in any arrangement (one stack for each ingredient). Select it and right-click a battery's side to attach it. Leave room to stand in front of the handle.
+
+Aim at the crank and **right-click once for a turn**, or **hold right-click to keep turning**. Each half-second turn generates **50 J**. The bound Interact key also turns it. Inspect the battery from another side to see the stored charge; use **Automatic** or **ChargeOnly** mode to charge. A bank must receive power through its controller's outward socket.
+
+Connected machines use power first; the remainder charges storage. A full or isolated battery accepts none. Release the button or look away to stop further turns; the current turn finishes. The crank needs no fuel, water or Azure component, and can also feed a power cable through its rear socket.

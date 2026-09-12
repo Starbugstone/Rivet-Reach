@@ -8,7 +8,7 @@
 
 <a href="Item-hand-crank.md" title="Hand Crank"><img src="icons/170.png" width="96" height="96" alt="Hand Crank"></a>
 
-Use / hold Use: 50 J per turn · rear power socket.
+A manual generator for a small starting electricity reserve. It supplies 100 W during each half-second turn (50 J), using no fuel or water.
 
 ## At a glance
 
@@ -19,7 +19,11 @@ Use / hold Use: 50 J per turn · rear power socket.
 
 ## How to obtain
 
-Make this item using the crafting or processing recipes below.
+Craft at a 3×3 workbench from 2 copper ingots, 1 iron ingot, 1 stick and 2 planks.
+
+## Using it
+
+Select it and right-click a battery side to attach its rear power socket. Aim at the placed crank and right-click or press Interact for one turn; hold right-click to repeat. Connected loads use power first, then surplus charges eligible batteries. See [Electricity and batteries](Electricity-and-batteries.md#starting-power-with-a-hand-crank).
 
 ## Crafting and processing
 

@@ -18,7 +18,7 @@ The existing battery, industry, multiblock and domain suites also passed. The do
 
 ## Windows player
 
-The [Windows build](hand-crank-build-2026-09-12.txt) succeeded with **zero errors and zero warnings**. The maintained local player is `Builds/HandCrank/RivetReach.exe`. It was built in an isolated working snapshot using the pinned Editor; the concurrent appearance work was included in that review snapshot. This report does not attribute those other changes to the crank increment.
+The [Windows build](hand-crank-build-2026-09-12.txt) succeeded with **zero errors and zero warnings**. The maintained local player is `Builds/HandCrank/RivetReach.exe`. It was built from committed source `304117677349e8dd209d124c908972e5971b29b3` in an isolated project using the pinned Editor. The final player run is timestamped `2026-09-12T09:41:18Z`; concurrent uncommitted feature work is excluded from this build.
 
 The [actual player run](hand-crank-runtime-2026-09-12.json) passed **28 assertions** at 1280×800 on Direct3D 11 (i7-10750H / RTX 2060): four-side socket alignment, actual right-click placement without opening the battery, a single right-click storing exactly 50 J, held Use producing repeated complete turns, visible pivot animation, release/look-away behavior, paused paid work, battery inspection and disk save/load preserving exact charge and the remaining paid turn. No runtime errors were logged.
 
