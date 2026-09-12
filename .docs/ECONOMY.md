@@ -209,3 +209,7 @@ The user selected implementation of [GitHub issue #2](https://github.com/Starbug
 ## Authorized multiblock and pipe extension — 2026-09-10
 
 The user selected [issue #3](https://github.com/Starbugstone/Rivet-Reach/issues/3): reusable multiblock lifecycle, player-built liquid tanks, connected Blender shell surfaces and shared pipe connections. [MULTIBLOCKS.md](MULTIBLOCKS.md) owns construction, exact shared storage, breach/resize recovery, signal valves/level sensors and independent signal/power fittings on both item and fluid pipes. This supersedes earlier exclusions of those specific hybrid channels and tank controls. [Verification](verification/MULTIBLOCK_RESULTS.md) records the measured build and remaining review. Whole-world durable saves remain later scope.
+
+## Configurable logistics tool — 2026-09-12
+
+The reusable [Wrench](INDUSTRY.md#wrench-and-configurable-pipe-ends--2026-09-12) costs three iron ingots at a workbench as a working balance choice. Configuring a machine-facing item/fluid pipe end consumes neither the wrench nor resources. All-face electrical access is automatic. Item/fluid transfers retain source inventory, destination capacity, fixed-step limits and tank recovery gates; no materials or power are created by changing a direction.

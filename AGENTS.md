@@ -95,3 +95,7 @@ Player asset ownership: the earlier separate modeling handoff is complete. The u
 ## Authorized wooden doors
 
 The user authorized [craftable wooden doors](.docs/DOORS.md) with right-click/Interact toggling and Blue Signal control. Preserve the two-cell footprint, single-item recovery, occupied-doorway closing protection, signal-edge/manual precedence and additive durable-save compatibility. [Door verification](.docs/verification/DOOR_RESULTS.md) owns measured evidence.
+
+## Authorized all-face connections and wrench
+
+The user authorized [all-face machine power and item/fluid pipe ends](.docs/INDUSTRY.md#wrench-and-configurable-pipe-ends--2026-09-12). Direction changes require a **selected craftable Wrench and right-click on a machine-facing pipe end**; empty hands, other items, Interact and pipe-to-pipe ends cannot change direction. Preserve blue arrows into machines, red arrows out, independent per-end settings, automatic all-face electricity, resource conservation, tank safety gates and explicit schema-4/legacy-save compatibility. [The pipe guide](.docs/wiki/Pipes.md) teaches setup; [connection verification](.docs/verification/CONNECTION_RESULTS.md) records evidence.

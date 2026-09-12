@@ -13,7 +13,7 @@ namespace RivetReach
             if(IndustryId.BatteryPart(m.Definition.Id)){BuildBatteryMachine(parent,m);return;}
             if(IndustryId.TankPart(m.Definition.Id)){BuildMultiblockMachine(parent,m);return;}
             Label(parent,"MACHINE CONTROL",821,115,315,32,23);
-            Label(parent,m.Definition.Help,821,157,307,62,15,gold);
+            Label(parent,PipeConnections.IsTransport(m.Definition.Id)?"Hold a Wrench and right-click a machine-facing end. Blue: input · Red: output.":m.Definition.Help+(m.Definition.Watts>0?"\nPower connects on all six faces." : ""),821,157,307,62,15,gold);
             var status=Panel(parent,821,228,310,55,slate);machineStatus=Label(status.transform,"",12,10,290,40,19,gold);
             if(m.Definition.Id==IndustryId.Crusher||m.Definition.Id==IndustryId.Boiler)
             {Label(parent,m.Definition.Id==IndustryId.Boiler?"FUEL":"RAW ORE",821,299,150,22,13,gold);Slot(parent,MachineSlotStart,821,325,55);}
@@ -58,7 +58,7 @@ namespace RivetReach
                 MachineButton(parent,live=>"TAKE 10 L",977,415,147,34,live=>{if(!game.Industry.Bucket(live,false))game.Notify("Need an empty bucket and 10 L stored fluid",3);});
             }
             if(m.Definition.Id==IndustryId.TankPort||m.Definition.Id==IndustryId.TankValve)
-                MachineButton(parent,live=>"PORT: "+live.PortMode,821,415,303,34,live=>{live.PortMode=(FluidPortMode)(((int)live.PortMode+1)%3);game.Industry.Simulation.Invalidate();});
+                MachineButton(parent,live=>live.PortMode==FluidPortMode.Disabled?"PORT: DISABLED":"PORT: ENABLED",821,415,303,34,live=>{live.PortMode=live.PortMode==FluidPortMode.Disabled?FluidPortMode.Input:FluidPortMode.Disabled;game.Industry.Simulation.Invalidate();});
             if(m.Definition.Id==IndustryId.TankSensor)
                 MachineButton(parent,live=>"ON AT: "+live.LevelThreshold+"%",821,415,303,34,live=>{live.LevelThreshold=live.LevelThreshold==100?10:live.LevelThreshold+10;});
             MachineButton(parent,live=>"ROTATE 90°",821,456,146,34,live=>{game.Industry.Simulation.Rotate(live);});

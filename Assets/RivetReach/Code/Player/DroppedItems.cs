@@ -232,7 +232,14 @@ namespace RivetReach
         {
             var view=new GameObject("World item display");
             var capability=Game.Registry.Capabilities(new ItemStack(id,1));
-            if(FoodVisuals.UsesModel(id))FoodVisuals.Create(id,view.transform);
+            if(id==IndustryId.Wrench)
+            {
+                var model=Instantiate(Resources.Load<GameObject>("Tools/Wrench"),view.transform,false);
+                var renderers=model.GetComponentsInChildren<Renderer>();var bounds=renderers[0].bounds;foreach(var r in renderers)bounds.Encapsulate(r.bounds);
+                float scale=1/Mathf.Max(bounds.size.x,bounds.size.y,bounds.size.z);model.transform.localPosition=-bounds.center*scale;model.transform.localScale*=scale;
+                foreach(var r in renderers)r.sharedMaterial=Resources.Load<Material>("Industry/Workshop");
+            }
+            else if(FoodVisuals.UsesModel(id))FoodVisuals.Create(id,view.transform);
             else if(OreVisuals.UsesModel(id))
             {
                 var model=OreVisuals.Create(id,view.transform);model.transform.localPosition=-Vector3.one*.5f;

@@ -70,3 +70,5 @@ Project specifications live in `.docs/`. Contributor and agent workflow is recor
 Player guides: [GitHub wiki](https://github.com/Starbugstone/Rivet-Reach/wiki) · [repository copy](.docs/wiki/Home.md). Browse the [visual item catalog](.docs/wiki/Items.md) for individual item explanations, linked icons and crafting/processing recipes, alongside the tank, pump, battery and connection guides. [Wiki authoring and publishing](.docs/WIKI_AUTHORING.md) explains how to maintain and deploy the local copy.
 
 Craft [wooden doors](.docs/DOORS.md) from six planks at a workbench. Right-click either half to open/close, or connect Blue Signal at the base. The focused review player is `Builds/Doors/RivetReach.exe`; see [door verification](.docs/verification/DOOR_RESULTS.md).
+
+[All-face connections and wrench verification](.docs/verification/CONNECTION_RESULTS.md) covers the craftable wrench, machine-facing pipe controls and saved directions. Players can follow the [Pipes guide](.docs/wiki/Pipes.md).

@@ -43,7 +43,8 @@ namespace RivetReach.Editor
             battery.EnergyCells[0].Charge(BatteryStorage.CellCapacity-BatteryPower.Amount(battery)-50);sim.TryCrank(crank);Steps(10);
             Check(BatteryPower.Amount(battery)==BatteryStorage.CellCapacity,"Near-full battery clamps without overflowing");
             battery.EnergyCells[0].Discharge(BatteryPower.Amount(battery));sim.Rotate(crank);Settle();sim.TryCrank(crank);Steps(10);
-            Check(BatteryPower.Amount(battery)==0,"Incorrectly facing rear socket cannot transfer power");
+            Check(BatteryPower.Amount(battery)==50000,"Rotated crank still transfers power through any attached face");
+            battery.EnergyCells[0].Discharge(BatteryPower.Amount(battery));
             for(int i=0;i<3;i++)sim.Rotate(crank);Settle();
             var lamp=Add(1,1,IndustryId.Lamp);for(int i=0;i<3;i++)sim.Rotate(lamp);Settle();sim.TryCrank(crank);Steps(10);
             Check(lamp.ReceivedWatts==20&&BatteryPower.Amount(battery)==40000,"Lamp receives 20 W before 80 W surplus charges battery");
@@ -60,16 +61,16 @@ namespace RivetReach.Editor
             var items=ItemRegistry.Load();var catalog=RecipeCatalogAsset.Load();var recipe=catalog.recipes.Single(r=>r.stableId=="rivet:industry_170");
             Check(recipe.minimumGridSize==3&&recipe.output.count==1&&recipe.ingredients.Length==4,"Crank is a four-ingredient workbench recipe");
             Check(recipe.ingredients.All(c=>new[]{BlockId.CopperIngot,BlockId.IronIngot,BlockId.Stick,BlockId.Planks}.Contains(items.ResolveId(c.itemId))),"Recipe needs only ordinary early-game materials");
-            var store=new SaveStore("unused",items);var legacyItems=ScriptableObject.CreateInstance<ItemRegistry>();legacyItems.items=items.items.Where(i=>i.runtimeId!=IndustryId.HandCrank).ToArray();
+            var store=new SaveStore("unused",items);var legacyItems=ScriptableObject.CreateInstance<ItemRegistry>();legacyItems.items=items.items.Where(i=>i.runtimeId!=IndustryId.HandCrank&&i.runtimeId!=IndustryId.Wrench).ToArray();
             var original=catalog.recipes;
             try
             {
-                catalog.recipes=original.Where(r=>r!=recipe).ToArray();var legacy=new SaveStore("unused",legacyItems);
+                catalog.recipes=original.Where(r=>r!=recipe&&r.stableId!="rivet:wrench").ToArray();var legacy=new SaveStore("unused",legacyItems);
                 var entry=new SaveEntry{Id=Guid.NewGuid().ToString("N"),WorldId=Guid.NewGuid().ToString("N"),Name="Legacy crank compatibility",UtcTicks=DateTime.UtcNow.Ticks,Seed=17};
-                byte[] bytes=legacy.Encode(entry,w=>w.Write(314));
+                byte[] bytes=SaveFixtureEnvelope.Schema3(legacy.Encode(entry,w=>w.Write(314)));
                 using(var reader=store.Open(bytes,out var restored))Check(reader.ReadInt32()==314&&restored.Seed==17,"Pre-crank save fingerprint loads without rewriting old state");
                 legacyItems.items=legacyItems.items.Select(i=>JsonUtility.FromJson<ItemDefinition>(JsonUtility.ToJson(i))).ToArray();legacyItems.items[0].attackDamage++;
-                var incompatible=new SaveStore("unused",legacyItems);bytes=incompatible.Encode(entry,w=>w.Write(314));bool rejected=false;
+                var incompatible=new SaveStore("unused",legacyItems);bytes=SaveFixtureEnvelope.Schema3(incompatible.Encode(entry,w=>w.Write(314)));bool rejected=false;
                 try{using var reader=store.Open(bytes,out _);}catch(InvalidDataException){rejected=true;}
                 Check(rejected,"Unrelated legacy definition changes are still rejected");
                 catalog.recipes=original;

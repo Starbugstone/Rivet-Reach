@@ -19,6 +19,7 @@ namespace RivetReach
         public const byte TankFrame=160,TankWall=161,TankGlass=162,TankController=163,TankPort=164,TankHatch=165,TankValve=166,TankSensor=167;
         public const byte Battery=168,BatteryController=169,HandCrank=170;
         public const byte WoodenDoor=171,DoorUpper=172;
+        public const byte Wrench=173;
         public static bool DoorPart(byte id)=>id==WoodenDoor||id==DoorUpper;
         public static bool BatteryPart(byte id)=>id==Battery||id==BatteryController;
         public static bool TankPart(byte id)=>id>=TankFrame&&id<=TankSensor;
@@ -47,15 +48,15 @@ namespace RivetReach
             Add(IndustryId.SignalWire,"signal_wire","Signal Wire","Floor wire · horizontal connections only",0,0,P(NetworkKind.Signal,PortRole.Route,51));
             Add(IndustryId.SignalConduit,"signal_conduit","Signal Conduit","Enclosed signal · routes in all six directions",0,0,P(NetworkKind.Signal,PortRole.Route,63));
             Add(IndustryId.PowerCable,"power_cable","Power Cable","Electrical energy · separate from blue control",0,0,P(NetworkKind.Power,PortRole.Route,63));
-            Add(IndustryId.ItemPipe,"item_pipe","Item Pipe","Items only · connect an Extractor to a chest",0,0,P(NetworkKind.Item,PortRole.Route,63));
-            Add(IndustryId.FluidPipe,"fluid_pipe","Fluid Pipe","Water only · sealed 100 mL transfers",0,0,P(NetworkKind.Fluid,PortRole.Route,63));
+            Add(IndustryId.ItemPipe,"item_pipe","Item Pipe","Items · wrench sets machine-facing input / output",0,0,P(NetworkKind.Item,PortRole.Route,63));
+            Add(IndustryId.FluidPipe,"fluid_pipe","Fluid Pipe","Fluids · wrench sets machine-facing input / output",0,0,P(NetworkKind.Fluid,PortRole.Route,63));
             Add(IndustryId.Lever,"lever","Lever","Use to toggle a binary blue signal",0,0,P(NetworkKind.Signal,PortRole.Output,51));
             Add(IndustryId.Button,"button","Button","Use for a one-second pulse",0,0,P(NetworkKind.Signal,PortRole.Output,51));
             Add(IndustryId.Relay,"signal_relay","Signal Relay","Rear input → front output · one tick delay",0,0,P(NetworkKind.Signal,PortRole.Input,16),P(NetworkKind.Signal,PortRole.Output,32));
             Add(IndustryId.Indicator,"signal_indicator","Signal Indicator","Tiny signal pilot · requires no electricity",0,0,si);
             Add(IndustryId.Door,"workshop_hatch","Workshop Hatch","Signal opens the hatch · no electricity needed",0,0,si);
-            Add(IndustryId.Lamp,"workshop_lamp","Workshop Lamp","Power at rear · optional signal at front",20,0,pi,si);
-            Add(IndustryId.Boiler,"boiler_engine","Boiler Engine","Coal / charcoal + water → right-hand shaft",0,100000,P(NetworkKind.Fluid,PortRole.Input,16));
+            Add(IndustryId.Lamp,"workshop_lamp","Workshop Lamp","Power on any face · optional signal at front",20,0,pi,si);
+            Add(IndustryId.Boiler,"boiler_engine","Boiler Engine","Coal / charcoal + water → right-hand shaft",0,100000,P(NetworkKind.Fluid,PortRole.Input,16),ii);
             Add(IndustryId.Alternator,"alternator","Alternator","Left shaft couples to Boiler · 400 W output",0,0,P(NetworkKind.Power,PortRole.Output,16));
             Add(IndustryId.Crusher,"crusher","Crusher","1 raw copper / iron / gold → 2 crushed ore",160,0,pi,si,ii,io);
             Add(IndustryId.Pump,"pump","Pump","Source directly below · consumes 10 L per source",80,10000,pi,si,P(NetworkKind.Fluid,PortRole.Output,1));
@@ -67,13 +68,13 @@ namespace RivetReach
             Add(IndustryId.TankWall,"tank_wall","Tank Wall","Solid panel · required floor and roof");
             Add(IndustryId.TankGlass,"tank_glass","Reinforced Tank Glass","Side windows connect when the hollow tank forms");
             Add(IndustryId.TankController,"tank_controller","Tank Controller","Exactly one · face outward · empty before dismantling",0,0,P(NetworkKind.Fluid,PortRole.Output,32));
-            Add(IndustryId.TankPort,"tank_port","Tank Fluid Port","Face outward · configure INPUT / OUTPUT / DISABLED",0,0,P(NetworkKind.Fluid,PortRole.Input,32));
+            Add(IndustryId.TankPort,"tank_port","Tank Fluid Port","Face outward · wrench sets each pipe end",0,0,P(NetworkKind.Fluid,PortRole.Input,32));
             Add(IndustryId.TankHatch,"tank_hatch","Tank Access Hatch","10 L bucket transfers · one shared tank inventory");
             Add(IndustryId.TankValve,"tank_valve","Signal Valve Port","Front fluid nozzle + keyed signal · ON opens valve",0,0,P(NetworkKind.Fluid,PortRole.Input,32),P(NetworkKind.Signal,PortRole.Input,32));
             Add(IndustryId.TankSensor,"tank_sensor","Tank Level Sensor","Front Blue Signal output · threshold adjustable",0,0,P(NetworkKind.Signal,PortRole.Output,32));
             Add(IndustryId.Battery,"battery_block","Battery Block","100 kJ · 400 W · power connections on all faces",0,0,P(NetworkKind.Power,PortRole.Storage,63));
             Add(IndustryId.BatteryController,"battery_controller","Battery Bank Controller","Solid pack of batteries · one controller facing out",0,0,P(NetworkKind.Power,PortRole.Storage,32));
-            Add(IndustryId.HandCrank,"hand_crank","Hand Crank","Use / hold Use: 50 J per turn · rear power socket",0,0,P(NetworkKind.Power,PortRole.Output,16));
+            Add(IndustryId.HandCrank,"hand_crank","Hand Crank","Use / hold Use: 50 J per turn · power on all faces",0,0,P(NetworkKind.Power,PortRole.Output,16));
             Add(IndustryId.WoodenDoor,"wooden_door","Wooden Door","Use to open / close · Blue Signal connects at the base",0,0,P(NetworkKind.Signal,PortRole.Input,63));
             return d;
         }
@@ -94,6 +95,9 @@ namespace RivetReach
         public int WaterMl {get=>(int)Fluid.Amount;set=>Fluid.SetWater(value);}
         public MultiblockInstance Structure;
         public PipeAddition Additions;
+        // Two bits per world-facing pipe end: 0 = default, 1 = into machine, 2 = out.
+        // These belong to the pipe, so rotating a machine never moves a configured end.
+        public int PipeDirections;
         public readonly BatteryStorage[] EnergyCells;
         public BatteryMode BatteryMode;
         public int BatteryWatts;

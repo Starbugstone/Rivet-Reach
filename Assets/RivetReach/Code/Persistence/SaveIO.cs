@@ -23,7 +23,7 @@ namespace RivetReach
     {
         public readonly ItemRegistry Registry;
         public readonly int Format;
-        public SaveReader(Stream stream,ItemRegistry registry,int format=3) : base(stream,Encoding.UTF8,true){Registry=registry;Format=format;}
+        public SaveReader(Stream stream,ItemRegistry registry,int format=4) : base(stream,Encoding.UTF8,true){Registry=registry;Format=format;}
         public static void Require(bool ok,string message){if(!ok)throw new InvalidDataException(message);}
         public int Count(int max=2000000){int n=ReadInt32();Require(n>=0&&n<=max,"Invalid save collection size.");return n;}
         public int Int(int min,int max){int n=ReadInt32();Require(n>=min&&n<=max,"Invalid saved integer.");return n;}
@@ -53,7 +53,7 @@ namespace RivetReach
     }
     public sealed class SaveStore
     {
-        const int Format=3,MaxBytes=256*1024*1024;
+        const int Format=4,MaxBytes=256*1024*1024;
         public string DirectoryPath {get;}
         readonly ItemRegistry registry;
         readonly string content;
@@ -65,16 +65,16 @@ namespace RivetReach
             // Schema 1/2 predate orchard state; doors and crank are independent additive content.
             // Every definition present before each accepted extension must still match.
             var processing=ProcessingCatalogAsset.Load();
-            string Fingerprint(int legacy,bool orchard=false)
+            string Fingerprint(int legacy,bool orchard=false,bool wrench=false)
             {
-                string definitions=string.Join("\n",registry.items.Where(i=>(orchard||i.stableId!="rivet:sapling"&&i.stableId!="rivet:apple")&&((legacy&2)==0||i.stableId!="rivet:hand_crank")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.runtimeId).Select(i=>JsonUtility.ToJson(i)))
+                string definitions=string.Join("\n",registry.items.Where(i=>(wrench||i.stableId!="rivet:wrench")&&(orchard||i.stableId!="rivet:sapling"&&i.stableId!="rivet:apple")&&((legacy&2)==0||i.stableId!="rivet:hand_crank")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.runtimeId).Select(i=>JsonUtility.ToJson(i)))
                     +string.Join("\n",processing.recipes.OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
                     +string.Join("\n",processing.fuels.OrderBy(i=>i.itemId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
-                    +string.Join("\n",RecipeCatalogAsset.Load().recipes.Where(i=>((legacy&2)==0||i.stableId!="rivet:industry_170")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
+                    +string.Join("\n",RecipeCatalogAsset.Load().recipes.Where(i=>(wrench||i.stableId!="rivet:wrench")&&((legacy&2)==0||i.stableId!="rivet:industry_170")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
                     +string.Join("\n",Resources.LoadAll<MobDefinition>("Mobs/Definitions").OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)));
                 return Convert.ToBase64String(Hash(Encoding.UTF8.GetBytes(definitions)));
             }
-            content=Fingerprint(0,true);for(int legacy=0;legacy<4;legacy++){legacyContent.Add(Fingerprint(legacy));currentContent.Add(Fingerprint(legacy,true));}
+            content=Fingerprint(0,true,true);for(int legacy=0;legacy<4;legacy++){legacyContent.Add(Fingerprint(legacy));currentContent.Add(Fingerprint(legacy,true));}
         }
         static byte[] Hash(byte[] bytes){using var sha=SHA256.Create();return sha.ComputeHash(bytes);}
         string SlotPath(string id){SaveReader.Require(Guid.TryParseExact(id,"N",out _),"Invalid save slot.");return System.IO.Path.Combine(DirectoryPath,id+".rrsave");}
@@ -102,7 +102,7 @@ namespace RivetReach
                 SaveReader.Require(Guid.TryParseExact(entry.Id,"N",out _)&&Guid.TryParseExact(entry.WorldId,"N",out _)&&!string.IsNullOrWhiteSpace(entry.Name),"Invalid save identity.");
                 SaveReader.Require(r.Text()==TerrainGenerator.Version,"This save requires a different terrain generator.");
                 string savedContent=r.Text();
-                SaveReader.Require(format==3?currentContent.Contains(savedContent):legacyContent.Contains(savedContent),"This save requires different content definitions; migration is not available.");
+                SaveReader.Require(format>=4?savedContent==content:format==3?currentContent.Contains(savedContent):legacyContent.Contains(savedContent),"This save requires different content definitions; migration is not available.");
                 return r;
             }
             catch{r.Dispose();throw;}

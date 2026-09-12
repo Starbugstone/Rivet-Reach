@@ -81,6 +81,7 @@ namespace RivetReach
             World.OriginShifted+=Sound.ShiftOrigin;
             Survival=new WorldSurvival(this);Industry=new WorldIndustry(this);root.AddComponent<IndustryPresentation>().Initialize(this);root.AddComponent<StarterStationPresentation>().Initialize(this);root.AddComponent<MultiblockPresentation>().Initialize(this);
             Industry.Simulation.Multiblocks.WorldId=Guid.ParseExact(WorldId,"N");
+            root.AddComponent<PipeEndpointPresentation>().Initialize(this);
             Mobs=root.AddComponent<MobSystem>();Mobs.Initialize(this);
         }
         void SpawnMinedDrop(BlockPos pos,byte id)

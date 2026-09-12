@@ -1,0 +1,34 @@
+PASS Topology rebuild rejects activation
+PASS Idle crank and new battery produce no free energy
+PASS One manual stroke accepted
+PASS Repeat cannot stack paid stroke at tick 0
+PASS Repeat cannot stack paid stroke at tick 1
+PASS Repeat cannot stack paid stroke at tick 2
+PASS Repeat cannot stack paid stroke at tick 3
+PASS Repeat cannot stack paid stroke at tick 4
+PASS Repeat cannot stack paid stroke at tick 5
+PASS Repeat cannot stack paid stroke at tick 6
+PASS Repeat cannot stack paid stroke at tick 7
+PASS Repeat cannot stack paid stroke at tick 8
+PASS Repeat cannot stack paid stroke at tick 9
+PASS One turn stores exactly 50 J over ten 20 Hz steps
+PASS Released crank stops and retains exact charge
+PASS Continuous activation supplies at most 100 W
+PASS Manual generation obeys Isolated
+PASS Manual generation obeys DischargeOnly
+PASS Charge-only accepts manual generation
+PASS Near-full battery clamps without overflowing
+PASS Rotated crank still transfers power through any attached face
+PASS Lamp receives 20 W before 80 W surplus charges battery
+PASS Dormant crank rejects use
+PASS Dormant generator earns no offline charge
+PASS Removed crank cannot be activated through stale reference
+PASS Minimal battery pack forms next to crank
+PASS Crank charges bank only through outward controller socket
+PASS Bank mode blocks crank transfers
+PASS Crank is a four-ingredient workbench recipe
+PASS Recipe needs only ordinary early-game materials
+PASS Pre-crank save fingerprint loads without rewriting old state
+PASS Unrelated legacy definition changes are still rejected
+PASS Current content save round-trips
+Assertions: 33

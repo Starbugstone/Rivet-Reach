@@ -93,6 +93,10 @@ namespace RivetReach.Editor
             c.RecoveryOutput=false;Set(new BlockPos(0,2,0),IndustryId.TankFrame);
             sim.At(new BlockPos(2,1,1)).PortMode=FluidPortMode.Input;sim.At(new BlockPos(1,1,2)).PortMode=FluidPortMode.Input;
             sim.Rotate(a);sim.Rotate(a);sim.Rotate(bTank);sim.Rotate(bTank);
+            // Configured pipe ends stay fixed when machines rotate. Reverse both
+            // ends explicitly, through the same domain command used by the wrench.
+            var reverseX=sim.At(new BlockPos(3,1,1));sim.TogglePipeEnd(reverseX,0);sim.TogglePipeEnd(reverseX,1);
+            var reverseZ=sim.At(new BlockPos(1,1,3));sim.TogglePipeEnd(reverseZ,4);sim.TogglePipeEnd(reverseZ,5);
             a.WaterMl=bTank.WaterMl=1000;instance.Fluid.Deposit(Fluids.Water,249950);Settle();
             Check(instance.Formed&&instance.Fluid.Amount==250000&&a.WaterMl+bTank.WaterMl==1950,"Inputs in separate graphs reserve one shared final 50 mL of capacity");
             var growing=Tank(new BlockPos(110,0,0),3,3,3);Settle();var grown=growing.Structure;grown.Fluid.Deposit(Fluids.Water,50000);

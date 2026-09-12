@@ -9,7 +9,7 @@ The user requested electrical storage as a standalone battery block and as cells
 Working defaults chosen for this increment, not individually user-approved balance values:
 
 - Battery Block, runtime ID 168: 100 kJ capacity, 400 W maximum input or output, initially empty. Its six faces share one electrical storage endpoint.
-- Battery Bank Controller, ID 169: no capacity by itself, front electrical storage endpoint, initially Automatic mode.
+- Battery Bank Controller, ID 169: no capacity by itself, one electrical storage endpoint on all six faces, initially Automatic mode.
 - Four modes: Automatic, ChargeOnly, DischargeOnly and Isolated. A formed bank's controller mode overrides its cells' modes; those cell modes resume after release.
 - Storage is lossless in this first increment. No passive decay, offline progress or free Creative charge. All stored charge is session state.
 - Crafting at the 4×4 Machinist's Bench: cell = casing ×1, copper plate ×2, copper wire ×4, coal ×2; controller = casing ×1, copper wire ×4, Azure crystal ×1, glass ×1. These are original industry assemblies; beginning survival recipes remain unchanged.

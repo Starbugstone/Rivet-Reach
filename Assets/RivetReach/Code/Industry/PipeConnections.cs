@@ -24,7 +24,7 @@ namespace RivetReach
                     if(m.Structure==null||!m.Structure.Formed)continue;
                     if(p.Kind==NetworkKind.Fluid){if(m.PortMode==FluidPortMode.Disabled)continue;yield return new MachinePort(p.Kind,m.PortMode==FluidPortMode.Input?PortRole.Input:PortRole.Output,p.Faces);continue;}
                 }
-                yield return p;
+                yield return p.Kind==NetworkKind.Power?new MachinePort(p.Kind,p.Role,63):p;
             }
             if(!IsTransport(m.Definition.Id))yield break;
             if((m.Additions&PipeAddition.Signal)!=0)yield return new MachinePort(NetworkKind.Signal,PortRole.Route,63);
@@ -39,5 +39,38 @@ namespace RivetReach
         }
         public static FluidStorage Storage(MachineState m)=>IndustryId.TankPart(m.Definition.Id)?m.Structure?.Fluid:m.Fluid;
         public static bool Accepts(MachineState m,FluidDefinition fluid)=>IndustryId.TankPart(m.Definition.Id)||fluid?.StableId==Fluids.Water.StableId;
+        public static NetworkKind TransportKind(MachineState pipe)=>pipe.Definition.Id==IndustryId.ItemPipe?NetworkKind.Item:NetworkKind.Fluid;
+        public static bool Supports(MachineState m,NetworkKind kind)
+        {
+            if(m==null||IndustryId.Route(m.Definition.Id))return false;
+            foreach(var p in m.Definition.Ports)if(p.Kind==kind)return true;
+            return false;
+        }
+        public static PortRole DefaultRole(MachineState machine,NetworkKind kind,int worldFace)
+        {
+            // Keep the old inlet/outlet directions as defaults for existing constructions.
+            // Newly available faces prefer input on machines that have an input buffer.
+            PortRole fallback=PortRole.Output;
+            foreach(var p in machine.Definition.Ports)
+            {
+                if(p.Kind!=kind)continue;
+                var role=kind==NetworkKind.Fluid&&IndustryId.TankPart(machine.Definition.Id)&&machine.Definition.Id!=IndustryId.TankController
+                    ?(machine.PortMode==FluidPortMode.Output?PortRole.Output:PortRole.Input):p.Role;
+                if((WorldFaces(p,machine.Rotation)&(1<<worldFace))!=0)return role;
+                if(role==PortRole.Input)fallback=PortRole.Input;
+            }
+            return fallback;
+        }
+        public static PortRole EndRole(MachineState pipe,int face,MachineState machine)
+        {
+            int configured=(pipe.PipeDirections>>(face*2))&3;
+            return configured==1?PortRole.Input:configured==2?PortRole.Output:machine==null?PortRole.Input:DefaultRole(machine,TransportKind(pipe),face^1);
+        }
+        public static bool ValidDirections(int directions)
+        {
+            if(directions<0||directions>4095)return false;
+            for(int face=0;face<6;face++)if(((directions>>(face*2))&3)==3)return false;
+            return true;
+        }
     }
 }

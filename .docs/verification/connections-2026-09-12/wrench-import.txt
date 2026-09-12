@@ -1,0 +1,1 @@
+892 triangles; 1 renderers; shared workshop material; bounds Center: (0.00, 0.13, 0.00), Extents: (0.11, 0.27, 0.02); UVs and normals present.

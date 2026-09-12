@@ -30,7 +30,13 @@ namespace RivetReach
         public int TopologyRebuilds {get;private set;}
         public bool Rebuilding=>dirty||rebuild!=null;
         public double LastStepMs {get;private set;}
-        public IndustrySimulation(IIndustryWorld world,Func<byte,int> limit){this.world=world;this.limit=limit;Multiblocks=new MultiblockService(world,this);ItemNetwork.ExternalEndpointFaces=p=>world.Ready(p)&&world.Storage(p)!=null?63:0;}
+        public IndustrySimulation(IIndustryWorld world,Func<byte,int> limit)
+        {
+            this.world=world;this.limit=limit;Multiblocks=new MultiblockService(world,this);
+            ItemNetwork.ExternalEndpointFaces=p=>world.Ready(p)&&world.Storage(p)!=null?63:0;
+            ItemNetwork.ResolvePorts=m=>TransportPorts(m,NetworkKind.Item);
+            FluidNetwork.ResolvePorts=m=>TransportPorts(m,NetworkKind.Fluid);
+        }
         public MachineState At(BlockPos p)=>machines.TryGetValue(p,out var m)?m:null;
         public void Invalidate(){dirty=true;signalsDirty=true;Revision++;}
         public MachineState Add(BlockPos p,byte id)
@@ -68,7 +74,7 @@ namespace RivetReach
                 rebuild?.Dispose();dirty=false;eligible.Clear();devices.Clear();
                 foreach(var m in machines.Values)
                 {m.Eligible=world.Ready(m.Position)&&(m.Definition.Id!=IndustryId.WoodenDoor||world.Ready(m.Position.Offset(0,1,0)));m.ReceivedWatts=m.RequestedWatts=m.SupplyWatts=0;m.Signal=false;m.SignalAttached=false;m.FluidConflict=false;if(m.Eligible)eligible.Add(m);else m.Status=MachineStatus.Dormant;}
-                eligible.Sort((a,b)=>Compare(a.Position,b.Position));foreach(var m in eligible)if(!IndustryId.Route(m.Definition.Id))devices.Add(m);rebuild=Rebuild().GetEnumerator();TopologyRebuilds++;
+                eligible.Sort((a,b)=>Compare(a.Position,b.Position));InitializePipeEnds();foreach(var m in eligible)if(!IndustryId.Route(m.Definition.Id))devices.Add(m);rebuild=Rebuild().GetEnumerator();TopologyRebuilds++;
             }
             if(rebuild!=null)
             {
@@ -116,7 +122,7 @@ namespace RivetReach
             Power.Allocate(Tick);
             foreach(var m in devices)if(IndustryId.BatteryPart(m.Definition.Id)&&m.BatteryWatts!=0)m.Status=MachineStatus.Running;
             // Transfers precede processing: new products cannot be forwarded in their producing tick.
-            TransferItems();TransferFluids();
+            TransferConfiguredItems();TransferFluids();
             foreach(var m in devices)Advance(m);
             Revision++;LastStepMs=(Stopwatch.GetTimestamp()-start)*1000.0/Stopwatch.Frequency;
         }
@@ -191,37 +197,6 @@ namespace RivetReach
             if(id==IndustryId.Drill)
             {var p=m.Position.Offset(0,-m.DrillDepth,0);byte b=world.Get(p);if(b!=m.WorkInput||!world.Remove(p,b))return;m.Items.Add(world.Drop(b),1,2,3);m.DrillDepth++;}
             m.Work-=duration;
-        }
-        void TransferItems()
-        {
-            if(Tick%5!=0)return;
-            foreach(var g in ItemNetwork.Groups)
-            {
-                int start=(int)(Tick/5%Math.Max(1,g.Ports.Count));
-                for(int n=0;n<g.Ports.Count;n++)
-                {
-                    var p=g.Ports[(start+n)%g.Ports.Count];if(p.Port.Role!=PortRole.Output)continue;
-                    var m=p.Machine;ItemContainer source=m.Items;int slot=2;
-                    if(m.Definition.Id==IndustryId.Extractor)
-                    {if(!m.Enabled){m.Status=MachineStatus.DisabledBySignal;continue;}var pos=Neighbor(m,1);source=world.Ready(pos)?world.Storage(pos):null;slot=source?.FindSlot(s=>!s.Empty)??-1;}
-                    if(source==null||slot<0||source.Slots[slot].Empty){if(m.Definition.Id==IndustryId.Extractor)m.Status=MachineStatus.NoInput;continue;}
-                    var stack=source.Slots[slot];bool sent=false;
-                    for(int k=0;k<g.Ports.Count;k++)
-                    {
-                        var dest=g.Ports[(start+k)%g.Ports.Count];if(dest.Port.Role!=PortRole.Input||dest.Machine==m||!dest.Machine.Accepts(0,stack.Id)||dest.Machine.Items.Capacity(stack.Id,0,1)==0)continue;
-                        dest.Machine.Items.Add(stack.Id,1,0,1);source.Take(slot,1);sent=true;break;
-                    }
-                    // Any pipe face can deliver to an adjacent chest; chests never bridge networks.
-                    if(!sent)foreach(var route in g.Ports)
-                    {
-                        if(route.Port.Role!=PortRole.Route)continue;
-                        for(int face=0;face<6;face++)
-                        {if((route.Faces&(1<<face))==0)continue;var pos=IndustryDefinition.Neighbor(route.Machine.Position,face);var dest=world.Ready(pos)?world.Storage(pos):null;if(dest==null||ReferenceEquals(dest,source)||dest.Capacity(stack.Id)==0)continue;dest.Add(stack.Id,1);source.Take(slot,1);sent=true;break;}
-                        if(sent)break;
-                    }
-                    if(m.Definition.Id==IndustryId.Extractor)m.Status=sent?MachineStatus.Running:MachineStatus.OutputFull;
-                }
-            }
         }
         void TransferFluids()
         {

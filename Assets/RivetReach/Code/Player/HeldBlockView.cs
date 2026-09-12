@@ -17,7 +17,7 @@ namespace RivetReach
                 if(PreviewGrip.HasValue)return PreviewGrip.Value;
                 var stack=displayed;
                 if(stack.Empty)return GripPose.Empty;
-                if(stack.Id==BlockId.Torch)return GripPose.Tool;
+                if(stack.Id==BlockId.Torch||stack.Id==IndustryId.Wrench)return GripPose.Tool;
                 var tool=Player.Game.Registry.Capabilities(stack);
                 if((tool&ToolCapability.Axe)!=0)return GripPose.Axe;
                 if((tool&ToolCapability.Shovel)!=0)return GripPose.Shovel;
@@ -52,7 +52,7 @@ namespace RivetReach
         GameObject industryItem;
         GameObject foodItem;
         Material foodMaterial;
-        GameObject view,block,sword,pickaxe,axe,shovel,hoe,card,torch,bucket,bucketWater;
+        GameObject view,block,sword,pickaxe,axe,shovel,hoe,card,torch,bucket,bucketWater,wrench;
         Material cardMaterial,torchMaterial,waterMaterial;
         MeshFilter filter;
         Material material,toolMaterial,axeMaterial,industryMaterial,industryGlass;
@@ -150,7 +150,13 @@ namespace RivetReach
             float boneUnits=rig.transform.InverseTransformVector(Socket.TransformVector(Vector3.up)).magnitude;
             view.transform.localPosition=Vector3.zero;view.transform.localRotation=Quaternion.identity;view.transform.localScale=Vector3.one/boneUnits;
             block.SetActive(grip==GripPose.Block);
-            bool isBucket=Fluids.IsBucket(id),isTorch=id==BlockId.Torch;
+            bool isBucket=Fluids.IsBucket(id),isTorch=id==BlockId.Torch,isWrench=id==IndustryId.Wrench;
+            if(isWrench&&wrench==null)
+            {
+                wrench=Instantiate(Resources.Load<GameObject>("Tools/Wrench"),view.transform,false);
+                foreach(var r in wrench.GetComponentsInChildren<Renderer>()){r.sharedMaterial=industryMaterial;r.shadowCastingMode=ShadowCastingMode.Off;}
+            }
+            if(wrench!=null)wrench.SetActive(isWrench);
             bool showCard=foodItem==null&&industryItem==null&&!isBucket&&!isTorch&&id!=0&&(id==BlockId.Torch||!BlockId.Placeable(id)&&!BlockId.RawMaterial(id))&&game.Registry.Get(id).toolCapabilities==ToolCapability.None;
             filter.GetComponent<Renderer>().enabled=!showCard&&!isBucket&&industryItem==null&&foodItem==null;
             if(isBucket&&bucket==null)
@@ -196,9 +202,9 @@ namespace RivetReach
             if(useShovel&&shovel==null)shovel=Tool(ItemAppearance.ToolPath(ToolCapability.Shovel));
             if(useHoe&&hoe==null)hoe=Tool(ItemAppearance.ToolPath(ToolCapability.Hoe));
             if(shovel!=null)shovel.SetActive(useShovel);if(hoe!=null)hoe.SetActive(useHoe);
-            if(grip==GripPose.Tool&&!isTorch&&!useAxe&&!useShovel&&!useHoe&&sword==null)sword=Tool(ItemAppearance.ToolPath(ToolCapability.Blade));
+            if(grip==GripPose.Tool&&!isTorch&&!isWrench&&!useAxe&&!useShovel&&!useHoe&&sword==null)sword=Tool(ItemAppearance.ToolPath(ToolCapability.Blade));
             if(grip==GripPose.TwoHandTool&&pickaxe==null)pickaxe=Tool(ItemAppearance.ToolPath(ToolCapability.Pickaxe));
-            if(sword!=null)sword.SetActive(grip==GripPose.Tool&&!isTorch&&!useAxe&&!useShovel&&!useHoe);if(pickaxe!=null)pickaxe.SetActive(grip==GripPose.TwoHandTool);
+            if(sword!=null)sword.SetActive(grip==GripPose.Tool&&!isTorch&&!isWrench&&!useAxe&&!useShovel&&!useHoe);if(pickaxe!=null)pickaxe.SetActive(grip==GripPose.TwoHandTool);
             float firstPerson=Player.Inspecting?0:1;
             material.SetFloat("_FirstPerson",firstPerson);toolMaterial.SetFloat("_FirstPerson",firstPerson);axeMaterial.SetFloat("_FirstPerson",firstPerson);
             industryMaterial.SetFloat("_FirstPerson",firstPerson);industryGlass.SetFloat("_FirstPerson",firstPerson);

@@ -149,3 +149,7 @@ The fill service has an ordered `IReadOnlyList<ItemContainer>` source overload. 
 ### Wooden doors
 
 [Wooden Door](DOORS.md) uses a shaped 2-column × 3-row plank recipe at a workbench, consuming six planks for three doors. `WoodenDoor.asset` is the shared crafting/browser definition; the internal upper terrain cell has no recipe or catalog item.
+
+## Wrench — 2026-09-12
+
+The [all-face connection rules](INDUSTRY.md#wrench-and-configurable-pipe-ends--2026-09-12) add the reusable `rivet:wrench` tool. Its working shaped recipe yields one from three iron ingots (`iron iron / empty iron`), with horizontal mirroring and translation, minimum grid size 3. This adds a workbench recipe without changing the reviewed survival layouts or giving the personal 2×2 grid access. The [player item page](wiki/Item-wrench.md) shows the registered recipe; [connection verification](verification/CONNECTION_RESULTS.md) checks exact consumption and the selected-tool interaction requirement.

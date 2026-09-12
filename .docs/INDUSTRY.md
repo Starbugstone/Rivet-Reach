@@ -29,19 +29,19 @@ The different component layouts avoid ambiguous matches; a larger stack in the s
 
 ## Placement and ports
 
-Each assembly occupies one authoritative cell and supports four horizontal orientations. Initial placement faces the player; its interface offers **Rotate ports 90°**. Rotation retains inventories and work, invalidates topology, and rotates all ports together. No independent per-cell inventories or hidden block conduction. Floor Signal Wire requires solid support and drops once when that support is removed. Enclosed conduits and other connectors route through all six orthogonal neighbors, including vertically. No diagonal connection.
+Each assembly occupies one authoritative cell and supports four horizontal orientations. Initial placement faces the player; its interface offers **Rotate ports 90°**. Rotation retains inventories and work and invalidates topology. Signal and shaft orientation rotate; configured pipe-end directions remain fixed in world space. No independent per-cell inventories or hidden block conduction. Floor Signal Wire requires solid support and drops once when that support is removed. Enclosed conduits and other connectors route through all six orthogonal neighbors, including vertically. No diagonal connection.
 
-Default model front is −Z. Relative port grammar:
+Default model front is −Z. The 2026-09-12 all-face connection revision supersedes the original fixed power/item/fluid sockets. The existing model fittings identify channels; they do not restrict which face accepts a cable or pipe.
 
-| Channel | Shape / marking | Usual machine face |
+| Channel | Shape / marking | Supported connection |
 |---|---|---|
-| Electrical power | Heavy round socket with three contacts; black cable and brass collars | Rear |
+| Electrical power | Heavy round socket with three contacts; black cable and brass collars | All six faces |
 | Blue signal | Small square mounting plate with cyan key | Front |
-| Item input / output | Square transfer throat and flange | Left / right |
-| Water input / output | Round nozzle and union | Left / right |
+| Item input / output | Square transfer throat and flange | All six faces; each pipe end configurable |
+| Water input / output | Round nozzle and union | All six faces; each pipe end configurable |
 | Mechanical shaft | Exposed axle / coupling | Boiler right → alternator left |
 
-Boiler water input occupies its rear. Pump intake is the source cell directly below. Relay receives at its rear and emits at its front. A lever/button connects horizontally; a signal indicator and hatch receive at their front. An unattached control port defaults enabled for electrical machines. Attaching a conductor whose signal is OFF disables processing. Inspecting a machine shows status, received/requested watts, water or fuel where applicable, and its port names. Power priority cycles High / Normal / Low.
+Boiler water and fuel can enter from any face. Pump world-water intake is still the source cell directly below; placing a pipe in that cell prevents source extraction. Relay receives at its rear and emits at its front. A lever/button connects horizontally; a signal indicator and hatch receive at their front. An unattached control port defaults enabled for electrical machines. Attaching a conductor whose signal is OFF disables processing. Inspecting a machine shows status, received/requested watts, water or fuel where applicable, and its port names. Power priority cycles High / Normal / Low.
 
 Mining an assembly removes its network membership, closes its open interface, drops its stored input/output once and returns the placed item through ordinary mining. Already burned fuel, consumed water and spent work are not refunded. Water remaining in a dismantled vessel is discarded; emptying it into buckets first preserves that water. Player and creature overlap checks use the existing placement authority.
 
@@ -61,12 +61,12 @@ Mining an assembly removes its network membership, closes its open interface, dr
 | Pump | 80 W; 2 seconds at full allocation; removes one actual source below for 10 L in its buffer; flowing water is not accepted |
 | Drill | 240 W; 6 seconds per block at full allocation; excavates the finite column below, through iron-tier mineable materials; stops at bedrock or an obstacle |
 | Water Tank | 100 L; full 10 L bucket transfers or rejection without consuming the bucket |
-| Extractor | Adjacent chest on left → item output on right; one item per five ticks; optional signal control |
+| Extractor | Adjacent chest on left → configured item output on any face; one item per five ticks; optional signal control |
 | Inventory Sensor | Reads the chest behind it; emits ON at 32 total items; fixed initial threshold |
 
 Crushed copper, iron and gold smelt to one corresponding ingot each in the normal furnace. A full output buffer requests no processing power and consumes no new input. Underpower advances work proportionally; no input is destroyed by a blackout or signal shutdown. Changing a crusher's input identity resets its paid progress. A drill revalidates the target before removal and produces its inventory output through the same synchronous authority turn, without also creating a mined world drop.
 
-Item pipes deliver machine outputs or extractor contents to compatible machine inputs or an adjacent chest. A chest is an endpoint, not an invisible bridge. One source advances at most four items/s, with deterministic rotating source/destination order. Fluid pipes carry water quantities, never world flow cells or particles. Each source port transfers at most 100 mL/tick, and all fluid transfers reserve against amounts at the beginning of the transfer phase. A tank cannot forward newly received water in that same phase.
+Item pipes deliver machine outputs, extractor contents or configured chest outputs to compatible machine inputs or a chest inlet. A chest and each individual machine face terminate a graph; they cannot invisibly bridge separate pipe runs. One source inventory advances at most four items/s across all of its output ends, with deterministic rotating source/destination order. Source candidates are captured before transfers so a newly received item cannot be forwarded by an initially empty chest in the same phase. Fluid pipes carry water quantities, never world flow cells or particles. Each source port transfers at most 100 mL/tick, and all fluid transfers reserve against amounts at the beginning of the transfer phase. A tank cannot forward newly received water in that same phase.
 
 ## Simulation and rendering
 
@@ -103,8 +103,24 @@ The user requested standalone battery blocks and a battery-bank multiblock. [BAT
 
 ## Manual generator — 2026-09-12
 
-The user authorized a [Hand Crank](HAND_CRANK.md) for early-game electrical bootstrap. Its inexpensive workbench recipe, battery-side attachment and click/hold interaction supply 100 W during paid manual turns through a rear power endpoint. It shares the existing independent electrical network and load-before-storage allocation.
+The user authorized a [Hand Crank](HAND_CRANK.md) for early-game electrical bootstrap. Its inexpensive workbench recipe, battery-side attachment and click/hold interaction supply 100 W during paid manual turns through one electrical endpoint shared by all six faces. It shares the existing independent electrical network and load-before-storage allocation.
 
 ## Wooden door control
 
 [Wooden doors](DOORS.md#blue-signal) accept Blue Signal at the lower cell without electricity. Signal transitions set open/closed, with manual Use available between transitions and occupied-doorway protection. The Workshop Hatch remains a separate assembly.
+
+## Wrench and configurable pipe ends — 2026-09-12
+
+The user requires machine power connections on **all six faces**, including top and bottom. Generators, loads and eligible battery/controller endpoints expose all faces through one electrical vertex, so a machine is allocated once regardless of how many cables touch it. Bank member sockets remain inactive while claimed; bank formation still requires an outward-facing controller. Power remains automatic and has no wrench direction mode.
+
+Item/fluid connections also accept every face of a machine that supports that channel. Each machine-facing **pipe end** independently selects **Input into the machine** or **Output from the machine**. Directions belong to the pipe's world-facing ends, not the machine's orientation. New connections default from the previous layout where available (e.g. a crusher's left inlet/right outlet), otherwise prefer input for machines with an input buffer and output for output-only machines. Chest ends initially receive items. Once an endpoint exists its default is stored, so rotating/replacing the machine or disabling/re-enabling a tank port does not flip the arrow. An unattached end retains its stored setting for reconnection; mining the pipe removes its settings.
+
+**Only a selected Wrench plus mouse Use (right-click by default) on the machine-facing end can reverse a direction.** Empty hands, another selected item, a wrench elsewhere in inventory, Interact, a pipe centre, a pipe-to-pipe connection and a power cable do not change it. One press changes once; holding Use does not repeatedly toggle. The normal five-metre, loaded-cell and line-of-sight rules apply. Ordinary Use and Interact continue to open pipe interfaces; crouch-to-place and channel fitting remain available. The HUD explains the current end direction and wrench requirement.
+
+The Wrench is a reusable, nonstacking item (`rivet:wrench`, ID **173**), not a placeable block, mining upgrade or consumable. Its working recipe produces one at a **3×3 workbench** from **three iron ingots**, arranged as `iron iron / empty iron`; horizontal mirroring and translation in the grid are supported. The personal 2×2 grid cannot craft it. [Its generated item page](wiki/Item-wrench.md) shows the exact recipe. It uses the existing tool grip and action swing without changing player models or animation clips.
+
+A **blue arrow enters the machine** for Input; a **red arrow exits the machine** for Output. These indicate the configured direction even while processing is idle, storage is empty or a valve is closed. Both are independent of Blue Signal. Shared code-native arrow glyphs turn around the pipe axis for readability; they are shown on machine-facing item/fluid ends within 32 m, with no per-arrow lights. They do not appear on pipe-to-pipe runs or electrical cables.
+
+Current item endpoints cover crushers (raw input/product output), drill output, boiler fuel input, extractor output and chests. An output-configured crusher never extracts its raw input buffer; an incompatible item is left at its source. An input arrow cannot create a processing input on an output-only device. Fluid directions operate on existing water buffers and shared tank storage. Tank enable/disable, valve signal, formation and drain-only recovery gates still apply. A recovery controller set to input cannot receive fluid, particularly during a breach.
+
+[Save schema 4](SAVES.md#wrench-and-pipe-end-compatibility--2026-09-12) persists the new item and six pipe-end settings while retaining explicit older-save compatibility. [The player pipe guide](wiki/Pipes.md) explains setup and troubleshooting. Original wrench art is authored by [create_wrench.py](../Tools/create_wrench.py), with [Wrench.blend](../ArtSource/Wrench/Wrench.blend), an explicit tool FBX and the matching inventory icon. [Connection verification](verification/CONNECTION_RESULTS.md) records checks and remaining limits.

@@ -75,7 +75,7 @@ namespace RivetReach.Editor
                 byte block=blocks[i];Recipe(block,1,stored[i],"MMM/MMM/MMM");
                 Recipe(stored[i],9,block,"M",2,shapeless:true);
             }
-            Check(verified.Count==56&&registry.Recipes.Where(r=>!r.Id.StartsWith("rivet:industry_")).Count()==56,"The survival subset retains exactly the reviewed 56 recipes");
+            Check(verified.Count==56&&registry.Recipes.Count(r=>!r.Id.StartsWith("rivet:industry_")&&r.Id!="rivet:wrench")==56,"The survival subset retains exactly the reviewed 56 recipes");
             var invalid=new CraftingSession(registry,2,Limit);
             invalid.Grid.Add(BlockId.Planks,1,0,1);invalid.Grid.Add(BlockId.Planks,1,1,2);
             Check(invalid.Preview==null,"Horizontal planks cannot substitute for vertical sticks");

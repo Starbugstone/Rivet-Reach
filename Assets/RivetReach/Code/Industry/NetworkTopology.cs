@@ -20,6 +20,7 @@ namespace RivetReach
         public readonly Dictionary<BlockPos,int> Connections=new Dictionary<BlockPos,int>();
         public readonly NetworkKind Kind;
         public Func<BlockPos,int> ExternalEndpointFaces;
+        public Func<MachineState,IEnumerable<MachinePort>> ResolvePorts;
         public NetworkTopology(NetworkKind kind){Kind=kind;}
         public IEnumerable<int> Rebuild(IReadOnlyList<MachineState> machines)
         {
@@ -27,7 +28,7 @@ namespace RivetReach
             var nodes=new List<Endpoint>();var byPosition=new Dictionary<BlockPos,List<int>>();
             foreach(var m in machines)
             {
-                foreach(var p in PipeConnections.Ports(m))
+                foreach(var p in ResolvePorts!=null?ResolvePorts(m):PipeConnections.Ports(m))
                 {
                     if(p.Kind!=Kind)continue;int faces=PipeConnections.WorldFaces(p,m.Rotation);
                     if(!byPosition.TryGetValue(m.Position,out var list))byPosition.Add(m.Position,list=new List<int>());

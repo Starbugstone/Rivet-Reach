@@ -141,7 +141,7 @@ namespace RivetReach
             {
                 w.Pos(m.Position);w.Write(m.Definition.Id);w.Slots(m.Items.Slots);w.Write(m.Rotation);w.Write(m.Source);w.Write(m.NextSource);w.Write(m.PulseTicks);w.Write(m.BurnTicks);
                 w.Write(m.WaterMl);w.Write(m.DrillDepth);w.Write(m.Work);w.Write(m.WorkInput);w.Write(m.Priority);w.Write((int)m.Additions);w.Write((int)m.BatteryMode);
-                w.Write(m.RecoveryOutput);w.Write((int)m.PortMode);w.Write(m.LevelThreshold);w.Write((int)m.Status);
+                w.Write(m.RecoveryOutput);w.Write((int)m.PortMode);w.Write(m.LevelThreshold);w.Write((int)m.Status);w.Write(m.PipeDirections);
                 if(m.EnergyCells.Length==1)w.Write(m.EnergyCells[0].Amount);
                 if(m.Definition.Id==IndustryId.TankController||m.Definition.Id==IndustryId.BatteryController)
                 {
@@ -161,6 +161,7 @@ namespace RivetReach
                 m.WaterMl=r.Int(0,m.Definition.WaterCapacity);m.DrillDepth=r.Int(1,TerrainGenerator.MaxY-TerrainGenerator.MinY+2);m.Work=r.Number(0,120);m.WorkInput=r.ReadByte();m.Priority=r.Int(0,2);
                 m.Additions=(PipeAddition)r.Int(0,3);SaveReader.Require(m.Additions==0||PipeConnections.IsTransport(id),"Invalid pipe fittings.");m.BatteryMode=(BatteryMode)r.Int(0,3);
                 m.RecoveryOutput=r.ReadBoolean();m.PortMode=(FluidPortMode)r.Int(0,2);m.LevelThreshold=r.Int(0,100);m.Status=(MachineStatus)r.Int(0,Enum.GetValues(typeof(MachineStatus)).Length-1);
+                if(r.Format>=4){m.PipeDirections=r.Int(0,4095);SaveReader.Require(PipeConnections.ValidDirections(m.PipeDirections)&&(m.PipeDirections==0||PipeConnections.IsTransport(id)),"Invalid pipe end directions.");}
                 if(m.EnergyCells.Length==1)SaveReader.Require(m.EnergyCells[0].Charge(r.Long(0,BatteryStorage.CellCapacity)),"Invalid battery energy.");
                 if(id==IndustryId.TankController||id==IndustryId.BatteryController)
                 {
