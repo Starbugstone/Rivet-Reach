@@ -1,0 +1,18 @@
+{
+  "repositoryCommit": "14a1cc6f40662fa78e328db406de0bf3f7e7a107",
+  "workflow": "https://github.com/Starbugstone/Rivet-Reach/actions/runs/34699389800",
+  "workflowResult": "success",
+  "wikiCommit": "9248dda",
+  "localPages": 144,
+  "localLinksAndImages": 5750,
+  "liveBrowser": "Chromium",
+  "liveChecks": {
+    "electricityGuideShowsEqualSharing": true,
+    "batteryImagesLoaded": 2,
+    "pipeGuideShowsEqualSharing": true,
+    "pipeImagesLoaded": 2,
+    "imageWidths": 1280,
+    "followedBatteryGuideToPipeSharingSection": true
+  },
+  "note": "Live GitHub review on 2026-09-12; a query refresh bypassed a cached pre-deployment electricity page."
+}
