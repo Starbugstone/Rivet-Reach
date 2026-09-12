@@ -79,15 +79,15 @@
   },
   "rivet:workbench": {
     "description": "A placed crafting station with a **3×3 grid** for tools, armor, storage and the first Machinist’s Bench.",
-    "use": "Place it, then press **E or right-click** to open it. The workbench can also make personal 2×2 recipes. See the [crafting guide](Crafting-Recipes.md) for the first steps."
+    "use": "Place it, then press **E or right-click** to open it. The workbench can also make personal 2×2 recipes. See the [crafting guide](Crafting-Recipes.md) for the first steps.\n\nA wooden carpenter’s bench with iron-bound trestles, a vise and hand tools.\n\n![Placed workbench in the game](images/starter-workbench.png)"
   },
   "rivet:furnace": {
     "description": "A fuel-burning station for smelting ore, making charcoal and glass, and cooking potatoes.",
-    "use": "Place and open it with **E or right-click**. Add an input, add fuel separately, and collect the output. Fuel continues burning after ignition even if input runs out. The recipes below list processing time and accepted fuels."
+    "use": "Place and open it with **E or right-click**. Add an input, add fuel separately, and collect the output. Fuel continues burning after ignition even if input runs out. The recipes below list processing time and accepted fuels.\n\nA stone furnace with a recessed arched firebox. The embers glow while fuel is burning and go dark when it runs out.\n\n![Placed furnace in the game](images/starter-furnace.png)"
   },
   "rivet:chest": {
     "description": "A placed container with **27 inventory slots**.",
-    "use": "Open with **E or right-click** to store items. An [Extractor](Item-extractor.md) can move items from a chest into [Item Pipe](Item-item-pipe.md). An [Inventory Sensor](Item-inventory-sensor.md) can monitor its contents."
+    "use": "Open with **E or right-click** to store items. An [Extractor](Item-extractor.md) can move items from a chest into [Item Pipe](Item-item-pipe.md). An [Inventory Sensor](Item-inventory-sensor.md) can monitor its contents.\n\nA wooden storage chest with an iron-banded lid and brass latch.\n\n![Placed chest in the game](images/starter-chest.png)"
   },
   "rivet:charcoal": {
     "description": "Wood converted into fuel. It works as an alternative to coal in torches, furnaces and boiler engines."

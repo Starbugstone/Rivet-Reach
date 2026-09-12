@@ -80,6 +80,7 @@ Follow a result to see its complete ingredients and recipe.
 | <a href="Item-torch.md#recipe-1" title="Torch"><img src="icons/96.png" width="32" height="32" alt="Torch"></a> ×4 [Torch](Item-torch.md) | Personal 2×2 | [View recipe](Item-torch.md#recipe-1) |
 | <a href="Item-torch.md#recipe-2" title="Torch"><img src="icons/96.png" width="32" height="32" alt="Torch"></a> ×4 [Torch](Item-torch.md) | Personal 2×2 | [View recipe](Item-torch.md#recipe-2) |
 | <a href="Item-lever.md#recipe-1" title="Lever"><img src="icons/134.png" width="32" height="32" alt="Lever"></a> ×1 [Lever](Item-lever.md) | [Workbench](Item-workbench.md) | [View recipe](Item-lever.md#recipe-1) |
+| <a href="Item-hand-crank.md#recipe-1" title="Hand Crank"><img src="icons/170.png" width="32" height="32" alt="Hand Crank"></a> ×1 [Hand Crank](Item-hand-crank.md) | [Workbench](Item-workbench.md) | [View recipe](Item-hand-crank.md#recipe-1) |
 
 ## Furnace fuel
 

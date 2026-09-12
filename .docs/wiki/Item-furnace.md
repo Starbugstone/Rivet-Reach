@@ -26,6 +26,10 @@ Make this item using the crafting or processing recipes below.
 
 Place and open it with **E or right-click**. Add an input, add fuel separately, and collect the output. Fuel continues burning after ignition even if input runs out. The recipes below list processing time and accepted fuels.
 
+A stone furnace with a recessed arched firebox. The embers glow while fuel is burning and go dark when it runs out.
+
+![Placed furnace in the game](images/starter-furnace.png)
+
 ## Crafting and processing
 
 ### Recipe 1

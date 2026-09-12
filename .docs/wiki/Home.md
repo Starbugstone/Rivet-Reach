@@ -19,6 +19,12 @@ New machines face you when placed. Use **ROTATE 90°** in their interface to adj
 
 Rivet Reach is proprietary. © Starbugstone. All rights reserved.
 
+## Your first workshop
+
+![Workbench, chest and furnace beside the Machinist’s Bench](images/starter-workshop.png)
+
+Build a [Workbench](Item-workbench.md) for 3×3 crafting, store supplies in a [Chest](Item-chest.md), and process materials in a [Furnace](Item-furnace.md). The [Machinist’s Bench](Item-machinist-bench.md) expands crafting to 4×4.
+
 ## Save and resume
 
 Use Escape → Save Game to create or update a checkpoint. Load Game chooses a named save or previous backup; Continue Latest Save on the title resumes the newest checkpoint. Save & Quit saves first. Closing the window does not autosave. Creative mode and flight reset on load, while saved items and construction remain.

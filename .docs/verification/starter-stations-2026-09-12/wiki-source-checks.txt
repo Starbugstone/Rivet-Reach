@@ -1,4 +1,6 @@
-PASS: actual Unity export on da9761d plus owned station changes.
-127 items, 91 crafting + 11 furnace + 3 crusher recipes.
-136 pages and 5417 local links/images validated; all item icons link to their item page.
+PASS: actual Unity 6000.4.4f1 export on 3041176 plus the Food icon source-fingerprint addition.
+128 items, 92 crafting + 11 furnace + 3 crusher recipes.
+137 pages and 5480 local links/images validated; all item icons link to their item page.
+PASS: all 401 exported source fingerprints match the staged source tree.
 New icons 23, 24 and 25 are copied byte-for-byte from the authored runtime PNGs.
+The export retains the committed ore, potato and hand-crank catalog updates.

@@ -128,6 +128,7 @@ namespace RivetReach.Editor
             var sources = Directory.GetFiles("Assets/RivetReach/Resources/Definitions", "*", SearchOption.AllDirectories)
                 .Concat(Directory.GetFiles("Assets/RivetReach/Code", "*.cs", SearchOption.AllDirectories))
                 .Concat(Directory.GetFiles("Assets/RivetReach/Resources/Industry/Icons", "*.png"))
+                .Concat(Directory.GetFiles("Assets/RivetReach/Resources/Food", "*.png"))
                 .Concat(Directory.GetFiles("Assets/RivetReach/Resources/Tools", "*Icon.png"))
                 .Concat(new[] { "Assets/RivetReach/Resources/Materials/BlockTiles.asset", "Assets/RivetReach/Editor/WikiExport.cs" })
                 .Where(File.Exists).Select(path => path.Replace('\\', '/')).OrderBy(path => path, StringComparer.Ordinal);

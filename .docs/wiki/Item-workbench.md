@@ -25,6 +25,10 @@ Make this item using the crafting or processing recipes below.
 
 Place it, then press **E or right-click** to open it. The workbench can also make personal 2×2 recipes. See the [crafting guide](Crafting-Recipes.md) for the first steps.
 
+A wooden carpenter’s bench with iron-bound trestles, a vise and hand tools.
+
+![Placed workbench in the game](images/starter-workbench.png)
+
 ## Crafting and processing
 
 ### Recipe 1
@@ -112,3 +116,4 @@ The station is reusable; it is not consumed by these recipes.
 | <a href="Item-machinist-bench.md#recipe-1" title="Machinist&#x27;s Bench"><img src="icons/130.png" width="32" height="32" alt="Machinist&#x27;s Bench"></a> ×1 [Machinist's Bench](Item-machinist-bench.md) | [Workbench](Item-workbench.md) | [View recipe](Item-machinist-bench.md#recipe-1) |
 | <a href="Item-lever.md#recipe-1" title="Lever"><img src="icons/134.png" width="32" height="32" alt="Lever"></a> ×1 [Lever](Item-lever.md) | [Workbench](Item-workbench.md) | [View recipe](Item-lever.md#recipe-1) |
 | <a href="Item-button.md#recipe-1" title="Button"><img src="icons/135.png" width="32" height="32" alt="Button"></a> ×1 [Button](Item-button.md) | [Workbench](Item-workbench.md) | [View recipe](Item-button.md#recipe-1) |
+| <a href="Item-hand-crank.md#recipe-1" title="Hand Crank"><img src="icons/170.png" width="32" height="32" alt="Hand Crank"></a> ×1 [Hand Crank](Item-hand-crank.md) | [Workbench](Item-workbench.md) | [View recipe](Item-hand-crank.md#recipe-1) |

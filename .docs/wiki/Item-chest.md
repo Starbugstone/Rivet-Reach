@@ -25,6 +25,10 @@ Make this item using the crafting or processing recipes below.
 
 Open with **E or right-click** to store items. An [Extractor](Item-extractor.md) can move items from a chest into [Item Pipe](Item-item-pipe.md). An [Inventory Sensor](Item-inventory-sensor.md) can monitor its contents.
 
+A wooden storage chest with an iron-banded lid and brass latch.
+
+![Placed chest in the game](images/starter-chest.png)
+
 ## Crafting and processing
 
 ### Recipe 1
