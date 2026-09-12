@@ -76,16 +76,18 @@ Chest outputs can supply a pipe directly. An [Extractor](Item-extractor.md) rema
 
 Item transport moves up to **four items per second per source inventory**. Adding more output ends to the same inventory does not multiply that limit. Unsupported items remain at the source; a full destination stops delivery without deleting anything.
 
+For any machine that burns item fuel, its **back input is fuel-only** and its other input faces are for usable ingredients. The back follows the machine’s placement rotation. Machines that do not burn fuel, such as the crusher, accept their usual inputs at the back too. Boilers accept coal/charcoal only through the back; water pipes still work on any face. Existing side-fed fuel pipes must be moved to the back.
+
 Current item-pipe endpoints include chests, crusher raw inputs and product outputs, boiler fuel inputs, drill outputs and extractor outputs. An input arrow does not give an output-only device a new processing input. Furnaces accept ingredients/fuel and expose finished results. Workbenches do not provide item-pipe endpoints.
 
 ## Example: crusher → furnace → chest
 
 1. Connect the crusher to a [Furnace](Item-furnace.md) with Item Pipe.
-2. Set the **crusher end to red Output** and the **furnace end to blue Input**. All six furnace faces work.
-3. Supply fuel manually or connect a coal/charcoal chest with **red Output at the chest**, **blue Input at the furnace**. The furnace routes fuel to its fuel slot and crushed ore to its ingredient slot.
+2. Set the **crusher end to red Output** and the **furnace end to blue Input**. Use any face except the back for ingredients.
+3. Supply fuel manually or connect a coal/charcoal chest with **red Output at the chest**, **blue Input at the back of the furnace**. The back accepts fuel only; the other five faces accept ingredients only.
 4. Add another pipe to a receiving chest, with **red Output at the furnace** and **blue Input at the chest**. Only finished products leave the furnace.
 
-Incompatible items stay in their source inventory. A mixed supply chest can send compatible stacks even when its first stack is unsuitable. Receivers prefer their existing input or output type: a furnace holding iron ingots requests iron ingredients before copper, and a chest fills item types it already contains first. Other compatible cargo is used when no preferred transfer is available. Full or mismatched furnace slots stop that cargo without losing it. Logs count as ingredients before fuel, matching manual quick-transfer; use coal or charcoal for an unambiguous fuel supply. The furnace still needs fuel to smelt; pipes need no electricity.
+Incompatible items stay in their source inventory. A mixed supply chest can send compatible stacks even when its first stack is unsuitable. Receivers prefer their existing input or output type: a furnace holding iron ingots requests iron ingredients before copper, and a chest fills item types it already contains first. Other compatible cargo is used when no preferred transfer is available. Full or mismatched furnace slots stop that cargo without losing it. Logs piped into the back burn as fuel; logs piped into another input face become charcoal. A full slot never redirects logs into the other slot. Manual quick-transfer still prefers ingredients. The furnace still needs fuel to smelt; pipes need no electricity.
 
 ## Example: pump → tank → boiler
 

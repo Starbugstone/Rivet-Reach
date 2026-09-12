@@ -31,6 +31,7 @@ namespace RivetReach
     {
         public readonly byte Id; public readonly string Name,Key,Help;
         public readonly int Watts,WaterCapacity;
+        public bool RequiresItemFuel=>Id==IndustryId.Boiler;
         public readonly MachinePort[] Ports;
         // Lower-corner anchor; the wooden door also reserves its upper cell. Four horizontal rotations. Faces: right,left,top,bottom,back,front.
         public static readonly (int x,int y,int z)[] Directions={(1,0,0),(-1,0,0),(0,1,0),(0,-1,0),(0,0,1),(0,0,-1)};
@@ -87,9 +88,9 @@ namespace RivetReach
     {
         IReadOnlyList<ItemStack> IItemPipeInventory.Slots=>Items.Slots;
         bool IItemPipeInventory.CanExtract(int slot)=>slot==2;
-        bool IItemPipeInventory.Prefers(byte id)=>Accepts(0,id)&&(Items.Slots[0].Id==id||
+        bool IItemPipeInventory.Prefers(byte id,int localFace)=>AcceptsPipeInput(id,localFace)&&(Items.Slots[0].Id==id||
             Definition.Id==IndustryId.Crusher&&!Items.Slots[2].Empty&&CrusherOutput(id).Id==Items.Slots[2].Id);
-        bool IItemPipeInventory.TryInsert(byte id)=>Accepts(0,id)&&Items.Capacity(id,0,1)>0&&Items.Add(id,1,0,1)==0;
+        bool IItemPipeInventory.TryInsert(byte id,int localFace)=>AcceptsPipeInput(id,localFace)&&Items.Capacity(id,0,1)>0&&Items.Add(id,1,0,1)==0;
         ItemStack IItemPipeInventory.Extract(int slot,int count)=>slot==2?Items.Take(slot,count):default;
         public readonly BlockPos Position; public readonly IndustryDefinition Definition;
         public readonly ItemContainer Items;
@@ -117,6 +118,7 @@ namespace RivetReach
         {Position=p;Definition=IndustryDefinition.All[id];EnergyCells=id==IndustryId.Battery?new[]{new BatteryStorage()}:Array.Empty<BatteryStorage>();Fluid=new FluidStorage(Definition.WaterCapacity);Items=new ItemContainer(3,limit);}
         public bool Enabled=>!SignalAttached||Signal;
         public bool Running=>Status==MachineStatus.Running||Status==MachineStatus.Underpowered;
+        bool AcceptsPipeInput(byte id,int localFace)=>Accepts(0,id)&&(!Definition.RequiresItemFuel||localFace<0||localFace==4);
         public bool Accepts(int slot,byte id)=>slot==0&&(Definition.Id==IndustryId.Boiler?(id==BlockId.Coal||id==BlockId.Charcoal):Definition.Id==IndustryId.Crusher&&!CrusherOutput(id).Empty);
         public const int CrusherTicks = 100;
         public static ItemStack CrusherOutput(byte id)=>id switch

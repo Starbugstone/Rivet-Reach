@@ -8,13 +8,16 @@ namespace RivetReach
     {
         IReadOnlyList<ItemStack> Slots {get;}
         bool CanExtract(int slot);
-        bool Prefers(byte id);
-        bool TryInsert(byte id);
+        // localFace uses right, left, top, bottom, back, front.
+        // -1 is an unsided inventory operation; transport always supplies a face.
+        bool Prefers(byte id,int localFace=-1);
+        bool TryInsert(byte id,int localFace=-1);
         ItemStack Extract(int slot,int count);
     }
     public interface IIndustryItemEndpoints
     {
         IItemPipeInventory ItemEndpoint(BlockPos position);
+        int ItemEndpointRotation(BlockPos position);
         void ItemEndpointChanged(BlockPos position);
     }
 }

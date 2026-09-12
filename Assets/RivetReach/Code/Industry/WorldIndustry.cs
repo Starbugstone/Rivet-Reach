@@ -19,6 +19,7 @@ namespace RivetReach
         public ItemContainer Storage(BlockPos p)=>game.Survival.At(p)?.Storage;
         public IItemPipeInventory ItemEndpoint(BlockPos p)
         {var station=game.Survival.At(p);return (IItemPipeInventory)station?.Furnace??station?.Storage;}
+        public int ItemEndpointRotation(BlockPos p)=>game.Survival.At(p)?.Rotation??0;
         public void ItemEndpointChanged(BlockPos p)=>game.Survival.Wake(p);
         public byte Drop(byte block)=>game.Registry.FistDrop(block);
         public bool PlayerInside(BlockPos p)=>game.World.OccupiesCell(game.Player.transform.position,.6f,game.Player.Height,p)||game.Mobs!=null&&game.Mobs.Occupies(p);

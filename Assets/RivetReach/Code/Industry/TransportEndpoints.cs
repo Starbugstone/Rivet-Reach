@@ -146,7 +146,12 @@ namespace RivetReach
                 var endpoint=graph.Ports[(start+n)%count];var m=endpoint.Machine;
                 if(endpoint.Port.Role!=PortRole.Input||ReferenceEquals(source,m)||!world.Ready(m.Position))continue;
                 var destination=(IItemPipeInventory)m;
-                if((!preferredOnly||destination.Prefers(id))&&destination.TryInsert(id))return true;
+                for(int face=0;face<6;face++)
+                {
+                    if((endpoint.Faces&(1<<face))==0)continue;
+                    int localFace=IndustryDefinition.RotateFace(face,(4-m.Rotation)%4);
+                    if((!preferredOnly||destination.Prefers(id,localFace))&&destination.TryInsert(id,localFace))return true;
+                }
             }
             foreach(var endpoint in graph.Ports)
             {
@@ -155,7 +160,9 @@ namespace RivetReach
                 {
                     if((endpoint.Faces&(1<<face))==0||PipeEndRole(endpoint.Machine,face)!=PortRole.Input)continue;
                     var pos=IndustryDefinition.Neighbor(endpoint.Machine.Position,face);var dest=ItemEndpoint(pos);
-                    if(dest==null||ReferenceEquals(dest,source)||preferredOnly&&!dest.Prefers(id)||!dest.TryInsert(id))continue;
+                    int rotation=world is IIndustryItemEndpoints oriented?oriented.ItemEndpointRotation(pos):0;
+                    int localFace=IndustryDefinition.RotateFace(face^1,(4-rotation)%4);
+                    if(dest==null||ReferenceEquals(dest,source)||preferredOnly&&!dest.Prefers(id,localFace)||!dest.TryInsert(id,localFace))continue;
                     ItemEndpointChanged(pos);return true;
                 }
             }

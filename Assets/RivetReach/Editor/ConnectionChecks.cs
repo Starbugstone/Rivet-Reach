@@ -111,8 +111,8 @@ namespace RivetReach.Editor
                 f.Sim.Step();Check(b.WaterMl==0&&c.WaterMl==100,"Stored fluid becomes eligible on the next fixed step");
             }
             {
-                var f=new Fixture();var boiler=f.Add(origin,IndustryId.Boiler);var pipe=f.Add(origin.Offset(0,1,0),IndustryId.ItemPipe);var chest=f.Chest(origin.Offset(0,2,0));
-                chest.Add(BlockId.Coal,2);f.Mode(pipe,2,PortRole.Output);f.Settle();f.Steps();Check(boiler.Items.Total(BlockId.Coal)>0,"Top item inlet fills boiler's existing fuel buffer");
+                var f=new Fixture();var boiler=f.Add(origin,IndustryId.Boiler);var pipe=f.Add(origin.Offset(0,0,1),IndustryId.ItemPipe);var chest=f.Chest(origin.Offset(0,0,2));
+                chest.Add(BlockId.Coal,2);f.Mode(pipe,4,PortRole.Output);f.Settle();f.Steps();Check(boiler.Items.Total(BlockId.Coal)>0,"Rear item inlet fills boiler's existing fuel buffer");
                 Check(!f.Sim.TogglePipeEnd(pipe,0),"An unattached end cannot be configured");
             }
             for(int face=0;face<6;face++)for(int rotation=0;rotation<4;rotation++)

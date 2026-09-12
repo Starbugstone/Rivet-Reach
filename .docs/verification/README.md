@@ -58,3 +58,5 @@ This directory maintains the latest report and useful evidence for each feature.
 - [Battery charge fill](BATTERY_FILL_RESULTS.md): visible stored-energy level, individual bank cells and save/load reconstruction.
 
 - [Fitted armor and ingots](EQUIPMENT_ART_RESULTS.md): matching 3D inventory/held/dropped art, equipped male/female avatars, first-person bracers and portrait synchronization.
+
+[Machine fuel faces](FUEL_FACE_RESULTS.md) covers rear-only fuel, dual-purpose logs, rotated placement and ordinary inputs on fuel-free machines.

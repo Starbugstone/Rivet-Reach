@@ -24,7 +24,7 @@ Make this item using the crafting or processing recipes below.
 
 ## Using it
 
-Supply coal/charcoal and water manually or through configured item/fluid pipe inputs on any face. Use a selected [Wrench](Item-wrench.md) to set blue input arrows. Its right-hand mechanical shaft must still meet an [Alternator](Item-alternator.md). See [Pipes](Pipes.md) and [Electricity](Electricity-and-batteries.md).
+Supply coal/charcoal and water manually or through configured item/fluid pipe inputs on any face. Use a selected [Wrench](Item-wrench.md) to set blue input arrows. Its right-hand mechanical shaft must still meet an [Alternator](Item-alternator.md). See [Pipes](Pipes.md) and [Electricity](Electricity-and-batteries.md). Item Pipe supplies coal or charcoal only through the back, relative to placement rotation. Water pipes can enter any face.
 
 ## Crafting and processing
 

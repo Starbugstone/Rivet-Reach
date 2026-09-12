@@ -1,0 +1,642 @@
+PASS 641 assertions
+PASS Furnace has default blue inlet and geometry on face 0
+PASS Crushed metal enters ingredients with exact conservation on face 0
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Furnace has default blue inlet and geometry on face 0
+PASS Crushed metal enters ingredients with exact conservation on face 0
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Furnace has default blue inlet and geometry on face 0
+PASS Crushed metal enters ingredients with exact conservation on face 0
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Furnace has default blue inlet and geometry on face 1
+PASS Crushed metal enters ingredients with exact conservation on face 1
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Furnace has default blue inlet and geometry on face 1
+PASS Crushed metal enters ingredients with exact conservation on face 1
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Furnace has default blue inlet and geometry on face 1
+PASS Crushed metal enters ingredients with exact conservation on face 1
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Furnace has default blue inlet and geometry on face 2
+PASS Crushed metal enters ingredients with exact conservation on face 2
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Furnace has default blue inlet and geometry on face 2
+PASS Crushed metal enters ingredients with exact conservation on face 2
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Furnace has default blue inlet and geometry on face 2
+PASS Crushed metal enters ingredients with exact conservation on face 2
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Furnace has default blue inlet and geometry on face 3
+PASS Crushed metal enters ingredients with exact conservation on face 3
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Furnace has default blue inlet and geometry on face 3
+PASS Crushed metal enters ingredients with exact conservation on face 3
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Furnace has default blue inlet and geometry on face 3
+PASS Crushed metal enters ingredients with exact conservation on face 3
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Furnace has default blue inlet and geometry on face 4
+PASS Crushed metal enters ingredients with exact conservation on face 4
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Furnace has default blue inlet and geometry on face 4
+PASS Crushed metal enters ingredients with exact conservation on face 4
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Furnace has default blue inlet and geometry on face 4
+PASS Crushed metal enters ingredients with exact conservation on face 4
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Furnace has default blue inlet and geometry on face 5
+PASS Crushed metal enters ingredients with exact conservation on face 5
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Furnace has default blue inlet and geometry on face 5
+PASS Crushed metal enters ingredients with exact conservation on face 5
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Furnace has default blue inlet and geometry on face 5
+PASS Crushed metal enters ingredients with exact conservation on face 5
+PASS Ingredient transfer preserves fuel/result and notifies sleeping furnace
+PASS Dormant furnace cannot receive through stale topology
+PASS Residency restoration resumes transfer
+PASS Furnace accepts pipe fuel
+PASS Real processing recipe smelts all piped metal
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Furnace result extraction conserves ingots and notifies owner
+PASS Output setting cannot steal ingredients or fuel
+PASS Configure compatible endpoint
+PASS Ingredient face rejects fuel without removing it from mixed chest
+PASS Furnace authority rejects incompatible inputs and protected extraction
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Fill ingredient buffer
+PASS Full ingredient slot retains excess at source
+PASS Dual-purpose logs follow existing ingredient preference
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine rejects dirt: 142
+PASS Machine accepts only its supported recipe/fuel: 142
+PASS Configure compatible endpoint
+PASS Machine rejects dirt: 140
+PASS Machine accepts only its supported recipe/fuel: 140
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine rejects dirt: 144
+PASS Machine accepts only its supported recipe/fuel: 144
+PASS Configure compatible endpoint
+PASS Rotated logs enter only designated slot, preserving source budget: 0/0
+PASS Full designated slot cannot spill into other slot: 0/0
+PASS Wrong-purpose cargo stays at source: 0/0
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 140/0/0
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 142/0/0
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 144/0/0
+PASS Configure compatible endpoint
+PASS Rotated logs enter only designated slot, preserving source budget: 0/1
+PASS Full designated slot cannot spill into other slot: 0/1
+PASS Wrong-purpose cargo stays at source: 0/1
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 140/0/1
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 142/0/1
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 144/0/1
+PASS Configure compatible endpoint
+PASS Rotated logs enter only designated slot, preserving source budget: 0/2
+PASS Full designated slot cannot spill into other slot: 0/2
+PASS Wrong-purpose cargo stays at source: 0/2
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 140/0/2
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 142/0/2
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 144/0/2
+PASS Configure compatible endpoint
+PASS Rotated logs enter only designated slot, preserving source budget: 0/3
+PASS Full designated slot cannot spill into other slot: 0/3
+PASS Wrong-purpose cargo stays at source: 0/3
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 140/0/3
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 142/0/3
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 144/0/3
+PASS Configure compatible endpoint
+PASS Rotated logs enter only designated slot, preserving source budget: 0/4
+PASS Full designated slot cannot spill into other slot: 0/4
+PASS Wrong-purpose cargo stays at source: 0/4
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 140/0/4
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 142/0/4
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 144/0/4
+PASS Configure compatible endpoint
+PASS Rotated logs enter only designated slot, preserving source budget: 0/5
+PASS Full designated slot cannot spill into other slot: 0/5
+PASS Wrong-purpose cargo stays at source: 0/5
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 140/0/5
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 142/0/5
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 144/0/5
+PASS Configure compatible endpoint
+PASS Rotated logs enter only designated slot, preserving source budget: 1/0
+PASS Full designated slot cannot spill into other slot: 1/0
+PASS Wrong-purpose cargo stays at source: 1/0
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 140/1/0
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 142/1/0
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 144/1/0
+PASS Configure compatible endpoint
+PASS Rotated logs enter only designated slot, preserving source budget: 1/1
+PASS Full designated slot cannot spill into other slot: 1/1
+PASS Wrong-purpose cargo stays at source: 1/1
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 140/1/1
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 142/1/1
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 144/1/1
+PASS Configure compatible endpoint
+PASS Rotated logs enter only designated slot, preserving source budget: 1/2
+PASS Full designated slot cannot spill into other slot: 1/2
+PASS Wrong-purpose cargo stays at source: 1/2
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 140/1/2
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 142/1/2
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 144/1/2
+PASS Configure compatible endpoint
+PASS Rotated logs enter only designated slot, preserving source budget: 1/3
+PASS Full designated slot cannot spill into other slot: 1/3
+PASS Wrong-purpose cargo stays at source: 1/3
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 140/1/3
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 142/1/3
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 144/1/3
+PASS Configure compatible endpoint
+PASS Rotated logs enter only designated slot, preserving source budget: 1/4
+PASS Full designated slot cannot spill into other slot: 1/4
+PASS Wrong-purpose cargo stays at source: 1/4
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 140/1/4
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 142/1/4
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 144/1/4
+PASS Configure compatible endpoint
+PASS Rotated logs enter only designated slot, preserving source budget: 1/5
+PASS Full designated slot cannot spill into other slot: 1/5
+PASS Wrong-purpose cargo stays at source: 1/5
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 140/1/5
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 142/1/5
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 144/1/5
+PASS Configure compatible endpoint
+PASS Rotated logs enter only designated slot, preserving source budget: 2/0
+PASS Full designated slot cannot spill into other slot: 2/0
+PASS Wrong-purpose cargo stays at source: 2/0
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 140/2/0
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 142/2/0
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 144/2/0
+PASS Configure compatible endpoint
+PASS Rotated logs enter only designated slot, preserving source budget: 2/1
+PASS Full designated slot cannot spill into other slot: 2/1
+PASS Wrong-purpose cargo stays at source: 2/1
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 140/2/1
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 142/2/1
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 144/2/1
+PASS Configure compatible endpoint
+PASS Rotated logs enter only designated slot, preserving source budget: 2/2
+PASS Full designated slot cannot spill into other slot: 2/2
+PASS Wrong-purpose cargo stays at source: 2/2
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 140/2/2
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 142/2/2
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 144/2/2
+PASS Configure compatible endpoint
+PASS Rotated logs enter only designated slot, preserving source budget: 2/3
+PASS Full designated slot cannot spill into other slot: 2/3
+PASS Wrong-purpose cargo stays at source: 2/3
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 140/2/3
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 142/2/3
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 144/2/3
+PASS Configure compatible endpoint
+PASS Rotated logs enter only designated slot, preserving source budget: 2/4
+PASS Full designated slot cannot spill into other slot: 2/4
+PASS Wrong-purpose cargo stays at source: 2/4
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 140/2/4
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 142/2/4
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 144/2/4
+PASS Configure compatible endpoint
+PASS Rotated logs enter only designated slot, preserving source budget: 2/5
+PASS Full designated slot cannot spill into other slot: 2/5
+PASS Wrong-purpose cargo stays at source: 2/5
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 140/2/5
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 142/2/5
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 144/2/5
+PASS Configure compatible endpoint
+PASS Rotated logs enter only designated slot, preserving source budget: 3/0
+PASS Full designated slot cannot spill into other slot: 3/0
+PASS Wrong-purpose cargo stays at source: 3/0
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 140/3/0
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 142/3/0
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 144/3/0
+PASS Configure compatible endpoint
+PASS Rotated logs enter only designated slot, preserving source budget: 3/1
+PASS Full designated slot cannot spill into other slot: 3/1
+PASS Wrong-purpose cargo stays at source: 3/1
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 140/3/1
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 142/3/1
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 144/3/1
+PASS Configure compatible endpoint
+PASS Rotated logs enter only designated slot, preserving source budget: 3/2
+PASS Full designated slot cannot spill into other slot: 3/2
+PASS Wrong-purpose cargo stays at source: 3/2
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 140/3/2
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 142/3/2
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 144/3/2
+PASS Configure compatible endpoint
+PASS Rotated logs enter only designated slot, preserving source budget: 3/3
+PASS Full designated slot cannot spill into other slot: 3/3
+PASS Wrong-purpose cargo stays at source: 3/3
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 140/3/3
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 142/3/3
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 144/3/3
+PASS Configure compatible endpoint
+PASS Rotated logs enter only designated slot, preserving source budget: 3/4
+PASS Full designated slot cannot spill into other slot: 3/4
+PASS Wrong-purpose cargo stays at source: 3/4
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 140/3/4
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 142/3/4
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 144/3/4
+PASS Configure compatible endpoint
+PASS Rotated logs enter only designated slot, preserving source budget: 3/5
+PASS Full designated slot cannot spill into other slot: 3/5
+PASS Wrong-purpose cargo stays at source: 3/5
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 140/3/5
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 142/3/5
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Machine face capability and conservation: 144/3/5
+PASS Configure compatible endpoint
+PASS Two furnace inlets share a single source throughput budget
+PASS Same log supply reaches fuel and charcoal ingredients through distinct faces
+PASS Back-fed logs fuel charcoal production from side-fed logs
+PASS Configure compatible endpoint
+PASS Furnace prefers ingredients matching existing iron output across source ordering 0
+PASS Output preference preserves every iron ingredient
+PASS Configure compatible endpoint
+PASS Furnace prefers ingredients matching existing iron output across source ordering 1
+PASS Output preference preserves every iron ingredient
+PASS Configure compatible endpoint
+PASS Furnace prefers ingredients matching existing iron output across source ordering 2
+PASS Output preference preserves every iron ingredient
+PASS Configure compatible endpoint
+PASS Furnace prefers ingredients matching existing iron output across source ordering 3
+PASS Output preference preserves every iron ingredient
+PASS Configure compatible endpoint
+PASS Furnace prefers ingredients matching existing iron output across source ordering 4
+PASS Output preference preserves every iron ingredient
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Crusher prefers the raw ore matching its existing crushed output
+PASS Configure compatible endpoint
+PASS Chest fills an existing item type first and still emits at most four per second
+PASS Receiver falls back to other compatible cargo once preferred source is exhausted
+PASS Incompatible fluid retained at source for device 140
+PASS Supported water moves without loss for device 140
+PASS Configure compatible endpoint
+PASS Configure compatible endpoint
+PASS Incompatible fluid retained at source for device 143
+PASS Supported water moves without loss for device 143
+PASS Incompatible fluid retained at source for device 145
+PASS Supported water moves without loss for device 145
+PASS Fluid capability rejects unsupported machines and null fluids

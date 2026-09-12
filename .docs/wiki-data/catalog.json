@@ -8,11 +8,11 @@
                 "stableId": "rivet:grass",
                 "displayName": "Grass",
                 "stackLimit": 64,
-                "fistSeconds": 0.44999998807907107,
+                "fistSeconds": 0.44999998807907104,
                 "colour": {
                     "r": 0.4300000071525574,
                     "g": 0.5600000023841858,
-                    "b": 0.25999999046325686,
+                    "b": 0.25999999046325684,
                     "a": 1.0
                 },
                 "fistDropId": 2,
@@ -44,7 +44,7 @@
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
                     "r": 0.4399999976158142,
-                    "g": 0.30000001192092898,
+                    "g": 0.30000001192092896,
                     "b": 0.1899999976158142,
                     "a": 1.0
                 },
@@ -76,7 +76,7 @@
                 "stackLimit": 64,
                 "fistSeconds": 3.0,
                 "colour": {
-                    "r": 0.47999998927116396,
+                    "r": 0.47999998927116394,
                     "g": 0.5099999904632568,
                     "b": 0.5099999904632568,
                     "a": 1.0
@@ -110,8 +110,8 @@
                 "fistSeconds": 1.5,
                 "colour": {
                     "r": 0.4000000059604645,
-                    "g": 0.27000001072883608,
-                    "b": 0.14000000059604646,
+                    "g": 0.27000001072883606,
+                    "b": 0.14000000059604645,
                     "a": 1.0
                 },
                 "fistDropId": 0,
@@ -140,11 +140,11 @@
                 "stableId": "rivet:leaves",
                 "displayName": "Leaves",
                 "stackLimit": 64,
-                "fistSeconds": 0.20000000298023225,
+                "fistSeconds": 0.20000000298023224,
                 "colour": {
                     "r": 0.2800000011920929,
-                    "g": 0.44999998807907107,
-                    "b": 0.18000000715255738,
+                    "g": 0.44999998807907104,
+                    "b": 0.18000000715255737,
                     "a": 1.0
                 },
                 "fistDropId": 0,
@@ -276,7 +276,7 @@
                 "colour": {
                     "r": 0.5799999833106995,
                     "g": 0.3400000035762787,
-                    "b": 0.23999999463558198,
+                    "b": 0.23999999463558197,
                     "a": 1.0
                 },
                 "fistDropId": 15,
@@ -309,7 +309,7 @@
                 "colour": {
                     "r": 0.75,
                     "g": 0.4300000071525574,
-                    "b": 0.20999999344348908,
+                    "b": 0.20999999344348907,
                     "a": 1.0
                 },
                 "fistDropId": 16,
@@ -341,8 +341,8 @@
                 "fistSeconds": 1.100000023841858,
                 "colour": {
                     "r": 0.1599999964237213,
-                    "g": 0.18000000715255738,
-                    "b": 0.20999999344348908,
+                    "g": 0.18000000715255737,
+                    "b": 0.20999999344348907,
                     "a": 1.0
                 },
                 "fistDropId": 17,
@@ -404,7 +404,7 @@
                 "stableId": "rivet:diamond_ore",
                 "displayName": "Diamond ore",
                 "stackLimit": 64,
-                "fistSeconds": 2.0999999046325685,
+                "fistSeconds": 2.0999999046325684,
                 "colour": {
                     "r": 0.4399999976158142,
                     "g": 0.8399999737739563,
@@ -439,8 +439,8 @@
                 "stackLimit": 64,
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
-                    "r": 0.18000000715255738,
-                    "g": 0.20000000298023225,
+                    "r": 0.18000000715255737,
+                    "g": 0.20000000298023224,
                     "b": 0.2199999988079071,
                     "a": 1.0
                 },
@@ -474,7 +474,7 @@
                 "colour": {
                     "r": 0.5799999833106995,
                     "g": 0.3400000035762787,
-                    "b": 0.23999999463558198,
+                    "b": 0.23999999463558197,
                     "a": 1.0
                 },
                 "fistDropId": 0,
@@ -507,7 +507,7 @@
                 "colour": {
                     "r": 0.75,
                     "g": 0.4300000071525574,
-                    "b": 0.20999999344348908,
+                    "b": 0.20999999344348907,
                     "a": 1.0
                 },
                 "fistDropId": 0,
@@ -539,8 +539,8 @@
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
                     "r": 0.1599999964237213,
-                    "g": 0.18000000715255738,
-                    "b": 0.20999999344348908,
+                    "g": 0.18000000715255737,
+                    "b": 0.20999999344348907,
                     "a": 1.0
                 },
                 "fistDropId": 0,
@@ -670,9 +670,9 @@
                 "stackLimit": 64,
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
-                    "r": 0.47999998927116396,
-                    "g": 0.30000001192092898,
-                    "b": 0.12999999523162843,
+                    "r": 0.47999998927116394,
+                    "g": 0.30000001192092896,
+                    "b": 0.12999999523162842,
                     "a": 1.0
                 },
                 "fistDropId": 0,
@@ -704,7 +704,7 @@
                 "fistSeconds": 3.0,
                 "colour": {
                     "r": 0.4300000071525574,
-                    "g": 0.47999998927116396,
+                    "g": 0.47999998927116394,
                     "b": 0.5199999809265137,
                     "a": 1.0
                 },
@@ -771,7 +771,7 @@
                 "colour": {
                     "r": 0.4000000059604645,
                     "g": 0.4300000071525574,
-                    "b": 0.44999998807907107,
+                    "b": 0.44999998807907104,
                     "a": 1.0
                 },
                 "fistDropId": 0,
@@ -804,7 +804,7 @@
                 "colour": {
                     "r": 0.6200000047683716,
                     "g": 0.4000000059604645,
-                    "b": 0.18000000715255738,
+                    "b": 0.18000000715255737,
                     "a": 1.0
                 },
                 "fistDropId": 0,
@@ -836,8 +836,8 @@
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
                     "r": 0.11999999731779099,
-                    "g": 0.12999999523162843,
-                    "b": 0.15000000596046449,
+                    "g": 0.12999999523162842,
+                    "b": 0.15000000596046448,
                     "a": 1.0
                 },
                 "fistDropId": 0,
@@ -869,8 +869,8 @@
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
                     "r": 0.8500000238418579,
-                    "g": 0.47999998927116396,
-                    "b": 0.23999999463558198,
+                    "g": 0.47999998927116394,
+                    "b": 0.23999999463558197,
                     "a": 1.0
                 },
                 "fistDropId": 0,
@@ -936,7 +936,7 @@
                 "colour": {
                     "r": 0.9599999785423279,
                     "g": 0.7300000190734863,
-                    "b": 0.17000000178813935,
+                    "b": 0.17000000178813934,
                     "a": 1.0
                 },
                 "fistDropId": 0,
@@ -968,7 +968,7 @@
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
                     "r": 0.6800000071525574,
-                    "g": 0.47999998927116396,
+                    "g": 0.47999998927116394,
                     "b": 0.25,
                     "a": 1.0
                 },
@@ -1033,8 +1033,8 @@
                 "stackLimit": 64,
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
-                    "r": 0.30000001192092898,
-                    "g": 0.20999999344348908,
+                    "r": 0.30000001192092896,
+                    "g": 0.20999999344348907,
                     "b": 0.11999999731779099,
                     "a": 1.0
                 },
@@ -1068,7 +1068,7 @@
                 "colour": {
                     "r": 0.2199999988079071,
                     "g": 0.5199999809265137,
-                    "b": 0.15000000596046449,
+                    "b": 0.15000000596046448,
                     "a": 1.0
                 },
                 "fistDropId": 30,
@@ -1101,7 +1101,7 @@
                 "colour": {
                     "r": 0.2199999988079071,
                     "g": 0.5199999809265137,
-                    "b": 0.15000000596046449,
+                    "b": 0.15000000596046448,
                     "a": 1.0
                 },
                 "fistDropId": 30,
@@ -1134,7 +1134,7 @@
                 "colour": {
                     "r": 0.2199999988079071,
                     "g": 0.5199999809265137,
-                    "b": 0.15000000596046449,
+                    "b": 0.15000000596046448,
                     "a": 1.0
                 },
                 "fistDropId": 30,
@@ -1167,7 +1167,7 @@
                 "colour": {
                     "r": 0.2199999988079071,
                     "g": 0.5199999809265137,
-                    "b": 0.15000000596046449,
+                    "b": 0.15000000596046448,
                     "a": 1.0
                 },
                 "fistDropId": 30,
@@ -1363,7 +1363,7 @@
                 "stackLimit": 1,
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
-                    "r": 0.47999998927116396,
+                    "r": 0.47999998927116394,
                     "g": 0.550000011920929,
                     "b": 0.5899999737739563,
                     "a": 1.0
@@ -1396,7 +1396,7 @@
                 "stackLimit": 1,
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
-                    "r": 0.47999998927116396,
+                    "r": 0.47999998927116394,
                     "g": 0.550000011920929,
                     "b": 0.5899999737739563,
                     "a": 1.0
@@ -1429,7 +1429,7 @@
                 "stackLimit": 1,
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
-                    "r": 0.47999998927116396,
+                    "r": 0.47999998927116394,
                     "g": 0.550000011920929,
                     "b": 0.5899999737739563,
                     "a": 1.0
@@ -1462,7 +1462,7 @@
                 "stackLimit": 1,
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
-                    "r": 0.47999998927116396,
+                    "r": 0.47999998927116394,
                     "g": 0.550000011920929,
                     "b": 0.5899999737739563,
                     "a": 1.0
@@ -1495,7 +1495,7 @@
                 "stackLimit": 1,
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
-                    "r": 0.47999998927116396,
+                    "r": 0.47999998927116394,
                     "g": 0.550000011920929,
                     "b": 0.5899999737739563,
                     "a": 1.0
@@ -1529,7 +1529,7 @@
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
                     "r": 0.8700000047683716,
-                    "g": 0.47999998927116396,
+                    "g": 0.47999998927116394,
                     "b": 0.25,
                     "a": 1.0
                 },
@@ -1562,7 +1562,7 @@
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
                     "r": 0.8700000047683716,
-                    "g": 0.47999998927116396,
+                    "g": 0.47999998927116394,
                     "b": 0.25,
                     "a": 1.0
                 },
@@ -1595,7 +1595,7 @@
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
                     "r": 0.8700000047683716,
-                    "g": 0.47999998927116396,
+                    "g": 0.47999998927116394,
                     "b": 0.25,
                     "a": 1.0
                 },
@@ -1628,7 +1628,7 @@
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
                     "r": 0.8700000047683716,
-                    "g": 0.47999998927116396,
+                    "g": 0.47999998927116394,
                     "b": 0.25,
                     "a": 1.0
                 },
@@ -1661,7 +1661,7 @@
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
                     "r": 0.8700000047683716,
-                    "g": 0.47999998927116396,
+                    "g": 0.47999998927116394,
                     "b": 0.25,
                     "a": 1.0
                 },
@@ -1858,9 +1858,9 @@
                 "stackLimit": 1,
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
-                    "r": 0.30000001192092898,
+                    "r": 0.30000001192092896,
                     "g": 0.8799999952316284,
-                    "b": 0.8600000143051148,
+                    "b": 0.8600000143051147,
                     "a": 1.0
                 },
                 "fistDropId": 0,
@@ -1891,9 +1891,9 @@
                 "stackLimit": 1,
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
-                    "r": 0.30000001192092898,
+                    "r": 0.30000001192092896,
                     "g": 0.8799999952316284,
-                    "b": 0.8600000143051148,
+                    "b": 0.8600000143051147,
                     "a": 1.0
                 },
                 "fistDropId": 0,
@@ -1924,9 +1924,9 @@
                 "stackLimit": 1,
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
-                    "r": 0.30000001192092898,
+                    "r": 0.30000001192092896,
                     "g": 0.8799999952316284,
-                    "b": 0.8600000143051148,
+                    "b": 0.8600000143051147,
                     "a": 1.0
                 },
                 "fistDropId": 0,
@@ -1957,9 +1957,9 @@
                 "stackLimit": 1,
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
-                    "r": 0.30000001192092898,
+                    "r": 0.30000001192092896,
                     "g": 0.8799999952316284,
-                    "b": 0.8600000143051148,
+                    "b": 0.8600000143051147,
                     "a": 1.0
                 },
                 "fistDropId": 0,
@@ -1990,9 +1990,9 @@
                 "stackLimit": 1,
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
-                    "r": 0.30000001192092898,
+                    "r": 0.30000001192092896,
                     "g": 0.8799999952316284,
-                    "b": 0.8600000143051148,
+                    "b": 0.8600000143051147,
                     "a": 1.0
                 },
                 "fistDropId": 0,
@@ -2024,7 +2024,7 @@
                 "fistSeconds": 5.0,
                 "colour": {
                     "r": 0.11999999731779099,
-                    "g": 0.14000000059604646,
+                    "g": 0.14000000059604645,
                     "b": 0.1599999964237213,
                     "a": 1.0
                 },
@@ -2090,8 +2090,8 @@
                 "fistSeconds": 5.0,
                 "colour": {
                     "r": 0.8399999737739563,
-                    "g": 0.44999998807907107,
-                    "b": 0.20999999344348908,
+                    "g": 0.44999998807907104,
+                    "b": 0.20999999344348907,
                     "a": 1.0
                 },
                 "fistDropId": 0,
@@ -2189,7 +2189,7 @@
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
                     "r": 0.8700000047683716,
-                    "g": 0.47999998927116396,
+                    "g": 0.47999998927116394,
                     "b": 0.25,
                     "a": 1.0
                 },
@@ -2222,7 +2222,7 @@
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
                     "r": 0.8700000047683716,
-                    "g": 0.47999998927116396,
+                    "g": 0.47999998927116394,
                     "b": 0.25,
                     "a": 1.0
                 },
@@ -2255,7 +2255,7 @@
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
                     "r": 0.8700000047683716,
-                    "g": 0.47999998927116396,
+                    "g": 0.47999998927116394,
                     "b": 0.25,
                     "a": 1.0
                 },
@@ -2288,7 +2288,7 @@
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
                     "r": 0.8700000047683716,
-                    "g": 0.47999998927116396,
+                    "g": 0.47999998927116394,
                     "b": 0.25,
                     "a": 1.0
                 },
@@ -2452,9 +2452,9 @@
                 "stackLimit": 1,
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
-                    "r": 0.30000001192092898,
+                    "r": 0.30000001192092896,
                     "g": 0.8799999952316284,
-                    "b": 0.8600000143051148,
+                    "b": 0.8600000143051147,
                     "a": 1.0
                 },
                 "fistDropId": 0,
@@ -2485,9 +2485,9 @@
                 "stackLimit": 1,
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
-                    "r": 0.30000001192092898,
+                    "r": 0.30000001192092896,
                     "g": 0.8799999952316284,
-                    "b": 0.8600000143051148,
+                    "b": 0.8600000143051147,
                     "a": 1.0
                 },
                 "fistDropId": 0,
@@ -2518,9 +2518,9 @@
                 "stackLimit": 1,
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
-                    "r": 0.30000001192092898,
+                    "r": 0.30000001192092896,
                     "g": 0.8799999952316284,
-                    "b": 0.8600000143051148,
+                    "b": 0.8600000143051147,
                     "a": 1.0
                 },
                 "fistDropId": 0,
@@ -2551,9 +2551,9 @@
                 "stackLimit": 1,
                 "fistSeconds": 0.6000000238418579,
                 "colour": {
-                    "r": 0.30000001192092898,
+                    "r": 0.30000001192092896,
                     "g": 0.8799999952316284,
-                    "b": 0.8600000143051148,
+                    "b": 0.8600000143051147,
                     "a": 1.0
                 },
                 "fistDropId": 0,
@@ -2586,7 +2586,7 @@
                 "colour": {
                     "r": 0.7699999809265137,
                     "g": 0.6600000262260437,
-                    "b": 0.38999998569488528,
+                    "b": 0.38999998569488525,
                     "a": 1.0
                 },
                 "fistDropId": 0,
@@ -2618,8 +2618,8 @@
                 "fistSeconds": 0.949999988079071,
                 "colour": {
                     "r": 0.6499999761581421,
-                    "g": 0.49000000953674319,
-                    "b": 0.28999999165534975,
+                    "g": 0.49000000953674316,
+                    "b": 0.28999999165534973,
                     "a": 1.0
                 },
                 "fistDropId": 0,
@@ -2784,7 +2784,7 @@
                 "colour": {
                     "r": 1.0,
                     "g": 0.6499999761581421,
-                    "b": 0.18000000715255738,
+                    "b": 0.18000000715255737,
                     "a": 1.0
                 },
                 "fistDropId": 0,
@@ -2813,7 +2813,7 @@
                 "stableId": "rivet:azure_ore",
                 "displayName": "Azure Ore",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.07999999821186066,
                     "g": 0.6499999761581421,
@@ -2846,7 +2846,7 @@
                 "stableId": "rivet:azure_crystal",
                 "displayName": "Azure Crystal",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.07999999821186066,
                     "g": 0.6499999761581421,
@@ -2879,7 +2879,7 @@
                 "stableId": "rivet:copper_wire",
                 "displayName": "Copper Wire",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -2912,7 +2912,7 @@
                 "stableId": "rivet:copper_plate",
                 "displayName": "Copper Plate",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -2945,7 +2945,7 @@
                 "stableId": "rivet:iron_plate",
                 "displayName": "Iron Plate",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.5,
                     "g": 0.5,
@@ -2978,7 +2978,7 @@
                 "stableId": "rivet:cog",
                 "displayName": "Iron Cog",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.5,
                     "g": 0.5,
@@ -3011,7 +3011,7 @@
                 "stableId": "rivet:rivets",
                 "displayName": "Rivets",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -3044,7 +3044,7 @@
                 "stableId": "rivet:machine_casing",
                 "displayName": "Machine Casing",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.5,
                     "g": 0.5,
@@ -3077,7 +3077,7 @@
                 "stableId": "rivet:glass",
                 "displayName": "Glass",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 1.0,
                     "g": 1.0,
@@ -3110,7 +3110,7 @@
                 "stableId": "rivet:crushed_copper",
                 "displayName": "Crushed Copper",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -3143,7 +3143,7 @@
                 "stableId": "rivet:crushed_iron",
                 "displayName": "Crushed Iron",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.5,
                     "g": 0.5,
@@ -3176,7 +3176,7 @@
                 "stableId": "rivet:crushed_gold",
                 "displayName": "Crushed Gold",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 1.0,
                     "g": 0.9215686321258545,
@@ -3209,7 +3209,7 @@
                 "stableId": "rivet:machinist_bench",
                 "displayName": "Machinist's Bench",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -3242,7 +3242,7 @@
                 "stableId": "rivet:signal_wire",
                 "displayName": "Signal Wire",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -3275,7 +3275,7 @@
                 "stableId": "rivet:signal_conduit",
                 "displayName": "Signal Conduit",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -3308,7 +3308,7 @@
                 "stableId": "rivet:power_cable",
                 "displayName": "Power Cable",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -3341,7 +3341,7 @@
                 "stableId": "rivet:item_pipe",
                 "displayName": "Item Pipe",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -3374,7 +3374,7 @@
                 "stableId": "rivet:fluid_pipe",
                 "displayName": "Fluid Pipe",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -3407,7 +3407,7 @@
                 "stableId": "rivet:lever",
                 "displayName": "Lever",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -3440,7 +3440,7 @@
                 "stableId": "rivet:button",
                 "displayName": "Button",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -3473,7 +3473,7 @@
                 "stableId": "rivet:signal_relay",
                 "displayName": "Signal Relay",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -3506,7 +3506,7 @@
                 "stableId": "rivet:signal_indicator",
                 "displayName": "Signal Indicator",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -3539,7 +3539,7 @@
                 "stableId": "rivet:workshop_hatch",
                 "displayName": "Workshop Hatch",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -3572,7 +3572,7 @@
                 "stableId": "rivet:workshop_lamp",
                 "displayName": "Workshop Lamp",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -3605,7 +3605,7 @@
                 "stableId": "rivet:boiler_engine",
                 "displayName": "Boiler Engine",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -3638,7 +3638,7 @@
                 "stableId": "rivet:alternator",
                 "displayName": "Alternator",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -3671,7 +3671,7 @@
                 "stableId": "rivet:crusher",
                 "displayName": "Crusher",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -3704,7 +3704,7 @@
                 "stableId": "rivet:pump",
                 "displayName": "Pump",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -3737,7 +3737,7 @@
                 "stableId": "rivet:drill",
                 "displayName": "Drill",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -3770,7 +3770,7 @@
                 "stableId": "rivet:water_tank",
                 "displayName": "Water Tank",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -3803,7 +3803,7 @@
                 "stableId": "rivet:extractor",
                 "displayName": "Extractor",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -3836,7 +3836,7 @@
                 "stableId": "rivet:inventory_sensor",
                 "displayName": "Inventory Sensor",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -3869,7 +3869,7 @@
                 "stableId": "rivet:tank_frame",
                 "displayName": "Reinforced Tank Frame",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -3902,7 +3902,7 @@
                 "stableId": "rivet:tank_wall",
                 "displayName": "Tank Wall",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -3935,7 +3935,7 @@
                 "stableId": "rivet:tank_glass",
                 "displayName": "Reinforced Tank Glass",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -3968,7 +3968,7 @@
                 "stableId": "rivet:tank_controller",
                 "displayName": "Tank Controller",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -4001,7 +4001,7 @@
                 "stableId": "rivet:tank_port",
                 "displayName": "Tank Fluid Port",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -4034,7 +4034,7 @@
                 "stableId": "rivet:tank_hatch",
                 "displayName": "Tank Access Hatch",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -4067,7 +4067,7 @@
                 "stableId": "rivet:tank_valve",
                 "displayName": "Signal Valve Port",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -4100,7 +4100,7 @@
                 "stableId": "rivet:tank_sensor",
                 "displayName": "Tank Level Sensor",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -4133,7 +4133,7 @@
                 "stableId": "rivet:battery_block",
                 "displayName": "Battery Block",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -4166,7 +4166,7 @@
                 "stableId": "rivet:battery_controller",
                 "displayName": "Battery Bank Controller",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -4199,7 +4199,7 @@
                 "stableId": "rivet:hand_crank",
                 "displayName": "Hand Crank",
                 "stackLimit": 64,
-                "fistSeconds": 1.2000000476837159,
+                "fistSeconds": 1.2000000476837158,
                 "colour": {
                     "r": 0.75,
                     "g": 0.4399999976158142,
@@ -4232,11 +4232,11 @@
                 "stableId": "rivet:sapling",
                 "displayName": "Sapling",
                 "stackLimit": 64,
-                "fistSeconds": 0.20000000298023225,
+                "fistSeconds": 0.20000000298023224,
                 "colour": {
                     "r": 0.2800000011920929,
-                    "g": 0.6100000143051148,
-                    "b": 0.20000000298023225,
+                    "g": 0.6100000143051147,
+                    "b": 0.20000000298023224,
                     "a": 1.0
                 },
                 "fistDropId": 0,
@@ -4265,7 +4265,7 @@
                 "stableId": "rivet:apple",
                 "displayName": "Apple",
                 "stackLimit": 64,
-                "fistSeconds": 0.20000000298023225,
+                "fistSeconds": 0.20000000298023224,
                 "colour": {
                     "r": 0.800000011920929,
                     "g": 0.11999999731779099,
@@ -4302,7 +4302,7 @@
                 "colour": {
                     "r": 0.5799999833106995,
                     "g": 0.3400000035762787,
-                    "b": 0.15000000596046449,
+                    "b": 0.15000000596046448,
                     "a": 1.0
                 },
                 "fistDropId": 0,
@@ -8224,11 +8224,11 @@
         },
         {
             "path": "Assets/RivetReach/Code/Core/IItemPipeInventory.cs",
-            "sha256": "60c55830dd29c1a3cc26f98b2f51bdc96a6b82d1fa3d7065560545f085c7025c"
+            "sha256": "d4d22896ab6dc6a8ee5b5659ce7b8f6970f640e5a456481aeebe28b937529467"
         },
         {
             "path": "Assets/RivetReach/Code/Core/ItemContainer.cs",
-            "sha256": "84f8ec2bb8a83cdd6d3bebd8ca73e4a8a69a14dd0d44b466563f027d6b946acc"
+            "sha256": "c0c6b70c53a9f5bc061a974abca58ee137fc743702f758b78f93a41f485ea4d6"
         },
         {
             "path": "Assets/RivetReach/Code/Core/ItemRegistry.cs",
@@ -8268,7 +8268,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/CraftingVerification.cs",
-            "sha256": "67900318b7c4130735117b622a126f3a8fbd807c75019f45149f5b72d0736197"
+            "sha256": "55de3efa4f34341997e5aed4904923559598d0629f90feb29113cb742c412114"
         },
         {
             "path": "Assets/RivetReach/Code/CreativeMode.cs",
@@ -8276,7 +8276,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/CreativeVerification.cs",
-            "sha256": "f148bb06c10ac99f1306825e1885edeaa4415b679a85c723d5015b68d3787ded"
+            "sha256": "e43db456252bf9a709dd97769688c76c7ae8c9523eb1fa9eb8dd68e3af4d4452"
         },
         {
             "path": "Assets/RivetReach/Code/DayNightVerification.cs",
@@ -8296,7 +8296,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Expedition.cs",
-            "sha256": "ffb61aa58364baa2c782bab4233017dd3254a50fdb75a7839976b0f352d332d6"
+            "sha256": "3647c557f03e3d08ab9f1504df4d7edcc3737b4eceb2dbcba28fa9624e573eaa"
         },
         {
             "path": "Assets/RivetReach/Code/FluidVerification.cs",
@@ -8320,7 +8320,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/FurnacePipeVerification.cs",
-            "sha256": "b04db640ff9d783420f5920930fb72e1720641a5c4ebbb6731a914c9accfea60"
+            "sha256": "24fa2b31bba78aeb8f0e839d683e0db702e65ed557c8e885847292bc519a4566"
         },
         {
             "path": "Assets/RivetReach/Code/GameplayFixVerification.cs",
@@ -8344,7 +8344,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustryDefinition.cs",
-            "sha256": "6f2b0565ae667b784dbc44160fc61b5aaa2c9662b0eb7133d23fab1b71958281"
+            "sha256": "be3b67543f2445863df2330350f6799239bdcda60d36efdddf1b2eaa54068d1a"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustryPresentation.cs",
@@ -8372,11 +8372,11 @@
         },
         {
             "path": "Assets/RivetReach/Code/Industry/TransportEndpoints.cs",
-            "sha256": "0a4c71b0faa1d02335d8a64dd187a980d9bba64e0c12396ef823e20b8ed6a07c"
+            "sha256": "e3732eac2159903ea1e6741e76b12d8c6620839cf51b17da62060b16f707f219"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/WorldIndustry.cs",
-            "sha256": "afae9dd047c00ff8c7a1fae3e3b32f8752b8aa77872a4d00c9e96e2cbb2b7b69"
+            "sha256": "4bb641cb02f2614f377091c8ae1d2a0157ba569deafed9c6fa76bcb4aabafe83"
         },
         {
             "path": "Assets/RivetReach/Code/IndustryVerification.cs",
@@ -8384,7 +8384,11 @@
         },
         {
             "path": "Assets/RivetReach/Code/InteractionVerification.cs",
-            "sha256": "80febd4e3d3a21e97410fe0aff16e8ff102e11ca0db3fccec17e04cc334ad52b"
+            "sha256": "d6f26360af2ef9eea052f9d037e246a342ad8e5409fd76207bc1a3d6a88f945a"
+        },
+        {
+            "path": "Assets/RivetReach/Code/InventoryVerification.cs",
+            "sha256": "1afdfdc1877f6213a081598305e3c08e3e0deb2e6e3041a94d9563cce489bced"
         },
         {
             "path": "Assets/RivetReach/Code/ItemAppearanceVerification.cs",
@@ -8420,7 +8424,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/MovementInteractionVerification.cs",
-            "sha256": "dc9b367df061f7d2c741b5fabb4742ed6501b800682ff5de01f61defba887fbc"
+            "sha256": "159474a04acaa4cf1506afa48130119090afca8872f881b668273d4bb2bd9ebb"
         },
         {
             "path": "Assets/RivetReach/Code/MultiblockVerification.cs",
@@ -8468,11 +8472,11 @@
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/ExpeditionSaves.cs",
-            "sha256": "dbee2d7fef0ae15365ae4ff6159566d80bc7a8d33e324e247663f457fd453d28"
+            "sha256": "c978f7c8cc505daf7b85ab7e7e373a51985f31132735a0c379dbf64e1f1c8a2a"
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/SaveIO.cs",
-            "sha256": "4dce79fde345d5c9618bd3ea0d4e859b66c8f76bde0a5faedd4526c8dd8c1844"
+            "sha256": "a2b0695b9677f15b55be7e317b67a0603f59945e0ddc9d6bd362a6dc048d9223"
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/WorldSaveState.cs",
@@ -8484,11 +8488,11 @@
         },
         {
             "path": "Assets/RivetReach/Code/PlacementFacingVerification.cs",
-            "sha256": "541404a7c64b7985d9302cba3064c8f79d26f354f7d704ab0a8a1eadce42e026"
+            "sha256": "33ac3a6e9f896e194ca5824fc76a77ea4d4e4c886e499e769a42be8843a905d6"
         },
         {
             "path": "Assets/RivetReach/Code/PlacementItemVerification.cs",
-            "sha256": "97ce69180bd65cb66e2b48008948d8f000e1517d98e8e41d4d8116ab3ce661b8"
+            "sha256": "293106c496385136e4c091b4a8823dfe469ac0799ddbcee8395e3a4f023c223e"
         },
         {
             "path": "Assets/RivetReach/Code/Player/ArcadeGrass.cs",
@@ -8568,7 +8572,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/RuntimeVerification.cs",
-            "sha256": "755280f1d3d75b5467f696bfe73efe4cb58743f5d3825ad2910c234c9310791c"
+            "sha256": "94e85adbf213f13c635d3b5bb6ce8bab55d0a9d99ddbf613d79c8caea2711ee4"
         },
         {
             "path": "Assets/RivetReach/Code/SaveVerification.cs",
@@ -8600,7 +8604,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Survival/FurnaceState.cs",
-            "sha256": "8a2dc76bae361e3cae9c123e20effceaa4156021074f8866c147513849ccf1d7"
+            "sha256": "e3c0a2353b2ba372f7c18552223e8de279a7418d813278931516afb5d596d455"
         },
         {
             "path": "Assets/RivetReach/Code/Survival/HungerState.cs",
@@ -8644,11 +8648,11 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUI.cs",
-            "sha256": "c76397535ae43d1b05268dec883b36b80cf51db1742742b3563c7f74294a7e1b"
+            "sha256": "df8e587a950739d24a1caa41d2a371a01bcbc198cf1a4a55ec3223eb8b56b771"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIBrowser.cs",
-            "sha256": "17d3b41a3a29f96e063112d53384140472e562a2e784715ed478d88bc5e19ffa"
+            "sha256": "f7d4a743c92ec878cc5d12c4abc0b8f27c308a5c294184e7d3f95e5088993eca"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUICreative.cs",
@@ -10108,15 +10112,15 @@
         },
         {
             "path": "Assets/RivetReach/Resources/Tools/StarterAxeIcon.png",
-            "sha256": "5392c30a25d178bc4ed791ba17ba4b337b493743c37c2d2855d4874f746ed3b9"
+            "sha256": "5fce17e3fc02ce15de0ac39ee84cab1e193145688ee4665742a9fdd64e9dc5e1"
         },
         {
             "path": "Assets/RivetReach/Resources/Tools/StarterDaggerIcon.png",
-            "sha256": "6c4bc9aa4f3242ef280fecde189ba5d6eb1556c3b30e687d6b0b795536669f68"
+            "sha256": "f817596bbb1881759fbb0ddce31cf5fb21e29f53b8336386d54378f53e5c3653"
         },
         {
             "path": "Assets/RivetReach/Resources/Tools/StarterPickaxeIcon.png",
-            "sha256": "5ad93ed0c14f88ce0a4424b6b547b8572c0a5e252ba909b861dd7dfa4308bb81"
+            "sha256": "16ffb6bd88f459cb37137daa7b77026ffaa7d8fa468f54b28509153f9884b25e"
         }
     ]
 }

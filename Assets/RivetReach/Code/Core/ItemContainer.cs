@@ -7,8 +7,8 @@ namespace RivetReach
     public class ItemContainer : IItemPipeInventory
     {
         bool IItemPipeInventory.CanExtract(int slot)=>slot>=0&&slot<Count;
-        bool IItemPipeInventory.Prefers(byte id)=>id!=0&&Total(id)>0;
-        bool IItemPipeInventory.TryInsert(byte id)=>id!=0&&Capacity(id)>0&&Add(id,1)==0;
+        bool IItemPipeInventory.Prefers(byte id,int localFace)=>id!=0&&Total(id)>0;
+        bool IItemPipeInventory.TryInsert(byte id,int localFace)=>id!=0&&Capacity(id)>0&&Add(id,1)==0;
         ItemStack IItemPipeInventory.Extract(int slot,int count)=>Take(slot,count);
         readonly ItemStack[] slots;
         readonly Func<byte, int> stackLimit;

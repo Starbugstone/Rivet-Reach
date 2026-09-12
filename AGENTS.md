@@ -72,6 +72,10 @@ The user subsequently authorized [saplings and apples](.docs/GAMEPLAY.md#sapling
 - `DELIVERY.md`: complete-game scope, verification, production ownership and external dependencies.
 - `DESIGN_QUESTIONS.md`: working decision register, unresolved choices and required evidence.
 
+## Authorized machine fuel faces
+
+The user requires rear-only item fuel input on fuel-burning machines, with usable ingredients on the other faces; fuel-free machines retain ordinary rear input. [INDUSTRY.md](.docs/INDUSTRY.md#machine-item-inputs-by-face--2026-09-12) owns orientation, dual-purpose log routing, capacity and compatibility rules. Preserve configured outputs, source conservation and existing saves.
+
 ## Working principles
 
 Preserve other agents’ work, establish current ownership before overlapping edits, and stage only owned changes. Closed historical build/index reservations do not apply to new tasks. Current feature APIs and verification belong in their specialist documents; superseded coordination logs remain in Git history.
