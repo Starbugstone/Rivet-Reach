@@ -38,7 +38,15 @@ namespace RivetReach
             return m.Structure?.Formed==true&&m.PortMode!=FluidPortMode.Disabled&&(m.Definition.Id!=IndustryId.TankValve||m.SignalAttached&&m.Signal);
         }
         public static FluidStorage Storage(MachineState m)=>IndustryId.TankPart(m.Definition.Id)?m.Structure?.Fluid:m.Fluid;
-        public static bool Accepts(MachineState m,FluidDefinition fluid)=>IndustryId.TankPart(m.Definition.Id)||fluid?.StableId==Fluids.Water.StableId;
+        public static bool Accepts(MachineState m,FluidDefinition fluid)
+        {
+            if(m==null||fluid==null||!Supports(m,NetworkKind.Fluid))return false;
+            if(IndustryId.TankPart(m.Definition.Id))return true;
+            // Explicit machine capabilities: adding a fluid port to another device
+            // must not silently make it accept water (or every future liquid).
+            byte id=m.Definition.Id;
+            return (id==IndustryId.Boiler||id==IndustryId.Pump||id==IndustryId.Tank)&&fluid.StableId==Fluids.Water.StableId;
+        }
         public static NetworkKind TransportKind(MachineState pipe)=>pipe.Definition.Id==IndustryId.ItemPipe?NetworkKind.Item:NetworkKind.Fluid;
         public static bool Supports(MachineState m,NetworkKind kind)
         {

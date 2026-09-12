@@ -30,6 +30,8 @@ A stone furnace with a recessed arched firebox. The embers glow while fuel is bu
 
 ![Placed furnace in the game](images/starter-furnace.png)
 
+Connect [Item Pipes](Item-item-pipe.md) on any face. Blue Input accepts only smeltable ingredients or valid fuel and routes them to the correct slots; red Output takes finished products only. Use a [Wrench](Item-wrench.md) to set each end. See [the crusher → furnace setup](Pipes.md#example-crusher--furnace--chest).
+
 ## Crafting and processing
 
 ### Recipe 1

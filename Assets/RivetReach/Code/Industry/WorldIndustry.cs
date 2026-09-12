@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace RivetReach
 {
-    public sealed class WorldIndustry : IIndustryWorld
+    public sealed class WorldIndustry : IIndustryWorld, IIndustryItemEndpoints
     {
         readonly Expedition game;
         public IndustrySimulation Simulation {get;}
@@ -17,6 +17,9 @@ namespace RivetReach
         public byte Get(BlockPos p)=>game.World.Get(p);
         public bool Remove(BlockPos p,byte expected)=>game.World.Remove(p,expected);
         public ItemContainer Storage(BlockPos p)=>game.Survival.At(p)?.Storage;
+        public IItemPipeInventory ItemEndpoint(BlockPos p)
+        {var station=game.Survival.At(p);return (IItemPipeInventory)station?.Furnace??station?.Storage;}
+        public void ItemEndpointChanged(BlockPos p)=>game.Survival.Wake(p);
         public byte Drop(byte block)=>game.Registry.FistDrop(block);
         public bool PlayerInside(BlockPos p)=>game.World.OccupiesCell(game.Player.transform.position,.6f,game.Player.Height,p)||game.Mobs!=null&&game.Mobs.Occupies(p);
         void Changed(BlockPos p)
@@ -32,7 +35,7 @@ namespace RivetReach
                 for(int i=0;i<old.Items.Count;i++){var stack=old.Items.Take(i,int.MaxValue);if(!stack.Empty)game.Items.Spawn(stack,game.World.Local(p)+Vector3.one*.5f,Vector3.up);}
             }
             if(IndustryId.Placed(id)&&Simulation.At(p)==null)Simulation.Add(p,id);
-            if(id==BlockId.Chest)Simulation.Invalidate();
+            if(id==BlockId.Chest||id==BlockId.Furnace)Simulation.Invalidate();
             else if(id==BlockId.Air)for(int f=0;f<6;f++)if(Simulation.At(IndustryDefinition.Neighbor(p,f))?.Definition.Id==IndustryId.ItemPipe){Simulation.Invalidate();break;}
             var above=p.Offset(0,1,0);
             if(Get(above)==IndustryId.SignalWire&&!BlockId.Solid(id))game.World.Mine(above,IndustryId.SignalWire,ToolCapability.None);

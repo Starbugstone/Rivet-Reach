@@ -33,7 +33,7 @@ namespace RivetReach
         public IndustrySimulation(IIndustryWorld world,Func<byte,int> limit)
         {
             this.world=world;this.limit=limit;Multiblocks=new MultiblockService(world,this);
-            ItemNetwork.ExternalEndpointFaces=p=>world.Ready(p)&&world.Storage(p)!=null?63:0;
+            ItemNetwork.ExternalEndpointFaces=p=>ItemEndpoint(p)!=null?63:0;
             ItemNetwork.ResolvePorts=m=>TransportPorts(m,NetworkKind.Item);
             FluidNetwork.ResolvePorts=m=>TransportPorts(m,NetworkKind.Fluid);
         }

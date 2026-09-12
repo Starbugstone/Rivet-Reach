@@ -23,7 +23,7 @@ Make this item using the crafting or processing recipes below.
 
 ## Using it
 
-Connect any face of a supported item machine or chest. Select a [Wrench](Item-wrench.md) and right-click each machine-facing pipe end to choose blue Input into the machine or red Output from it. A chest can supply items directly through an output end. Open the pipe normally to add independent signal or power fittings. See [Pipes](Pipes.md).
+Connect any face of a supported item machine, furnace or chest. Select a [Wrench](Item-wrench.md) and right-click each machine-facing pipe end to choose blue Input into the machine or red Output from it. A chest can supply items directly through an output end. Machines accept only compatible ingredients or fuel; rejected cargo stays at its source, and mixed chests can send other compatible stacks. Receivers prefer cargo matching their current input or output before starting another compatible type. Furnaces sort ingredients/fuel and output only finished products. Open the pipe normally to add independent signal or power fittings. See [Pipes](Pipes.md).
 
 ## Crafting and processing
 

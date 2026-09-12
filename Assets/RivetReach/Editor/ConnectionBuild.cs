@@ -29,7 +29,7 @@ namespace RivetReach.Editor
         {
             Directory.CreateDirectory("Logs/Connections");
             WrenchAssets.Prepare();
-            ConnectionChecks.Run();BatteryChecks.Run();HandCrankChecks.Run();DoorChecks.Run();MultiblockChecks.Run();ConnectedPipeChecks.Run();DomainChecks.Run();
+            ConnectionChecks.Run();ItemPipeChecks.Run();SurvivalChecks.Run();BatteryChecks.Run();HandCrankChecks.Run();DoorChecks.Run();MultiblockChecks.Run();ConnectedPipeChecks.Run();DomainChecks.Run();
             if(!build)return;
             // Same verified renderer as the alpha release; preserve the user's
             // editor settings after building this review player.

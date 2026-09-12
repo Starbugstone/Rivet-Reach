@@ -4,6 +4,11 @@ namespace RivetReach
 {
     public sealed partial class IndustrySimulation
     {
+        IItemPipeInventory ItemEndpoint(BlockPos p)=>!world.Ready(p)?null:
+            world is IIndustryItemEndpoints endpoints?endpoints.ItemEndpoint(p):world.Storage(p);
+        void ItemEndpointChanged(BlockPos p)
+        {if(world is IIndustryItemEndpoints endpoints)endpoints.ItemEndpointChanged(p);}
+
         void InitializePipeEnds()
         {
             foreach(var pipe in eligible)
@@ -18,7 +23,7 @@ namespace RivetReach
         {
             if(pipe==null||face<0||face>=6||!PipeConnections.IsTransport(pipe.Definition.Id)||At(pipe.Position)!=pipe||!world.Ready(pipe.Position))return false;
             var position=IndustryDefinition.Neighbor(pipe.Position,face);
-            return world.Ready(position)&&(PipeConnections.Supports(At(position),PipeConnections.TransportKind(pipe))||pipe.Definition.Id==IndustryId.ItemPipe&&world.Storage(position)!=null);
+            return world.Ready(position)&&(PipeConnections.Supports(At(position),PipeConnections.TransportKind(pipe))||pipe.Definition.Id==IndustryId.ItemPipe&&ItemEndpoint(position)!=null);
         }
         public PortRole PipeEndRole(MachineState pipe,int face)=>PipeConnections.EndRole(pipe,face,At(IndustryDefinition.Neighbor(pipe.Position,face)));
         public bool TogglePipeEnd(MachineState pipe,int face)
@@ -53,17 +58,28 @@ namespace RivetReach
             }
         }
 
-        readonly List<(NetworkTopology.Group graph,MachineState machine,ItemContainer container,int slot,ItemStack stack)> itemSources
-            =new List<(NetworkTopology.Group,MachineState,ItemContainer,int,ItemStack)>();
-        readonly HashSet<ItemContainer> itemSent=new HashSet<ItemContainer>();
+        readonly List<(NetworkTopology.Group graph,MachineState machine,IItemPipeInventory inventory,BlockPos position,int slot,ItemStack stack)> itemSources
+            =new List<(NetworkTopology.Group,MachineState,IItemPipeInventory,BlockPos,int,ItemStack)>();
+        readonly HashSet<IItemPipeInventory> itemSent=new HashSet<IItemPipeInventory>();
 
+        void CaptureItemSource(NetworkTopology.Group graph,MachineState machine,IItemPipeInventory source,BlockPos position)
+        {
+            if(source==null)return;
+            // Snapshot every eligible stack so an incompatible first slot cannot
+            // starve compatible cargo elsewhere in the same chest.
+            int count=source.Slots.Count,start=(int)(Tick/5%System.Math.Max(1,count));
+            for(int n=0;n<count;n++)
+            {
+                int slot=(start+n)%count;var stack=source.Slots[slot];
+                if(!stack.Empty&&source.CanExtract(slot))itemSources.Add((graph,machine,source,position,slot,stack));
+            }
+        }
         void TransferConfiguredItems()
         {
             if(Tick%5!=0)return;
             itemSources.Clear();itemSent.Clear();
-            // Capture sources before delivery: an empty chest cannot forward an item
-            // it receives later in this phase. One inventory emits at most 4 items/s,
-            // however many output ends or disconnected networks it touches.
+            // Capture before delivery. An inventory emits at most one item per phase,
+            // and cannot forward newly received items in that same phase.
             foreach(var graph in ItemNetwork.Groups)
             {
                 int count=graph.Ports.Count,start=(int)(Tick/5%System.Math.Max(1,count));
@@ -72,50 +88,50 @@ namespace RivetReach
                     var endpoint=graph.Ports[(start+n)%count];var m=endpoint.Machine;
                     if(endpoint.Port.Role==PortRole.Output)
                     {
-                        var source=m.Items;int slot=2;
+                        IItemPipeInventory source=m;var pos=m.Position;
                         if(m.Definition.Id==IndustryId.Extractor)
                         {
                             if(!m.Enabled){m.Status=MachineStatus.DisabledBySignal;continue;}
-                            var pos=Neighbor(m,1);source=world.Ready(pos)?world.Storage(pos):null;
-                            slot=source?.FindSlot(s=>!s.Empty)??-1;
+                            pos=Neighbor(m,1);source=world.Ready(pos)?world.Storage(pos):null;
+                            m.Status=MachineStatus.NoInput;
                         }
-                        if(source==null||slot<0||source.Slots[slot].Empty)
-                        {if(m.Definition.Id==IndustryId.Extractor)m.Status=MachineStatus.NoInput;continue;}
-                        itemSources.Add((graph,m,source,slot,source.Slots[slot]));
+                        CaptureItemSource(graph,m,source,pos);
                     }
                     else if(endpoint.Port.Role==PortRole.Route)
                     {
                         for(int face=0;face<6;face++)
                         {
                             if((endpoint.Faces&(1<<face))==0||PipeEndRole(m,face)!=PortRole.Output)continue;
-                            var pos=IndustryDefinition.Neighbor(m.Position,face);var source=world.Ready(pos)?world.Storage(pos):null;
-                            int slot=source?.FindSlot(s=>!s.Empty)??-1;
-                            if(slot>=0)itemSources.Add((graph,null,source,slot,source.Slots[slot]));
+                            var pos=IndustryDefinition.Neighbor(m.Position,face);
+                            CaptureItemSource(graph,null,ItemEndpoint(pos),pos);
                         }
                     }
                 }
             }
-            // Rotate source order across graphs as well as within a graph.
             int first=(int)(Tick/5%System.Math.Max(1,itemSources.Count));
+            // Give every receiver a chance to continue its existing input/product
+            // before any source offers it a new type. Keep the same source budget.
+            for(int priority=0;priority<2;priority++)
             for(int i=0;i<itemSources.Count;i++)
             {
-                var candidate=itemSources[(first+i)%itemSources.Count];var source=candidate.container;
-                if(itemSent.Contains(source))continue;
+                var candidate=itemSources[(first+i)%itemSources.Count];var source=candidate.inventory;
+                if(itemSent.Contains(source)||!world.Ready(candidate.position))continue;
                 var current=source.Slots[candidate.slot];
-                if(current.Empty||current.Id!=candidate.stack.Id)continue;
-                bool sent=DeliverItem(candidate.graph,source,current.Id);
-                if(sent){source.Take(candidate.slot,1);itemSent.Add(source);}
+                if(current.Empty||current.Id!=candidate.stack.Id||!source.CanExtract(candidate.slot))continue;
+                bool sent=DeliverItem(candidate.graph,source,current.Id,priority==0);
+                if(sent){source.Extract(candidate.slot,1);itemSent.Add(source);ItemEndpointChanged(candidate.position);}
                 if(candidate.machine?.Definition.Id==IndustryId.Extractor)candidate.machine.Status=sent?MachineStatus.Running:MachineStatus.OutputFull;
             }
         }
-        bool DeliverItem(NetworkTopology.Group graph,ItemContainer source,byte id)
+        bool DeliverItem(NetworkTopology.Group graph,IItemPipeInventory source,byte id,bool preferredOnly)
         {
             int count=graph.Ports.Count,start=(int)(Tick/5%System.Math.Max(1,count));
             for(int n=0;n<count;n++)
             {
                 var endpoint=graph.Ports[(start+n)%count];var m=endpoint.Machine;
-                if(endpoint.Port.Role!=PortRole.Input||ReferenceEquals(source,m.Items)||!m.Accepts(0,id)||m.Items.Capacity(id,0,1)==0)continue;
-                m.Items.Add(id,1,0,1);return true;
+                if(endpoint.Port.Role!=PortRole.Input||ReferenceEquals(source,m)||!world.Ready(m.Position))continue;
+                var destination=(IItemPipeInventory)m;
+                if((!preferredOnly||destination.Prefers(id))&&destination.TryInsert(id))return true;
             }
             foreach(var endpoint in graph.Ports)
             {
@@ -123,9 +139,9 @@ namespace RivetReach
                 for(int face=0;face<6;face++)
                 {
                     if((endpoint.Faces&(1<<face))==0||PipeEndRole(endpoint.Machine,face)!=PortRole.Input)continue;
-                    var pos=IndustryDefinition.Neighbor(endpoint.Machine.Position,face);var dest=world.Ready(pos)?world.Storage(pos):null;
-                    if(dest==null||ReferenceEquals(dest,source)||dest.Capacity(id)==0)continue;
-                    dest.Add(id,1);return true;
+                    var pos=IndustryDefinition.Neighbor(endpoint.Machine.Position,face);var dest=ItemEndpoint(pos);
+                    if(dest==null||ReferenceEquals(dest,source)||preferredOnly&&!dest.Prefers(id)||!dest.TryInsert(id))continue;
+                    ItemEndpointChanged(pos);return true;
                 }
             }
             return false;

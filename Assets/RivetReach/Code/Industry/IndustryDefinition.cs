@@ -83,8 +83,14 @@ namespace RivetReach
         public static BlockPos Neighbor(BlockPos p,int face,int turns=0)
         {var d=Directions[RotateFace(face,turns)];return p.Offset(d.x,d.y,d.z);}
     }
-    public sealed class MachineState
+    public sealed class MachineState : IItemPipeInventory
     {
+        IReadOnlyList<ItemStack> IItemPipeInventory.Slots=>Items.Slots;
+        bool IItemPipeInventory.CanExtract(int slot)=>slot==2;
+        bool IItemPipeInventory.Prefers(byte id)=>Accepts(0,id)&&(Items.Slots[0].Id==id||
+            Definition.Id==IndustryId.Crusher&&!Items.Slots[2].Empty&&CrusherOutput(id).Id==Items.Slots[2].Id);
+        bool IItemPipeInventory.TryInsert(byte id)=>Accepts(0,id)&&Items.Capacity(id,0,1)>0&&Items.Add(id,1,0,1)==0;
+        ItemStack IItemPipeInventory.Extract(int slot,int count)=>slot==2?Items.Take(slot,count):default;
         public readonly BlockPos Position; public readonly IndustryDefinition Definition;
         public readonly ItemContainer Items;
         public int Rotation {get;internal set;}

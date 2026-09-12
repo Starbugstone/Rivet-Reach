@@ -75,7 +75,16 @@ Chest outputs can supply a pipe directly. An [Extractor](Item-extractor.md) rema
 
 Item transport moves up to **four items per second per source inventory**. Adding more output ends to the same inventory does not multiply that limit. Unsupported items remain at the source; a full destination stops delivery without deleting anything.
 
-Current item-pipe endpoints include chests, crusher raw inputs and product outputs, boiler fuel inputs, drill outputs and extractor outputs. An input arrow does not give an output-only device a new processing input. Workbenches and the ordinary Furnace do not currently provide item-pipe endpoints.
+Current item-pipe endpoints include chests, crusher raw inputs and product outputs, boiler fuel inputs, drill outputs and extractor outputs. An input arrow does not give an output-only device a new processing input. Furnaces accept ingredients/fuel and expose finished results. Workbenches do not provide item-pipe endpoints.
+
+## Example: crusher → furnace → chest
+
+1. Connect the crusher to a [Furnace](Item-furnace.md) with Item Pipe.
+2. Set the **crusher end to red Output** and the **furnace end to blue Input**. All six furnace faces work.
+3. Supply fuel manually or connect a coal/charcoal chest with **red Output at the chest**, **blue Input at the furnace**. The furnace routes fuel to its fuel slot and crushed ore to its ingredient slot.
+4. Add another pipe to a receiving chest, with **red Output at the furnace** and **blue Input at the chest**. Only finished products leave the furnace.
+
+Incompatible items stay in their source inventory. A mixed supply chest can send compatible stacks even when its first stack is unsuitable. Receivers prefer their existing input or output type: a furnace holding iron ingots requests iron ingredients before copper, and a chest fills item types it already contains first. Other compatible cargo is used when no preferred transfer is available. Full or mismatched furnace slots stop that cargo without losing it. Logs count as ingredients before fuel, matching manual quick-transfer; use coal or charcoal for an unambiguous fuel supply. The furnace still needs fuel to smelt; pipes need no electricity.
 
 ## Example: pump → tank → boiler
 
@@ -87,7 +96,7 @@ Current item-pipe endpoints include chests, crusher raw inputs and product outpu
 
 The pump's world-water intake is still directly below it. A pipe occupying that cell leaves no source to extract. Use another face for the outlet. See [Pumps and renewable water](Pumps-and-water.md) for pool construction and startup.
 
-Fluid pipes move stored quantities, not flowing world blocks. Water is the currently available fluid. Each output end can transfer up to **100 mL per simulation step (2 L/s)**, subject to source contents and destination capacity. Water received by a tank becomes available for forwarding on a later step.
+Fluid pipes move stored quantities, not flowing world blocks. Water is the currently available fluid. Machines accept only supported liquids; incompatible cargo stays at its source, and tanks never mix fluid types. Each output end can transfer up to **100 mL per simulation step (2 L/s)**, subject to source contents and destination capacity. Water received by a tank becomes available for forwarding on a later step.
 
 ## Connect a multiblock tank
 

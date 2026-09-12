@@ -4,8 +4,20 @@ using System.Collections.Generic;
 namespace RivetReach
 {
     // Input/fuel/output authority: callers can never insert into the result slot.
-    public sealed partial class FurnaceState
+    public sealed partial class FurnaceState : IItemPipeInventory
     {
+        bool IItemPipeInventory.CanExtract(int slot)=>slot==2;
+        bool IItemPipeInventory.Prefers(byte id)=>Accepts(0,id)
+            ?Slots[0].Id==id||!Slots[2].Empty&&registry.Find(id).Output.Id==Slots[2].Id
+            :Accepts(1,id)&&Slots[1].Id==id;
+        bool IItemPipeInventory.TryInsert(byte id)
+        {
+            // Match shift-transfer: dual-purpose ingredients such as logs prefer input.
+            int slot=Accepts(0,id)?0:Accepts(1,id)?1:-1;
+            if(slot<0||contents.Capacity(id,slot,slot+1)==0)return false;
+            contents.Add(id,1,slot,slot+1);InputChanged();return true;
+        }
+        ItemStack IItemPipeInventory.Extract(int slot,int count)=>slot==2?Take(slot,count):default;
         readonly ProcessingRegistry registry;
         readonly ItemContainer contents;
         readonly Func<byte,int> limit;

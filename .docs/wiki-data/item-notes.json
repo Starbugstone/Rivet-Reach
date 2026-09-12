@@ -84,7 +84,7 @@
   },
   "rivet:furnace": {
     "description": "A fuel-burning station for smelting ore, making charcoal and glass, and cooking potatoes.",
-    "use": "Place and open it with **E or right-click**. Add an input, add fuel separately, and collect the output. Fuel continues burning after ignition even if input runs out. The recipes below list processing time and accepted fuels.\n\nA stone furnace with a recessed arched firebox. The embers glow while fuel is burning and go dark when it runs out.\n\n![Placed furnace in the game](images/starter-furnace.png)"
+    "use": "Place and open it with **E or right-click**. Add an input, add fuel separately, and collect the output. Fuel continues burning after ignition even if input runs out. The recipes below list processing time and accepted fuels.\n\nA stone furnace with a recessed arched firebox. The embers glow while fuel is burning and go dark when it runs out.\n\n![Placed furnace in the game](images/starter-furnace.png)\n\nConnect [Item Pipes](Item-item-pipe.md) on any face. Blue Input accepts only smeltable ingredients or valid fuel and routes them to the correct slots; red Output takes finished products only. Use a [Wrench](Item-wrench.md) to set each end. See [the crusher → furnace setup](Pipes.md#example-crusher--furnace--chest)."
   },
   "rivet:chest": {
     "description": "A placed container with **27 inventory slots**.",
@@ -254,7 +254,7 @@
     "use": "Stores **100 L** in one block. Use bucket controls or Fluid Pipes on any face. With a selected [Wrench](Item-wrench.md), right-click each tank-facing pipe end to set blue Input or red Output. Separate ends keep separate settings. See [Pipes](Pipes.md); for larger storage build a [multiblock tank](Tanks.md)."
   },
   "rivet:item_pipe": {
-    "use": "Connect any face of a supported item machine or chest. Select a [Wrench](Item-wrench.md) and right-click each machine-facing pipe end to choose blue Input into the machine or red Output from it. A chest can supply items directly through an output end. Open the pipe normally to add independent signal or power fittings. See [Pipes](Pipes.md)."
+    "use": "Connect any face of a supported item machine, furnace or chest. Select a [Wrench](Item-wrench.md) and right-click each machine-facing pipe end to choose blue Input into the machine or red Output from it. A chest can supply items directly through an output end. Machines accept only compatible ingredients or fuel; rejected cargo stays at its source, and mixed chests can send other compatible stacks. Receivers prefer cargo matching their current input or output before starting another compatible type. Furnaces sort ingredients/fuel and output only finished products. Open the pipe normally to add independent signal or power fittings. See [Pipes](Pipes.md)."
   },
   "rivet:fluid_pipe": {
     "use": "Connect any face of a water machine or functional tank fluid port. A selected [Wrench](Item-wrench.md) plus right-click on the machine-facing end sets blue Input into the machine or red Output from it. Opening the pipe normally gives access to separate signal/power fittings. See [Pipes](Pipes.md) and [tanks](Tanks.md)."

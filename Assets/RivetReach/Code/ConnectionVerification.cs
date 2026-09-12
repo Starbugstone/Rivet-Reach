@@ -136,6 +136,7 @@ namespace RivetReach
             Check(game.World.GetComponent<PipeEndpointPresentation>().ViewAt(fluidPipe.Position,1)!=null,"Restored endpoints rebuild their visible arrows");
             yield return Capture("restored-connection-directions");
             Check(game.Inventory.Slots[1].Id==IndustryId.Wrench,"Wrench inventory identity survives save/load");
+            yield return ReviewFurnacePipes(origin);
         }
 
         IEnumerator ReviewPowerConnectionStatus(MachineState battery,MachineState crusher)
