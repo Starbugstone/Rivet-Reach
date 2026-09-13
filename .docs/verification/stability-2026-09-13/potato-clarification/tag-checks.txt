@@ -1,0 +1,23 @@
+PASS 21 assertions
+PASS Selectors are compiled once per registry
+PASS Material tags group raw metal and refined metal without crossing identities
+PASS Tag and name search terms intersect exactly
+PASS Multiple tags and case-insensitive searches
+PASS Unknown tag rejects recipe authoring
+PASS Malformed tag rejects recipe authoring
+PASS Injected catalog validation never resolves selectors through global Resources
+PASS Duplicate tags rejected
+PASS Whitespace tags rejected
+PASS Overlapping tags accept an ingredient that completes the broader requirement
+PASS Overlapping recipe consumes every staged item exactly once
+PASS Manual surplus may remain, while pipes add only still-needed ingredients
+PASS Do not fill two slots with mixed vegetables when two different ingredients still need space
+PASS Same-stack vegetables and the next ingredient remain insertable
+PASS An earlier empty slot does not hide reusable occupied slots
+PASS Complete staged batch rejects extra material
+PASS Impossible four-type recipe rejects three-slot station
+PASS Bounded matcher rejects unbounded recipe quantities
+PASS Malformed crop catalog rejects before mutation
+PASS Failed crop compilation leaves all live growth rules intact
+PASS 10,000 planning + staging pairs allocate zero managed bytes after warm-up
+Bounded matcher sample: 14,2674 ms / 10,000 pairs; excludes station/network/UI costs.

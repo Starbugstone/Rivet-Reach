@@ -11137,7 +11137,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/FarmingVerification.cs",
-            "sha256": "7385f5e98fcc2f4b697c98ba1ea7fa8d157e5af10d07efeac759eee2892dcab8"
+            "sha256": "39ef78bdf2c68dc057e8f56b0f77bb966e9b12ce3fe844bf147e86126a09f11a"
         },
         {
             "path": "Assets/RivetReach/Code/FluidVerification.cs",
@@ -11501,7 +11501,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Survival/CropRules.cs",
-            "sha256": "7192c25f7bd02c996e3000de89263c997314c1c710f4d068c3955b480eeb7b59"
+            "sha256": "f2fae732fca7bb3bb3894de86e13a9df659b125f3a8f45f7b89002d80e133811"
         },
         {
             "path": "Assets/RivetReach/Code/Survival/EquipmentState.cs",

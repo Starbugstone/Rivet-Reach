@@ -95,7 +95,7 @@
   },
   "rivet:potato": {
     "description": "A food item and planting material. Eat it raw for 1 food point, or bake it for 5.",
-    "obtain": "Harvest naturally occurring ripe potatoes on grassy terrain, or grow your own crop. A ripe crop yields **2–4 potatoes**; an immature crop returns nothing.",
+    "obtain": "Harvest naturally occurring ripe potatoes on grassy terrain, or grow your own crop. A ripe crop yields **2–4 potatoes**; an immature crop returns **one potato**, which you can eat or replant.",
     "use": "Till grass or dirt with a hoe, then use one potato on the exposed [Farmland](Item-farmland.md). Each of the three growth stages takes 60 seconds while suitable exposed terrain is loaded. Water irrigation is not required by the current crop system."
   },
   "rivet:baked_potato": {
@@ -107,17 +107,17 @@
     "use": "Select the planting item and right-click farmland. Keep crops exposed and their terrain loaded. No watering is required; see [Farming and cooking](Farming-and-cooking.md)."
   },
   "rivet:potato_plant_0": {
-    "description": "Potato seedlings are stage 1 of the potato crop. Harvesting early returns nothing; wait until ripe for potatoes.",
+    "description": "Potato seedlings are stage 1 of the potato crop. Harvesting early returns **one potato** for eating or replanting; wait until ripe for **2–4 potatoes**.",
     "obtain": "Plant a [Potato](Item-potato.md) on [Farmland](Item-farmland.md).",
     "use": "After 60 seconds under suitable conditions, this becomes [Young potatoes](Item-potato-plant-1.md). Crop stages are world states, not placeable inventory plants."
   },
   "rivet:potato_plant_1": {
-    "description": "Young potatoes are stage 2 of the potato crop. Harvesting early returns nothing; wait until ripe for potatoes.",
+    "description": "Young potatoes are stage 2 of the potato crop. Harvesting early returns **one potato** for eating or replanting; wait until ripe for **2–4 potatoes**.",
     "obtain": "Let [Potato seedlings](Item-potato-plant-0.md) grow for 60 seconds on suitable loaded, exposed terrain.",
     "use": "After 60 seconds under suitable conditions, this becomes [Flowering potatoes](Item-potato-plant-2.md). Crop stages are world states, not placeable inventory plants."
   },
   "rivet:potato_plant_2": {
-    "description": "Flowering potatoes are stage 3 of the potato crop. Harvesting early returns nothing; wait until ripe for potatoes.",
+    "description": "Flowering potatoes are stage 3 of the potato crop. Harvesting early returns **one potato** for eating or replanting; wait until ripe for **2–4 potatoes**.",
     "obtain": "Let [Young potatoes](Item-potato-plant-1.md) grow for 60 seconds on suitable loaded, exposed terrain.",
     "use": "After 60 seconds under suitable conditions, this becomes [Ripe potatoes](Item-potato-plant-3.md). Crop stages are world states, not placeable inventory plants."
   },

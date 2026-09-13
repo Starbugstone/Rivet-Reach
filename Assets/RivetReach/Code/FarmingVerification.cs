@@ -73,7 +73,7 @@ namespace RivetReach
             player.Camera.transform.position=world.Local(wildCell)+new Vector3(1.2f,1.5f,-1.8f);player.Camera.transform.LookAt(world.Local(wildCell)+new Vector3(.5f,.3f,.5f));
             yield return new WaitForSecondsRealtime(.4f);yield return Capture("wild-growth");
             var immature=p.Offset(-4,0,0);int before=game.Items.Total(BlockId.Potato);Check(world.Mine(immature,world.Get(immature),ToolCapability.None),"Harvest planted crop through world mining");
-            Check(game.Items.Total(BlockId.Potato)==before,"Immature potato harvest cannot yield edible crop resources");
+            Check(game.Items.Total(BlockId.Potato)==before+1,"Immature potato harvest returns exactly one edible/replantable potato");
             // Restore one immature plot for the durable-growth check.
             Check(world.Plant(immature),"Replant saved growing crop");
             var cooker=p.Offset(2,0,0);var electric=p.Offset(4,0,0);Put(cooker,FarmId.Cooker);Put(electric,FarmId.ElectricCooker);

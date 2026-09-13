@@ -8,7 +8,7 @@
 
 <a href="Item-potato-plant-2.md" title="Flowering potatoes"><img src="icons/35.png" width="96" height="96" alt="Flowering potatoes"></a>
 
-Flowering potatoes are stage 3 of the potato crop. Harvesting early returns nothing; wait until ripe for potatoes.
+Flowering potatoes are stage 3 of the potato crop. Harvesting early returns **one potato** for eating or replanting; wait until ripe for **2–4 potatoes**.
 
 ## At a glance
 

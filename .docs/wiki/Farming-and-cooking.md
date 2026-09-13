@@ -6,7 +6,7 @@ Find wild potatoes, wheat, flax, carrots and berry plants on grassy terrain. Mus
 
 ## Wild harvests and planting
 
-Cultivable wild plants visibly grow through the same four stages as farm plants. Young wheat, flax, carrot and berry plants return **one seed only**. Immature potatoes return **nothing**: their planting item is the edible crop itself. Wait for maturity to receive resources and enough planting stock to continue farming.
+Cultivable wild plants visibly grow through the same four stages as farm plants. Young wheat, flax, carrot and berry plants return **one seed only**. Immature potatoes return **one potato**. Eat it immediately for early survival, or keep it to replant and grow **2–4 potatoes**. Waiting for maturity produces extra food and planting stock.
 
 | Plant | Mature harvest | Plant with |
 |---|---|---|

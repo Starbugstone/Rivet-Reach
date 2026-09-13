@@ -20,7 +20,7 @@ A food item and planting material. Eat it raw for 1 food point, or bake it for 5
 
 ## How to obtain
 
-Harvest naturally occurring ripe potatoes on grassy terrain, or grow your own crop. A ripe crop yields **2–4 potatoes**; an immature crop returns nothing.
+Harvest naturally occurring ripe potatoes on grassy terrain, or grow your own crop. A ripe crop yields **2–4 potatoes**; an immature crop returns **one potato**, which you can eat or replant.
 
 ## Using it
 

@@ -30,7 +30,7 @@ namespace RivetReach.Editor
             foreach(var crop in CropRules.Definitions)
             {
                 for(byte stage=crop.first;stage<crop.Mature;stage++)
-                {var drops=CropRules.Harvest(stage,0).ToArray();Check(drops.Sum(s=>s.Count)<=1&&drops.All(s=>s.Id==crop.planting&&s.Id!=crop.produce),crop.key+" immature stage returns at most one seed and no crop resource");}
+                {var drops=CropRules.Harvest(stage,0).ToArray();Check(drops.Sum(s=>s.Count)==1&&drops.All(s=>s.Id==crop.planting),crop.key+" immature stage returns exactly one planting item without multiplication");}
                 for(uint random=0;random<10;random++)
                 {var drops=CropRules.Harvest(crop.Mature,random).ToArray();Check(drops.Any(s=>s.Id==crop.produce&&s.Count>=crop.minYield)&& (crop.planting==0||drops.Any(s=>s.Id==crop.planting&&s.Count>=1)),crop.key+" mature resource and renewable planting stock, sample "+random);}
             }
