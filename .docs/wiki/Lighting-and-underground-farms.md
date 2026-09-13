@@ -17,9 +17,9 @@ Torches cast a stronger warm light up to fourteen blocks away, whether held or p
 3. Place torches around the growing area. Keep each plant within five open-cell steps of a torch; walls block light and paths around corners are longer.
 4. Stay nearby, or keep the area loaded with a chunk loader. Each stage normally takes one minute, with three stages to maturity. Darkness pauses growth; adding enough light lets it resume.
 
-![Torch-lit underground crops growing](images/lighting/torch-farm-growing.png)
+![Torch-lit underground crops growing](images/lighting/torch-farm-growing-bright.png)
 
-![The same underground farm reaches maturity](images/lighting/torch-farm-mature.png)
+![The same underground farm reaches maturity](images/lighting/torch-farm-mature-bright.png)
 
 Powered [Workshop Lamps](Item-workshop-lamp.md) also support crops. The light continues to count when its source is outside the camera view. Holding a torch helps you see but does not replace placed farm lighting. Water is not required for crop growth.
 
