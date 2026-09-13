@@ -12182,7 +12182,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/TorchVerification.cs",
-            "sha256": "d252b193670fff8eaf8caa0c95f97aea99fadef836c81bdba920edf8712e0cbd"
+            "sha256": "0ebc3e165ff6520150324fac81795af65347c899cf0d9f6bdd9fd3311181dd38"
         },
         {
             "path": "Assets/RivetReach/Code/TreeVerification.cs",
@@ -12302,7 +12302,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/World/TorchPresentation.cs",
-            "sha256": "eba8f12d5ff685dede050b02285d701536064ae72545876fd656744325902b24"
+            "sha256": "1b9596716a485909866735890b7e637c79911b415b3e4875b01dff98ae94fc17"
         },
         {
             "path": "Assets/RivetReach/Code/World/TreeSimulation.cs",

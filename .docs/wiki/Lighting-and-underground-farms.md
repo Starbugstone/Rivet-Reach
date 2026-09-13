@@ -8,6 +8,8 @@ Caves now depend on their access to the sky. A sealed cave stays dark. Open shaf
 
 ![Light fades inward from a side entrance](images/lighting/cave-side-entrance.png)
 
+Torches cast a stronger warm light up to fourteen blocks away, whether held or placed. Place additional torches to cover larger rooms; solid walls still cast shadows.
+
 ## Growing crops underground
 
 1. Prepare dirt or grass with a hoe to make farmland.
@@ -23,4 +25,4 @@ Powered [Workshop Lamps](Item-workshop-lamp.md) also support crops. The light co
 
 [Compost](Compost.md) can accelerate a stage when the plant has enough light. See [Farming and cooking](Farming-and-cooking.md) for planting stock, harvests and meals, and [Torches](Item-torch.md) for the recipe.
 
-Captures: Unity Windows player, 2026-09-13. These show the lighting fix in a constructed enclosed test farm.
+Captures: Unity Windows player, 2026-09-13. These show the lighting fix in a constructed enclosed test farm; the torch-farm captures include the subsequent brightness increase.

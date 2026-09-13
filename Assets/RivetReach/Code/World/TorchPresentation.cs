@@ -9,7 +9,7 @@ namespace RivetReach
     public sealed class TorchPresentation : MonoBehaviour
     {
         public const int LightLimit=8;
-        public const float LightRange=10,ViewRange=48;
+        public const float LightRange=14,ViewRange=48;
         readonly Dictionary<BlockPos,GameObject> views=new Dictionary<BlockPos,GameObject>();
         readonly List<Light> lights=new List<Light>();
         VoxelWorld world;

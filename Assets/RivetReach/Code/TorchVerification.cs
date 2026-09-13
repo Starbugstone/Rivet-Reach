@@ -102,7 +102,7 @@ namespace RivetReach
             // Mining/support-removal particles must expire before comparing pixels.
             yield return new WaitForSeconds(2);yield return new WaitForEndOfFrame();
             var light=player.GetComponentsInChildren<Light>().Single(l=>l.name=="Held torch light");
-            Check(light.enabled&&light.type==LightType.Point&&light.shadows!=LightShadows.None&&light.range==TorchPresentation.LightRange,"Selected held torch activates a shadowed ten-block point light");
+            Check(light.enabled&&light.type==LightType.Point&&light.shadows!=LightShadows.None&&light.range==TorchPresentation.LightRange,"Selected held torch activates a shadowed torch-range point light");
             Check(held.Visible&&world.TorchView.ActiveLightCount==0,"Held torch is visible and lights the room without any placed torch lights");
             held.enabled=false;yield return Capture("held-torch-unlit");yield return new WaitForEndOfFrame();
             var dark=ScreenCapture.CaptureScreenshotAsTexture();

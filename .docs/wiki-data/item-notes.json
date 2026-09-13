@@ -155,7 +155,7 @@
   "rivet:torch": {
     "description": "A recoverable light source that attaches to a solid block’s top or side. Coal and charcoal recipes each produce four torches.",
     "obtain": "Craft it using either recipe below.",
-    "use": "Select a torch in your hotbar to cast warm light around you as you explore, or place it on a supported top or side face to light the area. Switching items or using the last held torch turns off the carried light. Removing a placed torch’s support drops it; water can wash it away. Held and placed torches do not burn fuel or need electricity. Placed torches also support crops within five open-cell steps, including underground; see [Lighting and underground farms](Lighting-and-underground-farms.md)."
+    "use": "Select a torch in your hotbar to cast bright warm light up to fourteen blocks away as you explore, or place it on a supported top or side face to light the area. Switching items or using the last held torch turns off the carried light. Removing a placed torch’s support drops it; water can wash it away. Held and placed torches do not burn fuel or need electricity. Placed torches also support crops within five open-cell steps, including underground; see [Lighting and underground farms](Lighting-and-underground-farms.md)."
   },
   "rivet:azure_crystal": {
     "description": "A smelted industrial material used in the Machinist’s Bench, Blue Signal parts and other assemblies."

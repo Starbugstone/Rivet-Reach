@@ -28,3 +28,7 @@ The [final build](torches/build-summary.txt) succeeded with **0 errors and 1 war
 [Gameplay rules](../GAMEPLAY.md#torches) own the light budgets and selection behavior. This is a pixel comparison, not a physical illumination or frame-time benchmark. Dense held-plus-placed lighting, both avatars in inspection/crouching, and the wall-clipping clamp still need focused visual review. The raw report's unused performance counters are not measurements. Dropped/unselected torches remain unlit; artificial light does not change crop or mob rules. No persistence schema changes were made; [save verification](SAVE_RESULTS.md) retains its own artifact identity.
 
 The Torch wiki page matches its generator using the checked-in catalog and current notes. Full catalog freshness was blocked by concurrent code edits during this task; no unrelated item catalog was regenerated here. Superseded torch reports and captures remain in Git history.
+
+## Brightness update — 2026-09-13
+
+Held and placed torch intensity/range were increased after the original tests above. [Current lighting verification](LIGHTING_RESULTS.md#brighter-torches-follow-up--2026-09-13) owns the new build, farm captures and limits; the earlier ten-block captures retain their historical identity.
