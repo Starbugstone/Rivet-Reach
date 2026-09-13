@@ -48,14 +48,14 @@ namespace RivetReach
             player.Camera.transform.LookAt(world.Local(support)+new Vector3(0,.5f,.5f));
             Check(game.TryPlaceSelected()&&world.Get(wallTorch)==BlockId.Torch&&game.Inventory.Total(BlockId.Torch)==6,"Wall placement consumes one torch and retains its attachment");
             player.Camera.transform.LookAt(world.Local(origin)+new Vector3(3.5f,1.25f,7.5f));
-            yield return null;world.TorchView.Refresh();
+            yield return null;world.TorchView.Refresh();yield return new WaitForSecondsRealtime(.8f);
             Check(world.TorchView.ActiveLightCount==2&&world.TorchView.Lights.Where(l=>l.enabled).All(l=>l.type==LightType.Point&&l.shadows!=LightShadows.None),"Floor and wall torches activate real shadow-casting point lights");
             // Compare actual rendered pixels with identical geometry/camera and disabled lights.
             world.TorchView.enabled=false;
             foreach(var light in world.TorchView.Lights)light.enabled=false;
             yield return Capture("torches-unlit");yield return new WaitForEndOfFrame();
             var dark=ScreenCapture.CaptureScreenshotAsTexture();
-            world.TorchView.Refresh();yield return Capture("torches-lit");yield return new WaitForEndOfFrame();
+            world.TorchView.enabled=true;world.TorchView.Refresh();yield return new WaitForSecondsRealtime(.8f);yield return Capture("torches-lit");yield return new WaitForEndOfFrame();
             var lit=ScreenCapture.CaptureScreenshotAsTexture();
             double darkSum=0,litSum=0;int samples=0;
             for(int y=lit.height/3;y<lit.height*2/3;y++)for(int x=lit.width/4;x<lit.width*3/4;x++)
@@ -79,14 +79,14 @@ namespace RivetReach
             game.SetMode(ScreenMode.Pause);
             var saved=WorldPoint.FromLocal(player.transform.position,world.Origin);
             player.transform.position+=Vector3.right*640;yield return null;yield return Settle(120);
-            world.TorchView.Refresh();
+            world.TorchView.Refresh();yield return new WaitForSecondsRealtime(.8f);
             Check(!world.Ready(torch)&&world.Get(torch)==BlockId.Torch&&world.TorchSupport(torch,out var savedSupport)&&savedSupport.Equals(floor)&&world.TorchView.ActiveLightCount==0,"Unloading retains the torch and attachment without a distant light");
             player.transform.position=saved.Local(world.Origin);yield return null;yield return Settle(120);
-            world.TorchView.Refresh();
+            world.TorchView.Refresh();yield return new WaitForSecondsRealtime(.8f);
             Check(world.Get(torch)==BlockId.Torch&&world.TorchView.ActiveLightCount==1&&Vector3.Distance(world.TorchView.Lights.First(l=>l.enabled).transform.position,world.TorchView.FlamePosition(torch,floor))<.001f,"Returning restores the placed torch and correctly positioned light after origin shifts");
             for(int z=2;z<7;z++)for(int x=1;x<6;x++)
             {var cell=origin.Offset(x,0,z);if(world.Get(cell)==0)world.PlaceTorch(cell,cell.Offset(0,-1,0));}
-            world.TorchView.Refresh();
+            world.TorchView.Refresh();yield return new WaitForSecondsRealtime(.8f);
             Check(world.TorchView.ActiveLightCount==TorchPresentation.LightLimit&&world.TorchView.Lights.Count()==TorchPresentation.LightLimit,"Dense torch placement reuses the fixed eight-light pool");
             Check(errors.Count==0,"Torch scenario completes without Unity errors");
         }

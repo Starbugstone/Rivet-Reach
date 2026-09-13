@@ -1,0 +1,7 @@
+Idle 180 frames: mean 0,0004 ms; p95 0,0006 ms; max 0,0011 ms
+Resident chunks 332; solves 989; light GPU bytes 4210688; last worker 0,973 ms; maximum light main 4,423 ms; total worker 2780,245 ms
+Sky sampling bypass=False: median 3,874 ms; p95 5,528 ms
+Sky sampling bypass=True: median 2,879 ms; p95 5,136 ms
+Sky sampling bypass=False: median 3,435 ms; p95 5,610 ms
+View distance 10: residents 3051; GPU bytes 16908288; idle mean 0,0005 ms; max main including streaming 4,617 ms; total worker 14670,743 ms; solves 5631
+Long base: 160 blocks; 26 torches; 6283 fixture edits; 7 model batches; light idle mean 0,0004 ms; point accents 8; refresh last/max 0,319/2,828 ms; total frame median/p95 11,112/11,185 ms

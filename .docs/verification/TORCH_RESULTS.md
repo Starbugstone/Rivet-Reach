@@ -32,3 +32,8 @@ The Torch wiki page matches its generator using the checked-in catalog and curre
 ## Brightness update — 2026-09-13
 
 Held and placed torch intensity/range were increased after the original tests above. [Current lighting verification](LIGHTING_RESULTS.md#brighter-torches-follow-up--2026-09-13) owns the new build, farm captures and limits; the earlier ten-block captures retain their historical identity.
+
+
+## Distant-base rendering follow-up — 2026-09-13
+
+The current [lighting verification](LIGHTING_RESULTS.md#persistent-lighting-across-bases--2026-09-13) supersedes the old model/camera cutoff and point-only illumination. The updated `Builds/Lighting/RivetReach.exe` passed all **41 lifecycle assertions** again, including wall/floor attachment, recovery and the 640-block streaming/origin-shift round trip: [report](distant-lighting-2026-09-13/torch-regression.json), [exit 0](distant-lighting-2026-09-13/torch-regression-exit.txt). The same build passed 722 lighting/crop/save/base checks. Source/build identity, refreshed player captures and measured limits belong to that lighting report.

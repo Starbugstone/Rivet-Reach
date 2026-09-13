@@ -39,11 +39,16 @@ float2 RRLight(float3 positionWS)
     float2 d=lerp(RRLightCell(cell+int3(0,1,1),chunk,page),RRLightCell(cell+int3(1,1,1),chunk,page),f.x);
     return lerp(lerp(a,b,f.y),lerp(c,d,f.y),f.z);
 }
+float2 RRSurfaceLight(float3 positionWS,float3 normalWS)
+{return RRLight(positionWS+normalWS*.5);}
+// Persistent diffuse illumination from all loaded sources, independent of point-light pools.
+float3 RRBlockAmbient(float block,float3 normalWS)
+{return float3(1.8,1.05,.46)*block*block*lerp(.8,1,saturate(normalWS.y*.5+.5));}
 float RRSky(float3 positionWS,float3 normalWS)
 {
     // Sample the neighbouring air centre for smooth faces. Models in a pass-through cell
     // use that same field without changing their gameplay dimensions.
-    float sky=RRLight(positionWS+normalWS*.5).x;return sky*sky;
+    float sky=RRSurfaceLight(positionWS,normalWS).x;return sky*sky;
 }
 // Soft, short-range carried fill approximates bounce light in direct-light shadows.
 // It is presentation only and is suppressed for item/portrait preview cameras.

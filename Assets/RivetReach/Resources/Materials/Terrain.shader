@@ -68,13 +68,13 @@ Shader "RivetReach/VoxelTerrain"
                 // Light moving across leaves conveys wind without moving voxel collision or seams.
                 if(i.tile==6)colour*=1+sin(world.x*.785398163+world.z*.392699082+_RRPresentationTime*1.7)*.065;
                 Light sun=GetMainLight(TransformWorldToShadowCoord(i.positionWS));
-                float skyAccess=RRSky(i.positionWS,normalize(i.normalWS));sun.color*=skyAccess;
+                float2 field=RRSurfaceLight(i.positionWS,normalize(i.normalWS));float skyAccess=field.x*field.x;sun.color*=skyAccess;
                 half diffuse=saturate(dot(normal,sun.direction));
                 AmbientOcclusionFactor ao=GetScreenSpaceAmbientOcclusion(GetNormalizedScreenSpaceUV(i.positionCS));
                 half3 ambient=lerp(_RRAmbientGround.rgb,_RRAmbientSky.rgb,normal.y*.5+.5);
                 float clouds=PaletteNoise(world.xz/16+float2(_RRPresentationTime*.016,0));
                 float cloudLight=lerp(.84,1,smoothstep(.35,.68,clouds));
-                half3 lighting=(lerp(RRCaveAmbient(normal),max(RRCaveAmbient(normal),ambient),skyAccess)+RRHeldAmbient(i.positionWS))*ao.indirectAmbientOcclusion+sun.color*diffuse*sun.shadowAttenuation*.82*ao.directAmbientOcclusion*cloudLight;
+                half3 lighting=(lerp(RRCaveAmbient(normal),max(RRCaveAmbient(normal),ambient),skyAccess)+RRBlockAmbient(field.y,normal)+RRHeldAmbient(i.positionWS))*ao.indirectAmbientOcclusion+sun.color*diffuse*sun.shadowAttenuation*.82*ao.directAmbientOcclusion*cloudLight;
                 if(i.tile==6)lighting+=half3(.30,.42,.12)*sun.color*saturate(dot(-normal,sun.direction))*.32*sun.shadowAttenuation;
                 float3 view=GetWorldSpaceNormalizeViewDir(i.positionWS),halfVector=normalize(view+sun.direction);
                 float sheen=pow(saturate(dot(normal,halfVector)),lerp(18,48,1-detail.a))*.035*sun.shadowAttenuation;

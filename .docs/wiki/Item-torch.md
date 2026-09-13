@@ -23,7 +23,7 @@ Craft it using either recipe below.
 
 ## Using it
 
-Select a torch in your hotbar to cast strong warm light up to fourteen blocks away as you explore, or place it on a supported top or side face to light the area. Placed torch lighting fades into view from farther away as you approach. Holding a torch also adds a soft warm glow around you, revealing nearby shadows. Switching items or using the last held torch turns off the carried light. Removing a placed torch’s support drops it; water can wash it away. Held and placed torches do not burn fuel or need electricity. Placed torches also support crops within five open-cell steps, including underground; see [Lighting and underground farms](Lighting-and-underground-farms.md).
+Select a torch in your hotbar to cast strong warm light up to fourteen blocks away as you explore, or place it on a supported top or side face to light the area. Placed illumination and torch models remain visible through the terrain view distance, including across large bases with many torches. Nearby highlights and shadows blend smoothly. Holding a torch also adds a soft warm glow around you, revealing nearby shadows. Switching items or using the last held torch turns off the carried light. Removing a placed torch’s support drops it; water can wash it away. Held and placed torches do not burn fuel or need electricity. Placed torches also support crops within five open-cell steps, including underground; see [Lighting and underground farms](Lighting-and-underground-farms.md).
 
 ## Crafting and processing
 

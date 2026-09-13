@@ -12,7 +12,7 @@ namespace RivetReach
         {
             public TextMesh LinkLabel;
             public GameObject Root,SignalAddition,PowerAddition;public Transform ChargeFill;public long ShownCharge=-1;public MachineState State;public Transform[] Parts;public Vector3[] Rest;public Quaternion[] RestRotation;
-            public Renderer[] Renderers;public Light Light;public float Phase;public int Mask=-1;public bool Active,MaterialShown;public MachineStatus ShownStatus=(MachineStatus)(-1);
+            public Renderer[] Renderers;public Light Light;public bool LightWanted;public float LightBlend;public float Phase;public int Mask=-1;public bool Active,MaterialShown;public MachineStatus ShownStatus=(MachineStatus)(-1);
         }
         Expedition game;float nextRefresh;long shownRevision=-1;
         readonly Dictionary<BlockPos,View> views=new Dictionary<BlockPos,View>();
@@ -45,7 +45,7 @@ namespace RivetReach
             if(Time.unscaledTime>=nextRefresh)
             {
                 nextRefresh=Time.unscaledTime+.25f;nearby.Clear();visible.Clear();
-                foreach(var m in sim.EligibleMachines)if(!IndustryId.TankPart(m.Definition.Id)&&game.World.Ready(m.Position)&&(game.World.Local(m.Position)-game.Player.transform.position).sqrMagnitude<64*64){nearby.Add(m);visible.Add(m);}
+                foreach(var m in sim.EligibleMachines)if(!IndustryId.TankPart(m.Definition.Id)&&game.World.Ready(m.Position)&&(game.World.Local(m.Position)-game.Player.transform.position).sqrMagnitude<(m.Definition.Id==IndustryId.Lamp?game.World.FogEnd*game.World.FogEnd:64*64)){nearby.Add(m);visible.Add(m);}
                 nearby.Sort((a,b)=>(game.World.Local(a.Position)-game.Player.transform.position).sqrMagnitude.CompareTo((game.World.Local(b.Position)-game.Player.transform.position).sqrMagnitude));
                 remove.Clear();foreach(var pair in views)if(!visible.Contains(pair.Value.State))remove.Add(pair.Key);
                 foreach(var p in remove){Destroy(views[p].Root);views.Remove(p);}
@@ -86,7 +86,7 @@ namespace RivetReach
                         if((m.Additions&PipeAddition.Power)!=0&&v.PowerAddition==null)v.PowerAddition=ConnectedPipeVisuals.Create("pipe_power_addition",v.Root.transform);
                         SetAddition(v.SignalAddition,sim.Signals.Topology,m);SetAddition(v.PowerAddition,sim.Power.Topology,m);
                     }
-                    if(v.Light!=null)v.Light.enabled=m.Running&&lights++<8;
+                    if(v.Light!=null)v.LightWanted=m.Running&&lights++<8;
                     if(v.LinkLabel!=null)
                     {
                         bool loader=m.Definition.Id==IndustryId.ChunkLoader;
@@ -104,9 +104,10 @@ namespace RivetReach
                 {v.LinkLabel.transform.position=game.World.Local(v.State.Position)+new Vector3(.5f,1.16f,.5f);v.LinkLabel.transform.rotation=game.Player.Camera.transform.rotation;}
                 if(v.Light!=null)
                 {
-                    if(!v.State.Running)v.Light.enabled=false;
+                    v.LightBlend=v.State.Running?Mathf.MoveTowards(v.LightBlend,v.LightWanted?1:0,Time.unscaledDeltaTime*2):0;
+                    v.Light.enabled=v.LightBlend>0;
                     if(v.Light.enabled)v.Light.intensity=LampIntensity*v.State.ReceivedWatts/Mathf.Max(1,v.State.Definition.Watts)
-                        *TorchPresentation.DistanceFade(Vector3.Distance(v.Light.transform.position,game.Player.transform.position));
+                        *TorchPresentation.DistanceFade(Vector3.Distance(v.Light.transform.position,game.Player.transform.position))*Mathf.SmoothStep(0,1,v.LightBlend);
                 }
                 var m=v.State;bool active=m.Definition.Id==IndustryId.ElectricFurnace||m.Definition.Id==IndustryId.RangedPump?m.Running:m.Signal||m.Source;
                 if(v.ChargeFill!=null)

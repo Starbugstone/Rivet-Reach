@@ -28,12 +28,16 @@ namespace RivetReach
             if(Change(cell,BlockId.Air,BlockId.Torch))return true;
             page.Remove(cell);if(page.Count==0)torchSupports.Remove(cell.Chunk);return false;
         }
-        public IEnumerable<KeyValuePair<BlockPos,BlockPos>> NearbyTorches(BlockPos observer)
+        public IEnumerable<KeyValuePair<BlockPos,BlockPos>> NearbyTorches(BlockPos observer,float radius=64)
         {
-            // Fixed chunk lookup; distant session edits are never scanned for presentation.
-            for(int z=-2;z<=2;z++)for(int y=-2;y<=2;y++)for(int x=-2;x<=2;x++)
-                if(torchSupports.TryGetValue(observer.Chunk.Offset(x,y,z),out var page))
-                    foreach(var entry in page)if(Ready(entry.Key))yield return entry;
+            // Walk resident pages, not every historic attachment or every cell in view distance.
+            float radiusSquared=radius*radius;
+            foreach(var resident in chunks)
+            {
+                if(resident.Value.Cells==null||!torchSupports.TryGetValue(resident.Key,out var page))continue;
+                foreach(var entry in page)
+                    if((Local(entry.Key)-Local(observer)).sqrMagnitude<=radiusSquared)yield return entry;
+            }
         }
         void TorchChanged(BlockPos cell,byte before,byte after)
         {

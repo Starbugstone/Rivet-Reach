@@ -76,6 +76,12 @@ namespace RivetReach
             world.TorchView.enabled=true;world.TorchView.Refresh();yield return Capture("torch-farm-growing");
             GrowTicks(1200);for(int i=0;i<crops.Length;i++)Check(world.Get(crops[i])==CropRules.Planting(seeds[i]).Mature,"Every cultivated species reaches maturity underground");
             yield return Capture("torch-farm-mature");
+            // All-source illumination must survive the absence of the eight point-light accents.
+            world.TorchView.enabled=false;foreach(var light in world.TorchView.Lights)light.enabled=false;
+            yield return Capture("torch-farm-cached-light");
+            double cachedMean=ForegroundMean(ScreenCapture.CaptureScreenshotAsTexture());
+            Check(cachedMean>unheldMean+.06,"Cached block field renders a lit farm without any pooled point lights: "+cachedMean.ToString("F4"));
+            world.TorchView.enabled=true;world.TorchView.Refresh();yield return new WaitForSecondsRealtime(.8f);
             // Hold the camera fixed to compare the actual pooled light output at approach distances.
             var originalObserver=world.Observer;bool worldEnabled=world.enabled;
             var lightObserver=new GameObject("Torch distance review observer");
@@ -83,15 +89,15 @@ namespace RivetReach
             try
             {
                 world.enabled=false;world.Observer=lightObserver.transform;
-                lightObserver.transform.position=flame+Vector3.back*65;world.TorchView.Refresh();
+                lightObserver.transform.position=flame+Vector3.back*65;world.TorchView.Refresh();yield return new WaitForSecondsRealtime(.8f);
                 Check(world.TorchView.ActiveLightCount==0,"Placed lights sleep beyond 64 blocks");
-                lightObserver.transform.position=flame+Vector3.back*63.5f;world.TorchView.Refresh();
+                lightObserver.transform.position=flame+Vector3.back*63.5f;world.TorchView.Refresh();yield return new WaitForSecondsRealtime(.8f);
                 Light near=world.TorchView.Lights.First(l=>l.enabled&&Vector3.Distance(l.transform.position,flame)<.01f);
                 Check(near.intensity>0&&near.intensity<.1f,"Distant torch enters with negligible intensity instead of popping on");
-                lightObserver.transform.position=flame+Vector3.back*56;world.TorchView.Refresh();
+                lightObserver.transform.position=flame+Vector3.back*56;world.TorchView.Refresh();yield return null;
                 Check(Math.Abs(near.intensity-13.5f)<.01f,"Approaching torch reaches half intensity at 56 blocks");
                 yield return Capture("torch-distance-56");
-                lightObserver.transform.position=flame+Vector3.back*47;world.TorchView.Refresh();
+                lightObserver.transform.position=flame+Vector3.back*47;world.TorchView.Refresh();yield return null;
                 Check(near.intensity==27&&world.TorchView.ActiveLightCount<=8,"Torch reaches boosted full intensity before 48 blocks within fixed pool");
                 yield return Capture("torch-distance-47");
             }
@@ -124,7 +130,7 @@ namespace RivetReach
             var sim=game.Industry.Simulation;var battery=sim.At(left.Offset(-2,0,0));battery.EnergyCells[0].Charge(1000000);
             for(int i=0;i<10;i++)sim.Step();yield return SettleLighting();
             Check(sim.At(left).Running&&world.GrowthLight(crops[0])>=9,"Powered Workshop Lamp supports nearby underground crops");
-            yield return Capture("workshop-lamp-wide");
+            yield return new WaitForSecondsRealtime(.8f);yield return Capture("workshop-lamp-wide");
             var lampView=world.GetComponent<IndustryPresentation>().ViewAt(left);var lampLight=lampView.GetComponentInChildren<Light>();
             Check(lampLight.enabled&&lampLight.range==20&&Math.Abs(lampLight.intensity-30)<.01f,"Powered Workshop Lamp casts boosted light over a twenty-block range");
             battery.BatteryMode=BatteryMode.Isolated;for(int i=0;i<10;i++)sim.Step();yield return SettleLighting();
@@ -181,6 +187,62 @@ namespace RivetReach
             yield return Capture("surface-new-moon-dim");
             double surfaceMean=ForegroundMean(ScreenCapture.CaptureScreenshotAsTexture());
             Check(game.Sky.MainLight.intensity<.00001f&&surfaceMean>.025,"Outdoor terrain remains dimly visible without moonlight: "+surfaceMean.ToString("F4"));
+            yield return ReviewDistantBase(p.Offset(40,0,0));
+        }
+        IEnumerator ReviewDistantBase(BlockPos origin)
+        {
+            var world=game.World;var player=game.Player;
+            game.Sky.Clock.SetTime(.5);game.Sky.Apply();
+            int edits=0;var sources=new List<BlockPos>();
+            for(int z=0;z<=160;z++)for(int y=-1;y<=6;y++)for(int x=-6;x<=6;x++)
+            {
+                var at=origin.Offset(x,y,z);byte id=y==-1||y==6||x==-6||x==6||z==0||z==160?BlockId.Stone:(byte)0;
+                if(!world.Ready(at))throw new Exception("Long-base fixture requires resident terrain");
+                byte old=world.Get(at);if(old==id)continue;
+                if(old!=0&&!world.Remove(at,old))throw new Exception("Long-base removal failed");
+                if(id!=0&&!world.Place(at,id))throw new Exception("Long-base placement failed");edits++;
+            }
+            // More than eight nearby sources reproduce pool starvation while remote rows stay visible.
+            for(int z=8;z<=152;z+=12)foreach(int x in new[]{-4,4})
+            {var at=origin.Offset(x,0,z);if(!world.PlaceTorch(at,at.Offset(0,-1,0)))throw new Exception("Long-base torch failed");sources.Add(at);}
+            player.transform.position=world.Local(origin)+new Vector3(.5f,.02f,2.5f);
+            player.Camera.transform.position=world.Local(origin)+new Vector3(.5f,2.4f,2.5f);
+            player.Camera.transform.LookAt(world.Local(origin)+new Vector3(.5f,.8f,100));
+            player.ResetMotion();yield return SettleLighting();world.TorchView.Refresh();yield return new WaitForSecondsRealtime(1);
+            Check(sources.Count==26&&sources.All(world.TorchView.HasView),"All 26 torch models render through the 160-block base, beyond the old 64-block model cutoff");
+            Check(world.TorchView.ModelBatchCount<world.TorchView.ViewCount,"Torch models batch by chunk instead of spawning five renderers per source");
+            var target=origin.Offset(4,0,104);
+            Check(world.PropagatedSkyLight(target)==0&&world.GrowthLight(target)==14,"Remote base row has authoritative placed light without skylight");
+            yield return Capture("base-lighting-160-blocks");
+            // Freeze selection and remove every realtime accent. Distant light must remain in actual pixels.
+            world.TorchView.enabled=false;foreach(var light in world.TorchView.Lights)light.enabled=false;
+            yield return Capture("base-cached-light-26-torches");
+            double PatchMean()
+            {
+                var screen=player.Camera.WorldToScreenPoint(world.Local(target)+new Vector3(.2f,-.45f,-1));
+                var image=ScreenCapture.CaptureScreenshotAsTexture();double sum=0;int count=0;
+                for(int y=(int)screen.y-2;y<=(int)screen.y+2;y++)for(int x=(int)screen.x-2;x<=(int)screen.x+2;x++)
+                {sum+=image.GetPixel(Mathf.Clamp(x,0,image.width-1),Mathf.Clamp(y,0,image.height-1)).grayscale;count++;}Destroy(image);return sum/count;
+            }
+            double lit=PatchMean();
+            foreach(var at in sources.Where(t=>Math.Abs(t.Z-target.Z)<=12))if(!world.Remove(at,BlockId.Torch))throw new Exception("Remote torch removal failed");
+            yield return SettleLighting();world.TorchView.enabled=false;foreach(var light in world.TorchView.Lights)light.enabled=false;
+            yield return Capture("base-remote-row-unlit");double dark=PatchMean();
+            Check(lit>dark+.025,"A torch over 100 blocks away changes rendered terrain without point lights: "+lit.ToString("F4")+" -> "+dark.ToString("F4"));
+            foreach(var at in sources)if(world.Get(at)==0)world.PlaceTorch(at,at.Offset(0,-1,0));
+            yield return SettleLighting();world.TorchView.enabled=true;world.TorchView.Refresh();
+            player.transform.position=world.Local(origin)+new Vector3(.5f,.02f,50.5f);
+            player.Camera.transform.position=world.Local(origin)+new Vector3(.5f,2.4f,50.5f);
+            player.Camera.transform.LookAt(world.Local(origin)+new Vector3(.5f,.8f,150));
+            yield return new WaitForSecondsRealtime(1);yield return Capture("base-lighting-approach");
+            var positions=world.TorchView.Lights.Select(l=>l.transform.position).ToArray();
+            player.transform.position+=Vector3.forward*8;world.TorchView.Refresh();
+            Check(world.TorchView.Lights.Select(l=>l.transform.position).SequenceEqual(positions),"Point-light slots keep their positions during a source-ranking change, before fading/reassignment");
+            yield return new WaitForSecondsRealtime(1);yield return SettleLighting(240);
+            int solves=world.LightSolveCount;double ms=0;var frames=new List<float>();
+            for(int i=0;i<180;i++){yield return null;ms+=world.LastLightMainMs;frames.Add(Time.unscaledDeltaTime*1000);}frames.Sort();
+            Check(world.LightSolveCount==solves,"Viewing a 26-torch base launches no unchanged lighting solves");
+            File.AppendAllText(Path.Combine(output,"lighting-performance.txt"),$"Long base: 160 blocks; 26 torches; {edits} fixture edits; {world.TorchView.ModelBatchCount} model batches; light idle mean {ms/180:F4} ms; point accents {world.TorchView.ActiveLightCount}; refresh last/max {world.TorchView.LastRefreshMs:F3}/{world.TorchView.MaxRefreshMs:F3} ms; total frame median/p95 {frames[90]:F3}/{frames[171]:F3} ms\n");
         }
     }
 }
