@@ -477,3 +477,7 @@ The user authorized a craftable [Hand Crank](HAND_CRANK.md) that attaches to a b
 ## Wooden doors
 
 [Wooden doors](DOORS.md) add a two-cell doorway: six planks craft three doors at a workbench. Use either half to open/close; Blue Signal changes at the base control the same door. Closing waits for players/creatures to clear. The linked specification owns placement, recovery and manual/signal precedence.
+
+## Farming and cooking — issue #10 first pass
+
+[Farming](FARMING.md) owns the shared wild/cultivated plant lifecycle, six-species forage set, flax/string/cloth chain, general item tags and coal/electric food cookers. Prepared meals restore more hunger per eating action; food never spoils. No soil-moisture or irrigation requirements are added. [The player guide](wiki/Farming-and-cooking.md) explains planting, harvests, tagged food choices and cooker setup.

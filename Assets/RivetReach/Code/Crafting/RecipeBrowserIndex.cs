@@ -16,6 +16,7 @@ namespace RivetReach
         public RecipeInfo GridRecipe { get; }
         public int Ticks { get; }
         public int Watts { get; }
+        public CookingRecipe FoodRecipe {get;internal set;}
         public BrowserRecipe(string id, string stationName, byte station, ItemStack output,
             IEnumerable<ItemStack> ingredients, RecipeInfo gridRecipe = null, int ticks = 0,
             int watts = 0, IEnumerable<byte> fuels = null)
@@ -60,6 +61,12 @@ namespace RivetReach
             foreach (var recipe in processing.Recipes)
                 all.Add(new BrowserRecipe("electric:" + recipe.Id, items.Get(IndustryId.ElectricFurnace).displayName, IndustryId.ElectricFurnace,
                     recipe.Output, new[] { recipe.Input }, ticks: recipe.Ticks, watts: IndustryDefinition.All[IndustryId.ElectricFurnace].Watts));
+            if(items.items.Any(i=>i.runtimeId==FarmId.Cooker))foreach(var food in CookingCatalog.Current.recipes)
+            foreach(byte cooker in new[]{FarmId.Cooker,FarmId.ElectricCooker})
+            {
+                var example=food.ingredients.Select(i=>new ItemStack(CookingCatalog.Current.Choices(i.selector)[0],i.count));
+                all.Add(new BrowserRecipe("cooker:"+cooker+":"+food.id,items.Get(cooker).displayName,cooker,new ItemStack(food.output,food.count),example,ticks:food.ticks,watts:cooker==FarmId.ElectricCooker?CookingCatalog.Current.electricWatts:0,fuels:cooker==FarmId.Cooker?fuels:null){FoodRecipe=food});
+            }
             Recipes = all.AsReadOnly();
             foreach (var group in all.GroupBy(r => r.Output.Id)) outputs.Add(group.Key, Array.AsReadOnly(group.ToArray()));
             var consuming = new Dictionary<byte, List<BrowserRecipe>>();
@@ -67,6 +74,7 @@ namespace RivetReach
             {
                 var seen = new HashSet<byte>(recipe.Ingredients.Where(s => !s.Empty).Select(s => s.Id));
                 seen.UnionWith(recipe.Fuels);
+                if(recipe.FoodRecipe!=null)foreach(var input in recipe.FoodRecipe.ingredients)seen.UnionWith(CookingCatalog.Current.Choices(input.selector));
                 if (recipe.Station != 0) seen.Add(recipe.Station);
                 foreach (byte id in seen)
                 {

@@ -102,9 +102,9 @@
     "description": "Cooked food that restores **5 food points**, compared with 1 for a raw potato. Baked potatoes cannot be planted."
   },
   "rivet:farmland": {
-    "description": "Tilled soil used to grow potatoes.",
+    "description": "Tilled soil for potatoes, wheat, flax, carrots and berry plants.",
     "obtain": "Use a [hoe](Item-wood-hoe.md) on grass or dirt with open space above it. Farmland is made in the world, not crafted or placed as an inventory block.",
-    "use": "Use a [Potato](Item-potato.md) to plant a crop. Keep the crop exposed and its terrain loaded while it grows."
+    "use": "Select the planting item and right-click farmland. Keep crops exposed and their terrain loaded. No watering is required; see [Farming and cooking](Farming-and-cooking.md)."
   },
   "rivet:potato_plant_0": {
     "description": "Potato seedlings are stage 1 of the potato crop. Harvesting early returns one potato; wait until ripe for a larger yield.",
@@ -329,5 +329,171 @@
   "rivet:chunk_loader": {
     "description": "Keeps its own 32 × 32 × 32 chunk loaded and active while the world runs.",
     "use": "Place to enable; Interact opens controls and shows chunk origin. No fuel/power required. Cover the full remote installation, including both bridge endpoints. Saves retain its enabled state. See [Bridges and chunk loaders](Bridges-and-chunk-loaders.md)."
+  },
+  "rivet:wheat_plant_0": {
+    "description": "Wheat plant, growth stage 1 of four.",
+    "obtain": "Find wild plants on grassy terrain or grow them from planting stock. See [Farming and cooking](Farming-and-cooking.md).",
+    "use": "Young plants return one planting item only. Mature plants yield resources and two seeds. Prepare farmland with a hoe to plant; no watering is required."
+  },
+  "rivet:wheat_plant_1": {
+    "description": "Wheat plant, growth stage 2 of four.",
+    "obtain": "Find wild plants on grassy terrain or grow them from planting stock. See [Farming and cooking](Farming-and-cooking.md).",
+    "use": "Young plants return one planting item only. Mature plants yield resources and two seeds. Prepare farmland with a hoe to plant; no watering is required."
+  },
+  "rivet:wheat_plant_2": {
+    "description": "Wheat plant, growth stage 3 of four.",
+    "obtain": "Find wild plants on grassy terrain or grow them from planting stock. See [Farming and cooking](Farming-and-cooking.md).",
+    "use": "Young plants return one planting item only. Mature plants yield resources and two seeds. Prepare farmland with a hoe to plant; no watering is required."
+  },
+  "rivet:wheat_plant_3": {
+    "description": "Wheat plant, mature and ready to harvest.",
+    "obtain": "Find wild plants on grassy terrain or grow them from planting stock. See [Farming and cooking](Farming-and-cooking.md).",
+    "use": "Young plants return one planting item only. Mature plants yield resources and two seeds. Prepare farmland with a hoe to plant; no watering is required."
+  },
+  "rivet:flax_plant_0": {
+    "description": "Flax plant, growth stage 1 of four.",
+    "obtain": "Find wild plants on grassy terrain or grow them from planting stock. See [Farming and cooking](Farming-and-cooking.md).",
+    "use": "Young plants return one planting item only. Mature plants yield resources and two seeds. Prepare farmland with a hoe to plant; no watering is required."
+  },
+  "rivet:flax_plant_1": {
+    "description": "Flax plant, growth stage 2 of four.",
+    "obtain": "Find wild plants on grassy terrain or grow them from planting stock. See [Farming and cooking](Farming-and-cooking.md).",
+    "use": "Young plants return one planting item only. Mature plants yield resources and two seeds. Prepare farmland with a hoe to plant; no watering is required."
+  },
+  "rivet:flax_plant_2": {
+    "description": "Flax plant, growth stage 3 of four.",
+    "obtain": "Find wild plants on grassy terrain or grow them from planting stock. See [Farming and cooking](Farming-and-cooking.md).",
+    "use": "Young plants return one planting item only. Mature plants yield resources and two seeds. Prepare farmland with a hoe to plant; no watering is required."
+  },
+  "rivet:flax_plant_3": {
+    "description": "Flax plant, mature and ready to harvest.",
+    "obtain": "Find wild plants on grassy terrain or grow them from planting stock. See [Farming and cooking](Farming-and-cooking.md).",
+    "use": "Young plants return one planting item only. Mature plants yield resources and two seeds. Prepare farmland with a hoe to plant; no watering is required."
+  },
+  "rivet:carrot_plant_0": {
+    "description": "Carrot plant, growth stage 1 of four.",
+    "obtain": "Find wild plants on grassy terrain or grow them from planting stock. See [Farming and cooking](Farming-and-cooking.md).",
+    "use": "Young plants return one planting item only. Mature plants yield resources and two seeds. Prepare farmland with a hoe to plant; no watering is required."
+  },
+  "rivet:carrot_plant_1": {
+    "description": "Carrot plant, growth stage 2 of four.",
+    "obtain": "Find wild plants on grassy terrain or grow them from planting stock. See [Farming and cooking](Farming-and-cooking.md).",
+    "use": "Young plants return one planting item only. Mature plants yield resources and two seeds. Prepare farmland with a hoe to plant; no watering is required."
+  },
+  "rivet:carrot_plant_2": {
+    "description": "Carrot plant, growth stage 3 of four.",
+    "obtain": "Find wild plants on grassy terrain or grow them from planting stock. See [Farming and cooking](Farming-and-cooking.md).",
+    "use": "Young plants return one planting item only. Mature plants yield resources and two seeds. Prepare farmland with a hoe to plant; no watering is required."
+  },
+  "rivet:carrot_plant_3": {
+    "description": "Carrot plant, mature and ready to harvest.",
+    "obtain": "Find wild plants on grassy terrain or grow them from planting stock. See [Farming and cooking](Farming-and-cooking.md).",
+    "use": "Young plants return one planting item only. Mature plants yield resources and two seeds. Prepare farmland with a hoe to plant; no watering is required."
+  },
+  "rivet:berry_plant_0": {
+    "description": "Berry plant, growth stage 1 of four.",
+    "obtain": "Find wild plants on grassy terrain or grow them from planting stock. See [Farming and cooking](Farming-and-cooking.md).",
+    "use": "Young plants return one planting item only. Mature plants yield resources and two seeds. Prepare farmland with a hoe to plant; no watering is required."
+  },
+  "rivet:berry_plant_1": {
+    "description": "Berry plant, growth stage 2 of four.",
+    "obtain": "Find wild plants on grassy terrain or grow them from planting stock. See [Farming and cooking](Farming-and-cooking.md).",
+    "use": "Young plants return one planting item only. Mature plants yield resources and two seeds. Prepare farmland with a hoe to plant; no watering is required."
+  },
+  "rivet:berry_plant_2": {
+    "description": "Berry plant, growth stage 3 of four.",
+    "obtain": "Find wild plants on grassy terrain or grow them from planting stock. See [Farming and cooking](Farming-and-cooking.md).",
+    "use": "Young plants return one planting item only. Mature plants yield resources and two seeds. Prepare farmland with a hoe to plant; no watering is required."
+  },
+  "rivet:berry_plant_3": {
+    "description": "Berry plant, mature and ready to harvest.",
+    "obtain": "Find wild plants on grassy terrain or grow them from planting stock. See [Farming and cooking](Farming-and-cooking.md).",
+    "use": "Young plants return one planting item only. Mature plants yield resources and two seeds. Prepare farmland with a hoe to plant; no watering is required."
+  },
+  "rivet:mushroom_plant_0": {
+    "description": "An edible mushroom cluster found on grassy terrain.",
+    "obtain": "Explore newly generated terrain. Break a cluster to gather one or two mushrooms.",
+    "use": "Forage only in this increment. Eat mushrooms raw or cook them in a [Cooker](Item-cooker.md)."
+  },
+  "rivet:wheat_seed": {
+    "description": "Planting stock for wheat.",
+    "obtain": "Harvest wild or cultivated wheat; young plants return one seed and mature plants return two.",
+    "use": "Select these seeds and right-click farmland prepared with a hoe. See [Farming and cooking](Farming-and-cooking.md)."
+  },
+  "rivet:flax_seed": {
+    "description": "Planting stock for flax.",
+    "obtain": "Harvest wild or cultivated flax; young plants return one seed and mature plants return two.",
+    "use": "Select these seeds and right-click farmland prepared with a hoe. See [Farming and cooking](Farming-and-cooking.md)."
+  },
+  "rivet:carrot_seed": {
+    "description": "Planting stock for carrot.",
+    "obtain": "Harvest wild or cultivated carrot; young plants return one seed and mature plants return two.",
+    "use": "Select these seeds and right-click farmland prepared with a hoe. See [Farming and cooking](Farming-and-cooking.md)."
+  },
+  "rivet:berry_seed": {
+    "description": "Planting stock for berry.",
+    "obtain": "Harvest wild or cultivated berry; young plants return one seed and mature plants return two.",
+    "use": "Select these seeds and right-click farmland prepared with a hoe. See [Farming and cooking](Farming-and-cooking.md)."
+  },
+  "rivet:grain": {
+    "description": "Cook bread or fruit porridge.",
+    "obtain": "Harvest mature wheat plants. See [Farming and cooking](Farming-and-cooking.md)."
+  },
+  "rivet:flax_fibre": {
+    "description": "Craft three fibres into one String.",
+    "obtain": "Harvest mature flax plants. See [Farming and cooking](Farming-and-cooking.md)."
+  },
+  "rivet:carrot": {
+    "description": "Eat raw, roast it, or use it as a vegetable in stew.",
+    "obtain": "Harvest mature carrot plants. See [Farming and cooking](Farming-and-cooking.md)."
+  },
+  "rivet:berries": {
+    "description": "Eat raw or use as fruit in porridge.",
+    "obtain": "Harvest mature berry plants. See [Farming and cooking](Farming-and-cooking.md)."
+  },
+  "rivet:mushroom": {
+    "description": "Eat raw, cook it, or add it to vegetable stew.",
+    "obtain": "Harvest mature mushroom plants. See [Farming and cooking](Farming-and-cooking.md)."
+  },
+  "rivet:bread": {
+    "description": "Prepared food from a basic or electric cooker. Food never spoils.",
+    "obtain": "Select its recipe in a cooker and supply the listed ingredients plus fuel or electricity.",
+    "use": "Hold Use to eat. See [Farming and cooking](Farming-and-cooking.md) for food values and ingredient alternatives."
+  },
+  "rivet:roast_carrot": {
+    "description": "Prepared food from a basic or electric cooker. Food never spoils.",
+    "obtain": "Select its recipe in a cooker and supply the listed ingredients plus fuel or electricity.",
+    "use": "Hold Use to eat. See [Farming and cooking](Farming-and-cooking.md) for food values and ingredient alternatives."
+  },
+  "rivet:vegetable_stew": {
+    "description": "Prepared food from a basic or electric cooker. Food never spoils.",
+    "obtain": "Select its recipe in a cooker and supply the listed ingredients plus fuel or electricity.",
+    "use": "Hold Use to eat. See [Farming and cooking](Farming-and-cooking.md) for food values and ingredient alternatives."
+  },
+  "rivet:cooked_mushroom": {
+    "description": "Prepared food from a basic or electric cooker. Food never spoils.",
+    "obtain": "Select its recipe in a cooker and supply the listed ingredients plus fuel or electricity.",
+    "use": "Hold Use to eat. See [Farming and cooking](Farming-and-cooking.md) for food values and ingredient alternatives."
+  },
+  "rivet:fruit_porridge": {
+    "description": "Prepared food from a basic or electric cooker. Food never spoils.",
+    "obtain": "Select its recipe in a cooker and supply the listed ingredients plus fuel or electricity.",
+    "use": "Hold Use to eat. See [Farming and cooking](Farming-and-cooking.md) for food values and ingredient alternatives."
+  },
+  "rivet:string": {
+    "description": "Renewable flax cordage, crafted from three Flax Fibre.",
+    "use": "Craft four Strings into one Cloth. Fishing rods are a later increment."
+  },
+  "rivet:cloth": {
+    "description": "Fabric crafted from four Strings.",
+    "use": "Begins the textile chain; beds are a later increment."
+  },
+  "rivet:cooker": {
+    "description": "A food preparation station with selectable recipes and interchangeable tagged ingredients.",
+    "use": "Right-click or Interact, select a recipe, load ingredients and supply burnable fuel. Rear pipes carry fuel; other faces accept ingredients. See [Farming and cooking](Farming-and-cooking.md) for setup, recipes and screenshots. Partial work and stored heat persist through saves; blocked or idle cookers consume no new energy."
+  },
+  "rivet:electric_cooker": {
+    "description": "A food preparation station with selectable recipes and interchangeable tagged ingredients.",
+    "use": "Right-click or Interact, select a recipe, load ingredients and supply 200 W electricity on any face. See [Farming and cooking](Farming-and-cooking.md) for setup, recipes and screenshots. Partial work and stored heat persist through saves; blocked or idle cookers consume no new energy."
   }
 }

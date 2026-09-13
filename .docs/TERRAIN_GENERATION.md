@@ -84,3 +84,7 @@ New worlds use **`terrain-7-lava`**. Existing naturally carved cave space from *
 Point reads and chunk/halo generation apply the same rule before ore stamping. Protected bedrock at Y = −256, the three-block uncarved buffer, ore eligibility/bands, dry spawn, seas/rivers, trees and the wild-potato hook remain unchanged. Settled lava interiors sleep through the existing fluid scheduler; exposed spillways follow [lava flow rules](FLUIDS.md#lava--2026-09-13).
 
 [Save compatibility](SAVES.md#lava-and-generator-compatibility--2026-09-13) pins each world to its generator. Loaded `terrain-6-azure` worlds retain their original dry deep caves, including in newly visited chunks; their placed lava works normally. Saving them again preserves that generator identity. Unknown versions still reject. Start a new world to obtain naturally generated lava lakes.
+
+## Farms and future generation — 2026-09-13
+
+`terrain-8-farms` adds the [crop/forage profile](FARMING.md#plants), preserving terrain relief, water, lava, ores, bedrock and clear spawn. Wild cultivable plants visibly grow on natural soil through the survival scheduler. This supersedes the older mature-potato-only hook for new generation. [The hard generated-chunk policy](SAVES.md#generated-chunk-policy--2026-09-13) preserves existing generated terrain and applies all future generator updates only to unexplored chunks, with the user-approved conservative legacy fallback.

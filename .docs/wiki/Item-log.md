@@ -15,6 +15,7 @@ Wood from tree trunks. It starts the plank, tool and charcoal crafting chains.
 | Property | Value |
 |---|---|
 | Stack size | 64 |
+| Tags | `burnable` |
 | Furnace fuel duration | 15 seconds |
 | Placement | Place from the hotbar |
 
@@ -38,4 +39,4 @@ Follow a result to see its complete ingredients and recipe.
 
 ## Furnace fuel
 
-One item supplies **15 seconds** of burning fuel. Use it in a [Furnace](Item-furnace.md) for smelting or cooking.
+One item supplies **15 seconds** of burning fuel. Use it in a [Furnace](Item-furnace.md) or [Cooker](Item-cooker.md) for smelting or cooking.

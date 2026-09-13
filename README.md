@@ -84,3 +84,5 @@ The player now carries **56 backpack slots (seven rows of eight)** and a **15-sl
 [Named bridges and chunk loaders](.docs/BRIDGES.md) use Floater Rocks to connect remote item, liquid and electrical networks while keeping selected chunks active. [Player setup](.docs/wiki/Bridges-and-chunk-loaders.md) explains pairing and coverage; [verification](.docs/verification/BRIDGE_RESULTS.md) records the current evidence.
 
 A [Ranged Liquid Pump](.docs/RANGED_PUMP.md) upgrades a Pump with Floater Rock and collects sources within eight blocks on each axis, including finite lava. The focused review player is `Builds/RangedPump/RivetReach.exe`; [verification](.docs/verification/RANGED_PUMP_RESULTS.md) records its checks.
+
+The latest [farming and cooking increment](.docs/FARMING.md) adds growing wild crops, forage, flax textiles, shared item tags and fuel/electric cookers. Run **`Builds/Farming/RivetReach.exe`**; [verification](.docs/verification/FARMING_RESULTS.md) records the build checks. New terrain features appear only in ungenerated chunks, with conservative protection around legacy saved activity.

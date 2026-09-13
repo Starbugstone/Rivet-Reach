@@ -1,0 +1,76 @@
+{
+  "crops": [
+    {
+      "key": "potato",
+      "first": 33,
+      "stages": 4,
+      "planting": 30,
+      "produce": 30,
+      "stageTicks": 1200,
+      "minYield": 2,
+      "maxYield": 4,
+      "seedYield": 0,
+      "naturalSoil": true
+    },
+    {
+      "key": "wheat",
+      "first": 200,
+      "stages": 4,
+      "planting": 220,
+      "produce": 221,
+      "stageTicks": 1200,
+      "minYield": 2,
+      "maxYield": 3,
+      "seedYield": 2,
+      "naturalSoil": true
+    },
+    {
+      "key": "flax",
+      "first": 204,
+      "stages": 4,
+      "planting": 222,
+      "produce": 223,
+      "stageTicks": 1200,
+      "minYield": 2,
+      "maxYield": 3,
+      "seedYield": 2,
+      "naturalSoil": true
+    },
+    {
+      "key": "carrot",
+      "first": 208,
+      "stages": 4,
+      "planting": 226,
+      "produce": 227,
+      "stageTicks": 1200,
+      "minYield": 2,
+      "maxYield": 3,
+      "seedYield": 2,
+      "naturalSoil": true
+    },
+    {
+      "key": "berry",
+      "first": 212,
+      "stages": 4,
+      "planting": 228,
+      "produce": 229,
+      "stageTicks": 1200,
+      "minYield": 2,
+      "maxYield": 3,
+      "seedYield": 2,
+      "naturalSoil": true
+    },
+    {
+      "key": "mushroom",
+      "first": 216,
+      "stages": 1,
+      "planting": 0,
+      "produce": 230,
+      "stageTicks": 1200,
+      "minYield": 1,
+      "maxYield": 2,
+      "seedYield": 0,
+      "naturalSoil": true
+    }
+  ]
+}

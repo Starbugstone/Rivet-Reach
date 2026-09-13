@@ -72,3 +72,5 @@ This directory maintains the latest report and useful evidence for each feature.
 [Machine fuel faces](FUEL_FACE_RESULTS.md) covers rear-only fuel, dual-purpose logs, rotated placement and ordinary inputs on fuel-free machines.
 
 - [Ranged liquid pump](RANGED_PUMP_RESULTS.md): source collection, eight-block reach, lava transport, save compatibility and imported machine.
+
+- [Farming and cooking](FARMING_RESULTS.md): shared crop growth, forage/textiles, item tags, basic/electric cookers and persistent per-chunk generation, with original art and actual player captures (2026-09-13).

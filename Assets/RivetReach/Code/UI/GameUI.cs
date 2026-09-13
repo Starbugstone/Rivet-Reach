@@ -123,7 +123,7 @@ namespace RivetReach
         }
         ItemStack StackAt(int index)
         {
-            if(index>=MachineSlotStart&&index<MachineSlotStart+3&&game.OpenMachine!=null)return game.OpenMachine.Items.Slots[index-MachineSlotStart];
+            if(index>=MachineSlotStart&&game.OpenMachine!=null&&index<MachineSlotStart+game.OpenMachine.Items.Count)return game.OpenMachine.Items.Slots[index-MachineSlotStart];
             if(index>=ArmorSlotStart&&index<ArmorSlotStart+4)return game.Equipment.Slots[index-ArmorSlotStart];
             if(index>=StationSlotStart&&game.OpenStation!=null)return StationStack(index-StationSlotStart);
             if(index==CraftOutputSlot)return game.Crafting.Preview?.Output??default;
@@ -399,6 +399,7 @@ namespace RivetReach
                 {var icon=EquipmentVisuals.Icon(item.runtimeId);icons[item.runtimeId]=icon;sharedToolIcons.Add(icon);continue;}
                 if(MobLootVisuals.UsesModel(item.runtimeId))
                 {var icon=MobLootVisuals.Icon;icons[item.runtimeId]=icon;sharedToolIcons.Add(icon);continue;}
+                var farmIcon=Resources.Load<Texture2D>("Farming/"+item.runtimeId+"Icon");if(farmIcon!=null){icons[item.runtimeId]=farmIcon;sharedToolIcons.Add(farmIcon);continue;}
                 if(FoodVisuals.UsesModel(item.runtimeId))
                 {var foodIcon=FoodVisuals.Icon(item.runtimeId);icons[item.runtimeId]=foodIcon;sharedToolIcons.Add(foodIcon);continue;}
                 var industrialIcon=Resources.Load<Texture2D>("Industry/Icons/"+OreVisuals.VisualId(item.runtimeId));if(industrialIcon!=null){icons[item.runtimeId]=industrialIcon;sharedToolIcons.Add(industrialIcon);continue;}

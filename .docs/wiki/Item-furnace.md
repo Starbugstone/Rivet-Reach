@@ -73,6 +73,7 @@ Follow a result to see its complete ingredients and recipe.
 | Result | Station | Recipe |
 |---|---|---|
 | <a href="Item-electric-furnace.md#recipe-1" title="Electric Furnace"><img src="icons/174.png" width="32" height="32" alt="Electric Furnace"></a> ×1 [Electric Furnace](Item-electric-furnace.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-electric-furnace.md#recipe-1) |
+| <a href="Item-cooker.md#recipe-1" title="Cooker"><img src="icons/240.png" width="32" height="32" alt="Cooker"></a> ×1 [Cooker](Item-cooker.md) | [Workbench](Item-workbench.md) | [View recipe](Item-cooker.md#recipe-1) |
 
 ## Recipes made here
 

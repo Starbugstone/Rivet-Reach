@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RivetReach
 {
@@ -25,21 +26,23 @@ namespace RivetReach
         public static bool DoorPart(byte id)=>id==WoodenDoor||id==DoorUpper;
         public static bool BatteryPart(byte id)=>id==Battery||id==BatteryController;
         public static bool TankPart(byte id)=>id>=TankFrame&&id<=TankSensor;
-        public static bool Placed(byte id)=>id>=Bench&&id<=Sensor||TankPart(id)||BatteryPart(id)||id==HandCrank||id==WoodenDoor||id==ElectricFurnace||Bridge(id)||id==ChunkLoader||id==RangedPump;
+        public static bool Placed(byte id)=>id>=Bench&&id<=Sensor||TankPart(id)||BatteryPart(id)||id==HandCrank||id==WoodenDoor||id==ElectricFurnace||Bridge(id)||id==ChunkLoader||id==RangedPump||FarmId.CookerBlock(id);
         public static bool Route(byte id)=>id==SignalWire||id==SignalConduit||id==PowerCable||id==ItemPipe||id==FluidPipe;
         public static bool Thin(byte id)=>Route(id)||id==Lever||id==Button||id==Indicator||id==Relay||id==Sensor;
     }
     public sealed class IndustryDefinition
     {
         public readonly byte Id; public readonly string Name,Key,Help;
-        public readonly int Watts,WaterCapacity;
-        public bool RequiresItemFuel=>Id==IndustryId.Boiler;
+        readonly int watts;
+        public int Watts=>Id==FarmId.ElectricCooker?CookingCatalog.Current.electricWatts:watts;
+        public readonly int WaterCapacity;
+        public bool RequiresItemFuel=>Id==IndustryId.Boiler||Id==FarmId.Cooker;
         public readonly MachinePort[] Ports;
         // Lower-corner anchor; the wooden door also reserves its upper cell. Four horizontal rotations. Faces: right,left,top,bottom,back,front.
         public static readonly (int x,int y,int z)[] Directions={(1,0,0),(-1,0,0),(0,1,0),(0,-1,0),(0,0,1),(0,0,-1)};
         public static readonly IReadOnlyDictionary<byte,IndustryDefinition> All=Build();
         IndustryDefinition(byte id,string key,string name,string help,int watts,int water,params MachinePort[] ports)
-        {Id=id;Key=key;Name=name;Help=help;Watts=watts;WaterCapacity=water;Ports=ports;}
+        {Id=id;Key=key;Name=name;Help=help;this.watts=watts;WaterCapacity=water;Ports=ports;}
         static Dictionary<byte,IndustryDefinition> Build()
         {
             var d=new Dictionary<byte,IndustryDefinition>();
@@ -63,6 +66,8 @@ namespace RivetReach
             Add(IndustryId.Alternator,"alternator","Alternator","Left shaft couples to Boiler · 800 W output",0,0,P(NetworkKind.Power,PortRole.Output,16));
             Add(IndustryId.Crusher,"crusher","Crusher","1 raw ore → 2 crushed ore\n1 stone / cobblestone → 1 sand",160,0,pi,si,ii,io);
             Add(IndustryId.ElectricFurnace,"electric_furnace","Electric Furnace","Furnace recipes · electricity instead of fuel\n200 W · same full-power processing time",200,0,pi,si,ii,io);
+            Add(FarmId.Cooker,"cooker","Cooker","Food recipes · burnable fuel at rear · ingredients on other faces",0,0,si,ii,io);
+            Add(FarmId.ElectricCooker,"electric_cooker","Electric Cooker","Food recipes · electric heat · ingredients on all faces",200,0,pi,si,ii,io);
             Add(IndustryId.Pump,"pump","Pump","Source below → 10 L in 2 seconds\nNo electricity required",0,10000,si,P(NetworkKind.Fluid,PortRole.Output,1));
             Add(IndustryId.RangedPump,"ranged_liquid_pump","Ranged Liquid Pump","8-block reach on each axis · source → 10 L / 2 sec\nAny liquid · no electricity required",0,10000,si,P(NetworkKind.Fluid,PortRole.Output,1));
             Add(IndustryId.Drill,"drill","Drill","Mines a finite column below · stops at bedrock",240,0,pi,si,io);
@@ -92,20 +97,20 @@ namespace RivetReach
         public static BlockPos Neighbor(BlockPos p,int face,int turns=0)
         {var d=Directions[RotateFace(face,turns)];return p.Offset(d.x,d.y,d.z);}
     }
-    public sealed class MachineState : IItemPipeInventory
+    public sealed partial class MachineState : IItemPipeInventory
     {
         IReadOnlyList<ItemStack> IItemPipeInventory.Slots=>Items.Slots;
-        bool IItemPipeInventory.CanExtract(int slot)=>slot==2;
-        bool IItemPipeInventory.Prefers(byte id,int localFace)=>AcceptsPipeInput(id,localFace)&&(Items.Slots[0].Id==id||
+        bool IItemPipeInventory.CanExtract(int slot)=>slot==OutputSlot;
+        bool IItemPipeInventory.Prefers(byte id,int localFace)=>IsCooker?CookerAccepts(localFace==4&&Definition.Id==FarmId.Cooker?3:0,id)&&Items.Slots.Take(3).Any(s=>s.Id==id):AcceptsPipeInput(id,localFace)&&(Items.Slots[0].Id==id||
             !Items.Slots[2].Empty&&ProcessingOutput(id).Id==Items.Slots[2].Id);
-        bool IItemPipeInventory.TryInsert(byte id,int localFace)=>AcceptsPipeInput(id,localFace)&&Items.Capacity(id,0,1)>0&&Items.Add(id,1,0,1)==0;
-        ItemStack IItemPipeInventory.Extract(int slot,int count)=>slot==2?Items.Take(slot,count):default;
+        bool IItemPipeInventory.TryInsert(byte id,int localFace)=>IsCooker?InsertCooker(id,localFace):AcceptsPipeInput(id,localFace)&&Items.Capacity(id,0,1)>0&&Items.Add(id,1,0,1)==0;
+        ItemStack IItemPipeInventory.Extract(int slot,int count)=>slot==OutputSlot?Items.Take(slot,count):default;
         public readonly BlockPos Position; public readonly IndustryDefinition Definition;
         public readonly ItemContainer Items;
         readonly ProcessingRegistry processing;
         public ProcessingRecipe FurnaceRecipe=>Definition.Id==IndustryId.ElectricFurnace?processing?.Find(Items.Slots[0].Id):null;
         public ItemStack ProcessingOutput(byte id)=>Definition.Id==IndustryId.Crusher?CrusherOutput(id):Definition.Id==IndustryId.ElectricFurnace?processing?.Find(id)?.Output??default:default;
-        public int ProcessingTicks=>Definition.Id==IndustryId.Crusher?CrusherTicks:Definition.Id==IndustryId.ElectricFurnace?FurnaceRecipe?.Ticks??200:(Definition.Id==IndustryId.Pump||Definition.Id==IndustryId.RangedPump)?40:120;
+        public int ProcessingTicks=>IsCooker?FoodRecipe?.ticks??200:Definition.Id==IndustryId.Crusher?CrusherTicks:Definition.Id==IndustryId.ElectricFurnace?FurnaceRecipe?.Ticks??200:(Definition.Id==IndustryId.Pump||Definition.Id==IndustryId.RangedPump)?40:120;
         public int Rotation {get;internal set;}
         public MachineStatus Status {get;internal set;}
         public bool Signal,SignalAttached,Source,NextSource,Eligible,FluidConflict;
@@ -134,11 +139,11 @@ namespace RivetReach
         public string OwnerId="",LinkName="";
         public bool LoaderEnabled=true;
         public MachineState(BlockPos p,byte id,Func<byte,int> limit,ProcessingRegistry processing=null)
-        {this.processing=processing;Position=p;Definition=IndustryDefinition.All[id];EnergyCells=id==IndustryId.Battery?new[]{new BatteryStorage()}:Array.Empty<BatteryStorage>();Fluid=new FluidStorage(Definition.WaterCapacity);Items=new ItemContainer(3,limit);}
+        {this.processing=processing;Position=p;Definition=IndustryDefinition.All[id];EnergyCells=id==IndustryId.Battery?new[]{new BatteryStorage()}:Array.Empty<BatteryStorage>();Fluid=new FluidStorage(Definition.WaterCapacity);Items=new ItemContainer(IsCooker?5:3,limit);if(IsCooker)CookingId=CookingCatalog.Current.recipes[0].id;}
         public bool Enabled=>!SignalAttached||Signal;
         public bool Running=>Status==MachineStatus.Running||Status==MachineStatus.Underpowered;
         bool AcceptsPipeInput(byte id,int localFace)=>Accepts(0,id)&&(!Definition.RequiresItemFuel||localFace<0||localFace==4);
-        public bool Accepts(int slot,byte id)=>slot==0&&(Definition.Id==IndustryId.Boiler?(id==BlockId.Coal||id==BlockId.Charcoal):!ProcessingOutput(id).Empty);
+        public bool Accepts(int slot,byte id)=>IsCooker?CookerAccepts(slot,id):slot==0&&(Definition.Id==IndustryId.Boiler?ItemRegistry.Load().HasTag(id,"boiler_fuel")&&FuelTicks(id)>0:!ProcessingOutput(id).Empty);
         public const int CrusherTicks = 100;
         public static ItemStack CrusherOutput(byte id)=>id switch
         {
@@ -149,8 +154,17 @@ namespace RivetReach
             _=>default
         };
         public void Click(int slot,ref ItemStack held,bool right)
-        {if(slot<0||slot>=3)return;if(!held.Empty&&!Accepts(slot,held.Id))return;Items.Click(slot,ref held,right);}
+        {
+            if(slot<0||slot>=Items.Count)return;
+            if(slot==OutputSlot)
+            {
+                var output=Items.Slots[slot];if(output.Empty||!held.Empty&&!held.CanStack(output))return;
+                int amount=Math.Min(right?(output.Count+1)/2:output.Count,Items.StackLimit(output.Id)-held.Count);
+                if(amount>0){Items.Take(slot,amount);held=new ItemStack(output.Id,held.Count+amount);}return;
+            }
+            if(!held.Empty&&!Accepts(slot,held.Id))return;Items.Click(slot,ref held,right);
+        }
         public void TransferIn(ItemContainer from,int slot)
-        {var s=from.Slots[slot];if(!s.Empty&&Accepts(0,s.Id))from.TransferTo(slot,Items,0,1);}
+        {var s=from.Slots[slot];if(s.Empty)return;if(IsCooker){if(CookerAccepts(3,s.Id))from.TransferTo(slot,Items,3,4);else if(CookerAccepts(0,s.Id))from.TransferTo(slot,Items,0,3);}else if(Accepts(0,s.Id))from.TransferTo(slot,Items,0,1);}
     }
 }

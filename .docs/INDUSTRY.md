@@ -174,3 +174,7 @@ The user requested a Floater Rock pump upgrade for finite liquids and confirmed 
 ## Floater Rock bridges and chunk loaders — 2026-09-13
 
 [BRIDGES.md](BRIDGES.md) owns paired, named item/liquid/electrical graph connections, private owner identities and chunk-loader residency. Remote edges reuse these allocation rules and keep Blue Signal separate. Both endpoints and all participating machines must be resident; bridges alone do not load destinations.
+
+## Shared tags and food cookers — 2026-09-13
+
+[Farming](FARMING.md#shared-item-tags-and-fuel) owns reusable item tags, explicitly configured fuel energy and the food recipe catalog. The basic Cooker follows rear-only fuel input and other-face ingredients; the Electric Cooker takes all-face power and ingredients with no fuel slot. Their three ingredient slots and output-only extraction use the existing independent pipe, signal and electricity systems. Boilers use the `boiler_fuel` subset without changing their coal/charcoal energy balance.

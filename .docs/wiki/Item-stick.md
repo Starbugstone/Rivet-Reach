@@ -15,6 +15,7 @@ A wooden handle used in tools and torches. Two planks arranged vertically make f
 | Property | Value |
 |---|---|
 | Stack size | 64 |
+| Tags | `burnable` |
 | Furnace fuel duration | 5 seconds |
 
 ## How to obtain
@@ -84,4 +85,4 @@ Follow a result to see its complete ingredients and recipe.
 
 ## Furnace fuel
 
-One item supplies **5 seconds** of burning fuel. Use it in a [Furnace](Item-furnace.md) for smelting or cooking.
+One item supplies **5 seconds** of burning fuel. Use it in a [Furnace](Item-furnace.md) or [Cooker](Item-cooker.md) for smelting or cooking.

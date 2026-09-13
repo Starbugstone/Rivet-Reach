@@ -1,0 +1,56 @@
+# Farming, forage and food cookers
+
+Issue [#10](https://github.com/Starbugstone/Rivet-Reach/issues/10), first playable increment, authorized 2026-09-13. This working specification implements crops/forage, flax fibre/string/cloth, food-only cooker recipes and shared item tags. Beds, compost, fishing, chickens, crates, weather and renewables remain later increments. The user confirmed distinct hostile/passive mob systems for future livestock; this increment does not add animals.
+
+## Plants
+
+Potatoes, wheat, flax, carrots and berries share four visible stages. Mushrooms are gatherable mature clusters, with no cultivation in this increment. Cultivable wild plants generate at varying stages and grow through the same scheduled lifecycle as farm plants. Wild plants support grass, dirt or farmland; planting stock placed by the player requires farmland prepared with a hoe. Growth requires resident terrain and sky light of at least 9. No moisture, irrigation, rain hydration or offline growth is required or credited.
+
+`Resources/Definitions/Crops.json` authors growth intervals and harvest quantities. Working defaults are one stage per 1,200 fixed ticks (60 seconds), three minutes from planting to maturity, two or three harvested resources and two planting seeds. Potatoes return two to four potatoes, which also serve as planting stock. Breaking an immature plant returns exactly one planting item, with no extra resource; this never multiplies planting stock. Mushrooms return one or two mushrooms. Block mining and supporting-ground removal share the same harvest transaction. Ordinary drops, pickup, stacking and saves remain authoritative.
+
+The generator chooses a candidate in each six-by-six surface cell with a 38% chance before grass, clearance and spawn rejection. Species and initial stage are seeded; point reads and worker-generated chunks use the same rules. These density/yield/time defaults require playtesting, not an assertion that every seed provides every plant nearby.
+
+On first chunk readiness, immature natural plants enter the world survival scheduler. Saved deadlines are not restarted on residency. Growth processing keeps the existing sixteen-mutation budget and pauses when terrain is absent or light is insufficient. Mature plants need no growth ticks. Plant geometry is original Blender-authored mesh data combined into terrain chunks; it does not create one GameObject per plant.
+
+## Shared item tags and fuel
+
+`ItemDefinition.tags` holds reusable string tags. This increment authors `edible`, `burnable`, `boiler_fuel`, `seed`, `vegetable`, `grain`, `fruit`, `mushroom`, `fibre`, `cordage`, `fabric` and `prepared_food`. All consumable foods carry `edible`; eating requires that tag and a positive configured `foodPoints` value. `ItemRegistry.FoodPoints` is the shared gameplay query. Tags identify capabilities/categories; they never grant production quantities or energy by themselves. Existing crafting recipes remain exact-item recipes. Food selectors use either a stable item identity or a `#tag` in `Resources/Definitions/Cooking.json`.
+
+The shared processing fuel catalog supplies explicit burn durations. Each registered fuel must also have `burnable`. Furnaces and basic cookers accept those tagged/configured fuels, including coal, charcoal and wood. Boilers keep their coal/charcoal subset through `boiler_fuel`, preserving their existing fuel/output balance. Rear-only fuel piping remains mandatory; other faces supply usable ingredients. Electric appliances have no item-fuel slot and accept ingredients on every face. Adding a tag alone cannot make an unconfigured item yield energy.
+
+## Crafting and food
+
+Three flax fibres make one String; four Strings make one Cloth in personal crafting. These are configurable recipe assets. String/cloth are usable crafting materials reserved for the subsequently planned rod and bed; this increment does not advertise those as available.
+
+One furnace and two copper ingots make a basic Cooker at a workbench. One Cooker, one machine casing and four copper wire make an Electric Cooker at the Machinist's Bench. Existing beginning recipes retain their layouts/quantities.
+
+Both cookers share six recipes, each taking 200 ticks (10 seconds) at full heat/power:
+
+| Ingredients | Result | Food points |
+|---|---|---:|
+| 3 Grain | 1 Bread | 7 |
+| 1 Potato | 1 Baked Potato | 5 |
+| 1 Carrot | 1 Roasted Carrot | 5 |
+| 1 Mushroom | 1 Cooked Mushrooms | 4 |
+| 2 `#vegetable` + 1 `#mushroom` | 1 Vegetable Stew | 12 |
+| 1 `#grain` + 1 `#fruit` | 1 Fruit Porridge | 9 |
+
+Potatoes and carrots are vegetables; apples and berries are fruit. Mixed tag members and split stacks count correctly. Wild carrots restore two food points, berries/mushrooms one. There is no food spoilage, freshness or refrigerator requirement. Hunger still uses the existing food/exhaustion state, without adding saturation. Prepared meals restore more in one eating action. Baseline idle food drain is one point per 102.4 seconds, with additional movement/mining/healing expenditure; that calculation is not a measured play-session food cadence.
+
+## Cooker operation
+
+Right-click or Interact opens the cooker. Select a recipe, insert ingredients in any of three input slots, supply basic fuel or electricity, and take the output. Recipe changes retain input items but reset partial work. The shared bounded ingredient planner validates the full transaction and output space before consuming ingredients.
+
+The Electric Cooker requests 200 W while able to process. Lower allocation advances work proportionally, consuming exactly allocated electricity. Both variants pause for invalid/missing ingredients, full output, signal OFF or dormant terrain. Basic cookers retain unused paid heat while paused/idle; normal furnaces retain their existing continuously burning ignition rule. Optional Blue Signal controls either cooker. Electrical priority and all-face grid connections use the ordinary machine system.
+
+Pipe inputs stage one batch's ingredient quantities to leave space for other required ingredients; manual loading can hold larger stacks. Basic fuel is accepted only through the rear, ingredients through the other five faces. Electric ingredients enter through all faces. Only finished output can be extracted by pipes. Independent wrench-configured input/output/disconnected ends remain unchanged.
+
+The browser and wiki show each tagged requirement's alternatives rather than treating every example as compulsory. Food recipes run in cookers; the ordinary furnace/electric furnace keep their existing processing catalog, including baked potato compatibility.
+
+## Saves and generation policy
+
+Schema 10 stores cooker selection/signature alongside existing partial work, inventory and fuel fields. It records a generation version per generated chunk, including chunks sampled for its one-cell halo. Already recorded terrain keeps its original generator; new ungenerated terrain uses the newest supported version. See [the durable generation rule](SAVES.md#generated-chunk-policy--2026-09-13).
+
+Older content fingerprints omit only this increment's new items/recipes/catalogs and appended tags while still checking all pre-existing fields and content. Unknown identities, invalid work/storage and damaged snapshots reject through existing failed-load rollback.
+
+[Verification](verification/FARMING_RESULTS.md) separates actual measured checks from remaining play review. [Farming and cooking](wiki/Farming-and-cooking.md) is the player guide.

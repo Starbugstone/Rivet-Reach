@@ -254,9 +254,9 @@ namespace RivetReach
                     if(Time.time>=nextPlace&&Game.World.Till(pos)){nextPlace=Time.time+.22f;Arms.TriggerSwing();Body.TriggerSwing();if(!Game.Creative)Game.Hunger.Exert(.05);}
                     return;
                 }
-                if(found&&id==BlockId.Farmland&&selected.Id==BlockId.Potato)
-                {if(Game.World.Plant(pos.Offset(0,1,0))){if(!Game.Creative)Game.Inventory.Take(Game.Selected,1);Arms.TriggerSwing();Body.TriggerSwing();}return;}
-                int food=selected.Empty?0:Game.Registry.Get(selected.Id).foodPoints;
+                if(found&&id==BlockId.Farmland&&CropRules.Planting(selected.Id)!=null)
+                {if(Game.World.Plant(pos.Offset(0,1,0),selected.Id)){if(!Game.Creative)Game.Inventory.Take(Game.Selected,1);Arms.TriggerSwing();Body.TriggerSwing();}return;}
+                int food=selected.Empty?0:Game.Registry.FoodPoints(selected.Id);
                 if(food>0&&!Game.Creative)
                 {
                     if(Game.Hunger.Food<HungerState.Maximum)

@@ -214,3 +214,7 @@ The user selected [issue #3](https://github.com/Starbugstone/Rivet-Reach/issues/
 ## Configurable logistics tool — 2026-09-12
 
 The reusable [Wrench](INDUSTRY.md#wrench-and-configurable-pipe-ends--2026-09-12) costs three iron ingots at a workbench as a working balance choice. Configuring a machine-facing item/fluid pipe end consumes neither the wrench nor resources. All-face electrical access is automatic. Item/fluid transfers retain source inventory, destination capacity, fixed-step limits and tank recovery gates; no materials or power are created by changing a direction.
+
+## Farming and food increment — 2026-09-13
+
+[Farming](FARMING.md) owns crop yields, stock-preserving immature harvests, flax → string → cloth, food recipes and cooker resource accounting. Tags select compatible items; explicit recipes and fuel durations remain the quantity/energy authority. Shared ingredient planning consumes a complete batch atomically and rejects blocked output. Long-session hunger cadence and crop density remain balance review, not measured conclusions.

@@ -48,7 +48,17 @@ namespace RivetReach
                 result=Position.Z.CompareTo(other.Position.Z);return result!=0?result:Position.Y.CompareTo(other.Position.Y);
             }
         }
-        public WorldSurvival(Expedition game){this.game=game;game.World.BlockChanged+=Changed;}
+        public WorldSurvival(Expedition game){this.game=game;game.World.BlockChanged+=Changed;game.World.ChunkReady+=RegisterWild;}
+        void RegisterWild(ChunkPos chunk,byte[] cells)
+        {
+            var min=chunk.Min;
+            for(int z=0;z<32;z++)for(int y=0;y<32;y++)for(int x=0;x<32;x++)
+            {
+                byte id=cells[ChunkMesher.Index(x,y,z)];var crop=CropRules.For(id);
+                if(crop==null||id==crop.Mature)continue;var p=min.Offset(x,y,z);
+                if(!scheduled.ContainsKey(p))Schedule(p,Tick+crop.stageTicks);
+            }
+        }
         public StationState At(BlockPos position)=>stations.TryGetValue(position,out var station)?station:null;
         public void Wake(BlockPos position){if(At(position)?.Furnace?.NeedsTick==true)active.Add(position);}
         void Schedule(BlockPos p,long due)
@@ -74,10 +84,10 @@ namespace RivetReach
             }
             if(BlockId.Station(id)&&!stations.ContainsKey(p))stations.Add(p,new StationState(id,game.Recipes,game.Processing,item=>game.Registry.Get(item).stackLimit));
             if(BlockId.GrowingPlant(id))
-            {if(!scheduled.ContainsKey(p))Schedule(p,Tick+(id==BlockId.Sapling?SaplingGrowthTicks:CropStageTicks));}
+            {if(!scheduled.ContainsKey(p))Schedule(p,Tick+(id==BlockId.Sapling?SaplingGrowthTicks:CropRules.For(id).stageTicks));}
             else if(scheduled.TryGetValue(p,out var old)){crops.Remove(old);scheduled.Remove(p);}
             var above=p.Offset(0,1,0);byte plant=game.World.Get(above);
-            if(id!=BlockId.Farmland&&BlockId.Crop(plant)||plant==BlockId.Sapling&&!BlockId.SaplingSoil(id))game.World.Uproot(above,plant);
+            if(CropRules.For(plant) is CropDefinition crop&&!crop.Supports(id)||plant==BlockId.Sapling&&!BlockId.SaplingSoil(id))game.World.Uproot(above,plant);
         }
         public int Advance(float seconds)
         {

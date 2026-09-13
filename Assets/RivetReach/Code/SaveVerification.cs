@@ -69,13 +69,13 @@ namespace RivetReach
             var name=game.UI.VisibleRoot.GetComponentInChildren<InputField>();name.text="Cross-process expedition";SaveButton("SAVE GAME").onClick.Invoke();
             Check(game.SaveId!=null&&game.Inventory.Total(BlockId.Stick)==11&&game.UI.HeldStack.Empty,"Save button commits named slot and cursor items: "+game.SaveStatus);File.WriteAllText(Path.Combine(output,"save-cost.txt"),$"Fixture save: {game.LastSaveBytes} bytes; {game.LastSaveMilliseconds:0.###} ms synchronous capture, checksum, flush and publish. Single bounded workshop on this workstation; not a large-world guarantee.\n");yield return Capture("save-game");
             var entry=game.Saves.List().First(e=>!e.Backup);byte[] original=game.Saves.Read(entry);int edits=world.EditCount,pending=world.FluidSimulation.Pending,leaves=world.Trees.PendingLeaves,fells=world.Trees.PendingFells;long cropTick=game.Survival.Tick;
-            int furnaceProgress=f.ProgressTicks,burn=f.BurnTicks;
+            int furnaceProgress=f.ProgressTicks,burn=f.BurnTicks,scheduledCrops=game.Survival.ScheduledCrops;
             game.Inventory.Take(9,37);game.Survival.At(chest).Storage.Take(7,23);sim.At(battery).EnergyCells[0].Discharge(1234567);
             Check(game.LoadGame(entry),"Load complete checkpoint: "+game.SaveStatus);FreezeSaveFixture();
             Check(game.CaptureSave(entry).SequenceEqual(original),"Every serialized field round-trips byte-for-byte before simulation resumes");
             Check(game.World.EditCount==edits&&game.World.FluidSimulation.Pending==pending&&game.World.Trees.PendingLeaves==leaves&&game.World.Trees.PendingFells==fells,"Terrain overlay and all pending world queues restored");
             Check(game.PersonalCrafting.Grid.Slots[3].Count==5,"Full inventory retains personal crafting ingredients across save/load");
-            Check(game.Survival.Tick==cropTick&&game.Survival.ScheduledCrops==1&&game.Survival.At(furnace).Furnace.ProgressTicks==furnaceProgress&&game.Survival.At(furnace).Furnace.BurnTicks==burn,"Crop clock and furnace work/fuel restored exactly");
+            Check(game.Survival.Tick==cropTick&&game.Survival.ScheduledCrops==scheduledCrops&&game.Survival.At(furnace).Furnace.ProgressTicks==furnaceProgress&&game.Survival.At(furnace).Furnace.BurnTicks==burn,"Crop clock and furnace work/fuel restored exactly");
             Check(game.Industry.Simulation.At(controller).Structure.StructureId==identity&&game.Industry.Simulation.At(controller).Structure.Fluid.Amount==123457,"Breached tank identity and exact recovery contents restored");
             Check(game.Industry.Simulation.At(battery).EnergyCells[0].Amount==1234567&&game.Industry.Simulation.At(pipe).Additions==(PipeAddition.Signal|PipeAddition.Power),"Per-cell energy and independent pipe channels restored");
             Check(game.World.TorchSupport(torch,out var support)&&support.Equals(chest),"Torch attachment restored");

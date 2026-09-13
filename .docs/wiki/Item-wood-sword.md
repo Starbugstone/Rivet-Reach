@@ -15,6 +15,7 @@ A melee weapon. It can also cut leaves faster. Tools currently have no durabilit
 | Property | Value |
 |---|---|
 | Stack size | 1 |
+| Tags | `burnable` |
 | Tool tier | Wood |
 | Effective mining speed | 2× on suitable blocks |
 | Melee damage | 4 |
@@ -59,4 +60,4 @@ Make this item using the crafting or processing recipes below.
 
 ## Furnace fuel
 
-One item supplies **10 seconds** of burning fuel. Use it in a [Furnace](Item-furnace.md) for smelting or cooking.
+One item supplies **10 seconds** of burning fuel. Use it in a [Furnace](Item-furnace.md) or [Cooker](Item-cooker.md) for smelting or cooking.

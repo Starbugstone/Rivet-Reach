@@ -28,7 +28,7 @@ namespace RivetReach
             var selected=Game.Inventory.Slots[Game.Selected];
             bool visible=Game.Mode==ScreenMode.Play&&!Game.Health.Dead&&!Game.Creative&&!Inspecting&&
                 Arms.AnimationReady&&!selected.Empty&&HeldBlock.ItemId==selected.Id&&
-                HeldBlock.DesiredGrip==GripPose.Block&&Game.Registry.Get(selected.Id).foodPoints>0;
+                HeldBlock.DesiredGrip==GripPose.Block&&Game.Registry.FoodPoints(selected.Id)>0;
             if(!visible||eatingVisualItem!=selected.Id)
             {eatingWeight=0;eatingBiteTime=0;eatingVisualItem=selected.Id;}
             if(!visible){eatingCrumbs?.ResetBite();return;}

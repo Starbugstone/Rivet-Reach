@@ -38,10 +38,12 @@ namespace RivetReach.Editor
             public string id, station, kind;
             public Stack output;
             public Stack[] ingredients;
+            public FoodInput[] foodIngredients;
             public string[] fuels;
             public int grid, width, height, ticks, watts;
             public bool mirror;
         }
+        [Serializable] public sealed class FoodInput { public string selector;public int count;public string[] choices; }
         [Serializable] public sealed class Source { public string path, sha256; }
         [Serializable] public sealed class Catalog
         {
@@ -77,6 +79,7 @@ namespace RivetReach.Editor
                 recipes = index.Recipes.Select(recipe => new Recipe
                 {
                     id = recipe.Id, station = Id(recipe.Station), output = Entry(recipe.Output),
+                    foodIngredients=recipe.FoodRecipe?.ingredients.Select(i=>new FoodInput{selector=i.selector,count=i.count,choices=CookingCatalog.Current.Choices(i.selector).Select(Id).ToArray()}).ToArray(),
                     ingredients = recipe.Ingredients.Select(Entry).ToArray(), fuels = recipe.Fuels.Select(Id).ToArray(),
                     kind = recipe.GridRecipe?.Kind.ToString() ?? "Processing", grid = recipe.GridRecipe?.MinimumGridSize ?? 0,
                     width = recipe.GridRecipe?.Width ?? 0, height = recipe.GridRecipe?.Height ?? 0,
@@ -129,6 +132,7 @@ namespace RivetReach.Editor
                 .Concat(Directory.GetFiles("Assets/RivetReach/Code", "*.cs", SearchOption.AllDirectories))
                 .Concat(Directory.GetFiles("Assets/RivetReach/Resources/Industry/Icons", "*.png"))
                 .Concat(Directory.GetFiles("Assets/RivetReach/Resources/Food", "*.png"))
+                .Concat(Directory.GetFiles("Assets/RivetReach/Resources/Farming", "*.png"))
                 .Concat(Directory.GetFiles("Assets/RivetReach/Resources/MobLoot", "*.png"))
                 .Concat(Directory.GetFiles("Assets/RivetReach/Resources/Equipment", "*.png"))
                 .Concat(Directory.GetFiles("Assets/RivetReach/Resources/Orchard", "*.png"))

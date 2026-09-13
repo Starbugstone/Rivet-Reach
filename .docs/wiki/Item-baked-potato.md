@@ -15,6 +15,7 @@ Cooked food that restores **5 food points**, compared with 1 for a raw potato. B
 | Property | Value |
 |---|---|
 | Stack size | 64 |
+| Tags | `edible` |
 | Food restored | 5 points |
 
 ## How to obtain
@@ -35,7 +36,7 @@ Make this item using the crafting or processing recipes below.
 |---|---:|
 | <a href="Item-potato.md" title="Potato"><img src="icons/30.png" width="32" height="32" alt="Potato"></a> [Potato](Item-potato.md) | 1 |
 
-**Fuel:** add furnace fuel separately; it is not a crafting ingredient. <a href="Item-log.md" title="Log"><img src="icons/4.png" width="32" height="32" alt="Log"></a> [Log](Item-log.md) · <a href="Item-coal.md" title="Coal"><img src="icons/17.png" width="32" height="32" alt="Coal"></a> [Coal](Item-coal.md) · <a href="Item-planks.md" title="Planks"><img src="icons/20.png" width="32" height="32" alt="Planks"></a> [Planks](Item-planks.md) · <a href="Item-stick.md" title="Stick"><img src="icons/21.png" width="32" height="32" alt="Stick"></a> [Stick](Item-stick.md) · <a href="Item-charcoal.md" title="Charcoal"><img src="icons/26.png" width="32" height="32" alt="Charcoal"></a> [Charcoal](Item-charcoal.md) · <a href="Item-wood-axe.md" title="Wood axe"><img src="icons/40.png" width="32" height="32" alt="Wood axe"></a> [Wood axe](Item-wood-axe.md) · <a href="Item-wood-pickaxe.md" title="Wood pickaxe"><img src="icons/41.png" width="32" height="32" alt="Wood pickaxe"></a> [Wood pickaxe](Item-wood-pickaxe.md) · <a href="Item-wood-sword.md" title="Wood sword"><img src="icons/42.png" width="32" height="32" alt="Wood sword"></a> [Wood sword](Item-wood-sword.md) · <a href="Item-wood-shovel.md" title="Wood shovel"><img src="icons/43.png" width="32" height="32" alt="Wood shovel"></a> [Wood shovel](Item-wood-shovel.md) · <a href="Item-wood-hoe.md" title="Wood hoe"><img src="icons/44.png" width="32" height="32" alt="Wood hoe"></a> [Wood hoe](Item-wood-hoe.md) · <a href="Item-coal-block.md" title="Coal block"><img src="icons/65.png" width="32" height="32" alt="Coal block"></a> [Coal block](Item-coal-block.md).
+**Fuel:** add burnable fuel separately; it is not a crafting ingredient. <a href="Item-log.md" title="Log"><img src="icons/4.png" width="32" height="32" alt="Log"></a> [Log](Item-log.md) · <a href="Item-coal.md" title="Coal"><img src="icons/17.png" width="32" height="32" alt="Coal"></a> [Coal](Item-coal.md) · <a href="Item-planks.md" title="Planks"><img src="icons/20.png" width="32" height="32" alt="Planks"></a> [Planks](Item-planks.md) · <a href="Item-stick.md" title="Stick"><img src="icons/21.png" width="32" height="32" alt="Stick"></a> [Stick](Item-stick.md) · <a href="Item-charcoal.md" title="Charcoal"><img src="icons/26.png" width="32" height="32" alt="Charcoal"></a> [Charcoal](Item-charcoal.md) · <a href="Item-wood-axe.md" title="Wood axe"><img src="icons/40.png" width="32" height="32" alt="Wood axe"></a> [Wood axe](Item-wood-axe.md) · <a href="Item-wood-pickaxe.md" title="Wood pickaxe"><img src="icons/41.png" width="32" height="32" alt="Wood pickaxe"></a> [Wood pickaxe](Item-wood-pickaxe.md) · <a href="Item-wood-sword.md" title="Wood sword"><img src="icons/42.png" width="32" height="32" alt="Wood sword"></a> [Wood sword](Item-wood-sword.md) · <a href="Item-wood-shovel.md" title="Wood shovel"><img src="icons/43.png" width="32" height="32" alt="Wood shovel"></a> [Wood shovel](Item-wood-shovel.md) · <a href="Item-wood-hoe.md" title="Wood hoe"><img src="icons/44.png" width="32" height="32" alt="Wood hoe"></a> [Wood hoe](Item-wood-hoe.md) · <a href="Item-coal-block.md" title="Coal block"><img src="icons/65.png" width="32" height="32" alt="Coal block"></a> [Coal block](Item-coal-block.md).
 
 Fuel burns down after ignition even if the input runs out. See the [Furnace](Item-furnace.md) page for fuel durations.
 
@@ -50,3 +51,36 @@ Fuel burns down after ignition even if the input runs out. See the [Furnace](Ite
 | Ingredient | Total per operation |
 |---|---:|
 | <a href="Item-potato.md" title="Potato"><img src="icons/30.png" width="32" height="32" alt="Potato"></a> [Potato](Item-potato.md) | 1 |
+
+### Recipe 3
+
+**Station:** <a href="Item-cooker.md" title="Cooker"><img src="icons/240.png" width="40" height="40" alt="Cooker"><br>Cooker</a>
+
+**Processing time:** 10 seconds per operation.
+
+**Output:** <a href="Item-baked-potato.md" title="Baked potato"><img src="icons/31.png" width="56" height="56" alt="Baked potato"><br>Baked potato</a> ×1
+
+| Ingredient | Total per operation |
+|---|---:|
+| <a href="Item-potato.md" title="Potato"><img src="icons/30.png" width="32" height="32" alt="Potato"></a> [Potato](Item-potato.md) | 1 |
+
+For tagged ingredients, any listed item counts; combinations and split stacks are accepted. Select this recipe on the cooker.
+
+
+**Fuel:** add burnable fuel separately; it is not a crafting ingredient. <a href="Item-log.md" title="Log"><img src="icons/4.png" width="32" height="32" alt="Log"></a> [Log](Item-log.md) · <a href="Item-coal.md" title="Coal"><img src="icons/17.png" width="32" height="32" alt="Coal"></a> [Coal](Item-coal.md) · <a href="Item-planks.md" title="Planks"><img src="icons/20.png" width="32" height="32" alt="Planks"></a> [Planks](Item-planks.md) · <a href="Item-stick.md" title="Stick"><img src="icons/21.png" width="32" height="32" alt="Stick"></a> [Stick](Item-stick.md) · <a href="Item-charcoal.md" title="Charcoal"><img src="icons/26.png" width="32" height="32" alt="Charcoal"></a> [Charcoal](Item-charcoal.md) · <a href="Item-wood-axe.md" title="Wood axe"><img src="icons/40.png" width="32" height="32" alt="Wood axe"></a> [Wood axe](Item-wood-axe.md) · <a href="Item-wood-pickaxe.md" title="Wood pickaxe"><img src="icons/41.png" width="32" height="32" alt="Wood pickaxe"></a> [Wood pickaxe](Item-wood-pickaxe.md) · <a href="Item-wood-sword.md" title="Wood sword"><img src="icons/42.png" width="32" height="32" alt="Wood sword"></a> [Wood sword](Item-wood-sword.md) · <a href="Item-wood-shovel.md" title="Wood shovel"><img src="icons/43.png" width="32" height="32" alt="Wood shovel"></a> [Wood shovel](Item-wood-shovel.md) · <a href="Item-wood-hoe.md" title="Wood hoe"><img src="icons/44.png" width="32" height="32" alt="Wood hoe"></a> [Wood hoe](Item-wood-hoe.md) · <a href="Item-coal-block.md" title="Coal block"><img src="icons/65.png" width="32" height="32" alt="Coal block"></a> [Coal block](Item-coal-block.md).
+
+Cookers retain unused heat while blocked or idle. See the [Cooker](Item-cooker.md) page for fuel durations.
+
+### Recipe 4
+
+**Station:** <a href="Item-electric-cooker.md" title="Electric Cooker"><img src="icons/241.png" width="40" height="40" alt="Electric Cooker"><br>Electric Cooker</a>
+
+**Processing time:** 10 seconds per operation at **200 W**. Reduced power slows progress.
+
+**Output:** <a href="Item-baked-potato.md" title="Baked potato"><img src="icons/31.png" width="56" height="56" alt="Baked potato"><br>Baked potato</a> ×1
+
+| Ingredient | Total per operation |
+|---|---:|
+| <a href="Item-potato.md" title="Potato"><img src="icons/30.png" width="32" height="32" alt="Potato"></a> [Potato](Item-potato.md) | 1 |
+
+For tagged ingredients, any listed item counts; combinations and split stacks are accepted. Select this recipe on the cooker.

@@ -19,3 +19,5 @@
 - [Ranged Liquid Pump](Ranged-Liquid-Pump.md)
 
 - [Bridges and chunk loaders](Bridges-and-chunk-loaders.md)
+
+- [Farming and cooking](Farming-and-cooking.md) — wild crops, fibre and basic/electric food preparation.

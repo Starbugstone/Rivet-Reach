@@ -1,0 +1,110 @@
+PASS 109 assertions
+PASS Every normal furnace recipe is discoverable on the electric furnace
+PASS Browser describes electricity with no item fuel
+PASS Upgrade requires the Machinist bench
+PASS Full power advances one tick: rivet:smelt_charcoal
+PASS No early output or consumed input: rivet:smelt_charcoal
+PASS Exact shared output: rivet:smelt_charcoal
+PASS Exact 200 W energy and no item fuel: rivet:smelt_charcoal
+PASS Empty input requests no power: rivet:smelt_charcoal
+PASS Full power advances one tick: rivet:smelt_copper
+PASS No early output or consumed input: rivet:smelt_copper
+PASS Exact shared output: rivet:smelt_copper
+PASS Exact 200 W energy and no item fuel: rivet:smelt_copper
+PASS Empty input requests no power: rivet:smelt_copper
+PASS Full power advances one tick: rivet:smelt_iron
+PASS No early output or consumed input: rivet:smelt_iron
+PASS Exact shared output: rivet:smelt_iron
+PASS Exact 200 W energy and no item fuel: rivet:smelt_iron
+PASS Empty input requests no power: rivet:smelt_iron
+PASS Full power advances one tick: rivet:smelt_gold
+PASS No early output or consumed input: rivet:smelt_gold
+PASS Exact shared output: rivet:smelt_gold
+PASS Exact 200 W energy and no item fuel: rivet:smelt_gold
+PASS Empty input requests no power: rivet:smelt_gold
+PASS Full power advances one tick: rivet:smelt_stone
+PASS No early output or consumed input: rivet:smelt_stone
+PASS Exact shared output: rivet:smelt_stone
+PASS Exact 200 W energy and no item fuel: rivet:smelt_stone
+PASS Empty input requests no power: rivet:smelt_stone
+PASS Full power advances one tick: rivet:smelt_baked_potato
+PASS No early output or consumed input: rivet:smelt_baked_potato
+PASS Exact shared output: rivet:smelt_baked_potato
+PASS Exact 200 W energy and no item fuel: rivet:smelt_baked_potato
+PASS Empty input requests no power: rivet:smelt_baked_potato
+PASS Full power advances one tick: rivet:smelt_120
+PASS No early output or consumed input: rivet:smelt_120
+PASS Exact shared output: rivet:smelt_120
+PASS Exact 200 W energy and no item fuel: rivet:smelt_120
+PASS Empty input requests no power: rivet:smelt_120
+PASS Full power advances one tick: rivet:smelt_90
+PASS No early output or consumed input: rivet:smelt_90
+PASS Exact shared output: rivet:smelt_90
+PASS Exact 200 W energy and no item fuel: rivet:smelt_90
+PASS Empty input requests no power: rivet:smelt_90
+PASS Full power advances one tick: rivet:smelt_150
+PASS No early output or consumed input: rivet:smelt_150
+PASS Exact shared output: rivet:smelt_150
+PASS Exact 200 W energy and no item fuel: rivet:smelt_150
+PASS Empty input requests no power: rivet:smelt_150
+PASS Full power advances one tick: rivet:smelt_151
+PASS No early output or consumed input: rivet:smelt_151
+PASS Exact shared output: rivet:smelt_151
+PASS Exact 200 W energy and no item fuel: rivet:smelt_151
+PASS Empty input requests no power: rivet:smelt_151
+PASS Full power advances one tick: rivet:smelt_152
+PASS No early output or consumed input: rivet:smelt_152
+PASS Exact shared output: rivet:smelt_152
+PASS Exact 200 W energy and no item fuel: rivet:smelt_152
+PASS Empty input requests no power: rivet:smelt_152
+PASS Logs accepted only as ingredients on face 0
+PASS Logs accepted only as ingredients on face 1
+PASS Logs accepted only as ingredients on face 2
+PASS Logs accepted only as ingredients on face 3
+PASS Logs accepted only as ingredients on face 4
+PASS Logs accepted only as ingredients on face 5
+PASS No fuel slot, including dual-purpose logs
+PASS Reject fuel-only and incompatible cargo
+PASS Disconnected power preserves partial work and battery
+PASS Cable replacement resumes work
+PASS OFF signal stops work and demand
+PASS ON signal resumes work
+PASS Full output uses no electricity
+PASS Pipe preference matches retained product
+PASS Pipes can extract only completed output
+PASS Output extraction resumes work
+PASS Dormant furnace receives no offline credit
+PASS Residency resumes work
+PASS Changing ingredients resets old recipe progress
+PASS Start limited 100 W source
+PASS Half power gives half speed and preserves input
+PASS Exhausted source pauses fractional progress
+PASS All-face electrical connection, face 0, rotation 0
+PASS All-face electrical connection, face 0, rotation 1
+PASS All-face electrical connection, face 0, rotation 2
+PASS All-face electrical connection, face 0, rotation 3
+PASS All-face electrical connection, face 1, rotation 0
+PASS All-face electrical connection, face 1, rotation 1
+PASS All-face electrical connection, face 1, rotation 2
+PASS All-face electrical connection, face 1, rotation 3
+PASS All-face electrical connection, face 2, rotation 0
+PASS All-face electrical connection, face 2, rotation 1
+PASS All-face electrical connection, face 2, rotation 2
+PASS All-face electrical connection, face 2, rotation 3
+PASS All-face electrical connection, face 3, rotation 0
+PASS All-face electrical connection, face 3, rotation 1
+PASS All-face electrical connection, face 3, rotation 2
+PASS All-face electrical connection, face 3, rotation 3
+PASS All-face electrical connection, face 4, rotation 0
+PASS All-face electrical connection, face 4, rotation 1
+PASS All-face electrical connection, face 4, rotation 2
+PASS All-face electrical connection, face 4, rotation 3
+PASS All-face electrical connection, face 5, rotation 0
+PASS All-face electrical connection, face 5, rotation 1
+PASS All-face electrical connection, face 5, rotation 2
+PASS All-face electrical connection, face 5, rotation 3
+PASS Incomplete multi-item recipe consumes no electricity
+PASS Registry owns batch amounts and duration
+PASS All registered crafting recipes transfer and conserve inputs, including the furnace upgrade
+PASS Pre-electric current-schema content remains compatible
+PASS Unrelated old content changes still reject

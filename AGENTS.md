@@ -154,3 +154,11 @@ The user requested a Floater Rock + Pump upgrade and confirmed eight blocks in e
 ## Authorized Floater Rock bridges and chunk loaders
 
 The user authorized [named bridges and chunk loaders](.docs/BRIDGES.md): Floater Rocks power paired item/liquid/electrical connections and persistent chunk tickets. Preserve two endpoints per owner/world/channel/name, private player identities independent of display names, resident-only transfer, shared resource allocation and schema-9 ownership/tickets. [Verification](.docs/verification/BRIDGE_RESULTS.md) records evidence; [the player guide](.docs/wiki/Bridges-and-chunk-loaders.md) owns setup.
+
+## Authorized farming, cooking and shared tags
+
+The user authorized the first pass of [issue #10](.docs/FARMING.md): real wild/cultivated crop growth, potatoes/wheat/flax/carrots/berries and mushroom forage, fibre/string/cloth, better food, and basic fuel/electric cookers with tagged food ingredients. Tags are shared item capabilities, including `burnable`, with explicitly configured fuel energy. Preserve rear-only item fuel, all-face electric ingredient input, resource conservation and current saves. Beds, compost, fishing, livestock, crates, weather and renewables remain later increments. Future passive animals need a separate persistent lifecycle from ambient hostile mobs, sharing suitable movement/combat primitives.
+
+## Hard rule: future generation only in ungenerated terrain
+
+The user requires all future terrain-generation updates to appear only in new, previously ungenerated chunks. Never upgrade, regenerate or retrofit already generated terrain to introduce new content. Persist generated-chunk history so established terrain keeps its generator while exploration uses the latest version. This supersedes the former world-wide generator pin for unexplored terrain. For pre-history legacy saves only, the user approved conservatively retaining old generation around saved edits, the player and saved entities/stations; untouched exploration history cannot be reconstructed. [SAVES.md](.docs/SAVES.md#generated-chunk-policy--2026-09-13) owns the exact compatibility boundary.

@@ -79,6 +79,7 @@ namespace RivetReach
             World.BlockMined+=SpawnMinedDrop;
             World.GrowthObstructed=cell=>World.OccupiesCell(Player.transform.position,.6f,Player.Height,cell)||(Mobs?.Occupies(cell)??false);
             World.OriginShifted+=Sound.ShiftOrigin;
+            FarmingCatalog.Load();FarmingMeshes.Initialize();
             Survival=new WorldSurvival(this);Industry=new WorldIndustry(this);root.AddComponent<IndustryPresentation>().Initialize(this);root.AddComponent<StarterStationPresentation>().Initialize(this);root.AddComponent<MultiblockPresentation>().Initialize(this);
             Industry.Simulation.Multiblocks.WorldId=Guid.ParseExact(WorldId,"N");
             root.AddComponent<PipeEndpointPresentation>().Initialize(this);
@@ -86,6 +87,12 @@ namespace RivetReach
         }
         void SpawnMinedDrop(BlockPos pos,byte id)
         {
+            if(BlockId.Crop(id))
+            {
+                foreach(var stack in CropRules.Harvest(id,TerrainGenerator.Hash(pos.X,pos.Y,pos.Z,Seed)))
+                    Items.Spawn(stack,World.Local(pos)+new Vector3(.5f,.3f,.5f),Vector3.up*1.6f,actionCreated:true);
+                return;
+            }
             byte drop=Registry.FistDrop(id);
             int count=id==BlockId.MaturePotatoPlant?2+(int)(TerrainGenerator.Hash(pos.X,pos.Y,pos.Z,Seed)%3):1;
             Items.Spawn(Industry.Recovered(pos,new ItemStack(drop,count)),World.Local(pos)+new Vector3(.5f,.3f,.5f),Vector3.up*1.6f,actionCreated:true);

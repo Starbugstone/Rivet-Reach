@@ -8,6 +8,7 @@ namespace RivetReach
     {
         internal void WriteSave(SaveWriter w)
         {
+            if(w.Format>=10)WriteGeneration(w);
             w.Write(edits.Count);
             foreach(var page in edits.OrderBy(p=>p.Key.X).ThenBy(p=>p.Key.Y).ThenBy(p=>p.Key.Z))
             {w.Pos(page.Key.Min);w.Write(page.Value.Count);foreach(var e in page.Value.OrderBy(e=>e.Key)){w.Write(e.Key);w.Write(e.Value);}}
@@ -19,6 +20,7 @@ namespace RivetReach
         internal void ReadSave(SaveReader r,BlockPos origin)
         {
             SaveReader.Require(chunks.Count==0,"Restore requires a fresh world.");Origin=origin;
+            if(r.Format>=10){ReadGeneration(r);Generator=new TerrainGenerator(Generator.Seed);}
             int count=r.Count(100000);
             for(int i=0;i<count;i++)
             {
@@ -140,10 +142,12 @@ namespace RivetReach
             w.Write(Tick);w.Write(Multiblocks.WorldId.ToString("N"));if(w.Format>=9)w.Write(LocalOwnerId);w.Write(machines.Count);
             foreach(var m in machines.Values)
             {
+                if(m.IsCooker&&m.CookingSignature!=m.FoodSignature){m.Work=0;m.CookingSignature=m.FoodSignature;}
                 w.Pos(m.Position);w.Write(m.Definition.Id);w.Slots(m.Items.Slots);w.Write(m.Rotation);w.Write(m.Source);w.Write(m.NextSource);w.Write(m.PulseTicks);w.Write(m.BurnTicks);
                 w.Write(m.WaterMl);if(w.Format>=8)w.Write(m.Fluid.Fluid?.StableId??"");w.Write(m.DrillDepth);w.Write(m.Work);w.Write(m.WorkInput);w.Write(m.Priority);w.Write((int)m.Additions);w.Write((int)m.BatteryMode);
                 w.Write(m.RecoveryOutput);w.Write((int)m.PortMode);w.Write(m.LevelThreshold);w.Write((int)m.Status);w.Write(m.PipeDirections);
                 if(w.Format>=9){w.Write(m.OwnerId);w.Write(m.LinkName);w.Write(m.LoaderEnabled);}
+                if(w.Format>=10&&m.IsCooker){w.Write(m.CookingId);w.Write(m.CookingSignature);}
                 if(m.EnergyCells.Length==1)w.Write(m.EnergyCells[0].Amount);
                 if(m.Definition.Id==IndustryId.TankController||m.Definition.Id==IndustryId.BatteryController)
                 {
@@ -160,11 +164,11 @@ namespace RivetReach
             for(int i=0;i<n;i++)
             {
                 var p=r.Pos();byte id=r.ReadByte();SaveReader.Require(IndustryId.Placed(id)&&world.Get(p)==id,"Saved machine does not match terrain.");var m=Add(p,id);
-                r.Slots(m.Items);m.Rotation=r.Int(0,3);m.Source=r.ReadBoolean();m.NextSource=r.ReadBoolean();m.PulseTicks=r.Int(0,id==IndustryId.HandCrank?IndustrySimulation.CrankTicks:20);m.BurnTicks=r.Int(0,1600);
+                r.Slots(m.Items);m.Rotation=r.Int(0,3);m.Source=r.ReadBoolean();m.NextSource=r.ReadBoolean();m.PulseTicks=r.Int(0,id==IndustryId.HandCrank?IndustrySimulation.CrankTicks:20);m.BurnTicks=r.Int(0,Math.Max(1600,processing==null?0:ProcessingCatalogAsset.Load().fuels.Max(f=>f.ticks)));
                 int fluidAmount=r.Int(0,m.Definition.WaterCapacity);
                 string fluidId=r.Format>=8?r.Text():(fluidAmount>0?Fluids.Water.StableId:"");
                 var vesselLiquid=fluidId==""?null:Fluids.Registry.ByStableId(fluidId);
-                SaveReader.Require(fluidAmount==0?fluidId=="":vesselLiquid!=null&&(m.Definition.Id==IndustryId.Tank||m.Definition.Id==IndustryId.RangedPump||vesselLiquid==Fluids.Water)&&m.Fluid.Deposit(vesselLiquid,fluidAmount),"Invalid saved vessel fluid.");m.DrillDepth=r.Int(1,TerrainGenerator.MaxY-TerrainGenerator.MinY+2);m.Work=r.Number(0,m.Definition.Id==IndustryId.ElectricFurnace?processing.Recipes.Max(recipe=>recipe.Ticks):120);m.WorkInput=r.ReadByte();m.Priority=r.Int(0,2);
+                SaveReader.Require(fluidAmount==0?fluidId=="":vesselLiquid!=null&&(m.Definition.Id==IndustryId.Tank||m.Definition.Id==IndustryId.RangedPump||vesselLiquid==Fluids.Water)&&m.Fluid.Deposit(vesselLiquid,fluidAmount),"Invalid saved vessel fluid.");m.DrillDepth=r.Int(1,TerrainGenerator.MaxY-TerrainGenerator.MinY+2);m.Work=r.Number(0,m.IsCooker?CookingCatalog.Current.recipes.Max(recipe=>recipe.ticks):m.Definition.Id==IndustryId.ElectricFurnace?processing.Recipes.Max(recipe=>recipe.Ticks):120);m.WorkInput=r.ReadByte();m.Priority=r.Int(0,2);
                 m.Additions=(PipeAddition)r.Int(0,3);SaveReader.Require(m.Additions==0||PipeConnections.IsTransport(id),"Invalid pipe fittings.");m.BatteryMode=(BatteryMode)r.Int(0,3);
                 m.RecoveryOutput=r.ReadBoolean();m.PortMode=(FluidPortMode)r.Int(0,2);m.LevelThreshold=r.Int(0,100);m.Status=(MachineStatus)r.Int(0,Enum.GetValues(typeof(MachineStatus)).Length-1);
                 if(r.Format>=4){m.PipeDirections=r.Int(0,4095);SaveReader.Require(PipeConnections.ValidDirections(m.PipeDirections)&&(m.PipeDirections==0||PipeConnections.IsTransport(id)),"Invalid pipe end directions.");}
@@ -173,6 +177,11 @@ namespace RivetReach
                     m.OwnerId=r.Text(32);m.LinkName=r.Text(32);m.LoaderEnabled=r.ReadBoolean();
                     bool owned=IndustryId.Bridge(id)||id==IndustryId.ChunkLoader;
                     SaveReader.Require((owned?Guid.TryParseExact(m.OwnerId,"N",out _):m.OwnerId=="")&&ValidLinkName(m.LinkName)&&(IndustryId.Bridge(id)||m.LinkName==""),"Invalid saved bridge ownership or name.");
+                }
+                if(r.Format>=10&&m.IsCooker)
+                {
+                    m.CookingId=r.Text();m.CookingSignature=r.Text();
+                    SaveReader.Require(m.FoodRecipe!=null&&m.Work<m.FoodRecipe.ticks&&(m.Work==0||m.CookingSignature==m.FoodSignature)&&(m.Definition.Id!=FarmId.ElectricCooker||m.BurnTicks==0)&& (m.Items.Slots[3].Empty||m.CookerAccepts(3,m.Items.Slots[3].Id)),"Invalid saved cooker.");
                 }
                 if(m.EnergyCells.Length==1)SaveReader.Require(m.EnergyCells[0].Charge(r.Long(0,BatteryStorage.CellCapacity)),"Invalid battery energy.");
                 if(id==IndustryId.TankController||id==IndustryId.BatteryController)

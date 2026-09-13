@@ -133,3 +133,7 @@ Run `Builds/HandCrank/RivetReach.exe` for the [manual electricity increment](HAN
 ## Ranged liquid pump review
 
 Launch `Builds/RangedPump/RivetReach.exe`. Craft one Pump plus one Floater Rock at the Machinist’s Bench, or select the Ranged Liquid Pump in Creative. Place within eight blocks on each axis of liquid sources and pipe its output into a tank. [Rules](RANGED_PUMP.md), [player setup](wiki/Ranged-Liquid-Pump.md) and [verification](verification/RANGED_PUMP_RESULTS.md) explain the exact range and evidence.
+
+## Farming review — 2026-09-13
+
+Run **`Builds/Farming/RivetReach.exe`** with its adjacent data and runtime files. Harvest wild plants, hoe dirt/grass, and right-click farmland with planting stock. Open either cooker with right-click or Interact, select a recipe, then supply ingredients and fuel/power. [Player guide](wiki/Farming-and-cooking.md), [working rules](FARMING.md) and [verification](verification/FARMING_RESULTS.md). Rebuild through `Tools/Verify-Farming.ps1 -Build`; the focused verifier exercises wild growth, both cookers, pipes and persistence.

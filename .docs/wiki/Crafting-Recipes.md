@@ -4,7 +4,7 @@
 
 Start with the [visual item index](Items.md), then click an item to see its purpose, how to obtain it, every recipe that makes it, and what uses it. Every item icon links to its own page.
 
-This reference covers **100 grid recipes, 11 furnace recipes, 11 electric furnace recipes and 5 crusher recipes** in the current playable alpha. The recipe grids and icons come from the same catalog and artwork used by the inventory browser.
+This reference covers **104 grid recipes, 11 furnace recipes, 11 electric furnace recipes and 5 crusher recipes** in the current playable alpha. The recipe grids and icons come from the same catalog and artwork used by the inventory browser.
 
 ## First crafting steps
 
@@ -24,6 +24,8 @@ This reference covers **100 grid recipes, 11 furnace recipes, 11 electric furnac
 | <a href="Item-furnace.md" title="Furnace"><img src="icons/24.png" width="48" height="48" alt="Furnace"><br>Furnace</a> | Fuel-driven smelting and cooking |
 | <a href="Item-electric-furnace.md" title="Electric Furnace"><img src="icons/174.png" width="48" height="48" alt="Electric Furnace"><br>Electric Furnace</a> | Electric smelting and cooking · 200 W |
 | <a href="Item-crusher.md" title="Crusher"><img src="icons/142.png" width="48" height="48" alt="Crusher"><br>Crusher</a> | Powered ore processing |
+| <a href="Item-cooker.md" title="Cooker"><img src="icons/240.png" width="48" height="48" alt="Cooker"><br>Cooker</a> | Food recipes with fuel |
+| <a href="Item-electric-cooker.md" title="Electric Cooker"><img src="icons/241.png" width="48" height="48" alt="Electric Cooker"><br>Electric Cooker</a> | Food recipes with electricity |
 
 ## How to read a recipe
 
@@ -60,6 +62,8 @@ Choose a result below to open its item page at the exact recipe.
 | <a href="Item-diamond.md#recipe-1" title="Diamond"><img src="icons/19.png" width="32" height="32" alt="Diamond"></a> ×9 [Diamond](Item-diamond.md) | Personal 2×2 | [View recipe](Item-diamond.md#recipe-1) |
 | <a href="Item-torch.md#recipe-1" title="Torch"><img src="icons/96.png" width="32" height="32" alt="Torch"></a> ×4 [Torch](Item-torch.md) | Personal 2×2 | [View recipe](Item-torch.md#recipe-1) |
 | <a href="Item-torch.md#recipe-2" title="Torch"><img src="icons/96.png" width="32" height="32" alt="Torch"></a> ×4 [Torch](Item-torch.md) | Personal 2×2 | [View recipe](Item-torch.md#recipe-2) |
+| <a href="Item-string.md#recipe-1" title="String"><img src="icons/224.png" width="32" height="32" alt="String"></a> ×1 [String](Item-string.md) | Personal 2×2 | [View recipe](Item-string.md#recipe-1) |
+| <a href="Item-cloth.md#recipe-1" title="Cloth"><img src="icons/225.png" width="32" height="32" alt="Cloth"></a> ×1 [Cloth](Item-cloth.md) | Personal 2×2 | [View recipe](Item-cloth.md#recipe-1) |
 
 ## Workbench — 3×3
 
@@ -116,6 +120,7 @@ Choose a result below to open its item page at the exact recipe.
 | <a href="Item-hand-crank.md#recipe-1" title="Hand Crank"><img src="icons/170.png" width="32" height="32" alt="Hand Crank"></a> ×1 [Hand Crank](Item-hand-crank.md) | [Workbench](Item-workbench.md) | [View recipe](Item-hand-crank.md#recipe-1) |
 | <a href="Item-wooden-door.md#recipe-1" title="Wooden Door"><img src="icons/171.png" width="32" height="32" alt="Wooden Door"></a> ×3 [Wooden Door](Item-wooden-door.md) | [Workbench](Item-workbench.md) | [View recipe](Item-wooden-door.md#recipe-1) |
 | <a href="Item-wrench.md#recipe-1" title="Wrench"><img src="icons/173.png" width="32" height="32" alt="Wrench"></a> ×1 [Wrench](Item-wrench.md) | [Workbench](Item-workbench.md) | [View recipe](Item-wrench.md#recipe-1) |
+| <a href="Item-cooker.md#recipe-1" title="Cooker"><img src="icons/240.png" width="32" height="32" alt="Cooker"></a> ×1 [Cooker](Item-cooker.md) | [Workbench](Item-workbench.md) | [View recipe](Item-cooker.md#recipe-1) |
 
 ## Machinist’s Bench — 4×4
 
@@ -160,6 +165,7 @@ Choose a result below to open its item page at the exact recipe.
 | <a href="Item-power-bridge.md#recipe-1" title="Power Bridge"><img src="icons/192.png" width="32" height="32" alt="Power Bridge"></a> ×2 [Power Bridge](Item-power-bridge.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-power-bridge.md#recipe-1) |
 | <a href="Item-chunk-loader.md#recipe-1" title="Chunk Loader"><img src="icons/193.png" width="32" height="32" alt="Chunk Loader"></a> ×1 [Chunk Loader](Item-chunk-loader.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-chunk-loader.md#recipe-1) |
 | <a href="Item-ranged-liquid-pump.md#recipe-1" title="Ranged Liquid Pump"><img src="icons/180.png" width="32" height="32" alt="Ranged Liquid Pump"></a> ×1 [Ranged Liquid Pump](Item-ranged-liquid-pump.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-ranged-liquid-pump.md#recipe-1) |
+| <a href="Item-electric-cooker.md#recipe-1" title="Electric Cooker"><img src="icons/241.png" width="32" height="32" alt="Electric Cooker"></a> ×1 [Electric Cooker](Item-electric-cooker.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-electric-cooker.md#recipe-1) |
 
 ## Furnace processing
 
@@ -202,6 +208,28 @@ Choose a result below to open its item page at the exact recipe.
 | <a href="Item-crushed-copper.md#recipe-1" title="Crushed Copper"><img src="icons/150.png" width="32" height="32" alt="Crushed Copper"></a> ×2 [Crushed Copper](Item-crushed-copper.md) | [Crusher](Item-crusher.md) | [View recipe](Item-crushed-copper.md#recipe-1) |
 | <a href="Item-crushed-gold.md#recipe-1" title="Crushed Gold"><img src="icons/152.png" width="32" height="32" alt="Crushed Gold"></a> ×2 [Crushed Gold](Item-crushed-gold.md) | [Crusher](Item-crusher.md) | [View recipe](Item-crushed-gold.md#recipe-1) |
 | <a href="Item-sand.md#recipe-2" title="Sand"><img src="icons/90.png" width="32" height="32" alt="Sand"></a> ×1 [Sand](Item-sand.md) | [Crusher](Item-crusher.md) | [View recipe](Item-sand.md#recipe-2) |
+
+## Cooker recipes
+
+| Result | Station | Recipe |
+|---|---|---|
+| <a href="Item-bread.md#recipe-1" title="Bread"><img src="icons/231.png" width="32" height="32" alt="Bread"></a> ×1 [Bread](Item-bread.md) | [Cooker](Item-cooker.md) | [View recipe](Item-bread.md#recipe-1) |
+| <a href="Item-baked-potato.md#recipe-3" title="Baked potato"><img src="icons/31.png" width="32" height="32" alt="Baked potato"></a> ×1 [Baked potato](Item-baked-potato.md) | [Cooker](Item-cooker.md) | [View recipe](Item-baked-potato.md#recipe-3) |
+| <a href="Item-roast-carrot.md#recipe-1" title="Roasted Carrot"><img src="icons/232.png" width="32" height="32" alt="Roasted Carrot"></a> ×1 [Roasted Carrot](Item-roast-carrot.md) | [Cooker](Item-cooker.md) | [View recipe](Item-roast-carrot.md#recipe-1) |
+| <a href="Item-cooked-mushroom.md#recipe-1" title="Cooked Mushrooms"><img src="icons/234.png" width="32" height="32" alt="Cooked Mushrooms"></a> ×1 [Cooked Mushrooms](Item-cooked-mushroom.md) | [Cooker](Item-cooker.md) | [View recipe](Item-cooked-mushroom.md#recipe-1) |
+| <a href="Item-vegetable-stew.md#recipe-1" title="Vegetable Stew"><img src="icons/233.png" width="32" height="32" alt="Vegetable Stew"></a> ×1 [Vegetable Stew](Item-vegetable-stew.md) | [Cooker](Item-cooker.md) | [View recipe](Item-vegetable-stew.md#recipe-1) |
+| <a href="Item-fruit-porridge.md#recipe-1" title="Fruit Porridge"><img src="icons/235.png" width="32" height="32" alt="Fruit Porridge"></a> ×1 [Fruit Porridge](Item-fruit-porridge.md) | [Cooker](Item-cooker.md) | [View recipe](Item-fruit-porridge.md#recipe-1) |
+
+## Electric cooker recipes
+
+| Result | Station | Recipe |
+|---|---|---|
+| <a href="Item-bread.md#recipe-2" title="Bread"><img src="icons/231.png" width="32" height="32" alt="Bread"></a> ×1 [Bread](Item-bread.md) | [Electric Cooker](Item-electric-cooker.md) | [View recipe](Item-bread.md#recipe-2) |
+| <a href="Item-baked-potato.md#recipe-4" title="Baked potato"><img src="icons/31.png" width="32" height="32" alt="Baked potato"></a> ×1 [Baked potato](Item-baked-potato.md) | [Electric Cooker](Item-electric-cooker.md) | [View recipe](Item-baked-potato.md#recipe-4) |
+| <a href="Item-roast-carrot.md#recipe-2" title="Roasted Carrot"><img src="icons/232.png" width="32" height="32" alt="Roasted Carrot"></a> ×1 [Roasted Carrot](Item-roast-carrot.md) | [Electric Cooker](Item-electric-cooker.md) | [View recipe](Item-roast-carrot.md#recipe-2) |
+| <a href="Item-cooked-mushroom.md#recipe-2" title="Cooked Mushrooms"><img src="icons/234.png" width="32" height="32" alt="Cooked Mushrooms"></a> ×1 [Cooked Mushrooms](Item-cooked-mushroom.md) | [Electric Cooker](Item-electric-cooker.md) | [View recipe](Item-cooked-mushroom.md#recipe-2) |
+| <a href="Item-vegetable-stew.md#recipe-2" title="Vegetable Stew"><img src="icons/233.png" width="32" height="32" alt="Vegetable Stew"></a> ×1 [Vegetable Stew](Item-vegetable-stew.md) | [Electric Cooker](Item-electric-cooker.md) | [View recipe](Item-vegetable-stew.md#recipe-2) |
+| <a href="Item-fruit-porridge.md#recipe-2" title="Fruit Porridge"><img src="icons/235.png" width="32" height="32" alt="Fruit Porridge"></a> ×1 [Fruit Porridge](Item-fruit-porridge.md) | [Electric Cooker](Item-electric-cooker.md) | [View recipe](Item-fruit-porridge.md#recipe-2) |
 
 ## Workshop guides
 

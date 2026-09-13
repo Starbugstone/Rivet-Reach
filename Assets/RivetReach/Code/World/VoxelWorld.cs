@@ -55,6 +55,7 @@ namespace RivetReach
         public event Action<Vector3> OriginShifted;
         public event Action<BlockPos> BlockChanged;
         public event Action ResidencyChanged;
+        public event Action<ChunkPos,byte[]> ChunkReady;
         public Func<BlockPos,bool> IsOpenMachine;
         public Func<IEnumerable<ChunkPos>> PersistentChunkTickets;
         public void RefreshChunkTickets(){demandChanged=true;nextDemand=0;}
@@ -94,7 +95,7 @@ namespace RivetReach
             if(edits.TryGetValue(p.Chunk,out var e)&&e.TryGetValue(p.Index,out byte b))return b;
             if(chunks.TryGetValue(p.Chunk,out var c)&&c.Cells!=null)
             {int i=p.Index;return c.Cells[ChunkMesher.Index(i%32,i/32%32,i/1024)];}
-            return Generator.At(p);
+            return GeneratorFor(p.Chunk).At(p);
         }
         public bool Solid(BlockPos p) => !Ready(p)||BlockId.Solid(Get(p))&&!(IsOpenMachine?.Invoke(p)??false);
         public Func<BlockPos,bool> CanRemoveMachine;
@@ -140,8 +141,10 @@ namespace RivetReach
         }
         public bool Till(BlockPos p)=>Ready(p.Offset(0,1,0))&&Get(p.Offset(0,1,0))==0&&
             (Get(p)==BlockId.Grass?Change(p,BlockId.Grass,BlockId.Farmland):Change(p,BlockId.Dirt,BlockId.Farmland));
-        public bool Plant(BlockPos p)=>Get(p.Offset(0,-1,0))==BlockId.Farmland&&Change(p,0,BlockId.PotatoPlant);
-        public bool Grow(BlockPos p,byte expected)=>Get(p.Offset(0,-1,0))==BlockId.Farmland&&BlockId.Crop(expected)&&expected<BlockId.MaturePotatoPlant&&Change(p,expected,(byte)(expected+1));
+        public bool Plant(BlockPos p,byte planting=BlockId.Potato)
+        {var crop=CropRules.Planting(planting);return crop!=null&&Get(p.Offset(0,-1,0))==BlockId.Farmland&&Change(p,0,crop.first);}
+        public bool Grow(BlockPos p,byte expected)
+        {var crop=CropRules.For(expected);return crop!=null&&crop.Supports(Get(p.Offset(0,-1,0)))&&expected<crop.Mature&&Change(p,expected,(byte)(expected+1));}
         public bool Uproot(BlockPos p,byte expected)
         {
             if((!BlockId.Crop(expected)&&expected!=BlockId.Sapling)||!Change(p,expected,0,false,false))return false;
@@ -342,7 +345,7 @@ namespace RivetReach
         }
         void Launch(ChunkPos p,Resident c)
         {
-            c.Busy=true;int revision=c.Revision,token=c.Token;var generator=Generator;
+            c.Busy=true;int revision=c.Revision,token=c.Token;var generator=GeneratorFor(p);var haloGenerators=c.Cells==null?PinGeneration(p):null;
             // Immutable edit snapshot prevents worker/main-thread dictionary races.
             var snapshot=c.Cells==null?null:(byte[])c.Cells.Clone();
             if(snapshot==null)GenerationJobs++;else RemeshJobs++;
@@ -359,6 +362,14 @@ namespace RivetReach
                 // Loaded pages already contain current edits and halos. Remesh an immutable
                 // copy; regenerate only genuinely new residency pages.
                 byte[] cells=snapshot??generator.Generate(p,out surfaceMin,out surfaceMax);var min=p.Min;
+                if(snapshot==null&&System.Array.Exists(haloGenerators,g=>g.GenerationVersion!=generator.GenerationVersion))
+                    for(int z=-1;z<=32;z++)for(int y=-1;y<=32;y++)for(int x=-1;x<=32;x++)
+                    {
+                        if(x>=0&&x<32&&y>=0&&y<32&&z>=0&&z<32)continue;
+                        int gx=x<0?0:x>31?2:1,gy=y<0?0:y>31?2:1,gz=z<0?0:z>31?2:1;
+                        var source=haloGenerators[gx+3*(gy+3*gz)];
+                        if(source.GenerationVersion!=generator.GenerationVersion)cells[ChunkMesher.Index(x,y,z)]=source.At(min.Offset(x,y,z));
+                    }
                 foreach(var e in changes)
                 {
                     long x=e.Key.X-min.X,z=e.Key.Z-min.Z;int y=e.Key.Y-min.Y;
@@ -405,7 +416,7 @@ namespace RivetReach
             {c.FluidView.SetActive(visibleFluid);c.FluidView.GetComponent<MeshFilter>().sharedMesh=c.FluidMesh;}
             if(first)
             {
-                FluidSimulation.Ready(result.Position);ResidencyChanged?.Invoke();
+                FluidSimulation.Ready(result.Position);ResidencyChanged?.Invoke();ChunkReady?.Invoke(result.Position,c.Cells);
                 // The worker identifies exposed/unsettled cells. Stable source interiors and
                 // shared source boundaries never enter the scheduled queue on mere residency.
                 var min=result.Position.Min;

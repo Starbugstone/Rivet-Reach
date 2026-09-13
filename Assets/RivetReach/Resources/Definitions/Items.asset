@@ -28,6 +28,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 2
     stableId: rivet:dirt
     displayName: Dirt
@@ -43,6 +44,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 3
     stableId: rivet:stone
     displayName: Stone
@@ -58,6 +60,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 4
     stableId: rivet:log
     displayName: Log
@@ -73,6 +76,8 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags:
+    - burnable
   - runtimeId: 5
     stableId: rivet:leaves
     displayName: Leaves
@@ -88,6 +93,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 6
     stableId: rivet:starter_axe
     displayName: Starter axe
@@ -103,6 +109,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 5
     buoyant: 0
+    tags: []
   - runtimeId: 7
     stableId: rivet:starter_pickaxe
     displayName: Starter pickaxe
@@ -118,6 +125,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 3
     buoyant: 0
+    tags: []
   - runtimeId: 8
     stableId: rivet:starter_dagger
     displayName: Starter dagger
@@ -133,6 +141,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 4
     buoyant: 0
+    tags: []
   - runtimeId: 9
     stableId: rivet:iron_ore
     displayName: Iron ore
@@ -148,6 +157,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 10
     stableId: rivet:copper_ore
     displayName: Copper ore
@@ -163,6 +173,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 11
     stableId: rivet:coal_ore
     displayName: Coal ore
@@ -178,6 +189,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 12
     stableId: rivet:gold_ore
     displayName: Gold ore
@@ -193,6 +205,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 13
     stableId: rivet:diamond_ore
     displayName: Diamond ore
@@ -208,6 +221,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 14
     stableId: rivet:bedrock
     displayName: Bedrock
@@ -223,6 +237,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 15
     stableId: rivet:raw_iron
     displayName: Raw iron
@@ -238,6 +253,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 16
     stableId: rivet:raw_copper
     displayName: Raw copper
@@ -253,6 +269,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 17
     stableId: rivet:coal
     displayName: Coal
@@ -268,6 +285,9 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags:
+    - boiler_fuel
+    - burnable
   - runtimeId: 18
     stableId: rivet:raw_gold
     displayName: Raw gold
@@ -283,6 +303,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 19
     stableId: rivet:diamond
     displayName: Diamond
@@ -298,6 +319,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 20
     stableId: rivet:planks
     displayName: Planks
@@ -313,6 +335,8 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags:
+    - burnable
   - runtimeId: 21
     stableId: rivet:stick
     displayName: Stick
@@ -328,6 +352,8 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags:
+    - burnable
   - runtimeId: 22
     stableId: rivet:cobblestone
     displayName: Cobblestone
@@ -343,6 +369,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 23
     stableId: rivet:workbench
     displayName: Workbench
@@ -358,6 +385,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 24
     stableId: rivet:furnace
     displayName: Furnace
@@ -373,6 +401,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 25
     stableId: rivet:chest
     displayName: Chest
@@ -388,6 +417,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 26
     stableId: rivet:charcoal
     displayName: Charcoal
@@ -403,6 +433,9 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags:
+    - boiler_fuel
+    - burnable
   - runtimeId: 27
     stableId: rivet:copper_ingot
     displayName: Copper ingot
@@ -418,6 +451,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 28
     stableId: rivet:iron_ingot
     displayName: Iron ingot
@@ -433,6 +467,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 29
     stableId: rivet:gold_ingot
     displayName: Gold ingot
@@ -448,6 +483,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 30
     stableId: rivet:potato
     displayName: Potato
@@ -463,6 +499,9 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags:
+    - edible
+    - vegetable
   - runtimeId: 31
     stableId: rivet:baked_potato
     displayName: Baked potato
@@ -478,6 +517,8 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags:
+    - edible
   - runtimeId: 32
     stableId: rivet:farmland
     displayName: Farmland
@@ -493,6 +534,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 33
     stableId: rivet:potato_plant_0
     displayName: Potato seedlings
@@ -508,6 +550,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 34
     stableId: rivet:potato_plant_1
     displayName: Young potatoes
@@ -523,6 +566,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 35
     stableId: rivet:potato_plant_2
     displayName: Flowering potatoes
@@ -538,6 +582,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 36
     stableId: rivet:potato_plant_3
     displayName: Ripe potatoes
@@ -553,6 +598,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 40
     stableId: rivet:wood_axe
     displayName: Wood axe
@@ -568,6 +614,8 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 3
     buoyant: 0
+    tags:
+    - burnable
   - runtimeId: 41
     stableId: rivet:wood_pickaxe
     displayName: Wood pickaxe
@@ -583,6 +631,8 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 2
     buoyant: 0
+    tags:
+    - burnable
   - runtimeId: 42
     stableId: rivet:wood_sword
     displayName: Wood sword
@@ -598,6 +648,8 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 4
     buoyant: 0
+    tags:
+    - burnable
   - runtimeId: 43
     stableId: rivet:wood_shovel
     displayName: Wood shovel
@@ -613,6 +665,8 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 2
     buoyant: 0
+    tags:
+    - burnable
   - runtimeId: 44
     stableId: rivet:wood_hoe
     displayName: Wood hoe
@@ -628,6 +682,8 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 2
     buoyant: 0
+    tags:
+    - burnable
   - runtimeId: 45
     stableId: rivet:stone_axe
     displayName: Stone axe
@@ -643,6 +699,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 4
     buoyant: 0
+    tags: []
   - runtimeId: 46
     stableId: rivet:stone_pickaxe
     displayName: Stone pickaxe
@@ -658,6 +715,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 3
     buoyant: 0
+    tags: []
   - runtimeId: 47
     stableId: rivet:stone_sword
     displayName: Stone sword
@@ -673,6 +731,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 5
     buoyant: 0
+    tags: []
   - runtimeId: 48
     stableId: rivet:stone_shovel
     displayName: Stone shovel
@@ -688,6 +747,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 3
     buoyant: 0
+    tags: []
   - runtimeId: 49
     stableId: rivet:stone_hoe
     displayName: Stone hoe
@@ -703,6 +763,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 3
     buoyant: 0
+    tags: []
   - runtimeId: 50
     stableId: rivet:copper_axe
     displayName: Copper axe
@@ -718,6 +779,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 4
     buoyant: 0
+    tags: []
   - runtimeId: 51
     stableId: rivet:copper_pickaxe
     displayName: Copper pickaxe
@@ -733,6 +795,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 3
     buoyant: 0
+    tags: []
   - runtimeId: 52
     stableId: rivet:copper_sword
     displayName: Copper sword
@@ -748,6 +811,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 5
     buoyant: 0
+    tags: []
   - runtimeId: 53
     stableId: rivet:copper_shovel
     displayName: Copper shovel
@@ -763,6 +827,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 3
     buoyant: 0
+    tags: []
   - runtimeId: 54
     stableId: rivet:copper_hoe
     displayName: Copper hoe
@@ -778,6 +843,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 3
     buoyant: 0
+    tags: []
   - runtimeId: 55
     stableId: rivet:iron_axe
     displayName: Iron axe
@@ -793,6 +859,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 5
     buoyant: 0
+    tags: []
   - runtimeId: 56
     stableId: rivet:iron_pickaxe
     displayName: Iron pickaxe
@@ -808,6 +875,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 4
     buoyant: 0
+    tags: []
   - runtimeId: 57
     stableId: rivet:iron_sword
     displayName: Iron sword
@@ -823,6 +891,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 6
     buoyant: 0
+    tags: []
   - runtimeId: 58
     stableId: rivet:iron_shovel
     displayName: Iron shovel
@@ -838,6 +907,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 4
     buoyant: 0
+    tags: []
   - runtimeId: 59
     stableId: rivet:iron_hoe
     displayName: Iron hoe
@@ -853,6 +923,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 4
     buoyant: 0
+    tags: []
   - runtimeId: 60
     stableId: rivet:diamond_axe
     displayName: Diamond axe
@@ -868,6 +939,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 6
     buoyant: 0
+    tags: []
   - runtimeId: 61
     stableId: rivet:diamond_pickaxe
     displayName: Diamond pickaxe
@@ -883,6 +955,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 5
     buoyant: 0
+    tags: []
   - runtimeId: 62
     stableId: rivet:diamond_sword
     displayName: Diamond sword
@@ -898,6 +971,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 7
     buoyant: 0
+    tags: []
   - runtimeId: 63
     stableId: rivet:diamond_shovel
     displayName: Diamond shovel
@@ -913,6 +987,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 5
     buoyant: 0
+    tags: []
   - runtimeId: 64
     stableId: rivet:diamond_hoe
     displayName: Diamond hoe
@@ -928,6 +1003,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 5
     buoyant: 0
+    tags: []
   - runtimeId: 65
     stableId: rivet:coal_block
     displayName: Coal block
@@ -943,6 +1019,8 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags:
+    - burnable
   - runtimeId: 66
     stableId: rivet:iron_block
     displayName: Iron block
@@ -958,6 +1036,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 67
     stableId: rivet:copper_block
     displayName: Copper block
@@ -973,6 +1052,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 68
     stableId: rivet:gold_block
     displayName: Gold block
@@ -988,6 +1068,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 69
     stableId: rivet:diamond_block
     displayName: Diamond block
@@ -1003,6 +1084,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 70
     stableId: rivet:copper_helmet
     displayName: Copper helmet
@@ -1018,6 +1100,7 @@ MonoBehaviour:
     armorPoints: 2
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 71
     stableId: rivet:copper_chestplate
     displayName: Copper chestplate
@@ -1033,6 +1116,7 @@ MonoBehaviour:
     armorPoints: 5
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 72
     stableId: rivet:copper_leggings
     displayName: Copper leggings
@@ -1048,6 +1132,7 @@ MonoBehaviour:
     armorPoints: 4
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 73
     stableId: rivet:copper_boots
     displayName: Copper boots
@@ -1063,6 +1148,7 @@ MonoBehaviour:
     armorPoints: 1
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 74
     stableId: rivet:iron_helmet
     displayName: Iron helmet
@@ -1078,6 +1164,7 @@ MonoBehaviour:
     armorPoints: 2
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 75
     stableId: rivet:iron_chestplate
     displayName: Iron chestplate
@@ -1093,6 +1180,7 @@ MonoBehaviour:
     armorPoints: 6
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 76
     stableId: rivet:iron_leggings
     displayName: Iron leggings
@@ -1108,6 +1196,7 @@ MonoBehaviour:
     armorPoints: 5
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 77
     stableId: rivet:iron_boots
     displayName: Iron boots
@@ -1123,6 +1212,7 @@ MonoBehaviour:
     armorPoints: 2
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 78
     stableId: rivet:diamond_helmet
     displayName: Diamond helmet
@@ -1138,6 +1228,7 @@ MonoBehaviour:
     armorPoints: 3
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 79
     stableId: rivet:diamond_chestplate
     displayName: Diamond chestplate
@@ -1153,6 +1244,7 @@ MonoBehaviour:
     armorPoints: 8
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 80
     stableId: rivet:diamond_leggings
     displayName: Diamond leggings
@@ -1168,6 +1260,7 @@ MonoBehaviour:
     armorPoints: 6
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 81
     stableId: rivet:diamond_boots
     displayName: Diamond boots
@@ -1183,6 +1276,7 @@ MonoBehaviour:
     armorPoints: 3
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 90
     stableId: rivet:sand
     displayName: Sand
@@ -1198,6 +1292,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 91
     stableId: rivet:sandstone
     displayName: Sandstone
@@ -1213,6 +1308,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 92
     stableId: rivet:snow
     displayName: Snow
@@ -1228,6 +1324,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 93
     stableId: rivet:red_clay
     displayName: Red clay
@@ -1243,6 +1340,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 94
     stableId: rivet:bucket
     displayName: Bucket
@@ -1258,6 +1356,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 95
     stableId: rivet:water_bucket
     displayName: Water bucket
@@ -1273,6 +1372,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 96
     stableId: rivet:torch
     displayName: Torch
@@ -1288,6 +1388,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 1
+    tags: []
   - runtimeId: 120
     stableId: rivet:azure_ore
     displayName: Azure Ore
@@ -1303,6 +1404,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 121
     stableId: rivet:azure_crystal
     displayName: Azure Crystal
@@ -1318,6 +1420,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 122
     stableId: rivet:copper_wire
     displayName: Copper Wire
@@ -1333,6 +1436,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 123
     stableId: rivet:copper_plate
     displayName: Copper Plate
@@ -1348,6 +1452,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 124
     stableId: rivet:iron_plate
     displayName: Iron Plate
@@ -1363,6 +1468,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 125
     stableId: rivet:cog
     displayName: Iron Cog
@@ -1378,6 +1484,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 126
     stableId: rivet:rivets
     displayName: Rivets
@@ -1393,6 +1500,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 127
     stableId: rivet:machine_casing
     displayName: Machine Casing
@@ -1408,6 +1516,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 128
     stableId: rivet:glass
     displayName: Glass
@@ -1423,6 +1532,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 150
     stableId: rivet:crushed_copper
     displayName: Crushed Copper
@@ -1438,6 +1548,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 151
     stableId: rivet:crushed_iron
     displayName: Crushed Iron
@@ -1453,6 +1564,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 152
     stableId: rivet:crushed_gold
     displayName: Crushed Gold
@@ -1468,6 +1580,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 130
     stableId: rivet:machinist_bench
     displayName: Machinist's Bench
@@ -1483,6 +1596,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 131
     stableId: rivet:signal_wire
     displayName: Signal Wire
@@ -1498,6 +1612,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 132
     stableId: rivet:signal_conduit
     displayName: Signal Conduit
@@ -1513,6 +1628,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 138
     stableId: rivet:power_cable
     displayName: Power Cable
@@ -1528,6 +1644,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 146
     stableId: rivet:item_pipe
     displayName: Item Pipe
@@ -1543,6 +1660,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 147
     stableId: rivet:fluid_pipe
     displayName: Fluid Pipe
@@ -1558,6 +1676,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 134
     stableId: rivet:lever
     displayName: Lever
@@ -1573,6 +1692,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 135
     stableId: rivet:button
     displayName: Button
@@ -1588,6 +1708,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 133
     stableId: rivet:signal_relay
     displayName: Signal Relay
@@ -1603,6 +1724,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 136
     stableId: rivet:signal_indicator
     displayName: Signal Indicator
@@ -1618,6 +1740,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 137
     stableId: rivet:workshop_hatch
     displayName: Workshop Hatch
@@ -1633,6 +1756,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 139
     stableId: rivet:workshop_lamp
     displayName: Workshop Lamp
@@ -1648,6 +1772,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 140
     stableId: rivet:boiler_engine
     displayName: Boiler Engine
@@ -1663,6 +1788,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 141
     stableId: rivet:alternator
     displayName: Alternator
@@ -1678,6 +1804,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 142
     stableId: rivet:crusher
     displayName: Crusher
@@ -1693,6 +1820,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 143
     stableId: rivet:pump
     displayName: Pump
@@ -1708,6 +1836,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 144
     stableId: rivet:drill
     displayName: Drill
@@ -1723,6 +1852,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 145
     stableId: rivet:water_tank
     displayName: Water Tank
@@ -1738,6 +1868,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 148
     stableId: rivet:extractor
     displayName: Extractor
@@ -1753,6 +1884,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 149
     stableId: rivet:inventory_sensor
     displayName: Inventory Sensor
@@ -1768,6 +1900,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 160
     stableId: rivet:tank_frame
     displayName: Reinforced Tank Frame
@@ -1783,6 +1916,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 161
     stableId: rivet:tank_wall
     displayName: Tank Wall
@@ -1798,6 +1932,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 162
     stableId: rivet:tank_glass
     displayName: Reinforced Tank Glass
@@ -1813,6 +1948,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 163
     stableId: rivet:tank_controller
     displayName: Tank Controller
@@ -1828,6 +1964,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 164
     stableId: rivet:tank_port
     displayName: Tank Fluid Port
@@ -1843,6 +1980,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 165
     stableId: rivet:tank_hatch
     displayName: Tank Access Hatch
@@ -1858,6 +1996,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 166
     stableId: rivet:tank_valve
     displayName: Signal Valve Port
@@ -1873,6 +2012,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 167
     stableId: rivet:tank_sensor
     displayName: Tank Level Sensor
@@ -1888,6 +2028,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 168
     stableId: rivet:battery_block
     displayName: Battery Block
@@ -1903,6 +2044,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 169
     stableId: rivet:battery_controller
     displayName: Battery Bank Controller
@@ -1918,6 +2060,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 170
     stableId: rivet:hand_crank
     displayName: Hand Crank
@@ -1933,6 +2076,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 97
     stableId: rivet:sapling
     displayName: Sapling
@@ -1948,6 +2092,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 1
+    tags: []
   - runtimeId: 98
     stableId: rivet:apple
     displayName: Apple
@@ -1963,6 +2108,9 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 1
+    tags:
+    - edible
+    - fruit
   - runtimeId: 171
     stableId: rivet:wooden_door
     displayName: Wooden Door
@@ -1978,6 +2126,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 173
     stableId: rivet:wrench
     displayName: Wrench
@@ -1993,6 +2142,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 174
     stableId: rivet:electric_furnace
     displayName: Electric Furnace
@@ -2008,6 +2158,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 99
     stableId: rivet:lava_bucket
     displayName: Lava bucket
@@ -2023,6 +2174,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 175
     stableId: rivet:floater_rock
     displayName: Floater Rock
@@ -2038,6 +2190,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 180
     stableId: rivet:ranged_liquid_pump
     displayName: Ranged Liquid Pump
@@ -2053,6 +2206,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 190
     stableId: rivet:item_bridge
     displayName: Item Bridge
@@ -2068,6 +2222,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 191
     stableId: rivet:liquid_bridge
     displayName: Liquid Bridge
@@ -2083,6 +2238,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 192
     stableId: rivet:power_bridge
     displayName: Power Bridge
@@ -2098,6 +2254,7 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
   - runtimeId: 193
     stableId: rivet:chunk_loader
     displayName: Chunk Loader
@@ -2113,3 +2270,588 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+    tags: []
+  - runtimeId: 220
+    stableId: rivet:wheat_seed
+    displayName: Wheat Seeds
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags:
+    - seed
+  - runtimeId: 221
+    stableId: rivet:grain
+    displayName: Grain
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags:
+    - grain
+  - runtimeId: 222
+    stableId: rivet:flax_seed
+    displayName: Flax Seeds
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags:
+    - seed
+  - runtimeId: 223
+    stableId: rivet:flax_fibre
+    displayName: Flax Fibre
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags:
+    - fibre
+  - runtimeId: 224
+    stableId: rivet:string
+    displayName: String
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags:
+    - cordage
+  - runtimeId: 225
+    stableId: rivet:cloth
+    displayName: Cloth
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags:
+    - fabric
+  - runtimeId: 226
+    stableId: rivet:carrot_seed
+    displayName: Carrot Seeds
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags:
+    - seed
+  - runtimeId: 227
+    stableId: rivet:carrot
+    displayName: Carrot
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 2
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags:
+    - edible
+    - vegetable
+  - runtimeId: 228
+    stableId: rivet:berry_seed
+    displayName: Berry Seeds
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags:
+    - seed
+  - runtimeId: 229
+    stableId: rivet:berries
+    displayName: Berries
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 1
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags:
+    - edible
+    - fruit
+  - runtimeId: 230
+    stableId: rivet:mushroom
+    displayName: Mushroom
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 1
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags:
+    - edible
+    - mushroom
+  - runtimeId: 231
+    stableId: rivet:bread
+    displayName: Bread
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 7
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags:
+    - edible
+    - prepared_food
+  - runtimeId: 232
+    stableId: rivet:roast_carrot
+    displayName: Roasted Carrot
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 5
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags:
+    - edible
+    - prepared_food
+  - runtimeId: 233
+    stableId: rivet:vegetable_stew
+    displayName: Vegetable Stew
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 12
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags:
+    - edible
+    - prepared_food
+  - runtimeId: 234
+    stableId: rivet:cooked_mushroom
+    displayName: Cooked Mushrooms
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 4
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags:
+    - edible
+    - prepared_food
+  - runtimeId: 235
+    stableId: rivet:fruit_porridge
+    displayName: Fruit Porridge
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 9
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags:
+    - edible
+    - prepared_food
+  - runtimeId: 200
+    stableId: rivet:wheat_plant_0
+    displayName: "Wheat \xB7 Stage 1"
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags: []
+  - runtimeId: 201
+    stableId: rivet:wheat_plant_1
+    displayName: "Wheat \xB7 Stage 2"
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags: []
+  - runtimeId: 202
+    stableId: rivet:wheat_plant_2
+    displayName: "Wheat \xB7 Stage 3"
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags: []
+  - runtimeId: 203
+    stableId: rivet:wheat_plant_3
+    displayName: "Wheat \xB7 Mature"
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags: []
+  - runtimeId: 204
+    stableId: rivet:flax_plant_0
+    displayName: "Flax \xB7 Stage 1"
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags: []
+  - runtimeId: 205
+    stableId: rivet:flax_plant_1
+    displayName: "Flax \xB7 Stage 2"
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags: []
+  - runtimeId: 206
+    stableId: rivet:flax_plant_2
+    displayName: "Flax \xB7 Stage 3"
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags: []
+  - runtimeId: 207
+    stableId: rivet:flax_plant_3
+    displayName: "Flax \xB7 Mature"
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags: []
+  - runtimeId: 208
+    stableId: rivet:carrot_plant_0
+    displayName: "Carrot \xB7 Stage 1"
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags: []
+  - runtimeId: 209
+    stableId: rivet:carrot_plant_1
+    displayName: "Carrot \xB7 Stage 2"
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags: []
+  - runtimeId: 210
+    stableId: rivet:carrot_plant_2
+    displayName: "Carrot \xB7 Stage 3"
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags: []
+  - runtimeId: 211
+    stableId: rivet:carrot_plant_3
+    displayName: "Carrot \xB7 Mature"
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags: []
+  - runtimeId: 212
+    stableId: rivet:berry_plant_0
+    displayName: "Berry \xB7 Stage 1"
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags: []
+  - runtimeId: 213
+    stableId: rivet:berry_plant_1
+    displayName: "Berry \xB7 Stage 2"
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags: []
+  - runtimeId: 214
+    stableId: rivet:berry_plant_2
+    displayName: "Berry \xB7 Stage 3"
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags: []
+  - runtimeId: 215
+    stableId: rivet:berry_plant_3
+    displayName: "Berry \xB7 Mature"
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags: []
+  - runtimeId: 216
+    stableId: rivet:mushroom_plant_0
+    displayName: Mushroom Cluster
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags: []
+  - runtimeId: 240
+    stableId: rivet:cooker
+    displayName: Cooker
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags: []
+  - runtimeId: 241
+    stableId: rivet:electric_cooker
+    displayName: Electric Cooker
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags: []

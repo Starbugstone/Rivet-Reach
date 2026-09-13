@@ -47,7 +47,7 @@ class Reference:
             output = recipe['output']['item']
             self.outputs[output].append(recipe)
             self.numbers[recipe['id']] = len(self.outputs[output])
-            for item_id in {i['item'] for i in recipe['ingredients'] if i['item']}:
+            for item_id in ({i['item'] for i in recipe['ingredients'] if i['item']} | {choice for entry in (recipe.get('foodIngredients') or []) for choice in entry['choices']}):
                 self.uses[item_id].append(recipe)
             if recipe['station']:
                 self.stations[recipe['station']].append(recipe)
@@ -180,13 +180,20 @@ class Reference:
         for entry in recipe['ingredients']:
             if entry['item']:
                 totals[entry['item']] += entry['count']
-        for item_id, count in totals.items():
-            lines.append(f'| {self.icon(item_id, 32)} {self.link(item_id)} | {count} |')
+        if recipe.get('foodIngredients'):
+            for entry in recipe['foodIngredients']:
+                choices = ' / '.join(self.icon(i, 32) + ' ' + self.link(i) for i in entry['choices'])
+                tag = ('**' + entry['selector'] + '**: ') if entry['selector'].startswith('#') else ''
+                lines.append(f'| {tag}{choices} | {entry["count"]} |')
+            lines += ['', 'For tagged ingredients, any listed item counts; combinations and split stacks are accepted. Select this recipe on the cooker.', '']
+        else:
+            for item_id, count in totals.items():
+                lines.append(f'| {self.icon(item_id, 32)} {self.link(item_id)} | {count} |')
         lines.append('')
         if recipe['fuels']:
-            lines += ['**Fuel:** add furnace fuel separately; it is not a crafting ingredient. ' +
+            lines += ['**Fuel:** add burnable fuel separately; it is not a crafting ingredient. ' +
                       ' · '.join(self.icon(f, 32) + ' ' + self.link(f) for f in recipe['fuels']) + '.', '',
-                      'Fuel burns down after ignition even if the input runs out. See the ' + self.link(station) + ' page for fuel durations.', '']
+                      ('Cookers retain unused heat while blocked or idle. ' if recipe.get('foodIngredients') else 'Fuel burns down after ignition even if the input runs out. ') + 'See the ' + self.link(station) + ' page for fuel durations.', '']
         return lines
 
     def recipe_links(self, recipes):
@@ -207,6 +214,8 @@ class Reference:
                  (' · [Recipes made here](#recipes-made-here)' if self.stations[item_id] else ''), '',
                  self.icon(item_id, 96), '', self.description(item_id), '', '## At a glance', '',
                  '| Property | Value |', '|---|---|', f'| Stack size | {d["stackLimit"]} |']
+        if d.get('tags'):
+            lines += ['| Tags | ' + ', '.join('`' + tag + '`' for tag in d['tags']) + ' |']
         if d['toolCapabilities']:
             lines += [f'| Tool tier | {["None", "Wood", "Stone", "Copper", "Iron", "Diamond"][d["tier"]]} |',
                       f'| Effective mining speed | {d["miningSpeed"]:g}× on suitable blocks |',
@@ -244,14 +253,14 @@ class Reference:
             lines += ['## Recipes made here', '', 'The station is reusable; it is not consumed by these recipes.', ''] + self.recipe_links(self.stations[item_id])
         if self.fuels[item_id]:
             lines += ['## Furnace fuel', '', f'One item supplies **{item["fuelTicks"] / self.catalog["ticksPerSecond"]:g} seconds** of burning fuel. ' +
-                      'Use it in a ' + self.link('rivet:furnace') + ' for smelting or cooking.', '']
-        if item_id == 'rivet:furnace':
+                      'Use it in a ' + self.link('rivet:furnace') + ' or ' + self.link('rivet:cooker') + ' for smelting or cooking.', '']
+        if item_id in ('rivet:furnace', 'rivet:cooker'):
             lines += ['## Fuel durations', '', '| Fuel | Seconds per item |', '|---|---:|']
             for fuel, entry in self.items.items():
                 if entry['fuelTicks']:
                     lines.append(f'| {self.icon(fuel, 32)} {self.link(fuel)} | {entry["fuelTicks"] / self.catalog["ticksPerSecond"]:g} |')
             lines += ['']
-        return '\n'.join(lines)
+        return '\n'.join(lines).rstrip() + '\n'
 
     def index(self):
         groups = defaultdict(list)
@@ -287,7 +296,7 @@ class Reference:
                  '4. Place the workbench and open it with **E or right-click**. Make ' + self.link('rivet:stick') + ' and a ' + self.link('rivet:wood_pickaxe') + '.',
                  '5. Mine stone for ' + self.link('rivet:cobblestone') + ', then make better tools and a ' + self.link('rivet:furnace') + '.', '',
                  '## Crafting stations', '', '| Station | Grid or process |', '|---|---|', '| Personal crafting | 2×2 in your inventory |']
-        for item_id, text in [('rivet:workbench', '3×3'), ('rivet:machinist_bench', '4×4'), ('rivet:furnace', 'Fuel-driven smelting and cooking'), ('rivet:electric_furnace', 'Electric smelting and cooking · 200 W'), ('rivet:crusher', 'Powered ore processing')]:
+        for item_id, text in [('rivet:workbench', '3×3'), ('rivet:machinist_bench', '4×4'), ('rivet:furnace', 'Fuel-driven smelting and cooking'), ('rivet:electric_furnace', 'Electric smelting and cooking · 200 W'), ('rivet:crusher', 'Powered ore processing'), ('rivet:cooker', 'Food recipes with fuel'), ('rivet:electric_cooker', 'Food recipes with electricity')]:
             lines += [f'| {self.icon(item_id, 48, True)} | {text} |']
         lines += ['', '## How to read a recipe', '',
                   '- **Shaped:** match the icon positions. Blank cells stay empty. Patterns may move inside a compatible grid; horizontal mirroring is allowed only where the recipe says so.',
@@ -300,7 +309,7 @@ class Reference:
                   '![The recipe preview outlines missing coal while the available stick remains unmarked](images/missing-torch-ingredient-2026-09-12.png)', '',
                   '*In-game capture, 2026-09-12: this torch variant needs coal; charcoal belongs to a different recipe variant.*', '',
                   '## Browse recipes by station', '', 'Choose a result below to open its item page at the exact recipe.', '']
-        headings = [('', 'Personal crafting — 2×2'), ('rivet:workbench', 'Workbench — 3×3'), ('rivet:machinist_bench', "Machinist’s Bench — 4×4"), ('rivet:furnace', 'Furnace processing'), ('rivet:electric_furnace', 'Electric furnace processing'), ('rivet:crusher', 'Crusher processing')]
+        headings = [('', 'Personal crafting — 2×2'), ('rivet:workbench', 'Workbench — 3×3'), ('rivet:machinist_bench', "Machinist’s Bench — 4×4"), ('rivet:furnace', 'Furnace processing'), ('rivet:electric_furnace', 'Electric furnace processing'), ('rivet:crusher', 'Crusher processing'), ('rivet:cooker', 'Cooker recipes'), ('rivet:electric_cooker', 'Electric cooker recipes')]
         for station, heading in headings:
             recipes = [r for r in self.catalog['recipes'] if r['station'] == station]
             lines += ['## ' + heading, ''] + self.recipe_links(recipes)

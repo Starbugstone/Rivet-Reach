@@ -72,6 +72,7 @@ namespace RivetReach
             }
             foreach(var plant in plants)
             {
+                if(FarmingMeshes.Append(plant.id,plant.position+new Vector3(.5f,0,.5f),vertices,normals,uv,tiles,indices))continue;
                 float h=plant.id==BlockId.Sapling?.8f:.22f+(plant.id-BlockId.PotatoPlant)*.16f;var centre=plant.position+new Vector3(.5f,0,.5f);
                 void Leaf(Vector3 a,Vector3 b,Vector3 c,Vector3 d,bool stem=false)
                 {

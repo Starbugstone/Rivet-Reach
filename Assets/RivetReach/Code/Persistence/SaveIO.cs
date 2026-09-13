@@ -69,7 +69,7 @@ namespace RivetReach
     }
     public sealed class SaveStore
     {
-        public const int Format=9;
+        public const int Format=10;
         const int MaxBytes=256*1024*1024;
         public string DirectoryPath {get;}
         readonly ItemRegistry registry;
@@ -82,16 +82,26 @@ namespace RivetReach
             // Schema 1/2 predate orchard state; doors and crank are independent additive content.
             // Every definition present before each accepted extension must still match.
             var processing=ProcessingCatalogAsset.Load();
-            string Fingerprint(int legacy,bool orchard=false,bool wrench=false,bool electric=false,bool lava=false,bool floater=false,bool bridges=false,bool ranged=false)
+            string Fingerprint(int legacy,bool orchard=false,bool wrench=false,bool electric=false,bool lava=false,bool floater=false,bool bridges=false,bool ranged=false,bool farming=false)
             {
-                string definitions=string.Join("\n",registry.items.Where(i=>(ranged||i.stableId!="rivet:ranged_liquid_pump")&&(bridges||i.runtimeId<IndustryId.ItemBridge||i.runtimeId>IndustryId.ChunkLoader)&&(floater||i.stableId!="rivet:floater_rock")&&(lava||i.stableId!="rivet:lava_bucket")&&(electric||i.stableId!="rivet:electric_furnace")&&(wrench||i.stableId!="rivet:wrench")&&(orchard||i.stableId!="rivet:sapling"&&i.stableId!="rivet:apple")&&((legacy&2)==0||i.stableId!="rivet:hand_crank")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.runtimeId).Select(i=>JsonUtility.ToJson(i)))
+                string definitions=string.Join("\n",registry.items.Where(i=>(farming||!FarmId.Added(i.runtimeId))&&(ranged||i.stableId!="rivet:ranged_liquid_pump")&&(bridges||i.runtimeId<IndustryId.ItemBridge||i.runtimeId>IndustryId.ChunkLoader)&&(floater||i.stableId!="rivet:floater_rock")&&(lava||i.stableId!="rivet:lava_bucket")&&(electric||i.stableId!="rivet:electric_furnace")&&(wrench||i.stableId!="rivet:wrench")&&(orchard||i.stableId!="rivet:sapling"&&i.stableId!="rivet:apple")&&((legacy&2)==0||i.stableId!="rivet:hand_crank")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.runtimeId).Select(i=>ItemFingerprint(i,farming)))
                     +string.Join("\n",processing.recipes.OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
                     +string.Join("\n",processing.fuels.OrderBy(i=>i.itemId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
-                    +string.Join("\n",RecipeCatalogAsset.Load().recipes.Where(i=>(ranged||i.stableId!="rivet:industry_180")&&(bridges||!new[]{"rivet:industry_190","rivet:industry_191","rivet:industry_192","rivet:industry_193"}.Contains(i.stableId))&&(electric||i.stableId!="rivet:industry_174")&&(wrench||i.stableId!="rivet:wrench")&&((legacy&2)==0||i.stableId!="rivet:industry_170")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
+                    +string.Join("\n",RecipeCatalogAsset.Load().recipes.Where(i=>(farming||!i.stableId.StartsWith("rivet:farm_",StringComparison.Ordinal))&&(ranged||i.stableId!="rivet:industry_180")&&(bridges||!new[]{"rivet:industry_190","rivet:industry_191","rivet:industry_192","rivet:industry_193"}.Contains(i.stableId))&&(electric||i.stableId!="rivet:industry_174")&&(wrench||i.stableId!="rivet:wrench")&&((legacy&2)==0||i.stableId!="rivet:industry_170")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
                     +string.Join("\n",Resources.LoadAll<MobDefinition>("Mobs/Definitions").Where(i=>floater||i.stableId!="rivet:floater").OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>MobFingerprint(i,floater)));
+                if(farming&&registry.items.Any(i=>i.runtimeId==FarmId.Cooker))definitions+=Resources.Load<TextAsset>("Definitions/Cooking").text+Resources.Load<TextAsset>("Definitions/Crops").text;
                 return Convert.ToBase64String(Hash(Encoding.UTF8.GetBytes(definitions)));
             }
-            content=Fingerprint(0,true,true,true,true,true,true,true);modernContent.Add(content);modernContent.Add(Fingerprint(0,true,true,true,true,true,true,false));modernContent.Add(Fingerprint(0,true,true,true,true,true,false,true));modernContent.Add(Fingerprint(0,true,true,true,true,true));modernContent.Add(Fingerprint(0,true,true,true,true));modernContent.Add(Fingerprint(0,true,true,false,true));modernContent.Add(Fingerprint(0,true,true,false,true,true,true));modernContent.Add(Fingerprint(0,true,true,true));modernContent.Add(Fingerprint(0,true,true));for(int legacy=0;legacy<4;legacy++){legacyContent.Add(Fingerprint(legacy));currentContent.Add(Fingerprint(legacy,true));}
+            content=Fingerprint(0,true,true,true,true,true,true,true,true);
+            for(int mask=0;mask<32;mask++)modernContent.Add(Fingerprint(0,true,true,(mask&1)!=0,(mask&2)!=0,(mask&4)!=0,(mask&8)!=0,(mask&16)!=0,true));
+            modernContent.Add(Fingerprint(0,true,true,true,true,true,true,true));modernContent.Add(content);modernContent.Add(Fingerprint(0,true,true,true,true,true,true,false));modernContent.Add(Fingerprint(0,true,true,true,true,true,false,true));modernContent.Add(Fingerprint(0,true,true,true,true,true));modernContent.Add(Fingerprint(0,true,true,true,true));modernContent.Add(Fingerprint(0,true,true,false,true));modernContent.Add(Fingerprint(0,true,true,false,true,true,true));modernContent.Add(Fingerprint(0,true,true,true));modernContent.Add(Fingerprint(0,true,true));for(int legacy=0;legacy<4;legacy++){legacyContent.Add(Fingerprint(legacy));currentContent.Add(Fingerprint(legacy,true));}
+        }
+        static string ItemFingerprint(ItemDefinition definition,bool farming)
+        {
+            string json=JsonUtility.ToJson(definition);if(farming)return json;
+            int suffix=json.LastIndexOf(",\"tags\":",StringComparison.Ordinal);
+            if(suffix<0)throw new InvalidOperationException("Missing item tag compatibility projection.");
+            return json.Substring(0,suffix)+"}";
         }
         // Older saves hashed the exact original fields. Strip only the appended extension;
         // keep every original mob/item/recipe field in compatibility checks.
@@ -128,7 +138,7 @@ namespace RivetReach
                 entry=new SaveEntry{Id=r.Text(32),Name=r.Text(48),WorldId=r.Text(32),UtcTicks=r.Long(1,DateTime.MaxValue.Ticks),Seed=r.ReadInt32()};
                 SaveReader.Require(Guid.TryParseExact(entry.Id,"N",out _)&&Guid.TryParseExact(entry.WorldId,"N",out _)&&!string.IsNullOrWhiteSpace(entry.Name),"Invalid save identity.");
                 entry.GeneratorVersion=r.Text();
-                SaveReader.Require(entry.GeneratorVersion==TerrainGenerator.Version||entry.GeneratorVersion==TerrainGenerator.LegacyVersion,"This save requires a different terrain generator.");
+                SaveReader.Require(TerrainGenerator.Supported(entry.GeneratorVersion),"This save requires a different terrain generator.");
                 string savedContent=r.Text();
                 SaveReader.Require(format>=4?modernContent.Contains(savedContent):format==3?currentContent.Contains(savedContent):legacyContent.Contains(savedContent),"This save requires different content definitions; migration is not available.");
                 return r;

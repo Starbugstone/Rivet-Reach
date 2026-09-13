@@ -28,7 +28,7 @@ namespace RivetReach
         public const byte CoalBlock=65,IronBlock=66,CopperBlock=67,GoldBlock=68,DiamondBlock=69;
         public static bool Ore(byte id)=>id>=IronOre&&id<=DiamondOre||id==IndustryId.AzureOre;
         public static bool RawMaterial(byte id)=>id>=RawIron&&id<=Diamond;
-        public static bool Crop(byte id)=>id>=PotatoPlant&&id<=MaturePotatoPlant;
+        public static bool Crop(byte id)=>CropRules.For(id)!=null;
         public static bool Station(byte id)=>id==Workbench||id==Furnace||id==Chest||id==IndustryId.Bench;
         public static ToolTier RequiredTier(byte id)=>id==IndustryId.AzureOre?ToolTier.Copper:id==DiamondOre||id==GoldOre||id==GoldBlock||id==DiamondBlock?ToolTier.Iron:
             id==IronOre||id==CopperOre||id==IronBlock||id==CopperBlock?ToolTier.Stone:
@@ -36,7 +36,7 @@ namespace RivetReach
         public static bool Mineable(byte id,ToolCapability tool,ToolTier tier=ToolTier.Diamond)=>id!=Air&&id!=Bedrock&&(Placeable(id)||id==IndustryId.DoorUpper||Ore(id)||id==Farmland||Crop(id))&&
             (RequiredTier(id)==ToolTier.None||(tool&ToolCapability.Pickaxe)!=0&&tier>=RequiredTier(id));
         public static string MiningHint(byte id,ToolCapability tool,ToolTier tier=ToolTier.Diamond)=>id==Bedrock?"Unbreakable":!Mineable(id,tool,tier)&&RequiredTier(id)!=ToolTier.None?"Requires "+RequiredTier(id).ToString().ToLowerInvariant()+" pickaxe or better":"";
-        public static bool GrowingPlant(byte id)=>id==Sapling||Crop(id)&&id<MaturePotatoPlant;
+        public static bool GrowingPlant(byte id)=>id==Sapling||CropRules.For(id) is CropDefinition crop&&id<crop.Mature;
         public static bool SaplingSoil(byte id)=>id==Grass||id==Dirt;
         public static bool Placeable(byte id)=>id==Sapling||IndustryId.Placed(id)||id==Torch||id>=Grass&&id<=Leaves||BiomeBlock(id)||id==Planks||id==Cobblestone||Station(id)||id>=CoalBlock&&id<=DiamondBlock;
         public static bool Solid(byte id)=>id!=Air&&id!=Torch&&id!=Sapling&&!IndustryId.Thin(id)&&!Crop(id)&&!Fluids.IsFluid(id);
@@ -63,6 +63,7 @@ namespace RivetReach
         public int armorPoints;
         public int attackDamage=1;
         public bool buoyant;
+        public string[] tags=Array.Empty<string>();
     }
 
     [CreateAssetMenu(menuName="Rivet Reach/Block and item registry")]
@@ -95,6 +96,8 @@ namespace RivetReach
             }
             byId=ids;byStableId=stable;
         }
+        public bool HasTag(byte id,string tag)=>id!=0&&Array.IndexOf(Get(id).tags??Array.Empty<string>(),tag)>=0;
+        public int FoodPoints(byte id)=>HasTag(id,"edible")?Get(id).foodPoints:0;
         public ItemDefinition Get(byte id)
         {
             if(byId==null)BuildIndex();

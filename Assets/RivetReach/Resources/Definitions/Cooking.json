@@ -1,0 +1,91 @@
+{
+  "electricWatts": 200,
+  "recipes": [
+    {
+      "id": "rivet:cook_bread",
+      "name": "Bread",
+      "output": 231,
+      "count": 1,
+      "ticks": 200,
+      "ingredients": [
+        {
+          "selector": "rivet:grain",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "id": "rivet:cook_baked_potato",
+      "name": "Baked Potato",
+      "output": 31,
+      "count": 1,
+      "ticks": 200,
+      "ingredients": [
+        {
+          "selector": "rivet:potato",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "rivet:cook_roast_carrot",
+      "name": "Roasted Carrot",
+      "output": 232,
+      "count": 1,
+      "ticks": 200,
+      "ingredients": [
+        {
+          "selector": "rivet:carrot",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "rivet:cook_cooked_mushroom",
+      "name": "Cooked Mushrooms",
+      "output": 234,
+      "count": 1,
+      "ticks": 200,
+      "ingredients": [
+        {
+          "selector": "rivet:mushroom",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "rivet:cook_vegetable_stew",
+      "name": "Vegetable Stew",
+      "output": 233,
+      "count": 1,
+      "ticks": 200,
+      "ingredients": [
+        {
+          "selector": "#vegetable",
+          "count": 2
+        },
+        {
+          "selector": "#mushroom",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "rivet:cook_fruit_porridge",
+      "name": "Fruit Porridge",
+      "output": 235,
+      "count": 1,
+      "ticks": 200,
+      "ingredients": [
+        {
+          "selector": "#grain",
+          "count": 1
+        },
+        {
+          "selector": "#fruit",
+          "count": 1
+        }
+      ]
+    }
+  ]
+}

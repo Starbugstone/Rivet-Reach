@@ -59,7 +59,7 @@ namespace RivetReach
         }
         bool ClickStationSlot(int index,bool right,bool shift)
         {
-            if(index>=MachineSlotStart&&index<MachineSlotStart+3&&game.OpenMachine!=null){int slot=index-MachineSlotStart;if(shift&&HeldStack.Empty)game.OpenMachine.Items.TransferTo(slot,game.Inventory);else game.OpenMachine.Click(slot,ref HeldStack,right);return true;}
+            if(index>=MachineSlotStart&&game.OpenMachine!=null&&index<MachineSlotStart+game.OpenMachine.Items.Count){int slot=index-MachineSlotStart;if(shift&&HeldStack.Empty)game.OpenMachine.Items.TransferTo(slot,game.Inventory);else game.OpenMachine.Click(slot,ref HeldStack,right);return true;}
             if(index>=ArmorSlotStart&&index<ArmorSlotStart+4)
             {
                 int slot=index-ArmorSlotStart;

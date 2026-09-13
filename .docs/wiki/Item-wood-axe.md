@@ -15,6 +15,7 @@ Chops wood faster and fells connected tree sections above the cut. Tools current
 | Property | Value |
 |---|---|
 | Stack size | 1 |
+| Tags | `burnable` |
 | Tool tier | Wood |
 | Effective mining speed | 2× on suitable blocks |
 | Melee damage | 3 |
@@ -59,4 +60,4 @@ Make this item using the crafting or processing recipes below.
 
 ## Furnace fuel
 
-One item supplies **10 seconds** of burning fuel. Use it in a [Furnace](Item-furnace.md) for smelting or cooking.
+One item supplies **10 seconds** of burning fuel. Use it in a [Furnace](Item-furnace.md) or [Cooker](Item-cooker.md) for smelting or cooking.

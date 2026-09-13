@@ -15,6 +15,7 @@ Wood converted into fuel. It works as an alternative to coal in torches, furnace
 | Property | Value |
 |---|---|
 | Stack size | 64 |
+| Tags | `boiler_fuel`, `burnable` |
 | Furnace fuel duration | 80 seconds |
 
 ## How to obtain
@@ -35,7 +36,7 @@ Make this item using the crafting or processing recipes below.
 |---|---:|
 | <a href="Item-log.md" title="Log"><img src="icons/4.png" width="32" height="32" alt="Log"></a> [Log](Item-log.md) | 1 |
 
-**Fuel:** add furnace fuel separately; it is not a crafting ingredient. <a href="Item-log.md" title="Log"><img src="icons/4.png" width="32" height="32" alt="Log"></a> [Log](Item-log.md) · <a href="Item-coal.md" title="Coal"><img src="icons/17.png" width="32" height="32" alt="Coal"></a> [Coal](Item-coal.md) · <a href="Item-planks.md" title="Planks"><img src="icons/20.png" width="32" height="32" alt="Planks"></a> [Planks](Item-planks.md) · <a href="Item-stick.md" title="Stick"><img src="icons/21.png" width="32" height="32" alt="Stick"></a> [Stick](Item-stick.md) · <a href="Item-charcoal.md" title="Charcoal"><img src="icons/26.png" width="32" height="32" alt="Charcoal"></a> [Charcoal](Item-charcoal.md) · <a href="Item-wood-axe.md" title="Wood axe"><img src="icons/40.png" width="32" height="32" alt="Wood axe"></a> [Wood axe](Item-wood-axe.md) · <a href="Item-wood-pickaxe.md" title="Wood pickaxe"><img src="icons/41.png" width="32" height="32" alt="Wood pickaxe"></a> [Wood pickaxe](Item-wood-pickaxe.md) · <a href="Item-wood-sword.md" title="Wood sword"><img src="icons/42.png" width="32" height="32" alt="Wood sword"></a> [Wood sword](Item-wood-sword.md) · <a href="Item-wood-shovel.md" title="Wood shovel"><img src="icons/43.png" width="32" height="32" alt="Wood shovel"></a> [Wood shovel](Item-wood-shovel.md) · <a href="Item-wood-hoe.md" title="Wood hoe"><img src="icons/44.png" width="32" height="32" alt="Wood hoe"></a> [Wood hoe](Item-wood-hoe.md) · <a href="Item-coal-block.md" title="Coal block"><img src="icons/65.png" width="32" height="32" alt="Coal block"></a> [Coal block](Item-coal-block.md).
+**Fuel:** add burnable fuel separately; it is not a crafting ingredient. <a href="Item-log.md" title="Log"><img src="icons/4.png" width="32" height="32" alt="Log"></a> [Log](Item-log.md) · <a href="Item-coal.md" title="Coal"><img src="icons/17.png" width="32" height="32" alt="Coal"></a> [Coal](Item-coal.md) · <a href="Item-planks.md" title="Planks"><img src="icons/20.png" width="32" height="32" alt="Planks"></a> [Planks](Item-planks.md) · <a href="Item-stick.md" title="Stick"><img src="icons/21.png" width="32" height="32" alt="Stick"></a> [Stick](Item-stick.md) · <a href="Item-charcoal.md" title="Charcoal"><img src="icons/26.png" width="32" height="32" alt="Charcoal"></a> [Charcoal](Item-charcoal.md) · <a href="Item-wood-axe.md" title="Wood axe"><img src="icons/40.png" width="32" height="32" alt="Wood axe"></a> [Wood axe](Item-wood-axe.md) · <a href="Item-wood-pickaxe.md" title="Wood pickaxe"><img src="icons/41.png" width="32" height="32" alt="Wood pickaxe"></a> [Wood pickaxe](Item-wood-pickaxe.md) · <a href="Item-wood-sword.md" title="Wood sword"><img src="icons/42.png" width="32" height="32" alt="Wood sword"></a> [Wood sword](Item-wood-sword.md) · <a href="Item-wood-shovel.md" title="Wood shovel"><img src="icons/43.png" width="32" height="32" alt="Wood shovel"></a> [Wood shovel](Item-wood-shovel.md) · <a href="Item-wood-hoe.md" title="Wood hoe"><img src="icons/44.png" width="32" height="32" alt="Wood hoe"></a> [Wood hoe](Item-wood-hoe.md) · <a href="Item-coal-block.md" title="Coal block"><img src="icons/65.png" width="32" height="32" alt="Coal block"></a> [Coal block](Item-coal-block.md).
 
 Fuel burns down after ignition even if the input runs out. See the [Furnace](Item-furnace.md) page for fuel durations.
 
@@ -61,4 +62,4 @@ Follow a result to see its complete ingredients and recipe.
 
 ## Furnace fuel
 
-One item supplies **80 seconds** of burning fuel. Use it in a [Furnace](Item-furnace.md) for smelting or cooking.
+One item supplies **80 seconds** of burning fuel. Use it in a [Furnace](Item-furnace.md) or [Cooker](Item-cooker.md) for smelting or cooking.

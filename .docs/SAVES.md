@@ -104,3 +104,13 @@ Schemas **1–7** keep their previous byte layouts: absent carried contents init
 ## Ranged pump compatibility — 2026-09-13
 
 [RANGED_PUMP.md](RANGED_PUMP.md) adds a machine without new serialized fields. Its registered liquid type, exact buffer, partial work and removed sources use existing records. Additive compatibility omits only its item and recipe for earlier checkpoints while retaining all pre-existing content checks. Search caches rebuild after load without offline production.
+
+## Generated-chunk policy — 2026-09-13
+
+**Hard user rule for every future update:** new terrain content appears only in previously ungenerated chunks. Do not upgrade or retrofit existing terrain. This supersedes earlier statements pinning all future exploration to one saved world-wide generator. Each generated chunk retains its generation version, including chunks whose boundary cells have been sampled for neighboring meshes. Unseen chunks use the latest supported generation. Point reads, mesh interiors and halos resolve the same saved per-chunk version; worker snapshots never read mutable dictionaries.
+
+Schema **10** records the generated-chunk/version ledger and conservative legacy-column reservations. New terrain uses `terrain-8-farms`; earlier `terrain-7-lava` and `terrain-6-azure` remain available solely to reconstruct their retained chunks. Future releases must preserve recorded versions or supply stored terrain, never silently substitute newer generation. Edits remain exact overrides. No offline simulation is added.
+
+Schemas 1–9 did not record untouched exploration history. The user explicitly approved a conservative fallback: preserve the original generator in full-height columns within one chunk of saved edits and dropped/creature anchors; preserve the current view radius plus one chunk around saved player and original spawn. Machines, stations and planted crops are included through saved edits. Remaining unreserved terrain adopts the new generator. Some previously explored but untouched legacy terrain cannot be identified; exact history protection begins with schema 10. This one-time bookkeeping boundary does not retrofit plants into known established regions.
+
+[Cookers](FARMING.md) append their selected stable food-recipe identity and ingredient signature to machine records. Existing slots, stored fuel heat, partial work and electrical storage retain their authorities. Appended item tags and new farm items/recipes/catalogs have an explicit additive content compatibility projection; pre-existing content still participates in compatibility checking. Atomic replacement, backup recovery, full-state validation and failed-load rollback remain required.

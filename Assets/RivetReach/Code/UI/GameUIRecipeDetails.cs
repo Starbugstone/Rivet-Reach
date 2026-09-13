@@ -35,6 +35,12 @@ namespace RivetReach
         void RefreshMissingIngredients()
         {
             if(!RecipeVisible||shownRecipe==null)return;
+            if(shownRecipe.FoodRecipe!=null)
+            {
+                foreach(var v in recipeWidgets.cells)v.MissingBorder.SetActive(false);
+                foreach(var v in recipeWidgets.totals)v.MissingBorder.SetActive(false);
+                recipeWidgets.transfer.text="Pictured ingredients are examples; choose any listed tag member.";return;
+            }
             // The fill action uses the backpack and existing grid, never the held cursor.
             // Aggregate repeated ingredients so a partial supply cannot satisfy every cell.
             var missing=new HashSet<byte>();var w=recipeWidgets;
@@ -152,6 +158,14 @@ namespace RivetReach
             w.content.sizeDelta=new Vector2(282,Math.Max(138,totals.Length*38));
             for(int i=0;i<totals.Length;i++)
             {BindBrowserIcon(w.totals[i],totals[i]);w.totals[i].gameObject.SetActive(true);w.totalNames[i].text=totals[i].Count+" × "+game.Registry.Get(totals[i].Id).displayName;w.totalNames[i].gameObject.SetActive(true);}
+            if(recipe.FoodRecipe!=null)
+            {
+                for(int i=0;i<recipe.FoodRecipe.ingredients.Length;i++)
+                {
+                    var input=recipe.FoodRecipe.ingredients[i];
+                    w.totalNames[i].text=input.count+" × "+(input.selector.StartsWith("#")?input.selector+": "+string.Join(" / ",CookingCatalog.Current.Choices(input.selector).Select(id=>game.Registry.Get(id).displayName)):game.Registry.Get(game.Registry.ResolveId(input.selector)).displayName);
+                }
+            }
             w.footer.text=recipe.Fuels.Count>0?"FUEL · choose one":"Shift-click Fill grid: max · Output: Shift one / Ctrl+Shift max";
             for(int i=0;i<recipe.Fuels.Count;i++)
             {BindBrowserIcon(w.fuels[i],new ItemStack(recipe.Fuels[i],(recipe.Ticks+game.Processing.FuelTicks(recipe.Fuels[i])-1)/game.Processing.FuelTicks(recipe.Fuels[i])));w.fuels[i].gameObject.SetActive(true);}

@@ -159,3 +159,7 @@ The [all-face connection rules](INDUSTRY.md#wrench-and-configurable-pipe-ends--2
 ## Electric furnace — 2026-09-13
 
 [Electric furnace](ELECTRIC_FURNACE.md) upgrades one normal furnace with a machine casing and four copper wire at the 4×4 Machinist’s Bench. Its processing recipes share the normal furnace registry and appear separately in the browser with electricity requirements.
+
+## Food cookers and shared item tags — 2026-09-13
+
+[Farming and cooking](FARMING.md#shared-item-tags-and-fuel) introduces reusable item tags and a separate authored food catalog. Exact-item grid recipes retain their current behavior. Basic and electric cookers share tag/exact-item selectors, multi-ingredient transactions, browser alternatives and output quantities. The processing fuel catalog requires `burnable` plus a positive explicit duration; a tag alone grants no energy. Cooker crafting and fibre/string/cloth recipes remain ordinary editable recipe assets.

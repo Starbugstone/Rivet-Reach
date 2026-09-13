@@ -88,6 +88,9 @@ namespace RivetReach.Editor
         static void Bootstrap(ItemRegistry items,RecipeRegistry registry,ProcessingRegistry processing)
         {
             var reachable=new System.Collections.Generic.HashSet<byte>{BlockId.Log,BlockId.Dirt,BlockId.Grass,BlockId.Potato,BlockId.Sand};
+            // Naturally harvested planting stock/resources and combat drops are legitimate bootstrap sources.
+            foreach(var crop in CropRules.Definitions)foreach(var stack in CropRules.Harvest(crop.Mature,0))reachable.Add(stack.Id);
+            foreach(var mob in Resources.LoadAll<MobDefinition>("Mobs/Definitions"))if(!string.IsNullOrEmpty(mob.deathDropId))reachable.Add(items.ResolveId(mob.deathDropId));
             bool changed;
             do
             {

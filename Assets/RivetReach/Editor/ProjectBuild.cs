@@ -38,6 +38,11 @@ namespace RivetReach.Editor
             command=command.Replace("|ready","");File.Delete(request);
             try
             {
+                if(command=="farming-art-review"){FarmingBuild.ReviewImports();WikiExport.Export();File.WriteAllText("Logs/build-result.txt","SUCCESS farming imports and export");return;}
+                if(command=="farming-final"){FarmingBuild.Prepare();FarmingChecks.Run();TerrainGenerationChecks.Run((ok,message)=>{if(!ok)throw new Exception(message);});IndustryChecks.Run();WikiExport.Export();Build("Farming");File.WriteAllText("Logs/build-result.txt","SUCCESS farming build");return;}
+                if(command=="farming-checks"){FarmingChecks.Run();TerrainGenerationChecks.Run((ok,message)=>{if(!ok)throw new Exception(message);});SurvivalChecks.Run();IndustryChecks.Run();ElectricFurnaceChecks.Run();GridAllocationChecks.Run();File.WriteAllText("Logs/build-result.txt","SUCCESS farming checks");return;}
+                if(command=="farming-prepare"){FarmingBuild.Prepare();File.WriteAllText("Logs/build-result.txt","SUCCESS farming preparation");return;}
+                if(command=="farming-player"){Build("Farming");File.WriteAllText("Logs/build-result.txt","SUCCESS farming player");return;}
                 if(command=="ranged-pump-build")
                 {RangedPumpReview();return;}
                 if(command=="bridge-final")

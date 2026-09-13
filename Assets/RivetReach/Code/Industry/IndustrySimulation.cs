@@ -142,12 +142,13 @@ namespace RivetReach
             {
                 var fuel=m.Items.Slots[0];if(fuel.Empty){m.Status=MachineStatus.NoFuel;return;}
                 if(!m.Accepts(0,fuel.Id)){m.Status=MachineStatus.NoFuel;return;}
-                m.Items.Take(0,1);m.BurnTicks=1600;
+                m.Items.Take(0,1);m.BurnTicks=m.FuelTicks(fuel.Id);
             }
             m.BurnTicks--;m.WaterMl-=5;m.Status=MachineStatus.Running;
         }
         void Prepare(MachineState m)
         {
+            if(m.IsCooker){PrepareCooker(m);return;}
             if(m.Definition.Watts==0&&m.Definition.Id!=IndustryId.Pump&&m.Definition.Id!=IndustryId.RangedPump)return;
             if(!m.Enabled){m.Status=MachineStatus.DisabledBySignal;return;}
             byte id=m.Definition.Id;
@@ -181,6 +182,7 @@ namespace RivetReach
         }
         void Advance(MachineState m)
         {
+            if(m.IsCooker){AdvanceCooker(m);return;}
             byte id=m.Definition.Id;
             if(id==IndustryId.WoodenDoor)
             {

@@ -5,16 +5,17 @@ namespace RivetReach
 {
     public sealed class TerrainGenerator
     {
-        public const string Version="terrain-7-lava", LegacyVersion="terrain-6-azure";
+        public const string Version="terrain-8-farms", LavaVersion="terrain-7-lava", LegacyVersion="terrain-6-azure";
         public const int LavaLevel=MinY+16;
         public readonly string GenerationVersion;
-        public bool GeneratesLava=>GenerationVersion==Version;
+        public bool GeneratesLava=>GenerationVersion!=LegacyVersion;
         public const string WorldId="surface";
         public const int MinY=-256,MaxY=767;
         public const long HorizontalLimit=1000000000;
         public readonly int Seed;
         public TerrainGenerator(int seed,string version=Version)
-        {if(version!=Version&&version!=LegacyVersion)throw new ArgumentException("Unsupported terrain generator");Seed=seed;GenerationVersion=version;}
+        {if(!Supported(version))throw new ArgumentException("Unsupported terrain generator");Seed=seed;GenerationVersion=version;}
+        public static bool Supported(string version)=>version==Version||version==LavaVersion||version==LegacyVersion;
         byte CaveCell(BlockPos p)=>GeneratesLava&&p.Y<=LavaLevel?Fluids.Lava.Source:(byte)0;
         static double Smooth(double t) => t*t*(3-2*t);
         static double Lerp(double a,double b,double t) => a+(b-a)*t;
@@ -126,7 +127,18 @@ namespace RivetReach
             byte result=0;
             foreach(var tree in Trees(p.X,p.Z,p.X,p.Z))
             {byte id=tree.At(p);if(id==BlockId.Log)return id;if(id==BlockId.Leaves)result=id;}
-            return result==0&&p.Y==h+1&&WildPotato(p.X,p.Z,column)?BlockId.MaturePotatoPlant:result;
+            return result==0&&p.Y==h+1?WildPlant(p.X,p.Z,column):result;
+        }
+        byte WildPlant(long x,long z,TerrainColumn column)
+        {
+            if(GenerationVersion!=Version)return WildPotato(x,z,column)?BlockId.MaturePotatoPlant:(byte)0;
+            if(column.Surface!=BlockId.Grass||Math.Abs(x)<=8&&Math.Abs(z)<=8)return 0;
+            long gx=BlockPos.FloorDiv(x,6),gz=BlockPos.FloorDiv(z,6);uint hash=Hash(gx,9371,gz,Seed);
+            if(hash%100>=38||x!=gx*6+1+(hash>>8)%4||z!=gz*6+1+(hash>>16)%4)return 0;
+            if(GroundAt(new BlockPos(x,column.Height,z),column)!=BlockId.Grass)return 0;
+            foreach(var tree in Trees(x,z,x,z))for(int dy=1;dy<=3;dy++)if(tree.At(new BlockPos(x,column.Height+dy,z))!=0)return 0;
+            var crop=CropRules.Definitions[(hash>>24)%6];
+            return (byte)(crop.first+(hash>>20)%crop.stages);
         }
         bool WildPotato(long x,long z,TerrainColumn column)
         {
@@ -176,8 +188,8 @@ namespace RivetReach
                     cells[x+34*(y+34*z)]=id;
                 }
                 int plantY=column.Height+1-min.Y;
-                if(plantY>=-1&&plantY<=32&&WildPotato(wx,wz,column))
-                    cells[ChunkMesher.Index(x-1,plantY,z-1)]=BlockId.MaturePotatoPlant;
+                if(plantY>=-1&&plantY<=32)
+                {byte plant=WildPlant(wx,wz,column);if(plant!=0)cells[ChunkMesher.Index(x-1,plantY,z-1)]=plant;}
             }
             OreGenerator.Stamp(Seed,chunk,cells);
             // Stamp each candidate once into the chunk and its halo. Discovery order is irrelevant.

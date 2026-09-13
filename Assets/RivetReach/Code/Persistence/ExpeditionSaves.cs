@@ -78,6 +78,12 @@ namespace RivetReach
                 SaveReader.Require(Industry.Simulation.Multiblocks.WorldId.ToString("N")==WorldId,"Saved world identities differ.");
                 foreach(var p in World.SavedBlocks())if(IndustryId.Placed(p.Value))SaveReader.Require(Industry.Simulation.At(p.Key)!=null,"Missing saved machine.");
                 Items.ReadSave(r);Mobs.ReadSave(r);SaveReader.Require(r.BaseStream.Position==r.BaseStream.Length,"Unexpected trailing save data.");
+                if(r.Format<10)
+                {
+                    foreach(var pile in Items.Piles)World.ProtectLegacy(pile.Position.Cell);
+                    foreach(var mob in Mobs.Mobs){World.ProtectLegacy(mob.Position.Cell);World.ProtectLegacy(mob.Home.Cell);}
+                    World.CompleteLegacyGeneration(point.Cell);
+                }
                 Sky.DayLengthMinutes=(float)(daySeconds/60);Sky.ResetClock();Sky.Clock.SetTime(days);Sky.Apply();
             }
             catch

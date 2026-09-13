@@ -8,7 +8,7 @@
 
 <a href="Item-farmland.md" title="Farmland"><img src="icons/32.png" width="96" height="96" alt="Farmland"></a>
 
-Tilled soil used to grow potatoes.
+Tilled soil for potatoes, wheat, flax, carrots and berry plants.
 
 ## At a glance
 
@@ -23,7 +23,7 @@ Use a [hoe](Item-wood-hoe.md) on grass or dirt with open space above it. Farmlan
 
 ## Using it
 
-Use a [Potato](Item-potato.md) to plant a crop. Keep the crop exposed and its terrain loaded while it grows.
+Select the planting item and right-click farmland. Keep crops exposed and their terrain loaded. No watering is required; see [Farming and cooking](Farming-and-cooking.md).
 
 ## Crafting and processing
 
