@@ -1,0 +1,13 @@
+{
+  "Assets/RivetReach/Code/Industry/IndustryPresentation.cs": "c20cf35d17a10d94aa31ab315d074e778f180f13c5d65575ef66ebabc0503cd1",
+  "Assets/RivetReach/Code/LightingVerification.cs": "c7901bb0267d81c68734f265bd32936eea0224ae3acedf29e6aba63e648f266d",
+  "Assets/RivetReach/Code/Player/HeldBlockView.cs": "0cd5395fd944093e494f3094891f0aeab5d880ce364d035231b093205c9793ed",
+  "Assets/RivetReach/Code/World/TorchPresentation.cs": "646518362f9f4c2413fb0ab60866d3bce19a6e32ac0eed0bb96974a162c4ae1e",
+  "Assets/RivetReach/Code/World/WorldLighting.cs": "cb2779a823265c6b7a8a23e30335151734a4b103a85ecce026c786d59a9e6c49",
+  "Assets/RivetReach/Resources/Materials/VoxelLight.hlsl": "a38780d6ab30f36f55580f06de5c74b1b12c1826ce723c4b75c7e751f6555e4a",
+  "Assets/RivetReach/Resources/Materials/WorldLighting.hlsl": "0d39f0aed4aeed4d7ee8f24f9b850dd75401959f87b88bc9f69a8d1e79404230",
+  "Assets/RivetReach/Resources/Materials/Terrain.shader": "a388493b4c1d68be0297822e763f22aa98fed110221d62ddfd040326b7e2287c",
+  "Assets/RivetReach/Resources/Materials/ArcadeGrass.shader": "88cf455a872fc9225f877e539bc972c3657ceecbcb9b7e9ffa40b86fd2728316",
+  "Assets/RivetReach/Resources/Water.shader": "5218ba4732acc8e9e27e4f94b7755a8a4bfb5687cd2b4be79ed750f383ae59bd",
+  "Assets/RivetReach/Resources/TorchLight.prefab": "75abe904c02a160c249e34260c7da4f6c4d7bfbe2a52a42f23ccf9b5f4e071ea"
+}

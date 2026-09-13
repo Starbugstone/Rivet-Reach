@@ -9,7 +9,7 @@ namespace RivetReach
     public sealed class TorchPresentation : MonoBehaviour
     {
         public const int LightLimit=8;
-        public const float LightRange=14,ViewRange=48;
+        public const float LightRange=14,LightIntensity=27,LightFadeStart=48,LightViewRange=64,ViewRange=64;
         readonly Dictionary<BlockPos,GameObject> views=new Dictionary<BlockPos,GameObject>();
         readonly List<Light> lights=new List<Light>();
         VoxelWorld world;
@@ -64,7 +64,8 @@ namespace RivetReach
             Part("Hot core",new Vector3(0,.62f,-.01f),new Vector3(.145f,.10f,.145f),core);
             return root;
         }
-        void LateUpdate(){if(world!=null&&Time.unscaledTime>=refreshAt)Refresh();}
+        void LateUpdate()
+        {if(world==null)return;if(Time.unscaledTime>=refreshAt)Refresh();else UpdateLightStrength();}
         void Shift(Vector3 shift){Refresh();}
         public void Refresh()
         {
@@ -82,8 +83,23 @@ namespace RivetReach
             }
             for(int i=0;i<lights.Count;i++)
             {
-                lights[i].enabled=i<near.Length&&(FlamePosition(near[i].Key,near[i].Value)-world.Observer.position).sqrMagnitude<24*24;
-                if(lights[i].enabled)lights[i].transform.position=FlamePosition(near[i].Key,near[i].Value);
+                float distance=i<near.Length?Vector3.Distance(FlamePosition(near[i].Key,near[i].Value),world.Observer.position):float.PositiveInfinity;
+                lights[i].enabled=distance<LightViewRange;
+                if(lights[i].enabled)
+                {
+                    lights[i].transform.position=FlamePosition(near[i].Key,near[i].Value);
+                }
+            }
+            UpdateLightStrength();
+        }
+        public static float DistanceFade(float distance)=>1-Mathf.SmoothStep(0,1,Mathf.InverseLerp(LightFadeStart,LightViewRange,distance));
+        void UpdateLightStrength()
+        {
+            if(world.Observer==null)return;
+            foreach(var light in lights)if(light.enabled)
+            {
+                float distance=Vector3.Distance(light.transform.position,world.Observer.position);
+                light.intensity=LightIntensity*DistanceFade(distance);
             }
         }
         public void Clear()

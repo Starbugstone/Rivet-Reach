@@ -36,7 +36,7 @@ Shader "RivetReach/Fluid"
                 float fresnel=pow(1-saturate(dot(n,view)),4);
                 float skyAccess=RRSky(input.positionWS,n);light.color*=skyAccess;
                 half3 ambient=SampleSH(n);
-                half3 color=input.color.rgb*(max(ambient,.18)*max(.008,skyAccess)+light.color*(.35+.65*saturate(dot(n,light.direction)))*light.shadowAttenuation);
+                half3 color=input.color.rgb*(lerp(RRCaveAmbient(n),max(ambient,.18),skyAccess)+RRHeldAmbient(input.positionWS)+light.color*(.35+.65*saturate(dot(n,light.direction)))*light.shadowAttenuation);
                 color+=light.color*pow(saturate(dot(n,normalize(view+light.direction))),90)*.45;
                 color=lerp(color,half3(.40,.69,.77),fresnel*.28*skyAccess)+ripple*.012*skyAccess;
                 // Opaque vertex alpha identifies emissive lava on the shared fluid mesh.

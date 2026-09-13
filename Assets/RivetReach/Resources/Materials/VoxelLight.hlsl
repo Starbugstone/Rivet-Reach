@@ -4,6 +4,7 @@ StructuredBuffer<int4> _RRLightTable;
 StructuredBuffer<uint> _RRLightCells;
 int _RRLightMask;
 float _RRLightEnabled;
+float4 _RRHeldTorchAmbient;
 int RRLightPage(int3 chunk)
 {
     uint hash=((uint)chunk.x*73856093u)^((uint)chunk.y*19349663u)^((uint)chunk.z*83492791u);
@@ -44,6 +45,17 @@ float RRSky(float3 positionWS,float3 normalWS)
     // use that same field without changing their gameplay dimensions.
     float sky=RRLight(positionWS+normalWS*.5).x;return sky*sky;
 }
+// Soft, short-range carried fill approximates bounce light in direct-light shadows.
+// It is presentation only and is suppressed for item/portrait preview cameras.
+float3 RRHeldAmbient(float3 positionWS)
+{
+    if(_RRHeldTorchAmbient.w<.5||_RRLightEnabled<.5)return 0;
+    float fade=saturate(1-distance(positionWS,_RRHeldTorchAmbient.xyz)/7);
+    return float3(.14,.075,.025)*fade*fade;
+}
+// A faint, time-independent visual floor; never enters gameplay light queries.
+float3 RRCaveAmbient(float3 normalWS)
+{return float3(.025,.028,.035)*lerp(.7,1,saturate(normalWS.y*.5+.5));}
 float3 RRCaveFog(float3 outdoor,float3 positionWS)
-{return outdoor*max(.008,RRSky(positionWS,float3(0,0,0)));}
+{return lerp(float3(.012,.015,.020),outdoor,RRSky(positionWS,float3(0,0,0)));}
 #endif

@@ -16,7 +16,7 @@ namespace RivetReach.Editor
             try
             {
                 var light=source.AddComponent<Light>();light.type=LightType.Point;light.range=TorchPresentation.LightRange;
-                light.color=new Color(1,.57f,.22f);light.intensity=9;light.shadows=LightShadows.Hard;
+                light.color=new Color(1,.57f,.22f);light.intensity=TorchPresentation.LightIntensity;light.shadows=LightShadows.Hard;
                 light.shadowBias=.025f;light.shadowNormalBias=.12f;light.shadowNearPlane=.05f;light.enabled=false;
                 var data=light.GetUniversalAdditionalLightData();data.usePipelineSettings=false;
                 var serialized=new SerializedObject(data);

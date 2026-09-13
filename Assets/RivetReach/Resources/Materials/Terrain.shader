@@ -74,7 +74,7 @@ Shader "RivetReach/VoxelTerrain"
                 half3 ambient=lerp(_RRAmbientGround.rgb,_RRAmbientSky.rgb,normal.y*.5+.5);
                 float clouds=PaletteNoise(world.xz/16+float2(_RRPresentationTime*.016,0));
                 float cloudLight=lerp(.84,1,smoothstep(.35,.68,clouds));
-                half3 lighting=ambient*max(.008,skyAccess)*ao.indirectAmbientOcclusion+sun.color*diffuse*sun.shadowAttenuation*.82*ao.directAmbientOcclusion*cloudLight;
+                half3 lighting=(lerp(RRCaveAmbient(normal),max(RRCaveAmbient(normal),ambient),skyAccess)+RRHeldAmbient(i.positionWS))*ao.indirectAmbientOcclusion+sun.color*diffuse*sun.shadowAttenuation*.82*ao.directAmbientOcclusion*cloudLight;
                 if(i.tile==6)lighting+=half3(.30,.42,.12)*sun.color*saturate(dot(-normal,sun.direction))*.32*sun.shadowAttenuation;
                 float3 view=GetWorldSpaceNormalizeViewDir(i.positionWS),halfVector=normalize(view+sun.direction);
                 float sheen=pow(saturate(dot(normal,halfVector)),lerp(18,48,1-detail.a))*.035*sun.shadowAttenuation;

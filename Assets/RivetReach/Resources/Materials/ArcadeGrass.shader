@@ -35,7 +35,7 @@ Shader "RivetReach/ArcadeGrass"
                 half3 colour=lerp(half3(.055,.17,.065),half3(.32,.49,.14),pow(saturate(i.uv.y),.7));
                 float skyAccess=RRSky(i.positionWS,float3(0,1,0));sun.color*=skyAccess;
                 half light=.48+abs(dot(normalize(i.normalWS),sun.direction))*.40*sun.shadowAttenuation;
-                return half4(colour*(_RRAmbientSky.rgb*1.3*max(.008,skyAccess)+sun.color*light),1);
+                return half4(colour*(lerp(RRCaveAmbient(float3(0,1,0)),max(RRCaveAmbient(float3(0,1,0)),_RRAmbientSky.rgb*1.3),skyAccess)+RRHeldAmbient(i.positionWS)+sun.color*light),1);
             }
             ENDHLSL
         }

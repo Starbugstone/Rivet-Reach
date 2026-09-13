@@ -1,0 +1,6 @@
+Idle 180 frames: mean 0,0005 ms; p95 0,0011 ms; max 0,0013 ms
+Resident chunks 332; solves 989; light GPU bytes 4210688; last worker 0,847 ms; maximum light main 3,490 ms; total worker 2649,333 ms
+Sky sampling bypass=False: median 3,893 ms; p95 5,596 ms
+Sky sampling bypass=True: median 3,365 ms; p95 5,089 ms
+Sky sampling bypass=False: median 3,752 ms; p95 4,713 ms
+View distance 10: residents 3051; GPU bytes 16908288; idle mean 0,0005 ms; max main including streaming 4,546 ms; total worker 15000,132 ms; solves 5633

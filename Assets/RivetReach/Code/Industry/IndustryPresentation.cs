@@ -7,6 +7,7 @@ namespace RivetReach
     // One nearby view per placed assembly; no per-wire simulation component or material instance.
     public sealed class IndustryPresentation : MonoBehaviour
     {
+        public const float LampRange=20,LampIntensity=30;
         sealed class View
         {
             public TextMesh LinkLabel;
@@ -59,7 +60,7 @@ namespace RivetReach
                         v=new View{Root=root,State=m,Parts=root.GetComponentsInChildren<Transform>(),Renderers=root.GetComponentsInChildren<Renderer>()};
                         v.Rest=new Vector3[v.Parts.Length];v.RestRotation=new Quaternion[v.Parts.Length];for(int j=0;j<v.Parts.Length;j++){v.Rest[j]=v.Parts[j].localPosition;v.RestRotation[j]=v.Parts[j].localRotation;}
                         foreach(var r in v.Renderers){r.sharedMaterial=Resources.Load<Material>(r.name=="StatusLight"?"Industry/Status":"Industry/Workshop");r.shadowCastingMode=ShadowCastingMode.On;}
-                        if(m.Definition.Id==IndustryId.Lamp){var bulb=new GameObject("Workshop bulb");bulb.transform.SetParent(root.transform,false);bulb.transform.localPosition=new Vector3(.5f,.8f,.5f);v.Light=bulb.AddComponent<Light>();v.Light.type=LightType.Point;v.Light.color=new Color(1,.77f,.37f);v.Light.range=7;v.Light.shadows=LightShadows.None;}
+                        if(m.Definition.Id==IndustryId.Lamp){var bulb=new GameObject("Workshop bulb");bulb.transform.SetParent(root.transform,false);bulb.transform.localPosition=new Vector3(.5f,.8f,.5f);v.Light=bulb.AddComponent<Light>();v.Light.type=LightType.Point;v.Light.color=new Color(1,.77f,.37f);v.Light.range=LampRange;v.Light.shadows=LightShadows.None;}
                         if(m.Definition.Id==IndustryId.Battery)
                         {
                             var fill=GameObject.CreatePrimitive(PrimitiveType.Cube);fill.name="Stored energy fill";
@@ -85,7 +86,7 @@ namespace RivetReach
                         if((m.Additions&PipeAddition.Power)!=0&&v.PowerAddition==null)v.PowerAddition=ConnectedPipeVisuals.Create("pipe_power_addition",v.Root.transform);
                         SetAddition(v.SignalAddition,sim.Signals.Topology,m);SetAddition(v.PowerAddition,sim.Power.Topology,m);
                     }
-                    if(v.Light!=null){v.Light.enabled=m.Running&&lights++<8;v.Light.intensity=2.5f*m.ReceivedWatts/Mathf.Max(1,m.Definition.Watts);}
+                    if(v.Light!=null)v.Light.enabled=m.Running&&lights++<8;
                     if(v.LinkLabel!=null)
                     {
                         bool loader=m.Definition.Id==IndustryId.ChunkLoader;
@@ -101,6 +102,12 @@ namespace RivetReach
             {
                 if(v.LinkLabel!=null)
                 {v.LinkLabel.transform.position=game.World.Local(v.State.Position)+new Vector3(.5f,1.16f,.5f);v.LinkLabel.transform.rotation=game.Player.Camera.transform.rotation;}
+                if(v.Light!=null)
+                {
+                    if(!v.State.Running)v.Light.enabled=false;
+                    if(v.Light.enabled)v.Light.intensity=LampIntensity*v.State.ReceivedWatts/Mathf.Max(1,v.State.Definition.Watts)
+                        *TorchPresentation.DistanceFade(Vector3.Distance(v.Light.transform.position,game.Player.transform.position));
+                }
                 var m=v.State;bool active=m.Definition.Id==IndustryId.ElectricFurnace||m.Definition.Id==IndustryId.RangedPump?m.Running:m.Signal||m.Source;
                 if(v.ChargeFill!=null)
                 {

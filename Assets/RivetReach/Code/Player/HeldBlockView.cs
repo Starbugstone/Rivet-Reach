@@ -227,6 +227,7 @@ namespace RivetReach
                 var source=Instantiate(Resources.Load<GameObject>("TorchLight"),transform,false);
                 source.name="Held torch light";heldTorchLight=source.GetComponent<Light>();
             }
+            Shader.SetGlobalVector("_RRHeldTorchAmbient",Vector4.zero);
             if(heldTorchLight==null)return;
             heldTorchLight.enabled=lit;if(!lit)return;
             // Keep selected-torch light through menus/equip transitions. Inspection's
@@ -242,8 +243,9 @@ namespace RivetReach
                 position=bounds.IntersectRay(new Ray(eye,delta.normalized),out float distance)?eye+delta.normalized*Mathf.Max(0,distance):eye;
             }
             heldTorchLight.transform.position=position;
+            Shader.SetGlobalVector("_RRHeldTorchAmbient",new Vector4(position.x,position.y,position.z,1));
         }
-        void OnDisable(){if(heldTorchLight!=null)heldTorchLight.enabled=false;}
+        void OnDisable(){Shader.SetGlobalVector("_RRHeldTorchAmbient",Vector4.zero);if(heldTorchLight!=null)heldTorchLight.enabled=false;}
         public void FrameFirstPerson()
         {
             var arm=Player.Arms.transform;
@@ -251,6 +253,6 @@ namespace RivetReach
             arm.localRotation=Quaternion.Euler(12*amount,0,-6*amount);
             arm.localPosition+=new Vector3(.025f,-.52f,.08f)*amount*arm.localScale.x;
         }
-        void OnDestroy(){if(heldTorchLight!=null)Destroy(heldTorchLight.gameObject);if(foodMaterial!=null)Destroy(foodMaterial);if(industryMaterial!=null)Destroy(industryMaterial);if(industryGlass!=null)Destroy(industryGlass);if(view!=null)Destroy(view);if(material!=null)Destroy(material);if(toolMaterial!=null)Destroy(toolMaterial);if(axeMaterial!=null)Destroy(axeMaterial);if(torchMaterial!=null)Destroy(torchMaterial);if(waterMaterial!=null)Destroy(waterMaterial);if(cardMaterial!=null)Destroy(cardMaterial);foreach(var mesh in meshes.Values)Destroy(mesh);}
+        void OnDestroy(){Shader.SetGlobalVector("_RRHeldTorchAmbient",Vector4.zero);if(heldTorchLight!=null)Destroy(heldTorchLight.gameObject);if(foodMaterial!=null)Destroy(foodMaterial);if(industryMaterial!=null)Destroy(industryMaterial);if(industryGlass!=null)Destroy(industryGlass);if(view!=null)Destroy(view);if(material!=null)Destroy(material);if(toolMaterial!=null)Destroy(toolMaterial);if(axeMaterial!=null)Destroy(axeMaterial);if(torchMaterial!=null)Destroy(torchMaterial);if(waterMaterial!=null)Destroy(waterMaterial);if(cardMaterial!=null)Destroy(cardMaterial);foreach(var mesh in meshes.Values)Destroy(mesh);}
     }
 }

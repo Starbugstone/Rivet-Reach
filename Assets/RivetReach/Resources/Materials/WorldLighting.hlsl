@@ -13,7 +13,9 @@ Light RRMainLight(InputData inputData,half4 shadowMask,AmbientOcclusionFactor ao
 }
 half3 RRGlobalIllumination(BRDFData brdf,BRDFData coat,float coatMask,half3 bakedGI,half occlusion,float3 positionWS,half3 normalWS,half3 viewDirectionWS,float2 screenUV)
 {
-    return GlobalIllumination(brdf,coat,coatMask,bakedGI,occlusion,positionWS,normalWS,viewDirectionWS,screenUV)*max(.008,RRSky(positionWS,normalWS));
+    float sky=RRSky(positionWS,normalWS);
+    return max(GlobalIllumination(brdf,coat,coatMask,bakedGI,occlusion,positionWS,normalWS,viewDirectionWS,screenUV)*sky,
+        brdf.diffuse*RRCaveAmbient(normalWS)*occlusion)+brdf.diffuse*RRHeldAmbient(positionWS)*occlusion;
 }
 #define GetMainLight RRMainLight
 #define GlobalIllumination RRGlobalIllumination

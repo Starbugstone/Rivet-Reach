@@ -54,7 +54,7 @@ Mining an assembly removes its network membership, closes its open interface, dr
 | Signal Relay | Copies its input with at least one 20 Hz step delay |
 | Signal Indicator | Tiny blue pilot, signal only; does not illuminate the workshop |
 | Workshop Hatch | Opens under signal; avoids closing on a player or creature |
-| Workshop Lamp | 20 W; defaults enabled without a signal connection; light scales with received power |
+| Workshop Lamp | 20 W; defaults enabled without a signal connection; light scales with received power; [lighting presentation](LIGHTING.md) covers its brighter twenty-block reach |
 | Boiler Engine | Coal/charcoal burns for 80 eligible seconds; consumes 100 mL water/s; right shaft rotates while fueled and watered |
 | Alternator | Correctly aligned adjacent running boiler supplies 800 W electricity; no remote shaft teleportation |
 | Crusher | 160 W; 5 seconds at full allocation; 1 raw copper/iron/gold → 2 crushed corresponding ore; 1 stone or cobblestone → 1 sand |
