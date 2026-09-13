@@ -30,3 +30,10 @@ Actual Blender source renders were reviewed from the [front](floater-2026-09-13/
 Run the Blender authoring script in a separate background Blender 5.2 process. Request `floater-build` through `Logs/build-request.txt` in the already-open pinned Editor. Run `Tools/Verify-Mobs.ps1 -Player <Floater executable> -OutputDirectory <fresh directory>` for the full regression suite, or `Tools/Verify-Floater.ps1` for the focused checks. Verification enables background updates so switching applications does not freeze a test player.
 
 This is a bounded surface-hover melee creature, not unrestricted aerial navigation. Balance, animation appeal, extended-arm intersections in cramped spaces and long-session mob performance remain playtest/art-review concerns. No broader mob loot tables, recipes for Floater Rock or extra ecology were added.
+
+
+## Wiki publication
+
+[Deployment run 34746265331](https://github.com/Starbugstone/Rivet-Reach/actions/runs/34746265331) succeeded, publishing wiki commit `cba767e` from game commit `637b90c`. The maintained reference passed **150 pages / 6,127 local links and images**; the catalog has **135 items and 122 recipes**. All four deployed Floater image files match their reviewed source bytes.
+
+Live Chromium review opened the [Floater guide](https://github.com/Starbugstone/Rivet-Reach/wiki/Floater), loaded all three in-game images, followed its Floater Rock link, and verified the real inventory icon on the [item page](https://github.com/Starbugstone/Rivet-Reach/wiki/Item-floater-rock). Both pages fit a 390×844 viewport without horizontal document overflow: [guide capture](floater-2026-09-13/wiki-guide-mobile.png), [item capture](floater-2026-09-13/wiki-item-mobile.png). The live item index loaded all 135 icons, including the correctly linked Floater Rock icon. The parallel portable-storage publication was preserved.
