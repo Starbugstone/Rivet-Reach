@@ -89,7 +89,7 @@ namespace RivetReach
         }
         public void Spawn(ItemStack stack,Vector3 local,Vector3 velocity,float delay=0,bool actionCreated=false)
         {
-            if(stack.Empty)return;int max=stack.Limit(Game.Registry.Get(stack.Id).stackLimit);
+            if(stack.Empty||World.SuppressMiningDrops)return;int max=stack.Limit(Game.Registry.Get(stack.Id).stackLimit);
             while(stack.Count>0)
             {
                 int n=Math.Min(stack.Count,max);stack.Count-=n;

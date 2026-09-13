@@ -16,6 +16,14 @@ Start here:
 
 Browse the [item pages](Items.md) for crafting grids, processing recipes and gathering instructions. Every item icon opens its page. In the game, open your inventory, find an item in the right-hand catalog, and inspect its recipe. Industrial assemblies require the **Machinist’s Bench (4×4)**; the browser shows the required station and ingredients.
 
+In Creative, mining is instant, even with fists. Fists or held non-tool items remove blocks without drops (including their contents); use a tool to recover items and stored resources. Bedrock remains protected. Survival mining is unchanged.
+
+Actual Creative mining captures, 13 September 2026: fists leave no item pile; a selected tool recovers the block. Break particles are visual effects, not collectible items.
+
+![Creative fists remove a block without an item drop](images/creative-fist-mining-2026-09-13.png)
+
+![Creative tool mining produces a collectible block](images/creative-tool-mining-2026-09-13.png)
+
 In Creative, drag items from the catalog into an empty inventory or hotbar slot. Double-tap **Space** to toggle flight; Space rises and **Shift** descends in flight. On foot, **Shift** crouches and **Ctrl** runs; double-tapping forward also starts running. Controls can be rebound. Use **E** or right-click to open machinery; signal and shaft controls are relative to the machine’s visible front. Power and supported item/fluid pipes connect on every face. To change a pipe-end direction, hold a [Wrench](Item-wrench.md) and right-click its machine-facing end.
 
 New machines face you when placed. Use **ROTATE 90°** in their interface to adjust existing placements. Configured pipe directions stay fixed when the machine rotates.

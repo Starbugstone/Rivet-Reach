@@ -40,6 +40,7 @@ This directory maintains the latest report and useful evidence for each feature.
 | Ore materials, shared mesh and held reuse | [Copper/iron drops](ORE_DROPS_RESULTS.md), [ore variants and sharing](ORE_VARIANTS_RESULTS.md), [Azure source review](AZURE_ORE_RESULTS.md) |
 | Pass-through props, camera clearance and Editor icons | [Clearance verification](PROP_CLEARANCE_RESULTS.md) |
 | Craftable torches and local lighting | [Torch verification](TORCH_RESULTS.md) |
+| Creative instant mining | [Creative mining verification](CREATIVE_MINING_RESULTS.md) — Creative drops and Survival mining regression |
 | Creative sidebar dragging, flight controls and full workshop run | [Creative verification](CREATIVE_RESULTS.md) — current build, Creative industry/tanks and regressions |
 | Pumps without electricity | [Pump checks](PUMP_RESULTS.md) — cold startup, blackout recovery and conserved water |
 | Batteries, historical pump intake/power, outward controllers, held items and wiki | [Workshop follow-up](WORKSHOP_FOLLOWUP_RESULTS.md) — electrical storage, construction and rendered item checks |

@@ -118,7 +118,7 @@ namespace RivetReach
             seedField=game.UI.VisibleRoot.GetComponentInChildren<UnityEngine.UI.InputField>();seedField.text="246813";StartButton().onClick.Invoke();
             Check(game.Seed==246813&&game.World.Generator.Seed==246813,"Entering an explicit seed starts that reproducible world");
             game.World.ViewDistance=Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-fluid-review")?4:10;game.Diagnostics=true;
-            if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-gameplay-fixes-review"||arg=="-rr-save-review"||arg=="-rr-workshop-followup-review"||arg=="-rr-browser-review"||arg=="-rr-creative-review"||arg=="-rr-torch-review"||arg=="-rr-industry-review"||arg=="-rr-multiblock-review"||arg=="-rr-clearance-review"||arg=="-rr-starter-stations-review"))game.World.ViewDistance=4;
+            if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-gameplay-fixes-review"||arg=="-rr-save-review"||arg=="-rr-workshop-followup-review"||arg=="-rr-browser-review"||arg=="-rr-creative-review"||arg=="-rr-creative-mining-review"||arg=="-rr-torch-review"||arg=="-rr-industry-review"||arg=="-rr-multiblock-review"||arg=="-rr-clearance-review"||arg=="-rr-starter-stations-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-azure-review")||Environment.GetCommandLineArgs().Contains("-rr-ore-variants-review")||Environment.GetCommandLineArgs().Contains("-rr-ore-drops-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-hand-crank-review")||Environment.GetCommandLineArgs().Contains("-rr-door-review")||Environment.GetCommandLineArgs().Contains("-rr-battery-fill-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-equipment-art-review"))game.World.ViewDistance=4;
@@ -184,6 +184,8 @@ namespace RivetReach
             {report.workload="Industrial workshop: steam, electricity, signal control, ore processing, item/fluid transport, machine interfaces and residency";yield return ReviewIndustry();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-torch-review"))
             {report.workload="Torch recipes, floor/wall placement, rendered lighting, support removal, fluids and session streaming";yield return ReviewTorches();yield break;}
+            if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-creative-mining-review"))
+            {report.workload="Creative instant mining, tool drops, contents/attachments and Survival regression";yield return ReviewCreativeMining();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-creative-review"))
             {report.workload="Creative menu, catalog, flight, invincibility and survival transitions";yield return ReviewCreative();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-lava-review"))

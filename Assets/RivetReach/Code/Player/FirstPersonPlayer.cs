@@ -272,16 +272,16 @@ namespace RivetReach
             }
             nextPlace=0;eating=0;eatingItem=0;
             if(!found||!(Game.Input.Mine||VerificationMining)){MiningProgress=0;return;}
-            if(!BlockId.Mineable(id,tool,Game.Registry.Tier(selected)))
+            if(!BlockId.Mineable(id,Game.Creative?ToolCapability.Pickaxe:tool,Game.Creative?ToolTier.Diamond:Game.Registry.Tier(selected)))
             {MiningProgress=0;Game.Notify(BlockId.MiningHint(id,tool,Game.Registry.Tier(selected)),1);return;}
-            MiningProgress+=Time.deltaTime/Game.Registry.MiningSeconds(id,selected);
+            MiningProgress=Game.Creative?1:MiningProgress+Time.deltaTime/Game.Registry.MiningSeconds(id,selected);
             if(MiningProgress<1)return;
             MiningProgress=0;
-            if(Game.World.Mine(pos,id,tool,Game.Registry.Tier(selected)))
+            bool drop=!Game.Creative||tool!=ToolCapability.None||heldId==IndustryId.Wrench;
+            if(Game.World.Mine(pos,id,tool,Game.Registry.Tier(selected),Game.Creative,drop))
             {
                 if(!Game.Creative)Game.Hunger.Exert(.05);
-                byte drop=Game.Registry.FistDrop(id);
-                Game.Sound.Mine(id,Game.World.Local(pos)+Vector3.one*.5f);Game.Notify("Gathered "+Game.Registry.Get(drop).displayName+" — walk close to collect",1);
+                Game.Sound.Mine(id,Game.World.Local(pos)+Vector3.one*.5f);Game.Notify(drop?"Gathered "+Game.Registry.Get(Game.Registry.FistDrop(id)).displayName+" — walk close to collect":"Removed "+Game.Registry.Get(id).displayName,1);
             }
         }
         void CreateSelection()

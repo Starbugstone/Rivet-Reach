@@ -1,0 +1,13 @@
+{
+  "build": "Builds/Creative/RivetReach.exe",
+  "date": "2026-09-13",
+  "sha256": {
+    "Builds/Creative/RivetReach.exe": "7d52ee70fb22771f4608d810d1015f539c37dd8b7b2fbb1a0ea9f6bc5c32d5c9",
+    "Builds/Creative/RivetReach_Data/Managed/Assembly-CSharp.dll": "8836dc8d708c40514caf398b839c8385490111ba949c159485e6ae64d405078d",
+    "Assets/RivetReach/Code/Player/FirstPersonPlayer.cs": "b1fbbec0b2c76964fb8c0b4b1fb5aee5ea4b0a79e8fd0449ce247ac819e14649",
+    "Assets/RivetReach/Code/World/VoxelWorld.cs": "bb33694d1c0805b1a99245ab82efa985edbd06869329c444e5aabb145ab5406b",
+    "Assets/RivetReach/Code/Player/DroppedItems.cs": "a9779721eb2351ca9429d2ab04b0ad3e9cde5cbc8ff48bec63b73f8bfec12222",
+    "Assets/RivetReach/Code/UI/GameUI.cs": "c3e08312105fead48e552fe24b36373fd859640480fb791b075133f1de3ce391",
+    "Assets/RivetReach/Code/CreativeVerification.cs": "898b7fa57c508f103e895375746faf43e0fffea2cccf5969653f60e53fe91298"
+  }
+}

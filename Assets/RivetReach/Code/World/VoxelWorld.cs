@@ -128,16 +128,25 @@ namespace RivetReach
             LastFluidTickMs=clock.Elapsed.TotalMilliseconds;
         }
         public bool RecoveringMachine {get;private set;}
-        public bool Mine(BlockPos p,byte expected,ToolCapability tool,ToolTier tier=ToolTier.Diamond)
+        public bool SuppressMiningDrops {get;private set;}
+        public bool Mine(BlockPos p,byte expected,ToolCapability tool,ToolTier tier=ToolTier.Diamond,bool creative=false,bool drop=true)
         {
-            if(!BlockId.Mineable(expected,tool,tier))return false;
+            if(!BlockId.Mineable(expected,creative?ToolCapability.Pickaxe:tool,creative?ToolTier.Diamond:tier))return false;
             bool fell=expected==BlockId.Log&&(tool&ToolCapability.Axe)!=0&&NaturalLog(p);
+            bool recovering=RecoveringMachine,suppress=SuppressMiningDrops;
             RecoveringMachine=true;
-            try { if(!Remove(p,expected))return false; }
-            finally { RecoveringMachine=false; }
-            BlockMined?.Invoke(p,expected);
-            if(fell)Trees.FellAbove(this,p);
-            return true;
+            // Scope suppression to this removal and its synchronous attachment/content
+            // callbacks. Environmental drops and later player actions keep normal rules.
+            SuppressMiningDrops|=creative&&!drop;
+            try
+            {
+                if(!Remove(p,expected))return false;
+                RecoveringMachine=recovering;
+                BlockMined?.Invoke(p,expected);
+                if(fell)Trees.FellAbove(this,p);
+                return true;
+            }
+            finally { RecoveringMachine=recovering;SuppressMiningDrops=suppress; }
         }
         public bool Till(BlockPos p)=>Ready(p.Offset(0,1,0))&&Get(p.Offset(0,1,0))==0&&
             (Get(p)==BlockId.Grass?Change(p,BlockId.Grass,BlockId.Farmland):Change(p,BlockId.Dirt,BlockId.Farmland));

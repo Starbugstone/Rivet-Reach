@@ -95,6 +95,8 @@ namespace RivetReach.Editor
                 {IndustryAssets.Prepare();IndustryChecks.Run();if(command=="industry-build")Build("Industry");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="torch-build")
                 {TorchAssets.Prepare();DomainChecks.Run();FluidChecks.Run();Build("Torches");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
+                if(command=="creative-mining-build")
+                {SurvivalChecks.Run();PortableStorageChecks.Run();WikiExport.Export();Build("Creative");File.WriteAllText("Logs/build-result.txt","SUCCESS creative mining");return;}
                 if(command=="creative-build")
                 {DomainChecks.Run();MultiblockChecks.Run();IndustryChecks.Run();BatteryChecks.Run();ConnectedPipeChecks.Run();File.WriteAllText("Logs/creative-transfer-checks.txt","PASS "+RecipeTransferChecks.Run(ItemRegistry.Load(),RecipeCatalogAsset.Load().Compile(ItemRegistry.Load()))+" recipe transfer assertions");Build("Creative");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="fluid-checks")

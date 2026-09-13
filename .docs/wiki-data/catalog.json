@@ -11137,7 +11137,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/CreativeVerification.cs",
-            "sha256": "e43db456252bf9a709dd97769688c76c7ae8c9523eb1fa9eb8dd68e3af4d4452"
+            "sha256": "898b7fa57c508f103e895375746faf43e0fffea2cccf5969653f60e53fe91298"
         },
         {
             "path": "Assets/RivetReach/Code/DayNightVerification.cs",
@@ -11433,7 +11433,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Player/DroppedItems.cs",
-            "sha256": "c9f74152738e4385eb886f94854808b145b171fdfd1738aab6dceff9cc9609c3"
+            "sha256": "a9779721eb2351ca9429d2ab04b0ad3e9cde5cbc8ff48bec63b73f8bfec12222"
         },
         {
             "path": "Assets/RivetReach/Code/Player/EatingCrumbs.cs",
@@ -11445,7 +11445,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Player/FirstPersonPlayer.cs",
-            "sha256": "8ee5eefee20267508155405d4d75c8553827f6d56cc92e3d7b5b167cb56532d6"
+            "sha256": "b1fbbec0b2c76964fb8c0b4b1fb5aee5ea4b0a79e8fd0449ce247ac819e14649"
         },
         {
             "path": "Assets/RivetReach/Code/Player/FoodVisuals.cs",
@@ -11497,7 +11497,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/RuntimeVerification.cs",
-            "sha256": "f561d933ce3d0f5143f9bdac9dae6b7041998945b2d9ea80cf7bbc5353b4defb"
+            "sha256": "f3b6523b8d295589605b805b3c0bf2ed7c648bad4bc0cf577a43ea14b8fc3715"
         },
         {
             "path": "Assets/RivetReach/Code/SaveVerification.cs",
@@ -11589,7 +11589,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUI.cs",
-            "sha256": "1031cc8e5de8cafd14fd3ac202a311e081d8aaa7fe72cf19590f51fe0d587d63"
+            "sha256": "c3e08312105fead48e552fe24b36373fd859640480fb791b075133f1de3ce391"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIBridges.cs",
@@ -11697,7 +11697,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/World/VoxelWorld.cs",
-            "sha256": "e88211cea8b5397947be48613da3ded89001cdb9cae1ecb69312760dd80eb65f"
+            "sha256": "bb33694d1c0805b1a99245ab82efa985edbd06869329c444e5aabb145ab5406b"
         },
         {
             "path": "Assets/RivetReach/Code/World/WorldClock.cs",

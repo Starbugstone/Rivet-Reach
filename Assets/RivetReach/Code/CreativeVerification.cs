@@ -10,6 +10,84 @@ namespace RivetReach
 {
     public sealed partial class RuntimeVerification
     {
+        IEnumerator ReviewCreativeMining()
+        {
+            var player=game.Player;var world=game.World;
+            game.Mobs.enabled=false;player.enabled=false;game.SetCreative(true);
+            var cell=new BlockPos(8,96,8);player.transform.position=world.Local(cell);
+            world.ViewDistance=4;yield return null;yield return Settle(90);
+            for(int x=-3;x<=3;x++)for(int z=-4;z<=3;z++)Check(world.Place(cell.Offset(x,-1,z),BlockId.Stone),"Place mining fixture floor");
+            for(int i=0;i<game.Inventory.Count;i++)game.Inventory.Take(i,int.MaxValue);
+            game.Selected=0;
+            var mine=typeof(FirstPersonPlayer).GetMethod("TargetAndMine",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);
+            void Select(byte id)
+            {game.Inventory.Take(0,int.MaxValue);if(id!=0)game.Inventory.Add(id,1,0,1);}
+            void Aim()
+            {
+                player.transform.position=world.Local(cell)+new Vector3(.5f,0,-3);
+                player.transform.rotation=Quaternion.identity;
+                player.Camera.transform.position=player.transform.position+Vector3.up*1.62f;
+                player.Camera.transform.LookAt(world.Local(cell)+Vector3.one*.5f);
+            }
+            void TickMine()
+            {Aim();player.VerificationMining=true;try{mine.Invoke(player,null);}finally{player.VerificationMining=false;}}
+            foreach(byte held in new byte[]{0,BlockId.Dirt,BlockId.WoodPickaxe,BlockId.WoodAxe,IndustryId.Wrench})
+            {
+                Select(held);Check(world.Place(cell,BlockId.DiamondBlock),"Place high-tier block fixture");
+                int before=game.Items.TotalSpawned;TickMine();
+                Check(world.Get(cell)==0&&player.MiningProgress==0,"Creative removes high-tier block in one mining update with held item "+held);
+                int expected=held==0||held==BlockId.Dirt?0:1;
+                Check(game.Items.TotalSpawned==before+expected,"Only tools produce Creative mining drops: "+held);
+                if(expected>0)Check(game.Items.Piles.Last().Stack.Id==BlockId.DiamondBlock,"Tool keeps ordinary block drop identity");
+                if(held==0||held==BlockId.WoodPickaxe)
+                {
+                    player.Pitch=18;player.Yaw=0;player.enabled=true;
+                    game.Notify(held==0?"Creative fists: instant removal, no item drop":"Creative tool: instant removal, diamond block dropped",5);
+                    yield return Capture(held==0?"creative-fist-mining":"creative-tool-mining");
+                    Check(!game.UI.VisibleRoot.GetComponentsInChildren<Text>().Any(t=>t.text.Contains("Requires iron pickaxe")),"Creative HUD does not show Survival tier requirements");
+                    player.enabled=false;
+                }
+            }
+            Select(0);
+            foreach(byte id in new[]{BlockId.Chest,IndustryId.ItemPipe,IndustryId.Battery,IndustryId.Tank,BlockId.MaturePotatoPlant})
+            {
+                if(BlockId.Crop(id))
+                {
+                    var soil=cell.Offset(0,-1,0);world.Remove(soil,BlockId.Stone);world.Place(soil,BlockId.Dirt);
+                    Check(world.Till(soil)&&world.Plant(cell),"Plant crop fixture");
+                    while(world.Get(cell)!=id)Check(world.Grow(cell,world.Get(cell)),"Mature crop fixture");
+                }
+                else Check(world.Place(cell,id),"Place contents fixture "+id);
+                game.Survival.At(cell)?.Storage?.Add(BlockId.Diamond,3);
+                var machine=game.Industry.Simulation.At(cell);
+                if(machine!=null)
+                {
+                    machine.Items.Add(BlockId.Diamond,3);
+                    if(id==IndustryId.ItemPipe)machine.Additions=PipeAddition.Signal|PipeAddition.Power;
+                    if(id==IndustryId.Battery)machine.EnergyCells[0].Charge(1234567);
+                    if(id==IndustryId.Tank)machine.Fluid.Deposit(Fluids.Lava,12345);
+                }
+                int before=game.Items.TotalSpawned;TickMine();
+                Check(world.Get(cell)==0&&game.Items.TotalSpawned==before,"Creative fists erase block, contents and fittings without drops: "+id);
+                Check(!world.SuppressMiningDrops&&!world.RecoveringMachine,"Mining context restores after removal");
+            }
+            Check(!world.Mine(new BlockPos(0,TerrainGenerator.MinY,0),BlockId.Bedrock,ToolCapability.None,creative:true,drop:false),"Creative preserves protected bedrock");
+            Check(!world.Mine(cell,BlockId.Stone,ToolCapability.None,creative:true,drop:false)&&!world.SuppressMiningDrops,"Stale removal restores drop context");
+            Check(world.Place(cell,IndustryId.Tank),"Place tool recovery tank");
+            var tank=game.Industry.Simulation.At(cell);tank.Fluid.Deposit(Fluids.Lava,12345);
+            var contents=PortableStorage.Capture(tank);Select(BlockId.WoodPickaxe);TickMine();
+            Check(world.Get(cell)==0&&game.Items.Piles.Last().Stack.Equals(contents),"Creative tool preserves exact portable contents after no-drop removals");
+            game.SetCreative(false);Select(0);Check(world.Place(cell,BlockId.Stone),"Place Survival stone");TickMine();
+            Check(world.Get(cell)==BlockId.Stone&&player.MiningProgress==0,"Survival fists still cannot mine stone");
+            world.Remove(cell,BlockId.Stone);Check(world.Place(cell,BlockId.Log),"Place Survival log");TickMine();
+            Check(world.Get(cell)==BlockId.Log&&player.MiningProgress>0&&player.MiningProgress<1,"Survival fist mining still uses timed progress");
+            int drops=game.Items.TotalSpawned;
+            Check(world.Mine(cell,BlockId.Log,ToolCapability.None)&&game.Items.TotalSpawned==drops+1,"Survival fists still drop logs");
+            Check(world.Place(cell,BlockId.DiamondBlock),"Place Survival high-tier block");Select(BlockId.WoodPickaxe);TickMine();
+            Check(world.Get(cell)==BlockId.DiamondBlock&&player.MiningProgress==0,"Survival still enforces pickaxe tiers");
+            Select(BlockId.IronPickaxe);TickMine();
+            Check(world.Get(cell)==BlockId.DiamondBlock&&player.MiningProgress>0&&player.MiningProgress<1,"Survival suitable tools still use timed mining");
+        }
         IEnumerator CreativeClick(Button button)
         {
             var rect=(RectTransform)button.transform;

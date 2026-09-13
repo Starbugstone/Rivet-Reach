@@ -1,4 +1,4 @@
-param([string]$OutputDirectory,[switch]$Build,[switch]$FullRun,[string]$Executable)
+param([string]$OutputDirectory,[switch]$Build,[switch]$FullRun,[switch]$Mining,[string]$Executable)
 $ErrorActionPreference = 'Stop'
 $project = Split-Path $PSScriptRoot -Parent
 if (!$OutputDirectory) { $OutputDirectory = Join-Path $project 'Logs\CreativeVerification' }
@@ -8,7 +8,7 @@ if ($Build) {
     $result = Join-Path $project 'Logs\build-result.txt'
     if (Test-Path $request) { throw 'Another local build request is pending.' }
     if (Test-Path $result) { Remove-Item $result }
-    Set-Content -Encoding ascii $request 'creative-build'
+    Set-Content -Encoding ascii $request $(if ($Mining) { 'creative-mining-build' } else { 'creative-build' })
     $deadline = [DateTime]::UtcNow.AddMinutes(10)
     while (!(Test-Path $result) -and [DateTime]::UtcNow -lt $deadline) { Start-Sleep -Seconds 2 }
     if (!(Test-Path $result)) { throw 'Editor build timed out; inspect its log.' }
@@ -18,7 +18,8 @@ if (!$Executable) { $Executable = Join-Path $project 'Builds\Creative\RivetReach
 if (!(Test-Path $executable)) { throw 'Use -Build with the pinned Editor open.' }
 $report = Join-Path $OutputDirectory 'runtime-report.json'
 if (Test-Path $report) { Remove-Item $report }
-$arguments = @('-screen-fullscreen','0','-screen-width','1280','-screen-height','720','-rr-verify','-rr-creative-review','-rr-output',('"'+$OutputDirectory+'"'),'-logFile',('"'+(Join-Path $OutputDirectory 'player.log')+'"'))
+$scenarioFlag = if ($Mining) { '-rr-creative-mining-review' } else { '-rr-creative-review' }
+$arguments = @('-screen-fullscreen','0','-screen-width','1280','-screen-height','720','-rr-verify',$scenarioFlag,'-rr-output',('"'+$OutputDirectory+'"'),'-logFile',('"'+(Join-Path $OutputDirectory 'player.log')+'"'))
 $process = Start-Process -FilePath $executable -ArgumentList $arguments -PassThru
 if (!$process.WaitForExit(900000)) { throw 'Creative review exceeded fifteen minutes. Player remains available for diagnosis.' }
 $report = Join-Path $OutputDirectory 'runtime-report.json'

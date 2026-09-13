@@ -1,5 +1,7 @@
 # Creative controls and full workshop verification — 2026-09-10
 
+The local `Builds/Creative` executable was subsequently rebuilt for [Creative instant mining on 2026-09-13](CREATIVE_MINING_RESULTS.md). The checks and captures below retain their original 2026-09-10 identity.
+
 Artifact: **`Builds/Creative/RivetReach.exe`**, Unity **6000.4.4f1**, Windows x64 Development. The final build completed with **0 errors and 0 warnings**. [Build/source identity and hashes](creative-build-identity-2026-09-10.json), [Editor checks](creative-build-checks-2026-09-10.txt).
 
 All seven scenarios ran against this executable at 1280×720 on an Intel i7-10750H / NVIDIA RTX 2060: **PASS, 1,906 runtime assertions, no captured Unity errors/exceptions**.

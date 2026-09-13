@@ -315,7 +315,7 @@ namespace RivetReach
             if(loading!=null)loading.text=!game.ReadyToPlay?"Preparing nearby terrain…":"";
             if(targetLabel!=null)
             {
-                string hint=BlockId.MiningHint(game.Player.TargetId,game.Registry.Capabilities(game.Inventory.Slots[game.Selected]),game.Registry.Tier(game.Inventory.Slots[game.Selected]));
+                string hint=BlockId.MiningHint(game.Player.TargetId,game.Creative?ToolCapability.Pickaxe:game.Registry.Capabilities(game.Inventory.Slots[game.Selected]),game.Creative?ToolTier.Diamond:game.Registry.Tier(game.Inventory.Slots[game.Selected]));
                 targetLabel.text=game.Player.HasTarget?(Fluids.Registry.Get(game.Player.TargetId) is FluidDefinition targetFluid?targetFluid.DisplayName+" source · Use bucket":game.Registry.Get(game.Player.TargetId).displayName)+((BlockId.Station(game.Player.TargetId)||IndustryId.Placed(game.Player.TargetId))?$"\n{game.Input.Keys["Interact"]} / {game.Input.UseButtonName} · Open"+(game.Player.TargetId==BlockId.Workbench?" 3 × 3 crafting":""):hint.Length>0?" · "+hint:""):"";
                 if(game.Player.HasTarget&&IndustryId.DoorPart(game.Player.TargetId))
                     targetLabel.text=$"Wooden Door\n{game.Input.Keys["Interact"]} / {game.Input.UseButtonName}: open / close · Blue Signal at base";

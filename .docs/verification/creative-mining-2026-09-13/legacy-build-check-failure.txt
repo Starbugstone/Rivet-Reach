@@ -1,0 +1,6 @@
+FAILED
+System.Exception: Domain check failed: Every item texture references an imported layer
+  at RivetReach.Editor.DomainChecks.Check (System.Boolean value, System.String message) [0x00020] in D:\Dev\github-desktop\Rivet-Reach\Assets\RivetReach\Editor\DomainChecks.cs:11
+  at RivetReach.Editor.OreChecks.Run (System.Action`2[T1,T2] check) [0x007ea] in D:\Dev\github-desktop\Rivet-Reach\Assets\RivetReach\Editor\OreChecks.cs:86
+  at RivetReach.Editor.DomainChecks.Run () [0x0065c] in D:\Dev\github-desktop\Rivet-Reach\Assets\RivetReach\Editor\DomainChecks.cs:52
+  at RivetReach.Editor.ProjectBuild.Poll () [0x00b80] in D:\Dev\github-desktop\Rivet-Reach\Assets\RivetReach\Editor\ProjectBuild.cs:99
