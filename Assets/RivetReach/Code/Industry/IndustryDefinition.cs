@@ -101,13 +101,14 @@ namespace RivetReach
     {
         IReadOnlyList<ItemStack> IItemPipeInventory.Slots=>Items.Slots;
         bool IItemPipeInventory.CanExtract(int slot)=>slot==OutputSlot;
-        bool IItemPipeInventory.Prefers(byte id,int localFace)=>IsCooker?CookerAccepts(localFace==4&&Definition.Id==FarmId.Cooker?3:0,id)&&Items.Slots.Take(3).Any(s=>s.Id==id):AcceptsPipeInput(id,localFace)&&(Items.Slots[0].Id==id||
+        bool IItemPipeInventory.Prefers(byte id,int localFace)=>IsCooker?PrefersCooking(id,localFace):AcceptsPipeInput(id,localFace)&&(Items.Slots[0].Id==id||
             !Items.Slots[2].Empty&&ProcessingOutput(id).Id==Items.Slots[2].Id);
         bool IItemPipeInventory.TryInsert(byte id,int localFace)=>IsCooker?InsertCooker(id,localFace):AcceptsPipeInput(id,localFace)&&Items.Capacity(id,0,1)>0&&Items.Add(id,1,0,1)==0;
         ItemStack IItemPipeInventory.Extract(int slot,int count)=>slot==OutputSlot?Items.Take(slot,count):default;
         public readonly BlockPos Position; public readonly IndustryDefinition Definition;
         public readonly ItemContainer Items;
         readonly ProcessingRegistry processing;
+        public int FuelTicks(byte id)=>processing.FuelTicks(id);
         public ProcessingRecipe FurnaceRecipe=>Definition.Id==IndustryId.ElectricFurnace?processing?.Find(Items.Slots[0].Id):null;
         public ItemStack ProcessingOutput(byte id)=>Definition.Id==IndustryId.Crusher?CrusherOutput(id):Definition.Id==IndustryId.ElectricFurnace?processing?.Find(id)?.Output??default:default;
         public int ProcessingTicks=>IsCooker?FoodRecipe?.ticks??200:Definition.Id==IndustryId.Crusher?CrusherTicks:Definition.Id==IndustryId.ElectricFurnace?FurnaceRecipe?.Ticks??200:(Definition.Id==IndustryId.Pump||Definition.Id==IndustryId.RangedPump)?40:120;
@@ -139,11 +140,11 @@ namespace RivetReach
         public string OwnerId="",LinkName="";
         public bool LoaderEnabled=true;
         public MachineState(BlockPos p,byte id,Func<byte,int> limit,ProcessingRegistry processing=null)
-        {this.processing=processing;Position=p;Definition=IndustryDefinition.All[id];EnergyCells=id==IndustryId.Battery?new[]{new BatteryStorage()}:Array.Empty<BatteryStorage>();Fluid=new FluidStorage(Definition.WaterCapacity);Items=new ItemContainer(IsCooker?5:3,limit);if(IsCooker)CookingId=CookingCatalog.Current.recipes[0].id;}
+        {this.processing=processing??ProcessingCatalogAsset.Current;Position=p;Definition=IndustryDefinition.All[id];EnergyCells=id==IndustryId.Battery?new[]{new BatteryStorage()}:Array.Empty<BatteryStorage>();Fluid=new FluidStorage(Definition.WaterCapacity);Items=new ItemContainer(IsCooker?5:3,limit);CookingPlan=IsCooker?new int[3]:null;if(IsCooker)CookingId=CookingCatalog.Current.recipes[0].id;}
         public bool Enabled=>!SignalAttached||Signal;
         public bool Running=>Status==MachineStatus.Running||Status==MachineStatus.Underpowered;
         bool AcceptsPipeInput(byte id,int localFace)=>Accepts(0,id)&&(!Definition.RequiresItemFuel||localFace<0||localFace==4);
-        public bool Accepts(int slot,byte id)=>IsCooker?CookerAccepts(slot,id):slot==0&&(Definition.Id==IndustryId.Boiler?ItemRegistry.Load().HasTag(id,"boiler_fuel")&&FuelTicks(id)>0:!ProcessingOutput(id).Empty);
+        public bool Accepts(int slot,byte id)=>IsCooker?CookerAccepts(slot,id):slot==0&&(Definition.Id==IndustryId.Boiler?ItemRegistry.Load().HasTag(id,ItemTags.BoilerFuel)&&FuelTicks(id)>0:!ProcessingOutput(id).Empty);
         public const int CrusherTicks = 100;
         public static ItemStack CrusherOutput(byte id)=>id switch
         {

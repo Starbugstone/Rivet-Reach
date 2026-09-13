@@ -1,5 +1,7 @@
 # Farming and cooking verification — 2026-09-13
 
+These are the original `ffbe58c` increment and asset measurements. The [subsequent stability review](STABILITY_REVIEW_RESULTS.md) owns the current code/build checks, tag matching, immature-potato correction and renderer selection.
+
 Working scope: [farming specification](../FARMING.md). Final gameplay build completed September 13 at 12:24 CEST; subsequent changes only refine documentation and import review. Review player: **`Builds/Farming/RivetReach.exe`**, Unity **6000.4.4f1**, Windows x64 development build. Actual player captures use Direct3D 12 on an RTX 2060 / i7-10750H at 1280×800. Original Blender assets were authored with Blender 5.2 and reviewed in both source renders and the imported game.
 
 ## Measured checks

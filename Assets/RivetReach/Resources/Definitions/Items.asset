@@ -78,6 +78,7 @@ MonoBehaviour:
     buoyant: 0
     tags:
     - burnable
+    - log
   - runtimeId: 5
     stableId: rivet:leaves
     displayName: Leaves
@@ -253,7 +254,8 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
-    tags: []
+    tags:
+    - raw_ore
   - runtimeId: 16
     stableId: rivet:raw_copper
     displayName: Raw copper
@@ -269,7 +271,8 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
-    tags: []
+    tags:
+    - raw_ore
   - runtimeId: 17
     stableId: rivet:coal
     displayName: Coal
@@ -303,7 +306,8 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
-    tags: []
+    tags:
+    - raw_ore
   - runtimeId: 19
     stableId: rivet:diamond
     displayName: Diamond
@@ -337,6 +341,7 @@ MonoBehaviour:
     buoyant: 0
     tags:
     - burnable
+    - planks
   - runtimeId: 21
     stableId: rivet:stick
     displayName: Stick
@@ -451,7 +456,8 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
-    tags: []
+    tags:
+    - ingot
   - runtimeId: 28
     stableId: rivet:iron_ingot
     displayName: Iron ingot
@@ -467,7 +473,8 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
-    tags: []
+    tags:
+    - ingot
   - runtimeId: 29
     stableId: rivet:gold_ingot
     displayName: Gold ingot
@@ -483,7 +490,8 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
-    tags: []
+    tags:
+    - ingot
   - runtimeId: 30
     stableId: rivet:potato
     displayName: Potato

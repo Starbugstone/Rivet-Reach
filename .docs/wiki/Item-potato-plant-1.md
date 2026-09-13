@@ -8,7 +8,7 @@
 
 <a href="Item-potato-plant-1.md" title="Young potatoes"><img src="icons/34.png" width="96" height="96" alt="Young potatoes"></a>
 
-Young potatoes are stage 2 of the potato crop. Harvesting early returns one potato; wait until ripe for a larger yield.
+Young potatoes are stage 2 of the potato crop. Harvesting early returns nothing; wait until ripe for potatoes.
 
 ## At a glance
 

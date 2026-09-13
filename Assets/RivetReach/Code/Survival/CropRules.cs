@@ -39,7 +39,7 @@ namespace RivetReach
         public static IEnumerable<ItemStack> Harvest(byte id,uint random)
         {
             var d=For(id);if(d==null)yield break;
-            if(id!=d.Mature){if(d.planting!=0)yield return new ItemStack(d.planting,1);yield break;}
+            if(id!=d.Mature){if(d.planting!=0&&d.planting!=d.produce)yield return new ItemStack(d.planting,1);yield break;}
             yield return new ItemStack(d.produce,d.minYield+(int)(random%(d.maxYield-d.minYield+1)));
             if(d.planting!=0&&d.seedYield>0)yield return new ItemStack(d.planting,d.seedYield);
         }

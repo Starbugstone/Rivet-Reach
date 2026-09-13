@@ -17,7 +17,7 @@ namespace RivetReach
             var searchPanel=Panel(parent,821,188,315,34,slate);
             var search=searchPanel.gameObject.AddComponent<InputField>();
             search.textComponent=Label(searchPanel.transform,"",9,5,296,25,16);
-            search.placeholder=Label(searchPanel.transform,"Search items…",9,5,296,25,16,gold);
+            search.placeholder=Label(searchPanel.transform,"Search items or #tag…",9,5,296,25,16,gold);
             search.text=creativeSearch;search.characterLimit=64;
             var viewport=Panel(parent,821,233,315,258,slate);
             viewport.gameObject.AddComponent<Mask>().showMaskGraphic=true;
@@ -30,10 +30,10 @@ namespace RivetReach
             {
                 creativeSearch=query;
                 foreach(Transform child in content){child.gameObject.SetActive(false);Destroy(child.gameObject);}
-                int row=0;
+                int row=0;var terms=query.Split(new[]{' '},StringSplitOptions.RemoveEmptyEntries);
                 foreach(var item in game.Registry.items.OrderBy(i=>i.displayName,StringComparer.OrdinalIgnoreCase))
                 {
-                    if(item.displayName.IndexOf(query,StringComparison.OrdinalIgnoreCase)<0)continue;
+                    if(!game.Registry.MatchesSearch(item.runtimeId,terms))continue;
                     var entry=Button(content,"",4,row++*52+4,307,48,()=>
                     {
                         status.text=game.TryGiveCreativeItem(item.runtimeId)?$"Added {item.stackLimit} × {item.displayName}":"Inventory full · Make room for a stack";

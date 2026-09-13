@@ -8,7 +8,7 @@
 
 <a href="Item-potato-plant-0.md" title="Potato seedlings"><img src="icons/33.png" width="96" height="96" alt="Potato seedlings"></a>
 
-Potato seedlings are stage 1 of the potato crop. Harvesting early returns one potato; wait until ripe for a larger yield.
+Potato seedlings are stage 1 of the potato crop. Harvesting early returns nothing; wait until ripe for potatoes.
 
 ## At a glance
 

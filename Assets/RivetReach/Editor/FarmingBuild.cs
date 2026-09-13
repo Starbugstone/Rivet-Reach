@@ -36,6 +36,8 @@ namespace RivetReach.Editor
             foreach(var pair in new[]{(BlockId.Potato,"vegetable"),(BlockId.Apple,"fruit"),(BlockId.Coal,"boiler_fuel"),(BlockId.Charcoal,"boiler_fuel")})
             {var item=items.items.Single(i=>i.runtimeId==pair.Item1);item.tags=(item.tags??Array.Empty<string>()).Append(pair.Item2).Distinct().OrderBy(t=>t).ToArray();}
             foreach(var item in items.items.Where(i=>i.foodPoints>0))item.tags=(item.tags??Array.Empty<string>()).Append("edible").Distinct().OrderBy(t=>t).ToArray();
+            foreach(var item in items.items)
+            {string tag=ItemTags.MaterialAddition(item.runtimeId);if(tag!=null)item.tags=item.tags.Append(tag).Distinct().OrderBy(t=>t).ToArray();}
             items.InvalidateIndex();EditorUtility.SetDirty(items);
             RecipeCellData Cell(byte id,int count=1)=>new RecipeCellData{itemId=items.Get(id).stableId,count=count};
             void Recipe(byte output,int size,params (byte id,int count)[] input)

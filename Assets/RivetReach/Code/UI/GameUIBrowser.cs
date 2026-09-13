@@ -115,7 +115,7 @@ namespace RivetReach
             var searchPanel = Panel(panel.transform, 14, 57, 214, 35, slate);
             browserSearchField = searchPanel.gameObject.AddComponent<InputField>(); browserSearchField.name = "Item browser search";
             browserSearchField.textComponent = Label(searchPanel.transform, "", 9, 7, 196, 25, 15);
-            browserSearchField.placeholder = Label(searchPanel.transform, "Search items…", 9, 7, 196, 25, 15, gold);
+            browserSearchField.placeholder = Label(searchPanel.transform, "Search items or #tag…", 9, 7, 196, 25, 15, gold);
             browserSearchField.characterLimit = 80; browserSearchField.text = browserSearch;
             Button(panel.transform, "×", 234, 57, 36, 35, () => browserSearchField.text = "");
             var grid = Rect(panel.transform, "Item pages", 16, 108, 252, 420);
@@ -135,8 +135,8 @@ namespace RivetReach
             string[] terms = browserSearch.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             foreach (var item in browserItems)
             {
-                string text = item.displayName + " " + item.stableId + " " + (browserSettings.TryGetValue(item.runtimeId, out var entry) ? entry.searchKeywords : "");
-                if (terms.All(term => text.IndexOf(term, StringComparison.OrdinalIgnoreCase) >= 0)) browserFiltered.Add(item);
+                string keywords = browserSettings.TryGetValue(item.runtimeId, out var entry) ? entry.searchKeywords : "";
+                if (game.Registry.MatchesSearch(item.runtimeId,terms,keywords)) browserFiltered.Add(item);
             }
             PopulateBrowserPage();
         }

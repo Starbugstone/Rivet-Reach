@@ -1,5 +1,7 @@
 # Floater
 
+[All mobs](Mobs.md) · [Rustback beetle](Rustback-Beetle.md) · [Dusk prowler](Dusk-Prowler.md)
+
 Floaters are hostile stone creatures: a hovering rocky sphere with a scowling face and heavy arms. They appear on supported outdoor terrain **at night**. Existing Floaters remain dangerous after sunrise.
 
 ![An actual Floater hovering above terrain in the September 13 review build](images/floater-hover.png)

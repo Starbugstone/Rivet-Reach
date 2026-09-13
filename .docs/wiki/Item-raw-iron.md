@@ -15,6 +15,7 @@ Silver-grey mineral pockets in fractured stone: mined iron keeps the stylised or
 | Property | Value |
 |---|---|
 | Stack size | 64 |
+| Tags | `raw_ore` |
 
 ## How to obtain
 

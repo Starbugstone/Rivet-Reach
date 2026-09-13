@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace RivetReach
@@ -72,8 +73,9 @@ namespace RivetReach
         public ItemDefinition[] items;
         ItemDefinition[] byId;
         Dictionary<string, byte> byStableId;
+        readonly Dictionary<string,ItemSelector> selectors=new Dictionary<string,ItemSelector>(StringComparer.Ordinal);
         void OnEnable() => InvalidateIndex();
-        public void InvalidateIndex(){byId=null;byStableId=null;}
+        public void InvalidateIndex(){byId=null;byStableId=null;selectors.Clear();}
         void OnValidate() => InvalidateIndex();
         void BuildIndex()
         {
@@ -92,12 +94,35 @@ namespace RivetReach
                     item.toolCapabilities!=ToolCapability.None&&(item.stackLimit!=1||item.tier<ToolTier.Wood||item.tier>ToolTier.Diamond||
                         float.IsNaN(item.miningSpeed)||float.IsInfinity(item.miningSpeed)||item.miningSpeed<=0))
                     throw new InvalidOperationException("Invalid tool, food or armor statistics: "+item.stableId);
+                if(item.tags==null||item.tags.Any(t=>!ItemTags.Valid(t))||item.tags.Distinct(StringComparer.Ordinal).Count()!=item.tags.Length)
+                    throw new InvalidOperationException("Invalid or duplicate item tag: "+item.stableId);
                 ids[item.runtimeId]=item;stable.Add(item.stableId,item.runtimeId);
             }
             byId=ids;byStableId=stable;
         }
         public bool HasTag(byte id,string tag)=>id!=0&&Array.IndexOf(Get(id).tags??Array.Empty<string>(),tag)>=0;
-        public int FoodPoints(byte id)=>HasTag(id,"edible")?Get(id).foodPoints:0;
+        public int FoodPoints(byte id)=>HasTag(id,ItemTags.Edible)?Get(id).foodPoints:0;
+        public ItemSelector Select(string selector)
+        {
+            if(byId==null)BuildIndex();
+            if(string.IsNullOrWhiteSpace(selector))throw new ArgumentException("Missing ingredient selector.");
+            if(selectors.TryGetValue(selector,out var compiled))return compiled;
+            if(selector[0]=='#')
+            {
+                string tag=selector.Substring(1);if(!ItemTags.Valid(tag))throw new ArgumentException("Invalid ingredient tag: "+selector);
+                compiled=new ItemSelector(items.Where(i=>HasTag(i.runtimeId,tag)).Select(i=>i.runtimeId));
+            }
+            else compiled=new ItemSelector(new[]{ResolveId(selector)});
+            if(compiled.Choices.Count==0)throw new ArgumentException("Ingredient selector has no members: "+selector);
+            selectors.Add(selector,compiled);return compiled;
+        }
+        public bool MatchesSearch(byte id,string[] terms,string keywords="")
+        {
+            var item=Get(id);string text=item.displayName+" "+item.stableId+" "+keywords;
+            foreach(string term in terms)
+                if(term.StartsWith("#",StringComparison.Ordinal)?!HasTag(id,term.Substring(1).ToLowerInvariant()):text.IndexOf(term,StringComparison.OrdinalIgnoreCase)<0)return false;
+            return true;
+        }
         public ItemDefinition Get(byte id)
         {
             if(byId==null)BuildIndex();

@@ -15,6 +15,7 @@ Smelted metal used in crafting. Direct smelting makes one ingot per raw ore; cru
 | Property | Value |
 |---|---|
 | Stack size | 64 |
+| Tags | `ingot` |
 
 ## How to obtain
 

@@ -72,3 +72,6 @@ Assets/RivetReach/Resources/Farming/*.fbx filter=lfs diff=lfs merge=lfs -text
 ArtSource/Farming/*.png filter=lfs diff=lfs merge=lfs -text
 .docs/wiki/images/farming/*.png filter=lfs diff=lfs merge=lfs -text
 .docs/verification/farming-2026-09-13/*.png filter=lfs diff=lfs merge=lfs -text
+
+.docs/wiki/images/mobs/*.png filter=lfs diff=lfs merge=lfs -text
+.docs/verification/stability-2026-09-13/*.png filter=lfs diff=lfs merge=lfs -text

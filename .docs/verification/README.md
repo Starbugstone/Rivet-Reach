@@ -74,3 +74,5 @@ This directory maintains the latest report and useful evidence for each feature.
 - [Ranged liquid pump](RANGED_PUMP_RESULTS.md): source collection, eight-block reach, lava transport, save compatibility and imported machine.
 
 - [Farming and cooking](FARMING_RESULTS.md): shared crop growth, forage/textiles, item tags, basic/electric cookers and persistent per-chunk generation, with original art and actual player captures (2026-09-13).
+
+- [Stability and abstraction review](STABILITY_REVIEW_RESULTS.md): compiled tags/ingredient matching, cooker automation, save compatibility and complete mob wiki coverage (2026-09-13).

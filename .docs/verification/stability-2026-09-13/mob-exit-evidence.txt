@@ -1,0 +1,1 @@
+Tools/Verify-Farming.ps1 -FullReview completed with exit 0. Its final Tools/Verify-Mobs.ps1 invocation throws on nonzero player exit; mob-runtime.json reports PASS 117 assertions.

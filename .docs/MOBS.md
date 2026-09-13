@@ -74,3 +74,7 @@ Sources: `Tools/create_floater_assets.py`, editable `ArtSource/Mobs/Floater.blen
 ## Passive-animal boundary — issue #10 first-pass decision
 
 The user confirmed separate hostile and passive mob systems. Future chickens may share appropriate voxel movement, collision, targeting and damage primitives with hostile creatures, but need their own persistent lifecycle for breeding, chick growth, eggs and following. The ambient hostile distance-removal policy must not delete livestock. This farming/cooking increment records the boundary; it does not implement chickens or another passive animal.
+
+## Player wiki
+
+The [Mobs overview](wiki/Mobs.md) links [Rustback beetle](wiki/Rustback-Beetle.md), [Dusk prowler](wiki/Dusk-Prowler.md) and [Floater](wiki/Floater.md), with actual game captures and the current combat/spawning/persistence rules. Passive livestock remains future scope and must use the separate lifecycle boundary above.

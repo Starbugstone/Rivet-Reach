@@ -82,9 +82,9 @@ namespace RivetReach
             // Schema 1/2 predate orchard state; doors and crank are independent additive content.
             // Every definition present before each accepted extension must still match.
             var processing=ProcessingCatalogAsset.Load();
-            string Fingerprint(int legacy,bool orchard=false,bool wrench=false,bool electric=false,bool lava=false,bool floater=false,bool bridges=false,bool ranged=false,bool farming=false)
+            string Fingerprint(int legacy,bool orchard=false,bool wrench=false,bool electric=false,bool lava=false,bool floater=false,bool bridges=false,bool ranged=false,bool farming=false,bool materialTags=true)
             {
-                string definitions=string.Join("\n",registry.items.Where(i=>(farming||!FarmId.Added(i.runtimeId))&&(ranged||i.stableId!="rivet:ranged_liquid_pump")&&(bridges||i.runtimeId<IndustryId.ItemBridge||i.runtimeId>IndustryId.ChunkLoader)&&(floater||i.stableId!="rivet:floater_rock")&&(lava||i.stableId!="rivet:lava_bucket")&&(electric||i.stableId!="rivet:electric_furnace")&&(wrench||i.stableId!="rivet:wrench")&&(orchard||i.stableId!="rivet:sapling"&&i.stableId!="rivet:apple")&&((legacy&2)==0||i.stableId!="rivet:hand_crank")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.runtimeId).Select(i=>ItemFingerprint(i,farming)))
+                string definitions=string.Join("\n",registry.items.Where(i=>(farming||!FarmId.Added(i.runtimeId))&&(ranged||i.stableId!="rivet:ranged_liquid_pump")&&(bridges||i.runtimeId<IndustryId.ItemBridge||i.runtimeId>IndustryId.ChunkLoader)&&(floater||i.stableId!="rivet:floater_rock")&&(lava||i.stableId!="rivet:lava_bucket")&&(electric||i.stableId!="rivet:electric_furnace")&&(wrench||i.stableId!="rivet:wrench")&&(orchard||i.stableId!="rivet:sapling"&&i.stableId!="rivet:apple")&&((legacy&2)==0||i.stableId!="rivet:hand_crank")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.runtimeId).Select(i=>ItemFingerprint(i,farming,materialTags)))
                     +string.Join("\n",processing.recipes.OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
                     +string.Join("\n",processing.fuels.OrderBy(i=>i.itemId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
                     +string.Join("\n",RecipeCatalogAsset.Load().recipes.Where(i=>(farming||!i.stableId.StartsWith("rivet:farm_",StringComparison.Ordinal))&&(ranged||i.stableId!="rivet:industry_180")&&(bridges||!new[]{"rivet:industry_190","rivet:industry_191","rivet:industry_192","rivet:industry_193"}.Contains(i.stableId))&&(electric||i.stableId!="rivet:industry_174")&&(wrench||i.stableId!="rivet:wrench")&&((legacy&2)==0||i.stableId!="rivet:industry_170")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
@@ -93,12 +93,20 @@ namespace RivetReach
                 return Convert.ToBase64String(Hash(Encoding.UTF8.GetBytes(definitions)));
             }
             content=Fingerprint(0,true,true,true,true,true,true,true,true);
+            modernContent.Add(Fingerprint(0,true,true,true,true,true,true,true,true,false));
             for(int mask=0;mask<32;mask++)modernContent.Add(Fingerprint(0,true,true,(mask&1)!=0,(mask&2)!=0,(mask&4)!=0,(mask&8)!=0,(mask&16)!=0,true));
             modernContent.Add(Fingerprint(0,true,true,true,true,true,true,true));modernContent.Add(content);modernContent.Add(Fingerprint(0,true,true,true,true,true,true,false));modernContent.Add(Fingerprint(0,true,true,true,true,true,false,true));modernContent.Add(Fingerprint(0,true,true,true,true,true));modernContent.Add(Fingerprint(0,true,true,true,true));modernContent.Add(Fingerprint(0,true,true,false,true));modernContent.Add(Fingerprint(0,true,true,false,true,true,true));modernContent.Add(Fingerprint(0,true,true,true));modernContent.Add(Fingerprint(0,true,true));for(int legacy=0;legacy<4;legacy++){legacyContent.Add(Fingerprint(legacy));currentContent.Add(Fingerprint(legacy,true));}
         }
-        static string ItemFingerprint(ItemDefinition definition,bool farming)
+        static string ItemFingerprint(ItemDefinition definition,bool farming,bool materialTags)
         {
-            string json=JsonUtility.ToJson(definition);if(farming)return json;
+            string json=JsonUtility.ToJson(definition);
+            if(farming)
+            {
+                string addition=ItemTags.MaterialAddition(definition.runtimeId);
+                if(materialTags||addition==null)return json;
+                var old=JsonUtility.FromJson<ItemDefinition>(json);old.tags=old.tags.Where(tag=>tag!=addition).ToArray();
+                return JsonUtility.ToJson(old);
+            }
             int suffix=json.LastIndexOf(",\"tags\":",StringComparison.Ordinal);
             if(suffix<0)throw new InvalidOperationException("Missing item tag compatibility projection.");
             return json.Substring(0,suffix)+"}";

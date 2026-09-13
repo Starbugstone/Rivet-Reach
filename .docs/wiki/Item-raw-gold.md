@@ -15,6 +15,7 @@ Raw metal obtained from an ore deposit. Smelt it directly for one ingot, or use 
 | Property | Value |
 |---|---|
 | Stack size | 64 |
+| Tags | `raw_ore` |
 
 ## How to obtain
 

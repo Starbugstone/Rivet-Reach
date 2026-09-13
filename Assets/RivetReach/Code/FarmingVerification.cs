@@ -30,6 +30,15 @@ namespace RivetReach
         IEnumerator ReviewFarming()
         {
             FreezeSaveFixture();game.SetCreative(true);game.enabled=false;
+            game.SetMode(ScreenMode.Inventory);yield return null;
+            var search=game.UI.VisibleRoot.GetComponentsInChildren<UnityEngine.UI.InputField>().Single(f=>f.name=="Item browser search");
+            search.text="#edible";yield return null;
+            var foodViews=game.UI.VisibleRoot.GetComponentsInChildren<BrowserItemView>().Where(v=>v.CatalogSource).ToArray();
+            Check(foodViews.Length==11&&foodViews.All(v=>game.Registry.HasTag(v.Item,ItemTags.Edible)),"Actual item browser filters all eleven edible foods");
+            yield return Capture("edible-tag-search");search.text="#ingot iron";yield return null;
+            var ingotViews=game.UI.VisibleRoot.GetComponentsInChildren<BrowserItemView>().Where(v=>v.CatalogSource).ToArray();
+            Check(ingotViews.Length==1&&ingotViews[0].Item==BlockId.IronIngot,"Tag and name filtering intersect in the real item browser");
+            search.text="";game.SetMode(ScreenMode.Play);
             var world=game.World;var sim=game.Industry.Simulation;var player=game.Player;
             var p=world.Address(player.transform.position).Offset(0,2,4);
             void Put(BlockPos pos,byte id)
@@ -64,6 +73,7 @@ namespace RivetReach
             player.Camera.transform.position=world.Local(wildCell)+new Vector3(1.2f,1.5f,-1.8f);player.Camera.transform.LookAt(world.Local(wildCell)+new Vector3(.5f,.3f,.5f));
             yield return new WaitForSecondsRealtime(.4f);yield return Capture("wild-growth");
             var immature=p.Offset(-4,0,0);int before=game.Items.Total(BlockId.Potato);Check(world.Mine(immature,world.Get(immature),ToolCapability.None),"Harvest planted crop through world mining");
+            Check(game.Items.Total(BlockId.Potato)==before,"Immature potato harvest cannot yield edible crop resources");
             // Restore one immature plot for the durable-growth check.
             Check(world.Plant(immature),"Replant saved growing crop");
             var cooker=p.Offset(2,0,0);var electric=p.Offset(4,0,0);Put(cooker,FarmId.Cooker);Put(electric,FarmId.ElectricCooker);

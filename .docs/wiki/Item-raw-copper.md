@@ -15,6 +15,7 @@ Orange mineral pockets in fractured stone: mined copper keeps the stylised ore-b
 | Property | Value |
 |---|---|
 | Stack size | 64 |
+| Tags | `raw_ore` |
 
 ## How to obtain
 

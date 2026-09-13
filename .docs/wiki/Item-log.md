@@ -15,7 +15,7 @@ Wood from tree trunks. It starts the plank, tool and charcoal crafting chains.
 | Property | Value |
 |---|---|
 | Stack size | 64 |
-| Tags | `burnable` |
+| Tags | `burnable`, `log` |
 | Furnace fuel duration | 15 seconds |
 | Placement | Place from the hotbar |
 

@@ -15,7 +15,7 @@ Processed wood for early tools, sticks, stations and building. One log makes fou
 | Property | Value |
 |---|---|
 | Stack size | 64 |
-| Tags | `burnable` |
+| Tags | `burnable`, `planks` |
 | Furnace fuel duration | 15 seconds |
 | Placement | Place from the hotbar |
 

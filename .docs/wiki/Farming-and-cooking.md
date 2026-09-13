@@ -6,7 +6,7 @@ Find wild potatoes, wheat, flax, carrots and berry plants on grassy terrain. Mus
 
 ## Wild harvests and planting
 
-Cultivable wild plants visibly grow through the same four stages as farm plants. Young plants return **one planting item only**. Wait for maturity to receive resources and enough planting stock to continue farming.
+Cultivable wild plants visibly grow through the same four stages as farm plants. Young wheat, flax, carrot and berry plants return **one seed only**. Immature potatoes return **nothing**: their planting item is the edible crop itself. Wait for maturity to receive resources and enough planting stock to continue farming.
 
 | Plant | Mature harvest | Plant with |
 |---|---|---|
@@ -58,7 +58,7 @@ Each recipe takes **10 seconds** at full heat or power. Food tags allow intercha
 
 Every food you can eat has the `edible` tag and its own hunger value. Hold Use to eat. Meals restore more hunger in a single eating action than raw forage: raw carrots restore two points, berries and mushrooms one. Stockpile cooked food for mining, exploration and building. There is no spoilage or freshness timer.
 
-The recipe browser lists both cookers and the alternatives for tagged ingredients. The existing furnace and Electric Furnace still bake potatoes alongside their normal smelting recipes.
+The recipe browser lists both cookers and the alternatives for tagged ingredients. Search with `#edible` to see foods, `#vegetable #edible` to require both tags, or combine a tag and name such as `#ingot iron`. The existing furnace and Electric Furnace still bake potatoes alongside their normal smelting recipes.
 
 ## Automate cooking
 
@@ -70,8 +70,10 @@ Use [item pipes and a Wrench](Pipes.md) to set machine-facing ends:
 2. Electric Cooker ingredients can enter on any face.
 3. Set a separate machine-facing pipe end to **Output** to extract finished food.
 
-Ingredient pipes stage one recipe batch at a time, leaving room for each required ingredient. Input items and fuel cannot be extracted as finished food. Select the recipe before connecting the supply chests. Pipe arrows are visible while holding the Wrench.
+Ingredient pipes add only what the selected recipe still needs, leaving room for each required ingredient. Overlapping tags work too, and manually loaded surplus can remain while pipes supply missing ingredients. Input items and fuel cannot be extracted as finished food. Select the recipe before connecting the supply chests. Pipe arrows are visible while holding the Wrench.
 
 Crop growth, machine ingredients, selected recipes, stored heat, partial cooking work and battery energy survive Save/Load. No offline cooking or crop growth is added.
 
 Captures: September 13, 2026, Farming review build. Quantities and timings are initial balance settings; long-session food cadence remains subject to playtesting.
+
+![The actual item browser filtered to edible foods](images/farming/edible-tag-search.png)

@@ -21,3 +21,5 @@
 - [Bridges and chunk loaders](Bridges-and-chunk-loaders.md)
 
 - [Farming and cooking](Farming-and-cooking.md) — wild crops, fibre and basic/electric food preparation.
+
+- [Mobs](Mobs.md) — Rustback beetles, Dusk prowlers and Floaters; encounters, combat and persistence.

@@ -38,6 +38,7 @@ namespace RivetReach.Editor
             command=command.Replace("|ready","");File.Delete(request);
             try
             {
+                if(command=="tag-review"){TagReviewChecks.Run();FarmingChecks.Run();SurvivalChecks.Run();IndustryChecks.Run();ElectricFurnaceChecks.Run();GridAllocationChecks.Run();WikiExport.Export();Build("Farming");File.WriteAllText("Logs/build-result.txt","SUCCESS tag review");return;}
                 if(command=="farming-art-review"){FarmingBuild.ReviewImports();WikiExport.Export();File.WriteAllText("Logs/build-result.txt","SUCCESS farming imports and export");return;}
                 if(command=="farming-final"){FarmingBuild.Prepare();FarmingChecks.Run();TerrainGenerationChecks.Run((ok,message)=>{if(!ok)throw new Exception(message);});IndustryChecks.Run();WikiExport.Export();Build("Farming");File.WriteAllText("Logs/build-result.txt","SUCCESS farming build");return;}
                 if(command=="farming-checks"){FarmingChecks.Run();TerrainGenerationChecks.Run((ok,message)=>{if(!ok)throw new Exception(message);});SurvivalChecks.Run();IndustryChecks.Run();ElectricFurnaceChecks.Run();GridAllocationChecks.Run();File.WriteAllText("Logs/build-result.txt","SUCCESS farming checks");return;}
@@ -276,26 +277,27 @@ namespace RivetReach.Editor
             if(PlayerSettings.bundleVersion!="0.0.1")throw new Exception("Alpha release requires version 0.0.1.");
             DomainChecks.Run();FluidChecks.Run();
             IndustryChecks.Run();MultiblockChecks.Run();BatteryChecks.Run();ConnectedPipeChecks.Run();
-            // D3D12Core.dll intermittently faults during shutdown after session restoration
-            // on the alpha verification workstation. Ship the verified D3D11 renderer.
+            Build("Release/0.0.1/RivetReach-0.0.1-alpha-windows-x64",BuildOptions.None);
+        }
+        static void Build(string outputFolder="PlayerRevision4",BuildOptions options=BuildOptions.Development)
+        {
+            string output=Path.Combine("Builds",outputFolder);Directory.CreateDirectory(output);
+            // Apply the alpha's verified renderer to every shared Windows build.
+            // D3D12Core.dll has reproduced native shutdown faults after restoration.
             bool automatic=PlayerSettings.GetUseDefaultGraphicsAPIs(BuildTarget.StandaloneWindows64);
             var graphics=PlayerSettings.GetGraphicsAPIs(BuildTarget.StandaloneWindows64);
+            UnityEditor.Build.Reporting.BuildReport report;
             try
             {
                 PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.StandaloneWindows64,false);
                 PlayerSettings.SetGraphicsAPIs(BuildTarget.StandaloneWindows64,new[]{GraphicsDeviceType.Direct3D11});
-                Build("Release/0.0.1/RivetReach-0.0.1-alpha-windows-x64",BuildOptions.None);
+                report=BuildPipeline.BuildPlayer(new BuildPlayerOptions{scenes=EditorBuildSettings.scenes.Where(s=>s.enabled).Select(s=>s.path).ToArray(),locationPathName=Path.Combine(output,"RivetReach.exe"),target=BuildTarget.StandaloneWindows64,options=options});
             }
             finally
             {
                 PlayerSettings.SetGraphicsAPIs(BuildTarget.StandaloneWindows64,graphics);
                 PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.StandaloneWindows64,automatic);
             }
-        }
-        static void Build(string outputFolder="PlayerRevision4",BuildOptions options=BuildOptions.Development)
-        {
-            string output=Path.Combine("Builds",outputFolder);Directory.CreateDirectory(output);
-            var report=BuildPipeline.BuildPlayer(new BuildPlayerOptions{scenes=EditorBuildSettings.scenes.Where(s=>s.enabled).Select(s=>s.path).ToArray(),locationPathName=Path.Combine(output,"RivetReach.exe"),target=BuildTarget.StandaloneWindows64,options=options});
             File.WriteAllText("Logs/build-summary.txt",report.summary.result+"; errors "+report.summary.totalErrors+"; warnings "+report.summary.totalWarnings+"; seconds "+report.summary.totalTime.TotalSeconds+"; bytes "+report.summary.totalSize);
             File.WriteAllLines("Logs/build-messages.txt",report.steps.SelectMany(step=>step.messages).Where(message=>message.type==LogType.Warning||message.type==LogType.Error).Select(message=>message.type+": "+message.content));
             if(report.summary.result!=BuildResult.Succeeded||report.summary.totalErrors>0)throw new Exception("Windows build failed: "+report.summary.result+"; errors "+report.summary.totalErrors);

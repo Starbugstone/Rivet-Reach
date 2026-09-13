@@ -163,3 +163,5 @@ The [all-face connection rules](INDUSTRY.md#wrench-and-configurable-pipe-ends--2
 ## Food cookers and shared item tags — 2026-09-13
 
 [Farming and cooking](FARMING.md#shared-item-tags-and-fuel) introduces reusable item tags and a separate authored food catalog. Exact-item grid recipes retain their current behavior. Basic and electric cookers share tag/exact-item selectors, multi-ingredient transactions, browser alternatives and output quantities. The processing fuel catalog requires `burnable` plus a positive explicit duration; a tag alone grants no energy. Cooker crafting and fibre/string/cloth recipes remain ordinary editable recipe assets.
+
+The [tag authoring contract](FARMING.md#stability-review-and-tag-authoring--2026-09-13) provides reusable compiled selectors and a bounded ingredient matcher. Search the sidebar with `#edible`, `#raw_ore` or combined terms such as `#ingot iron`. Established exact-item crafting recipes preserve their layouts, materials and quantities.

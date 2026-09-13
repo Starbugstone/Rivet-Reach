@@ -127,7 +127,8 @@
                 "attackDamage": 1,
                 "buoyant": false,
                 "tags": [
-                    "burnable"
+                    "burnable",
+                    "log"
                 ]
             },
             "drop": "rivet:log",
@@ -502,7 +503,9 @@
                 "armorPoints": 0,
                 "attackDamage": 1,
                 "buoyant": false,
-                "tags": []
+                "tags": [
+                    "raw_ore"
+                ]
             },
             "drop": "rivet:raw_iron",
             "requiredTier": "None",
@@ -536,7 +539,9 @@
                 "armorPoints": 0,
                 "attackDamage": 1,
                 "buoyant": false,
-                "tags": []
+                "tags": [
+                    "raw_ore"
+                ]
             },
             "drop": "rivet:raw_copper",
             "requiredTier": "None",
@@ -607,7 +612,9 @@
                 "armorPoints": 0,
                 "attackDamage": 1,
                 "buoyant": false,
-                "tags": []
+                "tags": [
+                    "raw_ore"
+                ]
             },
             "drop": "rivet:raw_gold",
             "requiredTier": "None",
@@ -676,7 +683,8 @@
                 "attackDamage": 1,
                 "buoyant": false,
                 "tags": [
-                    "burnable"
+                    "burnable",
+                    "planks"
                 ]
             },
             "drop": "rivet:planks",
@@ -920,7 +928,9 @@
                 "armorPoints": 0,
                 "attackDamage": 1,
                 "buoyant": false,
-                "tags": []
+                "tags": [
+                    "ingot"
+                ]
             },
             "drop": "rivet:copper_ingot",
             "requiredTier": "None",
@@ -954,7 +964,9 @@
                 "armorPoints": 0,
                 "attackDamage": 1,
                 "buoyant": false,
-                "tags": []
+                "tags": [
+                    "ingot"
+                ]
             },
             "drop": "rivet:iron_ingot",
             "requiredTier": "None",
@@ -988,7 +1000,9 @@
                 "armorPoints": 0,
                 "attackDamage": 1,
                 "buoyant": false,
-                "tags": []
+                "tags": [
+                    "ingot"
+                ]
             },
             "drop": "rivet:gold_ingot",
             "requiredTier": "None",
@@ -11043,7 +11057,11 @@
         },
         {
             "path": "Assets/RivetReach/Code/Core/ItemRegistry.cs",
-            "sha256": "3b13bf90d64f788196b96d5b840ea899ad79cebbc13900db2fe0434a0166cd65"
+            "sha256": "620dd8c45a785e36e9651bc11c36fb2a8add1789533fd1a05357809356d76924"
+        },
+        {
+            "path": "Assets/RivetReach/Code/Core/ItemSelector.cs",
+            "sha256": "2cc790cc3a6e89fbccc12999de88e15f15d2bfcef8c283689c86f022d0657d75"
         },
         {
             "path": "Assets/RivetReach/Code/Core/ItemStack.cs",
@@ -11056,6 +11074,10 @@
         {
             "path": "Assets/RivetReach/Code/Crafting/CraftingSession.cs",
             "sha256": "f850a9bf05b5cfe1a2d3e0aa1667e4323e6c218789dbdfd5dfaa037aa3c3cbae"
+        },
+        {
+            "path": "Assets/RivetReach/Code/Crafting/IngredientMatcher.cs",
+            "sha256": "7641626f1c3a27e6cc6a68d52420bb4dd1fea4a4af7a081494b601c79732ff35"
         },
         {
             "path": "Assets/RivetReach/Code/Crafting/RecipeAsset.cs",
@@ -11115,7 +11137,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/FarmingVerification.cs",
-            "sha256": "5ce9dd0123bf448c30d4ee81c65736cd1fb7432b1406d3a167f10608f66fa949"
+            "sha256": "7385f5e98fcc2f4b697c98ba1ea7fa8d157e5af10d07efeac759eee2892dcab8"
         },
         {
             "path": "Assets/RivetReach/Code/FluidVerification.cs",
@@ -11166,6 +11188,14 @@
             "sha256": "5c8ed9d626c43ed229fcaa31538f575ebd1b210280abda4d0f9e5a9a5fc03694"
         },
         {
+            "path": "Assets/RivetReach/Code/Industry/CookerSimulation.cs",
+            "sha256": "21f3d4675c46ee6d0a1fbaf33e8ed88db59f952f5bc1e2dceec5f45de3d529bd"
+        },
+        {
+            "path": "Assets/RivetReach/Code/Industry/CookerState.cs",
+            "sha256": "f741440cde21e0ac38bf1c54041cd3cdd3817f969c9aa19e702dfbb8cd692172"
+        },
+        {
             "path": "Assets/RivetReach/Code/Industry/FairAllocation.cs",
             "sha256": "3b47ca10365da7e057078f4783e9927281514ae419f4f4148cc1540f9f516b69"
         },
@@ -11175,7 +11205,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustryDefinition.cs",
-            "sha256": "7de0766d7bfb6506ba764f7c032fee4ce0922db5b55572bd0e5536c216ddaae3"
+            "sha256": "0d085a31b449adfca44e999d2580609605caf1ae8da38617d5954adbd9267431"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustryPresentation.cs",
@@ -11271,7 +11301,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Mobs/MobVerification.cs",
-            "sha256": "de462e976cd095453ab0b4871a7f0691557c469a446257fee6bbb9f50bf7489f"
+            "sha256": "5a19a0b4b7004e71a24a9b362f85179eabcf62435c5c2fc21f129e2b45599e71"
         },
         {
             "path": "Assets/RivetReach/Code/Mobs/MobView.cs",
@@ -11331,7 +11361,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/SaveIO.cs",
-            "sha256": "82b2d5a017bdb3f226f7febea319f9bed0802129d16d7f2928452b9225f5f909"
+            "sha256": "061e3ff5fdd39831cf012ca5a88eb8cd8749d96640178508f6eb0e2efb886b31"
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/WorldSaveState.cs",
@@ -11467,11 +11497,11 @@
         },
         {
             "path": "Assets/RivetReach/Code/Survival/CookingCatalog.cs",
-            "sha256": "5d7c1bec2524fcc6f6dc62e0a3f033d19516c0ba2f26af72a4b0a94865e953fd"
+            "sha256": "2499995e0d1da16bc4051d4a4060b442e615fd89184fc6dc87229d273fea55f2"
         },
         {
             "path": "Assets/RivetReach/Code/Survival/CropRules.cs",
-            "sha256": "f2fae732fca7bb3bb3894de86e13a9df659b125f3a8f45f7b89002d80e133811"
+            "sha256": "7192c25f7bd02c996e3000de89263c997314c1c710f4d068c3955b480eeb7b59"
         },
         {
             "path": "Assets/RivetReach/Code/Survival/EquipmentState.cs",
@@ -11479,7 +11509,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Survival/FarmingCatalog.cs",
-            "sha256": "c5f3ddef646be80423f4cf27cefb52d7ebab59aea83d94c92d6019d667aadeea"
+            "sha256": "3d5b8b90cbf407138466e150acec84cee92a4d49e34bbc1a4a887530a3ae3c3e"
         },
         {
             "path": "Assets/RivetReach/Code/Survival/FurnaceState.cs",
@@ -11491,7 +11521,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Survival/ProcessingCatalogAsset.cs",
-            "sha256": "716238c0e716e6ca7376f5e70ca42301d0f5a5e9d8d3194d6840c8113d8ecdc5"
+            "sha256": "40cb0179157ccd906775bc600179f5fe3778c7a17acd968cdfa1caba9102df7d"
         },
         {
             "path": "Assets/RivetReach/Code/Survival/ProcessingRecipeAsset.cs",
@@ -11539,7 +11569,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIBrowser.cs",
-            "sha256": "270bf1cad136712593841052b80e6098121a14d5549d9866aefdd9aabd951ca4"
+            "sha256": "297b00cee29348cbeafc784c3a5581d7cab80f0df412805ab65b9af9b97a9a3c"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUICooking.cs",
@@ -11547,7 +11577,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUICreative.cs",
-            "sha256": "479d7b573ebe3081001cc43fb107e78d49cad646739f54436e2721485c2704b1"
+            "sha256": "03ca0f33655dc83513008fe2f67f37cd53a1df37137e2f8d9a9be96cf485082f"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIIndustry.cs",
@@ -11707,7 +11737,7 @@
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Items.asset",
-            "sha256": "edb7f22fc39f8f4f7c9fc058a3899e512e308486fe2db70911f355ff27ee6b86"
+            "sha256": "cc3b2bc1e6c1b335966fd1a5053e6ab69313ace5b3ebed3da54cff7b9cf95534"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Items.asset.meta",

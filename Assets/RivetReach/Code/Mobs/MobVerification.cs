@@ -177,6 +177,11 @@ namespace RivetReach
             Check(!game.CanPlace(game.World.Address(At(-4,6)),out _),"Real placement rejects building inside a living mob");
             PlayerAt(0,-2,0,8);bug.Yaw=165;cat.Yaw=195;
             yield return Capture("mobs-import-day");
+            bool thinking=mobs.enabled;mobs.enabled=false;
+            PlayerAt(-4,2);yield return null;Aim(bug);yield return Capture("rustback-beetle");
+            PlayerAt(4,2);yield return null;Aim(cat);yield return Capture("dusk-prowler");
+            PlayerAt(0,-2,0,8);mobs.enabled=thinking;
+
             foreach(var mob in mobs.Mobs)
             {
                 var bones=mob.View.GetComponentsInChildren<Transform>();
