@@ -1,5 +1,7 @@
 # Current verification evidence
 
+[Named bridges and chunk loaders](BRIDGE_RESULTS.md): private pairs, remote resource conservation, persistent chunk tickets and schema-9 saves.
+
 [Shift + wrench click](SHIFT_WRENCH_RESULTS.md): crouched item/fluid end configuration and one change per press.
 
 [Disconnected pipe ends and wrench-only arrows](PIPE_DISCONNECT_RESULTS.md): three-state cycle, missing-arm reconnection, saved states and native-player evidence.

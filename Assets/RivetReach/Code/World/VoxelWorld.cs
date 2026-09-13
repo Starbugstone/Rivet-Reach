@@ -56,6 +56,9 @@ namespace RivetReach
         public event Action<BlockPos> BlockChanged;
         public event Action ResidencyChanged;
         public Func<BlockPos,bool> IsOpenMachine;
+        public Func<IEnumerable<ChunkPos>> PersistentChunkTickets;
+        public void RefreshChunkTickets(){demandChanged=true;nextDemand=0;}
+        readonly HashSet<ChunkPos> ticketedChunks=new HashSet<ChunkPos>();
         public event Action<BlockPos,byte> BlockMined;
         readonly HashSet<ChunkPos> treeMeshes=new HashSet<ChunkPos>();
         public TreeSimulation Trees {get;private set;}
@@ -322,6 +325,9 @@ namespace RivetReach
                     if(!chunks.ContainsKey(p))chunks.Add(p,new Resident{Token=++nextToken});
                 }
             }
+            ticketedChunks.Clear();
+            if(PersistentChunkTickets!=null)foreach(var p in PersistentChunkTickets())
+            {ticketedChunks.Add(p);wanted.Add(p);wantedColumns.Add((p.X,p.Z));if(!chunks.ContainsKey(p))chunks.Add(p,new Resident{Token=++nextToken});}
             releaseChunks.Clear();foreach(var key in chunks.Keys)if(!wanted.Contains(key))releaseChunks.Add(key);
             foreach(var key in releaseChunks){Release(chunks[key]);chunks.Remove(key);}
             if(releaseChunks.Count>0)ResidencyChanged?.Invoke();
@@ -329,7 +335,7 @@ namespace RivetReach
             foreach(var key in releaseColumns)surfaceRanges.Remove(key);
             grassChunks.Clear();
             // Only a bounded neighbourhood ticks; unloaded/distant terrain receives no catch-up.
-            grassChunks.AddRange(wanted.Where(p=>Math.Abs(p.X-centre.X)<=2&&Math.Abs(p.Z-centre.Z)<=2&&Math.Abs(p.Y-centre.Y)<=1)
+            grassChunks.AddRange(wanted.Where(p=>ticketedChunks.Contains(p)||Math.Abs(p.X-centre.X)<=2&&Math.Abs(p.Z-centre.Z)<=2&&Math.Abs(p.Y-centre.Y)<=1)
                 .OrderBy(p=>p.X).ThenBy(p=>p.Y).ThenBy(p=>p.Z));
             releaseSky.Clear();foreach(var key in skyHeights.Keys)if(Math.Abs(BlockPos.FloorDiv(key.x,32)-centre.X)>2||Math.Abs(BlockPos.FloorDiv(key.z,32)-centre.Z)>2)releaseSky.Add(key);
             foreach(var key in releaseSky)skyHeights.Remove(key);

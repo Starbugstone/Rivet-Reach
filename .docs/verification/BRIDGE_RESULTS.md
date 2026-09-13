@@ -1,0 +1,23 @@
+# Bridge and chunk loader verification
+
+Native Unity 6000.4.4f1 Windows review, 2026-09-13. Run `Builds/Bridges/RivetReach.exe` for ordinary play. `Tools/Verify-Bridges.ps1` enables the explicit fixture and accepts an optional historical save directory; ordinary sessions still start without free items.
+
+## Measured checks
+
+- **37 focused editor assertions passed**, covering registered craftable items and imports, exact remote power/item/liquid budgets, owner/channel isolation, duplicate endpoint rejection, invalid-name transactions, rename/mining/dormancy recovery, mixed-liquid rejection and overlapping/negative-coordinate loader tickets. [Domain output](bridges-2026-09-13/domain-checks.txt).
+- Existing Industry, Battery, GridAllocation, Connection and PortableStorage editor suites passed on the combined working source. No new third-party dependency or engine change was introduced.
+- The reviewed Windows player built with **zero errors**. The final packaging run emitted one warning about pending Editor-only verification-reporting code; its actual game assembly passed the native run. [Build messages](bridges-2026-09-13/build-messages.txt). [Build identity](bridges-2026-09-13/build-summary.txt) and [artifact hashes](bridges-2026-09-13/artifact.json) identify the final capture binary independently of later source/build work.
+- **426 native assertions passed, with no runtime errors.** The native fixture proves exact remote delivery (four rocks/s, two litres/s of lava, 20 W lamp drawing exactly one joule/tick), actual name Apply interaction, distant residency for both loader-covered factories while unticketed terrain unloads, automatic distant ticket restoration after Save/Load, exact inventory/liquid/energy conservation and automatic shutdown after disabling the receiver's loader. [Native report](bridges-2026-09-13/runtime-report.json).
+- A checksum-valid save with a malformed bridge name is rejected without replacing the live world. An actual pre-bridge **schema-8 Floater checkpoint** loads with full historical content validation, a valid new owner identity and no accidental loader tickets. Fixture SHA-256: `6067f894986e5243329ad98bd48916ca389eac06789f4a6296988634f5150130` (original `Logs/FloaterFinal/FloaterSaves/02ca5270b518463db7badab9641198e0.rrsave`). The checkpoint is a local test input, not a shipped save.
+
+## Art and UI review
+
+Original Blender sources, final renders and geometry report are under `ArtSource/Bridges`; `Tools/create_bridge_assets.py` reproduces the four meshes and inventory icons. The rocky cores have a visible air gap above their cradles. Source triangle counts are **1,412 item bridge**, **2,196 liquid bridge**, **2,196 power bridge**, and **1,460 loader**, one shared workshop material each. [Imported mesh counts](bridges-2026-09-13/imported-geometry.json) match these source counts. These are geometry measurements, not frame-time guarantees.
+
+The actual source renders and imported player models were visually inspected, including the raised rocky cores, type-specific markings, named network panels, partner coordinates, loader enablement/coverage and linked operating lamp. World labels hide while menus are open. The item sidebar and machine illustration use the current model/icon art. [The illustrated player guide](../wiki/Bridges-and-chunk-loaders.md) contains the maintained actual captures; no generated concept image is presented as game evidence.
+
+## Limits
+
+This is single-player surface-world evidence. Owner isolation is covered through authoritative simulation commands; an actual multiplayer server/authentication path is not implemented or tested. Numeric recipes and artistic acceptance remain subject to play review. Unbounded numbers of loaders, long-session factory performance, broader remote ecology and cross-world transfer are not established. Chunk loaders retain current resident terrain pages/meshes and participate in the ordinary bounded demand queue; distant machine views remain culled. Paused/closed worlds do not advance or earn offline production.
+
+Local browser review used GitHub-rendered Markdown. All four gameplay images and all nine images on the Item Bridge recipe page loaded; both pages fit a 390-pixel viewport without horizontal document overflow. The recipe ingredient link opened the Floater Rock page. Live deployment verification will be recorded after publication.

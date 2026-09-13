@@ -75,3 +75,4 @@ Follow a result to see its complete ingredients and recipe.
 | Result | Station | Recipe |
 |---|---|---|
 | <a href="Item-tank-port.md#recipe-1" title="Tank Fluid Port"><img src="icons/164.png" width="32" height="32" alt="Tank Fluid Port"></a> ×1 [Tank Fluid Port](Item-tank-port.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-tank-port.md#recipe-1) |
+| <a href="Item-liquid-bridge.md#recipe-1" title="Liquid Bridge"><img src="icons/191.png" width="32" height="32" alt="Liquid Bridge"></a> ×2 [Liquid Bridge](Item-liquid-bridge.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-liquid-bridge.md#recipe-1) |

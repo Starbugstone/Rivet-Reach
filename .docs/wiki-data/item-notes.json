@@ -302,13 +302,32 @@
     "use": "Right-click a block face to place a source and recover your empty bucket. Lava flows slowly, never renews sources, destroys dropped items and burns players. It is safe while carried in inventory. A compatible multiblock tank can also accept or return 10 L through its bucket controls."
   },
   "rivet:floater_rock": {
-    "description": "A stone fragment from a defeated [Floater](Floater.md), with the same gray facets and pale mineral vein.",
+    "description": "A magical rock that enables the Floater to hover. Used in remote workshop technology.",
     "obtain": "Kill a Floater to receive exactly one Floater Rock. Walk near the dropped rock to collect it. Floaters spawn on supported surfaces at night.",
-    "use": "Craft a [Ranged Liquid Pump](Item-ranged-liquid-pump.md) with a [Pump](Item-pump.md) at the Machinist’s Bench. See [setup](Ranged-Liquid-Pump.md)."
+    "use": "Craft [bridges and chunk loaders](Bridges-and-chunk-loaders.md) at the Machinist’s Bench. Combine one rock with a [Pump](Item-pump.md) to craft a [Ranged Liquid Pump](Item-ranged-liquid-pump.md); see [its setup guide](Ranged-Liquid-Pump.md)."
   },
   "rivet:ranged_liquid_pump": {
     "description": "Collects liquid source blocks within eight blocks along each axis (a 17×17×17 cube), including lava. No electricity required.",
     "obtain": "Combine one Pump and one Floater Rock at the Machinist’s Bench.",
     "use": "See [Ranged Liquid Pump](Ranged-Liquid-Pump.md) for setup. Each source gives 10 L after two seconds of collection. Pipe it into a tank; the 10 L buffer holds one liquid at a time."
+  },
+  "rivet:item_bridge": {
+    "description": "A Floater Rock bridge joining two distant item pipe networks.",
+    "obtain": "Craft a pair at the Machinist’s Bench; see the recipe below.",
+    "use": "Connect matching pipes/cables, then give both bridges the same private network name. Both chunks must be loaded. See [Bridges and chunk loaders](Bridges-and-chunk-loaders.md)."
+  },
+  "rivet:liquid_bridge": {
+    "description": "A Floater Rock bridge joining two distant liquid pipe networks.",
+    "obtain": "Craft a pair at the Machinist’s Bench; see the recipe below.",
+    "use": "Connect matching pipes/cables, then give both bridges the same private network name. Both chunks must be loaded. See [Bridges and chunk loaders](Bridges-and-chunk-loaders.md)."
+  },
+  "rivet:power_bridge": {
+    "description": "A Floater Rock bridge joining two distant electrical grids.",
+    "obtain": "Craft a pair at the Machinist’s Bench; see the recipe below.",
+    "use": "Connect matching pipes/cables, then give both bridges the same private network name. Both chunks must be loaded. See [Bridges and chunk loaders](Bridges-and-chunk-loaders.md)."
+  },
+  "rivet:chunk_loader": {
+    "description": "Keeps its own 32 × 32 × 32 chunk loaded and active while the world runs.",
+    "use": "Place to enable; Interact opens controls and shows chunk origin. No fuel/power required. Cover the full remote installation, including both bridge endpoints. Saves retain its enabled state. See [Bridges and chunk loaders](Bridges-and-chunk-loaders.md)."
   }
 }

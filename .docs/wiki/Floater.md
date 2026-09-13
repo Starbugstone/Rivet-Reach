@@ -12,7 +12,7 @@ The round body stays about 0.6 metres above the ground. It can follow one-block 
 
 ## Floater Rock
 
-Killing a Floater drops **one [Floater Rock](Item-floater-rock.md)**. Walk close to the fragment to collect it. It stacks to 64 and can be carried or stored in a chest. It is a crafting resource, not a fuel, food or placeable terrain block.
+Killing a Floater drops **one [Floater Rock](Item-floater-rock.md)**. Walk close to the fragment to collect it. It stacks to 64 and can be carried or stored in a chest. Use its magical rock in the crafting recipes linked below; it is not a fuel, food or placeable terrain block.
 
 ![Floater Rock dropped on the ground after a defeat](images/floater-rock-drop.png)
 
@@ -23,3 +23,5 @@ Save checkpoints preserve living Floaters, their health and positions, and carri
 These are actual in-game captures from the **2026-09-13 Floater review build**. Combat balance and artistic acceptance remain under review.
 
 Use its rock with a Pump to craft a [Ranged Liquid Pump](Ranged-Liquid-Pump.md) for collecting finite liquid sources.
+
+Floater Rocks contain the magic that enables hovering. Use harvested stones to craft [bridges and chunk loaders](Bridges-and-chunk-loaders.md) for distant workshops.

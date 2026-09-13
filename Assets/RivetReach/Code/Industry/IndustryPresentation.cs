@@ -9,6 +9,7 @@ namespace RivetReach
     {
         sealed class View
         {
+            public TextMesh LinkLabel;
             public GameObject Root,SignalAddition,PowerAddition;public Transform ChargeFill;public long ShownCharge=-1;public MachineState State;public Transform[] Parts;public Vector3[] Rest;public Quaternion[] RestRotation;
             public Renderer[] Renderers;public Light Light;public float Phase;public int Mask=-1;public bool Active,MaterialShown;public MachineStatus ShownStatus=(MachineStatus)(-1);
         }
@@ -67,6 +68,12 @@ namespace RivetReach
                             renderer.shadowCastingMode=ShadowCastingMode.Off;v.ChargeFill=fill.transform;fill.SetActive(false);
                         }
                         views.Add(m.Position,v);
+                        if(IndustryId.Bridge(m.Definition.Id)||m.Definition.Id==IndustryId.ChunkLoader)
+                        {
+                            var label=new GameObject("Network label");label.transform.SetParent(root.transform,false);
+                            v.LinkLabel=label.AddComponent<TextMesh>();v.LinkLabel.anchor=TextAnchor.MiddleCenter;v.LinkLabel.alignment=TextAlignment.Center;
+                            v.LinkLabel.fontSize=40;v.LinkLabel.characterSize=.035f;v.LinkLabel.richText=false;
+                        }
                     }
                     v.Root.transform.position=game.World.Local(m.Position)+Vector3.one*.5f;
                     v.Root.transform.rotation=ConnectedPipeVisuals.UsesConnectedMesh(m.Definition.Id)?Quaternion.identity:Quaternion.Euler(0,m.Rotation*90,0);
@@ -79,11 +86,21 @@ namespace RivetReach
                         SetAddition(v.SignalAddition,sim.Signals.Topology,m);SetAddition(v.PowerAddition,sim.Power.Topology,m);
                     }
                     if(v.Light!=null){v.Light.enabled=m.Running&&lights++<8;v.Light.intensity=2.5f*m.ReceivedWatts/Mathf.Max(1,m.Definition.Watts);}
+                    if(v.LinkLabel!=null)
+                    {
+                        bool loader=m.Definition.Id==IndustryId.ChunkLoader;
+                        v.LinkLabel.text=loader?"CHUNK LOADER\n"+(m.LoaderEnabled?"ACTIVE":"DISABLED"):
+                            m.Definition.Name+" · "+(m.LinkName.Length==0?"UNLINKED":m.LinkName)+"\n"+sim.BridgeStatus(m);
+                        v.LinkLabel.color=loader?(m.LoaderEnabled?new Color(.4f,1,.8f):Color.gray):sim.BridgePartner(m)!=null?new Color(.4f,1,.8f):new Color(1,.73f,.3f);
+                        v.LinkLabel.gameObject.SetActive(game.Mode==ScreenMode.Play&&(game.World.Local(m.Position)-game.Player.transform.position).sqrMagnitude<12*12);
+                    }
                 }
             }
             bool revision=shownRevision!=sim.Revision;shownRevision=sim.Revision;
             foreach(var v in views.Values)
             {
+                if(v.LinkLabel!=null)
+                {v.LinkLabel.transform.position=game.World.Local(v.State.Position)+new Vector3(.5f,1.16f,.5f);v.LinkLabel.transform.rotation=game.Player.Camera.transform.rotation;}
                 var m=v.State;bool active=m.Definition.Id==IndustryId.ElectricFurnace||m.Definition.Id==IndustryId.RangedPump?m.Running:m.Signal||m.Source;
                 if(v.ChargeFill!=null)
                 {

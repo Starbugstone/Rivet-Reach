@@ -147,3 +147,7 @@ The user selected issue #3 and shared pipe connections, with Blender assets and 
 ## Avatar visual and motion review — 2026-09-10
 
 The user authorized a full player-avatar and handling rework with artistic liberties. [The working revision](AVATAR_REWORK.md) selects fitted fingerless gloves, revised workwear, per-tool animation timing and a lowered equip transition. These are implementation choices for review, not user-approved final numerical tuning. [Verification](verification/AVATAR_REWORK_RESULTS.md) records source/import and gameplay evidence. The follow-up explicitly requires horizontal visible rest and vertical use/swing/guard. Remaining nonblocking review: glove styling, hand framing and perceived weight/cadence of each tool; no further character customization or fitted armor scope follows automatically.
+
+## Floater Rock remote workshops — 2026-09-13
+
+The user selected paired item/liquid/electrical bridges, player-private names and chunk loaders. [BRIDGES.md](BRIDGES.md) owns the working recipes, naming/ownership boundary and ticket coverage. Open nonblocking review: assess Floater Rock availability against remote-factory construction costs, whether nearby name labels are sufficient for large installations, and measured responsiveness/memory with many distant loader tickets. These are tuning/scale questions; multiplayer authentication and cross-world connections remain later work.

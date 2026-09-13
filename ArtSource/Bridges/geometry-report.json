@@ -1,0 +1,18 @@
+{
+  "item_bridge": {
+    "triangles": 1412,
+    "materials": 1
+  },
+  "liquid_bridge": {
+    "triangles": 2196,
+    "materials": 1
+  },
+  "power_bridge": {
+    "triangles": 2196,
+    "materials": 1
+  },
+  "chunk_loader": {
+    "triangles": 1460,
+    "materials": 1
+  }
+}

@@ -150,3 +150,7 @@ The user requested a hostile rocky sphere with a face and arms, hovering over te
 ## Authorized ranged liquid pump
 
 The user requested a Floater Rock + Pump upgrade and confirmed eight blocks in every direction. [RANGED_PUMP.md](.docs/RANGED_PUMP.md) owns the inclusive 17³ reach, source-only collection, no electricity, typed buffer and bounded resident-cell searches. Preserve finite lava, no mixing, shared pipes, exact source transactions and additive save compatibility. [Verification](.docs/verification/RANGED_PUMP_RESULTS.md) records measured evidence.
+
+## Authorized Floater Rock bridges and chunk loaders
+
+The user authorized [named bridges and chunk loaders](.docs/BRIDGES.md): Floater Rocks power paired item/liquid/electrical connections and persistent chunk tickets. Preserve two endpoints per owner/world/channel/name, private player identities independent of display names, resident-only transfer, shared resource allocation and schema-9 ownership/tickets. [Verification](.docs/verification/BRIDGE_RESULTS.md) records evidence; [the player guide](.docs/wiki/Bridges-and-chunk-loaders.md) owns setup.

@@ -50,7 +50,7 @@ namespace RivetReach
         public static NetworkKind TransportKind(MachineState pipe)=>pipe.Definition.Id==IndustryId.ItemPipe?NetworkKind.Item:NetworkKind.Fluid;
         public static bool Supports(MachineState m,NetworkKind kind)
         {
-            if(m==null||IndustryId.Route(m.Definition.Id))return false;
+            if(m==null||IndustryId.Route(m.Definition.Id)||IndustryId.Bridge(m.Definition.Id))return false;
             foreach(var p in m.Definition.Ports)if(p.Kind==kind)return true;
             return false;
         }

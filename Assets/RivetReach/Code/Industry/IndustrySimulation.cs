@@ -38,11 +38,12 @@ namespace RivetReach
             ItemNetwork.ExternalEndpointFaces=p=>ItemEndpoint(p)!=null?63:0;
             ItemNetwork.ResolvePorts=m=>TransportPorts(m,NetworkKind.Item);
             FluidNetwork.ResolvePorts=m=>TransportPorts(m,NetworkKind.Fluid);
+            foreach(var graph in new[]{Power.Topology,ItemNetwork,FluidNetwork})graph.RemotePartner=BridgePartner;
         }
         public MachineState At(BlockPos p)=>machines.TryGetValue(p,out var m)?m:null;
         public void Invalidate(){dirty=true;signalsDirty=true;Revision++;}
         public MachineState Add(BlockPos p,byte id)
-        {if(machines.ContainsKey(p))throw new InvalidOperationException("Occupied machine anchor");var m=new MachineState(p,id,limit,processing);machines.Add(p,m);if(id==IndustryId.TankController)Multiblocks.Register(m,MultiblockDefinition.Tank);if(id==IndustryId.BatteryController)Multiblocks.Register(m,MultiblockDefinition.BatteryBank);Multiblocks.Changed(p);Invalidate();return m;}
+        {if(machines.ContainsKey(p))throw new InvalidOperationException("Occupied machine anchor");var m=new MachineState(p,id,limit,processing);machines.Add(p,m);if(IndustryId.Bridge(id)||id==IndustryId.ChunkLoader)m.OwnerId=LocalOwnerId;if(id==IndustryId.TankController)Multiblocks.Register(m,MultiblockDefinition.Tank);if(id==IndustryId.BatteryController)Multiblocks.Register(m,MultiblockDefinition.BatteryBank);Multiblocks.Changed(p);Invalidate();return m;}
         public MachineState Remove(BlockPos p)
         {var m=At(p);if(m!=null){if(!Multiblocks.CanRemove(p))return null;Multiblocks.RemoveController(p);machines.Remove(p);Multiblocks.Changed(p);Invalidate();}return m;}
         public void Rotate(MachineState m){m.Rotation=(m.Rotation+1)%4;Multiblocks.Changed(m.Position);Invalidate();}
@@ -76,7 +77,7 @@ namespace RivetReach
                 rebuild?.Dispose();dirty=false;eligible.Clear();devices.Clear();
                 foreach(var m in machines.Values)
                 {m.Eligible=world.Ready(m.Position)&&(m.Definition.Id!=IndustryId.WoodenDoor||world.Ready(m.Position.Offset(0,1,0)));if(m.Eligible)eligible.Add(m);else{ResetNetworkState(m);m.Status=MachineStatus.Dormant;}}
-                eligible.Sort((a,b)=>Compare(a.Position,b.Position));InitializePipeEnds();foreach(var m in eligible)if(!IndustryId.Route(m.Definition.Id))devices.Add(m);rebuild=Rebuild().GetEnumerator();TopologyRebuilds++;
+                RebuildBridgeLinks();eligible.Sort((a,b)=>Compare(a.Position,b.Position));InitializePipeEnds();foreach(var m in eligible)if(!IndustryId.Route(m.Definition.Id))devices.Add(m);rebuild=Rebuild().GetEnumerator();TopologyRebuilds++;
             }
             if(rebuild!=null)
             {

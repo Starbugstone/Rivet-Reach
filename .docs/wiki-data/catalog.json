@@ -4489,6 +4489,138 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 10000
+        },
+        {
+            "definition": {
+                "runtimeId": 190,
+                "stableId": "rivet:item_bridge",
+                "displayName": "Item Bridge",
+                "stackLimit": 64,
+                "fistSeconds": 1.2000000476837159,
+                "colour": {
+                    "r": 0.75,
+                    "g": 0.4399999976158142,
+                    "b": 0.2199999988079071,
+                    "a": 1.0
+                },
+                "fistDropId": 0,
+                "toolCapabilities": 0,
+                "tier": 0,
+                "miningSpeed": 1.0,
+                "foodPoints": 0,
+                "armorSlot": 0,
+                "armorPoints": 0,
+                "attackDamage": 1,
+                "buoyant": false
+            },
+            "drop": "rivet:item_bridge",
+            "requiredTier": "None",
+            "help": "Floater Rock links two item pipe networks",
+            "placeable": true,
+            "ore": false,
+            "crop": false,
+            "fuelTicks": 0,
+            "watts": 0,
+            "waterMl": 0
+        },
+        {
+            "definition": {
+                "runtimeId": 191,
+                "stableId": "rivet:liquid_bridge",
+                "displayName": "Liquid Bridge",
+                "stackLimit": 64,
+                "fistSeconds": 1.2000000476837159,
+                "colour": {
+                    "r": 0.75,
+                    "g": 0.4399999976158142,
+                    "b": 0.2199999988079071,
+                    "a": 1.0
+                },
+                "fistDropId": 0,
+                "toolCapabilities": 0,
+                "tier": 0,
+                "miningSpeed": 1.0,
+                "foodPoints": 0,
+                "armorSlot": 0,
+                "armorPoints": 0,
+                "attackDamage": 1,
+                "buoyant": false
+            },
+            "drop": "rivet:liquid_bridge",
+            "requiredTier": "None",
+            "help": "Floater Rock links two liquid pipe networks",
+            "placeable": true,
+            "ore": false,
+            "crop": false,
+            "fuelTicks": 0,
+            "watts": 0,
+            "waterMl": 0
+        },
+        {
+            "definition": {
+                "runtimeId": 192,
+                "stableId": "rivet:power_bridge",
+                "displayName": "Power Bridge",
+                "stackLimit": 64,
+                "fistSeconds": 1.2000000476837159,
+                "colour": {
+                    "r": 0.75,
+                    "g": 0.4399999976158142,
+                    "b": 0.2199999988079071,
+                    "a": 1.0
+                },
+                "fistDropId": 0,
+                "toolCapabilities": 0,
+                "tier": 0,
+                "miningSpeed": 1.0,
+                "foodPoints": 0,
+                "armorSlot": 0,
+                "armorPoints": 0,
+                "attackDamage": 1,
+                "buoyant": false
+            },
+            "drop": "rivet:power_bridge",
+            "requiredTier": "None",
+            "help": "Floater Rock links two electrical grids",
+            "placeable": true,
+            "ore": false,
+            "crop": false,
+            "fuelTicks": 0,
+            "watts": 0,
+            "waterMl": 0
+        },
+        {
+            "definition": {
+                "runtimeId": 193,
+                "stableId": "rivet:chunk_loader",
+                "displayName": "Chunk Loader",
+                "stackLimit": 64,
+                "fistSeconds": 1.2000000476837159,
+                "colour": {
+                    "r": 0.75,
+                    "g": 0.4399999976158142,
+                    "b": 0.2199999988079071,
+                    "a": 1.0
+                },
+                "fistDropId": 0,
+                "toolCapabilities": 0,
+                "tier": 0,
+                "miningSpeed": 1.0,
+                "foodPoints": 0,
+                "armorSlot": 0,
+                "armorPoints": 0,
+                "attackDamage": 1,
+                "buoyant": false
+            },
+            "drop": "rivet:chunk_loader",
+            "requiredTier": "None",
+            "help": "Keeps this 32 × 32 × 32 chunk active while the world runs",
+            "placeable": true,
+            "ore": false,
+            "crop": false,
+            "fuelTicks": 0,
+            "watts": 0,
+            "waterMl": 0
         }
     ],
     "recipes": [
@@ -7879,6 +8011,126 @@
             "mirror": false
         },
         {
+            "id": "rivet:industry_190",
+            "station": "rivet:machinist_bench",
+            "kind": "Shapeless",
+            "output": {
+                "item": "rivet:item_bridge",
+                "count": 2
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:machine_casing",
+                    "count": 2
+                },
+                {
+                    "item": "rivet:item_pipe",
+                    "count": 4
+                },
+                {
+                    "item": "rivet:floater_rock",
+                    "count": 2
+                }
+            ],
+            "fuels": [],
+            "grid": 4,
+            "width": 0,
+            "height": 0,
+            "ticks": 0,
+            "watts": 0,
+            "mirror": false
+        },
+        {
+            "id": "rivet:industry_191",
+            "station": "rivet:machinist_bench",
+            "kind": "Shapeless",
+            "output": {
+                "item": "rivet:liquid_bridge",
+                "count": 2
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:machine_casing",
+                    "count": 2
+                },
+                {
+                    "item": "rivet:fluid_pipe",
+                    "count": 4
+                },
+                {
+                    "item": "rivet:floater_rock",
+                    "count": 2
+                }
+            ],
+            "fuels": [],
+            "grid": 4,
+            "width": 0,
+            "height": 0,
+            "ticks": 0,
+            "watts": 0,
+            "mirror": false
+        },
+        {
+            "id": "rivet:industry_192",
+            "station": "rivet:machinist_bench",
+            "kind": "Shapeless",
+            "output": {
+                "item": "rivet:power_bridge",
+                "count": 2
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:machine_casing",
+                    "count": 2
+                },
+                {
+                    "item": "rivet:power_cable",
+                    "count": 4
+                },
+                {
+                    "item": "rivet:floater_rock",
+                    "count": 2
+                }
+            ],
+            "fuels": [],
+            "grid": 4,
+            "width": 0,
+            "height": 0,
+            "ticks": 0,
+            "watts": 0,
+            "mirror": false
+        },
+        {
+            "id": "rivet:industry_193",
+            "station": "rivet:machinist_bench",
+            "kind": "Shapeless",
+            "output": {
+                "item": "rivet:chunk_loader",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:azure_crystal",
+                    "count": 4
+                },
+                {
+                    "item": "rivet:machine_casing",
+                    "count": 1
+                },
+                {
+                    "item": "rivet:floater_rock",
+                    "count": 4
+                }
+            ],
+            "fuels": [],
+            "grid": 4,
+            "width": 0,
+            "height": 0,
+            "ticks": 0,
+            "watts": 0,
+            "mirror": false
+        },
+        {
             "id": "rivet:industry_180",
             "station": "rivet:machinist_bench",
             "kind": "Shapeless",
@@ -8645,6 +8897,10 @@
             "sha256": "7bd6edb0e4c348ce111aaa08910ba1186e9e091d78e316c9ed59bb300e7e27c2"
         },
         {
+            "path": "Assets/RivetReach/Code/BridgesVerification.cs",
+            "sha256": "9e938f3a5348e2ca24e29379281554f1fd8a115684be16edc9ebb82f984e565a"
+        },
+        {
             "path": "Assets/RivetReach/Code/ConnectionVerification.cs",
             "sha256": "51b6c053a7e51f6af06075eadcd46bf0f7b39fea44f4e658da274ebb5dbbe9a4"
         },
@@ -8773,6 +9029,10 @@
             "sha256": "162e5e4895310bde22f0084d25349d5571c7d0364eb865235ffc1b73a76cedb4"
         },
         {
+            "path": "Assets/RivetReach/Code/Industry/BridgeLinks.cs",
+            "sha256": "be6ba011782fce6464ed6df35c5c9559f49b425588a9b6d7dd7d28601561cafc"
+        },
+        {
             "path": "Assets/RivetReach/Code/Industry/ConnectedPipeVisuals.cs",
             "sha256": "5c8ed9d626c43ed229fcaa31538f575ebd1b210280abda4d0f9e5a9a5fc03694"
         },
@@ -8786,23 +9046,23 @@
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustryDefinition.cs",
-            "sha256": "94116b177d576a7f7edacb93b0e2313e54f4f309df0df5725f032926c4c1f80b"
+            "sha256": "7aed154c1a6a25bce2fed431e836eaa820d86a3f29c87b4adf065456f3177c4c"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustryPresentation.cs",
-            "sha256": "bb638063b27393c38427ee2ca4a45013c361602b85570361f76fc4724225c789"
+            "sha256": "89b67618371c6193399f271d013538f7d62861675e2b81cd8f5c1d8db115da5c"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustrySimulation.cs",
-            "sha256": "247b1231a4bce4a7e5a79089f59c7afc74ea14e679f09127afd7b10e818e3383"
+            "sha256": "e257656eba727a731400eedaa56f3499a3aa6843c439e026582ae25c075d18cf"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/NetworkTopology.cs",
-            "sha256": "44d4bbe5cb578fb704b8927188b56d1550a55435b326f26bc9733399853fc32c"
+            "sha256": "b29380e2895f827904266703a4cf8185a2c47be356418c48411de66bd99f0053"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/PipeConnections.cs",
-            "sha256": "8fdbd442ba0e8087e8681c0654040eaa543b195175b9a86c4ab23dfdcb302650"
+            "sha256": "df58babdf24f939e9fcd4aaac7e9c98b67e36e431f6cd69c74153b334b86ae6e"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/PipeEndInteraction.cs",
@@ -8826,7 +9086,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Industry/WorldIndustry.cs",
-            "sha256": "560f56916404b09b709fddf4db544611d4093a1ee50cac391750e94525a3c696"
+            "sha256": "cfbad280ec4abf406c0a8deb8a77e5263ad6ab191c8d3da94ebe47e621e2df84"
         },
         {
             "path": "Assets/RivetReach/Code/IndustryVerification.cs",
@@ -8942,11 +9202,11 @@
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/SaveIO.cs",
-            "sha256": "b37933f37a3d113826a7957731dafa2d079fdde61e117c0b2f826ff3e6a39f7a"
+            "sha256": "bccd5015a74d41749dec6a6da9fea23308b990692bc13c52ce77226153d3628f"
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/WorldSaveState.cs",
-            "sha256": "78eccb75e1cb16b4dafece1ffc57384b217b83d8ba1d987089d637c2d47dbc5f"
+            "sha256": "a547c53ba3bc9919ce84cad6a78078fc4b60c1470c036452877a04bc5fe01fb1"
         },
         {
             "path": "Assets/RivetReach/Code/PlacementFacing.cs",
@@ -9050,7 +9310,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/RuntimeVerification.cs",
-            "sha256": "f15222a000f7358bc33c28693a1aac7827e4f2421bb47084cf6325876269d5ee"
+            "sha256": "32b70d5340f55f09f9f7241b031d53efd3c619531eeb5c52b88e8b66814d9a85"
         },
         {
             "path": "Assets/RivetReach/Code/SaveVerification.cs",
@@ -9133,6 +9393,10 @@
             "sha256": "624dad83a3f3f426c138cc370d63cf4cb37d29e60f10eb5359d5eca6e9b90c02"
         },
         {
+            "path": "Assets/RivetReach/Code/UI/GameUIBridges.cs",
+            "sha256": "6b02cfc55e95f0e8fd0c254a571de58ab2569ac35c5f8d4f273350c382b5130e"
+        },
+        {
             "path": "Assets/RivetReach/Code/UI/GameUIBrowser.cs",
             "sha256": "270bf1cad136712593841052b80e6098121a14d5549d9866aefdd9aabd951ca4"
         },
@@ -9142,7 +9406,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIIndustry.cs",
-            "sha256": "6a735de56fa3838a0a36141385e88aec204f5d952fe07c290a84da3b41d6e346"
+            "sha256": "b8747f6d66bef9778d2cb1acb086a25b3640e7d34f4aa4e825c5cd1aa09e1595"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIRecipeDetails.cs",
@@ -9154,7 +9418,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIScreenReuse.cs",
-            "sha256": "2a59f4c2829c3a20bb6020569385a1d72696580b536d3086cc625297315ba76a"
+            "sha256": "a2e4afb4a0b226fca35d2cd3fac14bd024e484d00ba2b60b7f57e7d4e34c785a"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIStationIllustration.cs",
@@ -9222,7 +9486,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/World/VoxelWorld.cs",
-            "sha256": "694b062f52bc5c41e4edde6c51b3b579b140150af60ba266676792252d38fad6"
+            "sha256": "3f93adffd0a4659d1b5a2fe1c82f875c938c9962048a846fe87fa3ca58b87a3f"
         },
         {
             "path": "Assets/RivetReach/Code/World/WorldClock.cs",
@@ -9274,7 +9538,7 @@
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Items.asset",
-            "sha256": "9de0f581ca3686d488ef01caac91ac9edb12566251a8e052364c262117114771"
+            "sha256": "9e2ff6e75c13a186c41994e4a28a7c3d0633e1143659e2d01aa66cf2e34c83d4"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Items.asset.meta",
@@ -9342,7 +9606,7 @@
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes.asset",
-            "sha256": "998b71b768833fdd3286810aefc7ab14325a64c52921eac544d29bda73a17f47"
+            "sha256": "6265a6a16dcc863354cd8c446852e5fa05b11963c3b68fad6bbf3f43f95dbf69"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes.asset.meta",
@@ -9663,6 +9927,38 @@
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry180.asset.meta",
             "sha256": "b8f4545b1e4747bf1bef30dba6d9b714b0dbb6513027d8b5b44ea1508584570c"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry190.asset",
+            "sha256": "e80bac7783d461d98d93a1e5db62c988dd71292e810a9139711fefdc879ba732"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry190.asset.meta",
+            "sha256": "6479d7a33a001a6a6c64c97cc9a3d16d4504e21c8fba60a174d6e7778576ba46"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry191.asset",
+            "sha256": "7837caf46b65773839238e6e8524523563b4831b71867a2df3e40ca20bf19d10"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry191.asset.meta",
+            "sha256": "4d0f7be2b05d0b571d66cfc8eca89748c031be26856e95d037d2d07c7434f9de"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry192.asset",
+            "sha256": "ce43319efe9733e40a9265e31c5979c9f7199ba001edc93d8619ae7e481595f0"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry192.asset.meta",
+            "sha256": "55720d7360262aae9b98f56b00d36eaf57c146b7941e84b4b1b2f1089c2553c5"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry193.asset",
+            "sha256": "66fb55c77826fb633c54a7cf9becf149cbd02c75580f378f737489db1e2406de"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry193.asset.meta",
+            "sha256": "1e09fe51503d1134c7bd28964a9f3eb52f2611272ac8ec9fcb6c9c07aba8a90a"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes/Process120.asset",
@@ -10467,6 +10763,22 @@
         {
             "path": "Assets/RivetReach/Resources/Industry/Icons/180.png",
             "sha256": "49fcd47d14c6e14c6b143fa6d949d57cb5afc1f3d67313deb6c8802df1dbb650"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Industry/Icons/190.png",
+            "sha256": "421f927d619110edc32e007bf2078fdad2f56545a76f7a1e829b2459007f440e"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Industry/Icons/191.png",
+            "sha256": "f72b9e5a4c14c36aca87296760feed3daf8eec5b12832dbe82c30ca1420613a7"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Industry/Icons/192.png",
+            "sha256": "b7a06579d5aa519dabaf25160fc476a111052387826b2f94c5498dad3f607a55"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Industry/Icons/193.png",
+            "sha256": "11658649db28a9b301f9d2693b7a3196fcd5d324798e5a3d8aa373e9de520702"
         },
         {
             "path": "Assets/RivetReach/Resources/Industry/Icons/23.png",

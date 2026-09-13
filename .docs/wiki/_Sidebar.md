@@ -17,3 +17,5 @@
 - [Floater](Floater.md) — hovering stone enemies and Floater Rock drops.
 
 - [Ranged Liquid Pump](Ranged-Liquid-Pump.md)
+
+- [Bridges and chunk loaders](Bridges-and-chunk-loaders.md)

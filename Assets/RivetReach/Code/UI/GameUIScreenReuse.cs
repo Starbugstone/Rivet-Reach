@@ -40,6 +40,7 @@ namespace RivetReach
         {
             public RectTransform root;
             public Text creativeStatus;
+            public InputField bridgeNameField;
             public readonly List<SlotView> slots = new List<SlotView>();
             public readonly List<(Text label, Func<MachineState,string> value)> controls = new List<(Text,Func<MachineState,string>)>();
             public Text craftStatus, craftOutputName, furnaceText, machineStatus, machineDetail;
@@ -248,6 +249,7 @@ namespace RivetReach
                 panel.slots.AddRange(slots.GetRange(first,slots.Count-first));stationScreens.Add(key,panel);
             }
             else {currentStation=panel;slots.AddRange(panel.slots);}
+            if(panel.bridgeNameField!=null)panel.bridgeNameField.SetTextWithoutNotify(game.OpenMachine.LinkName);
             foreach(var control in panel.controls)control.label.text=control.value(game.OpenMachine);
             if(panel.creativeStatus!=null)panel.creativeStatus.text="Click an item to receive a full stack";
             panel.root.gameObject.SetActive(true);

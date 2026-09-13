@@ -170,3 +170,7 @@ The user requested stored-resource conservation on mining, nonstacking filled it
 ## Ranged liquid pump — 2026-09-13
 
 The user requested a Floater Rock pump upgrade for finite liquids and confirmed eight blocks in every direction. [RANGED_PUMP.md](RANGED_PUMP.md) owns its inclusive 17³ collection area, source-only 10 L transactions, electricity-free operation, typed buffer and bounded searches. The original Pump retains its water-only intake below.
+
+## Floater Rock bridges and chunk loaders — 2026-09-13
+
+[BRIDGES.md](BRIDGES.md) owns paired, named item/liquid/electrical graph connections, private owner identities and chunk-loader residency. Remote edges reuse these allocation rules and keep Blue Signal separate. Both endpoints and all participating machines must be resident; bridges alone do not load destinations.

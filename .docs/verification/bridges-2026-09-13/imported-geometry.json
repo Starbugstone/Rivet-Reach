@@ -1,0 +1,18 @@
+{
+  "item_bridge": {
+    "triangles": 1412,
+    "meshAsset": "Assets/RivetReach/Resources/Industry/Runtime/item_bridge_0.asset"
+  },
+  "liquid_bridge": {
+    "triangles": 2196,
+    "meshAsset": "Assets/RivetReach/Resources/Industry/Runtime/liquid_bridge_0.asset"
+  },
+  "power_bridge": {
+    "triangles": 2196,
+    "meshAsset": "Assets/RivetReach/Resources/Industry/Runtime/power_bridge_0.asset"
+  },
+  "chunk_loader": {
+    "triangles": 1460,
+    "meshAsset": "Assets/RivetReach/Resources/Industry/Runtime/chunk_loader_0.asset"
+  }
+}

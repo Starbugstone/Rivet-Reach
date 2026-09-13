@@ -23,6 +23,7 @@ namespace RivetReach
         public readonly NetworkKind Kind;
         public Func<BlockPos,int> ExternalEndpointFaces;
         public Func<MachineState,IEnumerable<MachinePort>> ResolvePorts;
+        public Func<MachineState,MachineState> RemotePartner;
         public NetworkTopology(NetworkKind kind){Kind=kind;}
         public IEnumerable<int> Rebuild(IReadOnlyList<MachineState> machines)
         {
@@ -55,6 +56,10 @@ namespace RivetReach
                 while(queue.Count>0)
                 {
                     var a=nodes[queue.Dequeue()];group.Ports.Add(a);
+                    var remote=RemotePartner?.Invoke(a.Machine);
+                    if(remote!=null&&byPosition.TryGetValue(remote.Position,out var remoteNodes))
+                        foreach(int j in remoteNodes)if(nodes[j].Group<0&&nodes[j].Port.Role==PortRole.Route)
+                        {nodes[j].Group=group.Id;queue.Enqueue(j);}
                     for(int face=0;face<6;face++)
                     {
                         if((a.Faces&(1<<face))==0)continue;

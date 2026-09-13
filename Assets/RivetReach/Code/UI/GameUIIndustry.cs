@@ -10,6 +10,7 @@ namespace RivetReach
         void BuildMachine(Transform parent)
         {
             var m=game.OpenMachine;
+            if(IndustryId.Bridge(m.Definition.Id)||m.Definition.Id==IndustryId.ChunkLoader){BuildBridgeMachine(parent,m);return;}
             if(IndustryId.BatteryPart(m.Definition.Id)){BuildBatteryMachine(parent,m);return;}
             if(IndustryId.TankPart(m.Definition.Id)){BuildMultiblockMachine(parent,m);return;}
             Label(parent,"MACHINE CONTROL",821,115,315,32,23);
@@ -81,6 +82,7 @@ namespace RivetReach
         {
             if(machineStatus==null||game.OpenMachine==null||Time.unscaledTime<nextMachineRefresh)return;
             nextMachineRefresh=Time.unscaledTime+.1f;var m=game.OpenMachine;
+            if(IndustryId.Bridge(m.Definition.Id)||m.Definition.Id==IndustryId.ChunkLoader){RefreshBridgeMachine(m);return;}
             machineStatus.text=m.FluidConflict?"Fluid conflict · drain vessels":m.Status==MachineStatus.NoInput&&m.Definition.Id==IndustryId.Extractor?"Chest empty or missing":m.Status==MachineStatus.NoInput&&m.Definition.Id==IndustryId.Drill?"Cutting path obstructed":StatusName(m.Status);
             if(m.Definition.Id==IndustryId.RangedPump&&m.Status==MachineStatus.NoInput)machineStatus.text=m.PumpScanIndex>0?"Searching for liquid sources":"No compatible source in range";
             machineStatus.color=m.Running?new Color(.35f,.90f,.83f):gold;

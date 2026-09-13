@@ -89,6 +89,8 @@ class Reference:
             return 'Materials and components'
         if item_id == 'rivet:ranged_liquid_pump':
             return 'Stations and machines'
+        if item_id in {'rivet:item_bridge', 'rivet:liquid_bridge', 'rivet:power_bridge', 'rivet:chunk_loader'}:
+            return 'Stations and machines'
         if d['runtimeId'] >= 160:
             return 'Multiblock tanks and batteries'
         if 131 <= d['runtimeId'] <= 138 or d['runtimeId'] in (146, 147, 148, 149):

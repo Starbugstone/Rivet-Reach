@@ -18,7 +18,7 @@ The long-term vision combines:
 
 **Download:** [Rivet Reach 0.0.1 Alpha for Windows x64](https://github.com/Starbugstone/Rivet-Reach/releases/tag/v0.0.1). Extract the complete Windows ZIP and run `RivetReach.exe`; no Unity installation is needed. **Save Game, Load Game and Continue Latest Save are included.** See the [alpha notes](.docs/releases/0.0.1.md).
 
-The current Unity **6000.4.4f1 / URP 17.4.0** review build includes FPS movement, block mining/placement, inventory, **93 modular recipes**, personal 2×2 and workbench 3×3 crafting, five tool tiers, craftable light-emitting torches, furnaces, chests, potato farming, hunger, hearts and armor. It also includes seven biomes including seas and rivers, bucket water flow and caves, depth-banded ores, protected bedrock, generated trees, male/female appearances with two skins, a moving day/night sky, and native beetle/prowler enemies and [hovering Floaters](.docs/wiki/Floater.md).
+The current Unity **6000.4.4f1 / URP 17.4.0** review build includes FPS movement, block mining/placement, inventory, **100 modular recipes**, personal 2×2 and workbench 3×3 crafting, five tool tiers, craftable light-emitting torches, furnaces, chests, potato farming, hunger, hearts and armor. It also includes seven biomes including seas and rivers, bucket water flow and caves, depth-banded ores, protected bedrock, generated trees, male/female appearances with two skins, a moving day/night sky, and native beetle/prowler enemies and [hovering Floaters](.docs/wiki/Floater.md).
 
 For testing, the Escape menu now offers [Creative mode](.docs/GAMEPLAY.md#creative-testing-mode): double-tap Space flight, invincibility and a searchable catalog with sidebar dragging into inventory. The local Creative review build is `Builds/Creative/RivetReach.exe`.
 
@@ -80,5 +80,7 @@ The player now carries **56 backpack slots (seven rows of eight)** and a **15-sl
 [Electrical grids](.docs/BATTERIES.md#cable-defined-grids--2026-09-12) now follow connected cables, with separate battery input/output networks, storage of all surplus and **800 W** boiler/alternator generation. Batteries share surplus/deficits equally, and item/fluid pipes use the same capped allocation rules. The focused review player is `Builds/PowerGrid/RivetReach.exe`; [power-grid verification](.docs/verification/POWER_GRID_RESULTS.md) records the checks.
 
 [Lava](.docs/FLUIDS.md#lava--2026-09-13) adds slow nonrenewing flow, near-bedrock lakes in new worlds, lava buckets and burning hazards. The focused review player is `Builds/Lava/RivetReach.exe`; [lava verification](.docs/verification/LAVA_RESULTS.md) records the checks and [the player guide](.docs/wiki/Lava.md) explains safe collection.
+
+[Named bridges and chunk loaders](.docs/BRIDGES.md) use Floater Rocks to connect remote item, liquid and electrical networks while keeping selected chunks active. [Player setup](.docs/wiki/Bridges-and-chunk-loaders.md) explains pairing and coverage; [verification](.docs/verification/BRIDGE_RESULTS.md) records the current evidence.
 
 A [Ranged Liquid Pump](.docs/RANGED_PUMP.md) upgrades a Pump with Floater Rock and collects sources within eight blocks on each axis, including finite lava. The focused review player is `Builds/RangedPump/RivetReach.exe`; [verification](.docs/verification/RANGED_PUMP_RESULTS.md) records its checks.

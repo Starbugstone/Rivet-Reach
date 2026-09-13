@@ -33,6 +33,10 @@ namespace RivetReach.Editor
                 if(IndustryId.TankPart(output)){recipe.ingredients=input.Select(i=>Cell(i.id,i.count)).ToArray();EditorUtility.SetDirty(recipe);}
                 if(!catalog.recipes.Contains(recipe)){catalog.recipes=catalog.recipes.Append(recipe).ToArray();EditorUtility.SetDirty(catalog);}
             }
+            Recipe(IndustryId.ItemBridge,2,4,(BlockId.FloaterRock,2),(IndustryId.Casing,2),(IndustryId.ItemPipe,4));
+            Recipe(IndustryId.FluidBridge,2,4,(BlockId.FloaterRock,2),(IndustryId.Casing,2),(IndustryId.FluidPipe,4));
+            Recipe(IndustryId.PowerBridge,2,4,(BlockId.FloaterRock,2),(IndustryId.Casing,2),(IndustryId.PowerCable,4));
+            Recipe(IndustryId.ChunkLoader,1,4,(BlockId.FloaterRock,4),(IndustryId.Casing,1),(IndustryId.AzureCrystal,4));
             Recipe(IndustryId.Bench,1,3,(BlockId.Workbench,1),(BlockId.IronIngot,4),(BlockId.CopperIngot,2));
             Recipe(IndustryId.CopperWire,4,4,(BlockId.CopperIngot,1));Recipe(IndustryId.CopperPlate,3,4,(BlockId.CopperIngot,3));Recipe(IndustryId.IronPlate,3,4,(BlockId.IronIngot,3));Recipe(IndustryId.Cog,1,4,(BlockId.IronIngot,2));Recipe(IndustryId.Rivets,8,4,(BlockId.IronIngot,1));
             Recipe(IndustryId.Casing,1,4,(IndustryId.IronPlate,4),(IndustryId.Rivets,4));

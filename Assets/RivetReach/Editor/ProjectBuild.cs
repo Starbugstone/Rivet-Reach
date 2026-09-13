@@ -40,6 +40,12 @@ namespace RivetReach.Editor
             {
                 if(command=="ranged-pump-build")
                 {RangedPumpReview();return;}
+                if(command=="bridge-final")
+                {IndustryAssets.NormalizeModels(Resources.Load<Material>("Industry/Workshop"),new[]{"item_bridge","liquid_bridge","power_bridge","chunk_loader"});BridgeChecks.Run();WikiExport.Export();Build("Bridges");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
+                if(command=="bridge-player")
+                {BridgeChecks.Run();WikiExport.Export();Build("Bridges");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
+                if(command=="bridge-build")
+                {IndustryAssets.Prepare();BridgeChecks.Run();IndustryChecks.Run();BatteryChecks.Run();GridAllocationChecks.Run();ConnectionChecks.Run();PortableStorageChecks.Run();WikiExport.Export();Build("Bridges");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="floater-build")
                 {MobAssetImport.Prepare();FloaterChecks.Run();DomainChecks.Run();WikiExport.Export();Build("Floater");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="portable-storage-build"||command=="portable-storage-checks")

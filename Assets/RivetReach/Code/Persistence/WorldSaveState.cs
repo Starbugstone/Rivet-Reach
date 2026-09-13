@@ -137,12 +137,13 @@ namespace RivetReach
     {
         internal void WriteSave(SaveWriter w)
         {
-            w.Write(Tick);w.Write(Multiblocks.WorldId.ToString("N"));w.Write(machines.Count);
+            w.Write(Tick);w.Write(Multiblocks.WorldId.ToString("N"));if(w.Format>=9)w.Write(LocalOwnerId);w.Write(machines.Count);
             foreach(var m in machines.Values)
             {
                 w.Pos(m.Position);w.Write(m.Definition.Id);w.Slots(m.Items.Slots);w.Write(m.Rotation);w.Write(m.Source);w.Write(m.NextSource);w.Write(m.PulseTicks);w.Write(m.BurnTicks);
                 w.Write(m.WaterMl);if(w.Format>=8)w.Write(m.Fluid.Fluid?.StableId??"");w.Write(m.DrillDepth);w.Write(m.Work);w.Write(m.WorkInput);w.Write(m.Priority);w.Write((int)m.Additions);w.Write((int)m.BatteryMode);
                 w.Write(m.RecoveryOutput);w.Write((int)m.PortMode);w.Write(m.LevelThreshold);w.Write((int)m.Status);w.Write(m.PipeDirections);
+                if(w.Format>=9){w.Write(m.OwnerId);w.Write(m.LinkName);w.Write(m.LoaderEnabled);}
                 if(m.EnergyCells.Length==1)w.Write(m.EnergyCells[0].Amount);
                 if(m.Definition.Id==IndustryId.TankController||m.Definition.Id==IndustryId.BatteryController)
                 {
@@ -154,6 +155,7 @@ namespace RivetReach
         internal void ReadSave(SaveReader r)
         {
             Tick=r.Long();SaveReader.Require(Guid.TryParseExact(r.Text(32),"N",out var worldId),"Invalid multiblock world identity.");Multiblocks.WorldId=worldId;
+            if(r.Format>=9){LocalOwnerId=r.Text(32);SaveReader.Require(Guid.TryParseExact(LocalOwnerId,"N",out _),"Invalid player ownership identity.");}
             int n=r.Count();var ids=new HashSet<Guid>();
             for(int i=0;i<n;i++)
             {
@@ -166,6 +168,12 @@ namespace RivetReach
                 m.Additions=(PipeAddition)r.Int(0,3);SaveReader.Require(m.Additions==0||PipeConnections.IsTransport(id),"Invalid pipe fittings.");m.BatteryMode=(BatteryMode)r.Int(0,3);
                 m.RecoveryOutput=r.ReadBoolean();m.PortMode=(FluidPortMode)r.Int(0,2);m.LevelThreshold=r.Int(0,100);m.Status=(MachineStatus)r.Int(0,Enum.GetValues(typeof(MachineStatus)).Length-1);
                 if(r.Format>=4){m.PipeDirections=r.Int(0,4095);SaveReader.Require(PipeConnections.ValidDirections(m.PipeDirections)&&(m.PipeDirections==0||PipeConnections.IsTransport(id)),"Invalid pipe end directions.");}
+                if(r.Format>=9)
+                {
+                    m.OwnerId=r.Text(32);m.LinkName=r.Text(32);m.LoaderEnabled=r.ReadBoolean();
+                    bool owned=IndustryId.Bridge(id)||id==IndustryId.ChunkLoader;
+                    SaveReader.Require((owned?Guid.TryParseExact(m.OwnerId,"N",out _):m.OwnerId=="")&&ValidLinkName(m.LinkName)&&(IndustryId.Bridge(id)||m.LinkName==""),"Invalid saved bridge ownership or name.");
+                }
                 if(m.EnergyCells.Length==1)SaveReader.Require(m.EnergyCells[0].Charge(r.Long(0,BatteryStorage.CellCapacity)),"Invalid battery energy.");
                 if(id==IndustryId.TankController||id==IndustryId.BatteryController)
                 {
@@ -179,6 +187,7 @@ namespace RivetReach
             }
             foreach(var m in machines.Values)if(m.Definition.Id==IndustryId.WoodenDoor)
                 SaveReader.Require(world.Get(m.Position.Offset(0,1,0))==IndustryId.DoorUpper&&m.WorkInput<=1&&m.Work==0&&m.PulseTicks==0&&m.BurnTicks==0&&m.Items.Slots.All(s=>s.Empty),"Invalid saved door.");
+            SaveReader.Require(!machines.Values.Where(m=>IndustryId.Bridge(m.Definition.Id)&&m.LinkName.Length>0).GroupBy(m=>(m.OwnerId,m.Definition.Id,m.LinkName.ToUpperInvariant())).Any(g=>g.Count()>2),"Too many endpoints in a saved bridge pair.");
             // Graphs and shared cell membership are rebuilt from restored terrain when it is resident.
             Invalidate();
         }

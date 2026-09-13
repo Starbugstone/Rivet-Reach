@@ -1,0 +1,37 @@
+PASS Registered placeable item 190
+PASS Machinist bench recipe 190
+PASS Imported original model 190
+PASS Registered placeable item 191
+PASS Machinist bench recipe 191
+PASS Imported original model 191
+PASS Registered placeable item 192
+PASS Machinist bench recipe 192
+PASS Imported original model 192
+PASS Registered placeable item 193
+PASS Machinist bench recipe 193
+PASS Imported original model 193
+PASS Case-insensitive owner-scoped pair configured
+PASS Remote power uses exactly 1 J for one 20 W tick
+PASS Third endpoint rejected atomically
+PASS Wrong owner cannot rename bridge
+PASS Invalid name leaves existing pair intact
+PASS Different player can reuse the same name
+PASS Names never cross owner boundaries
+PASS Different channels may reuse a name
+PASS Channels remain independent
+PASS Dormant partner disconnects without energy loss
+PASS Residency automatically restores remote power
+PASS Reassign pair name
+PASS Renaming disconnects previous remote grid
+PASS Rejoin pair
+PASS Mining endpoint disconnects graph
+PASS Configure distant cargo source
+PASS Linked item graph preserves four items/second source budget and identity
+PASS Unlinked item bridge transfers nothing
+PASS Exact remote liquid budget and identity: rivet:water
+PASS Mixed-liquid connected graph rejects transfer
+PASS Exact remote liquid budget and identity: rivet:lava
+PASS Mixed-liquid connected graph rejects transfer
+PASS Overlapping loaders share one negative-coordinate chunk ticket
+PASS Disabling one loader retains the other's ticket
+PASS Removing final loader releases chunk ticket

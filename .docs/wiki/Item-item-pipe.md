@@ -4,7 +4,7 @@
 
 [All items](Items.md) · [Crafting guide](Crafting-Recipes.md) · [Home](Home.md)
 
-[How to obtain](#how-to-obtain) · [Crafting and processing](#crafting-and-processing)
+[How to obtain](#how-to-obtain) · [Crafting and processing](#crafting-and-processing) · [Uses](#used-to-make)
 
 <a href="Item-item-pipe.md" title="Item Pipe"><img src="icons/146.png" width="96" height="96" alt="Item Pipe"></a>
 
@@ -68,3 +68,11 @@ Opening its controls shows a matching illustration and name in the left panel. S
 |---|---:|
 | <a href="Item-copper-wire.md" title="Copper Wire"><img src="icons/122.png" width="32" height="32" alt="Copper Wire"></a> [Copper Wire](Item-copper-wire.md) | 2 |
 | <a href="Item-iron-plate.md" title="Iron Plate"><img src="icons/124.png" width="32" height="32" alt="Iron Plate"></a> [Iron Plate](Item-iron-plate.md) | 2 |
+
+## Used to make
+
+Follow a result to see its complete ingredients and recipe.
+
+| Result | Station | Recipe |
+|---|---|---|
+| <a href="Item-item-bridge.md#recipe-1" title="Item Bridge"><img src="icons/190.png" width="32" height="32" alt="Item Bridge"></a> ×2 [Item Bridge](Item-item-bridge.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-item-bridge.md#recipe-1) |

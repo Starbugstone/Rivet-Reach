@@ -39,3 +39,5 @@ Use Escape → Save Game to create or update a checkpoint. Load Game chooses a n
 - [Floater](Floater.md) — hovering stone enemies and Floater Rock drops.
 
 Drain finite lava deposits with a [Ranged Liquid Pump](Ranged-Liquid-Pump.md), crafted from a Pump and Floater Rock.
+
+- [Bridges and chunk loaders](Bridges-and-chunk-loaders.md) — named remote item, liquid and power connections, with active distant workshops.

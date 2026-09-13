@@ -20,10 +20,12 @@ namespace RivetReach
         public const byte Battery=168,BatteryController=169,HandCrank=170;
         public const byte WoodenDoor=171,DoorUpper=172;
         public const byte Wrench=173,ElectricFurnace=174,RangedPump=180;
+        public const byte ItemBridge=190,FluidBridge=191,PowerBridge=192,ChunkLoader=193;
+        public static bool Bridge(byte id)=>id>=ItemBridge&&id<=PowerBridge;
         public static bool DoorPart(byte id)=>id==WoodenDoor||id==DoorUpper;
         public static bool BatteryPart(byte id)=>id==Battery||id==BatteryController;
         public static bool TankPart(byte id)=>id>=TankFrame&&id<=TankSensor;
-        public static bool Placed(byte id)=>id>=Bench&&id<=Sensor||TankPart(id)||BatteryPart(id)||id==HandCrank||id==WoodenDoor||id==ElectricFurnace||id==RangedPump;
+        public static bool Placed(byte id)=>id>=Bench&&id<=Sensor||TankPart(id)||BatteryPart(id)||id==HandCrank||id==WoodenDoor||id==ElectricFurnace||Bridge(id)||id==ChunkLoader||id==RangedPump;
         public static bool Route(byte id)=>id==SignalWire||id==SignalConduit||id==PowerCable||id==ItemPipe||id==FluidPipe;
         public static bool Thin(byte id)=>Route(id)||id==Lever||id==Button||id==Indicator||id==Relay||id==Sensor;
     }
@@ -79,6 +81,10 @@ namespace RivetReach
             Add(IndustryId.BatteryController,"battery_controller","Battery Bank Controller","Solid pack of batteries · one controller facing out",0,0,P(NetworkKind.Power,PortRole.Storage,32));
             Add(IndustryId.HandCrank,"hand_crank","Hand Crank","Use / hold Use: 50 J per turn · power on all faces",0,0,P(NetworkKind.Power,PortRole.Output,16));
             Add(IndustryId.WoodenDoor,"wooden_door","Wooden Door","Use to open / close · Blue Signal connects at the base",0,0,P(NetworkKind.Signal,PortRole.Input,63));
+            Add(IndustryId.ItemBridge,"item_bridge","Item Bridge","Floater Rock links two item pipe networks",0,0,P(NetworkKind.Item,PortRole.Route,63));
+            Add(IndustryId.FluidBridge,"liquid_bridge","Liquid Bridge","Floater Rock links two liquid pipe networks",0,0,P(NetworkKind.Fluid,PortRole.Route,63));
+            Add(IndustryId.PowerBridge,"power_bridge","Power Bridge","Floater Rock links two electrical grids",0,0,P(NetworkKind.Power,PortRole.Route,63));
+            Add(IndustryId.ChunkLoader,"chunk_loader","Chunk Loader","Keeps this 32 × 32 × 32 chunk active while the world runs");
             return d;
         }
         public static int RotateFace(int face,int turns)
@@ -125,6 +131,8 @@ namespace RivetReach
         public double Work;
         public byte WorkInput;
         public int Priority=1;
+        public string OwnerId="",LinkName="";
+        public bool LoaderEnabled=true;
         public MachineState(BlockPos p,byte id,Func<byte,int> limit,ProcessingRegistry processing=null)
         {this.processing=processing;Position=p;Definition=IndustryDefinition.All[id];EnergyCells=id==IndustryId.Battery?new[]{new BatteryStorage()}:Array.Empty<BatteryStorage>();Fluid=new FluidStorage(Definition.WaterCapacity);Items=new ItemContainer(3,limit);}
         public bool Enabled=>!SignalAttached||Signal;

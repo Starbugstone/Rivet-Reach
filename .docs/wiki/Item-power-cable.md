@@ -4,7 +4,7 @@
 
 [All items](Items.md) · [Crafting guide](Crafting-Recipes.md) · [Home](Home.md)
 
-[How to obtain](#how-to-obtain) · [Crafting and processing](#crafting-and-processing)
+[How to obtain](#how-to-obtain) · [Crafting and processing](#crafting-and-processing) · [Uses](#used-to-make)
 
 <a href="Item-power-cable.md" title="Power Cable"><img src="icons/138.png" width="96" height="96" alt="Power Cable"></a>
 
@@ -70,3 +70,11 @@ For boiler generation, connect this cable to the **Alternator**, not the boiler�
 |---|---:|
 | <a href="Item-planks.md" title="Planks"><img src="icons/20.png" width="32" height="32" alt="Planks"></a> [Planks](Item-planks.md) | 1 |
 | <a href="Item-copper-wire.md" title="Copper Wire"><img src="icons/122.png" width="32" height="32" alt="Copper Wire"></a> [Copper Wire](Item-copper-wire.md) | 4 |
+
+## Used to make
+
+Follow a result to see its complete ingredients and recipe.
+
+| Result | Station | Recipe |
+|---|---|---|
+| <a href="Item-power-bridge.md#recipe-1" title="Power Bridge"><img src="icons/192.png" width="32" height="32" alt="Power Bridge"></a> ×2 [Power Bridge](Item-power-bridge.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-power-bridge.md#recipe-1) |

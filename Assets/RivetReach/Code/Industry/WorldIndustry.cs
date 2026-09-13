@@ -11,6 +11,7 @@ namespace RivetReach
         public WorldIndustry(Expedition game)
         {
             this.game=game;Simulation=new IndustrySimulation(this,id=>game.Registry.Get(id).stackLimit,game.Processing);
+            game.World.PersistentChunkTickets=Simulation.LoaderChunks;
             game.World.BlockChanged+=Changed;game.World.ResidencyChanged+=Simulation.Multiblocks.ResidencyChanged;
             game.World.CanRemoveMachine=p=>{if(game.World.RecoveringMachine||Simulation.Multiblocks.CanRemove(p)&&(Simulation.At(p)?.Definition.Id!=IndustryId.Tank||Simulation.At(p).Fluid.Amount==0))return true;game.Notify(Simulation.At(p)?.Definition.Id==IndustryId.Battery?"Discharge this battery before mining it":"Drain the tank at its controller before dismantling it",3);return false;};
             game.World.IsOpenMachine=p=>{var m=Simulation.At(game.World.DoorAnchor(p));return m!=null&&(m.Definition.Id==IndustryId.WoodenDoor?m.WorkInput==1:m.Definition.Id==IndustryId.Door&&m.Running);};
@@ -43,6 +44,7 @@ namespace RivetReach
                 for(int i=0;i<old.Items.Count;i++){var stack=old.Items.Take(i,int.MaxValue);if(!stack.Empty)game.Items.Spawn(stack,game.World.Local(p)+Vector3.one*.5f,Vector3.up);}
             }
             if(IndustryId.Placed(id)&&Simulation.At(p)==null)Simulation.Add(p,id);
+            if(id==IndustryId.ChunkLoader||old?.Definition.Id==IndustryId.ChunkLoader)game.World.RefreshChunkTickets();
             if(id==BlockId.Chest||id==BlockId.Furnace)Simulation.Invalidate();
             else if(id==BlockId.Air)for(int f=0;f<6;f++)if(Simulation.At(IndustryDefinition.Neighbor(p,f))?.Definition.Id==IndustryId.ItemPipe){Simulation.Invalidate();break;}
             var above=p.Offset(0,1,0);

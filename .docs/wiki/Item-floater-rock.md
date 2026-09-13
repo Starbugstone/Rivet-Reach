@@ -8,7 +8,7 @@
 
 <a href="Item-floater-rock.md" title="Floater Rock"><img src="icons/175.png" width="96" height="96" alt="Floater Rock"></a>
 
-A stone fragment from a defeated [Floater](Floater.md), with the same gray facets and pale mineral vein.
+A magical rock that enables the Floater to hover. Used in remote workshop technology.
 
 ## At a glance
 
@@ -22,7 +22,7 @@ Kill a Floater to receive exactly one Floater Rock. Walk near the dropped rock t
 
 ## Using it
 
-Craft a [Ranged Liquid Pump](Item-ranged-liquid-pump.md) with a [Pump](Item-pump.md) at the Machinist’s Bench. See [setup](Ranged-Liquid-Pump.md).
+Craft [bridges and chunk loaders](Bridges-and-chunk-loaders.md) at the Machinist’s Bench. Combine one rock with a [Pump](Item-pump.md) to craft a [Ranged Liquid Pump](Item-ranged-liquid-pump.md); see [its setup guide](Ranged-Liquid-Pump.md).
 
 ## Crafting and processing
 
@@ -34,4 +34,8 @@ Follow a result to see its complete ingredients and recipe.
 
 | Result | Station | Recipe |
 |---|---|---|
+| <a href="Item-item-bridge.md#recipe-1" title="Item Bridge"><img src="icons/190.png" width="32" height="32" alt="Item Bridge"></a> ×2 [Item Bridge](Item-item-bridge.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-item-bridge.md#recipe-1) |
+| <a href="Item-liquid-bridge.md#recipe-1" title="Liquid Bridge"><img src="icons/191.png" width="32" height="32" alt="Liquid Bridge"></a> ×2 [Liquid Bridge](Item-liquid-bridge.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-liquid-bridge.md#recipe-1) |
+| <a href="Item-power-bridge.md#recipe-1" title="Power Bridge"><img src="icons/192.png" width="32" height="32" alt="Power Bridge"></a> ×2 [Power Bridge](Item-power-bridge.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-power-bridge.md#recipe-1) |
+| <a href="Item-chunk-loader.md#recipe-1" title="Chunk Loader"><img src="icons/193.png" width="32" height="32" alt="Chunk Loader"></a> ×1 [Chunk Loader](Item-chunk-loader.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-chunk-loader.md#recipe-1) |
 | <a href="Item-ranged-liquid-pump.md#recipe-1" title="Ranged Liquid Pump"><img src="icons/180.png" width="32" height="32" alt="Ranged Liquid Pump"></a> ×1 [Ranged Liquid Pump](Item-ranged-liquid-pump.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-ranged-liquid-pump.md#recipe-1) |

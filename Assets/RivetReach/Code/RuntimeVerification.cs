@@ -126,7 +126,10 @@ namespace RivetReach
             if(Environment.GetCommandLineArgs().Contains("-rr-connections-review")||Environment.GetCommandLineArgs().Contains("-rr-facing-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-inventory-review")||Environment.GetCommandLineArgs().Contains("-rr-lava-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-machine-interface-review")||Environment.GetCommandLineArgs().Contains("-rr-electric-furnace-review")||Environment.GetCommandLineArgs().Contains("-rr-portable-storage-review"))game.World.ViewDistance=4;
+            if(Environment.GetCommandLineArgs().Contains("-rr-bridges-review"))game.World.ViewDistance=4;
             yield return Settle();report.firstReadySeconds=Time.realtimeSinceStartup-began;
+            if(Environment.GetCommandLineArgs().Contains("-rr-bridges-review"))
+            {report.workload="Named owner-isolated bridges, resource conservation, distant loader residency and durable saves";yield return ReviewBridges();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-machine-interface-review"))
             {yield return CaptureMachineInterfaces();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-inventory-review"))
