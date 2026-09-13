@@ -57,3 +57,5 @@ ArtSource/Stations/*.png filter=lfs diff=lfs merge=lfs -text
 
 ArtSource/Doors/*.png filter=lfs diff=lfs merge=lfs -text
 .docs/verification/doors-2026-09-12/*.png filter=lfs diff=lfs merge=lfs -text
+
+.docs/verification/lava-2026-09-13/*.png filter=lfs diff=lfs merge=lfs -text

@@ -40,3 +40,9 @@ These are actual Windows-player captures from the final September 13 review. The
 ## Renderer limitation
 
 Two Direct3D 12 continuation attempts completed their five assertions but exited with `-1073741819` during native shutdown. They are not counted as clean passes. This reproduces the previously documented [D3D12 shutdown limitation](SAVE_RESULTS.md#reproduce-and-limits). The final lava player selects Direct3D 11, matching the alpha and connection review builds; the build restores the user’s editor graphics settings afterward. [Artifact hashes](lava-2026-09-13/artifact-hashes.json) identify the delivered executable and runtime assembly.
+
+## Wiki publication
+
+[Wiki deployment run 34738200603](https://github.com/Starbugstone/Rivet-Reach/actions/runs/34738200603) successfully published feature commit `a2af33b`. The local publisher validated **148 pages and 6,103 links/images**, with **134 item pages and 122 crafting/processing recipes** in the combined catalog.
+
+Live Chromium review opened [Lava](https://github.com/Starbugstone/Rivet-Reach/wiki/Lava), loaded all four game screenshots, followed its Lava bucket link to the correctly illustrated item page, and followed the empty Bucket link to its updated recipe/use page. The guide had no document overflow at 390×844 or 1280×900; its images and the item icon loaded successfully. Retained [mobile guide](lava-2026-09-13/wiki-lava-mobile.png), [desktop guide](lava-2026-09-13/wiki-lava-desktop.png) and [bucket page](lava-2026-09-13/wiki-lava-bucket.png) show the live rendering.
