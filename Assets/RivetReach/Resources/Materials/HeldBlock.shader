@@ -9,16 +9,19 @@ Shader "RivetReach/HeldBlock"
             Tags { "LightMode"="UniversalForward" }
             ZTest LEqual
             HLSLPROGRAM
+            #pragma target 4.5
+            #pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
+            #pragma multi_compile _ _CLUSTER_LIGHT_LOOP
             #pragma vertex Vert
             #pragma fragment Frag
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+            #include "WorldLighting.hlsl"
             TEXTURE2D_ARRAY(_Tiles);SAMPLER(sampler_Tiles);
             float _FirstPerson;
             float4 _RRAmbientSky,_RRAmbientGround;
             struct A {float3 positionOS:POSITION;float3 normalOS:NORMAL;float2 uv:TEXCOORD0;float2 tile:TEXCOORD1;};
-            struct V {float4 positionCS:SV_POSITION;float3 normalWS:TEXCOORD0;float2 uv:TEXCOORD1;float tile:TEXCOORD2;};
-            V Vert(A i){V o;o.positionCS=TransformObjectToHClip(i.positionOS);o.normalWS=TransformObjectToWorldNormal(i.normalOS);o.uv=i.uv;o.tile=i.tile.x;
+            struct V {float4 positionCS:SV_POSITION;float3 normalWS:TEXCOORD0;float2 uv:TEXCOORD1;float tile:TEXCOORD2;float3 positionWS:TEXCOORD3;};
+            V Vert(A i){V o;o.positionWS=TransformObjectToWorld(i.positionOS);o.positionCS=TransformObjectToHClip(i.positionOS);o.normalWS=TransformObjectToWorldNormal(i.normalOS);o.uv=i.uv;o.tile=i.tile.x;
                 // Reserve a near depth interval for hands AND items, preserving self-occlusion.
                 if(_FirstPerson>.5)
                 {
@@ -31,9 +34,11 @@ Shader "RivetReach/HeldBlock"
                 return o;}
             half4 Frag(V i):SV_Target
             {
-                Light sun=GetMainLight();float3 normal=normalize(i.normalWS);
-                half3 light=lerp(_RRAmbientGround.rgb,_RRAmbientSky.rgb,normal.y*.5+.5)+sun.color*saturate(dot(normal,sun.direction))*.65;
-                return half4(SAMPLE_TEXTURE2D_ARRAY(_Tiles,sampler_Tiles,i.uv,i.tile).rgb*light,1);
+                InputData input=(InputData)0;input.positionWS=i.positionWS;input.normalWS=normalize(i.normalWS);
+                input.viewDirectionWS=GetWorldSpaceNormalizeViewDir(i.positionWS);input.bakedGI=SampleSH(input.normalWS);
+                input.shadowMask=half4(1,1,1,1);input.normalizedScreenSpaceUV=GetNormalizedScreenSpaceUV(i.positionCS);
+                SurfaceData surface=(SurfaceData)0;surface.albedo=SAMPLE_TEXTURE2D_ARRAY(_Tiles,sampler_Tiles,i.uv,i.tile).rgb;surface.occlusion=1;surface.alpha=1;
+                return UniversalFragmentPBR(input,surface);
             }
             ENDHLSL
         }

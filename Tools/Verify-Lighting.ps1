@@ -1,0 +1,23 @@
+param([string]$OutputDirectory,[switch]$Build)
+$ErrorActionPreference='Stop'
+$project=Split-Path $PSScriptRoot -Parent
+if (!$OutputDirectory) { $OutputDirectory=Join-Path $project ('Logs\Lighting-'+[DateTime]::UtcNow.ToString('yyyyMMdd-HHmmss')) }
+New-Item -ItemType Directory -Force $OutputDirectory | Out-Null
+if ($Build) {
+    $request=Join-Path $project 'Logs\build-request.txt';$result=Join-Path $project 'Logs\build-result.txt'
+    if (Test-Path $request) { throw 'Another Editor build is pending.' }
+    if (Test-Path $result) { Remove-Item $result }
+    Set-Content $request 'lighting-build' -NoNewline
+    $deadline=(Get-Date).AddMinutes(15)
+    while (!(Test-Path $result) -and (Get-Date) -lt $deadline) { Start-Sleep -Seconds 2 }
+    if (!(Test-Path $result)) { throw 'Editor build timed out; pending request preserved.' }
+    if (!(Get-Content $result -Raw).StartsWith('SUCCESS lighting')) { throw (Get-Content $result -Raw) }
+}
+$player=Join-Path $project 'Builds\Lighting\RivetReach.exe'
+$arguments=@('-screen-fullscreen','0','-screen-width','1280','-screen-height','800','-rr-verify','-rr-lighting-review','-rr-output',('"'+$OutputDirectory+'"'),'-logFile',('"'+$OutputDirectory+'\player.log"'))
+$process=Start-Process -FilePath $player -ArgumentList $arguments -PassThru
+if (!$process.WaitForExit(600000)) { throw 'Lighting review timed out; player preserved for diagnosis.' }
+Set-Content (Join-Path $OutputDirectory 'exit-code.txt') $process.ExitCode
+$report=Get-Content -Raw (Join-Path $OutputDirectory 'runtime-report.json') | ConvertFrom-Json
+$report | Select-Object result,assertions,workload
+if ($process.ExitCode -ne 0 -or $report.result -ne 'PASS') { throw ($report.errors -join "`n") }

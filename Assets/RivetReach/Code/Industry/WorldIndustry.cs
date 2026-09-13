@@ -11,6 +11,8 @@ namespace RivetReach
         public WorldIndustry(Expedition game)
         {
             this.game=game;Simulation=new IndustrySimulation(this,id=>game.Registry.Get(id).stackLimit,game.Processing);
+            game.World.MachineLight=p=>{var lamp=Simulation.At(p);return lamp!=null&&lamp.Definition.Id==IndustryId.Lamp&&lamp.Running?(byte)14:(byte)0;};
+            Simulation.LightChanged+=game.World.LightSourceChanged;
             game.World.PersistentChunkTickets=Simulation.LoaderChunks;
             game.World.BlockChanged+=Changed;game.World.ResidencyChanged+=Simulation.Multiblocks.ResidencyChanged;
             game.World.CanRemoveMachine=p=>{if(game.World.RecoveringMachine||Simulation.Multiblocks.CanRemove(p)&&(Simulation.At(p)?.Definition.Id!=IndustryId.Tank||Simulation.At(p).Fluid.Amount==0))return true;game.Notify(Simulation.At(p)?.Definition.Id==IndustryId.Battery?"Discharge this battery before mining it":"Drain the tank at its controller before dismantling it",3);return false;};

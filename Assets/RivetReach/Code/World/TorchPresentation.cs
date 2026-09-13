@@ -35,7 +35,7 @@ namespace RivetReach
         }
         Material Surface(string name,Color colour,bool emissive=false)
         {
-            var material=new Material(Shader.Find(emissive?"Universal Render Pipeline/Unlit":"Universal Render Pipeline/Lit")){name=name};
+            var material=new Material(Shader.Find(emissive?"Universal Render Pipeline/Unlit":"RivetReach/WorldLit")){name=name};
             material.SetColor("_BaseColor",emissive?colour*2:colour);material.SetFloat("_Smoothness",.15f);
             return material;
         }

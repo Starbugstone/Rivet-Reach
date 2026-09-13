@@ -7,12 +7,14 @@ Shader "RivetReach/ArcadeGrass"
         {
             Cull Off
             HLSLPROGRAM
+            #pragma target 4.5
             #pragma vertex Vert
             #pragma fragment Frag
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
             #pragma multi_compile_fragment _ _SHADOWS_SOFT
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+            #include "VoxelLight.hlsl"
             float _RRPresentationTime;float4 _RRWorldOffset;
             float4 _RRAmbientSky;
             struct A {float3 positionOS:POSITION;float3 normalOS:NORMAL;float2 uv:TEXCOORD0;};
@@ -31,8 +33,9 @@ Shader "RivetReach/ArcadeGrass"
                 float dither=frac(52.9829189*frac(dot(floor(i.positionCS.xy),float2(.06711056,.00583715))));clip(fade-dither);
                 Light sun=GetMainLight(TransformWorldToShadowCoord(i.positionWS));
                 half3 colour=lerp(half3(.055,.17,.065),half3(.32,.49,.14),pow(saturate(i.uv.y),.7));
+                float skyAccess=RRSky(i.positionWS,float3(0,1,0));sun.color*=skyAccess;
                 half light=.48+abs(dot(normalize(i.normalWS),sun.direction))*.40*sun.shadowAttenuation;
-                return half4(colour*(_RRAmbientSky.rgb*1.3+sun.color*light),1);
+                return half4(colour*(_RRAmbientSky.rgb*1.3*max(.008,skyAccess)+sun.color*light),1);
             }
             ENDHLSL
         }

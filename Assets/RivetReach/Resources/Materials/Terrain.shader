@@ -19,7 +19,7 @@ Shader "RivetReach/VoxelTerrain"
             HLSLPROGRAM
             #pragma vertex Vert
             #pragma fragment Frag
-            #pragma target 3.5
+            #pragma target 4.5
             #pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
             #pragma multi_compile _ _CLUSTER_LIGHT_LOOP
             #pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
@@ -28,6 +28,7 @@ Shader "RivetReach/VoxelTerrain"
             #pragma multi_compile_fragment _ _SCREEN_SPACE_OCCLUSION
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+            #include "VoxelLight.hlsl"
             TEXTURE2D_ARRAY(_Tiles); SAMPLER(sampler_Tiles);
             TEXTURE2D_ARRAY(_DetailTiles); SAMPLER(sampler_DetailTiles);
             float4 _RRFogColour; float4 _RRFogRange; float4 _RRWorldOffset; float _RRPresentationTime;float4 _RRImpactLight,_RRImpactColour;
@@ -67,12 +68,13 @@ Shader "RivetReach/VoxelTerrain"
                 // Light moving across leaves conveys wind without moving voxel collision or seams.
                 if(i.tile==6)colour*=1+sin(world.x*.785398163+world.z*.392699082+_RRPresentationTime*1.7)*.065;
                 Light sun=GetMainLight(TransformWorldToShadowCoord(i.positionWS));
+                float skyAccess=RRSky(i.positionWS,normalize(i.normalWS));sun.color*=skyAccess;
                 half diffuse=saturate(dot(normal,sun.direction));
                 AmbientOcclusionFactor ao=GetScreenSpaceAmbientOcclusion(GetNormalizedScreenSpaceUV(i.positionCS));
                 half3 ambient=lerp(_RRAmbientGround.rgb,_RRAmbientSky.rgb,normal.y*.5+.5);
                 float clouds=PaletteNoise(world.xz/16+float2(_RRPresentationTime*.016,0));
                 float cloudLight=lerp(.84,1,smoothstep(.35,.68,clouds));
-                half3 lighting=ambient*ao.indirectAmbientOcclusion+sun.color*diffuse*sun.shadowAttenuation*.82*ao.directAmbientOcclusion*cloudLight;
+                half3 lighting=ambient*max(.008,skyAccess)*ao.indirectAmbientOcclusion+sun.color*diffuse*sun.shadowAttenuation*.82*ao.directAmbientOcclusion*cloudLight;
                 if(i.tile==6)lighting+=half3(.30,.42,.12)*sun.color*saturate(dot(-normal,sun.direction))*.32*sun.shadowAttenuation;
                 float3 view=GetWorldSpaceNormalizeViewDir(i.positionWS),halfVector=normalize(view+sun.direction);
                 float sheen=pow(saturate(dot(normal,halfVector)),lerp(18,48,1-detail.a))*.035*sun.shadowAttenuation;
@@ -96,8 +98,9 @@ Shader "RivetReach/VoxelTerrain"
                 float fog=smoothstep(_RRFogRange.x,_RRFogRange.y,range);
                 // A small amount of aerial perspective separates ridges before the streaming fade.
                 float haze=(1-exp(-range*.0014))*(1-fog);
-                colour=lerp(colour,_RRFogColour.rgb,haze);
-                return half4(lerp(colour,_RRFogColour.rgb,fog),1);
+                half3 fogColour=RRCaveFog(_RRFogColour.rgb,i.positionWS+normalize(i.normalWS)*.035);
+                colour=lerp(colour,fogColour,haze);
+                return half4(lerp(colour,fogColour,fog),1);
             }
             ENDHLSL
         }

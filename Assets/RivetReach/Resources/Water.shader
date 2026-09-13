@@ -10,11 +10,13 @@ Shader "RivetReach/Fluid"
             ZWrite Off
             Cull Off
             HLSLPROGRAM
+            #pragma target 4.5
             #pragma vertex Vert
             #pragma fragment Frag
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+            #include "Materials/VoxelLight.hlsl"
             float4 _RRFogColour, _RRFogRange, _RRWorldOffset;
             struct Attributes { float4 positionOS:POSITION; float3 normalOS:NORMAL; half4 color:COLOR; };
             struct Varyings { float4 positionCS:SV_POSITION; float3 positionWS:TEXCOORD0; float3 normalWS:TEXCOORD1; half4 color:COLOR; };
@@ -32,10 +34,11 @@ Shader "RivetReach/Fluid"
                 Light light=GetMainLight(TransformWorldToShadowCoord(input.positionWS));
                 float3 view=normalize(_WorldSpaceCameraPos-input.positionWS);
                 float fresnel=pow(1-saturate(dot(n,view)),4);
+                float skyAccess=RRSky(input.positionWS,n);light.color*=skyAccess;
                 half3 ambient=SampleSH(n);
-                half3 color=input.color.rgb*(max(ambient,.18)+light.color*(.35+.65*saturate(dot(n,light.direction)))*light.shadowAttenuation);
+                half3 color=input.color.rgb*(max(ambient,.18)*max(.008,skyAccess)+light.color*(.35+.65*saturate(dot(n,light.direction)))*light.shadowAttenuation);
                 color+=light.color*pow(saturate(dot(n,normalize(view+light.direction))),90)*.45;
-                color=lerp(color,half3(.40,.69,.77),fresnel*.28)+ripple*.012;
+                color=lerp(color,half3(.40,.69,.77),fresnel*.28*skyAccess)+ripple*.012*skyAccess;
                 // Opaque vertex alpha identifies emissive lava on the shared fluid mesh.
                 if(input.color.a>.99)
                 {
@@ -43,7 +46,7 @@ Shader "RivetReach/Fluid"
                     color=lerp(half3(.20,.025,.008),input.color.rgb*1.5,smoothstep(-.5,.4,crust));
                 }
                 float fog=saturate((distance(_WorldSpaceCameraPos,input.positionWS)-_RRFogRange.x)/max(1,_RRFogRange.y-_RRFogRange.x));
-                return half4(lerp(color,_RRFogColour.rgb,fog),lerp(input.color.a,.90,fresnel));
+                return half4(lerp(color,RRCaveFog(_RRFogColour.rgb,input.positionWS+n*.035),fog),lerp(input.color.a,.90,fresnel));
             }
             ENDHLSL
         }

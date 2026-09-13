@@ -10,12 +10,13 @@ Shader "RivetReach/HeldTool"
             ZTest LEqual
             Cull [_Cull]
             HLSLPROGRAM
+            #pragma target 4.5
             #pragma vertex Vert
             #pragma fragment Frag
             #pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
             #pragma multi_compile _ _CLUSTER_LIGHT_LOOP
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+            #include "WorldLighting.hlsl"
             TEXTURE2D(_BaseMap);SAMPLER(sampler_BaseMap);
             float _FirstPerson,_Torch,_AxePalette,_Cutoff;float4 _BaseColor;
             struct A {float3 positionOS:POSITION;float3 normalOS:NORMAL;float2 uv:TEXCOORD0;float2 tile:TEXCOORD1;};
@@ -41,7 +42,7 @@ Shader "RivetReach/HeldTool"
                 input.shadowMask=half4(1,1,1,1);input.normalizedScreenSpaceUV=GetNormalizedScreenSpaceUV(i.positionCS);
                 SurfaceData surface=(SurfaceData)0;surface.albedo=colour.rgb*_BaseColor.rgb;
                 surface.metallic=metal*.62;surface.smoothness=lerp(.23,.48,metal);
-                surface.emission=colour.rgb*SampleSH(input.normalWS)*metal*.13;surface.alpha=1;surface.occlusion=1;
+                surface.emission=colour.rgb*SampleSH(input.normalWS)*metal*.13*max(.008,RRSky(i.positionWS,input.normalWS));surface.alpha=1;surface.occlusion=1;
                 if(_Torch>.5&&region==12){surface.metallic=0;surface.emission=half3(2.4,.72,.10)*(1+.06*sin(_Time.y*11));}
                 return UniversalFragmentPBR(input,surface);
             }

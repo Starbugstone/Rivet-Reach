@@ -25,7 +25,7 @@ namespace RivetReach
         }
         public bool GrowSapling(BlockPos root)
         {
-            if(Get(root)!=BlockId.Sapling||!Ready(root.Offset(0,-1,0))||!BlockId.SaplingSoil(Get(root.Offset(0,-1,0)))||SkyLight(root)<9)return false;
+            if(Get(root)!=BlockId.Sapling||!Ready(root.Offset(0,-1,0))||!BlockId.SaplingSoil(Get(root.Offset(0,-1,0)))||GrowthLight(root)<9)return false;
             int height=4+(int)(TerrainGenerator.Hash(root.X,root.Y,root.Z,Generator.Seed)%3);
             var tree=new TerrainGenerator.Tree(root,height);
             var cells=new List<(BlockPos p,byte id)>();

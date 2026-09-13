@@ -85,6 +85,7 @@ namespace RivetReach
             FluidSimulation=new FluidSimulation(Fluids.Registry);
             fluidMaterial=Resources.Load<Material>("Materials/Water");
             TerrainMaterial=Resources.Load<Material>("Materials/Terrain");
+            lightTableDirty=true;RenderPipelineManager.beginCameraRendering+=LightCamera;
             TorchView=gameObject.AddComponent<TorchPresentation>();TorchView.Initialize(this);
         }
         public Vector3 Local(BlockPos p) => new Vector3((float)(p.X-Origin.X),p.Y-Origin.Y,(float)(p.Z-Origin.Z));
@@ -188,9 +189,18 @@ namespace RivetReach
         public byte SkyLight(BlockPos air)
         {
             var key=(air.X,air.Z);
+            if(lightColumns.TryGetValue((air.Chunk.X,air.Chunk.Z),out var cached))
+                return air.Y>cached.heights[(int)(air.X-air.Chunk.Min.X)+32*(int)(air.Z-air.Chunk.Min.Z)]?(byte)15:(byte)0;
             if(!skyHeights.TryGetValue(key,out int top))
             {
-                top=Generator.OpaqueHeight(air.X,air.Z);
+                // A retained column can contain several generator versions. Read their
+                // height bounds without recording or upgrading unexplored terrain.
+                top=TerrainGenerator.MinY;TerrainGenerator previous=null;
+                for(int y=TerrainGenerator.MinY/32;y<=TerrainGenerator.MaxY/32;y++)
+                {
+                    var source=GeneratorFor(new ChunkPos(air.Chunk.X,y,air.Chunk.Z));
+                    if(source!=previous)top=Math.Max(top,source.OpaqueHeight(air.X,air.Z));previous=source;
+                }
                 if(editedColumns.TryGetValue(key,out var column)&&column.Count>0)top=Math.Max(top,column.Max);
                 while(top>=TerrainGenerator.MinY&&!BlockId.Opaque(Get(new BlockPos(air.X,top,air.Z))))top--;
                 skyHeights[key]=top;
@@ -222,6 +232,7 @@ namespace RivetReach
             if(!editedColumns.TryGetValue(columnKey,out var column)){column=new SortedSet<int>();editedColumns[columnKey]=column;}
             if(BlockId.Opaque(replacement))column.Add(p.Y);else column.Remove(p.Y);
             if(BlockId.Opaque(expected)!=BlockId.Opaque(replacement))skyHeights.Remove(columnKey);
+            LightingChanged(p,expected,replacement);
             // Update every resident halo touching the edit. Collision sees the change now.
             for(int cz=-1;cz<=1;cz++)for(int cy=-1;cy<=1;cy++)for(int cx=-1;cx<=1;cx++)
             {
@@ -290,6 +301,7 @@ namespace RivetReach
                 Apply(result,c);LastBuildMs=result.Milliseconds;
                 if(clock.Elapsed.TotalMilliseconds>4)break;
             }
+            AdvanceLighting();
             if(work.Count<2)
             {
                 // Select the nearest two without allocating and sorting the whole resident set.
@@ -342,6 +354,7 @@ namespace RivetReach
             {ticketedChunks.Add(p);wanted.Add(p);wantedColumns.Add((p.X,p.Z));if(!chunks.ContainsKey(p))chunks.Add(p,new Resident{Token=++nextToken});}
             releaseChunks.Clear();foreach(var key in chunks.Keys)if(!wanted.Contains(key))releaseChunks.Add(key);
             foreach(var key in releaseChunks){Release(chunks[key]);chunks.Remove(key);}
+            LightingResidency();
             if(releaseChunks.Count>0)ResidencyChanged?.Invoke();
             releaseColumns.Clear();foreach(var key in surfaceRanges.Keys)if(!wantedColumns.Contains(key))releaseColumns.Add(key);
             foreach(var key in releaseColumns)surfaceRanges.Remove(key);
@@ -425,6 +438,7 @@ namespace RivetReach
             {c.FluidView.SetActive(visibleFluid);c.FluidView.GetComponent<MeshFilter>().sharedMesh=c.FluidMesh;}
             if(first)
             {
+                DirtyLight(result.Position);
                 FluidSimulation.Ready(result.Position);ResidencyChanged?.Invoke();ChunkReady?.Invoke(result.Position,c.Cells);
                 // The worker identifies exposed/unsettled cells. Stable source interiors and
                 // shared source boundaries never enter the scheduled queue on mere residency.
@@ -496,7 +510,7 @@ namespace RivetReach
             }
             return feet;
         }
-        public void Stop() {stopped=true;if(TorchView!=null)TorchView.Clear();foreach(var c in chunks.Values)Release(c);chunks.Clear();surfaceRanges.Clear();}
+        public void Stop() {stopped=true;StopLighting();if(TorchView!=null)TorchView.Clear();foreach(var c in chunks.Values)Release(c);chunks.Clear();surfaceRanges.Clear();}
         void OnDestroy() {Stop();}
     }
 }

@@ -16,6 +16,7 @@ Shader "RivetReach/ExplorerSkin"
         {
             Name "ForwardLit" Tags {"LightMode"="UniversalForward"}
             HLSLPROGRAM
+            #pragma target 4.5
             #pragma vertex Vert
             #pragma fragment Frag
             #pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
@@ -25,7 +26,7 @@ Shader "RivetReach/ExplorerSkin"
             #pragma multi_compile_fragment _ _SHADOWS_SOFT
             #pragma multi_compile_fog
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+            #include "WorldLighting.hlsl"
             TEXTURE2D(_BaseMap);SAMPLER(sampler_BaseMap);
             TEXTURE2D(_SurfaceMap);SAMPLER(sampler_SurfaceMap);
             TEXTURE2D(_BumpMap);SAMPLER(sampler_BumpMap);
@@ -68,9 +69,9 @@ Shader "RivetReach/ExplorerSkin"
                 surface.metallic=packed.r;surface.smoothness=1-packed.g;surface.occlusion=1;surface.alpha=1;surface.normalTS=normalTS;
                 // Restrained wrap on skin: highlights remain BRDF-based, clothing stays diffuse.
                 Light sun=GetMainLight(input.shadowCoord);
-                surface.emission=surface.albedo*half3(1,.39,.22)*packed.b*.055*saturate(.4-dot(n,sun.direction))*sun.color*sun.shadowAttenuation;
+                surface.emission=surface.albedo*half3(1,.39,.22)*packed.b*.055*saturate(.4-dot(n,sun.direction))*sun.color*sun.shadowAttenuation*RRSky(i.positionWS,n);
                 half4 colour=UniversalFragmentPBR(input,surface);
-                colour.rgb=MixFog(colour.rgb,_FirstPerson>.5?0:i.fog);return colour;
+                colour.rgb=lerp(colour.rgb,RRCaveFog(unity_FogColor.rgb,i.positionWS),_FirstPerson>.5?0:1-ComputeFogIntensity(i.fog));return colour;
             }
             ENDHLSL
         }

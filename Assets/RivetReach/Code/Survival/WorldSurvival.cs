@@ -112,7 +112,7 @@ namespace RivetReach
                 var job=crops.Min;if(job.Due>Tick)break;crops.Remove(job);scheduled.Remove(job.Position);
                 byte id=game.World.Get(job.Position);
                 if(!BlockId.GrowingPlant(id))continue;
-                if(!game.World.Ready(job.Position)||game.World.SkyLight(job.Position)<9)Schedule(job.Position,Tick+20);
+                if(!game.World.Ready(job.Position)||game.World.GrowthLight(job.Position)<9)Schedule(job.Position,Tick+20);
                 else if(id==BlockId.Sapling)
                 {if(!game.World.GrowSapling(job.Position))Schedule(job.Position,Tick+TicksPerSecond*5);}
                 else game.World.Grow(job.Position,id);

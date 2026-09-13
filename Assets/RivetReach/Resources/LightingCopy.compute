@@ -1,0 +1,10 @@
+#pragma kernel CopyPages
+StructuredBuffer<uint> _Previous;
+RWStructuredBuffer<uint> _Next;
+uint _Words;
+[numthreads(256,1,1)]
+void CopyPages(uint3 id:SV_DispatchThreadID)
+{
+    uint index=id.x+id.y*262144;
+    if(index<_Words)_Next[index]=_Previous[index];
+}

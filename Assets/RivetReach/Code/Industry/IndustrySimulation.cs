@@ -45,7 +45,7 @@ namespace RivetReach
         public MachineState Add(BlockPos p,byte id)
         {if(machines.ContainsKey(p))throw new InvalidOperationException("Occupied machine anchor");var m=new MachineState(p,id,limit,processing);machines.Add(p,m);if(IndustryId.Bridge(id)||id==IndustryId.ChunkLoader)m.OwnerId=LocalOwnerId;if(id==IndustryId.TankController)Multiblocks.Register(m,MultiblockDefinition.Tank);if(id==IndustryId.BatteryController)Multiblocks.Register(m,MultiblockDefinition.BatteryBank);Multiblocks.Changed(p);Invalidate();return m;}
         public MachineState Remove(BlockPos p)
-        {var m=At(p);if(m!=null){if(!Multiblocks.CanRemove(p))return null;Multiblocks.RemoveController(p);machines.Remove(p);Multiblocks.Changed(p);Invalidate();}return m;}
+        {var m=At(p);if(m!=null){if(!Multiblocks.CanRemove(p))return null;Multiblocks.RemoveController(p);machines.Remove(p);lampLightStates.Remove(p);Multiblocks.Changed(p);Invalidate();}return m;}
         public void Rotate(MachineState m){m.Rotation=(m.Rotation+1)%4;Multiblocks.Changed(m.Position);Invalidate();}
         public void Activate(MachineState m)
         {if(m.Definition.Id==IndustryId.Lever)m.Source=!m.Source;else if(m.Definition.Id==IndustryId.Button){m.Source=true;m.PulseTicks=20;}signalsDirty=true;Revision++;}
@@ -69,6 +69,8 @@ namespace RivetReach
             if(m==null||m.Definition.Id!=IndustryId.HandCrank||At(m.Position)!=m||!world.Ready(m.Position)||Rebuilding||m.PulseTicks!=0)return false;
             m.PulseTicks=CrankTicks;Revision++;return true;
         }
+        public event System.Action<BlockPos> LightChanged;
+        readonly Dictionary<BlockPos,bool> lampLightStates=new Dictionary<BlockPos,bool>();
         public void Step()
         {
             long start=Stopwatch.GetTimestamp();Tick++;Multiblocks.Step();
@@ -126,7 +128,15 @@ namespace RivetReach
             foreach(var m in devices)if(IndustryId.BatteryPart(m.Definition.Id)&&(m.BatteryInputWatts>0||m.BatteryOutputWatts>0))m.Status=MachineStatus.Running;
             // Transfers precede processing: new products cannot be forwarded in their producing tick.
             TransferConfiguredItems();TransferFluids();
-            foreach(var m in devices)Advance(m);
+            foreach(var m in devices)
+            {
+                Advance(m);
+                if(m.Definition.Id==IndustryId.Lamp)
+                {
+                    lampLightStates.TryGetValue(m.Position,out bool wasLit);
+                    if(wasLit!=m.Running){lampLightStates[m.Position]=m.Running;LightChanged?.Invoke(m.Position);}
+                }
+            }
             Revision++;LastStepMs=(Stopwatch.GetTimestamp()-start)*1000.0/Stopwatch.Frequency;
         }
         static void ResetNetworkState(MachineState m)
