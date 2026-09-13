@@ -1,0 +1,29 @@
+{
+  "checkedDate": "2026-09-13",
+  "sourceCommit": "cd2d72524ceae81066e0890a6fa7ec83b4ae4c6a",
+  "workflowRun": 34762946143,
+  "workflowConclusion": "success",
+  "wikiCommit": "6dc8a4d",
+  "guide": "https://github.com/Starbugstone/Rivet-Reach/wiki/Lighting-and-underground-farms",
+  "validation": {
+    "pages": 200,
+    "localLinksAndImages": 8112,
+    "itemPages": 177,
+    "recipes": 163
+  },
+  "browser": "Chromium",
+  "liveChecks": {
+    "guideImagesLoaded": 5,
+    "originalImageWidth": 1280,
+    "desktopOverflow": false,
+    "mobileViewport": [
+      390,
+      844
+    ],
+    "mobileOverflow": false,
+    "torchItemStatus": 200,
+    "workshopLampItemStatus": 200,
+    "itemGrowthInstructionsPresent": true,
+    "capturesVisuallyInspected": true
+  }
+}
