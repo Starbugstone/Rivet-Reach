@@ -170,7 +170,7 @@ namespace RivetReach
                     if(m.Structure.Fluid!=null)
                     {
                         long capacity=r.Long(0,85750000),amount=r.Long(0,capacity);string fluid=r.Text();var f=m.Structure.Fluid;
-                        SaveReader.Require(f.Resize(capacity)&&(amount==0?fluid=="":fluid==Fluids.Water.StableId&&f.Deposit(Fluids.Water,amount)),"Invalid saved tank contents.");
+                        SaveReader.Require(f.Resize(capacity)&&(amount==0?fluid=="":Fluids.Registry.ByStableId(fluid) is FluidDefinition liquid&&f.Deposit(liquid,amount)),"Invalid saved tank contents.");
                     }
                 }
             }

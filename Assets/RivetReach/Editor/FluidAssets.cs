@@ -10,7 +10,8 @@ namespace RivetReach.Editor
         {
             foreach(var item in new[]{
                 new ItemDefinition{runtimeId=Fluids.EmptyBucket,stableId="rivet:bucket",displayName="Bucket",stackLimit=1,colour=new Color(.66f,.72f,.76f)},
-                new ItemDefinition{runtimeId=Fluids.WaterBucket,stableId="rivet:water_bucket",displayName="Water bucket",stackLimit=1,colour=new Color(.12f,.56f,.77f)}})
+                new ItemDefinition{runtimeId=Fluids.WaterBucket,stableId="rivet:water_bucket",displayName="Water bucket",stackLimit=1,colour=new Color(.12f,.56f,.77f)},
+                new ItemDefinition{runtimeId=Fluids.LavaBucket,stableId="rivet:lava_bucket",displayName="Lava bucket",stackLimit=1,colour=new Color(1f,.27f,.025f)}})
                 if(!items.items.Any(i=>i.runtimeId==item.runtimeId))items.items=items.items.Append(item).ToArray();
             var catalog=RecipeCatalogAsset.Load();
             const string path="Assets/RivetReach/Resources/Definitions/BucketRecipe.asset";

@@ -61,7 +61,7 @@ namespace RivetReach.Editor
             var items=ItemRegistry.Load();var catalog=RecipeCatalogAsset.Load();var recipe=catalog.recipes.Single(r=>r.stableId=="rivet:industry_170");
             Check(recipe.minimumGridSize==3&&recipe.output.count==1&&recipe.ingredients.Length==4,"Crank is a four-ingredient workbench recipe");
             Check(recipe.ingredients.All(c=>new[]{BlockId.CopperIngot,BlockId.IronIngot,BlockId.Stick,BlockId.Planks}.Contains(items.ResolveId(c.itemId))),"Recipe needs only ordinary early-game materials");
-            var store=new SaveStore("unused",items);var legacyItems=ScriptableObject.CreateInstance<ItemRegistry>();legacyItems.items=items.items.Where(i=>i.runtimeId!=IndustryId.ElectricFurnace&&i.runtimeId!=IndustryId.HandCrank&&i.runtimeId!=IndustryId.Wrench).ToArray();
+            var store=new SaveStore("unused",items);var legacyItems=ScriptableObject.CreateInstance<ItemRegistry>();legacyItems.items=items.items.Where(i=>i.runtimeId!=Fluids.LavaBucket&&i.runtimeId!=IndustryId.ElectricFurnace&&i.runtimeId!=IndustryId.HandCrank&&i.runtimeId!=IndustryId.Wrench).ToArray();
             var original=catalog.recipes;
             try
             {

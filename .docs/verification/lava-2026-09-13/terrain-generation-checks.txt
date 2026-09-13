@@ -1,0 +1,16 @@
+Seed 246813: heights 0..189; grassland/forest/dunes/badlands/alpine samples 884, 561, 478, 325, 1407, 5473, 281
+Seed 777: heights 0..179; grassland/forest/dunes/badlands/alpine samples 884, 1110, 1826, 1191, 1075, 2891, 432
+Seed -917: heights 1..179; grassland/forest/dunes/badlands/alpine samples 2133, 1080, 2222, 1091, 1839, 715, 329
+Seed -2147483648: heights 0..189; grassland/forest/dunes/badlands/alpine samples 1431, 1022, 1128, 1295, 631, 3544, 358
+Wild mature potato plants in 129-square spawn sample: 23
+Grassland review site: 0, 50, 0
+Forest review site: 176, 67, 416
+Dunes review site: 160, 43, 720
+Badlands review site: 720, 74, 16
+Alpine review site: 272, 115, 416
+Sea review site: 0, 10, -96
+River review site: 336, 28, 64
+Deep cave review site: -23, -123, -26
+64-cubed deep sample: largest connected air volume 114044; maximum component vertical span 63 blocks.
+Page generation ms: median 4,358, max 6,808. Includes caves/ores/trees, excludes meshing.
+All-seed sampled height range 0..189; surface entrance samples 686.

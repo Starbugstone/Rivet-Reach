@@ -78,3 +78,5 @@ Craft [wooden doors](.docs/DOORS.md) from six planks at a workbench. Right-click
 The player now carries **56 backpack slots (seven rows of eight)** and a **15-slot hotbar**. Try `Builds/Inventory/RivetReach.exe`; [inventory verification](.docs/verification/INVENTORY_RESULTS.md) records the layout, controls and older-save migration checks.
 
 [Electrical grids](.docs/BATTERIES.md#cable-defined-grids--2026-09-12) now follow connected cables, with separate battery input/output networks, storage of all surplus and **800 W** boiler/alternator generation. Batteries share surplus/deficits equally, and item/fluid pipes use the same capped allocation rules. The focused review player is `Builds/PowerGrid/RivetReach.exe`; [power-grid verification](.docs/verification/POWER_GRID_RESULTS.md) records the checks.
+
+[Lava](.docs/FLUIDS.md#lava--2026-09-13) adds slow nonrenewing flow, near-bedrock lakes in new worlds, lava buckets and burning hazards. The focused review player is `Builds/Lava/RivetReach.exe`; [lava verification](.docs/verification/LAVA_RESULTS.md) records the checks and [the player guide](.docs/wiki/Lava.md) explains safe collection.

@@ -7,7 +7,7 @@ namespace RivetReach
         public void SetCreative(bool enabled)
         {
             if(!Started||Health.Dead||Creative==enabled)return;
-            Creative=enabled;
+            Creative=enabled;if(enabled)Health.Extinguish();
             Player.ResetMotion();
             UI.Rebuild();
             Notify(enabled?"Creative enabled · Open inventory for all items":"Survival enabled · Gravity and damage restored",4);

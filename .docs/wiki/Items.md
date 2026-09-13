@@ -6,7 +6,7 @@ Click any icon or item name for what it does, how to obtain it, its recipes, and
 
 [Crafting guide](Crafting-Recipes.md) · [Home](Home.md)
 
-Includes all **133 registered items and world-block entries** in the current playable alpha. Ore blocks, crops, bedrock and legacy test equipment have pages even when they cannot be crafted or placed.
+Includes all **134 registered items and world-block entries** in the current playable alpha. Ore blocks, crops, bedrock and legacy test equipment have pages even when they cannot be crafted or placed.
 
 [Building blocks](#building-blocks) · [Ore deposits and bedrock](#ore-deposits-and-bedrock) · [Materials and components](#materials-and-components) · [Tools and weapons](#tools-and-weapons) · [Armor](#armor) · [Food and farming](#food-and-farming) · [Light and buckets](#light-and-buckets) · [Stations and machines](#stations-and-machines) · [Connections and controls](#connections-and-controls) · [Multiblock tanks and batteries](#multiblock-tanks-and-batteries) · [Legacy test equipment](#legacy-test-equipment)
 
@@ -69,7 +69,7 @@ Includes all **133 registered items and world-block entries** in the current pla
 
 | | | | |
 |:---:|:---:|:---:|:---:|
-| <a href="Item-bucket.md" title="Bucket"><img src="icons/94.png" width="56" height="56" alt="Bucket"><br>Bucket</a> | <a href="Item-torch.md" title="Torch"><img src="icons/96.png" width="56" height="56" alt="Torch"><br>Torch</a> | <a href="Item-water-bucket.md" title="Water bucket"><img src="icons/95.png" width="56" height="56" alt="Water bucket"><br>Water bucket</a> |  |
+| <a href="Item-bucket.md" title="Bucket"><img src="icons/94.png" width="56" height="56" alt="Bucket"><br>Bucket</a> | <a href="Item-lava-bucket.md" title="Lava bucket"><img src="icons/99.png" width="56" height="56" alt="Lava bucket"><br>Lava bucket</a> | <a href="Item-torch.md" title="Torch"><img src="icons/96.png" width="56" height="56" alt="Torch"><br>Torch</a> | <a href="Item-water-bucket.md" title="Water bucket"><img src="icons/95.png" width="56" height="56" alt="Water bucket"><br>Water bucket</a> |
 
 ## Stations and machines
 

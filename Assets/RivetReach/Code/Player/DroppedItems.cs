@@ -25,6 +25,7 @@ namespace RivetReach
         public Expedition Game;
         public int TotalSpawned {get;private set;}
         public int TotalExpired {get;private set;}
+        public int TotalBurned {get;private set;}
         long nextId=1;
         float accumulator,mergeAt;
         readonly Dictionary<byte,Material> materials=new Dictionary<byte,Material>();
@@ -125,6 +126,7 @@ namespace RivetReach
             {
                 var p=Piles[i];var local=p.Position.Local(World.Origin);
                 if(!World.Ready(p.Position.Cell)||Vector3.Distance(local,player)>64)continue;
+                if(World.TouchesFluid(local,CollisionWidth,CollisionHeight,Fluids.Lava)){TotalBurned+=p.Stack.Count;Delete(i--);continue;}
                 p.Age+=dt;p.Delay=Mathf.Max(0,p.Delay-dt);p.EscapeRetry=Mathf.Max(0,p.EscapeRetry-dt);
                 bool clear=true;
                 if(!p.Sleeping)
@@ -156,6 +158,7 @@ namespace RivetReach
                         p.Position=WorldPoint.FromLocal(local,World.Origin);
                     }
                 }
+                if(World.TouchesFluid(local,CollisionWidth,CollisionHeight,Fluids.Lava)){TotalBurned+=p.Stack.Count;Delete(i--);continue;}
                 if(clear&&p.Delay<=0&&Vector3.Distance(local,player+Vector3.up*.5f)<=p.CollectionRadius)
                 {
                     Vector3 start=player+Vector3.up*.9f,delta=local+Vector3.up*.1f-start;
@@ -265,6 +268,23 @@ namespace RivetReach
                 }
                 var card=GameObject.CreatePrimitive(PrimitiveType.Quad);Destroy(card.GetComponent<Collider>());
                 card.transform.SetParent(view.transform,false);card.GetComponent<MeshRenderer>().sharedMaterial=material;
+            }
+            else if(Fluids.IsBucket(id))
+            {
+                var model=Instantiate(Resources.Load<GameObject>("Characters/PalmBucket"),view.transform,false);
+                var renderers=model.GetComponentsInChildren<Renderer>();var bounds=renderers[0].bounds;foreach(var r in renderers)bounds.Encapsulate(r.bounds);
+                if(!materials.TryGetValue(Fluids.EmptyBucket,out var material))
+                {material=new Material(Shader.Find("RivetReach/HeldTool"));material.SetTexture("_BaseMap",Resources.Load<Texture2D>("Characters/SkinField"));material.SetFloat("_FirstPerson",0);materials.Add(Fluids.EmptyBucket,material);}
+                foreach(var r in renderers)r.sharedMaterial=material;
+                if(Fluids.Registry.FromBucket(id) is FluidDefinition liquid)
+                {
+                    var surface=GameObject.CreatePrimitive(PrimitiveType.Cylinder);Destroy(surface.GetComponent<Collider>());surface.transform.SetParent(model.transform,false);
+                    surface.transform.localPosition=new Vector3(0,.32f,0);surface.transform.localScale=new Vector3(.80f,.008f,.80f);
+                    if(!materials.TryGetValue(id,out var fill))
+                    {fill=new Material(Shader.Find("RivetReach/HeldTool"));fill.SetColor("_BaseColor",new Color(liquid.Red,liquid.Green,liquid.Blue));fill.SetFloat("_FirstPerson",0);materials.Add(id,fill);}
+                    surface.GetComponent<Renderer>().sharedMaterial=fill;
+                }
+                float scale=1/Mathf.Max(bounds.size.x,bounds.size.y,bounds.size.z);model.transform.localPosition=-bounds.center*scale;model.transform.localScale*=scale;
             }
             else if(capability!=ToolCapability.None)
             {

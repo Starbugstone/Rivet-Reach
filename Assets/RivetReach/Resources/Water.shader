@@ -36,6 +36,12 @@ Shader "RivetReach/Fluid"
                 half3 color=input.color.rgb*(max(ambient,.18)+light.color*(.35+.65*saturate(dot(n,light.direction)))*light.shadowAttenuation);
                 color+=light.color*pow(saturate(dot(n,normalize(view+light.direction))),90)*.45;
                 color=lerp(color,half3(.40,.69,.77),fresnel*.28)+ripple*.012;
+                // Opaque vertex alpha identifies emissive lava on the shared fluid mesh.
+                if(input.color.a>.99)
+                {
+                    float crust=sin(p.x*3.1+sin(p.z*2.3+_Time.y*.25))*sin(p.z*2.7+sin(p.x*1.8-_Time.y*.2));
+                    color=lerp(half3(.20,.025,.008),input.color.rgb*1.5,smoothstep(-.5,.4,crust));
+                }
                 float fog=saturate((distance(_WorldSpaceCameraPos,input.positionWS)-_RRFogRange.x)/max(1,_RRFogRange.y-_RRFogRange.x));
                 return half4(lerp(color,_RRFogColour.rgb,fog),lerp(input.color.a,.90,fresnel));
             }

@@ -2,7 +2,7 @@
 
 > **2026-09-11 persistence extension:** [SAVES.md](SAVES.md) owns the implemented Save Game, Load Game and Continue Latest Save behavior. Its bounded surface-world persistence supersedes earlier session-only/durable-save exclusions below; older verification retains its original artifact identity.
 
-The user requested a terrain rework with caves, varied landscapes and biomes. The current working profile is generator **`terrain-5-seas-rivers`**, in the existing `surface` world. It replaces the previous height/cave algorithm while preserving the [finite ore profile and bedrock base](ECONOMY.md#current-ore-generation-and-bedrock), integer coordinates, chunk streaming and authoritative session edits. Numerical shapes, frequencies and material choices below are implementation defaults for review, not user-selected tuning or proven gameplay quality.
+The user requested a terrain rework with caves, varied landscapes and biomes. The current working profile is generator **`terrain-7-lava`**, in the existing `surface` world. It replaces the previous height/cave algorithm while preserving the [finite ore profile and bedrock base](ECONOMY.md#current-ore-generation-and-bedrock), integer coordinates, chunk streaming and authoritative session edits. Numerical shapes, frequencies and material choices below are implementation defaults for review, not user-selected tuning or proven gameplay quality.
 
 ## Surface profile
 
@@ -76,3 +76,11 @@ Measured results and limitations belong in [terrain verification](verification/T
 ## Authorized industrial extension — 2026-09-10
 
 The user selected implementation of [GitHub issue #2](https://github.com/Starbugstone/Rivet-Reach/issues/2), including original Blender machines, animated operating states, matching interfaces and stability/performance checks. [INDUSTRY.md](INDUSTRY.md) owns the current Azure/Copper unlock, 4×4 Machinist’s Bench, separate signal/power/item/fluid graphs, steam/electrical bootstrap, crusher/pump/drill and fixed sensor/relay behavior. This supersedes earlier statements excluding this bounded industrial content; hybrid transport/control variants, advanced logic and durable saves remain later extensions. [Industry verification](verification/INDUSTRY_RESULTS.md) owns evidence and remaining limits.
+
+## Deep lava lakes — 2026-09-13
+
+New worlds use **`terrain-7-lava`**. Existing naturally carved cave space from **Y = −252 through −240** receives lava sources, creating connected pools with a shared Y = −240 datum and the original rock cavity walls/floors. The upper cave profile is unchanged. This is a fill of deep cave basins, not a surface lava biome or a replacement of solid ores with lava.
+
+Point reads and chunk/halo generation apply the same rule before ore stamping. Protected bedrock at Y = −256, the three-block uncarved buffer, ore eligibility/bands, dry spawn, seas/rivers, trees and the wild-potato hook remain unchanged. Settled lava interiors sleep through the existing fluid scheduler; exposed spillways follow [lava flow rules](FLUIDS.md#lava--2026-09-13).
+
+[Save compatibility](SAVES.md#lava-and-generator-compatibility--2026-09-13) pins each world to its generator. Loaded `terrain-6-azure` worlds retain their original dry deep caves, including in newly visited chunks; their placed lava works normally. Saving them again preserves that generator identity. Unknown versions still reject. Start a new world to obtain naturally generated lava lakes.

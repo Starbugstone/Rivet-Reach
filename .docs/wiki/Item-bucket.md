@@ -8,7 +8,7 @@
 
 <a href="Item-bucket.md" title="Bucket"><img src="icons/94.png" width="96" height="96" alt="Bucket"></a>
 
-An empty container for moving one water source, equivalent to **10 L**.
+An empty container for moving one water or lava source, equivalent to **10 L**.
 
 ## At a glance
 
@@ -18,11 +18,11 @@ An empty container for moving one water source, equivalent to **10 L**.
 
 ## How to obtain
 
-Craft it from iron ingots, or empty a [Water bucket](Item-water-bucket.md).
+Craft it from iron ingots, or empty a [Water bucket](Item-water-bucket.md) or [Lava bucket](Item-lava-bucket.md).
 
 ## Using it
 
-Use it on a source cell to collect water; flowing water cannot be collected. Machine bucket controls can also fill it. See [Pumps and water](Pumps-and-water.md).
+Use it on a source cell to collect the liquid; flowing cells cannot be collected. Filling and emptying replace the same inventory slot. See [Lava](Lava.md) for deep lakes and burning hazards, or [Pumps and water](Pumps-and-water.md) for renewable water.
 
 ## Crafting and processing
 

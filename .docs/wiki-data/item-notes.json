@@ -143,14 +143,14 @@
     "obtain": "Gather it from exposed red clay in the badlands."
   },
   "rivet:bucket": {
-    "description": "An empty container for moving one water source, equivalent to **10 L**.",
-    "obtain": "Craft it from iron ingots, or empty a [Water bucket](Item-water-bucket.md).",
-    "use": "Use it on a source cell to collect water; flowing water cannot be collected. Machine bucket controls can also fill it. See [Pumps and water](Pumps-and-water.md)."
+    "description": "An empty container for moving one water or lava source, equivalent to **10 L**.",
+    "obtain": "Craft it from iron ingots, or empty a [Water bucket](Item-water-bucket.md) or [Lava bucket](Item-lava-bucket.md).",
+    "use": "Use it on a source cell to collect the liquid; flowing cells cannot be collected. Filling and emptying replace the same inventory slot. See [Lava](Lava.md) for deep lakes and burning hazards, or [Pumps and water](Pumps-and-water.md) for renewable water."
   },
   "rivet:water_bucket": {
     "description": "A bucket holding one water source, equivalent to **10 L**.",
     "obtain": "Use an empty [Bucket](Item-bucket.md) on source water, or remove 10 L through a filled machine’s bucket controls. This is a fluid transfer, not a grid recipe.",
-    "use": "Use it to place source water in the world, or add 10 L through a boiler or tank interface. Emptying it returns a [Bucket](Item-bucket.md). See the [renewable pool guide](Pumps-and-water.md)."
+    "use": "Use it to place source water in the world, or add 10 L through a boiler or tank interface. Emptying it returns a [Bucket](Item-bucket.md). See the [renewable pool guide](Pumps-and-water.md). Water also extinguishes a player who is [burning after lava contact](Lava.md)."
   },
   "rivet:torch": {
     "description": "A recoverable light source that attaches to a solid block’s top or side. Coal and charcoal recipes each produce four torches.",
@@ -295,5 +295,10 @@
     "description": "Smelts and cooks the same recipes as the normal furnace using 200 W of electricity, with no item fuel.",
     "obtain": "Craft at the Machinist’s Bench using one Furnace, one Machine Casing and four Copper Wire.",
     "use": "Connect power on any face and open with right-click or Interact. Insert ingredients and collect output. Full power takes the same time as a normal furnace; shortages slow work. Pipes feed ingredients or extract products on any face. See the [Electric Furnace guide](Electric-Furnace.md) for setup."
+  },
+  "rivet:lava_bucket": {
+    "description": "A bucket containing one lava source, equivalent to **10 L**.",
+    "obtain": "Use an empty [Bucket](Item-bucket.md) on source lava. New worlds have lava lakes near bedrock; see [Lava](Lava.md).",
+    "use": "Right-click a block face to place a source and recover your empty bucket. Lava flows slowly, never renews sources, destroys dropped items and burns players. It is safe while carried in inventory. A compatible multiblock tank can also accept or return 10 L through its bucket controls."
   }
 }

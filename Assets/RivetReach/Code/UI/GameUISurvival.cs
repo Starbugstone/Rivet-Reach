@@ -24,6 +24,7 @@ namespace RivetReach
         {Rect(parent,kind+" icons",x,y,width,height).gameObject.AddComponent<SurvivalMeter>().Initialize(game,kind);}
         void BuildSurvivalHUD()
         {
+            Rect(root,"Burning flames",0,0,1280,720).gameObject.AddComponent<FireOverlay>().Initialize(game);
             Panel(root,296,558,688,53,new Color(.045f,.08f,.085f,.70f));
             healthText=Label(root,"",304,580,335,30,24,new Color(.95f,.27f,.29f));
             BuildSurvivalMeter(root,SurvivalMeter.Kind.Food,655,583,322,26);
@@ -34,7 +35,7 @@ namespace RivetReach
         {
             Panel(root,0,0,1280,720,new Color(.17f,.025f,.03f,.70f));
             Label(root,"YOU DIED",450,220,400,55,42).alignment=TextAnchor.MiddleCenter;
-            Label(root,"Your items remain where you fell.",390,290,520,40,20).alignment=TextAnchor.MiddleCenter;
+            Label(root,"Recover your dropped items before hazards destroy them.",390,290,520,40,20).alignment=TextAnchor.MiddleCenter;
             Button(root,"RESPAWN",490,366,300,55,game.Respawn,true);
             Button(root,"LOAD GAME",490,436,300,48,()=>game.SetMode(ScreenMode.Load));
             Button(root,"SAVE GAME",490,499,300,48,()=>game.SetMode(ScreenMode.Save));

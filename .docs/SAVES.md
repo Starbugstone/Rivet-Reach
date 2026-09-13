@@ -76,3 +76,11 @@ Schemas **1–5** still require their original 60 stacks and selected index 0–
 ## Electric furnace compatibility — 2026-09-13
 
 [Electric furnace persistence](ELECTRIC_FURNACE.md#persistence) adds an explicit content-only compatibility path and recipe-derived work validation for the new machine. It adds no serialized fields or schema revision.
+
+## Lava and generator compatibility — 2026-09-13
+
+Lava writes **schema 7**, adding remaining burn ticks and the heat-damage cooldown after the existing health/healing fields. Both are validated and restored without offline advancement. Schemas 1–6 keep their original binary layouts and initialize both values to zero. Lava cells, filled buckets, fluid scheduler deadlines and exact generic tank contents use their existing authority records; tank loading resolves the registered stable fluid identity and rejects unknown identities.
+
+New sessions use `terrain-7-lava`. The save envelope now records the actual world generator rather than a global default. `terrain-6-azure` remains an explicitly supported generator with its exact pre-lava cavity rules. Loaded worlds and subsequent checkpoints preserve that identity, preventing terrain regeneration or lake insertion in older worlds. Unknown generator versions still reject.
+
+The new fingerprint includes `rivet:lava_bucket`. Earlier compatibility paths omit only this addition alongside their existing explicit electric-furnace, wrench, orchard, door and crank additions. Previously registered items, crafting/processing/fuel/mob definitions remain checked; unrelated changes reject. Schema 7 retains the independently additive electric-furnace and lava content branches; each omits only those new definitions and checks all earlier content. Atomic replacement, recovery checkpoints and failed-load rollback remain shared. Creative fire immunity stays session-only and Creative resets on loading.

@@ -1,0 +1,25 @@
+PASS Lava waits twenty fixed ticks before spreading
+PASS Lava spreads at one second intervals
+PASS Lava spreads three horizontal cells and sleeps
+PASS Settled lava requires no recurring volume scan
+PASS Two lava sources never renew a source
+PASS Full inventory collects lava into its existing bucket slot
+PASS Placing lava returns exactly one empty bucket
+PASS Flowing lava cannot be collected
+PASS Dependent lava drains after source removal
+PASS Water and lava preserve distinct sources at contact
+PASS Lava immediately ignites and deals four heat damage regardless of armor
+PASS Lava repeats four damage every half second
+PASS Burn damage continues on dry land
+PASS Water extinguishes burning
+PASS Respawn resets fire and restores health
+PASS Burn expiration and damage are invariant to fixed-tick batching
+PASS Deep lava lake found for seed 246813
+PASS Chunk/halo reads agree; legacy caves, ores and protected bedrock preserved, seed 246813 (2061 lava cells)
+PASS Dry spawn retained, seed 246813
+PASS Deep lava lake found for seed 17
+PASS Chunk/halo reads agree; legacy caves, ores and protected bedrock preserved, seed 17 (4386 lava cells)
+PASS Dry spawn retained, seed 17
+PASS Deep lava lake found for seed -99
+PASS Chunk/halo reads agree; legacy caves, ores and protected bedrock preserved, seed -99 (409 lava cells)
+PASS Dry spawn retained, seed -99

@@ -5,12 +5,17 @@ namespace RivetReach
 {
     public sealed class TerrainGenerator
     {
-        public const string Version="terrain-6-azure";
+        public const string Version="terrain-7-lava", LegacyVersion="terrain-6-azure";
+        public const int LavaLevel=MinY+16;
+        public readonly string GenerationVersion;
+        public bool GeneratesLava=>GenerationVersion==Version;
         public const string WorldId="surface";
         public const int MinY=-256,MaxY=767;
         public const long HorizontalLimit=1000000000;
         public readonly int Seed;
-        public TerrainGenerator(int seed) { Seed=seed; }
+        public TerrainGenerator(int seed,string version=Version)
+        {if(version!=Version&&version!=LegacyVersion)throw new ArgumentException("Unsupported terrain generator");Seed=seed;GenerationVersion=version;}
+        byte CaveCell(BlockPos p)=>GeneratesLava&&p.Y<=LavaLevel?Fluids.Lava.Source:(byte)0;
         static double Smooth(double t) => t*t*(3-2*t);
         static double Lerp(double a,double b,double t) => a+(b-a)*t;
         public static uint Hash(long x,long y,long z,int seed)
@@ -138,7 +143,7 @@ namespace RivetReach
         byte GroundAt(BlockPos p,TerrainColumn column)
         {
             byte id=SolidAt(p,column);
-            return id!=0&&id!=BlockId.Bedrock&&!Fluids.IsFluid(id)&&Carvable(p,column)&&CaveGenerator.Air(Seed,p,column)?(byte)0:id;
+            return id!=0&&id!=BlockId.Bedrock&&!Fluids.IsFluid(id)&&Carvable(p,column)&&CaveGenerator.Air(Seed,p,column)?CaveCell(p):id;
         }
         static bool Carvable(BlockPos p,TerrainColumn column)=>column.WaterLevel==int.MinValue||p.Y<column.Height-4;
         static byte SolidAt(BlockPos p,TerrainColumn column)
@@ -166,7 +171,7 @@ namespace RivetReach
                     if(id!=0&&id!=BlockId.Bedrock&&!Fluids.IsFluid(id)&&Carvable(p,column))
                     {
                         if(caves==null)caves=new CaveGenerator.ChunkSampler(Seed,chunk);
-                        if(caves.Air(x-1,y-1,z-1,p,column))id=0;
+                        if(caves.Air(x-1,y-1,z-1,p,column))id=CaveCell(p);
                     }
                     cells[x+34*(y+34*z)]=id;
                 }

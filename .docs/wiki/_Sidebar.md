@@ -11,3 +11,5 @@
 - [Blue Signal](Blue-Signal.md)
 
 - [Electric Furnace](Electric-Furnace.md) — smelting and cooking with electricity.
+
+- [Lava](Lava.md) — deep lakes, buckets and burning hazards.

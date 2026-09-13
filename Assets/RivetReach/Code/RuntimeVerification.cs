@@ -122,7 +122,7 @@ namespace RivetReach
             if(Environment.GetCommandLineArgs().Contains("-rr-equipment-art-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-potato-art-review")||Environment.GetCommandLineArgs().Contains("-rr-orchard-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-connections-review")||Environment.GetCommandLineArgs().Contains("-rr-facing-review"))game.World.ViewDistance=4;
-            if(Environment.GetCommandLineArgs().Contains("-rr-inventory-review"))game.World.ViewDistance=4;
+            if(Environment.GetCommandLineArgs().Contains("-rr-inventory-review")||Environment.GetCommandLineArgs().Contains("-rr-lava-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-machine-interface-review")||Environment.GetCommandLineArgs().Contains("-rr-electric-furnace-review"))game.World.ViewDistance=4;
             yield return Settle();report.firstReadySeconds=Time.realtimeSinceStartup-began;
             if(Environment.GetCommandLineArgs().Contains("-rr-machine-interface-review"))
@@ -174,6 +174,8 @@ namespace RivetReach
             {report.workload="Torch recipes, floor/wall placement, rendered lighting, support removal, fluids and session streaming";yield return ReviewTorches();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-creative-review"))
             {report.workload="Creative menu, catalog, flight, invincibility and survival transitions";yield return ReviewCreative();yield break;}
+            if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-lava-review"))
+            {report.workload="Lava lakes, slow nonrenewing flow, buckets, dropped items, burning and durable saves";yield return ReviewLava();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-fluid-review"))
             {report.workload="Seas, rivers, bucket input, flow, renewal, swimming and fluid streaming";yield return ReviewFluids();yield break;}
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-terrain-review"))

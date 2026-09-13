@@ -62,7 +62,7 @@ namespace RivetReach
             UI=gameObject.AddComponent<GameUI>();UI.Initialize(this);SetMode(ScreenMode.Title);
             if(Array.Exists(Environment.GetCommandLineArgs(),s=>s=="-rr-verify"))gameObject.AddComponent<RuntimeVerification>();
         }
-        void CreateSession(int seed)
+        void CreateSession(int seed,string generatorVersion=TerrainGenerator.Version)
         {
             Seed=seed;Creative=false;LoadingSave=false;Selected=0;WorldId=Guid.NewGuid().ToString("N");SaveId=null;SaveName="Expedition";
             invulnerableUntil=0;WaitingForRespawn=false;
@@ -70,7 +70,7 @@ namespace RivetReach
             Inventory=new Inventory(id=>Registry.Get(id).stackLimit);
             OpenMachine=null;OpenStation=null;PersonalCrafting=new CraftingSession(Recipes,2,id=>Registry.Get(id).stackLimit);
             Hunger=new HungerState();Health=new HealthState();Equipment=new EquipmentState(Registry.Get);
-            var root=new GameObject("Surface world");root.transform.SetParent(transform,false);World=root.AddComponent<VoxelWorld>();World.Initialize(seed);World.ViewDistance=Mathf.Clamp(PlayerPrefs.GetInt("viewDistance.v2",10),4,14);
+            var root=new GameObject("Surface world");root.transform.SetParent(transform,false);World=root.AddComponent<VoxelWorld>();World.Initialize(seed,generatorVersion);World.ViewDistance=Mathf.Clamp(PlayerPrefs.GetInt("viewDistance.v2",10),4,14);
             RenderSettings.fogStartDistance=World.FogStart;RenderSettings.fogEndDistance=World.FogEnd;
             var p=new GameObject("Player");p.transform.SetParent(transform,false);Player=p.AddComponent<FirstPersonPlayer>();Player.Initialize(this);
             // Deterministic spawn remains on a supported surface with headroom.
@@ -114,7 +114,7 @@ namespace RivetReach
             if(Input==null)return;
             if(WaitingForRespawn&&ReadyToPlay){WaitingForRespawn=false;invulnerableUntil=Time.time+2;SetMode(Mode);}
             if(LoadingSave&&ReadyToPlay){LoadingSave=false;SetMode(Mode);}
-            if(Started&&!Paused){Sky.Advance(Time.deltaTime);World.AdvanceGrass(Time.deltaTime);World.AdvanceTrees(Time.deltaTime);World.AdvanceFluids(Time.deltaTime);int ticks=Survival.Advance(Time.deltaTime);Industry.Advance(ticks);if(!Creative)Health.Advance(ticks,Hunger);}
+            if(Started&&!Paused){Sky.Advance(Time.deltaTime);World.AdvanceGrass(Time.deltaTime);World.AdvanceTrees(Time.deltaTime);World.AdvanceFluids(Time.deltaTime);int ticks=Survival.Advance(Time.deltaTime);Industry.Advance(ticks);if(!Creative){Health.Advance(ticks,Hunger);AdvanceLava(ticks);}}
             if((OpenStation!=null||OpenMachine!=null)&&(!World.Ready(StationPosition)||(World.Local(StationPosition)+Vector3.one*.5f-Player.transform.position).sqrMagnitude>36))SetMode(ScreenMode.Play);
             if(Health.Dead)return;
             if(Input.PollRebind()){UI.Rebuild();return;}

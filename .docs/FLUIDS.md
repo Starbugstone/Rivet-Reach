@@ -1,4 +1,4 @@
-# World fluids, seas and rivers
+# World fluids, lava, seas and rivers
 
 > **2026-09-11 persistence extension:** [SAVES.md](SAVES.md) owns the implemented Save Game, Load Game and Continue Latest Save behavior. Its bounded surface-world persistence supersedes earlier session-only/durable-save exclusions below; older verification retains its original artifact identity.
 
@@ -17,11 +17,11 @@ The familiar bucket and renewal reference is Mojang's [bucket overview](https://
 
 ## Fluid abstraction and extension
 
-[`FluidDefinition`](../Assets/RivetReach/Code/Fluids/FluidDefinition.cs) is immutable session data: stable identity, compact cell encoding, filled-bucket item, horizontal reach, tick delay, **`bool RenewsSources`**, drag, current speed and display colour. Water's working definition sets `renewsSources: true`. A future lava definition can pass `false`, a shorter reach and a longer delay. Changing renewal does not require another solver or a water-specific branch.
+[`FluidDefinition`](../Assets/RivetReach/Code/Fluids/FluidDefinition.cs) is immutable session data: stable identity, compact cell encoding, filled-bucket item, horizontal reach, tick delay, **`bool RenewsSources`**, drag, current speed and display colour. Water's working definition sets `renewsSources: true`. Lava passes `false`, a three-cell reach and a twenty-tick delay. Changing renewal does not require another solver or a water-specific branch.
 
-`FluidRegistry` validates and resolves definitions once. `FluidSimulation` consumes a registry and the plain C# `IFluidWorld` interface; `BucketTransfer` uses the same registry. Domain checks instantiate a second, slower, nonrenewing test liquid alongside water. This fixture is not shipped lava content. Runtime `Fluids.Registry` registers only water; adding playable lava later also requires its item/assets and any separately selected damage or mixing rules.
+`FluidRegistry` validates and resolves definitions once. `FluidSimulation` consumes a registry and the plain C# `IFluidWorld` interface; `BucketTransfer` uses the same registry. Domain checks instantiate a second, slower, nonrenewing test liquid alongside water. This fixture is not shipped lava content. Runtime `Fluids.Registry` registers water and lava. Both share the same solver, bucket transactions and sleeping frontiers.
 
-The present byte voxel storage reserves nine consecutive encodings per fluid: source at offset 0, horizontal levels 1–7, falling at offset 8. Water uses 100–108; bucket item IDs are 94–95. Stable `rivet:water` identity is separate from the runtime encoding. Future definitions must reserve nonoverlapping cell ranges and item IDs. This extends the current compact voxel format rather than representing each fluid cell with a GameObject. Expanding beyond the byte address space requires an explicit storage migration; this is not an unlimited fluid registry.
+The present byte voxel storage reserves nine consecutive encodings per fluid: source at offset 0, horizontal levels 1–7, falling at offset 8. Water uses 100–108; lava uses 110–118 (110 source, 111–113 horizontal flow, 118 falling; unused levels stay reserved). Empty/water/lava bucket item IDs are 94/95/99. Stable `rivet:water` identity is separate from the runtime encoding. Future definitions must reserve nonoverlapping cell ranges and item IDs. This extends the current compact voxel format rather than representing each fluid cell with a GameObject. Expanding beyond the byte address space requires an explicit storage migration; this is not an unlimited fluid registry.
 
 ## Scheduling, rendering and session lifetime
 
@@ -33,8 +33,22 @@ Unready frontiers are closed. Requests wait by chunk and resume when that chunk 
 
 `FluidMesher` emits only exposed surfaces into a separate transparent mesh, with level-dependent heights and definition colours. Its URP shader adds subtle animated ripples, directional lighting and world fog. Water contributes no ordinary terrain collider and uses no imported texture. Fluid surfaces are currently stepped between levels, with standard transparent sorting rather than screen-space refraction.
 
-Sources and flow edits survive unloading during the session; **quitting still resets the world**. Durable saves, fluid reactions, lava gameplay, waterlogging, irrigation, drowning, boats, pumps, tanks and pipes are outside this increment. [Placed torches](GAMEPLAY.md#torches) are displaced by incoming water and drop one recoverable item. Crops and stations currently block flow; fluid destruction of those blocks is not implemented.
+Sources and flow edits survive unloading and [durable checkpoints](SAVES.md). [Industry](INDUSTRY.md) owns pumps, tanks and pipes. Fluid reactions, waterlogging, irrigation, drowning and boats remain outside this increment. [Placed torches](GAMEPLAY.md#torches) are displaced by incoming water and drop one recoverable item. Crops and stations currently block flow; fluid destruction of those blocks is not implemented.
 
 ## Generation and verification
 
 [TERRAIN_GENERATION.md](TERRAIN_GENERATION.md) owns the sea/river profile and compatibility version. [Fluid verification](verification/FLUID_RESULTS.md) owns measured checks, screenshots and remaining limits. Run `Tools/Verify-Fluids.ps1 -Build` with the pinned Editor available to validate and build `Builds/Fluids/RivetReach.exe`, then run the explicit player review. Ordinary sessions receive no test fixtures or starter buckets.
+
+## Lava — 2026-09-13
+
+The user authorized slower lava, no source renewal, deep generated lakes, bucket collection/placement, destruction of dropped items and rapid player damage with burning. Numerical defaults below are working tuning for play review.
+
+- Lava updates every **20 fixed ticks (1 second)**, compared with water’s five ticks (0.25 seconds). It descends first and spreads up to **three horizontal cells**. `RenewsSources=false`: two or more adjacent sources never produce another source. Removing a source drains its dependent flow.
+- Empty buckets collect **source lava only**. A filled lava bucket places one source and returns the same empty bucket slot. Full-inventory, readiness, reach, visibility, obstruction and failed-mutation rules remain shared. No new crafting recipe is needed; the iron bucket recipe is unchanged.
+- Any actual overlap between a resident dropped stack and lava destroys its **entire remaining quantity**, before pickup. This includes sleeping stacks, flowing lava and newly arriving flow; air above the lowered fluid surface is dry. The ordinary nearby/resident entity simulation boundary remains in force.
+- Player body overlap, including shallow flow and foot edges, ignites the player and deals **4 health points (two hearts) immediately, then every 0.5 seconds** while touching lava. Ordinary armor does not reduce heat damage. Leaving lava retains fire for **four seconds**, with **1 health point every second** while burning. Water contact extinguishes it; simultaneous lava contact keeps the player burning. The shared `Expedition.TakeDamage` authority still owns invincibility, death and drops. Creative is immune and enabling it extinguishes fire; respawn also clears fire. Flame presentation marks the lower screen without obstructing controls.
+- Heat runs on the shared survival ticks, pauses with the world, and persists its remaining burn and next-damage timer in [schema 7](SAVES.md#lava-and-generator-compatibility--2026-09-13). There is no offline burning. New sessions start dry and empty-handed.
+- Lava has an animated orange emissive surface and uses the existing original bucket model with an orange fill in hand, on the ground and in inventory. Emission makes the surface visible in caves; this does not claim propagated terrain illumination.
+- Different fluids block each other’s source/flow replacement. Water/lava mixing does not create stone or other reaction products in this slice. Existing generic multiblock storage accepts compatible lava buckets, keeps fluids separate and saves the exact registered fluid identity. Water-specific pumps, boiler recipes and small water buffers retain their water-only behavior.
+
+[TERRAIN_GENERATION.md](TERRAIN_GENERATION.md#deep-lava-lakes--2026-09-13) owns deep-lake generation. [Player guide](wiki/Lava.md) teaches collection and hazards; [lava verification](verification/LAVA_RESULTS.md) records measured evidence and limits.

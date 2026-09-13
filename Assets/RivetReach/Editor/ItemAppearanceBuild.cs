@@ -11,11 +11,12 @@ namespace RivetReach.Editor
     public static class ItemAppearanceBuild
     {
         [MenuItem("Rivet Reach/Bake held item icons")]
-        public static void Bake()
+        public static void Bake()=>BakeOnly(0);
+        public static void BakeOnly(byte only)
         {
             const string folder="Assets/RivetReach/Resources/ItemIcons";
             Directory.CreateDirectory(folder);
-            foreach(var item in ItemRegistry.Load().items.Where(ItemAppearance.BakedIcon))
+            foreach(var item in ItemRegistry.Load().items.Where(item=>ItemAppearance.BakedIcon(item)&&(only==0||item.runtimeId==only)))
             {
                 var preview=new PreviewRenderUtility();Material material=null,waterMaterial=null;
                 try
@@ -33,7 +34,8 @@ namespace RivetReach.Editor
                         var water=GameObject.CreatePrimitive(PrimitiveType.Cylinder);preview.AddSingleGO(water);
                         water.transform.localPosition=new Vector3(0,.32f,0);water.transform.localScale=new Vector3(.80f,.008f,.80f);
                         waterMaterial=new Material(material);waterMaterial.SetTexture("_BaseMap",Texture2D.whiteTexture);
-                        waterMaterial.SetColor("_BaseColor",new Color(.08f,.42f,.58f));water.GetComponent<Renderer>().sharedMaterial=waterMaterial;
+                        var liquid=Fluids.Registry.FromBucket(item.runtimeId);
+                        waterMaterial.SetColor("_BaseColor",new Color(liquid.Red,liquid.Green,liquid.Blue));water.GetComponent<Renderer>().sharedMaterial=waterMaterial;
                     }
                     var renderers=model.GetComponentsInChildren<Renderer>();var bounds=renderers[0].bounds;
                     foreach(var renderer in renderers)bounds.Encapsulate(renderer.bounds);

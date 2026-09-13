@@ -25,7 +25,7 @@ namespace RivetReach
         public void TransferOut(int slot,ItemContainer destination)=>contents.TransferTo(slot,destination);
         public ItemStack Take(int slot)=>contents.Take(slot,1);
     }
-    public enum DamageKind { Impact, Fall, Starvation }
+    public enum DamageKind { Impact, Fall, Starvation, Heat }
     public sealed partial class HealthState
     {
         public const float Maximum=20;
@@ -60,6 +60,6 @@ namespace RivetReach
                 }
             }
         }
-        public void Respawn(){Hearts=Maximum;foodTimer=0;Regenerating=false;}
+        public void Respawn(){Hearts=Maximum;foodTimer=0;Regenerating=false;Extinguish();}
     }
 }

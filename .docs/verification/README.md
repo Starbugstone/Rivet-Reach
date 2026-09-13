@@ -14,6 +14,7 @@ This directory maintains the latest report and useful evidence for each feature.
 | Feature | Current evidence |
 | --- | --- |
 | Electric furnace | [Electric furnace verification](ELECTRIC_FURNACE_RESULTS.md) — shared recipes, exact electricity, pipes, save continuity and actual imported art |
+| Lava, deep lakes and burning | [Lava verification](LAVA_RESULTS.md) — slow nonrenewing flow, buckets, item destruction, heat and pinned-generator saves |
 | Expanded player inventory and hotbar | [Inventory verification](INVENTORY_RESULTS.md) — seven backpack rows, 15 hotbar slots, input, transfers and save migration |
 | Player-facing station and machine placement | [Placement facing](PLACEMENT_FACING_RESULTS.md) — four directions, right-click, rendered starter bounds and schema-5 save compatibility |
 | Furnace pipes, cargo compatibility and receiver priority | [Furnace pipe verification](FURNACE_PIPE_RESULTS.md) — ingredient/fuel routing, matching inputs/products, exact transfers and scheduler wake |

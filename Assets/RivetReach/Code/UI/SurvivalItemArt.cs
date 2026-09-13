@@ -32,7 +32,7 @@ namespace RivetReach
                 {
                     body=py>-17&&py<9&&Mathf.Abs(px)<12+(py+17)*.16f;
                     handle=Mathf.Abs(px*px+(py-10)*(py-10)-180)<36&&py>8;
-                    if(body&&py>3)color=item.runtimeId==Fluids.EmptyBucket?new Color(.14f,.2f,.24f):new Color(.1f,.6f,.85f);
+                    if(body&&py>3)color=item.runtimeId==Fluids.EmptyBucket?new Color(.14f,.2f,.24f):item.runtimeId==Fluids.LavaBucket?new Color(1,.27f,.025f):new Color(.1f,.6f,.85f);
                 }
                 else if(item.runtimeId==BlockId.Torch)
                 {

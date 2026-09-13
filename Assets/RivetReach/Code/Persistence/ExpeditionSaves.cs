@@ -17,6 +17,7 @@ namespace RivetReach
         public void InitializeSaves(string directory=null)=>Saves=new SaveStore(directory??Path.Combine(Application.persistentDataPath,"Saves"),Registry);
         internal byte[] CaptureSave(SaveEntry entry)
         {
+            entry.GeneratorVersion=World.Generator.GenerationVersion;
             return Saves.Encode(entry,w=>
             {
                 w.Write("rivet:surface");w.Point(WorldPoint.FromLocal(Player.transform.position,World.Origin));
@@ -69,7 +70,7 @@ namespace RivetReach
             oldWorld.gameObject.SetActive(false);oldPlayer.gameObject.SetActive(false);oldItems.gameObject.SetActive(false);
             try
             {
-                CreateSession(entry.Seed);WorldId=entry.WorldId;
+                CreateSession(entry.Seed,entry.GeneratorVersion);WorldId=entry.WorldId;
                 // An origin near the player retains integer precision at remote saved coordinates.
                 World.ReadSave(r,new BlockPos(point.Cell.Chunk.Min.X,0,point.Cell.Chunk.Min.Z));Player.ReadSave(r,point);
                 r.PlayerInventory(Inventory);r.Slots(PersonalCrafting.Grid);Hunger.ReadSave(r);Health.ReadSave(r);Equipment.ReadSave(r);

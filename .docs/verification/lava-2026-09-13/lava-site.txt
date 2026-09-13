@@ -1,0 +1,1 @@
+Seed 246813; lake 4, -240, -152; generator terrain-7-lava

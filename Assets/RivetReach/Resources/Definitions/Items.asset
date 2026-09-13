@@ -2008,3 +2008,18 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+  - runtimeId: 99
+    stableId: rivet:lava_bucket
+    displayName: Lava bucket
+    stackLimit: 1
+    fistSeconds: 0.6
+    colour: {r: 1, g: 0.27, b: 0.025, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0

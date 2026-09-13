@@ -43,12 +43,14 @@ namespace RivetReach
         }
         public FluidDefinition Get(byte cell)=>cells[cell];
         public FluidDefinition FromBucket(byte item)=>buckets[item];
+        public FluidDefinition ByStableId(string id){foreach(var f in buckets)if(f!=null&&f.StableId==id)return f;return null;}
     }
     public static class Fluids
     {
-        public const byte EmptyBucket=94, WaterBucket=95;
+        public const byte EmptyBucket=94, WaterBucket=95, LavaBucket=99;
         public static readonly FluidDefinition Water=new FluidDefinition("rivet:water",100,WaterBucket,7,5,renewsSources:true,3.5f,1.2f,.08f,.48f,.66f,displayName:"Water");
-        public static readonly FluidRegistry Registry=new FluidRegistry(Water);
+        public static readonly FluidDefinition Lava=new FluidDefinition("rivet:lava",110,LavaBucket,3,20,renewsSources:false,7f,.35f,1f,.27f,.025f,displayName:"Lava");
+        public static readonly FluidRegistry Registry=new FluidRegistry(Water,Lava);
         public static bool IsFluid(byte cell)=>Registry.Get(cell)!=null;
         public static bool IsBucket(byte item)=>item==EmptyBucket||Registry.FromBucket(item)!=null;
     }

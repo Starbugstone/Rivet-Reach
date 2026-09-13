@@ -33,7 +33,7 @@ namespace RivetReach
                 bool NeedsFlow(int offset)=>cells[index+offset]==0||Fluids.Registry.Get(cells[index+offset])==f&&!f.IsSource(cells[index+offset]);
                 if(!f.IsSource(cell)||NeedsFlow(-34)||NeedsFlow(-1)||NeedsFlow(1)||NeedsFlow(-1156)||NeedsFlow(1156))active.Add(x+32*(y+32*z));
                 float h=Fluids.Registry.Get(cells[index+34])==f?1:f.Height(cell);
-                var color=new Color(f.Red,f.Green,f.Blue,.68f);
+                var color=new Color(f.Red,f.Green,f.Blue,f==Fluids.Lava?1f:.68f);
                 var p=new Vector3(x,y,z);var a=p;var b=p+Vector3.right;var c=p+new Vector3(1,0,1);var d=p+Vector3.forward;
                 var up=Vector3.up*h;
                 if(Fluids.Registry.Get(cells[index+34])!=f&&!BlockId.Solid(cells[index+34]))Face(a+up,d+up,c+up,b+up,Vector3.up,color);

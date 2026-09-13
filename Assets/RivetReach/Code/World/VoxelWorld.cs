@@ -74,9 +74,9 @@ namespace RivetReach
         public GrassSimulation Grass {get;private set;}
         public double LastGrassTickMs {get;private set;}
 
-        public void Initialize(int seed)
+        public void Initialize(int seed,string generatorVersion=TerrainGenerator.Version)
         {
-            Generator=new TerrainGenerator(seed);Origin=new BlockPos(0,0,0);
+            Generator=new TerrainGenerator(seed,generatorVersion);Origin=new BlockPos(0,0,0);
             Grass=new GrassSimulation(seed);Trees=new TreeSimulation();
             FluidSimulation=new FluidSimulation(Fluids.Registry);
             fluidMaterial=Resources.Load<Material>("Materials/Water");

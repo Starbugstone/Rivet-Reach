@@ -22,7 +22,7 @@ Use an empty [Bucket](Item-bucket.md) on source water, or remove 10 L through a 
 
 ## Using it
 
-Use it to place source water in the world, or add 10 L through a boiler or tank interface. Emptying it returns a [Bucket](Item-bucket.md). See the [renewable pool guide](Pumps-and-water.md).
+Use it to place source water in the world, or add 10 L through a boiler or tank interface. Emptying it returns a [Bucket](Item-bucket.md). See the [renewable pool guide](Pumps-and-water.md). Water also extinguishes a player who is [burning after lava contact](Lava.md).
 
 ## Crafting and processing
 

@@ -169,7 +169,8 @@ namespace RivetReach
                 waterMaterial=new Material(Shader.Find("RivetReach/HeldTool"));waterMaterial.SetColor("_BaseColor",new Color(.08f,.42f,.58f));
                 var waterRenderer=bucketWater.GetComponent<Renderer>();waterRenderer.sharedMaterial=waterMaterial;waterRenderer.shadowCastingMode=ShadowCastingMode.Off;
             }
-            if(bucketWater!=null)bucketWater.SetActive(isBucket&&id!=Fluids.EmptyBucket);
+            if(bucketWater!=null){bucketWater.SetActive(isBucket&&id!=Fluids.EmptyBucket);
+                if(Fluids.Registry.FromBucket(id) is FluidDefinition liquid)waterMaterial.SetColor("_BaseColor",new Color(liquid.Red,liquid.Green,liquid.Blue));}
             if(bucket!=null)bucket.SetActive(isBucket);
             if(isTorch&&torch==null)
             {
