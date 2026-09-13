@@ -1,0 +1,44 @@
+{
+  "reviewDate": "2026-09-13",
+  "wikiCommit": "03b745ed2edb9d2ef64f941f36df71c9f6de3820",
+  "navigation": [
+    "Mobs overview \u2192 Rustback beetle",
+    "Rustback beetle \u2192 Dusk prowler"
+  ],
+  "pages": [
+    {
+      "url": "https://github.com/Starbugstone/Rivet-Reach/wiki/Rustback-Beetle",
+      "images": 2,
+      "broken": [],
+      "overflow": false
+    },
+    {
+      "url": "https://github.com/Starbugstone/Rivet-Reach/wiki/Dusk-Prowler?review=3757a0a",
+      "title": "Dusk Prowler \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+      "images": 1,
+      "broken": [],
+      "overflow": false
+    },
+    {
+      "url": "https://github.com/Starbugstone/Rivet-Reach/wiki/Farming-and-cooking?review=3757a0a",
+      "title": "Farming and cooking \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+      "images": 7,
+      "broken": [],
+      "overflow": false
+    },
+    {
+      "url": "https://github.com/Starbugstone/Rivet-Reach/wiki/Item-iron-ingot?review=3757a0a",
+      "title": "Item iron ingot \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+      "images": 55,
+      "broken": [],
+      "overflow": false
+    },
+    {
+      "url": "https://github.com/Starbugstone/Rivet-Reach/wiki/Item-potato?review=3757a0a",
+      "title": "Item potato \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+      "images": 7,
+      "broken": [],
+      "overflow": false
+    }
+  ]
+}
