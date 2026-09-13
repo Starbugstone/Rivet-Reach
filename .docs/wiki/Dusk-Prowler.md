@@ -6,6 +6,8 @@ The Dusk prowler is a dark blue native predator with swept ears, a mane and a lo
 
 ![Dusk prowler in the game](images/mobs/dusk-prowler.png)
 
+New spawns also require ground light level 7 or lower. Sufficiently bright placed lights prevent new prowlers, but existing creatures can still enter lit areas. See [lighting and spawning](Mobs.md#lighting-prevents-new-hostile-spawns).
+
 ## Behaviour and combat
 
 Prowlers detect a visible player within roughly **16 metres**, pursue on the ground and bite. They have **18 health**; a successful bite deals **3 HP before armor**.

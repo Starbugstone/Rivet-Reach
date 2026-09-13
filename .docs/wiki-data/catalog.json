@@ -11898,7 +11898,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Mobs/FloaterVerification.cs",
-            "sha256": "da73e40a9fd337593d64c02ac13ba1285e49fe286ef6a59c491c76e0f5dcd4b8"
+            "sha256": "b9edf06763d71f36535c8a1aefcde4c67aaf77c6c59c6e65fbc6f4539b619c8e"
         },
         {
             "path": "Assets/RivetReach/Code/Mobs/MobDefinition.cs",
@@ -11913,20 +11913,24 @@
             "sha256": "16482006f5a467ef7f3238dd888fc9e22a166efdfcc53b4a3ed75b0f37111c8f"
         },
         {
+            "path": "Assets/RivetReach/Code/Mobs/MobLightVerification.cs",
+            "sha256": "6502d2ad6a53aa6d44614403b0c16b79d3be518d7b2d62308296b97f9b663a80"
+        },
+        {
             "path": "Assets/RivetReach/Code/Mobs/MobNavigation.cs",
             "sha256": "d50ade21e24613d3dacb91dd67c33289a1be54ac393b19a43a7faf6ce6fecba7"
         },
         {
             "path": "Assets/RivetReach/Code/Mobs/MobSpawnRules.cs",
-            "sha256": "cfd1d183e1312f80be9cd63baf0c8f41fa15423f7de6be586c7547123e594344"
+            "sha256": "25e45f49fbe7a0e601484692a2ca358975cadcc33d6cc285a912f260285754cd"
         },
         {
             "path": "Assets/RivetReach/Code/Mobs/MobSystem.cs",
-            "sha256": "b3b76120d9fdbc2015325ecdcdddab40f2770a6a848a0d9066d5d4b1b3f675a1"
+            "sha256": "2e09d00d8a503a9aecdee360e28050086b20d77d6ad9c58b49f557b1df796c24"
         },
         {
             "path": "Assets/RivetReach/Code/Mobs/MobVerification.cs",
-            "sha256": "0d237ec12f98119a4dfb1cf636fc3abc90cd79625f3fa322b06c6c4c3b15c13e"
+            "sha256": "32c1caa654a54d1bdd1a885a3fc7121dc9f811896a7e73a8ba2a3b254c94dbd1"
         },
         {
             "path": "Assets/RivetReach/Code/Mobs/MobView.cs",
@@ -11986,7 +11990,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/SaveIO.cs",
-            "sha256": "4ec0f026571513add4bf3e5a60bbf86bd649d37cb672b7bf64de2672ae691a0c"
+            "sha256": "1f579204eb85d021be1c7e3a613de65a7f0c1fb6e1748090abfc8103c88b4075"
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/WorldSaveState.cs",
@@ -12322,7 +12326,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/World/WorldLighting.cs",
-            "sha256": "09cf22dd857a8728a87df369023777869ba679d38370591adfc2e4a84ca4d370"
+            "sha256": "cb2779a823265c6b7a8a23e30335151734a4b103a85ecce026c786d59a9e6c49"
         },
         {
             "path": "Assets/RivetReach/Code/World/WorldNoise.cs",

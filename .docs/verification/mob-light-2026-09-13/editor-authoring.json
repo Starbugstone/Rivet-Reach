@@ -1,0 +1,8 @@
+{
+  "unity": "6000.4.4f1",
+  "command": "-batchmode -quit -executeMethod RivetReach.Editor.WikiExport.Export",
+  "result": "Exit 0; Editor scripts compiled and Unity wiki export completed after the authoring fallback correction",
+  "source": "Assets/RivetReach/Editor/MobAssetImport.cs",
+  "sha256": "1b3684c84add636299c2d62bffff0573d4968a7b4f634ba5e273c1f43aca977d",
+  "runtimeBuildChanged": false
+}

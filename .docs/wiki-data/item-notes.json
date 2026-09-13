@@ -303,7 +303,7 @@
   },
   "rivet:floater_rock": {
     "description": "A high-tier magical crafting material that enables the Floater to hover. Used in advanced pumps, remote workshop bridges and chunk loaders.",
-    "obtain": "Kill a Floater to receive exactly one Floater Rock. Walk near the dropped rock to collect it. Floaters spawn only in covered underground caves, during either day or night.",
+    "obtain": "Kill a Floater to receive exactly one Floater Rock. Walk near the dropped rock to collect it. Floaters spawn only in dark, covered underground caves, during either day or night. Ground light level 8 or higher prevents new spawns; place torches or use powered Workshop Lamps.",
     "use": "Craft [bridges and chunk loaders](Bridges-and-chunk-loaders.md) at the Machinist’s Bench. Combine one rock with a [Pump](Item-pump.md) and two [Gold ingots](Item-gold-ingot.md) to craft a [Ranged Liquid Pump](Item-ranged-liquid-pump.md); see [its setup guide](Ranged-Liquid-Pump.md)."
   },
   "rivet:ranged_liquid_pump": {

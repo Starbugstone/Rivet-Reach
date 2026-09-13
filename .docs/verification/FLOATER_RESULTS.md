@@ -2,7 +2,9 @@
 
 [Mob rules](../MOBS.md#shared-hostilepassive-spawning-rules) · [Floater guide](../wiki/Floater.md) · [Mobs overview](../wiki/Mobs.md)
 
-The current review player is **`Builds/FloaterCaves/RivetReach.exe`**, built with Unity **6000.4.4f1 / URP**, with **0 errors and 0 warnings**. [Build summary](mob-spawning-2026-09-13/build-summary.txt) and [artifact/source hashes](mob-spawning-2026-09-13/artifacts.json) identify the tested build. Verification used an isolated checkout based on `8629bab` plus this task’s changes, excluding concurrent lighting edits in the shared checkout. After lighting commit `8eee7c9` landed, the combined source compiled successfully for a fresh Unity wiki export. The runtime reports and review executable retain the isolated pre-lighting artifact identity above.
+The later [light-dependent spawning results](MOB_LIGHT_RESULTS.md) own current spawn-light behavior and combined-lighting evidence. The following report retains the earlier cave-habitat build identity.
+
+The cave-habitat review player was **`Builds/FloaterCaves/RivetReach.exe`**, built with Unity **6000.4.4f1 / URP**, with **0 errors and 0 warnings**. [Build summary](mob-spawning-2026-09-13/build-summary.txt) and [artifact/source hashes](mob-spawning-2026-09-13/artifacts.json) identify the tested build. Verification used an isolated checkout based on `8629bab` plus this task’s changes, excluding concurrent lighting edits in the shared checkout. After lighting commit `8eee7c9` landed, the combined source compiled successfully for a fresh Unity wiki export. The runtime reports and review executable retain the isolated pre-lighting artifact identity above.
 
 ## Measured results
 

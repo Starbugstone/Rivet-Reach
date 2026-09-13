@@ -2,7 +2,7 @@
 
 [All mobs](Mobs.md) · [Dusk prowler](Dusk-Prowler.md) · [Floater](Floater.md)
 
-The Rustback beetle is a territorial native creature with orange wing cases, six legs, antennae and mandibles. It can appear on supported outdoor terrain during either day or night.
+The Rustback beetle is a territorial native creature with orange wing cases, six legs, antennae and mandibles. It can appear on supported outdoor terrain when the ground is dark enough (light level 7 or lower). Daylight and sufficiently bright placed lights prevent new spawns; existing beetles remain.
 
 ![Rustback beetle in the game](images/mobs/rustback-beetle.png)
 

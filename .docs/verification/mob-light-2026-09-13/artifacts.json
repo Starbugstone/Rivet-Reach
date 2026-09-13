@@ -1,0 +1,30 @@
+{
+  "date": "2026-09-13",
+  "sourceBase": "e7ae910ff4c96c4c4480c225f76c02c66129eb15",
+  "description": "Warm isolated checkout with owned mob changes and the coordinated final lighting source. Source identities below identify this combined build, independently of later documentation commits.",
+  "unity": "6000.4.4f1",
+  "sha256": {
+    "Assets/RivetReach/Code/Mobs/MobSpawnRules.cs": "25e45f49fbe7a0e601484692a2ca358975cadcc33d6cc285a912f260285754cd",
+    "Assets/RivetReach/Code/Mobs/MobSystem.cs": "2e09d00d8a503a9aecdee360e28050086b20d77d6ad9c58b49f557b1df796c24",
+    "Assets/RivetReach/Code/Mobs/MobVerification.cs": "32c1caa654a54d1bdd1a885a3fc7121dc9f811896a7e73a8ba2a3b254c94dbd1",
+    "Assets/RivetReach/Code/Mobs/FloaterVerification.cs": "b9edf06763d71f36535c8a1aefcde4c67aaf77c6c59c6e65fbc6f4539b619c8e",
+    "Assets/RivetReach/Code/Mobs/MobLightVerification.cs": "6502d2ad6a53aa6d44614403b0c16b79d3be518d7b2d62308296b97f9b663a80",
+    "Assets/RivetReach/Code/Persistence/SaveIO.cs": "1f579204eb85d021be1c7e3a613de65a7f0c1fb6e1748090abfc8103c88b4075",
+    "Assets/RivetReach/Editor/FloaterChecks.cs": "06215465dff9076323afbffe4e7f639d2e139d0f0231e4ab9031c8b6ea9627f4",
+    "Assets/RivetReach/Code/Player/HeldBlockView.cs": "0cd5395fd944093e494f3094891f0aeab5d880ce364d035231b093205c9793ed",
+    "Assets/RivetReach/Code/World/TorchPresentation.cs": "4e7e657bceacb5c7c5adc5024b7fcbbd495e08e92ab99376eba0928f798cb802",
+    "Assets/RivetReach/Code/World/WorldLighting.cs": "cb2779a823265c6b7a8a23e30335151734a4b103a85ecce026c786d59a9e6c49",
+    "Assets/RivetReach/Code/LightingVerification.cs": "cbb0e5fe9c3ec77c576d6db416cafd40a3206904c0d666bfc108c1bded557983",
+    "Assets/RivetReach/Resources/Materials/VoxelLight.hlsl": "a38780d6ab30f36f55580f06de5c74b1b12c1826ce723c4b75c7e751f6555e4a",
+    "Assets/RivetReach/Resources/Materials/WorldLighting.hlsl": "0d39f0aed4aeed4d7ee8f24f9b850dd75401959f87b88bc9f69a8d1e79404230",
+    "Assets/RivetReach/Resources/Materials/Terrain.shader": "a388493b4c1d68be0297822e763f22aa98fed110221d62ddfd040326b7e2287c",
+    "Assets/RivetReach/Resources/Materials/ArcadeGrass.shader": "88cf455a872fc9225f877e539bc972c3657ceecbcb9b7e9ffa40b86fd2728316",
+    "Assets/RivetReach/Resources/Water.shader": "5218ba4732acc8e9e27e4f94b7755a8a4bfb5687cd2b4be79ed750f383ae59bd",
+    "Assets/RivetReach/Resources/TorchLight.prefab": "75abe904c02a160c249e34260c7da4f6c4d7bfbe2a52a42f23ccf9b5f4e071ea",
+    "Assets/RivetReach/Resources/Mobs/Definitions/Floater.asset": "cefaa12904792ca509d053b99fa47ac4fe86b1fb1fb9fffc34fdea2141ecf523",
+    "Assets/RivetReach/Resources/Mobs/Definitions/RustbackBeetle.asset": "2346b2bce3c12dd832cb0d50c5f0f0e5c0f9cfce1375e4526d8b94e3b70d23f3",
+    "Assets/RivetReach/Resources/Mobs/Definitions/DuskProwler.asset": "3c29f57270e739a53c28c1a539d2f15333c185e8bddfc7b0126781339ba87d6b",
+    "Builds/FloaterCaves/RivetReach.exe": "7d52ee70fb22771f4608d810d1015f539c37dd8b7b2fbb1a0ea9f6bc5c32d5c9",
+    "Builds/FloaterCaves/RivetReach_Data/Managed/Assembly-CSharp.dll": "7bc27600f1e88c6f8d52a4b26d06b729b0ee90219425f06e0d277f8d122b6129"
+  }
+}

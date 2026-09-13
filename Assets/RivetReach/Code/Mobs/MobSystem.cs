@@ -97,7 +97,7 @@ namespace RivetReach
         }
         public bool CanSpawn(MobDefinition definition,Vector3 local,bool distanceRule=true)
         {
-            if(Mobs.Count>=MaximumPopulation||!(distanceRule?definition.spawnRules.AllowsSite(world,game.Registry,local,definition.width,definition.height,definition.hoverHeight):MobNavigation.Standable(world,local,definition)))return false;
+            if(Mobs.Count>=MaximumPopulation||!(distanceRule?definition.spawnRules.AllowsSite(world,game.Registry,local,definition.width,definition.height,definition.hoverHeight,IsNight):MobNavigation.Standable(world,local,definition)))return false;
             int count=0;
             foreach(var mob in Mobs)
             {

@@ -48,6 +48,38 @@ namespace RivetReach.Editor
                 checks.Add("Prior checkpoint: "+entries.First().Path);
             }
             d.spawnRules.Validate(registry);
+            var unrestricted=new MobSpawnRules();unrestricted.Validate(registry);
+            Check(unrestricted.AllowsLight(0)&&unrestricted.AllowsLight(15),"Shared passive-ready profiles can accept the full light range");
+            var bright=new MobSpawnRules{minimumLight=8};bright.Validate(registry);
+            Check(!bright.AllowsLight(7)&&bright.AllowsLight(8)&&bright.AllowsLight(15),"Shared bright-ground profiles enforce an inclusive minimum light independently of hostility");
+            foreach(var mob in Resources.LoadAll<MobDefinition>("Mobs/Definitions"))
+            {
+                mob.spawnRules.Validate(registry);
+                Check(mob.spawnRules.minimumLight==0&&mob.spawnRules.maximumLight==7&&mob.spawnRules.AllowsLight(7)&&!mob.spawnRules.AllowsLight(8),mob.displayName+" permits darkness through level 7 and rejects level 8 or brighter");
+            }
+            foreach(var range in new[]{(-1,7),(0,16),(8,7)})
+            {
+                bool rejected=false;
+                try{new MobSpawnRules{minimumLight=range.Item1,maximumLight=range.Item2}.Validate();}catch(InvalidOperationException){rejected=true;}
+                Check(rejected,"Invalid spawn-light range is rejected: "+range);
+            }
+            const string beforeLight="Logs/CaveFullFinal/FloaterSaves";
+            if(Directory.Exists(beforeLight))
+            {
+                var entries=new SaveStore(beforeLight,registry).List();
+                Check(entries.Count>0,"Real pre-light cave-profile checkpoint remains readable");
+                byte[] bytes=File.ReadAllBytes(entries.First().Path);
+                bool Rejects(){try{using var reader=new SaveStore(beforeLight,registry).Open(bytes,out _);return false;}catch(InvalidDataException){return true;}}
+                int maximum=d.spawnRules.maximumLight;var blocks=d.spawnRules.supportBlocks;
+                try
+                {
+                    d.spawnRules.maximumLight=8;
+                    Check(Rejects(),"Pre-light migration rejects unrecognized spawn-light tuning");d.spawnRules.maximumLight=maximum;
+                    d.spawnRules.supportBlocks=new[]{"rivet:grass"};
+                    Check(Rejects(),"Pre-light migration preserves existing support-block checks");
+                }
+                finally{d.spawnRules.maximumLight=maximum;d.spawnRules.supportBlocks=blocks;}
+            }
             Check(d.spawnRules.habitat==MobHabitat.Underground&&!d.nocturnal,"Floater authors underground-only habitat with independent all-day timing");
             const string beforeHabitats="Logs/Compost/ReleaseReview/Saves";
             if(Directory.Exists(beforeHabitats))

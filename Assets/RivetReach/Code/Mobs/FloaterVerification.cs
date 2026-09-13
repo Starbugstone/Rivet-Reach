@@ -36,6 +36,8 @@ namespace RivetReach
             game.Player.transform.position=cave+Vector3.back*30;game.Player.ResetMotion();
             game.Player.Yaw=180;game.Player.Camera.transform.rotation=Quaternion.LookRotation(Vector3.back);
             game.Sky.Clock.SetTime(12.0/24);
+            yield return SpawnLightChecks(cave,d);
+            yield return Until(()=>world.TryGetSpawnLight(world.Address(cave),false,out _),120,"Generated cave spawn lighting settles");
             Check(mobs.CanSpawn(d,cave),"Natural Floater eligibility accepts a covered cave during daytime");
             game.Sky.Clock.SetTime(20.0/24);
             Check(mobs.CanSpawn(d,cave),"Natural Floater eligibility accepts the same cave at night");
@@ -56,6 +58,7 @@ namespace RivetReach
             Check(!mobs.CanSpawn(d,cave),"An underground open shaft without overhead cover rejects Floaters");
             // Mined ore blocks are not player-placeable; refill those shaft cells with stone.
             foreach(var entry in cover)Set(entry.p,BlockId.Placeable(entry.block)||Fluids.IsFluid(entry.block)?entry.block:BlockId.Stone);
+            yield return Until(()=>world.TryGetSpawnLight(p,false,out _),120,"Restored cave cover lighting settles");
             Check(mobs.CanSpawn(d,cave),"Restoring cave cover restores natural spawn eligibility");
             // A constructed roof above the original surface must never qualify as a cave.
             Block(24,floor,5,BlockId.Stone);
@@ -92,6 +95,7 @@ namespace RivetReach
             // Exercise the actual randomized depth search, not just authored placement.
             game.Player.transform.position=cave-Vector3.up*d.hoverHeight;game.Player.ResetMotion();
             yield return Until(()=>world.PendingCount==0,60,"Cave observer terrain streams");
+            yield return Until(()=>world.PendingLightChunks==0,180,"Cave search lighting settles for randomized regression");
             for(int i=0;i<96;i++)mobs.TryNaturalSpawn();
             var natural=mobs.Mobs.Where(m=>m.Definition==d).ToArray();
             Check(natural.Length>0,"Natural daytime attempts find underground Floater spawn sites near a cave explorer");
@@ -102,7 +106,7 @@ namespace RivetReach
             }),"Natural Floaters obey cave habitat and shared population caps");
             mobs.Clear();
             var floater=mobs.Spawn(d,cave);Check(floater!=null,"Generated cave encounter uses the actual supported hover collider");
-            floater.Yaw=180;floater.Timer=30;
+            floater.Yaw=180;floater.Timer=30;floater.View.Present(cave,1f);
             game.Player.transform.position=cave+Vector3.back*2-Vector3.up*d.hoverHeight;game.Player.ResetMotion();Aim(floater);
             var lamp=new GameObject("Cave review light");var light=lamp.AddComponent<Light>();light.type=LightType.Point;
             lamp.transform.position=game.Player.Camera.transform.position;light.range=14;light.intensity=3;light.color=new Color(1,.8f,.6f);

@@ -39,3 +39,5 @@ MonoBehaviour:
     - rivet:sandstone
     - rivet:snow
     - rivet:red_clay
+    minimumLight: 0
+    maximumLight: 7

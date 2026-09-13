@@ -77,3 +77,4 @@ ArtSource/Farming/*.png filter=lfs diff=lfs merge=lfs -text
 .docs/verification/stability-2026-09-13/*.png filter=lfs diff=lfs merge=lfs -text
 
 .docs/verification/mob-spawning-2026-09-13/*.png filter=lfs diff=lfs merge=lfs -text
+.docs/verification/mob-light-2026-09-13/*.png filter=lfs diff=lfs merge=lfs -text

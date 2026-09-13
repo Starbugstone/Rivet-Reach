@@ -130,3 +130,7 @@ The [bridge](BRIDGES.md#crafting) and [ranged-pump](RANGED_PUMP.md#working-rules
 ## Mob spawn-profile compatibility — 2026-09-13
 
 [Shared mob spawning](MOBS.md#shared-hostilepassive-spawning-rules) adds authored habitat and support-block rules, and moves Floater spawning to underground caves at any hour. Schema 10 world/entity payloads remain unchanged. Current content fingerprints include each mob’s full spawn profile. Older fingerprints are accepted only through the known migration: the original support whitelist, Surface for beetle/prowler, and Underground plus non-nocturnal timing for Floater projected back to its former surface/night definition. Other habitat, block-list, timing, mob-stat, item and recipe changes retain compatibility checks. Existing saved mobs keep their identity, health and position; no terrain is regenerated.
+
+## Mob spawn-light compatibility — 2026-09-13
+
+Spawn profiles append an inclusive light range without changing schema 10 or the entity/world payload. Current saves hash both limits. Compatibility accepts pre-light profiles only when the new hostile range is exactly 0–7, removing those two appended fields while retaining the historical habitat/support fields and every unrelated content check. The existing pre-habitat and older-content projections remain active. Unknown light tuning and altered support/combat/item/recipe definitions are not silently migrated. Light affects new natural spawn eligibility; loading retains existing entities and terrain unchanged.

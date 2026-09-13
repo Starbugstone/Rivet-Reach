@@ -13,6 +13,8 @@ namespace RivetReach
         static readonly string[] originalSupport={"rivet:grass","rivet:dirt","rivet:stone","rivet:sand","rivet:sandstone","rivet:snow","rivet:red_clay"};
         public MobHabitat habitat=MobHabitat.Surface;
         public string[] supportBlocks=(string[])originalSupport.Clone();
+        [Range(0,15)] public int minimumLight=0;
+        [Range(0,15)] public int maximumLight=15;
         public bool Surface=>habitat==MobHabitat.Surface||habitat==MobHabitat.Both;
         public bool Underground=>habitat==MobHabitat.Underground||habitat==MobHabitat.Both;
         internal bool OriginalSupport=>supportBlocks!=null&&supportBlocks.SequenceEqual(originalSupport);
@@ -22,14 +24,17 @@ namespace RivetReach
             if(!Enum.IsDefined(typeof(MobHabitat),habitat)||supportBlocks==null||supportBlocks.Length==0||
                supportBlocks.Any(string.IsNullOrWhiteSpace)||supportBlocks.Distinct().Count()!=supportBlocks.Length)
                 throw new InvalidOperationException("Invalid mob habitat or spawn-support whitelist.");
+            if(minimumLight<0||maximumLight>15||minimumLight>maximumLight)
+                throw new InvalidOperationException("Mob spawn light must be an inclusive range within 0..15.");
             if(registry!=null)foreach(string id in supportBlocks)
                 if(!BlockId.Solid(registry.ResolveId(id)))throw new InvalidOperationException("Mob spawn support must be a registered solid block: "+id);
         }
         public bool AllowsSupport(ItemRegistry registry,byte block)
             =>BlockId.Solid(block)&&Array.IndexOf(supportBlocks,registry.Get(block).stableId)>=0;
+        public bool AllowsLight(int level)=>level>=minimumLight&&level<=maximumLight;
 
         // Works with body dimensions supplied by either mob system, without a hostile state/view.
-        public bool AllowsSite(VoxelWorld world,ItemRegistry registry,Vector3 feet,float width,float height,float hoverHeight=0)
+        public bool AllowsSite(VoxelWorld world,ItemRegistry registry,Vector3 feet,float width,float height,float hoverHeight=0,bool isNight=false)
         {
             if(world.Overlaps(feet,width,height))return false;
             var min=world.Address(feet+new Vector3(-width*.5f+.001f,-hoverHeight-.03f,-width*.5f+.001f));
@@ -39,6 +44,10 @@ namespace RivetReach
             {
                 var support=new BlockPos(x,min.Y,z);
                 if(!world.Ready(support)||!world.Solid(support)||!AllowsSupport(registry,world.Get(support)))return false;
+                // Sample above the floor even for hovering bodies. Unrestricted profiles
+                // need no lighting solve; restricted profiles defer unknown/stale results.
+                if((minimumLight>0||maximumLight<15)&&
+                   (!world.TryGetSpawnLight(support.Offset(0,1,0),isNight,out byte light)||!AllowsLight(light)))return false;
                 var head=new BlockPos(x,max.Y,z);
                 if(world.SkyLight(head)>0)
                 {if(!Surface)return false;}

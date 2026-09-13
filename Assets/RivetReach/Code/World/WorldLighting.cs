@@ -41,7 +41,24 @@ namespace RivetReach
         public double MaxLightMainMs {get;private set;}
         public double TotalLightWorkerMs {get;private set;}
         public long LightGpuBytes=>(long)lightCapacity*ChunkLighting.Count+(lightEntries?.Length??0)*16L;
-        public bool LightingReady(BlockPos p)=>lightPages.TryGetValue(p.Chunk,out var page)&&page.Ready&&!dirtyLights.Contains(p.Chunk);
+        public bool LightingReady(BlockPos p)=>Ready(p)&&lightPages.TryGetValue(p.Chunk,out var page)&&page.Ready&&page.PublishedRevision==page.Revision&&!dirtyLights.Contains(p.Chunk);
+        // Simulation light is separate from the camera's visibility floor and held glow.
+        // Each channel has at most 15 cells of influence; check only that resident region
+        // so remote loaders/edits cannot suspend local spawning. Missing neighbours match
+        // the solver's zero boundary until they become resident and invalidate the field.
+        public bool TryGetSpawnLight(BlockPos p,bool isNight,out byte level)
+        {
+            level=0;if(!LightingReady(p))return false;
+            var min=p.Offset(-15,-15,-15).Chunk;var max=p.Offset(15,15,15).Chunk;
+            for(long z=min.Z;z<=max.Z;z++)for(int y=min.Y;y<=max.Y;y++)for(long x=min.X;x<=max.X;x++)
+            {
+                var key=new ChunkPos(x,y,z);
+                if(!chunks.TryGetValue(key,out var resident)||resident.Cells==null)continue;
+                if(!lightPages.TryGetValue(key,out var neighbour)||!neighbour.Ready||neighbour.PublishedRevision!=neighbour.Revision||dirtyLights.Contains(key))return false;
+            }
+            byte value=lightPages[p.Chunk].Values[p.Index];
+            level=(byte)Math.Max(value&15,isNight?0:value>>4);return true;
+        }
         public byte PropagatedSkyLight(BlockPos p)=>lightPages.TryGetValue(p.Chunk,out var page)&&page.Ready?(byte)(page.Values[p.Index]>>4):(byte)0;
         public byte GrowthLight(BlockPos p)
         {

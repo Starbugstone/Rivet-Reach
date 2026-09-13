@@ -66,6 +66,7 @@ namespace RivetReach.Editor
                 string path="Assets/RivetReach/Resources/Mobs/Definitions/"+model+".asset";
                 if(AssetDatabase.LoadAssetAtPath<MobDefinition>(path)!=null)continue;
                 var d=ScriptableObject.CreateInstance<MobDefinition>();bool beetle=model=="RustbackBeetle";
+                d.spawnRules.maximumLight=7;
                 d.stableId=beetle?"rivet:rustback_beetle":"rivet:dusk_prowler";d.displayName=beetle?"Rustback beetle":"Dusk prowler";
                 d.model=model;d.territorial=beetle;d.nocturnal=!beetle;d.climbsWalls=beetle;d.health=beetle?12:18;d.damage=beetle?2:3;
                 // Body colliders fit a voxel lane; legs, ears and tail are presentation.
@@ -74,7 +75,8 @@ namespace RivetReach.Editor
                 d.noticeRange=beetle?8:16;d.leashRange=beetle?20:30;d.attackRange=beetle?1.8f:2.05f;d.windup=beetle?.8f:.65f;d.recovery=beetle?1.2f:1.1f;
                 if(model=="Floater")
                 {
-                    d.stableId="rivet:floater";d.displayName="Floater";d.territorial=false;d.nocturnal=true;d.climbsWalls=false;
+                    d.stableId="rivet:floater";d.displayName="Floater";d.territorial=false;d.nocturnal=false;d.climbsWalls=false;
+                    d.spawnRules.habitat=MobHabitat.Underground;
                     d.health=16;d.damage=3;d.population=4;d.width=.9f;d.height=1.05f;d.speed=2.4f;
                     d.hoverHeight=.6f;d.strideLength=1.2f;d.noticeRange=14;d.leashRange=26;
                     d.attackRange=2.1f;d.windup=.8f;d.recovery=1.3f;d.deathDropId="rivet:floater_rock";

@@ -153,8 +153,9 @@ namespace RivetReach
             Check(!mobs.CanSpawn(prowler,At(4,0)),"Natural spawn rejects near-player cells");
             Check(!mobs.CanSpawn(beetle,At(300,0),false),"Unloaded terrain cannot spawn mobs");
             Check(!mobs.CanSpawn(beetle,At(0,0)+Vector3.up*2,false),"Unsupported air cannot spawn mobs");
+            yield return Until(()=>game.World.PendingLightChunks==0,180,"Spawn regression lighting settles after terrain setup");
             for(int i=0;i<32;i++)mobs.TryNaturalSpawn();
-            Check(mobs.Mobs.Count>0&&mobs.Mobs.Any(m=>m.Definition.territorial)&&mobs.Mobs.All(m=>m.Definition.stableId!="rivet:dusk_prowler"),"Natural daylight spawning creates beetles and excludes prowlers");
+            Check(mobs.Mobs.All(m=>m.Definition.stableId=="rivet:floater"),"Natural daylight spawning excludes both surface hostile species on sunlit terrain");
             game.Sky.Clock.SetTime(20.0/24);
             for(int i=0;i<64;i++)mobs.TryNaturalSpawn();
             Check(mobs.Mobs.Any(m=>m.Definition==prowler),"Natural night spawning admits prowlers on loaded terrain");

@@ -1,0 +1,25 @@
+Defeat drop is a registered item
+Floater Rock is a stackable non-food resource, without a terrain placement or fluid ID collision
+Rock model and actual inventory icon import
+Collectible rock imports its 116 source triangles and one material slot
+Real pre-Floater schema-7 checkpoint remains readable
+Legacy compatibility still rejects changed pre-existing mob health
+Legacy compatibility still rejects changed pre-existing item statistics
+Prior checkpoint: Logs/Lava-Saves-Final/Saves\3ea3cbb5f9344379b431eaa2db245292.rrsave
+Shared passive-ready profiles can accept the full light range
+Shared bright-ground profiles enforce an inclusive minimum light independently of hostility
+Dusk prowler permits darkness through level 7 and rejects level 8 or brighter
+Floater permits darkness through level 7 and rejects level 8 or brighter
+Rustback beetle permits darkness through level 7 and rejects level 8 or brighter
+Invalid spawn-light range is rejected: (-1, 7)
+Invalid spawn-light range is rejected: (0, 16)
+Invalid spawn-light range is rejected: (8, 7)
+Real pre-light cave-profile checkpoint remains readable
+Pre-light migration rejects unrecognized spawn-light tuning
+Pre-light migration preserves existing support-block checks
+Floater authors underground-only habitat with independent all-day timing
+Real pre-habitat schema-10 checkpoint remains readable with original content checks
+Legacy habitat migration rejects unrelated habitat changes
+Legacy habitat migration rejects changed support-block requirements
+Legacy habitat migration retains Floater combat-stat checks
+Legacy habitat migration accepts only the known Floater timing change
