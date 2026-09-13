@@ -85,6 +85,8 @@ class Reference:
             return 'Food and farming'
         if item['ore'] or item_id.endswith(':bedrock'):
             return 'Ore deposits and bedrock'
+        if item_id == 'rivet:floater_rock':
+            return 'Materials and components'
         if d['runtimeId'] >= 160:
             return 'Multiblock tanks and batteries'
         if 131 <= d['runtimeId'] <= 138 or d['runtimeId'] in (146, 147, 148, 149):

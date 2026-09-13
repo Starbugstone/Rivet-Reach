@@ -13,7 +13,7 @@ namespace RivetReach
         static readonly Vector3Int[] directions={Vector3Int.left,Vector3Int.right,Vector3Int.forward,Vector3Int.back};
         static readonly Vector3[] supportCorners={new Vector3(-1,0,-1),new Vector3(1,0,-1),new Vector3(-1,0,1),new Vector3(1,0,1)};
         public int LastExpanded {get;private set;}
-        public static Vector3 Feet(VoxelWorld world,BlockPos cell)=>world.Local(cell)+new Vector3(.5f,.006f,.5f);
+        public static Vector3 Feet(VoxelWorld world,BlockPos cell,MobDefinition definition=null)=>world.Local(cell)+new Vector3(.5f,.006f+(definition==null?0:definition.hoverHeight),.5f);
         public static bool Standable(VoxelWorld world,Vector3 feet,MobDefinition definition)
         {
             if(world.Overlaps(feet,definition.width,definition.height))return false;
@@ -21,8 +21,9 @@ namespace RivetReach
             float r=definition.width*.5f-.015f;
             foreach(var corner in supportCorners)
             {
-                var cell=world.Address(feet+corner*r-Vector3.up*.03f);
+                var cell=world.Address(feet+corner*r-Vector3.up*(definition.hoverHeight+.03f));
                 if(!world.Ready(cell)||!world.Solid(cell))return false;
+                if(definition.hoverHeight>0&&Mathf.Abs(feet.y-(world.Local(cell).y+1+definition.hoverHeight))>.04f)return false;
             }
             return true;
         }
@@ -49,13 +50,13 @@ namespace RivetReach
         }
         static bool Supported(VoxelWorld world,BlockPos cell,MobDefinition definition)
         {
-            var feet=Feet(world,cell);
+            var feet=Feet(world,cell,definition);
             return Standable(world,feet,definition)||definition.climbsWalls&&
                 !world.Overlaps(feet,definition.width,definition.height)&&WallNormal(world,feet,definition)!=Vector3.zero;
         }
         static bool Edge(VoxelWorld world,BlockPos from,BlockPos to,MobDefinition definition)
         {
-            Vector3 a=Feet(world,from),b=Feet(world,to);
+            Vector3 a=Feet(world,from,definition),b=Feet(world,to,definition);
             float top=Mathf.Max(a.y,b.y);
             if(world.Overlaps(new Vector3(a.x,top,a.z),definition.width,definition.height))return false;
             for(int i=1;i<=4;i++)
@@ -70,7 +71,7 @@ namespace RivetReach
             path.Clear();nodes.Clear();indices.Clear();LastExpanded=0;
             // Voxel collision can rest feet a fraction below the integer top face. Address
             // the free cell above that tolerance, otherwise a return route starts in stone.
-            BlockPos first=world.Address(start+Vector3.up*.01f),goal=world.Address(destination+Vector3.up*.01f);
+            BlockPos first=world.Address(start+Vector3.up*(.01f-definition.hoverHeight)),goal=world.Address(destination+Vector3.up*.01f);
             float Distance(BlockPos c)=>(float)(System.Math.Abs(c.X-goal.X)+System.Math.Abs(c.Z-goal.Z)) + System.Math.Abs(c.Y-goal.Y);
             void Add(BlockPos cell,int parent,float cost)
             {
@@ -103,7 +104,7 @@ namespace RivetReach
                         break;
                     }
                 }
-                if(definition.climbsWalls&&WallNormal(world,Feet(world,node.Cell),definition)!=Vector3.zero)
+                if(definition.climbsWalls&&WallNormal(world,Feet(world,node.Cell,definition),definition)!=Vector3.zero)
                 {
                     for(int rise=-1;rise<=1;rise+=2)
                     {
@@ -111,7 +112,7 @@ namespace RivetReach
                         // A wall gap, ceiling or unloaded border must not become a flying edge.
                         for(int sample=1;sample<=4;sample++)
                         {
-                            var feet=Vector3.Lerp(Feet(world,node.Cell),Feet(world,cell),sample*.25f);
+                            var feet=Vector3.Lerp(Feet(world,node.Cell,definition),Feet(world,cell,definition),sample*.25f);
                             if(world.Overlaps(feet,definition.width,definition.height)||WallNormal(world,feet,definition)==Vector3.zero){clear=false;break;}
                         }
                         if(clear)Add(cell,best,node.Cost+1.15f);

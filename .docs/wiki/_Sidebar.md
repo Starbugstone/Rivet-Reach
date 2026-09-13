@@ -13,3 +13,5 @@
 - [Electric Furnace](Electric-Furnace.md) — smelting and cooking with electricity.
 
 - [Lava](Lava.md) — deep lakes, buckets and burning hazards.
+
+- [Floater](Floater.md) — hovering stone enemies and Floater Rock drops.

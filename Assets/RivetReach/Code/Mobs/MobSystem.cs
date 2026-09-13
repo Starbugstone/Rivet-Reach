@@ -37,7 +37,7 @@ namespace RivetReach
             if(Definitions.Length==0)throw new InvalidOperationException("No authored mob definitions found.");
             var identities=new HashSet<string>();
             foreach(var definition in Definitions)
-            {definition.Validate();if(!identities.Add(definition.stableId))throw new InvalidOperationException("Duplicate mob identity: "+definition.stableId);}
+            {definition.Validate();if(!string.IsNullOrEmpty(definition.deathDropId))game.Registry.ResolveId(definition.deathDropId);if(!identities.Add(definition.stableId))throw new InvalidOperationException("Duplicate mob identity: "+definition.stableId);}
             material=Resources.Load<Material>("Mobs/CreatureMaterial");
             if(material==null)throw new InvalidOperationException("Missing imported mob material.");
             previousPlayer=game.Player.transform.position;
@@ -139,7 +139,7 @@ namespace RivetReach
                     byte block=game.World.Get(ground);
                     if(block!=BlockId.Grass&&block!=BlockId.Dirt&&block!=BlockId.Stone&&
                        block!=BlockId.Sand&&block!=BlockId.Sandstone&&block!=BlockId.Snow&&block!=BlockId.RedClay)continue;
-                    Vector3 feet=game.World.Local(ground)+new Vector3(.5f,1.006f,.5f);
+                    Vector3 feet=game.World.Local(ground)+new Vector3(.5f,1.006f+definition.hoverHeight,.5f);
                     if(!CanSpawn(definition,feet))continue;
                     Spawn(definition,feet);return true;
                 }
@@ -249,7 +249,8 @@ namespace RivetReach
         {
             var d=mob.Definition;Vector3 local=mob.Position.Local(game.World.Origin),horizontal=Vector3.zero;
             bool climbing=WallMove(mob,local,dt,out Vector3 movement);
-            if(!climbing)
+            if(d.hoverHeight>0)movement=HoverMove(mob,local,dt);
+            else if(!climbing)
             {
                 mob.Climbing=false;mob.WallNormal=Vector3.zero;
                 if((mob.Intent==MobIntent.Chase||mob.Intent==MobIntent.Wander||mob.Intent==MobIntent.Return)&&mob.PathIndex<mob.Path.Count)
@@ -321,7 +322,11 @@ namespace RivetReach
             mob.Health=Math.Max(0,mob.Health-amount);mob.Anger=12;mob.View.Hit();
             direction.y=0;mob.Knockback=direction.normalized*2.7f;
             mob.Path.Clear();mob.PathAt=elapsed;mob.Intent=mob.Alive?MobIntent.Chase:MobIntent.Dead;
-            if(!mob.Alive){mob.Timer=1.4f;TotalDefeated++;game.Notify(mob.Definition.displayName+" defeated",2);}
+            if(!mob.Alive){mob.Timer=1.4f;TotalDefeated++;
+                if(!string.IsNullOrEmpty(mob.Definition.deathDropId))
+                    game.Items.Spawn(new ItemStack(game.Registry.ResolveId(mob.Definition.deathDropId),1),
+                        mob.Position.Local(world.Origin)+Vector3.up*mob.Definition.height*.5f,Vector3.up*1.5f,.4f,true);
+                game.Notify(mob.Definition.displayName+" defeated",2);}
             return true;
         }
         public bool Occupies(BlockPos cell)

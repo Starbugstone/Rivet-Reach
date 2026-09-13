@@ -2023,3 +2023,18 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
+  - runtimeId: 175
+    stableId: rivet:floater_rock
+    displayName: Floater Rock
+    stackLimit: 64
+    fistSeconds: 0.6
+    colour: {r: 0.42, g: 0.46, b: 0.48, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0

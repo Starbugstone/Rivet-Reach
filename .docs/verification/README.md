@@ -13,6 +13,7 @@ This directory maintains the latest report and useful evidence for each feature.
 
 | Feature | Current evidence |
 | --- | --- |
+| Floater and Floater Rock | [Floater verification](FLOATER_RESULTS.md) — hovering collision, combat, single-award loot, saves and original Blender art |
 | Electric furnace | [Electric furnace verification](ELECTRIC_FURNACE_RESULTS.md) — shared recipes, exact electricity, pipes, save continuity and actual imported art |
 | Lava, deep lakes and burning | [Lava verification](LAVA_RESULTS.md) — slow nonrenewing flow, buckets, item destruction, heat and pinned-generator saves |
 | Expanded player inventory and hotbar | [Inventory verification](INVENTORY_RESULTS.md) — seven backpack rows, 15 hotbar slots, input, transfers and save migration |

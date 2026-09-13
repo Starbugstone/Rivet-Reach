@@ -13,10 +13,13 @@ namespace RivetReach
         [Min(.1f)] public float strideLength=1.1f;
         [Min(1)] public float noticeRange=15, attackRange=2.1f, leashRange=26;
         [Min(.1f)] public float windup=.65f, recovery=1.1f;
+        // Append serialized additions: SaveStore retains the pre-Floater definition projection.
+        [Min(0)] public float hoverHeight;
+        public string deathDropId="";
         public void Validate()
         {
             if(string.IsNullOrWhiteSpace(stableId)||string.IsNullOrWhiteSpace(model)||health<1||damage<1||population<1||
-               width<.2f||height<.2f||speed<=0||climbSpeed<.1f||strideLength<.1f||noticeRange<attackRange||attackRange<1||leashRange<noticeRange||windup<.1f||recovery<.1f)
+               width<.2f||height<.2f||speed<=0||climbSpeed<.1f||strideLength<.1f||noticeRange<attackRange||attackRange<1||leashRange<noticeRange||windup<.1f||recovery<.1f||float.IsNaN(hoverHeight)||float.IsInfinity(hoverHeight)||hoverHeight<0||hoverHeight>1||hoverHeight>0&&climbsWalls)
                 throw new System.InvalidOperationException("Invalid mob definition: "+name);
         }
     }

@@ -1,0 +1,8 @@
+Defeat drop is a registered item
+Floater Rock is a stackable non-food resource, without a terrain placement or fluid ID collision
+Rock model and actual inventory icon import
+Collectible rock imports its 116 source triangles and one material slot
+Real pre-Floater schema-7 checkpoint remains readable
+Legacy compatibility still rejects changed pre-existing mob health
+Legacy compatibility still rejects changed pre-existing item statistics
+Prior checkpoint: Logs/Lava-Saves-Final/Saves\3ea3cbb5f9344379b431eaa2db245292.rrsave

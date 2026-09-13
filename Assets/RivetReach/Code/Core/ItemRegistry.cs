@@ -15,6 +15,7 @@ namespace RivetReach
         public const byte IronOre=9,CopperOre=10,CoalOre=11,GoldOre=12,DiamondOre=13,Bedrock=14;
         public const byte RawIron=15,RawCopper=16,Coal=17,RawGold=18,Diamond=19;
         public const byte Torch=96,Sapling=97,Apple=98;
+        public const byte FloaterRock=175;
         public const byte Sand=90,Sandstone=91,Snow=92,RedClay=93;
         public static bool BiomeBlock(byte id)=>id>=Sand&&id<=RedClay;
         public const byte Planks=20,Stick=21,Cobblestone=22,Workbench=23,Furnace=24,Chest=25,Charcoal=26,CopperIngot=27,IronIngot=28,GoldIngot=29;

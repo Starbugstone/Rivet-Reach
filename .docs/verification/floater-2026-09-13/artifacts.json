@@ -1,0 +1,21 @@
+{
+  "build_completed_utc": "2026-09-13T07:43:29Z",
+  "files": [
+    {
+      "path": "Builds/Floater/RivetReach_Data/Managed/Assembly-CSharp.dll",
+      "sha256": "2bea68f8fbbf2e18c961441567f5636398266adf764e68868328faf2d1a42d4b"
+    },
+    {
+      "path": "Assets/RivetReach/Resources/Mobs/Floater.fbx",
+      "sha256": "ad36e61f0d02ad388a0e577f94b39053f9d41ec8dc1497b84e682466efbf0a2e"
+    },
+    {
+      "path": "Assets/RivetReach/Resources/MobLoot/FloaterRock.fbx",
+      "sha256": "7fd554c36427546661589e1813f21f0fd8b1b8ea31dc40a2027b6e8a6181a3b6"
+    },
+    {
+      "path": "Assets/RivetReach/Resources/MobLoot/FloaterRockIcon.png",
+      "sha256": "68978f517e463b4fbf9dc130c3dd6b4a97f2d9376246643f257697ce010daa2a"
+    }
+  ]
+}

@@ -142,3 +142,7 @@ The user requested an [Electric Furnace](.docs/ELECTRIC_FURNACE.md) that shares 
 ## Authorized portable storage and generic tank liquids
 
 The user requested mining batteries/tanks with exact stored contents, individually carried nonempty items, and Shift-left-click emptying in hand. [BATTERIES.md](.docs/BATTERIES.md#portable-stored-contents--2026-09-13) and [MULTIBLOCKS.md](.docs/MULTIBLOCKS.md#portable-tanks--2026-09-13) own recovery, stacking and liquid rules. Both small Water Tanks and multiblocks accept any registered liquid, including lava, without mixing. This supersedes the former drain-before-mining battery/controller restriction; direct removal without recovery stays protected. Preserve exact transfers through inventories, pipes, drops and [schema-8 saves](.docs/SAVES.md#portable-storage-compatibility--2026-09-13), other bank cells, shell validation, and water-only boiler/pump buffers. [Verification](.docs/verification/PORTABLE_STORAGE_RESULTS.md) records measured evidence.
+
+## Authorized Floater
+
+The user requested a hostile rocky sphere with a face and arms, hovering over terrain and dropping one Floater Rock on defeat. [Mob rules](.docs/MOBS.md#floater--2026-09-13) own the working defaults and surface-hover navigation. Preserve authoritative hovering collision, shared combat/spawning, single-award loot, ordinary item handling and additive schema-7 compatibility. [Verification](.docs/verification/FLOATER_RESULTS.md) records evidence; [the player guide](.docs/wiki/Floater.md) teaches encounters and pickup.

@@ -4423,6 +4423,39 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0
+        },
+        {
+            "definition": {
+                "runtimeId": 175,
+                "stableId": "rivet:floater_rock",
+                "displayName": "Floater Rock",
+                "stackLimit": 64,
+                "fistSeconds": 0.6000000238418579,
+                "colour": {
+                    "r": 0.41999998688697817,
+                    "g": 0.46000000834465029,
+                    "b": 0.47999998927116396,
+                    "a": 1.0
+                },
+                "fistDropId": 0,
+                "toolCapabilities": 0,
+                "tier": 0,
+                "miningSpeed": 1.0,
+                "foodPoints": 0,
+                "armorSlot": 0,
+                "armorPoints": 0,
+                "attackDamage": 1,
+                "buoyant": false
+            },
+            "drop": "rivet:floater_rock",
+            "requiredTier": "None",
+            "help": "",
+            "placeable": false,
+            "ore": false,
+            "crop": false,
+            "fuelTicks": 0,
+            "watts": 0,
+            "waterMl": 0
         }
     ],
     "recipes": [
@@ -8570,7 +8603,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Core/ItemRegistry.cs",
-            "sha256": "489f27460dd54a7e8fedada4e504e17c996d799e48b1ec4bd4850f3acc2ff192"
+            "sha256": "7f9c131db2324d4a60a146f5c7bbe413d085fb09311cdb131ece008bb15cc3fc"
         },
         {
             "path": "Assets/RivetReach/Code/Core/ItemStack.cs",
@@ -8761,24 +8794,32 @@
             "sha256": "748d26f3a222df3bd0aa2eadc413e8ff0954595a9cb3b679acf049698e89133b"
         },
         {
+            "path": "Assets/RivetReach/Code/Mobs/FloaterVerification.cs",
+            "sha256": "37d9029168d0e4e6bce26bb086293e41e2106854e04640e4a43f40c1f7088cbf"
+        },
+        {
             "path": "Assets/RivetReach/Code/Mobs/MobDefinition.cs",
-            "sha256": "d3f1df8342d8570088c50b38f9a212d8d1b8dca0312fb7aeeb611d8e879cf9be"
+            "sha256": "333c5fa1506de6c241789d68cc56fe0aa3edcb6e0f3740c995546d045e60640c"
         },
         {
             "path": "Assets/RivetReach/Code/Mobs/MobHUD.cs",
             "sha256": "f9fe2b7ff3c4058e3ceeaa87ef5b7d5b4fb0be935d78d7219d59a8235f836660"
         },
         {
+            "path": "Assets/RivetReach/Code/Mobs/MobHover.cs",
+            "sha256": "16482006f5a467ef7f3238dd888fc9e22a166efdfcc53b4a3ed75b0f37111c8f"
+        },
+        {
             "path": "Assets/RivetReach/Code/Mobs/MobNavigation.cs",
-            "sha256": "48fecfd29fd34403f31e73bf423842167848bdd2e204ee2b05ea80e3ee2449c2"
+            "sha256": "d50ade21e24613d3dacb91dd67c33289a1be54ac393b19a43a7faf6ce6fecba7"
         },
         {
             "path": "Assets/RivetReach/Code/Mobs/MobSystem.cs",
-            "sha256": "9c4e6597a24aedc6803369b09864ef70e0b9cfbd9c3b3b118dfdb48e0771f3ba"
+            "sha256": "de3adf99ace1f9573e803104de85b7bff627d7d7c572d2883c34c7145dcbf2f4"
         },
         {
             "path": "Assets/RivetReach/Code/Mobs/MobVerification.cs",
-            "sha256": "44b0f628cac6bfc91aeee8ad6768a1c9d726ee2ce02cee73abbe2afa7002574b"
+            "sha256": "de462e976cd095453ab0b4871a7f0691557c469a446257fee6bbb9f50bf7489f"
         },
         {
             "path": "Assets/RivetReach/Code/Mobs/MobView.cs",
@@ -8838,7 +8879,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/SaveIO.cs",
-            "sha256": "559dc97950b67c5b50b1be0ec47e51e58a9be3b7d11d4cc13b07a575696a23d1"
+            "sha256": "c563969aaf6123179d7c3a9716091da18a4bb10e139f239ea5fcf355e4d2ee2a"
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/WorldSaveState.cs",
@@ -8882,7 +8923,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Player/DroppedItems.cs",
-            "sha256": "0bf3dd5416dbbba11ef7d37fc676b14ef1fd3acb500c2c0613fc35d747033a22"
+            "sha256": "c9f74152738e4385eb886f94854808b145b171fdfd1738aab6dceff9cc9609c3"
         },
         {
             "path": "Assets/RivetReach/Code/Player/EatingCrumbs.cs",
@@ -8902,11 +8943,15 @@
         },
         {
             "path": "Assets/RivetReach/Code/Player/HeldBlockView.cs",
-            "sha256": "d71ec7dbaad4677a3bfa3bf66635ec2a1298d72c989779d799349254983aab08"
+            "sha256": "ade353147f256508a5f2e5367b0a562b31ef4fda79811b44abd68c7345880d00"
         },
         {
             "path": "Assets/RivetReach/Code/Player/ItemAppearance.cs",
             "sha256": "f2c5c5ccfff6a591a723dde15984f9f8114f8d833e7c4ca5ec8c4dfa88853984"
+        },
+        {
+            "path": "Assets/RivetReach/Code/Player/MobLootVisuals.cs",
+            "sha256": "71e516740bb3be4109ff205bd98bc6c2ed421214133aeb6443c95120adccd2ae"
         },
         {
             "path": "Assets/RivetReach/Code/Player/OreVisuals.cs",
@@ -9018,7 +9063,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUI.cs",
-            "sha256": "4f4e7567a2f5c129c1b2e6d7b8c989fe2c0ba05f4e76214ac2e0d3fc3a91629e"
+            "sha256": "624dad83a3f3f426c138cc370d63cf4cb37d29e60f10eb5359d5eca6e9b90c02"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIBrowser.cs",
@@ -9142,7 +9187,7 @@
         },
         {
             "path": "Assets/RivetReach/Editor/WikiExport.cs",
-            "sha256": "f161c78264c45e1ebcb20450f88e27484b68e62bd4bc4ecdbfdd3139a3ba6791"
+            "sha256": "685cbd0ceffd00d70d8c4ab2ffa1d25c2004b0d9eccf60adca0c14a23b245ce4"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/BucketRecipe.asset",
@@ -9162,7 +9207,7 @@
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Items.asset",
-            "sha256": "b1313fd6f526d5d8ef8b7fe8c570292b51ba7aafcd8549076d712f9955b7f5e4"
+            "sha256": "a8fc421c6a6efe25d52c02d82879fe2d73bd77d10c9b01690619fbf0ee1dff22"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Items.asset.meta",
@@ -10491,6 +10536,10 @@
         {
             "path": "Assets/RivetReach/Resources/Materials/BlockTiles.asset",
             "sha256": "09f908ef7074708f8a17dc516dc4acac7cd4dc1181a37b6ee242091c43e8cd64"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/MobLoot/FloaterRockIcon.png",
+            "sha256": "68978f517e463b4fbf9dc130c3dd6b4a97f2d9376246643f257697ce010daa2a"
         },
         {
             "path": "Assets/RivetReach/Resources/Orchard/AppleIcon.png",

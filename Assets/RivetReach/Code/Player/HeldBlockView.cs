@@ -91,14 +91,14 @@ namespace RivetReach
                 bool reuseOre=industryItem!=null&&OreVisuals.UsesModel(ItemId)&&OreVisuals.UsesModel(id);
                 ItemId=id;
                 if(foodItem!=null){Destroy(foodItem);foodItem=null;}
-                if(FoodVisuals.UsesModel(id)||EquipmentVisuals.UsesModel(id))
+                if(FoodVisuals.UsesModel(id)||EquipmentVisuals.UsesModel(id)||MobLootVisuals.UsesModel(id))
                 {
                     if(foodMaterial==null)
                     {foodMaterial=new Material(Shader.Find("RivetReach/HeldTool"));foodMaterial.SetTexture("_BaseMap",FoodVisuals.Palette);}
-                    foodMaterial.SetTexture("_BaseMap",EquipmentVisuals.UsesModel(id)?EquipmentVisuals.Palette(id):FoodVisuals.PaletteFor(id));
-                    foodItem=EquipmentVisuals.UsesModel(id)?EquipmentVisuals.Create(id,block.transform,foodMaterial):FoodVisuals.Create(id,block.transform,foodMaterial);
+                    foodMaterial.SetTexture("_BaseMap",MobLootVisuals.UsesModel(id)?MobLootVisuals.Palette:EquipmentVisuals.UsesModel(id)?EquipmentVisuals.Palette(id):FoodVisuals.PaletteFor(id));
+                    foodItem=MobLootVisuals.UsesModel(id)?MobLootVisuals.Create(block.transform,foodMaterial):EquipmentVisuals.UsesModel(id)?EquipmentVisuals.Create(id,block.transform,foodMaterial):FoodVisuals.Create(id,block.transform,foodMaterial);
                     // Long axis crosses the supporting palm; the baked opening faces up.
-                    foodItem.transform.localRotation=Quaternion.Euler(0,20,0)*foodItem.transform.localRotation;
+                    foodItem.transform.localRotation=Quaternion.Euler(0,MobLootVisuals.UsesModel(id)?200:20,0)*foodItem.transform.localRotation;
                     foodItem.transform.localPosition=new Vector3(0,-.22f,0);
                 }
                 if(industryItem!=null&&!reuseOre){Destroy(industryItem);industryItem=null;}

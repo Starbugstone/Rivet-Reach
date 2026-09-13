@@ -10,7 +10,7 @@ using UnityEngine.InputSystem.LowLevel;
 namespace RivetReach
 {
     // Opt-in standalone integration checks against the same authority and actual imported assets.
-    public sealed class MobVerification : MonoBehaviour
+    public sealed partial class MobVerification : MonoBehaviour
     {
         [Serializable] sealed class Report
         {
@@ -29,6 +29,7 @@ namespace RivetReach
         }
         IEnumerator Start()
         {
+            Application.runInBackground=true;
             Application.logMessageReceived+=Log;
             foreach(var device in InputSystem.devices.ToArray())InputSystem.DisableDevice(device);
             InputSystem.AddDevice<Keyboard>("Mob verification keyboard");InputSystem.AddDevice<Mouse>("Mob verification mouse");
@@ -52,7 +53,7 @@ namespace RivetReach
         }
         void Log(string message,string stack,LogType type){if(type==LogType.Error||type==LogType.Exception||type==LogType.Assert)errors.Add(message+"\n"+stack);}
         void OnDestroy(){Application.logMessageReceived-=Log;}
-        void Check(bool condition,string message){if(!condition)throw new InvalidOperationException(message);checks.Add(message);}
+        void Check(bool condition,string message){if(!condition)throw new InvalidOperationException(message);checks.Add(message);if(output!=null)File.WriteAllLines(Path.Combine(output,"progress.txt"),checks);}
         IEnumerator Until(Func<bool> predicate,float timeout,string message,Func<string> diagnostic=null)
         {float end=Time.realtimeSinceStartup+timeout;while(!predicate()&&Time.realtimeSinceStartup<end)yield return null;
             bool passed=predicate();Check(passed,!passed&&diagnostic!=null?message+": "+diagnostic():message);}
@@ -143,7 +144,8 @@ namespace RivetReach
                 for(int y=floor+1;y<=floor+5;y++)Block(x,y,z,0);
             }
             PlayerAt(0,0);yield return new WaitForSeconds(.4f);
-            var beetle=mobs.Definitions.Single(d=>d.territorial);var prowler=mobs.Definitions.Single(d=>d.nocturnal);
+            if(Array.Exists(Environment.GetCommandLineArgs(),s=>s=="-rr-floater-only")){yield return FloaterChecks();yield break;}
+            var beetle=mobs.Definitions.Single(d=>d.territorial);var prowler=mobs.Definitions.Single(d=>d.stableId=="rivet:dusk_prowler");
             Check(!mobs.IsNight,"Prowler clock starts in daylight");
             game.Sky.Clock.SetTime(18.0/24);Check(mobs.IsNight,"Prowler follows authoritative 18:00 night boundary");
             game.Sky.Clock.SetTime(6.0/24);Check(!mobs.IsNight,"Prowler follows authoritative 06:00 dawn boundary");
@@ -231,6 +233,7 @@ namespace RivetReach
             yield return Until(()=>mobs.AttackHits>0,5,"Enemy bite reaches shared player damage authority");
             Check(game.Health.Hearts<before&&!game.Health.Dead,"Enemy damage reduces health without bypassing survival");
             yield return WallChecks(beetle,prowler);
+            yield return FloaterChecks();
             mobs.GiveRespawnGrace();mobs.Clear();PlayerAt(0,0);bug=mobs.Spawn(beetle,At(0,2));
             yield return null;Aim(bug);yield return null;
             Check(mobs.RayTarget(game.Player.Camera.transform.position,game.Player.Camera.transform.forward)==bug,"First-person ray selects the aimed creature");

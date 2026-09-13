@@ -38,6 +38,8 @@ namespace RivetReach.Editor
             command=command.Replace("|ready","");File.Delete(request);
             try
             {
+                if(command=="floater-build")
+                {MobAssetImport.Prepare();FloaterChecks.Run();DomainChecks.Run();WikiExport.Export();Build("Floater");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="portable-storage-build"||command=="portable-storage-checks")
                 {PortableStorageChecks.Run();InventoryChecks.Run();BatteryChecks.Run();MultiblockChecks.Run();IndustryChecks.Run();GridAllocationChecks.Run();CraftingChecks.Run();SurvivalChecks.Run();if(command.EndsWith("build")){WikiExport.Export();Build("PortableStorage");}File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="electric-furnace-player")

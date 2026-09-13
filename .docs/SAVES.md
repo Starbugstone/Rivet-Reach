@@ -92,3 +92,7 @@ Schema **8** adds exact carried storage to every item-stack record: integer mill
 Each small machine fluid amount additionally stores its stable liquid identity, allowing a standalone Water Tank to contain lava. Water-only pump/boiler buffers reject other liquids. Existing multiblock fluid and placed battery records retain their exact accounting.
 
 Schemas **1–7** keep their previous byte layouts: absent carried contents initialize empty, and old small-machine amounts initialize as water. This change adds no item or recipe definitions and keeps existing content fingerprint checks, pinned terrain generators, atomic checkpoint replacement, previous-checkpoint recovery and failed-load rollback. New checkpoints require the schema-8 reader; Creative remains session-only.
+
+## Floater compatibility — 2026-09-13
+
+[The Floater](MOBS.md#floater--2026-09-13) and its rock are additive content, compatible with pre-Floater schema-7 checkpoints and the current schema-8 item layout. Existing mob position/health/intent records and generic item stacks preserve both without changing payload layout. The current content hash includes the new definitions and appended hover/drop fields; pre-Floater compatibility retains the original mob-field JSON and excludes only the new species/item. Existing definition and recipe checks remain enforced. Defeat creates loot once before checkpoint capture; restoring an already-dead creature does not create another drop. [Verification](verification/FLOATER_RESULTS.md).

@@ -300,5 +300,10 @@
     "description": "A bucket containing one lava source, equivalent to **10 L**.",
     "obtain": "Use an empty [Bucket](Item-bucket.md) on source lava. New worlds have lava lakes near bedrock; see [Lava](Lava.md).",
     "use": "Right-click a block face to place a source and recover your empty bucket. Lava flows slowly, never renews sources, destroys dropped items and burns players. It is safe while carried in inventory. A compatible multiblock tank can also accept or return 10 L through its bucket controls."
+  },
+  "rivet:floater_rock": {
+    "description": "A stone fragment from a defeated [Floater](Floater.md), with the same gray facets and pale mineral vein.",
+    "obtain": "Kill a Floater to receive exactly one Floater Rock. Walk near the dropped rock to collect it. Floaters spawn on supported surfaces at night.",
+    "use": "Keep it in inventory or a chest; stacks hold 64. It currently has no crafting, processing, fuel, food or placement use. Save/load preserves carried, stored and dropped rocks."
   }
 }

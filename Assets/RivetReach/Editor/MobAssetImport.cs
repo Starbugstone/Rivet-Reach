@@ -10,6 +10,13 @@ namespace RivetReach.Editor
     {
         void OnPreprocessModel()
         {
+            if(assetPath.StartsWith("Assets/RivetReach/Resources/MobLoot/",StringComparison.Ordinal))
+            {
+                var loot=(ModelImporter)assetImporter;
+                loot.materialImportMode=ModelImporterMaterialImportMode.None;loot.importAnimation=false;
+                loot.animationType=ModelImporterAnimationType.None;loot.isReadable=true;loot.useFileScale=true;
+                return;
+            }
             if(!assetPath.StartsWith("Assets/RivetReach/Resources/Mobs/",StringComparison.Ordinal))return;
             var importer=(ModelImporter)assetImporter;
             importer.materialImportMode=ModelImporterMaterialImportMode.None;
@@ -20,6 +27,12 @@ namespace RivetReach.Editor
         }
         void OnPreprocessTexture()
         {
+            if(assetPath.EndsWith("MobLoot/FloaterRockIcon.png",StringComparison.Ordinal))
+            {
+                var icon=(TextureImporter)assetImporter;icon.alphaIsTransparency=true;icon.mipmapEnabled=false;
+                icon.textureCompression=TextureImporterCompression.Uncompressed;icon.wrapMode=TextureWrapMode.Clamp;
+                return;
+            }
             if(!assetPath.EndsWith("Mobs/CreaturePalette.png",StringComparison.Ordinal))return;
             var importer=(TextureImporter)assetImporter;importer.filterMode=FilterMode.Point;importer.mipmapEnabled=true;
             importer.textureCompression=TextureImporterCompression.Uncompressed;importer.wrapMode=TextureWrapMode.Clamp;
@@ -28,7 +41,9 @@ namespace RivetReach.Editor
         public static void Prepare()
         {
             Directory.CreateDirectory("Assets/RivetReach/Resources/Mobs/Definitions");
-            foreach(string model in new[]{"RustbackBeetle","DuskProwler"})
+            var loot=(ModelImporter)AssetImporter.GetAtPath("Assets/RivetReach/Resources/MobLoot/FloaterRock.fbx");
+            if(loot!=null&&(loot.materialImportMode!=ModelImporterMaterialImportMode.None||!loot.isReadable))loot.SaveAndReimport();
+            foreach(string model in new[]{"RustbackBeetle","DuskProwler","Floater"})
             {
                 var importer=(ModelImporter)AssetImporter.GetAtPath("Assets/RivetReach/Resources/Mobs/"+model+".fbx");
                 if(importer==null)throw new InvalidOperationException("Missing mob export: "+model);
@@ -57,6 +72,13 @@ namespace RivetReach.Editor
                 d.population=beetle?8:6;d.width=beetle?.9f:.85f;d.height=beetle?.92f:1.7f;d.speed=beetle?2.6f:3.7f;
                 d.strideLength=beetle?.55f:1.1f;
                 d.noticeRange=beetle?8:16;d.leashRange=beetle?20:30;d.attackRange=beetle?1.8f:2.05f;d.windup=beetle?.8f:.65f;d.recovery=beetle?1.2f:1.1f;
+                if(model=="Floater")
+                {
+                    d.stableId="rivet:floater";d.displayName="Floater";d.territorial=false;d.nocturnal=true;d.climbsWalls=false;
+                    d.health=16;d.damage=3;d.population=4;d.width=.9f;d.height=1.05f;d.speed=2.4f;
+                    d.hoverHeight=.6f;d.strideLength=1.2f;d.noticeRange=14;d.leashRange=26;
+                    d.attackRange=2.1f;d.windup=.8f;d.recovery=1.3f;d.deathDropId="rivet:floater_rock";
+                }
                 d.Validate();AssetDatabase.CreateAsset(d,path);
             }
             const string materialPath="Assets/RivetReach/Resources/Mobs/CreatureMaterial.mat";
@@ -65,7 +87,7 @@ namespace RivetReach.Editor
             material.SetTexture("_BaseMap",Resources.Load<Texture2D>("Mobs/CreaturePalette"));material.SetFloat("_Smoothness",.18f);material.SetColor("_BaseColor",Color.white);EditorUtility.SetDirty(material);
             AssetDatabase.SaveAssets();
             var report=new System.Text.StringBuilder();
-            foreach(string model in new[]{"RustbackBeetle","DuskProwler"})
+            foreach(string model in new[]{"RustbackBeetle","DuskProwler","Floater"})
             {
                 var prefab=Resources.Load<GameObject>("Mobs/"+model);var animation=prefab.GetComponent<Animator>();
                 var actions=Resources.LoadAll<AnimationClip>("Mobs/"+model);
