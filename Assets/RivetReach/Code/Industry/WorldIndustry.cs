@@ -5,12 +5,14 @@ namespace RivetReach
     public sealed class WorldIndustry : IIndustryWorld, IIndustryItemEndpoints
     {
         readonly Expedition game;
+        readonly System.Collections.Generic.Dictionary<BlockPos,ItemStack> recovered=new System.Collections.Generic.Dictionary<BlockPos,ItemStack>();
+        public ItemStack Recovered(BlockPos p,ItemStack fallback){if(!recovered.Remove(p,out var stack))return fallback;return stack;}
         public IndustrySimulation Simulation {get;}
         public WorldIndustry(Expedition game)
         {
             this.game=game;Simulation=new IndustrySimulation(this,id=>game.Registry.Get(id).stackLimit,game.Processing);
             game.World.BlockChanged+=Changed;game.World.ResidencyChanged+=Simulation.Multiblocks.ResidencyChanged;
-            game.World.CanRemoveMachine=p=>{if(Simulation.Multiblocks.CanRemove(p))return true;game.Notify(Simulation.At(p)?.Definition.Id==IndustryId.Battery?"Discharge this battery before mining it":"Drain the tank at its controller before dismantling it",3);return false;};
+            game.World.CanRemoveMachine=p=>{if(game.World.RecoveringMachine||Simulation.Multiblocks.CanRemove(p)&&(Simulation.At(p)?.Definition.Id!=IndustryId.Tank||Simulation.At(p).Fluid.Amount==0))return true;game.Notify(Simulation.At(p)?.Definition.Id==IndustryId.Battery?"Discharge this battery before mining it":"Drain the tank at its controller before dismantling it",3);return false;};
             game.World.IsOpenMachine=p=>{var m=Simulation.At(game.World.DoorAnchor(p));return m!=null&&(m.Definition.Id==IndustryId.WoodenDoor?m.WorkInput==1:m.Definition.Id==IndustryId.Door&&m.Running);};
         }
         public bool Ready(BlockPos p)=>game.World.Ready(p);
@@ -30,6 +32,11 @@ namespace RivetReach
             if(old!=null&&old.Definition.Id!=id)
             {
                 if(game.OpenMachine==old)game.SetMode(ScreenMode.Play);
+                if(game.World.RecoveringMachine)
+                {
+                    var stack=PortableStorage.Capture(old);
+                    if(stack.HasContents){recovered[p]=stack;PortableStorage.Drain(old);}
+                }
                 Simulation.Remove(p);
                 if((old.Additions&PipeAddition.Signal)!=0)game.Items.Spawn(new ItemStack(IndustryId.SignalConduit,1),game.World.Local(p)+Vector3.one*.5f,Vector3.up);
                 if((old.Additions&PipeAddition.Power)!=0)game.Items.Spawn(new ItemStack(IndustryId.PowerCable,1),game.World.Local(p)+Vector3.one*.5f,Vector3.up);
@@ -68,11 +75,15 @@ namespace RivetReach
                 if(!tank.Formed)Simulation.Multiblocks.Request(tank);return true;
             }
             if(machine.Definition.WaterCapacity==0)return false;
-            byte from=fill?Fluids.WaterBucket:Fluids.EmptyBucket,to=fill?Fluids.EmptyBucket:Fluids.WaterBucket;
-            int slot=game.Inventory.FindSlot(s=>s.Id==from&&s.Count==1);
-            if(slot<0||fill&&machine.WaterMl>machine.Definition.WaterCapacity-10000||!fill&&machine.WaterMl<10000)return false;
-            if(!game.Inventory.ReplaceSingle(slot,from,to))return false;
-            machine.WaterMl+=fill?10000:-10000;return true;
+            var storage=machine.Fluid;
+            int slot=game.Inventory.FindSlot(s=>s.Count==1&&(fill
+                ? Fluids.Registry.FromBucket(s.Id) is FluidDefinition liquid && PipeConnections.Accepts(machine,liquid) && storage.Accepts(liquid)
+                : s.Id==Fluids.EmptyBucket));
+            if(slot<0)return false;
+            var contents=fill?Fluids.Registry.FromBucket(game.Inventory.Slots[slot].Id):storage.Fluid;
+            if(contents==null||fill&&storage.Capacity-storage.Amount<10000||!fill&&storage.Amount<10000)return false;
+            if(!game.Inventory.ReplaceSingle(slot,fill?contents.BucketItem:Fluids.EmptyBucket,fill?Fluids.EmptyBucket:contents.BucketItem))return false;
+            if(fill)storage.Deposit(contents,10000);else storage.Withdraw(10000);return true;
         }
     }
     public sealed partial class Expedition

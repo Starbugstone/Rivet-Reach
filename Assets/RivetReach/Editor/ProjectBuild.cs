@@ -38,6 +38,8 @@ namespace RivetReach.Editor
             command=command.Replace("|ready","");File.Delete(request);
             try
             {
+                if(command=="portable-storage-build"||command=="portable-storage-checks")
+                {PortableStorageChecks.Run();InventoryChecks.Run();BatteryChecks.Run();MultiblockChecks.Run();IndustryChecks.Run();GridAllocationChecks.Run();CraftingChecks.Run();SurvivalChecks.Run();if(command.EndsWith("build")){WikiExport.Export();Build("PortableStorage");}File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="electric-furnace-player")
                 {Build("ElectricFurnace");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="electric-furnace-build")
@@ -242,6 +244,12 @@ namespace RivetReach.Editor
         public static void PrepareAndBuildSurvival(){Prepare();DomainChecks.Run();FluidChecks.Run();Build("Survival");}
         public static void BuildOreDrops(){Directory.CreateDirectory("Logs");WikiExport.Export();Build("OreDrops");}
         // Build the versioned assets as committed, without rerunning asset authoring.
+        public static void BuildPortableStorage()
+        {
+            PortableStorageChecks.Run();InventoryChecks.Run();BatteryChecks.Run();MultiblockChecks.Run();
+            IndustryChecks.Run();GridAllocationChecks.Run();CraftingChecks.Run();SurvivalChecks.Run();
+            WikiExport.Export();Build("PortableStorage");
+        }
         public static void BuildAlpha()
         {
             Directory.CreateDirectory("Logs");

@@ -125,7 +125,7 @@ A Battery Block:
 
 - stores **100 kJ**;
 - captures all available surplus and supplies demand while it has charge, with no separate wattage cap;
-- starts **empty**, including when placed in Creative;
+- starts **empty** when crafted or granted from the Creative catalog; recovered blocks keep their charge;
 - can connect to Power Cable on **any face**;
 - does not lose charge while simply sitting idle.
 
@@ -176,7 +176,7 @@ Open a Battery Block to change how it behaves.
 
 For normal workshop use, leave the battery on **Automatic**.
 
-**DischargeOnly** is especially useful when you want to empty a battery before dismantling it.
+**DischargeOnly** lets you spend a battery’s remaining charge on real loads without charging it again.
 
 ## Build a battery bank
 
@@ -317,7 +317,15 @@ To enlarge a bank, add Battery Blocks until the whole structure forms a new fill
 
 Adding an empty Battery Block adds **capacity**, not free energy.
 
-> **A charged Battery Block cannot be mined.** Discharge it into a real electrical load first. Setting it to **DischargeOnly** prevents it from immediately charging again while you empty it.
+**Mining keeps the charge.** The recovered Battery Block carries its exact energy, including when removed from a bank. Other bank cells keep their own charge. Place the recovered block to use that reserve again.
+
+Charged batteries each occupy one inventory slot and cannot stack with empty or other charged batteries. Chests, item pipes, dropped items and saved games preserve their contents. Empty batteries stack normally.
+
+To deliberately discard the charge, select the battery in your hotbar and **hold Shift, then left-click**. You keep the empty block and can stack it again. You can also Shift-left-click an inventory slot while holding the battery on your inventory cursor. This destroys the stored energy; discharge into a load if you want to use it instead.
+
+![Recovered battery showing its retained charge after placement](images/storage-restored-battery.png)
+
+*Actual game capture, 2026-09-13: the recovered battery retains 1.234567 kJ.*
 
 The Battery Bank Controller can be removed without draining because the controller itself stores no energy.
 
@@ -334,7 +342,7 @@ The Battery Bank Controller can be removed without draining because the controll
 | **Battery bank will not form** | The pack must be a completely filled rectangular solid, 1–5 blocks along each dimension, with exactly one controller and at least one Battery Block. Remove gaps and unrelated blocks. |
 | **Controller formed but cable does nothing** | Connect Power Cable to the controller on any exposed face. Member-cell sockets are inactive while the bank is formed. |
 | **Two nearby banks interfere with each other** | Leave an air gap between separate packs. Touching battery groups can be interpreted as one connected structure containing multiple controllers. |
-| **Cannot mine a Battery Block** | It still contains charge. Put it in DischargeOnly and drain it into a real load first. |
+| **Recovered battery will not stack** | It still contains charge. Place it to use the reserve, or Shift-left-click with it in hand to discard its charge. |
 | **Battery seems to lose progress after forming a bank** | Formation does not redistribute energy between cells. The controller reports their combined total; each cell retains its exact stored energy. |
 
 ## All-face machine connections

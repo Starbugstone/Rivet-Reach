@@ -63,13 +63,13 @@ namespace RivetReach
             Add(IndustryId.ElectricFurnace,"electric_furnace","Electric Furnace","Furnace recipes · electricity instead of fuel\n200 W · same full-power processing time",200,0,pi,si,ii,io);
             Add(IndustryId.Pump,"pump","Pump","Source below → 10 L in 2 seconds\nNo electricity required",0,10000,si,P(NetworkKind.Fluid,PortRole.Output,1));
             Add(IndustryId.Drill,"drill","Drill","Mines a finite column below · stops at bedrock",240,0,pi,si,io);
-            Add(IndustryId.Tank,"water_tank","Water Tank","100 L · use bucket controls to fill / empty",0,100000,P(NetworkKind.Fluid,PortRole.Input,2),P(NetworkKind.Fluid,PortRole.Output,1));
+            Add(IndustryId.Tank,"water_tank","Water Tank","100 L · any one liquid · mining retains contents",0,100000,P(NetworkKind.Fluid,PortRole.Input,2),P(NetworkKind.Fluid,PortRole.Output,1));
             Add(IndustryId.Extractor,"extractor","Extractor","Chest on left → pipe on right · 4 items / sec",0,0,si,io);
             Add(IndustryId.Sensor,"inventory_sensor","Inventory Sensor","Chest behind · ON at 32 items",0,0,P(NetworkKind.Signal,PortRole.Output,32));
             Add(IndustryId.TankFrame,"tank_frame","Reinforced Tank Frame","Use on every edge and corner · outer size 3–9 per axis");
             Add(IndustryId.TankWall,"tank_wall","Tank Wall","Solid panel · required floor and roof");
             Add(IndustryId.TankGlass,"tank_glass","Reinforced Tank Glass","Side windows connect when the hollow tank forms");
-            Add(IndustryId.TankController,"tank_controller","Tank Controller","Exactly one · face outward · empty before dismantling",0,0,P(NetworkKind.Fluid,PortRole.Output,32));
+            Add(IndustryId.TankController,"tank_controller","Tank Controller","Exactly one · face outward · mining retains contents",0,0,P(NetworkKind.Fluid,PortRole.Output,32));
             Add(IndustryId.TankPort,"tank_port","Tank Fluid Port","Face outward · wrench sets each pipe end",0,0,P(NetworkKind.Fluid,PortRole.Input,32));
             Add(IndustryId.TankHatch,"tank_hatch","Tank Access Hatch","10 L bucket transfers · one shared tank inventory");
             Add(IndustryId.TankValve,"tank_valve","Signal Valve Port","Front fluid nozzle + keyed signal · ON opens valve",0,0,P(NetworkKind.Fluid,PortRole.Input,32),P(NetworkKind.Signal,PortRole.Input,32));

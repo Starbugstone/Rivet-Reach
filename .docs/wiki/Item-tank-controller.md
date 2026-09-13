@@ -8,7 +8,7 @@
 
 <a href="Item-tank-controller.md" title="Tank Controller"><img src="icons/163.png" width="96" height="96" alt="Tank Controller"></a>
 
-Exactly one · face outward · empty before dismantling.
+Exactly one · face outward · mining retains contents.
 
 ## At a glance
 
@@ -23,9 +23,11 @@ Make this item using the crafting or processing recipes below.
 
 ## Using it
 
-Use exactly one outward-facing controller in a sealed [multiblock tank](Tanks.md). Drain all stored fluid before mining it. Recovery Out allows red Output pipe ends on its exposed faces to drain even a breached tank; a blue Input end never fills a recovery controller. Select a [Wrench](Item-wrench.md) to configure the pipe end. See [Pipes](Pipes.md).
+Use exactly one outward-facing controller in a sealed [multiblock tank](Tanks.md). Mining retains all stored liquid and capacity in the recovered controller. Recovery Out allows red Output pipe ends on its exposed faces to drain even a breached tank; a blue Input end never fills a recovery controller. Select a [Wrench](Item-wrench.md) to configure the pipe end. See [Pipes](Pipes.md).
 
 Opening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md).
+
+Accepts any registered liquid, including lava, one type at a time. Mining keeps its exact liquid; filled items each use one slot and empty ones stack normally. Shift-left-click with one in hand to discard its liquid. See [tank recovery and controls](Tanks.md#repairs-and-dismantling).
 
 ## Crafting and processing
 

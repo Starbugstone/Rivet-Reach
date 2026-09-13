@@ -134,7 +134,7 @@ namespace RivetReach
         void RefreshTooltip()
         {
             if(tooltip==null)return;var stack=StackAt(hoveredSlot);
-            tooltip.text=stack.Empty?"":game.Registry.Get(stack.Id).displayName+" · "+stack.Count+" / "+game.Registry.Get(stack.Id).stackLimit;
+            tooltip.text=stack.Empty?"":game.Registry.Get(stack.Id).displayName+" · "+stack.Count+" / "+stack.Limit(game.Registry.Get(stack.Id).stackLimit)+(stack.IsStorage?" · "+stack.ContentsText+" · Shift-left-click in hand to empty":"");
             if(hoveredSlot==CraftOutputSlot&&game.Crafting.Preview!=null)tooltip.text+=" · "+game.Crafting.MaximumCrafts+" craft(s) available";
             if(inventoryHint!=null)inventoryHint.enabled=tooltip.text.Length==0;
         }
@@ -244,6 +244,7 @@ namespace RivetReach
         {
             using var measurement = slotInputMarker.Auto();
             if(!HasInventoryBinding || !slots.Exists(v=>v.Index==index && v.gameObject.activeInHierarchy))return;
+            if(shift&&!right&&HeldStack.EmptyContents()){game.Notify("Stored contents discarded",2);RefreshSlots();return;}
             if(ClickStationSlot(index,right,shift)){RefreshSlots();return;}
             if(index==CraftOutputSlot)
             {
@@ -271,8 +272,8 @@ namespace RivetReach
         {
             if(!HeldStack.Empty)
             {
-                int left=game.Inventory.Add(HeldStack.Id,HeldStack.Count);
-                if(left>0)game.Drop(new ItemStack(HeldStack.Id,left));HeldStack.Clear();
+                int left=game.Inventory.Add(HeldStack);
+                if(left>0)game.Drop(HeldStack.WithCount(left));HeldStack.Clear();
             }
             if(game.OpenStation==null||game.OpenStation.Crafting!=null)game.Crafting.ReturnIngredients(game.Inventory);
         }
@@ -296,7 +297,7 @@ namespace RivetReach
                 craftOutputName.text=recipe==null?"RESULT":game.Registry.Get(recipe.Output.Id).displayName;
                 craftStatus.text=recipe==null?"Place ingredients in the grid":"Ready · "+game.Crafting.MaximumCrafts+" craft(s)";
             }
-            if(selectedLabel!=null){var stack=game.Inventory.Slots[game.Selected];selectedLabel.text=stack.Empty?"BARE HAND":game.Registry.Get(stack.Id).displayName+"  ·  "+stack.Count;}
+            if(selectedLabel!=null){var stack=game.Inventory.Slots[game.Selected];selectedLabel.text=stack.Empty?"BARE HAND":game.Registry.Get(stack.Id).displayName+"  ·  "+(stack.IsStorage?stack.ContentsText:stack.Count.ToString());}
             RefreshTooltip();
             lastRevision=game.Inventory.Revision;lastCraftRevision=game.Crafting.Grid.Revision;lastStationRevision=StationRevision;lastEquipmentRevision=game.Equipment.Revision;lastSelected=game.Selected;
             RefreshMissingIngredients();
@@ -328,7 +329,7 @@ namespace RivetReach
                 progress.transform.parent.gameObject.SetActive(game.Player.HasTarget&&game.Player.MiningProgress>0);
                 progress.rectTransform.sizeDelta=new Vector2(120*Mathf.Clamp01(game.Player.MiningProgress),3);
             }
-            if(selectedLabel!=null){var s=game.Inventory.Slots[game.Selected];selectedLabel.text=s.Empty?"BARE HAND":game.Registry.Get(s.Id).displayName+"  ·  "+s.Count;}
+            if(selectedLabel!=null){var s=game.Inventory.Slots[game.Selected];selectedLabel.text=s.Empty?"BARE HAND":game.Registry.Get(s.Id).displayName+"  ·  "+(s.IsStorage?s.ContentsText:s.Count.ToString());}
             frameAverage=Mathf.Lerp(frameAverage,Time.unscaledDeltaTime,.05f);
             if(diagnosticsPanel!=null)diagnosticsPanel.SetActive(game.Diagnostics);
             if(worldTime!=null)

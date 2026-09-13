@@ -23,11 +23,13 @@ Make this item using the crafting or processing recipes below.
 
 ## Using it
 
-Starts **empty**, even in Creative. Stores **100 kJ**, captures all surplus while it has room and supplies connected demand while it has charge. Separate cable grids can charge and draw from the same battery simultaneously. A charged cell cannot be mined. See [batteries and battery banks](Electricity-and-batteries.md).
+Crafted and Creative-catalog blocks start **empty**. Recovered blocks keep their charge. Stores **100 kJ**, captures all surplus while it has room and supplies connected demand while it has charge. Separate cable grids can charge and draw from the same battery simultaneously. Mining keeps the cell’s charge. See [batteries and battery banks](Electricity-and-batteries.md).
 
 Opening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md). Batteries on the same grid share surplus charging and deficit discharge equally, skipping full or empty cells.
 
 If a boiler burns fuel but this battery receives **0 W**, check for a separate, correctly coupled alternator. A cable attached directly to the boiler cannot charge it. See [boiler and battery troubleshooting](Electricity-and-batteries.md#why-running-can-still-mean-zero-electricity).
+
+Mining keeps its exact charge, including in a bank. Charged blocks each use one slot; empty blocks stack normally. Shift-left-click with one in hand to discard its charge. Chests, item pipes, drops, re-placement and saves retain the charge. See [recovery controls](Electricity-and-batteries.md).
 
 ## Crafting and processing
 

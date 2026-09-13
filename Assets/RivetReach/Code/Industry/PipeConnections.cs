@@ -45,7 +45,7 @@ namespace RivetReach
             // Explicit machine capabilities: adding a fluid port to another device
             // must not silently make it accept water (or every future liquid).
             byte id=m.Definition.Id;
-            return (id==IndustryId.Boiler||id==IndustryId.Pump||id==IndustryId.Tank)&&fluid.StableId==Fluids.Water.StableId;
+            return id==IndustryId.Tank || (id==IndustryId.Boiler||id==IndustryId.Pump)&&fluid.StableId==Fluids.Water.StableId;
         }
         public static NetworkKind TransportKind(MachineState pipe)=>pipe.Definition.Id==IndustryId.ItemPipe?NetworkKind.Item:NetworkKind.Fluid;
         public static bool Supports(MachineState m,NetworkKind kind)

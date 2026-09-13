@@ -138,3 +138,7 @@ The user authorized [lava](.docs/FLUIDS.md#lava--2026-09-13): slower three-cell 
 ## Authorized electric furnace
 
 The user requested an [Electric Furnace](.docs/ELECTRIC_FURNACE.md) that shares normal furnace recipes and replaces item fuel with electricity. Preserve shared recipe quantities/durations, all-face power and ingredient pipes, no fuel slot, proportional powered work, exact energy/input/output conservation and additive save compatibility. [Verification](.docs/verification/ELECTRIC_FURNACE_RESULTS.md) records measured evidence.
+
+## Authorized portable storage and generic tank liquids
+
+The user requested mining batteries/tanks with exact stored contents, individually carried nonempty items, and Shift-left-click emptying in hand. [BATTERIES.md](.docs/BATTERIES.md#portable-stored-contents--2026-09-13) and [MULTIBLOCKS.md](.docs/MULTIBLOCKS.md#portable-tanks--2026-09-13) own recovery, stacking and liquid rules. Both small Water Tanks and multiblocks accept any registered liquid, including lava, without mixing. This supersedes the former drain-before-mining battery/controller restriction; direct removal without recovery stays protected. Preserve exact transfers through inventories, pipes, drops and [schema-8 saves](.docs/SAVES.md#portable-storage-compatibility--2026-09-13), other bank cells, shell validation, and water-only boiler/pump buffers. [Verification](.docs/verification/PORTABLE_STORAGE_RESULTS.md) records measured evidence.

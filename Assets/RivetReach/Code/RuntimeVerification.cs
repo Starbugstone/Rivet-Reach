@@ -97,6 +97,8 @@ namespace RivetReach
                 Check(ShadowProbe.LastReport.result!="FAIL","Shadow probe completed with one directional light, no duplicate chunk views and the expected sampling stability");
                 yield break;
             }
+            if(Environment.GetCommandLineArgs().Contains("-rr-portable-legacy-review"))
+            {report.workload="Historical full-world saves migrate into schema 8 without state loss";yield return ReviewPortableStorageLegacy();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-facing-legacy-review"))
             {report.workload="Station facing migration from actual schema 2/3/4 checkpoints";yield return ReviewFacingLegacy();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-orchard-legacy-review"))
@@ -123,7 +125,7 @@ namespace RivetReach
             if(Environment.GetCommandLineArgs().Contains("-rr-potato-art-review")||Environment.GetCommandLineArgs().Contains("-rr-orchard-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-connections-review")||Environment.GetCommandLineArgs().Contains("-rr-facing-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-inventory-review")||Environment.GetCommandLineArgs().Contains("-rr-lava-review"))game.World.ViewDistance=4;
-            if(Environment.GetCommandLineArgs().Contains("-rr-machine-interface-review")||Environment.GetCommandLineArgs().Contains("-rr-electric-furnace-review"))game.World.ViewDistance=4;
+            if(Environment.GetCommandLineArgs().Contains("-rr-machine-interface-review")||Environment.GetCommandLineArgs().Contains("-rr-electric-furnace-review")||Environment.GetCommandLineArgs().Contains("-rr-portable-storage-review"))game.World.ViewDistance=4;
             yield return Settle();report.firstReadySeconds=Time.realtimeSinceStartup-began;
             if(Environment.GetCommandLineArgs().Contains("-rr-machine-interface-review"))
             {yield return CaptureMachineInterfaces();yield break;}
@@ -133,6 +135,8 @@ namespace RivetReach
             {report.workload="Player-facing starter stations and machines, rendered cell bounds, right-click, residency and schema 5 persistence";yield return ReviewPlacementFacing();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-connections-review"))
             {report.workload="All-face power, configured item/fluid ends, visible direction arrows, pointer use and schema-4 persistence";yield return ReviewConnections();yield break;}
+            if(Environment.GetCommandLineArgs().Contains("-rr-portable-storage-review"))
+            {report.workload="Portable storage recovery, exact contents, lava buckets/pipes, native emptying input and schema 8 saves";yield return ReviewPortableStorage();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-electric-furnace-review"))
             {report.workload="Electric furnace recipes, power, automation and durable saves";yield return ReviewElectricFurnace();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-battery-fill-review"))

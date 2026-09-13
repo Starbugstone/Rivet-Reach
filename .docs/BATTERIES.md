@@ -38,7 +38,7 @@ The shared `MultiblockService` hosts `BatteryBankValidator` as a second producti
 
 This solid pack is a working construction choice: players reuse the functional battery block itself, without an additional shell or hidden storage item. Separate banks must not touch; a connected pack containing two controllers is invalid. Missing cells, inward controls, oversized packs and unavailable neighbouring terrain produce actionable validation failures. Successful validation claims members exclusively through the existing world service.
 
-Charge belongs to each `MachineState` cell, not to an aggregate copied into the controller. `BatteryBankData` holds references to the claimed cells in deterministic order. Formation, repair, enlargement and controller removal cannot create or erase charge. The controller is removable even when the pack is charged because it owns no energy. An individual cell is mineable only at zero charge; it must first discharge into a real load.
+Charge belongs to each `MachineState` cell, not to an aggregate copied into the controller. `BatteryBankData` holds references to the claimed cells in deterministic order. Formation, repair, enlargement and controller removal cannot create or erase charge. The controller is removable even when the pack is charged because it owns no energy. Mining an individual cell recovers one Battery Block carrying that cell’s exact millijoules, whether standalone or claimed by a bank. The removed cell is drained as ownership passes to the item; other cells retain their energy. Direct removal without item recovery still rejects a charged cell.
 
 A pending bank suspends its endpoints. Invalid or waiting validation releases member claims: ready unclaimed cells resume standalone operation, and their individual attached cables can carry power. The bank controller remains inactive until its complete pack validates. A repaired pack reclaims existing cell storage without offline credit. This differs deliberately from tank breach recovery: a tank's liquid stays at its controller, while battery energy has durable identity within each session cell.
 
@@ -55,3 +55,11 @@ Machine interfaces show exact stored kJ, capacity, charge/output watts, mode and
 ## Manual early-game charging — 2026-09-12
 
 The [Hand Crank](HAND_CRANK.md) attaches directly to a battery side and generates a small amount of electricity with Interact or right-click, repeating while mouse Use is held. It uses ordinary generator allocation, capacity limits and battery modes. Its workbench recipe, 50 J turns, rear-socket placement and save compatibility are owned by that specification.
+
+## Portable stored contents — 2026-09-13
+
+The user requested conservation when mining batteries and tanks, separate inventory slots for nonempty storage, and Shift-left-click emptying. Crafted and Creative-catalog batteries still start empty. Recovered batteries retain exact millijoules through pickup, hotbar/backpack moves, cursor swaps, chests, item pipes, dropping and re-placement. Each charged battery occupies one slot, even beside an identically charged battery; empty batteries use their ordinary stack limit. Crafting cannot consume charged storage as an ingredient. Placement consumes a content-bearing item even in Creative, avoiding duplicated energy.
+
+In Play, hold a battery in the selected hotbar slot and **Shift-left-click** to discard its charge; the gesture takes priority over mining/attacking and cannot repeatedly mine while held. With a battery on the inventory cursor, Shift-left-click an inventory slot to empty the cursor item. Emptying keeps the item and restores ordinary stacking; it produces no electricity. Selected-item text and inventory hover text show exact carried contents. Battery mode resets to Automatic on replacement; energy does not change.
+
+[SAVES.md](SAVES.md#portable-storage-compatibility--2026-09-13) owns schema 8 and legacy handling. [Portable storage verification](verification/PORTABLE_STORAGE_RESULTS.md) records measured evidence.

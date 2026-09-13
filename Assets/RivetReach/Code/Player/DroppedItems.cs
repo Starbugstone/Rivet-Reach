@@ -89,11 +89,11 @@ namespace RivetReach
         }
         public void Spawn(ItemStack stack,Vector3 local,Vector3 velocity,float delay=0,bool actionCreated=false)
         {
-            if(stack.Empty)return;int max=Game.Registry.Get(stack.Id).stackLimit;
+            if(stack.Empty)return;int max=stack.Limit(Game.Registry.Get(stack.Id).stackLimit);
             while(stack.Count>0)
             {
                 int n=Math.Min(stack.Count,max);stack.Count-=n;
-                Piles.Add(new Pile{Id=nextId++,Stack=new ItemStack(stack.Id,n),Position=WorldPoint.FromLocal(local,World.Origin),Velocity=velocity,Delay=delay,ActionCreated=actionCreated});
+                Piles.Add(new Pile{Id=nextId++,Stack=stack.WithCount(n),Position=WorldPoint.FromLocal(local,World.Origin),Velocity=velocity,Delay=delay,ActionCreated=actionCreated});
                 TotalSpawned+=n;
             }
         }
@@ -165,10 +165,10 @@ namespace RivetReach
                     // Collection follows physical passage, including open doors and passable pipes.
                     if(!World.RaycastSolid(start,delta.normalized,delta.magnitude-.05f,out _,out _))
                     {
-                        int left=Game.Inventory.Add(p.Stack.Id,p.Stack.Count);
+                        int left=Game.Inventory.Add(p.Stack);
                         if(left<p.Stack.Count){Game.Sound.Pickup();ArcadePresentation.Active?.Pickup(local,p.Stack.Id);}
                         else Game.Notify("Inventory full — make room to collect this stack",2);
-                        p.Stack=new ItemStack(p.Stack.Id,left);
+                        p.Stack=p.Stack.WithCount(left);
                     }
                 }
                 if(p.Stack.Empty||p.Age>=1200)
@@ -194,7 +194,7 @@ namespace RivetReach
                         foreach(var other in nearby)
                         {
                             // Keep the action bonus on its own drops, even beside the same item type.
-                            if(other.Stack.Count>=limit||other.Sleeping!=p.Sleeping||other.ActionCreated!=p.ActionCreated)continue;
+                            if(!other.Stack.CanStack(p.Stack)||other.Stack.Count>=limit||other.Sleeping!=p.Sleeping||other.ActionCreated!=p.ActionCreated)continue;
                             Vector3 toward=other.Position.Local(World.Origin)-local;
                             if(toward.sqrMagnitude>1)continue;
                             if(World.Raycast(local+Vector3.up*.1f,toward.normalized,toward.magnitude,out _,out _))continue;

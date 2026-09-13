@@ -45,7 +45,7 @@ namespace RivetReach
             Refresh();
             if (preview == null) return new CraftResult(CraftStatus.NoRecipe);
             var output = preview.Output;
-            if (!cursor.Empty && cursor.Id != output.Id) return new CraftResult(CraftStatus.CursorOccupied);
+            if (!cursor.Empty && !cursor.CanStack(output)) return new CraftResult(CraftStatus.CursorOccupied);
             int held = cursor.Empty ? 0 : cursor.Count;
             if (output.Count > preview.OutputStackLimit - held) return new CraftResult(CraftStatus.OutputFull);
             // All validation precedes this commit; no callback/event can interleave its writes.
@@ -102,8 +102,8 @@ namespace RivetReach
             {
                 Span<long> available = stackalloc long[256]; available.Clear();
                 Span<int> required = stackalloc int[256]; required.Clear();
-                foreach (var source in sources) foreach (var stack in source.Slots) available[stack.Id] += stack.Count;
-                foreach (var stack in Grid.Slots) available[stack.Id] += stack.Count;
+                foreach (var source in sources) foreach (var stack in source.Slots) if(!stack.HasContents)available[stack.Id] += stack.Count;
+                foreach (var stack in Grid.Slots) if(!stack.HasContents)available[stack.Id] += stack.Count;
                 crafts = int.MaxValue;
                 foreach (var ingredient in recipe.Ingredients)
                 {
@@ -122,7 +122,7 @@ namespace RivetReach
             int Reserve(ItemContainer from, byte id, int count)
             {
                 for (int i = 0; i < from.Count && count > 0; i++)
-                    if (from.Slots[i].Id == id) count -= from.Take(i, count).Count;
+                    if (from.Slots[i].Id == id && !from.Slots[i].HasContents) count -= from.Take(i, count).Count;
                 return count;
             }
             for (int i = 0; i < recipe.Ingredients.Count; i++)
@@ -137,7 +137,7 @@ namespace RivetReach
             }
             // Reserve first: consumed backpack stacks can free room for old grid contents.
             foreach (var stack in leftovers.Slots)
-                if (!stack.Empty && plans[0].Add(stack.Id, stack.Count) != 0) return RecipeFillStatus.InventoryFull;
+                if (!stack.Empty && plans[0].Add(stack) != 0) return RecipeFillStatus.InventoryFull;
             var containers = new ItemContainer[sources.Count + 1];
             var contents = new IReadOnlyList<ItemStack>[containers.Length];
             for (int i = 0; i < sources.Count; i++) { containers[i] = sources[i]; contents[i] = plans[i].Slots; }

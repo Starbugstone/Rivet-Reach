@@ -47,7 +47,7 @@ An affected member, interior or nearby candidate edit immediately marks the inst
 
 Full buckets can be recovered at an invalid controller. **Recovery Out: ON** additionally opens an explicit drain-only outlet on any exposed controller face for a connected Fluid Pipe whose end is set to red Output, including amounts smaller than 10 L. This is an output-only manual recovery choice, initially OFF. It is available for a formed or invalid structure and pauses while validation or chunk readiness is pending. It prevents a sub-bucket remainder from trapping the controller. Ordinary invalid tank ports remain closed. Recovered liquid goes into another compatible storage with normal exact reservations; no world source cells are created.
 
-**Drain before removing the controller.** Both ordinary mining and direct world removal reject dismantling a nonempty controller, with player feedback. An empty controller can be mined, releasing membership. Structural blocks and fitted pipe components retain normal single-drop behavior. V1 does not spill fluid into the terrain, discard a breached tank's fluid or implement recovery parcels.
+**Mining recovers the controller and its contents.** A nonempty controller returns one unstackable item carrying the shared liquid identity, exact millilitres and retained capacity. This also works while breached, invalid or waiting for validation. The old storage is drained as ownership moves to the drop; shell members retain ordinary single-item recovery and never copy the liquid. Replacing the controller restores its retained contents and capacity, then requires a valid shell before normal transfers resume. A smaller shell still cannot form unless its contents fit. Direct removal without recovery remains blocked while nonempty. Buckets and Recovery Out remain useful for moving liquid without moving the controller; no liquid spills into terrain.
 
 ## Reusable lifecycle and residency
 
@@ -72,3 +72,11 @@ Formed views select outward faces, activate the frame’s authored sealing skins
 ## Authorized electrical storage — 2026-09-10
 
 The user requested standalone battery blocks and a battery-bank multiblock. [BATTERIES.md](BATTERIES.md) owns the solid-pack construction, exact per-cell storage, electrical allocation and dismantling rules. [The player wiki guide](wiki/Home.md) explains tanks, pump intake height, power and signal connections. [Workshop follow-up verification](verification/WORKSHOP_FOLLOWUP_RESULTS.md) records measured evidence.
+
+## Portable tanks — 2026-09-13
+
+Both the standalone 100 L Water Tank and multiblock tanks accept any registered liquid, including lava, one identity at a time. Bucket and pipe transactions reject mixing before withdrawal. A completely drained vessel can accept a different liquid. Boiler and pump buffers remain water-only.
+
+A filled standalone tank retains its exact liquid when mined and re-placed. A filled controller carries the entire multiblock storage as described above. Nonempty tanks each occupy one inventory slot, even when their contents match. Empty tanks/controllers use ordinary stacking. **Shift-left-click with one selected in hand**, or Shift-left-click an inventory slot with one on the cursor, discards its liquid and retains the empty item; it does not place source cells. Inventory, chests, item pipes, drops and [schema-8 saves](SAVES.md#portable-storage-compatibility--2026-09-13) retain the same value payload. Creative placement consumes filled items once. Recipes cannot consume their stored contents.
+
+[Portable storage verification](verification/PORTABLE_STORAGE_RESULTS.md) records evidence. [The tank guide](wiki/Tanks.md) teaches the controls.

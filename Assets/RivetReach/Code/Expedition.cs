@@ -88,7 +88,7 @@ namespace RivetReach
         {
             byte drop=Registry.FistDrop(id);
             int count=id==BlockId.MaturePotatoPlant?2+(int)(TerrainGenerator.Hash(pos.X,pos.Y,pos.Z,Seed)%3):1;
-            Items.Spawn(new ItemStack(drop,count),World.Local(pos)+new Vector3(.5f,.3f,.5f),Vector3.up*1.6f,actionCreated:true);
+            Items.Spawn(Industry.Recovered(pos,new ItemStack(drop,count)),World.Local(pos)+new Vector3(.5f,.3f,.5f),Vector3.up*1.6f,actionCreated:true);
         }
         public void StartSession(int seed)
         {
@@ -234,11 +234,11 @@ namespace RivetReach
             else if(!World.Place(cell,selected.Id))return false;
             int facing=PlacementFacing.TowardsPlayer(World.Local(cell)+Vector3.one*.5f,Player.transform.position,Player.transform.eulerAngles.y);
             if(BlockId.Station(selected.Id))Survival.At(cell).Rotation=facing;
-            if(IndustryId.Placed(selected.Id)){var machine=Industry.Simulation.At(cell);machine.Rotation=facing;
+            if(IndustryId.Placed(selected.Id)){var machine=Industry.Simulation.At(cell);machine.Rotation=facing;PortableStorage.Restore(machine,selected);
                 if(crankSupport.HasValue)for(int rotation=0;rotation<4;rotation++)
                     if(IndustryDefinition.Neighbor(cell,4,rotation).Equals(crankSupport.Value)){machine.Rotation=rotation;break;}
                 Industry.Simulation.Invalidate();}
-            if(!Creative)Inventory.Take(Selected,1);Sound.Place(selected.Id,World.Local(cell)+Vector3.one*.5f);ArcadePresentation.Active?.Place(World.Local(cell)+Vector3.one*.5f,selected.Id);PlacementDiagnostic="Placed "+Registry.Get(selected.Id).displayName;Notify(PlacementDiagnostic,1);return true;
+            if(!Creative||selected.HasContents)Inventory.Take(Selected,1);Sound.Place(selected.Id,World.Local(cell)+Vector3.one*.5f);ArcadePresentation.Active?.Place(World.Local(cell)+Vector3.one*.5f,selected.Id);PlacementDiagnostic="Placed "+Registry.Get(selected.Id).displayName;Notify(PlacementDiagnostic,1);return true;
         }
         public bool TryUseBucket()
         {

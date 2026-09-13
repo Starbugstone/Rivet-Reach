@@ -8,7 +8,7 @@
 
 <a href="Item-water-tank.md" title="Water Tank"><img src="icons/145.png" width="96" height="96" alt="Water Tank"></a>
 
-100 L · use bucket controls to fill / empty.
+100 L · any one liquid · mining retains contents.
 
 ## At a glance
 
@@ -27,6 +27,8 @@ Make this item using the crafting or processing recipes below.
 Stores **100 L** in one block. Use bucket controls or Fluid Pipes on any face. With a selected [Wrench](Item-wrench.md), right-click each tank-facing pipe end to set blue Input or red Output. Separate ends keep separate settings. See [Pipes](Pipes.md); for larger storage build a [multiblock tank](Tanks.md).
 
 Opening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md).
+
+Accepts any registered liquid, including lava, one type at a time. Mining keeps its exact liquid; filled items each use one slot and empty ones stack normally. Shift-left-click with one in hand to discard its liquid. See [tank recovery and controls](Tanks.md#repairs-and-dismantling).
 
 ## Crafting and processing
 

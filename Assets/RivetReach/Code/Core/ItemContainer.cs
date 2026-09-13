@@ -71,7 +71,7 @@ namespace RivetReach
                 for (int i = 0; i < copy.Length; i++)
                 {
                     var stack = plan[i];
-                    if (stack.Empty ? stack.Id != 0 || stack.Count != 0 : stack.Count > container.Limit(stack.Id))
+                    if (stack.Empty ? stack.Id != 0 || stack.Count != 0 : stack.Count > stack.Limit(container.Limit(stack.Id)) || !stack.ValidContents)
                         throw new ArgumentException("Invalid planned stack.");
                     copy[i] = stack;
                 }
@@ -81,7 +81,7 @@ namespace RivetReach
                 var container = containers[n]; var plan = copies[n]; bool changed = false;
                 for (int i = 0; i < container.Count; i++)
                 {
-                    changed |= container.slots[i].Id != plan[i].Id || container.slots[i].Count != plan[i].Count;
+                    changed |= !container.slots[i].Equals(plan[i]);
                     container.slots[i] = plan[i];
                 }
                 if (changed) container.Revision++;
@@ -106,7 +106,7 @@ namespace RivetReach
         {
             long capacity = 0;
             for (int i = start; i < end; i++)
-                if (slots[i].Empty || slots[i].Id == id) capacity += Math.Max(0, limit - slots[i].Count);
+                if (slots[i].Empty || slots[i].Id == id && !slots[i].HasContents) capacity += Math.Max(0, limit - slots[i].Count);
             return (int)Math.Min(int.MaxValue, capacity);
         }
 
@@ -138,7 +138,7 @@ namespace RivetReach
             for (int i = start; i < end && remaining > 0; i++)
             {
                 var stack = slots[i];
-                if (pass == 0 ? stack.Empty || stack.Id != id : !stack.Empty) continue;
+                if (pass == 0 ? stack.Empty || stack.Id != id || stack.HasContents : !stack.Empty) continue;
                 int take = Math.Min(remaining, Math.Max(0, limit - stack.Count));
                 slots[i] = new ItemStack(id, stack.Count + take);
                 remaining -= take;
@@ -146,6 +146,17 @@ namespace RivetReach
             if (remaining != count) Revision++;
             return remaining;
         }
+
+        public int Add(ItemStack stack, int start=0, int end=-1)
+        {
+            if(!stack.ValidContents)throw new ArgumentException("Invalid stored contents.");
+            if(!stack.HasContents)return Add(stack.Id,stack.Count,start,end);
+            if(end==-1)end=Count;Range(start,end);
+            for(int i=start;i<end;i++)if(slots[i].Empty){slots[i]=stack;Revision++;return 0;}
+            return stack.Count;
+        }
+        public bool EmptyContents(int index)
+        {var stack=slots[index];if(!stack.EmptyContents())return false;slots[index]=stack;Revision++;return true;}
 
         public bool CanReplaceSingle(int index,byte expected,byte replacement)
             =>slots[index].Id==expected&&slots[index].Count==1&&Limit(replacement)>=1;
@@ -160,9 +171,9 @@ namespace RivetReach
             var stack = slots[index];
             int taken = Math.Min(stack.Count, Math.Max(0, count));
             if (taken == 0) return default;
-            slots[index] = new ItemStack(stack.Id, stack.Count - taken);
+            slots[index] = stack.WithCount(stack.Count - taken);
             Revision++;
-            return new ItemStack(stack.Id, taken);
+            return stack.WithCount(taken);
         }
 
         public void Click(int index, ref ItemStack held, bool right)
@@ -173,14 +184,15 @@ namespace RivetReach
                 if (!stack.Empty) held = Take(index, right ? stack.Count / 2 + stack.Count % 2 : stack.Count);
                 return;
             }
-            int limit = Limit(held.Id);
+            int limit = held.Limit(Limit(held.Id));
+            if(!held.ValidContents)throw new ArgumentException("Invalid stored contents.");
             if (held.Count > limit) throw new ArgumentOutOfRangeException(nameof(held));
-            if (stack.Empty || stack.Id == held.Id)
+            if (stack.Empty || stack.CanStack(held))
             {
                 int take = Math.Min(right ? 1 : held.Count, Math.Max(0, limit - stack.Count));
                 if (take == 0) return;
-                slots[index] = new ItemStack(held.Id, stack.Count + take);
-                held = new ItemStack(held.Id, held.Count - take);
+                slots[index] = held.WithCount(stack.Count + take);
+                held = held.WithCount(held.Count - take);
             }
             else if (!right) { slots[index] = held; held = stack; }
             else return;
@@ -193,7 +205,7 @@ namespace RivetReach
             if (ReferenceEquals(this, destination)) throw new ArgumentException("Use disjoint inventory sections for an internal transfer.");
             var stack = slots[index];
             if (stack.Empty) return;
-            int left = destination.Add(stack.Id, stack.Count, start, end);
+            int left = destination.Add(stack, start, end);
             Take(index, stack.Count - left);
         }
     }
@@ -208,7 +220,7 @@ namespace RivetReach
         {
             var stack = Slots[index];
             if (stack.Empty) return;
-            int left = Add(stack.Id, stack.Count, index < HotbarCount ? HotbarCount : 0,
+            int left = Add(stack, index < HotbarCount ? HotbarCount : 0,
                 index < HotbarCount ? SlotCount : HotbarCount);
             Take(index, stack.Count - left);
         }

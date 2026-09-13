@@ -18,7 +18,7 @@ namespace RivetReach.Editor
                 bool legacy=format<6;int count=legacy?60:71;
                 var stacks=Enumerable.Range(0,count).Select(i=>new ItemStack(i%2==0?BlockId.Dirt:BlockId.Planks,1+i%64)).ToArray();
                 using var stream=new MemoryStream();
-                using(var writer=new SaveWriter(stream)){writer.Slots(stacks);writer.Write(1729);}
+                using(var writer=new SaveWriter(stream,format)){writer.Slots(stacks);writer.Write(1729);}
                 stream.Position=0;var inventory=Empty();
                 using var reader=new SaveReader(stream,registry,format);reader.PlayerInventory(inventory);
                 for(int i=0;i<count;i++)

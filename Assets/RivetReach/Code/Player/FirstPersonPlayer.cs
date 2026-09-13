@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 
 namespace RivetReach
@@ -223,6 +224,8 @@ namespace RivetReach
         void TargetAndMine()
         {
             if(Game.Mode!=ScreenMode.Play||Game.Health.Dead)return;
+            if(Keyboard.current?.shiftKey.isPressed==true && Mouse.current?.leftButton.isPressed==true && Game.Inventory.Slots[Game.Selected].IsStorage)
+            {MiningProgress=0;HasTarget=false;if(Mouse.current.leftButton.wasPressedThisFrame)Game.TryEmptySelectedStorage();return;}
             var selected=Game.Inventory.Slots[Game.Selected];byte heldId=selected.Empty?(byte)0:selected.Id;
             // Only the same selected food slot can continue an unfinished bite.
             // Every other use path (including planting and buckets) cancels it.

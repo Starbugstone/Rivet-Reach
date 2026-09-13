@@ -3789,7 +3789,7 @@
             },
             "drop": "rivet:water_tank",
             "requiredTier": "None",
-            "help": "100 L · use bucket controls to fill / empty",
+            "help": "100 L · any one liquid · mining retains contents",
             "placeable": true,
             "ore": false,
             "crop": false,
@@ -3987,7 +3987,7 @@
             },
             "drop": "rivet:tank_controller",
             "requiredTier": "None",
-            "help": "Exactly one · face outward · empty before dismantling",
+            "help": "Exactly one · face outward · mining retains contents",
             "placeable": true,
             "ore": false,
             "crop": false,
@@ -8566,7 +8566,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Core/ItemContainer.cs",
-            "sha256": "c0c6b70c53a9f5bc061a974abca58ee137fc743702f758b78f93a41f485ea4d6"
+            "sha256": "2f8952e015e01eea8027eaa499496fed50819acc08a7f86e1462ce4ad8b6008e"
         },
         {
             "path": "Assets/RivetReach/Code/Core/ItemRegistry.cs",
@@ -8574,7 +8574,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Core/ItemStack.cs",
-            "sha256": "af20ef31173b41ca625a94966298a0c22c56c22d885a7a2f67f3818b540a374b"
+            "sha256": "182efe532e56d253b83d96c111144ddfc1aa7478d921631bebdab4e7fd2042e3"
         },
         {
             "path": "Assets/RivetReach/Code/Core/RespawnPlacement.cs",
@@ -8582,7 +8582,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Crafting/CraftingSession.cs",
-            "sha256": "e8261c66661209fc7b1aee78e8ec1c190c895a5fe932b0b2a55bbd6aa3ccee1e"
+            "sha256": "f850a9bf05b5cfe1a2d3e0aa1667e4323e6c218789dbdfd5dfaa037aa3c3cbae"
         },
         {
             "path": "Assets/RivetReach/Code/Crafting/RecipeAsset.cs",
@@ -8598,7 +8598,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Crafting/RecipeRegistry.cs",
-            "sha256": "932a0c0b64cc8f9873afbd429ff0f96d4771a6002870d7232230038aeaf34232"
+            "sha256": "be67f5645244b0a0d773d681b8c01b186713c3b0a353df6d80616c0220603513"
         },
         {
             "path": "Assets/RivetReach/Code/Crafting/RecipeSpec.cs",
@@ -8638,7 +8638,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Expedition.cs",
-            "sha256": "a096dd745c80aca871cbb62cf2dbd8cab3e0cc3813c0975f68de6ed1ae42745f"
+            "sha256": "0b4917b241c3be5784f243bd8c5bae40211fbc43664040ce02677e56d22054f5"
         },
         {
             "path": "Assets/RivetReach/Code/FluidVerification.cs",
@@ -8694,7 +8694,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustryDefinition.cs",
-            "sha256": "b643c5529d7c34c6719fc1d3e981bd41e79925272b3a30a70aaf862ea8f2ad13"
+            "sha256": "bbbd669ba168f5e211565aa03fb0bd9d50b528b4003c17793f5ffa1c61fa7923"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustryPresentation.cs",
@@ -8710,7 +8710,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Industry/PipeConnections.cs",
-            "sha256": "9f87b247aa23ed43043869768046faacb2f2e7f3a355a6a8322d6b42271da197"
+            "sha256": "846712f229150508acd4df06e28eda64f0adc5181b02192c9727c65bb3427270"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/PipeEndInteraction.cs",
@@ -8721,12 +8721,16 @@
             "sha256": "3108715db2dfe7ba8b1cf314b84638df4288311b4021077de1d4c1719ecfb8ad"
         },
         {
+            "path": "Assets/RivetReach/Code/Industry/PortableStorage.cs",
+            "sha256": "4f209b462c9b8a5b6f8629662859d125fbb9dff06f63328e77efc38778d40bc9"
+        },
+        {
             "path": "Assets/RivetReach/Code/Industry/TransportEndpoints.cs",
-            "sha256": "8fa513a65ea961d9216242fba1fe0be8cccdb91ba6dbaf921aaf1606e1ea98ad"
+            "sha256": "ca4d99aaddf85eb404f03b0547c30c8209998aa216723a0c401942da7334d403"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/WorldIndustry.cs",
-            "sha256": "ac5d63e476471619b7d16204fbb2319af4645e56e14515a2a5a22ae832f4e871"
+            "sha256": "560f56916404b09b709fddf4db544611d4093a1ee50cac391750e94525a3c696"
         },
         {
             "path": "Assets/RivetReach/Code/IndustryVerification.cs",
@@ -8834,11 +8838,11 @@
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/SaveIO.cs",
-            "sha256": "662a7bd422dcde26ce2d304d75bd427c4202f79ed4bbec8e833afb311b1d8fe2"
+            "sha256": "559dc97950b67c5b50b1be0ec47e51e58a9be3b7d11d4cc13b07a575696a23d1"
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/WorldSaveState.cs",
-            "sha256": "128b2f8b31db066cfbf64dfd00a1afdede90f98c3c7d5b94b661a0c25ea8fbf3"
+            "sha256": "99f864c2f96f3e83eb1bfa066fb24b669c2e03623f8657e2a2a2b098fbd29f3f"
         },
         {
             "path": "Assets/RivetReach/Code/PlacementFacing.cs",
@@ -8878,7 +8882,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Player/DroppedItems.cs",
-            "sha256": "db8647d61eceff66aed51be532370b16df681ffa802cd180f717e7297f45eac7"
+            "sha256": "0bf3dd5416dbbba11ef7d37fc676b14ef1fd3acb500c2c0613fc35d747033a22"
         },
         {
             "path": "Assets/RivetReach/Code/Player/EatingCrumbs.cs",
@@ -8890,7 +8894,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Player/FirstPersonPlayer.cs",
-            "sha256": "bd4ee8acab3560215e3bf26c00ca5352116fdacb250f4755ee4dfa8e8e1b61c1"
+            "sha256": "922dc2ea0a5c71bc95f30b2735ac2574170078dc6185799258d828e0bd3e0442"
         },
         {
             "path": "Assets/RivetReach/Code/Player/FoodVisuals.cs",
@@ -8921,6 +8925,10 @@
             "sha256": "494ccd09af6fc9087e8b83af32bcaf9c91f9d7de464fc8956dbc866f850108b3"
         },
         {
+            "path": "Assets/RivetReach/Code/PortableStorageVerification.cs",
+            "sha256": "e2ae04e6e657811f26aed388d746618e853f33dfb2d8257835d5e57f3ade4f86"
+        },
+        {
             "path": "Assets/RivetReach/Code/PotatoArtVerification.cs",
             "sha256": "7f9f9da938bc49c20e3c947cd090b22216220a3a3403de4d159f9eb2789de338"
         },
@@ -8930,7 +8938,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/RuntimeVerification.cs",
-            "sha256": "7201b45965be5bb49ad4a2e492bc5fc0818c3773e3024fa9a804153f24faf6a4"
+            "sha256": "35a42a1c75db79d83ab5379df20d4afad077f5d8525b6b936ff0711f4e1ef8df"
         },
         {
             "path": "Assets/RivetReach/Code/SaveVerification.cs",
@@ -9010,7 +9018,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUI.cs",
-            "sha256": "e7307e88eae6dabfe4e40d2684a994535a7300a240084236ba95e1da059a8e6b"
+            "sha256": "4f4e7567a2f5c129c1b2e6d7b8c989fe2c0ba05f4e76214ac2e0d3fc3a91629e"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIBrowser.cs",
@@ -9022,7 +9030,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIIndustry.cs",
-            "sha256": "814824ad65ec57312592ddee6b5e3a6af3ca17ccb202f2d6bf3c3c46f86541d6"
+            "sha256": "5ce964515a3ec78d9c48a3fe2da9f3f4016409ec0a7933265a4702887f24a65e"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIRecipeDetails.cs",
@@ -9102,7 +9110,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/World/VoxelWorld.cs",
-            "sha256": "f508889721de3d9bc445cfd5f8b27787ab1d240990e8471b0814644b463bb456"
+            "sha256": "694b062f52bc5c41e4edde6c51b3b579b140150af60ba266676792252d38fad6"
         },
         {
             "path": "Assets/RivetReach/Code/World/WorldClock.cs",

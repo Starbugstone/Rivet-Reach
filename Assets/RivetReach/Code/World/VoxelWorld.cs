@@ -123,11 +123,14 @@ namespace RivetReach
             {FluidSimulation.Step(this);fluidAccumulator-=FluidSimulation.StepSeconds;}
             LastFluidTickMs=clock.Elapsed.TotalMilliseconds;
         }
+        public bool RecoveringMachine {get;private set;}
         public bool Mine(BlockPos p,byte expected,ToolCapability tool,ToolTier tier=ToolTier.Diamond)
         {
             if(!BlockId.Mineable(expected,tool,tier))return false;
             bool fell=expected==BlockId.Log&&(tool&ToolCapability.Axe)!=0&&NaturalLog(p);
-            if(!Remove(p,expected))return false;
+            RecoveringMachine=true;
+            try { if(!Remove(p,expected))return false; }
+            finally { RecoveringMachine=false; }
             BlockMined?.Invoke(p,expected);
             if(fell)Trees.FellAbove(this,p);
             return true;

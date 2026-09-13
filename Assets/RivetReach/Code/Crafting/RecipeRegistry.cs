@@ -176,7 +176,7 @@ namespace RivetReach
             if (consumption.Length < grid.Count) throw new ArgumentException("Consumption buffer is smaller than the grid.");
             consumption.Clear(); recipe = null; maximumCrafts = 0;
             Span<ItemStack> cells = stackalloc ItemStack[16];
-            for (int i = 0; i < grid.Count; i++) cells[i] = grid.Slots[i];
+            for (int i = 0; i < grid.Count; i++) { cells[i] = grid.Slots[i]; if(cells[i].HasContents)return false; }
             var active = cells.Slice(0, grid.Count);
             Bounds(active, grid.Size, grid.Size, out int x, out int y, out int width, out int height);
             if (width == 0) return false;

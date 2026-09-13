@@ -162,3 +162,7 @@ Storage endpoints terminate pipe runs; separate input/output pipes can access th
 ## Electric furnace — 2026-09-13
 
 [Electric furnace rules](ELECTRIC_FURNACE.md) define the electricity-powered alternative sharing all normal furnace recipes, all-face item/power connections and existing machine saves.
+
+## Tank liquids and portable storage — 2026-09-13
+
+The user requested stored-resource conservation on mining, nonstacking filled items, Shift-left-click emptying and all registered liquids in Water Tanks. [Multiblock and standalone tank rules](MULTIBLOCKS.md#portable-tanks--2026-09-13) and [battery rules](BATTERIES.md#portable-stored-contents--2026-09-13) own recovery and controls. Small Water Tanks retain 100 L capacity but now accept lava as well as water through buckets and pipes; pump and boiler requirements remain water-only. Item pipes preserve carried contents between inventories and cannot feed filled storage into processors. [Schema 8](SAVES.md#portable-storage-compatibility--2026-09-13) retains exact inventory and vessel identities.

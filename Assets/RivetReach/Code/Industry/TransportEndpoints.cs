@@ -151,13 +151,14 @@ namespace RivetReach
                 if(itemSent.Contains(source)||!world.Ready(candidate.position))continue;
                 var current=source.Slots[candidate.slot];
                 if(current.Empty||current.Id!=candidate.stack.Id||!source.CanExtract(candidate.slot))continue;
-                bool sent=DeliverItem(candidate.graph,source,current.Id,priority==0);
+                bool sent=DeliverItem(candidate.graph,source,current.WithCount(1),priority==0);
                 if(sent){source.Extract(candidate.slot,1);itemSent.Add(source);ItemEndpointChanged(candidate.position);}
                 if(candidate.machine?.Definition.Id==IndustryId.Extractor)candidate.machine.Status=sent?MachineStatus.Running:MachineStatus.OutputFull;
             }
         }
-        bool DeliverItem(NetworkTopology.Group graph,IItemPipeInventory source,byte id,bool preferredOnly)
+        bool DeliverItem(NetworkTopology.Group graph,IItemPipeInventory source,ItemStack stack,bool preferredOnly)
         {
+            byte id=stack.Id;
             var key=(graph,id,preferredOnly);
             if(!itemShares.TryGetValue(key,out var shares))
             {
@@ -193,7 +194,7 @@ namespace RivetReach
             return shares.Distribute(1,Tick/5,(receiver,offer)=>
             {
                 foreach(int face in receiver.Faces)
-                    if(receiver.Inventory.TryInsert(id,face)){ItemEndpointChanged(receiver.Position);return 1;}
+                    if(stack.HasContents ? receiver.Inventory is ItemContainer container && container.Add(stack)==0 : receiver.Inventory.TryInsert(id,face)){ItemEndpointChanged(receiver.Position);return 1;}
                 return 0;
             },receiver=>!ReferenceEquals(receiver.Inventory,source))==1;
         }

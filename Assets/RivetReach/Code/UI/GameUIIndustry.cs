@@ -22,7 +22,7 @@ namespace RivetReach
             var track=Panel(parent,892,346,155,9,slate);machineProgress=Panel(track.transform,0,0,0,9,gold);
             machineDetail=Label(parent,"",821,385,311,68,m.Definition.Id==IndustryId.Pump?12:14);
             if(m.Definition.WaterCapacity>0||m.Definition.Id==IndustryId.TankController||m.Definition.Id==IndustryId.TankHatch)
-            {MachineButton(parent,live=>"ADD 10 L",821,455,146,34,live=>{if(!game.Industry.Bucket(live,true))game.Notify("Need a water bucket and 10 L of free space",3);});MachineButton(parent,live=>"TAKE 10 L",977,455,147,34,live=>{if(!game.Industry.Bucket(live,false))game.Notify("Need an empty bucket and 10 L of water",3);});}
+            {MachineButton(parent,live=>"ADD 10 L",821,455,146,34,live=>{if(!game.Industry.Bucket(live,true))game.Notify("Need a compatible liquid bucket and 10 L of free space",3);});MachineButton(parent,live=>"TAKE 10 L",977,455,147,34,live=>{if(!game.Industry.Bucket(live,false))game.Notify("Need an empty bucket and 10 L of stored liquid",3);});}
             else if(m.Definition.Watts>0)
             {MachineButton(parent,live=>"PRIORITY: "+new[]{"HIGH","NORMAL","LOW"}[live.Priority],821,455,303,34,live=>{live.Priority=(live.Priority+1)%3;});}
             MachineButton(parent,live=>"ROTATE PORTS 90°",821,495,303,34,live=>{game.Industry.Simulation.Rotate(live);});
@@ -89,7 +89,7 @@ namespace RivetReach
             if(powerConnection.Length>0)detail+=(detail.Length>0?"\n":"")+powerConnection;
             if(m.Definition.Watts>0)detail+=$"\nPower: {m.ReceivedWatts} / {m.RequestedWatts} W";
             if(m.Definition.Id==IndustryId.Alternator)detail+=$"\nElectrical output: {m.SupplyWatts} W";
-            if(m.Definition.WaterCapacity>0)detail+=$"\nWater: {m.WaterMl/1000f:0.0} / {m.Definition.WaterCapacity/1000} L";
+            if(m.Definition.WaterCapacity>0)detail+=$"\n{(m.Definition.Id==IndustryId.Tank?m.Fluid.Fluid?.DisplayName??"Empty":"Water")}: {m.Fluid.Amount/1000.0:0.###} / {m.Fluid.Capacity/1000} L";
             if(m.Definition.Id==IndustryId.Pump){byte intake=game.World.Get(IndustrySimulation.Neighbor(m,3));detail+="\nBelow: "+(intake==Fluids.Water.Source?"water source":intake==0?"air — needs source":"blocked / not a source");}
             if(m.Definition.Id==IndustryId.Boiler)detail+=$"\nFuel remaining: {m.BurnTicks/20f:0.0} s";
             if(m.Definition.Id==IndustryId.Drill)detail+=$"\nCutting depth: {m.DrillDepth} blocks";

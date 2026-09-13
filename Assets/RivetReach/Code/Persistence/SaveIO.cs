@@ -11,11 +11,12 @@ namespace RivetReach
     // Explicit schema; never serialize Unity objects, delegates, caches or arbitrary CLR types.
     public sealed class SaveWriter : BinaryWriter
     {
-        public SaveWriter(Stream stream) : base(stream,Encoding.UTF8,true) { }
+        public readonly int Format;
+        public SaveWriter(Stream stream,int format=SaveStore.Format) : base(stream,Encoding.UTF8,true) { Format=format; }
         public void Pos(BlockPos p){Write(p.X);Write(p.Y);Write(p.Z);}
         public void Vector(Vector3 v){Write(v.x);Write(v.y);Write(v.z);}
         public void Point(WorldPoint p){Pos(p.Cell);Vector(p.Fraction);}
-        public void Stack(ItemStack s){Write(s.Id);Write(s.Count);}
+        public void Stack(ItemStack s){Write(s.Id);Write(s.Count);if(Format<8){if(s.HasContents)throw new InvalidDataException("Legacy stacks cannot hold contents.");return;}Write(s.Energy);Write(s.FluidAmount);Write(s.FluidCapacity);Write(s.FluidId==0?"":Fluids.Registry.Get(s.FluidId).StableId);}
         public void Slots(IReadOnlyList<ItemStack> slots){Write(slots.Count);foreach(var s in slots)Stack(s);}
         public void Positions(IEnumerable<BlockPos> positions){var list=positions.ToList();Write(list.Count);foreach(var p in list)Pos(p);}
     }
@@ -38,9 +39,11 @@ namespace RivetReach
         public Vector3 Vector(float min=-1e12f,float max=1e12f)=>new Vector3(Float(min,max),Float(min,max),Float(min,max));
         public WorldPoint Point()=>new WorldPoint(Pos(),Vector(0,.99999999f));
         public ItemStack Stack()
-        {byte id=ReadByte();int count=ReadInt32();Require(id==0?count==0:id!=IndustryId.DoorUpper&&count>0&&count<=Registry.Get(id).stackLimit,"Invalid saved item stack.");return new ItemStack(id,count);}
+        {byte id=ReadByte();int count=ReadInt32();Require(id==0?count==0:id!=IndustryId.DoorUpper&&count>0&&count<=Registry.Get(id).stackLimit,"Invalid saved item stack.");var stack=new ItemStack(id,count);
+            if(Format>=8){stack.Energy=Long();stack.FluidAmount=Long();stack.FluidCapacity=Long();string fluid=Text();var definition=fluid==""?null:Fluids.Registry.ByStableId(fluid);Require(fluid==""||definition!=null,"Unknown carried liquid.");stack.FluidId=definition?.Source??0;}
+            Require(stack.ValidContents,"Invalid carried storage contents.");return stack;}
         public void Slots(ItemContainer container)
-        {Require(Count(256)==container.Count,"Saved container size differs.");for(int i=0;i<container.Count;i++){var s=Stack();if(!s.Empty)Require(container.Add(s.Id,s.Count,i,i+1)==0,"Saved container overflow.");}}
+        {Require(Count(256)==container.Count,"Saved container size differs.");for(int i=0;i<container.Count;i++){var s=Stack();if(!s.Empty)Require(container.Add(s,i,i+1)==0,"Saved container overflow.");}}
         public void PlayerInventory(Inventory inventory)
         {
             // Schemas 1–5 stored 12 hotbar slots followed by 48 backpack slots.
@@ -50,7 +53,7 @@ namespace RivetReach
             for(int i=0;i<savedCount;i++)
             {
                 var stack=Stack();int destination=i<savedHotbar?i:Inventory.HotbarCount+i-savedHotbar;
-                if(!stack.Empty)Require(inventory.Add(stack.Id,stack.Count,destination,destination+1)==0,"Saved inventory overflow.");
+                if(!stack.Empty)Require(inventory.Add(stack,destination,destination+1)==0,"Saved inventory overflow.");
             }
         }
         public List<BlockPos> Positions(){int n=Count();var list=new List<BlockPos>(n);for(int i=0;i<n;i++)list.Add(Pos());return list;}
@@ -66,7 +69,7 @@ namespace RivetReach
     }
     public sealed class SaveStore
     {
-        public const int Format=7;
+        public const int Format=8;
         const int MaxBytes=256*1024*1024;
         public string DirectoryPath {get;}
         readonly ItemRegistry registry;

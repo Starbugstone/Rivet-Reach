@@ -4,7 +4,7 @@ A multiblock tank is a **sealed, hollow box that you build from individual tank 
 
 > **Do not fill the inside with water blocks.** The inside of the structure must stay empty air. The tank stores fluid in the machine itself.
 
-This is different from the single-block **Water Tank**, which stores 100 L on its own.
+This is different from the single-block **Water Tank**, which stores 100 L on its own. **Both accept any registered liquid, including water and lava**, one liquid at a time. Empty a tank completely before changing liquids; buckets and pipes never mix them. Pumps and Boiler Engines still require water.
 
 ## What a finished tank looks like
 
@@ -265,7 +265,21 @@ The controller reports the first failed coordinate and highlights that location 
 
 Breaking any shell block suspends normal transfers, but the stored liquid remains with the controller. Repair the shell and let it validate again.
 
-**Do not mine a non-empty controller.** Drain the tank first using buckets, a normal output port while formed, or **RECOVERY OUT** on the controller. Recovery works even when the structure is invalid and lets a Fluid Pipe drain quantities smaller than one bucket.
+**Mining preserves stored liquid.** A recovered Water Tank keeps its contents. A recovered Tank Controller carries the entire multiblock tank’s liquid and retained capacity, even after a breach. Shell blocks carry no liquid. Replace the controller and rebuild a valid shell to resume normal transfers.
+
+Filled tanks/controllers each occupy one inventory slot. Their exact contents survive chests, item pipes, drops and saved games. Empty ones stack normally. Select a filled tank in your hotbar and **hold Shift, then left-click** to discard its liquid while keeping the tank. You can also Shift-left-click an inventory slot with the tank on your inventory cursor. This does not spill a source into the world.
+
+Buckets, normal output ports and **RECOVERY OUT** remain available to transfer liquid instead of discarding it. Recovery works even when the structure is invalid and lets a Fluid Pipe drain quantities smaller than one bucket.
+
+![A recovered Water Tank containing lava after replacement](images/storage-restored-lava-tank.png)
+
+![Inventory showing exact contents of a carried tank](images/storage-carried-contents.png)
+
+![Saved lava storage showing its remaining liquid](images/storage-lava-pipes.png)
+
+![Two lava tanks connected with a configured Fluid Pipe](images/storage-lava-connection.png)
+
+*Actual game captures, 2026-09-13. The recovered small tank retains 12.345 L of lava; the pipe setup transfers lava between two small tanks.*
 
 If you resize a tank smaller than its current contents can fit, drain enough liquid before the smaller structure can become valid.
 

@@ -1,0 +1,49 @@
+PASS Separate generator and crusher grids share battery energy: 800 W in, 160 W out, exactly 32 J stored per tick
+PASS Battery faces do not join disconnected cable grids
+PASS An empty battery supplies a separate grid in the same tick it charges
+PASS Breaking an unused cable branch recalculates and preserves generation and charging
+PASS Breaking the generator cable leaves the independent output grid powered from storage
+PASS Replacing a broken cable restores charging without replacing any machine
+PASS Breaking the load cable stores the entire 800 W surplus
+PASS Isolated battery cannot act as a hidden cable bridge
+PASS Charge-only obeyed across separate grids
+PASS Discharge-only obeyed across separate grids
+PASS Full battery supplies other grid and replaces exactly the consumed charge
+PASS Only a physical cable path joins the generator and crusher grids
+PASS Multiple battery faces on one grid count capacity once and serve loads directly first
+PASS Removing the joining cable splits the grids again
+PASS One cell captures all 1600 W from two generators without the former rate cap
+PASS A generator attached to separate grids cannot duplicate its output
+PASS Stored charge never circulates between batteries without a machine load
+PASS A multi-grid load combines exact remaining energy without duplicate demand or overdraft
+PASS One cell serves all 480 W of connected demand with exact energy conservation
+PASS New batteries start empty and cannot generate energy
+PASS Exact storage rejects negative transfers
+PASS 20 W consumes exactly 1 J per fixed tick
+PASS Charged cell removal is refused
+PASS Charge-only blocks discharge
+PASS Dormant battery provides no energy
+PASS Idle battery retains all charge
+PASS Surplus generation charges at 800 W
+PASS Discharge-only rejects generator surplus
+PASS Live load gets power before surplus charges battery
+PASS Near-full cell accepts only remaining capacity
+PASS Last 0.5 J delivers 10 W without overdraft
+PASS Empty battery stops output immediately
+PASS Empty cell can be recovered
+PASS 2×1×2 solid bank combines three cells into 300 kJ
+PASS Formed bank exposes exactly one power endpoint
+PASS Bank delivers through outward controller socket
+PASS Isolated bank stops all transfers
+PASS Incomplete residency suspends bank output
+PASS Residency restores exact stored energy without offline credit
+PASS Empty bank cell can be removed individually
+PASS Missing cell invalidates bank without losing other cells' charge
+PASS Repair with empty cell preserves charge
+PASS Controller can be removed because it owns no charge
+PASS Dismantling returns cells to independent operation without duplication
+PASS Inward controller is rejected
+PASS Outward rotation repairs bank
+PASS Touching controllers cannot claim the same battery pack
+PASS Pump completes retained partial work without electricity and stops at capacity
+Assertions: 48
