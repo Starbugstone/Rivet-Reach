@@ -1,0 +1,51 @@
+{
+  "reviewedAtUtc": "2026-09-13T09:17:26.018378+00:00",
+  "sourceCommit": "5201d811109607485a38ae5bb14218bb551d40b7",
+  "wikiCommit": "58b2aa7d7c961d734f4836fad22aa32eddafda86",
+  "workflowRun": 34749141397,
+  "workflowResult": "Validation passed; wiki push rejected by GitHub Internal Server Error. Direct publication succeeded.",
+  "publishedFilesMatched": 349,
+  "localPages": 157,
+  "localLinksAndImages": 6428,
+  "exportSourceHashesMatched": 517,
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "livePages": [
+    {
+      "page": "Bridges-and-chunk-loaders",
+      "loadedImages": 4,
+      "missingImages": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "page": "Item-item-bridge",
+      "loadedImages": 9,
+      "missingImages": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "page": "Item-liquid-bridge",
+      "loadedImages": 9,
+      "missingImages": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "page": "Item-power-bridge",
+      "loadedImages": 9,
+      "missingImages": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "page": "Item-chunk-loader",
+      "loadedImages": 9,
+      "missingImages": 0,
+      "horizontalOverflow": false
+    }
+  ],
+  "navigation": [
+    "Guide Item Bridges link \u2192 Item-item-bridge",
+    "Item Bridge Floater Rock ingredient link \u2192 Item-floater-rock"
+  ]
+}
