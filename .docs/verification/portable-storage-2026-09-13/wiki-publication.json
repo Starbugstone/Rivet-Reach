@@ -1,0 +1,27 @@
+{
+  "date": "2026-09-13",
+  "repositoryCommit": "bcf058efa5dbff6f2a77fdfa2a8153c8e75580da",
+  "workflow": "https://github.com/Starbugstone/Rivet-Reach/actions/runs/34746013591",
+  "conclusion": "success",
+  "wikiCommit": "9427c1b2b3440078d5a650fd741168029acab22e",
+  "reviewedPages": [
+    "Tanks",
+    "Electricity-and-batteries",
+    "Item-battery-block",
+    "Item-water-tank",
+    "Item-tank-controller"
+  ],
+  "newGameplayImagesLoaded": 5,
+  "imageNaturalWidth": 1280,
+  "brokenImages": 0,
+  "verifiedControls": [
+    "Mining retains contents",
+    "Filled items remain separate",
+    "Shift-left-click discards contents",
+    "Water Tank supports registered liquids including lava"
+  ],
+  "localReviewScreenshots": [
+    "output/playwright/storage-wiki/live-tank-recovery.png",
+    "output/playwright/storage-wiki/live-battery-recovery.png"
+  ]
+}

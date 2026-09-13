@@ -24,4 +24,4 @@ This is focused functional evidence, not a large-factory performance or balance 
 
 ## Wiki
 
-The actual isolated Unity export contains **134 items** and **122 crafting/processing entries**. Generated item pages and updated guides pass **148 pages / 6,111 local links and images** through `Tools/publish_wiki.py --check`. Publication and live-rendering results are recorded after deployment.
+The actual isolated Unity export contains **134 items** and **122 crafting/processing entries**. Generated item pages and updated guides pass **148 pages / 6,111 local links and images** through `Tools/publish_wiki.py --check`. [Deployment 34746013591](https://github.com/Starbugstone/Rivet-Reach/actions/runs/34746013591) succeeded from repository commit `bcf058e`, publishing wiki commit `9427c1b`. Live Chromium review verified the Tanks and Electricity-and-batteries guides and all three affected item pages, with no broken images and all five new 1280 px gameplay captures loaded. The recovery instructions and battery capture were visually inspected. [Publication record](portable-storage-2026-09-13/wiki-publication.json).
