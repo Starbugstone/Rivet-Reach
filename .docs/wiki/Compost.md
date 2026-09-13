@@ -32,7 +32,7 @@ Hold Compost and **right-click an immature crop** to advance it by **one growth 
 
 ![A naturally generated wild plant accelerated using Compost](images/compost/compost-wild-growth.png)
 
-Plants still need suitable support, loaded terrain and open sky light. Mature plants, mushrooms and saplings cannot use Compost. An unsuccessful use consumes nothing. Creative mode keeps your Compost stack. The next natural growth stage gets its normal interval after acceleration.
+Plants still need suitable support, loaded terrain and sufficient sky or placed light. Mature plants, mushrooms and saplings cannot use Compost. An unsuccessful use consumes nothing. Creative mode keeps your Compost stack. The next natural growth stage gets its normal interval after acceleration.
 
 ## Connect item pipes
 

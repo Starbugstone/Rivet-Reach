@@ -24,7 +24,7 @@ Natural leaves have a 5% chance to drop one when destroyed or decayed after chop
 
 ## Using it
 
-Use on dry grass or dirt. After about three minutes of unpaused world simulation, it can grow into a broadleaf tree with 4–6 logs. The complete footprint needs loaded, clear space and geometric skylight. Buildings, water, foliage and characters postpone growth. Save/load preserves its deadline; time outside the game adds no growth.
+Use on dry grass or dirt. After about three minutes of unpaused world simulation, it can grow into a broadleaf tree with 4–6 logs. The complete footprint needs loaded, clear space and sufficient sky or placed light. Buildings, water, foliage and characters postpone growth. Save/load preserves its deadline; time outside the game adds no growth.
 
 ## Crafting and processing
 

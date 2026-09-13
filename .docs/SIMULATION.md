@@ -441,3 +441,7 @@ The user selected implementation of [GitHub issue #2](https://github.com/Starbug
 ## Multiblock and shared pipe implementation — 2026-09-10
 
 [MULTIBLOCKS.md](MULTIBLOCKS.md) owns the selected issue #3 lifecycle, bounded cavity validation, session identity/revisions, storage-keyed fluid reservations across multiple ports/graphs, and independent channel fittings on both transport pipes. Tank machine data is separate from the generic membership service and validator interface. The whole candidate must be resident for ordinary operation. The selected drain-first controller rule, with explicit exact-quantity recovery output, conserves breached contents within today’s session world; it does not yet implement the proposed durable recovery parcels or whole-world saves.
+
+## Cached cave light — 2026-09-13
+
+[Lighting](LIGHTING.md) owns the resident chunk cache, worker snapshots, boundary propagation, GPU representation and growth queries. Terrain/source/residency changes schedule work; the celestial clock never requests a voxel-light rebuild. Derived light is excluded from durable saves.

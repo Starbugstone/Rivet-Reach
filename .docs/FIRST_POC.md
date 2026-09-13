@@ -145,3 +145,7 @@ The stability-reviewed Farming player uses the same explicit Direct3D 11 rendere
 ## Compost review build — 2026-09-13
 
 Run `Builds/Compost/RivetReach.exe` for the [compost increment](COMPOST.md). Craft the seven-plank bin at a workbench, open with right-click/Interact, and use the resulting Compost on immature crops. [Verification](verification/COMPOST_RESULTS.md) owns build evidence and limits.
+
+## Cave-lighting review — 2026-09-13
+
+Run `Builds/Lighting/RivetReach.exe` for the [cave sunlight and underground crop fixes](LIGHTING.md). Nearby placed torches now support crops; enclosed caves lose outdoor ambient light, while shafts and entrances admit fading skylight. Existing worlds rebuild derived lighting on load. [Verification](verification/LIGHTING_RESULTS.md) records tested behavior and measured cost.

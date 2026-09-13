@@ -17,7 +17,7 @@ Cultivable wild plants visibly grow through the same four stages as farm plants.
 | Berry plant | 2–3 berries + 2 seeds | Berry Seeds |
 | Mushroom cluster | 1–2 mushrooms | Forage only |
 
-Right-click exposed dirt or grass with a hoe to make farmland. Select the planting item and right-click the farmland. Plants need open sky light and loaded terrain. Each stage normally takes one minute; a freshly planted crop needs three growth steps. Growth pauses while the world is closed or its terrain is unloaded.
+Right-click exposed dirt or grass with a hoe to make farmland. Select the planting item and right-click the farmland. Plants need sufficient sky or placed light and loaded terrain; nearby torches now support underground farms. Each stage normally takes one minute; a freshly planted crop needs three growth steps. Growth pauses while the world is closed or its terrain is unloaded.
 
 ![A wild plant growing on natural ground](images/farming/wild-growth.png)
 
@@ -81,3 +81,5 @@ Crop growth, machine ingredients, selected recipes, stored heat, partial cooking
 Captures: September 13, 2026, Farming review build. Quantities and timings are initial balance settings; long-session food cadence remains subject to playtesting.
 
 ![The actual item browser filtered to edible foods](images/farming/edible-tag-search.png)
+
+[Lighting and underground farms](Lighting-and-underground-farms.md) explains cave skylights and growing crops with placed torches.

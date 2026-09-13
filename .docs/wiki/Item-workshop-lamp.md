@@ -26,7 +26,7 @@ Make this item using the crafting or processing recipes below.
 
 Connect electricity on any face; it needs **20 W**. Front Blue Signal control is optional. See [Electricity and batteries](Electricity-and-batteries.md).
 
-Opening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md).
+Opening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md). While powered, the lamp also supplies growth light to nearby crops. See [Lighting and underground farms](Lighting-and-underground-farms.md).
 
 ## Crafting and processing
 

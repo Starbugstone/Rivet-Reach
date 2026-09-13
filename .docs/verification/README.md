@@ -15,6 +15,7 @@ This directory maintains the latest report and useful evidence for each feature.
 
 | Feature | Current evidence |
 | --- | --- |
+| Cave lighting and underground farms | [Lighting verification](LIGHTING_RESULTS.md) — sky access, placed-light crop growth, updates, saves and cost |
 | Floater and Floater Rock | [Floater verification](FLOATER_RESULTS.md) — shared habitat/support-block profiles, underground spawning, hovering collision, combat, loot, saves and original Blender art |
 | Electric furnace | [Electric furnace verification](ELECTRIC_FURNACE_RESULTS.md) — shared recipes, exact electricity, pipes, save continuity and actual imported art |
 | Lava, deep lakes and burning | [Lava verification](LAVA_RESULTS.md) — slow nonrenewing flow, buckets, item destruction, heat and pinned-generator saves |

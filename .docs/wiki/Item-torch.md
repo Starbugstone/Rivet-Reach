@@ -23,7 +23,7 @@ Craft it using either recipe below.
 
 ## Using it
 
-Select a torch in your hotbar to cast warm light around you as you explore, or place it on a supported top or side face to light the area. Switching items or using the last held torch turns off the carried light. Removing a placed torch’s support drops it; water can wash it away. Held and placed torches do not burn fuel or need electricity.
+Select a torch in your hotbar to cast warm light around you as you explore, or place it on a supported top or side face to light the area. Switching items or using the last held torch turns off the carried light. Removing a placed torch’s support drops it; water can wash it away. Held and placed torches do not burn fuel or need electricity. Placed torches also support crops within five open-cell steps, including underground; see [Lighting and underground farms](Lighting-and-underground-farms.md).
 
 ## Crafting and processing
 

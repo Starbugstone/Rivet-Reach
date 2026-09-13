@@ -174,3 +174,7 @@ The user requires rarer and higher-tier ores/materials in the construction recip
 ## Authorized compost
 
 The user authorized the next [issue #10 compost increment](.docs/COMPOST.md): a craftable bin, shared compostable eligibility with explicit organic values, optional wild/cultivated crop acceleration, ordinary item pipes and additive schema-10 compatibility. Preserve transactional batches, mining recovery, fresh growth deadlines, resident/light gates and the absence of instant-growth resource loops. [Verification](.docs/verification/COMPOST_RESULTS.md) records measured evidence. Beds, fishing, chickens, crates, weather and renewables remain separate increments.
+
+## Authorized cave lighting and underground growth
+
+The user requested [cave sunlight occlusion and crops supported by placed light](.docs/LIGHTING.md). Preserve resident-only derived caches, queued worker solves, roof/source invalidation, saved generator history, light-independent rendering pools, existing crop timing and durable-save compatibility. [Verification](.docs/verification/LIGHTING_RESULTS.md) records measured evidence and limits.

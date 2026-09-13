@@ -38,7 +38,7 @@ Mining recovers one bin, every queued input and finished output through the exis
 
 Select Compost and right-click an immature potato, wheat, flax, carrot or berry plant within normal five-block reach. One successful click consumes one Compost and advances exactly one stage. Holding Use does not repeatedly spend Compost; another click is required. Wild plants on natural soil and cultivated plants share this action. Creative retains the selected stack.
 
-The target and support must be resident, supported and meet the existing skylight threshold of 9. Mature crops, mushrooms, saplings, noncrop targets, blocked/light-ineligible targets and failed transactions consume nothing. Stations retain normal use precedence.
+The target and support must be resident, supported and meet the [sky or placed-light threshold](LIGHTING.md) of 9. Mature crops, mushrooms, saplings, noncrop targets, blocked/light-ineligible targets and failed transactions consume nothing. Stations retain normal use precedence.
 
 Acceleration replaces the old scheduled deadline with a full interval for the next stage. Maturation removes the scheduled job. This prevents an almost-due old job from immediately advancing the plant again, including after save/load. Growth remains scheduled and bounded; no per-plant component or per-frame scan is added.
 

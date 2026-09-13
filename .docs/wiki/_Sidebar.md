@@ -25,3 +25,5 @@
 - [Mobs](Mobs.md) — Rustback beetles, Dusk prowlers and Floaters; encounters, combat and persistence.
 
 - [Compost](Compost.md) — organic surplus, crop acceleration and bin automation.
+
+- [Lighting and underground farms](Lighting-and-underground-farms.md) — cave openings and growing with torches.

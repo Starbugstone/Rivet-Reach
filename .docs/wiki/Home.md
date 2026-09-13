@@ -55,3 +55,5 @@ Drain finite lava deposits with a [Ranged Liquid Pump](Ranged-Liquid-Pump.md), c
 - [Mobs](Mobs.md) — Rustback beetles, Dusk prowlers and Floaters; encounters, combat and persistence.
 
 - [Compost](Compost.md) — organic surplus, crop acceleration and bin automation.
+
+[Lighting and underground farms](Lighting-and-underground-farms.md) explains cave skylights and growing crops with placed torches.
