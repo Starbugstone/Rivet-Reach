@@ -16,8 +16,11 @@ namespace RivetReach
         // Append serialized additions: SaveStore retains the pre-Floater definition projection.
         [Min(0)] public float hoverHeight;
         public string deathDropId="";
+        public MobSpawnRules spawnRules=new MobSpawnRules();
         public void Validate()
         {
+            if(spawnRules==null)throw new System.InvalidOperationException("Missing mob spawn rules: "+name);
+            spawnRules.Validate();
             if(string.IsNullOrWhiteSpace(stableId)||string.IsNullOrWhiteSpace(model)||health<1||damage<1||population<1||
                width<.2f||height<.2f||speed<=0||climbSpeed<.1f||strideLength<.1f||noticeRange<attackRange||attackRange<1||leashRange<noticeRange||windup<.1f||recovery<.1f||float.IsNaN(hoverHeight)||float.IsInfinity(hoverHeight)||hoverHeight<0||hoverHeight>1||hoverHeight>0&&climbsWalls)
                 throw new System.InvalidOperationException("Invalid mob definition: "+name);

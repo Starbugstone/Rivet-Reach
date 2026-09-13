@@ -15,7 +15,7 @@ MonoBehaviour:
   stableId: rivet:floater
   displayName: Floater
   model: Floater
-  nocturnal: 1
+  nocturnal: 0
   territorial: 0
   climbsWalls: 0
   climbSpeed: 1.8
@@ -33,3 +33,13 @@ MonoBehaviour:
   recovery: 1.3
   hoverHeight: 0.6
   deathDropId: rivet:floater_rock
+  spawnRules:
+    habitat: 1
+    supportBlocks:
+    - rivet:grass
+    - rivet:dirt
+    - rivet:stone
+    - rivet:sand
+    - rivet:sandstone
+    - rivet:snow
+    - rivet:red_clay

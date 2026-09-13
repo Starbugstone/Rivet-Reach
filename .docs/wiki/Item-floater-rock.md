@@ -18,7 +18,7 @@ A high-tier magical crafting material that enables the Floater to hover. Used in
 
 ## How to obtain
 
-Kill a Floater to receive exactly one Floater Rock. Walk near the dropped rock to collect it. Floaters spawn on supported surfaces at night.
+Kill a Floater to receive exactly one Floater Rock. Walk near the dropped rock to collect it. Floaters spawn only in covered underground caves, during either day or night.
 
 ## Using it
 

@@ -9,6 +9,7 @@ namespace RivetReach
         readonly Dictionary<(long x,long z),string> legacyColumns=new Dictionary<(long,long),string>();
         readonly Dictionary<string,TerrainGenerator> generators=new Dictionary<string,TerrainGenerator>();
         public int RecordedChunks=>generatedVersions.Count;
+        public int SurfaceHeightAt(BlockPos p)=>GeneratorFor(p.Chunk).Height(p.X,p.Z);
         public string GenerationAt(ChunkPos p)=>generatedVersions.TryGetValue(p,out var version)?version:
             legacyColumns.TryGetValue((p.X,p.Z),out version)?version:Generator.GenerationVersion;
         TerrainGenerator GeneratorFor(ChunkPos p)

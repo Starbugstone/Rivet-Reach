@@ -147,6 +147,10 @@ The user requested mining batteries/tanks with exact stored contents, individual
 
 The user requested a hostile rocky sphere with a face and arms, hovering over terrain and dropping one Floater Rock on defeat. [Mob rules](.docs/MOBS.md#floater--2026-09-13) own the working defaults and surface-hover navigation. Preserve authoritative hovering collision, shared combat/spawning, single-award loot, ordinary item handling and additive schema-7 compatibility. [Verification](.docs/verification/FLOATER_RESULTS.md) records evidence; [the player guide](.docs/wiki/Floater.md) teaches encounters and pickup.
 
+## Authorized cave-dwelling Floaters
+
+The user requires shared hostile/passive spawning rules with Surface, Underground or Both habitats and explicit support-block whitelists (such as grass-only). Floaters must spawn only underground in caves. [Mob rules](.docs/MOBS.md#floater--2026-09-13) own covered, below-surface eligibility and bounded resident cave searches. This supersedes surface/night-only Floater spawning and the former universal surface gate. Reuse the shared site/search contract for future passive mobs while preserving their separate persistent lifecycle. Preserve shared combat, hover collision, single-rock loot, population limits and saved entities; terrain generation remains unchanged.
+
 ## Authorized ranged liquid pump
 
 The user requested a Floater Rock + Pump upgrade and confirmed eight blocks in every direction. [RANGED_PUMP.md](.docs/RANGED_PUMP.md) owns the inclusive 17³ reach, source-only collection, no electricity, typed buffer and bounded resident-cell searches. Preserve finite lava, no mixing, shared pipes, exact source transactions and additive save compatibility. [Verification](.docs/verification/RANGED_PUMP_RESULTS.md) records measured evidence.

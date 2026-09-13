@@ -2,9 +2,11 @@
 
 [All mobs](Mobs.md) · [Rustback beetle](Rustback-Beetle.md) · [Dusk prowler](Dusk-Prowler.md)
 
-Floaters are hostile stone creatures: a hovering rocky sphere with a scowling face and heavy arms. They appear on supported outdoor terrain **at night**. Existing Floaters remain dangerous after sunrise.
+Floaters are hostile stone creatures: a hovering rocky sphere with a scowling face and heavy arms. They spawn **only underground in covered caves**, during either day or night. Look beneath the surface for dry chambers with enough room above a solid floor; mined underground chambers can also qualify. Open shafts and above-ground shelters do not qualify.
 
-![An actual Floater hovering above terrain in the September 13 review build](images/floater-hover.png)
+![A Floater hovering inside a generated underground cave](images/floater-cave.png)
+
+The cave capture is from the **2026-09-13 Floater Caves review build**, with a temporary review light to show the creature and surrounding rock.
 
 ## Fighting a Floater
 
@@ -20,9 +22,9 @@ Killing a Floater drops **one [Floater Rock](Item-floater-rock.md)**. Walk close
 
 ![The same stone fragment held in the player's hand](images/floater-rock-held.png)
 
-Save checkpoints preserve living Floaters, their health and positions, and carried, stored or dropped rocks. Saving and loading during the death animation cannot award a second rock. Normal dropped-item hazards still apply, including destruction in lava.
+Save checkpoints preserve living Floaters, their health and positions, and carried, stored or dropped rocks. Saving and loading during the death animation cannot award a second rock. Normal dropped-item hazards still apply, including destruction in lava. Existing saved Floaters retain their positions; the cave restriction applies to new natural spawns.
 
-These are actual in-game captures from the **2026-09-13 Floater review build**. Combat balance and artistic acceptance remain under review.
+The rock drop and held-item images are retained actual in-game captures from the earlier **2026-09-13 Floater review build**. Combat balance and artistic acceptance remain under review.
 
 Use its rock with a Pump to craft a [Ranged Liquid Pump](Ranged-Liquid-Pump.md) for collecting finite liquid sources.
 

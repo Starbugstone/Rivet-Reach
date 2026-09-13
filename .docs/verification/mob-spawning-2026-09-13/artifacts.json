@@ -1,0 +1,31 @@
+{
+  "base_commit": "8629bab",
+  "unity": "6000.4.4f1",
+  "build_completed_utc": "2026-09-13T14:18:26.052714+00:00",
+  "files": [
+    {
+      "path": "Builds/FloaterCaves/RivetReach_Data/Managed/Assembly-CSharp.dll",
+      "sha256": "5662f4a1240439dc0a644939f9b9900aa4d7e1bcffa37cb230a817dde8f4fc0d"
+    },
+    {
+      "path": "Assets/RivetReach/Code/Mobs/MobSpawnRules.cs",
+      "sha256": "cfd1d183e1312f80be9cd63baf0c8f41fa15423f7de6be586c7547123e594344"
+    },
+    {
+      "path": "Assets/RivetReach/Code/Mobs/MobSystem.cs",
+      "sha256": "b3b76120d9fdbc2015325ecdcdddab40f2770a6a848a0d9066d5d4b1b3f675a1"
+    },
+    {
+      "path": "Assets/RivetReach/Code/Mobs/FloaterVerification.cs",
+      "sha256": "da73e40a9fd337593d64c02ac13ba1285e49fe286ef6a59c491c76e0f5dcd4b8"
+    },
+    {
+      "path": "Assets/RivetReach/Code/Persistence/SaveIO.cs",
+      "sha256": "4ec0f026571513add4bf3e5a60bbf86bd649d37cb672b7bf64de2672ae691a0c"
+    },
+    {
+      "path": "Assets/RivetReach/Resources/Mobs/Definitions/Floater.asset",
+      "sha256": "7e84dd82dc3aca56598dbe28039e4ab0e19d51ee7bb1cbf94849d11b8dbb9066"
+    }
+  ]
+}

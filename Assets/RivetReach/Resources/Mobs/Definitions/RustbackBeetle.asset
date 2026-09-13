@@ -31,3 +31,13 @@ MonoBehaviour:
   leashRange: 20
   windup: 0.8
   recovery: 1.2
+  spawnRules:
+    habitat: 0
+    supportBlocks:
+    - rivet:grass
+    - rivet:dirt
+    - rivet:stone
+    - rivet:sand
+    - rivet:sandstone
+    - rivet:snow
+    - rivet:red_clay

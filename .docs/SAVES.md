@@ -126,3 +126,7 @@ The [bridge](BRIDGES.md#crafting) and [ranged-pump](RANGED_PUMP.md#working-rules
 ## Compost compatibility — 2026-09-13
 
 [Compost](COMPOST.md#persistence-and-compatibility) reuses schema-10 machine slots/work and crop deadlines. Its additive content fingerprint includes the new catalog; known pre-compost fingerprints remove only the two added items, bin recipe and frozen compostable tags. Existing content checks, atomic replacement, previous-tier recipe compatibility and generated-chunk history remain required.
+
+## Mob spawn-profile compatibility — 2026-09-13
+
+[Shared mob spawning](MOBS.md#shared-hostilepassive-spawning-rules) adds authored habitat and support-block rules, and moves Floater spawning to underground caves at any hour. Schema 10 world/entity payloads remain unchanged. Current content fingerprints include each mob’s full spawn profile. Older fingerprints are accepted only through the known migration: the original support whitelist, Surface for beetle/prowler, and Underground plus non-nocturnal timing for Floater projected back to its former surface/night definition. Other habitat, block-list, timing, mob-stat, item and recipe changes retain compatibility checks. Existing saved mobs keep their identity, health and position; no terrain is regenerated.

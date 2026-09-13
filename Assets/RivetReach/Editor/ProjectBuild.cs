@@ -57,6 +57,8 @@ namespace RivetReach.Editor
                 {BridgeChecks.Run();WikiExport.Export();Build("Bridges");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="bridge-build")
                 {IndustryAssets.Prepare();BridgeChecks.Run();IndustryChecks.Run();BatteryChecks.Run();GridAllocationChecks.Run();ConnectionChecks.Run();PortableStorageChecks.Run();WikiExport.Export();Build("Bridges");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
+                if(command=="floater-caves-build")
+                {BuildFloaterCaves();File.WriteAllText("Logs/build-result.txt","SUCCESS floater caves "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="floater-build")
                 {MobAssetImport.Prepare();FloaterChecks.Run();DomainChecks.Run();WikiExport.Export();Build("Floater");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="portable-storage-build"||command=="portable-storage-checks")
@@ -268,6 +270,7 @@ namespace RivetReach.Editor
         }
         [MenuItem("Rivet Reach/Build Windows first POC")]
         public static void PrepareAndBuildMultiblocks(){IndustryAssets.Prepare();MultiblockChecks.Run();IndustryChecks.Run();DomainChecks.Run();StarterRecipeChecks.Run(ItemRegistry.Load(),RecipeCatalogAsset.Load().Compile(ItemRegistry.Load()));FluidChecks.Run();Build("Multiblocks");}
+        public static void BuildFloaterCaves(){Directory.CreateDirectory("Logs");FloaterChecks.Run();WikiExport.Export();Build("FloaterCaves");}
         public static void PrepareAndBuild(){Prepare();DomainChecks.Run();FluidChecks.Run();Build();}
         public static void PrepareAndBuildSurvival(){Prepare();DomainChecks.Run();FluidChecks.Run();Build("Survival");}
         public static void BuildOreDrops(){Directory.CreateDirectory("Logs");WikiExport.Export();Build("OreDrops");}

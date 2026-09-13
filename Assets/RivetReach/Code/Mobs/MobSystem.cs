@@ -37,7 +37,7 @@ namespace RivetReach
             if(Definitions.Length==0)throw new InvalidOperationException("No authored mob definitions found.");
             var identities=new HashSet<string>();
             foreach(var definition in Definitions)
-            {definition.Validate();if(!string.IsNullOrEmpty(definition.deathDropId))game.Registry.ResolveId(definition.deathDropId);if(!identities.Add(definition.stableId))throw new InvalidOperationException("Duplicate mob identity: "+definition.stableId);}
+            {definition.Validate();definition.spawnRules.Validate(game.Registry);if(!string.IsNullOrEmpty(definition.deathDropId))game.Registry.ResolveId(definition.deathDropId);if(!identities.Add(definition.stableId))throw new InvalidOperationException("Duplicate mob identity: "+definition.stableId);}
             material=Resources.Load<Material>("Mobs/CreatureMaterial");
             if(material==null)throw new InvalidOperationException("Missing imported mob material.");
             previousPlayer=game.Player.transform.position;
@@ -97,7 +97,7 @@ namespace RivetReach
         }
         public bool CanSpawn(MobDefinition definition,Vector3 local,bool distanceRule=true)
         {
-            if(Mobs.Count>=MaximumPopulation||!MobNavigation.Standable(game.World,local,definition))return false;
+            if(Mobs.Count>=MaximumPopulation||!(distanceRule?definition.spawnRules.AllowsSite(world,game.Registry,local,definition.width,definition.height,definition.hoverHeight):MobNavigation.Standable(world,local,definition)))return false;
             int count=0;
             foreach(var mob in Mobs)
             {
@@ -112,7 +112,6 @@ namespace RivetReach
                 var cell=game.World.Address(local);
                 if(cell.X* (double)cell.X+cell.Z*(double)cell.Z<16*16)return false;
                 if(definition.nocturnal&&!IsNight)return false;
-                if(game.World.SkyLight(game.World.Address(local+Vector3.up*definition.height))==0)return false;
                 // Never materialize in the player's current view, even outside melee range.
                 var view=game.Player.Camera.WorldToViewportPoint(local+Vector3.up*definition.height*.5f);
                 if(view.z>0&&view.x>-.1f&&view.x<1.1f&&view.y>-.1f&&view.y<1.1f&&ClearSight(game.Player.Camera.transform.position,local+Vector3.up*.5f))return false;
@@ -129,16 +128,18 @@ namespace RivetReach
                 float angle=(float)random.NextDouble()*Mathf.PI*2,radius=Mathf.Lerp(SpawnMinimum,SpawnMaximum,(float)random.NextDouble());
                 var candidate=game.Player.transform.position+new Vector3(Mathf.Sin(angle)*radius,0,Mathf.Cos(angle)*radius);
                 var cell=game.World.Address(candidate);
-                int surface=game.World.Generator.Height(cell.X,cell.Z);
-                // Search actual loaded support near the generated surface; no spawning on leaves,
-                // cave holes, thin ledges, occupied blocks or unloaded borders.
-                for(int y=surface+5;y>=surface-7;y--)
+                definition.spawnRules.SearchHeights(world,cell,(int)SpawnMaximum,out int low,out int high);
+                if(high<low)continue;
+                int start=definition.spawnRules.Underground?random.Next(high-low+1):0;
+                // At most 97 resident support probes per cave column, rotated to avoid
+                // always filling the highest cave layer. Never generate terrain here.
+                for(int sample=0;sample<=high-low;sample++)
                 {
+                    int y=high-(start+sample)%(high-low+1);
                     var ground=new BlockPos(cell.X,y,cell.Z);
                     if(!game.World.Ready(ground))continue;
                     byte block=game.World.Get(ground);
-                    if(block!=BlockId.Grass&&block!=BlockId.Dirt&&block!=BlockId.Stone&&
-                       block!=BlockId.Sand&&block!=BlockId.Sandstone&&block!=BlockId.Snow&&block!=BlockId.RedClay)continue;
+                    if(!definition.spawnRules.AllowsSupport(game.Registry,block))continue;
                     Vector3 feet=game.World.Local(ground)+new Vector3(.5f,1.006f+definition.hoverHeight,.5f);
                     if(!CanSpawn(definition,feet))continue;
                     Spawn(definition,feet);return true;

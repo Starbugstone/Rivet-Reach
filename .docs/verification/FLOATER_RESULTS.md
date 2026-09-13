@@ -1,39 +1,29 @@
-# Floater verification — 2026-09-13
+# Floater and shared spawning verification — 2026-09-13
 
-[Working rules](../MOBS.md#floater--2026-09-13) · [Player guide](../wiki/Floater.md)
+[Mob rules](../MOBS.md#shared-hostilepassive-spawning-rules) · [Floater guide](../wiki/Floater.md) · [Mobs overview](../wiki/Mobs.md)
 
-The playable review build is **`Builds/Floater/RivetReach.exe`**, using Unity **6000.4.4f1 / URP**. [Build summary](floater-2026-09-13/build-summary.txt): succeeded with **0 errors and 0 warnings**. [Artifact identity](floater-2026-09-13/artifacts.json) records the final managed assembly and model hashes. The Floater itself adds no save payload fields; this shared checkout also contains the separately authorized portable-storage schema-8 work.
+The current review player is **`Builds/FloaterCaves/RivetReach.exe`**, built with Unity **6000.4.4f1 / URP**, with **0 errors and 0 warnings**. [Build summary](mob-spawning-2026-09-13/build-summary.txt) and [artifact/source hashes](mob-spawning-2026-09-13/artifacts.json) identify the tested build. Verification used an isolated checkout based on `8629bab` plus this task’s changes, excluding concurrent lighting edits in the shared checkout. After lighting commit `8eee7c9` landed, the combined source compiled successfully for a fresh Unity wiki export. The runtime reports and review executable retain the isolated pre-lighting artifact identity above.
 
-## Measured checks
+## Measured results
 
-- [Full standalone mob run](floater-2026-09-13/mob-runtime-report.json): **117 assertions passed**, no errors, at **07:41:24 UTC**. Covers the existing beetle/prowler regression suite and Floater hover, ceiling rejection, bounded wall detours, one-block ascent, support removal, hostile pursuit, telegraphed attacks, avoidance and shared damage.
-- [Final focused run](floater-2026-09-13/focused-runtime-report.json): **40 assertions passed**, no errors, at **07:44:46 UTC**, after the final screenshot framing and held-rock rotation changes. Also exercises exact damaged-mob identity/position restoration, one drop on lethal damage, repeated-hit rejection, death-checkpoint reload without duplicate loot, body removal, ordinary pickup and inventory save/load conservation.
-- [Asset and legacy checks](floater-2026-09-13/asset-and-legacy-checks.txt): seven checks passed, including a real retained pre-Floater schema-7 checkpoint. Deliberately changing an existing beetle health value or stone stack limit still rejects that checkpoint. The historical checkpoint path is recorded; it is a local fixture, not bundled player save data.
-- [Unity import report](floater-2026-09-13/import-report.txt): **1,266 triangles, 7 bones, one material and four actions** for the Floater. The collectible rock imports **116 triangles and one material**. Explicit source triangulation removed an intermediate FBX polygon-import warning; the final Floater preserves the source count. Existing beetle/prowler mesh counts remain 904/1,476.
+- [Full native mob suite](mob-spawning-2026-09-13/mob-runtime-report.json): **140 assertions passed**, no errors, at **14:21:01 UTC**. Covers beetle/prowler spawning, combat, climbing, collision, lifecycle and player-input regressions, plus all new habitat and support-block checks.
+- [Focused Floater suite](mob-spawning-2026-09-13/focused-runtime-report.json): **63 assertions passed**, no errors, on the same executable. Covers natural underground spawning, day/night eligibility, surface/shelter/shaft/liquid/ceiling rejection, all three reusable habitat profiles, grass-only support in both environments, population caps, hover navigation, combat, exact single-rock loot and save/load.
+- [Asset and save checks](mob-spawning-2026-09-13/asset-and-save-checks.txt): **13 checks passed**. Actual retained pre-Floater schema-7 and pre-habitat schema-10 checkpoints remain readable. Unrelated habitat, support-list, timing, mob-health and item-stat changes are still rejected. Schema-10 entity/world payloads are unchanged.
 
-The full suite predates only the last capture framing, held-rock orientation and test-driver changes; its artifact timestamp is retained rather than presenting it as another full run on the final executable. The final focused run uses the final review executable. Runtime report timing/search counters refer to the last restored mob system after save/load, so they are **not aggregate performance measurements**.
+The reusable profile has no hostile AI/state dependency. Hostile mobs consume it now; no passive animal population exists yet. Future passive callers must combine it with their separate persistent lifecycle. Numeric search/population limits remain working defaults; these bounded tests do not establish long-session performance or encounter balance. The runtime report’s timing counters belong to the last restored mob system and are not aggregate benchmarks.
 
 ## Reviewed visuals
 
-Actual Blender source renders were reviewed from the [front](floater-2026-09-13/blender-front.png) and [back](floater-2026-09-13/blender-back.png). Source files and repeatable authoring remain in `ArtSource/Mobs` and `Tools/create_floater_assets.py`. The matching [inventory icon](../wiki/icons/175.png) is rendered from the collectible model.
+![A Floater hovering inside a generated underground cave](mob-spawning-2026-09-13/floater-cave.png)
 
-![Floater hovering over real voxel terrain](floater-2026-09-13/floater-hover.png)
+This is an actual **2026-09-13** native-player capture inside a generated cave, with a temporary point light for review. The shaft test removes overhead cover and refills non-placeable ore cells with stone before capture. The natural-spawn assertions run separately from this deliberately framed encounter. The image demonstrates the underground setting and supported hover; it is not a new art-authoring pass.
 
-![A dropped Floater Rock after defeat](floater-2026-09-13/floater-rock-drop.png)
+The original models and icons are unchanged. Retained [Unity import evidence](floater-2026-09-13/import-report.txt) records the Floater’s 1,266 triangles, seven bones, one material and four actions, and the rock’s 116 triangles. Earlier same-day Blender [front](floater-2026-09-13/blender-front.png) and [back](floater-2026-09-13/blender-back.png) renders remain the source-art review. The [rock-drop](floater-2026-09-13/floater-rock-drop.png), [held-rock](floater-2026-09-13/floater-rock-held.png) and [inventory](floater-2026-09-13/floater-rock-inventory.png) captures retain their earlier build identity; combat balance and art acceptance remain playtest concerns.
 
-![The rock and its mineral vein in the player's hand](floater-2026-09-13/floater-rock-held.png)
+## Reproduce
 
-[Inventory capture](floater-2026-09-13/floater-rock-inventory.png). The daylight encounter is an explicit test fixture for clear inspection; ordinary natural spawning remains night-only. The drop simulation is briefly frozen for the close capture, then resumed for the real proximity-pickup assertion.
-
-## Reproduce and remaining review
-
-Run the Blender authoring script in a separate background Blender 5.2 process. Request `floater-build` through `Logs/build-request.txt` in the already-open pinned Editor. Run `Tools/Verify-Mobs.ps1 -Player <Floater executable> -OutputDirectory <fresh directory>` for the full regression suite, or `Tools/Verify-Floater.ps1` for the focused checks. Verification enables background updates so switching applications does not freeze a test player.
-
-This is a bounded surface-hover melee creature, not unrestricted aerial navigation. Balance, animation appeal, extended-arm intersections in cramped spaces and long-session mob performance remain playtest/art-review concerns. No broader mob loot tables, recipes for Floater Rock or extra ecology were added.
-
+In an idle pinned Editor, request `floater-caves-build` through `Logs/build-request.txt`. An isolated, unopened project can run `RivetReach.Editor.ProjectBuild.BuildFloaterCaves` in batch mode. Run `Tools/Verify-Mobs.ps1` or `Tools/Verify-Floater.ps1` with the new executable and a fresh output directory. The legacy checkpoint directories named in the check log are local retained fixtures, not bundled player saves.
 
 ## Wiki publication
 
-[Deployment run 34746265331](https://github.com/Starbugstone/Rivet-Reach/actions/runs/34746265331) succeeded, publishing wiki commit `cba767e` from game commit `637b90c`. The maintained reference passed **150 pages / 6,127 local links and images**; the catalog has **135 items and 122 recipes**. All four deployed Floater image files match their reviewed source bytes.
-
-Live Chromium review opened the [Floater guide](https://github.com/Starbugstone/Rivet-Reach/wiki/Floater), loaded all three in-game images, followed its Floater Rock link, and verified the real inventory icon on the [item page](https://github.com/Starbugstone/Rivet-Reach/wiki/Item-floater-rock). Both pages fit a 390×844 viewport without horizontal document overflow: [guide capture](floater-2026-09-13/wiki-guide-mobile.png), [item capture](floater-2026-09-13/wiki-item-mobile.png). The live item index loaded all 135 icons, including the correctly linked Floater Rock icon. The parallel portable-storage publication was preserved.
+The Floater, Mobs and Floater Rock pages describe cave-only Floaters and shared habitat/support-block rules. Publication and live-page checks are recorded after deployment.

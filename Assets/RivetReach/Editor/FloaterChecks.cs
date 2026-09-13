@@ -47,6 +47,29 @@ namespace RivetReach.Editor
                 finally{item.stackLimit=limit;}
                 checks.Add("Prior checkpoint: "+entries.First().Path);
             }
+            d.spawnRules.Validate(registry);
+            Check(d.spawnRules.habitat==MobHabitat.Underground&&!d.nocturnal,"Floater authors underground-only habitat with independent all-day timing");
+            const string beforeHabitats="Logs/Compost/ReleaseReview/Saves";
+            if(Directory.Exists(beforeHabitats))
+            {
+                var store=new SaveStore(beforeHabitats,registry);var entries=store.List();
+                Check(entries.Count>0,"Real pre-habitat schema-10 checkpoint remains readable with original content checks");
+                byte[] bytes=File.ReadAllBytes(entries.First().Path);
+                bool Rejects(){try{using var reader=new SaveStore(beforeHabitats,registry).Open(bytes,out _);return false;}catch(InvalidDataException){return true;}}
+                var habitat=d.spawnRules.habitat;var blocks=d.spawnRules.supportBlocks;int health=d.health;bool night=d.nocturnal;
+                try
+                {
+                    d.spawnRules.habitat=MobHabitat.Both;
+                    Check(Rejects(),"Legacy habitat migration rejects unrelated habitat changes");d.spawnRules.habitat=habitat;
+                    d.spawnRules.supportBlocks=new[]{"rivet:grass"};
+                    Check(Rejects(),"Legacy habitat migration rejects changed support-block requirements");d.spawnRules.supportBlocks=blocks;
+                    d.health++;
+                    Check(Rejects(),"Legacy habitat migration retains Floater combat-stat checks");d.health=health;
+                    d.nocturnal=true;
+                    Check(Rejects(),"Legacy habitat migration accepts only the known Floater timing change");
+                }
+                finally{d.spawnRules.habitat=habitat;d.spawnRules.supportBlocks=blocks;d.health=health;d.nocturnal=night;}
+            }
             File.WriteAllLines("Logs/floater-checks.txt",checks);
         }
     }
