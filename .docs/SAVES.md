@@ -96,3 +96,7 @@ Schemas **1–7** keep their previous byte layouts: absent carried contents init
 ## Floater compatibility — 2026-09-13
 
 [The Floater](MOBS.md#floater--2026-09-13) and its rock are additive content, compatible with pre-Floater schema-7 checkpoints and the current schema-8 item layout. Existing mob position/health/intent records and generic item stacks preserve both without changing payload layout. The current content hash includes the new definitions and appended hover/drop fields; pre-Floater compatibility retains the original mob-field JSON and excludes only the new species/item. Existing definition and recipe checks remain enforced. Defeat creates loot once before checkpoint capture; restoring an already-dead creature does not create another drop. [Verification](verification/FLOATER_RESULTS.md).
+
+## Ranged pump compatibility — 2026-09-13
+
+[RANGED_PUMP.md](RANGED_PUMP.md) adds a machine without new serialized fields. Its registered liquid type, exact buffer, partial work and removed sources use existing records. Additive compatibility omits only its item and recipe for earlier checkpoints while retaining all pre-existing content checks. Search caches rebuild after load without offline production.

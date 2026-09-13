@@ -38,6 +38,8 @@ namespace RivetReach.Editor
             command=command.Replace("|ready","");File.Delete(request);
             try
             {
+                if(command=="ranged-pump-build")
+                {RangedPumpReview();return;}
                 if(command=="floater-build")
                 {MobAssetImport.Prepare();FloaterChecks.Run();DomainChecks.Run();WikiExport.Export();Build("Floater");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="portable-storage-build"||command=="portable-storage-checks")
@@ -103,6 +105,11 @@ namespace RivetReach.Editor
             catch(Exception ex){Debug.LogException(ex);File.WriteAllText("Logs/build-result.txt","FAILED\n"+ex);}
         }
         // Also callable in an isolated pinned-Editor batch project for reproducible checks.
+        public static void RangedPumpReview()
+        {
+            Directory.CreateDirectory("Logs");IndustryAssets.Prepare();RangedPumpChecks.Run();IndustryChecks.Run();FluidChecks.Run();PortableStorageChecks.Run();ConnectionChecks.Run();FloaterChecks.Run();
+            WikiExport.Export();Build("RangedPump");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));
+        }
         public static void ElectricFurnaceReview()
         {
             Directory.CreateDirectory("Logs");ElectricFurnaceChecks.Run();IndustryChecks.Run();BatteryChecks.Run();GridAllocationChecks.Run();HandCrankChecks.Run();DoorChecks.Run();SurvivalChecks.Run();ConnectionChecks.Run();DomainChecks.Run();

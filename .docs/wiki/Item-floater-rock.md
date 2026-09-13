@@ -4,7 +4,7 @@
 
 [All items](Items.md) · [Crafting guide](Crafting-Recipes.md) · [Home](Home.md)
 
-[How to obtain](#how-to-obtain) · [Crafting and processing](#crafting-and-processing)
+[How to obtain](#how-to-obtain) · [Crafting and processing](#crafting-and-processing) · [Uses](#used-to-make)
 
 <a href="Item-floater-rock.md" title="Floater Rock"><img src="icons/175.png" width="96" height="96" alt="Floater Rock"></a>
 
@@ -22,8 +22,16 @@ Kill a Floater to receive exactly one Floater Rock. Walk near the dropped rock t
 
 ## Using it
 
-Keep it in inventory or a chest; stacks hold 64. It currently has no crafting, processing, fuel, food or placement use. Save/load preserves carried, stored and dropped rocks.
+Craft a [Ranged Liquid Pump](Item-ranged-liquid-pump.md) with a [Pump](Item-pump.md) at the Machinist’s Bench. See [setup](Ranged-Liquid-Pump.md).
 
 ## Crafting and processing
 
 There is no registered crafting or processing recipe for this item. Use the acquisition method above.
+
+## Used to make
+
+Follow a result to see its complete ingredients and recipe.
+
+| Result | Station | Recipe |
+|---|---|---|
+| <a href="Item-ranged-liquid-pump.md#recipe-1" title="Ranged Liquid Pump"><img src="icons/180.png" width="32" height="32" alt="Ranged Liquid Pump"></a> ×1 [Ranged Liquid Pump](Item-ranged-liquid-pump.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-ranged-liquid-pump.md#recipe-1) |

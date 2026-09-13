@@ -19,11 +19,11 @@ namespace RivetReach
         public const byte TankFrame=160,TankWall=161,TankGlass=162,TankController=163,TankPort=164,TankHatch=165,TankValve=166,TankSensor=167;
         public const byte Battery=168,BatteryController=169,HandCrank=170;
         public const byte WoodenDoor=171,DoorUpper=172;
-        public const byte Wrench=173,ElectricFurnace=174;
+        public const byte Wrench=173,ElectricFurnace=174,RangedPump=180;
         public static bool DoorPart(byte id)=>id==WoodenDoor||id==DoorUpper;
         public static bool BatteryPart(byte id)=>id==Battery||id==BatteryController;
         public static bool TankPart(byte id)=>id>=TankFrame&&id<=TankSensor;
-        public static bool Placed(byte id)=>id>=Bench&&id<=Sensor||TankPart(id)||BatteryPart(id)||id==HandCrank||id==WoodenDoor||id==ElectricFurnace;
+        public static bool Placed(byte id)=>id>=Bench&&id<=Sensor||TankPart(id)||BatteryPart(id)||id==HandCrank||id==WoodenDoor||id==ElectricFurnace||id==RangedPump;
         public static bool Route(byte id)=>id==SignalWire||id==SignalConduit||id==PowerCable||id==ItemPipe||id==FluidPipe;
         public static bool Thin(byte id)=>Route(id)||id==Lever||id==Button||id==Indicator||id==Relay||id==Sensor;
     }
@@ -62,6 +62,7 @@ namespace RivetReach
             Add(IndustryId.Crusher,"crusher","Crusher","1 raw ore → 2 crushed ore\n1 stone / cobblestone → 1 sand",160,0,pi,si,ii,io);
             Add(IndustryId.ElectricFurnace,"electric_furnace","Electric Furnace","Furnace recipes · electricity instead of fuel\n200 W · same full-power processing time",200,0,pi,si,ii,io);
             Add(IndustryId.Pump,"pump","Pump","Source below → 10 L in 2 seconds\nNo electricity required",0,10000,si,P(NetworkKind.Fluid,PortRole.Output,1));
+            Add(IndustryId.RangedPump,"ranged_liquid_pump","Ranged Liquid Pump","8-block reach on each axis · source → 10 L / 2 sec\nAny liquid · no electricity required",0,10000,si,P(NetworkKind.Fluid,PortRole.Output,1));
             Add(IndustryId.Drill,"drill","Drill","Mines a finite column below · stops at bedrock",240,0,pi,si,io);
             Add(IndustryId.Tank,"water_tank","Water Tank","100 L · any one liquid · mining retains contents",0,100000,P(NetworkKind.Fluid,PortRole.Input,2),P(NetworkKind.Fluid,PortRole.Output,1));
             Add(IndustryId.Extractor,"extractor","Extractor","Chest on left → pipe on right · 4 items / sec",0,0,si,io);
@@ -98,7 +99,7 @@ namespace RivetReach
         readonly ProcessingRegistry processing;
         public ProcessingRecipe FurnaceRecipe=>Definition.Id==IndustryId.ElectricFurnace?processing?.Find(Items.Slots[0].Id):null;
         public ItemStack ProcessingOutput(byte id)=>Definition.Id==IndustryId.Crusher?CrusherOutput(id):Definition.Id==IndustryId.ElectricFurnace?processing?.Find(id)?.Output??default:default;
-        public int ProcessingTicks=>Definition.Id==IndustryId.Crusher?CrusherTicks:Definition.Id==IndustryId.ElectricFurnace?FurnaceRecipe?.Ticks??200:Definition.Id==IndustryId.Pump?40:120;
+        public int ProcessingTicks=>Definition.Id==IndustryId.Crusher?CrusherTicks:Definition.Id==IndustryId.ElectricFurnace?FurnaceRecipe?.Ticks??200:(Definition.Id==IndustryId.Pump||Definition.Id==IndustryId.RangedPump)?40:120;
         public int Rotation {get;internal set;}
         public MachineStatus Status {get;internal set;}
         public bool Signal,SignalAttached,Source,NextSource,Eligible,FluidConflict;
@@ -116,6 +117,11 @@ namespace RivetReach
         public bool RecoveryOutput;
         public FluidPortMode PortMode;
         public int LevelThreshold=80;
+        // Search cache only: targets are revalidated; saves retain paid work and fluid identity.
+        internal BlockPos? PumpTarget;
+        internal long PumpRetryTick;
+        internal int PumpScanIndex;
+        internal bool PumpScanUnloaded;
         public double Work;
         public byte WorkInput;
         public int Priority=1;

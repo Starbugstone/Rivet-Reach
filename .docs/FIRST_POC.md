@@ -129,3 +129,7 @@ Run `Builds/HandCrank/RivetReach.exe` for the [manual electricity increment](HAN
 ### Battery charge appearance review
 
 `Builds/BatteryFill/RivetReach.exe` includes a translucent amber charge fill inside placed batteries. Charge with a hand crank or generator and watch the level rise; connected loads lower it. Each bank cell displays its own reserve. [Rules](BATTERIES.md#presentation-and-diagnostics) and [verification](verification/BATTERY_FILL_RESULTS.md) cover the exact mapping and checked artifact.
+
+## Ranged liquid pump review
+
+Launch `Builds/RangedPump/RivetReach.exe`. Craft one Pump plus one Floater Rock at the Machinist’s Bench, or select the Ranged Liquid Pump in Creative. Place within eight blocks on each axis of liquid sources and pipe its output into a tank. [Rules](RANGED_PUMP.md), [player setup](wiki/Ranged-Liquid-Pump.md) and [verification](verification/RANGED_PUMP_RESULTS.md) explain the exact range and evidence.

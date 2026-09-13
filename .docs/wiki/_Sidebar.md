@@ -15,3 +15,5 @@
 - [Lava](Lava.md) — deep lakes, buckets and burning hazards.
 
 - [Floater](Floater.md) — hovering stone enemies and Floater Rock drops.
+
+- [Ranged Liquid Pump](Ranged-Liquid-Pump.md)

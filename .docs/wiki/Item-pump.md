@@ -4,7 +4,7 @@
 
 [All items](Items.md) · [Crafting guide](Crafting-Recipes.md) · [Home](Home.md)
 
-[How to obtain](#how-to-obtain) · [Crafting and processing](#crafting-and-processing)
+[How to obtain](#how-to-obtain) · [Crafting and processing](#crafting-and-processing) · [Uses](#used-to-make)
 
 <a href="Item-pump.md" title="Pump"><img src="icons/143.png" width="96" height="96" alt="Pump"></a>
 
@@ -72,3 +72,11 @@ Opening its controls shows a matching illustration and name in the left panel. S
 | <a href="Item-copper-plate.md" title="Copper Plate"><img src="icons/123.png" width="32" height="32" alt="Copper Plate"></a> [Copper Plate](Item-copper-plate.md) | 2 |
 | <a href="Item-cog.md" title="Iron Cog"><img src="icons/125.png" width="32" height="32" alt="Iron Cog"></a> [Iron Cog](Item-cog.md) | 1 |
 | <a href="Item-machine-casing.md" title="Machine Casing"><img src="icons/127.png" width="32" height="32" alt="Machine Casing"></a> [Machine Casing](Item-machine-casing.md) | 1 |
+
+## Used to make
+
+Follow a result to see its complete ingredients and recipe.
+
+| Result | Station | Recipe |
+|---|---|---|
+| <a href="Item-ranged-liquid-pump.md#recipe-1" title="Ranged Liquid Pump"><img src="icons/180.png" width="32" height="32" alt="Ranged Liquid Pump"></a> ×1 [Ranged Liquid Pump](Item-ranged-liquid-pump.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-ranged-liquid-pump.md#recipe-1) |

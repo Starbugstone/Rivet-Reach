@@ -304,6 +304,11 @@
   "rivet:floater_rock": {
     "description": "A stone fragment from a defeated [Floater](Floater.md), with the same gray facets and pale mineral vein.",
     "obtain": "Kill a Floater to receive exactly one Floater Rock. Walk near the dropped rock to collect it. Floaters spawn on supported surfaces at night.",
-    "use": "Keep it in inventory or a chest; stacks hold 64. It currently has no crafting, processing, fuel, food or placement use. Save/load preserves carried, stored and dropped rocks."
+    "use": "Craft a [Ranged Liquid Pump](Item-ranged-liquid-pump.md) with a [Pump](Item-pump.md) at the Machinist’s Bench. See [setup](Ranged-Liquid-Pump.md)."
+  },
+  "rivet:ranged_liquid_pump": {
+    "description": "Collects liquid source blocks within eight blocks along each axis (a 17×17×17 cube), including lava. No electricity required.",
+    "obtain": "Combine one Pump and one Floater Rock at the Machinist’s Bench.",
+    "use": "See [Ranged Liquid Pump](Ranged-Liquid-Pump.md) for setup. Each source gives 10 L after two seconds of collection. Pipe it into a tank; the 10 L buffer holds one liquid at a time."
   }
 }

@@ -44,3 +44,5 @@ A compatible [multiblock tank](Tanks.md) can store lava through its bucket contr
 These captures are from the September 13, 2026 lava review player. The stone deck is a verification setup; the underground lake is generated terrain.
 
 [All items](Items.md) · [Pumps and water](Pumps-and-water.md) · [Home](Home.md)
+
+For automatic source collection, craft a [Ranged Liquid Pump](Ranged-Liquid-Pump.md) from a Pump and Floater Rock, then pipe the lava to a tank.

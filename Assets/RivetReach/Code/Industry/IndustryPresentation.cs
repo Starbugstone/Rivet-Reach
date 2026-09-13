@@ -84,7 +84,7 @@ namespace RivetReach
             bool revision=shownRevision!=sim.Revision;shownRevision=sim.Revision;
             foreach(var v in views.Values)
             {
-                var m=v.State;bool active=m.Definition.Id==IndustryId.ElectricFurnace?m.Running:m.Signal||m.Source;
+                var m=v.State;bool active=m.Definition.Id==IndustryId.ElectricFurnace||m.Definition.Id==IndustryId.RangedPump?m.Running:m.Signal||m.Source;
                 if(v.ChargeFill!=null)
                 {
                     // Read the physical cell even when a bank owns its electrical endpoint.
@@ -120,7 +120,7 @@ namespace RivetReach
                     var t=v.Parts[i];string n=t.name;
                     if(n.StartsWith("MotionSpin"))
                     {var axis=m.Definition.Id==IndustryId.Boiler||m.Definition.Id==IndustryId.Alternator?Vector3.right:m.Definition.Id==IndustryId.Crusher||m.Definition.Id==IndustryId.Pump?Vector3.forward:m.Definition.Id==IndustryId.HandCrank?Vector3.forward:Vector3.up;t.localRotation=Quaternion.AngleAxis(v.Phase*(n.StartsWith("MotionSpinB")?-1:1),axis)*v.RestRotation[i];}
-                    else if(n.StartsWith("MotionPiston"))t.localPosition=v.Rest[i]+Vector3.up*(m.Definition.Id==IndustryId.Button?(m.Source?-.035f:0):m.Running?Mathf.Sin(v.Phase*Mathf.Deg2Rad)*.035f:0);
+                    else if(n.StartsWith("MotionPiston")||n.StartsWith("MotionBob"))t.localPosition=v.Rest[i]+Vector3.up*(m.Definition.Id==IndustryId.Button?(m.Source?-.035f:0):m.Running?Mathf.Sin(v.Phase*Mathf.Deg2Rad)*.035f:0);
                     else if(n.StartsWith("MotionLever"))t.localRotation=Quaternion.Slerp(t.localRotation,Quaternion.Euler(m.Source?30:-30,0,0),1-Mathf.Exp(-18*Time.deltaTime));
                     else if(n=="MotionDoor")t.localRotation=v.RestRotation[i]*Quaternion.Euler(0,m.WorkInput==1?-90:0,0);
                     else if(n.StartsWith("MotionHatch")){t.localScale=Vector3.Lerp(t.localScale,new Vector3(1,m.Running?.08f:1,1),1-Mathf.Exp(-12*Time.deltaTime));t.localPosition=v.Rest[i]+Vector3.up*(m.Running?.37f:0);}

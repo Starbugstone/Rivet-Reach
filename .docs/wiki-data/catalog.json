@@ -4456,6 +4456,39 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0
+        },
+        {
+            "definition": {
+                "runtimeId": 180,
+                "stableId": "rivet:ranged_liquid_pump",
+                "displayName": "Ranged Liquid Pump",
+                "stackLimit": 64,
+                "fistSeconds": 1.2000000476837159,
+                "colour": {
+                    "r": 0.75,
+                    "g": 0.4399999976158142,
+                    "b": 0.2199999988079071,
+                    "a": 1.0
+                },
+                "fistDropId": 0,
+                "toolCapabilities": 0,
+                "tier": 0,
+                "miningSpeed": 1.0,
+                "foodPoints": 0,
+                "armorSlot": 0,
+                "armorPoints": 0,
+                "attackDamage": 1,
+                "buoyant": false
+            },
+            "drop": "rivet:ranged_liquid_pump",
+            "requiredTier": "None",
+            "help": "8-block reach on each axis · source → 10 L / 2 sec\nAny liquid · no electricity required",
+            "placeable": true,
+            "ore": false,
+            "crop": false,
+            "fuelTicks": 0,
+            "watts": 0,
+            "waterMl": 10000
         }
     ],
     "recipes": [
@@ -7846,6 +7879,32 @@
             "mirror": false
         },
         {
+            "id": "rivet:industry_180",
+            "station": "rivet:machinist_bench",
+            "kind": "Shapeless",
+            "output": {
+                "item": "rivet:ranged_liquid_pump",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:pump",
+                    "count": 1
+                },
+                {
+                    "item": "rivet:floater_rock",
+                    "count": 1
+                }
+            ],
+            "fuels": [],
+            "grid": 4,
+            "width": 0,
+            "height": 0,
+            "ticks": 0,
+            "watts": 0,
+            "mirror": false
+        },
+        {
             "id": "rivet:smelt_charcoal",
             "station": "rivet:furnace",
             "kind": "Processing",
@@ -8727,15 +8786,15 @@
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustryDefinition.cs",
-            "sha256": "bbbd669ba168f5e211565aa03fb0bd9d50b528b4003c17793f5ffa1c61fa7923"
+            "sha256": "94116b177d576a7f7edacb93b0e2313e54f4f309df0df5725f032926c4c1f80b"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustryPresentation.cs",
-            "sha256": "34d76f32f003a054e842ca11f49c561aecdee44e19472b1fa66017b63ed84544"
+            "sha256": "bb638063b27393c38427ee2ca4a45013c361602b85570361f76fc4724225c789"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustrySimulation.cs",
-            "sha256": "96a1d0d9e4060dfd5af1149ad5bfbdb394f1dd182282e6177be466d460916edd"
+            "sha256": "247b1231a4bce4a7e5a79089f59c7afc74ea14e679f09127afd7b10e818e3383"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/NetworkTopology.cs",
@@ -8743,7 +8802,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Industry/PipeConnections.cs",
-            "sha256": "846712f229150508acd4df06e28eda64f0adc5181b02192c9727c65bb3427270"
+            "sha256": "8fdbd442ba0e8087e8681c0654040eaa543b195175b9a86c4ab23dfdcb302650"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/PipeEndInteraction.cs",
@@ -8756,6 +8815,10 @@
         {
             "path": "Assets/RivetReach/Code/Industry/PortableStorage.cs",
             "sha256": "4f209b462c9b8a5b6f8629662859d125fbb9dff06f63328e77efc38778d40bc9"
+        },
+        {
+            "path": "Assets/RivetReach/Code/Industry/RangedPump.cs",
+            "sha256": "a58cfce3f756691813968634c20a27c518717f19bdb5f0cbd9a674d8a873cb1e"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/TransportEndpoints.cs",
@@ -8879,11 +8942,11 @@
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/SaveIO.cs",
-            "sha256": "c563969aaf6123179d7c3a9716091da18a4bb10e139f239ea5fcf355e4d2ee2a"
+            "sha256": "b37933f37a3d113826a7957731dafa2d079fdde61e117c0b2f826ff3e6a39f7a"
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/WorldSaveState.cs",
-            "sha256": "99f864c2f96f3e83eb1bfa066fb24b669c2e03623f8657e2a2a2b098fbd29f3f"
+            "sha256": "78eccb75e1cb16b4dafece1ffc57384b217b83d8ba1d987089d637c2d47dbc5f"
         },
         {
             "path": "Assets/RivetReach/Code/PlacementFacing.cs",
@@ -8978,12 +9041,16 @@
             "sha256": "7f9f9da938bc49c20e3c947cd090b22216220a3a3403de4d159f9eb2789de338"
         },
         {
+            "path": "Assets/RivetReach/Code/RangedPumpVerification.cs",
+            "sha256": "e07a9389ce22394520db747360d1a952826bb07d94056f0252e476ad1b3826bb"
+        },
+        {
             "path": "Assets/RivetReach/Code/RecipeBrowserVerification.cs",
             "sha256": "adf47832d87b7eca16ba04d308f6f29042378abbea6881bb97488e62a9b001f0"
         },
         {
             "path": "Assets/RivetReach/Code/RuntimeVerification.cs",
-            "sha256": "35a42a1c75db79d83ab5379df20d4afad077f5d8525b6b936ff0711f4e1ef8df"
+            "sha256": "f15222a000f7358bc33c28693a1aac7827e4f2421bb47084cf6325876269d5ee"
         },
         {
             "path": "Assets/RivetReach/Code/SaveVerification.cs",
@@ -9075,7 +9142,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIIndustry.cs",
-            "sha256": "5ce964515a3ec78d9c48a3fe2da9f3f4016409ec0a7933265a4702887f24a65e"
+            "sha256": "6a735de56fa3838a0a36141385e88aec204f5d952fe07c290a84da3b41d6e346"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIRecipeDetails.cs",
@@ -9207,7 +9274,7 @@
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Items.asset",
-            "sha256": "a8fc421c6a6efe25d52c02d82879fe2d73bd77d10c9b01690619fbf0ee1dff22"
+            "sha256": "9de0f581ca3686d488ef01caac91ac9edb12566251a8e052364c262117114771"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Items.asset.meta",
@@ -9275,7 +9342,7 @@
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes.asset",
-            "sha256": "c7ba3d879942b5030bc4bbd516f4a2bdf07f0a153d430aeed4e35d4dd010ab8c"
+            "sha256": "998b71b768833fdd3286810aefc7ab14325a64c52921eac544d29bda73a17f47"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes.asset.meta",
@@ -9588,6 +9655,14 @@
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry174.asset.meta",
             "sha256": "2bc72939a67ce43cc4ba0309aec82f73ef32af39faf3cbc09ea9e356c1ebe87b"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry180.asset",
+            "sha256": "bdd90d3e5458178fd48909dddf2d34fc326e8e9e2e50159931fa9d8f2a84a7cc"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry180.asset.meta",
+            "sha256": "b8f4545b1e4747bf1bef30dba6d9b714b0dbb6513027d8b5b44ea1508584570c"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes/Process120.asset",
@@ -10388,6 +10463,10 @@
         {
             "path": "Assets/RivetReach/Resources/Industry/Icons/174.png",
             "sha256": "9334db0016a2f70e93f35cd3d5d655387a66441fb114797a9727363bbc54280b"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Industry/Icons/180.png",
+            "sha256": "49fcd47d14c6e14c6b143fa6d949d57cb5afc1f3d67313deb6c8802df1dbb650"
         },
         {
             "path": "Assets/RivetReach/Resources/Industry/Icons/23.png",

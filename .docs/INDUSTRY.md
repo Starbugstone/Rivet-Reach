@@ -166,3 +166,7 @@ Storage endpoints terminate pipe runs; separate input/output pipes can access th
 ## Tank liquids and portable storage — 2026-09-13
 
 The user requested stored-resource conservation on mining, nonstacking filled items, Shift-left-click emptying and all registered liquids in Water Tanks. [Multiblock and standalone tank rules](MULTIBLOCKS.md#portable-tanks--2026-09-13) and [battery rules](BATTERIES.md#portable-stored-contents--2026-09-13) own recovery and controls. Small Water Tanks retain 100 L capacity but now accept lava as well as water through buckets and pipes; pump and boiler requirements remain water-only. Item pipes preserve carried contents between inventories and cannot feed filled storage into processors. [Schema 8](SAVES.md#portable-storage-compatibility--2026-09-13) retains exact inventory and vessel identities.
+
+## Ranged liquid pump — 2026-09-13
+
+The user requested a Floater Rock pump upgrade for finite liquids and confirmed eight blocks in every direction. [RANGED_PUMP.md](RANGED_PUMP.md) owns its inclusive 17³ collection area, source-only 10 L transactions, electricity-free operation, typed buffer and bounded searches. The original Pump retains its water-only intake below.

@@ -147,7 +147,7 @@ namespace RivetReach
         }
         void Prepare(MachineState m)
         {
-            if(m.Definition.Watts==0&&m.Definition.Id!=IndustryId.Pump)return;
+            if(m.Definition.Watts==0&&m.Definition.Id!=IndustryId.Pump&&m.Definition.Id!=IndustryId.RangedPump)return;
             if(!m.Enabled){m.Status=MachineStatus.DisabledBySignal;return;}
             byte id=m.Definition.Id;
             if(id==IndustryId.Crusher||id==IndustryId.ElectricFurnace)
@@ -157,6 +157,7 @@ namespace RivetReach
                 if(output.Empty||input.Empty||input.Count<(m.FurnaceRecipe?.Input.Count??1)){m.Status=MachineStatus.NoInput;return;}
                 if(m.Items.Capacity(output.Id,2,3)<output.Count){m.Status=MachineStatus.OutputFull;return;}
             }
+            if(id==IndustryId.RangedPump){PrepareRangedPump(m);return;}
             if(id==IndustryId.Pump)
             {
                 if(m.WaterMl>m.Definition.WaterCapacity-10000){m.Status=MachineStatus.OutputFull;return;}
@@ -189,11 +190,11 @@ namespace RivetReach
             if(id==IndustryId.Door){m.Status=m.Signal&&!world.PlayerInside(m.Position)?MachineStatus.Running:world.PlayerInside(m.Position)?m.Status:MachineStatus.Ready;return;}
             if(id==IndustryId.Indicator||id==IndustryId.Relay||id==IndustryId.Lever||id==IndustryId.Button||id==IndustryId.Sensor)
             {m.Status=(id==IndustryId.Lever||id==IndustryId.Button||id==IndustryId.Sensor?m.Source:m.Signal)?MachineStatus.Running:MachineStatus.Ready;return;}
-            if(id==IndustryId.Pump)
+            if(id==IndustryId.Pump||id==IndustryId.RangedPump)
             {
                 // Water supply must be able to start and recover the boiler without electricity.
                 if(m.Status!=MachineStatus.Ready)return;
-                m.Status=MachineStatus.Running;m.Work++;
+                m.Status=MachineStatus.Running;m.Work=Math.Min(m.Work+1,m.ProcessingTicks);
             }
             else
             {
@@ -213,6 +214,7 @@ namespace RivetReach
             }
             if(id==IndustryId.Pump)
             {var p=Neighbor(m,3);if(world.Get(p)!=Fluids.Water.Source||!world.Remove(p,Fluids.Water.Source))return;m.WaterMl+=10000;}
+            if(id==IndustryId.RangedPump&&!CollectRangedSource(m))return;
             if(id==IndustryId.Drill)
             {var p=m.Position.Offset(0,-m.DrillDepth,0);byte b=world.Get(p);if(b!=m.WorkInput||!world.Remove(p,b))return;m.Items.Add(world.Drop(b),1,2,3);m.DrillDepth++;}
             m.Work-=duration;

@@ -4,7 +4,7 @@
 
 Start with the [visual item index](Items.md), then click an item to see its purpose, how to obtain it, every recipe that makes it, and what uses it. Every item icon links to its own page.
 
-This reference covers **95 grid recipes, 11 furnace recipes, 11 electric furnace recipes and 5 crusher recipes** in the current playable alpha. The recipe grids and icons come from the same catalog and artwork used by the inventory browser.
+This reference covers **96 grid recipes, 11 furnace recipes, 11 electric furnace recipes and 5 crusher recipes** in the current playable alpha. The recipe grids and icons come from the same catalog and artwork used by the inventory browser.
 
 ## First crafting steps
 
@@ -155,6 +155,7 @@ Choose a result below to open its item page at the exact recipe.
 | <a href="Item-battery-block.md#recipe-1" title="Battery Block"><img src="icons/168.png" width="32" height="32" alt="Battery Block"></a> ×1 [Battery Block](Item-battery-block.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-battery-block.md#recipe-1) |
 | <a href="Item-battery-controller.md#recipe-1" title="Battery Bank Controller"><img src="icons/169.png" width="32" height="32" alt="Battery Bank Controller"></a> ×1 [Battery Bank Controller](Item-battery-controller.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-battery-controller.md#recipe-1) |
 | <a href="Item-electric-furnace.md#recipe-1" title="Electric Furnace"><img src="icons/174.png" width="32" height="32" alt="Electric Furnace"></a> ×1 [Electric Furnace](Item-electric-furnace.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-electric-furnace.md#recipe-1) |
+| <a href="Item-ranged-liquid-pump.md#recipe-1" title="Ranged Liquid Pump"><img src="icons/180.png" width="32" height="32" alt="Ranged Liquid Pump"></a> ×1 [Ranged Liquid Pump](Item-ranged-liquid-pump.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-ranged-liquid-pump.md#recipe-1) |
 
 ## Furnace processing
 

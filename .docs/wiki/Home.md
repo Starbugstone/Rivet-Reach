@@ -37,3 +37,5 @@ Use Escape → Save Game to create or update a checkpoint. Load Game chooses a n
 - [Lava](Lava.md) — deep lakes, buckets and burning hazards.
 
 - [Floater](Floater.md) — hovering stone enemies and Floater Rock drops.
+
+Drain finite lava deposits with a [Ranged Liquid Pump](Ranged-Liquid-Pump.md), crafted from a Pump and Floater Rock.

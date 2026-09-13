@@ -87,6 +87,8 @@ class Reference:
             return 'Ore deposits and bedrock'
         if item_id == 'rivet:floater_rock':
             return 'Materials and components'
+        if item_id == 'rivet:ranged_liquid_pump':
+            return 'Stations and machines'
         if d['runtimeId'] >= 160:
             return 'Multiblock tanks and batteries'
         if 131 <= d['runtimeId'] <= 138 or d['runtimeId'] in (146, 147, 148, 149):

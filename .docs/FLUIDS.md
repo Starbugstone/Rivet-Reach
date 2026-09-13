@@ -52,3 +52,5 @@ The user authorized slower lava, no source renewal, deep generated lakes, bucket
 - Different fluids block each other’s source/flow replacement. Water/lava mixing does not create stone or other reaction products in this slice. Existing generic multiblock storage accepts compatible lava buckets, keeps fluids separate and saves the exact registered fluid identity. Water-specific pumps and boiler buffers retain their water-only behavior. The user subsequently requested [portable tanks](MULTIBLOCKS.md#portable-tanks--2026-09-13): the standalone 100 L Water Tank also accepts any registered liquid, including lava, through buckets and pipes without mixing.
 
 [TERRAIN_GENERATION.md](TERRAIN_GENERATION.md#deep-lava-lakes--2026-09-13) owns deep-lake generation. [Player guide](wiki/Lava.md) teaches collection and hazards; [lava verification](verification/LAVA_RESULTS.md) records measured evidence and limits.
+
+The [Ranged Liquid Pump](RANGED_PUMP.md) subsequently adds automatic collection of any registered source liquid within eight blocks on each axis. It removes actual sources and preserves water renewal and finite lava rules; ordinary pumps remain water-only.

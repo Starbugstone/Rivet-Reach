@@ -137,6 +137,8 @@ namespace RivetReach
             {report.workload="All-face power, configured item/fluid ends, visible direction arrows, pointer use and schema-4 persistence";yield return ReviewConnections();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-portable-storage-review"))
             {report.workload="Portable storage recovery, exact contents, lava buckets/pipes, native emptying input and schema 8 saves";yield return ReviewPortableStorage();yield break;}
+            if(Environment.GetCommandLineArgs().Contains("-rr-ranged-pump-review"))
+            {report.workload="Ranged liquid pump finite sources, lava pipes, range, rendering and saves";yield return ReviewRangedPump();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-electric-furnace-review"))
             {report.workload="Electric furnace recipes, power, automation and durable saves";yield return ReviewElectricFurnace();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-battery-fill-review"))

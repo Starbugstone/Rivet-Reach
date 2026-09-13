@@ -49,6 +49,7 @@ namespace RivetReach.Editor
             Recipe(IndustryId.Crusher,1,4,(IndustryId.Casing,1),(IndustryId.Cog,2),(IndustryId.IronPlate,4));
             Recipe(IndustryId.Lamp,1,4,(IndustryId.Glass,2),(IndustryId.CopperWire,2),(IndustryId.IronPlate,1));
             Recipe(IndustryId.Pump,1,4,(IndustryId.Casing,1),(IndustryId.Cog,1),(IndustryId.CopperWire,4),(IndustryId.CopperPlate,2));
+            Recipe(IndustryId.RangedPump,1,4,(IndustryId.Pump,1),(BlockId.FloaterRock,1));
             Recipe(IndustryId.Drill,1,4,(IndustryId.Casing,1),(IndustryId.Cog,2),(IndustryId.IronPlate,4),(IndustryId.CopperWire,4));
             Recipe(IndustryId.Tank,1,4,(IndustryId.CopperPlate,4),(IndustryId.IronPlate,2));Recipe(IndustryId.FluidPipe,4,4,(IndustryId.CopperPlate,2));
             Recipe(IndustryId.ItemPipe,4,4,(IndustryId.IronPlate,2),(IndustryId.CopperWire,2));Recipe(IndustryId.Extractor,1,4,(IndustryId.Cog,1),(IndustryId.CopperWire,2));Recipe(IndustryId.Sensor,1,4,(IndustryId.SignalWire,2),(IndustryId.CopperPlate,1),(IndustryId.Glass,1));

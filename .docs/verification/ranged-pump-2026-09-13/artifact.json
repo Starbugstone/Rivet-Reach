@@ -1,0 +1,10 @@
+{
+  "buildUtc": "2026-09-13T09:00:19.9741157Z",
+  "unity": "6000.4.4f1",
+  "schema": 8,
+  "files": {
+    "Builds/RangedPump/RivetReach.exe": "7d52ee70fb22771f4608d810d1015f539c37dd8b7b2fbb1a0ea9f6bc5c32d5c9",
+    "Builds/RangedPump/RivetReach_Data/Managed/Assembly-CSharp.dll": "47d31ee19a4b229a2b50bbf4cbbebb32f9ac1e8776c6d6b2117949f9a4e77759",
+    "Assets/RivetReach/Resources/Industry/ranged_liquid_pump.fbx": "aeb98dc6b6fdf53923c5fa9fe44a510de6af1868add2ae06b3859871b9eab53e"
+  }
+}

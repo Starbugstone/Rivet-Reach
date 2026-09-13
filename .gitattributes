@@ -62,3 +62,6 @@ ArtSource/Doors/*.png filter=lfs diff=lfs merge=lfs -text
 
 Assets/RivetReach/Resources/MobLoot/*.fbx filter=lfs diff=lfs merge=lfs -text
 .docs/verification/floater-2026-09-13/*.png filter=lfs diff=lfs merge=lfs -text
+
+ArtSource/RangedPump/*.png filter=lfs diff=lfs merge=lfs -text
+.docs/verification/ranged-pump-2026-09-13/*.png filter=lfs diff=lfs merge=lfs -text
