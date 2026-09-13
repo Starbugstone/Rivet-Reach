@@ -1,0 +1,28 @@
+{
+  "verifiedUtc": "2026-09-13T04:35:28.743404+00:00",
+  "sourceCommit": "fb33d7ad76af19bcc00274d7ead773e4c2a0ae55",
+  "workflow": "https://github.com/Starbugstone/Rivet-Reach/actions/runs/34738133253",
+  "conclusion": "success",
+  "wikiCommit": "68c5170ba223f5304540970ccda477dcbd6b81d7",
+  "pages": 146,
+  "localLinksAndImages": 6076,
+  "liveChecks": {
+    "guide": "https://github.com/Starbugstone/Rivet-Reach/wiki/Electric-Furnace",
+    "guideImagesLoaded": 4,
+    "guideImageWidths": [
+      1280,
+      1280,
+      1280,
+      1280
+    ],
+    "itemPageImagesLoaded": 20,
+    "itemPageBrokenImages": 0,
+    "recipeGridVisuallyReviewed": true,
+    "ingredientLinkOpened": "https://github.com/Starbugstone/Rivet-Reach/wiki/Item-copper-wire"
+  },
+  "localGithubMarkdownReview": {
+    "mobileWidth": 390,
+    "mobileHorizontalOverflow": false,
+    "itemImagesLoaded": 20
+  }
+}
