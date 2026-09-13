@@ -1,0 +1,39 @@
+{
+  "checkedDate": "2026-09-13",
+  "sourceCommit": "343761c98cee4b76c7b5a8715049878feeb44d5e",
+  "workflowRun": 34768002750,
+  "workflowConclusion": "success",
+  "wikiCommit": "151f34d",
+  "guide": "https://github.com/Starbugstone/Rivet-Reach/wiki/Lighting-and-underground-farms",
+  "validation": {
+    "pages": 200,
+    "localLinksAndImages": 8120,
+    "itemPages": 177,
+    "recipes": 163
+  },
+  "browser": "Chromium",
+  "liveChecks": {
+    "guideImagesLoaded": 8,
+    "allOriginalImageWidths": 1280,
+    "allFetchedImageHashesMatchedLocal": true,
+    "mobileViewport": [
+      390,
+      844
+    ],
+    "mobileOverflow": false,
+    "torchItemStatus": 200,
+    "workshopLampItemStatus": 200,
+    "updatedItemTextPresent": true,
+    "capturesVisuallyInspected": true
+  },
+  "imageSha256": {
+    "cave-open-skylight-ambient.png": "95b6f65adcd2f8c99cffba5f2eeff46fe9c722e59f8d73d6392c68624c6fd246",
+    "cave-side-entrance-ambient.png": "b7b31e79bb3cad04ab66d63482729d91a804b183fed3c62d79845bab7c0a05c4",
+    "held-torch-ambient.png": "762cd48c1020c99540ac92ba1d8e4c710951bc21f19513aab4f76b9f8059b87f",
+    "sealed-cave-ambient.png": "0dc113d9099c6c44d180a5bbef59e1f46720d1b2a9a2b76644f2ca7f71abcbff",
+    "torch-farm-growing-ambient.png": "0fa328f99ee992f68a26c82128eb2d6d018fe9ffa9c65f636e5643e50a52e54d",
+    "torch-farm-mature-ambient.png": "73908a965fa45a5aceb0c03f7e1adc3e9be2fa384ecd154d88fa47ad109a522a",
+    "workshop-lamp-unpowered.png": "4cb03ab80a876a69177da8e9887c25d09e98f4ee0f7d0078a103626913158804",
+    "workshop-lamp-wide.png": "77d44315cf09319456c7c8335b928fc26717cc61acaacc81b88edf11e93a29a1"
+  }
+}
