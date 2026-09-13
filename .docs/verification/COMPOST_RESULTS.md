@@ -23,6 +23,12 @@ The [source bin render](../../ArtSource/Compost/compost_bin-review.png) and [com
 
 The [player guide](../wiki/Compost.md) includes actual bin, processing interface, crop-use and pipe-setup images. Recipe/uses pages export all 19 conversions and matching item icons.
 
+## Wiki publication and live review
+
+`python3 Tools/publish_wiki.py --check` validated **199 pages / 8,098 local links and images**, and the project documentation review found no missing relative file links. [Successful publication](https://github.com/Starbugstone/Rivet-Reach/actions/runs/34760337024) deployed source commit `a3c2931bbc1a705e0c47e465e967856d6d44a104` to wiki commit `372ce5356b2525271fa7581ca477879607a45864`; [deployment record](compost-2026-09-13/wiki-deployment.json).
+
+The actual [live guide](https://github.com/Starbugstone/Rivet-Reach/wiki/Compost), bin recipe and Compost conversion pages were opened in Chromium and visually reviewed after publication. Their 5, 30 and 58 content images respectively loaded without missing images or page overflow. The guide also passed at 390-pixel mobile width. Captures: [guide](compost-2026-09-13/wiki-live-Compost.png), [bin recipe](compost-2026-09-13/wiki-live-Item-compost-bin.png), [conversion reference](compost-2026-09-13/wiki-live-Item-compost.png), [mobile guide](compost-2026-09-13/wiki-live-mobile.png).
+
 ## Reproduction
 
 Use the pinned Unity 6000.4.4f1 Editor in Edit mode and run `Tools/Verify-Compost.ps1 -Build -OutputDirectory <fresh-directory>`. This prepares only compost definitions/art, runs focused compost plus existing farming/survival/industry/allocation checks, exports the wiki and builds `Builds/Compost/RivetReach.exe` with Direct3D 11. Without `-Build`, it exercises the existing player. Use `Tools/Verify-Saves.ps1 -Executable <compost-player> -OutputDirectory <fresh-directory>` for durable save/recovery and a separate-process restart.
