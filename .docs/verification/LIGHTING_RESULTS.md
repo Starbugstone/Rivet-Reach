@@ -93,3 +93,6 @@ The final [native lighting report](distant-lighting-2026-09-13/runtime-report.js
 
 
 The same player also passed the existing **41 torch lifecycle assertions**: [report](distant-lighting-2026-09-13/torch-regression.json), [exit 0](distant-lighting-2026-09-13/torch-regression-exit.txt). This covers top/side placement, mining, support loss, water recovery, held-light selection/menus, the bounded nearby light pool and a 640-block unload/origin-shift/return trip. The verifier now allows the intended fade interval and reenables the component before comparing point-light detail.
+
+
+[Wiki deployment 34769487859](https://github.com/Starbugstone/Rivet-Reach/actions/runs/34769487859) succeeded from `115d20e`, publishing wiki `13a6653`. Validation passed for 200 pages and 8,122 local links/images. Live Chromium checks loaded all ten guide images at original width 1,280 and confirmed fetched hashes against local source bytes. Both item pages returned HTTP 200 with terrain-view-distance guidance; the 390×844 guide had no horizontal overflow. The [live base](distant-lighting-2026-09-13/wiki-live-base.png) and [mobile guide](distant-lighting-2026-09-13/wiki-live-mobile.png) were visually inspected. The [deployment record](distant-lighting-2026-09-13/wiki-deployment.json) preserves the checks.

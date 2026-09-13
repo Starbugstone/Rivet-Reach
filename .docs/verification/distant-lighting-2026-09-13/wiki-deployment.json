@@ -1,0 +1,46 @@
+{
+  "checkedDate": "2026-09-13",
+  "sourceCommit": "115d20e3523fd79fa0e19ffde43f1dbc92c0cf51",
+  "workflowRun": 34769487859,
+  "workflowConclusion": "success",
+  "wikiCommit": "13a6653",
+  "validation": {
+    "pages": 200,
+    "localLinksAndImages": 8122,
+    "itemPages": 177,
+    "recipes": 163
+  },
+  "browser": "Chromium",
+  "liveChecks": {
+    "images": 10,
+    "hashesMatched": true,
+    "mobileOverflow": false,
+    "items": [
+      {
+        "slug": "Item-torch",
+        "status": 200
+      },
+      {
+        "slug": "Item-workshop-lamp",
+        "status": 200
+      }
+    ]
+  },
+  "mobileViewport": [
+    390,
+    844
+  ],
+  "capturesVisuallyInspected": true,
+  "imageSha256": {
+    "base-lighting-160-blocks.png": "83502a81c340e2460e91ce494ff67281ddc6ef091926f8c3af21f05e6a436682",
+    "base-lighting-approach.png": "9aa99e8ba6ac85b6d7c6a7c587ca62db46891504beb86c136cf4467c9af523ae",
+    "cave-open-skylight-ambient.png": "95b6f65adcd2f8c99cffba5f2eeff46fe9c722e59f8d73d6392c68624c6fd246",
+    "cave-side-entrance-ambient.png": "b7b31e79bb3cad04ab66d63482729d91a804b183fed3c62d79845bab7c0a05c4",
+    "held-torch-ambient.png": "762cd48c1020c99540ac92ba1d8e4c710951bc21f19513aab4f76b9f8059b87f",
+    "sealed-cave-ambient.png": "0dc113d9099c6c44d180a5bbef59e1f46720d1b2a9a2b76644f2ca7f71abcbff",
+    "torch-farm-growing-cached.png": "22660448ad316c564888090862c09ff8a5bc88256beb494bbba2344ce472f7e5",
+    "torch-farm-mature-cached.png": "331e1599abd52912a0c429503aa7debe64f2c0618271ccaca5968e8af045783d",
+    "workshop-lamp-cached.png": "2dedc9992c2ae2afc48a1aee063d4d165e68db545d938eadb1f69e81973ffdc7",
+    "workshop-lamp-unpowered.png": "4cb03ab80a876a69177da8e9887c25d09e98f4ee0f7d0078a103626913158804"
+  }
+}
