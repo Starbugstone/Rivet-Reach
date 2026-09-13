@@ -20,7 +20,7 @@ Collects liquid source blocks within eight blocks along each axis (a 17×17×17 
 
 ## How to obtain
 
-Combine one Pump and one Floater Rock at the Machinist’s Bench.
+Combine one Pump, one Floater Rock and two Gold Ingots at the Machinist’s Bench.
 
 ## Using it
 
@@ -36,9 +36,9 @@ See [Ranged Liquid Pump](Ranged-Liquid-Pump.md) for setup. Each source gives 10 
 
 <table>
 <tr>
+<td align="center" width="72" height="64"><a href="Item-gold-ingot.md" title="Gold ingot"><img src="icons/29.png" width="48" height="48" alt="Gold ingot"></a> ×2</td>
 <td align="center" width="72" height="64"><a href="Item-pump.md" title="Pump"><img src="icons/143.png" width="48" height="48" alt="Pump"></a> ×1</td>
 <td align="center" width="72" height="64"><a href="Item-floater-rock.md" title="Floater Rock"><img src="icons/175.png" width="48" height="48" alt="Floater Rock"></a> ×1</td>
-<td align="center" width="72" height="64">&nbsp;</td>
 <td align="center" width="72" height="64">&nbsp;</td>
 </tr>
 <tr>
@@ -65,5 +65,6 @@ See [Ranged Liquid Pump](Ranged-Liquid-Pump.md) for setup. Each source gives 10 
 
 | Ingredient | Total per operation |
 |---|---:|
+| <a href="Item-gold-ingot.md" title="Gold ingot"><img src="icons/29.png" width="32" height="32" alt="Gold ingot"></a> [Gold ingot](Item-gold-ingot.md) | 2 |
 | <a href="Item-pump.md" title="Pump"><img src="icons/143.png" width="32" height="32" alt="Pump"></a> [Pump](Item-pump.md) | 1 |
 | <a href="Item-floater-rock.md" title="Floater Rock"><img src="icons/175.png" width="32" height="32" alt="Floater Rock"></a> [Floater Rock](Item-floater-rock.md) | 1 |

@@ -4,7 +4,11 @@ Use the [Ranged Liquid Pump](Item-ranged-liquid-pump.md) to drain finite liquid 
 
 ## Crafting
 
-Combine **one [Pump](Item-pump.md) and one [Floater Rock](Item-floater-rock.md)** at the **[Machinist's Bench](Item-machinist-bench.md)**. This shapeless recipe makes one Ranged Liquid Pump. Defeat a [Floater](Floater.md) to obtain its rock.
+Combine **one [Pump](Item-pump.md), one [Floater Rock](Item-floater-rock.md) and two [Gold ingots](Item-gold-ingot.md)** at the **[Machinist's Bench](Item-machinist-bench.md)**. This shapeless recipe makes one Ranged Liquid Pump. Defeat a [Floater](Floater.md) to obtain its rock.
+
+![Ranged Liquid Pump recipe with two gold ingots, one Pump and one Floater Rock](images/tier-recipe-180.png)
+
+*Recipe screenshot: 2026-09-13 RecipeTiers Windows build; the operating captures below retain their original RangedPump review identity.*
 
 ## Setup
 

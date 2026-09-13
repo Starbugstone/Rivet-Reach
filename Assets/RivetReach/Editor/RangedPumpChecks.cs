@@ -26,7 +26,7 @@ namespace RivetReach.Editor
             void Steps(IndustrySimulation s,int count){for(int i=0;i<count;i++)s.Step();}
             var recipe=RecipeCatalogAsset.Load().Compile(items).Recipes.Single(r=>r.Output.Id==IndustryId.RangedPump);
             Check(recipe.MinimumGridSize==4&&recipe.Output.Count==1,"Registered Machinist bench recipe produces one pump");
-            Check(recipe.Ingredients.Count==2&&recipe.Ingredients.Any(i=>i.Id==IndustryId.Pump&&i.Count==1)&&recipe.Ingredients.Any(i=>i.Id==BlockId.FloaterRock&&i.Count==1),"Upgrade consumes exactly one Pump and one Floater Rock");
+            Check(recipe.Ingredients.Count==3&&recipe.Ingredients.Any(i=>i.Id==IndustryId.Pump&&i.Count==1)&&recipe.Ingredients.Any(i=>i.Id==BlockId.FloaterRock&&i.Count==1)&&recipe.Ingredients.Any(i=>i.Id==BlockId.GoldIngot&&i.Count==2),"Upgrade consumes exactly one Pump, one Floater Rock and two gold ingots");
             Check(RecipeTransferChecks.Run(items,RecipeCatalogAsset.Load().Compile(items))>0,"All crafting recipes transfer and conserve ingredients");
             foreach(var liquid in new[]{Fluids.Water,Fluids.Lava})
             foreach(var pos in new[]{new BlockPos(-8,-8,-8),new BlockPos(8,8,8),new BlockPos(-8,8,8),new BlockPos(8,-8,-8)})

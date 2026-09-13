@@ -1,0 +1,66 @@
+PASS 64 assertions
+PASS Registered Machinist bench recipe produces one pump
+PASS Upgrade consumes exactly one Pump, one Floater Rock and two gold ingots
+PASS All crafting recipes transfer and conserve ingredients
+PASS Source acquired at inclusive corner -8, -8, -8 / Water
+PASS No early output at 39 eligible ticks
+PASS Exact 10 L source removal at 40 ticks
+PASS No electrical demand or endpoint
+PASS Full buffer cannot remove more sources
+PASS Source acquired at inclusive corner 8, 8, 8 / Water
+PASS No early output at 39 eligible ticks
+PASS Exact 10 L source removal at 40 ticks
+PASS No electrical demand or endpoint
+PASS Full buffer cannot remove more sources
+PASS Source acquired at inclusive corner -8, 8, 8 / Water
+PASS No early output at 39 eligible ticks
+PASS Exact 10 L source removal at 40 ticks
+PASS No electrical demand or endpoint
+PASS Full buffer cannot remove more sources
+PASS Source acquired at inclusive corner 8, -8, -8 / Water
+PASS No early output at 39 eligible ticks
+PASS Exact 10 L source removal at 40 ticks
+PASS No electrical demand or endpoint
+PASS Full buffer cannot remove more sources
+PASS Source acquired at inclusive corner -8, -8, -8 / Lava
+PASS No early output at 39 eligible ticks
+PASS Exact 10 L source removal at 40 ticks
+PASS No electrical demand or endpoint
+PASS Full buffer cannot remove more sources
+PASS Source acquired at inclusive corner 8, 8, 8 / Lava
+PASS No early output at 39 eligible ticks
+PASS Exact 10 L source removal at 40 ticks
+PASS No electrical demand or endpoint
+PASS Full buffer cannot remove more sources
+PASS Source acquired at inclusive corner -8, 8, 8 / Lava
+PASS No early output at 39 eligible ticks
+PASS Exact 10 L source removal at 40 ticks
+PASS No electrical demand or endpoint
+PASS Full buffer cannot remove more sources
+PASS Source acquired at inclusive corner 8, -8, -8 / Lava
+PASS No early output at 39 eligible ticks
+PASS Exact 10 L source removal at 40 ticks
+PASS No electrical demand or endpoint
+PASS Full buffer cannot remove more sources
+PASS All six radius-nine faces and flowing/falling liquids are excluded
+PASS Per-tick empty search is bounded to 256 cell reads
+PASS OFF signal preserves work
+PASS ON signal resumes work
+PASS Unloaded source pauses without collection
+PASS Rejected world transaction never yields fluid
+PASS Successful retry yields one source only
+PASS Emptied buffer can switch liquid type
+PASS Retained liquid blocks mixing and partial-capacity extraction
+PASS Overlapping pumps cannot duplicate one finite source
+PASS All-face lava export conserves liquid on face 0
+PASS All-face lava export conserves liquid on face 1
+PASS All-face lava export conserves liquid on face 2
+PASS All-face lava export conserves liquid on face 3
+PASS All-face lava export conserves liquid on face 4
+PASS All-face lava export conserves liquid on face 5
+PASS Machine save round trip retains exact lava and partial work
+PASS Pre-ranged current-schema content remains compatible
+PASS Unrelated earlier definition changes still reject
+PASS Imported cradle, suspended core and status lamp
+PASS Imported geometry remains inside one cell
+Imported triangles: 1976; mesh parts: 3

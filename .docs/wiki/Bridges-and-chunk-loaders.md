@@ -8,11 +8,21 @@ Use the [Machinist’s Bench](Item-machinist-bench.md). Each bridge recipe makes
 
 | Pair | Ingredients |
 |---|---|
-| [Item Bridges](Item-item-bridge.md) | 2 Floater Rocks + 2 Machine Casings + 4 Item Pipes |
-| [Liquid Bridges](Item-liquid-bridge.md) | 2 Floater Rocks + 2 Machine Casings + 4 Fluid Pipes |
-| [Power Bridges](Item-power-bridge.md) | 2 Floater Rocks + 2 Machine Casings + 4 Power Cables |
+| [Item Bridges](Item-item-bridge.md) | 2 Floater Rocks + 2 Machine Casings + 4 Item Pipes + 2 Gold Ingots + 2 Diamonds |
+| [Liquid Bridges](Item-liquid-bridge.md) | 2 Floater Rocks + 2 Machine Casings + 4 Fluid Pipes + 2 Gold Ingots + 2 Diamonds |
+| [Power Bridges](Item-power-bridge.md) | 2 Floater Rocks + 2 Machine Casings + 4 Power Cables + 2 Gold Ingots + 2 Diamonds |
+
+Gold and diamond are required **per crafted pair**. Mine [Gold ore](Item-gold-ore.md) and [Diamond ore](Item-diamond-ore.md) with an iron pickaxe or better, smelt the raw gold, and defeat [Floaters](Floater.md) for their high-tier rocks.
 
 ![Three bridge types connected to a battery, chest and liquid tank](images/bridges-source-networks.png)
+
+![Item Bridge recipe with two gold ingots and two diamonds per pair](images/tier-recipe-190.png)
+
+![Liquid Bridge recipe with the same advanced material cost](images/tier-recipe-191.png)
+
+![Power Bridge recipe with the same advanced material cost](images/tier-recipe-192.png)
+
+*Recipe screenshots: 2026-09-13 RecipeTiers Windows build; ingredients shown as missing in the empty review inventory.*
 
 ## Link two workshops
 

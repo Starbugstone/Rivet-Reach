@@ -33,9 +33,9 @@ namespace RivetReach.Editor
                 if(IndustryId.TankPart(output)){recipe.ingredients=input.Select(i=>Cell(i.id,i.count)).ToArray();EditorUtility.SetDirty(recipe);}
                 if(!catalog.recipes.Contains(recipe)){catalog.recipes=catalog.recipes.Append(recipe).ToArray();EditorUtility.SetDirty(catalog);}
             }
-            Recipe(IndustryId.ItemBridge,2,4,(BlockId.FloaterRock,2),(IndustryId.Casing,2),(IndustryId.ItemPipe,4));
-            Recipe(IndustryId.FluidBridge,2,4,(BlockId.FloaterRock,2),(IndustryId.Casing,2),(IndustryId.FluidPipe,4));
-            Recipe(IndustryId.PowerBridge,2,4,(BlockId.FloaterRock,2),(IndustryId.Casing,2),(IndustryId.PowerCable,4));
+            Recipe(IndustryId.ItemBridge,2,4,(BlockId.FloaterRock,2),(IndustryId.Casing,2),(IndustryId.ItemPipe,4),(BlockId.GoldIngot,2),(BlockId.Diamond,2));
+            Recipe(IndustryId.FluidBridge,2,4,(BlockId.FloaterRock,2),(IndustryId.Casing,2),(IndustryId.FluidPipe,4),(BlockId.GoldIngot,2),(BlockId.Diamond,2));
+            Recipe(IndustryId.PowerBridge,2,4,(BlockId.FloaterRock,2),(IndustryId.Casing,2),(IndustryId.PowerCable,4),(BlockId.GoldIngot,2),(BlockId.Diamond,2));
             Recipe(IndustryId.ChunkLoader,1,4,(BlockId.FloaterRock,4),(IndustryId.Casing,1),(IndustryId.AzureCrystal,4));
             Recipe(IndustryId.Bench,1,3,(BlockId.Workbench,1),(BlockId.IronIngot,4),(BlockId.CopperIngot,2));
             Recipe(IndustryId.CopperWire,4,4,(BlockId.CopperIngot,1));Recipe(IndustryId.CopperPlate,3,4,(BlockId.CopperIngot,3));Recipe(IndustryId.IronPlate,3,4,(BlockId.IronIngot,3));Recipe(IndustryId.Cog,1,4,(BlockId.IronIngot,2));Recipe(IndustryId.Rivets,8,4,(BlockId.IronIngot,1));
@@ -53,7 +53,7 @@ namespace RivetReach.Editor
             Recipe(IndustryId.Crusher,1,4,(IndustryId.Casing,1),(IndustryId.Cog,2),(IndustryId.IronPlate,4));
             Recipe(IndustryId.Lamp,1,4,(IndustryId.Glass,2),(IndustryId.CopperWire,2),(IndustryId.IronPlate,1));
             Recipe(IndustryId.Pump,1,4,(IndustryId.Casing,1),(IndustryId.Cog,1),(IndustryId.CopperWire,4),(IndustryId.CopperPlate,2));
-            Recipe(IndustryId.RangedPump,1,4,(IndustryId.Pump,1),(BlockId.FloaterRock,1));
+            Recipe(IndustryId.RangedPump,1,4,(IndustryId.Pump,1),(BlockId.FloaterRock,1),(BlockId.GoldIngot,2));
             Recipe(IndustryId.Drill,1,4,(IndustryId.Casing,1),(IndustryId.Cog,2),(IndustryId.IronPlate,4),(IndustryId.CopperWire,4));
             Recipe(IndustryId.Tank,1,4,(IndustryId.CopperPlate,4),(IndustryId.IronPlate,2));Recipe(IndustryId.FluidPipe,4,4,(IndustryId.CopperPlate,2));
             Recipe(IndustryId.ItemPipe,4,4,(IndustryId.IronPlate,2),(IndustryId.CopperWire,2));Recipe(IndustryId.Extractor,1,4,(IndustryId.Cog,1),(IndustryId.CopperWire,2));Recipe(IndustryId.Sensor,1,4,(IndustryId.SignalWire,2),(IndustryId.CopperPlate,1),(IndustryId.Glass,1));

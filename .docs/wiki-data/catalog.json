@@ -9531,6 +9531,14 @@
             },
             "ingredients": [
                 {
+                    "item": "rivet:diamond",
+                    "count": 2
+                },
+                {
+                    "item": "rivet:gold_ingot",
+                    "count": 2
+                },
+                {
                     "item": "rivet:machine_casing",
                     "count": 2
                 },
@@ -9562,6 +9570,14 @@
             },
             "ingredients": [
                 {
+                    "item": "rivet:diamond",
+                    "count": 2
+                },
+                {
+                    "item": "rivet:gold_ingot",
+                    "count": 2
+                },
+                {
                     "item": "rivet:machine_casing",
                     "count": 2
                 },
@@ -9592,6 +9608,14 @@
                 "count": 2
             },
             "ingredients": [
+                {
+                    "item": "rivet:diamond",
+                    "count": 2
+                },
+                {
+                    "item": "rivet:gold_ingot",
+                    "count": 2
+                },
                 {
                     "item": "rivet:machine_casing",
                     "count": 2
@@ -9654,6 +9678,10 @@
                 "count": 1
             },
             "ingredients": [
+                {
+                    "item": "rivet:gold_ingot",
+                    "count": 2
+                },
                 {
                     "item": "rivet:pump",
                     "count": 1
@@ -11037,7 +11065,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/BridgesVerification.cs",
-            "sha256": "9e938f3a5348e2ca24e29379281554f1fd8a115684be16edc9ebb82f984e565a"
+            "sha256": "afc58eac1839986ca73025cacf26335874e771c5559d95e9e41faf61c9cb8efa"
         },
         {
             "path": "Assets/RivetReach/Code/ConnectionVerification.cs",
@@ -11361,7 +11389,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/SaveIO.cs",
-            "sha256": "061e3ff5fdd39831cf012ca5a88eb8cd8749d96640178508f6eb0e2efb886b31"
+            "sha256": "cc67f4769aa2a122eb23b90cd8cf8dbb99003aadebe69fc2ea9c45e0c3eab0d2"
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/WorldSaveState.cs",
@@ -12153,7 +12181,7 @@
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry180.asset",
-            "sha256": "bdd90d3e5458178fd48909dddf2d34fc326e8e9e2e50159931fa9d8f2a84a7cc"
+            "sha256": "8a4cd7a840ce093dc346f2a68c59d62c6cd0af58eb81e0352977e98b18467d1d"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry180.asset.meta",
@@ -12161,7 +12189,7 @@
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry190.asset",
-            "sha256": "e80bac7783d461d98d93a1e5db62c988dd71292e810a9139711fefdc879ba732"
+            "sha256": "6b7ff85db4bcdd7604c577a8768ebe87a7dac333c0db3c836e291ac2cc974df5"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry190.asset.meta",
@@ -12169,7 +12197,7 @@
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry191.asset",
-            "sha256": "7837caf46b65773839238e6e8524523563b4831b71867a2df3e40ca20bf19d10"
+            "sha256": "4e2d2608fb635ed775ed15fe0120a26f791084fa1ec53911edf7ffa42e509eb4"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry191.asset.meta",
@@ -12177,7 +12205,7 @@
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry192.asset",
-            "sha256": "ce43319efe9733e40a9265e31c5979c9f7199ba001edc93d8619ae7e481595f0"
+            "sha256": "687068ebbeb66eae6516b78bf2a81bced22b696186e0ef95581a0f95e090fd07"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry192.asset.meta",

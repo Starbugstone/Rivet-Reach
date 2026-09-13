@@ -118,3 +118,7 @@ Schemas 1–9 did not record untouched exploration history. The user explicitly 
 ### Material-tag review compatibility — 2026-09-13
 
 The stability review appends `log`, `planks`, `raw_ore` and `ingot` only to their known original item definitions. A narrowly scoped fingerprint projection accepts the earlier complete schema-10 farming catalog by removing those exact additions. It retains `edible`, all previous tags, item statistics, recipes and crop/cooking catalogs in compatibility checks. This does not relax unknown-content checks or change the world body/schema.
+
+## Material-tier recipe compatibility — 2026-09-13
+
+The [bridge](BRIDGES.md#crafting) and [ranged-pump](RANGED_PUMP.md#working-rules) recipe rebalance changes no save fields or schema (10). New saves fingerprint the new gold/diamond costs. An explicit historical recipe projection also accepts checkpoints with the exact earlier four recipes, across the existing supported content variants. It removes only the known appended two-gold ingredient and, for bridges, two-diamond ingredient while hashing; original ingredients, their quantities, station, output and every unrelated definition remain checked. Unknown altered costs are not normalized into compatibility. Loading does not recraft, charge, refund or replace machines/items already saved.

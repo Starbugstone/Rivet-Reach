@@ -25,6 +25,10 @@ MonoBehaviour:
     count: 2
   - itemId: rivet:fluid_pipe
     count: 4
+  - itemId: rivet:gold_ingot
+    count: 2
+  - itemId: rivet:diamond
+    count: 2
   output:
     itemId: rivet:liquid_bridge
     count: 2

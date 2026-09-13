@@ -8,10 +8,12 @@ All four recipes are shapeless at the 4×4 Machinist’s Bench. Existing beginni
 
 | Result | Ingredients | Yield |
 |---|---|---|
-| Item Bridge | 2 Floater Rocks, 2 Machine Casings, 4 Item Pipes | 2 |
-| Liquid Bridge | 2 Floater Rocks, 2 Machine Casings, 4 Fluid Pipes | 2 |
-| Power Bridge | 2 Floater Rocks, 2 Machine Casings, 4 Power Cables | 2 |
+| Item Bridge | 2 Floater Rocks, 2 Machine Casings, 4 Item Pipes, 2 Gold Ingots, 2 Diamonds | 2 |
+| Liquid Bridge | 2 Floater Rocks, 2 Machine Casings, 4 Fluid Pipes, 2 Gold Ingots, 2 Diamonds | 2 |
+| Power Bridge | 2 Floater Rocks, 2 Machine Casings, 4 Power Cables, 2 Gold Ingots, 2 Diamonds | 2 |
 | Chunk Loader | 4 Floater Rocks, 1 Machine Casing, 4 Azure Crystals | 1 |
+
+The gold/diamond cost is **per pair**, not per endpoint. These remote connections are high-tier builds requiring deep-mined materials and Floater Rocks; [material progression](ECONOMY.md#material-tiered-construction--2026-09-13) owns the rationale. Existing placed bridges keep their behavior and pairing after the recipe update.
 
 ## Names, ownership and pairing
 
@@ -46,3 +48,5 @@ Bridge panels show network name, owner, local coordinates and linked partner coo
 Schema 9 adds the single-player owner identity and per-machine owner/name/loader settings. Missing pre-schema-9 fields default safely; earlier saves contain none of these new item identities. Compatibility fingerprints exclude only the explicitly additive items/recipes for historical content variants, retaining checks on existing definitions, processing, recipes and mobs. Runtime graph edges and residency tickets rebuild from validated saved machine records; duplicate third endpoints, invalid names or malformed owner IDs reject restoration under the existing failed-load rollback.
 
 [Bridge verification](verification/BRIDGE_RESULTS.md) records measured evidence and limits. [The player guide](wiki/Bridges-and-chunk-loaders.md) owns setup instructions. Industry networking remains specified in [INDUSTRY.md](INDUSTRY.md), electrical conservation in [BATTERIES.md](BATTERIES.md), and save envelopes/recovery in [SAVES.md](SAVES.md).
+
+[Material-tier recipe verification](verification/RECIPE_TIER_RESULTS.md) records the later gold/diamond cost update, compatibility checks and current recipe captures. Earlier feature evidence above retains its original build identity.

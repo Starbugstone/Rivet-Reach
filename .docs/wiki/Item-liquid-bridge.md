@@ -35,13 +35,13 @@ Connect matching pipes/cables, then give both bridges the same private network n
 
 <table>
 <tr>
+<td align="center" width="72" height="64"><a href="Item-diamond.md" title="Diamond"><img src="icons/19.png" width="48" height="48" alt="Diamond"></a> ×2</td>
+<td align="center" width="72" height="64"><a href="Item-gold-ingot.md" title="Gold ingot"><img src="icons/29.png" width="48" height="48" alt="Gold ingot"></a> ×2</td>
 <td align="center" width="72" height="64"><a href="Item-machine-casing.md" title="Machine Casing"><img src="icons/127.png" width="48" height="48" alt="Machine Casing"></a> ×2</td>
 <td align="center" width="72" height="64"><a href="Item-fluid-pipe.md" title="Fluid Pipe"><img src="icons/147.png" width="48" height="48" alt="Fluid Pipe"></a> ×4</td>
-<td align="center" width="72" height="64"><a href="Item-floater-rock.md" title="Floater Rock"><img src="icons/175.png" width="48" height="48" alt="Floater Rock"></a> ×2</td>
-<td align="center" width="72" height="64">&nbsp;</td>
 </tr>
 <tr>
-<td align="center" width="72" height="64">&nbsp;</td>
+<td align="center" width="72" height="64"><a href="Item-floater-rock.md" title="Floater Rock"><img src="icons/175.png" width="48" height="48" alt="Floater Rock"></a> ×2</td>
 <td align="center" width="72" height="64">&nbsp;</td>
 <td align="center" width="72" height="64">&nbsp;</td>
 <td align="center" width="72" height="64">&nbsp;</td>
@@ -64,6 +64,8 @@ Connect matching pipes/cables, then give both bridges the same private network n
 
 | Ingredient | Total per operation |
 |---|---:|
+| <a href="Item-diamond.md" title="Diamond"><img src="icons/19.png" width="32" height="32" alt="Diamond"></a> [Diamond](Item-diamond.md) | 2 |
+| <a href="Item-gold-ingot.md" title="Gold ingot"><img src="icons/29.png" width="32" height="32" alt="Gold ingot"></a> [Gold ingot](Item-gold-ingot.md) | 2 |
 | <a href="Item-machine-casing.md" title="Machine Casing"><img src="icons/127.png" width="32" height="32" alt="Machine Casing"></a> [Machine Casing](Item-machine-casing.md) | 2 |
 | <a href="Item-fluid-pipe.md" title="Fluid Pipe"><img src="icons/147.png" width="32" height="32" alt="Fluid Pipe"></a> [Fluid Pipe](Item-fluid-pipe.md) | 4 |
 | <a href="Item-floater-rock.md" title="Floater Rock"><img src="icons/175.png" width="32" height="32" alt="Floater Rock"></a> [Floater Rock](Item-floater-rock.md) | 2 |

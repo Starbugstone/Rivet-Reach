@@ -1,0 +1,14 @@
+# Material-tier recipe verification — 2026-09-13
+
+Scope: [material progression](../ECONOMY.md#material-tiered-construction--2026-09-13), [bridge-pair recipes](../BRIDGES.md#crafting) and the [Ranged Liquid Pump upgrade](../RANGED_PUMP.md#working-rules).
+
+- Unity **6000.4.4f1** built `Builds/RecipeTiers/RivetReach.exe` successfully through `recipe-tiers-build`. The four changed recipes remain shapeless at the 4×4 Machinist’s Bench. Each bridge pair adds two gold ingots and two diamonds; the pump adds two gold ingots. Existing Floater Rock requirements and yields are retained.
+- [Ranged pump checks](recipe-tiers-2026-09-13/ranged-pump-checks.txt): **64 assertions passed**, including exact upgrade requirements, the shared all-recipe transfer/conservation checks, extraction bounds and source conservation.
+- [Bridge checks](recipe-tiers-2026-09-13/bridge-checks.txt): **45 assertions passed**. Includes all three bridge material costs, current and previous-recipe save envelopes, payload preservation, rejection of changed original ingredients, an unrelated recipe change and an unknown future gold quantity. Existing resource/channel/owner/residency checks passed.
+- [Windows runtime report](recipe-tiers-2026-09-13/runtime-report.json): **422 assertions passed**, 2026-09-13 11:31:08 UTC, Direct3D 11 at 1280×720. Workload covers actual bridge transfers, private pairing, distant loader residency, saved resources/identities, restoration and invalid-load rollback. New captures show all four revised recipes in the actual item browser.
+- [Bridge recipe captures](../wiki/Bridges-and-chunk-loaders.md#craft-your-bridges) and [pump recipe capture](../wiki/Ranged-Liquid-Pump.md#crafting) were visually inspected. The complete shapeless grids and quantities are visible; the bridge’s scrollable material list shows four entries at once at this resolution, with Floater Rock visible in the grid. Existing operation screenshots retain their original feature-build identities.
+- Unity exported **175 items and 143 crafting/processing recipes**. Generated item pages expose gold/diamond uses and the revised ingredients; existing artwork is unchanged.
+
+Remaining limits: these are recipe, conservation and compatibility checks, not a timed survival progression playtest. Two gold ingots for the pump and the per-pair bridge cost remain working balance defaults. The download release and other earlier local build folders have not been repackaged; use the RecipeTiers build for these costs.
+
+Player executable SHA-256: `7d52ee70fb22771f4608d810d1015f539c37dd8b7b2fbb1a0ea9f6bc5c32d5c9` (the data folder/assemblies are also required to run).

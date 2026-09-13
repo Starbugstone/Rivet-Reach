@@ -302,13 +302,13 @@
     "use": "Right-click a block face to place a source and recover your empty bucket. Lava flows slowly, never renews sources, destroys dropped items and burns players. It is safe while carried in inventory. A compatible multiblock tank can also accept or return 10 L through its bucket controls."
   },
   "rivet:floater_rock": {
-    "description": "A magical rock that enables the Floater to hover. Used in remote workshop technology.",
+    "description": "A high-tier magical crafting material that enables the Floater to hover. Used in advanced pumps, remote workshop bridges and chunk loaders.",
     "obtain": "Kill a Floater to receive exactly one Floater Rock. Walk near the dropped rock to collect it. Floaters spawn on supported surfaces at night.",
-    "use": "Craft [bridges and chunk loaders](Bridges-and-chunk-loaders.md) at the Machinist’s Bench. Combine one rock with a [Pump](Item-pump.md) to craft a [Ranged Liquid Pump](Item-ranged-liquid-pump.md); see [its setup guide](Ranged-Liquid-Pump.md)."
+    "use": "Craft [bridges and chunk loaders](Bridges-and-chunk-loaders.md) at the Machinist’s Bench. Combine one rock with a [Pump](Item-pump.md) and two [Gold ingots](Item-gold-ingot.md) to craft a [Ranged Liquid Pump](Item-ranged-liquid-pump.md); see [its setup guide](Ranged-Liquid-Pump.md)."
   },
   "rivet:ranged_liquid_pump": {
     "description": "Collects liquid source blocks within eight blocks along each axis (a 17×17×17 cube), including lava. No electricity required.",
-    "obtain": "Combine one Pump and one Floater Rock at the Machinist’s Bench.",
+    "obtain": "Combine one Pump, one Floater Rock and two Gold Ingots at the Machinist’s Bench.",
     "use": "See [Ranged Liquid Pump](Ranged-Liquid-Pump.md) for setup. Each source gives 10 L after two seconds of collection. Pipe it into a tank; the 10 L buffer holds one liquid at a time."
   },
   "rivet:item_bridge": {

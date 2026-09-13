@@ -8,7 +8,7 @@
 
 <a href="Item-floater-rock.md" title="Floater Rock"><img src="icons/175.png" width="96" height="96" alt="Floater Rock"></a>
 
-A magical rock that enables the Floater to hover. Used in remote workshop technology.
+A high-tier magical crafting material that enables the Floater to hover. Used in advanced pumps, remote workshop bridges and chunk loaders.
 
 ## At a glance
 
@@ -22,7 +22,7 @@ Kill a Floater to receive exactly one Floater Rock. Walk near the dropped rock t
 
 ## Using it
 
-Craft [bridges and chunk loaders](Bridges-and-chunk-loaders.md) at the Machinist’s Bench. Combine one rock with a [Pump](Item-pump.md) to craft a [Ranged Liquid Pump](Item-ranged-liquid-pump.md); see [its setup guide](Ranged-Liquid-Pump.md).
+Craft [bridges and chunk loaders](Bridges-and-chunk-loaders.md) at the Machinist’s Bench. Combine one rock with a [Pump](Item-pump.md) and two [Gold ingots](Item-gold-ingot.md) to craft a [Ranged Liquid Pump](Item-ranged-liquid-pump.md); see [its setup guide](Ranged-Liquid-Pump.md).
 
 ## Crafting and processing
 

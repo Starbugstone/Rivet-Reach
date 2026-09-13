@@ -82,20 +82,42 @@ namespace RivetReach
             // Schema 1/2 predate orchard state; doors and crank are independent additive content.
             // Every definition present before each accepted extension must still match.
             var processing=ProcessingCatalogAsset.Load();
+            bool previousTierRecipes=false;
             string Fingerprint(int legacy,bool orchard=false,bool wrench=false,bool electric=false,bool lava=false,bool floater=false,bool bridges=false,bool ranged=false,bool farming=false,bool materialTags=true)
             {
                 string definitions=string.Join("\n",registry.items.Where(i=>(farming||!FarmId.Added(i.runtimeId))&&(ranged||i.stableId!="rivet:ranged_liquid_pump")&&(bridges||i.runtimeId<IndustryId.ItemBridge||i.runtimeId>IndustryId.ChunkLoader)&&(floater||i.stableId!="rivet:floater_rock")&&(lava||i.stableId!="rivet:lava_bucket")&&(electric||i.stableId!="rivet:electric_furnace")&&(wrench||i.stableId!="rivet:wrench")&&(orchard||i.stableId!="rivet:sapling"&&i.stableId!="rivet:apple")&&((legacy&2)==0||i.stableId!="rivet:hand_crank")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.runtimeId).Select(i=>ItemFingerprint(i,farming,materialTags)))
                     +string.Join("\n",processing.recipes.OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
                     +string.Join("\n",processing.fuels.OrderBy(i=>i.itemId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
-                    +string.Join("\n",RecipeCatalogAsset.Load().recipes.Where(i=>(farming||!i.stableId.StartsWith("rivet:farm_",StringComparison.Ordinal))&&(ranged||i.stableId!="rivet:industry_180")&&(bridges||!new[]{"rivet:industry_190","rivet:industry_191","rivet:industry_192","rivet:industry_193"}.Contains(i.stableId))&&(electric||i.stableId!="rivet:industry_174")&&(wrench||i.stableId!="rivet:wrench")&&((legacy&2)==0||i.stableId!="rivet:industry_170")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
+                    +string.Join("\n",RecipeCatalogAsset.Load().recipes.Where(i=>(farming||!i.stableId.StartsWith("rivet:farm_",StringComparison.Ordinal))&&(ranged||i.stableId!="rivet:industry_180")&&(bridges||!new[]{"rivet:industry_190","rivet:industry_191","rivet:industry_192","rivet:industry_193"}.Contains(i.stableId))&&(electric||i.stableId!="rivet:industry_174")&&(wrench||i.stableId!="rivet:wrench")&&((legacy&2)==0||i.stableId!="rivet:industry_170")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>RecipeFingerprint(i,previousTierRecipes)))
                     +string.Join("\n",Resources.LoadAll<MobDefinition>("Mobs/Definitions").Where(i=>floater||i.stableId!="rivet:floater").OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>MobFingerprint(i,floater)));
                 if(farming&&registry.items.Any(i=>i.runtimeId==FarmId.Cooker))definitions+=Resources.Load<TextAsset>("Definitions/Cooking").text+Resources.Load<TextAsset>("Definitions/Crops").text;
                 return Convert.ToBase64String(Hash(Encoding.UTF8.GetBytes(definitions)));
             }
             content=Fingerprint(0,true,true,true,true,true,true,true,true);
+            // Accept the exact pre-tiering recipes as well as current costs, with all other content still checked.
+            for(int tierVersion=0;tierVersion<2;tierVersion++)
+            {
+            previousTierRecipes=tierVersion==1;
+            modernContent.Add(Fingerprint(0,true,true,true,true,true,true,true,true));
             modernContent.Add(Fingerprint(0,true,true,true,true,true,true,true,true,false));
             for(int mask=0;mask<32;mask++)modernContent.Add(Fingerprint(0,true,true,(mask&1)!=0,(mask&2)!=0,(mask&4)!=0,(mask&8)!=0,(mask&16)!=0,true));
             modernContent.Add(Fingerprint(0,true,true,true,true,true,true,true));modernContent.Add(content);modernContent.Add(Fingerprint(0,true,true,true,true,true,true,false));modernContent.Add(Fingerprint(0,true,true,true,true,true,false,true));modernContent.Add(Fingerprint(0,true,true,true,true,true));modernContent.Add(Fingerprint(0,true,true,true,true));modernContent.Add(Fingerprint(0,true,true,false,true));modernContent.Add(Fingerprint(0,true,true,false,true,true,true));modernContent.Add(Fingerprint(0,true,true,true));modernContent.Add(Fingerprint(0,true,true));for(int legacy=0;legacy<4;legacy++){legacyContent.Add(Fingerprint(legacy));currentContent.Add(Fingerprint(legacy,true));}
+            }
+        }
+        static string RecipeFingerprint(RecipeAsset recipe,bool previousTierRecipes)
+        {
+            string json=JsonUtility.ToJson(recipe);
+            if(!previousTierRecipes)return json;
+            bool pump=recipe.stableId=="rivet:industry_180";
+            bool bridge=recipe.stableId=="rivet:industry_190"||recipe.stableId=="rivet:industry_191"||recipe.stableId=="rivet:industry_192";
+            int originalCount=pump?2:3;
+            var cells=recipe.ingredients;
+            if((!pump&&!bridge)||cells==null||cells.Length!=originalCount+(pump?1:2))return json;
+            if(cells[originalCount].itemId!="rivet:gold_ingot"||cells[originalCount].count!=2)return json;
+            if(bridge&&(cells[originalCount+1].itemId!="rivet:diamond"||cells[originalCount+1].count!=2))return json;
+            // Project only the known added ingredients. Preserve station, output, original inputs and every other field.
+            string Field(int count)=>"\"ingredients\":["+string.Join(",",cells.Take(count).Select(cell=>JsonUtility.ToJson(cell)))+"]";
+            return json.Replace(Field(cells.Length),Field(originalCount));
         }
         static string ItemFingerprint(ItemDefinition definition,bool farming,bool materialTags)
         {

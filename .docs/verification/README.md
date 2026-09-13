@@ -76,3 +76,5 @@ This directory maintains the latest report and useful evidence for each feature.
 - [Farming and cooking](FARMING_RESULTS.md): shared crop growth, forage/textiles, item tags, basic/electric cookers and persistent per-chunk generation, with original art and actual player captures (2026-09-13).
 
 - [Stability and abstraction review](STABILITY_REVIEW_RESULTS.md): compiled tags/ingredient matching, cooker automation, save compatibility and complete mob wiki coverage (2026-09-13).
+
+- [Material-tier recipes](RECIPE_TIER_RESULTS.md): gold/diamond bridge costs, gold pump upgrade, historical recipe save compatibility and current recipe captures.

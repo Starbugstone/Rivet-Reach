@@ -23,6 +23,8 @@ MonoBehaviour:
     count: 1
   - itemId: rivet:floater_rock
     count: 1
+  - itemId: rivet:gold_ingot
+    count: 2
   output:
     itemId: rivet:ranged_liquid_pump
     count: 1

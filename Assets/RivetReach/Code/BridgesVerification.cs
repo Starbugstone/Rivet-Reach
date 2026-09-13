@@ -12,6 +12,12 @@ namespace RivetReach
         IEnumerator ReviewBridges()
         {
             FreezeSaveFixture();game.SetCreative(true);game.enabled=false;game.Diagnostics=false;
+            foreach(byte item in new[]{IndustryId.ItemBridge,IndustryId.FluidBridge,IndustryId.PowerBridge,IndustryId.RangedPump})
+            {
+                game.SetMode(ScreenMode.Inventory);game.UI.InspectBrowserItem(item,false);
+                yield return new WaitForSecondsRealtime(.3f);yield return Capture("tier-recipe-"+item);
+                game.UI.CloseBrowserRecipe();game.SetMode(ScreenMode.Play);
+            }
             var world=game.World;var player=game.Player;var sim=game.Industry.Simulation;
             var start=world.Address(player.transform.position);var a=new BlockPos(start.Chunk.Min.X+8,start.Y+2,start.Chunk.Min.Z+8);var b=a.Offset(64,0,0);
             void Put(BlockPos p,byte id)

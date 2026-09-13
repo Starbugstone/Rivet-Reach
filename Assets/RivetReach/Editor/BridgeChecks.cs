@@ -21,10 +21,16 @@ namespace RivetReach.Editor
         {
             var lines=new List<string>();void Check(bool ok,string message){if(!ok)throw new Exception("Bridge: "+message);lines.Add("PASS "+message);}
             var registry=ItemRegistry.Load();var recipes=RecipeCatalogAsset.Load().Compile(registry);
+            TierCompatibility(registry,Check);
             foreach(byte id in new[]{IndustryId.ItemBridge,IndustryId.FluidBridge,IndustryId.PowerBridge,IndustryId.ChunkLoader})
             {
                 Check(registry.Get(id).runtimeId==id&&IndustryId.Placed(id),"Registered placeable item "+id);
                 Check(recipes.Recipes.Single(r=>r.Output.Id==id).MinimumGridSize==4,"Machinist bench recipe "+id);
+                if(id!=IndustryId.ChunkLoader)
+                {
+                    var recipe=recipes.Recipes.Single(r=>r.Output.Id==id);
+                    Check(recipe.Output.Count==2&&recipe.Ingredients.Count==5&&recipe.Ingredients.Any(i=>i.Id==BlockId.GoldIngot&&i.Count==2)&&recipe.Ingredients.Any(i=>i.Id==BlockId.Diamond&&i.Count==2),"Bridge pair requires two gold ingots and two diamonds: "+id);
+                }
                 var model=Resources.Load<GameObject>("Industry/Runtime/"+IndustryDefinition.All[id].Key);
                 Check(model!=null&&model.GetComponentsInChildren<MeshFilter>().Length>0,"Imported original model "+id);
                 int triangles=model.GetComponentsInChildren<MeshFilter>().Sum(f=>f.sharedMesh.triangles.Length/3);
@@ -74,6 +80,37 @@ namespace RivetReach.Editor
                 sim.Remove(b.Position);Check(!sim.LoaderChunks().Any(),"Removing final loader releases chunk ticket");
             }
             File.WriteAllLines("Logs/bridge-checks.txt",lines);Debug.Log("Bridge checks PASS "+lines.Count);
+        }
+        static void TierCompatibility(ItemRegistry registry,Action<bool,string> check)
+        {
+            var catalog=RecipeCatalogAsset.Load();
+            var changed=catalog.recipes.Where(r=>new[]{"rivet:industry_180","rivet:industry_190","rivet:industry_191","rivet:industry_192"}.Contains(r.stableId)).ToArray();
+            var original=changed.Select(r=>r.ingredients).ToArray();
+            var store=new SaveStore("unused",registry);
+            var entry=new SaveEntry{Id=Guid.NewGuid().ToString("N"),WorldId=Guid.NewGuid().ToString("N"),Name="Recipe tier compatibility",UtcTicks=DateTime.UtcNow.Ticks};
+            byte[] Encode()=>new SaveStore("unused",registry).Encode(entry,w=>w.Write(731));
+            void Accept(byte[] bytes,string name){using var reader=store.Open(bytes,out _);check(reader.ReadInt32()==731,name);}
+            void Reject(string name){bool rejected=false;try{using var reader=store.Open(Encode(),out _);}catch(InvalidDataException){rejected=true;}check(rejected,name);}
+            Accept(Encode(),"Current tiered recipe checkpoint opens");
+            try
+            {
+                for(int i=0;i<changed.Length;i++)changed[i].ingredients=original[i].Take(changed[i].stableId=="rivet:industry_180"?2:3).ToArray();
+                Accept(Encode(),"Pre-tiering bridge and ranged pump checkpoint opens without changing payload");
+                changed[0].ingredients[0].count++;
+                Reject("Changed original ingredient quantity still rejects in pre-tiering checkpoint");
+                changed[0].ingredients[0].count--;
+                var other=catalog.recipes.First(r=>r.stableId=="rivet:industry_193");var savedOutput=other.output;
+                try{other.output.count++;Reject("Unrelated chunk loader recipe change still rejects");}
+                finally{other.output=savedOutput;}
+            }
+            finally{for(int i=0;i<changed.Length;i++)changed[i].ingredients=original[i];}
+            try
+            {
+                changed[0].ingredients=(RecipeCellData[])original[0].Clone();
+                int gold=Array.FindIndex(changed[0].ingredients,c=>c.itemId=="rivet:gold_ingot");changed[0].ingredients[gold].count++;
+                Reject("Unknown future gold quantity is not accepted as the historical recipe");
+            }
+            finally{for(int i=0;i<changed.Length;i++)changed[i].ingredients=original[i];}
         }
     }
 }

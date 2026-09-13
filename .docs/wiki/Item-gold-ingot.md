@@ -109,3 +109,7 @@ Follow a result to see its complete ingredients and recipe.
 | Result | Station | Recipe |
 |---|---|---|
 | <a href="Item-gold-block.md#recipe-1" title="Gold block"><img src="icons/68.png" width="32" height="32" alt="Gold block"></a> ×1 [Gold block](Item-gold-block.md) | [Workbench](Item-workbench.md) | [View recipe](Item-gold-block.md#recipe-1) |
+| <a href="Item-item-bridge.md#recipe-1" title="Item Bridge"><img src="icons/190.png" width="32" height="32" alt="Item Bridge"></a> ×2 [Item Bridge](Item-item-bridge.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-item-bridge.md#recipe-1) |
+| <a href="Item-liquid-bridge.md#recipe-1" title="Liquid Bridge"><img src="icons/191.png" width="32" height="32" alt="Liquid Bridge"></a> ×2 [Liquid Bridge](Item-liquid-bridge.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-liquid-bridge.md#recipe-1) |
+| <a href="Item-power-bridge.md#recipe-1" title="Power Bridge"><img src="icons/192.png" width="32" height="32" alt="Power Bridge"></a> ×2 [Power Bridge](Item-power-bridge.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-power-bridge.md#recipe-1) |
+| <a href="Item-ranged-liquid-pump.md#recipe-1" title="Ranged Liquid Pump"><img src="icons/180.png" width="32" height="32" alt="Ranged Liquid Pump"></a> ×1 [Ranged Liquid Pump](Item-ranged-liquid-pump.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-ranged-liquid-pump.md#recipe-1) |

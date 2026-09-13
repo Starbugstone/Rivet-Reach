@@ -25,6 +25,10 @@ MonoBehaviour:
     count: 2
   - itemId: rivet:power_cable
     count: 4
+  - itemId: rivet:gold_ingot
+    count: 2
+  - itemId: rivet:diamond
+    count: 2
   output:
     itemId: rivet:power_bridge
     count: 2

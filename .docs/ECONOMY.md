@@ -218,3 +218,13 @@ The reusable [Wrench](INDUSTRY.md#wrench-and-configurable-pipe-ends--2026-09-12)
 ## Farming and food increment — 2026-09-13
 
 [Farming](FARMING.md) owns crop yields, immature harvests without resource or seed multiplication, flax → string → cloth, food recipes and cooker resource accounting. Tags select compatible items; explicit recipes and fuel durations remain the quantity/energy authority. Shared ingredient planning consumes a complete batch atomically and rejects blocked output. Long-session hunger cadence and crop density remain balance review, not measured conclusions.
+
+## Material-tiered construction — 2026-09-13
+
+**Agreed direction:** more powerful and higher-tier builds require rarer and higher-tier ores/materials, directly or through their consumed components. Gold and diamond serve advanced construction as well as their existing storage/equipment uses. **Floater Rock is a high-tier material**: obtaining it requires a Floater encounter, and its remote-connection/collection capabilities justify that progression requirement. Recipes stay visible without XP or knowledge locks.
+
+Keep basic pickaxes, furnaces, workshop components and the ordinary Pump accessible before their advanced upgrades. Check the full ingredient chain for circular requirements: the machine needed to obtain an ingredient must have an earlier obtainable route. Gold rewards deeper mining; diamond extends that mining requirement; Floater Rocks add combat/exploration to the material chain. Increasing capability should require an appropriate advanced material, not only larger quantities of early-game resources.
+
+The current recipe pass adds **two gold ingots and two diamonds per bridge pair**, retaining the two Floater Rocks, two Machine Casings and four matching pipes/cables. This applies to item, liquid and power bridges because each bypasses distance for its channel. The [bridge specification](BRIDGES.md#crafting) owns exact recipes and yields. The [Ranged Liquid Pump](RANGED_PUMP.md#working-rules) adds **two gold ingots** to its Pump + Floater Rock upgrade. The Chunk Loader retains its existing four-Floater-Rock requirement.
+
+The user proposed the two-gold/two-diamond Item Bridge cost. The user also confirmed applying it to all three bridge channels. Charging it per existing two-endpoint recipe and selecting two gold for the pump are working balance choices under that request; mining/encounter time and broader progression balance still need survival play review. This pass changes crafting costs, not existing placed machinery or terrain generation.
