@@ -15,9 +15,9 @@ namespace RivetReach
             Label(parent,"MACHINE CONTROL",821,115,315,32,23);
             Label(parent,PipeConnections.IsTransport(m.Definition.Id)?"Wrench + right-click the pipe side: Input → Output → No connection. Click the missing end to reconnect.":m.Definition.Help+(m.Definition.Watts>0?"\nPower connects on all six faces." : ""),821,157,307,62,15,gold);
             var status=Panel(parent,821,228,310,55,slate);machineStatus=Label(status.transform,"",12,10,290,40,19,gold);
-            if(m.Definition.Id==IndustryId.Crusher||m.Definition.Id==IndustryId.Boiler)
+            if(m.Definition.Id==IndustryId.Crusher||m.Definition.Id==IndustryId.ElectricFurnace||m.Definition.Id==IndustryId.Boiler)
             {Label(parent,m.Definition.Id==IndustryId.Boiler?"FUEL":"INPUT",821,299,150,22,13,gold);Slot(parent,MachineSlotStart,821,325,55);}
-            if(m.Definition.Id==IndustryId.Crusher||m.Definition.Id==IndustryId.Drill)
+            if(m.Definition.Id==IndustryId.Crusher||m.Definition.Id==IndustryId.ElectricFurnace||m.Definition.Id==IndustryId.Drill)
             {Label(parent,"OUTPUT",1053,299,90,22,13,gold);Slot(parent,MachineSlotStart+2,1069,325,55);}
             var track=Panel(parent,892,346,155,9,slate);machineProgress=Panel(track.transform,0,0,0,9,gold);
             machineDetail=Label(parent,"",821,385,311,68,m.Definition.Id==IndustryId.Pump?12:14);
@@ -124,7 +124,7 @@ namespace RivetReach
             }
             if(PipeConnections.IsTransport(m.Definition.Id))detail+="\nAdditional channels: "+m.Additions;
             machineDetail.text=detail;
-            int ticks=m.Definition.Id==IndustryId.Crusher?100:m.Definition.Id==IndustryId.Pump?40:120;
+            int ticks=m.ProcessingTicks;
             float fraction=(float)m.Work/ticks;
             if(m.Definition.Id==IndustryId.Boiler)fraction=m.BurnTicks/1600f;
             if(m.Definition.Id==IndustryId.Tank)fraction=m.WaterMl/(float)m.Definition.WaterCapacity;

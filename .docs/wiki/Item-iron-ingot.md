@@ -77,6 +77,30 @@ Fuel burns down after ignition even if the input runs out. See the [Furnace](Ite
 
 Fuel burns down after ignition even if the input runs out. See the [Furnace](Item-furnace.md) page for fuel durations.
 
+### Recipe 4
+
+**Station:** <a href="Item-electric-furnace.md" title="Electric Furnace"><img src="icons/174.png" width="40" height="40" alt="Electric Furnace"><br>Electric Furnace</a>
+
+**Processing time:** 10 seconds per operation at **200 W**. Reduced power slows progress.
+
+**Output:** <a href="Item-iron-ingot.md" title="Iron ingot"><img src="icons/28.png" width="56" height="56" alt="Iron ingot"><br>Iron ingot</a> ×1
+
+| Ingredient | Total per operation |
+|---|---:|
+| <a href="Item-raw-iron.md" title="Raw iron"><img src="icons/15.png" width="32" height="32" alt="Raw iron"></a> [Raw iron](Item-raw-iron.md) | 1 |
+
+### Recipe 5
+
+**Station:** <a href="Item-electric-furnace.md" title="Electric Furnace"><img src="icons/174.png" width="40" height="40" alt="Electric Furnace"><br>Electric Furnace</a>
+
+**Processing time:** 10 seconds per operation at **200 W**. Reduced power slows progress.
+
+**Output:** <a href="Item-iron-ingot.md" title="Iron ingot"><img src="icons/28.png" width="56" height="56" alt="Iron ingot"><br>Iron ingot</a> ×1
+
+| Ingredient | Total per operation |
+|---|---:|
+| <a href="Item-crushed-iron.md" title="Crushed Iron"><img src="icons/151.png" width="32" height="32" alt="Crushed Iron"></a> [Crushed Iron](Item-crushed-iron.md) | 1 |
+
 ## Used to make
 
 Follow a result to see its complete ingredients and recipe.

@@ -77,6 +77,30 @@ Fuel burns down after ignition even if the input runs out. See the [Furnace](Ite
 
 Fuel burns down after ignition even if the input runs out. See the [Furnace](Item-furnace.md) page for fuel durations.
 
+### Recipe 4
+
+**Station:** <a href="Item-electric-furnace.md" title="Electric Furnace"><img src="icons/174.png" width="40" height="40" alt="Electric Furnace"><br>Electric Furnace</a>
+
+**Processing time:** 10 seconds per operation at **200 W**. Reduced power slows progress.
+
+**Output:** <a href="Item-copper-ingot.md" title="Copper ingot"><img src="icons/27.png" width="56" height="56" alt="Copper ingot"><br>Copper ingot</a> ×1
+
+| Ingredient | Total per operation |
+|---|---:|
+| <a href="Item-raw-copper.md" title="Raw copper"><img src="icons/16.png" width="32" height="32" alt="Raw copper"></a> [Raw copper](Item-raw-copper.md) | 1 |
+
+### Recipe 5
+
+**Station:** <a href="Item-electric-furnace.md" title="Electric Furnace"><img src="icons/174.png" width="40" height="40" alt="Electric Furnace"><br>Electric Furnace</a>
+
+**Processing time:** 10 seconds per operation at **200 W**. Reduced power slows progress.
+
+**Output:** <a href="Item-copper-ingot.md" title="Copper ingot"><img src="icons/27.png" width="56" height="56" alt="Copper ingot"><br>Copper ingot</a> ×1
+
+| Ingredient | Total per operation |
+|---|---:|
+| <a href="Item-crushed-copper.md" title="Crushed Copper"><img src="icons/150.png" width="32" height="32" alt="Crushed Copper"></a> [Crushed Copper](Item-crushed-copper.md) | 1 |
+
 ## Used to make
 
 Follow a result to see its complete ingredients and recipe.

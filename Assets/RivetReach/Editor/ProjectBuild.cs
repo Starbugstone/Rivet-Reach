@@ -38,6 +38,10 @@ namespace RivetReach.Editor
             command=command.Replace("|ready","");File.Delete(request);
             try
             {
+                if(command=="electric-furnace-player")
+                {Build("ElectricFurnace");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
+                if(command=="electric-furnace-build")
+                {IndustryAssets.Prepare();ElectricFurnaceChecks.Run();IndustryChecks.Run();BatteryChecks.Run();GridAllocationChecks.Run();HandCrankChecks.Run();DoorChecks.Run();SurvivalChecks.Run();ConnectionChecks.Run();DomainChecks.Run();WikiExport.Export();Build("ElectricFurnace");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="machine-interface-build")
                 {WikiExport.Export();Build("MachineInterface");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;}
                 if(command=="inventory-build")
@@ -95,6 +99,11 @@ namespace RivetReach.Editor
             catch(Exception ex){Debug.LogException(ex);File.WriteAllText("Logs/build-result.txt","FAILED\n"+ex);}
         }
         // Also callable in an isolated pinned-Editor batch project for reproducible checks.
+        public static void ElectricFurnaceReview()
+        {
+            Directory.CreateDirectory("Logs");ElectricFurnaceChecks.Run();IndustryChecks.Run();BatteryChecks.Run();GridAllocationChecks.Run();HandCrankChecks.Run();DoorChecks.Run();SurvivalChecks.Run();ConnectionChecks.Run();DomainChecks.Run();
+            WikiExport.Export();Build("ElectricFurnace");File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));
+        }
         public static void PowerGridReview()
         {
             Directory.CreateDirectory("Logs");GridAllocationChecks.Run();BatteryChecks.Run();IndustryChecks.Run();ConnectionChecks.Run();HandCrankChecks.Run();MultiblockChecks.Run();DomainChecks.Run();ConnectedPipeChecks.Run();

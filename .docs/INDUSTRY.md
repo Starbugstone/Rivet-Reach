@@ -158,3 +158,7 @@ The user requested item and fluid grids to follow the same connected-network and
 - Fluid output budgets remain 100 mL per enabled output end per tick, backed by exact beginning-of-phase storage. Outputs share limited receiving capacity equally up to those budgets; compatible inputs share the delivered fluid equally up to their room. Multiple ports on a tank reference one reserve and one receiving capacity. Fluid-type conflict, valve/signal, residency and drain-only recovery gates remain in force.
 
 Storage endpoints terminate pipe runs; separate input/output pipes can access the same chest or tank without merging their graphs. Items and fluids received this phase become available for forwarding on a later phase. Resources left over because no compatible destination has room remain at the source. Pipes do not create items or fluid, and neither channel borrows electrical or signal rules. No save fields or schemas change. [Grid verification](verification/POWER_GRID_RESULTS.md) records checks and actual player captures.
+
+## Electric furnace — 2026-09-13
+
+[Electric furnace rules](ELECTRIC_FURNACE.md) define the electricity-powered alternative sharing all normal furnace recipes, all-face item/power connections and existing machine saves.

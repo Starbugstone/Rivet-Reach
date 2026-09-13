@@ -36,3 +36,4 @@ Follow a result to see its complete ingredients and recipe.
 | Result | Station | Recipe |
 |---|---|---|
 | <a href="Item-baked-potato.md#recipe-1" title="Baked potato"><img src="icons/31.png" width="32" height="32" alt="Baked potato"></a> ×1 [Baked potato](Item-baked-potato.md) | [Furnace](Item-furnace.md) | [View recipe](Item-baked-potato.md#recipe-1) |
+| <a href="Item-baked-potato.md#recipe-2" title="Baked potato"><img src="icons/31.png" width="32" height="32" alt="Baked potato"></a> ×1 [Baked potato](Item-baked-potato.md) | [Electric Furnace](Item-electric-furnace.md) | [View recipe](Item-baked-potato.md#recipe-2) |

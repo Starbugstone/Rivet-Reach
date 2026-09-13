@@ -1,0 +1,8 @@
+{
+  "baseCommit": "2885b4257e24a413d3113a1d044dc6e5a28a5ba9",
+  "source": "isolated staged electric-furnace candidate; excludes concurrent lava changes",
+  "files": {
+    "Builds/ElectricFurnace/RivetReach.exe": "7d52ee70fb22771f4608d810d1015f539c37dd8b7b2fbb1a0ea9f6bc5c32d5c9",
+    "Builds/ElectricFurnace/RivetReach_Data/Managed/Assembly-CSharp.dll": "e2f12a713010d4c89462150bd2e711485ccd2982637a3d9a6f0a8d6ded844c03"
+  }
+}

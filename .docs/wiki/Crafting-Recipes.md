@@ -4,7 +4,7 @@
 
 Start with the [visual item index](Items.md), then click an item to see its purpose, how to obtain it, every recipe that makes it, and what uses it. Every item icon links to its own page.
 
-This reference covers **94 grid recipes, 11 furnace recipes and 5 crusher recipes** in the current playable alpha. The recipe grids and icons come from the same catalog and artwork used by the inventory browser.
+This reference covers **95 grid recipes, 11 furnace recipes, 11 electric furnace recipes and 5 crusher recipes** in the current playable alpha. The recipe grids and icons come from the same catalog and artwork used by the inventory browser.
 
 ## First crafting steps
 
@@ -22,6 +22,7 @@ This reference covers **94 grid recipes, 11 furnace recipes and 5 crusher recipe
 | <a href="Item-workbench.md" title="Workbench"><img src="icons/23.png" width="48" height="48" alt="Workbench"><br>Workbench</a> | 3×3 |
 | <a href="Item-machinist-bench.md" title="Machinist&#x27;s Bench"><img src="icons/130.png" width="48" height="48" alt="Machinist&#x27;s Bench"><br>Machinist&#x27;s Bench</a> | 4×4 |
 | <a href="Item-furnace.md" title="Furnace"><img src="icons/24.png" width="48" height="48" alt="Furnace"><br>Furnace</a> | Fuel-driven smelting and cooking |
+| <a href="Item-electric-furnace.md" title="Electric Furnace"><img src="icons/174.png" width="48" height="48" alt="Electric Furnace"><br>Electric Furnace</a> | Electric smelting and cooking · 200 W |
 | <a href="Item-crusher.md" title="Crusher"><img src="icons/142.png" width="48" height="48" alt="Crusher"><br>Crusher</a> | Powered ore processing |
 
 ## How to read a recipe
@@ -153,6 +154,7 @@ Choose a result below to open its item page at the exact recipe.
 | <a href="Item-tank-sensor.md#recipe-1" title="Tank Level Sensor"><img src="icons/167.png" width="32" height="32" alt="Tank Level Sensor"></a> ×1 [Tank Level Sensor](Item-tank-sensor.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-tank-sensor.md#recipe-1) |
 | <a href="Item-battery-block.md#recipe-1" title="Battery Block"><img src="icons/168.png" width="32" height="32" alt="Battery Block"></a> ×1 [Battery Block](Item-battery-block.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-battery-block.md#recipe-1) |
 | <a href="Item-battery-controller.md#recipe-1" title="Battery Bank Controller"><img src="icons/169.png" width="32" height="32" alt="Battery Bank Controller"></a> ×1 [Battery Bank Controller](Item-battery-controller.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-battery-controller.md#recipe-1) |
+| <a href="Item-electric-furnace.md#recipe-1" title="Electric Furnace"><img src="icons/174.png" width="32" height="32" alt="Electric Furnace"></a> ×1 [Electric Furnace](Item-electric-furnace.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-electric-furnace.md#recipe-1) |
 
 ## Furnace processing
 
@@ -169,6 +171,22 @@ Choose a result below to open its item page at the exact recipe.
 | <a href="Item-copper-ingot.md#recipe-3" title="Copper ingot"><img src="icons/27.png" width="32" height="32" alt="Copper ingot"></a> ×1 [Copper ingot](Item-copper-ingot.md) | [Furnace](Item-furnace.md) | [View recipe](Item-copper-ingot.md#recipe-3) |
 | <a href="Item-iron-ingot.md#recipe-3" title="Iron ingot"><img src="icons/28.png" width="32" height="32" alt="Iron ingot"></a> ×1 [Iron ingot](Item-iron-ingot.md) | [Furnace](Item-furnace.md) | [View recipe](Item-iron-ingot.md#recipe-3) |
 | <a href="Item-gold-ingot.md#recipe-3" title="Gold ingot"><img src="icons/29.png" width="32" height="32" alt="Gold ingot"></a> ×1 [Gold ingot](Item-gold-ingot.md) | [Furnace](Item-furnace.md) | [View recipe](Item-gold-ingot.md#recipe-3) |
+
+## Electric furnace processing
+
+| Result | Station | Recipe |
+|---|---|---|
+| <a href="Item-charcoal.md#recipe-2" title="Charcoal"><img src="icons/26.png" width="32" height="32" alt="Charcoal"></a> ×1 [Charcoal](Item-charcoal.md) | [Electric Furnace](Item-electric-furnace.md) | [View recipe](Item-charcoal.md#recipe-2) |
+| <a href="Item-copper-ingot.md#recipe-4" title="Copper ingot"><img src="icons/27.png" width="32" height="32" alt="Copper ingot"></a> ×1 [Copper ingot](Item-copper-ingot.md) | [Electric Furnace](Item-electric-furnace.md) | [View recipe](Item-copper-ingot.md#recipe-4) |
+| <a href="Item-iron-ingot.md#recipe-4" title="Iron ingot"><img src="icons/28.png" width="32" height="32" alt="Iron ingot"></a> ×1 [Iron ingot](Item-iron-ingot.md) | [Electric Furnace](Item-electric-furnace.md) | [View recipe](Item-iron-ingot.md#recipe-4) |
+| <a href="Item-gold-ingot.md#recipe-4" title="Gold ingot"><img src="icons/29.png" width="32" height="32" alt="Gold ingot"></a> ×1 [Gold ingot](Item-gold-ingot.md) | [Electric Furnace](Item-electric-furnace.md) | [View recipe](Item-gold-ingot.md#recipe-4) |
+| <a href="Item-stone.md#recipe-2" title="Stone"><img src="icons/3.png" width="32" height="32" alt="Stone"></a> ×1 [Stone](Item-stone.md) | [Electric Furnace](Item-electric-furnace.md) | [View recipe](Item-stone.md#recipe-2) |
+| <a href="Item-baked-potato.md#recipe-2" title="Baked potato"><img src="icons/31.png" width="32" height="32" alt="Baked potato"></a> ×1 [Baked potato](Item-baked-potato.md) | [Electric Furnace](Item-electric-furnace.md) | [View recipe](Item-baked-potato.md#recipe-2) |
+| <a href="Item-azure-crystal.md#recipe-2" title="Azure Crystal"><img src="icons/121.png" width="32" height="32" alt="Azure Crystal"></a> ×1 [Azure Crystal](Item-azure-crystal.md) | [Electric Furnace](Item-electric-furnace.md) | [View recipe](Item-azure-crystal.md#recipe-2) |
+| <a href="Item-glass.md#recipe-2" title="Glass"><img src="icons/128.png" width="32" height="32" alt="Glass"></a> ×1 [Glass](Item-glass.md) | [Electric Furnace](Item-electric-furnace.md) | [View recipe](Item-glass.md#recipe-2) |
+| <a href="Item-copper-ingot.md#recipe-5" title="Copper ingot"><img src="icons/27.png" width="32" height="32" alt="Copper ingot"></a> ×1 [Copper ingot](Item-copper-ingot.md) | [Electric Furnace](Item-electric-furnace.md) | [View recipe](Item-copper-ingot.md#recipe-5) |
+| <a href="Item-iron-ingot.md#recipe-5" title="Iron ingot"><img src="icons/28.png" width="32" height="32" alt="Iron ingot"></a> ×1 [Iron ingot](Item-iron-ingot.md) | [Electric Furnace](Item-electric-furnace.md) | [View recipe](Item-iron-ingot.md#recipe-5) |
+| <a href="Item-gold-ingot.md#recipe-5" title="Gold ingot"><img src="icons/29.png" width="32" height="32" alt="Gold ingot"></a> ×1 [Gold ingot](Item-gold-ingot.md) | [Electric Furnace](Item-electric-furnace.md) | [View recipe](Item-gold-ingot.md#recipe-5) |
 
 ## Crusher processing
 

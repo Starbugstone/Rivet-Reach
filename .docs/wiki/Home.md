@@ -31,3 +31,5 @@ Build a [Workbench](Item-workbench.md) for 3×3 crafting, store supplies in a [C
 ## Save and resume
 
 Use Escape → Save Game to create or update a checkpoint. Load Game chooses a named save or previous backup; Continue Latest Save on the title resumes the newest checkpoint. Save & Quit saves first. Closing the window does not autosave. Creative mode and flight reset on load, while saved items and construction remain.
+
+- [Electric Furnace](Electric-Furnace.md) — smelting and cooking with electricity.

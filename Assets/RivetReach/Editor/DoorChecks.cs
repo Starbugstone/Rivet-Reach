@@ -58,8 +58,8 @@ namespace RivetReach.Editor
             {
                 foreach(bool crank in new[]{true,false})
                 {
-                    oldItems.items=items.items.Where(i=>i.runtimeId!=IndustryId.Wrench&&i.runtimeId!=IndustryId.WoodenDoor&&(crank||i.runtimeId!=IndustryId.HandCrank)).Select(i=>JsonUtility.FromJson<ItemDefinition>(JsonUtility.ToJson(i))).ToArray();
-                    catalog.recipes=originals.Where(r=>r.stableId!="rivet:wrench"&&r.stableId!="rivet:wooden_door"&&(crank||r.stableId!="rivet:industry_170")).ToArray();
+                    oldItems.items=items.items.Where(i=>i.runtimeId!=IndustryId.ElectricFurnace&&i.runtimeId!=IndustryId.Wrench&&i.runtimeId!=IndustryId.WoodenDoor&&(crank||i.runtimeId!=IndustryId.HandCrank)).Select(i=>JsonUtility.FromJson<ItemDefinition>(JsonUtility.ToJson(i))).ToArray();
+                    catalog.recipes=originals.Where(r=>r.stableId!="rivet:industry_174"&&r.stableId!="rivet:wrench"&&r.stableId!="rivet:wooden_door"&&(crank||r.stableId!="rivet:industry_170")).ToArray();
                     var entry=new SaveEntry{Id=Guid.NewGuid().ToString("N"),WorldId=Guid.NewGuid().ToString("N"),Name="Door compatibility",UtcTicks=DateTime.UtcNow.Ticks};
                     var bytes=SaveFixtureEnvelope.Schema3(new SaveStore("unused",oldItems).Encode(entry,w=>w.Write(314)));using(var reader=store.Open(bytes,out _))Check(reader.ReadInt32()==314,"Pre-door content loads, crank present="+crank);
                     oldItems.items[0].attackDamage++;bytes=SaveFixtureEnvelope.Schema3(new SaveStore("unused",oldItems).Encode(entry,w=>w.Write(314)));bool rejected=false;

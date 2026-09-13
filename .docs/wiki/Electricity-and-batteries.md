@@ -359,3 +359,7 @@ Craft a **Hand Crank** at a workbench using **2 copper ingots, 1 iron ingot, 1 s
 Aim at the crank and **right-click once for a turn**, or **hold right-click to keep turning**. Each half-second turn generates **50 J**. The bound Interact key also turns it. Inspect the battery from another side to see the stored charge; use **Automatic** or **ChargeOnly** mode to charge. A bank must receive power through its controller on any exposed face.
 
 Connected machines use power first; the remainder charges storage. A full or isolated battery accepts none. Release the button or look away to stop further turns; the current turn finishes. The crank needs no fuel, water or Azure component, and can also feed a power cable on any face.
+
+## Electric furnace
+
+The [Electric Furnace](Electric-Furnace.md) uses 200 W for the same smelting and cooking recipes as a normal furnace. Connect it on any face; a charged battery can run it without item fuel. Full-power recipes take 10 seconds and 2 kJ.

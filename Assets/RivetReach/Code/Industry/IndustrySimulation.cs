@@ -11,7 +11,7 @@ namespace RivetReach
     }
     public sealed partial class IndustrySimulation
     {
-        readonly IIndustryWorld world;readonly Func<byte,int> limit;
+        readonly IIndustryWorld world;readonly Func<byte,int> limit;readonly ProcessingRegistry processing;
         readonly Dictionary<BlockPos,MachineState> machines=new Dictionary<BlockPos,MachineState>();
         readonly List<MachineState> eligible=new List<MachineState>();
         IEnumerator<int> rebuild;bool dirty=true,signalsDirty=true;
@@ -32,9 +32,9 @@ namespace RivetReach
         public int TopologyRebuilds {get;private set;}
         public bool Rebuilding=>dirty||rebuild!=null;
         public double LastStepMs {get;private set;}
-        public IndustrySimulation(IIndustryWorld world,Func<byte,int> limit)
+        public IndustrySimulation(IIndustryWorld world,Func<byte,int> limit,ProcessingRegistry processing=null)
         {
-            this.world=world;this.limit=limit;Multiblocks=new MultiblockService(world,this);
+            this.world=world;this.limit=limit;this.processing=processing;Multiblocks=new MultiblockService(world,this);
             ItemNetwork.ExternalEndpointFaces=p=>ItemEndpoint(p)!=null?63:0;
             ItemNetwork.ResolvePorts=m=>TransportPorts(m,NetworkKind.Item);
             FluidNetwork.ResolvePorts=m=>TransportPorts(m,NetworkKind.Fluid);
@@ -42,7 +42,7 @@ namespace RivetReach
         public MachineState At(BlockPos p)=>machines.TryGetValue(p,out var m)?m:null;
         public void Invalidate(){dirty=true;signalsDirty=true;Revision++;}
         public MachineState Add(BlockPos p,byte id)
-        {if(machines.ContainsKey(p))throw new InvalidOperationException("Occupied machine anchor");var m=new MachineState(p,id,limit);machines.Add(p,m);if(id==IndustryId.TankController)Multiblocks.Register(m,MultiblockDefinition.Tank);if(id==IndustryId.BatteryController)Multiblocks.Register(m,MultiblockDefinition.BatteryBank);Multiblocks.Changed(p);Invalidate();return m;}
+        {if(machines.ContainsKey(p))throw new InvalidOperationException("Occupied machine anchor");var m=new MachineState(p,id,limit,processing);machines.Add(p,m);if(id==IndustryId.TankController)Multiblocks.Register(m,MultiblockDefinition.Tank);if(id==IndustryId.BatteryController)Multiblocks.Register(m,MultiblockDefinition.BatteryBank);Multiblocks.Changed(p);Invalidate();return m;}
         public MachineState Remove(BlockPos p)
         {var m=At(p);if(m!=null){if(!Multiblocks.CanRemove(p))return null;Multiblocks.RemoveController(p);machines.Remove(p);Multiblocks.Changed(p);Invalidate();}return m;}
         public void Rotate(MachineState m){m.Rotation=(m.Rotation+1)%4;Multiblocks.Changed(m.Position);Invalidate();}
@@ -150,11 +150,11 @@ namespace RivetReach
             if(m.Definition.Watts==0&&m.Definition.Id!=IndustryId.Pump)return;
             if(!m.Enabled){m.Status=MachineStatus.DisabledBySignal;return;}
             byte id=m.Definition.Id;
-            if(id==IndustryId.Crusher)
+            if(id==IndustryId.Crusher||id==IndustryId.ElectricFurnace)
             {
-                var input=m.Items.Slots[0];var output=MachineState.CrusherOutput(input.Id);
+                var input=m.Items.Slots[0];var output=m.ProcessingOutput(input.Id);
                 if(input.Id!=m.WorkInput){m.Work=0;m.WorkInput=input.Id;}
-                if(output.Empty||input.Empty){m.Status=MachineStatus.NoInput;return;}
+                if(output.Empty||input.Empty||input.Count<(m.FurnaceRecipe?.Input.Count??1)){m.Status=MachineStatus.NoInput;return;}
                 if(m.Items.Capacity(output.Id,2,3)<output.Count){m.Status=MachineStatus.OutputFull;return;}
             }
             if(id==IndustryId.Pump)
@@ -202,10 +202,15 @@ namespace RivetReach
                 if(id!=IndustryId.Lamp)m.Work+=m.ReceivedWatts/(double)m.Definition.Watts;
             }
             if(id==IndustryId.Lamp)return;
-            int duration=id==IndustryId.Crusher?MachineState.CrusherTicks:id==IndustryId.Pump?40:120;
+            int duration=m.ProcessingTicks;
             if(m.Work+1e-9<duration)return;
-            if(id==IndustryId.Crusher)
-            {var output=MachineState.CrusherOutput(m.Items.Slots[0].Id);if(output.Empty||m.Items.Capacity(output.Id,2,3)<output.Count)return;m.Items.Take(0,1);m.Items.Add(output.Id,output.Count,2,3);}
+            if(id==IndustryId.Crusher||id==IndustryId.ElectricFurnace)
+            {
+                var input=m.Items.Slots[0];var output=m.ProcessingOutput(input.Id);int count=m.FurnaceRecipe?.Input.Count??1;
+                if(input.Id!=m.WorkInput){m.Work=0;m.WorkInput=input.Id;return;}
+                if(output.Empty||input.Count<count||m.Items.Capacity(output.Id,2,3)<output.Count)return;
+                m.Items.Take(0,count);m.Items.Add(output.Id,output.Count,2,3);
+            }
             if(id==IndustryId.Pump)
             {var p=Neighbor(m,3);if(world.Get(p)!=Fluids.Water.Source||!world.Remove(p,Fluids.Water.Source))return;m.WaterMl+=10000;}
             if(id==IndustryId.Drill)

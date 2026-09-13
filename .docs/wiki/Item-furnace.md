@@ -4,7 +4,7 @@
 
 [All items](Items.md) · [Crafting guide](Crafting-Recipes.md) · [Home](Home.md)
 
-[How to obtain](#how-to-obtain) · [Crafting and processing](#crafting-and-processing) · [Recipes made here](#recipes-made-here)
+[How to obtain](#how-to-obtain) · [Crafting and processing](#crafting-and-processing) · [Uses](#used-to-make) · [Recipes made here](#recipes-made-here)
 
 <a href="Item-furnace.md" title="Furnace"><img src="icons/24.png" width="96" height="96" alt="Furnace"></a>
 
@@ -65,6 +65,14 @@ Opening its controls shows a matching illustration and name in the left panel. S
 | Ingredient | Total per operation |
 |---|---:|
 | <a href="Item-cobblestone.md" title="Cobblestone"><img src="icons/22.png" width="32" height="32" alt="Cobblestone"></a> [Cobblestone](Item-cobblestone.md) | 8 |
+
+## Used to make
+
+Follow a result to see its complete ingredients and recipe.
+
+| Result | Station | Recipe |
+|---|---|---|
+| <a href="Item-electric-furnace.md#recipe-1" title="Electric Furnace"><img src="icons/174.png" width="32" height="32" alt="Electric Furnace"></a> ×1 [Electric Furnace](Item-electric-furnace.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-electric-furnace.md#recipe-1) |
 
 ## Recipes made here
 

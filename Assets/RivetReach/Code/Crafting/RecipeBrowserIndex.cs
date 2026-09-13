@@ -57,6 +57,9 @@ namespace RivetReach
                     IndustryId.Crusher, crushed, new[] { new ItemStack(item.runtimeId, 1) },
                     ticks: MachineState.CrusherTicks, watts: IndustryDefinition.All[IndustryId.Crusher].Watts));
             }
+            foreach (var recipe in processing.Recipes)
+                all.Add(new BrowserRecipe("electric:" + recipe.Id, items.Get(IndustryId.ElectricFurnace).displayName, IndustryId.ElectricFurnace,
+                    recipe.Output, new[] { recipe.Input }, ticks: recipe.Ticks, watts: IndustryDefinition.All[IndustryId.ElectricFurnace].Watts));
             Recipes = all.AsReadOnly();
             foreach (var group in all.GroupBy(r => r.Output.Id)) outputs.Add(group.Key, Array.AsReadOnly(group.ToArray()));
             var consuming = new Dictionary<byte, List<BrowserRecipe>>();

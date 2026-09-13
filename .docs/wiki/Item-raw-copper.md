@@ -32,3 +32,4 @@ Follow a result to see its complete ingredients and recipe.
 |---|---|---|
 | <a href="Item-copper-ingot.md#recipe-2" title="Copper ingot"><img src="icons/27.png" width="32" height="32" alt="Copper ingot"></a> ×1 [Copper ingot](Item-copper-ingot.md) | [Furnace](Item-furnace.md) | [View recipe](Item-copper-ingot.md#recipe-2) |
 | <a href="Item-crushed-copper.md#recipe-1" title="Crushed Copper"><img src="icons/150.png" width="32" height="32" alt="Crushed Copper"></a> ×2 [Crushed Copper](Item-crushed-copper.md) | [Crusher](Item-crusher.md) | [View recipe](Item-crushed-copper.md#recipe-1) |
+| <a href="Item-copper-ingot.md#recipe-4" title="Copper ingot"><img src="icons/27.png" width="32" height="32" alt="Copper ingot"></a> ×1 [Copper ingot](Item-copper-ingot.md) | [Electric Furnace](Item-electric-furnace.md) | [View recipe](Item-copper-ingot.md#recipe-4) |

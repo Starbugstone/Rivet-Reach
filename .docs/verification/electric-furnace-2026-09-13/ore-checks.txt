@@ -1,0 +1,7 @@
+Coal ore: 38278 cells; mean Y 29,10
+Copper ore: 30662 cells; mean Y 2,57
+Iron ore: 71354 cells; mean Y -61,01
+Gold ore: 6395 cells; mean Y -149,22
+Diamond ore: 1654 cells; mean Y -210,63
+Azure Ore: 5198 cells; mean Y -42,58
+528 generated chunks; generation median 5,338 ms; p95 6,684 ms; max 11,505 ms (Editor, generation only).

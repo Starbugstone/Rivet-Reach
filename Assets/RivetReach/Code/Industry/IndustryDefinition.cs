@@ -19,11 +19,11 @@ namespace RivetReach
         public const byte TankFrame=160,TankWall=161,TankGlass=162,TankController=163,TankPort=164,TankHatch=165,TankValve=166,TankSensor=167;
         public const byte Battery=168,BatteryController=169,HandCrank=170;
         public const byte WoodenDoor=171,DoorUpper=172;
-        public const byte Wrench=173;
+        public const byte Wrench=173,ElectricFurnace=174;
         public static bool DoorPart(byte id)=>id==WoodenDoor||id==DoorUpper;
         public static bool BatteryPart(byte id)=>id==Battery||id==BatteryController;
         public static bool TankPart(byte id)=>id>=TankFrame&&id<=TankSensor;
-        public static bool Placed(byte id)=>id>=Bench&&id<=Sensor||TankPart(id)||BatteryPart(id)||id==HandCrank||id==WoodenDoor;
+        public static bool Placed(byte id)=>id>=Bench&&id<=Sensor||TankPart(id)||BatteryPart(id)||id==HandCrank||id==WoodenDoor||id==ElectricFurnace;
         public static bool Route(byte id)=>id==SignalWire||id==SignalConduit||id==PowerCable||id==ItemPipe||id==FluidPipe;
         public static bool Thin(byte id)=>Route(id)||id==Lever||id==Button||id==Indicator||id==Relay||id==Sensor;
     }
@@ -60,6 +60,7 @@ namespace RivetReach
             Add(IndustryId.Boiler,"boiler_engine","Boiler Engine","Coal / charcoal + water → right-hand shaft",0,100000,P(NetworkKind.Fluid,PortRole.Input,16),ii);
             Add(IndustryId.Alternator,"alternator","Alternator","Left shaft couples to Boiler · 800 W output",0,0,P(NetworkKind.Power,PortRole.Output,16));
             Add(IndustryId.Crusher,"crusher","Crusher","1 raw ore → 2 crushed ore\n1 stone / cobblestone → 1 sand",160,0,pi,si,ii,io);
+            Add(IndustryId.ElectricFurnace,"electric_furnace","Electric Furnace","Furnace recipes · electricity instead of fuel\n200 W · same full-power processing time",200,0,pi,si,ii,io);
             Add(IndustryId.Pump,"pump","Pump","Source below → 10 L in 2 seconds\nNo electricity required",0,10000,si,P(NetworkKind.Fluid,PortRole.Output,1));
             Add(IndustryId.Drill,"drill","Drill","Mines a finite column below · stops at bedrock",240,0,pi,si,io);
             Add(IndustryId.Tank,"water_tank","Water Tank","100 L · use bucket controls to fill / empty",0,100000,P(NetworkKind.Fluid,PortRole.Input,2),P(NetworkKind.Fluid,PortRole.Output,1));
@@ -89,11 +90,15 @@ namespace RivetReach
         IReadOnlyList<ItemStack> IItemPipeInventory.Slots=>Items.Slots;
         bool IItemPipeInventory.CanExtract(int slot)=>slot==2;
         bool IItemPipeInventory.Prefers(byte id,int localFace)=>AcceptsPipeInput(id,localFace)&&(Items.Slots[0].Id==id||
-            Definition.Id==IndustryId.Crusher&&!Items.Slots[2].Empty&&CrusherOutput(id).Id==Items.Slots[2].Id);
+            !Items.Slots[2].Empty&&ProcessingOutput(id).Id==Items.Slots[2].Id);
         bool IItemPipeInventory.TryInsert(byte id,int localFace)=>AcceptsPipeInput(id,localFace)&&Items.Capacity(id,0,1)>0&&Items.Add(id,1,0,1)==0;
         ItemStack IItemPipeInventory.Extract(int slot,int count)=>slot==2?Items.Take(slot,count):default;
         public readonly BlockPos Position; public readonly IndustryDefinition Definition;
         public readonly ItemContainer Items;
+        readonly ProcessingRegistry processing;
+        public ProcessingRecipe FurnaceRecipe=>Definition.Id==IndustryId.ElectricFurnace?processing?.Find(Items.Slots[0].Id):null;
+        public ItemStack ProcessingOutput(byte id)=>Definition.Id==IndustryId.Crusher?CrusherOutput(id):Definition.Id==IndustryId.ElectricFurnace?processing?.Find(id)?.Output??default:default;
+        public int ProcessingTicks=>Definition.Id==IndustryId.Crusher?CrusherTicks:Definition.Id==IndustryId.ElectricFurnace?FurnaceRecipe?.Ticks??200:Definition.Id==IndustryId.Pump?40:120;
         public int Rotation {get;internal set;}
         public MachineStatus Status {get;internal set;}
         public bool Signal,SignalAttached,Source,NextSource,Eligible,FluidConflict;
@@ -114,12 +119,12 @@ namespace RivetReach
         public double Work;
         public byte WorkInput;
         public int Priority=1;
-        public MachineState(BlockPos p,byte id,Func<byte,int> limit)
-        {Position=p;Definition=IndustryDefinition.All[id];EnergyCells=id==IndustryId.Battery?new[]{new BatteryStorage()}:Array.Empty<BatteryStorage>();Fluid=new FluidStorage(Definition.WaterCapacity);Items=new ItemContainer(3,limit);}
+        public MachineState(BlockPos p,byte id,Func<byte,int> limit,ProcessingRegistry processing=null)
+        {this.processing=processing;Position=p;Definition=IndustryDefinition.All[id];EnergyCells=id==IndustryId.Battery?new[]{new BatteryStorage()}:Array.Empty<BatteryStorage>();Fluid=new FluidStorage(Definition.WaterCapacity);Items=new ItemContainer(3,limit);}
         public bool Enabled=>!SignalAttached||Signal;
         public bool Running=>Status==MachineStatus.Running||Status==MachineStatus.Underpowered;
         bool AcceptsPipeInput(byte id,int localFace)=>Accepts(0,id)&&(!Definition.RequiresItemFuel||localFace<0||localFace==4);
-        public bool Accepts(int slot,byte id)=>slot==0&&(Definition.Id==IndustryId.Boiler?(id==BlockId.Coal||id==BlockId.Charcoal):Definition.Id==IndustryId.Crusher&&!CrusherOutput(id).Empty);
+        public bool Accepts(int slot,byte id)=>slot==0&&(Definition.Id==IndustryId.Boiler?(id==BlockId.Coal||id==BlockId.Charcoal):!ProcessingOutput(id).Empty);
         public const int CrusherTicks = 100;
         public static ItemStack CrusherOutput(byte id)=>id switch
         {

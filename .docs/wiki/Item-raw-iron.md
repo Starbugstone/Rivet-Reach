@@ -32,3 +32,4 @@ Follow a result to see its complete ingredients and recipe.
 |---|---|---|
 | <a href="Item-iron-ingot.md#recipe-2" title="Iron ingot"><img src="icons/28.png" width="32" height="32" alt="Iron ingot"></a> ×1 [Iron ingot](Item-iron-ingot.md) | [Furnace](Item-furnace.md) | [View recipe](Item-iron-ingot.md#recipe-2) |
 | <a href="Item-crushed-iron.md#recipe-1" title="Crushed Iron"><img src="icons/151.png" width="32" height="32" alt="Crushed Iron"></a> ×2 [Crushed Iron](Item-crushed-iron.md) | [Crusher](Item-crusher.md) | [View recipe](Item-crushed-iron.md#recipe-1) |
+| <a href="Item-iron-ingot.md#recipe-4" title="Iron ingot"><img src="icons/28.png" width="32" height="32" alt="Iron ingot"></a> ×1 [Iron ingot](Item-iron-ingot.md) | [Electric Furnace](Item-electric-furnace.md) | [View recipe](Item-iron-ingot.md#recipe-4) |

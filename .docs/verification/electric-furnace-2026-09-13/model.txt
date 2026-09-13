@@ -1,0 +1,1 @@
+Imported triangles: 1596; renderers: 2; bounds: (0.92, 0.97, 0.94)

@@ -45,6 +45,7 @@ namespace RivetReach.Editor
             Recipe(IndustryId.PowerCable,4,4,(IndustryId.CopperWire,4),(BlockId.Planks,1));
             Recipe(IndustryId.Boiler,1,4,(IndustryId.Casing,1),(IndustryId.CopperPlate,4),(IndustryId.Cog,2));
             Recipe(IndustryId.Alternator,1,4,(IndustryId.Casing,1),(IndustryId.Cog,2),(IndustryId.CopperWire,8));
+            Recipe(IndustryId.ElectricFurnace,1,4,(BlockId.Furnace,1),(IndustryId.Casing,1),(IndustryId.CopperWire,4));
             Recipe(IndustryId.Crusher,1,4,(IndustryId.Casing,1),(IndustryId.Cog,2),(IndustryId.IronPlate,4));
             Recipe(IndustryId.Lamp,1,4,(IndustryId.Glass,2),(IndustryId.CopperWire,2),(IndustryId.IronPlate,1));
             Recipe(IndustryId.Pump,1,4,(IndustryId.Casing,1),(IndustryId.Cog,1),(IndustryId.CopperWire,4),(IndustryId.CopperPlate,2));

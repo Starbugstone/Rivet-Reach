@@ -41,3 +41,4 @@ Follow a result to see its complete ingredients and recipe.
 | Result | Station | Recipe |
 |---|---|---|
 | <a href="Item-gold-ingot.md#recipe-3" title="Gold ingot"><img src="icons/29.png" width="32" height="32" alt="Gold ingot"></a> ×1 [Gold ingot](Item-gold-ingot.md) | [Furnace](Item-furnace.md) | [View recipe](Item-gold-ingot.md#recipe-3) |
+| <a href="Item-gold-ingot.md#recipe-5" title="Gold ingot"><img src="icons/29.png" width="32" height="32" alt="Gold ingot"></a> ×1 [Gold ingot](Item-gold-ingot.md) | [Electric Furnace](Item-electric-furnace.md) | [View recipe](Item-gold-ingot.md#recipe-5) |

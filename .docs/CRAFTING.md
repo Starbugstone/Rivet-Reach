@@ -155,3 +155,7 @@ The fill service has an ordered `IReadOnlyList<ItemContainer>` source overload. 
 ## Wrench — 2026-09-12
 
 The [all-face connection rules](INDUSTRY.md#wrench-and-configurable-pipe-ends--2026-09-12) add the reusable `rivet:wrench` tool. Its working shaped recipe yields one from three iron ingots (`iron iron / empty iron`), with horizontal mirroring and translation, minimum grid size 3. This adds a workbench recipe without changing the reviewed survival layouts or giving the personal 2×2 grid access. The [player item page](wiki/Item-wrench.md) shows the registered recipe; [connection verification](verification/CONNECTION_RESULTS.md) checks exact consumption and the selected-tool interaction requirement.
+
+## Electric furnace — 2026-09-13
+
+[Electric furnace](ELECTRIC_FURNACE.md) upgrades one normal furnace with a machine casing and four copper wire at the 4×4 Machinist’s Bench. Its processing recipes share the normal furnace registry and appear separately in the browser with electricity requirements.

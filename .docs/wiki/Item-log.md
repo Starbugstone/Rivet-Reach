@@ -34,6 +34,7 @@ Follow a result to see its complete ingredients and recipe.
 |---|---|---|
 | <a href="Item-planks.md#recipe-1" title="Planks"><img src="icons/20.png" width="32" height="32" alt="Planks"></a> ×4 [Planks](Item-planks.md) | Personal 2×2 | [View recipe](Item-planks.md#recipe-1) |
 | <a href="Item-charcoal.md#recipe-1" title="Charcoal"><img src="icons/26.png" width="32" height="32" alt="Charcoal"></a> ×1 [Charcoal](Item-charcoal.md) | [Furnace](Item-furnace.md) | [View recipe](Item-charcoal.md#recipe-1) |
+| <a href="Item-charcoal.md#recipe-2" title="Charcoal"><img src="icons/26.png" width="32" height="32" alt="Charcoal"></a> ×1 [Charcoal](Item-charcoal.md) | [Electric Furnace](Item-electric-furnace.md) | [View recipe](Item-charcoal.md#recipe-2) |
 
 ## Furnace fuel
 

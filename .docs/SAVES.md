@@ -72,3 +72,7 @@ Schemas **1–4** retain their original byte layouts and initialize the previous
 [The expanded inventory](GAMEPLAY.md#9-working-interaction-specification) writes schema **6**: 15 hotbar slots followed by 56 backpack slots (seven rows of eight). The existing length-prefixed player inventory record now contains 71 stacks; the selected hotbar index accepts 0–14. Other containers retain their exact size checks and layout. No content fingerprint changes are introduced.
 
 Schemas **1–5** still require their original 60 stacks and selected index 0–11. Loading keeps the first 12 hotbar slots in place, maps the 48 backpack slots to the same row/column behind the larger hotbar, and leaves the three added hotbar slots and eight added backpack slots empty. Unknown sizes and invalid stacks reject through the existing rollback path. Earlier content checks, station rotations, world/resource state and atomic checkpoint handling remain intact. Schema 6 checkpoints require the updated executable. [Inventory verification](verification/INVENTORY_RESULTS.md) records focused evidence.
+
+## Electric furnace compatibility — 2026-09-13
+
+[Electric furnace persistence](ELECTRIC_FURNACE.md#persistence) adds an explicit content-only compatibility path and recipe-derived work validation for the new machine. It adds no serialized fields or schema revision.

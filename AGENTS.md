@@ -130,3 +130,7 @@ The user requested [separate battery input/output cable grids](.docs/BATTERIES.m
 ## Authorized equal grid sharing
 
 The user requested equal surplus charging and deficit discharge among eligible batteries and shared flow rules for item/fluid grids. [BATTERIES.md](.docs/BATTERIES.md) and [INDUSTRY.md](.docs/INDUSTRY.md#shared-grid-allocation--2026-09-12) own the rules. Preserve the shared capped allocator, cable/pipe-defined connectivity, exact storage identity, full/empty redistribution, rotating whole-unit leftovers, resource compatibility, configured directions, processing preferences and durable-save conservation.
+
+## Authorized electric furnace
+
+The user requested an [Electric Furnace](.docs/ELECTRIC_FURNACE.md) that shares normal furnace recipes and replaces item fuel with electricity. Preserve shared recipe quantities/durations, all-face power and ingredient pipes, no fuel slot, proportional powered work, exact energy/input/output conservation and additive save compatibility. [Verification](.docs/verification/ELECTRIC_FURNACE_RESULTS.md) records measured evidence.

@@ -38,6 +38,18 @@ Make this item using the crafting or processing recipes below.
 
 Fuel burns down after ignition even if the input runs out. See the [Furnace](Item-furnace.md) page for fuel durations.
 
+### Recipe 2
+
+**Station:** <a href="Item-electric-furnace.md" title="Electric Furnace"><img src="icons/174.png" width="40" height="40" alt="Electric Furnace"><br>Electric Furnace</a>
+
+**Processing time:** 10 seconds per operation at **200 W**. Reduced power slows progress.
+
+**Output:** <a href="Item-glass.md" title="Glass"><img src="icons/128.png" width="56" height="56" alt="Glass"><br>Glass</a> ×1
+
+| Ingredient | Total per operation |
+|---|---:|
+| <a href="Item-sand.md" title="Sand"><img src="icons/90.png" width="32" height="32" alt="Sand"></a> [Sand](Item-sand.md) | 1 |
+
 ## Used to make
 
 Follow a result to see its complete ingredients and recipe.

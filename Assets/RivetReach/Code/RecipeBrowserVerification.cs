@@ -194,7 +194,7 @@ namespace RivetReach
             Check(game.UI.VisibleRoot.GetComponentsInChildren<BrowserItemView>().Count(v => v.name.StartsWith("Browse ")) == 1, "Search matches case-insensitive multiword item names");
             long inventoryRevision = game.Inventory.Revision, gridRevision = game.Crafting.Grid.Revision;
             yield return BrowserPointer(Item(BlockId.RawIron), right: true);
-            Check(TextContains("Furnace") && TextContains("1 / 2"), "Right-click shows raw iron uses including direct smelting");
+            Check(TextContains("Furnace") && TextContains("1 / "+new RecipeBrowserIndex(game.Registry,game.Recipes,game.Processing).Find(BlockId.RawIron,true).Count), "Right-click shows raw iron uses including direct smelting");
             yield return Capture("raw-iron-uses");
             // Recipe navigation arrows are scoped to the detail panel, independently of item pages.
             var detail = game.UI.VisibleRoot.GetComponentsInChildren<Transform>().Single(t => t.name == "Recipe detail");
@@ -251,7 +251,7 @@ namespace RivetReach
             game.UI.ClickSlot(12, false, false); var held = game.UI.HeldStack;
             Search().text = "torch"; yield return null; yield return BrowserPointer(Item(BlockId.Torch));
             Check(game.UI.HeldStack.Id == held.Id && game.UI.HeldStack.Count == held.Count && game.Crafting.Grid.Revision == gridRevision, "Recipe clicks preserve a held cursor stack and cannot fall through into crafting");
-            Check(TextContains("1 / 2"), "Alternative coal and charcoal torch recipes are both discoverable");
+            Check(TextContains("1 / "+new RecipeBrowserIndex(game.Registry,game.Recipes,game.Processing).Find(BlockId.RawIron,true).Count), "Alternative coal and charcoal torch recipes are both discoverable");
             yield return Capture("torch-alternatives");
             game.UI.CloseBrowserRecipe(); game.UI.ClickSlot(12, false, false); game.Inventory.Take(12, int.MaxValue);
             Search().text = "iron"; game.SetMode(ScreenMode.Play); game.SetMode(ScreenMode.Inventory); yield return null; yield return null;

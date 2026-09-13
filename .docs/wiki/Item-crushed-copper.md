@@ -41,3 +41,4 @@ Follow a result to see its complete ingredients and recipe.
 | Result | Station | Recipe |
 |---|---|---|
 | <a href="Item-copper-ingot.md#recipe-3" title="Copper ingot"><img src="icons/27.png" width="32" height="32" alt="Copper ingot"></a> ×1 [Copper ingot](Item-copper-ingot.md) | [Furnace](Item-furnace.md) | [View recipe](Item-copper-ingot.md#recipe-3) |
+| <a href="Item-copper-ingot.md#recipe-5" title="Copper ingot"><img src="icons/27.png" width="32" height="32" alt="Copper ingot"></a> ×1 [Copper ingot](Item-copper-ingot.md) | [Electric Furnace](Item-electric-furnace.md) | [View recipe](Item-copper-ingot.md#recipe-5) |

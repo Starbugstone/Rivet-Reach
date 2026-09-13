@@ -41,3 +41,4 @@ Follow a result to see its complete ingredients and recipe.
 | <a href="Item-lever.md#recipe-1" title="Lever"><img src="icons/134.png" width="32" height="32" alt="Lever"></a> ×1 [Lever](Item-lever.md) | [Workbench](Item-workbench.md) | [View recipe](Item-lever.md#recipe-1) |
 | <a href="Item-stone.md#recipe-1" title="Stone"><img src="icons/3.png" width="32" height="32" alt="Stone"></a> ×1 [Stone](Item-stone.md) | [Furnace](Item-furnace.md) | [View recipe](Item-stone.md#recipe-1) |
 | <a href="Item-sand.md#recipe-2" title="Sand"><img src="icons/90.png" width="32" height="32" alt="Sand"></a> ×1 [Sand](Item-sand.md) | [Crusher](Item-crusher.md) | [View recipe](Item-sand.md#recipe-2) |
+| <a href="Item-stone.md#recipe-2" title="Stone"><img src="icons/3.png" width="32" height="32" alt="Stone"></a> ×1 [Stone](Item-stone.md) | [Electric Furnace](Item-electric-furnace.md) | [View recipe](Item-stone.md#recipe-2) |

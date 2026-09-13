@@ -41,3 +41,4 @@ Follow a result to see its complete ingredients and recipe.
 | Result | Station | Recipe |
 |---|---|---|
 | <a href="Item-iron-ingot.md#recipe-3" title="Iron ingot"><img src="icons/28.png" width="32" height="32" alt="Iron ingot"></a> ×1 [Iron ingot](Item-iron-ingot.md) | [Furnace](Item-furnace.md) | [View recipe](Item-iron-ingot.md#recipe-3) |
+| <a href="Item-iron-ingot.md#recipe-5" title="Iron ingot"><img src="icons/28.png" width="32" height="32" alt="Iron ingot"></a> ×1 [Iron ingot](Item-iron-ingot.md) | [Electric Furnace](Item-electric-furnace.md) | [View recipe](Item-iron-ingot.md#recipe-5) |

@@ -70,7 +70,7 @@ namespace RivetReach
         public string DirectoryPath {get;}
         readonly ItemRegistry registry;
         readonly string content;
-        readonly HashSet<string> legacyContent=new HashSet<string>(),currentContent=new HashSet<string>();
+        readonly HashSet<string> legacyContent=new HashSet<string>(),currentContent=new HashSet<string>(),modernContent=new HashSet<string>();
         public string ScanWarning {get;private set;}
         public SaveStore(string path,ItemRegistry registry)
         {
@@ -78,16 +78,16 @@ namespace RivetReach
             // Schema 1/2 predate orchard state; doors and crank are independent additive content.
             // Every definition present before each accepted extension must still match.
             var processing=ProcessingCatalogAsset.Load();
-            string Fingerprint(int legacy,bool orchard=false,bool wrench=false)
+            string Fingerprint(int legacy,bool orchard=false,bool wrench=false,bool electric=false)
             {
-                string definitions=string.Join("\n",registry.items.Where(i=>(wrench||i.stableId!="rivet:wrench")&&(orchard||i.stableId!="rivet:sapling"&&i.stableId!="rivet:apple")&&((legacy&2)==0||i.stableId!="rivet:hand_crank")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.runtimeId).Select(i=>JsonUtility.ToJson(i)))
+                string definitions=string.Join("\n",registry.items.Where(i=>(electric||i.stableId!="rivet:electric_furnace")&&(wrench||i.stableId!="rivet:wrench")&&(orchard||i.stableId!="rivet:sapling"&&i.stableId!="rivet:apple")&&((legacy&2)==0||i.stableId!="rivet:hand_crank")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.runtimeId).Select(i=>JsonUtility.ToJson(i)))
                     +string.Join("\n",processing.recipes.OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
                     +string.Join("\n",processing.fuels.OrderBy(i=>i.itemId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
-                    +string.Join("\n",RecipeCatalogAsset.Load().recipes.Where(i=>(wrench||i.stableId!="rivet:wrench")&&((legacy&2)==0||i.stableId!="rivet:industry_170")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
+                    +string.Join("\n",RecipeCatalogAsset.Load().recipes.Where(i=>(electric||i.stableId!="rivet:industry_174")&&(wrench||i.stableId!="rivet:wrench")&&((legacy&2)==0||i.stableId!="rivet:industry_170")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
                     +string.Join("\n",Resources.LoadAll<MobDefinition>("Mobs/Definitions").OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)));
                 return Convert.ToBase64String(Hash(Encoding.UTF8.GetBytes(definitions)));
             }
-            content=Fingerprint(0,true,true);for(int legacy=0;legacy<4;legacy++){legacyContent.Add(Fingerprint(legacy));currentContent.Add(Fingerprint(legacy,true));}
+            content=Fingerprint(0,true,true,true);modernContent.Add(content);modernContent.Add(Fingerprint(0,true,true));for(int legacy=0;legacy<4;legacy++){legacyContent.Add(Fingerprint(legacy));currentContent.Add(Fingerprint(legacy,true));}
         }
         static byte[] Hash(byte[] bytes){using var sha=SHA256.Create();return sha.ComputeHash(bytes);}
         string SlotPath(string id){SaveReader.Require(Guid.TryParseExact(id,"N",out _),"Invalid save slot.");return System.IO.Path.Combine(DirectoryPath,id+".rrsave");}
@@ -115,7 +115,7 @@ namespace RivetReach
                 SaveReader.Require(Guid.TryParseExact(entry.Id,"N",out _)&&Guid.TryParseExact(entry.WorldId,"N",out _)&&!string.IsNullOrWhiteSpace(entry.Name),"Invalid save identity.");
                 SaveReader.Require(r.Text()==TerrainGenerator.Version,"This save requires a different terrain generator.");
                 string savedContent=r.Text();
-                SaveReader.Require(format>=4?savedContent==content:format==3?currentContent.Contains(savedContent):legacyContent.Contains(savedContent),"This save requires different content definitions; migration is not available.");
+                SaveReader.Require(format>=4?modernContent.Contains(savedContent):format==3?currentContent.Contains(savedContent):legacyContent.Contains(savedContent),"This save requires different content definitions; migration is not available.");
                 return r;
             }
             catch{r.Dispose();throw;}

@@ -84,7 +84,7 @@ namespace RivetReach
             bool revision=shownRevision!=sim.Revision;shownRevision=sim.Revision;
             foreach(var v in views.Values)
             {
-                var m=v.State;bool active=m.Signal||m.Source;
+                var m=v.State;bool active=m.Definition.Id==IndustryId.ElectricFurnace?m.Running:m.Signal||m.Source;
                 if(v.ChargeFill!=null)
                 {
                     // Read the physical cell even when a bank owns its electrical endpoint.

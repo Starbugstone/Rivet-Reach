@@ -39,3 +39,4 @@ Follow a result to see its complete ingredients and recipe.
 | Result | Station | Recipe |
 |---|---|---|
 | <a href="Item-azure-crystal.md#recipe-1" title="Azure Crystal"><img src="icons/121.png" width="32" height="32" alt="Azure Crystal"></a> ×1 [Azure Crystal](Item-azure-crystal.md) | [Furnace](Item-furnace.md) | [View recipe](Item-azure-crystal.md#recipe-1) |
+| <a href="Item-azure-crystal.md#recipe-2" title="Azure Crystal"><img src="icons/121.png" width="32" height="32" alt="Azure Crystal"></a> ×1 [Azure Crystal](Item-azure-crystal.md) | [Electric Furnace](Item-electric-furnace.md) | [View recipe](Item-azure-crystal.md#recipe-2) |

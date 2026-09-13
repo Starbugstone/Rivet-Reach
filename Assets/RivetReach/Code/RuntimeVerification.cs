@@ -123,7 +123,7 @@ namespace RivetReach
             if(Environment.GetCommandLineArgs().Contains("-rr-potato-art-review")||Environment.GetCommandLineArgs().Contains("-rr-orchard-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-connections-review")||Environment.GetCommandLineArgs().Contains("-rr-facing-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-inventory-review"))game.World.ViewDistance=4;
-            if(Environment.GetCommandLineArgs().Contains("-rr-machine-interface-review"))game.World.ViewDistance=4;
+            if(Environment.GetCommandLineArgs().Contains("-rr-machine-interface-review")||Environment.GetCommandLineArgs().Contains("-rr-electric-furnace-review"))game.World.ViewDistance=4;
             yield return Settle();report.firstReadySeconds=Time.realtimeSinceStartup-began;
             if(Environment.GetCommandLineArgs().Contains("-rr-machine-interface-review"))
             {yield return CaptureMachineInterfaces();yield break;}
@@ -133,6 +133,8 @@ namespace RivetReach
             {report.workload="Player-facing starter stations and machines, rendered cell bounds, right-click, residency and schema 5 persistence";yield return ReviewPlacementFacing();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-connections-review"))
             {report.workload="All-face power, configured item/fluid ends, visible direction arrows, pointer use and schema-4 persistence";yield return ReviewConnections();yield break;}
+            if(Environment.GetCommandLineArgs().Contains("-rr-electric-furnace-review"))
+            {report.workload="Electric furnace recipes, power, automation and durable saves";yield return ReviewElectricFurnace();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-battery-fill-review"))
             {report.workload="Battery charge fill, per-cell bank levels, rotation and restored energy";yield return ReviewBatteryFill();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-orchard-review"))

@@ -9,3 +9,5 @@
 - [Pumps and water](Pumps-and-water.md)
 - [Electricity and batteries](Electricity-and-batteries.md)
 - [Blue Signal](Blue-Signal.md)
+
+- [Electric Furnace](Electric-Furnace.md) — smelting and cooking with electricity.

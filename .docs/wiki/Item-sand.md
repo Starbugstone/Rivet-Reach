@@ -54,3 +54,4 @@ Follow a result to see its complete ingredients and recipe.
 | Result | Station | Recipe |
 |---|---|---|
 | <a href="Item-glass.md#recipe-1" title="Glass"><img src="icons/128.png" width="32" height="32" alt="Glass"></a> ×1 [Glass](Item-glass.md) | [Furnace](Item-furnace.md) | [View recipe](Item-glass.md#recipe-1) |
+| <a href="Item-glass.md#recipe-2" title="Glass"><img src="icons/128.png" width="32" height="32" alt="Glass"></a> ×1 [Glass](Item-glass.md) | [Electric Furnace](Item-electric-furnace.md) | [View recipe](Item-glass.md#recipe-2) |

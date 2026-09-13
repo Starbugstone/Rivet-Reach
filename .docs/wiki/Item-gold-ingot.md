@@ -77,6 +77,30 @@ Fuel burns down after ignition even if the input runs out. See the [Furnace](Ite
 
 Fuel burns down after ignition even if the input runs out. See the [Furnace](Item-furnace.md) page for fuel durations.
 
+### Recipe 4
+
+**Station:** <a href="Item-electric-furnace.md" title="Electric Furnace"><img src="icons/174.png" width="40" height="40" alt="Electric Furnace"><br>Electric Furnace</a>
+
+**Processing time:** 10 seconds per operation at **200 W**. Reduced power slows progress.
+
+**Output:** <a href="Item-gold-ingot.md" title="Gold ingot"><img src="icons/29.png" width="56" height="56" alt="Gold ingot"><br>Gold ingot</a> ×1
+
+| Ingredient | Total per operation |
+|---|---:|
+| <a href="Item-raw-gold.md" title="Raw gold"><img src="icons/18.png" width="32" height="32" alt="Raw gold"></a> [Raw gold](Item-raw-gold.md) | 1 |
+
+### Recipe 5
+
+**Station:** <a href="Item-electric-furnace.md" title="Electric Furnace"><img src="icons/174.png" width="40" height="40" alt="Electric Furnace"><br>Electric Furnace</a>
+
+**Processing time:** 10 seconds per operation at **200 W**. Reduced power slows progress.
+
+**Output:** <a href="Item-gold-ingot.md" title="Gold ingot"><img src="icons/29.png" width="56" height="56" alt="Gold ingot"><br>Gold ingot</a> ×1
+
+| Ingredient | Total per operation |
+|---|---:|
+| <a href="Item-crushed-gold.md" title="Crushed Gold"><img src="icons/152.png" width="32" height="32" alt="Crushed Gold"></a> [Crushed Gold](Item-crushed-gold.md) | 1 |
+
 ## Used to make
 
 Follow a result to see its complete ingredients and recipe.

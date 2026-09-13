@@ -32,3 +32,4 @@ Follow a result to see its complete ingredients and recipe.
 |---|---|---|
 | <a href="Item-gold-ingot.md#recipe-2" title="Gold ingot"><img src="icons/29.png" width="32" height="32" alt="Gold ingot"></a> ×1 [Gold ingot](Item-gold-ingot.md) | [Furnace](Item-furnace.md) | [View recipe](Item-gold-ingot.md#recipe-2) |
 | <a href="Item-crushed-gold.md#recipe-1" title="Crushed Gold"><img src="icons/152.png" width="32" height="32" alt="Crushed Gold"></a> ×2 [Crushed Gold](Item-crushed-gold.md) | [Crusher](Item-crusher.md) | [View recipe](Item-crushed-gold.md#recipe-1) |
+| <a href="Item-gold-ingot.md#recipe-4" title="Gold ingot"><img src="icons/29.png" width="32" height="32" alt="Gold ingot"></a> ×1 [Gold ingot](Item-gold-ingot.md) | [Electric Furnace](Item-electric-furnace.md) | [View recipe](Item-gold-ingot.md#recipe-4) |
