@@ -21,3 +21,7 @@ The earlier [cave-habitat results](FLOATER_RESULTS.md) retain their own pre-ligh
 ## Verification limits
 
 The numerical threshold is a working balance choice, not a user-specified value or a completed balance playtest. Shared bright-ground profiles are exercised, but passive animal populations are not implemented. The shared query intentionally excludes presentation-only held glow and cave ambient fill. Save schema and generated terrain are unchanged.
+
+## Wiki publication
+
+[Deployment 34767623779](https://github.com/Starbugstone/Rivet-Reach/actions/runs/34767623779) passed from source `f3dd1fe`, publishing wiki `1767289` after validating **200 pages / 8,116 links and images**. [Live Chromium evidence](mob-light-2026-09-13/wiki-publication.json) confirms the new rules and images on Mobs, Floater and Floater Rock, navigation between guides, and a 390-pixel mobile Floater page without document overflow. [Desktop](mob-light-2026-09-13/wiki-mobs-desktop.png) and [mobile](mob-light-2026-09-13/wiki-floater-mobile.png) captures record the deployed rendering.

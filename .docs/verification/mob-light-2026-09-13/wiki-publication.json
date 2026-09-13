@@ -1,0 +1,22 @@
+{
+  "verifiedUtc": "2026-09-13T16:10:46.851361+00:00",
+  "sourceCommit": "f3dd1fe4584ad1a1675c1ce040200766a97726f4",
+  "workflow": "https://github.com/Starbugstone/Rivet-Reach/actions/runs/34767623779",
+  "workflowResult": "success",
+  "wikiCommit": "1767289",
+  "pages": 200,
+  "localLinksAndImages": 8116,
+  "browser": "Chromium via Playwright CLI",
+  "liveChecks": [
+    "Mobs page shows light7-or-lower requirement and level8-or-higher prevention, with loaded1280px torch-floor image",
+    "Clicked Floater from the mob table; cave/light rules and all4images loaded",
+    "Floater lighting-and-spawning link matches the published Mobs section permalink",
+    "Floater lighting section at390x844 has document width390 and allimages loaded",
+    "Floater Rock item page includes new light8 spawn prevention text and allimages loaded"
+  ],
+  "captures": [
+    "wiki-mobs-desktop.png",
+    "wiki-floater-desktop.png",
+    "wiki-floater-mobile.png"
+  ]
+}
