@@ -26,4 +26,6 @@ In an idle pinned Editor, request `floater-caves-build` through `Logs/build-requ
 
 ## Wiki publication
 
-The Floater, Mobs and Floater Rock pages describe cave-only Floaters and shared habitat/support-block rules. Publication and live-page checks are recorded after deployment.
+[Deployment run 34762827286](https://github.com/Starbugstone/Rivet-Reach/actions/runs/34762827286) succeeded, publishing wiki commit `6d3e2a7` from game commit `8496554`. Its checkout validated **199 pages and 8,098 local links/images**, with 177 item pages and 163 recipes.
+
+Live Chromium review confirmed the cave-only guide text and all three in-game images, followed the Floater Rock link to its updated acquisition text and loaded inventory icon, and verified the Mobs page’s shared hostile/passive habitat and support-block explanation. All three checked pages fit a **390×844** viewport without horizontal document overflow. Reviewed captures: [Floater guide](mob-spawning-2026-09-13/wiki-floater-mobile.png), [Floater Rock](mob-spawning-2026-09-13/wiki-rock-mobile.png).
