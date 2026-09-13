@@ -22,7 +22,7 @@ Original sources and reproducible authoring live in `ArtSource/Farming`, `Tools/
 
 ## Wiki review
 
-The export contains 175 registered items and 143 recipes. All 193 wiki pages pass 7,490 local page/section/image links. The GitHub-rendered stew preview loaded all 22 images and followed its carrot ingredient link. The farming guide loaded all six actual game captures at 390×844 with no document overflow. Live deployment is verified after the repository push.
+The export contains 175 registered items and 143 recipes. All 193 wiki pages pass 7,490 local page/section/image links. The GitHub-rendered stew preview loaded all 22 images and followed its carrot ingredient link. The farming guide loaded all six actual game captures at 390×844 with no document overflow. [Automatic deployment 34752058545](https://github.com/Starbugstone/Rivet-Reach/actions/runs/34752058545) passed and published wiki commit `2332764` from implementation commit `ffbe58c`. Live Chromium review loaded all six guide captures and all 22 stew-page images, checked `edible` and tagged substitutions, and followed the carrot ingredient through to its page. [Published guide capture](farming-2026-09-13/wiki-live-guide.png) and [published stew recipe capture](farming-2026-09-13/wiki-live-stew.png) retain the deployment evidence. The live Electric Cooker page displayed 200 W with all 15 images loaded; the item index loaded all 175 icons with no missing or unlinked images.
 
 ## Limits
 
