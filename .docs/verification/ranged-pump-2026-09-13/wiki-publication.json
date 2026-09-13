@@ -1,0 +1,29 @@
+{
+  "verifiedUtc": "2026-09-13T09:10:58.627962+00:00",
+  "sourceCommit": "3c9f3a552ec8f57fc87427efe3fb2ec03a3aa4e2",
+  "wikiCommit": "2a04d76",
+  "deployment": "Documented manual publisher workflow; clean wiki checkout reviewed, committed and pushed",
+  "pages": 152,
+  "localLinksAndImages": 6195,
+  "stagedSourceFingerprints": 502,
+  "liveChecks": {
+    "guide": "https://github.com/Starbugstone/Rivet-Reach/wiki/Ranged-Liquid-Pump",
+    "guideImagesLoaded": 4,
+    "guideImageWidths": [
+      1280,
+      1280,
+      1280,
+      1280
+    ],
+    "itemPageImagesLoaded": 7,
+    "itemPageBrokenImages": 0,
+    "guideToItemLinkOpened": true,
+    "ingredientLinkOpened": "https://github.com/Starbugstone/Rivet-Reach/wiki/Item-floater-rock"
+  },
+  "localGithubMarkdownReview": {
+    "mobileWidth": 390,
+    "guideHorizontalOverflow": false,
+    "recipeHorizontalOverflow": false,
+    "recipeGridVisuallyReviewed": true
+  }
+}
