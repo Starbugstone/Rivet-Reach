@@ -94,7 +94,8 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 0
-    tags: []
+    tags:
+    - compostable
   - runtimeId: 6
     stableId: rivet:starter_axe
     displayName: Starter axe
@@ -508,6 +509,7 @@ MonoBehaviour:
     attackDamage: 1
     buoyant: 0
     tags:
+    - compostable
     - edible
     - vegetable
   - runtimeId: 31
@@ -526,6 +528,7 @@ MonoBehaviour:
     attackDamage: 1
     buoyant: 0
     tags:
+    - compostable
     - edible
   - runtimeId: 32
     stableId: rivet:farmland
@@ -2100,7 +2103,8 @@ MonoBehaviour:
     armorPoints: 0
     attackDamage: 1
     buoyant: 1
-    tags: []
+    tags:
+    - compostable
   - runtimeId: 98
     stableId: rivet:apple
     displayName: Apple
@@ -2117,6 +2121,7 @@ MonoBehaviour:
     attackDamage: 1
     buoyant: 1
     tags:
+    - compostable
     - edible
     - fruit
   - runtimeId: 171
@@ -2295,6 +2300,7 @@ MonoBehaviour:
     attackDamage: 1
     buoyant: 0
     tags:
+    - compostable
     - seed
   - runtimeId: 221
     stableId: rivet:grain
@@ -2312,6 +2318,7 @@ MonoBehaviour:
     attackDamage: 1
     buoyant: 0
     tags:
+    - compostable
     - grain
   - runtimeId: 222
     stableId: rivet:flax_seed
@@ -2329,6 +2336,7 @@ MonoBehaviour:
     attackDamage: 1
     buoyant: 0
     tags:
+    - compostable
     - seed
   - runtimeId: 223
     stableId: rivet:flax_fibre
@@ -2346,6 +2354,7 @@ MonoBehaviour:
     attackDamage: 1
     buoyant: 0
     tags:
+    - compostable
     - fibre
   - runtimeId: 224
     stableId: rivet:string
@@ -2397,6 +2406,7 @@ MonoBehaviour:
     attackDamage: 1
     buoyant: 0
     tags:
+    - compostable
     - seed
   - runtimeId: 227
     stableId: rivet:carrot
@@ -2414,6 +2424,7 @@ MonoBehaviour:
     attackDamage: 1
     buoyant: 0
     tags:
+    - compostable
     - edible
     - vegetable
   - runtimeId: 228
@@ -2432,6 +2443,7 @@ MonoBehaviour:
     attackDamage: 1
     buoyant: 0
     tags:
+    - compostable
     - seed
   - runtimeId: 229
     stableId: rivet:berries
@@ -2449,6 +2461,7 @@ MonoBehaviour:
     attackDamage: 1
     buoyant: 0
     tags:
+    - compostable
     - edible
     - fruit
   - runtimeId: 230
@@ -2467,6 +2480,7 @@ MonoBehaviour:
     attackDamage: 1
     buoyant: 0
     tags:
+    - compostable
     - edible
     - mushroom
   - runtimeId: 231
@@ -2485,6 +2499,7 @@ MonoBehaviour:
     attackDamage: 1
     buoyant: 0
     tags:
+    - compostable
     - edible
     - prepared_food
   - runtimeId: 232
@@ -2503,6 +2518,7 @@ MonoBehaviour:
     attackDamage: 1
     buoyant: 0
     tags:
+    - compostable
     - edible
     - prepared_food
   - runtimeId: 233
@@ -2521,6 +2537,7 @@ MonoBehaviour:
     attackDamage: 1
     buoyant: 0
     tags:
+    - compostable
     - edible
     - prepared_food
   - runtimeId: 234
@@ -2539,6 +2556,7 @@ MonoBehaviour:
     attackDamage: 1
     buoyant: 0
     tags:
+    - compostable
     - edible
     - prepared_food
   - runtimeId: 235
@@ -2557,6 +2575,7 @@ MonoBehaviour:
     attackDamage: 1
     buoyant: 0
     tags:
+    - compostable
     - edible
     - prepared_food
   - runtimeId: 200
@@ -2853,6 +2872,38 @@ MonoBehaviour:
     stackLimit: 64
     fistSeconds: 0.15
     colour: {r: 0.65, g: 0.7, b: 0.3, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags: []
+  - runtimeId: 242
+    stableId: rivet:compost_bin
+    displayName: Compost Bin
+    stackLimit: 64
+    fistSeconds: 1.4
+    colour: {r: 0.36, g: 0.22, b: 0.1, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags: []
+  - runtimeId: 236
+    stableId: rivet:compost
+    displayName: Compost
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.36, g: 0.22, b: 0.1, a: 1}
     fistDropId: 0
     toolCapabilities: 0
     tier: 0

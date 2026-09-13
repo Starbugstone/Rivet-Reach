@@ -135,7 +135,8 @@ namespace RivetReach
                 for(int i=0;i<v.Parts.Length;i++)
                 {
                     var t=v.Parts[i];string n=t.name;
-                    if(n.StartsWith("MotionSpin"))
+                    if(n=="CompostFill"){t.gameObject.SetActive(!m.Items.Slots[0].Empty||!m.Items.Slots[2].Empty);}
+                    else if(n.StartsWith("MotionSpin"))
                     {var axis=m.Definition.Id==IndustryId.Boiler||m.Definition.Id==IndustryId.Alternator?Vector3.right:m.Definition.Id==IndustryId.Crusher||m.Definition.Id==IndustryId.Pump?Vector3.forward:m.Definition.Id==IndustryId.HandCrank?Vector3.forward:Vector3.up;t.localRotation=Quaternion.AngleAxis(v.Phase*(n.StartsWith("MotionSpinB")?-1:1),axis)*v.RestRotation[i];}
                     else if(n.StartsWith("MotionPiston")||n.StartsWith("MotionBob"))t.localPosition=v.Rest[i]+Vector3.up*(m.Definition.Id==IndustryId.Button?(m.Source?-.035f:0):m.Running?Mathf.Sin(v.Phase*Mathf.Deg2Rad)*.035f:0);
                     else if(n.StartsWith("MotionLever"))t.localRotation=Quaternion.Slerp(t.localRotation,Quaternion.Euler(m.Source?30:-30,0,0),1-Mathf.Exp(-18*Time.deltaTime));

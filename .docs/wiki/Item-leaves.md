@@ -4,7 +4,7 @@
 
 [All items](Items.md) · [Crafting guide](Crafting-Recipes.md) · [Home](Home.md)
 
-[How to obtain](#how-to-obtain) · [Crafting and processing](#crafting-and-processing)
+[How to obtain](#how-to-obtain) · [Crafting and processing](#crafting-and-processing) · [Uses](#used-to-make)
 
 <a href="Item-leaves.md" title="Leaves"><img src="icons/5.png" width="96" height="96" alt="Leaves"></a>
 
@@ -15,6 +15,7 @@ Leaf blocks form tree canopies and can be used for foliage decoration.
 | Property | Value |
 |---|---|
 | Stack size | 64 |
+| Tags | `compostable` |
 | Placement | Place from the hotbar |
 
 ## How to obtain
@@ -28,3 +29,11 @@ Mining natural leaves retains the leaf block and may also drop a [Sapling](Item-
 ## Crafting and processing
 
 There is no registered crafting or processing recipe for this item. Use the acquisition method above.
+
+## Used to make
+
+Follow a result to see its complete ingredients and recipe.
+
+| Result | Station | Recipe |
+|---|---|---|
+| <a href="Item-compost.md#recipe-1" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> ×1 [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-1) |

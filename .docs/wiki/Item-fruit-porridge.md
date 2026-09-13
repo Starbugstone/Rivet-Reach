@@ -4,7 +4,7 @@
 
 [All items](Items.md) · [Crafting guide](Crafting-Recipes.md) · [Home](Home.md)
 
-[How to obtain](#how-to-obtain) · [Crafting and processing](#crafting-and-processing)
+[How to obtain](#how-to-obtain) · [Crafting and processing](#crafting-and-processing) · [Uses](#used-to-make)
 
 <a href="Item-fruit-porridge.md" title="Fruit Porridge"><img src="icons/235.png" width="96" height="96" alt="Fruit Porridge"></a>
 
@@ -15,7 +15,7 @@ Prepared food from a basic or electric cooker. Food never spoils.
 | Property | Value |
 |---|---|
 | Stack size | 64 |
-| Tags | `edible`, `prepared_food` |
+| Tags | `compostable`, `edible`, `prepared_food` |
 | Food restored | 9 points |
 
 ## How to obtain
@@ -62,3 +62,12 @@ Cookers retain unused heat while blocked or idle. See the [Cooker](Item-cooker.m
 | **#fruit**: <a href="Item-apple.md" title="Apple"><img src="icons/98.png" width="32" height="32" alt="Apple"></a> [Apple](Item-apple.md) / <a href="Item-berries.md" title="Berries"><img src="icons/229.png" width="32" height="32" alt="Berries"></a> [Berries](Item-berries.md) | 1 |
 
 For tagged ingredients, any listed item counts; combinations and split stacks are accepted. Select this recipe on the cooker.
+
+
+## Used to make
+
+Follow a result to see its complete ingredients and recipe.
+
+| Result | Station | Recipe |
+|---|---|---|
+| <a href="Item-compost.md#recipe-19" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> ×1 [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-19) |

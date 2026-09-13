@@ -122,3 +122,7 @@ The stability review appends `log`, `planks`, `raw_ore` and `ingot` only to thei
 ## Material-tier recipe compatibility — 2026-09-13
 
 The [bridge](BRIDGES.md#crafting) and [ranged-pump](RANGED_PUMP.md#working-rules) recipe rebalance changes no save fields or schema (10). New saves fingerprint the new gold/diamond costs. An explicit historical recipe projection also accepts checkpoints with the exact earlier four recipes, across the existing supported content variants. It removes only the known appended two-gold ingredient and, for bridges, two-diamond ingredient while hashing; original ingredients, their quantities, station, output and every unrelated definition remain checked. Unknown altered costs are not normalized into compatibility. Loading does not recraft, charge, refund or replace machines/items already saved.
+
+## Compost compatibility — 2026-09-13
+
+[Compost](COMPOST.md#persistence-and-compatibility) reuses schema-10 machine slots/work and crop deadlines. Its additive content fingerprint includes the new catalog; known pre-compost fingerprints remove only the two added items, bin recipe and frozen compostable tags. Existing content checks, atomic replacement, previous-tier recipe compatibility and generated-chunk history remain required.

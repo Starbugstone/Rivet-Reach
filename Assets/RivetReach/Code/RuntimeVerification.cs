@@ -128,7 +128,9 @@ namespace RivetReach
             if(Environment.GetCommandLineArgs().Contains("-rr-machine-interface-review")||Environment.GetCommandLineArgs().Contains("-rr-electric-furnace-review")||Environment.GetCommandLineArgs().Contains("-rr-portable-storage-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-bridges-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-farming-review")||Environment.GetCommandLineArgs().Contains("-rr-farming-legacy"))game.World.ViewDistance=4;
+            if(Environment.GetCommandLineArgs().Contains("-rr-compost-review"))game.World.ViewDistance=4;
             yield return Settle();report.firstReadySeconds=Time.realtimeSinceStartup-began;
+            if(Environment.GetCommandLineArgs().Contains("-rr-compost-review")){report.workload="Compost batches, actual crop use, pipe transfers, recovery and durable crop deadlines";yield return ReviewCompost();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-farming-legacy")){report.workload="Historical saves and exploration across retained/new generator regions";yield return ReviewFarmingLegacy();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-farming-review")){report.workload="Wild and cultivated crops, tagged coal/electric cooking, pipe transactions and durable generation history";yield return ReviewFarming();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-bridges-review"))

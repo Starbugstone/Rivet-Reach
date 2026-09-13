@@ -141,3 +141,7 @@ Launch `Builds/RangedPump/RivetReach.exe`. Craft one Pump plus one Floater Rock 
 Run **`Builds/Farming/RivetReach.exe`** with its adjacent data and runtime files. Harvest wild plants, hoe dirt/grass, and right-click farmland with planting stock. Open either cooker with right-click or Interact, select a recipe, then supply ingredients and fuel/power. [Player guide](wiki/Farming-and-cooking.md), [working rules](FARMING.md) and [verification](verification/FARMING_RESULTS.md). Rebuild through `Tools/Verify-Farming.ps1 -Build`; the focused verifier exercises wild growth, both cookers, pipes and persistence.
 
 The stability-reviewed Farming player uses the same explicit Direct3D 11 renderer as the alpha, avoiding the recorded Direct3D12 shutdown fault after save restoration. The shared Windows build entry point restores the Editor graphics settings after building. See [stability review](verification/STABILITY_REVIEW_RESULTS.md).
+
+## Compost review build — 2026-09-13
+
+Run `Builds/Compost/RivetReach.exe` for the [compost increment](COMPOST.md). Craft the seven-plank bin at a workbench, open with right-click/Interact, and use the resulting Compost on immature crops. [Verification](verification/COMPOST_RESULTS.md) owns build evidence and limits.

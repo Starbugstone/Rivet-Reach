@@ -4,7 +4,7 @@
 
 [All items](Items.md) · [Crafting guide](Crafting-Recipes.md) · [Home](Home.md)
 
-[How to obtain](#how-to-obtain) · [Crafting and processing](#crafting-and-processing)
+[How to obtain](#how-to-obtain) · [Crafting and processing](#crafting-and-processing) · [Uses](#used-to-make)
 
 <a href="Item-wheat-seed.md" title="Wheat Seeds"><img src="icons/220.png" width="96" height="96" alt="Wheat Seeds"></a>
 
@@ -15,7 +15,7 @@ Planting stock for wheat.
 | Property | Value |
 |---|---|
 | Stack size | 64 |
-| Tags | `seed` |
+| Tags | `compostable`, `seed` |
 
 ## How to obtain
 
@@ -28,3 +28,11 @@ Select these seeds and right-click farmland prepared with a hoe. See [Farming an
 ## Crafting and processing
 
 There is no registered crafting or processing recipe for this item. Use the acquisition method above.
+
+## Used to make
+
+Follow a result to see its complete ingredients and recipe.
+
+| Result | Station | Recipe |
+|---|---|---|
+| <a href="Item-compost.md#recipe-6" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> ×1 [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-6) |

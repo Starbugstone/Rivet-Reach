@@ -26,7 +26,7 @@ namespace RivetReach
         public static bool DoorPart(byte id)=>id==WoodenDoor||id==DoorUpper;
         public static bool BatteryPart(byte id)=>id==Battery||id==BatteryController;
         public static bool TankPart(byte id)=>id>=TankFrame&&id<=TankSensor;
-        public static bool Placed(byte id)=>id>=Bench&&id<=Sensor||TankPart(id)||BatteryPart(id)||id==HandCrank||id==WoodenDoor||id==ElectricFurnace||Bridge(id)||id==ChunkLoader||id==RangedPump||FarmId.CookerBlock(id);
+        public static bool Placed(byte id)=>id>=Bench&&id<=Sensor||TankPart(id)||BatteryPart(id)||id==HandCrank||id==WoodenDoor||id==ElectricFurnace||Bridge(id)||id==ChunkLoader||id==RangedPump||FarmId.CookerBlock(id)||id==CompostId.Bin;
         public static bool Route(byte id)=>id==SignalWire||id==SignalConduit||id==PowerCable||id==ItemPipe||id==FluidPipe;
         public static bool Thin(byte id)=>Route(id)||id==Lever||id==Button||id==Indicator||id==Relay||id==Sensor;
     }
@@ -66,6 +66,7 @@ namespace RivetReach
             Add(IndustryId.Alternator,"alternator","Alternator","Left shaft couples to Boiler · 800 W output",0,0,P(NetworkKind.Power,PortRole.Output,16));
             Add(IndustryId.Crusher,"crusher","Crusher","1 raw ore → 2 crushed ore\n1 stone / cobblestone → 1 sand",160,0,pi,si,ii,io);
             Add(IndustryId.ElectricFurnace,"electric_furnace","Electric Furnace","Furnace recipes · electricity instead of fuel\n200 W · same full-power processing time",200,0,pi,si,ii,io);
+            Add(CompostId.Bin,"compost_bin","Compost Bin","Organic inputs → Compost · no fuel or electricity",0,0,si,ii,io);
             Add(FarmId.Cooker,"cooker","Cooker","Food recipes · burnable fuel at rear · ingredients on other faces",0,0,si,ii,io);
             Add(FarmId.ElectricCooker,"electric_cooker","Electric Cooker","Food recipes · electric heat · ingredients on all faces",200,0,pi,si,ii,io);
             Add(IndustryId.Pump,"pump","Pump","Source below → 10 L in 2 seconds\nNo electricity required",0,10000,si,P(NetworkKind.Fluid,PortRole.Output,1));
@@ -111,7 +112,7 @@ namespace RivetReach
         public int FuelTicks(byte id)=>processing.FuelTicks(id);
         public ProcessingRecipe FurnaceRecipe=>Definition.Id==IndustryId.ElectricFurnace?processing?.Find(Items.Slots[0].Id):null;
         public ItemStack ProcessingOutput(byte id)=>Definition.Id==IndustryId.Crusher?CrusherOutput(id):Definition.Id==IndustryId.ElectricFurnace?processing?.Find(id)?.Output??default:default;
-        public int ProcessingTicks=>IsCooker?FoodRecipe?.ticks??200:Definition.Id==IndustryId.Crusher?CrusherTicks:Definition.Id==IndustryId.ElectricFurnace?FurnaceRecipe?.Ticks??200:(Definition.Id==IndustryId.Pump||Definition.Id==IndustryId.RangedPump)?40:120;
+        public int ProcessingTicks=>IsComposter?CompostCatalog.Current.ticks:IsCooker?FoodRecipe?.ticks??200:Definition.Id==IndustryId.Crusher?CrusherTicks:Definition.Id==IndustryId.ElectricFurnace?FurnaceRecipe?.Ticks??200:(Definition.Id==IndustryId.Pump||Definition.Id==IndustryId.RangedPump)?40:120;
         public int Rotation {get;internal set;}
         public MachineStatus Status {get;internal set;}
         public bool Signal,SignalAttached,Source,NextSource,Eligible,FluidConflict;
@@ -144,7 +145,7 @@ namespace RivetReach
         public bool Enabled=>!SignalAttached||Signal;
         public bool Running=>Status==MachineStatus.Running||Status==MachineStatus.Underpowered;
         bool AcceptsPipeInput(byte id,int localFace)=>Accepts(0,id)&&(!Definition.RequiresItemFuel||localFace<0||localFace==4);
-        public bool Accepts(int slot,byte id)=>IsCooker?CookerAccepts(slot,id):slot==0&&(Definition.Id==IndustryId.Boiler?ItemRegistry.Load().HasTag(id,ItemTags.BoilerFuel)&&FuelTicks(id)>0:!ProcessingOutput(id).Empty);
+        public bool Accepts(int slot,byte id)=>IsComposter?slot==0&&CompostCatalog.Current.Points(id)>0:IsCooker?CookerAccepts(slot,id):slot==0&&(Definition.Id==IndustryId.Boiler?ItemRegistry.Load().HasTag(id,ItemTags.BoilerFuel)&&FuelTicks(id)>0:!ProcessingOutput(id).Empty);
         public const int CrusherTicks = 100;
         public static ItemStack CrusherOutput(byte id)=>id switch
         {

@@ -83,17 +83,18 @@ namespace RivetReach
             // Every definition present before each accepted extension must still match.
             var processing=ProcessingCatalogAsset.Load();
             bool previousTierRecipes=false;
-            string Fingerprint(int legacy,bool orchard=false,bool wrench=false,bool electric=false,bool lava=false,bool floater=false,bool bridges=false,bool ranged=false,bool farming=false,bool materialTags=true)
+            string Fingerprint(int legacy,bool orchard=false,bool wrench=false,bool electric=false,bool lava=false,bool floater=false,bool bridges=false,bool ranged=false,bool farming=false,bool materialTags=true,bool compost=false)
             {
-                string definitions=string.Join("\n",registry.items.Where(i=>(farming||!FarmId.Added(i.runtimeId))&&(ranged||i.stableId!="rivet:ranged_liquid_pump")&&(bridges||i.runtimeId<IndustryId.ItemBridge||i.runtimeId>IndustryId.ChunkLoader)&&(floater||i.stableId!="rivet:floater_rock")&&(lava||i.stableId!="rivet:lava_bucket")&&(electric||i.stableId!="rivet:electric_furnace")&&(wrench||i.stableId!="rivet:wrench")&&(orchard||i.stableId!="rivet:sapling"&&i.stableId!="rivet:apple")&&((legacy&2)==0||i.stableId!="rivet:hand_crank")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.runtimeId).Select(i=>ItemFingerprint(i,farming,materialTags)))
+                string definitions=string.Join("\n",registry.items.Where(i=>(compost||!CompostId.Added(i.runtimeId))&&(farming||!FarmId.Added(i.runtimeId))&&(ranged||i.stableId!="rivet:ranged_liquid_pump")&&(bridges||i.runtimeId<IndustryId.ItemBridge||i.runtimeId>IndustryId.ChunkLoader)&&(floater||i.stableId!="rivet:floater_rock")&&(lava||i.stableId!="rivet:lava_bucket")&&(electric||i.stableId!="rivet:electric_furnace")&&(wrench||i.stableId!="rivet:wrench")&&(orchard||i.stableId!="rivet:sapling"&&i.stableId!="rivet:apple")&&((legacy&2)==0||i.stableId!="rivet:hand_crank")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.runtimeId).Select(i=>ItemFingerprint(i,farming,materialTags,compost)))
                     +string.Join("\n",processing.recipes.OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
                     +string.Join("\n",processing.fuels.OrderBy(i=>i.itemId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
-                    +string.Join("\n",RecipeCatalogAsset.Load().recipes.Where(i=>(farming||!i.stableId.StartsWith("rivet:farm_",StringComparison.Ordinal))&&(ranged||i.stableId!="rivet:industry_180")&&(bridges||!new[]{"rivet:industry_190","rivet:industry_191","rivet:industry_192","rivet:industry_193"}.Contains(i.stableId))&&(electric||i.stableId!="rivet:industry_174")&&(wrench||i.stableId!="rivet:wrench")&&((legacy&2)==0||i.stableId!="rivet:industry_170")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>RecipeFingerprint(i,previousTierRecipes)))
+                    +string.Join("\n",RecipeCatalogAsset.Load().recipes.Where(i=>(compost||i.stableId!="rivet:compost_bin")&&(farming||!i.stableId.StartsWith("rivet:farm_",StringComparison.Ordinal))&&(ranged||i.stableId!="rivet:industry_180")&&(bridges||!new[]{"rivet:industry_190","rivet:industry_191","rivet:industry_192","rivet:industry_193"}.Contains(i.stableId))&&(electric||i.stableId!="rivet:industry_174")&&(wrench||i.stableId!="rivet:wrench")&&((legacy&2)==0||i.stableId!="rivet:industry_170")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>RecipeFingerprint(i,previousTierRecipes)))
                     +string.Join("\n",Resources.LoadAll<MobDefinition>("Mobs/Definitions").Where(i=>floater||i.stableId!="rivet:floater").OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>MobFingerprint(i,floater)));
                 if(farming&&registry.items.Any(i=>i.runtimeId==FarmId.Cooker))definitions+=Resources.Load<TextAsset>("Definitions/Cooking").text+Resources.Load<TextAsset>("Definitions/Crops").text;
+                if(compost)definitions+=Resources.Load<TextAsset>("Definitions/Compost").text;
                 return Convert.ToBase64String(Hash(Encoding.UTF8.GetBytes(definitions)));
             }
-            content=Fingerprint(0,true,true,true,true,true,true,true,true);
+            content=Fingerprint(0,true,true,true,true,true,true,true,true,true,true);
             // Accept the exact pre-tiering recipes as well as current costs, with all other content still checked.
             for(int tierVersion=0;tierVersion<2;tierVersion++)
             {
@@ -119,9 +120,11 @@ namespace RivetReach
             string Field(int count)=>"\"ingredients\":["+string.Join(",",cells.Take(count).Select(cell=>JsonUtility.ToJson(cell)))+"]";
             return json.Replace(Field(cells.Length),Field(originalCount));
         }
-        static string ItemFingerprint(ItemDefinition definition,bool farming,bool materialTags)
+        static string ItemFingerprint(ItemDefinition definition,bool farming,bool materialTags,bool compost)
         {
             string json=JsonUtility.ToJson(definition);
+            if(!compost&&CompostId.OriginalInput(definition.runtimeId))
+            {var old=JsonUtility.FromJson<ItemDefinition>(json);old.tags=old.tags.Where(tag=>tag!="compostable").ToArray();json=JsonUtility.ToJson(old);}
             if(farming)
             {
                 string addition=ItemTags.MaterialAddition(definition.runtimeId);

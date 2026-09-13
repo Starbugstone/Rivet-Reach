@@ -228,3 +228,7 @@ Keep basic pickaxes, furnaces, workshop components and the ordinary Pump accessi
 The current recipe pass adds **two gold ingots and two diamonds per bridge pair**, retaining the two Floater Rocks, two Machine Casings and four matching pipes/cables. This applies to item, liquid and power bridges because each bypasses distance for its channel. The [bridge specification](BRIDGES.md#crafting) owns exact recipes and yields. The [Ranged Liquid Pump](RANGED_PUMP.md#working-rules) adds **two gold ingots** to its Pump + Floater Rock upgrade. The Chunk Loader retains its existing four-Floater-Rock requirement.
 
 The user proposed the two-gold/two-diamond Item Bridge cost. The user also confirmed applying it to all three bridge channels. Charging it per existing two-endpoint recipe and selecting two gold for the pump are working balance choices under that request; mining/encounter time and broader progression balance still need survival play review. This pass changes crafting costs, not existing placed machinery or terrain generation.
+
+## Compost surplus — 2026-09-13
+
+[Compost](COMPOST.md) uses seven planks for the bin, with no metal or industrial bootstrap gate. Each 24-point batch converts configured organic surplus into one optional growth stage. Maximum current crop harvests contribute less than the three-compost cost of instant regrowth; preserve this constraint when changing yields or contribution values. These defaults still need player balance review.

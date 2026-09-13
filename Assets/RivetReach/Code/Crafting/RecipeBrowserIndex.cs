@@ -67,6 +67,11 @@ namespace RivetReach
                 var example=food.ingredients.Select(i=>new ItemStack(CookingCatalog.Current.Choices(i.selector)[0],i.count));
                 all.Add(new BrowserRecipe("cooker:"+cooker+":"+food.id,items.Get(cooker).displayName,cooker,new ItemStack(food.output,food.count),example,ticks:food.ticks,watts:cooker==FarmId.ElectricCooker?CookingCatalog.Current.electricWatts:0,fuels:cooker==FarmId.Cooker?fuels:null){FoodRecipe=food});
             }
+            if(items.items.Any(i=>i.runtimeId==CompostId.Bin))foreach(var input in CompostCatalog.Current.inputs)
+            {
+                byte id=items.ResolveId(input.item);
+                all.Add(new BrowserRecipe("compost:"+input.item,items.Get(CompostId.Bin).displayName,CompostId.Bin,new ItemStack(CompostId.Compost,1),new[]{new ItemStack(id,CompostCatalog.Current.BatchCount(id))},ticks:CompostCatalog.Current.ticks));
+            }
             Recipes = all.AsReadOnly();
             foreach (var group in all.GroupBy(r => r.Output.Id)) outputs.Add(group.Key, Array.AsReadOnly(group.ToArray()));
             var consuming = new Dictionary<byte, List<BrowserRecipe>>();

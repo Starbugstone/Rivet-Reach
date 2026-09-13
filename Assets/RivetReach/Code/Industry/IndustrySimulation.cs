@@ -148,6 +148,7 @@ namespace RivetReach
         }
         void Prepare(MachineState m)
         {
+            if(m.IsComposter){PrepareCompost(m);return;}
             if(m.IsCooker){PrepareCooker(m);return;}
             if(m.Definition.Watts==0&&m.Definition.Id!=IndustryId.Pump&&m.Definition.Id!=IndustryId.RangedPump)return;
             if(!m.Enabled){m.Status=MachineStatus.DisabledBySignal;return;}
@@ -182,6 +183,7 @@ namespace RivetReach
         }
         void Advance(MachineState m)
         {
+            if(m.IsComposter){AdvanceCompost(m);return;}
             if(m.IsCooker){AdvanceCooker(m);return;}
             byte id=m.Definition.Id;
             if(id==IndustryId.WoodenDoor)

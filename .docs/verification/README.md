@@ -79,3 +79,5 @@ This directory maintains the latest report and useful evidence for each feature.
 - [Stability and abstraction review](STABILITY_REVIEW_RESULTS.md): compiled tags/ingredient matching, cooker automation, save compatibility and complete mob wiki coverage (2026-09-13).
 
 - [Material-tier recipes](RECIPE_TIER_RESULTS.md): gold/diamond bridge costs, gold pump upgrade, historical recipe save compatibility and current recipe captures.
+
+- [Compost](COMPOST_RESULTS.md): bin conversion, crop acceleration, exact recovery and additive saves.

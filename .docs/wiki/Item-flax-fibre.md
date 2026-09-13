@@ -15,7 +15,7 @@ Craft three fibres into one String.
 | Property | Value |
 |---|---|
 | Stack size | 64 |
-| Tags | `fibre` |
+| Tags | `compostable`, `fibre` |
 
 ## How to obtain
 
@@ -32,3 +32,4 @@ Follow a result to see its complete ingredients and recipe.
 | Result | Station | Recipe |
 |---|---|---|
 | <a href="Item-string.md#recipe-1" title="String"><img src="icons/224.png" width="32" height="32" alt="String"></a> ×1 [String](Item-string.md) | Personal 2×2 | [View recipe](Item-string.md#recipe-1) |
+| <a href="Item-compost.md#recipe-9" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> ×1 [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-9) |

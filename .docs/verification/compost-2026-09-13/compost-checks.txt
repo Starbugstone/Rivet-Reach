@@ -1,0 +1,400 @@
+PASS Seven-plank U layout produces one bin at workbench
+PASS Incomplete bin recipe cannot craft
+PASS Exact configured input value: rivet:leaves
+PASS All-face insertion rivet:leaves #0
+PASS All-face insertion rivet:leaves #1
+PASS All-face insertion rivet:leaves #2
+PASS All-face insertion rivet:leaves #3
+PASS All-face insertion rivet:leaves #4
+PASS All-face insertion rivet:leaves #5
+PASS All-face insertion rivet:leaves #6
+PASS All-face insertion rivet:leaves #7
+PASS All-face insertion rivet:leaves #8
+PASS All-face insertion rivet:leaves #9
+PASS All-face insertion rivet:leaves #10
+PASS All-face insertion rivet:leaves #11
+PASS All-face insertion rivet:leaves #12
+PASS All-face insertion rivet:leaves #13
+PASS All-face insertion rivet:leaves #14
+PASS All-face insertion rivet:leaves #15
+PASS All-face insertion rivet:leaves #16
+PASS All-face insertion rivet:leaves #17
+PASS All-face insertion rivet:leaves #18
+PASS All-face insertion rivet:leaves #19
+PASS All-face insertion rivet:leaves #20
+PASS All-face insertion rivet:leaves #21
+PASS All-face insertion rivet:leaves #22
+PASS Incomplete batch retains all inputs: rivet:leaves
+PASS Finish organic batch
+PASS Unpaid partial work retains exact recoverable ingredients
+PASS Exact completed compost transaction
+PASS No fuel or electrical endpoint
+PASS Pipes extract only finished compost
+PASS Exact configured input value: rivet:sapling
+PASS All-face insertion rivet:sapling #0
+PASS All-face insertion rivet:sapling #1
+PASS All-face insertion rivet:sapling #2
+PASS All-face insertion rivet:sapling #3
+PASS All-face insertion rivet:sapling #4
+PASS All-face insertion rivet:sapling #5
+PASS All-face insertion rivet:sapling #6
+PASS All-face insertion rivet:sapling #7
+PASS All-face insertion rivet:sapling #8
+PASS All-face insertion rivet:sapling #9
+PASS All-face insertion rivet:sapling #10
+PASS Incomplete batch retains all inputs: rivet:sapling
+PASS Finish organic batch
+PASS Unpaid partial work retains exact recoverable ingredients
+PASS Exact completed compost transaction
+PASS No fuel or electrical endpoint
+PASS Pipes extract only finished compost
+PASS Exact configured input value: rivet:apple
+PASS All-face insertion rivet:apple #0
+PASS All-face insertion rivet:apple #1
+PASS All-face insertion rivet:apple #2
+PASS All-face insertion rivet:apple #3
+PASS All-face insertion rivet:apple #4
+PASS All-face insertion rivet:apple #5
+PASS All-face insertion rivet:apple #6
+PASS All-face insertion rivet:apple #7
+PASS All-face insertion rivet:apple #8
+PASS All-face insertion rivet:apple #9
+PASS All-face insertion rivet:apple #10
+PASS Incomplete batch retains all inputs: rivet:apple
+PASS Finish organic batch
+PASS Unpaid partial work retains exact recoverable ingredients
+PASS Exact completed compost transaction
+PASS No fuel or electrical endpoint
+PASS Pipes extract only finished compost
+PASS Exact configured input value: rivet:potato
+PASS All-face insertion rivet:potato #0
+PASS All-face insertion rivet:potato #1
+PASS All-face insertion rivet:potato #2
+PASS All-face insertion rivet:potato #3
+PASS All-face insertion rivet:potato #4
+PASS All-face insertion rivet:potato #5
+PASS All-face insertion rivet:potato #6
+PASS All-face insertion rivet:potato #7
+PASS All-face insertion rivet:potato #8
+PASS All-face insertion rivet:potato #9
+PASS All-face insertion rivet:potato #10
+PASS Incomplete batch retains all inputs: rivet:potato
+PASS Finish organic batch
+PASS Unpaid partial work retains exact recoverable ingredients
+PASS Exact completed compost transaction
+PASS No fuel or electrical endpoint
+PASS Pipes extract only finished compost
+PASS Exact configured input value: rivet:baked_potato
+PASS All-face insertion rivet:baked_potato #0
+PASS All-face insertion rivet:baked_potato #1
+PASS All-face insertion rivet:baked_potato #2
+PASS All-face insertion rivet:baked_potato #3
+PASS All-face insertion rivet:baked_potato #4
+PASS Incomplete batch retains all inputs: rivet:baked_potato
+PASS Finish organic batch
+PASS Unpaid partial work retains exact recoverable ingredients
+PASS Exact completed compost transaction
+PASS No fuel or electrical endpoint
+PASS Pipes extract only finished compost
+PASS Exact configured input value: rivet:wheat_seed
+PASS All-face insertion rivet:wheat_seed #0
+PASS All-face insertion rivet:wheat_seed #1
+PASS All-face insertion rivet:wheat_seed #2
+PASS All-face insertion rivet:wheat_seed #3
+PASS All-face insertion rivet:wheat_seed #4
+PASS All-face insertion rivet:wheat_seed #5
+PASS All-face insertion rivet:wheat_seed #6
+PASS All-face insertion rivet:wheat_seed #7
+PASS All-face insertion rivet:wheat_seed #8
+PASS All-face insertion rivet:wheat_seed #9
+PASS All-face insertion rivet:wheat_seed #10
+PASS All-face insertion rivet:wheat_seed #11
+PASS All-face insertion rivet:wheat_seed #12
+PASS All-face insertion rivet:wheat_seed #13
+PASS All-face insertion rivet:wheat_seed #14
+PASS All-face insertion rivet:wheat_seed #15
+PASS All-face insertion rivet:wheat_seed #16
+PASS All-face insertion rivet:wheat_seed #17
+PASS All-face insertion rivet:wheat_seed #18
+PASS All-face insertion rivet:wheat_seed #19
+PASS All-face insertion rivet:wheat_seed #20
+PASS All-face insertion rivet:wheat_seed #21
+PASS All-face insertion rivet:wheat_seed #22
+PASS Incomplete batch retains all inputs: rivet:wheat_seed
+PASS Finish organic batch
+PASS Unpaid partial work retains exact recoverable ingredients
+PASS Exact completed compost transaction
+PASS No fuel or electrical endpoint
+PASS Pipes extract only finished compost
+PASS Exact configured input value: rivet:grain
+PASS All-face insertion rivet:grain #0
+PASS All-face insertion rivet:grain #1
+PASS All-face insertion rivet:grain #2
+PASS All-face insertion rivet:grain #3
+PASS All-face insertion rivet:grain #4
+PASS All-face insertion rivet:grain #5
+PASS All-face insertion rivet:grain #6
+PASS All-face insertion rivet:grain #7
+PASS All-face insertion rivet:grain #8
+PASS All-face insertion rivet:grain #9
+PASS All-face insertion rivet:grain #10
+PASS Incomplete batch retains all inputs: rivet:grain
+PASS Finish organic batch
+PASS Unpaid partial work retains exact recoverable ingredients
+PASS Exact completed compost transaction
+PASS No fuel or electrical endpoint
+PASS Pipes extract only finished compost
+PASS Exact configured input value: rivet:flax_seed
+PASS All-face insertion rivet:flax_seed #0
+PASS All-face insertion rivet:flax_seed #1
+PASS All-face insertion rivet:flax_seed #2
+PASS All-face insertion rivet:flax_seed #3
+PASS All-face insertion rivet:flax_seed #4
+PASS All-face insertion rivet:flax_seed #5
+PASS All-face insertion rivet:flax_seed #6
+PASS All-face insertion rivet:flax_seed #7
+PASS All-face insertion rivet:flax_seed #8
+PASS All-face insertion rivet:flax_seed #9
+PASS All-face insertion rivet:flax_seed #10
+PASS All-face insertion rivet:flax_seed #11
+PASS All-face insertion rivet:flax_seed #12
+PASS All-face insertion rivet:flax_seed #13
+PASS All-face insertion rivet:flax_seed #14
+PASS All-face insertion rivet:flax_seed #15
+PASS All-face insertion rivet:flax_seed #16
+PASS All-face insertion rivet:flax_seed #17
+PASS All-face insertion rivet:flax_seed #18
+PASS All-face insertion rivet:flax_seed #19
+PASS All-face insertion rivet:flax_seed #20
+PASS All-face insertion rivet:flax_seed #21
+PASS All-face insertion rivet:flax_seed #22
+PASS Incomplete batch retains all inputs: rivet:flax_seed
+PASS Finish organic batch
+PASS Unpaid partial work retains exact recoverable ingredients
+PASS Exact completed compost transaction
+PASS No fuel or electrical endpoint
+PASS Pipes extract only finished compost
+PASS Exact configured input value: rivet:flax_fibre
+PASS All-face insertion rivet:flax_fibre #0
+PASS All-face insertion rivet:flax_fibre #1
+PASS All-face insertion rivet:flax_fibre #2
+PASS All-face insertion rivet:flax_fibre #3
+PASS All-face insertion rivet:flax_fibre #4
+PASS All-face insertion rivet:flax_fibre #5
+PASS All-face insertion rivet:flax_fibre #6
+PASS All-face insertion rivet:flax_fibre #7
+PASS All-face insertion rivet:flax_fibre #8
+PASS All-face insertion rivet:flax_fibre #9
+PASS All-face insertion rivet:flax_fibre #10
+PASS All-face insertion rivet:flax_fibre #11
+PASS All-face insertion rivet:flax_fibre #12
+PASS All-face insertion rivet:flax_fibre #13
+PASS All-face insertion rivet:flax_fibre #14
+PASS All-face insertion rivet:flax_fibre #15
+PASS All-face insertion rivet:flax_fibre #16
+PASS All-face insertion rivet:flax_fibre #17
+PASS All-face insertion rivet:flax_fibre #18
+PASS All-face insertion rivet:flax_fibre #19
+PASS All-face insertion rivet:flax_fibre #20
+PASS All-face insertion rivet:flax_fibre #21
+PASS All-face insertion rivet:flax_fibre #22
+PASS Incomplete batch retains all inputs: rivet:flax_fibre
+PASS Finish organic batch
+PASS Unpaid partial work retains exact recoverable ingredients
+PASS Exact completed compost transaction
+PASS No fuel or electrical endpoint
+PASS Pipes extract only finished compost
+PASS Exact configured input value: rivet:carrot_seed
+PASS All-face insertion rivet:carrot_seed #0
+PASS All-face insertion rivet:carrot_seed #1
+PASS All-face insertion rivet:carrot_seed #2
+PASS All-face insertion rivet:carrot_seed #3
+PASS All-face insertion rivet:carrot_seed #4
+PASS All-face insertion rivet:carrot_seed #5
+PASS All-face insertion rivet:carrot_seed #6
+PASS All-face insertion rivet:carrot_seed #7
+PASS All-face insertion rivet:carrot_seed #8
+PASS All-face insertion rivet:carrot_seed #9
+PASS All-face insertion rivet:carrot_seed #10
+PASS All-face insertion rivet:carrot_seed #11
+PASS All-face insertion rivet:carrot_seed #12
+PASS All-face insertion rivet:carrot_seed #13
+PASS All-face insertion rivet:carrot_seed #14
+PASS All-face insertion rivet:carrot_seed #15
+PASS All-face insertion rivet:carrot_seed #16
+PASS All-face insertion rivet:carrot_seed #17
+PASS All-face insertion rivet:carrot_seed #18
+PASS All-face insertion rivet:carrot_seed #19
+PASS All-face insertion rivet:carrot_seed #20
+PASS All-face insertion rivet:carrot_seed #21
+PASS All-face insertion rivet:carrot_seed #22
+PASS Incomplete batch retains all inputs: rivet:carrot_seed
+PASS Finish organic batch
+PASS Unpaid partial work retains exact recoverable ingredients
+PASS Exact completed compost transaction
+PASS No fuel or electrical endpoint
+PASS Pipes extract only finished compost
+PASS Exact configured input value: rivet:carrot
+PASS All-face insertion rivet:carrot #0
+PASS All-face insertion rivet:carrot #1
+PASS All-face insertion rivet:carrot #2
+PASS All-face insertion rivet:carrot #3
+PASS All-face insertion rivet:carrot #4
+PASS All-face insertion rivet:carrot #5
+PASS All-face insertion rivet:carrot #6
+PASS All-face insertion rivet:carrot #7
+PASS All-face insertion rivet:carrot #8
+PASS All-face insertion rivet:carrot #9
+PASS All-face insertion rivet:carrot #10
+PASS Incomplete batch retains all inputs: rivet:carrot
+PASS Finish organic batch
+PASS Unpaid partial work retains exact recoverable ingredients
+PASS Exact completed compost transaction
+PASS No fuel or electrical endpoint
+PASS Pipes extract only finished compost
+PASS Exact configured input value: rivet:berry_seed
+PASS All-face insertion rivet:berry_seed #0
+PASS All-face insertion rivet:berry_seed #1
+PASS All-face insertion rivet:berry_seed #2
+PASS All-face insertion rivet:berry_seed #3
+PASS All-face insertion rivet:berry_seed #4
+PASS All-face insertion rivet:berry_seed #5
+PASS All-face insertion rivet:berry_seed #6
+PASS All-face insertion rivet:berry_seed #7
+PASS All-face insertion rivet:berry_seed #8
+PASS All-face insertion rivet:berry_seed #9
+PASS All-face insertion rivet:berry_seed #10
+PASS All-face insertion rivet:berry_seed #11
+PASS All-face insertion rivet:berry_seed #12
+PASS All-face insertion rivet:berry_seed #13
+PASS All-face insertion rivet:berry_seed #14
+PASS All-face insertion rivet:berry_seed #15
+PASS All-face insertion rivet:berry_seed #16
+PASS All-face insertion rivet:berry_seed #17
+PASS All-face insertion rivet:berry_seed #18
+PASS All-face insertion rivet:berry_seed #19
+PASS All-face insertion rivet:berry_seed #20
+PASS All-face insertion rivet:berry_seed #21
+PASS All-face insertion rivet:berry_seed #22
+PASS Incomplete batch retains all inputs: rivet:berry_seed
+PASS Finish organic batch
+PASS Unpaid partial work retains exact recoverable ingredients
+PASS Exact completed compost transaction
+PASS No fuel or electrical endpoint
+PASS Pipes extract only finished compost
+PASS Exact configured input value: rivet:berries
+PASS All-face insertion rivet:berries #0
+PASS All-face insertion rivet:berries #1
+PASS All-face insertion rivet:berries #2
+PASS All-face insertion rivet:berries #3
+PASS All-face insertion rivet:berries #4
+PASS All-face insertion rivet:berries #5
+PASS All-face insertion rivet:berries #6
+PASS All-face insertion rivet:berries #7
+PASS All-face insertion rivet:berries #8
+PASS All-face insertion rivet:berries #9
+PASS All-face insertion rivet:berries #10
+PASS Incomplete batch retains all inputs: rivet:berries
+PASS Finish organic batch
+PASS Unpaid partial work retains exact recoverable ingredients
+PASS Exact completed compost transaction
+PASS No fuel or electrical endpoint
+PASS Pipes extract only finished compost
+PASS Exact configured input value: rivet:mushroom
+PASS All-face insertion rivet:mushroom #0
+PASS All-face insertion rivet:mushroom #1
+PASS All-face insertion rivet:mushroom #2
+PASS All-face insertion rivet:mushroom #3
+PASS All-face insertion rivet:mushroom #4
+PASS All-face insertion rivet:mushroom #5
+PASS All-face insertion rivet:mushroom #6
+PASS All-face insertion rivet:mushroom #7
+PASS All-face insertion rivet:mushroom #8
+PASS All-face insertion rivet:mushroom #9
+PASS All-face insertion rivet:mushroom #10
+PASS Incomplete batch retains all inputs: rivet:mushroom
+PASS Finish organic batch
+PASS Unpaid partial work retains exact recoverable ingredients
+PASS Exact completed compost transaction
+PASS No fuel or electrical endpoint
+PASS Pipes extract only finished compost
+PASS Exact configured input value: rivet:bread
+PASS All-face insertion rivet:bread #0
+PASS All-face insertion rivet:bread #1
+PASS All-face insertion rivet:bread #2
+PASS All-face insertion rivet:bread #3
+PASS All-face insertion rivet:bread #4
+PASS Incomplete batch retains all inputs: rivet:bread
+PASS Finish organic batch
+PASS Unpaid partial work retains exact recoverable ingredients
+PASS Exact completed compost transaction
+PASS No fuel or electrical endpoint
+PASS Pipes extract only finished compost
+PASS Exact configured input value: rivet:roast_carrot
+PASS All-face insertion rivet:roast_carrot #0
+PASS All-face insertion rivet:roast_carrot #1
+PASS All-face insertion rivet:roast_carrot #2
+PASS All-face insertion rivet:roast_carrot #3
+PASS All-face insertion rivet:roast_carrot #4
+PASS Incomplete batch retains all inputs: rivet:roast_carrot
+PASS Finish organic batch
+PASS Unpaid partial work retains exact recoverable ingredients
+PASS Exact completed compost transaction
+PASS No fuel or electrical endpoint
+PASS Pipes extract only finished compost
+PASS Exact configured input value: rivet:vegetable_stew
+PASS All-face insertion rivet:vegetable_stew #0
+PASS All-face insertion rivet:vegetable_stew #1
+PASS All-face insertion rivet:vegetable_stew #2
+PASS All-face insertion rivet:vegetable_stew #3
+PASS All-face insertion rivet:vegetable_stew #4
+PASS Incomplete batch retains all inputs: rivet:vegetable_stew
+PASS Finish organic batch
+PASS Unpaid partial work retains exact recoverable ingredients
+PASS Exact completed compost transaction
+PASS No fuel or electrical endpoint
+PASS Pipes extract only finished compost
+PASS Exact configured input value: rivet:cooked_mushroom
+PASS All-face insertion rivet:cooked_mushroom #0
+PASS All-face insertion rivet:cooked_mushroom #1
+PASS All-face insertion rivet:cooked_mushroom #2
+PASS All-face insertion rivet:cooked_mushroom #3
+PASS All-face insertion rivet:cooked_mushroom #4
+PASS Incomplete batch retains all inputs: rivet:cooked_mushroom
+PASS Finish organic batch
+PASS Unpaid partial work retains exact recoverable ingredients
+PASS Exact completed compost transaction
+PASS No fuel or electrical endpoint
+PASS Pipes extract only finished compost
+PASS Exact configured input value: rivet:fruit_porridge
+PASS All-face insertion rivet:fruit_porridge #0
+PASS All-face insertion rivet:fruit_porridge #1
+PASS All-face insertion rivet:fruit_porridge #2
+PASS All-face insertion rivet:fruit_porridge #3
+PASS All-face insertion rivet:fruit_porridge #4
+PASS Incomplete batch retains all inputs: rivet:fruit_porridge
+PASS Finish organic batch
+PASS Unpaid partial work retains exact recoverable ingredients
+PASS Exact completed compost transaction
+PASS No fuel or electrical endpoint
+PASS Pipes extract only finished compost
+PASS Compost, inert matter and fuel cannot enter
+PASS Partial work started
+PASS Full output pauses without consumption
+PASS Dormancy preserves partial work
+PASS Optional OFF signal pauses work
+PASS ON resumes exact work
+PASS Save preserves ingredients and exact partial progress
+PASS Restored batch completes exactly once
+PASS Reject fractional compost work
+PASS Reject completed uncommitted work
+PASS Reject fuel in compost state
+PASS Reject hidden-slot contents
+PASS Changing input identity resets unpaid work
+PASS Harvest cannot fund repeated instant growth: potato
+PASS Harvest cannot fund repeated instant growth: wheat
+PASS Harvest cannot fund repeated instant growth: flax
+PASS Harvest cannot fund repeated instant growth: carrot
+PASS Harvest cannot fund repeated instant growth: berry
+PASS Catalog rejection is atomic and disallows fractional batches
+PASS Browser and wiki expose every exact compost conversion

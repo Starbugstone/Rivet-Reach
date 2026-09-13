@@ -15,7 +15,7 @@ A food item and planting material. Eat it raw for 1 food point, or bake it for 5
 | Property | Value |
 |---|---|
 | Stack size | 64 |
-| Tags | `edible`, `vegetable` |
+| Tags | `compostable`, `edible`, `vegetable` |
 | Food restored | 1 points |
 
 ## How to obtain
@@ -42,3 +42,4 @@ Follow a result to see its complete ingredients and recipe.
 | <a href="Item-baked-potato.md#recipe-4" title="Baked potato"><img src="icons/31.png" width="32" height="32" alt="Baked potato"></a> ×1 [Baked potato](Item-baked-potato.md) | [Electric Cooker](Item-electric-cooker.md) | [View recipe](Item-baked-potato.md#recipe-4) |
 | <a href="Item-vegetable-stew.md#recipe-1" title="Vegetable Stew"><img src="icons/233.png" width="32" height="32" alt="Vegetable Stew"></a> ×1 [Vegetable Stew](Item-vegetable-stew.md) | [Cooker](Item-cooker.md) | [View recipe](Item-vegetable-stew.md#recipe-1) |
 | <a href="Item-vegetable-stew.md#recipe-2" title="Vegetable Stew"><img src="icons/233.png" width="32" height="32" alt="Vegetable Stew"></a> ×1 [Vegetable Stew](Item-vegetable-stew.md) | [Electric Cooker](Item-electric-cooker.md) | [View recipe](Item-vegetable-stew.md#recipe-2) |
+| <a href="Item-compost.md#recipe-4" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> ×1 [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-4) |

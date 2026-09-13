@@ -15,7 +15,7 @@ namespace RivetReach.Editor
             {
                 var item=items.items.FirstOrDefault(i=>i.runtimeId==id);
                 if(item==null){item=new ItemDefinition{runtimeId=id,stableId="rivet:"+key,displayName=name,colour=new Color(.65f,.7f,.3f),fistSeconds=.15f};items.items=items.items.Append(item).ToArray();}
-                item.foodPoints=food;item.tags=tags;
+                item.foodPoints=food;item.tags=CompostId.OriginalInput(id)&&item.tags.Contains("compostable")?tags.Append("compostable").ToArray():tags;
             }
             Item(220,"wheat_seed","Wheat Seeds",0,"seed");Item(221,"grain","Grain",0,"grain");
             Item(222,"flax_seed","Flax Seeds",0,"seed");Item(223,"flax_fibre","Flax Fibre",0,"fibre");

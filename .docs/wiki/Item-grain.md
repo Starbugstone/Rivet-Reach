@@ -15,7 +15,7 @@ Cook bread or fruit porridge.
 | Property | Value |
 |---|---|
 | Stack size | 64 |
-| Tags | `grain` |
+| Tags | `compostable`, `grain` |
 
 ## How to obtain
 
@@ -35,3 +35,4 @@ Follow a result to see its complete ingredients and recipe.
 | <a href="Item-bread.md#recipe-2" title="Bread"><img src="icons/231.png" width="32" height="32" alt="Bread"></a> ×1 [Bread](Item-bread.md) | [Electric Cooker](Item-electric-cooker.md) | [View recipe](Item-bread.md#recipe-2) |
 | <a href="Item-fruit-porridge.md#recipe-1" title="Fruit Porridge"><img src="icons/235.png" width="32" height="32" alt="Fruit Porridge"></a> ×1 [Fruit Porridge](Item-fruit-porridge.md) | [Cooker](Item-cooker.md) | [View recipe](Item-fruit-porridge.md#recipe-1) |
 | <a href="Item-fruit-porridge.md#recipe-2" title="Fruit Porridge"><img src="icons/235.png" width="32" height="32" alt="Fruit Porridge"></a> ×1 [Fruit Porridge](Item-fruit-porridge.md) | [Electric Cooker](Item-electric-cooker.md) | [View recipe](Item-fruit-porridge.md#recipe-2) |
+| <a href="Item-compost.md#recipe-7" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> ×1 [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-7) |

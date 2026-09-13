@@ -296,7 +296,7 @@ class Reference:
                  '4. Place the workbench and open it with **E or right-click**. Make ' + self.link('rivet:stick') + ' and a ' + self.link('rivet:wood_pickaxe') + '.',
                  '5. Mine stone for ' + self.link('rivet:cobblestone') + ', then make better tools and a ' + self.link('rivet:furnace') + '.', '',
                  '## Crafting stations', '', '| Station | Grid or process |', '|---|---|', '| Personal crafting | 2×2 in your inventory |']
-        for item_id, text in [('rivet:workbench', '3×3'), ('rivet:machinist_bench', '4×4'), ('rivet:furnace', 'Fuel-driven smelting and cooking'), ('rivet:electric_furnace', 'Electric smelting and cooking · 200 W'), ('rivet:crusher', 'Powered ore processing'), ('rivet:cooker', 'Food recipes with fuel'), ('rivet:electric_cooker', 'Food recipes with electricity')]:
+        for item_id, text in [('rivet:workbench', '3×3'), ('rivet:machinist_bench', '4×4'), ('rivet:furnace', 'Fuel-driven smelting and cooking'), ('rivet:electric_furnace', 'Electric smelting and cooking · 200 W'), ('rivet:crusher', 'Powered ore processing'), ('rivet:cooker', 'Food recipes with fuel'), ('rivet:electric_cooker', 'Food recipes with electricity'), ('rivet:compost_bin', 'Organic surplus into crop growth accelerator')]:
             lines += [f'| {self.icon(item_id, 48, True)} | {text} |']
         lines += ['', '## How to read a recipe', '',
                   '- **Shaped:** match the icon positions. Blank cells stay empty. Patterns may move inside a compatible grid; horizontal mirroring is allowed only where the recipe says so.',
@@ -309,14 +309,14 @@ class Reference:
                   '![The recipe preview outlines missing coal while the available stick remains unmarked](images/missing-torch-ingredient-2026-09-12.png)', '',
                   '*In-game capture, 2026-09-12: this torch variant needs coal; charcoal belongs to a different recipe variant.*', '',
                   '## Browse recipes by station', '', 'Choose a result below to open its item page at the exact recipe.', '']
-        headings = [('', 'Personal crafting — 2×2'), ('rivet:workbench', 'Workbench — 3×3'), ('rivet:machinist_bench', "Machinist’s Bench — 4×4"), ('rivet:furnace', 'Furnace processing'), ('rivet:electric_furnace', 'Electric furnace processing'), ('rivet:crusher', 'Crusher processing'), ('rivet:cooker', 'Cooker recipes'), ('rivet:electric_cooker', 'Electric cooker recipes')]
+        headings = [('', 'Personal crafting — 2×2'), ('rivet:workbench', 'Workbench — 3×3'), ('rivet:machinist_bench', "Machinist’s Bench — 4×4"), ('rivet:furnace', 'Furnace processing'), ('rivet:electric_furnace', 'Electric furnace processing'), ('rivet:crusher', 'Crusher processing'), ('rivet:cooker', 'Cooker recipes'), ('rivet:electric_cooker', 'Electric cooker recipes'), ('rivet:compost_bin', 'Compost conversions')]
         for station, heading in headings:
             recipes = [r for r in self.catalog['recipes'] if r['station'] == station]
             lines += ['## ' + heading, ''] + self.recipe_links(recipes)
         lines += ['## Workshop guides', '', '[Tanks](Tanks.md) · [Pumps and water](Pumps-and-water.md) · [Electricity and batteries](Electricity-and-batteries.md) · [Blue Signal](Blue-Signal.md)', '']
         counts = Counter('grid' if r['grid'] else r['station'] for r in self.catalog['recipes'])
         return '\n'.join(lines).replace('**91 grid recipes, 11 furnace recipes and 3 crusher recipes**',
-               f'**{counts["grid"]} grid recipes, {counts["rivet:furnace"]} furnace recipes, {counts["rivet:electric_furnace"]} electric furnace recipes and {counts["rivet:crusher"]} crusher recipes**')
+               f'**{counts["grid"]} grid recipes, {counts["rivet:furnace"]} furnace recipes, {counts["rivet:electric_furnace"]} electric furnace recipes, {counts["rivet:crusher"]} crusher recipes, {counts["rivet:cooker"] + counts["rivet:electric_cooker"]} cooker recipes and {counts["rivet:compost_bin"]} compost conversions**')
 
 
 def main():

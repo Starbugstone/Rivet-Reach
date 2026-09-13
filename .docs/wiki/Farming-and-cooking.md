@@ -23,6 +23,10 @@ Right-click exposed dirt or grass with a hoe to make farmland. Select the planti
 
 New plants appear in **newly explored terrain**. Updates preserve recorded generated chunks. Older saves lack complete exploration history, so the first upgrade conservatively preserves areas around saved building activity, the player and saved entities; travel beyond those areas to find the new plants.
 
+## Compost surplus
+
+A [Compost Bin](Compost.md) turns spare biological items into an optional growth accelerator. Use Compost on an immature wild or cultivated crop to advance one stage; ordinary growth still requires no compost.
+
 ## Fibre and cloth
 
 Three [Flax Fibre](Item-flax-fibre.md) make one [String](Item-string.md), and four Strings make one [Cloth](Item-cloth.md), using personal crafting. These begin the renewable textile chain. Fishing rods and beds are planned follow-ups and are not yet available in this increment.

@@ -15,7 +15,7 @@ Eat raw, cook it, or add it to vegetable stew.
 | Property | Value |
 |---|---|
 | Stack size | 64 |
-| Tags | `edible`, `mushroom` |
+| Tags | `compostable`, `edible`, `mushroom` |
 | Food restored | 1 points |
 
 ## How to obtain
@@ -36,3 +36,4 @@ Follow a result to see its complete ingredients and recipe.
 | <a href="Item-cooked-mushroom.md#recipe-2" title="Cooked Mushrooms"><img src="icons/234.png" width="32" height="32" alt="Cooked Mushrooms"></a> ×1 [Cooked Mushrooms](Item-cooked-mushroom.md) | [Electric Cooker](Item-electric-cooker.md) | [View recipe](Item-cooked-mushroom.md#recipe-2) |
 | <a href="Item-vegetable-stew.md#recipe-1" title="Vegetable Stew"><img src="icons/233.png" width="32" height="32" alt="Vegetable Stew"></a> ×1 [Vegetable Stew](Item-vegetable-stew.md) | [Cooker](Item-cooker.md) | [View recipe](Item-vegetable-stew.md#recipe-1) |
 | <a href="Item-vegetable-stew.md#recipe-2" title="Vegetable Stew"><img src="icons/233.png" width="32" height="32" alt="Vegetable Stew"></a> ×1 [Vegetable Stew](Item-vegetable-stew.md) | [Electric Cooker](Item-electric-cooker.md) | [View recipe](Item-vegetable-stew.md#recipe-2) |
+| <a href="Item-compost.md#recipe-14" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> ×1 [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-14) |

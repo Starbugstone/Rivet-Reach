@@ -142,6 +142,7 @@ namespace RivetReach
             w.Write(Tick);w.Write(Multiblocks.WorldId.ToString("N"));if(w.Format>=9)w.Write(LocalOwnerId);w.Write(machines.Count);
             foreach(var m in machines.Values)
             {
+                m.SynchronizeCompostInput();
                 if(m.IsCooker&&m.CookingSignature!=m.FoodSignature){m.Work=0;m.CookingSignature=m.FoodSignature;}
                 w.Pos(m.Position);w.Write(m.Definition.Id);w.Slots(m.Items.Slots);w.Write(m.Rotation);w.Write(m.Source);w.Write(m.NextSource);w.Write(m.PulseTicks);w.Write(m.BurnTicks);
                 w.Write(m.WaterMl);if(w.Format>=8)w.Write(m.Fluid.Fluid?.StableId??"");w.Write(m.DrillDepth);w.Write(m.Work);w.Write(m.WorkInput);w.Write(m.Priority);w.Write((int)m.Additions);w.Write((int)m.BatteryMode);
@@ -168,7 +169,7 @@ namespace RivetReach
                 int fluidAmount=r.Int(0,m.Definition.WaterCapacity);
                 string fluidId=r.Format>=8?r.Text():(fluidAmount>0?Fluids.Water.StableId:"");
                 var vesselLiquid=fluidId==""?null:Fluids.Registry.ByStableId(fluidId);
-                SaveReader.Require(fluidAmount==0?fluidId=="":vesselLiquid!=null&&(m.Definition.Id==IndustryId.Tank||m.Definition.Id==IndustryId.RangedPump||vesselLiquid==Fluids.Water)&&m.Fluid.Deposit(vesselLiquid,fluidAmount),"Invalid saved vessel fluid.");m.DrillDepth=r.Int(1,TerrainGenerator.MaxY-TerrainGenerator.MinY+2);m.Work=r.Number(0,m.IsCooker?CookingCatalog.Current.recipes.Max(recipe=>recipe.ticks):m.Definition.Id==IndustryId.ElectricFurnace?processing.Recipes.Max(recipe=>recipe.Ticks):120);m.WorkInput=r.ReadByte();m.Priority=r.Int(0,2);
+                SaveReader.Require(fluidAmount==0?fluidId=="":vesselLiquid!=null&&(m.Definition.Id==IndustryId.Tank||m.Definition.Id==IndustryId.RangedPump||vesselLiquid==Fluids.Water)&&m.Fluid.Deposit(vesselLiquid,fluidAmount),"Invalid saved vessel fluid.");m.DrillDepth=r.Int(1,TerrainGenerator.MaxY-TerrainGenerator.MinY+2);m.Work=r.Number(0,m.IsComposter?CompostCatalog.Current.ticks:m.IsCooker?CookingCatalog.Current.recipes.Max(recipe=>recipe.ticks):m.Definition.Id==IndustryId.ElectricFurnace?processing.Recipes.Max(recipe=>recipe.Ticks):120);m.WorkInput=r.ReadByte();m.Priority=r.Int(0,2);
                 m.Additions=(PipeAddition)r.Int(0,3);SaveReader.Require(m.Additions==0||PipeConnections.IsTransport(id),"Invalid pipe fittings.");m.BatteryMode=(BatteryMode)r.Int(0,3);
                 m.RecoveryOutput=r.ReadBoolean();m.PortMode=(FluidPortMode)r.Int(0,2);m.LevelThreshold=r.Int(0,100);m.Status=(MachineStatus)r.Int(0,Enum.GetValues(typeof(MachineStatus)).Length-1);
                 if(r.Format>=4){m.PipeDirections=r.Int(0,4095);SaveReader.Require(PipeConnections.ValidDirections(m.PipeDirections)&&(m.PipeDirections==0||PipeConnections.IsTransport(id)),"Invalid pipe end directions.");}
@@ -183,6 +184,7 @@ namespace RivetReach
                     m.CookingId=r.Text();m.CookingSignature=r.Text();
                     SaveReader.Require(m.FoodRecipe!=null&&m.Work<m.FoodRecipe.ticks&&(m.Work==0||m.CookingSignature==m.FoodSignature)&&(m.Definition.Id!=FarmId.ElectricCooker||m.BurnTicks==0)&& (m.Items.Slots[3].Empty||m.CookerAccepts(3,m.Items.Slots[3].Id)),"Invalid saved cooker.");
                 }
+                if(m.IsComposter)SaveReader.Require(m.Work<m.ProcessingTicks&&m.Work==System.Math.Floor(m.Work)&&(m.Work==0||m.WorkInput!=0)&&m.WorkInput==m.Items.Slots[0].Id&&m.BurnTicks==0&&m.PulseTicks==0&&(m.Items.Slots[0].Empty||m.Accepts(0,m.Items.Slots[0].Id))&&m.Items.Slots[1].Empty&&(m.Items.Slots[2].Empty||m.Items.Slots[2].Id==CompostId.Compost),"Invalid saved compost bin.");
                 if(m.EnergyCells.Length==1)SaveReader.Require(m.EnergyCells[0].Charge(r.Long(0,BatteryStorage.CellCapacity)),"Invalid battery energy.");
                 if(id==IndustryId.TankController||id==IndustryId.BatteryController)
                 {

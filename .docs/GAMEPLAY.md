@@ -481,3 +481,7 @@ The user authorized a craftable [Hand Crank](HAND_CRANK.md) that attaches to a b
 ## Farming and cooking — issue #10 first pass
 
 [Farming](FARMING.md) owns the shared wild/cultivated plant lifecycle, six-species forage set, flax/string/cloth chain, general item tags and coal/electric food cookers. Prepared meals restore more hunger per eating action; food never spoils. No soil-moisture or irrigation requirements are added. [The player guide](wiki/Farming-and-cooking.md) explains planting, harvests, tagged food choices and cooker setup.
+
+## Compost — 2026-09-13
+
+[Compost](COMPOST.md) owns the craftable bin, configured organic inputs and optional one-stage acceleration for immature wild/cultivated crops. It adds no moisture or spoilage requirement.

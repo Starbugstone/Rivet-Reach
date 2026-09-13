@@ -1,0 +1,82 @@
+{
+  "pointsPerCompost": 24,
+  "ticks": 200,
+  "inputs": [
+    {
+      "item": "rivet:leaves",
+      "points": 1
+    },
+    {
+      "item": "rivet:sapling",
+      "points": 2
+    },
+    {
+      "item": "rivet:apple",
+      "points": 2
+    },
+    {
+      "item": "rivet:potato",
+      "points": 2
+    },
+    {
+      "item": "rivet:baked_potato",
+      "points": 4
+    },
+    {
+      "item": "rivet:wheat_seed",
+      "points": 1
+    },
+    {
+      "item": "rivet:grain",
+      "points": 2
+    },
+    {
+      "item": "rivet:flax_seed",
+      "points": 1
+    },
+    {
+      "item": "rivet:flax_fibre",
+      "points": 1
+    },
+    {
+      "item": "rivet:carrot_seed",
+      "points": 1
+    },
+    {
+      "item": "rivet:carrot",
+      "points": 2
+    },
+    {
+      "item": "rivet:berry_seed",
+      "points": 1
+    },
+    {
+      "item": "rivet:berries",
+      "points": 2
+    },
+    {
+      "item": "rivet:mushroom",
+      "points": 2
+    },
+    {
+      "item": "rivet:bread",
+      "points": 4
+    },
+    {
+      "item": "rivet:roast_carrot",
+      "points": 4
+    },
+    {
+      "item": "rivet:vegetable_stew",
+      "points": 4
+    },
+    {
+      "item": "rivet:cooked_mushroom",
+      "points": 4
+    },
+    {
+      "item": "rivet:fruit_porridge",
+      "points": 4
+    }
+  ]
+}

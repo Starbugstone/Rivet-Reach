@@ -1,0 +1,12 @@
+[
+  {
+    "asset": "compost_bin",
+    "triangles": 1972,
+    "meshes": 2
+  },
+  {
+    "asset": "compost",
+    "triangles": 520,
+    "meshes": 1
+  }
+]

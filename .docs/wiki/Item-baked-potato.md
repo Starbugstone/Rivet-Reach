@@ -4,7 +4,7 @@
 
 [All items](Items.md) · [Crafting guide](Crafting-Recipes.md) · [Home](Home.md)
 
-[How to obtain](#how-to-obtain) · [Crafting and processing](#crafting-and-processing)
+[How to obtain](#how-to-obtain) · [Crafting and processing](#crafting-and-processing) · [Uses](#used-to-make)
 
 <a href="Item-baked-potato.md" title="Baked potato"><img src="icons/31.png" width="96" height="96" alt="Baked potato"></a>
 
@@ -15,7 +15,7 @@ Cooked food that restores **5 food points**, compared with 1 for a raw potato. B
 | Property | Value |
 |---|---|
 | Stack size | 64 |
-| Tags | `edible` |
+| Tags | `compostable`, `edible` |
 | Food restored | 5 points |
 
 ## How to obtain
@@ -84,3 +84,12 @@ Cookers retain unused heat while blocked or idle. See the [Cooker](Item-cooker.m
 | <a href="Item-potato.md" title="Potato"><img src="icons/30.png" width="32" height="32" alt="Potato"></a> [Potato](Item-potato.md) | 1 |
 
 For tagged ingredients, any listed item counts; combinations and split stacks are accepted. Select this recipe on the cooker.
+
+
+## Used to make
+
+Follow a result to see its complete ingredients and recipe.
+
+| Result | Station | Recipe |
+|---|---|---|
+| <a href="Item-compost.md#recipe-5" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> ×1 [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-5) |

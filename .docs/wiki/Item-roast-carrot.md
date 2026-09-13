@@ -4,7 +4,7 @@
 
 [All items](Items.md) · [Crafting guide](Crafting-Recipes.md) · [Home](Home.md)
 
-[How to obtain](#how-to-obtain) · [Crafting and processing](#crafting-and-processing)
+[How to obtain](#how-to-obtain) · [Crafting and processing](#crafting-and-processing) · [Uses](#used-to-make)
 
 <a href="Item-roast-carrot.md" title="Roasted Carrot"><img src="icons/232.png" width="96" height="96" alt="Roasted Carrot"></a>
 
@@ -15,7 +15,7 @@ Prepared food from a basic or electric cooker. Food never spoils.
 | Property | Value |
 |---|---|
 | Stack size | 64 |
-| Tags | `edible`, `prepared_food` |
+| Tags | `compostable`, `edible`, `prepared_food` |
 | Food restored | 5 points |
 
 ## How to obtain
@@ -60,3 +60,12 @@ Cookers retain unused heat while blocked or idle. See the [Cooker](Item-cooker.m
 | <a href="Item-carrot.md" title="Carrot"><img src="icons/227.png" width="32" height="32" alt="Carrot"></a> [Carrot](Item-carrot.md) | 1 |
 
 For tagged ingredients, any listed item counts; combinations and split stacks are accepted. Select this recipe on the cooker.
+
+
+## Used to make
+
+Follow a result to see its complete ingredients and recipe.
+
+| Result | Station | Recipe |
+|---|---|---|
+| <a href="Item-compost.md#recipe-16" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> ×1 [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-16) |

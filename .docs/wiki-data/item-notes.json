@@ -495,5 +495,13 @@
   "rivet:electric_cooker": {
     "description": "A food preparation station with selectable recipes and interchangeable tagged ingredients.",
     "use": "Right-click or Interact, select a recipe, load ingredients and supply 200 W electricity on any face. See [Farming and cooking](Farming-and-cooking.md) for setup, recipes and screenshots. Partial work and stored heat persist through saves; blocked or idle cookers consume no new energy."
+  },
+  "rivet:compost_bin": {
+    "description": "An early wooden bin that converts surplus biological items into [Compost](Item-compost.md), without fuel or electricity.",
+    "use": "Open with right-click or Interact. Add one organic item type, collect a complete batch and wait 10 seconds. [Compost guide](Compost.md) lists quantities, recovery and pipe setup."
+  },
+  "rivet:compost": {
+    "description": "An optional crop growth accelerator made from organic surplus in a [Compost Bin](Item-compost-bin.md).",
+    "use": "Select it and right-click an immature wild or cultivated crop to advance one stage. One successful click uses one Compost; invalid or mature targets consume nothing. See [Compost](Compost.md)."
   }
 }

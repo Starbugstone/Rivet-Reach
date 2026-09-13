@@ -163,7 +163,9 @@
                 "armorPoints": 0,
                 "attackDamage": 1,
                 "buoyant": false,
-                "tags": []
+                "tags": [
+                    "compostable"
+                ]
             },
             "drop": "rivet:leaves",
             "requiredTier": "None",
@@ -1037,6 +1039,7 @@
                 "attackDamage": 1,
                 "buoyant": false,
                 "tags": [
+                    "compostable",
                     "edible",
                     "vegetable"
                 ]
@@ -1074,6 +1077,7 @@
                 "attackDamage": 1,
                 "buoyant": false,
                 "tags": [
+                    "compostable",
                     "edible"
                 ]
             },
@@ -4419,7 +4423,9 @@
                 "armorPoints": 0,
                 "attackDamage": 1,
                 "buoyant": true,
-                "tags": []
+                "tags": [
+                    "compostable"
+                ]
             },
             "drop": "rivet:sapling",
             "requiredTier": "None",
@@ -4454,6 +4460,7 @@
                 "attackDamage": 1,
                 "buoyant": true,
                 "tags": [
+                    "compostable",
                     "edible",
                     "fruit"
                 ]
@@ -4831,6 +4838,7 @@
                 "attackDamage": 1,
                 "buoyant": false,
                 "tags": [
+                    "compostable",
                     "seed"
                 ]
             },
@@ -4867,6 +4875,7 @@
                 "attackDamage": 1,
                 "buoyant": false,
                 "tags": [
+                    "compostable",
                     "grain"
                 ]
             },
@@ -4903,6 +4912,7 @@
                 "attackDamage": 1,
                 "buoyant": false,
                 "tags": [
+                    "compostable",
                     "seed"
                 ]
             },
@@ -4939,6 +4949,7 @@
                 "attackDamage": 1,
                 "buoyant": false,
                 "tags": [
+                    "compostable",
                     "fibre"
                 ]
             },
@@ -5047,6 +5058,7 @@
                 "attackDamage": 1,
                 "buoyant": false,
                 "tags": [
+                    "compostable",
                     "seed"
                 ]
             },
@@ -5083,6 +5095,7 @@
                 "attackDamage": 1,
                 "buoyant": false,
                 "tags": [
+                    "compostable",
                     "edible",
                     "vegetable"
                 ]
@@ -5120,6 +5133,7 @@
                 "attackDamage": 1,
                 "buoyant": false,
                 "tags": [
+                    "compostable",
                     "seed"
                 ]
             },
@@ -5156,6 +5170,7 @@
                 "attackDamage": 1,
                 "buoyant": false,
                 "tags": [
+                    "compostable",
                     "edible",
                     "fruit"
                 ]
@@ -5193,6 +5208,7 @@
                 "attackDamage": 1,
                 "buoyant": false,
                 "tags": [
+                    "compostable",
                     "edible",
                     "mushroom"
                 ]
@@ -5230,6 +5246,7 @@
                 "attackDamage": 1,
                 "buoyant": false,
                 "tags": [
+                    "compostable",
                     "edible",
                     "prepared_food"
                 ]
@@ -5267,6 +5284,7 @@
                 "attackDamage": 1,
                 "buoyant": false,
                 "tags": [
+                    "compostable",
                     "edible",
                     "prepared_food"
                 ]
@@ -5304,6 +5322,7 @@
                 "attackDamage": 1,
                 "buoyant": false,
                 "tags": [
+                    "compostable",
                     "edible",
                     "prepared_food"
                 ]
@@ -5341,6 +5360,7 @@
                 "attackDamage": 1,
                 "buoyant": false,
                 "tags": [
+                    "compostable",
                     "edible",
                     "prepared_food"
                 ]
@@ -5378,6 +5398,7 @@
                 "attackDamage": 1,
                 "buoyant": false,
                 "tags": [
+                    "compostable",
                     "edible",
                     "prepared_food"
                 ]
@@ -6036,6 +6057,74 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 200,
+            "waterMl": 0
+        },
+        {
+            "definition": {
+                "runtimeId": 242,
+                "stableId": "rivet:compost_bin",
+                "displayName": "Compost Bin",
+                "stackLimit": 64,
+                "fistSeconds": 1.399999976158142,
+                "colour": {
+                    "r": 0.36000001430511477,
+                    "g": 0.2199999988079071,
+                    "b": 0.10000000149011612,
+                    "a": 1.0
+                },
+                "fistDropId": 0,
+                "toolCapabilities": 0,
+                "tier": 0,
+                "miningSpeed": 1.0,
+                "foodPoints": 0,
+                "armorSlot": 0,
+                "armorPoints": 0,
+                "attackDamage": 1,
+                "buoyant": false,
+                "tags": []
+            },
+            "drop": "rivet:compost_bin",
+            "requiredTier": "None",
+            "help": "Organic inputs → Compost · no fuel or electricity",
+            "placeable": true,
+            "ore": false,
+            "crop": false,
+            "fuelTicks": 0,
+            "watts": 0,
+            "waterMl": 0
+        },
+        {
+            "definition": {
+                "runtimeId": 236,
+                "stableId": "rivet:compost",
+                "displayName": "Compost",
+                "stackLimit": 64,
+                "fistSeconds": 0.15000000596046449,
+                "colour": {
+                    "r": 0.36000001430511477,
+                    "g": 0.2199999988079071,
+                    "b": 0.10000000149011612,
+                    "a": 1.0
+                },
+                "fistDropId": 0,
+                "toolCapabilities": 0,
+                "tier": 0,
+                "miningSpeed": 1.0,
+                "foodPoints": 0,
+                "armorSlot": 0,
+                "armorPoints": 0,
+                "attackDamage": 1,
+                "buoyant": false,
+                "tags": []
+            },
+            "drop": "rivet:compost",
+            "requiredTier": "None",
+            "help": "",
+            "placeable": false,
+            "ore": false,
+            "crop": false,
+            "fuelTicks": 0,
+            "watts": 0,
             "waterMl": 0
         }
     ],
@@ -9805,6 +9894,61 @@
             "mirror": false
         },
         {
+            "id": "rivet:compost_bin",
+            "station": "rivet:workbench",
+            "kind": "Shaped",
+            "output": {
+                "item": "rivet:compost_bin",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:planks",
+                    "count": 1
+                },
+                {
+                    "item": "",
+                    "count": 0
+                },
+                {
+                    "item": "rivet:planks",
+                    "count": 1
+                },
+                {
+                    "item": "rivet:planks",
+                    "count": 1
+                },
+                {
+                    "item": "",
+                    "count": 0
+                },
+                {
+                    "item": "rivet:planks",
+                    "count": 1
+                },
+                {
+                    "item": "rivet:planks",
+                    "count": 1
+                },
+                {
+                    "item": "rivet:planks",
+                    "count": 1
+                },
+                {
+                    "item": "rivet:planks",
+                    "count": 1
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 3,
+            "width": 3,
+            "height": 3,
+            "ticks": 0,
+            "watts": 0,
+            "mirror": false
+        },
+        {
             "id": "rivet:smelt_charcoal",
             "station": "rivet:furnace",
             "kind": "Processing",
@@ -11048,6 +11192,443 @@
             "ticks": 200,
             "watts": 200,
             "mirror": false
+        },
+        {
+            "id": "compost:rivet:leaves",
+            "station": "rivet:compost_bin",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:leaves",
+                    "count": 24
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 200,
+            "watts": 0,
+            "mirror": false
+        },
+        {
+            "id": "compost:rivet:sapling",
+            "station": "rivet:compost_bin",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:sapling",
+                    "count": 12
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 200,
+            "watts": 0,
+            "mirror": false
+        },
+        {
+            "id": "compost:rivet:apple",
+            "station": "rivet:compost_bin",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:apple",
+                    "count": 12
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 200,
+            "watts": 0,
+            "mirror": false
+        },
+        {
+            "id": "compost:rivet:potato",
+            "station": "rivet:compost_bin",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:potato",
+                    "count": 12
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 200,
+            "watts": 0,
+            "mirror": false
+        },
+        {
+            "id": "compost:rivet:baked_potato",
+            "station": "rivet:compost_bin",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:baked_potato",
+                    "count": 6
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 200,
+            "watts": 0,
+            "mirror": false
+        },
+        {
+            "id": "compost:rivet:wheat_seed",
+            "station": "rivet:compost_bin",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:wheat_seed",
+                    "count": 24
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 200,
+            "watts": 0,
+            "mirror": false
+        },
+        {
+            "id": "compost:rivet:grain",
+            "station": "rivet:compost_bin",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:grain",
+                    "count": 12
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 200,
+            "watts": 0,
+            "mirror": false
+        },
+        {
+            "id": "compost:rivet:flax_seed",
+            "station": "rivet:compost_bin",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:flax_seed",
+                    "count": 24
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 200,
+            "watts": 0,
+            "mirror": false
+        },
+        {
+            "id": "compost:rivet:flax_fibre",
+            "station": "rivet:compost_bin",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:flax_fibre",
+                    "count": 24
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 200,
+            "watts": 0,
+            "mirror": false
+        },
+        {
+            "id": "compost:rivet:carrot_seed",
+            "station": "rivet:compost_bin",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:carrot_seed",
+                    "count": 24
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 200,
+            "watts": 0,
+            "mirror": false
+        },
+        {
+            "id": "compost:rivet:carrot",
+            "station": "rivet:compost_bin",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:carrot",
+                    "count": 12
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 200,
+            "watts": 0,
+            "mirror": false
+        },
+        {
+            "id": "compost:rivet:berry_seed",
+            "station": "rivet:compost_bin",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:berry_seed",
+                    "count": 24
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 200,
+            "watts": 0,
+            "mirror": false
+        },
+        {
+            "id": "compost:rivet:berries",
+            "station": "rivet:compost_bin",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:berries",
+                    "count": 12
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 200,
+            "watts": 0,
+            "mirror": false
+        },
+        {
+            "id": "compost:rivet:mushroom",
+            "station": "rivet:compost_bin",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:mushroom",
+                    "count": 12
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 200,
+            "watts": 0,
+            "mirror": false
+        },
+        {
+            "id": "compost:rivet:bread",
+            "station": "rivet:compost_bin",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:bread",
+                    "count": 6
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 200,
+            "watts": 0,
+            "mirror": false
+        },
+        {
+            "id": "compost:rivet:roast_carrot",
+            "station": "rivet:compost_bin",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:roast_carrot",
+                    "count": 6
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 200,
+            "watts": 0,
+            "mirror": false
+        },
+        {
+            "id": "compost:rivet:vegetable_stew",
+            "station": "rivet:compost_bin",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:vegetable_stew",
+                    "count": 6
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 200,
+            "watts": 0,
+            "mirror": false
+        },
+        {
+            "id": "compost:rivet:cooked_mushroom",
+            "station": "rivet:compost_bin",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:cooked_mushroom",
+                    "count": 6
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 200,
+            "watts": 0,
+            "mirror": false
+        },
+        {
+            "id": "compost:rivet:fruit_porridge",
+            "station": "rivet:compost_bin",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:fruit_porridge",
+                    "count": 6
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 200,
+            "watts": 0,
+            "mirror": false
         }
     ],
     "sources": [
@@ -11066,6 +11647,10 @@
         {
             "path": "Assets/RivetReach/Code/BridgesVerification.cs",
             "sha256": "afc58eac1839986ca73025cacf26335874e771c5559d95e9e41faf61c9cb8efa"
+        },
+        {
+            "path": "Assets/RivetReach/Code/CompostVerification.cs",
+            "sha256": "2f8f1a3d56595edb3eeb900a00981fe143d3502f8286f454d4dc123e4bc123cf"
         },
         {
             "path": "Assets/RivetReach/Code/ConnectionVerification.cs",
@@ -11113,7 +11698,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Crafting/RecipeBrowserIndex.cs",
-            "sha256": "3a5952fda6da4baa08122d1ce71acfee23a3362a9c154f5d5f3e1f89c20699d8"
+            "sha256": "d1ee339d56b91a6b2647413a999cff0e188091e9e7cd34a21c742d32b31211d0"
         },
         {
             "path": "Assets/RivetReach/Code/Crafting/RecipeCatalogAsset.cs",
@@ -11161,7 +11746,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Expedition.cs",
-            "sha256": "9a0ef1531830538add30ff17b73938ba7bdd2fb315926f09013b9312709d75e5"
+            "sha256": "2bcc968ce99dab12e4141cc895fb17b91739f5e55001d792a0305a1e9e236e04"
         },
         {
             "path": "Assets/RivetReach/Code/FarmingVerification.cs",
@@ -11212,6 +11797,10 @@
             "sha256": "be6ba011782fce6464ed6df35c5c9559f49b425588a9b6d7dd7d28601561cafc"
         },
         {
+            "path": "Assets/RivetReach/Code/Industry/CompostSimulation.cs",
+            "sha256": "a6341e279a7f330cc4bca751034c379f0e90a3e2c5b910217a009b281af932f3"
+        },
+        {
             "path": "Assets/RivetReach/Code/Industry/ConnectedPipeVisuals.cs",
             "sha256": "5c8ed9d626c43ed229fcaa31538f575ebd1b210280abda4d0f9e5a9a5fc03694"
         },
@@ -11233,15 +11822,15 @@
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustryDefinition.cs",
-            "sha256": "0d085a31b449adfca44e999d2580609605caf1ae8da38617d5954adbd9267431"
+            "sha256": "e1cf4e70d5463abf49983d42e4ba845563ca7d839efb29bc4bdede06749b2f99"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustryPresentation.cs",
-            "sha256": "89b67618371c6193399f271d013538f7d62861675e2b81cd8f5c1d8db115da5c"
+            "sha256": "2c4a14cb1cd1d5143a47325e27768cb2973f1254bc9d5efc8b60c11bfa26c855"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustrySimulation.cs",
-            "sha256": "05b7745f6a6ed8795f69f8c06c123350c60751eac91f6918eb62e94bce5444c8"
+            "sha256": "eaa1bb73d5385f0b6f4158fdf0b8a8480a5bf34d7ec77d3fd1fc820d0726da25"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/NetworkTopology.cs",
@@ -11389,11 +11978,11 @@
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/SaveIO.cs",
-            "sha256": "cc67f4769aa2a122eb23b90cd8cf8dbb99003aadebe69fc2ea9c45e0c3eab0d2"
+            "sha256": "aae73a757adeed02764c2d66682035cf826bbd6140ddc1b87375eaf180699c13"
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/WorldSaveState.cs",
-            "sha256": "b391112ead944678be0eba9e420cddff0deb9db7da3ef39db8ec7f32fdc4f482"
+            "sha256": "9f2c32ff1478938a13e0749f669222d8981c4b91b5a83391f22a9c4543032c27"
         },
         {
             "path": "Assets/RivetReach/Code/PlacementFacing.cs",
@@ -11433,7 +12022,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Player/DroppedItems.cs",
-            "sha256": "a9779721eb2351ca9429d2ab04b0ad3e9cde5cbc8ff48bec63b73f8bfec12222"
+            "sha256": "eb9547b791ab5eea6d7d0ffae04966fd0557b56c8f3cc52ce017a208628713c8"
         },
         {
             "path": "Assets/RivetReach/Code/Player/EatingCrumbs.cs",
@@ -11445,7 +12034,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Player/FirstPersonPlayer.cs",
-            "sha256": "b1fbbec0b2c76964fb8c0b4b1fb5aee5ea4b0a79e8fd0449ce247ac819e14649"
+            "sha256": "6119236107fe56945bc71ef7f9156ab82774e0a66f082f7d5e363a210eae01e5"
         },
         {
             "path": "Assets/RivetReach/Code/Player/FoodVisuals.cs",
@@ -11457,7 +12046,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Player/ItemAppearance.cs",
-            "sha256": "f2c5c5ccfff6a591a723dde15984f9f8114f8d833e7c4ca5ec8c4dfa88853984"
+            "sha256": "0e31cff62e6216f3a33235c901f595e880460bcd44978ed16a7fd76cd75d4faf"
         },
         {
             "path": "Assets/RivetReach/Code/Player/MobLootVisuals.cs",
@@ -11497,7 +12086,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/RuntimeVerification.cs",
-            "sha256": "f3b6523b8d295589605b805b3c0bf2ed7c648bad4bc0cf577a43ea14b8fc3715"
+            "sha256": "04714b5af7dc736395a1b5ef5ce6478460d876b49fe65073c124b4328ab16fe0"
         },
         {
             "path": "Assets/RivetReach/Code/SaveVerification.cs",
@@ -11522,6 +12111,14 @@
         {
             "path": "Assets/RivetReach/Code/SunShadowProbe.cs",
             "sha256": "59e1f14f587df90ba9c80e769173e9000ba99290d28379e51f9aabce5c46cfc2"
+        },
+        {
+            "path": "Assets/RivetReach/Code/Survival/CompostCatalog.cs",
+            "sha256": "0ec1e459a5f9304ae3dda1f203727caf2fc5dd9f5a4fecb75c2b90332a699df9"
+        },
+        {
+            "path": "Assets/RivetReach/Code/Survival/CompostUse.cs",
+            "sha256": "2a27be1d34644bbb429a025b219f242e8f7dfd4ba54b17c488250da71d295613"
         },
         {
             "path": "Assets/RivetReach/Code/Survival/CookingCatalog.cs",
@@ -11600,6 +12197,10 @@
             "sha256": "297b00cee29348cbeafc784c3a5581d7cab80f0df412805ab65b9af9b97a9a3c"
         },
         {
+            "path": "Assets/RivetReach/Code/UI/GameUICompost.cs",
+            "sha256": "7906e70b72e49a1949bd78ea3cb0a38bca6bbb9c68c9bf7cc0c88990707d780e"
+        },
+        {
             "path": "Assets/RivetReach/Code/UI/GameUICooking.cs",
             "sha256": "aef54a985410a0c66401bc1ced7956f79b8bf96f4a736f93f19f3e90abe30d65"
         },
@@ -11609,11 +12210,11 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIIndustry.cs",
-            "sha256": "c662757ee4bbbe49aa192b2240f7aed3de8bbaa96aa6ead132fcdeb27a21e75b"
+            "sha256": "797f619c5f51d031b4917772420228729a464f0217837d51f1130f445d930693"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIRecipeDetails.cs",
-            "sha256": "e663d3094f7ffe24a0bfa170440cea8554621e3a9995ea7cdac5a920bb21c3f6"
+            "sha256": "4c703a2535cdd9c104a3882907c9963e28207091e159313eb731ea68cbc2c3c2"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUISaves.cs",
@@ -11740,6 +12341,14 @@
             "sha256": "bfb926e964c7d730ddb1553b75ed28456fe5cfbd29baba90545340934fc0e2bd"
         },
         {
+            "path": "Assets/RivetReach/Resources/Definitions/Compost.json",
+            "sha256": "eef23712f9aa139885eab8ca8cf07bd0ecf99f51fa0bc03912e03616ec4462dd"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/Compost.json.meta",
+            "sha256": "0362f78612cf36112d529d940d3cb8943b82b354df5cfae255c5ba5d38e5d4f9"
+        },
+        {
             "path": "Assets/RivetReach/Resources/Definitions/Cooking.json",
             "sha256": "378eb7220735768f18ec7ce7cd3ac7725b446ba4f9a0ef15626cf58325365a58"
         },
@@ -11765,7 +12374,7 @@
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Items.asset",
-            "sha256": "cc3b2bc1e6c1b335966fd1a5053e6ab69313ace5b3ebed3da54cff7b9cf95534"
+            "sha256": "3c22977690aba059bbb85bef1cca01e6fcdb1e2c92658bfdfc70b148d6d9f749"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Items.asset.meta",
@@ -11833,7 +12442,7 @@
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes.asset",
-            "sha256": "159043253b67efdf5429381288c3b04fdd36bd528aaff850041b56df225dc020"
+            "sha256": "58496e8e025e25cfa7f1864a8f4ff5c6b3bd079a169d6b8af2f9db1f81353147"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes.asset.meta",
@@ -11842,6 +12451,14 @@
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes.meta",
             "sha256": "517d3ff849c8b1fae393760c9202f7a82aae81f17fe37db43d3c130a6165035a"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/Recipes/CompostBin.asset",
+            "sha256": "b35d67c6d2f146e64d6ab54d8665caf4b80a8c8552297fbd5cd280a7452b4e50"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/Recipes/CompostBin.asset.meta",
+            "sha256": "9bc387cb2557a12de62deb440500cd9664e7a0fb480cbe21459ecdd79aa6cf03"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes/Farm224.asset",
@@ -13180,6 +13797,10 @@
             "sha256": "b476d5c9a367cc9769f0021d04b22e718e9e73cf47dfd6e2339ca6e89e18acc3"
         },
         {
+            "path": "Assets/RivetReach/Resources/Industry/Icons/236.png",
+            "sha256": "34bb2b86cecfdc4d223b8d12f07db1665e9fdf3493177ca5cd9b5ed48c9e38e1"
+        },
+        {
             "path": "Assets/RivetReach/Resources/Industry/Icons/24.png",
             "sha256": "687ff93bd645d3c85722028514bc7167904dcab99cced45650fb7312a2795137"
         },
@@ -13190,6 +13811,10 @@
         {
             "path": "Assets/RivetReach/Resources/Industry/Icons/241.png",
             "sha256": "5bece2f6c9d79ef0a9fc02b8d9d53e4ef88f823d66acfc64d0fcef399f79c106"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Industry/Icons/242.png",
+            "sha256": "ad7a71c145a45b688640f02fa5da55c3a0c160d09626d04f11166357a292654f"
         },
         {
             "path": "Assets/RivetReach/Resources/Industry/Icons/25.png",

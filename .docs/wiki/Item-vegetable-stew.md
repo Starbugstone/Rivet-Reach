@@ -4,7 +4,7 @@
 
 [All items](Items.md) · [Crafting guide](Crafting-Recipes.md) · [Home](Home.md)
 
-[How to obtain](#how-to-obtain) · [Crafting and processing](#crafting-and-processing)
+[How to obtain](#how-to-obtain) · [Crafting and processing](#crafting-and-processing) · [Uses](#used-to-make)
 
 <a href="Item-vegetable-stew.md" title="Vegetable Stew"><img src="icons/233.png" width="96" height="96" alt="Vegetable Stew"></a>
 
@@ -15,7 +15,7 @@ Prepared food from a basic or electric cooker. Food never spoils.
 | Property | Value |
 |---|---|
 | Stack size | 64 |
-| Tags | `edible`, `prepared_food` |
+| Tags | `compostable`, `edible`, `prepared_food` |
 | Food restored | 12 points |
 
 ## How to obtain
@@ -62,3 +62,12 @@ Cookers retain unused heat while blocked or idle. See the [Cooker](Item-cooker.m
 | **#mushroom**: <a href="Item-mushroom.md" title="Mushroom"><img src="icons/230.png" width="32" height="32" alt="Mushroom"></a> [Mushroom](Item-mushroom.md) | 1 |
 
 For tagged ingredients, any listed item counts; combinations and split stacks are accepted. Select this recipe on the cooker.
+
+
+## Used to make
+
+Follow a result to see its complete ingredients and recipe.
+
+| Result | Station | Recipe |
+|---|---|---|
+| <a href="Item-compost.md#recipe-17" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> ×1 [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-17) |
