@@ -59,6 +59,7 @@ namespace RivetReach.Editor
         public static void Export()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Export in Edit mode.");
+            AssetDatabase.Refresh();
             var registry = ItemRegistry.Load();
             var processing = ProcessingCatalogAsset.Load().Compile(registry);
             var index = new RecipeBrowserIndex(registry, RecipeCatalogAsset.Load().Compile(registry), processing);

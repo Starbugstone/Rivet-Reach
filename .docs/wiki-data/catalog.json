@@ -6085,7 +6085,7 @@
             },
             "drop": "rivet:compost_bin",
             "requiredTier": "None",
-            "help": "Organic inputs → Compost · no fuel or electricity",
+            "help": "Mix organics by hand · full bin ejects 1–4 Compost",
             "placeable": true,
             "ore": false,
             "crop": false,
@@ -6126,6 +6126,40 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0
+        },
+        {
+            "definition": {
+                "runtimeId": 243,
+                "stableId": "rivet:auto_composter",
+                "displayName": "Autocomposter",
+                "stackLimit": 64,
+                "fistSeconds": 0.15000000596046449,
+                "colour": {
+                    "r": 0.36000001430511477,
+                    "g": 0.2199999988079071,
+                    "b": 0.10000000149011612,
+                    "a": 1.0
+                },
+                "fistDropId": 0,
+                "toolCapabilities": 0,
+                "tier": 0,
+                "miningSpeed": 1.0,
+                "foodPoints": 0,
+                "armorSlot": 0,
+                "armorPoints": 0,
+                "attackDamage": 1,
+                "buoyant": false,
+                "tags": []
+            },
+            "drop": "rivet:auto_composter",
+            "requiredTier": "None",
+            "help": "160 W · 8 J per item · pipe input/output on any face",
+            "placeable": true,
+            "ore": false,
+            "crop": false,
+            "fuelTicks": 0,
+            "watts": 160,
+            "waterMl": 0
         }
     ],
     "recipes": [
@@ -6150,6 +6184,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -6177,6 +6212,7 @@
             "height": 2,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -6212,6 +6248,7 @@
             "height": 2,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -6267,6 +6304,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -6322,6 +6360,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -6365,6 +6404,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": true
         },
         {
@@ -6420,6 +6460,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -6451,6 +6492,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -6482,6 +6524,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -6525,6 +6568,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": true
         },
         {
@@ -6568,6 +6612,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": true
         },
         {
@@ -6623,6 +6668,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -6654,6 +6700,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -6685,6 +6732,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -6728,6 +6776,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": true
         },
         {
@@ -6771,6 +6820,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": true
         },
         {
@@ -6826,6 +6876,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -6857,6 +6908,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -6888,6 +6940,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -6931,6 +6984,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": true
         },
         {
@@ -6974,6 +7028,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": true
         },
         {
@@ -7029,6 +7084,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -7060,6 +7116,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -7091,6 +7148,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -7134,6 +7192,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": true
         },
         {
@@ -7177,6 +7236,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": true
         },
         {
@@ -7232,6 +7292,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -7263,6 +7324,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -7294,6 +7356,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -7337,6 +7400,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": true
         },
         {
@@ -7380,6 +7444,7 @@
             "height": 2,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -7435,6 +7500,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -7490,6 +7556,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -7533,6 +7600,7 @@
             "height": 2,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -7576,6 +7644,7 @@
             "height": 2,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -7631,6 +7700,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -7686,6 +7756,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -7729,6 +7800,7 @@
             "height": 2,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -7772,6 +7844,7 @@
             "height": 2,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -7827,6 +7900,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -7882,6 +7956,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -7925,6 +8000,7 @@
             "height": 2,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -7980,6 +8056,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8003,6 +8080,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8058,6 +8136,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8081,6 +8160,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8136,6 +8216,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8159,6 +8240,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8214,6 +8296,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8237,6 +8320,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8292,6 +8376,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8315,6 +8400,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8358,6 +8444,7 @@
             "height": 2,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8385,6 +8472,7 @@
             "height": 2,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8412,6 +8500,7 @@
             "height": 2,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8443,6 +8532,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8466,6 +8556,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8497,6 +8588,7 @@
             "height": 1,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8528,6 +8620,7 @@
             "height": 1,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8555,6 +8648,7 @@
             "height": 1,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8578,6 +8672,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8605,6 +8700,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8632,6 +8728,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8659,6 +8756,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8690,6 +8788,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8717,6 +8816,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8748,6 +8848,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8779,6 +8880,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8810,6 +8912,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8837,6 +8940,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8868,6 +8972,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8899,6 +9004,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8930,6 +9036,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8961,6 +9068,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -8996,6 +9104,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -9031,6 +9140,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -9058,6 +9168,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -9081,6 +9192,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -9108,6 +9220,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -9135,6 +9248,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -9166,6 +9280,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -9197,6 +9312,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -9224,6 +9340,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -9251,6 +9368,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -9282,6 +9400,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -9309,6 +9428,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -9336,6 +9456,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -9363,6 +9484,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -9394,6 +9516,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -9429,6 +9552,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -9464,6 +9588,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -9499,6 +9624,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -9542,6 +9668,7 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -9577,6 +9704,7 @@
             "height": 2,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": true
         },
         {
@@ -9608,6 +9736,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -9647,6 +9776,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -9686,6 +9816,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -9725,6 +9856,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -9756,6 +9888,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -9787,6 +9920,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -9810,6 +9944,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -9833,6 +9968,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -9860,6 +9996,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -9891,6 +10028,7 @@
             "height": 0,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -9946,6 +10084,47 @@
             "height": 3,
             "ticks": 0,
             "watts": 0,
+            "compostPercent": 0.0,
+            "mirror": false
+        },
+        {
+            "id": "rivet:auto_composter",
+            "station": "rivet:machinist_bench",
+            "kind": "Shapeless",
+            "output": {
+                "item": "rivet:auto_composter",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:gold_ingot",
+                    "count": 1
+                },
+                {
+                    "item": "rivet:cog",
+                    "count": 2
+                },
+                {
+                    "item": "rivet:machine_casing",
+                    "count": 1
+                },
+                {
+                    "item": "rivet:item_pipe",
+                    "count": 2
+                },
+                {
+                    "item": "rivet:compost_bin",
+                    "count": 1
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 4,
+            "width": 0,
+            "height": 0,
+            "ticks": 0,
+            "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -9981,6 +10160,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10016,6 +10196,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10051,6 +10232,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10086,6 +10268,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10121,6 +10304,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10156,6 +10340,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10191,6 +10376,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10226,6 +10412,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10261,6 +10448,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10296,6 +10484,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10331,6 +10520,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10354,6 +10544,7 @@
             "height": 0,
             "ticks": 100,
             "watts": 160,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10377,6 +10568,7 @@
             "height": 0,
             "ticks": 100,
             "watts": 160,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10400,6 +10592,7 @@
             "height": 0,
             "ticks": 100,
             "watts": 160,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10423,6 +10616,7 @@
             "height": 0,
             "ticks": 100,
             "watts": 160,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10446,6 +10640,7 @@
             "height": 0,
             "ticks": 100,
             "watts": 160,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10469,6 +10664,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 200,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10492,6 +10688,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 200,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10515,6 +10712,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 200,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10538,6 +10736,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 200,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10561,6 +10760,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 200,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10584,6 +10784,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 200,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10607,6 +10808,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 200,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10630,6 +10832,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 200,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10653,6 +10856,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 200,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10676,6 +10880,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 200,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10699,6 +10904,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 200,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10742,6 +10948,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10773,6 +10980,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 200,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10816,6 +11024,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10847,6 +11056,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 200,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10890,6 +11100,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10921,6 +11132,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 200,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10964,6 +11176,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -10995,6 +11208,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 200,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -11050,6 +11264,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -11093,6 +11308,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 200,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -11148,6 +11364,7 @@
             "height": 0,
             "ticks": 200,
             "watts": 0,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
@@ -11191,10 +11408,11 @@
             "height": 0,
             "ticks": 200,
             "watts": 200,
+            "compostPercent": 0.0,
             "mirror": false
         },
         {
-            "id": "compost:rivet:leaves",
+            "id": "compost:242:rivet:leaves",
             "station": "rivet:compost_bin",
             "kind": "Processing",
             "output": {
@@ -11204,7 +11422,7 @@
             "ingredients": [
                 {
                     "item": "rivet:leaves",
-                    "count": 24
+                    "count": 1
                 }
             ],
             "foodIngredients": [],
@@ -11212,12 +11430,13 @@
             "grid": 0,
             "width": 0,
             "height": 0,
-            "ticks": 200,
+            "ticks": 0,
             "watts": 0,
+            "compostPercent": 4.166666507720947,
             "mirror": false
         },
         {
-            "id": "compost:rivet:sapling",
+            "id": "compost:242:rivet:sapling",
             "station": "rivet:compost_bin",
             "kind": "Processing",
             "output": {
@@ -11227,7 +11446,7 @@
             "ingredients": [
                 {
                     "item": "rivet:sapling",
-                    "count": 12
+                    "count": 1
                 }
             ],
             "foodIngredients": [],
@@ -11235,12 +11454,13 @@
             "grid": 0,
             "width": 0,
             "height": 0,
-            "ticks": 200,
+            "ticks": 0,
             "watts": 0,
+            "compostPercent": 8.333333015441895,
             "mirror": false
         },
         {
-            "id": "compost:rivet:apple",
+            "id": "compost:242:rivet:apple",
             "station": "rivet:compost_bin",
             "kind": "Processing",
             "output": {
@@ -11250,7 +11470,7 @@
             "ingredients": [
                 {
                     "item": "rivet:apple",
-                    "count": 12
+                    "count": 1
                 }
             ],
             "foodIngredients": [],
@@ -11258,12 +11478,13 @@
             "grid": 0,
             "width": 0,
             "height": 0,
-            "ticks": 200,
+            "ticks": 0,
             "watts": 0,
+            "compostPercent": 8.333333015441895,
             "mirror": false
         },
         {
-            "id": "compost:rivet:potato",
+            "id": "compost:242:rivet:potato",
             "station": "rivet:compost_bin",
             "kind": "Processing",
             "output": {
@@ -11273,7 +11494,7 @@
             "ingredients": [
                 {
                     "item": "rivet:potato",
-                    "count": 12
+                    "count": 1
                 }
             ],
             "foodIngredients": [],
@@ -11281,12 +11502,13 @@
             "grid": 0,
             "width": 0,
             "height": 0,
-            "ticks": 200,
+            "ticks": 0,
             "watts": 0,
+            "compostPercent": 8.333333015441895,
             "mirror": false
         },
         {
-            "id": "compost:rivet:baked_potato",
+            "id": "compost:242:rivet:baked_potato",
             "station": "rivet:compost_bin",
             "kind": "Processing",
             "output": {
@@ -11296,7 +11518,7 @@
             "ingredients": [
                 {
                     "item": "rivet:baked_potato",
-                    "count": 6
+                    "count": 1
                 }
             ],
             "foodIngredients": [],
@@ -11304,12 +11526,13 @@
             "grid": 0,
             "width": 0,
             "height": 0,
-            "ticks": 200,
+            "ticks": 0,
             "watts": 0,
+            "compostPercent": 16.66666603088379,
             "mirror": false
         },
         {
-            "id": "compost:rivet:wheat_seed",
+            "id": "compost:242:rivet:wheat_seed",
             "station": "rivet:compost_bin",
             "kind": "Processing",
             "output": {
@@ -11319,7 +11542,7 @@
             "ingredients": [
                 {
                     "item": "rivet:wheat_seed",
-                    "count": 24
+                    "count": 1
                 }
             ],
             "foodIngredients": [],
@@ -11327,12 +11550,13 @@
             "grid": 0,
             "width": 0,
             "height": 0,
-            "ticks": 200,
+            "ticks": 0,
             "watts": 0,
+            "compostPercent": 4.166666507720947,
             "mirror": false
         },
         {
-            "id": "compost:rivet:grain",
+            "id": "compost:242:rivet:grain",
             "station": "rivet:compost_bin",
             "kind": "Processing",
             "output": {
@@ -11342,7 +11566,7 @@
             "ingredients": [
                 {
                     "item": "rivet:grain",
-                    "count": 12
+                    "count": 1
                 }
             ],
             "foodIngredients": [],
@@ -11350,12 +11574,13 @@
             "grid": 0,
             "width": 0,
             "height": 0,
-            "ticks": 200,
+            "ticks": 0,
             "watts": 0,
+            "compostPercent": 8.333333015441895,
             "mirror": false
         },
         {
-            "id": "compost:rivet:flax_seed",
+            "id": "compost:242:rivet:flax_seed",
             "station": "rivet:compost_bin",
             "kind": "Processing",
             "output": {
@@ -11365,7 +11590,7 @@
             "ingredients": [
                 {
                     "item": "rivet:flax_seed",
-                    "count": 24
+                    "count": 1
                 }
             ],
             "foodIngredients": [],
@@ -11373,12 +11598,13 @@
             "grid": 0,
             "width": 0,
             "height": 0,
-            "ticks": 200,
+            "ticks": 0,
             "watts": 0,
+            "compostPercent": 4.166666507720947,
             "mirror": false
         },
         {
-            "id": "compost:rivet:flax_fibre",
+            "id": "compost:242:rivet:flax_fibre",
             "station": "rivet:compost_bin",
             "kind": "Processing",
             "output": {
@@ -11388,7 +11614,7 @@
             "ingredients": [
                 {
                     "item": "rivet:flax_fibre",
-                    "count": 24
+                    "count": 1
                 }
             ],
             "foodIngredients": [],
@@ -11396,12 +11622,13 @@
             "grid": 0,
             "width": 0,
             "height": 0,
-            "ticks": 200,
+            "ticks": 0,
             "watts": 0,
+            "compostPercent": 4.166666507720947,
             "mirror": false
         },
         {
-            "id": "compost:rivet:carrot_seed",
+            "id": "compost:242:rivet:carrot_seed",
             "station": "rivet:compost_bin",
             "kind": "Processing",
             "output": {
@@ -11411,7 +11638,7 @@
             "ingredients": [
                 {
                     "item": "rivet:carrot_seed",
-                    "count": 24
+                    "count": 1
                 }
             ],
             "foodIngredients": [],
@@ -11419,12 +11646,13 @@
             "grid": 0,
             "width": 0,
             "height": 0,
-            "ticks": 200,
+            "ticks": 0,
             "watts": 0,
+            "compostPercent": 4.166666507720947,
             "mirror": false
         },
         {
-            "id": "compost:rivet:carrot",
+            "id": "compost:242:rivet:carrot",
             "station": "rivet:compost_bin",
             "kind": "Processing",
             "output": {
@@ -11434,7 +11662,7 @@
             "ingredients": [
                 {
                     "item": "rivet:carrot",
-                    "count": 12
+                    "count": 1
                 }
             ],
             "foodIngredients": [],
@@ -11442,12 +11670,13 @@
             "grid": 0,
             "width": 0,
             "height": 0,
-            "ticks": 200,
+            "ticks": 0,
             "watts": 0,
+            "compostPercent": 8.333333015441895,
             "mirror": false
         },
         {
-            "id": "compost:rivet:berry_seed",
+            "id": "compost:242:rivet:berry_seed",
             "station": "rivet:compost_bin",
             "kind": "Processing",
             "output": {
@@ -11457,7 +11686,7 @@
             "ingredients": [
                 {
                     "item": "rivet:berry_seed",
-                    "count": 24
+                    "count": 1
                 }
             ],
             "foodIngredients": [],
@@ -11465,12 +11694,13 @@
             "grid": 0,
             "width": 0,
             "height": 0,
-            "ticks": 200,
+            "ticks": 0,
             "watts": 0,
+            "compostPercent": 4.166666507720947,
             "mirror": false
         },
         {
-            "id": "compost:rivet:berries",
+            "id": "compost:242:rivet:berries",
             "station": "rivet:compost_bin",
             "kind": "Processing",
             "output": {
@@ -11480,7 +11710,7 @@
             "ingredients": [
                 {
                     "item": "rivet:berries",
-                    "count": 12
+                    "count": 1
                 }
             ],
             "foodIngredients": [],
@@ -11488,12 +11718,13 @@
             "grid": 0,
             "width": 0,
             "height": 0,
-            "ticks": 200,
+            "ticks": 0,
             "watts": 0,
+            "compostPercent": 8.333333015441895,
             "mirror": false
         },
         {
-            "id": "compost:rivet:mushroom",
+            "id": "compost:242:rivet:mushroom",
             "station": "rivet:compost_bin",
             "kind": "Processing",
             "output": {
@@ -11503,7 +11734,7 @@
             "ingredients": [
                 {
                     "item": "rivet:mushroom",
-                    "count": 12
+                    "count": 1
                 }
             ],
             "foodIngredients": [],
@@ -11511,12 +11742,13 @@
             "grid": 0,
             "width": 0,
             "height": 0,
-            "ticks": 200,
+            "ticks": 0,
             "watts": 0,
+            "compostPercent": 8.333333015441895,
             "mirror": false
         },
         {
-            "id": "compost:rivet:bread",
+            "id": "compost:242:rivet:bread",
             "station": "rivet:compost_bin",
             "kind": "Processing",
             "output": {
@@ -11526,7 +11758,7 @@
             "ingredients": [
                 {
                     "item": "rivet:bread",
-                    "count": 6
+                    "count": 1
                 }
             ],
             "foodIngredients": [],
@@ -11534,12 +11766,13 @@
             "grid": 0,
             "width": 0,
             "height": 0,
-            "ticks": 200,
+            "ticks": 0,
             "watts": 0,
+            "compostPercent": 16.66666603088379,
             "mirror": false
         },
         {
-            "id": "compost:rivet:roast_carrot",
+            "id": "compost:242:rivet:roast_carrot",
             "station": "rivet:compost_bin",
             "kind": "Processing",
             "output": {
@@ -11549,7 +11782,7 @@
             "ingredients": [
                 {
                     "item": "rivet:roast_carrot",
-                    "count": 6
+                    "count": 1
                 }
             ],
             "foodIngredients": [],
@@ -11557,12 +11790,13 @@
             "grid": 0,
             "width": 0,
             "height": 0,
-            "ticks": 200,
+            "ticks": 0,
             "watts": 0,
+            "compostPercent": 16.66666603088379,
             "mirror": false
         },
         {
-            "id": "compost:rivet:vegetable_stew",
+            "id": "compost:242:rivet:vegetable_stew",
             "station": "rivet:compost_bin",
             "kind": "Processing",
             "output": {
@@ -11572,7 +11806,7 @@
             "ingredients": [
                 {
                     "item": "rivet:vegetable_stew",
-                    "count": 6
+                    "count": 1
                 }
             ],
             "foodIngredients": [],
@@ -11580,12 +11814,13 @@
             "grid": 0,
             "width": 0,
             "height": 0,
-            "ticks": 200,
+            "ticks": 0,
             "watts": 0,
+            "compostPercent": 16.66666603088379,
             "mirror": false
         },
         {
-            "id": "compost:rivet:cooked_mushroom",
+            "id": "compost:242:rivet:cooked_mushroom",
             "station": "rivet:compost_bin",
             "kind": "Processing",
             "output": {
@@ -11595,7 +11830,7 @@
             "ingredients": [
                 {
                     "item": "rivet:cooked_mushroom",
-                    "count": 6
+                    "count": 1
                 }
             ],
             "foodIngredients": [],
@@ -11603,12 +11838,13 @@
             "grid": 0,
             "width": 0,
             "height": 0,
-            "ticks": 200,
+            "ticks": 0,
             "watts": 0,
+            "compostPercent": 16.66666603088379,
             "mirror": false
         },
         {
-            "id": "compost:rivet:fruit_porridge",
+            "id": "compost:242:rivet:fruit_porridge",
             "station": "rivet:compost_bin",
             "kind": "Processing",
             "output": {
@@ -11618,7 +11854,7 @@
             "ingredients": [
                 {
                     "item": "rivet:fruit_porridge",
-                    "count": 6
+                    "count": 1
                 }
             ],
             "foodIngredients": [],
@@ -11626,8 +11862,465 @@
             "grid": 0,
             "width": 0,
             "height": 0,
-            "ticks": 200,
+            "ticks": 0,
             "watts": 0,
+            "compostPercent": 16.66666603088379,
+            "mirror": false
+        },
+        {
+            "id": "compost:243:rivet:leaves",
+            "station": "rivet:auto_composter",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:leaves",
+                    "count": 1
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 0,
+            "watts": 0,
+            "compostPercent": 4.166666507720947,
+            "mirror": false
+        },
+        {
+            "id": "compost:243:rivet:sapling",
+            "station": "rivet:auto_composter",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:sapling",
+                    "count": 1
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 0,
+            "watts": 0,
+            "compostPercent": 8.333333015441895,
+            "mirror": false
+        },
+        {
+            "id": "compost:243:rivet:apple",
+            "station": "rivet:auto_composter",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:apple",
+                    "count": 1
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 0,
+            "watts": 0,
+            "compostPercent": 8.333333015441895,
+            "mirror": false
+        },
+        {
+            "id": "compost:243:rivet:potato",
+            "station": "rivet:auto_composter",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:potato",
+                    "count": 1
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 0,
+            "watts": 0,
+            "compostPercent": 8.333333015441895,
+            "mirror": false
+        },
+        {
+            "id": "compost:243:rivet:baked_potato",
+            "station": "rivet:auto_composter",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:baked_potato",
+                    "count": 1
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 0,
+            "watts": 0,
+            "compostPercent": 16.66666603088379,
+            "mirror": false
+        },
+        {
+            "id": "compost:243:rivet:wheat_seed",
+            "station": "rivet:auto_composter",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:wheat_seed",
+                    "count": 1
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 0,
+            "watts": 0,
+            "compostPercent": 4.166666507720947,
+            "mirror": false
+        },
+        {
+            "id": "compost:243:rivet:grain",
+            "station": "rivet:auto_composter",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:grain",
+                    "count": 1
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 0,
+            "watts": 0,
+            "compostPercent": 8.333333015441895,
+            "mirror": false
+        },
+        {
+            "id": "compost:243:rivet:flax_seed",
+            "station": "rivet:auto_composter",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:flax_seed",
+                    "count": 1
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 0,
+            "watts": 0,
+            "compostPercent": 4.166666507720947,
+            "mirror": false
+        },
+        {
+            "id": "compost:243:rivet:flax_fibre",
+            "station": "rivet:auto_composter",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:flax_fibre",
+                    "count": 1
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 0,
+            "watts": 0,
+            "compostPercent": 4.166666507720947,
+            "mirror": false
+        },
+        {
+            "id": "compost:243:rivet:carrot_seed",
+            "station": "rivet:auto_composter",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:carrot_seed",
+                    "count": 1
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 0,
+            "watts": 0,
+            "compostPercent": 4.166666507720947,
+            "mirror": false
+        },
+        {
+            "id": "compost:243:rivet:carrot",
+            "station": "rivet:auto_composter",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:carrot",
+                    "count": 1
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 0,
+            "watts": 0,
+            "compostPercent": 8.333333015441895,
+            "mirror": false
+        },
+        {
+            "id": "compost:243:rivet:berry_seed",
+            "station": "rivet:auto_composter",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:berry_seed",
+                    "count": 1
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 0,
+            "watts": 0,
+            "compostPercent": 4.166666507720947,
+            "mirror": false
+        },
+        {
+            "id": "compost:243:rivet:berries",
+            "station": "rivet:auto_composter",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:berries",
+                    "count": 1
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 0,
+            "watts": 0,
+            "compostPercent": 8.333333015441895,
+            "mirror": false
+        },
+        {
+            "id": "compost:243:rivet:mushroom",
+            "station": "rivet:auto_composter",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:mushroom",
+                    "count": 1
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 0,
+            "watts": 0,
+            "compostPercent": 8.333333015441895,
+            "mirror": false
+        },
+        {
+            "id": "compost:243:rivet:bread",
+            "station": "rivet:auto_composter",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:bread",
+                    "count": 1
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 0,
+            "watts": 0,
+            "compostPercent": 16.66666603088379,
+            "mirror": false
+        },
+        {
+            "id": "compost:243:rivet:roast_carrot",
+            "station": "rivet:auto_composter",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:roast_carrot",
+                    "count": 1
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 0,
+            "watts": 0,
+            "compostPercent": 16.66666603088379,
+            "mirror": false
+        },
+        {
+            "id": "compost:243:rivet:vegetable_stew",
+            "station": "rivet:auto_composter",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:vegetable_stew",
+                    "count": 1
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 0,
+            "watts": 0,
+            "compostPercent": 16.66666603088379,
+            "mirror": false
+        },
+        {
+            "id": "compost:243:rivet:cooked_mushroom",
+            "station": "rivet:auto_composter",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:cooked_mushroom",
+                    "count": 1
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 0,
+            "watts": 0,
+            "compostPercent": 16.66666603088379,
+            "mirror": false
+        },
+        {
+            "id": "compost:243:rivet:fruit_porridge",
+            "station": "rivet:auto_composter",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:compost",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:fruit_porridge",
+                    "count": 1
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 0,
+            "watts": 0,
+            "compostPercent": 16.66666603088379,
             "mirror": false
         }
     ],
@@ -11650,7 +12343,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/CompostVerification.cs",
-            "sha256": "2f8f1a3d56595edb3eeb900a00981fe143d3502f8286f454d4dc123e4bc123cf"
+            "sha256": "34cf56ccfe3c55ac01597854f3cecd2a637774197e9e3e7fa8311a5b99c49211"
         },
         {
             "path": "Assets/RivetReach/Code/ConnectionVerification.cs",
@@ -11698,7 +12391,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Crafting/RecipeBrowserIndex.cs",
-            "sha256": "d1ee339d56b91a6b2647413a999cff0e188091e9e7cd34a21c742d32b31211d0"
+            "sha256": "19abd23bc5a467bf1acf313eafcc64194d8d84ce9b4d3dd4e1a228ebe45d33d9"
         },
         {
             "path": "Assets/RivetReach/Code/Crafting/RecipeCatalogAsset.cs",
@@ -11798,7 +12491,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Industry/CompostSimulation.cs",
-            "sha256": "a6341e279a7f330cc4bca751034c379f0e90a3e2c5b910217a009b281af932f3"
+            "sha256": "f3dab3046cd8e2c46bf0af3844dff5c1690d08c6af35887787639281b244a99b"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/ConnectedPipeVisuals.cs",
@@ -11822,15 +12515,15 @@
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustryDefinition.cs",
-            "sha256": "e1cf4e70d5463abf49983d42e4ba845563ca7d839efb29bc4bdede06749b2f99"
+            "sha256": "f1742029b99cadc9b55e8906d5f5fbfe77f9bb8a3e934bd1a423e5e3e9c59338"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustryPresentation.cs",
-            "sha256": "bae41452b856d04f0a67b4d9e1146257db45f2891c205c4ad8b3e0026a22d2af"
+            "sha256": "d795fbe03ef5c7ff3307bb3a58ec94a75587d0b9b40637b135cc233db2bf5952"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustrySimulation.cs",
-            "sha256": "c6a46bbe76b9a3db78283d97a4deb433b3542515233a41b3bea0fd1ed75eb7bf"
+            "sha256": "29f6b28d008ad39580b8a9974cac1d2d1f2f738b2f09768211f906aa69c0f0d0"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/NetworkTopology.cs",
@@ -11862,7 +12555,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Industry/WorldIndustry.cs",
-            "sha256": "be6f66e1d4ae9768cbca6682a2d34277869574482eb417fa5c2bf1b2d11765ff"
+            "sha256": "00ea7116a0ba214e79f0c04f297bf7c5e4d23d810e583cc6822f8edb533447a8"
         },
         {
             "path": "Assets/RivetReach/Code/IndustryVerification.cs",
@@ -11990,11 +12683,11 @@
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/SaveIO.cs",
-            "sha256": "1f579204eb85d021be1c7e3a613de65a7f0c1fb6e1748090abfc8103c88b4075"
+            "sha256": "1f02326e6808e06afbfae2a10c9e62882d24cf9a32c25bb6440b3ba9291e683b"
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/WorldSaveState.cs",
-            "sha256": "9f2c32ff1478938a13e0749f669222d8981c4b91b5a83391f22a9c4543032c27"
+            "sha256": "e94bfabaca6e09509b8fe7e65851643f91631b987b067075dd6178ca402bda68"
         },
         {
             "path": "Assets/RivetReach/Code/PlacementFacing.cs",
@@ -12126,7 +12819,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Survival/CompostCatalog.cs",
-            "sha256": "0ec1e459a5f9304ae3dda1f203727caf2fc5dd9f5a4fecb75c2b90332a699df9"
+            "sha256": "44ba22d1cb0adb508fe8fee802f2c94db21ba9ec8cfb61918bd112536e191ce6"
         },
         {
             "path": "Assets/RivetReach/Code/Survival/CompostUse.cs",
@@ -12210,7 +12903,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUICompost.cs",
-            "sha256": "7906e70b72e49a1949bd78ea3cb0a38bca6bbb9c68c9bf7cc0c88990707d780e"
+            "sha256": "1462b75305dcaf8b062c2ccb25b434aaf2439988d2cb2ec97fb2c0ac56e933af"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUICooking.cs",
@@ -12226,7 +12919,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIRecipeDetails.cs",
-            "sha256": "4c703a2535cdd9c104a3882907c9963e28207091e159313eb731ea68cbc2c3c2"
+            "sha256": "6da4fe38295e86858352c736db2b7ef2c3742903ea0b97750ca1250d67f7dae8"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUISaves.cs",
@@ -12350,7 +13043,7 @@
         },
         {
             "path": "Assets/RivetReach/Editor/WikiExport.cs",
-            "sha256": "cf0cdff6e7c2f7d88cc3d49376a752af94aaa383648cbc0ee797e3cfcfa816e2"
+            "sha256": "9c50649f7442fd0335805350e3b8b360f0de5ae63e5b3fe99a822909d17af264"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/BucketRecipe.asset",
@@ -12394,7 +13087,7 @@
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Items.asset",
-            "sha256": "3c22977690aba059bbb85bef1cca01e6fcdb1e2c92658bfdfc70b148d6d9f749"
+            "sha256": "82ea786c35f28934c6b9d19a803613665ad4d6c7f8f1769364d53c52df379fec"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Items.asset.meta",
@@ -12462,7 +13155,7 @@
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes.asset",
-            "sha256": "58496e8e025e25cfa7f1864a8f4ff5c6b3bd079a169d6b8af2f9db1f81353147"
+            "sha256": "4cd4fceca7fd7c936468c1553cc6cb2ebc305beaf10d6e2eb39f47e6b353cc97"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes.asset.meta",
@@ -12471,6 +13164,14 @@
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes.meta",
             "sha256": "517d3ff849c8b1fae393760c9202f7a82aae81f17fe37db43d3c130a6165035a"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/Recipes/AutoComposter.asset",
+            "sha256": "31e204447be1587dabcedcf557deb88449dee4abebd43b6a0015873a9bd18104"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/Recipes/AutoComposter.asset.meta",
+            "sha256": "4344e30229ef3524990db07bb3d4609901aaa5d9edfb1dbfaaa0fb8f2e1477f7"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes/CompostBin.asset",
@@ -13835,6 +14536,10 @@
         {
             "path": "Assets/RivetReach/Resources/Industry/Icons/242.png",
             "sha256": "ad7a71c145a45b688640f02fa5da55c3a0c160d09626d04f11166357a292654f"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Industry/Icons/243.png",
+            "sha256": "0ad19e7797303cc94faede760f7c04a55c631b6e0022b616173bbb0682a8f82a"
         },
         {
             "path": "Assets/RivetReach/Resources/Industry/Icons/25.png",
