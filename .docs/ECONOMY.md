@@ -231,4 +231,4 @@ The user proposed the two-gold/two-diamond Item Bridge cost. The user also confi
 
 ## Compost surplus — 2026-09-13
 
-[Compost](COMPOST.md) uses seven planks for the bin, with no metal or industrial bootstrap gate. Each 24-point batch converts configured organic surplus into one optional growth stage. Maximum current crop harvests contribute less than the three-compost cost of instant regrowth; preserve this constraint when changing yields or contribution values. These defaults still need player balance review.
+[Compost](COMPOST.md) uses seven planks for the bin, with no metal or industrial bootstrap gate. Each 24-point mixed level yields 1–4 Compost, each granting one optional growth stage. The electric autocomposter upgrade consumes a basic bin, casing, two cogs, two item pipes and one gold ingot. Even at maximum random yield, current crop harvests contribute less than the three-compost cost of instant regrowth; preserve this constraint when changing yields or contribution values. These defaults still need player balance review.

@@ -134,3 +134,7 @@ The [bridge](BRIDGES.md#crafting) and [ranged-pump](RANGED_PUMP.md#working-rules
 ## Mob spawn-light compatibility — 2026-09-13
 
 Spawn profiles append an inclusive light range without changing schema 10 or the entity/world payload. Current saves hash both limits. Compatibility accepts pre-light profiles only when the new hostile range is exactly 0–7, removing those two appended fields while retaining the historical habitat/support fields and every unrelated content check. The existing pre-habitat and older-content projections remain active. Unknown light tuning and altered support/combat/item/recipe definitions are not silently migrated. Light affects new natural spawn eligibility; loading retains existing entities and terrain unchanged.
+
+## Mixed compost compatibility — 2026-09-14
+
+[Revised compost](COMPOST.md#recovery-and-compatibility) uses schema 11 for accumulated points, batch sequence and autocomposter charge. Existing schema-10 bin inventories survive migration; unpaid timer work is discarded, inputs are converted only on interaction, and finished output is ejected. Existing bins become manual-only; no free automatic upgrade is granted. The exact previous content fingerprints remain accepted with unrelated item/recipe/mob checks intact. Failed-load rollback and generated terrain history are unchanged.

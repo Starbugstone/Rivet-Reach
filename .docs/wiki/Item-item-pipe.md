@@ -76,3 +76,4 @@ Follow a result to see its complete ingredients and recipe.
 | Result | Station | Recipe |
 |---|---|---|
 | <a href="Item-item-bridge.md#recipe-1" title="Item Bridge"><img src="icons/190.png" width="32" height="32" alt="Item Bridge"></a> ×2 [Item Bridge](Item-item-bridge.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-item-bridge.md#recipe-1) |
+| <a href="Item-auto-composter.md#recipe-1" title="Autocomposter"><img src="icons/243.png" width="32" height="32" alt="Autocomposter"></a> ×1 [Autocomposter](Item-auto-composter.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-auto-composter.md#recipe-1) |

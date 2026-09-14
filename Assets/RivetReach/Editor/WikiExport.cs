@@ -41,6 +41,7 @@ namespace RivetReach.Editor
             public FoodInput[] foodIngredients;
             public string[] fuels;
             public int grid, width, height, ticks, watts;
+            public float compostPercent;
             public bool mirror;
         }
         [Serializable] public sealed class FoodInput { public string selector;public int count;public string[] choices; }
@@ -79,6 +80,7 @@ namespace RivetReach.Editor
                 recipes = index.Recipes.Select(recipe => new Recipe
                 {
                     id = recipe.Id, station = Id(recipe.Station), output = Entry(recipe.Output),
+                    compostPercent=100f*recipe.CompostPoints/CompostCatalog.Current.pointsPerCompost,
                     foodIngredients=recipe.FoodRecipe?.ingredients.Select(i=>new FoodInput{selector=i.selector,count=i.count,choices=CookingCatalog.Current.Choices(i.selector).Select(Id).ToArray()}).ToArray(),
                     ingredients = recipe.Ingredients.Select(Entry).ToArray(), fuels = recipe.Fuels.Select(Id).ToArray(),
                     kind = recipe.GridRecipe?.Kind.ToString() ?? "Processing", grid = recipe.GridRecipe?.MinimumGridSize ?? 0,

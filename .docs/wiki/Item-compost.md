@@ -8,7 +8,7 @@
 
 <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="96" height="96" alt="Compost"></a>
 
-An optional crop growth accelerator made from organic surplus in a [Compost Bin](Item-compost-bin.md).
+An optional crop growth accelerator made from mixed biological surplus.
 
 ## At a glance
 
@@ -22,7 +22,7 @@ Make this item using the crafting or processing recipes below.
 
 ## Using it
 
-Select it and right-click an immature wild or cultivated crop to advance one stage. One successful click uses one Compost; invalid or mature targets consume nothing. See [Compost](Compost.md).
+Hold and right-click an immature wild or cultivated crop to spend one Compost and advance one stage. Requires suitable support and sufficient sky or placed light. See [Compost](Compost.md).
 
 ## Crafting and processing
 
@@ -30,226 +30,454 @@ Select it and right-click an immature wild or cultivated crop to advance one sta
 
 **Station:** <a href="Item-compost-bin.md" title="Compost Bin"><img src="icons/242.png" width="40" height="40" alt="Compost Bin"><br>Compost Bin</a>
 
-**Processing time:** 10 seconds per operation.
+**Contribution:** one item adds **4.17%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
 
-**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> ×1
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
 
-| Ingredient | Total per operation |
+| Ingredient | Items per deposit |
 |---|---:|
-| <a href="Item-leaves.md" title="Leaves"><img src="icons/5.png" width="32" height="32" alt="Leaves"></a> [Leaves](Item-leaves.md) | 24 |
+| <a href="Item-leaves.md" title="Leaves"><img src="icons/5.png" width="32" height="32" alt="Leaves"></a> [Leaves](Item-leaves.md) | 1 |
 
 ### Recipe 2
 
 **Station:** <a href="Item-compost-bin.md" title="Compost Bin"><img src="icons/242.png" width="40" height="40" alt="Compost Bin"><br>Compost Bin</a>
 
-**Processing time:** 10 seconds per operation.
+**Contribution:** one item adds **8.33%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
 
-**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> ×1
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
 
-| Ingredient | Total per operation |
+| Ingredient | Items per deposit |
 |---|---:|
-| <a href="Item-sapling.md" title="Sapling"><img src="icons/97.png" width="32" height="32" alt="Sapling"></a> [Sapling](Item-sapling.md) | 12 |
+| <a href="Item-sapling.md" title="Sapling"><img src="icons/97.png" width="32" height="32" alt="Sapling"></a> [Sapling](Item-sapling.md) | 1 |
 
 ### Recipe 3
 
 **Station:** <a href="Item-compost-bin.md" title="Compost Bin"><img src="icons/242.png" width="40" height="40" alt="Compost Bin"><br>Compost Bin</a>
 
-**Processing time:** 10 seconds per operation.
+**Contribution:** one item adds **8.33%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
 
-**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> ×1
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
 
-| Ingredient | Total per operation |
+| Ingredient | Items per deposit |
 |---|---:|
-| <a href="Item-apple.md" title="Apple"><img src="icons/98.png" width="32" height="32" alt="Apple"></a> [Apple](Item-apple.md) | 12 |
+| <a href="Item-apple.md" title="Apple"><img src="icons/98.png" width="32" height="32" alt="Apple"></a> [Apple](Item-apple.md) | 1 |
 
 ### Recipe 4
 
 **Station:** <a href="Item-compost-bin.md" title="Compost Bin"><img src="icons/242.png" width="40" height="40" alt="Compost Bin"><br>Compost Bin</a>
 
-**Processing time:** 10 seconds per operation.
+**Contribution:** one item adds **8.33%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
 
-**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> ×1
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
 
-| Ingredient | Total per operation |
+| Ingredient | Items per deposit |
 |---|---:|
-| <a href="Item-potato.md" title="Potato"><img src="icons/30.png" width="32" height="32" alt="Potato"></a> [Potato](Item-potato.md) | 12 |
+| <a href="Item-potato.md" title="Potato"><img src="icons/30.png" width="32" height="32" alt="Potato"></a> [Potato](Item-potato.md) | 1 |
 
 ### Recipe 5
 
 **Station:** <a href="Item-compost-bin.md" title="Compost Bin"><img src="icons/242.png" width="40" height="40" alt="Compost Bin"><br>Compost Bin</a>
 
-**Processing time:** 10 seconds per operation.
+**Contribution:** one item adds **16.67%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
 
-**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> ×1
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
 
-| Ingredient | Total per operation |
+| Ingredient | Items per deposit |
 |---|---:|
-| <a href="Item-baked-potato.md" title="Baked potato"><img src="icons/31.png" width="32" height="32" alt="Baked potato"></a> [Baked potato](Item-baked-potato.md) | 6 |
+| <a href="Item-baked-potato.md" title="Baked potato"><img src="icons/31.png" width="32" height="32" alt="Baked potato"></a> [Baked potato](Item-baked-potato.md) | 1 |
 
 ### Recipe 6
 
 **Station:** <a href="Item-compost-bin.md" title="Compost Bin"><img src="icons/242.png" width="40" height="40" alt="Compost Bin"><br>Compost Bin</a>
 
-**Processing time:** 10 seconds per operation.
+**Contribution:** one item adds **4.17%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
 
-**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> ×1
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
 
-| Ingredient | Total per operation |
+| Ingredient | Items per deposit |
 |---|---:|
-| <a href="Item-wheat-seed.md" title="Wheat Seeds"><img src="icons/220.png" width="32" height="32" alt="Wheat Seeds"></a> [Wheat Seeds](Item-wheat-seed.md) | 24 |
+| <a href="Item-wheat-seed.md" title="Wheat Seeds"><img src="icons/220.png" width="32" height="32" alt="Wheat Seeds"></a> [Wheat Seeds](Item-wheat-seed.md) | 1 |
 
 ### Recipe 7
 
 **Station:** <a href="Item-compost-bin.md" title="Compost Bin"><img src="icons/242.png" width="40" height="40" alt="Compost Bin"><br>Compost Bin</a>
 
-**Processing time:** 10 seconds per operation.
+**Contribution:** one item adds **8.33%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
 
-**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> ×1
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
 
-| Ingredient | Total per operation |
+| Ingredient | Items per deposit |
 |---|---:|
-| <a href="Item-grain.md" title="Grain"><img src="icons/221.png" width="32" height="32" alt="Grain"></a> [Grain](Item-grain.md) | 12 |
+| <a href="Item-grain.md" title="Grain"><img src="icons/221.png" width="32" height="32" alt="Grain"></a> [Grain](Item-grain.md) | 1 |
 
 ### Recipe 8
 
 **Station:** <a href="Item-compost-bin.md" title="Compost Bin"><img src="icons/242.png" width="40" height="40" alt="Compost Bin"><br>Compost Bin</a>
 
-**Processing time:** 10 seconds per operation.
+**Contribution:** one item adds **4.17%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
 
-**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> ×1
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
 
-| Ingredient | Total per operation |
+| Ingredient | Items per deposit |
 |---|---:|
-| <a href="Item-flax-seed.md" title="Flax Seeds"><img src="icons/222.png" width="32" height="32" alt="Flax Seeds"></a> [Flax Seeds](Item-flax-seed.md) | 24 |
+| <a href="Item-flax-seed.md" title="Flax Seeds"><img src="icons/222.png" width="32" height="32" alt="Flax Seeds"></a> [Flax Seeds](Item-flax-seed.md) | 1 |
 
 ### Recipe 9
 
 **Station:** <a href="Item-compost-bin.md" title="Compost Bin"><img src="icons/242.png" width="40" height="40" alt="Compost Bin"><br>Compost Bin</a>
 
-**Processing time:** 10 seconds per operation.
+**Contribution:** one item adds **4.17%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
 
-**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> ×1
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
 
-| Ingredient | Total per operation |
+| Ingredient | Items per deposit |
 |---|---:|
-| <a href="Item-flax-fibre.md" title="Flax Fibre"><img src="icons/223.png" width="32" height="32" alt="Flax Fibre"></a> [Flax Fibre](Item-flax-fibre.md) | 24 |
+| <a href="Item-flax-fibre.md" title="Flax Fibre"><img src="icons/223.png" width="32" height="32" alt="Flax Fibre"></a> [Flax Fibre](Item-flax-fibre.md) | 1 |
 
 ### Recipe 10
 
 **Station:** <a href="Item-compost-bin.md" title="Compost Bin"><img src="icons/242.png" width="40" height="40" alt="Compost Bin"><br>Compost Bin</a>
 
-**Processing time:** 10 seconds per operation.
+**Contribution:** one item adds **4.17%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
 
-**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> ×1
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
 
-| Ingredient | Total per operation |
+| Ingredient | Items per deposit |
 |---|---:|
-| <a href="Item-carrot-seed.md" title="Carrot Seeds"><img src="icons/226.png" width="32" height="32" alt="Carrot Seeds"></a> [Carrot Seeds](Item-carrot-seed.md) | 24 |
+| <a href="Item-carrot-seed.md" title="Carrot Seeds"><img src="icons/226.png" width="32" height="32" alt="Carrot Seeds"></a> [Carrot Seeds](Item-carrot-seed.md) | 1 |
 
 ### Recipe 11
 
 **Station:** <a href="Item-compost-bin.md" title="Compost Bin"><img src="icons/242.png" width="40" height="40" alt="Compost Bin"><br>Compost Bin</a>
 
-**Processing time:** 10 seconds per operation.
+**Contribution:** one item adds **8.33%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
 
-**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> ×1
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
 
-| Ingredient | Total per operation |
+| Ingredient | Items per deposit |
 |---|---:|
-| <a href="Item-carrot.md" title="Carrot"><img src="icons/227.png" width="32" height="32" alt="Carrot"></a> [Carrot](Item-carrot.md) | 12 |
+| <a href="Item-carrot.md" title="Carrot"><img src="icons/227.png" width="32" height="32" alt="Carrot"></a> [Carrot](Item-carrot.md) | 1 |
 
 ### Recipe 12
 
 **Station:** <a href="Item-compost-bin.md" title="Compost Bin"><img src="icons/242.png" width="40" height="40" alt="Compost Bin"><br>Compost Bin</a>
 
-**Processing time:** 10 seconds per operation.
+**Contribution:** one item adds **4.17%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
 
-**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> ×1
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
 
-| Ingredient | Total per operation |
+| Ingredient | Items per deposit |
 |---|---:|
-| <a href="Item-berry-seed.md" title="Berry Seeds"><img src="icons/228.png" width="32" height="32" alt="Berry Seeds"></a> [Berry Seeds](Item-berry-seed.md) | 24 |
+| <a href="Item-berry-seed.md" title="Berry Seeds"><img src="icons/228.png" width="32" height="32" alt="Berry Seeds"></a> [Berry Seeds](Item-berry-seed.md) | 1 |
 
 ### Recipe 13
 
 **Station:** <a href="Item-compost-bin.md" title="Compost Bin"><img src="icons/242.png" width="40" height="40" alt="Compost Bin"><br>Compost Bin</a>
 
-**Processing time:** 10 seconds per operation.
+**Contribution:** one item adds **8.33%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
 
-**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> ×1
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
 
-| Ingredient | Total per operation |
+| Ingredient | Items per deposit |
 |---|---:|
-| <a href="Item-berries.md" title="Berries"><img src="icons/229.png" width="32" height="32" alt="Berries"></a> [Berries](Item-berries.md) | 12 |
+| <a href="Item-berries.md" title="Berries"><img src="icons/229.png" width="32" height="32" alt="Berries"></a> [Berries](Item-berries.md) | 1 |
 
 ### Recipe 14
 
 **Station:** <a href="Item-compost-bin.md" title="Compost Bin"><img src="icons/242.png" width="40" height="40" alt="Compost Bin"><br>Compost Bin</a>
 
-**Processing time:** 10 seconds per operation.
+**Contribution:** one item adds **8.33%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
 
-**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> ×1
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
 
-| Ingredient | Total per operation |
+| Ingredient | Items per deposit |
 |---|---:|
-| <a href="Item-mushroom.md" title="Mushroom"><img src="icons/230.png" width="32" height="32" alt="Mushroom"></a> [Mushroom](Item-mushroom.md) | 12 |
+| <a href="Item-mushroom.md" title="Mushroom"><img src="icons/230.png" width="32" height="32" alt="Mushroom"></a> [Mushroom](Item-mushroom.md) | 1 |
 
 ### Recipe 15
 
 **Station:** <a href="Item-compost-bin.md" title="Compost Bin"><img src="icons/242.png" width="40" height="40" alt="Compost Bin"><br>Compost Bin</a>
 
-**Processing time:** 10 seconds per operation.
+**Contribution:** one item adds **16.67%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
 
-**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> ×1
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
 
-| Ingredient | Total per operation |
+| Ingredient | Items per deposit |
 |---|---:|
-| <a href="Item-bread.md" title="Bread"><img src="icons/231.png" width="32" height="32" alt="Bread"></a> [Bread](Item-bread.md) | 6 |
+| <a href="Item-bread.md" title="Bread"><img src="icons/231.png" width="32" height="32" alt="Bread"></a> [Bread](Item-bread.md) | 1 |
 
 ### Recipe 16
 
 **Station:** <a href="Item-compost-bin.md" title="Compost Bin"><img src="icons/242.png" width="40" height="40" alt="Compost Bin"><br>Compost Bin</a>
 
-**Processing time:** 10 seconds per operation.
+**Contribution:** one item adds **16.67%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
 
-**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> ×1
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
 
-| Ingredient | Total per operation |
+| Ingredient | Items per deposit |
 |---|---:|
-| <a href="Item-roast-carrot.md" title="Roasted Carrot"><img src="icons/232.png" width="32" height="32" alt="Roasted Carrot"></a> [Roasted Carrot](Item-roast-carrot.md) | 6 |
+| <a href="Item-roast-carrot.md" title="Roasted Carrot"><img src="icons/232.png" width="32" height="32" alt="Roasted Carrot"></a> [Roasted Carrot](Item-roast-carrot.md) | 1 |
 
 ### Recipe 17
 
 **Station:** <a href="Item-compost-bin.md" title="Compost Bin"><img src="icons/242.png" width="40" height="40" alt="Compost Bin"><br>Compost Bin</a>
 
-**Processing time:** 10 seconds per operation.
+**Contribution:** one item adds **16.67%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
 
-**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> ×1
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
 
-| Ingredient | Total per operation |
+| Ingredient | Items per deposit |
 |---|---:|
-| <a href="Item-vegetable-stew.md" title="Vegetable Stew"><img src="icons/233.png" width="32" height="32" alt="Vegetable Stew"></a> [Vegetable Stew](Item-vegetable-stew.md) | 6 |
+| <a href="Item-vegetable-stew.md" title="Vegetable Stew"><img src="icons/233.png" width="32" height="32" alt="Vegetable Stew"></a> [Vegetable Stew](Item-vegetable-stew.md) | 1 |
 
 ### Recipe 18
 
 **Station:** <a href="Item-compost-bin.md" title="Compost Bin"><img src="icons/242.png" width="40" height="40" alt="Compost Bin"><br>Compost Bin</a>
 
-**Processing time:** 10 seconds per operation.
+**Contribution:** one item adds **16.67%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
 
-**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> ×1
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
 
-| Ingredient | Total per operation |
+| Ingredient | Items per deposit |
 |---|---:|
-| <a href="Item-cooked-mushroom.md" title="Cooked Mushrooms"><img src="icons/234.png" width="32" height="32" alt="Cooked Mushrooms"></a> [Cooked Mushrooms](Item-cooked-mushroom.md) | 6 |
+| <a href="Item-cooked-mushroom.md" title="Cooked Mushrooms"><img src="icons/234.png" width="32" height="32" alt="Cooked Mushrooms"></a> [Cooked Mushrooms](Item-cooked-mushroom.md) | 1 |
 
 ### Recipe 19
 
 **Station:** <a href="Item-compost-bin.md" title="Compost Bin"><img src="icons/242.png" width="40" height="40" alt="Compost Bin"><br>Compost Bin</a>
 
-**Processing time:** 10 seconds per operation.
+**Contribution:** one item adds **16.67%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
 
-**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> ×1
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
 
-| Ingredient | Total per operation |
+| Ingredient | Items per deposit |
 |---|---:|
-| <a href="Item-fruit-porridge.md" title="Fruit Porridge"><img src="icons/235.png" width="32" height="32" alt="Fruit Porridge"></a> [Fruit Porridge](Item-fruit-porridge.md) | 6 |
+| <a href="Item-fruit-porridge.md" title="Fruit Porridge"><img src="icons/235.png" width="32" height="32" alt="Fruit Porridge"></a> [Fruit Porridge](Item-fruit-porridge.md) | 1 |
+
+### Recipe 20
+
+**Station:** <a href="Item-auto-composter.md" title="Autocomposter"><img src="icons/243.png" width="40" height="40" alt="Autocomposter"><br>Autocomposter</a>
+
+**Contribution:** one item adds **4.17%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
+
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
+
+| Ingredient | Items per deposit |
+|---|---:|
+| <a href="Item-leaves.md" title="Leaves"><img src="icons/5.png" width="32" height="32" alt="Leaves"></a> [Leaves](Item-leaves.md) | 1 |
+
+### Recipe 21
+
+**Station:** <a href="Item-auto-composter.md" title="Autocomposter"><img src="icons/243.png" width="40" height="40" alt="Autocomposter"><br>Autocomposter</a>
+
+**Contribution:** one item adds **8.33%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
+
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
+
+| Ingredient | Items per deposit |
+|---|---:|
+| <a href="Item-sapling.md" title="Sapling"><img src="icons/97.png" width="32" height="32" alt="Sapling"></a> [Sapling](Item-sapling.md) | 1 |
+
+### Recipe 22
+
+**Station:** <a href="Item-auto-composter.md" title="Autocomposter"><img src="icons/243.png" width="40" height="40" alt="Autocomposter"><br>Autocomposter</a>
+
+**Contribution:** one item adds **8.33%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
+
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
+
+| Ingredient | Items per deposit |
+|---|---:|
+| <a href="Item-apple.md" title="Apple"><img src="icons/98.png" width="32" height="32" alt="Apple"></a> [Apple](Item-apple.md) | 1 |
+
+### Recipe 23
+
+**Station:** <a href="Item-auto-composter.md" title="Autocomposter"><img src="icons/243.png" width="40" height="40" alt="Autocomposter"><br>Autocomposter</a>
+
+**Contribution:** one item adds **8.33%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
+
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
+
+| Ingredient | Items per deposit |
+|---|---:|
+| <a href="Item-potato.md" title="Potato"><img src="icons/30.png" width="32" height="32" alt="Potato"></a> [Potato](Item-potato.md) | 1 |
+
+### Recipe 24
+
+**Station:** <a href="Item-auto-composter.md" title="Autocomposter"><img src="icons/243.png" width="40" height="40" alt="Autocomposter"><br>Autocomposter</a>
+
+**Contribution:** one item adds **16.67%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
+
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
+
+| Ingredient | Items per deposit |
+|---|---:|
+| <a href="Item-baked-potato.md" title="Baked potato"><img src="icons/31.png" width="32" height="32" alt="Baked potato"></a> [Baked potato](Item-baked-potato.md) | 1 |
+
+### Recipe 25
+
+**Station:** <a href="Item-auto-composter.md" title="Autocomposter"><img src="icons/243.png" width="40" height="40" alt="Autocomposter"><br>Autocomposter</a>
+
+**Contribution:** one item adds **4.17%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
+
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
+
+| Ingredient | Items per deposit |
+|---|---:|
+| <a href="Item-wheat-seed.md" title="Wheat Seeds"><img src="icons/220.png" width="32" height="32" alt="Wheat Seeds"></a> [Wheat Seeds](Item-wheat-seed.md) | 1 |
+
+### Recipe 26
+
+**Station:** <a href="Item-auto-composter.md" title="Autocomposter"><img src="icons/243.png" width="40" height="40" alt="Autocomposter"><br>Autocomposter</a>
+
+**Contribution:** one item adds **8.33%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
+
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
+
+| Ingredient | Items per deposit |
+|---|---:|
+| <a href="Item-grain.md" title="Grain"><img src="icons/221.png" width="32" height="32" alt="Grain"></a> [Grain](Item-grain.md) | 1 |
+
+### Recipe 27
+
+**Station:** <a href="Item-auto-composter.md" title="Autocomposter"><img src="icons/243.png" width="40" height="40" alt="Autocomposter"><br>Autocomposter</a>
+
+**Contribution:** one item adds **4.17%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
+
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
+
+| Ingredient | Items per deposit |
+|---|---:|
+| <a href="Item-flax-seed.md" title="Flax Seeds"><img src="icons/222.png" width="32" height="32" alt="Flax Seeds"></a> [Flax Seeds](Item-flax-seed.md) | 1 |
+
+### Recipe 28
+
+**Station:** <a href="Item-auto-composter.md" title="Autocomposter"><img src="icons/243.png" width="40" height="40" alt="Autocomposter"><br>Autocomposter</a>
+
+**Contribution:** one item adds **4.17%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
+
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
+
+| Ingredient | Items per deposit |
+|---|---:|
+| <a href="Item-flax-fibre.md" title="Flax Fibre"><img src="icons/223.png" width="32" height="32" alt="Flax Fibre"></a> [Flax Fibre](Item-flax-fibre.md) | 1 |
+
+### Recipe 29
+
+**Station:** <a href="Item-auto-composter.md" title="Autocomposter"><img src="icons/243.png" width="40" height="40" alt="Autocomposter"><br>Autocomposter</a>
+
+**Contribution:** one item adds **4.17%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
+
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
+
+| Ingredient | Items per deposit |
+|---|---:|
+| <a href="Item-carrot-seed.md" title="Carrot Seeds"><img src="icons/226.png" width="32" height="32" alt="Carrot Seeds"></a> [Carrot Seeds](Item-carrot-seed.md) | 1 |
+
+### Recipe 30
+
+**Station:** <a href="Item-auto-composter.md" title="Autocomposter"><img src="icons/243.png" width="40" height="40" alt="Autocomposter"><br>Autocomposter</a>
+
+**Contribution:** one item adds **8.33%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
+
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
+
+| Ingredient | Items per deposit |
+|---|---:|
+| <a href="Item-carrot.md" title="Carrot"><img src="icons/227.png" width="32" height="32" alt="Carrot"></a> [Carrot](Item-carrot.md) | 1 |
+
+### Recipe 31
+
+**Station:** <a href="Item-auto-composter.md" title="Autocomposter"><img src="icons/243.png" width="40" height="40" alt="Autocomposter"><br>Autocomposter</a>
+
+**Contribution:** one item adds **4.17%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
+
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
+
+| Ingredient | Items per deposit |
+|---|---:|
+| <a href="Item-berry-seed.md" title="Berry Seeds"><img src="icons/228.png" width="32" height="32" alt="Berry Seeds"></a> [Berry Seeds](Item-berry-seed.md) | 1 |
+
+### Recipe 32
+
+**Station:** <a href="Item-auto-composter.md" title="Autocomposter"><img src="icons/243.png" width="40" height="40" alt="Autocomposter"><br>Autocomposter</a>
+
+**Contribution:** one item adds **8.33%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
+
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
+
+| Ingredient | Items per deposit |
+|---|---:|
+| <a href="Item-berries.md" title="Berries"><img src="icons/229.png" width="32" height="32" alt="Berries"></a> [Berries](Item-berries.md) | 1 |
+
+### Recipe 33
+
+**Station:** <a href="Item-auto-composter.md" title="Autocomposter"><img src="icons/243.png" width="40" height="40" alt="Autocomposter"><br>Autocomposter</a>
+
+**Contribution:** one item adds **8.33%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
+
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
+
+| Ingredient | Items per deposit |
+|---|---:|
+| <a href="Item-mushroom.md" title="Mushroom"><img src="icons/230.png" width="32" height="32" alt="Mushroom"></a> [Mushroom](Item-mushroom.md) | 1 |
+
+### Recipe 34
+
+**Station:** <a href="Item-auto-composter.md" title="Autocomposter"><img src="icons/243.png" width="40" height="40" alt="Autocomposter"><br>Autocomposter</a>
+
+**Contribution:** one item adds **16.67%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
+
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
+
+| Ingredient | Items per deposit |
+|---|---:|
+| <a href="Item-bread.md" title="Bread"><img src="icons/231.png" width="32" height="32" alt="Bread"></a> [Bread](Item-bread.md) | 1 |
+
+### Recipe 35
+
+**Station:** <a href="Item-auto-composter.md" title="Autocomposter"><img src="icons/243.png" width="40" height="40" alt="Autocomposter"><br>Autocomposter</a>
+
+**Contribution:** one item adds **16.67%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
+
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
+
+| Ingredient | Items per deposit |
+|---|---:|
+| <a href="Item-roast-carrot.md" title="Roasted Carrot"><img src="icons/232.png" width="32" height="32" alt="Roasted Carrot"></a> [Roasted Carrot](Item-roast-carrot.md) | 1 |
+
+### Recipe 36
+
+**Station:** <a href="Item-auto-composter.md" title="Autocomposter"><img src="icons/243.png" width="40" height="40" alt="Autocomposter"><br>Autocomposter</a>
+
+**Contribution:** one item adds **16.67%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
+
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
+
+| Ingredient | Items per deposit |
+|---|---:|
+| <a href="Item-vegetable-stew.md" title="Vegetable Stew"><img src="icons/233.png" width="32" height="32" alt="Vegetable Stew"></a> [Vegetable Stew](Item-vegetable-stew.md) | 1 |
+
+### Recipe 37
+
+**Station:** <a href="Item-auto-composter.md" title="Autocomposter"><img src="icons/243.png" width="40" height="40" alt="Autocomposter"><br>Autocomposter</a>
+
+**Contribution:** one item adds **16.67%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
+
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
+
+| Ingredient | Items per deposit |
+|---|---:|
+| <a href="Item-cooked-mushroom.md" title="Cooked Mushrooms"><img src="icons/234.png" width="32" height="32" alt="Cooked Mushrooms"></a> [Cooked Mushrooms](Item-cooked-mushroom.md) | 1 |
+
+### Recipe 38
+
+**Station:** <a href="Item-auto-composter.md" title="Autocomposter"><img src="icons/243.png" width="40" height="40" alt="Autocomposter"><br>Autocomposter</a>
+
+**Contribution:** one item adds **16.67%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.
+
+**Output:** <a href="Item-compost.md" title="Compost"><img src="icons/236.png" width="56" height="56" alt="Compost"><br>Compost</a> **1–4 when the combined level reaches 100%**
+
+| Ingredient | Items per deposit |
+|---|---:|
+| <a href="Item-fruit-porridge.md" title="Fruit Porridge"><img src="icons/235.png" width="32" height="32" alt="Fruit Porridge"></a> [Fruit Porridge](Item-fruit-porridge.md) | 1 |

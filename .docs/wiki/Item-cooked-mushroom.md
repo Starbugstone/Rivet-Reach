@@ -68,4 +68,5 @@ Follow a result to see its complete ingredients and recipe.
 
 | Result | Station | Recipe |
 |---|---|---|
-| <a href="Item-compost.md#recipe-18" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> ×1 [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-18) |
+| <a href="Item-compost.md#recipe-18" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-18) |
+| <a href="Item-compost.md#recipe-37" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Autocomposter](Item-auto-composter.md) | [View recipe](Item-compost.md#recipe-37) |

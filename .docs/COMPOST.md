@@ -1,10 +1,10 @@
 # Compost
 
-Issue [#10](https://github.com/Starbugstone/Rivet-Reach/issues/10), next playable increment authorized September 13, 2026. The user selected implementation of the recommended compost slice. Numerical quantities below are working defaults, not individually user-selected or long-session balance results. [Farming](FARMING.md) owns ordinary crop growth and harvests.
+Issue [#10](https://github.com/Starbugstone/Rivet-Reach/issues/10), revised under the user's [September 14 feedback](https://github.com/Starbugstone/Rivet-Reach/issues/10#issuecomment-5662161983). Mixed immediate deposits, random 1–4 output and a manual/basic versus automatic split are user requirements. The user also confirmed electricity for the autocomposter. Contribution quantities, electrical defaults and upgrade recipe below are working balance choices.
 
-## Player loop
+## Manual Compost Bin
 
-Craft one **Compost Bin** at a workbench with seven planks in a U shape:
+Craft one bin at a workbench from seven planks in a U shape:
 
 ```text
 P · P
@@ -12,27 +12,39 @@ P · P
 P P P
 ```
 
-The original wooden bin occupies one solid cell and opens through right-click or the bound Interact action. It has one organic input slot and one output slot. Each holds an ordinary stack; one input identity is processed at a time. No fuel, electricity, water or industrial component is needed.
+Open with right-click or Interact. The interface has an **Add organics** deposit target and one shared percentage. Left-click deposits the held stack; right-click deposits one item; Shift-click an inventory stack deposits it. Accepted items disappear immediately and their contributions remain even when the next input is a different item. The deposit target is not a processing inventory or a requirement to assemble one matching stack.
 
-A batch needs **24 organic points** and **200 fixed ticks / 10 seconds** to make one Compost. Contributions come from `Resources/Definitions/Compost.json`:
+A full level needs **24 organic points**, displayed as 100%. `Resources/Definitions/Compost.json` authors each item's contribution:
 
-| Contribution per item | Inputs | Items for one Compost |
-|---|---|---:|
-| 1 | Leaves, wheat/flax/carrot/berry seeds, flax fibre | 24 |
-| 2 | Saplings, apples, potatoes, grain, carrots, berries, mushrooms | 12 |
-| 4 | Baked potatoes, bread, roasted carrots, vegetable stew, cooked mushrooms, fruit porridge | 6 |
+| Points / item | Progress / item | Inputs |
+|---:|---:|---|
+| 1 | 4.17% | Leaves, wheat/flax/carrot/berry seeds, flax fibre |
+| 2 | 8.33% | Saplings, apples, potatoes, grain, carrots, berries, mushrooms |
+| 4 | 16.67% | Baked potatoes, bread, roasted carrots, vegetable stew, cooked mushrooms, fruit porridge |
 
-Inputs must carry the shared `compostable` tag **and** have an explicit positive catalog contribution. Compost itself cannot be composted. Contributions must divide the batch threshold exactly, and a batch must fit in the input stack. Validation publishes the lookup only after all entries pass; tags grant eligibility rather than material value. Search `#compostable` in the item browser; each exact conversion appears in the recipe/uses browser and exported wiki reference.
+Every accepted item needs the shared `compostable` tag and an explicit positive contribution. Search `#compostable` in the item browser. Any mixture of configured inputs contributes to the same level; contributions need not divide 24 exactly. There is no processing timer. The old catalog `ticks` field remains solely for precise historical definition compatibility and legacy-state validation.
 
-## Processing, recovery and automation
+At each full level, subtract 24 points and produce **one randomly selected quantity from 1–4 Compost**. Excess points carry into the next level. A stack can complete several batches. Selection uses a deterministic pseudorandom sequence with persisted batch count and station position, so save/load and blocked-output retries cannot reroll a pending batch. The basic bin ejects finished Compost above its rim as ordinary collectible drops. Normal dropped-item pickup and hazards apply.
 
-Input items stay in the bin until a whole batch finishes and output space is available. The synchronous completion transaction removes exactly the configured batch and adds exactly one Compost. There is no hidden partially consumed organic balance or rounding loss. An incomplete quantity waits in the input slot; it does not begin the processing timer.
+The basic bin has **no item-pipe, power or Blue Signal connections**. Its world model shows accumulated organic material rising with progress. Deposits are bounded by the ordinary stack limit; no per-item GameObjects or new background jobs are introduced.
 
-Full output, insufficient inputs, optional Blue Signal OFF and nonresident terrain pause processing without consumption. Changing input identity resets unpaid processing time. Removing and replacing a stack of the same identity may retain unpaid time; it cannot change the required batch or its yield. The bin has no power endpoint or fuel slot.
+## Electric Autocomposter
 
-Item pipes use the existing shared grid allocator and wrench-configured ends. Input ends on any face accept configured organics when the single slot has space; output ends extract only finished Compost. Disconnected ends transfer nothing. The optional signal terminal uses the bin's front face, matching ordinary machine signal input. The controller UI shows status, batch quantities and actual time progress.
+Craft one **Autocomposter** at the 4×4 Machinist's Bench from one Compost Bin, one Machine Casing, two Cogs, two Item Pipes and one Gold Ingot. This keeps the wooden bootstrap cheap and gives gold a construction role in the automation upgrade.
 
-Mining recovers one bin, every queued input and finished output through the existing drop transaction. Unpaid elapsed processing time resets on replacement; no consumed material is lost because batch ingredients were retained. Existing Creative mining/drop rules still apply. Saving a placed bin retains its input, output, orientation and exact partial processing time.
+It shares exactly the same mixed-input contribution and random-output rules. Its output is retained in a stack for manual collection or pipe extraction. Wrench-configured item inputs/outputs can use any face; only the output can be extracted. The shared pipe allocator remains authoritative. Blue Signal optionally controls operation at the front.
+
+Electrical working defaults: **160 W**, **8 J per accepted organic item**, and a **512 J internal reserve** (up to 64 items). Ordinary all-face electrical allocation charges this reserve in fixed steps; partial power charges proportionally. Charging stops when full, dormant, signal-disabled or unable to fit the next output. Stored charge can finish deposits after disconnection, then further deposits wait for power. The interface shows remaining charge. The reserve is not a battery/grid source.
+
+No item is accepted unless its charge and any output space required by that item are available. Accepted inputs are immediately consumed, including pipe-delivered items; an unpaid/unfittable remainder stays in the hand or source inventory. Pausing preserves points, finished output and paid charge. A blocked deposit does not advance the random sequence.
+
+## Recovery and compatibility
+
+Both machines save their exact partial level, completed-batch sequence and output; the autocomposter also saves paid charge. **Schema 11** appends those fields only to composter machine records. Older content fingerprints project away only the new autocomposter item/recipe and the revised-operation marker; the existing compost catalog and all unrelated definitions remain checked.
+
+Schema-10 bins remain manual bins. Previously queued inputs and finished output are retained; opening the bin ejects old output and feeds its queued input under the new rules. The old timer represented unpaid work, so it is discarded without removing any input. Old attached pipes become disconnected from the manual bin; use the new autocomposter to restore automation. No placed machine is silently upgraded or charged a crafting cost.
+
+Mining returns the machine and any unconsumed legacy input or retained finished output. Already-consumed unfinished organic progress and internal electrical reserve are lost when dismantling; they are not refunded as new organic items. Save/load preserves them while the machine stays placed. The UI and player guide explain this distinction. Existing Creative mining/drop rules still apply. Terrain generation and generated-chunk history are unchanged.
 
 ## Crop use
 
@@ -44,14 +56,8 @@ Acceleration replaces the old scheduled deadline with a full interval for the ne
 
 Compost is optional and never a crop requirement. Maximum configured harvest contributions do not fund the three Compost needed to regrow the same crop instantly. Actual surplus availability and player value still require sustained playtesting.
 
-## Persistence and compatibility
-
-The bin reuses existing machine slots, `Work` and `WorkInput`; no binary fields or generator change are needed. Saves remain schema **10**, with a new content fingerprint including the compost catalog, new items, recipe and tags. Accepted older fingerprints project away only the two new identities, bin recipe and frozen `compostable` additions to known old inputs. Unrelated item/recipe/tag checks and existing previous-tier compatibility remain enforced.
-
-Save capture synchronizes changed input identity before writing. Loading rejects fractional or completed-but-uncommitted work, wrong work identity, fuel, hidden-slot contents and non-Compost output. Failed-load rollback remains authoritative. Old terrain is never regenerated or amended by this addition.
-
 ## Assets and evidence
 
-`Tools/create_compost_assets.py` authors original slatted wooden-bin and compost-clod meshes against the existing Rivet Reach atlas. Editable sources and neutral-lit source renders live in `ArtSource/Compost`; explicit FBX, normalized prefabs and matching PNG icons are used for world, held and dropped presentation. The bin's organic surface is visible when it contains input or output.
+The basic bin and Compost retain their original artwork. `Tools/create_compost_assets.py --auto-only` adds the original reinforced, metal-banded autocomposter with gold shaft fittings and a front output opening. Editable sources and renders live in `ArtSource/Compost`; explicit FBX, normalized prefabs and matching icons serve placement, inventory, held and dropped presentation.
 
-[Verification](verification/COMPOST_RESULTS.md) records actual checks, build/capture identities and remaining limits. [Player guide](wiki/Compost.md) teaches crafting, quantities, crop use and pipe setup. Beds, fishing, chickens, warehouse storage, weather and renewables remain separate increments.
+[Current verification](verification/COMPOST_RESULTS.md) records measured checks and remaining limits. [Player guide](wiki/Compost.md) teaches mixed deposits, power and pipe setup. Beds, fishing, chickens, crates, weather and renewables remain separate increments.

@@ -29,10 +29,12 @@ namespace RivetReach
             player.transform.position=world.Local(p)+new Vector3(.5f,.02f,-2.2f);player.ResetMotion();game.Sky.Clock.SetTime(.4);game.Sky.Apply();
             void Aim(BlockPos cell)
             {player.Camera.transform.position=world.Local(cell)+new Vector3(.5f,1.2f,-2);player.Camera.transform.LookAt(world.Local(cell)+new Vector3(.5f,.35f,.5f));}
-            var binPos=p;Put(binPos,CompostId.Bin);var bin=sim.At(binPos);bin.Items.Add(BlockId.Potato,24,0,1);for(int i=0;i<80;i++)sim.Step();
-            Check(bin.Work==80&&bin.Items.Slots[0].Count==24&&bin.Items.Slots[2].Empty,"Bin retains complete ingredients during partial work");
+            var binPos=p;Put(binPos,CompostId.Bin);var bin=sim.At(binPos);sim.Step();
+            var seeds=new ItemStack(FarmId.WheatSeed,3);bin.Click(0,ref seeds,false);var potatoes=new ItemStack(BlockId.Potato,4);bin.Click(0,ref potatoes,false);var bread=new ItemStack(FarmId.Bread,3);bin.Click(0,ref bread,false);
+            Check(seeds.Empty&&potatoes.Empty&&bread.Empty&&bin.CompostPoints==23&&bin.Items.Slots[0].Empty,"Mixed manual deposits vanish immediately and accumulate shared progress");
+            Check(!PipeConnections.Supports(bin,NetworkKind.Item),"Basic bin cannot attach item pipes");
             game.SetMode(ScreenMode.Play);Aim(binPos);yield return null;Check(game.TryInteractTarget(),"Interact opens compost bin through normal targeting");yield return new WaitForSecondsRealtime(.4f);
-            Check(game.OpenMachine==bin&&game.UI.VisibleRoot.GetComponentsInChildren<UnityEngine.UI.Text>().Any(t=>t.text=="ORGANIC INPUT"),"Bin interface exposes organic input and compost output");yield return Capture("compost-bin-processing");
+            Check(game.OpenMachine==bin&&game.UI.VisibleRoot.GetComponentsInChildren<UnityEngine.UI.Text>().Any(t=>t.text=="ADD ORGANICS"),"Bin interface exposes instant deposit and shared percentage");yield return Capture("compost-bin-processing");
             game.SetMode(ScreenMode.Play);player.Arms.gameObject.SetActive(false);player.Body.gameObject.SetActive(false);player.HeldBlock.enabled=false;
             player.Camera.transform.position=world.Local(binPos)+new Vector3(2.3f,1.8f,-2.4f);player.Camera.transform.LookAt(world.Local(binPos)+Vector3.one*.45f);yield return new WaitForSecondsRealtime(.5f);yield return Capture("compost-bin-filled");
             var wild=p.Offset(-3,0,1);var farm=p.Offset(-2,0,1);Check(world.Till(wild.Offset(0,-1,0))&&world.Plant(wild,FarmId.WheatSeed),"Plant timed wheat fixture");Check(world.Till(farm.Offset(0,-1,0))&&world.Plant(farm,FarmId.CarrotSeed),"Cultivated carrot planted beside timed wheat");
@@ -47,10 +49,14 @@ namespace RivetReach
             var stone=game.Registry.Get(BlockId.Stone);float originalSeconds=stone.fistSeconds;
             try{stone.fistSeconds+=.125f;Check(new SaveStore(game.Saves.DirectoryPath,game.Registry).List().Count==0,"Compost compatibility still rejects unrelated changed item definitions");}
             finally{stone.fistSeconds=originalSeconds;}
-            var entry=game.Saves.List().First(e=>!e.Backup);Check(game.LoadGame(entry),"Reload compost checkpoint: "+game.SaveStatus);FreezeSaveFixture();game.enabled=false;world=game.World;sim=game.Industry.Simulation;player=game.Player;yield return Settle(120);game.enabled=true;yield return null;game.enabled=false;bin=sim.At(binPos);
-            Check(bin.Work==80&&bin.Items.Slots[0].Count==24&&game.Inventory.Total(CompostId.Compost)==6,"Save restores exact machine and carried compost state");
+            var entry=game.Saves.List().First(e=>!e.Backup);Check(game.LoadGame(entry),"Reload compost checkpoint: "+game.SaveStatus);FreezeSaveFixture();game.enabled=false;world=game.World;sim=game.Industry.Simulation;player=game.Player;yield return Settle(120);game.enabled=true;yield return null;game.enabled=false;bin=sim.At(binPos);sim.Step();
+            Check(bin.CompostPoints==23&&bin.CompostBatches==0&&bin.Items.Slots[0].Empty&&game.Inventory.Total(CompostId.Compost)==6,"Save restores mixed progress and carried compost exactly");
             AdvanceCrops(1198);Check(world.Get(wild)==FarmId.WheatPlant+1,"Reload preserves the replacement deadline before its due tick");AdvanceCrops(1);Check(world.Get(wild)==FarmId.WheatPlant+2,"Accelerated wheat crop resumes natural growth at correct tick");AdvanceCrops(1);
-            for(int i=0;i<120;i++)sim.Step();Check(bin.Items.Slots[2].Count==1&&bin.Items.Slots[0].Count==12,"Loaded batch produces exactly one compost");
+            int droppedBefore=game.Items.Total(CompostId.Compost),rolled=bin.NextCompostYield;potatoes=new ItemStack(BlockId.Potato,1);bin.Click(0,ref potatoes,false);Check(potatoes.Empty&&bin.CompostPoints==1&&bin.CompostBatches==1&&bin.Items.Slots[2].Empty&&game.Items.Total(CompostId.Compost)==droppedBefore+rolled,"Manual completion immediately ejects saved random yield and preserves excess");
+            game.SetMode(ScreenMode.Play);player.Arms.gameObject.SetActive(false);player.Body.gameObject.SetActive(false);player.HeldBlock.enabled=false;player.HeldBlock.PrepareFrame(0);game.Notify("",0);
+            player.Camera.transform.position=world.Local(binPos)+new Vector3(2.3f,2f,-2.4f);player.Camera.transform.LookAt(world.Local(binPos)+new Vector3(.5f,.85f,.5f));
+            var ejected=game.Items.Piles.Last(pile=>pile.Stack.Id==CompostId.Compost);game.Items.enabled=true;yield return null;yield return null;game.Items.enabled=false;
+            Check(ejected.View!=null&&ejected.View.activeInHierarchy,"Ejected Compost has its ordinary visible dropped-item model");yield return Capture("compost-ejected");
             game.SetMode(ScreenMode.Play);Aim(farm);int count=game.Inventory.Total(CompostId.Compost);Check(!game.TryUseCompost()&&game.Inventory.Total(CompostId.Compost)==count,"Mature crop rejects compost without consuming it");
             Aim(p.Offset(4,0,1));Check(!game.TryUseCompost()&&game.Inventory.Total(CompostId.Compost)==count,"Invalid target consumes nothing");
             BlockPos? natural=null;
@@ -59,7 +65,7 @@ namespace RivetReach
             Check(natural.HasValue,"Find genuinely generated immature wild plant on natural grass");byte naturalStage=world.Get(natural.Value);Aim(natural.Value);count=game.Inventory.Total(CompostId.Compost);
             Check(game.TryUseCompost()&&world.Get(natural.Value)==naturalStage+1&&game.Inventory.Total(CompostId.Compost)==count-1,"Real wild plant accepts exactly one compost without farmland");yield return Capture("compost-wild-growth");
             game.Selected=1;Aim(wild);Check(!game.TryUseCompost(),"Empty hand cannot accelerate crops");game.Selected=0;
-            var shaded=p.Offset(-4,0,1);Check(world.Till(shaded.Offset(0,-1,0))&&world.Plant(shaded,FarmId.FlaxSeed),"Plant flax use fixture");Put(shaded.Offset(0,2,0),BlockId.Stone);Aim(shaded);Check(!game.TryUseCompost()&&world.Get(shaded)==FarmId.FlaxPlant,"Compost respects crop skylight requirement");Put(shaded.Offset(0,2,0),0);
+            var shaded=p.Offset(-4,0,1);Check(world.Till(shaded.Offset(0,-1,0))&&world.Plant(shaded,FarmId.FlaxSeed),"Plant flax use fixture");
             // Real input dispatch: a held mouse press applies once; a second click is required.
             player.transform.position=world.Local(shaded)+new Vector3(.5f,.02f,-2);player.enabled=true;player.Yaw=0;player.Pitch=25;player.ResetMotion();yield return null;
             Vector3 direction=(world.Local(shaded)+new Vector3(.5f,.35f,.5f)-player.Camera.transform.position).normalized;player.Yaw=Mathf.Atan2(direction.x,direction.z)*Mathf.Rad2Deg;player.Pitch=-Mathf.Asin(direction.y)*Mathf.Rad2Deg;yield return null;
@@ -67,21 +73,28 @@ namespace RivetReach
             InputSystem.QueueStateEvent(Mouse.current,new MouseState());yield return null;player.enabled=false;
             Check(world.Get(shaded)==FarmId.FlaxPlant+1&&game.Inventory.Total(CompostId.Compost)==count-1,"Actual held right-click applies compost once, without repeated stage spending");yield return Capture("compost-use-in-hand");
             game.SetCreative(true);Aim(shaded);count=game.Inventory.Total(CompostId.Compost);Check(game.TryUseCompost()&&game.Inventory.Total(CompostId.Compost)==count,"Creative accelerates without consuming compost");game.SetCreative(false);
-            // Shared pipes: source chest -> input end, output end -> destination chest.
+            Check(world.Mine(binPos,CompostId.Bin,ToolCapability.None,ToolTier.None),"Manual bin can be recovered; already-consumed partial organics are not refunded");
+            Put(binPos,CompostId.Auto);bin=sim.At(binPos);
+            Put(binPos.Offset(0,0,1),IndustryId.PowerCable);Put(binPos.Offset(0,0,2),IndustryId.Battery);
+            var battery=sim.At(binPos.Offset(0,0,2));Check(battery.EnergyCells[0].Charge(2000000),"Charge ordinary battery for powered compost fixture");
+            // Shared pipes: source chest -> automatic input, stored output -> destination chest.
             Put(binPos.Offset(-1,0,0),IndustryId.ItemPipe);Put(binPos.Offset(-2,0,0),BlockId.Chest);Put(binPos.Offset(1,0,0),IndustryId.ItemPipe);Put(binPos.Offset(2,0,0),BlockId.Chest);
             var source=game.Survival.At(binPos.Offset(-2,0,0)).Storage;source.Add(BlockId.Potato,24);var destination=game.Survival.At(binPos.Offset(2,0,0)).Storage;
             void SetEnd(MachineState pipe,int face,PortRole role){for(int i=0;i<3&&sim.PipeEndRole(pipe,face)!=role;i++)Check(sim.TogglePipeEnd(pipe,face),"Configure compost pipe direction");Check(sim.PipeEndRole(pipe,face)==role,"Requested pipe role applied");}
             var ip=sim.At(binPos.Offset(-1,0,0));var op=sim.At(binPos.Offset(1,0,0));SetEnd(ip,1,PortRole.Output);SetEnd(ip,0,PortRole.Input);SetEnd(op,1,PortRole.Output);SetEnd(op,0,PortRole.Input);
-            for(int i=0;i<1200;i++)sim.Step();Check(source.Total(BlockId.Potato)==0&&bin.Items.Slots[0].Empty&&destination.Total(CompostId.Compost)==4,"Shared pipes conserve 48 potatoes into four compost across input and output storage");
+            for(int i=0;i<1200;i++)sim.Step();Check(source.Total(BlockId.Potato)==0&&bin.Items.Slots[0].Empty&&destination.Total(CompostId.Compost)>=2&&destination.Total(CompostId.Compost)<=8&&bin.CompostBatches==2&&bin.CompostPoints==0,"Autocomposter consumes 24 potatoes through pipes, completes two random batches and transfers all output");
+            Check(bin.CompostCharge==MachineState.CompostChargeCapacity&&battery.EnergyCells[0].Amount==2000000-704000,"Battery pays exactly 8 J per consumed item plus 512 J retained charge");
             game.SetMode(ScreenMode.Pause);player.enabled=true;yield return null;player.enabled=false;
             game.Inventory.Add(IndustryId.Wrench,1,1,2);game.Selected=1;game.SetMode(ScreenMode.Play);
             player.Arms.gameObject.SetActive(false);player.Body.gameObject.SetActive(false);player.HeldBlock.enabled=false;player.HeldBlock.PrepareFrame(0);
             game.Notify("",0);Check(player.Camera.isActiveAndEnabled&&game.Mode==ScreenMode.Play,"Connection capture retains active gameplay camera");
             player.Camera.transform.position=world.Local(binPos)+new Vector3(3.6f,2.5f,-4.7f);player.Camera.transform.LookAt(world.Local(binPos)+new Vector3(.5f,.35f,.5f));yield return new WaitForSecondsRealtime(.5f);yield return Capture("compost-pipe-setup");
-            bin.Items.Add(FarmId.WheatSeed,24,0,1);for(int i=0;i<50;i++)sim.Step();bin.Items.Add(CompostId.Compost,2,2,3);int beforeCompost=game.Items.Total(CompostId.Compost);int beforeSeeds=game.Items.Total(FarmId.WheatSeed),beforeBins=game.Items.Total(CompostId.Bin);Check(world.Mine(binPos,CompostId.Bin,ToolCapability.None,ToolTier.None),"Mine compost bin with unpaid partial work");
-            Check(game.Items.Total(FarmId.WheatSeed)==beforeSeeds+24&&game.Items.Total(CompostId.Bin)==beforeBins+1&&game.Items.Total(CompostId.Compost)==beforeCompost+2&&sim.At(binPos)==null,"Mining returns all queued inputs, finished compost and exactly one bin");
-            Check(!world.Mine(binPos,CompostId.Bin,ToolCapability.None,ToolTier.None)&&game.Items.Total(FarmId.WheatSeed)==beforeSeeds+24,"Repeated removal cannot duplicate recovery");
+            Check(bin.AddCompost(FarmId.WheatSeed,24)==24,"Charged auto accepts a manual stack and retains completed output");game.SetMode(ScreenMode.Play);Aim(binPos);yield return null;Check(game.TryInteractTarget(),"Interact opens autocomposter");yield return new WaitForSecondsRealtime(.4f);yield return Capture("compost-auto-interface");ItemStack collected=default;bin.Click(2,ref collected,false);Check(collected.Id==CompostId.Compost&&collected.Count>=1&&collected.Count<=4&&bin.Items.Slots[2].Empty,"Manual output collection retrieves the exact completed random stack");game.Inventory.Add(collected);game.SetMode(ScreenMode.Play);
+            bin.Items.Add(FarmId.WheatSeed,24,0,1);bin.Items.Add(CompostId.Compost,2,2,3);int beforeCompost=game.Items.Total(CompostId.Compost);int beforeSeeds=game.Items.Total(FarmId.WheatSeed),beforeBins=game.Items.Total(CompostId.Auto);Check(world.Mine(binPos,CompostId.Auto,ToolCapability.None,ToolTier.None),"Mine compost bin with unpaid partial work");
+            Check(game.Items.Total(FarmId.WheatSeed)==beforeSeeds+24&&game.Items.Total(CompostId.Auto)==beforeBins+1&&game.Items.Total(CompostId.Compost)==beforeCompost+2&&sim.At(binPos)==null,"Mining returns all queued inputs, finished compost and exactly one bin");
+            Check(!world.Mine(binPos,CompostId.Auto,ToolCapability.None,ToolTier.None)&&game.Items.Total(FarmId.WheatSeed)==beforeSeeds+24,"Repeated removal cannot duplicate recovery");
             game.SetMode(ScreenMode.Inventory);game.UI.InspectBrowserItem(CompostId.Bin,false);yield return Capture("compost-bin-recipe");game.UI.CloseBrowserRecipe();
+            game.UI.InspectBrowserItem(CompostId.Auto,false);yield return Capture("compost-auto-recipe");game.UI.CloseBrowserRecipe();
             game.UI.InspectBrowserItem(CompostId.Compost,false);yield return Capture("compost-conversion-recipe");game.UI.CloseBrowserRecipe();
         }
     }

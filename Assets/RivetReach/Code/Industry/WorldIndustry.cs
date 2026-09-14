@@ -13,10 +13,17 @@ namespace RivetReach
             this.game=game;Simulation=new IndustrySimulation(this,id=>game.Registry.Get(id).stackLimit,game.Processing);
             game.World.MachineLight=p=>{var lamp=Simulation.At(p);return lamp!=null&&lamp.Definition.Id==IndustryId.Lamp&&lamp.Running?(byte)14:(byte)0;};
             Simulation.LightChanged+=game.World.LightSourceChanged;
+            Simulation.CompostChanged+=EjectCompost;
             game.World.PersistentChunkTickets=Simulation.LoaderChunks;
             game.World.BlockChanged+=Changed;game.World.ResidencyChanged+=Simulation.Multiblocks.ResidencyChanged;
             game.World.CanRemoveMachine=p=>{if(game.World.RecoveringMachine||Simulation.Multiblocks.CanRemove(p)&&(Simulation.At(p)?.Definition.Id!=IndustryId.Tank||Simulation.At(p).Fluid.Amount==0))return true;game.Notify(Simulation.At(p)?.Definition.Id==IndustryId.Battery?"Discharge this battery before mining it":"Drain the tank at its controller before dismantling it",3);return false;};
             game.World.IsOpenMachine=p=>{var m=Simulation.At(game.World.DoorAnchor(p));return m!=null&&(m.Definition.Id==IndustryId.WoodenDoor?m.WorkInput==1:m.Definition.Id==IndustryId.Door&&m.Running);};
+        }
+        public void EjectCompost(MachineState m)
+        {
+            if(m.Definition.Id!=CompostId.Bin||!Ready(m.Position))return;
+            var stack=m.Items.Take(2,int.MaxValue);
+            if(!stack.Empty)game.Items.Spawn(stack,game.World.Local(m.Position)+new Vector3(.5f,1.1f,.5f),Vector3.up*2,.5f,true);
         }
         public bool Ready(BlockPos p)=>game.World.Ready(p);
         public byte Get(BlockPos p)=>game.World.Get(p);
@@ -109,6 +116,12 @@ namespace RivetReach
             if(machine.Definition.Id==IndustryId.Lever||machine.Definition.Id==IndustryId.Button)
             {Industry.Simulation.Activate(machine);Sound.Place(machine.Definition.Id,World.Local(position));return true;}
             if(machine.Definition.Id==IndustryId.Bench)return TryOpenStation(position);
+            if(machine.IsComposter)
+            {
+                Industry.EjectCompost(machine);
+                var legacy=machine.Items.Slots[0];
+                if(!legacy.Empty)machine.Items.Take(0,machine.AddCompost(legacy.Id,legacy.Count));
+            }
             OpenMachine=machine;StationPosition=position;SetMode(ScreenMode.Inventory);return true;
         }
     }

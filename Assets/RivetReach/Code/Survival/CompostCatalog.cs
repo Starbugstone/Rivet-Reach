@@ -6,8 +6,8 @@ namespace RivetReach
 {
     public static class CompostId
     {
-        public const byte Compost=236,Bin=242;
-        public static bool Added(byte id)=>id==Compost||id==Bin;
+        public const byte Compost=236,Bin=242,Auto=243;
+        public static bool Added(byte id)=>id==Compost||id==Bin||id==Auto;
         // Frozen additive tag projection for pre-compost checkpoints.
         public static bool OriginalInput(byte id)=>id==BlockId.Leaves||id==BlockId.Sapling||id==BlockId.Apple||id==BlockId.Potato||id==BlockId.BakedPotato||id==FarmId.WheatSeed||id==FarmId.Grain||id==FarmId.FlaxSeed||id==FarmId.Fibre||id==FarmId.CarrotSeed||id==FarmId.Carrot||id==FarmId.BerrySeed||id==FarmId.Berries||id==FarmId.Mushroom||id==FarmId.Bread||id==FarmId.RoastCarrot||id==FarmId.Stew||id==FarmId.CookedMushroom||id==FarmId.Porridge;
     }
@@ -34,12 +34,12 @@ namespace RivetReach
             {
                 if(input==null||!seen.Add(input.item))throw new ArgumentException("Duplicate compost input.");
                 var item=registry.Get(registry.ResolveId(input.item));
-                if(item==null||item.runtimeId==CompostId.Compost||item.runtimeId==CompostId.Bin||!registry.HasTag(item.runtimeId,"compostable")||input.points<1||pointsPerCompost%input.points!=0||pointsPerCompost/input.points>item.stackLimit)throw new ArgumentException("Invalid compost contribution: "+input.item);
+                if(item==null||item.runtimeId==CompostId.Compost||item.runtimeId==CompostId.Bin||item.runtimeId==CompostId.Auto||!registry.HasTag(item.runtimeId,"compostable")||input.points<1||input.points>pointsPerCompost)throw new ArgumentException("Invalid compost contribution: "+input.item);
                 compiled[item.runtimeId]=input.points;
             }
             contributions=compiled;
         }
         public int Points(byte id)=>contributions[id];
-        public int BatchCount(byte id)=>Points(id)>0?pointsPerCompost/Points(id):0;
+        public int BatchCount(byte id)=>Points(id)>0?(pointsPerCompost+Points(id)-1)/Points(id):0;
     }
 }

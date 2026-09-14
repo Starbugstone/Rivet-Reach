@@ -81,4 +81,4 @@ This directory maintains the latest report and useful evidence for each feature.
 
 - [Material-tier recipes](RECIPE_TIER_RESULTS.md): gold/diamond bridge costs, gold pump upgrade, historical recipe save compatibility and current recipe captures.
 
-- [Compost](COMPOST_RESULTS.md): bin conversion, crop acceleration, exact recovery and additive saves.
+- [Compost](COMPOST_RESULTS.md): mixed manual deposits, electric automation, random output, crop acceleration and migrated saves.

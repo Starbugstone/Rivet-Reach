@@ -26,7 +26,7 @@ namespace RivetReach
         public static bool DoorPart(byte id)=>id==WoodenDoor||id==DoorUpper;
         public static bool BatteryPart(byte id)=>id==Battery||id==BatteryController;
         public static bool TankPart(byte id)=>id>=TankFrame&&id<=TankSensor;
-        public static bool Placed(byte id)=>id>=Bench&&id<=Sensor||TankPart(id)||BatteryPart(id)||id==HandCrank||id==WoodenDoor||id==ElectricFurnace||Bridge(id)||id==ChunkLoader||id==RangedPump||FarmId.CookerBlock(id)||id==CompostId.Bin;
+        public static bool Placed(byte id)=>id>=Bench&&id<=Sensor||TankPart(id)||BatteryPart(id)||id==HandCrank||id==WoodenDoor||id==ElectricFurnace||Bridge(id)||id==ChunkLoader||id==RangedPump||FarmId.CookerBlock(id)||id==CompostId.Bin||id==CompostId.Auto;
         public static bool Route(byte id)=>id==SignalWire||id==SignalConduit||id==PowerCable||id==ItemPipe||id==FluidPipe;
         public static bool Thin(byte id)=>Route(id)||id==Lever||id==Button||id==Indicator||id==Relay||id==Sensor;
     }
@@ -66,7 +66,8 @@ namespace RivetReach
             Add(IndustryId.Alternator,"alternator","Alternator","Left shaft couples to Boiler · 800 W output",0,0,P(NetworkKind.Power,PortRole.Output,16));
             Add(IndustryId.Crusher,"crusher","Crusher","1 raw ore → 2 crushed ore\n1 stone / cobblestone → 1 sand",160,0,pi,si,ii,io);
             Add(IndustryId.ElectricFurnace,"electric_furnace","Electric Furnace","Furnace recipes · electricity instead of fuel\n200 W · same full-power processing time",200,0,pi,si,ii,io);
-            Add(CompostId.Bin,"compost_bin","Compost Bin","Organic inputs → Compost · no fuel or electricity",0,0,si,ii,io);
+            Add(CompostId.Bin,"compost_bin","Compost Bin","Mix organics by hand · full bin ejects 1–4 Compost");
+            Add(CompostId.Auto,"auto_composter","Autocomposter","160 W · 8 J per item · pipe input/output on any face",MachineState.CompostWatts,0,pi,si,ii,io);
             Add(FarmId.Cooker,"cooker","Cooker","Food recipes · burnable fuel at rear · ingredients on other faces",0,0,si,ii,io);
             Add(FarmId.ElectricCooker,"electric_cooker","Electric Cooker","Food recipes · electric heat · ingredients on all faces",200,0,pi,si,ii,io);
             Add(IndustryId.Pump,"pump","Pump","Source below → 10 L in 2 seconds\nNo electricity required",0,10000,si,P(NetworkKind.Fluid,PortRole.Output,1));
@@ -101,11 +102,11 @@ namespace RivetReach
     public sealed partial class MachineState : IItemPipeInventory
     {
         IReadOnlyList<ItemStack> IItemPipeInventory.Slots=>Items.Slots;
-        bool IItemPipeInventory.CanExtract(int slot)=>slot==OutputSlot;
-        bool IItemPipeInventory.Prefers(byte id,int localFace)=>IsCooker?PrefersCooking(id,localFace):AcceptsPipeInput(id,localFace)&&(Items.Slots[0].Id==id||
+        bool IItemPipeInventory.CanExtract(int slot)=>(!IsComposter||IsAutoComposter)&&slot==OutputSlot;
+        bool IItemPipeInventory.Prefers(byte id,int localFace)=>IsComposter?IsAutoComposter&&CanCompost(id):IsCooker?PrefersCooking(id,localFace):AcceptsPipeInput(id,localFace)&&(Items.Slots[0].Id==id||
             !Items.Slots[2].Empty&&ProcessingOutput(id).Id==Items.Slots[2].Id);
-        bool IItemPipeInventory.TryInsert(byte id,int localFace)=>IsCooker?InsertCooker(id,localFace):AcceptsPipeInput(id,localFace)&&Items.Capacity(id,0,1)>0&&Items.Add(id,1,0,1)==0;
-        ItemStack IItemPipeInventory.Extract(int slot,int count)=>slot==OutputSlot?Items.Take(slot,count):default;
+        bool IItemPipeInventory.TryInsert(byte id,int localFace)=>IsComposter?IsAutoComposter&&AddCompost(id,1)==1:IsCooker?InsertCooker(id,localFace):AcceptsPipeInput(id,localFace)&&Items.Capacity(id,0,1)>0&&Items.Add(id,1,0,1)==0;
+        ItemStack IItemPipeInventory.Extract(int slot,int count)=>(!IsComposter||IsAutoComposter)&&slot==OutputSlot?Items.Take(slot,count):default;
         public readonly BlockPos Position; public readonly IndustryDefinition Definition;
         public readonly ItemContainer Items;
         readonly ProcessingRegistry processing;
@@ -158,6 +159,7 @@ namespace RivetReach
         public void Click(int slot,ref ItemStack held,bool right)
         {
             if(slot<0||slot>=Items.Count)return;
+            if(IsComposter&&slot==0&&!held.Empty){int n=AddCompost(held.Id,right?1:held.Count);held.Count-=n;if(held.Count==0)held=default;return;}
             if(slot==OutputSlot)
             {
                 var output=Items.Slots[slot];if(output.Empty||!held.Empty&&!held.CanStack(output))return;
@@ -167,6 +169,6 @@ namespace RivetReach
             if(!held.Empty&&!Accepts(slot,held.Id))return;Items.Click(slot,ref held,right);
         }
         public void TransferIn(ItemContainer from,int slot)
-        {var s=from.Slots[slot];if(s.Empty)return;if(IsCooker){if(CookerAccepts(3,s.Id))from.TransferTo(slot,Items,3,4);else if(CookerAccepts(0,s.Id))from.TransferTo(slot,Items,0,3);}else if(Accepts(0,s.Id))from.TransferTo(slot,Items,0,1);}
+        {var s=from.Slots[slot];if(s.Empty)return;if(IsComposter){from.Take(slot,AddCompost(s.Id,s.Count));return;}if(IsCooker){if(CookerAccepts(3,s.Id))from.TransferTo(slot,Items,3,4);else if(CookerAccepts(0,s.Id))from.TransferTo(slot,Items,0,3);}else if(Accepts(0,s.Id))from.TransferTo(slot,Items,0,1);}
     }
 }

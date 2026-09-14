@@ -142,9 +142,9 @@ Run **`Builds/Farming/RivetReach.exe`** with its adjacent data and runtime files
 
 The stability-reviewed Farming player uses the same explicit Direct3D 11 renderer as the alpha, avoiding the recorded Direct3D12 shutdown fault after save restoration. The shared Windows build entry point restores the Editor graphics settings after building. See [stability review](verification/STABILITY_REVIEW_RESULTS.md).
 
-## Compost review build — 2026-09-13
+## Mixed compost review build — 2026-09-14
 
-Run `Builds/Compost/RivetReach.exe` for the [compost increment](COMPOST.md). Craft the seven-plank bin at a workbench, open with right-click/Interact, and use the resulting Compost on immature crops. [Verification](verification/COMPOST_RESULTS.md) owns build evidence and limits.
+Run `Builds/Compost/RivetReach.exe` for the [compost increment](COMPOST.md). Craft the seven-plank bin at a workbench, open with right-click/Interact, and mix organic items for random Compost output. The separate electric Autocomposter adds pipe automation; use the resulting Compost on immature crops. [Verification](verification/COMPOST_RESULTS.md) owns build evidence and limits.
 
 ## Cave-lighting review — 2026-09-13
 

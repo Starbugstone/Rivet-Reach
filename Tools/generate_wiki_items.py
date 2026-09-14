@@ -170,12 +170,14 @@ class Reference:
                     lines.append(f'<td align="center" width="72" height="64">{contents}</td>')
                 lines.append('</tr>')
             lines += ['</table>', '']
+        elif recipe.get('compostPercent', 0):
+            lines += [f"**Contribution:** one item adds **{recipe['compostPercent']:.2f}%** to the shared compost level. Mix any compostable inputs; stacks are accepted immediately. At 100%, receive **1–4 Compost**, carrying excess progress forward.", '']
         else:
             seconds = recipe['ticks'] / self.catalog['ticksPerSecond']
             lines += [f'**Processing time:** {seconds:g} seconds per operation' +
                       (f' at **{recipe["watts"]} W**. Reduced power slows progress.' if recipe['watts'] else '.'), '']
-        lines += ['**Output:** ' + self.icon(recipe['output']['item'], 56, True, recipe['output']['count']), '',
-                  '| Ingredient | Total per operation |', '|---|---:|']
+        lines += ['**Output:** ' + self.icon(recipe['output']['item'], 56, True, None if recipe.get('compostPercent', 0) else recipe['output']['count']) + (' **1–4 when the combined level reaches 100%**' if recipe.get('compostPercent', 0) else ''), '',
+                  ('| Ingredient | Items per deposit |' if recipe.get('compostPercent', 0) else '| Ingredient | Total per operation |'), '|---|---:|']
         totals = Counter()
         for entry in recipe['ingredients']:
             if entry['item']:
@@ -202,7 +204,7 @@ class Reference:
             item_id = recipe['output']['item']
             anchor = '#recipe-' + str(self.numbers[recipe['id']])
             station = self.link(recipe['station']) if recipe['station'] else 'Personal 2×2'
-            lines.append(f'| {self.icon(item_id, 32, count=recipe["output"]["count"], anchor=anchor)} {self.link(item_id)} | {station} | {self.link(item_id, "View recipe", anchor)} |')
+            lines.append(f'| {self.icon(item_id, 32, count=None if recipe.get("compostPercent", 0) else recipe["output"]["count"], anchor=anchor)} {self.link(item_id)} | {station} | {self.link(item_id, "View recipe", anchor)} |')
         return lines + ['']
 
     def item_page(self, item_id):
@@ -309,7 +311,7 @@ class Reference:
                   '![The recipe preview outlines missing coal while the available stick remains unmarked](images/missing-torch-ingredient-2026-09-12.png)', '',
                   '*In-game capture, 2026-09-12: this torch variant needs coal; charcoal belongs to a different recipe variant.*', '',
                   '## Browse recipes by station', '', 'Choose a result below to open its item page at the exact recipe.', '']
-        headings = [('', 'Personal crafting — 2×2'), ('rivet:workbench', 'Workbench — 3×3'), ('rivet:machinist_bench', "Machinist’s Bench — 4×4"), ('rivet:furnace', 'Furnace processing'), ('rivet:electric_furnace', 'Electric furnace processing'), ('rivet:crusher', 'Crusher processing'), ('rivet:cooker', 'Cooker recipes'), ('rivet:electric_cooker', 'Electric cooker recipes'), ('rivet:compost_bin', 'Compost conversions')]
+        headings = [('', 'Personal crafting — 2×2'), ('rivet:workbench', 'Workbench — 3×3'), ('rivet:machinist_bench', "Machinist’s Bench — 4×4"), ('rivet:furnace', 'Furnace processing'), ('rivet:electric_furnace', 'Electric furnace processing'), ('rivet:crusher', 'Crusher processing'), ('rivet:cooker', 'Cooker recipes'), ('rivet:electric_cooker', 'Electric cooker recipes'), ('rivet:compost_bin', 'Compost contributions'), ('rivet:auto_composter', 'Autocomposter contributions')]
         for station, heading in headings:
             recipes = [r for r in self.catalog['recipes'] if r['station'] == station]
             lines += ['## ' + heading, ''] + self.recipe_links(recipes)

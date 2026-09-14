@@ -178,3 +178,7 @@ The user authorized the next [issue #10 compost increment](.docs/COMPOST.md): a 
 ## Authorized cave lighting and underground growth
 
 The user requested [cave sunlight occlusion and crops supported by placed light](.docs/LIGHTING.md). Preserve resident-only derived caches, queued worker solves, roof/source invalidation, saved generator history, light-independent rendering pools, existing crop timing and durable-save compatibility. [Verification](.docs/verification/LIGHTING_RESULTS.md) records measured evidence and limits.
+
+## Revised mixed compost and electric automation
+
+The user superseded the original stack/timer composter with [mixed immediate organic deposits](.docs/COMPOST.md): consume accepted items immediately, accumulate their explicit values, carry excess points, and eject random 1–4 Compost at 100%. The basic bin is manual-only. A separately crafted **electric Autocomposter** provides item-pipe input/output and stored output. Preserve no-reroll output transactions, exact charged energy, schema-11 state and legacy queued contents, existing crop/light rules and material-tiered upgrade construction. Keep issue #10's checklist and published wiki current with completed revisions.

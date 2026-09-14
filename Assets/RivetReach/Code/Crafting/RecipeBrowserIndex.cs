@@ -16,6 +16,7 @@ namespace RivetReach
         public RecipeInfo GridRecipe { get; }
         public int Ticks { get; }
         public int Watts { get; }
+        public int CompostPoints {get;internal set;}
         public CookingRecipe FoodRecipe {get;internal set;}
         public BrowserRecipe(string id, string stationName, byte station, ItemStack output,
             IEnumerable<ItemStack> ingredients, RecipeInfo gridRecipe = null, int ticks = 0,
@@ -67,10 +68,10 @@ namespace RivetReach
                 var example=food.ingredients.Select(i=>new ItemStack(CookingCatalog.Current.Choices(i.selector)[0],i.count));
                 all.Add(new BrowserRecipe("cooker:"+cooker+":"+food.id,items.Get(cooker).displayName,cooker,new ItemStack(food.output,food.count),example,ticks:food.ticks,watts:cooker==FarmId.ElectricCooker?CookingCatalog.Current.electricWatts:0,fuels:cooker==FarmId.Cooker?fuels:null){FoodRecipe=food});
             }
-            if(items.items.Any(i=>i.runtimeId==CompostId.Bin))foreach(var input in CompostCatalog.Current.inputs)
+            if(items.items.Any(i=>i.runtimeId==CompostId.Bin))foreach(byte station in new[]{CompostId.Bin,CompostId.Auto})foreach(var input in CompostCatalog.Current.inputs)
             {
                 byte id=items.ResolveId(input.item);
-                all.Add(new BrowserRecipe("compost:"+input.item,items.Get(CompostId.Bin).displayName,CompostId.Bin,new ItemStack(CompostId.Compost,1),new[]{new ItemStack(id,CompostCatalog.Current.BatchCount(id))},ticks:CompostCatalog.Current.ticks));
+                all.Add(new BrowserRecipe("compost:"+station+":"+input.item,items.Get(station).displayName,station,new ItemStack(CompostId.Compost,1),new[]{new ItemStack(id,1)}){CompostPoints=CompostCatalog.Current.Points(id)});
             }
             Recipes = all.AsReadOnly();
             foreach (var group in all.GroupBy(r => r.Output.Id)) outputs.Add(group.Key, Array.AsReadOnly(group.ToArray()));

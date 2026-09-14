@@ -4,7 +4,7 @@
 
 Start with the [visual item index](Items.md), then click an item to see its purpose, how to obtain it, every recipe that makes it, and what uses it. Every item icon links to its own page.
 
-This reference covers **105 grid recipes, 11 furnace recipes, 11 electric furnace recipes, 5 crusher recipes, 12 cooker recipes and 19 compost conversions** in the current playable alpha. The recipe grids and icons come from the same catalog and artwork used by the inventory browser.
+This reference covers **106 grid recipes, 11 furnace recipes, 11 electric furnace recipes, 5 crusher recipes, 12 cooker recipes and 19 compost conversions** in the current playable alpha. The recipe grids and icons come from the same catalog and artwork used by the inventory browser.
 
 ## First crafting steps
 
@@ -168,6 +168,7 @@ Choose a result below to open its item page at the exact recipe.
 | <a href="Item-chunk-loader.md#recipe-1" title="Chunk Loader"><img src="icons/193.png" width="32" height="32" alt="Chunk Loader"></a> ×1 [Chunk Loader](Item-chunk-loader.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-chunk-loader.md#recipe-1) |
 | <a href="Item-ranged-liquid-pump.md#recipe-1" title="Ranged Liquid Pump"><img src="icons/180.png" width="32" height="32" alt="Ranged Liquid Pump"></a> ×1 [Ranged Liquid Pump](Item-ranged-liquid-pump.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-ranged-liquid-pump.md#recipe-1) |
 | <a href="Item-electric-cooker.md#recipe-1" title="Electric Cooker"><img src="icons/241.png" width="32" height="32" alt="Electric Cooker"></a> ×1 [Electric Cooker](Item-electric-cooker.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-electric-cooker.md#recipe-1) |
+| <a href="Item-auto-composter.md#recipe-1" title="Autocomposter"><img src="icons/243.png" width="32" height="32" alt="Autocomposter"></a> ×1 [Autocomposter](Item-auto-composter.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-auto-composter.md#recipe-1) |
 
 ## Furnace processing
 
@@ -233,29 +234,53 @@ Choose a result below to open its item page at the exact recipe.
 | <a href="Item-vegetable-stew.md#recipe-2" title="Vegetable Stew"><img src="icons/233.png" width="32" height="32" alt="Vegetable Stew"></a> ×1 [Vegetable Stew](Item-vegetable-stew.md) | [Electric Cooker](Item-electric-cooker.md) | [View recipe](Item-vegetable-stew.md#recipe-2) |
 | <a href="Item-fruit-porridge.md#recipe-2" title="Fruit Porridge"><img src="icons/235.png" width="32" height="32" alt="Fruit Porridge"></a> ×1 [Fruit Porridge](Item-fruit-porridge.md) | [Electric Cooker](Item-electric-cooker.md) | [View recipe](Item-fruit-porridge.md#recipe-2) |
 
-## Compost conversions
+## Compost contributions
 
 | Result | Station | Recipe |
 |---|---|---|
-| <a href="Item-compost.md#recipe-1" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> ×1 [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-1) |
-| <a href="Item-compost.md#recipe-2" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> ×1 [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-2) |
-| <a href="Item-compost.md#recipe-3" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> ×1 [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-3) |
-| <a href="Item-compost.md#recipe-4" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> ×1 [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-4) |
-| <a href="Item-compost.md#recipe-5" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> ×1 [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-5) |
-| <a href="Item-compost.md#recipe-6" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> ×1 [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-6) |
-| <a href="Item-compost.md#recipe-7" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> ×1 [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-7) |
-| <a href="Item-compost.md#recipe-8" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> ×1 [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-8) |
-| <a href="Item-compost.md#recipe-9" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> ×1 [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-9) |
-| <a href="Item-compost.md#recipe-10" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> ×1 [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-10) |
-| <a href="Item-compost.md#recipe-11" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> ×1 [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-11) |
-| <a href="Item-compost.md#recipe-12" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> ×1 [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-12) |
-| <a href="Item-compost.md#recipe-13" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> ×1 [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-13) |
-| <a href="Item-compost.md#recipe-14" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> ×1 [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-14) |
-| <a href="Item-compost.md#recipe-15" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> ×1 [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-15) |
-| <a href="Item-compost.md#recipe-16" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> ×1 [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-16) |
-| <a href="Item-compost.md#recipe-17" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> ×1 [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-17) |
-| <a href="Item-compost.md#recipe-18" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> ×1 [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-18) |
-| <a href="Item-compost.md#recipe-19" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> ×1 [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-19) |
+| <a href="Item-compost.md#recipe-1" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-1) |
+| <a href="Item-compost.md#recipe-2" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-2) |
+| <a href="Item-compost.md#recipe-3" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-3) |
+| <a href="Item-compost.md#recipe-4" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-4) |
+| <a href="Item-compost.md#recipe-5" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-5) |
+| <a href="Item-compost.md#recipe-6" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-6) |
+| <a href="Item-compost.md#recipe-7" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-7) |
+| <a href="Item-compost.md#recipe-8" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-8) |
+| <a href="Item-compost.md#recipe-9" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-9) |
+| <a href="Item-compost.md#recipe-10" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-10) |
+| <a href="Item-compost.md#recipe-11" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-11) |
+| <a href="Item-compost.md#recipe-12" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-12) |
+| <a href="Item-compost.md#recipe-13" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-13) |
+| <a href="Item-compost.md#recipe-14" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-14) |
+| <a href="Item-compost.md#recipe-15" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-15) |
+| <a href="Item-compost.md#recipe-16" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-16) |
+| <a href="Item-compost.md#recipe-17" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-17) |
+| <a href="Item-compost.md#recipe-18" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-18) |
+| <a href="Item-compost.md#recipe-19" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Compost Bin](Item-compost-bin.md) | [View recipe](Item-compost.md#recipe-19) |
+
+## Autocomposter contributions
+
+| Result | Station | Recipe |
+|---|---|---|
+| <a href="Item-compost.md#recipe-20" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Autocomposter](Item-auto-composter.md) | [View recipe](Item-compost.md#recipe-20) |
+| <a href="Item-compost.md#recipe-21" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Autocomposter](Item-auto-composter.md) | [View recipe](Item-compost.md#recipe-21) |
+| <a href="Item-compost.md#recipe-22" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Autocomposter](Item-auto-composter.md) | [View recipe](Item-compost.md#recipe-22) |
+| <a href="Item-compost.md#recipe-23" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Autocomposter](Item-auto-composter.md) | [View recipe](Item-compost.md#recipe-23) |
+| <a href="Item-compost.md#recipe-24" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Autocomposter](Item-auto-composter.md) | [View recipe](Item-compost.md#recipe-24) |
+| <a href="Item-compost.md#recipe-25" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Autocomposter](Item-auto-composter.md) | [View recipe](Item-compost.md#recipe-25) |
+| <a href="Item-compost.md#recipe-26" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Autocomposter](Item-auto-composter.md) | [View recipe](Item-compost.md#recipe-26) |
+| <a href="Item-compost.md#recipe-27" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Autocomposter](Item-auto-composter.md) | [View recipe](Item-compost.md#recipe-27) |
+| <a href="Item-compost.md#recipe-28" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Autocomposter](Item-auto-composter.md) | [View recipe](Item-compost.md#recipe-28) |
+| <a href="Item-compost.md#recipe-29" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Autocomposter](Item-auto-composter.md) | [View recipe](Item-compost.md#recipe-29) |
+| <a href="Item-compost.md#recipe-30" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Autocomposter](Item-auto-composter.md) | [View recipe](Item-compost.md#recipe-30) |
+| <a href="Item-compost.md#recipe-31" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Autocomposter](Item-auto-composter.md) | [View recipe](Item-compost.md#recipe-31) |
+| <a href="Item-compost.md#recipe-32" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Autocomposter](Item-auto-composter.md) | [View recipe](Item-compost.md#recipe-32) |
+| <a href="Item-compost.md#recipe-33" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Autocomposter](Item-auto-composter.md) | [View recipe](Item-compost.md#recipe-33) |
+| <a href="Item-compost.md#recipe-34" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Autocomposter](Item-auto-composter.md) | [View recipe](Item-compost.md#recipe-34) |
+| <a href="Item-compost.md#recipe-35" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Autocomposter](Item-auto-composter.md) | [View recipe](Item-compost.md#recipe-35) |
+| <a href="Item-compost.md#recipe-36" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Autocomposter](Item-auto-composter.md) | [View recipe](Item-compost.md#recipe-36) |
+| <a href="Item-compost.md#recipe-37" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Autocomposter](Item-auto-composter.md) | [View recipe](Item-compost.md#recipe-37) |
+| <a href="Item-compost.md#recipe-38" title="Compost"><img src="icons/236.png" width="32" height="32" alt="Compost"></a> [Compost](Item-compost.md) | [Autocomposter](Item-auto-composter.md) | [View recipe](Item-compost.md#recipe-38) |
 
 ## Workshop guides
 

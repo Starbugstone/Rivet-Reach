@@ -1,0 +1,469 @@
+PASS Seven-plank U layout produces one bin at workbench
+PASS Incomplete bin recipe cannot craft
+PASS Authored compostable value: rivet:leaves
+PASS One-item deposit is consumed immediately: rivet:leaves
+PASS Stack deposit retains mixed progress: rivet:leaves
+PASS Manual bin rejects pipe input face 0
+PASS Manual bin rejects pipe input face 1
+PASS Manual bin rejects pipe input face 2
+PASS Manual bin rejects pipe input face 3
+PASS Manual bin rejects pipe input face 4
+PASS Manual bin rejects pipe input face 5
+PASS Basic bin exposes no automation endpoints
+PASS Auto accepts ingredient on face 0
+PASS Auto accepts ingredient on face 1
+PASS Auto accepts ingredient on face 2
+PASS Auto accepts ingredient on face 3
+PASS Auto accepts ingredient on face 4
+PASS Auto accepts ingredient on face 5
+PASS Pipe inputs immediately join shared progress
+PASS Pipes cannot extract consumed input
+PASS Authored compostable value: rivet:sapling
+PASS One-item deposit is consumed immediately: rivet:sapling
+PASS Stack deposit retains mixed progress: rivet:sapling
+PASS Manual bin rejects pipe input face 0
+PASS Manual bin rejects pipe input face 1
+PASS Manual bin rejects pipe input face 2
+PASS Manual bin rejects pipe input face 3
+PASS Manual bin rejects pipe input face 4
+PASS Manual bin rejects pipe input face 5
+PASS Basic bin exposes no automation endpoints
+PASS Auto accepts ingredient on face 0
+PASS Auto accepts ingredient on face 1
+PASS Auto accepts ingredient on face 2
+PASS Auto accepts ingredient on face 3
+PASS Auto accepts ingredient on face 4
+PASS Auto accepts ingredient on face 5
+PASS Pipe inputs immediately join shared progress
+PASS Pipes cannot extract consumed input
+PASS Authored compostable value: rivet:apple
+PASS One-item deposit is consumed immediately: rivet:apple
+PASS Stack deposit retains mixed progress: rivet:apple
+PASS Manual bin rejects pipe input face 0
+PASS Manual bin rejects pipe input face 1
+PASS Manual bin rejects pipe input face 2
+PASS Manual bin rejects pipe input face 3
+PASS Manual bin rejects pipe input face 4
+PASS Manual bin rejects pipe input face 5
+PASS Basic bin exposes no automation endpoints
+PASS Auto accepts ingredient on face 0
+PASS Auto accepts ingredient on face 1
+PASS Auto accepts ingredient on face 2
+PASS Auto accepts ingredient on face 3
+PASS Auto accepts ingredient on face 4
+PASS Auto accepts ingredient on face 5
+PASS Pipe inputs immediately join shared progress
+PASS Pipes cannot extract consumed input
+PASS Authored compostable value: rivet:potato
+PASS One-item deposit is consumed immediately: rivet:potato
+PASS Stack deposit retains mixed progress: rivet:potato
+PASS Manual bin rejects pipe input face 0
+PASS Manual bin rejects pipe input face 1
+PASS Manual bin rejects pipe input face 2
+PASS Manual bin rejects pipe input face 3
+PASS Manual bin rejects pipe input face 4
+PASS Manual bin rejects pipe input face 5
+PASS Basic bin exposes no automation endpoints
+PASS Auto accepts ingredient on face 0
+PASS Auto accepts ingredient on face 1
+PASS Auto accepts ingredient on face 2
+PASS Auto accepts ingredient on face 3
+PASS Auto accepts ingredient on face 4
+PASS Auto accepts ingredient on face 5
+PASS Pipe inputs immediately join shared progress
+PASS Pipes cannot extract consumed input
+PASS Authored compostable value: rivet:baked_potato
+PASS One-item deposit is consumed immediately: rivet:baked_potato
+PASS Stack deposit retains mixed progress: rivet:baked_potato
+PASS Manual bin rejects pipe input face 0
+PASS Manual bin rejects pipe input face 1
+PASS Manual bin rejects pipe input face 2
+PASS Manual bin rejects pipe input face 3
+PASS Manual bin rejects pipe input face 4
+PASS Manual bin rejects pipe input face 5
+PASS Basic bin exposes no automation endpoints
+PASS Auto accepts ingredient on face 0
+PASS Auto accepts ingredient on face 1
+PASS Auto accepts ingredient on face 2
+PASS Auto accepts ingredient on face 3
+PASS Auto accepts ingredient on face 4
+PASS Auto accepts ingredient on face 5
+PASS Pipe inputs immediately join shared progress
+PASS Pipes cannot extract consumed input
+PASS Authored compostable value: rivet:wheat_seed
+PASS One-item deposit is consumed immediately: rivet:wheat_seed
+PASS Stack deposit retains mixed progress: rivet:wheat_seed
+PASS Manual bin rejects pipe input face 0
+PASS Manual bin rejects pipe input face 1
+PASS Manual bin rejects pipe input face 2
+PASS Manual bin rejects pipe input face 3
+PASS Manual bin rejects pipe input face 4
+PASS Manual bin rejects pipe input face 5
+PASS Basic bin exposes no automation endpoints
+PASS Auto accepts ingredient on face 0
+PASS Auto accepts ingredient on face 1
+PASS Auto accepts ingredient on face 2
+PASS Auto accepts ingredient on face 3
+PASS Auto accepts ingredient on face 4
+PASS Auto accepts ingredient on face 5
+PASS Pipe inputs immediately join shared progress
+PASS Pipes cannot extract consumed input
+PASS Authored compostable value: rivet:grain
+PASS One-item deposit is consumed immediately: rivet:grain
+PASS Stack deposit retains mixed progress: rivet:grain
+PASS Manual bin rejects pipe input face 0
+PASS Manual bin rejects pipe input face 1
+PASS Manual bin rejects pipe input face 2
+PASS Manual bin rejects pipe input face 3
+PASS Manual bin rejects pipe input face 4
+PASS Manual bin rejects pipe input face 5
+PASS Basic bin exposes no automation endpoints
+PASS Auto accepts ingredient on face 0
+PASS Auto accepts ingredient on face 1
+PASS Auto accepts ingredient on face 2
+PASS Auto accepts ingredient on face 3
+PASS Auto accepts ingredient on face 4
+PASS Auto accepts ingredient on face 5
+PASS Pipe inputs immediately join shared progress
+PASS Pipes cannot extract consumed input
+PASS Authored compostable value: rivet:flax_seed
+PASS One-item deposit is consumed immediately: rivet:flax_seed
+PASS Stack deposit retains mixed progress: rivet:flax_seed
+PASS Manual bin rejects pipe input face 0
+PASS Manual bin rejects pipe input face 1
+PASS Manual bin rejects pipe input face 2
+PASS Manual bin rejects pipe input face 3
+PASS Manual bin rejects pipe input face 4
+PASS Manual bin rejects pipe input face 5
+PASS Basic bin exposes no automation endpoints
+PASS Auto accepts ingredient on face 0
+PASS Auto accepts ingredient on face 1
+PASS Auto accepts ingredient on face 2
+PASS Auto accepts ingredient on face 3
+PASS Auto accepts ingredient on face 4
+PASS Auto accepts ingredient on face 5
+PASS Pipe inputs immediately join shared progress
+PASS Pipes cannot extract consumed input
+PASS Authored compostable value: rivet:flax_fibre
+PASS One-item deposit is consumed immediately: rivet:flax_fibre
+PASS Stack deposit retains mixed progress: rivet:flax_fibre
+PASS Manual bin rejects pipe input face 0
+PASS Manual bin rejects pipe input face 1
+PASS Manual bin rejects pipe input face 2
+PASS Manual bin rejects pipe input face 3
+PASS Manual bin rejects pipe input face 4
+PASS Manual bin rejects pipe input face 5
+PASS Basic bin exposes no automation endpoints
+PASS Auto accepts ingredient on face 0
+PASS Auto accepts ingredient on face 1
+PASS Auto accepts ingredient on face 2
+PASS Auto accepts ingredient on face 3
+PASS Auto accepts ingredient on face 4
+PASS Auto accepts ingredient on face 5
+PASS Pipe inputs immediately join shared progress
+PASS Pipes cannot extract consumed input
+PASS Authored compostable value: rivet:carrot_seed
+PASS One-item deposit is consumed immediately: rivet:carrot_seed
+PASS Stack deposit retains mixed progress: rivet:carrot_seed
+PASS Manual bin rejects pipe input face 0
+PASS Manual bin rejects pipe input face 1
+PASS Manual bin rejects pipe input face 2
+PASS Manual bin rejects pipe input face 3
+PASS Manual bin rejects pipe input face 4
+PASS Manual bin rejects pipe input face 5
+PASS Basic bin exposes no automation endpoints
+PASS Auto accepts ingredient on face 0
+PASS Auto accepts ingredient on face 1
+PASS Auto accepts ingredient on face 2
+PASS Auto accepts ingredient on face 3
+PASS Auto accepts ingredient on face 4
+PASS Auto accepts ingredient on face 5
+PASS Pipe inputs immediately join shared progress
+PASS Pipes cannot extract consumed input
+PASS Authored compostable value: rivet:carrot
+PASS One-item deposit is consumed immediately: rivet:carrot
+PASS Stack deposit retains mixed progress: rivet:carrot
+PASS Manual bin rejects pipe input face 0
+PASS Manual bin rejects pipe input face 1
+PASS Manual bin rejects pipe input face 2
+PASS Manual bin rejects pipe input face 3
+PASS Manual bin rejects pipe input face 4
+PASS Manual bin rejects pipe input face 5
+PASS Basic bin exposes no automation endpoints
+PASS Auto accepts ingredient on face 0
+PASS Auto accepts ingredient on face 1
+PASS Auto accepts ingredient on face 2
+PASS Auto accepts ingredient on face 3
+PASS Auto accepts ingredient on face 4
+PASS Auto accepts ingredient on face 5
+PASS Pipe inputs immediately join shared progress
+PASS Pipes cannot extract consumed input
+PASS Authored compostable value: rivet:berry_seed
+PASS One-item deposit is consumed immediately: rivet:berry_seed
+PASS Stack deposit retains mixed progress: rivet:berry_seed
+PASS Manual bin rejects pipe input face 0
+PASS Manual bin rejects pipe input face 1
+PASS Manual bin rejects pipe input face 2
+PASS Manual bin rejects pipe input face 3
+PASS Manual bin rejects pipe input face 4
+PASS Manual bin rejects pipe input face 5
+PASS Basic bin exposes no automation endpoints
+PASS Auto accepts ingredient on face 0
+PASS Auto accepts ingredient on face 1
+PASS Auto accepts ingredient on face 2
+PASS Auto accepts ingredient on face 3
+PASS Auto accepts ingredient on face 4
+PASS Auto accepts ingredient on face 5
+PASS Pipe inputs immediately join shared progress
+PASS Pipes cannot extract consumed input
+PASS Authored compostable value: rivet:berries
+PASS One-item deposit is consumed immediately: rivet:berries
+PASS Stack deposit retains mixed progress: rivet:berries
+PASS Manual bin rejects pipe input face 0
+PASS Manual bin rejects pipe input face 1
+PASS Manual bin rejects pipe input face 2
+PASS Manual bin rejects pipe input face 3
+PASS Manual bin rejects pipe input face 4
+PASS Manual bin rejects pipe input face 5
+PASS Basic bin exposes no automation endpoints
+PASS Auto accepts ingredient on face 0
+PASS Auto accepts ingredient on face 1
+PASS Auto accepts ingredient on face 2
+PASS Auto accepts ingredient on face 3
+PASS Auto accepts ingredient on face 4
+PASS Auto accepts ingredient on face 5
+PASS Pipe inputs immediately join shared progress
+PASS Pipes cannot extract consumed input
+PASS Authored compostable value: rivet:mushroom
+PASS One-item deposit is consumed immediately: rivet:mushroom
+PASS Stack deposit retains mixed progress: rivet:mushroom
+PASS Manual bin rejects pipe input face 0
+PASS Manual bin rejects pipe input face 1
+PASS Manual bin rejects pipe input face 2
+PASS Manual bin rejects pipe input face 3
+PASS Manual bin rejects pipe input face 4
+PASS Manual bin rejects pipe input face 5
+PASS Basic bin exposes no automation endpoints
+PASS Auto accepts ingredient on face 0
+PASS Auto accepts ingredient on face 1
+PASS Auto accepts ingredient on face 2
+PASS Auto accepts ingredient on face 3
+PASS Auto accepts ingredient on face 4
+PASS Auto accepts ingredient on face 5
+PASS Pipe inputs immediately join shared progress
+PASS Pipes cannot extract consumed input
+PASS Authored compostable value: rivet:bread
+PASS One-item deposit is consumed immediately: rivet:bread
+PASS Stack deposit retains mixed progress: rivet:bread
+PASS Manual bin rejects pipe input face 0
+PASS Manual bin rejects pipe input face 1
+PASS Manual bin rejects pipe input face 2
+PASS Manual bin rejects pipe input face 3
+PASS Manual bin rejects pipe input face 4
+PASS Manual bin rejects pipe input face 5
+PASS Basic bin exposes no automation endpoints
+PASS Auto accepts ingredient on face 0
+PASS Auto accepts ingredient on face 1
+PASS Auto accepts ingredient on face 2
+PASS Auto accepts ingredient on face 3
+PASS Auto accepts ingredient on face 4
+PASS Auto accepts ingredient on face 5
+PASS Pipe inputs immediately join shared progress
+PASS Pipes cannot extract consumed input
+PASS Authored compostable value: rivet:roast_carrot
+PASS One-item deposit is consumed immediately: rivet:roast_carrot
+PASS Stack deposit retains mixed progress: rivet:roast_carrot
+PASS Manual bin rejects pipe input face 0
+PASS Manual bin rejects pipe input face 1
+PASS Manual bin rejects pipe input face 2
+PASS Manual bin rejects pipe input face 3
+PASS Manual bin rejects pipe input face 4
+PASS Manual bin rejects pipe input face 5
+PASS Basic bin exposes no automation endpoints
+PASS Auto accepts ingredient on face 0
+PASS Auto accepts ingredient on face 1
+PASS Auto accepts ingredient on face 2
+PASS Auto accepts ingredient on face 3
+PASS Auto accepts ingredient on face 4
+PASS Auto accepts ingredient on face 5
+PASS Pipe inputs immediately join shared progress
+PASS Pipes cannot extract consumed input
+PASS Authored compostable value: rivet:vegetable_stew
+PASS One-item deposit is consumed immediately: rivet:vegetable_stew
+PASS Stack deposit retains mixed progress: rivet:vegetable_stew
+PASS Manual bin rejects pipe input face 0
+PASS Manual bin rejects pipe input face 1
+PASS Manual bin rejects pipe input face 2
+PASS Manual bin rejects pipe input face 3
+PASS Manual bin rejects pipe input face 4
+PASS Manual bin rejects pipe input face 5
+PASS Basic bin exposes no automation endpoints
+PASS Auto accepts ingredient on face 0
+PASS Auto accepts ingredient on face 1
+PASS Auto accepts ingredient on face 2
+PASS Auto accepts ingredient on face 3
+PASS Auto accepts ingredient on face 4
+PASS Auto accepts ingredient on face 5
+PASS Pipe inputs immediately join shared progress
+PASS Pipes cannot extract consumed input
+PASS Authored compostable value: rivet:cooked_mushroom
+PASS One-item deposit is consumed immediately: rivet:cooked_mushroom
+PASS Stack deposit retains mixed progress: rivet:cooked_mushroom
+PASS Manual bin rejects pipe input face 0
+PASS Manual bin rejects pipe input face 1
+PASS Manual bin rejects pipe input face 2
+PASS Manual bin rejects pipe input face 3
+PASS Manual bin rejects pipe input face 4
+PASS Manual bin rejects pipe input face 5
+PASS Basic bin exposes no automation endpoints
+PASS Auto accepts ingredient on face 0
+PASS Auto accepts ingredient on face 1
+PASS Auto accepts ingredient on face 2
+PASS Auto accepts ingredient on face 3
+PASS Auto accepts ingredient on face 4
+PASS Auto accepts ingredient on face 5
+PASS Pipe inputs immediately join shared progress
+PASS Pipes cannot extract consumed input
+PASS Authored compostable value: rivet:fruit_porridge
+PASS One-item deposit is consumed immediately: rivet:fruit_porridge
+PASS Stack deposit retains mixed progress: rivet:fruit_porridge
+PASS Manual bin rejects pipe input face 0
+PASS Manual bin rejects pipe input face 1
+PASS Manual bin rejects pipe input face 2
+PASS Manual bin rejects pipe input face 3
+PASS Manual bin rejects pipe input face 4
+PASS Manual bin rejects pipe input face 5
+PASS Basic bin exposes no automation endpoints
+PASS Auto accepts ingredient on face 0
+PASS Auto accepts ingredient on face 1
+PASS Auto accepts ingredient on face 2
+PASS Auto accepts ingredient on face 3
+PASS Auto accepts ingredient on face 4
+PASS Auto accepts ingredient on face 5
+PASS Pipe inputs immediately join shared progress
+PASS Pipes cannot extract consumed input
+PASS Mixed identities accumulate 23 points without requiring matching stacks
+PASS Completing item rolls 1–4 once and carries excess
+PASS Stable batch yield and conserved remainder #0
+PASS Stable batch yield and conserved remainder #1
+PASS Stable batch yield and conserved remainder #2
+PASS Stable batch yield and conserved remainder #3
+PASS Stable batch yield and conserved remainder #4
+PASS Stable batch yield and conserved remainder #5
+PASS Stable batch yield and conserved remainder #6
+PASS Stable batch yield and conserved remainder #7
+PASS Stable batch yield and conserved remainder #8
+PASS Stable batch yield and conserved remainder #9
+PASS Stable batch yield and conserved remainder #10
+PASS Stable batch yield and conserved remainder #11
+PASS Stable batch yield and conserved remainder #12
+PASS Stable batch yield and conserved remainder #13
+PASS Stable batch yield and conserved remainder #14
+PASS Stable batch yield and conserved remainder #15
+PASS Stable batch yield and conserved remainder #16
+PASS Stable batch yield and conserved remainder #17
+PASS Stable batch yield and conserved remainder #18
+PASS Stable batch yield and conserved remainder #19
+PASS Stable batch yield and conserved remainder #20
+PASS Stable batch yield and conserved remainder #21
+PASS Stable batch yield and conserved remainder #22
+PASS Stable batch yield and conserved remainder #23
+PASS Stable batch yield and conserved remainder #24
+PASS Stable batch yield and conserved remainder #25
+PASS Stable batch yield and conserved remainder #26
+PASS Stable batch yield and conserved remainder #27
+PASS Stable batch yield and conserved remainder #28
+PASS Stable batch yield and conserved remainder #29
+PASS Stable batch yield and conserved remainder #30
+PASS Stable batch yield and conserved remainder #31
+PASS Stable batch yield and conserved remainder #32
+PASS Stable batch yield and conserved remainder #33
+PASS Stable batch yield and conserved remainder #34
+PASS Stable batch yield and conserved remainder #35
+PASS Stable batch yield and conserved remainder #36
+PASS Stable batch yield and conserved remainder #37
+PASS Stable batch yield and conserved remainder #38
+PASS Stable batch yield and conserved remainder #39
+PASS Stable batch yield and conserved remainder #40
+PASS Stable batch yield and conserved remainder #41
+PASS Stable batch yield and conserved remainder #42
+PASS Stable batch yield and conserved remainder #43
+PASS Stable batch yield and conserved remainder #44
+PASS Stable batch yield and conserved remainder #45
+PASS Stable batch yield and conserved remainder #46
+PASS Stable batch yield and conserved remainder #47
+PASS Stable batch yield and conserved remainder #48
+PASS Stable batch yield and conserved remainder #49
+PASS Stable batch yield and conserved remainder #50
+PASS Stable batch yield and conserved remainder #51
+PASS Stable batch yield and conserved remainder #52
+PASS Stable batch yield and conserved remainder #53
+PASS Stable batch yield and conserved remainder #54
+PASS Stable batch yield and conserved remainder #55
+PASS Stable batch yield and conserved remainder #56
+PASS Stable batch yield and conserved remainder #57
+PASS Stable batch yield and conserved remainder #58
+PASS Stable batch yield and conserved remainder #59
+PASS Stable batch yield and conserved remainder #60
+PASS Stable batch yield and conserved remainder #61
+PASS Stable batch yield and conserved remainder #62
+PASS Stable batch yield and conserved remainder #63
+PASS Stable batch yield and conserved remainder #64
+PASS Stable batch yield and conserved remainder #65
+PASS Stable batch yield and conserved remainder #66
+PASS Stable batch yield and conserved remainder #67
+PASS Stable batch yield and conserved remainder #68
+PASS Stable batch yield and conserved remainder #69
+PASS Stable batch yield and conserved remainder #70
+PASS Stable batch yield and conserved remainder #71
+PASS Stable batch yield and conserved remainder #72
+PASS Stable batch yield and conserved remainder #73
+PASS Stable batch yield and conserved remainder #74
+PASS Stable batch yield and conserved remainder #75
+PASS Stable batch yield and conserved remainder #76
+PASS Stable batch yield and conserved remainder #77
+PASS Stable batch yield and conserved remainder #78
+PASS Stable batch yield and conserved remainder #79
+PASS Stable batch yield and conserved remainder #80
+PASS Stable batch yield and conserved remainder #81
+PASS Stable batch yield and conserved remainder #82
+PASS Stable batch yield and conserved remainder #83
+PASS Stable batch yield and conserved remainder #84
+PASS Stable batch yield and conserved remainder #85
+PASS Stable batch yield and conserved remainder #86
+PASS Stable batch yield and conserved remainder #87
+PASS Stable batch yield and conserved remainder #88
+PASS Stable batch yield and conserved remainder #89
+PASS Stable batch yield and conserved remainder #90
+PASS Stable batch yield and conserved remainder #91
+PASS Stable batch yield and conserved remainder #92
+PASS Stable batch yield and conserved remainder #93
+PASS Stable batch yield and conserved remainder #94
+PASS Stable batch yield and conserved remainder #95
+PASS Stable batch yield and conserved remainder #96
+PASS Stable batch yield and conserved remainder #97
+PASS Stable batch yield and conserved remainder #98
+PASS Stable batch yield and conserved remainder #99
+PASS All four output quantities occur in deterministic batch sample
+PASS Full output consumes nothing and does not reroll
+PASS Dormant autocomposter rejects resource transfer
+PASS OFF signal rejects automatic deposit
+PASS Unblocked machine commits saved next yield
+PASS Schema 11 preserves points, output and random sequence exactly
+PASS Reject negative level
+PASS Reject uncommitted full level
+PASS Reject negative batch sequence
+PASS Reject stale processing time
+PASS Reject hidden-slot contents
+PASS Compost and inert materials cannot fund progress
+PASS Schema-10 migration preserves every queued input and finished output while discarding unpaid time
+PASS Migrated legacy contents survive a new-schema save before interaction
+PASS Even maximum random output cannot fund an instant crop loop: potato
+PASS Even maximum random output cannot fund an instant crop loop: wheat
+PASS Even maximum random output cannot fund an instant crop loop: flax
+PASS Even maximum random output cannot fund an instant crop loop: carrot
+PASS Even maximum random output cannot fund an instant crop loop: berry
+PASS Non-dividing item values are supported by carry-over
+PASS Invalid catalog cannot partly publish
+PASS Both composters list all contribution choices
+PASS Automation upgrade consumes a high-tier material

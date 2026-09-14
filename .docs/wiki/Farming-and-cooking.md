@@ -25,7 +25,7 @@ New plants appear in **newly explored terrain**. Updates preserve recorded gener
 
 ## Compost surplus
 
-A [Compost Bin](Compost.md) turns spare biological items into an optional growth accelerator. Use Compost on an immature wild or cultivated crop to advance one stage; ordinary growth still requires no compost.
+A manual [Compost Bin](Compost.md) immediately mixes spare biological items into a shared level and ejects 1–4 Compost at 100%. The separate electric Autocomposter adds pipe automation. Use Compost on an immature wild or cultivated crop to advance one stage; ordinary growth still requires no compost.
 
 ## Fibre and cloth
 

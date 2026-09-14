@@ -484,4 +484,4 @@ The user authorized a craftable [Hand Crank](HAND_CRANK.md) that attaches to a b
 
 ## Compost — 2026-09-13
 
-[Compost](COMPOST.md) owns the craftable bin, configured organic inputs and optional one-stage acceleration for immature wild/cultivated crops. It adds no moisture or spoilage requirement.
+[Compost](COMPOST.md) owns the manual bin, electric autocomposter, mixed immediate deposits, random output, configured organic inputs and optional one-stage acceleration for immature wild/cultivated crops. It adds no moisture or spoilage requirement.

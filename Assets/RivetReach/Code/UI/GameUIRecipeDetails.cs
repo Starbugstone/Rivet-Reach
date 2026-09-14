@@ -151,8 +151,8 @@ namespace RivetReach
             }
             float centre=156+width*21;w.arrow.anchoredPosition=new Vector2(207,-centre+22);
             ((RectTransform)w.result.transform).anchoredPosition=new Vector2(261,-centre+30);w.result.RecipeId=recipe.Id;
-            w.output.rectTransform.anchoredPosition=new Vector2(232,-centre-38);w.output.text=game.Registry.Get(recipe.Output.Id).displayName+" × "+recipe.Output.Count;
-            w.method.text=grid!=null?grid.Kind==RecipeKind.Shapeless?"Any arrangement":grid.AllowsMirroring?"Shown layout or mirror":"Shown layout":
+            w.output.rectTransform.anchoredPosition=new Vector2(232,-centre-38);w.output.text=game.Registry.Get(recipe.Output.Id).displayName+(recipe.CompostPoints>0?" × 1–4 at 100%":" × "+recipe.Output.Count);
+            w.method.text=recipe.CompostPoints>0?$"Adds {100f*recipe.CompostPoints/CompostCatalog.Current.pointsPerCompost:0.#}% · mix organics to reach 100%":grid!=null?grid.Kind==RecipeKind.Shapeless?"Any arrangement":grid.AllowsMirroring?"Shown layout or mirror":"Shown layout":
                 (recipe.Ticks/20f).ToString("0.#")+" seconds"+(recipe.Watts>0?" · "+recipe.Watts+" W at full power":recipe.Fuels.Count>0?" · Requires fuel":"");
             var totals=recipe.Ingredients.Where(s=>!s.Empty).GroupBy(s=>s.Id).Select(g=>new ItemStack(g.Key,g.Sum(s=>s.Count))).ToArray();
             w.content.sizeDelta=new Vector2(282,Math.Max(138,totals.Length*38));

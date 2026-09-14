@@ -1,10 +1,10 @@
 """Original wooden compost bin and loose compost, using Rivet Reach's authored atlas."""
-import bpy,math,ast,json,random
+import bpy,math,ast,json,random,sys
 from pathlib import Path
 from mathutils import Vector
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'Assets/RivetReach/Resources/Industry';SRC=ROOT/'ArtSource/Compost';SRC.mkdir(parents=True,exist_ok=True)
 report=[]
-for key,item in [('compost_bin',242),('compost',236)]:
+for key,item in ([('auto_composter',243)] if '--auto-only' in sys.argv else [('compost_bin',242),('compost',236),('auto_composter',243)]):
     bpy.ops.object.select_all(action='SELECT');bpy.ops.object.delete(use_global=False)
     scene=bpy.context.scene;scene.unit_settings.system='METRIC';scene.unit_settings.scale_length=1
     mat=bpy.data.materials.new('WorkshopAtlas');mat.use_nodes=True
@@ -17,7 +17,7 @@ for key,item in [('compost_bin',242),('compost',236)]:
         bpy.ops.object.select_all(action='DESELECT')
         for o in objects:o.select_set(True)
         bpy.context.view_layer.objects.active=objects[0];bpy.ops.object.join();o=bpy.context.object;o.name=name;scene.cursor.location=(0,0,0);bpy.ops.object.origin_set(type='ORIGIN_CURSOR');return o
-    if key=='compost_bin':
+    if key in ('compost_bin','auto_composter'):
         for x in [.1,.9]:
             for y in [.1,.9]:box('Corner post',(x,y,.47),(.12,.12,.92),4,.012)
         for z in [.18,.37,.56,.75]:
@@ -32,7 +32,18 @@ for key,item in [('compost_bin',242),('compost',236)]:
         box('Leaf stem',(.49,.989,.58),(.015,.009,.08),4,.002)
         for x in [.15,.85]:
             for z in [.2,.76]:cyl('Wood peg',(x,.957,z),.014,.009,14,'Y',8)
-        body=join('Wooden compost bin',parts[:]);parts=[]
+        if key=='auto_composter':
+            # Reinforced rim, input throat and mechanical outlet distinguish the upgrade.
+            for z in [.26,.78]:
+                for y in [.045,.955]:box('Iron band',(.5,y,z),(.96,.045,.075),15,.009)
+                for x in [.045,.955]:box('Side iron band',(x,.5,z),(.045,.91,.075),15,.009)
+            box('Outlet plate',(.5,.968,.32),(.36,.035,.22),15,.015)
+            box('Outlet mouth',(.5,.989,.33),(.24,.008,.10),0,.007)
+            for x in [.18,.82]:
+                cyl('Gold shaft boss',(x,.973,.53),.075,.035,3,'Y',12)
+                cyl('Shaft cap',(x,.993,.53),.035,.012,15,'Y',10)
+            box('Raised feed rim',(.5,.12,.97),(.7,.1,.04),15,.006)
+        body=join('Autocomposter' if key=='auto_composter' else 'Wooden compost bin',parts[:]);parts=[]
         box('Organic bed',(.5,.5,.73),(.74,.72,.08),4,.02)
         rng=random.Random(77)
         for i in range(12):
@@ -52,7 +63,7 @@ for key,item in [('compost_bin',242),('compost',236)]:
     bpy.ops.export_scene.fbx(filepath=str(OUT/(key+'.fbx')),use_selection=True,object_types={'MESH'},apply_unit_scale=True,axis_forward='-Z',axis_up='Y',add_leaf_bones=False,bake_anim=False)
     report.append({'asset':key,'triangles':sum(sum(len(p.vertices)-2 for p in o.data.polygons) for o in objects),'meshes':len(objects)})
     scene.render.engine='CYCLES';scene.cycles.samples=24;scene.cycles.use_denoising=True;scene.world.color=(.16,.18,.20);scene.render.image_settings.file_format='PNG';scene.render.film_transparent=True
-    bpy.ops.object.camera_add(location=(2.3,3.4,2.6));camera=bpy.context.object;scene.camera=camera;camera.data.type='ORTHO';camera.data.ortho_scale=1.48 if item==242 else .85;target=Vector((.5,.5,.48 if item==242 else .23));camera.rotation_euler=(target-camera.location).to_track_quat('-Z','Y').to_euler()
+    bpy.ops.object.camera_add(location=(2.3,3.4,2.6));camera=bpy.context.object;scene.camera=camera;camera.data.type='ORTHO';camera.data.ortho_scale=1.48 if item in (242,243) else .85;target=Vector((.5,.5,.48 if item in (242,243) else .23));camera.rotation_euler=(target-camera.location).to_track_quat('-Z','Y').to_euler()
     for pos,power in [((1,3,5),600),((-3,2,2),350),((1,-3,3),500)]:
         bpy.ops.object.light_add(type='AREA',location=pos);o=bpy.context.object;o.data.energy=power;o.data.size=4;o.rotation_euler=(target-o.location).to_track_quat('-Z','Y').to_euler()
     scene.render.resolution_x=256;scene.render.resolution_y=256;scene.render.resolution_percentage=100;scene.render.filepath=str(OUT/('Icons/'+str(item)+'.png'));bpy.ops.render.render(write_still=True)
@@ -60,5 +71,5 @@ for key,item in [('compost_bin',242),('compost',236)]:
     for im in bpy.data.images:
         if im.filepath:im.filepath=bpy.path.relpath(im.filepath,start=str(SRC))
     bpy.ops.wm.save_as_mainfile(filepath=str(SRC/(key+'.blend')))
-(SRC/'geometry.json').write_text(json.dumps(report,indent=2)+'\n')
+(SRC/('auto-geometry.json' if '--auto-only' in sys.argv else 'geometry.json')).write_text(json.dumps(report,indent=2)+'\n')
 print('COMPOST_ASSETS_COMPLETE')

@@ -43,7 +43,7 @@ namespace RivetReach
         public MachineState At(BlockPos p)=>machines.TryGetValue(p,out var m)?m:null;
         public void Invalidate(){dirty=true;signalsDirty=true;Revision++;}
         public MachineState Add(BlockPos p,byte id)
-        {if(machines.ContainsKey(p))throw new InvalidOperationException("Occupied machine anchor");var m=new MachineState(p,id,limit,processing);machines.Add(p,m);if(IndustryId.Bridge(id)||id==IndustryId.ChunkLoader)m.OwnerId=LocalOwnerId;if(id==IndustryId.TankController)Multiblocks.Register(m,MultiblockDefinition.Tank);if(id==IndustryId.BatteryController)Multiblocks.Register(m,MultiblockDefinition.BatteryBank);Multiblocks.Changed(p);Invalidate();return m;}
+        {if(machines.ContainsKey(p))throw new InvalidOperationException("Occupied machine anchor");var m=new MachineState(p,id,limit,processing);machines.Add(p,m);if(m.IsComposter)m.CompostChanged=machine=>CompostChanged?.Invoke(machine);if(IndustryId.Bridge(id)||id==IndustryId.ChunkLoader)m.OwnerId=LocalOwnerId;if(id==IndustryId.TankController)Multiblocks.Register(m,MultiblockDefinition.Tank);if(id==IndustryId.BatteryController)Multiblocks.Register(m,MultiblockDefinition.BatteryBank);Multiblocks.Changed(p);Invalidate();return m;}
         public MachineState Remove(BlockPos p)
         {var m=At(p);if(m!=null){if(!Multiblocks.CanRemove(p))return null;Multiblocks.RemoveController(p);machines.Remove(p);lampLightStates.Remove(p);Multiblocks.Changed(p);Invalidate();}return m;}
         public void Rotate(MachineState m){m.Rotation=(m.Rotation+1)%4;Multiblocks.Changed(m.Position);Invalidate();}

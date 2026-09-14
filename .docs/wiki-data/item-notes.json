@@ -497,11 +497,15 @@
     "use": "Right-click or Interact, select a recipe, load ingredients and supply 200 W electricity on any face. See [Farming and cooking](Farming-and-cooking.md) for setup, recipes and screenshots. Partial work and stored heat persist through saves; blocked or idle cookers consume no new energy."
   },
   "rivet:compost_bin": {
-    "description": "An early wooden bin that converts surplus biological items into [Compost](Item-compost.md), without fuel or electricity.",
-    "use": "Open with right-click or Interact. Add one organic item type, collect a complete batch and wait 10 seconds. [Compost guide](Compost.md) lists quantities, recovery and pipe setup."
+    "description": "A manual wooden bin that immediately consumes mixed organic surplus and ejects 1–4 Compost at each full level.",
+    "use": "Open with right-click or Interact. Deposit compostable items or stacks; their values add to one shared percentage. Excess carries over. No fuel, power or pipe connections. See [Compost](Compost.md)."
   },
   "rivet:compost": {
-    "description": "An optional crop growth accelerator made from organic surplus in a [Compost Bin](Item-compost-bin.md).",
-    "use": "Select it and right-click an immature wild or cultivated crop to advance one stage. One successful click uses one Compost; invalid or mature targets consume nothing. See [Compost](Compost.md)."
+    "description": "An optional crop growth accelerator made from mixed biological surplus.",
+    "use": "Hold and right-click an immature wild or cultivated crop to spend one Compost and advance one stage. Requires suitable support and sufficient sky or placed light. See [Compost](Compost.md)."
+  },
+  "rivet:auto_composter": {
+    "description": "An electric composter that accepts mixed organic inputs and stores random 1–4 Compost outputs for automation.",
+    "use": "Connect electricity and configure item-pipe Input/Output ends on any face. Charging draws up to 160 W; each input costs 8 J from a 512 J reserve. Insufficient charge or output space leaves unaccepted items in their source. Optional front Blue Signal control. See [Compost](Compost.md)."
   }
 }

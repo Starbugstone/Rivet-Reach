@@ -149,6 +149,7 @@ namespace RivetReach
                 w.Write(m.RecoveryOutput);w.Write((int)m.PortMode);w.Write(m.LevelThreshold);w.Write((int)m.Status);w.Write(m.PipeDirections);
                 if(w.Format>=9){w.Write(m.OwnerId);w.Write(m.LinkName);w.Write(m.LoaderEnabled);}
                 if(w.Format>=10&&m.IsCooker){w.Write(m.CookingId);w.Write(m.CookingSignature);}
+                if(w.Format>=11&&m.IsComposter){w.Write(m.CompostPoints);w.Write(m.CompostBatches);w.Write(m.CompostCharge);}
                 if(m.EnergyCells.Length==1)w.Write(m.EnergyCells[0].Amount);
                 if(m.Definition.Id==IndustryId.TankController||m.Definition.Id==IndustryId.BatteryController)
                 {
@@ -184,7 +185,20 @@ namespace RivetReach
                     m.CookingId=r.Text();m.CookingSignature=r.Text();
                     SaveReader.Require(m.FoodRecipe!=null&&m.Work<m.FoodRecipe.ticks&&(m.Work==0||m.CookingSignature==m.FoodSignature)&&(m.Definition.Id!=FarmId.ElectricCooker||m.BurnTicks==0)&& (m.Items.Slots[3].Empty||m.CookerAccepts(3,m.Items.Slots[3].Id)),"Invalid saved cooker.");
                 }
-                if(m.IsComposter)SaveReader.Require(m.Work<m.ProcessingTicks&&m.Work==System.Math.Floor(m.Work)&&(m.Work==0||m.WorkInput!=0)&&m.WorkInput==m.Items.Slots[0].Id&&m.BurnTicks==0&&m.PulseTicks==0&&(m.Items.Slots[0].Empty||m.Accepts(0,m.Items.Slots[0].Id))&&m.Items.Slots[1].Empty&&(m.Items.Slots[2].Empty||m.Items.Slots[2].Id==CompostId.Compost),"Invalid saved compost bin.");
+                if(m.IsComposter)
+                {
+                    SaveReader.Require(m.BurnTicks==0&&m.PulseTicks==0&&(m.Items.Slots[0].Empty||m.Accepts(0,m.Items.Slots[0].Id))&&m.Items.Slots[1].Empty&&(m.Items.Slots[2].Empty||m.Items.Slots[2].Id==CompostId.Compost),"Invalid saved compost contents.");
+                    if(r.Format>=11)
+                    {
+                        m.CompostPoints=r.Int(0,CompostCatalog.Current.pointsPerCompost-1);m.CompostBatches=r.Long();m.CompostCharge=r.Int(0,m.IsAutoComposter?MachineState.CompostChargeCapacity:0);
+                        SaveReader.Require(m.Work==0&&m.WorkInput==0,"Invalid saved compost work.");
+                    }
+                    else
+                    {
+                        SaveReader.Require(m.Work<m.ProcessingTicks&&m.Work==System.Math.Floor(m.Work)&&(m.Work==0||m.WorkInput!=0)&&m.WorkInput==m.Items.Slots[0].Id,"Invalid legacy compost work.");
+                        m.Work=0;m.WorkInput=0;
+                    }
+                }
                 if(m.EnergyCells.Length==1)SaveReader.Require(m.EnergyCells[0].Charge(r.Long(0,BatteryStorage.CellCapacity)),"Invalid battery energy.");
                 if(id==IndustryId.TankController||id==IndustryId.BatteryController)
                 {
