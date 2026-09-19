@@ -23,7 +23,7 @@ Harvest wild or cultivated wheat; young plants return one seed and mature plants
 
 ## Using it
 
-Select these seeds and right-click farmland prepared with a hoe. See [Farming and cooking](Farming-and-cooking.md).
+Select these seeds and right-click farmland prepared with a hoe. See [Farming and cooking](Farming-and-cooking.md). Hold to attract [Chickens](Chickens.md); right-click an eligible adult to feed one item for breeding.
 
 ## Crafting and processing
 

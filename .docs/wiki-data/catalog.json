@@ -6309,6 +6309,230 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0
+        },
+        {
+            "definition": {
+                "runtimeId": 248,
+                "stableId": "rivet:egg",
+                "displayName": "Egg",
+                "stackLimit": 64,
+                "fistSeconds": 0.15000000596046449,
+                "colour": {
+                    "r": 0.8500000238418579,
+                    "g": 0.6600000262260437,
+                    "b": 0.36000001430511477,
+                    "a": 1.0
+                },
+                "fistDropId": 0,
+                "toolCapabilities": 0,
+                "tier": 0,
+                "miningSpeed": 1.0,
+                "foodPoints": 0,
+                "armorSlot": 0,
+                "armorPoints": 0,
+                "attackDamage": 1,
+                "buoyant": false,
+                "tags": [
+                    "egg",
+                    "raw_egg"
+                ]
+            },
+            "drop": "rivet:egg",
+            "requiredTier": "None",
+            "help": "",
+            "placeable": false,
+            "ore": false,
+            "crop": false,
+            "fuelTicks": 0,
+            "watts": 0,
+            "waterMl": 0
+        },
+        {
+            "definition": {
+                "runtimeId": 249,
+                "stableId": "rivet:raw_chicken",
+                "displayName": "Raw Chicken",
+                "stackLimit": 64,
+                "fistSeconds": 0.15000000596046449,
+                "colour": {
+                    "r": 0.8500000238418579,
+                    "g": 0.6600000262260437,
+                    "b": 0.36000001430511477,
+                    "a": 1.0
+                },
+                "fistDropId": 0,
+                "toolCapabilities": 0,
+                "tier": 0,
+                "miningSpeed": 1.0,
+                "foodPoints": 2,
+                "armorSlot": 0,
+                "armorPoints": 0,
+                "attackDamage": 1,
+                "buoyant": false,
+                "tags": [
+                    "edible",
+                    "meat",
+                    "raw_meat"
+                ]
+            },
+            "drop": "rivet:raw_chicken",
+            "requiredTier": "None",
+            "help": "",
+            "placeable": false,
+            "ore": false,
+            "crop": false,
+            "fuelTicks": 0,
+            "watts": 0,
+            "waterMl": 0
+        },
+        {
+            "definition": {
+                "runtimeId": 250,
+                "stableId": "rivet:cooked_chicken",
+                "displayName": "Cooked Chicken",
+                "stackLimit": 64,
+                "fistSeconds": 0.15000000596046449,
+                "colour": {
+                    "r": 0.8500000238418579,
+                    "g": 0.6600000262260437,
+                    "b": 0.36000001430511477,
+                    "a": 1.0
+                },
+                "fistDropId": 0,
+                "toolCapabilities": 0,
+                "tier": 0,
+                "miningSpeed": 1.0,
+                "foodPoints": 6,
+                "armorSlot": 0,
+                "armorPoints": 0,
+                "attackDamage": 1,
+                "buoyant": false,
+                "tags": [
+                    "edible",
+                    "meat",
+                    "prepared_food"
+                ]
+            },
+            "drop": "rivet:cooked_chicken",
+            "requiredTier": "None",
+            "help": "",
+            "placeable": false,
+            "ore": false,
+            "crop": false,
+            "fuelTicks": 0,
+            "watts": 0,
+            "waterMl": 0
+        },
+        {
+            "definition": {
+                "runtimeId": 251,
+                "stableId": "rivet:feather",
+                "displayName": "Feather",
+                "stackLimit": 64,
+                "fistSeconds": 0.15000000596046449,
+                "colour": {
+                    "r": 0.8500000238418579,
+                    "g": 0.6600000262260437,
+                    "b": 0.36000001430511477,
+                    "a": 1.0
+                },
+                "fistDropId": 0,
+                "toolCapabilities": 0,
+                "tier": 0,
+                "miningSpeed": 1.0,
+                "foodPoints": 0,
+                "armorSlot": 0,
+                "armorPoints": 0,
+                "attackDamage": 1,
+                "buoyant": false,
+                "tags": [
+                    "feather"
+                ]
+            },
+            "drop": "rivet:feather",
+            "requiredTier": "None",
+            "help": "",
+            "placeable": false,
+            "ore": false,
+            "crop": false,
+            "fuelTicks": 0,
+            "watts": 0,
+            "waterMl": 0
+        },
+        {
+            "definition": {
+                "runtimeId": 252,
+                "stableId": "rivet:cooked_egg",
+                "displayName": "Cooked Egg",
+                "stackLimit": 64,
+                "fistSeconds": 0.15000000596046449,
+                "colour": {
+                    "r": 0.8500000238418579,
+                    "g": 0.6600000262260437,
+                    "b": 0.36000001430511477,
+                    "a": 1.0
+                },
+                "fistDropId": 0,
+                "toolCapabilities": 0,
+                "tier": 0,
+                "miningSpeed": 1.0,
+                "foodPoints": 4,
+                "armorSlot": 0,
+                "armorPoints": 0,
+                "attackDamage": 1,
+                "buoyant": false,
+                "tags": [
+                    "edible",
+                    "egg",
+                    "prepared_food"
+                ]
+            },
+            "drop": "rivet:cooked_egg",
+            "requiredTier": "None",
+            "help": "",
+            "placeable": false,
+            "ore": false,
+            "crop": false,
+            "fuelTicks": 0,
+            "watts": 0,
+            "waterMl": 0
+        },
+        {
+            "definition": {
+                "runtimeId": 253,
+                "stableId": "rivet:chicken_stew",
+                "displayName": "Chicken Stew",
+                "stackLimit": 64,
+                "fistSeconds": 0.15000000596046449,
+                "colour": {
+                    "r": 0.8500000238418579,
+                    "g": 0.6600000262260437,
+                    "b": 0.36000001430511477,
+                    "a": 1.0
+                },
+                "fistDropId": 0,
+                "toolCapabilities": 0,
+                "tier": 0,
+                "miningSpeed": 1.0,
+                "foodPoints": 12,
+                "armorSlot": 0,
+                "armorPoints": 0,
+                "attackDamage": 1,
+                "buoyant": false,
+                "tags": [
+                    "edible",
+                    "prepared_food"
+                ]
+            },
+            "drop": "rivet:chicken_stew",
+            "requiredTier": "None",
+            "help": "",
+            "placeable": false,
+            "ore": false,
+            "crop": false,
+            "fuelTicks": 0,
+            "watts": 0,
+            "waterMl": 0
         }
     ],
     "recipes": [
@@ -11795,6 +12019,260 @@
             "mirror": false
         },
         {
+            "id": "cooker:240:rivet:cook_chicken",
+            "station": "rivet:cooker",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:cooked_chicken",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:raw_chicken",
+                    "count": 1
+                }
+            ],
+            "foodIngredients": [
+                {
+                    "selector": "#raw_meat",
+                    "count": 1,
+                    "choices": [
+                        "rivet:raw_chicken"
+                    ]
+                }
+            ],
+            "fuels": [
+                "rivet:log",
+                "rivet:coal",
+                "rivet:planks",
+                "rivet:stick",
+                "rivet:charcoal",
+                "rivet:wood_axe",
+                "rivet:wood_pickaxe",
+                "rivet:wood_sword",
+                "rivet:wood_shovel",
+                "rivet:wood_hoe",
+                "rivet:coal_block"
+            ],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 200,
+            "watts": 0,
+            "compostPercent": 0.0,
+            "mirror": false
+        },
+        {
+            "id": "cooker:241:rivet:cook_chicken",
+            "station": "rivet:electric_cooker",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:cooked_chicken",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:raw_chicken",
+                    "count": 1
+                }
+            ],
+            "foodIngredients": [
+                {
+                    "selector": "#raw_meat",
+                    "count": 1,
+                    "choices": [
+                        "rivet:raw_chicken"
+                    ]
+                }
+            ],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 200,
+            "watts": 200,
+            "compostPercent": 0.0,
+            "mirror": false
+        },
+        {
+            "id": "cooker:240:rivet:cook_egg",
+            "station": "rivet:cooker",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:cooked_egg",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:egg",
+                    "count": 1
+                }
+            ],
+            "foodIngredients": [
+                {
+                    "selector": "#raw_egg",
+                    "count": 1,
+                    "choices": [
+                        "rivet:egg"
+                    ]
+                }
+            ],
+            "fuels": [
+                "rivet:log",
+                "rivet:coal",
+                "rivet:planks",
+                "rivet:stick",
+                "rivet:charcoal",
+                "rivet:wood_axe",
+                "rivet:wood_pickaxe",
+                "rivet:wood_sword",
+                "rivet:wood_shovel",
+                "rivet:wood_hoe",
+                "rivet:coal_block"
+            ],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 200,
+            "watts": 0,
+            "compostPercent": 0.0,
+            "mirror": false
+        },
+        {
+            "id": "cooker:241:rivet:cook_egg",
+            "station": "rivet:electric_cooker",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:cooked_egg",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:egg",
+                    "count": 1
+                }
+            ],
+            "foodIngredients": [
+                {
+                    "selector": "#raw_egg",
+                    "count": 1,
+                    "choices": [
+                        "rivet:egg"
+                    ]
+                }
+            ],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 200,
+            "watts": 200,
+            "compostPercent": 0.0,
+            "mirror": false
+        },
+        {
+            "id": "cooker:240:rivet:cook_chicken_stew",
+            "station": "rivet:cooker",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:chicken_stew",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:raw_chicken",
+                    "count": 1
+                },
+                {
+                    "item": "rivet:potato",
+                    "count": 2
+                }
+            ],
+            "foodIngredients": [
+                {
+                    "selector": "#meat",
+                    "count": 1,
+                    "choices": [
+                        "rivet:raw_chicken",
+                        "rivet:cooked_chicken"
+                    ]
+                },
+                {
+                    "selector": "#vegetable",
+                    "count": 2,
+                    "choices": [
+                        "rivet:potato",
+                        "rivet:carrot"
+                    ]
+                }
+            ],
+            "fuels": [
+                "rivet:log",
+                "rivet:coal",
+                "rivet:planks",
+                "rivet:stick",
+                "rivet:charcoal",
+                "rivet:wood_axe",
+                "rivet:wood_pickaxe",
+                "rivet:wood_sword",
+                "rivet:wood_shovel",
+                "rivet:wood_hoe",
+                "rivet:coal_block"
+            ],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 200,
+            "watts": 0,
+            "compostPercent": 0.0,
+            "mirror": false
+        },
+        {
+            "id": "cooker:241:rivet:cook_chicken_stew",
+            "station": "rivet:electric_cooker",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:chicken_stew",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:raw_chicken",
+                    "count": 1
+                },
+                {
+                    "item": "rivet:potato",
+                    "count": 2
+                }
+            ],
+            "foodIngredients": [
+                {
+                    "selector": "#meat",
+                    "count": 1,
+                    "choices": [
+                        "rivet:raw_chicken",
+                        "rivet:cooked_chicken"
+                    ]
+                },
+                {
+                    "selector": "#vegetable",
+                    "count": 2,
+                    "choices": [
+                        "rivet:potato",
+                        "rivet:carrot"
+                    ]
+                }
+            ],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 200,
+            "watts": 200,
+            "compostPercent": 0.0,
+            "mirror": false
+        },
+        {
             "id": "compost:242:rivet:leaves",
             "station": "rivet:compost_bin",
             "kind": "Processing",
@@ -12709,6 +13187,22 @@
     ],
     "sources": [
         {
+            "path": "Assets/RivetReach/Code/Animals/ChickenState.cs",
+            "sha256": "1a9f286c8a7bd8a4385a384f11d4a820ab8a73971b9ecdff76cab603bd0c5e79"
+        },
+        {
+            "path": "Assets/RivetReach/Code/Animals/ChickenView.cs",
+            "sha256": "4b5b162c0cb59c59b94620cf12a38d2740e9ec316fa23c339604dca4d4697968"
+        },
+        {
+            "path": "Assets/RivetReach/Code/Animals/PassiveSaveState.cs",
+            "sha256": "5567e98a7a46f5f066c3c148df4521ea463abe45a079dfa7378731ed223eef30"
+        },
+        {
+            "path": "Assets/RivetReach/Code/Animals/PassiveSystem.cs",
+            "sha256": "2e749bb9ea13a740da4a13397c48a8cc09230ae55cd4e8c29712756ccae3074e"
+        },
+        {
             "path": "Assets/RivetReach/Code/ArcadeVerification.cs",
             "sha256": "e8c13983301cf7994edea3915897b3d55d9681e90a3065fdbe4873e3df82e6b9"
         },
@@ -12723,6 +13217,10 @@
         {
             "path": "Assets/RivetReach/Code/BridgesVerification.cs",
             "sha256": "afc58eac1839986ca73025cacf26335874e771c5559d95e9e41faf61c9cb8efa"
+        },
+        {
+            "path": "Assets/RivetReach/Code/ChickenVerification.cs",
+            "sha256": "1b27db6c774557569bed4950660cfe31124c293eaf2115c918d2e0786fd869a3"
         },
         {
             "path": "Assets/RivetReach/Code/CompostVerification.cs",
@@ -12742,7 +13240,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Core/ItemContainer.cs",
-            "sha256": "2f8952e015e01eea8027eaa499496fed50819acc08a7f86e1462ce4ad8b6008e"
+            "sha256": "d06726a138b6ac0cfde37662e1b5a944b2387b34d286e91ec1c175a132c7c924"
         },
         {
             "path": "Assets/RivetReach/Code/Core/ItemRegistry.cs",
@@ -12822,7 +13320,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Expedition.cs",
-            "sha256": "d1fe90ca29ca80850f706b621ae2c29365d89c324943c1fdeb1420292b66318d"
+            "sha256": "2bd655f87f315f784c4ce72d6b9d555e091c5197129b7a9a7b82d31ae3d47874"
         },
         {
             "path": "Assets/RivetReach/Code/FarmingVerification.cs",
@@ -13066,11 +13564,11 @@
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/ExpeditionSaves.cs",
-            "sha256": "6ee8a416b144918473dde814e7f512817a5293e7feeada29195e23899747f5e4"
+            "sha256": "6748e93a529e92ddeca508ba41ff0d50bdffc8789b12cf35747780a0d2ffea5e"
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/SaveIO.cs",
-            "sha256": "8431bc41fadf1db20f89d8e5498a47f80d483acca53c50697df0f346ec80f68f"
+            "sha256": "1800ca0bbea17c2023e370d98bbb0dd0f9de96465214766a6e96901ef8ec4839"
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/WorldSaveState.cs",
@@ -13094,7 +13592,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Player/ArcadePresentation.cs",
-            "sha256": "05c6d0f80ca674d4572757c6dce0a6f5a74c36f4ae5d9b50f6d0633f6cc1291d"
+            "sha256": "6017a87c9970f218e60bf48b86d0cc3a4cbab554f15b84f6d2408bde72d1d84f"
         },
         {
             "path": "Assets/RivetReach/Code/Player/AvatarEquipment.cs",
@@ -13126,15 +13624,19 @@
         },
         {
             "path": "Assets/RivetReach/Code/Player/FirstPersonPlayer.cs",
-            "sha256": "04aa76bdd62310ac829dc3bdb4b7c9ba6f87446968c1d66d39e1768deb7637ee"
+            "sha256": "65aa0ec479ed733155df6fd22e550daf208beba040e050b7447d9c2eee522915"
         },
         {
             "path": "Assets/RivetReach/Code/Player/FoodVisuals.cs",
-            "sha256": "890c1d049e970579c11d0d8144dc3e2d3de651cd0651bf1d5cd126202183683a"
+            "sha256": "4793b3493b6b651d9c9217c873bfdd3f0300ddc3c3efd50bb52259b58c6f406f"
         },
         {
             "path": "Assets/RivetReach/Code/Player/HeldBlockView.cs",
             "sha256": "9866e07d77d29be5580ec257628b4d10e285d033a48a04f674e0d3445209a099"
+        },
+        {
+            "path": "Assets/RivetReach/Code/Player/InventoryActions.cs",
+            "sha256": "416eaa232409584fc99238793d97ff68db927fe8c53f82c9c96ad81a32b9029a"
         },
         {
             "path": "Assets/RivetReach/Code/Player/ItemAppearance.cs",
@@ -13161,6 +13663,10 @@
             "sha256": "bca2e9d9c1f36289ab921399376609e214849c3dc9a12ac565221bbf55a5e34f"
         },
         {
+            "path": "Assets/RivetReach/Code/Player/SelectionTargets.cs",
+            "sha256": "31f5054a648474e3d26b68f9cc9f47660e6e4e4add1345316637dfdf6b031829"
+        },
+        {
             "path": "Assets/RivetReach/Code/Player/WorldSound.cs",
             "sha256": "494ccd09af6fc9087e8b83af32bcaf9c91f9d7de464fc8956dbc866f850108b3"
         },
@@ -13182,7 +13688,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/RuntimeVerification.cs",
-            "sha256": "2d0e75592c1731bd6ac228f2d6995b7880bea084ce3c77ba96da03d10692e48d"
+            "sha256": "304813d7f785d92e3db14da3242045aa0623fa18fc33e5cf42f7d390a6a5f501"
         },
         {
             "path": "Assets/RivetReach/Code/SaveVerification.cs",
@@ -13218,7 +13724,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Survival/CookingCatalog.cs",
-            "sha256": "6665e9005b6dae6349e64f13bbeba1eb2031b93da1aa12e9fb491ee7878f2972"
+            "sha256": "5a7686787455b5d4f29c958c1e24c81c7559f7344a7902e57bbcd322cba675a2"
         },
         {
             "path": "Assets/RivetReach/Code/Survival/CropRules.cs",
@@ -13226,7 +13732,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Survival/EquipmentState.cs",
-            "sha256": "46a621af9882b4cf3af9e0fabad37af51e0b070c39a35ad12ee6f5104e4e4f88"
+            "sha256": "2c723f875f7a6c6c93b6f43c859d5c0bf951f4b7a2d899df1ea4960a2e0bea9c"
         },
         {
             "path": "Assets/RivetReach/Code/Survival/FarmingCatalog.cs",
@@ -13242,7 +13748,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Survival/HungerState.cs",
-            "sha256": "e210806e8574e87a224dd7c5dde9b18d236424fe63222b1ec7483c0577fe0af9"
+            "sha256": "ebb352f8f226992097a1ac4c01beac5e36091d7d1fd08a78401c4b5641b80a6d"
         },
         {
             "path": "Assets/RivetReach/Code/Survival/ProcessingCatalogAsset.cs",
@@ -13286,7 +13792,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUI.cs",
-            "sha256": "c3e08312105fead48e552fe24b36373fd859640480fb791b075133f1de3ce391"
+            "sha256": "82f9c0a6edf3846d877e3406c50d782cb0d79f50b946dcab19e4e7d0df8ad4e6"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIBridges.cs",
@@ -13349,6 +13855,10 @@
             "sha256": "6db7a0e4e4a16f4dec09596ea758d3e41d67dfd58551939410bb0e01edfe0790"
         },
         {
+            "path": "Assets/RivetReach/Code/World/BlockSelection.cs",
+            "sha256": "a29b95a1e92a0080bb9c155d8aa8a64494af4e5bdb7d7bda7d908f5d467ce870"
+        },
+        {
             "path": "Assets/RivetReach/Code/World/CaveGenerator.cs",
             "sha256": "2eb20f37a5c87ef2789c445d2db235ac31d84420de4c56c60ce0ae159915c59b"
         },
@@ -13402,7 +13912,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/World/VoxelWorld.cs",
-            "sha256": "01915cde454024e2b892787c492b5cf42ade27c492d52b963c9405106e88ed80"
+            "sha256": "632fd262842339e6b686436e1ed2d30bc1a4eb5b0d492014882df1936bff7a69"
         },
         {
             "path": "Assets/RivetReach/Code/World/WorldClock.cs",
@@ -13438,7 +13948,35 @@
         },
         {
             "path": "Assets/RivetReach/Editor/WikiExport.cs",
-            "sha256": "08134fded310f296b1896ea4d8ddc9d71d001b9e2e271e5b7f70a2851a191c86"
+            "sha256": "ebdc2a798d2433bd01ed22511ddf16ac228a4701363f961977861ca597b65af5"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Chickens/248Icon.png",
+            "sha256": "363aa30b86dc39828ccd671415e817e387023326cca694b7cd70e6a36c33785f"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Chickens/249Icon.png",
+            "sha256": "630a189c4ae108d4a2a7e36685ac7e5de37d65341b50a93ffb4ed91334b486fb"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Chickens/250Icon.png",
+            "sha256": "e8af07fa37154ccae81abdbfc2e76238b5e4bcc950ebfbafe97c63f980a6fc16"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Chickens/251Icon.png",
+            "sha256": "9b596d5a7a384acfbfca3934f62ccf20bce141250c7541bf9fe6cd905d26f5d2"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Chickens/252Icon.png",
+            "sha256": "e9d0c1a27951f727b565dcac005e7d9176a40587f04d7f87edcd72315a4aee8b"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Chickens/253Icon.png",
+            "sha256": "863a5855a92cc301b63200fe9b2aa05881d7b349e2e85b5edb3d6d3009a5bea1"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Chickens/Palette.png",
+            "sha256": "726a1ad0a4adc01d868b39574151a4863bd74660fdc14dc824b010ad53b602f7"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/BucketRecipe.asset",
@@ -13447,6 +13985,22 @@
         {
             "path": "Assets/RivetReach/Resources/Definitions/BucketRecipe.asset.meta",
             "sha256": "bfb926e964c7d730ddb1553b75ed28456fe5cfbd29baba90545340934fc0e2bd"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/ChickenCooking.json",
+            "sha256": "b1fa1490888a510f76528ecca372fa1cfcfbb72e211d3c45842506a8b4a771f4"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/ChickenCooking.json.meta",
+            "sha256": "d2f0573120b5cd0f46b978dd46b0c995ef5c0ae67ddcd1fef1330035d960c3c8"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/Chickens.json",
+            "sha256": "d440289d3b484222752b9d5b79c60168712ca179b774738a397ebad2f3d00e06"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/Chickens.json.meta",
+            "sha256": "cf35974fb384d9ae356d3a532f4b60861b980b377ef7d04dfe75dffa161dde9c"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Compost.json",
@@ -13490,7 +14044,7 @@
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Items.asset",
-            "sha256": "75823a028a7f98f96e308eca5cd031289bdb2de4792ed493ae6efee745b29ba0"
+            "sha256": "b70ab3d58c606d5e1e3ef260572c537089500a78c2ee220705bfa25dcef6f0e6"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Items.asset.meta",

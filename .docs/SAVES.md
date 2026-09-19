@@ -142,3 +142,9 @@ Spawn profiles append an inclusive light range without changing schema 10 or the
 ## Fishing compatibility — 2026-09-19
 
 [Fishing](FISHING.md) keeps schema 11. Rods and fish use stable registered item identities; new cooker recipes use the existing recipe/signature state. Exact pre-fishing fingerprints omit only the added items, rod recipe and separate fish-cooking catalog. Unrelated historical content checks remain enforced. Menus cancel transient casts before saving; loading grants no offline catch and starts with no cast. Failed-load rollback restores the original per-session fishing authority with the rest of the original session.
+
+## Persistent chickens — 2026-09-19
+
+Schema **12** appends a separate passive-animal section after the hostile records. It stores stable chicken identities, position/home, health, growth, egg, breeding readiness/cooldown and deterministic random state, plus the passive scheduler. Views and navigation are reconstructed. Dead animals have already left this collection before capture, so reload cannot award their drops again. Distant/unloaded and offline time never advances this lifecycle.
+
+Formats 1–11 have no passive section. Known previous fingerprints explicitly exclude chicken items and the two new definition texts; unrelated compatibility checks remain enforced. Failed loading restores the old passive collection and its interaction source along with the rest of the old session. [Chicken rules](CHICKENS.md) and [verification](verification/CHICKEN_RESULTS.md) own the functional evidence.

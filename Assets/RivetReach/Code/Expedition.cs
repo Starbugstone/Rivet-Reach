@@ -11,6 +11,7 @@ namespace RivetReach
         public VoxelWorld World {get;private set;}
         public MobSystem Mobs {get;private set;}
         public PlayerFishing Fishing {get;private set;}
+        public PassiveSystem Animals {get;private set;}
         public FirstPersonPlayer Player {get;private set;}
         public DroppedItems Items {get;private set;}
         public Inventory Inventory {get;private set;}
@@ -78,13 +79,14 @@ namespace RivetReach
             int h=World.Generator.Height(0,0);Player.transform.position=new Vector3(.5f,h+1.01f,.5f);World.Observer=Player.transform;
             var drops=new GameObject("World item stacks");drops.transform.SetParent(transform,false);Items=drops.AddComponent<DroppedItems>();Items.Initialize(this);
             World.BlockMined+=SpawnMinedDrop;
-            World.GrowthObstructed=cell=>World.OccupiesCell(Player.transform.position,.6f,Player.Height,cell)||(Mobs?.Occupies(cell)??false);
+            World.GrowthObstructed=cell=>World.OccupiesCell(Player.transform.position,.6f,Player.Height,cell)||(Mobs?.Occupies(cell)??false)||(Animals?.Occupies(cell)??false);
             World.OriginShifted+=Sound.ShiftOrigin;
             FarmingCatalog.Load();FarmingMeshes.Initialize();_ = CompostCatalog.Current;
             Survival=new WorldSurvival(this);Industry=new WorldIndustry(this);root.AddComponent<IndustryPresentation>().Initialize(this);root.AddComponent<StarterStationPresentation>().Initialize(this);root.AddComponent<MultiblockPresentation>().Initialize(this);
             Industry.Simulation.Multiblocks.WorldId=Guid.ParseExact(WorldId,"N");
             root.AddComponent<PipeEndpointPresentation>().Initialize(this);
             Mobs=root.AddComponent<MobSystem>();Mobs.Initialize(this);
+            Animals=root.AddComponent<PassiveSystem>();Animals.Initialize(this);PassiveTargets=Animals;
             Fishing=new PlayerFishing(this);root.AddComponent<FishingPresentation>().Initialize(this);
         }
         void SpawnMinedDrop(BlockPos pos,byte id)
@@ -216,7 +218,7 @@ namespace RivetReach
                 reason="Doors need two empty cells above a solid floor";if(!World.CanPlaceDoor(cell))return false;
                 var upper=cell.Offset(0,1,0);reason=PlayerOverlapReason;
                 if(World.OccupiesCell(Player.transform.position,.6f,Player.Height,upper))return false;
-                reason="Cannot place inside a creature";if(Mobs!=null&&Mobs.Occupies(upper))return false;
+                reason="Cannot place inside a creature";if((Mobs!=null&&Mobs.Occupies(upper))||(Animals?.Occupies(upper)??false))return false;
             }
             if(selected.Id==BlockId.Sapling)
             {bool valid=World.CanPlantSapling(cell);reason=valid?"Plant Sapling":"Saplings need dry grass or dirt";return valid;}
@@ -225,7 +227,7 @@ namespace RivetReach
             // Use the movement collider's exact occupied-cell rule, including its skin.
             // Touching the supporting face is legal; occupying the player's body is not.
             reason=PlayerOverlapReason;if(World.OccupiesCell(Player.transform.position,.6f,Player.Height,cell))return false;
-            reason="Cannot place inside a creature";if(Mobs!=null&&Mobs.Occupies(cell))return false;
+            reason="Cannot place inside a creature";if((Mobs!=null&&Mobs.Occupies(cell))||(Animals?.Occupies(cell)??false))return false;
             reason="Place "+Registry.Get(selected.Id).displayName;return true;
         }
         public bool TryPlaceSelected()

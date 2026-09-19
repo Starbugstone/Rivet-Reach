@@ -186,3 +186,7 @@ The user superseded the original stack/timer composter with [mixed immediate org
 ## Authorized fishing
 
 The user authorized [fishing](.docs/FISHING.md) as the next issue #10 increment: a string-based rod, manual cast/bite/reel, fish and cooker meals. The user requires a minimum square of source water at least two sources deep; the working footprint is **7×7×2**, with an open surface. Preserve resident/tether validation, exactly-once catches, ordinary inventory/drop recovery, transient cast cancellation, additive save compatibility and existing terrain. Capture the fishing and crafting steps and keep the published wiki and issue checklist current.
+
+## Authorized persistent chickens
+
+The user authorized the next issue #10 increment: [chickens](.docs/CHICKENS.md), seed/grain attraction and breeding, chicks, eggs, meat/feathers and shared cooker meals. Keep passive records separate from hostile ambient despawning. Preserve shared habitat/light/navigation/targeting contracts, dormant/offline timer freeze, exactly-once offspring/loot and schema-12 compatibility. [Verification](.docs/verification/CHICKEN_RESULTS.md) distinguishes native results from remaining balance/artistic review. Keep the issue checklist and published illustrated wiki current.

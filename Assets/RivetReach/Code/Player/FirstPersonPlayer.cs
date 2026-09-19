@@ -125,6 +125,7 @@ namespace RivetReach
                 Vector3 previous=transform.position;
                 transform.position=Game.World.Move(transform.position,move*dt+Vector3.up*verticalTravel,.6f,Height,out bool ground);
                 if(Game.Mobs!=null)transform.position=Game.Mobs.ConstrainPlayer(previous,transform.position);
+                if(Game.Animals!=null)transform.position=Game.Animals.ConstrainPlayer(previous,transform.position);
                 float impact=!Grounded&&ground?Mathf.Max(0,-vertical):0;
                 Grounded=ground;if(ground)vertical=-1;
                 Vector3 travelled=transform.position-previous;travelled.y=0;
@@ -239,13 +240,18 @@ namespace RivetReach
             eating=0;eatingItem=0;eatingSlot=-1;
             if(heldId!=miningItem){MiningProgress=0;miningItem=heldId;}
             ToolCapability tool=Game.Registry.Capabilities(selected);
-            if(Game.Input.Pressed("Interact"))
-            {MiningProgress=0;eating=0;eatingItem=0;Game.TryInteractTarget();return;}
-            if(!Game.Input.Place&&Game.Mobs!=null&&Game.Mobs.HandlePlayerTarget(Game.Input.Mine||VerificationMining))
-            {HasTarget=false;MiningProgress=0;eating=0;eatingItem=0;return;}
-            bool found=Game.World.Raycast(Camera.transform.position,Camera.transform.forward,5,out var pos,out byte id,out _,heldId==Fluids.EmptyBucket);
+            Game.Mobs?.Interact(null,false,false,false);Game.PassiveTargets?.Interact(null,false,false,false);
+            Game.SelectInteraction(Camera.transform.position,Camera.transform.forward,5,out var target,heldId==Fluids.EmptyBucket);
+            if(target.Kind==InteractionTargetKind.Entity)
+            {
+                target.Source.Interact(target.Entity.Target,!Game.Input.Place&&(Game.Input.Mine||VerificationMining),Game.Input.PlacePressed||Game.Input.Pressed("Interact"),Game.Input.Place);
+                HasTarget=false;MiningProgress=0;return;
+            }
+            bool found=target.Kind==InteractionTargetKind.Block;var pos=target.Block.Position;byte id=target.Block.Block;
             if(!found||!HasTarget||!pos.Equals(Target)||id!=TargetId)MiningProgress=0;
             HasTarget=found;Target=pos;TargetId=id;
+            if(Game.Input.Pressed("Interact"))
+            {MiningProgress=0;if(!found||!Game.TryHarvestCrop(pos,id,(tool&ToolCapability.Hoe)!=0))Game.TryInteractTarget();return;}
             if(Game.Input.Rebinding==null&&Mouse.current?.middleButton.wasPressedThisFrame==true)
             {
                 MiningProgress=0;

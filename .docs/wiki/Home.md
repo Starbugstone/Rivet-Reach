@@ -59,3 +59,5 @@ Drain finite lava deposits with a [Ranged Liquid Pump](Ranged-Liquid-Pump.md), c
 [Lighting and underground farms](Lighting-and-underground-farms.md) explains cave skylights and growing crops with placed torches.
 
 - [Fishing](Fishing.md) — rod crafting, deep source-water ponds, bite timing and fish meals.
+
+- [Chickens](Chickens.md) — lead, breed and raise a persistent flock; collect eggs and cook meals.

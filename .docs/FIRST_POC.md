@@ -151,3 +151,7 @@ Run `Builds/Compost/RivetReach.exe` for the [compost increment](COMPOST.md). Cra
 Run `Builds/Lighting/RivetReach.exe` for the [cave sunlight and underground crop fixes](LIGHTING.md). Nearby placed torches now support crops; enclosed caves lose outdoor ambient light, while shafts and entrances admit fading skylight. Existing worlds rebuild derived lighting on load. [Verification](verification/LIGHTING_RESULTS.md) records tested behavior and measured cost.
 
 The September 19 fishing review build adds the [Fishing Rod, water requirements and fish meals](FISHING.md). Use/right-click casts and reels; wait for the bite cue. [Measured verification](verification/FISHING_RESULTS.md) includes actual casting and crafting captures.
+
+## Chicken review increment — 2026-09-19
+
+`Builds/Chickens/RivetReach.exe` is the focused development player. [Chicken rules](CHICKENS.md) and [verification](verification/CHICKEN_RESULTS.md) own current behavior and evidence. Use `Tools/Verify-Chickens.ps1 -Build` with the pinned Editor open to prepare/import/check/build and exercise the scripted flock/cooker/save fixture. Ordinary play receives no fixture items. Hold seeds/grain to lead chickens; right-click or Interact on adults to feed.

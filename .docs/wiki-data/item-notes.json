@@ -418,26 +418,27 @@
   "rivet:wheat_seed": {
     "description": "Planting stock for wheat.",
     "obtain": "Harvest wild or cultivated wheat; young plants return one seed and mature plants return two.",
-    "use": "Select these seeds and right-click farmland prepared with a hoe. See [Farming and cooking](Farming-and-cooking.md)."
+    "use": "Select these seeds and right-click farmland prepared with a hoe. See [Farming and cooking](Farming-and-cooking.md). Hold to attract [Chickens](Chickens.md); right-click an eligible adult to feed one item for breeding."
   },
   "rivet:flax_seed": {
     "description": "Planting stock for flax.",
     "obtain": "Harvest wild or cultivated flax; young plants return one seed and mature plants return two.",
-    "use": "Select these seeds and right-click farmland prepared with a hoe. See [Farming and cooking](Farming-and-cooking.md)."
+    "use": "Select these seeds and right-click farmland prepared with a hoe. See [Farming and cooking](Farming-and-cooking.md). Hold to attract [Chickens](Chickens.md); right-click an eligible adult to feed one item for breeding."
   },
   "rivet:carrot_seed": {
     "description": "Planting stock for carrot.",
     "obtain": "Harvest wild or cultivated carrot; young plants return one seed and mature plants return two.",
-    "use": "Select these seeds and right-click farmland prepared with a hoe. See [Farming and cooking](Farming-and-cooking.md)."
+    "use": "Select these seeds and right-click farmland prepared with a hoe. See [Farming and cooking](Farming-and-cooking.md). Hold to attract [Chickens](Chickens.md); right-click an eligible adult to feed one item for breeding."
   },
   "rivet:berry_seed": {
     "description": "Planting stock for berry.",
     "obtain": "Harvest wild or cultivated berry; young plants return one seed and mature plants return two.",
-    "use": "Select these seeds and right-click farmland prepared with a hoe. See [Farming and cooking](Farming-and-cooking.md)."
+    "use": "Select these seeds and right-click farmland prepared with a hoe. See [Farming and cooking](Farming-and-cooking.md). Hold to attract [Chickens](Chickens.md); right-click an eligible adult to feed one item for breeding."
   },
   "rivet:grain": {
     "description": "Cook bread or fruit porridge.",
-    "obtain": "Harvest mature wheat plants. See [Farming and cooking](Farming-and-cooking.md)."
+    "obtain": "Harvest mature wheat plants. See [Farming and cooking](Farming-and-cooking.md).",
+    "use": " Hold to attract [Chickens](Chickens.md); right-click an eligible adult to feed one item for breeding."
   },
   "rivet:flax_fibre": {
     "description": "Craft three fibres into one String.",
@@ -524,5 +525,32 @@
   "rivet:fish_stew": {
     "description": "A prepared fish-and-vegetable meal restoring 12 food points.",
     "use": "Either Cooker accepts one raw or cooked fish plus two potatoes/carrots, including one of each. Hold Use to eat. See [Fishing](Fishing.md)."
+  },
+  "rivet:egg": {
+    "description": "An ingredient laid by adult chickens every five to ten active minutes.",
+    "obtain": "Pick up eggs near adult [Chickens](Chickens.md).",
+    "use": "Cook into Cooked Egg in either Cooker. Raw eggs cannot be eaten or hatched."
+  },
+  "rivet:raw_chicken": {
+    "description": "Raw meat restoring 2 food points.",
+    "obtain": "Defeat an adult [Chicken](Chickens.md); chicks drop no meat.",
+    "use": "Cook into Cooked Chicken, or combine with two vegetables for Chicken Stew."
+  },
+  "rivet:feather": {
+    "description": "A material dropped by adult chickens.",
+    "obtain": "Defeat an adult [Chicken](Chickens.md) for one or two feathers.",
+    "use": "Store for future recipes; no feather crafting recipe is implemented yet."
+  },
+  "rivet:cooked_chicken": {
+    "description": "Cooked Chicken restores 6 food points.",
+    "use": "Prepare in either fuel or electric Cooker; hold Use to eat when hungry. See [Chickens](Chickens.md)."
+  },
+  "rivet:cooked_egg": {
+    "description": "Cooked Egg restores 4 food points.",
+    "use": "Prepare in either fuel or electric Cooker; hold Use to eat when hungry. See [Chickens](Chickens.md)."
+  },
+  "rivet:chicken_stew": {
+    "description": "Chicken Stew restores 12 food points.",
+    "use": "Prepare in either fuel or electric Cooker; hold Use to eat when hungry. See [Chickens](Chickens.md)."
   }
 }

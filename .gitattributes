@@ -83,3 +83,9 @@ Assets/RivetReach/Resources/Fishing/*.fbx filter=lfs diff=lfs merge=lfs -text
 ArtSource/Fishing/*.png filter=lfs diff=lfs merge=lfs -text
 .docs/wiki/images/fishing/*.png filter=lfs diff=lfs merge=lfs -text
 .docs/verification/fishing-2026-09-19/*.png filter=lfs diff=lfs merge=lfs -text
+
+Assets/RivetReach/Resources/Chickens/*.fbx filter=lfs diff=lfs merge=lfs -text
+Assets/RivetReach/Resources/Chickens/*.png filter=lfs diff=lfs merge=lfs -text
+ArtSource/Chickens/*.png filter=lfs diff=lfs merge=lfs -text
+.docs/wiki/images/chickens/*.png filter=lfs diff=lfs merge=lfs -text
+.docs/verification/chickens-2026-09-19/*.png filter=lfs diff=lfs merge=lfs -text

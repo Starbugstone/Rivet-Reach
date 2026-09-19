@@ -128,10 +128,12 @@ namespace RivetReach
             if(Environment.GetCommandLineArgs().Contains("-rr-machine-interface-review")||Environment.GetCommandLineArgs().Contains("-rr-electric-furnace-review")||Environment.GetCommandLineArgs().Contains("-rr-portable-storage-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-bridges-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-farming-review")||Environment.GetCommandLineArgs().Contains("-rr-farming-legacy"))game.World.ViewDistance=4;
+            if(Environment.GetCommandLineArgs().Contains("-rr-chicken-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-compost-review")||Environment.GetCommandLineArgs().Contains("-rr-fishing-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-lighting-review"))game.World.ViewDistance=4;
             yield return Settle();report.firstReadySeconds=Time.realtimeSinceStartup-began;
             if(Environment.GetCommandLineArgs().Contains("-rr-lighting-review")){report.workload="Underground crop growth, cached sky/source lighting, cave entrances, roof edits and saves";yield return ReviewLighting();yield break;}
+            if(Environment.GetCommandLineArgs().Contains("-rr-chicken-review")){report.workload="Persistent chickens: feeding, breeding, growth, eggs, loot, cooking and durable saves";yield return ReviewChickens();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-fishing-review")){report.workload="Fishing casts, catches, cancellation, inventory conservation, cooking and saves";yield return ReviewFishing();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-compost-review")){report.workload="Compost batches, actual crop use, pipe transfers, recovery and durable crop deadlines";yield return ReviewCompost();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-farming-legacy")){report.workload="Historical saves and exploration across retained/new generator regions";yield return ReviewFarmingLegacy();yield break;}

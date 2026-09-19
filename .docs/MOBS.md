@@ -40,7 +40,7 @@ Views and thinking sleep beyond 68 m or when the entity's chunk is unavailable. 
 
 ## Shared hostile/passive spawning rules
 
-The user requires one reusable spawning abstraction for hostile and passive mobs, with **Surface**, **Underground** and **Both** habitats plus block-specific eligibility (for example, grass-only creatures). `MobSpawnRules` owns site checks and bounded vertical search ranges without referencing hostile AI, combat state, population management or views. Hostile `MobSystem` consumes this contract now. Future passive species must use it through their separate persistent lifecycle; this change does not add livestock or apply hostile distance-despawning to animals.
+The user requires one reusable spawning abstraction for hostile and passive mobs, with **Surface**, **Underground** and **Both** habitats plus block-specific eligibility (for example, grass-only creatures). `MobSpawnRules` owns site checks and bounded vertical search ranges without referencing hostile AI, combat state, population management or views. Hostile `MobSystem` consumes this contract now. [Chickens](CHICKENS.md) also consume it through their separate persistent lifecycle; hostile distance despawning never applies to animals.
 
 Each profile authors inclusive `minimumLight` / `maximumLight` values from 0 through 15. The shared default accepts the full range, so future passive species can independently require bright ground or accept darkness. Current hostile species, including territorial beetles, accept **0–7**; **8 or brighter blocks new natural spawning**. This is a working balance threshold. Check the air immediately above every supporting ground cell, including below a hovering Floater, using the [lighting-owned query](LIGHTING.md). Sunlight and propagated torch, powered lamp and lava light contribute; visual cave fill, held-light presentation and camera exposure do not. Pending lighting updates defer a restricted spawn. Lighting does not remove, damage or relocate existing creatures.
 
@@ -85,10 +85,12 @@ Sources: `Tools/create_floater_assets.py`, editable `ArtSource/Mobs/Floater.blen
 
 ## Passive-animal boundary — issue #10 first-pass decision
 
-The user confirmed separate hostile and passive mob systems. Future chickens may share appropriate voxel movement, collision, targeting and damage primitives with hostile creatures, but need their own persistent lifecycle for breeding, chick growth, eggs and following. The ambient hostile distance-removal policy must not delete livestock. This farming/cooking increment records the boundary; it does not implement chickens or another passive animal.
+The user confirmed separate hostile and passive mob systems. [Chickens](CHICKENS.md) share voxel movement, collision, targeting and registered damage with hostile creatures, while using their own persistent lifecycle for breeding, chick growth, eggs and following. The ambient hostile distance-removal policy must not delete livestock. The first farming/cooking increment recorded this boundary; the chicken increment implements it.
 
 ## Player wiki
 
-The [Mobs overview](wiki/Mobs.md) links [Rustback beetle](wiki/Rustback-Beetle.md), [Dusk prowler](wiki/Dusk-Prowler.md) and [Floater](wiki/Floater.md), with actual game captures and the current combat/spawning/persistence rules. Passive livestock remains future scope and must use the separate lifecycle boundary above.
+The [Mobs overview](wiki/Mobs.md) links [Rustback beetle](wiki/Rustback-Beetle.md), [Dusk prowler](wiki/Dusk-Prowler.md) and [Floater](wiki/Floater.md), with actual game captures and the current combat/spawning/persistence rules. The [Chickens guide](wiki/Chickens.md) explains the separately persistent passive flock.
 
 [Spawn-light verification](verification/MOB_LIGHT_RESULTS.md) records the light-boundary, cave, save and shared-profile checks.
+
+[Chickens](CHICKENS.md) now use a separate persistent passive lifecycle, sharing spawn-site profiles, voxel navigation and nearest-target selection. Ambient hostile population/despawn rules must never remove passive records.

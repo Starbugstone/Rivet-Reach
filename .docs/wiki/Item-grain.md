@@ -21,6 +21,10 @@ Cook bread or fruit porridge.
 
 Harvest mature wheat plants. See [Farming and cooking](Farming-and-cooking.md).
 
+## Using it
+
+ Hold to attract [Chickens](Chickens.md); right-click an eligible adult to feed one item for breeding.
+
 ## Crafting and processing
 
 There is no registered crafting or processing recipe for this item. Use the acquisition method above.

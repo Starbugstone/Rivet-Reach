@@ -4,7 +4,7 @@
 
 Start with the [visual item index](Items.md), then click an item to see its purpose, how to obtain it, every recipe that makes it, and what uses it. Every item icon links to its own page.
 
-This reference covers **107 grid recipes, 11 furnace recipes, 11 electric furnace recipes, 5 crusher recipes, 16 cooker recipes and 19 compost conversions** in the current playable alpha. The recipe grids and icons come from the same catalog and artwork used by the inventory browser.
+This reference covers **107 grid recipes, 11 furnace recipes, 11 electric furnace recipes, 5 crusher recipes, 22 cooker recipes and 19 compost conversions** in the current playable alpha. The recipe grids and icons come from the same catalog and artwork used by the inventory browser.
 
 ## First crafting steps
 
@@ -225,6 +225,9 @@ Choose a result below to open its item page at the exact recipe.
 | <a href="Item-fruit-porridge.md#recipe-1" title="Fruit Porridge"><img src="icons/235.png" width="32" height="32" alt="Fruit Porridge"></a> ×1 [Fruit Porridge](Item-fruit-porridge.md) | [Cooker](Item-cooker.md) | [View recipe](Item-fruit-porridge.md#recipe-1) |
 | <a href="Item-cooked-fish.md#recipe-1" title="Cooked Fish"><img src="icons/246.png" width="32" height="32" alt="Cooked Fish"></a> ×1 [Cooked Fish](Item-cooked-fish.md) | [Cooker](Item-cooker.md) | [View recipe](Item-cooked-fish.md#recipe-1) |
 | <a href="Item-fish-stew.md#recipe-1" title="Fish Stew"><img src="icons/247.png" width="32" height="32" alt="Fish Stew"></a> ×1 [Fish Stew](Item-fish-stew.md) | [Cooker](Item-cooker.md) | [View recipe](Item-fish-stew.md#recipe-1) |
+| <a href="Item-cooked-chicken.md#recipe-1" title="Cooked Chicken"><img src="icons/250.png" width="32" height="32" alt="Cooked Chicken"></a> ×1 [Cooked Chicken](Item-cooked-chicken.md) | [Cooker](Item-cooker.md) | [View recipe](Item-cooked-chicken.md#recipe-1) |
+| <a href="Item-cooked-egg.md#recipe-1" title="Cooked Egg"><img src="icons/252.png" width="32" height="32" alt="Cooked Egg"></a> ×1 [Cooked Egg](Item-cooked-egg.md) | [Cooker](Item-cooker.md) | [View recipe](Item-cooked-egg.md#recipe-1) |
+| <a href="Item-chicken-stew.md#recipe-1" title="Chicken Stew"><img src="icons/253.png" width="32" height="32" alt="Chicken Stew"></a> ×1 [Chicken Stew](Item-chicken-stew.md) | [Cooker](Item-cooker.md) | [View recipe](Item-chicken-stew.md#recipe-1) |
 
 ## Electric cooker recipes
 
@@ -238,6 +241,9 @@ Choose a result below to open its item page at the exact recipe.
 | <a href="Item-fruit-porridge.md#recipe-2" title="Fruit Porridge"><img src="icons/235.png" width="32" height="32" alt="Fruit Porridge"></a> ×1 [Fruit Porridge](Item-fruit-porridge.md) | [Electric Cooker](Item-electric-cooker.md) | [View recipe](Item-fruit-porridge.md#recipe-2) |
 | <a href="Item-cooked-fish.md#recipe-2" title="Cooked Fish"><img src="icons/246.png" width="32" height="32" alt="Cooked Fish"></a> ×1 [Cooked Fish](Item-cooked-fish.md) | [Electric Cooker](Item-electric-cooker.md) | [View recipe](Item-cooked-fish.md#recipe-2) |
 | <a href="Item-fish-stew.md#recipe-2" title="Fish Stew"><img src="icons/247.png" width="32" height="32" alt="Fish Stew"></a> ×1 [Fish Stew](Item-fish-stew.md) | [Electric Cooker](Item-electric-cooker.md) | [View recipe](Item-fish-stew.md#recipe-2) |
+| <a href="Item-cooked-chicken.md#recipe-2" title="Cooked Chicken"><img src="icons/250.png" width="32" height="32" alt="Cooked Chicken"></a> ×1 [Cooked Chicken](Item-cooked-chicken.md) | [Electric Cooker](Item-electric-cooker.md) | [View recipe](Item-cooked-chicken.md#recipe-2) |
+| <a href="Item-cooked-egg.md#recipe-2" title="Cooked Egg"><img src="icons/252.png" width="32" height="32" alt="Cooked Egg"></a> ×1 [Cooked Egg](Item-cooked-egg.md) | [Electric Cooker](Item-electric-cooker.md) | [View recipe](Item-cooked-egg.md#recipe-2) |
+| <a href="Item-chicken-stew.md#recipe-2" title="Chicken Stew"><img src="icons/253.png" width="32" height="32" alt="Chicken Stew"></a> ×1 [Chicken Stew](Item-chicken-stew.md) | [Electric Cooker](Item-electric-cooker.md) | [View recipe](Item-chicken-stew.md#recipe-2) |
 
 ## Compost contributions
 

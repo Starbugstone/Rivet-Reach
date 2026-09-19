@@ -39,3 +39,5 @@ Watch for the preparation animation before a bite or punch. Back away or put sol
 Save/Load retains existing creature identity, health and intent. Distant or unloaded creatures stop thinking and rendering; ambient creatures far enough away can be removed without loot. They are an ambient population, not permanent named pets. Pausing stops their simulation.
 
 [All items](Items.md) · [Home](Home.md)
+
+For persistent passive animals, see [Chickens](Chickens.md). Their growth and egg timers pause when distant; hostile despawning never removes them.

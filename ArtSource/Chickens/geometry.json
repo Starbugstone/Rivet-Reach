@@ -1,0 +1,36 @@
+{
+  "Chicken": {
+    "triangles": 3154,
+    "bones": 8,
+    "materials": 1
+  },
+  "Chick": {
+    "triangles": 2586,
+    "bones": 8,
+    "materials": 1
+  },
+  "248": {
+    "triangles": 212,
+    "materials": 1
+  },
+  "249": {
+    "triangles": 560,
+    "materials": 1
+  },
+  "250": {
+    "triangles": 608,
+    "materials": 1
+  },
+  "251": {
+    "triangles": 656,
+    "materials": 1
+  },
+  "252": {
+    "triangles": 424,
+    "materials": 1
+  },
+  "253": {
+    "triangles": 1640,
+    "materials": 1
+  }
+}

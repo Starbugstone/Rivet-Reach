@@ -84,3 +84,5 @@ This directory maintains the latest report and useful evidence for each feature.
 - [Compost](COMPOST_RESULTS.md): mixed manual deposits, electric automation, random output, crop acceleration and migrated saves.
 
 - [Fishing](FISHING_RESULTS.md) — manual casts and bites, source-water footprint/depth, caught items, cooking and save compatibility.
+
+- [Persistent chickens](CHICKEN_RESULTS.md) — passive lifecycle, shared targeting, eggs, tagged meals and schema-12 saves.

@@ -1,0 +1,1 @@
+Peak fixed tick ms (small functional fixture, not population benchmark): 74,3633; path searches: 18

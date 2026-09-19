@@ -1,6 +1,6 @@
 # Farming, forage and food cookers
 
-Issue [#10](https://github.com/Starbugstone/Rivet-Reach/issues/10), first playable increment, authorized 2026-09-13. This working specification implements crops/forage, flax fibre/string/cloth, food-only cooker recipes and shared item tags. The subsequent [Compost increment](COMPOST.md) adds an optional organic-surplus growth accelerator. [Fishing](FISHING.md) subsequently adds rods, fish and two additional cooker recipes. Beds, chickens, crates, weather and renewables remain later increments. The user confirmed distinct hostile/passive mob systems for future livestock; this increment does not add animals.
+Issue [#10](https://github.com/Starbugstone/Rivet-Reach/issues/10), first playable increment, authorized 2026-09-13. This working specification implements crops/forage, flax fibre/string/cloth, food-only cooker recipes and shared item tags. The subsequent [Compost increment](COMPOST.md) adds an optional organic-surplus growth accelerator. [Fishing](FISHING.md) subsequently adds rods, fish and two additional cooker recipes. [Chickens](CHICKENS.md) subsequently adds a separate persistent passive lifecycle and egg/meat meals. Beds, crates, weather and renewables remain later increments.
 
 ## Plants
 
@@ -64,3 +64,5 @@ Cooking authoring stays in `CookingCatalog`; station input/state belongs to `Coo
 The item sidebar and Creative item search accept intersecting name and tag terms: `#edible`, `#vegetable #edible`, `#ingot iron`. Material tags distinguish logs, planks, raw metal ores and metal ingots; iron/copper/gold remain distinct recipe identities. Use tag selectors when every member is an intended substitute. A broad `#ingot` must not accidentally permit copper in an iron-tier tool recipe. Existing grid layouts/quantities remain exact. Tool capabilities/tiers, armor slots/protection, crop planting definitions and explicit processing outputs already have typed authorities; duplicating those into behavioural tags would create conflicting rules. The subsequent [compost consumer](COMPOST.md) introduces `compostable` with explicit contribution data. Future feed tags should likewise arrive with their actual consumers and balancing data.
 
 The review adds only the frozen material tags to existing item definitions. Schema-10 compatibility can project those exact additions away for pre-review saves while retaining all earlier tags, fields and catalogs. Machine state encoding and generation history are unchanged. [Review verification](verification/STABILITY_REVIEW_RESULTS.md) records tests and remaining limits.
+
+Persistent chickens and egg/meat meals are now a separate increment; [CHICKENS.md](CHICKENS.md) owns lifecycle, feed and new tagged recipes.

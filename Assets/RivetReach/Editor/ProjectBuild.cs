@@ -40,6 +40,8 @@ namespace RivetReach.Editor
             {
                 if(command=="alpha-playtest-checks"||command=="alpha-playtest-build")
                 {AlphaPlaytestChecks.Run();InventoryChecks.Run();SurvivalChecks.Run();FarmingChecks.Run();FishingChecks.Run();if(command=="alpha-playtest-build")Build("AlphaPlaytest");File.WriteAllText("Logs/build-result.txt","SUCCESS alpha playtest");return;}
+                if(command=="chicken-build"){ChickenBuild.Prepare();ChickenChecks.Run();FarmingChecks.Run();SurvivalChecks.Run();FishingChecks.Run();Build("Chickens");File.WriteAllText("Logs/build-result.txt","SUCCESS chickens");return;}
+                if(command=="chicken-player"){Build("Chickens");File.WriteAllText("Logs/build-result.txt","SUCCESS chicken player");return;}
                 if(command=="fishing-build"){FishingBuild.Prepare();FishingChecks.Run();FarmingChecks.Run();SurvivalChecks.Run();CompostChecks.Run();WikiExport.Export();Build("Fishing");File.WriteAllText("Logs/build-result.txt","SUCCESS fishing");return;}
                 if(command=="fishing-player"){WikiExport.Export();Build("Fishing");File.WriteAllText("Logs/build-result.txt","SUCCESS fishing player");return;}
                 if(command=="lighting-build"){LightingChecks.Run();FarmingChecks.Run();SurvivalChecks.Run();IndustryChecks.Run();WikiExport.Export();Build("Lighting");File.WriteAllText("Logs/build-result.txt","SUCCESS lighting");return;}

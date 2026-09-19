@@ -1,0 +1,9 @@
+{
+  "health": 6, "chickHealth": 3,
+  "growthTicks": 12000, "breedCooldownTicks": 6000, "loveTicks": 600,
+  "eggMinimumTicks": 6000, "eggMaximumTicks": 12000,
+  "width": 0.62, "height": 1.12, "chickWidth": 0.36, "chickHeight": 0.64,
+  "speed": 1.8, "followRange": 10,
+  "feed": ["#seed", "#grain"],
+  "spawnRules": {"habitat": 0, "supportBlocks": ["rivet:grass"], "minimumLight": 9, "maximumLight": 15}
+}

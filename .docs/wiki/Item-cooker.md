@@ -80,6 +80,9 @@ The station is reusable; it is not consumed by these recipes.
 | <a href="Item-fruit-porridge.md#recipe-1" title="Fruit Porridge"><img src="icons/235.png" width="32" height="32" alt="Fruit Porridge"></a> ×1 [Fruit Porridge](Item-fruit-porridge.md) | [Cooker](Item-cooker.md) | [View recipe](Item-fruit-porridge.md#recipe-1) |
 | <a href="Item-cooked-fish.md#recipe-1" title="Cooked Fish"><img src="icons/246.png" width="32" height="32" alt="Cooked Fish"></a> ×1 [Cooked Fish](Item-cooked-fish.md) | [Cooker](Item-cooker.md) | [View recipe](Item-cooked-fish.md#recipe-1) |
 | <a href="Item-fish-stew.md#recipe-1" title="Fish Stew"><img src="icons/247.png" width="32" height="32" alt="Fish Stew"></a> ×1 [Fish Stew](Item-fish-stew.md) | [Cooker](Item-cooker.md) | [View recipe](Item-fish-stew.md#recipe-1) |
+| <a href="Item-cooked-chicken.md#recipe-1" title="Cooked Chicken"><img src="icons/250.png" width="32" height="32" alt="Cooked Chicken"></a> ×1 [Cooked Chicken](Item-cooked-chicken.md) | [Cooker](Item-cooker.md) | [View recipe](Item-cooked-chicken.md#recipe-1) |
+| <a href="Item-cooked-egg.md#recipe-1" title="Cooked Egg"><img src="icons/252.png" width="32" height="32" alt="Cooked Egg"></a> ×1 [Cooked Egg](Item-cooked-egg.md) | [Cooker](Item-cooker.md) | [View recipe](Item-cooked-egg.md#recipe-1) |
+| <a href="Item-chicken-stew.md#recipe-1" title="Chicken Stew"><img src="icons/253.png" width="32" height="32" alt="Chicken Stew"></a> ×1 [Chicken Stew](Item-chicken-stew.md) | [Cooker](Item-cooker.md) | [View recipe](Item-chicken-stew.md#recipe-1) |
 
 ## Fuel durations
 

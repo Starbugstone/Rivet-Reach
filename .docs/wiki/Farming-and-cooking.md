@@ -87,3 +87,5 @@ Captures: September 13, 2026, Farming review build. Quantities and timings are i
 ## Fishing for food
 
 Use the flax String chain to craft a [Fishing Rod](Item-fishing-rod.md). [Fishing](Fishing.md) explains the required 7×7×2 source-water pond, cast/bite/reel steps and screenshots. Either Cooker can prepare Cooked Fish or Fish Stew using the shared fish/vegetable tags.
+
+Raise [Chickens](Chickens.md) with seeds or grain for eggs and meat. Both cookers prepare Cooked Chicken, Cooked Egg and Chicken Stew.

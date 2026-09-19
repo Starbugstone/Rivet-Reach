@@ -1,0 +1,7 @@
+{
+  "recipes": [
+    {"id":"rivet:cook_chicken","name":"Cooked Chicken","output":250,"count":1,"ticks":200,"ingredients":[{"selector":"#raw_meat","count":1}]},
+    {"id":"rivet:cook_egg","name":"Cooked Egg","output":252,"count":1,"ticks":200,"ingredients":[{"selector":"#raw_egg","count":1}]},
+    {"id":"rivet:cook_chicken_stew","name":"Chicken Stew","output":253,"count":1,"ticks":200,"ingredients":[{"selector":"#meat","count":1},{"selector":"#vegetable","count":2}]}
+  ]
+}

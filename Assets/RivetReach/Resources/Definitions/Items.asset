@@ -3003,3 +3003,113 @@ MonoBehaviour:
     tags:
     - edible
     - prepared_food
+  - runtimeId: 248
+    stableId: rivet:egg
+    displayName: Egg
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.85, g: 0.66, b: 0.36, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags:
+    - egg
+    - raw_egg
+  - runtimeId: 249
+    stableId: rivet:raw_chicken
+    displayName: Raw Chicken
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.85, g: 0.66, b: 0.36, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 2
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags:
+    - edible
+    - meat
+    - raw_meat
+  - runtimeId: 250
+    stableId: rivet:cooked_chicken
+    displayName: Cooked Chicken
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.85, g: 0.66, b: 0.36, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 6
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags:
+    - edible
+    - meat
+    - prepared_food
+  - runtimeId: 251
+    stableId: rivet:feather
+    displayName: Feather
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.85, g: 0.66, b: 0.36, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags:
+    - feather
+  - runtimeId: 252
+    stableId: rivet:cooked_egg
+    displayName: Cooked Egg
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.85, g: 0.66, b: 0.36, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 4
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags:
+    - edible
+    - egg
+    - prepared_food
+  - runtimeId: 253
+    stableId: rivet:chicken_stew
+    displayName: Chicken Stew
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.85, g: 0.66, b: 0.36, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 12
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags:
+    - edible
+    - prepared_food

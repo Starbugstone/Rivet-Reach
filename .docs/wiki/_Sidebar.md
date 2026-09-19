@@ -29,3 +29,5 @@
 - [Lighting and underground farms](Lighting-and-underground-farms.md) — cave openings and growing with torches.
 
 - [Fishing](Fishing.md) — rod crafting, deep source-water ponds, bite timing and fish meals.
+
+- [Chickens](Chickens.md) — lead, breed and raise a persistent flock; collect eggs and cook meals.

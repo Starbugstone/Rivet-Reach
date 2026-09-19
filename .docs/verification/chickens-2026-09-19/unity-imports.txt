@@ -1,0 +1,8 @@
+248.fbx | triangles=212 | renderers=1 | bones=0 | clips=
+249.fbx | triangles=560 | renderers=1 | bones=0 | clips=
+250.fbx | triangles=608 | renderers=1 | bones=0 | clips=
+251.fbx | triangles=656 | renderers=1 | bones=0 | clips=
+252.fbx | triangles=424 | renderers=1 | bones=0 | clips=
+253.fbx | triangles=1640 | renderers=1 | bones=0 | clips=
+Chick.fbx | triangles=2586 | renderers=1 | bones=8 | clips=Death,Idle,Peck,Walk
+Chicken.fbx | triangles=3154 | renderers=1 | bones=8 | clips=Death,Idle,Peck,Walk
