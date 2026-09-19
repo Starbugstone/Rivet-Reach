@@ -1,0 +1,59 @@
+{
+  "pages": [
+    {
+      "name": "Renewable-power",
+      "desktop": {
+        "title": "Renewable power \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+        "images": 10,
+        "solar": true,
+        "wind": true
+      },
+      "mobile": {
+        "viewport": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "Item-solar-panel",
+      "desktop": {
+        "title": "Item solar panel \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+        "images": 13,
+        "solar": true,
+        "wind": false
+      },
+      "mobile": {
+        "viewport": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "Item-wind-turbine",
+      "desktop": {
+        "title": "Item wind turbine \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+        "images": 15,
+        "solar": false,
+        "wind": true
+      },
+      "mobile": {
+        "viewport": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "Items",
+      "desktop": {
+        "title": "Items \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+        "images": 195,
+        "solar": true,
+        "wind": true
+      },
+      "mobile": {
+        "viewport": 390,
+        "width": 390
+      }
+    }
+  ],
+  "publishedPages": 228,
+  "verifiedAssets": 12,
+  "wikiCommit": "e7d366d895468dea1fdae9c3edb9e6e59a37dea0"
+}

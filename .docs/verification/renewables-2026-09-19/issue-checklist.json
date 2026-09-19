@@ -1,0 +1,10 @@
+{
+  "issue": 10,
+  "implementation": "6b07ccb",
+  "remaining": [
+    "- [ ] tune hunger restoration/saturation",
+    "- [ ] validate early-game vs established-base food cadence",
+    "- [ ] multiplayer/network synchronisation if applicable",
+    "- [ ] after establishing a farm/cooking setup, hunger feels substantially less intrusive than at spawn"
+  ]
+}
