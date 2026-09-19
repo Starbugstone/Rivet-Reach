@@ -111,6 +111,7 @@ namespace RivetReach
             {
                 if(a.Empty||b.Empty)return a.Empty==b.Empty?0:a.Empty?1:-1;
                 int order=a.Id.CompareTo(b.Id);if(order!=0)return order;
+                order=a.Wear.CompareTo(b.Wear);if(order!=0)return order;
                 order=a.Energy.CompareTo(b.Energy);if(order!=0)return order;
                 order=a.FluidId.CompareTo(b.FluidId);if(order!=0)return order;
                 order=a.FluidCapacity.CompareTo(b.FluidCapacity);if(order!=0)return order;
@@ -140,7 +141,7 @@ namespace RivetReach
         {
             long capacity = 0;
             for (int i = start; i < end; i++)
-                if (slots[i].Empty || slots[i].Id == id && !slots[i].HasContents) capacity += Math.Max(0, limit - slots[i].Count);
+                if (slots[i].Empty || slots[i].Id == id && !slots[i].HasInstanceState) capacity += Math.Max(0, limit - slots[i].Count);
             return (int)Math.Min(int.MaxValue, capacity);
         }
 
@@ -172,7 +173,7 @@ namespace RivetReach
             for (int i = start; i < end && remaining > 0; i++)
             {
                 var stack = slots[i];
-                if (pass == 0 ? stack.Empty || stack.Id != id || stack.HasContents : !stack.Empty) continue;
+                if (pass == 0 ? stack.Empty || stack.Id != id || stack.HasInstanceState : !stack.Empty) continue;
                 int take = Math.Min(remaining, Math.Max(0, limit - stack.Count));
                 slots[i] = new ItemStack(id, stack.Count + take);
                 remaining -= take;
@@ -184,10 +185,17 @@ namespace RivetReach
         public int Add(ItemStack stack, int start=0, int end=-1)
         {
             if(!stack.ValidContents)throw new ArgumentException("Invalid stored contents.");
-            if(!stack.HasContents)return Add(stack.Id,stack.Count,start,end);
+            if(!stack.HasInstanceState)return Add(stack.Id,stack.Count,start,end);
             if(end==-1)end=Count;Range(start,end);
             for(int i=start;i<end;i++)if(slots[i].Empty){slots[i]=stack;Revision++;return 0;}
             return stack.Count;
+        }
+        public bool UseTool(int index,int maximum,out bool broken)
+        {
+            broken=false;var stack=slots[index];
+            if(stack.Empty||stack.Count!=1||maximum<=0||stack.Wear<0||stack.Wear>=maximum)return false;
+            stack.Wear++;broken=stack.Wear==maximum;
+            slots[index]=broken?default:stack;Revision++;return true;
         }
         public bool EmptyContents(int index)
         {var stack=slots[index];if(!stack.EmptyContents())return false;slots[index]=stack;Revision++;return true;}

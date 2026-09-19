@@ -214,3 +214,7 @@ The user authorized [Solar Panels and Wind Turbines](.docs/RENEWABLES.md) for is
 ## Authorized food balance
 
 The user authorized [food balance](.docs/FOOD_BALANCE.md): retain the Issue #12 0.75 multiplier for ordinary hunger expenditure and the six-exhaustion healing cost; preserve all existing food points, recipes, yields, crop/fishing/chicken timers and cooker operation. Prepared foods use the configured capped 20-point saturation reserve, spent before food at four exhaustion per point. Raw foods grant no reserve; exact cooked bonuses belong in `Definitions/FoodBalance.json`. Preserve no offline or sleep-skipped hunger/production, schema-17 saturation persistence with schemas 1–16 initializing zero, and exact full-renewable schema-16 compatibility. [Verification](.docs/verification/FOOD_BALANCE_RESULTS.md) owns measured evidence and remaining balance review.
+
+## Authorized tool speed and durability
+
+The user requested [tiered tool speed and durability](.docs/TOOLS.md): verify increasingly fast pickaxes/axes, lose durability per successful use, and higher-tier tools last longer. Worn tools must never stack. Preserve exact wear through inventory/cursor/chests/pipes/drops, final-use breakage, Creative exemption, ore gates, tree provenance, food saturation and additive schema-18/legacy compatibility. [Verification](.docs/verification/TOOL_DURABILITY_RESULTS.md) distinguishes measured evidence and remaining balance review. Keep the illustrated tool guide and generated item statistics published.

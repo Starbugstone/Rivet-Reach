@@ -7,24 +7,26 @@ namespace RivetReach
     {
         public byte Id;
         public int Count;
+        public int Wear;
+        public bool HasInstanceState => HasContents || Wear != 0;
         public long Energy, FluidAmount, FluidCapacity;
         public byte FluidId;
         public bool Empty => Id == 0 || Count <= 0;
         public bool HasContents => Energy != 0 || FluidAmount != 0;
         public bool IsStorage => Id == IndustryId.Battery || Id == IndustryId.Tank || Id == IndustryId.TankController;
-        public bool Equals(ItemStack other) => Id==other.Id && Count==other.Count && Energy==other.Energy && FluidAmount==other.FluidAmount && FluidCapacity==other.FluidCapacity && FluidId==other.FluidId;
+        public bool Equals(ItemStack other) => Id==other.Id && Count==other.Count && Energy==other.Energy && FluidAmount==other.FluidAmount && FluidCapacity==other.FluidCapacity && FluidId==other.FluidId && Wear==other.Wear;
         public override bool Equals(object other) => other is ItemStack stack && Equals(stack);
-        public override int GetHashCode() => HashCode.Combine(Id,Count,Energy,FluidAmount,FluidCapacity,FluidId);
-        public bool CanStack(ItemStack other) => Id == other.Id && !HasContents && !other.HasContents;
-        public int Limit(int ordinary) => HasContents ? 1 : ordinary;
+        public override int GetHashCode() => HashCode.Combine(Id,Count,Energy,FluidAmount,FluidCapacity,FluidId,Wear);
+        public bool CanStack(ItemStack other) => Id == other.Id && !HasInstanceState && !other.HasInstanceState;
+        public int Limit(int ordinary) => HasInstanceState ? 1 : ordinary;
         public ItemStack WithCount(int count) { var copy=this; copy.Count=count; if(count<=0)copy.Clear(); return copy; }
         public ItemStack(byte id, int count)
         {
             Id = count > 0 ? id : (byte)0;
             Count = id == 0 ? 0 : Math.Max(0, count);
-            Energy=FluidAmount=FluidCapacity=0;FluidId=0;
+            Energy=FluidAmount=FluidCapacity=0;FluidId=0;Wear=0;
         }
-        public bool ValidContents => Energy>=0 && FluidAmount>=0 && FluidCapacity>=0 &&
+        public bool ValidContents => Wear>=0 && (Wear==0 || Count==1 && Id!=0 && !HasContents) && Energy>=0 && FluidAmount>=0 && FluidCapacity>=0 &&
             (HasContents ? Count==1 && (Id==IndustryId.Battery
                 ? Energy>0 && Energy<=BatteryStorage.CellCapacity && FluidAmount==0 && FluidCapacity==0 && FluidId==0
                 : (Id==IndustryId.Tank || Id==IndustryId.TankController) && Energy==0 && FluidAmount>0 &&

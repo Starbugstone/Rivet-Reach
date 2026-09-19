@@ -67,7 +67,7 @@ The POC proves selected architecture. A complete release also needs coherent pla
 
 | Area | Complete experience to specify | Still open |
 |---|---|---|
-| Building and inventory | Reliable targeting, placement, mining, storage and understandable item handling | No starter tool wear; refine bulk building beyond settings copy and atomic recovery |
+| Building and inventory | Reliable targeting, placement, mining, storage and understandable item handling | [Tiered tool wear](TOOLS.md); refine bulk building beyond settings copy and atomic recovery |
 | Survival and combat | Readable threats, player damage, death/respawn and recovery | Tune health/combat; baseline has no hunger, durable death caches and no automatic factory raids |
 | Industry | Useful progression, maintainable layouts and understandable failures | Extend mechanical depth and tune the selected shortage/routing/finite-ore model |
 | Exploration and worlds | Distinct discoveries, navigation and rewarding expeditions | Realm rewards, biome/planet set and discovery pacing |
@@ -207,7 +207,7 @@ Target the authoritative voxel grid within 5 m, not a possibly stale render mesh
 
 **Mining balance revision, 2026-09-11:** every ore (including Azure) takes at least 25% longer than stone with the same eligible pickaxe. Effective mining work is the larger of its authored duration and 1.25 × stone’s authored duration, divided by the held tool’s speed. Higher authored ore hardness remains effective. Every successive pickaxe tier is faster; extraction gates remain as listed in [ECONOMY.md](ECONOMY.md#current-survival-recipes-and-tiers). The 25% margin is working tuning for the user’s request that ores be a bit slower than stone.
 
-The first tools do not wear out. Durability is deferred unless playtests establish a useful maintenance decision; it must not become a surprise prerequisite for early-loop completion. Mining permission and item yield are server-authoritative even though sound/selection feedback can begin locally.
+The user subsequently authorized [per-use tool durability](TOOLS.md): better tiers last longer, worn tools stay individual, and the final successful use breaks the tool. Mining permission and item yield are server-authoritative even though sound/selection feedback can begin locally.
 
 ### Placement and inventory
 
@@ -311,7 +311,7 @@ The felling search follows face-connected logs while staying at or above the ori
 
 Natural leaves decay after losing support through a connected leaf path to a nearby log. Player-placed leaves remain until mined. Initial tuning is a four-cell support distance and a two-second minimum delay, with bounded queued processing; exact timing and tree density remain review choices. Leaves use an opaque leafy block texture and transmit daylight for the existing grass rules. The [saplings and apples extension](#saplings-and-apples) adds renewable trees and fruit. Transparent leaf cutouts and full voxel light attenuation remain future content decisions.
 
-The earlier tree review supplied a starter dagger, pickaxe and axe. The selected [survival progression](#survival-progression-farming-health-and-armor) now starts normal sessions empty-handed and provides craftable tool tiers. Legacy starter identities remain only for explicit verification fixtures. Use the mouse wheel, `[ / ]`, or inventory to select tools; each has a one-item stack limit. The axe has an original textured model and one-hand grip, positioned lower and right with the cutting edge facing the strike direction. Pickaxes use the existing two-hand grip. Only axe capability fells generated trees; other tools mine one log at a time. Tool grade changes speed according to [ECONOMY.md](ECONOMY.md#current-survival-recipes-and-tiers). Tool wear remains unimplemented; tools cannot be placed as terrain voxels.
+The earlier tree review supplied a starter dagger, pickaxe and axe. The selected [survival progression](#survival-progression-farming-health-and-armor) now starts normal sessions empty-handed and provides craftable tool tiers. Legacy starter identities remain only for explicit verification fixtures. Use the mouse wheel, `[ / ]`, or inventory to select tools; each has a one-item stack limit. The axe has an original textured model and one-hand grip, positioned lower and right with the cutting edge facing the strike direction. Pickaxes use the existing two-hand grip. Only axe capability fells generated trees; other tools mine one log at a time. Tool grade changes speed according to [ECONOMY.md](ECONOMY.md#current-survival-recipes-and-tiers). [Tool durability](TOOLS.md) is implemented; tools cannot be placed as terrain voxels.
 
 Review generated trees at chunk seams, cut a trunk in its middle with hands and an axe, check mixed tool capabilities, item conservation, nearby trees with touching leaves, leaf decay, player-placed foliage, and unload/reload during felling. See [tree verification](verification/TREE_RESULTS.md) for measured evidence and remaining review.
 
@@ -390,7 +390,7 @@ Review normal click/right-click/drag input, craft-one and batch output, full/par
 
 **Explicit user extension, 2026-09-08:** generate multiple ores at different levels, with an unbreakable bedrock base. [ECONOMY.md](ECONOMY.md#current-ore-generation-and-bedrock) owns the ore selection, height bands, yields and current processing boundary.
 
-Explore and dig to discover coal, copper, iron, gold and diamond veins. Craft and select a pickaxe, then hold Mine within the existing 5 m reach. Coal requires wood grade, copper/iron require stone grade, and gold/diamond require iron grade. Bare hands, unsuitable capabilities and insufficient tiers cannot remove ore or build mining progress; the target label names the required pickaxe grade. The world mining command checks both capability and tier. Changing tools or targets resets accumulated work. [The progression table](ECONOMY.md#current-survival-recipes-and-tiers) owns current speed multipliers and recipes; tool wear remains unimplemented.
+Explore and dig to discover coal, copper, iron, gold and diamond veins. Craft and select a pickaxe, then hold Mine within the existing 5 m reach. Coal requires wood grade, copper/iron require stone grade, and gold/diamond require iron grade. Bare hands, unsuitable capabilities and insufficient tiers cannot remove ore or build mining progress; the target label names the required pickaxe grade. The world mining command checks both capability and tier. Changing tools or targets resets accumulated work. [The progression table](ECONOMY.md#current-survival-recipes-and-tiers) owns current speed multipliers and recipes; [tool durability](TOOLS.md) is implemented.
 
 A successful extraction removes one voxel and produces exactly one matching physical resource stack through the existing drop/pickup path. Copper and iron drops use the stylised ore-block models and matching inventory icons, while retaining their raw-metal processing identity. Other resources keep their existing appearances. They support inventory movement, splitting and dropping, but cannot be placed as ore or terrain. A repeated stale mining command produces nothing. Mined veins stay depleted when unloaded and revisited within the session; saved checkpoints retain depletion across restarts.
 
@@ -484,7 +484,7 @@ The user authorized a craftable [Hand Crank](HAND_CRANK.md) that attaches to a b
 
 ## Food balance — 2026-09-19
 
-[Food balance](FOOD_BALANCE.md) adds a capped saturation reserve to prepared food without changing existing food points, recipes, crop yields, timings or Issue #12's reduced ordinary hunger costs. Saturation is spent before food, never during sleep/offline time, and uses working defaults with [measured evidence and remaining playtesting](verification/FOOD_BALANCE_RESULTS.md).
+[Food balance](FOOD_BALANCE.md) adds a capped saturation reserve to prepared food without changing existing food points, recipes, crop yields, timings or Issue #12's reduced ordinary hunger costs. Saturation is spent before food, never during sleep/offline time, and uses working defaults with [measured evidence and remaining playtesting](verification/FOOD_BALANCE_RESULTS.md). A food-icon loss and heart-regeneration wobble lasts 0.45 seconds with at most three pixels of displacement; it does not replay while a meter is idle, static, hidden or loading.
 
 ## Compost — 2026-09-13
 

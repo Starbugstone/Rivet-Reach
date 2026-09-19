@@ -32,7 +32,7 @@ namespace RivetReach
                 {
                     int remainder=game.Inventory.Add(FishId.Raw,1);
                     if(remainder>0)game.Drop(new ItemStack(FishId.Raw,remainder));
-                    game.Sound.Pickup();game.Notify(remainder>0?"Caught a fish — backpack full; pick it up nearby":"Caught a Raw Fish",3);
+                    game.Sound.Pickup();game.Notify(remainder>0?"Caught a fish — backpack full; pick it up nearby":"Caught a Raw Fish",3);game.WearSelectedTool();
                 }
                 else game.Notify("Line reeled in — no catch",2);
                 return true;

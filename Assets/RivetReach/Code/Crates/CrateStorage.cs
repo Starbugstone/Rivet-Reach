@@ -21,7 +21,7 @@ namespace RivetReach
         public bool Accepts(byte id)=>id!=0&&Count<Capacity&&(Item==0||Item==id);
         public int Insert(ItemStack stack)
         {
-            if(stack.Empty||stack.HasContents||!stack.ValidContents||!Accepts(stack.Id))return 0;
+            if(stack.Empty||stack.HasInstanceState||!stack.ValidContents||!Accepts(stack.Id))return 0;
             int n=Math.Min(stack.Count,Capacity-Count);Item=stack.Id;Count+=n;Revision++;return n;
         }
         public ItemStack Take(int count)

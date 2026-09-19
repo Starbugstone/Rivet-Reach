@@ -1,0 +1,5 @@
+{
+  "tierUses": [0, 64, 128, 256, 512, 1536],
+  "wrenchUses": 256,
+  "fishingRodUses": 128
+}

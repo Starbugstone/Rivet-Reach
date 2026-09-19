@@ -28,7 +28,7 @@ namespace RivetReach
             var crop=CropRules.For(expected);
             if(crop==null||expected!=crop.Mature||!World.Ready(position)||!World.Ready(position.Offset(0,-1,0))||
                 World.Get(position.Offset(0,-1,0))!=BlockId.Farmland)return false;
-            if(!hoe)return World.Mine(position,expected,ToolCapability.None);
+            if(!hoe){bool harvested=World.Mine(position,expected,ToolCapability.None);if(harvested)WearSelectedTool();return harvested;}
             // Removal schedules the ordinary growth invalidation, but deliberately emits
             // no world mining-drop event: this command owns the one harvest transaction.
             if(!World.Remove(position,expected))return false;
@@ -42,6 +42,7 @@ namespace RivetReach
                 int seed=Inventory.FindSlot(stack=>!stack.Empty&&stack.Id==crop.planting);
                 if(seed>=0&&World.Plant(position,crop.planting))Inventory.Take(seed,1);
             }
+            WearSelectedTool();
             return true;
         }
     }

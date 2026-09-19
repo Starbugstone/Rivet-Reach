@@ -255,7 +255,7 @@ namespace RivetReach
             {
                 var held=game.Inventory.Slots[game.Selected];var cap=game.Registry.Capabilities(held);
                 nextStrike=Time.time+((cap&ToolCapability.Blade)!=0?.30f:(cap&ToolCapability.Axe)!=0?.55f:.40f);
-                Damage(Target,held.Empty?1:Math.Max(1,game.Registry.Get(held.Id).attackDamage),game.Player.Camera.transform.forward);
+                if(Damage(Target,held.Empty?1:Math.Max(1,game.Registry.Get(held.Id).attackDamage),game.Player.Camera.transform.forward))game.WearSelectedTool();
             }
         }
         public bool Occupies(BlockPos cell)=>Near(world.Local(cell)+Vector3.one*.5f,2).Any(c=>c.Alive&&world.OccupiesCell(c.Position.Local(world.Origin),Body(c).width,Body(c).height,cell));

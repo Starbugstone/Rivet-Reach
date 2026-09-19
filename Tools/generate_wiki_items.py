@@ -125,7 +125,7 @@ class Reference:
                        4: 'A melee weapon. It can also cut leaves faster.',
                        8: 'Digs dirt, grass and farmland faster.',
                        16: 'Tills grass or dirt into farmland and cuts leaves faster.'}
-            return purpose[d['toolCapabilities']] + ' Tools currently have no durability loss.'
+            return purpose[d['toolCapabilities']] + ' Successful actions spend durability; better tiers last longer. [Tool wear guide](Tools-and-durability.md).'
         if d['armorSlot']:
             slot = ['', 'head', 'chest', 'legs', 'feet'][d['armorSlot']]
             return f'Equip in the {slot} armor slot to add {d["armorPoints"]} protection points. The equipped piece appears on your explorer and the inventory portrait. Armor reduces incoming damage and currently has no durability loss.'
@@ -230,6 +230,8 @@ class Reference:
             lines += [f'| Tool tier | {["None", "Wood", "Stone", "Copper", "Iron", "Diamond"][d["tier"]]} |',
                       f'| Effective mining speed | {d["miningSpeed"]:g}× on suitable blocks |',
                       f'| Melee damage | {d["attackDamage"]} |']
+        if item.get('durability', 0):
+            lines += [f'| Durability | {item["durability"]} successful uses; [tool wear guide](Tools-and-durability.md) |']
         if d['armorPoints']:
             lines += [f'| Armor protection | {d["armorPoints"]} points |']
         if d['foodPoints']:

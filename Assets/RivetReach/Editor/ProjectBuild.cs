@@ -44,6 +44,7 @@ namespace RivetReach.Editor
                 if(command=="alpha-playtest-player"){Build("AlphaPlaytest");File.WriteAllText("Logs/build-result.txt","SUCCESS alpha player");return;}
                 if(command=="renewables-build"||command=="renewables-player")
                 {if(command=="renewables-build")RenewableBuild.Prepare();RenewableChecks.Run();RenewablePowerChecks.Run();RenewableCompatibilityChecks.Run();GridAllocationChecks.Run();BatteryChecks.Run();IndustryChecks.Run();Build("Renewables");File.WriteAllText("Logs/build-result.txt","SUCCESS renewable player");return;}
+                if(command=="tools-build"||command=="tools-checks"){ToolDurabilityChecks.Run();InventoryChecks.Run();PortableStorageChecks.Run();SurvivalChecks.Run();FoodBalanceChecks.Run();RenewableCompatibilityChecks.Run();if(command=="tools-build")Build("Tools");File.WriteAllText("Logs/build-result.txt","SUCCESS tools");return;}
                 if(command=="food-balance-player"||command=="food-balance-final"){FoodBalanceChecks.Run();SurvivalChecks.Run();FarmingChecks.Run();FishingChecks.Run();ChickenChecks.Run();RenewableCompatibilityChecks.Run();Build(command=="food-balance-final"?"FoodBalanceFinal":"FoodBalance");File.WriteAllText("Logs/build-result.txt","SUCCESS food balance player");return;}
                 if(command=="weather-player"){Build("Weather");File.WriteAllText("Logs/build-result.txt","SUCCESS weather player");return;}
                 if(command=="crate-build"){CrateBuild.Prepare();CrateChecks.Run();Build("Crates");File.WriteAllText("Logs/build-result.txt","SUCCESS crates");return;}
@@ -134,6 +135,7 @@ namespace RivetReach.Editor
                     if(command=="terrain-build")Build("Terrain");
                     File.WriteAllText("Logs/build-result.txt","SUCCESS "+DateTime.UtcNow.ToString("O"));return;
                 }
+                if(command!="build"&&command!="fluid-build"&&command!="survival-build")throw new InvalidOperationException("Unknown build request: "+command);
                 Prepare();DomainChecks.Run();FluidChecks.Run();
                 if(command=="build")Build();
                 if(command=="fluid-build")Build("Fluids");

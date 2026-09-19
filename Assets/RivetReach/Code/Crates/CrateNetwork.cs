@@ -79,7 +79,7 @@ namespace RivetReach
         public bool TryInsertFrom(byte id,object source,int localFace=-1)=>Insert(new ItemStack(id,1),source)==1;
         public int Insert(ItemStack stack,object source=null)
         {
-            Resolve();if(!network.Ready(position)||stack.HasContents)return 0;int remaining=stack.Count;
+            Resolve();if(!network.Ready(position)||stack.HasInstanceState)return 0;int remaining=stack.Count;
             for(int pass=0;pass<2&&remaining>0;pass++)foreach(var member in members)
             {
                 var target=member.store;if(!network.Ready(member.pos)||ReferenceEquals(target,source)||(pass==0?target.Item!=stack.Id:target.Item!=0))continue;

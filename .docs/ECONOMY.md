@@ -122,7 +122,7 @@ The survival recipe set contains 56 grid recipes and six furnace recipes; [indus
 | Iron | 6 | Adds gold and diamond |
 | Diamond | 8 | Same current ore access as iron, faster mining |
 
-Bare hands gather logs, dirt and potatoes. Stone requires a pickaxe. A tool below the required extraction grade leaves the block intact and shows the required tier. Bedrock is always protected. Axes accelerate wood and preserve the existing upward felling behavior; shovels accelerate soil; hoes till soil and accelerate leaves. Tool wear and enchantments are not implemented.
+Bare hands gather logs, dirt and potatoes. Stone requires a pickaxe. A tool below the required extraction grade leaves the block intact and shows the required tier. Bedrock is always protected. Axes accelerate wood and preserve the existing upward felling behavior; shovels accelerate soil; hoes till soil and accelerate leaves. [Tool durability](TOOLS.md) now scales by material tier; enchantments remain later scope.
 
 Furnaces take 200 ticks (10 seconds) for one log → charcoal, raw copper/iron/gold → its ingot, cobblestone → stone, or potato → baked potato. One coal or charcoal burns for 1,600 ticks (8 items), a coal block for 16,000 ticks (80), a log/plank for 300 ticks (1½), a stick for 100 ticks (½), and an obsolete wooden tool for 200 ticks (1). Burning fuel runs down after ignition even without usable input; partial paid recipe work is retained only while its input identity remains unchanged. These are furnace recipes, not grid recipe exceptions. [CRAFTING.md](CRAFTING.md#stations-and-processing-authoring) owns authoring and transaction details.
 

@@ -26,7 +26,7 @@ namespace RivetReach.Editor
                 byte[] bytes=EncodeCurrent(178);
                 using(var reader=new SaveStore("unused",items).Open(bytes,out _))
                 {
-                    Check(reader.Format==17&&reader.ReadInt32()==178,"Current full-renewable schema-17 content round-trips");
+                    Check(reader.Format==18&&reader.ReadInt32()==178,"Current full-renewable schema-18 content round-trips");
                 }
                 clone.items[0].attackDamage++;
                 bytes=EncodeCurrent(179);

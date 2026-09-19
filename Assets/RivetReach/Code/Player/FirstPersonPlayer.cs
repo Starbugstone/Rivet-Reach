@@ -37,7 +37,8 @@ namespace RivetReach
         byte eatingItem;
         int eatingSlot=-1;
         public float EatingProgress=>eating/1.2f;
-        byte miningItem;
+        ItemStack miningItem;
+        int miningSlot=-1;
         float lastForwardPress=float.NegativeInfinity;
         bool doubleTapSprint;
         Material lineMaterial;
@@ -238,7 +239,7 @@ namespace RivetReach
             // Every other use path (including planting and buckets) cancels it.
             float previousEating=heldId==eatingItem&&Game.Selected==eatingSlot?eating:0;
             eating=0;eatingItem=0;eatingSlot=-1;
-            if(heldId!=miningItem){MiningProgress=0;miningItem=heldId;}
+            if(Game.Selected!=miningSlot||!selected.Equals(miningItem)){MiningProgress=0;miningItem=selected;miningSlot=Game.Selected;}
             ToolCapability tool=Game.Registry.Capabilities(selected);
             Game.Mobs?.Interact(null,false,false,false);Game.PassiveTargets?.Interact(null,false,false,false);
             Game.SelectInteraction(Camera.transform.position,Camera.transform.forward,5,out var target,heldId==Fluids.EmptyBucket);
@@ -273,7 +274,7 @@ namespace RivetReach
                 if((tool&ToolCapability.Blade)!=0){eating=0;eatingItem=0;return;}
                 if(found&&(tool&ToolCapability.Hoe)!=0&&(id==BlockId.Grass||id==BlockId.Dirt))
                 {
-                    if(Time.time>=nextPlace&&Game.World.Till(pos)){nextPlace=Time.time+.22f;Arms.TriggerSwing();Body.TriggerSwing();if(!Game.Creative)Game.Hunger.Exert(HungerState.BlockActionExhaustion);}
+                    if(Time.time>=nextPlace&&Game.World.Till(pos)){nextPlace=Time.time+.22f;Arms.TriggerSwing();Body.TriggerSwing();if(!Game.Creative)Game.Hunger.Exert(HungerState.BlockActionExhaustion);Game.WearSelectedTool();}
                     return;
                 }
                 if(found&&id==BlockId.Farmland&&CropRules.Planting(selected.Id)!=null)
@@ -304,6 +305,7 @@ namespace RivetReach
             {
                 if(!Game.Creative)Game.Hunger.Exert(HungerState.BlockActionExhaustion);
                 Game.Sound.Mine(id,Game.World.Local(pos)+Vector3.one*.5f);Game.Notify(drop?"Gathered "+Game.Registry.Get(Game.Registry.FistDrop(id)).displayName+" — walk close to collect":"Removed "+Game.Registry.Get(id).displayName,1);
+                Game.WearSelectedTool();
             }
         }
         void CreateSelection()

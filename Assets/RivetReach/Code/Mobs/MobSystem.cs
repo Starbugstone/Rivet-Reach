@@ -348,7 +348,7 @@ namespace RivetReach
                 bool blade=(capabilities&ToolCapability.Blade)!=0,axe=(capabilities&ToolCapability.Axe)!=0;
                 int damage=held.Empty?1:Math.Max(1,game.Registry.Get(held.Id).attackDamage);
                 nextStrike=elapsed+(blade?.30f:axe?.55f:.40f);
-                Damage(Target,damage,game.Player.Camera.transform.forward);
+                if(Damage(Target,damage,game.Player.Camera.transform.forward))game.WearSelectedTool();
             }
             return true;
         }

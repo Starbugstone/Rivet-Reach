@@ -102,8 +102,8 @@ namespace RivetReach
             {
                 Span<long> available = stackalloc long[256]; available.Clear();
                 Span<int> required = stackalloc int[256]; required.Clear();
-                foreach (var source in sources) foreach (var stack in source.Slots) if(!stack.HasContents)available[stack.Id] += stack.Count;
-                foreach (var stack in Grid.Slots) if(!stack.HasContents)available[stack.Id] += stack.Count;
+                foreach (var source in sources) foreach (var stack in source.Slots) if(!stack.HasInstanceState)available[stack.Id] += stack.Count;
+                foreach (var stack in Grid.Slots) if(!stack.HasInstanceState)available[stack.Id] += stack.Count;
                 crafts = int.MaxValue;
                 foreach (var ingredient in recipe.Ingredients)
                 {
@@ -122,7 +122,7 @@ namespace RivetReach
             int Reserve(ItemContainer from, byte id, int count)
             {
                 for (int i = 0; i < from.Count && count > 0; i++)
-                    if (from.Slots[i].Id == id && !from.Slots[i].HasContents) count -= from.Take(i, count).Count;
+                    if (from.Slots[i].Id == id && !from.Slots[i].HasInstanceState) count -= from.Take(i, count).Count;
                 return count;
             }
             for (int i = 0; i < recipe.Ingredients.Count; i++)

@@ -55,7 +55,7 @@ namespace RivetReach
             int index=(game.OpenStation.Block==CrateId.Controller?cratePage*16:0)+slot;var store=endpoint.Store(index);
             if(!HeldStack.Empty)
             {
-                if(HeldStack.HasContents){game.Notify("Use a chest for batteries or tanks with stored contents.",4);return;}
+                if(HeldStack.HasInstanceState){game.Notify("Use a chest for worn tools or storage items with contents.",4);return;}
                 int amount=right?1:HeldStack.Count;int moved=endpoint.Insert(HeldStack.WithCount(amount));HeldStack=HeldStack.WithCount(HeldStack.Count-moved);
             }
             else if(store!=null&&store.Count>0)
@@ -72,7 +72,7 @@ namespace RivetReach
         }
         void TransferIntoCrate(int index)
         {
-            var stack=game.Inventory.Slots[index];if(stack.HasContents){game.Notify("Use a chest for batteries or tanks with stored contents.",4);return;}
+            var stack=game.Inventory.Slots[index];if(stack.HasInstanceState){game.Notify("Use a chest for worn tools or storage items with contents.",4);return;}
             int amount=OpenCrates?.Insert(stack)??0;if(amount>0)game.Inventory.Take(index,amount);RefreshCrates();
         }
     }

@@ -206,12 +206,12 @@ namespace RivetReach
             {
                 int index=(start+n)%count;var receiver=bucket.Receivers[index];
                 if(!world.Ready(receiver.Position)||ReferenceEquals(receiver.Inventory,source)||receiver.Inventory is IItemPipeRoutingPolicy own&&own.SharesStorage(source))continue;
-                int rejectionKey=stack.Id+(stack.HasContents?256:0);
+                int rejectionKey=stack.Id+(stack.HasInstanceState?256:0);
                 if(receiver.RejectedAt!=null&&receiver.RejectedAt[rejectionKey]==Tick)continue;
                 foreach(int face in receiver.Faces)
                 {
                     ItemReceiverProbes++;
-                    bool accepted=stack.HasContents?receiver.Inventory is ItemContainer container&&container.Add(stack)==0:receiver.Inventory is IItemPipeRoutingPolicy policy?policy.TryInsertFrom(stack.Id,identity,face):receiver.Inventory.TryInsert(stack.Id,face);
+                    bool accepted=stack.HasInstanceState?receiver.Inventory is ItemContainer container&&container.Add(stack)==0:receiver.Inventory is IItemPipeRoutingPolicy policy?policy.TryInsertFrom(stack.Id,identity,face):receiver.Inventory.TryInsert(stack.Id,face);
                     if(!accepted)continue;
                     bucket.Next[stack.Id]=(index+1)%count;ItemEndpointChanged(receiver.Position);return true;
                 }

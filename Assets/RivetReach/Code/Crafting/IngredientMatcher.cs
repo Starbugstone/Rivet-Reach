@@ -48,7 +48,7 @@ namespace RivetReach
             for(int slot=0;slot<slots;slot++)
             {
                 var stack=inventory[slot];
-                if(stack.HasContents||stack.Count<=used[slot]||!units[unit].Matches(stack.Id))continue;
+                if(stack.HasInstanceState||stack.Count<=used[slot]||!units[unit].Matches(stack.Id))continue;
                 used[slot]++;if(Match(unit+1,inventory,used))return true;used[slot]--;
             }
             return false;
@@ -62,7 +62,7 @@ namespace RivetReach
             Span<byte> ids=stackalloc byte[slots];Span<int> counts=stackalloc int[slots];int target=-1,empty=-1;
             for(int slot=0;slot<slots;slot++)
             {
-                var s=inventory[slot];if(s.HasContents)return false;
+                var s=inventory[slot];if(s.HasInstanceState)return false;
                 ids[slot]=s.Empty?(byte)0:s.Id;counts[slot]=s.Empty?0:s.Count;
                 if(s.Empty&&empty<0)empty=slot;
                 if(s.Id==incoming&&s.Count<limits[incoming]&&target<0)target=slot;

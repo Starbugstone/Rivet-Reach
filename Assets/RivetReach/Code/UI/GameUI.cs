@@ -134,7 +134,7 @@ namespace RivetReach
         void RefreshTooltip()
         {
             if(tooltip==null)return;var stack=StackAt(hoveredSlot);
-            tooltip.text=stack.Empty?"":game.Registry.Get(stack.Id).displayName+" · "+stack.Count+" / "+stack.Limit(game.Registry.Get(stack.Id).stackLimit)+(game.Registry.FoodPoints(stack.Id)>0?$" · Food {game.Registry.FoodPoints(stack.Id)} + saturation {FoodBalanceCatalog.Current.Saturation(stack.Id)}":"")+(stack.IsStorage?" · "+stack.ContentsText+" · Shift-left-click in hand to empty":"");
+            tooltip.text=stack.Empty?"":game.Registry.Get(stack.Id).displayName+" · "+stack.Count+" / "+stack.Limit(game.Registry.Get(stack.Id).stackLimit)+(game.Registry.FoodPoints(stack.Id)>0?$" · Food {game.Registry.FoodPoints(stack.Id)} + saturation {FoodBalanceCatalog.Current.Saturation(stack.Id)}":"")+(ToolDurability.Current.Maximum(stack,game.Registry)>0?" · "+ToolDurability.Current.Text(stack,game.Registry):"")+(stack.IsStorage?" · "+stack.ContentsText+" · Shift-left-click in hand to empty":"");
             if(hoveredSlot==CraftOutputSlot&&game.Crafting.Preview!=null)tooltip.text+=" · "+game.Crafting.MaximumCrafts+" craft(s) available";
             if(inventoryHint!=null)inventoryHint.enabled=tooltip.text.Length==0;
         }
@@ -148,6 +148,9 @@ namespace RivetReach
             var icon=Rect(image.transform,"Item",7,6,size-14,size-14).gameObject.AddComponent<RawImage>();icon.raycastTarget=false;slot.Icon=icon;
             slot.Count=Label(image.transform,"",3,size-22,size-7,22,14);slot.Count.alignment=TextAnchor.LowerRight;
             if(index<Inventory.HotbarCount)Label(image.transform,(index+1).ToString(),3,2,20,14,10,new Color(.55f,.64f,.64f));
+            slot.WearTrack=Panel(image.transform,5,size-6,size-10,3,new Color(.07f,.09f,.1f));slot.WearTrack.raycastTarget=false;
+            slot.WearBar=Panel(slot.WearTrack.transform,0,0,size-10,3,Color.green);slot.WearBar.raycastTarget=false;
+            slot.WearWidth=size-10;slot.WearTrack.gameObject.SetActive(false);
             slots.Add(slot);
         }
         void BuildMenu()
@@ -289,6 +292,8 @@ namespace RivetReach
             }
             if(game.OpenStation==null||game.OpenStation.Crafting!=null)game.Crafting.ReturnIngredients(game.Inventory);
         }
+        string StackStatus(ItemStack stack)=>ToolDurability.Current.Maximum(stack,game.Registry)>0?
+            ToolDurability.Current.Text(stack,game.Registry):stack.IsStorage?stack.ContentsText:stack.Count.ToString();
         void RefreshSlots()
         {
             using var measurement = slotRefreshMarker.Auto();
@@ -296,8 +301,16 @@ namespace RivetReach
             {
                 var stack=StackAt(view.Index);
                 bool selected=view.Index<Inventory.HotbarCount&&view.Index==game.Selected;
-                if(view.Shown&&view.ShownId==stack.Id&&view.ShownCount==stack.Count&&view.ShownSelected==selected)continue;
-                view.Shown=true;view.ShownId=stack.Id;view.ShownCount=stack.Count;view.ShownSelected=selected;
+                if(view.Shown&&view.ShownId==stack.Id&&view.ShownCount==stack.Count&&view.ShownWear==stack.Wear&&view.ShownSelected==selected)continue;
+                view.Shown=true;view.ShownId=stack.Id;view.ShownCount=stack.Count;view.ShownWear=stack.Wear;view.ShownSelected=selected;
+                int maximum=ToolDurability.Current.Maximum(stack,game.Registry);
+                view.WearTrack.gameObject.SetActive(maximum>0);
+                if(maximum>0)
+                {
+                    float fraction=(maximum-stack.Wear)/(float)maximum;
+                    view.WearBar.rectTransform.sizeDelta=new Vector2(view.WearWidth*fraction,3);
+                    view.WearBar.color=Color.Lerp(new Color(1,.24f,.16f),new Color(.35f,.85f,.45f),fraction);
+                }
                 view.Icon.enabled=!stack.Empty;view.Count.text=stack.Empty?"":stack.Count.ToString();
                 if(!stack.Empty)view.Icon.texture=icons[stack.Id];
                 view.Background.color=selected?new Color(.40f,.43f,.31f):view.Index==CraftOutputSlot?new Color(.22f,.34f,.32f):slate;
@@ -309,7 +322,7 @@ namespace RivetReach
                 craftOutputName.text=recipe==null?"RESULT":game.Registry.Get(recipe.Output.Id).displayName;
                 craftStatus.text=recipe==null?"Place ingredients in the grid":"Ready · "+game.Crafting.MaximumCrafts+" craft(s)";
             }
-            if(selectedLabel!=null){var stack=game.Inventory.Slots[game.Selected];selectedLabel.text=stack.Empty?"BARE HAND":game.Registry.Get(stack.Id).displayName+"  ·  "+(stack.IsStorage?stack.ContentsText:stack.Count.ToString());}
+            if(selectedLabel!=null){var stack=game.Inventory.Slots[game.Selected];selectedLabel.text=stack.Empty?"BARE HAND":game.Registry.Get(stack.Id).displayName+"  ·  "+StackStatus(stack);}
             RefreshTooltip();
             lastRevision=game.Inventory.Revision;lastCraftRevision=game.Crafting.Grid.Revision;lastStationRevision=StationRevision;lastEquipmentRevision=game.Equipment.Revision;lastSelected=game.Selected;
             RefreshMissingIngredients();
@@ -341,7 +354,7 @@ namespace RivetReach
                 progress.transform.parent.gameObject.SetActive(game.Player.HasTarget&&game.Player.MiningProgress>0);
                 progress.rectTransform.sizeDelta=new Vector2(120*Mathf.Clamp01(game.Player.MiningProgress),3);
             }
-            if(selectedLabel!=null){var s=game.Inventory.Slots[game.Selected];selectedLabel.text=s.Empty?"BARE HAND":game.Registry.Get(s.Id).displayName+"  ·  "+(s.IsStorage?s.ContentsText:s.Count.ToString());}
+            if(selectedLabel!=null){var s=game.Inventory.Slots[game.Selected];selectedLabel.text=s.Empty?"BARE HAND":game.Registry.Get(s.Id).displayName+"  ·  "+StackStatus(s);}
             frameAverage=Mathf.Lerp(frameAverage,Time.unscaledDeltaTime,.05f);
             if(diagnosticsPanel!=null)diagnosticsPanel.SetActive(game.Diagnostics);
             if(worldTime!=null)
@@ -442,7 +455,8 @@ namespace RivetReach
     {public GameUI Owner;public void OnDrag(PointerEventData e)=>Owner.RotatePreview(e.delta.x);}
     public sealed class SlotView : MonoBehaviour,IPointerDownHandler,IPointerUpHandler,IPointerClickHandler,IBeginDragHandler,IDragHandler,IEndDragHandler,IPointerEnterHandler,IPointerExitHandler
     {
-        public bool Shown,ShownSelected;public byte ShownId;public int ShownCount;
+        public bool Shown,ShownSelected;public byte ShownId;public int ShownCount,ShownWear;
+        public Image WearTrack,WearBar;public float WearWidth;
         public GameUI Owner;public int Index;public Image Background;public Outline Border;public RawImage Icon;public Text Count;
         bool dragged, rightPressHandled;
         long pressVersion=-1;

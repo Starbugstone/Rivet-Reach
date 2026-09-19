@@ -181,3 +181,7 @@ Schema **16** appends [weather](WEATHER.md) after the bed section: target/previo
 ## Food balance compatibility — 2026-09-19
 
 Schema **17** appends the player's integer saturation reserve after the existing food and exhaustion fields. It is bounded from 0 through 20. Schemas 1–16 retain their layouts and initialize the reserve to zero. The current content fingerprint adds the exact `Definitions/FoodBalance.json` text; an altered or unknown balance catalog rejects transactionally. The explicit full-renewable schema-16 fingerprint remains accepted by projecting away only this food-balance configuration, while retaining every renewable and earlier content check. [Food balance](FOOD_BALANCE.md) owns gameplay values and pending verification.
+
+## Tool durability compatibility — 2026-09-19
+
+[Tools](TOOLS.md#persistence) adds schema 18 with exact per-stack spent durability. Schemas 1–17 retain their layouts and load pristine tools, preserving schema-17 food saturation. The complete schema-17 fingerprint remains an explicit legacy candidate. Current schema-18 files require the durability configuration and all existing content checks. Validation rejects non-tool wear, exhausted/corrupt values and stacked worn tools before publishing a loaded world.

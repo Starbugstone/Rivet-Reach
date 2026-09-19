@@ -16,7 +16,7 @@ namespace RivetReach
         public void Pos(BlockPos p){Write(p.X);Write(p.Y);Write(p.Z);}
         public void Vector(Vector3 v){Write(v.x);Write(v.y);Write(v.z);}
         public void Point(WorldPoint p){Pos(p.Cell);Vector(p.Fraction);}
-        public void Stack(ItemStack s){Write(s.Id);Write(s.Count);if(Format<8){if(s.HasContents)throw new InvalidDataException("Legacy stacks cannot hold contents.");return;}Write(s.Energy);Write(s.FluidAmount);Write(s.FluidCapacity);Write(s.FluidId==0?"":Fluids.Registry.Get(s.FluidId).StableId);}
+        public void Stack(ItemStack s){if(Format<18&&s.Wear!=0)throw new InvalidDataException("Legacy stacks cannot retain tool wear.");Write(s.Id);Write(s.Count);if(Format<8){if(s.HasContents)throw new InvalidDataException("Legacy stacks cannot hold contents.");return;}Write(s.Energy);Write(s.FluidAmount);Write(s.FluidCapacity);Write(s.FluidId==0?"":Fluids.Registry.Get(s.FluidId).StableId);if(Format>=18)Write(s.Wear);}
         public void Slots(IReadOnlyList<ItemStack> slots){Write(slots.Count);foreach(var s in slots)Stack(s);}
         public void Positions(IEnumerable<BlockPos> positions){var list=positions.ToList();Write(list.Count);foreach(var p in list)Pos(p);}
     }
@@ -41,7 +41,8 @@ namespace RivetReach
         public ItemStack Stack()
         {byte id=ReadByte();int count=ReadInt32();Require(id==0?count==0:id!=BedId.Head&&id!=IndustryId.DoorUpper&&count>0&&count<=Registry.Get(id).stackLimit,"Invalid saved item stack.");var stack=new ItemStack(id,count);
             if(Format>=8){stack.Energy=Long();stack.FluidAmount=Long();stack.FluidCapacity=Long();string fluid=Text();var definition=fluid==""?null:Fluids.Registry.ByStableId(fluid);Require(fluid==""||definition!=null,"Unknown carried liquid.");stack.FluidId=definition?.Source??0;}
-            Require(stack.ValidContents,"Invalid carried storage contents.");return stack;}
+            if(Format>=18)stack.Wear=Int(0,int.MaxValue);
+            Require(stack.ValidContents&&ToolDurability.Current.Valid(stack,Registry),"Invalid carried contents or tool wear.");return stack;}
         public void Slots(ItemContainer container)
         {Require(Count(256)==container.Count,"Saved container size differs.");for(int i=0;i<container.Count;i++){var s=Stack();if(!s.Empty)Require(container.Add(s,i,i+1)==0,"Saved container overflow.");}}
         public void PlayerInventory(Inventory inventory)
@@ -69,7 +70,7 @@ namespace RivetReach
     }
     public sealed class SaveStore
     {
-        public const int Format=17;
+        public const int Format=18;
         const int MaxBytes=256*1024*1024;
         public string DirectoryPath {get;}
         readonly ItemRegistry registry;
@@ -83,7 +84,7 @@ namespace RivetReach
             // Every definition present before each accepted extension must still match.
             var processing=ProcessingCatalogAsset.Load();
             bool previousTierRecipes=false;
-            string Fingerprint(int legacy,bool orchard=false,bool wrench=false,bool electric=false,bool lava=false,bool floater=false,bool bridges=false,bool ranged=false,bool farming=false,bool materialTags=true,bool compost=false,bool habitats=false,bool spawnLight=false,bool mixedCompost=false,bool fishing=false,bool chickens=false,bool playtest=false,bool beds=false,bool crates=false,bool renewables=false,bool foodBalance=false)
+            string Fingerprint(int legacy,bool orchard=false,bool wrench=false,bool electric=false,bool lava=false,bool floater=false,bool bridges=false,bool ranged=false,bool farming=false,bool materialTags=true,bool compost=false,bool habitats=false,bool spawnLight=false,bool mixedCompost=false,bool fishing=false,bool chickens=false,bool playtest=false,bool beds=false,bool crates=false,bool renewables=false,bool foodBalance=false,bool legacyHighFoodBalance=false,bool toolWear=false)
             {
                 string definitions=string.Join("\n",registry.items.Where(i=>(renewables||i.stableId!="rivet:solar_panel"&&i.stableId!="rivet:wind_turbine")&&(crates||!CrateId.Part(i.runtimeId))&&(beds||i.runtimeId!=BedId.Bed)&&(playtest||i.runtimeId!=BlockId.LavaRock&&i.runtimeId!=BlockId.MobSpawner)&&(chickens||!ChickenId.Added(i.runtimeId))&&(fishing||!FishId.Added(i.runtimeId))&&(mixedCompost||i.runtimeId!=CompostId.Auto)&&(compost||!CompostId.Added(i.runtimeId))&&(farming||!FarmId.Added(i.runtimeId))&&(ranged||i.stableId!="rivet:ranged_liquid_pump")&&(bridges||i.runtimeId<IndustryId.ItemBridge||i.runtimeId>IndustryId.ChunkLoader)&&(floater||i.stableId!="rivet:floater_rock")&&(lava||i.stableId!="rivet:lava_bucket")&&(electric||i.stableId!="rivet:electric_furnace")&&(wrench||i.stableId!="rivet:wrench")&&(orchard||i.stableId!="rivet:sapling"&&i.stableId!="rivet:apple")&&((legacy&2)==0||i.stableId!="rivet:hand_crank")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.runtimeId).Select(i=>ItemFingerprint(i,farming,materialTags,compost)))
                     +string.Join("\n",processing.recipes.OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
@@ -98,14 +99,21 @@ namespace RivetReach
                 if(fishing)definitions+=Resources.Load<TextAsset>("Definitions/FishingCooking").text+"|fishing-v1";
                 if(mixedCompost)definitions+="|mixed-compost-v2:yield-1-4:160W:8J:512J";
                 if(renewables&&registry.items.Any(i=>i.stableId=="rivet:solar_panel"||i.stableId=="rivet:wind_turbine"))definitions+=Resources.Load<TextAsset>("Definitions/Renewables").text;
-                if(foodBalance)definitions+=Resources.Load<TextAsset>("Definitions/FoodBalance").text;
+                if(foodBalance)definitions+=Resources.Load<TextAsset>(legacyHighFoodBalance?"Definitions/FoodBalanceLegacyHighSaturation":"Definitions/FoodBalance").text;
+                if(toolWear)definitions+=Resources.Load<TextAsset>("Definitions/ToolDurability").text;
                 return Convert.ToBase64String(Hash(Encoding.UTF8.GetBytes(definitions)));
             }
-            content=Fingerprint(0,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,renewables:true,foodBalance:true);
+            content=Fingerprint(0,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,renewables:true,foodBalance:true,toolWear:true);
             // Accept the exact pre-tiering recipes as well as current costs, with all other content still checked.
             for(int tierVersion=0;tierVersion<2;tierVersion++)
             {
             previousTierRecipes=tierVersion==1;
+            // A schema-17 checkpoint created after the moderate retune has no
+            // tool-wear fields, but otherwise retains this exact current catalog.
+            modernContent.Add(Fingerprint(0,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,renewables:true,foodBalance:true));
+            // Schema-17 saves carry the exact original high-reserve FoodBalance text.
+            // Keep every other current content field in this projection.
+            modernContent.Add(Fingerprint(0,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,renewables:true,foodBalance:true,legacyHighFoodBalance:true));
             // Exact complete schema-16 catalog immediately before food-balance
             // configuration was introduced.  The renewable projection remains
             // below it for the earlier schema-16 catalog.
@@ -220,7 +228,7 @@ namespace RivetReach
                 entry.GeneratorVersion=r.Text();
                 SaveReader.Require(TerrainGenerator.Supported(entry.GeneratorVersion),"This save requires a different terrain generator.");
                 string savedContent=r.Text();
-                SaveReader.Require(format>=4?modernContent.Contains(savedContent):format==3?currentContent.Contains(savedContent):legacyContent.Contains(savedContent),"This save requires different content definitions; migration is not available.");
+                SaveReader.Require(format>=18?savedContent==content:format>=4?modernContent.Contains(savedContent):format==3?currentContent.Contains(savedContent):legacyContent.Contains(savedContent),"This save requires different content definitions; migration is not available.");
                 return r;
             }
             catch{r.Dispose();throw;}
