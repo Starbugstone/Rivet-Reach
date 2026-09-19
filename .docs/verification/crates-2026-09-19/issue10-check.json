@@ -1,0 +1,7 @@
+{
+  "issue": 10,
+  "state": "OPEN",
+  "newlyChecked": 12,
+  "phase8": "### Phase 8 \u2014 bulk storage\n- [x] single-item crate\n- [x] large-capacity storage behaviour\n- [x] manual item lock\n- [x] visual item identification\n- [x] crate controller\n- [x] connected-crate discovery\n- [x] aggregate insert/extract\n- [x] network size/performance safeguards\n- [x] machine/logistics integration",
+  "bodyReadbackMatches": true
+}

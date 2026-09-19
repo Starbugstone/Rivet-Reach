@@ -1,0 +1,23 @@
+{
+  "images/crates/chest-item-priority.png": "c46f218ddd3dc362853943380353624fc825a95da770e0111da67c3e7da5625e",
+  "images/crates/controller-crafting.png": "d330afca96cbdf8ebd4d52a6fb5fba5aad2297413bdd7a71321c4b143feb0833",
+  "images/crates/controller-interface.png": "eb80c46022ddcd0f79859c331daf3099f69cf06edee045492c091ceae457c504",
+  "images/crates/controller-recipe.png": "e784c4dd6d2799c30c2874fdd79b7e92daed7b290a4b22e0689aaebdea216a7e",
+  "images/crates/crate-crafted.png": "312afaf00406ac6f456afde29746b14c0e9c1955d10cc798e11bc795ecec4381",
+  "images/crates/crate-crafting.png": "80ed06cefff42e77175340a8504267dda1c70509162aaf568664a72282764fb0",
+  "images/crates/crate-front-stock.png": "2da50f5d9ab5a0439ef45131ef79eeae1d6db23b5cb0cb62a4491a2b45a1e186",
+  "images/crates/crate-item-priority.png": "aeded6cea24881fff84500cde9b5eb94a598b281d1aea70fb7e07d32d0d23f5f",
+  "images/crates/crate-locked-interface.png": "fbf63caf3b34e86f7ef217574e2c568982fe44c952a42918767dda62c244bef9",
+  "images/crates/crate-placed.png": "ed0ff5ccd99625d33fee70522240b2e84cd6f0d5b361bcc5f2d06f99a1d11242",
+  "images/crates/crate-recipe.png": "f5da9046aef6a2d0167dfd964d6929d8427b295b717b88271d53a000139ed938",
+  "images/crates/crate-warehouse.png": "59b487380cd206d8eac38504a9899937586dec5eabbd2d1ae7508196a9774b79",
+  "images/crates/electric-machine-item-priority.png": "6d233e27e6d514c66451c08def2d4c4c46a73fd01e84399cdd8b76165d8f262e",
+  "images/crates/item-priority-network.png": "c0c881683c7a44b97c9a5a6c49f816baeb9da7e6d98ac54cee783ef032d7d98c",
+  "images/crates/machine-item-priority.png": "ba50eb10f62f7b20847887c823bd9fee261126058bd2a68a143b84a58e86225b",
+  "icons/33.png": "bc4e29ff33170863524d97fd7349914acb5eda5d9a503dd716cd3e81f7d4c76c",
+  "icons/34.png": "e2adc9bcf42db38306396076b8ff76e1379fc61654b79b76fe79303f5c6e8c17",
+  "icons/35.png": "b06c9e5dd5141b5867eae372ff3812a78268ae7f5993f52a7606ed826d841ab6",
+  "icons/36.png": "ad165a8a356bfea5d06516416f6246d636f941e735ab921c33c67b0bcdfc4add",
+  "icons/176.png": "58b3ccfd5c8ab183f80ac1db8c11a3362f55d9a11a0bba89851b8e16f90286d9",
+  "icons/177.png": "171b585baf6a892a5255915dc96d7e25491932ba2386a23a603f92a08d90c29d"
+}
