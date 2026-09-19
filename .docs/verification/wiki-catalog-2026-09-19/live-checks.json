@@ -1,0 +1,26 @@
+{
+  "index": {
+    "images": 191,
+    "headings": [
+      "Recent additions",
+      "Building blocks",
+      "Ore deposits and bedrock",
+      "Materials and components",
+      "Tools and weapons",
+      "Armor",
+      "Food and farming",
+      "Home and storage",
+      "Light and buckets",
+      "Stations and machines",
+      "Connections and controls",
+      "Multiblock tanks and batteries",
+      "Legacy test equipment"
+    ],
+    "bedSection": "<a href=\"Item-bed\">Bed</a>",
+    "text": "Items\n\nClick any icon or item name for what it does, how to obtain it, its recipes, and the things you can make with it.\n\nCrafting guide \u00b7 Home\n\nIncludes all 191 registered items and world-block entries in the current development build. The downloadable alpha release may contain fewer items. Ore blocks, crops, bedrock and legacy test equipment have pages even when they cannot be crafted or placed.\n\nBuilding blocks \u00b7 Ore deposits and bedrock \u00b7 Materials and components \u00b7 Tools and weapons \u00b7 Armor \u00b7 Food and farming \u00b7 Home and storage \u00b7 Light and buckets \u00b7 Stations and machines \u00b7 Connections and controls \u00b7 Multiblock tanks and batteries \u00b7 Legacy test equipment\n\nRecent additions\n\nBed \u00b7 Fishing Rod \u00b7 Egg \u00b7 Autocomposter \u00b7 Cooker \u00b7 Electric Cooker \u00b7 Lava Rock \u00b7 Mob Spawner\n\nBuilding blocks\n\t\t\t\n\nCoal block\t\nCobblestone\t\nCopper block\t\nDiamond block\n\nDirt\t\nGold block\t\nGrass\t\nIron block\n\nLava Rock\t\nLeaves\t\nLog\t\nPlanks\n\nRed clay\t\nSand\t\nSandstone\t\nSnow\n\nStone\t\t\t\nOre deposits and bedrock\n\t\t\t\n\nAzure Ore\t\nBedrock\t\nCoal ore\t\nCopper ore\n\nDiamond ore\t\nGold ore\t\nIron ore\t\nMaterials and components\n\t\t\t\n\nAzure Crystal\t\nCharcoal\t\nCloth\t\nCoal\n\nCopper ingot\t\nCopper Plate\t\nCopper Wire\t\nCrushed Copper\n\nCrushed Gold\t\nCrushed Iron\t\nDiamond\t\nFeather\n\nFlax Fibre\t\nFloater Rock\t\nGlass\t\nGold ingot\n\nIron Cog\t\nIron ingot\t\nIron Plate\t\nMachine Casing\n\nRaw copper\t\nRaw gold\t\nRaw iron\t\nRivets\n\nStick\t\nString\t\t\nTools and weapons\n\t\t\t\n\nCopper axe\t\nCopper hoe\t\nCopper pickaxe\t\nCopper shovel\n\nCopper sword\t\nDiamond axe\t\nDiamond hoe\t\nDiamond pickaxe\n\nDiamond shovel\t\nDiamond sword\t\nFishing Rod\t\nIron axe\n\nIron hoe\t\nIron pickaxe\t\nIron shovel\t\nIron sword\n\nStone axe\t\nStone hoe\t\nStone pickaxe\t\nStone shovel\n\nStone sword\t\nWood axe\t\nWood hoe\t\nWood pickaxe\n\nWood shovel\t\nWood sword\t\nWrench\t\nArmor\n\t\t\t\n\nCopper boots\t\nCopper chestplate\t\nCopper helmet\t\nCopper leggings\n\nDiamond boots\t\nDiamond chestplate\t\nDiamond helmet\t\nDiamond leggings\n\nIron boots\t\nIron chestplate\t\nIron helmet\t\nIron leggings\nFood and farming\n\t\t\t\n\nApple\t\nBaked potato\t\nBerries\t\nBerry Seeds\n\nBerry \u00b7 Mature\t\nBerry \u00b7 Stage 1\t\nBerry \u00b7 Stage 2\t\nBerry \u00b7 Stage 3\n\nBread\t\nCarrot\t\nCarrot Seeds\t\nCarrot \u00b7 Mature\n\nCarrot \u00b7 Stage 1\t\nCarrot \u00b7 Stage 2\t\nCarrot \u00b7 Stage 3\t\nChicken Stew\n\nCompost\t\nCooked Chicken\t\nCooked Egg\t\nCooked Fish\n\nCooked Mushrooms\t\nEgg\t\nFarmland\t\nFish Stew\n\nFlax Seeds\t\nFlax \u00b7 Mature\t\nFlax \u00b7 Stage 1\t\nFlax \u00b7 Stage 2\n\nFlax \u00b7 Stage 3\t\nFlowering potatoes\t\nFruit Porridge\t\nGrain\n\nMushroom\t\nMushroom Cluster\t\nPotato\t\nPotato seedlings\n\nRaw Chicken\t\nRaw Fish\t\nRipe potatoes\t\nRoasted Carrot\n\nSapling\t\nVegetable Stew\t\nWheat Seeds\t\nWheat \u00b7 Mature\n\nWheat \u00b7 Stage 1\t\nWheat \u00b7 Stage 2\t\nWheat \u00b7 Stage 3\t\nYoung potatoes\nHome and storage\n\t\t\t\n\nBed\t\nChest\t\nWooden Door\t\nLight and buckets\n\t\t\t\n\nBucket\t\nLava bucket\t\nTorch\t\nWater bucket\nStations and machines\n\t\t\t\n\nAlternator\t\nAutocomposter\t\nBoiler Engine\t\nChunk Loader\n\nCompost Bin\t\nCooker\t\nCrusher\t\nDrill\n\nElectric Cooker\t\nElectric Furnace\t\nFurnace\t\nHand Crank\n\nItem Bridge\t\nLiquid Bridge\t\nMachinist's Bench\t\nMob Spawner\n\nPower Bridge\t\nPump\t\nRanged Liquid Pump\t\nWater Tank\n\nWorkbench\t\nWorkshop Lamp\t\t\nConnections and controls\n\t\t\t\n\nButton\t\nExtractor\t\nFluid Pipe\t\nInventory Sensor\n\nItem Pipe\t\nLever\t\nPower Cable\t\nSignal Conduit\n\nSignal Indicator\t\nSignal Relay\t\nSignal Wire\t\nWorkshop Hatch\nMultiblock tanks and batteries\n\t\t\t\n\nBattery Bank Controller\t\nBattery Block\t\nReinforced Tank Frame\t\nReinforced Tank Glass\n\nSignal Valve Port\t\nTank Access Hatch\t\nTank Controller\t\nTank Fluid Port\n\nTank Level Sensor\t\nTank Wall\t\t\nLegacy test equipment\n\nHistorical test items available in the Creative catalog. Ordinary expeditions start empty-handed; these tools have no active crafting recipes.\n\n\t\t\t\n\nStarter axe\t\nStarter dagger\t\nStarter pickaxe\t\n\nRivet Reach \u00b7 \u00a9 Starbugstone \u00b7 All rights reserved. These guides describe the current playable alpha."
+  },
+  "mobile": {
+    "width": 390,
+    "documentWidth": 390
+  }
+}

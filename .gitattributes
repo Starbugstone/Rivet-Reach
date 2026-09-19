@@ -99,3 +99,5 @@ ArtSource/Spawners/*.png filter=lfs diff=lfs merge=lfs -text
 ArtSource/Beds/*.png filter=lfs diff=lfs merge=lfs -text
 .docs/wiki/images/beds/*.png filter=lfs diff=lfs merge=lfs -text
 .docs/verification/beds-2026-09-19/*.png filter=lfs diff=lfs merge=lfs -text
+
+.docs/verification/wiki-catalog-2026-09-19/*.png filter=lfs diff=lfs merge=lfs -text
