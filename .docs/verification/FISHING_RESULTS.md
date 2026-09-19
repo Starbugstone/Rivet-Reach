@@ -25,4 +25,10 @@ The exported reference contains **182 items and 188 recipes**. The publisher val
 
 Long-session food balance, accessibility of bite cues, varied natural fishing locations and broad hardware performance remain playtest work. This slice adds no fish mobs, bait, durability, depletion, weather or biome-specific catches. The three-second bite, 8–16-second wait and food values are working defaults, not claims of proven balance.
 
-Publication and browser evidence will be appended after the maintained wiki is deployed.
+## Published wiki and issue
+
+[Deployment 35434968498](https://github.com/Starbugstone/Rivet-Reach/actions/runs/35434968498) succeeded, publishing wiki commit `5b381de` from implementation commit `868c9ce`. All 608 exported source fingerprints match the committed inputs. The nine screenshots and four new item icons match their published PNG bytes exactly.
+
+Live Chromium review loaded all nine guide images at 1280×900, and reviewed the rod and three fish item pages at 390×844 with no broken images or horizontal document overflow. The rod's three-stick/two-string 3×3 recipe is visible and its String ingredient link opens the correct item page. Evidence: [live guide](fishing-2026-09-19/wiki-fishing.png), [mobile rod recipe](fishing-2026-09-19/wiki-rod-mobile.png), [publication record](fishing-2026-09-19/publication.json).
+
+[Issue #10](https://github.com/Starbugstone/Rivet-Reach/issues/10) now checks the rod, fishing interaction, fish, cooking, minimum source-water requirement and illustrated steps. Beds, chickens, crates, weather, renewables and unvalidated sustained balance remain unchecked; the issue remains open.

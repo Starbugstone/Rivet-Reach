@@ -1,0 +1,41 @@
+{
+  "reviewedUtc": "2026-09-19T09:35:26.547741+00:00",
+  "repositoryCommit": "868c9ceaafa364ebdb1954f96bab0f4b2f1b063f",
+  "wikiCommit": "5b381dee2299bc8133985236d72ae464387a139a",
+  "workflow": {
+    "id": 35434968498,
+    "conclusion": "success",
+    "url": "https://github.com/Starbugstone/Rivet-Reach/actions/runs/35434968498"
+  },
+  "validation": {
+    "items": 182,
+    "recipes": 188,
+    "pages": 206,
+    "links": 8920,
+    "committedSourceHashes": 608,
+    "publishedPngByteMatches": 13
+  },
+  "browser": {
+    "desktop": [
+      1280,
+      900
+    ],
+    "mobile": [
+      390,
+      844
+    ],
+    "guideImages": 9,
+    "rodImages": 10,
+    "rawFishImages": 5,
+    "cookedFishImages": 20,
+    "stewImages": 24,
+    "brokenImages": 0,
+    "documentOverflow": false,
+    "ingredientClick": "Item-fishing-rod -> Item-string"
+  },
+  "issue": {
+    "number": 10,
+    "state": "OPEN",
+    "fishingChecklistUpdated": true
+  }
+}
