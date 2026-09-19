@@ -10,6 +10,7 @@ namespace RivetReach
             if(IndustryDefinition.All.TryGetValue(id,out var machine)){key=machine.Key;return true;}
             key=id switch
             {
+                BedId.Bed=>"bed",
                 CompostId.Compost=>"compost",
                 IndustryId.AzureCrystal=>"azure_crystal",
                 IndustryId.CopperWire=>"copper_wire",

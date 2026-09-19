@@ -100,8 +100,8 @@ namespace RivetReach
         }
         public bool Solid(BlockPos p) => !Ready(p)||BlockId.Solid(Get(p))&&!(IsOpenMachine?.Invoke(p)??false);
         public Func<BlockPos,bool> CanRemoveMachine;
-        public bool Remove(BlockPos p,byte expected) => IndustryId.DoorPart(expected)?RemoveDoor(p,expected): (CanRemoveMachine?.Invoke(p)??true)&&expected!=0&&expected!=BlockId.Bedrock&&Change(p,expected,0);
-        public bool Place(BlockPos p,byte id) => id==BlockId.Sapling?PlantSapling(p): id==IndustryId.WoodenDoor?PlaceDoor(p): id==BlockId.Torch?PlaceTorch(p,p.Offset(0,-1,0)):BlockId.Placeable(id)&&(Get(p)==0||Fluids.IsFluid(Get(p)))&&Change(p,Get(p),id);
+        public bool Remove(BlockPos p,byte expected) => BedId.Part(expected)?RemoveBed(p,expected): IndustryId.DoorPart(expected)?RemoveDoor(p,expected): (CanRemoveMachine?.Invoke(p)??true)&&expected!=0&&expected!=BlockId.Bedrock&&Change(p,expected,0);
+        public bool Place(BlockPos p,byte id) => id==BedId.Bed?PlaceBed(p,0): id==BlockId.Sapling?PlantSapling(p): id==IndustryId.WoodenDoor?PlaceDoor(p): id==BlockId.Torch?PlaceTorch(p,p.Offset(0,-1,0)):BlockId.Placeable(id)&&(Get(p)==0||Fluids.IsFluid(Get(p)))&&Change(p,Get(p),id);
         public bool ChangeFluid(BlockPos p,byte expected,byte replacement)
             =>(expected==0||expected==BlockId.Torch||expected==BlockId.Sapling||Fluids.IsFluid(expected))&&(replacement==0||Fluids.IsFluid(replacement)||expected==Fluids.Lava.Source&&replacement==BlockId.LavaRock)&&Change(p,expected,replacement,false);
         public bool Submerged(Vector3 point,out FluidDefinition fluid,out byte cell)
@@ -251,6 +251,7 @@ namespace RivetReach
             // support path. The original support removal already scheduled affected leaves.
             if((expected==BlockId.Log||expected==BlockId.Leaves&&requireReady)&&replacement!=expected)Trees.SupportRemoved(this,p);
             DoorSupportChanged(p,replacement);
+            BedSupportChanged(p,replacement);
             if(harvestLeaf)HarvestLeaf(p);
             if(expected==BlockId.Sapling&&Fluids.IsFluid(replacement))BlockMined?.Invoke(p,BlockId.Sapling);
             TorchChanged(p,expected,replacement);

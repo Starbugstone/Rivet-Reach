@@ -88,3 +88,5 @@ A [Ranged Liquid Pump](.docs/RANGED_PUMP.md) upgrades a Pump with Floater Rock a
 The latest [farming and cooking increment](.docs/FARMING.md) adds growing wild crops, forage, flax textiles, shared item tags and fuel/electric cookers. Run **`Builds/Farming/RivetReach.exe`**; [verification](.docs/verification/FARMING_RESULTS.md) records the build checks. New terrain features appear only in ungenerated chunks, with conservative protection around legacy saved activity.
 
 [Cave lighting and underground farms](.docs/wiki/Lighting-and-underground-farms.md) now use cached sky access and placed-light growth checks. Try `Builds/Lighting/RivetReach.exe`; [verification](.docs/verification/LIGHTING_RESULTS.md) includes actual cave/farm captures, normal-view-distance measurements and save regressions.
+
+[Beds](.docs/BEDS.md) turn Cloth and Planks into a home respawn point and nighttime sleep. The [player guide](.docs/wiki/Beds-and-home-spawn.md) shows crafting, placement and safe arrivals; [verification](.docs/verification/BED_RESULTS.md) records measured checks.

@@ -36,3 +36,5 @@
 - [Floater spawners](Spawners.md) — rare cave rooms, lighting and independent cage populations.
 
 - [Spawn mechanics](Spawn-mechanics.md) — light, floors, distances, natural populations, cage caps and persistent chickens.
+
+- [Beds and home spawn](Beds-and-home-spawn.md) — craft a bed, set home and sleep until morning.

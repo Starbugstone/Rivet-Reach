@@ -42,6 +42,8 @@ namespace RivetReach.Editor
                 {AlphaPlaytestAssets.Prepare();AlphaPlaytestChecks.Run();AlphaWorldChecks.Run();LavaChecks.Run();InventoryChecks.Run();SurvivalChecks.Run();FarmingChecks.Run();FishingChecks.Run();ChickenChecks.Run();if(command=="alpha-playtest-build")Build("AlphaPlaytest");File.WriteAllText("Logs/build-result.txt","SUCCESS alpha playtest");return;}
                 if(command=="alpha-playtest-export"){WikiExport.Export();File.WriteAllText("Logs/build-result.txt","SUCCESS alpha export");return;}
                 if(command=="alpha-playtest-player"){Build("AlphaPlaytest");File.WriteAllText("Logs/build-result.txt","SUCCESS alpha player");return;}
+                if(command=="bed-build"){BedBuild.Prepare();BedChecks.Run();SurvivalChecks.Run();Build("Beds");File.WriteAllText("Logs/build-result.txt","SUCCESS beds");return;}
+                if(command=="bed-player"){BedChecks.Run();Build("Beds");File.WriteAllText("Logs/build-result.txt","SUCCESS bed player");return;}
                 if(command=="chicken-build"){ChickenBuild.Prepare();ChickenChecks.Run();FarmingChecks.Run();SurvivalChecks.Run();FishingChecks.Run();Build("Chickens");File.WriteAllText("Logs/build-result.txt","SUCCESS chickens");return;}
                 if(command=="chicken-player"){Build("Chickens");File.WriteAllText("Logs/build-result.txt","SUCCESS chicken player");return;}
                 if(command=="fishing-build"){FishingBuild.Prepare();FishingChecks.Run();FarmingChecks.Run();SurvivalChecks.Run();CompostChecks.Run();WikiExport.Export();Build("Fishing");File.WriteAllText("Logs/build-result.txt","SUCCESS fishing");return;}

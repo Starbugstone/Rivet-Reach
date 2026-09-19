@@ -98,3 +98,7 @@ There must be fewer than **12 chickens within 48 blocks of each proposed site**.
 The September 19, 2026 verification capture above uses a constructed review room. Current automated checks exercise shared eligibility, natural spawning, light rejection, separate cage ownership and unloading. These rules are Alpha defaults; they do not claim a measured farm throughput or guaranteed room-filling time.
 
 [Hostile mobs](Mobs.md) · [Floater spawners](Spawners.md) · [Chickens](Chickens.md) · [Home](Home.md)
+
+## Home beds and sleep
+
+A valid [Bed](Beds-and-home-spawn.md) sets your home respawn point. Death returns you beside that bed when a safe standing space is available; destroyed or blocked beds fall back to world spawn. Sleeping advances the clock to 06:00. Existing hostiles remain, while normal dawn spawn rules apply.

@@ -4,7 +4,7 @@
 
 [All items](Items.md) · [Crafting guide](Crafting-Recipes.md) · [Home](Home.md)
 
-[How to obtain](#how-to-obtain) · [Crafting and processing](#crafting-and-processing)
+[How to obtain](#how-to-obtain) · [Crafting and processing](#crafting-and-processing) · [Uses](#used-to-make)
 
 <a href="Item-cloth.md" title="Cloth"><img src="icons/225.png" width="96" height="96" alt="Cloth"></a>
 
@@ -23,7 +23,7 @@ Make this item using the crafting or processing recipes below.
 
 ## Using it
 
-Begins the textile chain; beds are a later increment.
+Three Cloth above three Planks make one [Bed](Item-bed.md) at a Workbench. See [Beds and home spawn](Beds-and-home-spawn.md).
 
 ## Crafting and processing
 
@@ -49,3 +49,11 @@ Begins the textile chain; beds are a later increment.
 | Ingredient | Total per operation |
 |---|---:|
 | <a href="Item-string.md" title="String"><img src="icons/224.png" width="32" height="32" alt="String"></a> [String](Item-string.md) | 4 |
+
+## Used to make
+
+Follow a result to see its complete ingredients and recipe.
+
+| Result | Station | Recipe |
+|---|---|---|
+| <a href="Item-bed.md#recipe-1" title="Bed"><img src="icons/254.png" width="32" height="32" alt="Bed"></a> ×1 [Bed](Item-bed.md) | [Workbench](Item-workbench.md) | [View recipe](Item-bed.md#recipe-1) |

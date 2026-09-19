@@ -65,3 +65,5 @@ Drain finite lava deposits with a [Ranged Liquid Pump](Ranged-Liquid-Pump.md), c
 [Building and inventory shortcuts](Building-and-inventory.md) cover middle-click organisation, Pick Block and hoe replanting. Rare [Floater spawner rooms](Spawners.md) provide another route to encounter Floaters during underground exploration.
 
 - [Spawn mechanics](Spawn-mechanics.md) — light, floors, distances, natural populations, cage caps and persistent chickens.
+
+- [Beds and home spawn](Beds-and-home-spawn.md) — craft a bed, set home and sleep until morning.

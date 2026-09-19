@@ -1,0 +1,1 @@
+1780 triangles; 1 renderer; 1 shared material; bounds (0.01, 0.00, 0.02) to (0.99, 0.96, 1.98); UV/normals 3872/3872.

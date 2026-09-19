@@ -487,7 +487,7 @@
   },
   "rivet:cloth": {
     "description": "Fabric crafted from four Strings.",
-    "use": "Begins the textile chain; beds are a later increment."
+    "use": "Three Cloth above three Planks make one [Bed](Item-bed.md) at a Workbench. See [Beds and home spawn](Beds-and-home-spawn.md)."
   },
   "rivet:cooker": {
     "description": "A food preparation station with selectable recipes and interchangeable tagged ingredients.",
@@ -562,5 +562,10 @@
     "description": "A cage containing a visual miniature of its configured creature. Rare underground rooms contain Floater cages.",
     "obtain": "Find one in newly explored cave terrain. Breaking it destroys it and drops no collectible spawner; the item is available only for Creative testing.",
     "use": "Stay within 36 blocks and keep suitable nearby floor space dark. Each cage owns at most five active mobs. See [Spawners](Spawners.md)."
+  },
+  "rivet:bed": {
+    "description": "A two-block timber bed for home respawning and sleeping until morning.",
+    "obtain": "Craft at a Workbench from three Cloth above three Planks.",
+    "use": "Place on two dry, solid floor blocks. Use/right-click or Interact sets home during the day and also skips to 06:00 at night. Leave safe standing space beside it. See [Beds and home spawn](Beds-and-home-spawn.md) for placement, recovery and respawn fallback."
   }
 }

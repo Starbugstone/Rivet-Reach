@@ -30,7 +30,7 @@ namespace RivetReach
                 {
                     int index=r.Int(0,32767);byte id=r.ReadByte();var p=min.Offset(index%32,index/32%32,index/1024);
                     SaveReader.Require(p.Y>TerrainGenerator.MinY&&p.Y<=TerrainGenerator.MaxY&&p.X>=-TerrainGenerator.HorizontalLimit&&p.X<=TerrainGenerator.HorizontalLimit&&p.Z>=-TerrainGenerator.HorizontalLimit&&p.Z<=TerrainGenerator.HorizontalLimit,"Invalid edited terrain position.");
-                    SaveReader.Require(id==0||Fluids.IsFluid(id)||BlockId.Placeable(id)||BlockId.Crop(id)||id==IndustryId.DoorUpper||id==BlockId.Farmland,"Invalid saved terrain cell.");page.Add(index,id);
+                    SaveReader.Require((!BedId.Part(id)||r.Format>=14)&&(id==0||Fluids.IsFluid(id)||BlockId.Placeable(id)||BlockId.Crop(id)||id==BedId.Head||id==IndustryId.DoorUpper||id==BlockId.Farmland),"Invalid saved terrain cell.");page.Add(index,id);
                     if(BlockId.Opaque(id)){var key=(p.X,p.Z);if(!editedColumns.TryGetValue(key,out var column))editedColumns[key]=column=new SortedSet<int>();column.Add(p.Y);}
                 }
             }

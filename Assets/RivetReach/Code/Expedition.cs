@@ -11,6 +11,7 @@ namespace RivetReach
         public VoxelWorld World {get;private set;}
         public MobSystem Mobs {get;private set;}
         public PlayerFishing Fishing {get;private set;}
+        public PlayerBeds Beds {get;private set;}
         public PassiveSystem Animals {get;private set;}
         public FirstPersonPlayer Player {get;private set;}
         public DroppedItems Items {get;private set;}
@@ -88,6 +89,7 @@ namespace RivetReach
             Mobs=root.AddComponent<MobSystem>();Mobs.Initialize(this);
             Animals=root.AddComponent<PassiveSystem>();Animals.Initialize(this);PassiveTargets=Animals;
             Fishing=new PlayerFishing(this);root.AddComponent<FishingPresentation>().Initialize(this);
+            Beds=new PlayerBeds(this);root.AddComponent<BedPresentation>().Initialize(this);
         }
         void SpawnMinedDrop(BlockPos pos,byte id)
         {
@@ -161,7 +163,7 @@ namespace RivetReach
             // Do not reuse a UI-closing press to immediately reopen the targeted station.
             if(Mode!=ScreenMode.Play||Health.Dead||modeChangedFrame==Time.frameCount)return false;
             var eye=Player.Camera.transform;
-            return World.Raycast(eye.position,eye.forward,5,out var position,out var id)&&(IndustryId.Placed(id)||id==IndustryId.DoorUpper?TryOpenMachine(position):BlockId.Station(id)&&TryOpenStation(position));
+            return World.Raycast(eye.position,eye.forward,5,out var position,out var id)&&(BedId.Part(id)?Beds.Use(position):IndustryId.Placed(id)||id==IndustryId.DoorUpper?TryOpenMachine(position):BlockId.Station(id)&&TryOpenStation(position));
         }
         public bool TryOpenStation(BlockPos position)
         {
@@ -189,10 +191,12 @@ namespace RivetReach
         public void Respawn()
         {
             if(!Health.Dead)return;
-            if(!RespawnPlacement.TryFind(World.Get,out var spawn)){Notify("No safe respawn location within 100 blocks of world 0:0. Load a checkpoint or clear space near the origin.",8);return;}
+            bool home= Beds.TryRespawn(out var spawn);
+            if(!home&&!RespawnPlacement.TryFind(World.Get,out spawn)){Notify("No safe respawn location within 100 blocks of world 0:0. Load a checkpoint or clear space near the origin.",8);return;}
             Health.Respawn();Hunger=new HungerState();invulnerableUntil=Time.time+2;
             Player.ResetMotion();Player.transform.position=World.Local(spawn)+new Vector3(.5f,.02f,.5f);
             WaitingForRespawn=!ReadyToPlay;SetMode(ScreenMode.Play);Respawned?.Invoke();
+            if(!home&&Beds.Home.HasValue)Notify("Home bed unavailable. Returned to world spawn.",6);
         }
         public bool PlacementPreview(out BlockPos cell,out string reason)
         {
@@ -213,6 +217,14 @@ namespace RivetReach
             reason="Waiting for nearby terrain";if(!World.Ready(cell))return false;
             reason="This cell is occupied";if(World.Get(cell)!=0&&!Fluids.IsFluid(World.Get(cell)))return false;
             if(selected.Id==IndustryId.SignalWire&&(!World.Ready(cell.Offset(0,-1,0))||!BlockId.Solid(World.Get(cell.Offset(0,-1,0))))){reason="Signal Wire needs a solid floor";return false;}
+            if(selected.Id==BedId.Bed)
+            {
+                int rotation=PlacementFacing.TowardsPlayer(World.Local(cell)+Vector3.one*.5f,Player.transform.position,Player.Yaw);
+                reason="Beds need two dry empty cells above solid floors";if(!World.CanPlaceBed(cell,rotation))return false;
+                var head=BedId.HeadAt(cell,rotation);reason=PlayerOverlapReason;
+                if(World.OccupiesCell(Player.transform.position,.6f,Player.Height,head))return false;
+                reason="Cannot place inside a creature";if((Mobs?.Occupies(head)??false)||(Animals?.Occupies(head)??false))return false;
+            }
             if(selected.Id==IndustryId.WoodenDoor)
             {
                 reason="Doors need two empty cells above a solid floor";if(!World.CanPlaceDoor(cell))return false;
@@ -243,6 +255,8 @@ namespace RivetReach
             {
                 if(!World.Raycast(Player.Camera.transform.position,Player.Camera.transform.forward,5,out var support,out _)||!World.PlaceTorch(cell,support))return false;
             }
+            else if(selected.Id==BedId.Bed)
+            {if(!World.PlaceBed(cell,PlacementFacing.TowardsPlayer(World.Local(cell)+Vector3.one*.5f,Player.transform.position,Player.Yaw)))return false;}
             else if(!World.Place(cell,selected.Id))return false;
             int facing=PlacementFacing.TowardsPlayer(World.Local(cell)+Vector3.one*.5f,Player.transform.position,Player.transform.eulerAngles.y);
             if(BlockId.Station(selected.Id))Survival.At(cell).Rotation=facing;

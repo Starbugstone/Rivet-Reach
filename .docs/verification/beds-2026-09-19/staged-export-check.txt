@@ -1,0 +1,1 @@
+PASS all 644 catalog sources match Git index

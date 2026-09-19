@@ -105,6 +105,7 @@ namespace RivetReach
             {report.workload="Existing checkpoint migration to saplings/apples schema and content compatibility";yield return ReviewOrchardLegacy();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-connections-legacy-review"))
             {report.workload="Actual schema-2/3 checkpoint migration to the current save schema";yield return ReviewConnectionLegacy();yield break;}
+            if(Environment.GetCommandLineArgs().Contains("-rr-bed-resume-review")){report.workload="Bed checkpoint in a fresh process";yield return ReviewBedResume();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-save-resume-review"))
             {report.workload="Fresh-process Continue latest disk save";yield return ReviewSaveGame();yield break;}
             float began=Time.realtimeSinceStartup;report.startupSeed=game.Seed;
@@ -129,13 +130,14 @@ namespace RivetReach
             if(Environment.GetCommandLineArgs().Contains("-rr-bridges-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-farming-review")||Environment.GetCommandLineArgs().Contains("-rr-farming-legacy"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-alpha-survival-review")||Environment.GetCommandLineArgs().Contains("-rr-alpha-playtest-review"))game.World.ViewDistance=4;
-            if(Environment.GetCommandLineArgs().Contains("-rr-chicken-review"))game.World.ViewDistance=4;
+            if(Environment.GetCommandLineArgs().Contains("-rr-chicken-review")||Environment.GetCommandLineArgs().Contains("-rr-bed-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-compost-review")||Environment.GetCommandLineArgs().Contains("-rr-fishing-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-lighting-review"))game.World.ViewDistance=4;
             yield return Settle();report.firstReadySeconds=Time.realtimeSinceStartup-began;
             if(Environment.GetCommandLineArgs().Contains("-rr-lighting-review")){report.workload="Underground crop growth, cached sky/source lighting, cave entrances, roof edits and saves";yield return ReviewLighting();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-alpha-survival-review")){report.workload="Five-minute empty-handed Survival gathering, workshop and exploration route";yield return ReviewAlphaSurvival();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-alpha-playtest-review")){report.workload="Alpha interactions, skin rendering, dark-room spawning, cage caps and schema13 persistence";yield return ReviewAlphaPlaytest();yield break;}
+            if(Environment.GetCommandLineArgs().Contains("-rr-bed-review")){report.workload="Beds: crafting, paired placement, home respawn, sleep, exact timers and save recovery";yield return ReviewBeds();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-chicken-review")){report.workload="Persistent chickens: feeding, breeding, growth, eggs, loot, cooking and durable saves";yield return ReviewChickens();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-fishing-review")){report.workload="Fishing casts, catches, cancellation, inventory conservation, cooking and saves";yield return ReviewFishing();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-compost-review")){report.workload="Compost batches, actual crop use, pipe transfers, recovery and durable crop deadlines";yield return ReviewCompost();yield break;}

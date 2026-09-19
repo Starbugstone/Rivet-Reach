@@ -1,0 +1,59 @@
+PASS Default half-player threshold rounds up for 1
+PASS Only enough sleepers pass for 1
+PASS Default half-player threshold rounds up for 2
+PASS Only enough sleepers pass for 2
+PASS Default half-player threshold rounds up for 3
+PASS Only enough sleepers pass for 3
+PASS Default half-player threshold rounds up for 4
+PASS Only enough sleepers pass for 4
+PASS Default half-player threshold rounds up for 5
+PASS Only enough sleepers pass for 5
+PASS Default half-player threshold rounds up for 100
+PASS Only enough sleepers pass for 100
+PASS Empty sessions never trigger sleep
+PASS Percentage/minimum configuration and small-session clamp
+PASS Next morning boundary at day 0 hour 0
+PASS Next morning boundary at day 0 hour 3
+PASS Next morning boundary at day 0 hour 5,99
+PASS Next morning boundary at day 0 hour 18
+PASS Next morning boundary at day 0 hour 23,99
+PASS Next morning boundary at day 1 hour 0
+PASS Next morning boundary at day 1 hour 3
+PASS Next morning boundary at day 1 hour 5,99
+PASS Next morning boundary at day 1 hour 18
+PASS Next morning boundary at day 1 hour 23,99
+PASS Next morning boundary at day 23 hour 0
+PASS Next morning boundary at day 23 hour 3
+PASS Next morning boundary at day 23 hour 5,99
+PASS Next morning boundary at day 23 hour 18
+PASS Next morning boundary at day 23 hour 23,99
+PASS Next morning boundary at day 1000 hour 0
+PASS Next morning boundary at day 1000 hour 3
+PASS Next morning boundary at day 1000 hour 5,99
+PASS Next morning boundary at day 1000 hour 18
+PASS Next morning boundary at day 1000 hour 23,99
+PASS Head is internal; recovery resolves to one Bed
+PASS Paired model reserves collision cells without opaque terrain faces
+PASS All cached bed selection boxes initialize within their cells
+PASS One bed uses the workbench 3x2 layout
+PASS Exact six-input craft in translated 3 grid at 0,0
+PASS Exact six-input craft in translated 3 grid at 0,1
+PASS Exact six-input craft in translated 4 grid at 0,0
+PASS Exact six-input craft in translated 4 grid at 1,0
+PASS Exact six-input craft in translated 4 grid at 0,1
+PASS Exact six-input craft in translated 4 grid at 1,1
+PASS Exact six-input craft in translated 4 grid at 0,2
+PASS Exact six-input craft in translated 4 grid at 1,2
+PASS Cardinal footprint 0
+PASS Cardinal footprint 1
+PASS Cardinal footprint 2
+PASS Cardinal footprint 3
+PASS Invalid floor 254
+PASS Invalid floor 255
+PASS Invalid floor 38
+PASS Invalid floor 96
+PASS Invalid floor 171
+PASS Invalid floor 100
+PASS Pre-bed content fingerprint accepted
+PASS Unrelated prior content change remains rejected
+58 checks passed

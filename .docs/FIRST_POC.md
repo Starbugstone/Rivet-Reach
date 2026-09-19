@@ -158,3 +158,7 @@ The September 19 fishing review build adds the [Fishing Rod, water requirements 
 ## Chicken review increment — 2026-09-19
 
 `Builds/Chickens/RivetReach.exe` is the focused development player. [Chicken rules](CHICKENS.md) and [verification](verification/CHICKEN_RESULTS.md) own current behavior and evidence. Use `Tools/Verify-Chickens.ps1 -Build` with the pinned Editor open to prepare/import/check/build and exercise the scripted flock/cooker/save fixture. Ordinary play receives no fixture items. Hold seeds/grain to lead chickens; right-click or Interact on adults to feed.
+
+## Bed review increment
+
+The focused Windows player is `Builds/Beds/RivetReach.exe`; run `Tools/Verify-Beds.ps1` for the scripted review. Beds use the existing Use/right-click or Interact binding: set home by day and sleep until 06:00 by night. [Rules](BEDS.md), [player guide](wiki/Beds-and-home-spawn.md) and [measured evidence](verification/BED_RESULTS.md) describe the current increment.

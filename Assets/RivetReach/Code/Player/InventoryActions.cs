@@ -8,7 +8,7 @@ namespace RivetReach
         {
             if(block==0||Fluids.IsFluid(block))return selected;
             var crop=CropRules.For(block);
-            byte item=crop!=null?(crop.planting!=0?crop.planting:crop.produce):block==IndustryId.DoorUpper?IndustryId.WoodenDoor:block;
+            byte item=BedId.Part(block)?BedId.Bed:crop!=null?(crop.planting!=0?crop.planting:crop.produce):block==IndustryId.DoorUpper?IndustryId.WoodenDoor:block;
             for(int i=0;i<Inventory.HotbarCount;i++)if(inventory.Slots[i].Id==item)return i;
             for(int i=Inventory.HotbarCount;i<inventory.Count;i++)if(inventory.Slots[i].Id==item)
             {inventory.Swap(i,selected);return selected;}

@@ -194,3 +194,7 @@ The user authorized the next issue #10 increment: [chickens](.docs/CHICKENS.md),
 ## Authorized Alpha playtest corrections and spawners
 
 The user authorized all of [issue #12](.docs/verification/ALPHA_PLAYTEST_RESULTS.md): shared shape-aware targeting, inventory organisation/Pick Block, farmland harvest/replant, held jumping, reduced ordinary hunger, interaction lighting and skin rendering fixes, [Lava Rock](.docs/FLUIDS.md#lava-rock--2026-09-19), a shared hostile spawn audit and [generic cage spawners/rare rooms](.docs/SPAWNERS.md). Preserve independent five-mob origin caps, shared spawn validity, ordinary hostile unload/despawn, schema-13 compatibility and generation only in unexplored chunks. Room frequency and the 99/1 connected/buried split are separate controls. Run a normal Survival route before focused acceptance checks and keep the published wiki/current visuals in scope.
+
+## Authorized beds, home spawn and sleep
+
+The user authorized the next issue #10 increment: [Beds](.docs/BEDS.md), a three-Cloth/three-Plank recipe, paired placement, persistent home binding, safe respawn fallback and night skipping. Sleep advances celestial time only. Preserve unique placed-bed identity, exactly-one recovery, existing survival/production clocks, shared targeting, dormant arrival safety and schema-14 compatibility following schema 13. The configurable sleep policy defaults to 50% rounded up; multiplayer integration remains separate. Keep the illustrated wiki and issue checklist current.

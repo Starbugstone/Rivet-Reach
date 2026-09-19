@@ -70,6 +70,8 @@ namespace RivetReach
         {
             var result=new BlockDefinition[256]; // Default value is the full-cube fast path.
             result[BlockId.MobSpawner]=new BlockDefinition(null,null,BlockTraits.NoMiningDrop);
+            result[BedId.Bed]=new BlockDefinition(null,new BedSelection(false));
+            result[BedId.Head]=new BlockDefinition(null,new BedSelection(true));
             result[BlockId.Torch]=new BlockDefinition(null,new AttachedTorchSelection());
             result[BlockId.Sapling]=new BlockDefinition(SelectionShape.Box(.12f,0,.12f,.88f,.85f,.88f));
             foreach(var crop in CropRules.Definitions)for(int id=crop.first;id<=crop.Mature;id++)

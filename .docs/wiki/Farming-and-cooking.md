@@ -31,7 +31,7 @@ A manual [Compost Bin](Compost.md) immediately mixes spare biological items into
 
 ## Fibre and cloth
 
-Three [Flax Fibre](Item-flax-fibre.md) make one [String](Item-string.md), and four Strings make one [Cloth](Item-cloth.md), using personal crafting. These begin the renewable textile chain. String also makes the [Fishing Rod](Item-fishing-rod.md); beds remain a later increment.
+Three [Flax Fibre](Item-flax-fibre.md) make one [String](Item-string.md), and four Strings make one [Cloth](Item-cloth.md), using personal crafting. These begin the renewable textile chain. String also makes the [Fishing Rod](Item-fishing-rod.md); three Cloth above three Planks make a [Bed](Item-bed.md) at a Workbench. See [Beds and home spawn](Beds-and-home-spawn.md).
 
 ## Build a cooker
 

@@ -88,3 +88,5 @@ This directory maintains the latest report and useful evidence for each feature.
 - [Persistent chickens](CHICKEN_RESULTS.md) — passive lifecycle, shared targeting, eggs, tagged meals and schema-12 saves.
 
 - [Alpha playtest corrections](ALPHA_PLAYTEST_RESULTS.md) — issue #12 interactions, Survival tuning, Lava Rock, rendering, hostile spawning and generic dungeon spawners.
+
+- [Beds, home spawn and sleep](BED_RESULTS.md) — paired placement, crafting, sleep, safe arrival and schema-14 recovery.

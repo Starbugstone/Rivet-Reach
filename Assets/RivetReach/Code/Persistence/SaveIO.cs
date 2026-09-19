@@ -39,7 +39,7 @@ namespace RivetReach
         public Vector3 Vector(float min=-1e12f,float max=1e12f)=>new Vector3(Float(min,max),Float(min,max),Float(min,max));
         public WorldPoint Point()=>new WorldPoint(Pos(),Vector(0,.99999999f));
         public ItemStack Stack()
-        {byte id=ReadByte();int count=ReadInt32();Require(id==0?count==0:id!=IndustryId.DoorUpper&&count>0&&count<=Registry.Get(id).stackLimit,"Invalid saved item stack.");var stack=new ItemStack(id,count);
+        {byte id=ReadByte();int count=ReadInt32();Require(id==0?count==0:id!=BedId.Head&&id!=IndustryId.DoorUpper&&count>0&&count<=Registry.Get(id).stackLimit,"Invalid saved item stack.");var stack=new ItemStack(id,count);
             if(Format>=8){stack.Energy=Long();stack.FluidAmount=Long();stack.FluidCapacity=Long();string fluid=Text();var definition=fluid==""?null:Fluids.Registry.ByStableId(fluid);Require(fluid==""||definition!=null,"Unknown carried liquid.");stack.FluidId=definition?.Source??0;}
             Require(stack.ValidContents,"Invalid carried storage contents.");return stack;}
         public void Slots(ItemContainer container)
@@ -69,7 +69,7 @@ namespace RivetReach
     }
     public sealed class SaveStore
     {
-        public const int Format=13;
+        public const int Format=14;
         const int MaxBytes=256*1024*1024;
         public string DirectoryPath {get;}
         readonly ItemRegistry registry;
@@ -83,12 +83,12 @@ namespace RivetReach
             // Every definition present before each accepted extension must still match.
             var processing=ProcessingCatalogAsset.Load();
             bool previousTierRecipes=false;
-            string Fingerprint(int legacy,bool orchard=false,bool wrench=false,bool electric=false,bool lava=false,bool floater=false,bool bridges=false,bool ranged=false,bool farming=false,bool materialTags=true,bool compost=false,bool habitats=false,bool spawnLight=false,bool mixedCompost=false,bool fishing=false,bool chickens=false,bool playtest=false)
+            string Fingerprint(int legacy,bool orchard=false,bool wrench=false,bool electric=false,bool lava=false,bool floater=false,bool bridges=false,bool ranged=false,bool farming=false,bool materialTags=true,bool compost=false,bool habitats=false,bool spawnLight=false,bool mixedCompost=false,bool fishing=false,bool chickens=false,bool playtest=false,bool beds=false)
             {
-                string definitions=string.Join("\n",registry.items.Where(i=>(playtest||i.runtimeId!=BlockId.LavaRock&&i.runtimeId!=BlockId.MobSpawner)&&(chickens||!ChickenId.Added(i.runtimeId))&&(fishing||!FishId.Added(i.runtimeId))&&(mixedCompost||i.runtimeId!=CompostId.Auto)&&(compost||!CompostId.Added(i.runtimeId))&&(farming||!FarmId.Added(i.runtimeId))&&(ranged||i.stableId!="rivet:ranged_liquid_pump")&&(bridges||i.runtimeId<IndustryId.ItemBridge||i.runtimeId>IndustryId.ChunkLoader)&&(floater||i.stableId!="rivet:floater_rock")&&(lava||i.stableId!="rivet:lava_bucket")&&(electric||i.stableId!="rivet:electric_furnace")&&(wrench||i.stableId!="rivet:wrench")&&(orchard||i.stableId!="rivet:sapling"&&i.stableId!="rivet:apple")&&((legacy&2)==0||i.stableId!="rivet:hand_crank")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.runtimeId).Select(i=>ItemFingerprint(i,farming,materialTags,compost)))
+                string definitions=string.Join("\n",registry.items.Where(i=>(beds||i.runtimeId!=BedId.Bed)&&(playtest||i.runtimeId!=BlockId.LavaRock&&i.runtimeId!=BlockId.MobSpawner)&&(chickens||!ChickenId.Added(i.runtimeId))&&(fishing||!FishId.Added(i.runtimeId))&&(mixedCompost||i.runtimeId!=CompostId.Auto)&&(compost||!CompostId.Added(i.runtimeId))&&(farming||!FarmId.Added(i.runtimeId))&&(ranged||i.stableId!="rivet:ranged_liquid_pump")&&(bridges||i.runtimeId<IndustryId.ItemBridge||i.runtimeId>IndustryId.ChunkLoader)&&(floater||i.stableId!="rivet:floater_rock")&&(lava||i.stableId!="rivet:lava_bucket")&&(electric||i.stableId!="rivet:electric_furnace")&&(wrench||i.stableId!="rivet:wrench")&&(orchard||i.stableId!="rivet:sapling"&&i.stableId!="rivet:apple")&&((legacy&2)==0||i.stableId!="rivet:hand_crank")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.runtimeId).Select(i=>ItemFingerprint(i,farming,materialTags,compost)))
                     +string.Join("\n",processing.recipes.OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
                     +string.Join("\n",processing.fuels.OrderBy(i=>i.itemId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
-                    +string.Join("\n",RecipeCatalogAsset.Load().recipes.Where(i=>(fishing||i.stableId!="rivet:fishing_rod")&&(mixedCompost||i.stableId!="rivet:auto_composter")&&(compost||i.stableId!="rivet:compost_bin")&&(farming||!i.stableId.StartsWith("rivet:farm_",StringComparison.Ordinal))&&(ranged||i.stableId!="rivet:industry_180")&&(bridges||!new[]{"rivet:industry_190","rivet:industry_191","rivet:industry_192","rivet:industry_193"}.Contains(i.stableId))&&(electric||i.stableId!="rivet:industry_174")&&(wrench||i.stableId!="rivet:wrench")&&((legacy&2)==0||i.stableId!="rivet:industry_170")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>RecipeFingerprint(i,previousTierRecipes)))
+                    +string.Join("\n",RecipeCatalogAsset.Load().recipes.Where(i=>(beds||i.stableId!="rivet:bed")&&(fishing||i.stableId!="rivet:fishing_rod")&&(mixedCompost||i.stableId!="rivet:auto_composter")&&(compost||i.stableId!="rivet:compost_bin")&&(farming||!i.stableId.StartsWith("rivet:farm_",StringComparison.Ordinal))&&(ranged||i.stableId!="rivet:industry_180")&&(bridges||!new[]{"rivet:industry_190","rivet:industry_191","rivet:industry_192","rivet:industry_193"}.Contains(i.stableId))&&(electric||i.stableId!="rivet:industry_174")&&(wrench||i.stableId!="rivet:wrench")&&((legacy&2)==0||i.stableId!="rivet:industry_170")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>RecipeFingerprint(i,previousTierRecipes)))
                     +string.Join("\n",Resources.LoadAll<MobDefinition>("Mobs/Definitions").Where(i=>floater||i.stableId!="rivet:floater").OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>MobFingerprint(i,floater,habitats,spawnLight,playtest)));
                 if(farming&&registry.items.Any(i=>i.runtimeId==FarmId.Cooker))definitions+=Resources.Load<TextAsset>("Definitions/Cooking").text+Resources.Load<TextAsset>("Definitions/Crops").text;
                 if(compost)definitions+=Resources.Load<TextAsset>("Definitions/Compost").text;
@@ -98,11 +98,12 @@ namespace RivetReach
                 if(mixedCompost)definitions+="|mixed-compost-v2:yield-1-4:160W:8J:512J";
                 return Convert.ToBase64String(Hash(Encoding.UTF8.GetBytes(definitions)));
             }
-            content=Fingerprint(0,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true);
+            content=Fingerprint(0,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true);
             // Accept the exact pre-tiering recipes as well as current costs, with all other content still checked.
             for(int tierVersion=0;tierVersion<2;tierVersion++)
             {
             previousTierRecipes=tierVersion==1;
+            modernContent.Add(Fingerprint(0,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true));
             modernContent.Add(Fingerprint(0,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true));
             modernContent.Add(Fingerprint(0,true,true,true,true,true,true,true,true,true,true,true,true,true,true));
             modernContent.Add(Fingerprint(0,true,true,true,true,true,true,true,true,true,true,true,true,true));
