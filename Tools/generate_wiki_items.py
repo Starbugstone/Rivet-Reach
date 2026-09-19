@@ -85,13 +85,21 @@ class Reference:
             return 'Food and farming'
         if item['ore'] or item_id.endswith(':bedrock'):
             return 'Ore deposits and bedrock'
+        if item_id in {'rivet:bed', 'rivet:wooden_door', 'rivet:chest', 'rivet:bulk_crate', 'rivet:crate_controller'}:
+            return 'Home and storage'
+        if item_id in {'rivet:wheat_seed', 'rivet:flax_seed', 'rivet:carrot_seed', 'rivet:berry_seed', 'rivet:grain', 'rivet:compost', 'rivet:egg'}:
+            return 'Food and farming'
+        if item_id in {'rivet:flax_fibre', 'rivet:string', 'rivet:cloth', 'rivet:feather'}:
+            return 'Materials and components'
+        if item_id in {'rivet:cooker', 'rivet:electric_cooker', 'rivet:compost_bin', 'rivet:auto_composter', 'rivet:electric_furnace', 'rivet:hand_crank', 'rivet:mob_spawner'}:
+            return 'Stations and machines'
         if item_id == 'rivet:floater_rock':
             return 'Materials and components'
         if item_id == 'rivet:ranged_liquid_pump':
             return 'Stations and machines'
         if item_id in {'rivet:item_bridge', 'rivet:liquid_bridge', 'rivet:power_bridge', 'rivet:chunk_loader'}:
             return 'Stations and machines'
-        if d['runtimeId'] >= 160:
+        if 160 <= d['runtimeId'] <= 169:
             return 'Multiblock tanks and batteries'
         if 131 <= d['runtimeId'] <= 138 or d['runtimeId'] in (146, 147, 148, 149):
             return 'Connections and controls'
@@ -269,12 +277,15 @@ class Reference:
         for item_id in self.items:
             groups[self.group(item_id)].append(item_id)
         order = ['Building blocks', 'Ore deposits and bedrock', 'Materials and components', 'Tools and weapons', 'Armor',
-                 'Food and farming', 'Light and buckets', 'Stations and machines', 'Connections and controls',
+                 'Food and farming', 'Home and storage', 'Light and buckets', 'Stations and machines', 'Connections and controls',
                  'Multiblock tanks and batteries', 'Legacy test equipment']
         lines = [MARKER, '', '# Items', '', 'Click any icon or item name for what it does, how to obtain it, its recipes, and the things you can make with it.', '',
                  '[Crafting guide](Crafting-Recipes.md) · [Home](Home.md)', '',
-                 'Includes all **127 registered items and world-block entries** in the current playable alpha. Ore blocks, crops, bedrock and legacy test equipment have pages even when they cannot be crafted or placed.', '',
+                 'Includes all **127 registered items and world-block entries** in the current development build. The downloadable alpha release may contain fewer items. Ore blocks, crops, bedrock and legacy test equipment have pages even when they cannot be crafted or placed.', '',
                  ' · '.join(f'[{g}](#{g.lower().replace(" ", "-")})' for g in order), '']
+        if set(groups) - set(order):
+            raise ValueError('Item category missing from index: ' + str(set(groups) - set(order)))
+        lines += ['## Recent additions', '', ' · '.join(self.link(i) for i in ['rivet:bed', 'rivet:fishing_rod', 'rivet:egg', 'rivet:auto_composter', 'rivet:cooker', 'rivet:electric_cooker', 'rivet:lava_rock', 'rivet:mob_spawner'] if i in self.items), '']
         for group in order:
             lines += ['## ' + group, '']
             if group == 'Legacy test equipment':

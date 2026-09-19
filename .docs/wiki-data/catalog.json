@@ -15445,6 +15445,22 @@
             "sha256": "8c1f2fe3f70a9cc4d042f8dfdaf27f619a3ca542612fe9de0eac0862d8ae0576"
         },
         {
+            "path": "Assets/RivetReach/Resources/Farming/33Icon.png",
+            "sha256": "bc4e29ff33170863524d97fd7349914acb5eda5d9a503dd716cd3e81f7d4c76c"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Farming/34Icon.png",
+            "sha256": "e2adc9bcf42db38306396076b8ff76e1379fc61654b79b76fe79303f5c6e8c17"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Farming/35Icon.png",
+            "sha256": "b06c9e5dd5141b5867eae372ff3812a78268ae7f5993f52a7606ed826d841ab6"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Farming/36Icon.png",
+            "sha256": "ad165a8a356bfea5d06516416f6246d636f941e735ab921c33c67b0bcdfc4add"
+        },
+        {
             "path": "Assets/RivetReach/Resources/Farming/Palette.png",
             "sha256": "79e384464c27e0c7283a90279a998bfa9af413b12c1660f6fe052f48448331f6"
         },

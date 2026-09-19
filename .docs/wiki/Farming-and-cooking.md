@@ -6,6 +6,14 @@ Find wild potatoes, wheat, flax, carrots and berry plants on grassy terrain. Mus
 
 Ripe crops on **tilled farmland** can also be harvested with right-click. With a hoe selected, the harvest goes into your inventory, overflow drops safely, and one available planting item is consumed to replant. Wild crops retain their ordinary break interaction. [Building and inventory shortcuts](Building-and-inventory.md) explains the controls and full-backpack behavior.
 
+## Potato growth stages
+
+These icons use the same potato plant geometry as the world, with a shared camera scale so growth remains visible. Plant a Potato to start; the plant stages are world entries, not separately craftable items.
+
+| Newly planted | Growing | Nearly mature | Mature |
+|:---:|:---:|:---:|:---:|
+| <a href="Item-potato-plant-0.md"><img src="icons/33.png" width="96" height="96" alt="Potato growth stage 1"></a> | <a href="Item-potato-plant-1.md"><img src="icons/34.png" width="96" height="96" alt="Potato growth stage 2"></a> | <a href="Item-potato-plant-2.md"><img src="icons/35.png" width="96" height="96" alt="Potato growth stage 3"></a> | <a href="Item-potato-plant-3.md"><img src="icons/36.png" width="96" height="96" alt="Potato growth stage 4"></a> |
+
 ## Wild harvests and planting
 
 Cultivable wild plants visibly grow through the same four stages as farm plants. Young wheat, flax, carrot and berry plants return **one seed only**. Immature potatoes return **one potato**. Eat it immediately for early survival, or keep it to replant and grow **2–4 potatoes**. Waiting for maturity produces extra food and planting stock.
