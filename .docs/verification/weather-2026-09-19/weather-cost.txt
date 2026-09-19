@@ -1,0 +1,2 @@
+Local rain mesh: 1024 maximum streaks; 484 cached roof queries per refresh (4 Hz while stationary).
+120-frame CPU mesh update mean 0,2033 ms; max 0,3866 ms. This is a focused fixture, not a full-game performance claim.

@@ -59,6 +59,13 @@ namespace RivetReach
             byte value=lightPages[p.Chunk].Values[p.Index];
             level=(byte)Math.Max(value&15,isNight?0:value>>4);return true;
         }
+        // Presentation reads solved column heights only; it never generates distant terrain.
+        // Missing or invalidated columns suppress precipitation until the solve publishes.
+        public bool TryPrecipitationHeight(BlockPos p,out int height)
+        {
+            height=0;if(!Ready(p)||!lightColumns.TryGetValue((p.Chunk.X,p.Chunk.Z),out var column))return false;
+            height=column.heights[(int)(p.X-p.Chunk.Min.X)+32*(int)(p.Z-p.Chunk.Min.Z)];return true;
+        }
         public byte PropagatedSkyLight(BlockPos p)=>lightPages.TryGetValue(p.Chunk,out var page)&&page.Ready?(byte)(page.Values[p.Index]>>4):(byte)0;
         public byte GrowthLight(BlockPos p)
         {

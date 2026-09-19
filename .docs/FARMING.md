@@ -1,6 +1,6 @@
 # Farming, forage and food cookers
 
-Issue [#10](https://github.com/Starbugstone/Rivet-Reach/issues/10), first playable increment, authorized 2026-09-13. This working specification implements crops/forage, flax fibre/string/cloth, food-only cooker recipes and shared item tags. The subsequent [Compost increment](COMPOST.md) adds an optional organic-surplus growth accelerator. [Fishing](FISHING.md) subsequently adds rods, fish and two additional cooker recipes. [Chickens](CHICKENS.md) subsequently adds a separate persistent passive lifecycle and egg/meat meals. [Beds](BEDS.md) subsequently adds cloth-based beds, safe home respawning and night skipping. Crates, weather and renewables remain later increments.
+Issue [#10](https://github.com/Starbugstone/Rivet-Reach/issues/10), first playable increment, authorized 2026-09-13. This working specification implements crops/forage, flax fibre/string/cloth, food-only cooker recipes and shared item tags. The subsequent [Compost increment](COMPOST.md) adds an optional organic-surplus growth accelerator. [Fishing](FISHING.md) subsequently adds rods, fish and two additional cooker recipes. [Chickens](CHICKENS.md) subsequently adds a separate persistent passive lifecycle and egg/meat meals. [Beds](BEDS.md) subsequently adds cloth-based beds, safe home respawning and night skipping. [Crates](CRATES.md) adds bulk storage and warehouse controllers. [Weather](WEATHER.md) adds clear skies, rain and storms. Renewables remain a later increment.
 
 ## Plants
 

@@ -92,3 +92,5 @@ The latest [farming and cooking increment](.docs/FARMING.md) adds growing wild c
 [Beds](.docs/BEDS.md) turn Cloth and Planks into a home respawn point and nighttime sleep. The [player guide](.docs/wiki/Beds-and-home-spawn.md) shows crafting, placement and safe arrivals; [verification](.docs/verification/BED_RESULTS.md) records measured checks.
 
 [Bulk crates and controllers](.docs/CRATES.md) provide physical single-item warehouses and machine-first item routing. See the [illustrated guide](.docs/wiki/Crates-and-warehouses.md) and [verification](.docs/verification/CRATE_RESULTS.md).
+
+[Weather](.docs/WEATHER.md) adds gradual clear skies, rain and storms with shelter, wind/thunder and saved schedules. Run `Builds/Weather/RivetReach.exe`; the [illustrated guide](.docs/wiki/Weather.md) and [verification](.docs/verification/WEATHER_RESULTS.md) cover the current increment.

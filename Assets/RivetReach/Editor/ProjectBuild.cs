@@ -42,6 +42,7 @@ namespace RivetReach.Editor
                 {AlphaPlaytestAssets.Prepare();AlphaPlaytestChecks.Run();AlphaWorldChecks.Run();LavaChecks.Run();InventoryChecks.Run();SurvivalChecks.Run();FarmingChecks.Run();FishingChecks.Run();ChickenChecks.Run();if(command=="alpha-playtest-build")Build("AlphaPlaytest");File.WriteAllText("Logs/build-result.txt","SUCCESS alpha playtest");return;}
                 if(command=="alpha-playtest-export"){WikiExport.Export();File.WriteAllText("Logs/build-result.txt","SUCCESS alpha export");return;}
                 if(command=="alpha-playtest-player"){Build("AlphaPlaytest");File.WriteAllText("Logs/build-result.txt","SUCCESS alpha player");return;}
+                if(command=="weather-player"){Build("Weather");File.WriteAllText("Logs/build-result.txt","SUCCESS weather player");return;}
                 if(command=="crate-build"){CrateBuild.Prepare();CrateChecks.Run();Build("Crates");File.WriteAllText("Logs/build-result.txt","SUCCESS crates");return;}
                 if(command=="crate-player"){CrateChecks.Run();CrateRoutingEdgeChecks.Run();GridAllocationChecks.Run();IndustryChecks.Run();Build("Crates");File.WriteAllText("Logs/build-result.txt","SUCCESS crate player");return;}
                 if(command=="wiki-crop-icons"){CropIconBuild.Bake();WikiExport.Export();File.WriteAllText("Logs/build-result.txt","SUCCESS crop icons and wiki export");return;}

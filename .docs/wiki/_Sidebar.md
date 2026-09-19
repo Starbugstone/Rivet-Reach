@@ -42,3 +42,5 @@
 - [Crates and warehouses](Crates-and-warehouses.md) — bulk storage, type locks and controller setup.
 
 - [Item-pipe routing](Item-pipe-routing.md) — editable receiver priorities, compatible destinations and round-robin overflow.
+
+- [Weather](Weather.md) — clear skies, rain, storms, shelter and saved weather.

@@ -511,3 +511,7 @@ The ExplorerSkin rendering path uses the world's explicit distance-fog range, pr
 ## Bulk crates and warehouses — 2026-09-19
 
 [Crates](CRATES.md) store one ordinary item type in bulk, with optional empty type locks and visible front labels. A face-connected controller combines their access without adding capacity. Pipes use saved editable item priorities (defaults 50/40/30/20 for machine/controller/crate/chest) and round-robin compatible ties. [The player guide](wiki/Crates-and-warehouses.md) owns setup instructions.
+
+## Weather
+
+[Weather](WEATHER.md) implements gradual clear/rain/storm conditions, local sheltered rain, wind/thunder ambience and saved schedules. Weather advances with active survival ticks; sleep changes celestial time only. See the illustrated [player guide](wiki/Weather.md).

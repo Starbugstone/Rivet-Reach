@@ -69,7 +69,7 @@ namespace RivetReach
     }
     public sealed class SaveStore
     {
-        public const int Format=15;
+        public const int Format=16;
         const int MaxBytes=256*1024*1024;
         public string DirectoryPath {get;}
         readonly ItemRegistry registry;

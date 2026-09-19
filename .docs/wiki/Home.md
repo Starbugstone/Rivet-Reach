@@ -73,3 +73,5 @@ Drain finite lava deposits with a [Ranged Liquid Pump](Ranged-Liquid-Pump.md), c
 [Crates and warehouses](Crates-and-warehouses.md) explains single-item bulk storage, manual type locks, visible contents, connected controllers and the machine-first pipe priority.
 
 - [Item-pipe routing](Item-pipe-routing.md) — editable receiver priorities, compatible destinations and round-robin overflow.
+
+- [Weather](Weather.md) — clear skies, rain, storms, shelter and saved weather.

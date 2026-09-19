@@ -202,3 +202,7 @@ The user authorized the next issue #10 increment: [Beds](.docs/BEDS.md), a three
 ## Authorized bulk crates and warehouse controllers
 
 The user authorized [bulk crates and controllers](.docs/CRATES.md) for issue #10. Preserve physical per-crate contents, empty type locks, bounded face-connected resident discovery, no controller capacity, safe empty-first mining and schema-15 compatibility. The user requires saved editable **0–100 item receiver priorities**, defaulting to **machine 50, controller 40, crate 30, chest 20**. Higher priorities receive first; equal priorities round-robin among currently compatible receivers. Keep item priority separate from electrical priority, avoid repeated per-item topology searches and measure routing cost. Keep the illustrated wiki and issue checklist current.
+
+## Authorized weather
+
+The user authorized [weather](.docs/WEATHER.md) for issue #10: clear/rain/storm, gradual transitions, bounded sheltered precipitation and original audio. Preserve active fixed-tick scheduling, sleep-only celestial jumps, unchanged gameplay light/crop rules, schema-16 exact weather saves and legacy clear defaults. No weather terrain edits, irrigation, lightning damage or renewable generators are included. Keep the illustrated wiki and issue checklist current.

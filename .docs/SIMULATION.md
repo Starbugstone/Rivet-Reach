@@ -445,3 +445,7 @@ The user selected implementation of [GitHub issue #2](https://github.com/Starbug
 ## Cached cave light — 2026-09-13
 
 [Lighting](LIGHTING.md) owns the resident chunk cache, worker snapshots, boundary propagation, GPU representation and growth queries. Terrain/source/residency changes schedule work; the celestial clock never requests a voxel-light rebuild. Derived light is excluded from durable saves.
+
+## Weather authority
+
+[Weather](WEATHER.md) is a world-scoped deterministic state machine advanced through active 20 Hz survival ticks. It is independent of celestial jumps, chunk residency and presentation. Saved transition/RNG snapshots provide a future replication boundary; no multiplayer transport is implemented in this increment. Rain/audio are bounded presentation consumers and do not alter gameplay light or terrain.

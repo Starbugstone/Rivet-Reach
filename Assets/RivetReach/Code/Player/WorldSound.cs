@@ -83,7 +83,7 @@ namespace RivetReach
                 nextEnvironment=Time.unscaledTime+.4f;
                 shelter=game.World.Raycast(game.Player.Camera.transform.position,Vector3.up,24,out _,out _)?1:0;
             }
-            float target=suspend?0:Mathf.Lerp(.24f,.025f,shelter)*Master;
+            float target=suspend?0:Mathf.Lerp(.24f,.025f,shelter)*Mathf.Lerp(.8f,2,(float)game.Weather.WindStrength)*Master;
             wind.volume=Mathf.MoveTowards(wind.volume,target,Time.unscaledDeltaTime*.12f);
             windFilter.cutoffFrequency=Mathf.Lerp(windFilter.cutoffFrequency,Mathf.Lerp(13000,1400,shelter),1-Mathf.Exp(-Time.unscaledDeltaTime*2));
         }

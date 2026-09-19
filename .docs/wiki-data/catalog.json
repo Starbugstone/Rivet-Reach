@@ -13682,7 +13682,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Expedition.cs",
-            "sha256": "6c30d60b0d6346d18f62597d81b967e74ac053e97872e630a16175fdff086ce8"
+            "sha256": "3a48942e9808595474796ccf4a89c0b9c872e940bd3f2d942afebd24292bb3f4"
         },
         {
             "path": "Assets/RivetReach/Code/FarmingVerification.cs",
@@ -13938,7 +13938,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/ExpeditionSaves.cs",
-            "sha256": "435eb6ba37c8bfbda03fcded024faf947e8221b679765e50eac60b8a0f049569"
+            "sha256": "833abacdcae69b231e7ad193bd5db6ee11e0e5b41409e88841f398c5dfa14081"
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/MobSpawnerSave.cs",
@@ -13946,7 +13946,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/SaveIO.cs",
-            "sha256": "965041d29aaf52e8ecf0d2f6e07ddf8381c46eea6fb528d5a2b7d23ad75e2cfe"
+            "sha256": "82f1d1a758679ceb2fc83ef693526719662ea547d445cfc27fa4db95053fce78"
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/WorldSaveState.cs",
@@ -14046,7 +14046,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Player/WorldSound.cs",
-            "sha256": "494ccd09af6fc9087e8b83af32bcaf9c91f9d7de464fc8956dbc866f850108b3"
+            "sha256": "6afdc409c052a28ed07dae30233aefc4cbb679e2204fd5d9fff0ad83d476da67"
         },
         {
             "path": "Assets/RivetReach/Code/PortableStorageVerification.cs",
@@ -14066,7 +14066,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/RuntimeVerification.cs",
-            "sha256": "fbb77bd12c1c6263ea0c1b9b6e2ad511f04b8470cfbd0e9b02c43e50e94dfa36"
+            "sha256": "9e9b362a9079c23a4e1a2a056a1aa03cf88876e23b6dfb047b4f16318a37f6b7"
         },
         {
             "path": "Assets/RivetReach/Code/SaveVerification.cs",
@@ -14170,7 +14170,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUI.cs",
-            "sha256": "a70270bd66efb588eae2aac7a01d51779fcce49402510b9b8977f91761915479"
+            "sha256": "74adba832fbb249c5b76dae3afdee5cdf2ed1a6fe6d2c6c2d9f26e31cd0bc0cb"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIBridges.cs",
@@ -14237,6 +14237,10 @@
             "sha256": "caf53dcd0a807d1c39c4b387ac2eeea244ba6858b9cf7abca544623340268945"
         },
         {
+            "path": "Assets/RivetReach/Code/WeatherVerification.cs",
+            "sha256": "a85284341c3c378d0fc0e83d43efaf32ecc671718f96f32d2cf0b2d696c52068"
+        },
+        {
             "path": "Assets/RivetReach/Code/WorkshopFollowupVerification.cs",
             "sha256": "6db7a0e4e4a16f4dec09596ea758d3e41d67dfd58551939410bb0e01edfe0790"
         },
@@ -14262,7 +14266,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/World/DayNightCycle.cs",
-            "sha256": "cf7f98b54773fa1c846a1194fd0808e16b86fe3694a8ff9bf993e8ecfd64d034"
+            "sha256": "13041735370d252909df5ab05d3a8445f18e6b99b7ba6de70ccd1993786a4526"
         },
         {
             "path": "Assets/RivetReach/Code/World/FarmingMeshes.cs",
@@ -14305,6 +14309,14 @@
             "sha256": "85315eb9eb8dcb4a1a2f4aabb9c9afe06e92a9f2125fd49a875ec01c9b2866e1"
         },
         {
+            "path": "Assets/RivetReach/Code/World/WeatherPresentation.cs",
+            "sha256": "38bd592831a522826b72fac5c0901470fc0f3f1d6b9fa4a31b4251e9dc95c1ed"
+        },
+        {
+            "path": "Assets/RivetReach/Code/World/WeatherState.cs",
+            "sha256": "a2390bfe893611c407cfd16340b3eb8a05101de4b0220b5fbef9027cf661e3e4"
+        },
+        {
             "path": "Assets/RivetReach/Code/World/WorldClock.cs",
             "sha256": "29617744582084ab26d6194ee4e1e282e4b24bc55866d05efc65c40948336050"
         },
@@ -14314,7 +14326,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/World/WorldLighting.cs",
-            "sha256": "cb2779a823265c6b7a8a23e30335151734a4b103a85ecce026c786d59a9e6c49"
+            "sha256": "25ef3bd352cb236fd25ed96ac1cf9a6852075c8c65aada608f9fc5d45c46583b"
         },
         {
             "path": "Assets/RivetReach/Code/World/WorldNoise.cs",

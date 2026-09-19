@@ -347,7 +347,7 @@ namespace RivetReach
             if(worldTime!=null)
             {
                 var clock=game.Sky.Clock;int minute=(int)(clock.Hour*60);
-                worldTime.text=$"Day {clock.DayNumber} · {minute/60:00}:{minute%60:00}\n{clock.MoonPhaseName}";
+                worldTime.text=$"Day {clock.DayNumber} · {minute/60:00}:{minute%60:00}\n{clock.MoonPhaseName} · {game.Weather.Kind}";
             }
             if(diagnostics!=null)diagnostics.text=game.Diagnostics?$"{1/Mathf.Max(.001f,frameAverage):0} fps · {frameAverage*1000:0.0} ms\nWorld: {TerrainGenerator.WorldId} · seed {game.Seed} · {game.World.Address(game.Player.transform.position)}\nChunks {game.World.ReadyCount}/{game.World.ResidentCount} · queue {game.World.PendingCount}\nGeneration + mesh {game.World.LastBuildMs:0.0} ms · edit mesh {game.World.LastEditMeshMs:0.0} ms\nTriangles {game.World.MeshTriangles:N0} · changes {game.World.EditCount} · piles {game.Items.Piles.Count}\nStale jobs rejected {game.World.RejectedJobs} · origin {game.World.Origin}\nPlacement: {game.PlacementDiagnostic??"No attempt yet"}\nIndustry: {game.Industry.Simulation.Machines.Count} assemblies · tick {game.Industry.Simulation.LastStepMs:0.00} ms · {(game.Industry.Simulation.Rebuilding?"Connecting":"Ready")}":"";
             if(preview!=null&&previewRoot.activeSelf)preview.Animate(.12f,false,Time.unscaledTime*2);

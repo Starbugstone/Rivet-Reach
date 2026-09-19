@@ -1,0 +1,1 @@
+PASS all 664 exported source fingerprints match the exact staged Git index.

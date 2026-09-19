@@ -37,6 +37,11 @@ namespace RivetReach
         public void Advance(double seconds){Clock.Advance(seconds);Apply();}
         public void Apply()
         {
+            float cloud=(float)(Expedition.Instance?.Weather?.CloudCover??0);
+            float flash=Expedition.Instance?.World?.GetComponent<WeatherPresentation>()?.Flash??0;
+            float attenuation=Mathf.Lerp(1,.40f,cloud);
+            Shader.SetGlobalFloat("_RRWeatherCloud",cloud);
+            Shader.SetGlobalFloat("_RRWeatherFlash",flash);
             float angle=(float)((Clock.Hour-6)/24*System.Math.PI*2);
             SunDirection=new Vector3(Mathf.Cos(angle),Mathf.Sin(angle)*.9063078f,Mathf.Sin(angle)*.4226183f).normalized;
             Daylight=Mathf.SmoothStep(0,1,Mathf.InverseLerp(-.16f,.22f,SunDirection.y));
@@ -55,7 +60,7 @@ namespace RivetReach
                 appliedShadowTick=tick;appliedSunUp=sunUp;
             }
             MainLight.color=sunUp?Color.Lerp(new Color(1,.40f,.17f),new Color(1,.91f,.72f),sunPower):new Color(.48f,.63f,1);
-            MainLight.intensity=sunUp?1.45f*sunPower:.24f*moonPower;
+            MainLight.intensity=(sunUp?1.45f*sunPower:.24f*moonPower)*attenuation;
             var nightSky=new Color(.055f,.078f,.135f);
             var nightGround=new Color(.027f,.035f,.055f);
             RenderSettings.ambientSkyColor=Color.Lerp(nightSky,new Color(.50f,.70f,.94f),Daylight);
@@ -64,12 +69,17 @@ namespace RivetReach
             RenderSettings.reflectionIntensity=Mathf.Lerp(.08f,1,Daylight);
             RenderSettings.fogColor=Color.Lerp(new Color(.022f,.034f,.071f),new Color(.72f,.82f,.87f),Daylight);
             RenderSettings.fogColor=Color.Lerp(RenderSettings.fogColor,new Color(.66f,.31f,.22f),twilight*.65f);
+            RenderSettings.ambientSkyColor*=Mathf.Lerp(1,.68f,cloud);
+            RenderSettings.ambientEquatorColor*=Mathf.Lerp(1,.72f,cloud);
+            RenderSettings.reflectionIntensity*=attenuation;
+            // Recolour the existing distance haze without introducing weather fog or changing range.
+            RenderSettings.fogColor=Color.Lerp(RenderSettings.fogColor,new Color(.22f,.28f,.34f)*Mathf.Lerp(.15f,1,Daylight),cloud*.6f);
             Shader.SetGlobalVector("_RRSunDirection",SunDirection);
             Shader.SetGlobalVector("_RRMoonDirection",MoonDirection);
             Shader.SetGlobalFloat("_RRDaylight",Daylight);
             Shader.SetGlobalFloat("_RRTwilight",twilight);
             Shader.SetGlobalFloat("_RRMoonPhase",Clock.MoonPhase/8f);
-            Shader.SetGlobalColor("_RRAmbientSky",Color.Lerp(nightSky,new Color(.37f,.48f,.62f),Daylight));
+            Shader.SetGlobalColor("_RRAmbientSky",Color.Lerp(nightSky,new Color(.37f,.48f,.62f),Daylight)*Mathf.Lerp(1,.68f,cloud));
             Shader.SetGlobalColor("_RRAmbientGround",Color.Lerp(nightGround,new Color(.22f,.21f,.17f),Daylight));
             Shader.SetGlobalColor("_RRFogColour",RenderSettings.fogColor);
         }

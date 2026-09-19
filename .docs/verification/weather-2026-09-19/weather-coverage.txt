@@ -1,0 +1,4 @@
+Yaw 35: known columns 484/484, screen bands 431,661,1068,1413,1135,1316,778,505
+Yaw 90: known columns 484/484, screen bands 466,869,1025,1588,1446,1317,654,384
+Yaw 180: known columns 484/484, screen bands 387,879,1019,1293,1421,1009,690,515
+Yaw 270: known columns 484/484, screen bands 440,899,988,1238,1454,796,802,524

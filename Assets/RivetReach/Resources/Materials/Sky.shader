@@ -11,7 +11,7 @@ Shader "RivetReach/ExpeditionSky"
             #pragma fragment Frag
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             float4 _RRSunDirection,_RRMoonDirection;
-            float _RRPresentationTime,_RRDaylight,_RRTwilight,_RRMoonPhase;
+            float _RRPresentationTime,_RRDaylight,_RRTwilight,_RRMoonPhase,_RRWeatherCloud,_RRWeatherFlash;
             float CloudHash(float2 p){return frac(sin(p.x*37.117+p.y*13.713+3.71)*17321.43);}
             float CloudNoise(float2 p)
             {
@@ -53,14 +53,16 @@ Shader "RivetReach/ExpeditionSky"
                 float2 cloudPoint=ray.xz/max(ray.y,.06)*2.4+float2(_RRPresentationTime*.008,4.3);
                 float broad=CloudNoise(cloudPoint),puffs=CloudNoise(cloudPoint*2.3);
                 float density=broad*.65+puffs*.25+CloudNoise(cloudPoint*5.2)*.10;
-                float cloud=smoothstep(.53,.64,density)*smoothstep(.09,.23,ray.y);
+                float cloud=smoothstep(.53-_RRWeatherCloud*.48,.64-_RRWeatherCloud*.43,density)*smoothstep(.09,.23,ray.y);
                 float body=smoothstep(.54,.79,density);
                 half3 cloudColour=lerp(half3(.014,.023,.045),half3(.047,.066,.11),body);
                 cloudColour=lerp(cloudColour,lerp(half3(.48,.64,.80),half3(1.15,1.10,.94),body),_RRDaylight);
                 cloudColour=lerp(cloudColour,half3(.78,.35,.23),_RRTwilight*(1-body)*.65);
                 cloudColour+=half3(1,.80,.48)*pow(towardSun,10)*(1-body)*.27*_RRDaylight;
-                colour=lerp(colour,cloudColour,cloud*lerp(.82,.96,_RRDaylight));
+                cloudColour=lerp(cloudColour,lerp(half3(.009,.015,.028),half3(.19,.24,.30),_RRDaylight)*( .8+body*.3),_RRWeatherCloud*.9);
+                colour=lerp(colour,cloudColour,cloud*lerp(.82,.99,_RRDaylight));
                 colour+=half3(1,.85,.55)*smoothstep(.9986,.9995,towardSun)*(1-cloud*.94)*2.0*smoothstep(-.025,.015,ray.y);
+                colour+=half3(.32,.39,.48)*_RRWeatherFlash*cloud;
                 return half4(colour,1);
             }
             ENDHLSL
