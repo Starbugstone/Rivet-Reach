@@ -1,0 +1,96 @@
+{
+  "pages": [
+    {
+      "name": "Food-and-hunger",
+      "desktop": {
+        "title": "Food and hunger \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+        "images": 4,
+        "saturation": true
+      },
+      "mobile": {
+        "viewport": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "Item-fruit-porridge",
+      "desktop": {
+        "title": "Item fruit porridge \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+        "images": 24,
+        "saturation": true
+      },
+      "mobile": {
+        "viewport": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "Item-baked-potato",
+      "desktop": {
+        "title": "Item baked potato \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+        "images": 37,
+        "saturation": true
+      },
+      "mobile": {
+        "viewport": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "Farming-and-cooking",
+      "desktop": {
+        "title": "Farming and cooking \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+        "images": 11,
+        "saturation": true
+      },
+      "mobile": {
+        "viewport": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "Chickens",
+      "desktop": {
+        "title": "Chickens \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+        "images": 8,
+        "saturation": true
+      },
+      "mobile": {
+        "viewport": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "Fishing",
+      "desktop": {
+        "title": "Fishing \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+        "images": 9,
+        "saturation": true
+      },
+      "mobile": {
+        "viewport": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "Items",
+      "desktop": {
+        "title": "Items \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+        "images": 195,
+        "saturation": false
+      },
+      "mobile": {
+        "viewport": 390,
+        "width": 390
+      }
+    }
+  ],
+  "animatedCapture": {
+    "differentBrowserFrames": true,
+    "firstFrameSha256": "cc898a6161239bdf9c65c0a1756e8d58558cc9a50a6dcf22b015ff122e4028a9",
+    "secondFrameSha256": "75121ae1cad8f060ae8633244f4a8ca5b074d91c602cd9bc434364507f0cea9f"
+  },
+  "publishedPages": 230,
+  "verifiedAssets": 4,
+  "wikiCommit": "01cec00a47fcca602f6ffea3de6b9fe191ea9af0"
+}

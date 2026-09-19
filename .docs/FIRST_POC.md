@@ -4,7 +4,7 @@ The Unity **6000.4.4f1 / URP 17.4.0** project now includes terrain and caves, FP
 
 ## Run and build
 
-The current issue #10 food-balance review executable is **`Builds/FoodBalanceFinal/RivetReach.exe`**, including farming, fishing, chickens, beds, crates, weather and solar/wind. Keep its adjacent data folder, DLLs and Mono runtime together. [Food-balance verification](verification/FOOD_BALANCE_RESULTS.md) identifies measured checks and retained build evidence.
+The current issue #10 food-balance review executable is **`Builds/Tools/RivetReach.exe`**, including farming, fishing, chickens, beds, crates, weather and solar/wind. Keep its adjacent data folder, DLLs and Mono runtime together. [Food-balance verification](verification/FOOD_BALANCE_RESULTS.md) identifies measured checks and retained build evidence.
 
 The downloadable [0.0.1 alpha](releases/0.0.1.md) is a Windows x64 prerelease. Extract its complete ZIP and run `RivetReach.exe`. Build it from a clean checkout with `Tools/Build-Release.ps1`; output is `Builds/Release/0.0.1/RivetReach-0.0.1-alpha-windows-x64/RivetReach.exe`. It uses the pinned Editor and a non-development build. Supply that path to `Tools/Verify-Creative.ps1 -Executable <path> -FullRun` to check the release player.
 
