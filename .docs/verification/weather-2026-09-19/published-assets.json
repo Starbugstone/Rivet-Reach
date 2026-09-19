@@ -1,0 +1,12 @@
+{
+  "images/weather/weather-clear.png": "877e11fdffcbd3830281324e35cb1a2ba1cd7e0f794f6294aa877214e775a3e5",
+  "images/weather/weather-coverage-180.png": "70b8719a771c7eff9524bc3ace2ea9941c1a76378b4f2c1bb74d2590e0255732",
+  "images/weather/weather-coverage-270.png": "0758faba1c647b88837d660d053a575779925a3ebc86c8b6609749a8a777bb8e",
+  "images/weather/weather-coverage-35.png": "e46e1c68ec95e0d639b7f8e17327b7c503eaf28ee9084b4a8de79fb784446db1",
+  "images/weather/weather-coverage-90.png": "8f5f97296f27b919dd5bb7ef8f8365dbc32da5ce1b92340458e56bab25417bdc",
+  "images/weather/weather-night-storm.png": "31330518f13e27fd7eeab96edfa91969f71b4950a29ebd3ee413f4ebb27e8544",
+  "images/weather/weather-rain.png": "50e2867ec876f12ceddfc1b3a84f43e9d4f4996f8f956a35a2e46683ce07894c",
+  "images/weather/weather-shelter.png": "e7a772f6061c08952ea7d124bb767efdbc76ae0793b6011df6ac62fa068ccc63",
+  "images/weather/weather-storm.png": "95251d802598307c2e8c80ac3536e75d114164a7b205d2a309e3181466c82ed2",
+  "images/weather/weather-transition.png": "380d738167b885e0b4861a3e4e3bec4eff113dbbb74dd28e6c2b448e662be295"
+}
