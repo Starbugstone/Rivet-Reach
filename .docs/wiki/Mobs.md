@@ -1,6 +1,6 @@
 # Mobs
 
-Rivet Reach currently has three native creatures. All use the hostile encounter system, although the Rustback beetle warns you before attacking. Passive livestock, including chickens, are planned and are not yet available.
+Rivet Reach has three hostile creatures and persistent passive [Chickens](Chickens.md). The hostile species below use the encounter system; the Rustback beetle warns you before attacking. Chickens have their own feeding, breeding, growth and egg-laying lifecycle.
 
 | Creature | Where and when | Behaviour | Health | Hit damage | Defeat drop |
 |---|---|---|---:|---:|---|
@@ -12,15 +12,15 @@ Damage values are before the player's armor. These creatures do not destroy bloc
 
 ## Spawn habitats and ground
 
-Creatures have a surface, underground or combined habitat and a list of blocks they may spawn on. A suitable floor must support the whole creature, with clear space above it. Habitat and ground requirements are shared rules for hostile and future passive creatures; passive animals are not implemented yet.
+Creatures have a surface, underground or combined habitat and a list of blocks they may spawn on. A suitable floor must support the whole creature, with clear space above it. Habitat and ground requirements are shared by hostile creatures and passive chickens.
 
-The current species can spawn on grass, dirt, stone, sand, sandstone, snow or red clay within their habitat. A species can be configured with a narrower rule, such as grass only.
+The hostile species above can spawn on grass, dirt, stone, sand, sandstone, snow or red clay within their habitat. Chickens spawn on surface grass in daylight with light levels 9–15.
 
 ## Lighting prevents new hostile spawns
 
 All current hostile creatures require light level **7 or lower** immediately above their supporting ground. **Level 8 or higher prevents new spawns.** Daylight and nearby placed torches, powered Workshop Lamps and lava contribute to this level. Light must reach the ground; walls can leave dark pockets.
 
-Light the floor of underground rooms to prevent new Floaters there. Existing creatures can still enter a lit area, and lighting does not remove them. Holding a torch only lights the view; place it to protect the surrounding ground. Habitat, support-block and light requirements can be configured independently for future passive creatures too.
+Light the floor of underground rooms to prevent new Floaters there. Existing creatures can still enter a lit area, and lighting does not remove them. Holding a torch only lights the view; place it to protect the surrounding ground. Chickens use their own habitat, support-block and light requirements.
 
 ![A torch lights a cave floor beside an existing Floater](images/lit-cave-spawn-floor.png)
 
@@ -36,7 +36,7 @@ Watch for the preparation animation before a bite or punch. Back away or put sol
 
 ## Persistence
 
-Save/Load retains existing creature identity, health and intent. Distant or unloaded creatures stop thinking and rendering; ambient creatures far enough away can be removed without loot. They are an ambient population, not permanent named pets. Pausing stops their simulation.
+Save/Load retains existing hostile creature identity, health and intent. Distant or unloaded hostiles stop thinking and rendering; ambient hostiles far enough away can be removed without loot. Chickens persist when distant or unloaded, with their growth and egg timers paused. Pausing stops both systems.
 
 [All items](Items.md) · [Home](Home.md)
 
