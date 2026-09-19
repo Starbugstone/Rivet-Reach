@@ -138,3 +138,7 @@ Spawn profiles append an inclusive light range without changing schema 10 or the
 ## Mixed compost compatibility — 2026-09-14
 
 [Revised compost](COMPOST.md#recovery-and-compatibility) uses schema 11 for accumulated points, batch sequence and autocomposter charge. Existing schema-10 bin inventories survive migration; unpaid timer work is discarded, inputs are converted only on interaction, and finished output is ejected. Existing bins become manual-only; no free automatic upgrade is granted. The exact previous content fingerprints remain accepted with unrelated item/recipe/mob checks intact. Failed-load rollback and generated terrain history are unchanged.
+
+## Fishing compatibility — 2026-09-19
+
+[Fishing](FISHING.md) keeps schema 11. Rods and fish use stable registered item identities; new cooker recipes use the existing recipe/signature state. Exact pre-fishing fingerprints omit only the added items, rod recipe and separate fish-cooking catalog. Unrelated historical content checks remain enforced. Menus cancel transient casts before saving; loading grants no offline catch and starts with no cast. Failed-load rollback restores the original per-session fishing authority with the rest of the original session.

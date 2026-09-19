@@ -23,7 +23,7 @@ Make this item using the crafting or processing recipes below.
 
 ## Using it
 
-Craft four Strings into one Cloth. Fishing rods are a later increment.
+Craft four Strings into one Cloth, or combine two String with three Sticks at a Workbench for a Fishing Rod. See [Fishing](Fishing.md).
 
 ## Crafting and processing
 
@@ -57,3 +57,4 @@ Follow a result to see its complete ingredients and recipe.
 | Result | Station | Recipe |
 |---|---|---|
 | <a href="Item-cloth.md#recipe-1" title="Cloth"><img src="icons/225.png" width="32" height="32" alt="Cloth"></a> ×1 [Cloth](Item-cloth.md) | Personal 2×2 | [View recipe](Item-cloth.md#recipe-1) |
+| <a href="Item-fishing-rod.md#recipe-1" title="Fishing Rod"><img src="icons/244.png" width="32" height="32" alt="Fishing Rod"></a> ×1 [Fishing Rod](Item-fishing-rod.md) | [Workbench](Item-workbench.md) | [View recipe](Item-fishing-rod.md#recipe-1) |

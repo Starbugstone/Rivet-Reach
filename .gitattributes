@@ -78,3 +78,8 @@ ArtSource/Farming/*.png filter=lfs diff=lfs merge=lfs -text
 
 .docs/verification/mob-spawning-2026-09-13/*.png filter=lfs diff=lfs merge=lfs -text
 .docs/verification/mob-light-2026-09-13/*.png filter=lfs diff=lfs merge=lfs -text
+
+Assets/RivetReach/Resources/Fishing/*.fbx filter=lfs diff=lfs merge=lfs -text
+ArtSource/Fishing/*.png filter=lfs diff=lfs merge=lfs -text
+.docs/wiki/images/fishing/*.png filter=lfs diff=lfs merge=lfs -text
+.docs/verification/fishing-2026-09-19/*.png filter=lfs diff=lfs merge=lfs -text

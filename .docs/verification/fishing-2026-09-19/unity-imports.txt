@@ -1,0 +1,5 @@
+244.fbx | triangles=3000 | renderers=1 | bounds=Center: (0.02, 0.62, -0.01), Extents: (0.09, 0.80, 0.08)
+245.fbx | triangles=660 | renderers=1 | bounds=Center: (-0.06, 0.21, 0.00), Extents: (0.46, 0.22, 0.20)
+246.fbx | triangles=768 | renderers=1 | bounds=Center: (-0.06, 0.21, 0.00), Extents: (0.46, 0.22, 0.20)
+247.fbx | triangles=1632 | renderers=1 | bounds=Center: (0.00, 0.10, 0.00), Extents: (0.32, 0.14, 0.30)
+Bobber.fbx | triangles=276 | renderers=1 | bounds=Center: (0.00, 0.06, 0.00), Extents: (0.08, 0.16, 0.08)

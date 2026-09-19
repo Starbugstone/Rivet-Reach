@@ -63,7 +63,7 @@ namespace RivetReach
             double daySeconds=r.Number(1,1e9),days=r.Number(0,1e9);int selected=r.Int(0,r.Format<6?11:Inventory.HotbarCount-1);float immunity=r.Float(0,2);
             // Keep the original session alive until every section has been restored and validated.
             var oldWorld=World;var oldPlayer=Player;var oldItems=Items;var oldMobs=Mobs;var oldInventory=Inventory;var oldCrafting=PersonalCrafting;
-            var oldHunger=Hunger;var oldHealth=Health;var oldEquipment=Equipment;var oldSurvival=Survival;var oldIndustry=Industry;
+            var oldHunger=Hunger;var oldHealth=Health;var oldEquipment=Equipment;var oldSurvival=Survival;var oldIndustry=Industry;var oldFishing=Fishing;
             string oldSaveId=SaveId,oldSaveName=SaveName;int oldSelected=Selected;bool oldLoading=LoadingSave,oldWaiting=WaitingForRespawn;
             var oldStation=OpenStation;var oldMachine=OpenMachine;int oldSeed=Seed;bool oldCreative=Creative;
             float oldImmunity=invulnerableUntil,oldDayLength=Sky.DayLengthMinutes;double oldDays=Sky.Clock.TotalDays;string oldWorldId=WorldId;
@@ -89,7 +89,7 @@ namespace RivetReach
             catch
             {
                 if(World!=oldWorld){World.Stop();World.gameObject.SetActive(false);Destroy(World.gameObject);Player.gameObject.SetActive(false);Destroy(Player.gameObject);Items.gameObject.SetActive(false);Destroy(Items.gameObject);}
-                World=oldWorld;Player=oldPlayer;Items=oldItems;Mobs=oldMobs;Inventory=oldInventory;PersonalCrafting=oldCrafting;Hunger=oldHunger;Health=oldHealth;Equipment=oldEquipment;Survival=oldSurvival;Industry=oldIndustry;OpenStation=oldStation;OpenMachine=oldMachine;Seed=oldSeed;Creative=oldCreative;invulnerableUntil=oldImmunity;WorldId=oldWorldId;SaveId=oldSaveId;SaveName=oldSaveName;Selected=oldSelected;LoadingSave=oldLoading;
+                World=oldWorld;Player=oldPlayer;Items=oldItems;Mobs=oldMobs;Inventory=oldInventory;PersonalCrafting=oldCrafting;Hunger=oldHunger;Health=oldHealth;Equipment=oldEquipment;Survival=oldSurvival;Industry=oldIndustry;Fishing=oldFishing;OpenStation=oldStation;OpenMachine=oldMachine;Seed=oldSeed;Creative=oldCreative;invulnerableUntil=oldImmunity;WorldId=oldWorldId;SaveId=oldSaveId;SaveName=oldSaveName;Selected=oldSelected;LoadingSave=oldLoading;
                 WaitingForRespawn=oldWaiting;Sky.DayLengthMinutes=oldDayLength;Sky.ResetClock();Sky.Clock.SetTime(oldDays);Sky.Apply();RenderSettings.fogStartDistance=World.FogStart;RenderSettings.fogEndDistance=World.FogEnd;
                 oldWorld.gameObject.SetActive(true);oldPlayer.gameObject.SetActive(true);oldItems.gameObject.SetActive(true);throw;
             }

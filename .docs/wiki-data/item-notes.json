@@ -482,7 +482,7 @@
   },
   "rivet:string": {
     "description": "Renewable flax cordage, crafted from three Flax Fibre.",
-    "use": "Craft four Strings into one Cloth. Fishing rods are a later increment."
+    "use": "Craft four Strings into one Cloth, or combine two String with three Sticks at a Workbench for a Fishing Rod. See [Fishing](Fishing.md)."
   },
   "rivet:cloth": {
     "description": "Fabric crafted from four Strings.",
@@ -507,5 +507,22 @@
   "rivet:auto_composter": {
     "description": "An electric composter that accepts mixed organic inputs and stores random 1–4 Compost outputs for automation.",
     "use": "Connect electricity and configure item-pipe Input/Output ends on any face. Charging draws up to 160 W; each input costs 8 J from a 512 J reserve. Insufficient charge or output space leaves unaccepted items in their source. Optional front Blue Signal control. See [Compost](Compost.md)."
+  },
+  "rivet:fishing_rod": {
+    "description": "A reusable wooden rod for catching fish by hand.",
+    "use": "Use to cast at an open 7×7 patch of source water, two source blocks deep. Wait for the bite, then Use again within three seconds. See [Fishing](Fishing.md)."
+  },
+  "rivet:raw_fish": {
+    "description": "A fresh catch from a successful fishing reel; edible for 2 food points.",
+    "obtain": "Catch it with a [Fishing Rod](Item-fishing-rod.md). See [Fishing](Fishing.md) for water requirements and bite timing.",
+    "use": "Eat directly, cook into Cooked Fish, or combine with two vegetables for Fish Stew in either Cooker."
+  },
+  "rivet:cooked_fish": {
+    "description": "Cooked fish restores 6 food points, three times the raw catch.",
+    "use": "Hold Use to eat when hungry, or use it with two vegetables for Fish Stew. Cook in either fuel or electric Cooker."
+  },
+  "rivet:fish_stew": {
+    "description": "A prepared fish-and-vegetable meal restoring 12 food points.",
+    "use": "Either Cooker accepts one raw or cooked fish plus two potatoes/carrots, including one of each. Hold Use to eat. See [Fishing](Fishing.md)."
   }
 }

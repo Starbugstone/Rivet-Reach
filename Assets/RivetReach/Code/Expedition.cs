@@ -10,6 +10,7 @@ namespace RivetReach
         public static Expedition Instance;
         public VoxelWorld World {get;private set;}
         public MobSystem Mobs {get;private set;}
+        public PlayerFishing Fishing {get;private set;}
         public FirstPersonPlayer Player {get;private set;}
         public DroppedItems Items {get;private set;}
         public Inventory Inventory {get;private set;}
@@ -84,6 +85,7 @@ namespace RivetReach
             Industry.Simulation.Multiblocks.WorldId=Guid.ParseExact(WorldId,"N");
             root.AddComponent<PipeEndpointPresentation>().Initialize(this);
             Mobs=root.AddComponent<MobSystem>();Mobs.Initialize(this);
+            Fishing=new PlayerFishing(this);root.AddComponent<FishingPresentation>().Initialize(this);
         }
         void SpawnMinedDrop(BlockPos pos,byte id)
         {
@@ -112,6 +114,7 @@ namespace RivetReach
             if(InventoryOpen&&mode!=ScreenMode.Inventory&&UI.BoundToCurrentSession)UI.ReturnHeld();
             if(mode!=ScreenMode.Inventory){OpenStation=null;OpenMachine=null;}
             if(Mode!=mode)modeChangedFrame=Time.frameCount;
+            if(mode!=ScreenMode.Play)Fishing?.Cast.Cancel();
             Mode=mode;Time.timeScale=Paused?0:1;
             bool capture=Mode==ScreenMode.Play;if(Player!=null)Player.Arms.gameObject.SetActive(capture&&!Player.Inspecting);Cursor.lockState=capture?CursorLockMode.Locked:CursorLockMode.None;Cursor.visible=!capture;
             UI?.Rebuild();
@@ -121,7 +124,7 @@ namespace RivetReach
             if(Input==null)return;
             if(WaitingForRespawn&&ReadyToPlay){WaitingForRespawn=false;invulnerableUntil=Time.time+2;SetMode(Mode);}
             if(LoadingSave&&ReadyToPlay){LoadingSave=false;SetMode(Mode);}
-            if(Started&&!Paused){Sky.Advance(Time.deltaTime);World.AdvanceGrass(Time.deltaTime);World.AdvanceTrees(Time.deltaTime);World.AdvanceFluids(Time.deltaTime);int ticks=Survival.Advance(Time.deltaTime);Industry.Advance(ticks);if(!Creative){Health.Advance(ticks,Hunger);AdvanceLava(ticks);}}
+            if(Started&&!Paused){Sky.Advance(Time.deltaTime);World.AdvanceGrass(Time.deltaTime);World.AdvanceTrees(Time.deltaTime);World.AdvanceFluids(Time.deltaTime);int ticks=Survival.Advance(Time.deltaTime);Industry.Advance(ticks);Fishing.Advance(ticks);if(!Creative){Health.Advance(ticks,Hunger);AdvanceLava(ticks);}}
             if((OpenStation!=null||OpenMachine!=null)&&(!World.Ready(StationPosition)||(World.Local(StationPosition)+Vector3.one*.5f-Player.transform.position).sqrMagnitude>36))SetMode(ScreenMode.Play);
             if(Health.Dead)return;
             if(Input.PollRebind()){UI.Rebuild();return;}

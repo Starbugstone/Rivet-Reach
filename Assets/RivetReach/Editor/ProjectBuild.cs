@@ -38,6 +38,8 @@ namespace RivetReach.Editor
             command=command.Replace("|ready","");File.Delete(request);
             try
             {
+                if(command=="fishing-build"){FishingBuild.Prepare();FishingChecks.Run();FarmingChecks.Run();SurvivalChecks.Run();CompostChecks.Run();WikiExport.Export();Build("Fishing");File.WriteAllText("Logs/build-result.txt","SUCCESS fishing");return;}
+                if(command=="fishing-player"){WikiExport.Export();Build("Fishing");File.WriteAllText("Logs/build-result.txt","SUCCESS fishing player");return;}
                 if(command=="lighting-build"){LightingChecks.Run();FarmingChecks.Run();SurvivalChecks.Run();IndustryChecks.Run();WikiExport.Export();Build("Lighting");File.WriteAllText("Logs/build-result.txt","SUCCESS lighting");return;}
                 if(command=="lighting-player"){Build("Lighting");File.WriteAllText("Logs/build-result.txt","SUCCESS lighting player");return;}
                 if(command=="compost-player"){WikiExport.Export();Build("Compost");File.WriteAllText("Logs/build-result.txt","SUCCESS compost player");return;}

@@ -182,3 +182,7 @@ The user requested [cave sunlight occlusion and crops supported by placed light]
 ## Revised mixed compost and electric automation
 
 The user superseded the original stack/timer composter with [mixed immediate organic deposits](.docs/COMPOST.md): consume accepted items immediately, accumulate their explicit values, carry excess points, and eject random 1–4 Compost at 100%. The basic bin is manual-only. A separately crafted **electric Autocomposter** provides item-pipe input/output and stored output. Preserve no-reroll output transactions, exact charged energy, schema-11 state and legacy queued contents, existing crop/light rules and material-tiered upgrade construction. Keep issue #10's checklist and published wiki current with completed revisions.
+
+## Authorized fishing
+
+The user authorized [fishing](.docs/FISHING.md) as the next issue #10 increment: a string-based rod, manual cast/bite/reel, fish and cooker meals. The user requires a minimum square of source water at least two sources deep; the working footprint is **7×7×2**, with an open surface. Preserve resident/tether validation, exactly-once catches, ordinary inventory/drop recovery, transient cast cancellation, additive save compatibility and existing terrain. Capture the fishing and crafting steps and keep the published wiki and issue checklist current.

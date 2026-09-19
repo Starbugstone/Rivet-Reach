@@ -485,3 +485,7 @@ The user authorized a craftable [Hand Crank](HAND_CRANK.md) that attaches to a b
 ## Compost — 2026-09-13
 
 [Compost](COMPOST.md) owns the manual bin, electric autocomposter, mixed immediate deposits, random output, configured organic inputs and optional one-stage acceleration for immature wild/cultivated crops. It adds no moisture or spoilage requirement.
+
+## Fishing — 2026-09-19
+
+The [fishing rules](FISHING.md) own rod construction, a 7×7 square of water sources two blocks deep, manual cast/bite/reel and raw/cooked fish meals. The active cast is transient; caught items use ordinary inventories, drops and saves.

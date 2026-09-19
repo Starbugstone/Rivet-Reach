@@ -25,7 +25,9 @@ namespace RivetReach
         {
             var asset=Resources.Load<TextAsset>("Definitions/Cooking");
             if(asset==null)throw new InvalidOperationException("Missing food cooker catalog.");
-            var result=JsonUtility.FromJson<CookingCatalog>(asset.text)??throw new ArgumentException("Invalid food catalog.");result.Validate(ItemRegistry.Load());return result;
+            var result=JsonUtility.FromJson<CookingCatalog>(asset.text)??throw new ArgumentException("Invalid food catalog.");var fish=Resources.Load<TextAsset>("Definitions/FishingCooking");
+            if(fish!=null)result.recipes=result.recipes.Concat(JsonUtility.FromJson<CookingCatalog>(fish.text).recipes).ToArray();
+            result.Validate(ItemRegistry.Load());return result;
         }
         ItemRegistry items;
         Dictionary<string,CookingRecipe> byId;

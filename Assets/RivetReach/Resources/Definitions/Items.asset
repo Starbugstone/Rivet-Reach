@@ -2930,3 +2930,76 @@ MonoBehaviour:
     attackDamage: 1
     buoyant: 0
     tags: []
+  - runtimeId: 244
+    stableId: rivet:fishing_rod
+    displayName: Fishing Rod
+    stackLimit: 1
+    fistSeconds: 0.15
+    colour: {r: 0.35, g: 0.6, b: 0.57, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags:
+    - fishing_rod
+  - runtimeId: 245
+    stableId: rivet:raw_fish
+    displayName: Raw Fish
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.35, g: 0.6, b: 0.57, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 2
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags:
+    - edible
+    - fish
+    - raw_fish
+  - runtimeId: 246
+    stableId: rivet:cooked_fish
+    displayName: Cooked Fish
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.35, g: 0.6, b: 0.57, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 6
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags:
+    - edible
+    - fish
+    - prepared_food
+  - runtimeId: 247
+    stableId: rivet:fish_stew
+    displayName: Fish Stew
+    stackLimit: 64
+    fistSeconds: 0.15
+    colour: {r: 0.35, g: 0.6, b: 0.57, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 12
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags:
+    - edible
+    - prepared_food

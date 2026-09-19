@@ -1,0 +1,2 @@
+PASS: 47720 assertions. 107 crafting recipes, 11 furnace recipes; bootstrap graph, tier gates, furnace boundaries/filters/conservation/time partition equivalence, hunger, health, equipment.
+1000 active furnaces × 200 one-tick advances: 36,562 ms total; 0 managed bytes in measured loop.

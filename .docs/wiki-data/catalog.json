@@ -6160,6 +6160,155 @@
             "fuelTicks": 0,
             "watts": 160,
             "waterMl": 0
+        },
+        {
+            "definition": {
+                "runtimeId": 244,
+                "stableId": "rivet:fishing_rod",
+                "displayName": "Fishing Rod",
+                "stackLimit": 1,
+                "fistSeconds": 0.15000000596046449,
+                "colour": {
+                    "r": 0.3499999940395355,
+                    "g": 0.6000000238418579,
+                    "b": 0.5699999928474426,
+                    "a": 1.0
+                },
+                "fistDropId": 0,
+                "toolCapabilities": 0,
+                "tier": 0,
+                "miningSpeed": 1.0,
+                "foodPoints": 0,
+                "armorSlot": 0,
+                "armorPoints": 0,
+                "attackDamage": 1,
+                "buoyant": false,
+                "tags": [
+                    "fishing_rod"
+                ]
+            },
+            "drop": "rivet:fishing_rod",
+            "requiredTier": "None",
+            "help": "",
+            "placeable": false,
+            "ore": false,
+            "crop": false,
+            "fuelTicks": 0,
+            "watts": 0,
+            "waterMl": 0
+        },
+        {
+            "definition": {
+                "runtimeId": 245,
+                "stableId": "rivet:raw_fish",
+                "displayName": "Raw Fish",
+                "stackLimit": 64,
+                "fistSeconds": 0.15000000596046449,
+                "colour": {
+                    "r": 0.3499999940395355,
+                    "g": 0.6000000238418579,
+                    "b": 0.5699999928474426,
+                    "a": 1.0
+                },
+                "fistDropId": 0,
+                "toolCapabilities": 0,
+                "tier": 0,
+                "miningSpeed": 1.0,
+                "foodPoints": 2,
+                "armorSlot": 0,
+                "armorPoints": 0,
+                "attackDamage": 1,
+                "buoyant": false,
+                "tags": [
+                    "edible",
+                    "fish",
+                    "raw_fish"
+                ]
+            },
+            "drop": "rivet:raw_fish",
+            "requiredTier": "None",
+            "help": "",
+            "placeable": false,
+            "ore": false,
+            "crop": false,
+            "fuelTicks": 0,
+            "watts": 0,
+            "waterMl": 0
+        },
+        {
+            "definition": {
+                "runtimeId": 246,
+                "stableId": "rivet:cooked_fish",
+                "displayName": "Cooked Fish",
+                "stackLimit": 64,
+                "fistSeconds": 0.15000000596046449,
+                "colour": {
+                    "r": 0.3499999940395355,
+                    "g": 0.6000000238418579,
+                    "b": 0.5699999928474426,
+                    "a": 1.0
+                },
+                "fistDropId": 0,
+                "toolCapabilities": 0,
+                "tier": 0,
+                "miningSpeed": 1.0,
+                "foodPoints": 6,
+                "armorSlot": 0,
+                "armorPoints": 0,
+                "attackDamage": 1,
+                "buoyant": false,
+                "tags": [
+                    "edible",
+                    "fish",
+                    "prepared_food"
+                ]
+            },
+            "drop": "rivet:cooked_fish",
+            "requiredTier": "None",
+            "help": "",
+            "placeable": false,
+            "ore": false,
+            "crop": false,
+            "fuelTicks": 0,
+            "watts": 0,
+            "waterMl": 0
+        },
+        {
+            "definition": {
+                "runtimeId": 247,
+                "stableId": "rivet:fish_stew",
+                "displayName": "Fish Stew",
+                "stackLimit": 64,
+                "fistSeconds": 0.15000000596046449,
+                "colour": {
+                    "r": 0.3499999940395355,
+                    "g": 0.6000000238418579,
+                    "b": 0.5699999928474426,
+                    "a": 1.0
+                },
+                "fistDropId": 0,
+                "toolCapabilities": 0,
+                "tier": 0,
+                "miningSpeed": 1.0,
+                "foodPoints": 12,
+                "armorSlot": 0,
+                "armorPoints": 0,
+                "attackDamage": 1,
+                "buoyant": false,
+                "tags": [
+                    "edible",
+                    "prepared_food"
+                ]
+            },
+            "drop": "rivet:fish_stew",
+            "requiredTier": "None",
+            "help": "",
+            "placeable": false,
+            "ore": false,
+            "crop": false,
+            "fuelTicks": 0,
+            "watts": 0,
+            "waterMl": 0
         }
     ],
     "recipes": [
@@ -10128,6 +10277,62 @@
             "mirror": false
         },
         {
+            "id": "rivet:fishing_rod",
+            "station": "rivet:workbench",
+            "kind": "Shaped",
+            "output": {
+                "item": "rivet:fishing_rod",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "",
+                    "count": 0
+                },
+                {
+                    "item": "",
+                    "count": 0
+                },
+                {
+                    "item": "rivet:stick",
+                    "count": 1
+                },
+                {
+                    "item": "",
+                    "count": 0
+                },
+                {
+                    "item": "rivet:stick",
+                    "count": 1
+                },
+                {
+                    "item": "rivet:string",
+                    "count": 1
+                },
+                {
+                    "item": "rivet:stick",
+                    "count": 1
+                },
+                {
+                    "item": "",
+                    "count": 0
+                },
+                {
+                    "item": "rivet:string",
+                    "count": 1
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 3,
+            "width": 3,
+            "height": 3,
+            "ticks": 0,
+            "watts": 0,
+            "compostPercent": 0.0,
+            "mirror": true
+        },
+        {
             "id": "rivet:smelt_charcoal",
             "station": "rivet:furnace",
             "kind": "Processing",
@@ -11412,6 +11617,184 @@
             "mirror": false
         },
         {
+            "id": "cooker:240:rivet:cook_fish",
+            "station": "rivet:cooker",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:cooked_fish",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:raw_fish",
+                    "count": 1
+                }
+            ],
+            "foodIngredients": [
+                {
+                    "selector": "#raw_fish",
+                    "count": 1,
+                    "choices": [
+                        "rivet:raw_fish"
+                    ]
+                }
+            ],
+            "fuels": [
+                "rivet:log",
+                "rivet:coal",
+                "rivet:planks",
+                "rivet:stick",
+                "rivet:charcoal",
+                "rivet:wood_axe",
+                "rivet:wood_pickaxe",
+                "rivet:wood_sword",
+                "rivet:wood_shovel",
+                "rivet:wood_hoe",
+                "rivet:coal_block"
+            ],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 200,
+            "watts": 0,
+            "compostPercent": 0.0,
+            "mirror": false
+        },
+        {
+            "id": "cooker:241:rivet:cook_fish",
+            "station": "rivet:electric_cooker",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:cooked_fish",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:raw_fish",
+                    "count": 1
+                }
+            ],
+            "foodIngredients": [
+                {
+                    "selector": "#raw_fish",
+                    "count": 1,
+                    "choices": [
+                        "rivet:raw_fish"
+                    ]
+                }
+            ],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 200,
+            "watts": 200,
+            "compostPercent": 0.0,
+            "mirror": false
+        },
+        {
+            "id": "cooker:240:rivet:cook_fish_stew",
+            "station": "rivet:cooker",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:fish_stew",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:raw_fish",
+                    "count": 1
+                },
+                {
+                    "item": "rivet:potato",
+                    "count": 2
+                }
+            ],
+            "foodIngredients": [
+                {
+                    "selector": "#fish",
+                    "count": 1,
+                    "choices": [
+                        "rivet:raw_fish",
+                        "rivet:cooked_fish"
+                    ]
+                },
+                {
+                    "selector": "#vegetable",
+                    "count": 2,
+                    "choices": [
+                        "rivet:potato",
+                        "rivet:carrot"
+                    ]
+                }
+            ],
+            "fuels": [
+                "rivet:log",
+                "rivet:coal",
+                "rivet:planks",
+                "rivet:stick",
+                "rivet:charcoal",
+                "rivet:wood_axe",
+                "rivet:wood_pickaxe",
+                "rivet:wood_sword",
+                "rivet:wood_shovel",
+                "rivet:wood_hoe",
+                "rivet:coal_block"
+            ],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 200,
+            "watts": 0,
+            "compostPercent": 0.0,
+            "mirror": false
+        },
+        {
+            "id": "cooker:241:rivet:cook_fish_stew",
+            "station": "rivet:electric_cooker",
+            "kind": "Processing",
+            "output": {
+                "item": "rivet:fish_stew",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:raw_fish",
+                    "count": 1
+                },
+                {
+                    "item": "rivet:potato",
+                    "count": 2
+                }
+            ],
+            "foodIngredients": [
+                {
+                    "selector": "#fish",
+                    "count": 1,
+                    "choices": [
+                        "rivet:raw_fish",
+                        "rivet:cooked_fish"
+                    ]
+                },
+                {
+                    "selector": "#vegetable",
+                    "count": 2,
+                    "choices": [
+                        "rivet:potato",
+                        "rivet:carrot"
+                    ]
+                }
+            ],
+            "fuels": [],
+            "grid": 0,
+            "width": 0,
+            "height": 0,
+            "ticks": 200,
+            "watts": 200,
+            "compostPercent": 0.0,
+            "mirror": false
+        },
+        {
             "id": "compost:242:rivet:leaves",
             "station": "rivet:compost_bin",
             "kind": "Processing",
@@ -12439,11 +12822,15 @@
         },
         {
             "path": "Assets/RivetReach/Code/Expedition.cs",
-            "sha256": "2bcc968ce99dab12e4141cc895fb17b91739f5e55001d792a0305a1e9e236e04"
+            "sha256": "d1fe90ca29ca80850f706b621ae2c29365d89c324943c1fdeb1420292b66318d"
         },
         {
             "path": "Assets/RivetReach/Code/FarmingVerification.cs",
             "sha256": "39ef78bdf2c68dc057e8f56b0f77bb966e9b12ce3fe844bf147e86126a09f11a"
+        },
+        {
+            "path": "Assets/RivetReach/Code/FishingVerification.cs",
+            "sha256": "a6b58d79a8241f07a148929ffc04c28528cfaa6b4f7eb4b85ec868dc6ad86e0a"
         },
         {
             "path": "Assets/RivetReach/Code/FluidVerification.cs",
@@ -12679,11 +13066,11 @@
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/ExpeditionSaves.cs",
-            "sha256": "f0c661c9110fe9b05fc491c537888dcb51f7b81e031919bf2100c12b8f218619"
+            "sha256": "6ee8a416b144918473dde814e7f512817a5293e7feeada29195e23899747f5e4"
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/SaveIO.cs",
-            "sha256": "1f02326e6808e06afbfae2a10c9e62882d24cf9a32c25bb6440b3ba9291e683b"
+            "sha256": "8431bc41fadf1db20f89d8e5498a47f80d483acca53c50697df0f346ec80f68f"
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/WorldSaveState.cs",
@@ -12739,15 +13126,15 @@
         },
         {
             "path": "Assets/RivetReach/Code/Player/FirstPersonPlayer.cs",
-            "sha256": "6119236107fe56945bc71ef7f9156ab82774e0a66f082f7d5e363a210eae01e5"
+            "sha256": "04aa76bdd62310ac829dc3bdb4b7c9ba6f87446968c1d66d39e1768deb7637ee"
         },
         {
             "path": "Assets/RivetReach/Code/Player/FoodVisuals.cs",
-            "sha256": "978096fc9f918ef6ac0c874a6ad94b742fc3ee99ffdb58a81b7b1152958e01b5"
+            "sha256": "890c1d049e970579c11d0d8144dc3e2d3de651cd0651bf1d5cd126202183683a"
         },
         {
             "path": "Assets/RivetReach/Code/Player/HeldBlockView.cs",
-            "sha256": "0cd5395fd944093e494f3094891f0aeab5d880ce364d035231b093205c9793ed"
+            "sha256": "9866e07d77d29be5580ec257628b4d10e285d033a48a04f674e0d3445209a099"
         },
         {
             "path": "Assets/RivetReach/Code/Player/ItemAppearance.cs",
@@ -12764,6 +13151,10 @@
         {
             "path": "Assets/RivetReach/Code/Player/PlayerEating.cs",
             "sha256": "02ec962ec05f848b4a3cf2e40bf70d683e9f0be8757631732dbfcf97a213a935"
+        },
+        {
+            "path": "Assets/RivetReach/Code/Player/PlayerFishing.cs",
+            "sha256": "a3e7835a5f9494d56647ab313c9f40fb2415815eb939702432bc219d9a18b1f2"
         },
         {
             "path": "Assets/RivetReach/Code/Player/PlayerInput.cs",
@@ -12791,7 +13182,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/RuntimeVerification.cs",
-            "sha256": "d2fd13df288398c000d473d2124a0863b96b86b8d86f4411c0033ce8fa92cf07"
+            "sha256": "2d0e75592c1731bd6ac228f2d6995b7880bea084ce3c77ba96da03d10692e48d"
         },
         {
             "path": "Assets/RivetReach/Code/SaveVerification.cs",
@@ -12827,7 +13218,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Survival/CookingCatalog.cs",
-            "sha256": "2499995e0d1da16bc4051d4a4060b442e615fd89184fc6dc87229d273fea55f2"
+            "sha256": "6665e9005b6dae6349e64f13bbeba1eb2031b93da1aa12e9fb491ee7878f2972"
         },
         {
             "path": "Assets/RivetReach/Code/Survival/CropRules.cs",
@@ -12840,6 +13231,10 @@
         {
             "path": "Assets/RivetReach/Code/Survival/FarmingCatalog.cs",
             "sha256": "3d5b8b90cbf407138466e150acec84cee92a4d49e34bbc1a4a887530a3ae3c3e"
+        },
+        {
+            "path": "Assets/RivetReach/Code/Survival/Fishing.cs",
+            "sha256": "ed5cbf4c9bd7aafd4fcf8ba44f69e2302569078d6abdea898c9a0b725e2bdf9d"
         },
         {
             "path": "Assets/RivetReach/Code/Survival/FurnaceState.cs",
@@ -13043,7 +13438,7 @@
         },
         {
             "path": "Assets/RivetReach/Editor/WikiExport.cs",
-            "sha256": "9c50649f7442fd0335805350e3b8b360f0de5ae63e5b3fe99a822909d17af264"
+            "sha256": "08134fded310f296b1896ea4d8ddc9d71d001b9e2e271e5b7f70a2851a191c86"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/BucketRecipe.asset",
@@ -13078,6 +13473,14 @@
             "sha256": "5472719fc4ed58d3b0565c6b643c2cf77eeaf8a99dafb05a85f32a553b37496a"
         },
         {
+            "path": "Assets/RivetReach/Resources/Definitions/FishingCooking.json",
+            "sha256": "13f44c0f7f0e6ade0c9fe1804ff5ca6be44386234386c2a7ea27b61b280c9571"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/FishingCooking.json.meta",
+            "sha256": "8aaaa65239a5d6700a73b3dc3eb13687b800fa5cac194128398f6b1aaf4d3326"
+        },
+        {
             "path": "Assets/RivetReach/Resources/Definitions/ItemBrowser.asset",
             "sha256": "862ec5446e0c49e7958e0af1fc62c916e00509d421c2205311d0dd46ff9527c5"
         },
@@ -13087,7 +13490,7 @@
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Items.asset",
-            "sha256": "82ea786c35f28934c6b9d19a803613665ad4d6c7f8f1769364d53c52df379fec"
+            "sha256": "75823a028a7f98f96e308eca5cd031289bdb2de4792ed493ae6efee745b29ba0"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Items.asset.meta",
@@ -13155,7 +13558,7 @@
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes.asset",
-            "sha256": "4cd4fceca7fd7c936468c1553cc6cb2ebc305beaf10d6e2eb39f47e6b353cc97"
+            "sha256": "da5a96230358f3961db678e16da6777a057630e63abeab9984de22e11e0a4024"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes.asset.meta",
@@ -13212,6 +13615,14 @@
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes/Farm241.asset.meta",
             "sha256": "7972c29f125776ce413f0745ed3e80c84301a4d747f35eabe066104dbdc0608f"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/Recipes/FishingRod.asset",
+            "sha256": "79a20c7d0fb98ddfa1e136af55b4566ad73b25960ae01c9abfb0b878a29afac8"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/Recipes/FishingRod.asset.meta",
+            "sha256": "1cdc77e624e1d42d05a7a81261f4ca85dc9edb852dfa89ef15996b4b438bbf69"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry122.asset",
@@ -14280,6 +14691,30 @@
         {
             "path": "Assets/RivetReach/Resources/Farming/Palette.png",
             "sha256": "79e384464c27e0c7283a90279a998bfa9af413b12c1660f6fe052f48448331f6"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Fishing/244Icon.png",
+            "sha256": "4cb15346e41bb5bc13db7eea34ba8652d644e4079587779d400238e0d19e61ba"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Fishing/245Icon.png",
+            "sha256": "1867cdf3ecb354356c56a1478cebcf0ee13334e0cf0a0aa074a4f510b05af7c8"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Fishing/246Icon.png",
+            "sha256": "2eee7ef1fc552f3f8d7df4eb59da59cfd1320ba93ec61ce4fd26ea3a3dd7c00e"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Fishing/247Icon.png",
+            "sha256": "096188c1bf00eca4ea73d95d49ec89d70fe0be7539d499414ea2117d5094876b"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Fishing/BobberIcon.png",
+            "sha256": "62584355d90338897f95f747520c5ec10722ba336066196d43720a1d23dd2f80"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Fishing/Palette.png",
+            "sha256": "650f90c1fee36e60305f853c0ff448e1c1811a38f9076c27d22000486575c9a0"
         },
         {
             "path": "Assets/RivetReach/Resources/Food/BakedPotatoIcon.png",

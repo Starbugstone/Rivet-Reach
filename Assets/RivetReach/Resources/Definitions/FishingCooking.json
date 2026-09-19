@@ -1,0 +1,6 @@
+{
+  "recipes": [
+    {"id":"rivet:cook_fish","name":"Cooked Fish","output":246,"count":1,"ticks":200,"ingredients":[{"selector":"#raw_fish","count":1}]},
+    {"id":"rivet:cook_fish_stew","name":"Fish Stew","output":247,"count":1,"ticks":200,"ingredients":[{"selector":"#fish","count":1},{"selector":"#vegetable","count":2}]}
+  ]
+}

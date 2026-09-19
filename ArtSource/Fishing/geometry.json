@@ -1,0 +1,22 @@
+{
+  "244": {
+    "triangles": 3000,
+    "materials": 1
+  },
+  "245": {
+    "triangles": 660,
+    "materials": 1
+  },
+  "246": {
+    "triangles": 768,
+    "materials": 1
+  },
+  "247": {
+    "triangles": 1632,
+    "materials": 1
+  },
+  "Bobber": {
+    "triangles": 276,
+    "materials": 1
+  }
+}

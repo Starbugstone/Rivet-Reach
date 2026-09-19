@@ -232,3 +232,7 @@ The user proposed the two-gold/two-diamond Item Bridge cost. The user also confi
 ## Compost surplus — 2026-09-13
 
 [Compost](COMPOST.md) uses seven planks for the bin, with no metal or industrial bootstrap gate. Each 24-point mixed level yields 1–4 Compost, each granting one optional growth stage. The electric autocomposter upgrade consumes a basic bin, casing, two cogs, two item pipes and one gold ingot. Even at maximum random yield, current crop harvests contribute less than the three-compost cost of instant regrowth; preserve this constraint when changing yields or contribution values. These defaults still need player balance review.
+
+## Early fishing — 2026-09-19
+
+The [Fishing Rod](FISHING.md) consumes three Sticks and two flax-derived String at the Workbench. Its construction stays within the early wood/fibre tier. Fishing adds renewable food without free puddle fishing: a 7×7×2 source-water pond and active bite timing are required. Raw Fish restores 2 points, Cooked Fish 6, and Fish Stew 12 with two additional vegetables. These are working defaults pending sustained early/base food-cadence playtests.

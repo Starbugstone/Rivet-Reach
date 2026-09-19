@@ -27,3 +27,5 @@
 - [Compost](Compost.md) — organic surplus, crop acceleration and bin automation.
 
 - [Lighting and underground farms](Lighting-and-underground-farms.md) — cave openings and growing with torches.
+
+- [Fishing](Fishing.md) — rod crafting, deep source-water ponds, bite timing and fish meals.

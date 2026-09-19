@@ -4,7 +4,7 @@
 
 Start with the [visual item index](Items.md), then click an item to see its purpose, how to obtain it, every recipe that makes it, and what uses it. Every item icon links to its own page.
 
-This reference covers **106 grid recipes, 11 furnace recipes, 11 electric furnace recipes, 5 crusher recipes, 12 cooker recipes and 19 compost conversions** in the current playable alpha. The recipe grids and icons come from the same catalog and artwork used by the inventory browser.
+This reference covers **107 grid recipes, 11 furnace recipes, 11 electric furnace recipes, 5 crusher recipes, 16 cooker recipes and 19 compost conversions** in the current playable alpha. The recipe grids and icons come from the same catalog and artwork used by the inventory browser.
 
 ## First crafting steps
 
@@ -123,6 +123,7 @@ Choose a result below to open its item page at the exact recipe.
 | <a href="Item-wrench.md#recipe-1" title="Wrench"><img src="icons/173.png" width="32" height="32" alt="Wrench"></a> ×1 [Wrench](Item-wrench.md) | [Workbench](Item-workbench.md) | [View recipe](Item-wrench.md#recipe-1) |
 | <a href="Item-cooker.md#recipe-1" title="Cooker"><img src="icons/240.png" width="32" height="32" alt="Cooker"></a> ×1 [Cooker](Item-cooker.md) | [Workbench](Item-workbench.md) | [View recipe](Item-cooker.md#recipe-1) |
 | <a href="Item-compost-bin.md#recipe-1" title="Compost Bin"><img src="icons/242.png" width="32" height="32" alt="Compost Bin"></a> ×1 [Compost Bin](Item-compost-bin.md) | [Workbench](Item-workbench.md) | [View recipe](Item-compost-bin.md#recipe-1) |
+| <a href="Item-fishing-rod.md#recipe-1" title="Fishing Rod"><img src="icons/244.png" width="32" height="32" alt="Fishing Rod"></a> ×1 [Fishing Rod](Item-fishing-rod.md) | [Workbench](Item-workbench.md) | [View recipe](Item-fishing-rod.md#recipe-1) |
 
 ## Machinist’s Bench — 4×4
 
@@ -222,6 +223,8 @@ Choose a result below to open its item page at the exact recipe.
 | <a href="Item-cooked-mushroom.md#recipe-1" title="Cooked Mushrooms"><img src="icons/234.png" width="32" height="32" alt="Cooked Mushrooms"></a> ×1 [Cooked Mushrooms](Item-cooked-mushroom.md) | [Cooker](Item-cooker.md) | [View recipe](Item-cooked-mushroom.md#recipe-1) |
 | <a href="Item-vegetable-stew.md#recipe-1" title="Vegetable Stew"><img src="icons/233.png" width="32" height="32" alt="Vegetable Stew"></a> ×1 [Vegetable Stew](Item-vegetable-stew.md) | [Cooker](Item-cooker.md) | [View recipe](Item-vegetable-stew.md#recipe-1) |
 | <a href="Item-fruit-porridge.md#recipe-1" title="Fruit Porridge"><img src="icons/235.png" width="32" height="32" alt="Fruit Porridge"></a> ×1 [Fruit Porridge](Item-fruit-porridge.md) | [Cooker](Item-cooker.md) | [View recipe](Item-fruit-porridge.md#recipe-1) |
+| <a href="Item-cooked-fish.md#recipe-1" title="Cooked Fish"><img src="icons/246.png" width="32" height="32" alt="Cooked Fish"></a> ×1 [Cooked Fish](Item-cooked-fish.md) | [Cooker](Item-cooker.md) | [View recipe](Item-cooked-fish.md#recipe-1) |
+| <a href="Item-fish-stew.md#recipe-1" title="Fish Stew"><img src="icons/247.png" width="32" height="32" alt="Fish Stew"></a> ×1 [Fish Stew](Item-fish-stew.md) | [Cooker](Item-cooker.md) | [View recipe](Item-fish-stew.md#recipe-1) |
 
 ## Electric cooker recipes
 
@@ -233,6 +236,8 @@ Choose a result below to open its item page at the exact recipe.
 | <a href="Item-cooked-mushroom.md#recipe-2" title="Cooked Mushrooms"><img src="icons/234.png" width="32" height="32" alt="Cooked Mushrooms"></a> ×1 [Cooked Mushrooms](Item-cooked-mushroom.md) | [Electric Cooker](Item-electric-cooker.md) | [View recipe](Item-cooked-mushroom.md#recipe-2) |
 | <a href="Item-vegetable-stew.md#recipe-2" title="Vegetable Stew"><img src="icons/233.png" width="32" height="32" alt="Vegetable Stew"></a> ×1 [Vegetable Stew](Item-vegetable-stew.md) | [Electric Cooker](Item-electric-cooker.md) | [View recipe](Item-vegetable-stew.md#recipe-2) |
 | <a href="Item-fruit-porridge.md#recipe-2" title="Fruit Porridge"><img src="icons/235.png" width="32" height="32" alt="Fruit Porridge"></a> ×1 [Fruit Porridge](Item-fruit-porridge.md) | [Electric Cooker](Item-electric-cooker.md) | [View recipe](Item-fruit-porridge.md#recipe-2) |
+| <a href="Item-cooked-fish.md#recipe-2" title="Cooked Fish"><img src="icons/246.png" width="32" height="32" alt="Cooked Fish"></a> ×1 [Cooked Fish](Item-cooked-fish.md) | [Electric Cooker](Item-electric-cooker.md) | [View recipe](Item-cooked-fish.md#recipe-2) |
+| <a href="Item-fish-stew.md#recipe-2" title="Fish Stew"><img src="icons/247.png" width="32" height="32" alt="Fish Stew"></a> ×1 [Fish Stew](Item-fish-stew.md) | [Electric Cooker](Item-electric-cooker.md) | [View recipe](Item-fish-stew.md#recipe-2) |
 
 ## Compost contributions
 

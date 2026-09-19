@@ -1,6 +1,6 @@
 # Farming, forage and food cookers
 
-Issue [#10](https://github.com/Starbugstone/Rivet-Reach/issues/10), first playable increment, authorized 2026-09-13. This working specification implements crops/forage, flax fibre/string/cloth, food-only cooker recipes and shared item tags. The subsequent [Compost increment](COMPOST.md) adds an optional organic-surplus growth accelerator. Beds, fishing, chickens, crates, weather and renewables remain later increments. The user confirmed distinct hostile/passive mob systems for future livestock; this increment does not add animals.
+Issue [#10](https://github.com/Starbugstone/Rivet-Reach/issues/10), first playable increment, authorized 2026-09-13. This working specification implements crops/forage, flax fibre/string/cloth, food-only cooker recipes and shared item tags. The subsequent [Compost increment](COMPOST.md) adds an optional organic-surplus growth accelerator. [Fishing](FISHING.md) subsequently adds rods, fish and two additional cooker recipes. Beds, chickens, crates, weather and renewables remain later increments. The user confirmed distinct hostile/passive mob systems for future livestock; this increment does not add animals.
 
 ## Plants
 
@@ -20,7 +20,7 @@ The shared processing fuel catalog supplies explicit burn durations. Each regist
 
 ## Crafting and food
 
-Three flax fibres make one String; four Strings make one Cloth in personal crafting. These are configurable recipe assets. String/cloth are usable crafting materials reserved for the subsequently planned rod and bed; this increment does not advertise those as available.
+Three flax fibres make one String; four Strings make one Cloth in personal crafting. These are configurable recipe assets. String now also supports the [Fishing Rod](FISHING.md); Cloth remains reserved for the later bed increment.
 
 One furnace and two copper ingots make a basic Cooker at a workbench. One Cooker, one machine casing and four copper wire make an Electric Cooker at the Machinist's Bench. Existing beginning recipes retain their layouts/quantities.
 

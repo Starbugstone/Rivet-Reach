@@ -57,3 +57,5 @@ Drain finite lava deposits with a [Ranged Liquid Pump](Ranged-Liquid-Pump.md), c
 - [Compost](Compost.md) — organic surplus, crop acceleration and bin automation.
 
 [Lighting and underground farms](Lighting-and-underground-farms.md) explains cave skylights and growing crops with placed torches.
+
+- [Fishing](Fishing.md) — rod crafting, deep source-water ponds, bite timing and fish meals.

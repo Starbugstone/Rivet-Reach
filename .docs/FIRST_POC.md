@@ -8,7 +8,7 @@ The downloadable [0.0.1 alpha](releases/0.0.1.md) is a Windows x64 prerelease. E
 
 Open this repository in the pinned Unity Editor, open `Assets/RivetReach/Scenes/Main.unity`, then press Play. `Expedition.Bootstrap` creates the voxel world and UI at runtime; the unplayed scene is not a populated map. After cloning, run `git lfs pull` to retrieve binary assets.
 
-The current local review executable is **`Builds/Creative/RivetReach.exe`**. Keep its adjacent data folder, DLLs and Mono runtime together. Start Expedition uses a fresh random world seed, or the optional signed 32-bit seed entered on the title screen. Nearby terrain prepares before movement can enter it.
+The latest fishing review executable is **`Builds/Fishing/RivetReach.exe`** ([rules and controls](FISHING.md)). Keep its adjacent data folder, DLLs and Mono runtime together. Start Expedition uses a fresh random world seed, or the optional signed 32-bit seed entered on the title screen. Nearby terrain prepares before movement can enter it.
 
 For the latest menu/crafting responsiveness changes, use **`Builds/RecipeBrowser/RivetReach.exe`**; [pointer verification](verification/POINTER_RESULTS.md) identifies this focused build and its checks.
 
@@ -149,3 +149,5 @@ Run `Builds/Compost/RivetReach.exe` for the [compost increment](COMPOST.md). Cra
 ## Cave-lighting review — 2026-09-13
 
 Run `Builds/Lighting/RivetReach.exe` for the [cave sunlight and underground crop fixes](LIGHTING.md). Nearby placed torches now support crops; enclosed caves lose outdoor ambient light, while shafts and entrances admit fading skylight. Existing worlds rebuild derived lighting on load. [Verification](verification/LIGHTING_RESULTS.md) records tested behavior and measured cost.
+
+The September 19 fishing review build adds the [Fishing Rod, water requirements and fish meals](FISHING.md). Use/right-click casts and reels; wait for the bite cue. [Measured verification](verification/FISHING_RESULTS.md) includes actual casting and crafting captures.

@@ -29,7 +29,7 @@ A manual [Compost Bin](Compost.md) immediately mixes spare biological items into
 
 ## Fibre and cloth
 
-Three [Flax Fibre](Item-flax-fibre.md) make one [String](Item-string.md), and four Strings make one [Cloth](Item-cloth.md), using personal crafting. These begin the renewable textile chain. Fishing rods and beds are planned follow-ups and are not yet available in this increment.
+Three [Flax Fibre](Item-flax-fibre.md) make one [String](Item-string.md), and four Strings make one [Cloth](Item-cloth.md), using personal crafting. These begin the renewable textile chain. String also makes the [Fishing Rod](Item-fishing-rod.md); beds remain a later increment.
 
 ## Build a cooker
 
@@ -83,3 +83,7 @@ Captures: September 13, 2026, Farming review build. Quantities and timings are i
 ![The actual item browser filtered to edible foods](images/farming/edible-tag-search.png)
 
 [Lighting and underground farms](Lighting-and-underground-farms.md) explains cave skylights and growing crops with placed torches.
+
+## Fishing for food
+
+Use the flax String chain to craft a [Fishing Rod](Item-fishing-rod.md). [Fishing](Fishing.md) explains the required 7×7×2 source-water pond, cast/bite/reel steps and screenshots. Either Cooker can prepare Cooked Fish or Fish Stew using the shared fish/vegetable tags.

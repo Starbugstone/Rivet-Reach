@@ -136,6 +136,7 @@ namespace RivetReach.Editor
                 .Concat(Directory.GetFiles("Assets/RivetReach/Resources/Industry/Icons", "*.png"))
                 .Concat(Directory.GetFiles("Assets/RivetReach/Resources/Food", "*.png"))
                 .Concat(Directory.GetFiles("Assets/RivetReach/Resources/Farming", "*.png"))
+                .Concat(Directory.GetFiles("Assets/RivetReach/Resources/Fishing", "*.png"))
                 .Concat(Directory.GetFiles("Assets/RivetReach/Resources/MobLoot", "*.png"))
                 .Concat(Directory.GetFiles("Assets/RivetReach/Resources/Equipment", "*.png"))
                 .Concat(Directory.GetFiles("Assets/RivetReach/Resources/Orchard", "*.png"))

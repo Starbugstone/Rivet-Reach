@@ -77,7 +77,7 @@ class Reference:
         d = item['definition']
         if 'starter_' in item_id:
             return 'Legacy test equipment'
-        if d['toolCapabilities'] or item_id == 'rivet:wrench':
+        if d['stableId'] == 'rivet:fishing_rod' or d['toolCapabilities'] or item_id == 'rivet:wrench':
             return 'Tools and weapons'
         if d['armorSlot']:
             return 'Armor'
