@@ -1,0 +1,100 @@
+{
+  "pages": [
+    {
+      "name": "Tools-and-durability",
+      "desktop": {
+        "title": "Tools and durability \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+        "images": 2,
+        "toolLinks": 4
+      },
+      "mobile": {
+        "viewport": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "Item-wood-pickaxe",
+      "desktop": {
+        "title": "Item wood pickaxe \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+        "images": 10,
+        "toolLinks": 2
+      },
+      "mobile": {
+        "viewport": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "Item-diamond-pickaxe",
+      "desktop": {
+        "title": "Item diamond pickaxe \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+        "images": 10,
+        "toolLinks": 2
+      },
+      "mobile": {
+        "viewport": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "Item-wood-axe",
+      "desktop": {
+        "title": "Item wood axe \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+        "images": 10,
+        "toolLinks": 2
+      },
+      "mobile": {
+        "viewport": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "Item-diamond-axe",
+      "desktop": {
+        "title": "Item diamond axe \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+        "images": 10,
+        "toolLinks": 2
+      },
+      "mobile": {
+        "viewport": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "Item-wrench",
+      "desktop": {
+        "title": "Item wrench \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+        "images": 7,
+        "toolLinks": 1
+      },
+      "mobile": {
+        "viewport": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "Item-fishing-rod",
+      "desktop": {
+        "title": "Item fishing rod \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+        "images": 10,
+        "toolLinks": 1
+      },
+      "mobile": {
+        "viewport": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "Home",
+      "desktop": {
+        "title": "Home \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+        "images": 3,
+        "toolLinks": 1
+      },
+      "mobile": {
+        "viewport": 390,
+        "width": 390
+      }
+    }
+  ]
+}
