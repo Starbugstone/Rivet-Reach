@@ -1,0 +1,481 @@
+[
+  {
+    "url": "https://github.com/Starbugstone/Rivet-Reach/wiki/Item-cooked-egg",
+    "title": "Item cooked egg \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "images": [
+      {
+        "alt": "Cooked Egg",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/252.png?v=e9d0c1a27951",
+        "loaded": true
+      },
+      {
+        "alt": "Cooker",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/240.png?v=90ad6f64b039",
+        "loaded": true
+      },
+      {
+        "alt": "Cooked Egg",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/252.png?v=e9d0c1a27951",
+        "loaded": true
+      },
+      {
+        "alt": "Egg",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/248.png?v=363aa30b86dc",
+        "loaded": true
+      },
+      {
+        "alt": "Log",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/4.png?v=2dbf09eb4853",
+        "loaded": true
+      },
+      {
+        "alt": "Coal",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/17.png?v=777d37a1313d",
+        "loaded": true
+      },
+      {
+        "alt": "Planks",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/20.png?v=5e588a1f553a",
+        "loaded": true
+      },
+      {
+        "alt": "Stick",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/21.png?v=809a4c717c5a",
+        "loaded": true
+      },
+      {
+        "alt": "Charcoal",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/26.png?v=23536d07c76f",
+        "loaded": true
+      },
+      {
+        "alt": "Wood axe",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/40.png?v=dfff3360c7a2",
+        "loaded": true
+      },
+      {
+        "alt": "Wood pickaxe",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/41.png?v=d8e860fef734",
+        "loaded": true
+      },
+      {
+        "alt": "Wood sword",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/42.png?v=20927930c7c4",
+        "loaded": true
+      },
+      {
+        "alt": "Wood shovel",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/43.png?v=5dcf5c052685",
+        "loaded": true
+      },
+      {
+        "alt": "Wood hoe",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/44.png?v=f22b43f76fe9",
+        "loaded": true
+      },
+      {
+        "alt": "Coal block",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/65.png?v=6e835da57a1c",
+        "loaded": true
+      },
+      {
+        "alt": "Electric Cooker",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/241.png?v=5bece2f6c9d7",
+        "loaded": true
+      },
+      {
+        "alt": "Cooked Egg",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/252.png?v=e9d0c1a27951",
+        "loaded": true
+      },
+      {
+        "alt": "Egg",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/248.png?v=363aa30b86dc",
+        "loaded": true
+      }
+    ],
+    "overflow": false,
+    "text": "Cooked Egg\n\nAll items \u00b7 Crafting guide \u00b7 Home\n\nHow to obtain \u00b7 Crafting and processing\n\nCooked Egg restores 4 food points.\n\nAt a glance\nProperty\tValue\nStack size\t64\nTags\tedible, egg, prepared_food\nFood restored\t4 points\nHow to obtain\n\nMake this item using the crafting or processing recipes below.\n\nUsing it\n\nPrepare in either fuel or electric Cooker; hold Use to eat when hungry. See Chickens.\n\nCrafting and processing\nRecipe 1\n\nStation: \nCooker\n\nProcessing time: 10 seconds per operation.\n\nOutput: \nCooked Egg \u00d71\n\nIngredient\tTotal per operation\n#raw_egg:  Egg\t1\n\nFor tagged ingredients, any listed item counts; combinations and split stacks are accepted. Select this recipe on the cooker.\n\nFuel: add burnable fuel separately; it is not a crafting ingredient.  Log \u00b7  Coal \u00b7  Planks \u00b7  Stick \u00b7  Charcoal \u00b7  Wood axe \u00b7  Wood pickaxe \u00b7  Wood sword \u00b7  Wood shovel \u00b7  Wood hoe \u00b7  Coal block.\n\nCookers retain unused heat while blocked or idle. See the Cooker page for fuel durations.\n\nRecipe 2\n\nStation: \nElectric Cooker\n\nProcessing time: 10 seconds per operation at 200 W. Reduced power slows progress.\n\nOutput: \nCooked Egg \u00d71\n\nIngredient\tTotal per operation\n#raw_egg:  Egg\t1\n\nFor tagged ingredients, any listed item counts; combinations and split stacks are accepted. Select this recipe on the cooker.\n\nRivet Reach \u00b7 \u00a9 Starbugstone \u00b7 All rights reserved. These guides describe the current playable alpha."
+  },
+  {
+    "url": "https://github.com/Starbugstone/Rivet-Reach/wiki/Item-egg",
+    "title": "Item egg \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "images": [
+      {
+        "alt": "Egg",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/248.png?v=363aa30b86dc",
+        "loaded": true
+      },
+      {
+        "alt": "Cooked Egg",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/252.png?v=e9d0c1a27951",
+        "loaded": true
+      },
+      {
+        "alt": "Cooked Egg",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/252.png?v=e9d0c1a27951",
+        "loaded": true
+      }
+    ],
+    "overflow": false,
+    "text": "Egg\n\nAll items \u00b7 Crafting guide \u00b7 Home\n\nHow to obtain \u00b7 Crafting and processing \u00b7 Uses\n\nAn ingredient laid by adult chickens every five to ten active minutes.\n\nAt a glance\nProperty\tValue\nStack size\t64\nTags\tegg, raw_egg\nHow to obtain\n\nPick up eggs near adult Chickens.\n\nUsing it\n\nCook into Cooked Egg in either Cooker. Raw eggs cannot be eaten or hatched.\n\nCrafting and processing\n\nThere is no registered crafting or processing recipe for this item. Use the acquisition method above.\n\nUsed to make\n\nFollow a result to see its complete ingredients and recipe.\n\nResult\tStation\tRecipe\n \u00d71 Cooked Egg\tCooker\tView recipe\n \u00d71 Cooked Egg\tElectric Cooker\tView recipe\n\nRivet Reach \u00b7 \u00a9 Starbugstone \u00b7 All rights reserved. These guides describe the current playable alpha."
+  },
+  {
+    "url": "https://github.com/Starbugstone/Rivet-Reach/wiki/Item-raw-chicken",
+    "title": "Item raw chicken \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "images": [
+      {
+        "alt": "Raw Chicken",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/249.png?v=630a189c4ae1",
+        "loaded": true
+      },
+      {
+        "alt": "Cooked Chicken",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/250.png?v=e8af07fa3715",
+        "loaded": true
+      },
+      {
+        "alt": "Cooked Chicken",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/250.png?v=e8af07fa3715",
+        "loaded": true
+      },
+      {
+        "alt": "Chicken Stew",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/253.png?v=863a5855a92c",
+        "loaded": true
+      },
+      {
+        "alt": "Chicken Stew",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/253.png?v=863a5855a92c",
+        "loaded": true
+      }
+    ],
+    "overflow": false,
+    "text": "Raw Chicken\n\nAll items \u00b7 Crafting guide \u00b7 Home\n\nHow to obtain \u00b7 Crafting and processing \u00b7 Uses\n\nRaw meat restoring 2 food points.\n\nAt a glance\nProperty\tValue\nStack size\t64\nTags\tedible, meat, raw_meat\nFood restored\t2 points\nHow to obtain\n\nDefeat an adult Chicken; chicks drop no meat.\n\nUsing it\n\nCook into Cooked Chicken, or combine with two vegetables for Chicken Stew.\n\nCrafting and processing\n\nThere is no registered crafting or processing recipe for this item. Use the acquisition method above.\n\nUsed to make\n\nFollow a result to see its complete ingredients and recipe.\n\nResult\tStation\tRecipe\n \u00d71 Cooked Chicken\tCooker\tView recipe\n \u00d71 Cooked Chicken\tElectric Cooker\tView recipe\n \u00d71 Chicken Stew\tCooker\tView recipe\n \u00d71 Chicken Stew\tElectric Cooker\tView recipe\n\nRivet Reach \u00b7 \u00a9 Starbugstone \u00b7 All rights reserved. These guides describe the current playable alpha."
+  },
+  {
+    "url": "https://github.com/Starbugstone/Rivet-Reach/wiki/Item-cooked-chicken",
+    "title": "Item cooked chicken \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "images": [
+      {
+        "alt": "Cooked Chicken",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/250.png?v=e8af07fa3715",
+        "loaded": true
+      },
+      {
+        "alt": "Cooker",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/240.png?v=90ad6f64b039",
+        "loaded": true
+      },
+      {
+        "alt": "Cooked Chicken",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/250.png?v=e8af07fa3715",
+        "loaded": true
+      },
+      {
+        "alt": "Raw Chicken",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/249.png?v=630a189c4ae1",
+        "loaded": true
+      },
+      {
+        "alt": "Log",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/4.png?v=2dbf09eb4853",
+        "loaded": true
+      },
+      {
+        "alt": "Coal",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/17.png?v=777d37a1313d",
+        "loaded": true
+      },
+      {
+        "alt": "Planks",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/20.png?v=5e588a1f553a",
+        "loaded": true
+      },
+      {
+        "alt": "Stick",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/21.png?v=809a4c717c5a",
+        "loaded": true
+      },
+      {
+        "alt": "Charcoal",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/26.png?v=23536d07c76f",
+        "loaded": true
+      },
+      {
+        "alt": "Wood axe",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/40.png?v=dfff3360c7a2",
+        "loaded": true
+      },
+      {
+        "alt": "Wood pickaxe",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/41.png?v=d8e860fef734",
+        "loaded": true
+      },
+      {
+        "alt": "Wood sword",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/42.png?v=20927930c7c4",
+        "loaded": true
+      },
+      {
+        "alt": "Wood shovel",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/43.png?v=5dcf5c052685",
+        "loaded": true
+      },
+      {
+        "alt": "Wood hoe",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/44.png?v=f22b43f76fe9",
+        "loaded": true
+      },
+      {
+        "alt": "Coal block",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/65.png?v=6e835da57a1c",
+        "loaded": true
+      },
+      {
+        "alt": "Electric Cooker",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/241.png?v=5bece2f6c9d7",
+        "loaded": true
+      },
+      {
+        "alt": "Cooked Chicken",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/250.png?v=e8af07fa3715",
+        "loaded": true
+      },
+      {
+        "alt": "Raw Chicken",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/249.png?v=630a189c4ae1",
+        "loaded": true
+      },
+      {
+        "alt": "Chicken Stew",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/253.png?v=863a5855a92c",
+        "loaded": true
+      },
+      {
+        "alt": "Chicken Stew",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/253.png?v=863a5855a92c",
+        "loaded": true
+      }
+    ],
+    "overflow": false,
+    "text": "Cooked Chicken\n\nAll items \u00b7 Crafting guide \u00b7 Home\n\nHow to obtain \u00b7 Crafting and processing \u00b7 Uses\n\nCooked Chicken restores 6 food points.\n\nAt a glance\nProperty\tValue\nStack size\t64\nTags\tedible, meat, prepared_food\nFood restored\t6 points\nHow to obtain\n\nMake this item using the crafting or processing recipes below.\n\nUsing it\n\nPrepare in either fuel or electric Cooker; hold Use to eat when hungry. See Chickens.\n\nCrafting and processing\nRecipe 1\n\nStation: \nCooker\n\nProcessing time: 10 seconds per operation.\n\nOutput: \nCooked Chicken \u00d71\n\nIngredient\tTotal per operation\n#raw_meat:  Raw Chicken\t1\n\nFor tagged ingredients, any listed item counts; combinations and split stacks are accepted. Select this recipe on the cooker.\n\nFuel: add burnable fuel separately; it is not a crafting ingredient.  Log \u00b7  Coal \u00b7  Planks \u00b7  Stick \u00b7  Charcoal \u00b7  Wood axe \u00b7  Wood pickaxe \u00b7  Wood sword \u00b7  Wood shovel \u00b7  Wood hoe \u00b7  Coal block.\n\nCookers retain unused heat while blocked or idle. See the Cooker page for fuel durations.\n\nRecipe 2\n\nStation: \nElectric Cooker\n\nProcessing time: 10 seconds per operation at 200 W. Reduced power slows progress.\n\nOutput: \nCooked Chicken \u00d71\n\nIngredient\tTotal per operation\n#raw_meat:  Raw Chicken\t1\n\nFor tagged ingredients, any listed item counts; combinations and split stacks are accepted. Select this recipe on the cooker.\n\nUsed to make\n\nFollow a result to see its complete ingredients and recipe.\n\nResult\tStation\tRecipe\n \u00d71 Chicken Stew\tCooker\tView recipe\n \u00d71 Chicken Stew\tElectric Cooker\tView recipe\n\nRivet Reach \u00b7 \u00a9 Starbugstone \u00b7 All rights reserved. These guides describe the current playable alpha."
+  },
+  {
+    "url": "https://github.com/Starbugstone/Rivet-Reach/wiki/Item-feather",
+    "title": "Item feather \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "images": [
+      {
+        "alt": "Feather",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/251.png?v=9b596d5a7a38",
+        "loaded": true
+      }
+    ],
+    "overflow": false,
+    "text": "Feather\n\nAll items \u00b7 Crafting guide \u00b7 Home\n\nHow to obtain \u00b7 Crafting and processing\n\nA material dropped by adult chickens.\n\nAt a glance\nProperty\tValue\nStack size\t64\nTags\tfeather\nHow to obtain\n\nDefeat an adult Chicken for one or two feathers.\n\nUsing it\n\nStore for future recipes; no feather crafting recipe is implemented yet.\n\nCrafting and processing\n\nThere is no registered crafting or processing recipe for this item. Use the acquisition method above.\n\nRivet Reach \u00b7 \u00a9 Starbugstone \u00b7 All rights reserved. These guides describe the current playable alpha."
+  },
+  {
+    "url": "https://github.com/Starbugstone/Rivet-Reach/wiki/Item-chicken-stew",
+    "title": "Item chicken stew \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "images": [
+      {
+        "alt": "Chicken Stew",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/253.png?v=863a5855a92c",
+        "loaded": true
+      },
+      {
+        "alt": "Cooker",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/240.png?v=90ad6f64b039",
+        "loaded": true
+      },
+      {
+        "alt": "Chicken Stew",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/253.png?v=863a5855a92c",
+        "loaded": true
+      },
+      {
+        "alt": "Raw Chicken",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/249.png?v=630a189c4ae1",
+        "loaded": true
+      },
+      {
+        "alt": "Cooked Chicken",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/250.png?v=e8af07fa3715",
+        "loaded": true
+      },
+      {
+        "alt": "Potato",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/30.png?v=93436cc0af97",
+        "loaded": true
+      },
+      {
+        "alt": "Carrot",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/227.png?v=71420a3d02e3",
+        "loaded": true
+      },
+      {
+        "alt": "Log",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/4.png?v=2dbf09eb4853",
+        "loaded": true
+      },
+      {
+        "alt": "Coal",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/17.png?v=777d37a1313d",
+        "loaded": true
+      },
+      {
+        "alt": "Planks",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/20.png?v=5e588a1f553a",
+        "loaded": true
+      },
+      {
+        "alt": "Stick",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/21.png?v=809a4c717c5a",
+        "loaded": true
+      },
+      {
+        "alt": "Charcoal",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/26.png?v=23536d07c76f",
+        "loaded": true
+      },
+      {
+        "alt": "Wood axe",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/40.png?v=dfff3360c7a2",
+        "loaded": true
+      },
+      {
+        "alt": "Wood pickaxe",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/41.png?v=d8e860fef734",
+        "loaded": true
+      },
+      {
+        "alt": "Wood sword",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/42.png?v=20927930c7c4",
+        "loaded": true
+      },
+      {
+        "alt": "Wood shovel",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/43.png?v=5dcf5c052685",
+        "loaded": true
+      },
+      {
+        "alt": "Wood hoe",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/44.png?v=f22b43f76fe9",
+        "loaded": true
+      },
+      {
+        "alt": "Coal block",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/65.png?v=6e835da57a1c",
+        "loaded": true
+      },
+      {
+        "alt": "Electric Cooker",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/241.png?v=5bece2f6c9d7",
+        "loaded": true
+      },
+      {
+        "alt": "Chicken Stew",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/253.png?v=863a5855a92c",
+        "loaded": true
+      },
+      {
+        "alt": "Raw Chicken",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/249.png?v=630a189c4ae1",
+        "loaded": true
+      },
+      {
+        "alt": "Cooked Chicken",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/250.png?v=e8af07fa3715",
+        "loaded": true
+      },
+      {
+        "alt": "Potato",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/30.png?v=93436cc0af97",
+        "loaded": true
+      },
+      {
+        "alt": "Carrot",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/227.png?v=71420a3d02e3",
+        "loaded": true
+      }
+    ],
+    "overflow": false,
+    "text": "Chicken Stew\n\nAll items \u00b7 Crafting guide \u00b7 Home\n\nHow to obtain \u00b7 Crafting and processing\n\nChicken Stew restores 12 food points.\n\nAt a glance\nProperty\tValue\nStack size\t64\nTags\tedible, prepared_food\nFood restored\t12 points\nHow to obtain\n\nMake this item using the crafting or processing recipes below.\n\nUsing it\n\nPrepare in either fuel or electric Cooker; hold Use to eat when hungry. See Chickens.\n\nCrafting and processing\nRecipe 1\n\nStation: \nCooker\n\nProcessing time: 10 seconds per operation.\n\nOutput: \nChicken Stew \u00d71\n\nIngredient\tTotal per operation\n#meat:  Raw Chicken /  Cooked Chicken\t1\n#vegetable:  Potato /  Carrot\t2\n\nFor tagged ingredients, any listed item counts; combinations and split stacks are accepted. Select this recipe on the cooker.\n\nFuel: add burnable fuel separately; it is not a crafting ingredient.  Log \u00b7  Coal \u00b7  Planks \u00b7  Stick \u00b7  Charcoal \u00b7  Wood axe \u00b7  Wood pickaxe \u00b7  Wood sword \u00b7  Wood shovel \u00b7  Wood hoe \u00b7  Coal block.\n\nCookers retain unused heat while blocked or idle. See the Cooker page for fuel durations.\n\nRecipe 2\n\nStation: \nElectric Cooker\n\nProcessing time: 10 seconds per operation at 200 W. Reduced power slows progress.\n\nOutput: \nChicken Stew \u00d71\n\nIngredient\tTotal per operation\n#meat:  Raw Chicken /  Cooked Chicken\t1\n#vegetable:  Potato /  Carrot\t2\n\nFor tagged ingredients, any listed item counts; combinations and split stacks are accepted. Select this recipe on the cooker.\n\nRivet Reach \u00b7 \u00a9 Starbugstone \u00b7 All rights reserved. These guides describe the current playable alpha."
+  },
+  {
+    "url": "https://github.com/Starbugstone/Rivet-Reach/wiki/Chickens",
+    "title": "Chickens \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "images": [
+      {
+        "alt": "Adult chickens and a golden chick in the game",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/images/chickens/chickens-adult-and-chick.png?v=54b279bbd238",
+        "loaded": true
+      },
+      {
+        "alt": "Feeding consumes one seed and shows readiness",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/images/chickens/chickens-feeding.png?v=1d7cada976c6",
+        "loaded": true
+      },
+      {
+        "alt": "A pair has produced one chick and entered its breeding cooldown",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/images/chickens/chickens-breeding.png?v=c3a432ac8901",
+        "loaded": true
+      },
+      {
+        "alt": "An adult has laid a collectible Egg",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/images/chickens/chickens-egg.png?v=afe1e5a5686a",
+        "loaded": true
+      },
+      {
+        "alt": "Cooked Chicken recipe in the actual item browser",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/images/chickens/chickens-recipe-250.png?v=8f6f6f7a6dc9",
+        "loaded": true
+      },
+      {
+        "alt": "Cooked Egg recipe",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/images/chickens/chickens-recipe-252.png?v=1b81d30108c5",
+        "loaded": true
+      },
+      {
+        "alt": "Chicken Stew accepts raw or cooked meat and two vegetables",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/images/chickens/chickens-recipe-253.png?v=6e12f6dbefe9",
+        "loaded": true
+      },
+      {
+        "alt": "Finished Chicken Stew in the fuel Cooker",
+        "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/images/chickens/chickens-cooking.png?v=05483c3992a8",
+        "loaded": true
+      }
+    ],
+    "overflow": false,
+    "text": "Chickens\n\nFind wild adult chickens on well-lit surface grass during the day. Bring seeds or grain to lead a pair home, build a pen from ordinary blocks and doors, and feed them to raise chicks.\n\nLead and breed\n\nHold wheat/flax/carrot/berry seeds or Wheat Grain to attract chickens within ten blocks. Aim at an adult and right-click/Use or Interact to feed one item. Feed a nearby second adult within 30 active seconds. With clear space nearby, the pair produces one chick and rests for five active minutes before breeding again. Repeated feeding during readiness or rest consumes nothing. Chicks cannot breed.\n\nA chick becomes an adult after ten active minutes. Leave room for its adult body: growth waits under a low ceiling or if another creature occupies the space. Chickens can climb one-block steps, so make pen walls high enough and use a door for access.\n\nEggs and meat\n\nEach adult lays one Egg every five to ten active minutes. Pick it up like any dropped item. Eggs cook into food; they cannot be thrown to hatch chicks.\n\nDefeating an adult gives one Raw Chicken and one or two Feathers. Chicks drop neither. Feathers have no crafting use yet.\n\nCook a meal\n\nUse either a Cooker with burnable fuel or an Electric Cooker with electricity. Select the desired recipe and load its ingredients. Each takes ten seconds at full working rate.\n\nMeal\tIngredients\tFood restored\nCooked Chicken\t1 Raw Chicken\t6\nCooked Egg\t1 Egg\t4\nChicken Stew\t1 raw or cooked chicken + 2 vegetables\t12\n\nPotatoes and carrots can be mixed for stew. Raw Chicken restores 2 food points when eaten directly; raw Eggs are cooking ingredients.\n\nLeaving your farm\n\nChickens remain in your saved world when you travel away. Their timers pause while distant or unloaded and while the game is closed. A chunk loader alone does not make a distant chicken farm produce eggs. Return within 68 blocks to resume the nearby population. Save through Escape before quitting.\n\nThese timings are initial balance settings. See Farming and cooking for growing feed and vegetables.\n\nScreenshots: September 19, 2026, from the chicken development player. The small review enclosure illustrates the animals and interactions; build taller walls for a lasting pen.\n\nRivet Reach \u00b7 \u00a9 Starbugstone \u00b7 All rights reserved. These guides describe the current playable alpha."
+  }
+]

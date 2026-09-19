@@ -30,3 +30,14 @@ Issue #12 was developed in the same checkout. The agreed shared prerequisite is 
 Long-session food/breeding balance, wild encounter density across varied terrain, flock crowding/path quality and large-population rendering/simulation remain playtest work. No hostile distance despawning owns passive records. No offline production, distant chunk-loader animal production, egg hatching, feathers recipe, beds or new fencing is included. The ten-minute growth, five-minute breeding cooldown and five-to-ten-minute egg interval are working defaults.
 
 The exported reference contains **188 items and 194 recipes**. The final publisher check against the staged source snapshot validated **213 pages and 9,291 local links/images**. Eight current gameplay captures are retained in the guide. All 627 export source fingerprints are checked against the planned checkpoint inputs.
+
+
+## Published guide and issue checklist
+
+Implementation commit `89e020e` was pushed to `main`; [wiki deployment 35438869667](https://github.com/Starbugstone/Rivet-Reach/actions/runs/35438869667) succeeded on September 19, 2026. The published wiki revision was `fb0845ae4dbe184e7d97cfa5fcab8686293c2420`. The subsequent Mobs guide correction removes the obsolete passive-livestock claims and distinguishes permanent chickens from ambient hostiles; its source check validated **213 pages and 9,292 links/images** against the same committed gameplay snapshot.
+
+A real Chromium browser loaded the [Chickens guide](https://github.com/Starbugstone/Rivet-Reach/wiki/Chickens) and all six new item pages. All guide captures and item-page images loaded; none of those seven pages overflowed at 390×844. The Cooked Egg link was followed from the guide. [Browser readback](chickens-2026-09-19/live-wiki-checks.json), [desktop guide capture](chickens-2026-09-19/wiki-chickens-desktop.png) and [mobile item capture](chickens-2026-09-19/wiki-cooked-egg-mobile.png) record this review. All eight gameplay images and six inventory icons served by the wiki matched their local SHA-256 hashes ([asset checks](chickens-2026-09-19/published-assets.json)).
+
+[Issue #10](https://github.com/Starbugstone/Rivet-Reach/issues/10) was updated and read back: all seven chicken phase tasks and the chicken acceptance criterion are checked. Bed, crate, weather, renewable-power and sustained balance tasks remain unchecked ([readback](chickens-2026-09-19/issue10-check.json)).
+
+The Mobs correction in `950995f` also [deployed successfully](https://github.com/Starbugstone/Rivet-Reach/actions/runs/35439218827). A fresh browser visit confirms the published passive-chicken wording, loaded cave image and no mobile overflow ([readback](chickens-2026-09-19/live-mobs-check.json)).
