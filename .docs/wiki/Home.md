@@ -75,3 +75,5 @@ Drain finite lava deposits with a [Ranged Liquid Pump](Ranged-Liquid-Pump.md), c
 - [Item-pipe routing](Item-pipe-routing.md) — editable receiver priorities, compatible destinations and round-robin overflow.
 
 - [Weather](Weather.md) — clear skies, rain, storms, shelter and saved weather.
+
+[Renewable power](Renewable-power.md): craft solar panels and wind turbines, connect machines and share surplus between batteries.

@@ -1,0 +1,12 @@
+{
+  "solar_panel": {
+    "triangles": 2160,
+    "renderers": 3,
+    "materials": 1
+  },
+  "wind_turbine": {
+    "triangles": 2496,
+    "renderers": 3,
+    "materials": 1
+  }
+}

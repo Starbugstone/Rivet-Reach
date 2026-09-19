@@ -4,7 +4,7 @@
 
 Start with the [visual item index](Items.md), then click an item to see its purpose, how to obtain it, every recipe that makes it, and what uses it. Every item icon links to its own page.
 
-This reference covers **110 grid recipes, 11 furnace recipes, 11 electric furnace recipes, 5 crusher recipes, 22 cooker recipes and 19 compost conversions** in the current playable alpha. The recipe grids and icons come from the same catalog and artwork used by the inventory browser.
+This reference covers **112 grid recipes, 11 furnace recipes, 11 electric furnace recipes, 5 crusher recipes, 22 cooker recipes and 19 compost conversions** in the current playable alpha. The recipe grids and icons come from the same catalog and artwork used by the inventory browser.
 
 ## First crafting steps
 
@@ -173,6 +173,8 @@ Choose a result below to open its item page at the exact recipe.
 | <a href="Item-electric-cooker.md#recipe-1" title="Electric Cooker"><img src="icons/241.png" width="32" height="32" alt="Electric Cooker"></a> ×1 [Electric Cooker](Item-electric-cooker.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-electric-cooker.md#recipe-1) |
 | <a href="Item-auto-composter.md#recipe-1" title="Autocomposter"><img src="icons/243.png" width="32" height="32" alt="Autocomposter"></a> ×1 [Autocomposter](Item-auto-composter.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-auto-composter.md#recipe-1) |
 | <a href="Item-crate-controller.md#recipe-1" title="Crate Controller"><img src="icons/177.png" width="32" height="32" alt="Crate Controller"></a> ×1 [Crate Controller](Item-crate-controller.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-crate-controller.md#recipe-1) |
+| <a href="Item-solar-panel.md#recipe-1" title="Solar Panel"><img src="icons/178.png" width="32" height="32" alt="Solar Panel"></a> ×1 [Solar Panel](Item-solar-panel.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-solar-panel.md#recipe-1) |
+| <a href="Item-wind-turbine.md#recipe-1" title="Wind Turbine"><img src="icons/179.png" width="32" height="32" alt="Wind Turbine"></a> ×1 [Wind Turbine](Item-wind-turbine.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-wind-turbine.md#recipe-1) |
 
 ## Furnace processing
 

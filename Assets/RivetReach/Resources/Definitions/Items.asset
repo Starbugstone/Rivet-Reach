@@ -3193,3 +3193,35 @@ MonoBehaviour:
     attackDamage: 1
     buoyant: 0
     tags: []
+  - runtimeId: 178
+    stableId: rivet:solar_panel
+    displayName: Solar Panel
+    stackLimit: 64
+    fistSeconds: 2
+    colour: {r: 0.2, g: 0.45, b: 0.6, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags: []
+  - runtimeId: 179
+    stableId: rivet:wind_turbine
+    displayName: Wind Turbine
+    stackLimit: 64
+    fistSeconds: 2
+    colour: {r: 0.2, g: 0.45, b: 0.6, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags: []

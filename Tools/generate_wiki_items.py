@@ -91,7 +91,7 @@ class Reference:
             return 'Food and farming'
         if item_id in {'rivet:flax_fibre', 'rivet:string', 'rivet:cloth', 'rivet:feather'}:
             return 'Materials and components'
-        if item_id in {'rivet:cooker', 'rivet:electric_cooker', 'rivet:compost_bin', 'rivet:auto_composter', 'rivet:electric_furnace', 'rivet:hand_crank', 'rivet:mob_spawner'}:
+        if item_id in {'rivet:cooker', 'rivet:electric_cooker', 'rivet:compost_bin', 'rivet:auto_composter', 'rivet:electric_furnace', 'rivet:hand_crank', 'rivet:mob_spawner', 'rivet:solar_panel', 'rivet:wind_turbine'}:
             return 'Stations and machines'
         if item_id == 'rivet:floater_rock':
             return 'Materials and components'

@@ -15,6 +15,7 @@ This directory maintains the latest report and useful evidence for each feature.
 
 | Feature | Current evidence |
 | --- | --- |
+| Solar and wind electricity | [Renewable verification](RENEWABLE_RESULTS.md) — gradual output, real demand, parallel storage and compatibility |
 | Weather | [Weather verification](WEATHER_RESULTS.md) — transitions, shelter, exact timers and schema-16 saves |
 | Cave lighting and underground farms | [Lighting verification](LIGHTING_RESULTS.md) — sky access, placed-light crop growth, updates, saves and cost |
 | Floater and Floater Rock | [Spawn-light verification](MOB_LIGHT_RESULTS.md) — hostile light limits, shared profiles and combined lighting regression; [Floater verification](FLOATER_RESULTS.md) retains cave, hover, combat, loot, save and original-art evidence |

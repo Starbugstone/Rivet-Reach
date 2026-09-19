@@ -6,7 +6,7 @@ namespace RivetReach
 {
     public enum NetworkKind { Signal, Power, Item, Fluid }
     public enum PortRole { Route, Input, Output, Storage, Disabled }
-    public enum MachineStatus { Ready, Running, NoPower, Underpowered, DisabledBySignal, OutputFull, NoInput, NoFuel, NoWater, NoShaft, Dormant, Depleted, StructureInvalid }
+    public enum MachineStatus { Ready, Running, NoPower, Underpowered, DisabledBySignal, OutputFull, NoInput, NoFuel, NoWater, NoShaft, Dormant, Depleted, StructureInvalid, NoSunlight, Sheltered }
     public readonly struct MachinePort
     {
         public readonly NetworkKind Kind; public readonly PortRole Role; public readonly int Faces;
@@ -20,13 +20,14 @@ namespace RivetReach
         public const byte TankFrame=160,TankWall=161,TankGlass=162,TankController=163,TankPort=164,TankHatch=165,TankValve=166,TankSensor=167;
         public const byte Battery=168,BatteryController=169,HandCrank=170;
         public const byte WoodenDoor=171,DoorUpper=172;
-        public const byte Wrench=173,ElectricFurnace=174,RangedPump=180;
+        public const byte Wrench=173,ElectricFurnace=174,SolarPanel=178,WindTurbine=179,RangedPump=180;
         public const byte ItemBridge=190,FluidBridge=191,PowerBridge=192,ChunkLoader=193;
+        public static bool Renewable(byte id)=>id==SolarPanel||id==WindTurbine;
         public static bool Bridge(byte id)=>id>=ItemBridge&&id<=PowerBridge;
         public static bool DoorPart(byte id)=>id==WoodenDoor||id==DoorUpper;
         public static bool BatteryPart(byte id)=>id==Battery||id==BatteryController;
         public static bool TankPart(byte id)=>id>=TankFrame&&id<=TankSensor;
-        public static bool Placed(byte id)=>id>=Bench&&id<=Sensor||TankPart(id)||BatteryPart(id)||id==HandCrank||id==WoodenDoor||id==ElectricFurnace||Bridge(id)||id==ChunkLoader||id==RangedPump||FarmId.CookerBlock(id)||id==CompostId.Bin||id==CompostId.Auto;
+        public static bool Placed(byte id)=>id>=Bench&&id<=Sensor||TankPart(id)||BatteryPart(id)||id==HandCrank||id==WoodenDoor||id==ElectricFurnace||Bridge(id)||id==ChunkLoader||id==RangedPump||Renewable(id)||FarmId.CookerBlock(id)||id==CompostId.Bin||id==CompostId.Auto;
         public static bool Route(byte id)=>id==SignalWire||id==SignalConduit||id==PowerCable||id==ItemPipe||id==FluidPipe;
         public static bool Thin(byte id)=>Route(id)||id==Lever||id==Button||id==Indicator||id==Relay||id==Sensor;
     }
@@ -64,6 +65,8 @@ namespace RivetReach
             Add(IndustryId.Lamp,"workshop_lamp","Workshop Lamp","Power on any face · optional signal at front",20,0,pi,si);
             Add(IndustryId.Boiler,"boiler_engine","Boiler Engine","Coal / charcoal + water → right-hand shaft",0,100000,P(NetworkKind.Fluid,PortRole.Input,16),ii);
             Add(IndustryId.Alternator,"alternator","Alternator","Left shaft couples to Boiler · 800 W output",0,0,P(NetworkKind.Power,PortRole.Output,16));
+            Add(IndustryId.SolarPanel,"solar_panel","Solar Panel","Daylight + open sky → electricity · weather affects output",0,0,P(NetworkKind.Power,PortRole.Output,63),si);
+            Add(IndustryId.WindTurbine,"wind_turbine","Wind Turbine","Open sky → electricity day and night · stronger in storms",0,0,P(NetworkKind.Power,PortRole.Output,63),si);
             Add(IndustryId.Crusher,"crusher","Crusher","1 raw ore → 2 crushed ore\n1 stone / cobblestone → 1 sand",160,0,pi,si,ii,io);
             Add(IndustryId.ElectricFurnace,"electric_furnace","Electric Furnace","Furnace recipes · electricity instead of fuel\n200 W · same full-power processing time",200,0,pi,si,ii,io);
             Add(CompostId.Bin,"compost_bin","Compost Bin","Mix organics by hand · full bin ejects 1–4 Compost");
@@ -118,7 +121,7 @@ namespace RivetReach
         public int Rotation {get;internal set;}
         public MachineStatus Status {get;internal set;}
         public bool Signal,SignalAttached,Source,NextSource,Eligible,FluidConflict;
-        public int PulseTicks,BurnTicks,RequestedWatts,ReceivedWatts,SupplyWatts,DrillDepth=1;
+        public int PulseTicks,BurnTicks,RequestedWatts,ReceivedWatts,SupplyWatts,DeliveredWatts,DrillDepth=1;
         public readonly FluidStorage Fluid;
         public int WaterMl {get=>(int)Fluid.Amount;set=>Fluid.SetWater(value);}
         public MultiblockInstance Structure;

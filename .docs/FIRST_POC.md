@@ -166,3 +166,7 @@ The focused Windows player is `Builds/Beds/RivetReach.exe`; run `Tools/Verify-Be
 ## Crate increment — 2026-09-19
 
 The focused Windows player is `Builds/Crates/RivetReach.exe`; `Tools/Verify-Crates.ps1` runs the scripted review. Open crates/controllers with Use or Interact, Shift-click to transfer and use the crate interface to lock its type. [Rules](CRATES.md), [player guide](wiki/Crates-and-warehouses.md) and [evidence](verification/CRATE_RESULTS.md) describe this increment.
+
+## Renewable electricity review — 2026-09-19
+
+The focused player is `Builds/Renewables/RivetReach.exe`. Craft Solar Panels and Wind Turbines at a Machinist’s Bench and connect ordinary Power Cables, machines and batteries. [Renewable rules](RENEWABLES.md), [player setup](wiki/Renewable-power.md) and [verification](verification/RENEWABLE_RESULTS.md) own the scope and evidence.

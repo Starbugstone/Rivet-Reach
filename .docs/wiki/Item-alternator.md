@@ -4,7 +4,7 @@
 
 [All items](Items.md) · [Crafting guide](Crafting-Recipes.md) · [Home](Home.md)
 
-[How to obtain](#how-to-obtain) · [Crafting and processing](#crafting-and-processing)
+[How to obtain](#how-to-obtain) · [Crafting and processing](#crafting-and-processing) · [Uses](#used-to-make)
 
 <a href="Item-alternator.md" title="Alternator"><img src="icons/141.png" width="96" height="96" alt="Alternator"></a>
 
@@ -71,3 +71,11 @@ This is the electrical generator in a boiler setup. It supplies **800 W** only w
 | <a href="Item-copper-wire.md" title="Copper Wire"><img src="icons/122.png" width="32" height="32" alt="Copper Wire"></a> [Copper Wire](Item-copper-wire.md) | 8 |
 | <a href="Item-cog.md" title="Iron Cog"><img src="icons/125.png" width="32" height="32" alt="Iron Cog"></a> [Iron Cog](Item-cog.md) | 2 |
 | <a href="Item-machine-casing.md" title="Machine Casing"><img src="icons/127.png" width="32" height="32" alt="Machine Casing"></a> [Machine Casing](Item-machine-casing.md) | 1 |
+
+## Used to make
+
+Follow a result to see its complete ingredients and recipe.
+
+| Result | Station | Recipe |
+|---|---|---|
+| <a href="Item-wind-turbine.md#recipe-1" title="Wind Turbine"><img src="icons/179.png" width="32" height="32" alt="Wind Turbine"></a> ×1 [Wind Turbine](Item-wind-turbine.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-wind-turbine.md#recipe-1) |

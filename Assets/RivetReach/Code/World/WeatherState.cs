@@ -37,7 +37,7 @@ namespace RivetReach
         public void Reset()
         {
             randomState=initialRandomState;Kind=PreviousKind=WeatherKind.Clear;TransitionTicks=0;
-            SetProfile(WeatherKind.Clear,out startCloud,out startRain,out startWind);
+            Profile(WeatherKind.Clear,out startCloud,out startRain,out startWind);
             CloudCover=startCloud;RainStrength=startRain;WindStrength=startWind;
             RemainingTicks=Duration(WeatherKind.Clear);
         }
@@ -46,7 +46,7 @@ namespace RivetReach
             RequireKind(kind);
             if(immediate)
             {
-                Kind=PreviousKind=kind;TransitionTicks=0;SetProfile(kind,out startCloud,out startRain,out startWind);
+                Kind=PreviousKind=kind;TransitionTicks=0;Profile(kind,out startCloud,out startRain,out startWind);
                 CloudCover=startCloud;RainStrength=startRain;WindStrength=startWind;RemainingTicks=Duration(kind);return;
             }
             if(Transitioning&&Kind==kind)return;
@@ -75,13 +75,13 @@ namespace RivetReach
         }
         void FinishTransition()
         {
-            TransitionTicks=0;SetProfile(Kind,out startCloud,out startRain,out startWind);
+            TransitionTicks=0;Profile(Kind,out startCloud,out startRain,out startWind);
             CloudCover=startCloud;RainStrength=startRain;WindStrength=startWind;PreviousKind=Kind;RemainingTicks=Duration(Kind);
         }
         void Refresh()
         {
             if(!Transitioning)return;
-            SetProfile(Kind,out float cloud,out float rain,out float wind);
+            Profile(Kind,out float cloud,out float rain,out float wind);
             float progress=1f-(float)RemainingTicks/TransitionTicks;
             // Smoothstep preserves a continuous rate at both transition endpoints.
             progress=progress*progress*(3f-2f*progress);
@@ -112,7 +112,7 @@ namespace RivetReach
             uint value=(uint)seed^0xA511E9B3u;return value==0?0x6D2B79F5u:value;
         }
         static int MaximumDuration(WeatherKind kind)=>kind==WeatherKind.Clear?ClearMaximumTicks:kind==WeatherKind.Rain?RainMaximumTicks:StormMaximumTicks;
-        static void SetProfile(WeatherKind kind,out float cloud,out float rain,out float wind)
+        public static void Profile(WeatherKind kind,out float cloud,out float rain,out float wind)
         {
             if(kind==WeatherKind.Clear){cloud=.08f;rain=0;wind=.18f;return;}
             if(kind==WeatherKind.Rain){cloud=.72f;rain=.75f;wind=.42f;return;}
@@ -149,7 +149,7 @@ namespace RivetReach
             if(transition==0)
             {
                 Require(Kind==PreviousKind,"Invalid stable saved weather state.");
-                SetProfile(Kind,out float expectedCloud,out float expectedRain,out float expectedWind);
+                Profile(Kind,out float expectedCloud,out float expectedRain,out float expectedWind);
                 Require(cloud==expectedCloud&&rain==expectedRain&&wind==expectedWind,"Invalid stable saved weather profile.");
                 CloudCover=expectedCloud;RainStrength=expectedRain;WindStrength=expectedWind;
             }

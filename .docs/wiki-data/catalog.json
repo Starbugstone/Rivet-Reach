@@ -6703,6 +6703,74 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0
+        },
+        {
+            "definition": {
+                "runtimeId": 178,
+                "stableId": "rivet:solar_panel",
+                "displayName": "Solar Panel",
+                "stackLimit": 64,
+                "fistSeconds": 2.0,
+                "colour": {
+                    "r": 0.20000000298023225,
+                    "g": 0.44999998807907107,
+                    "b": 0.6000000238418579,
+                    "a": 1.0
+                },
+                "fistDropId": 0,
+                "toolCapabilities": 0,
+                "tier": 0,
+                "miningSpeed": 1.0,
+                "foodPoints": 0,
+                "armorSlot": 0,
+                "armorPoints": 0,
+                "attackDamage": 1,
+                "buoyant": false,
+                "tags": []
+            },
+            "drop": "rivet:solar_panel",
+            "requiredTier": "None",
+            "help": "Daylight + open sky → electricity · weather affects output",
+            "placeable": true,
+            "ore": false,
+            "crop": false,
+            "fuelTicks": 0,
+            "watts": 0,
+            "waterMl": 0
+        },
+        {
+            "definition": {
+                "runtimeId": 179,
+                "stableId": "rivet:wind_turbine",
+                "displayName": "Wind Turbine",
+                "stackLimit": 64,
+                "fistSeconds": 2.0,
+                "colour": {
+                    "r": 0.20000000298023225,
+                    "g": 0.44999998807907107,
+                    "b": 0.6000000238418579,
+                    "a": 1.0
+                },
+                "fistDropId": 0,
+                "toolCapabilities": 0,
+                "tier": 0,
+                "miningSpeed": 1.0,
+                "foodPoints": 0,
+                "armorSlot": 0,
+                "armorPoints": 0,
+                "attackDamage": 1,
+                "buoyant": false,
+                "tags": []
+            },
+            "drop": "rivet:wind_turbine",
+            "requiredTier": "None",
+            "help": "Open sky → electricity day and night · stronger in storms",
+            "placeable": true,
+            "ore": false,
+            "crop": false,
+            "fuelTicks": 0,
+            "watts": 0,
+            "waterMl": 0
         }
     ],
     "recipes": [
@@ -10871,6 +10939,90 @@
             "mirror": false
         },
         {
+            "id": "rivet:industry_178",
+            "station": "rivet:machinist_bench",
+            "kind": "Shapeless",
+            "output": {
+                "item": "rivet:solar_panel",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:diamond",
+                    "count": 1
+                },
+                {
+                    "item": "rivet:gold_ingot",
+                    "count": 2
+                },
+                {
+                    "item": "rivet:copper_wire",
+                    "count": 4
+                },
+                {
+                    "item": "rivet:machine_casing",
+                    "count": 1
+                },
+                {
+                    "item": "rivet:glass",
+                    "count": 4
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 4,
+            "width": 0,
+            "height": 0,
+            "ticks": 0,
+            "watts": 0,
+            "compostPercent": 0.0,
+            "mirror": false
+        },
+        {
+            "id": "rivet:industry_179",
+            "station": "rivet:machinist_bench",
+            "kind": "Shapeless",
+            "output": {
+                "item": "rivet:wind_turbine",
+                "count": 1
+            },
+            "ingredients": [
+                {
+                    "item": "rivet:diamond",
+                    "count": 1
+                },
+                {
+                    "item": "rivet:gold_ingot",
+                    "count": 2
+                },
+                {
+                    "item": "rivet:copper_wire",
+                    "count": 4
+                },
+                {
+                    "item": "rivet:iron_plate",
+                    "count": 4
+                },
+                {
+                    "item": "rivet:cog",
+                    "count": 2
+                },
+                {
+                    "item": "rivet:alternator",
+                    "count": 1
+                }
+            ],
+            "foodIngredients": [],
+            "fuels": [],
+            "grid": 4,
+            "width": 0,
+            "height": 0,
+            "ticks": 0,
+            "watts": 0,
+            "compostPercent": 0.0,
+            "mirror": false
+        },
+        {
             "id": "rivet:smelt_charcoal",
             "station": "rivet:furnace",
             "kind": "Processing",
@@ -13762,19 +13914,19 @@
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustryDefinition.cs",
-            "sha256": "c69a27e62aafe4d64cca7c243f8bcb5c48b20042f76543d88c7127d516ddcae8"
+            "sha256": "a6b0130a05898396b27c68d01be8c629c19da30f19e834ee0bd0960268b698ed"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustryPresentation.cs",
-            "sha256": "d795fbe03ef5c7ff3307bb3a58ec94a75587d0b9b40637b135cc233db2bf5952"
+            "sha256": "1d01feecb278c6bd8c584453bbb5996ff692c5742fd18ed7be3d225f5d56f6b2"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustrySimulation.cs",
-            "sha256": "4aec8d744becf90796d6906fd7fc74355348e6e93763c5da6a221be3a4e6d446"
+            "sha256": "22a1bc395dfdb5fb660a2c8e2c19f12481f367ee55b4b063e705e2eae6a6f541"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/NetworkTopology.cs",
-            "sha256": "b29380e2895f827904266703a4cf8185a2c47be356418c48411de66bd99f0053"
+            "sha256": "be258c2e2356cc1bd1fbbe80c55596f718bcd9483a623722764cfd0ec69e35f5"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/PipeConnections.cs",
@@ -13797,12 +13949,16 @@
             "sha256": "a58cfce3f756691813968634c20a27c518717f19bdb5f0cbd9a674d8a873cb1e"
         },
         {
+            "path": "Assets/RivetReach/Code/Industry/Renewables.cs",
+            "sha256": "baf4285dccafe27d0618776b991a9ea2f34ce5b44a52ff4b89e11a5db3925573"
+        },
+        {
             "path": "Assets/RivetReach/Code/Industry/TransportEndpoints.cs",
             "sha256": "414d1ec6d6f191f133db70222b88222db59216057cff06fcc5a9c145005e5f36"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/WorldIndustry.cs",
-            "sha256": "9881564800df15c3ec30f27310d5bb616316fad792c183bc25f5da8b8b63e075"
+            "sha256": "b0dff598aafd9819b0ebd6bf0186585452d3962c78644f48e03b4b4a0f46e486"
         },
         {
             "path": "Assets/RivetReach/Code/IndustryVerification.cs",
@@ -13946,7 +14102,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/SaveIO.cs",
-            "sha256": "82f1d1a758679ceb2fc83ef693526719662ea547d445cfc27fa4db95053fce78"
+            "sha256": "5590fca99db882638fd92ae6fcb2f1a55cce23455d6edb8d54d9922f13681e7e"
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/WorldSaveState.cs",
@@ -14065,8 +14221,12 @@
             "sha256": "adf47832d87b7eca16ba04d308f6f29042378abbea6881bb97488e62a9b001f0"
         },
         {
+            "path": "Assets/RivetReach/Code/RenewableVerification.cs",
+            "sha256": "c737ac13bc7884a27974be12a2c7de6784ee89c60d28948016ebacb7a5de0f40"
+        },
+        {
             "path": "Assets/RivetReach/Code/RuntimeVerification.cs",
-            "sha256": "9e9b362a9079c23a4e1a2a056a1aa03cf88876e23b6dfb047b4f16318a37f6b7"
+            "sha256": "82f59e62ccb9577995ec3b411e0d4b33d9b4a5ddcbc179a0c73e70d015567091"
         },
         {
             "path": "Assets/RivetReach/Code/SaveVerification.cs",
@@ -14198,7 +14358,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIIndustry.cs",
-            "sha256": "372d3fec374f7f8566d61759125a50c3c5d6b501f8baf4d54e9587f3162b40c1"
+            "sha256": "44fc17d430a6deadfe6544ec3468dfeefbb5b21dc7358189093eddf7de6d3b88"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIItemPriority.cs",
@@ -14314,7 +14474,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/World/WeatherState.cs",
-            "sha256": "ba3a8560ef0d52743e85921cba45d60a52e554b8faa8ec3b8b8722805f3b4c72"
+            "sha256": "ffa28e15627b2dce032f498307511632b229fad73b364b3317a1d755ed47273b"
         },
         {
             "path": "Assets/RivetReach/Code/World/WorldClock.cs",
@@ -14446,7 +14606,7 @@
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Items.asset",
-            "sha256": "16784ec8161496e3f77e5a4bd901ae54bb570786b08ba2ed1594ac633dffcb6a"
+            "sha256": "9c6d0581f0f57b503f8e09063f31303bec3f0c76336b9e848ec5af72c243b31d"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Items.asset.meta",
@@ -14514,7 +14674,7 @@
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes.asset",
-            "sha256": "d5da9997fee728d557979d8193a551bddb95d579bf3cf09a5fd34f14962f966d"
+            "sha256": "20385e66a2fad9d6b6335a888bfe4992f3a3fdb29cb8a6f203f51a48829a4369"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes.asset.meta",
@@ -14907,6 +15067,22 @@
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry174.asset.meta",
             "sha256": "2bc72939a67ce43cc4ba0309aec82f73ef32af39faf3cbc09ea9e356c1ebe87b"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry178.asset",
+            "sha256": "460bf1b00debab1f8d7dfdf21d0b451ff28d16c9a5f0e73f6a0dc87d970951b6"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry178.asset.meta",
+            "sha256": "4a0ad1625ee635cee864ea09ddd72c12bfeb02cb2c48620accaab129cf19160b"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry179.asset",
+            "sha256": "290034f18a76859a213c02b88579830356e6b6c43de9800ad6bb4931eb39d35a"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry179.asset.meta",
+            "sha256": "7ff5e2199236f3fc00307dc62f29e37d1167004feb74242eefcb2f596aa67d25"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry180.asset",
@@ -15461,6 +15637,14 @@
             "sha256": "47f2e91c35f6c0a2ce577d94267890ec2c63aaffb1fbec67e85beb7a86b1d211"
         },
         {
+            "path": "Assets/RivetReach/Resources/Definitions/Renewables.json",
+            "sha256": "6afc29f5f251fc14fe1a003f8fd2d4a00c80134d6dd3aff901e7a3edade516f6"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/Renewables.json.meta",
+            "sha256": "3621d290851e39d7120adfeb7b45d728d54d64c1b9faf09651311c407670044b"
+        },
+        {
             "path": "Assets/RivetReach/Resources/Equipment/CopperChestIcon.png",
             "sha256": "560e67ec4317a57d92e39274349b2a1e7e2c62a53990efbbadee02cee5096442"
         },
@@ -15931,6 +16115,14 @@
         {
             "path": "Assets/RivetReach/Resources/Industry/Icons/177.png",
             "sha256": "171b585baf6a892a5255915dc96d7e25491932ba2386a23a603f92a08d90c29d"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Industry/Icons/178.png",
+            "sha256": "4465f4e6cdfe1b960831e6f38f301e420eb434d52514b2d4383ce322419ffa5b"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Industry/Icons/179.png",
+            "sha256": "9360765f00ecc6587a8458c7fc5125fef0b63fe81373faff353eebf91c1a0195"
         },
         {
             "path": "Assets/RivetReach/Resources/Industry/Icons/180.png",

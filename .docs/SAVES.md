@@ -173,3 +173,7 @@ Schemas 1–14 retain their exact station layouts and start without crates/contr
 ## Weather — 2026-09-19
 
 Schema **16** appends [weather](WEATHER.md) after the bed section: target/previous kind, remaining and transition ticks, deterministic RNG and interpolation start factors. Loading reconstructs the same transition and future schedule; no offline advance occurs. Formats 1–15 begin with deterministic clear weather and consume no weather payload. Invalid kinds, durations, factors or RNG fail the transactional restore and retain the original world and weather. Cosmetic rain positions and thunder/flash timing restart on load. Registry compatibility checks remain unchanged.
+
+### Renewable catalog compatibility
+
+[Renewables](RENEWABLES.md) retain schema **16** because their one-cell machines use the existing generic machine record and save no private generation state. The current fingerprint includes the two registered renewable items, their two 4×4 recipes and `Definitions/Renewables`. The exact pre-renewable schema-16 projection removes only those additions; all earlier item, recipe, processing, fuel, mob and configuration checks remain active. Existing checkpoints therefore load without renewable machines, while an unrelated altered definition still rejects transactionally.

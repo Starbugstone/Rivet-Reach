@@ -1,0 +1,8 @@
+{
+  "solarPeakWatts": 400,
+  "windPeakWatts": 400,
+  "solarPermille": [1000, 500, 150],
+  "windMinimumPermille": [100, 600, 1000],
+  "windPermille": [350, 900, 1000],
+  "windGustTicks": 240
+}

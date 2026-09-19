@@ -122,7 +122,8 @@ namespace RivetReach
                         v.ChargeFill.gameObject.SetActive(cell.Amount>0);
                     }
                 }
-                if(!game.Paused&&m.Running)v.Phase+=Time.deltaTime*(m.Definition.Id==IndustryId.HandCrank?720:180)*(m.Definition.Watts==0?1:m.ReceivedWatts/(float)m.Definition.Watts);
+                bool turbineTurning=m.Definition.Id!=IndustryId.WindTurbine||m.DeliveredWatts>0;
+                if(!game.Paused&&m.Running&&turbineTurning)v.Phase+=Time.deltaTime*(m.Definition.Id==IndustryId.HandCrank?720:180)*(m.Definition.Id==IndustryId.WindTurbine?m.SupplyWatts/(float)RenewableCatalog.Current.windPeakWatts:m.Definition.Watts==0?1:m.ReceivedWatts/(float)m.Definition.Watts);
                 if(revision||v.Mask<0)
                 {
                     var topology=m.Definition.Id==IndustryId.PowerCable?sim.Power.Topology:m.Definition.Id==IndustryId.ItemPipe?sim.ItemNetwork:m.Definition.Id==IndustryId.FluidPipe?sim.FluidNetwork:sim.Signals.Topology;

@@ -1,0 +1,9 @@
+PASS 8 assertions
+PASS Stored charge pays only the real load; circular cables do not create battery-to-battery charging
+PASS Battery bank forms before its no-loop allocation check
+PASS A formed bank drains only for its machine load and never charges an adjacent empty battery without generation
+PASS Mixed 300 W and 500 W generation serves demand then shares its 600 W surplus equally across one cable grid
+PASS Delivered generator watts equal machine demand plus charged surplus
+PASS Full batteries relinquish their parallel renewable shares to eligible storage
+PASS Fully charged storage with no machine demand accepts no renewable generation
+PASS An empty battery creates real renewable demand and receives the conserved delivered total

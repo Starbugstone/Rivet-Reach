@@ -78,7 +78,7 @@ namespace RivetReach
             {
                 rebuild?.Dispose();dirty=false;eligible.Clear();devices.Clear();
                 foreach(var m in machines.Values)
-                {m.Eligible=world.Ready(m.Position)&&(m.Definition.Id!=IndustryId.WoodenDoor||world.Ready(m.Position.Offset(0,1,0)));if(m.Eligible)eligible.Add(m);else{ResetNetworkState(m);m.Status=MachineStatus.Dormant;}}
+                {m.Eligible=world.Ready(m.Position)&&(m.Definition.Id!=IndustryId.WoodenDoor||world.Ready(m.Position.Offset(0,1,0)));if(m.Eligible){ResetNetworkState(m);eligible.Add(m);}else{ResetNetworkState(m);m.Status=MachineStatus.Dormant;}}
                 RebuildBridgeLinks();eligible.Sort((a,b)=>Compare(a.Position,b.Position));InitializePipeEnds();foreach(var m in eligible)if(!IndustryId.Route(m.Definition.Id))devices.Add(m);rebuild=Rebuild().GetEnumerator();TopologyRebuilds++;
             }
             if(rebuild!=null)
@@ -89,7 +89,7 @@ namespace RivetReach
             }
             foreach(var m in devices)
             {
-                m.RequestedWatts=m.ReceivedWatts=m.SupplyWatts=m.BatteryWatts=m.BatteryInputWatts=m.BatteryOutputWatts=0;
+                m.RequestedWatts=m.ReceivedWatts=m.SupplyWatts=m.DeliveredWatts=m.BatteryWatts=m.BatteryInputWatts=m.BatteryOutputWatts=0;
                 if(IndustryId.BatteryPart(m.Definition.Id))m.Status=m.Definition.Id==IndustryId.BatteryController&&m.Structure?.Formed!=true?MachineStatus.StructureInvalid:MachineStatus.Ready;
                 if(m.Definition.Id==IndustryId.Relay&&m.Source!=m.NextSource){m.Source=m.NextSource;signalsDirty=true;}
                 if(IndustryId.TankPart(m.Definition.Id))
@@ -122,6 +122,7 @@ namespace RivetReach
                     m.Status=m.PulseTicks>0?MachineStatus.Running:MachineStatus.Ready;
                     if(m.PulseTicks>0)m.PulseTicks--;
                 }
+                if(IndustryId.Renewable(m.Definition.Id))PrepareRenewable(m);
                 Prepare(m);
             }
             Power.Allocate(Tick);
@@ -140,7 +141,7 @@ namespace RivetReach
             Revision++;LastStepMs=(Stopwatch.GetTimestamp()-start)*1000.0/Stopwatch.Frequency;
         }
         static void ResetNetworkState(MachineState m)
-        {m.ReceivedWatts=m.RequestedWatts=m.SupplyWatts=m.BatteryWatts=m.BatteryInputWatts=m.BatteryOutputWatts=0;m.Signal=false;m.SignalAttached=false;m.FluidConflict=false;}
+        {m.ReceivedWatts=m.RequestedWatts=m.SupplyWatts=m.DeliveredWatts=m.BatteryWatts=m.BatteryInputWatts=m.BatteryOutputWatts=0;m.Signal=false;m.SignalAttached=false;m.FluidConflict=false;}
         IEnumerable<int> Rebuild()
         {foreach(var graph in new[]{Signals.Topology,Power.Topology,ItemNetwork,FluidNetwork})foreach(var unit in graph.Rebuild(eligible))yield return unit;}
         static int Compare(BlockPos a,BlockPos b){int c=a.X.CompareTo(b.X);if(c!=0)return c;c=a.Y.CompareTo(b.Y);return c!=0?c:a.Z.CompareTo(b.Z);}

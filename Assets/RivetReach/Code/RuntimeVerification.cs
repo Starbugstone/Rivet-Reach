@@ -105,6 +105,7 @@ namespace RivetReach
             {report.workload="Existing checkpoint migration to saplings/apples schema and content compatibility";yield return ReviewOrchardLegacy();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-connections-legacy-review"))
             {report.workload="Actual schema-2/3 checkpoint migration to the current save schema";yield return ReviewConnectionLegacy();yield break;}
+            if(Environment.GetCommandLineArgs().Contains("-rr-renewables-resume-review")){report.workload="Fresh-process renewable machines, exact stored energy and gust continuation";yield return ReviewRenewablesResume();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-weather-resume-review")){report.workload="Weather checkpoint in a fresh process";yield return ReviewWeatherResume();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-crates-resume-review")){report.workload="Crate warehouse checkpoint in a fresh process";yield return ReviewCrateResume();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-bed-resume-review")){report.workload="Bed checkpoint in a fresh process";yield return ReviewBedResume();yield break;}
@@ -132,13 +133,14 @@ namespace RivetReach
             if(Environment.GetCommandLineArgs().Contains("-rr-bridges-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-farming-review")||Environment.GetCommandLineArgs().Contains("-rr-farming-legacy"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-alpha-survival-review")||Environment.GetCommandLineArgs().Contains("-rr-alpha-playtest-review"))game.World.ViewDistance=4;
-            if(Environment.GetCommandLineArgs().Contains("-rr-chicken-review")||Environment.GetCommandLineArgs().Contains("-rr-bed-review")||Environment.GetCommandLineArgs().Contains("-rr-crates-review")||Environment.GetCommandLineArgs().Contains("-rr-weather-review"))game.World.ViewDistance=4;
+            if(Environment.GetCommandLineArgs().Contains("-rr-chicken-review")||Environment.GetCommandLineArgs().Contains("-rr-bed-review")||Environment.GetCommandLineArgs().Contains("-rr-crates-review")||Environment.GetCommandLineArgs().Contains("-rr-weather-review")||Environment.GetCommandLineArgs().Contains("-rr-renewables-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-compost-review")||Environment.GetCommandLineArgs().Contains("-rr-fishing-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-lighting-review"))game.World.ViewDistance=4;
             yield return Settle();report.firstReadySeconds=Time.realtimeSinceStartup-began;
             if(Environment.GetCommandLineArgs().Contains("-rr-lighting-review")){report.workload="Underground crop growth, cached sky/source lighting, cave entrances, roof edits and saves";yield return ReviewLighting();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-alpha-survival-review")){report.workload="Five-minute empty-handed Survival gathering, workshop and exploration route";yield return ReviewAlphaSurvival();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-alpha-playtest-review")){report.workload="Alpha interactions, skin rendering, dark-room spawning, cage caps and schema13 persistence";yield return ReviewAlphaPlaytest();yield break;}
+            if(Environment.GetCommandLineArgs().Contains("-rr-renewables-review")){report.workload="Renewable crafting, weather generation, parallel battery charging and durable saves";yield return ReviewRenewables();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-weather-review")){report.workload="Weather transitions, local rain, shelter, pause, celestial sleep and durable saves";yield return ReviewWeather();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-crates-review")){report.workload="Crates: real crafting, storage UI, controller, mining and durable save recovery";yield return ReviewCrates();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-bed-review")){report.workload="Beds: crafting, paired placement, home respawn, sleep, exact timers and save recovery";yield return ReviewBeds();yield break;}

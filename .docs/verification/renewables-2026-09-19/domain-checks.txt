@@ -1,0 +1,1057 @@
+PASS Clear noon solar output
+PASS Clear midnight wind output
+PASS Clear solar off at 0
+PASS Clear solar off at 5,99
+PASS Clear solar off at 6
+PASS Clear solar off at 18
+PASS Clear solar off at 23,99
+PASS Rain noon solar output
+PASS Rain midnight wind output
+PASS Rain solar off at 0
+PASS Rain solar off at 5,99
+PASS Rain solar off at 6
+PASS Rain solar off at 18
+PASS Rain solar off at 23,99
+PASS Storm noon solar output
+PASS Storm midnight wind output
+PASS Storm solar off at 0
+PASS Storm solar off at 5,99
+PASS Storm solar off at 6
+PASS Storm solar off at 18
+PASS Storm solar off at 23,99
+PASS Solar follows daylight elevation
+PASS Evening mirrors morning output
+PASS Solar rises smoothly at minute 360
+PASS Solar rises smoothly at minute 361
+PASS Solar rises smoothly at minute 362
+PASS Solar rises smoothly at minute 363
+PASS Solar rises smoothly at minute 364
+PASS Solar rises smoothly at minute 365
+PASS Solar rises smoothly at minute 366
+PASS Solar rises smoothly at minute 367
+PASS Solar rises smoothly at minute 368
+PASS Solar rises smoothly at minute 369
+PASS Solar rises smoothly at minute 370
+PASS Solar rises smoothly at minute 371
+PASS Solar rises smoothly at minute 372
+PASS Solar rises smoothly at minute 373
+PASS Solar rises smoothly at minute 374
+PASS Solar rises smoothly at minute 375
+PASS Solar rises smoothly at minute 376
+PASS Solar rises smoothly at minute 377
+PASS Solar rises smoothly at minute 378
+PASS Solar rises smoothly at minute 379
+PASS Solar rises smoothly at minute 380
+PASS Solar rises smoothly at minute 381
+PASS Solar rises smoothly at minute 382
+PASS Solar rises smoothly at minute 383
+PASS Solar rises smoothly at minute 384
+PASS Solar rises smoothly at minute 385
+PASS Solar rises smoothly at minute 386
+PASS Solar rises smoothly at minute 387
+PASS Solar rises smoothly at minute 388
+PASS Solar rises smoothly at minute 389
+PASS Solar rises smoothly at minute 390
+PASS Solar rises smoothly at minute 391
+PASS Solar rises smoothly at minute 392
+PASS Solar rises smoothly at minute 393
+PASS Solar rises smoothly at minute 394
+PASS Solar rises smoothly at minute 395
+PASS Solar rises smoothly at minute 396
+PASS Solar rises smoothly at minute 397
+PASS Solar rises smoothly at minute 398
+PASS Solar rises smoothly at minute 399
+PASS Solar rises smoothly at minute 400
+PASS Solar rises smoothly at minute 401
+PASS Solar rises smoothly at minute 402
+PASS Solar rises smoothly at minute 403
+PASS Solar rises smoothly at minute 404
+PASS Solar rises smoothly at minute 405
+PASS Solar rises smoothly at minute 406
+PASS Solar rises smoothly at minute 407
+PASS Solar rises smoothly at minute 408
+PASS Solar rises smoothly at minute 409
+PASS Solar rises smoothly at minute 410
+PASS Solar rises smoothly at minute 411
+PASS Solar rises smoothly at minute 412
+PASS Solar rises smoothly at minute 413
+PASS Solar rises smoothly at minute 414
+PASS Solar rises smoothly at minute 415
+PASS Solar rises smoothly at minute 416
+PASS Solar rises smoothly at minute 417
+PASS Solar rises smoothly at minute 418
+PASS Solar rises smoothly at minute 419
+PASS Solar rises smoothly at minute 420
+PASS Solar rises smoothly at minute 421
+PASS Solar rises smoothly at minute 422
+PASS Solar rises smoothly at minute 423
+PASS Solar rises smoothly at minute 424
+PASS Solar rises smoothly at minute 425
+PASS Solar rises smoothly at minute 426
+PASS Solar rises smoothly at minute 427
+PASS Solar rises smoothly at minute 428
+PASS Solar rises smoothly at minute 429
+PASS Solar rises smoothly at minute 430
+PASS Solar rises smoothly at minute 431
+PASS Solar rises smoothly at minute 432
+PASS Solar rises smoothly at minute 433
+PASS Solar rises smoothly at minute 434
+PASS Solar rises smoothly at minute 435
+PASS Solar rises smoothly at minute 436
+PASS Solar rises smoothly at minute 437
+PASS Solar rises smoothly at minute 438
+PASS Solar rises smoothly at minute 439
+PASS Solar rises smoothly at minute 440
+PASS Solar rises smoothly at minute 441
+PASS Solar rises smoothly at minute 442
+PASS Solar rises smoothly at minute 443
+PASS Solar rises smoothly at minute 444
+PASS Solar rises smoothly at minute 445
+PASS Solar rises smoothly at minute 446
+PASS Solar rises smoothly at minute 447
+PASS Solar rises smoothly at minute 448
+PASS Solar rises smoothly at minute 449
+PASS Solar rises smoothly at minute 450
+PASS Solar rises smoothly at minute 451
+PASS Solar rises smoothly at minute 452
+PASS Solar rises smoothly at minute 453
+PASS Solar rises smoothly at minute 454
+PASS Solar rises smoothly at minute 455
+PASS Solar rises smoothly at minute 456
+PASS Solar rises smoothly at minute 457
+PASS Solar rises smoothly at minute 458
+PASS Solar rises smoothly at minute 459
+PASS Solar rises smoothly at minute 460
+PASS Solar rises smoothly at minute 461
+PASS Solar rises smoothly at minute 462
+PASS Solar rises smoothly at minute 463
+PASS Solar rises smoothly at minute 464
+PASS Solar rises smoothly at minute 465
+PASS Solar rises smoothly at minute 466
+PASS Solar rises smoothly at minute 467
+PASS Solar rises smoothly at minute 468
+PASS Solar rises smoothly at minute 469
+PASS Solar rises smoothly at minute 470
+PASS Solar rises smoothly at minute 471
+PASS Solar rises smoothly at minute 472
+PASS Solar rises smoothly at minute 473
+PASS Solar rises smoothly at minute 474
+PASS Solar rises smoothly at minute 475
+PASS Solar rises smoothly at minute 476
+PASS Solar rises smoothly at minute 477
+PASS Solar rises smoothly at minute 478
+PASS Solar rises smoothly at minute 479
+PASS Solar rises smoothly at minute 480
+PASS Solar rises smoothly at minute 481
+PASS Solar rises smoothly at minute 482
+PASS Solar rises smoothly at minute 483
+PASS Solar rises smoothly at minute 484
+PASS Solar rises smoothly at minute 485
+PASS Solar rises smoothly at minute 486
+PASS Solar rises smoothly at minute 487
+PASS Solar rises smoothly at minute 488
+PASS Solar rises smoothly at minute 489
+PASS Solar rises smoothly at minute 490
+PASS Solar rises smoothly at minute 491
+PASS Solar rises smoothly at minute 492
+PASS Solar rises smoothly at minute 493
+PASS Solar rises smoothly at minute 494
+PASS Solar rises smoothly at minute 495
+PASS Solar rises smoothly at minute 496
+PASS Solar rises smoothly at minute 497
+PASS Solar rises smoothly at minute 498
+PASS Solar rises smoothly at minute 499
+PASS Solar rises smoothly at minute 500
+PASS Solar rises smoothly at minute 501
+PASS Solar rises smoothly at minute 502
+PASS Solar rises smoothly at minute 503
+PASS Solar rises smoothly at minute 504
+PASS Solar rises smoothly at minute 505
+PASS Solar rises smoothly at minute 506
+PASS Solar rises smoothly at minute 507
+PASS Solar rises smoothly at minute 508
+PASS Solar rises smoothly at minute 509
+PASS Solar rises smoothly at minute 510
+PASS Solar rises smoothly at minute 511
+PASS Solar rises smoothly at minute 512
+PASS Solar rises smoothly at minute 513
+PASS Solar rises smoothly at minute 514
+PASS Solar rises smoothly at minute 515
+PASS Solar rises smoothly at minute 516
+PASS Solar rises smoothly at minute 517
+PASS Solar rises smoothly at minute 518
+PASS Solar rises smoothly at minute 519
+PASS Solar rises smoothly at minute 520
+PASS Solar rises smoothly at minute 521
+PASS Solar rises smoothly at minute 522
+PASS Solar rises smoothly at minute 523
+PASS Solar rises smoothly at minute 524
+PASS Solar rises smoothly at minute 525
+PASS Solar rises smoothly at minute 526
+PASS Solar rises smoothly at minute 527
+PASS Solar rises smoothly at minute 528
+PASS Solar rises smoothly at minute 529
+PASS Solar rises smoothly at minute 530
+PASS Solar rises smoothly at minute 531
+PASS Solar rises smoothly at minute 532
+PASS Solar rises smoothly at minute 533
+PASS Solar rises smoothly at minute 534
+PASS Solar rises smoothly at minute 535
+PASS Solar rises smoothly at minute 536
+PASS Solar rises smoothly at minute 537
+PASS Solar rises smoothly at minute 538
+PASS Solar rises smoothly at minute 539
+PASS Solar rises smoothly at minute 540
+PASS Solar rises smoothly at minute 541
+PASS Solar rises smoothly at minute 542
+PASS Solar rises smoothly at minute 543
+PASS Solar rises smoothly at minute 544
+PASS Solar rises smoothly at minute 545
+PASS Solar rises smoothly at minute 546
+PASS Solar rises smoothly at minute 547
+PASS Solar rises smoothly at minute 548
+PASS Solar rises smoothly at minute 549
+PASS Solar rises smoothly at minute 550
+PASS Solar rises smoothly at minute 551
+PASS Solar rises smoothly at minute 552
+PASS Solar rises smoothly at minute 553
+PASS Solar rises smoothly at minute 554
+PASS Solar rises smoothly at minute 555
+PASS Solar rises smoothly at minute 556
+PASS Solar rises smoothly at minute 557
+PASS Solar rises smoothly at minute 558
+PASS Solar rises smoothly at minute 559
+PASS Solar rises smoothly at minute 560
+PASS Solar rises smoothly at minute 561
+PASS Solar rises smoothly at minute 562
+PASS Solar rises smoothly at minute 563
+PASS Solar rises smoothly at minute 564
+PASS Solar rises smoothly at minute 565
+PASS Solar rises smoothly at minute 566
+PASS Solar rises smoothly at minute 567
+PASS Solar rises smoothly at minute 568
+PASS Solar rises smoothly at minute 569
+PASS Solar rises smoothly at minute 570
+PASS Solar rises smoothly at minute 571
+PASS Solar rises smoothly at minute 572
+PASS Solar rises smoothly at minute 573
+PASS Solar rises smoothly at minute 574
+PASS Solar rises smoothly at minute 575
+PASS Solar rises smoothly at minute 576
+PASS Solar rises smoothly at minute 577
+PASS Solar rises smoothly at minute 578
+PASS Solar rises smoothly at minute 579
+PASS Solar rises smoothly at minute 580
+PASS Solar rises smoothly at minute 581
+PASS Solar rises smoothly at minute 582
+PASS Solar rises smoothly at minute 583
+PASS Solar rises smoothly at minute 584
+PASS Solar rises smoothly at minute 585
+PASS Solar rises smoothly at minute 586
+PASS Solar rises smoothly at minute 587
+PASS Solar rises smoothly at minute 588
+PASS Solar rises smoothly at minute 589
+PASS Solar rises smoothly at minute 590
+PASS Solar rises smoothly at minute 591
+PASS Solar rises smoothly at minute 592
+PASS Solar rises smoothly at minute 593
+PASS Solar rises smoothly at minute 594
+PASS Solar rises smoothly at minute 595
+PASS Solar rises smoothly at minute 596
+PASS Solar rises smoothly at minute 597
+PASS Solar rises smoothly at minute 598
+PASS Solar rises smoothly at minute 599
+PASS Solar rises smoothly at minute 600
+PASS Solar rises smoothly at minute 601
+PASS Solar rises smoothly at minute 602
+PASS Solar rises smoothly at minute 603
+PASS Solar rises smoothly at minute 604
+PASS Solar rises smoothly at minute 605
+PASS Solar rises smoothly at minute 606
+PASS Solar rises smoothly at minute 607
+PASS Solar rises smoothly at minute 608
+PASS Solar rises smoothly at minute 609
+PASS Solar rises smoothly at minute 610
+PASS Solar rises smoothly at minute 611
+PASS Solar rises smoothly at minute 612
+PASS Solar rises smoothly at minute 613
+PASS Solar rises smoothly at minute 614
+PASS Solar rises smoothly at minute 615
+PASS Solar rises smoothly at minute 616
+PASS Solar rises smoothly at minute 617
+PASS Solar rises smoothly at minute 618
+PASS Solar rises smoothly at minute 619
+PASS Solar rises smoothly at minute 620
+PASS Solar rises smoothly at minute 621
+PASS Solar rises smoothly at minute 622
+PASS Solar rises smoothly at minute 623
+PASS Solar rises smoothly at minute 624
+PASS Solar rises smoothly at minute 625
+PASS Solar rises smoothly at minute 626
+PASS Solar rises smoothly at minute 627
+PASS Solar rises smoothly at minute 628
+PASS Solar rises smoothly at minute 629
+PASS Solar rises smoothly at minute 630
+PASS Solar rises smoothly at minute 631
+PASS Solar rises smoothly at minute 632
+PASS Solar rises smoothly at minute 633
+PASS Solar rises smoothly at minute 634
+PASS Solar rises smoothly at minute 635
+PASS Solar rises smoothly at minute 636
+PASS Solar rises smoothly at minute 637
+PASS Solar rises smoothly at minute 638
+PASS Solar rises smoothly at minute 639
+PASS Solar rises smoothly at minute 640
+PASS Solar rises smoothly at minute 641
+PASS Solar rises smoothly at minute 642
+PASS Solar rises smoothly at minute 643
+PASS Solar rises smoothly at minute 644
+PASS Solar rises smoothly at minute 645
+PASS Solar rises smoothly at minute 646
+PASS Solar rises smoothly at minute 647
+PASS Solar rises smoothly at minute 648
+PASS Solar rises smoothly at minute 649
+PASS Solar rises smoothly at minute 650
+PASS Solar rises smoothly at minute 651
+PASS Solar rises smoothly at minute 652
+PASS Solar rises smoothly at minute 653
+PASS Solar rises smoothly at minute 654
+PASS Solar rises smoothly at minute 655
+PASS Solar rises smoothly at minute 656
+PASS Solar rises smoothly at minute 657
+PASS Solar rises smoothly at minute 658
+PASS Solar rises smoothly at minute 659
+PASS Solar rises smoothly at minute 660
+PASS Solar rises smoothly at minute 661
+PASS Solar rises smoothly at minute 662
+PASS Solar rises smoothly at minute 663
+PASS Solar rises smoothly at minute 664
+PASS Solar rises smoothly at minute 665
+PASS Solar rises smoothly at minute 666
+PASS Solar rises smoothly at minute 667
+PASS Solar rises smoothly at minute 668
+PASS Solar rises smoothly at minute 669
+PASS Solar rises smoothly at minute 670
+PASS Solar rises smoothly at minute 671
+PASS Solar rises smoothly at minute 672
+PASS Solar rises smoothly at minute 673
+PASS Solar rises smoothly at minute 674
+PASS Solar rises smoothly at minute 675
+PASS Solar rises smoothly at minute 676
+PASS Solar rises smoothly at minute 677
+PASS Solar rises smoothly at minute 678
+PASS Solar rises smoothly at minute 679
+PASS Solar rises smoothly at minute 680
+PASS Solar rises smoothly at minute 681
+PASS Solar rises smoothly at minute 682
+PASS Solar rises smoothly at minute 683
+PASS Solar rises smoothly at minute 684
+PASS Solar rises smoothly at minute 685
+PASS Solar rises smoothly at minute 686
+PASS Solar rises smoothly at minute 687
+PASS Solar rises smoothly at minute 688
+PASS Solar rises smoothly at minute 689
+PASS Solar rises smoothly at minute 690
+PASS Solar rises smoothly at minute 691
+PASS Solar rises smoothly at minute 692
+PASS Solar rises smoothly at minute 693
+PASS Solar rises smoothly at minute 694
+PASS Solar rises smoothly at minute 695
+PASS Solar rises smoothly at minute 696
+PASS Solar rises smoothly at minute 697
+PASS Solar rises smoothly at minute 698
+PASS Solar rises smoothly at minute 699
+PASS Solar rises smoothly at minute 700
+PASS Solar rises smoothly at minute 701
+PASS Solar rises smoothly at minute 702
+PASS Solar rises smoothly at minute 703
+PASS Solar rises smoothly at minute 704
+PASS Solar rises smoothly at minute 705
+PASS Solar rises smoothly at minute 706
+PASS Solar rises smoothly at minute 707
+PASS Solar rises smoothly at minute 708
+PASS Solar rises smoothly at minute 709
+PASS Solar rises smoothly at minute 710
+PASS Solar rises smoothly at minute 711
+PASS Solar rises smoothly at minute 712
+PASS Solar rises smoothly at minute 713
+PASS Solar rises smoothly at minute 714
+PASS Solar rises smoothly at minute 715
+PASS Solar rises smoothly at minute 716
+PASS Solar rises smoothly at minute 717
+PASS Solar rises smoothly at minute 718
+PASS Solar rises smoothly at minute 719
+PASS Solar rises smoothly at minute 720
+PASS Solar falls smoothly at minute 721
+PASS Solar falls smoothly at minute 722
+PASS Solar falls smoothly at minute 723
+PASS Solar falls smoothly at minute 724
+PASS Solar falls smoothly at minute 725
+PASS Solar falls smoothly at minute 726
+PASS Solar falls smoothly at minute 727
+PASS Solar falls smoothly at minute 728
+PASS Solar falls smoothly at minute 729
+PASS Solar falls smoothly at minute 730
+PASS Solar falls smoothly at minute 731
+PASS Solar falls smoothly at minute 732
+PASS Solar falls smoothly at minute 733
+PASS Solar falls smoothly at minute 734
+PASS Solar falls smoothly at minute 735
+PASS Solar falls smoothly at minute 736
+PASS Solar falls smoothly at minute 737
+PASS Solar falls smoothly at minute 738
+PASS Solar falls smoothly at minute 739
+PASS Solar falls smoothly at minute 740
+PASS Solar falls smoothly at minute 741
+PASS Solar falls smoothly at minute 742
+PASS Solar falls smoothly at minute 743
+PASS Solar falls smoothly at minute 744
+PASS Solar falls smoothly at minute 745
+PASS Solar falls smoothly at minute 746
+PASS Solar falls smoothly at minute 747
+PASS Solar falls smoothly at minute 748
+PASS Solar falls smoothly at minute 749
+PASS Solar falls smoothly at minute 750
+PASS Solar falls smoothly at minute 751
+PASS Solar falls smoothly at minute 752
+PASS Solar falls smoothly at minute 753
+PASS Solar falls smoothly at minute 754
+PASS Solar falls smoothly at minute 755
+PASS Solar falls smoothly at minute 756
+PASS Solar falls smoothly at minute 757
+PASS Solar falls smoothly at minute 758
+PASS Solar falls smoothly at minute 759
+PASS Solar falls smoothly at minute 760
+PASS Solar falls smoothly at minute 761
+PASS Solar falls smoothly at minute 762
+PASS Solar falls smoothly at minute 763
+PASS Solar falls smoothly at minute 764
+PASS Solar falls smoothly at minute 765
+PASS Solar falls smoothly at minute 766
+PASS Solar falls smoothly at minute 767
+PASS Solar falls smoothly at minute 768
+PASS Solar falls smoothly at minute 769
+PASS Solar falls smoothly at minute 770
+PASS Solar falls smoothly at minute 771
+PASS Solar falls smoothly at minute 772
+PASS Solar falls smoothly at minute 773
+PASS Solar falls smoothly at minute 774
+PASS Solar falls smoothly at minute 775
+PASS Solar falls smoothly at minute 776
+PASS Solar falls smoothly at minute 777
+PASS Solar falls smoothly at minute 778
+PASS Solar falls smoothly at minute 779
+PASS Solar falls smoothly at minute 780
+PASS Solar falls smoothly at minute 781
+PASS Solar falls smoothly at minute 782
+PASS Solar falls smoothly at minute 783
+PASS Solar falls smoothly at minute 784
+PASS Solar falls smoothly at minute 785
+PASS Solar falls smoothly at minute 786
+PASS Solar falls smoothly at minute 787
+PASS Solar falls smoothly at minute 788
+PASS Solar falls smoothly at minute 789
+PASS Solar falls smoothly at minute 790
+PASS Solar falls smoothly at minute 791
+PASS Solar falls smoothly at minute 792
+PASS Solar falls smoothly at minute 793
+PASS Solar falls smoothly at minute 794
+PASS Solar falls smoothly at minute 795
+PASS Solar falls smoothly at minute 796
+PASS Solar falls smoothly at minute 797
+PASS Solar falls smoothly at minute 798
+PASS Solar falls smoothly at minute 799
+PASS Solar falls smoothly at minute 800
+PASS Solar falls smoothly at minute 801
+PASS Solar falls smoothly at minute 802
+PASS Solar falls smoothly at minute 803
+PASS Solar falls smoothly at minute 804
+PASS Solar falls smoothly at minute 805
+PASS Solar falls smoothly at minute 806
+PASS Solar falls smoothly at minute 807
+PASS Solar falls smoothly at minute 808
+PASS Solar falls smoothly at minute 809
+PASS Solar falls smoothly at minute 810
+PASS Solar falls smoothly at minute 811
+PASS Solar falls smoothly at minute 812
+PASS Solar falls smoothly at minute 813
+PASS Solar falls smoothly at minute 814
+PASS Solar falls smoothly at minute 815
+PASS Solar falls smoothly at minute 816
+PASS Solar falls smoothly at minute 817
+PASS Solar falls smoothly at minute 818
+PASS Solar falls smoothly at minute 819
+PASS Solar falls smoothly at minute 820
+PASS Solar falls smoothly at minute 821
+PASS Solar falls smoothly at minute 822
+PASS Solar falls smoothly at minute 823
+PASS Solar falls smoothly at minute 824
+PASS Solar falls smoothly at minute 825
+PASS Solar falls smoothly at minute 826
+PASS Solar falls smoothly at minute 827
+PASS Solar falls smoothly at minute 828
+PASS Solar falls smoothly at minute 829
+PASS Solar falls smoothly at minute 830
+PASS Solar falls smoothly at minute 831
+PASS Solar falls smoothly at minute 832
+PASS Solar falls smoothly at minute 833
+PASS Solar falls smoothly at minute 834
+PASS Solar falls smoothly at minute 835
+PASS Solar falls smoothly at minute 836
+PASS Solar falls smoothly at minute 837
+PASS Solar falls smoothly at minute 838
+PASS Solar falls smoothly at minute 839
+PASS Solar falls smoothly at minute 840
+PASS Solar falls smoothly at minute 841
+PASS Solar falls smoothly at minute 842
+PASS Solar falls smoothly at minute 843
+PASS Solar falls smoothly at minute 844
+PASS Solar falls smoothly at minute 845
+PASS Solar falls smoothly at minute 846
+PASS Solar falls smoothly at minute 847
+PASS Solar falls smoothly at minute 848
+PASS Solar falls smoothly at minute 849
+PASS Solar falls smoothly at minute 850
+PASS Solar falls smoothly at minute 851
+PASS Solar falls smoothly at minute 852
+PASS Solar falls smoothly at minute 853
+PASS Solar falls smoothly at minute 854
+PASS Solar falls smoothly at minute 855
+PASS Solar falls smoothly at minute 856
+PASS Solar falls smoothly at minute 857
+PASS Solar falls smoothly at minute 858
+PASS Solar falls smoothly at minute 859
+PASS Solar falls smoothly at minute 860
+PASS Solar falls smoothly at minute 861
+PASS Solar falls smoothly at minute 862
+PASS Solar falls smoothly at minute 863
+PASS Solar falls smoothly at minute 864
+PASS Solar falls smoothly at minute 865
+PASS Solar falls smoothly at minute 866
+PASS Solar falls smoothly at minute 867
+PASS Solar falls smoothly at minute 868
+PASS Solar falls smoothly at minute 869
+PASS Solar falls smoothly at minute 870
+PASS Solar falls smoothly at minute 871
+PASS Solar falls smoothly at minute 872
+PASS Solar falls smoothly at minute 873
+PASS Solar falls smoothly at minute 874
+PASS Solar falls smoothly at minute 875
+PASS Solar falls smoothly at minute 876
+PASS Solar falls smoothly at minute 877
+PASS Solar falls smoothly at minute 878
+PASS Solar falls smoothly at minute 879
+PASS Solar falls smoothly at minute 880
+PASS Solar falls smoothly at minute 881
+PASS Solar falls smoothly at minute 882
+PASS Solar falls smoothly at minute 883
+PASS Solar falls smoothly at minute 884
+PASS Solar falls smoothly at minute 885
+PASS Solar falls smoothly at minute 886
+PASS Solar falls smoothly at minute 887
+PASS Solar falls smoothly at minute 888
+PASS Solar falls smoothly at minute 889
+PASS Solar falls smoothly at minute 890
+PASS Solar falls smoothly at minute 891
+PASS Solar falls smoothly at minute 892
+PASS Solar falls smoothly at minute 893
+PASS Solar falls smoothly at minute 894
+PASS Solar falls smoothly at minute 895
+PASS Solar falls smoothly at minute 896
+PASS Solar falls smoothly at minute 897
+PASS Solar falls smoothly at minute 898
+PASS Solar falls smoothly at minute 899
+PASS Solar falls smoothly at minute 900
+PASS Solar falls smoothly at minute 901
+PASS Solar falls smoothly at minute 902
+PASS Solar falls smoothly at minute 903
+PASS Solar falls smoothly at minute 904
+PASS Solar falls smoothly at minute 905
+PASS Solar falls smoothly at minute 906
+PASS Solar falls smoothly at minute 907
+PASS Solar falls smoothly at minute 908
+PASS Solar falls smoothly at minute 909
+PASS Solar falls smoothly at minute 910
+PASS Solar falls smoothly at minute 911
+PASS Solar falls smoothly at minute 912
+PASS Solar falls smoothly at minute 913
+PASS Solar falls smoothly at minute 914
+PASS Solar falls smoothly at minute 915
+PASS Solar falls smoothly at minute 916
+PASS Solar falls smoothly at minute 917
+PASS Solar falls smoothly at minute 918
+PASS Solar falls smoothly at minute 919
+PASS Solar falls smoothly at minute 920
+PASS Solar falls smoothly at minute 921
+PASS Solar falls smoothly at minute 922
+PASS Solar falls smoothly at minute 923
+PASS Solar falls smoothly at minute 924
+PASS Solar falls smoothly at minute 925
+PASS Solar falls smoothly at minute 926
+PASS Solar falls smoothly at minute 927
+PASS Solar falls smoothly at minute 928
+PASS Solar falls smoothly at minute 929
+PASS Solar falls smoothly at minute 930
+PASS Solar falls smoothly at minute 931
+PASS Solar falls smoothly at minute 932
+PASS Solar falls smoothly at minute 933
+PASS Solar falls smoothly at minute 934
+PASS Solar falls smoothly at minute 935
+PASS Solar falls smoothly at minute 936
+PASS Solar falls smoothly at minute 937
+PASS Solar falls smoothly at minute 938
+PASS Solar falls smoothly at minute 939
+PASS Solar falls smoothly at minute 940
+PASS Solar falls smoothly at minute 941
+PASS Solar falls smoothly at minute 942
+PASS Solar falls smoothly at minute 943
+PASS Solar falls smoothly at minute 944
+PASS Solar falls smoothly at minute 945
+PASS Solar falls smoothly at minute 946
+PASS Solar falls smoothly at minute 947
+PASS Solar falls smoothly at minute 948
+PASS Solar falls smoothly at minute 949
+PASS Solar falls smoothly at minute 950
+PASS Solar falls smoothly at minute 951
+PASS Solar falls smoothly at minute 952
+PASS Solar falls smoothly at minute 953
+PASS Solar falls smoothly at minute 954
+PASS Solar falls smoothly at minute 955
+PASS Solar falls smoothly at minute 956
+PASS Solar falls smoothly at minute 957
+PASS Solar falls smoothly at minute 958
+PASS Solar falls smoothly at minute 959
+PASS Solar falls smoothly at minute 960
+PASS Solar falls smoothly at minute 961
+PASS Solar falls smoothly at minute 962
+PASS Solar falls smoothly at minute 963
+PASS Solar falls smoothly at minute 964
+PASS Solar falls smoothly at minute 965
+PASS Solar falls smoothly at minute 966
+PASS Solar falls smoothly at minute 967
+PASS Solar falls smoothly at minute 968
+PASS Solar falls smoothly at minute 969
+PASS Solar falls smoothly at minute 970
+PASS Solar falls smoothly at minute 971
+PASS Solar falls smoothly at minute 972
+PASS Solar falls smoothly at minute 973
+PASS Solar falls smoothly at minute 974
+PASS Solar falls smoothly at minute 975
+PASS Solar falls smoothly at minute 976
+PASS Solar falls smoothly at minute 977
+PASS Solar falls smoothly at minute 978
+PASS Solar falls smoothly at minute 979
+PASS Solar falls smoothly at minute 980
+PASS Solar falls smoothly at minute 981
+PASS Solar falls smoothly at minute 982
+PASS Solar falls smoothly at minute 983
+PASS Solar falls smoothly at minute 984
+PASS Solar falls smoothly at minute 985
+PASS Solar falls smoothly at minute 986
+PASS Solar falls smoothly at minute 987
+PASS Solar falls smoothly at minute 988
+PASS Solar falls smoothly at minute 989
+PASS Solar falls smoothly at minute 990
+PASS Solar falls smoothly at minute 991
+PASS Solar falls smoothly at minute 992
+PASS Solar falls smoothly at minute 993
+PASS Solar falls smoothly at minute 994
+PASS Solar falls smoothly at minute 995
+PASS Solar falls smoothly at minute 996
+PASS Solar falls smoothly at minute 997
+PASS Solar falls smoothly at minute 998
+PASS Solar falls smoothly at minute 999
+PASS Solar falls smoothly at minute 1000
+PASS Solar falls smoothly at minute 1001
+PASS Solar falls smoothly at minute 1002
+PASS Solar falls smoothly at minute 1003
+PASS Solar falls smoothly at minute 1004
+PASS Solar falls smoothly at minute 1005
+PASS Solar falls smoothly at minute 1006
+PASS Solar falls smoothly at minute 1007
+PASS Solar falls smoothly at minute 1008
+PASS Solar falls smoothly at minute 1009
+PASS Solar falls smoothly at minute 1010
+PASS Solar falls smoothly at minute 1011
+PASS Solar falls smoothly at minute 1012
+PASS Solar falls smoothly at minute 1013
+PASS Solar falls smoothly at minute 1014
+PASS Solar falls smoothly at minute 1015
+PASS Solar falls smoothly at minute 1016
+PASS Solar falls smoothly at minute 1017
+PASS Solar falls smoothly at minute 1018
+PASS Solar falls smoothly at minute 1019
+PASS Solar falls smoothly at minute 1020
+PASS Solar falls smoothly at minute 1021
+PASS Solar falls smoothly at minute 1022
+PASS Solar falls smoothly at minute 1023
+PASS Solar falls smoothly at minute 1024
+PASS Solar falls smoothly at minute 1025
+PASS Solar falls smoothly at minute 1026
+PASS Solar falls smoothly at minute 1027
+PASS Solar falls smoothly at minute 1028
+PASS Solar falls smoothly at minute 1029
+PASS Solar falls smoothly at minute 1030
+PASS Solar falls smoothly at minute 1031
+PASS Solar falls smoothly at minute 1032
+PASS Solar falls smoothly at minute 1033
+PASS Solar falls smoothly at minute 1034
+PASS Solar falls smoothly at minute 1035
+PASS Solar falls smoothly at minute 1036
+PASS Solar falls smoothly at minute 1037
+PASS Solar falls smoothly at minute 1038
+PASS Solar falls smoothly at minute 1039
+PASS Solar falls smoothly at minute 1040
+PASS Solar falls smoothly at minute 1041
+PASS Solar falls smoothly at minute 1042
+PASS Solar falls smoothly at minute 1043
+PASS Solar falls smoothly at minute 1044
+PASS Solar falls smoothly at minute 1045
+PASS Solar falls smoothly at minute 1046
+PASS Solar falls smoothly at minute 1047
+PASS Solar falls smoothly at minute 1048
+PASS Solar falls smoothly at minute 1049
+PASS Solar falls smoothly at minute 1050
+PASS Solar falls smoothly at minute 1051
+PASS Solar falls smoothly at minute 1052
+PASS Solar falls smoothly at minute 1053
+PASS Solar falls smoothly at minute 1054
+PASS Solar falls smoothly at minute 1055
+PASS Solar falls smoothly at minute 1056
+PASS Solar falls smoothly at minute 1057
+PASS Solar falls smoothly at minute 1058
+PASS Solar falls smoothly at minute 1059
+PASS Solar falls smoothly at minute 1060
+PASS Solar falls smoothly at minute 1061
+PASS Solar falls smoothly at minute 1062
+PASS Solar falls smoothly at minute 1063
+PASS Solar falls smoothly at minute 1064
+PASS Solar falls smoothly at minute 1065
+PASS Solar falls smoothly at minute 1066
+PASS Solar falls smoothly at minute 1067
+PASS Solar falls smoothly at minute 1068
+PASS Solar falls smoothly at minute 1069
+PASS Solar falls smoothly at minute 1070
+PASS Solar falls smoothly at minute 1071
+PASS Solar falls smoothly at minute 1072
+PASS Solar falls smoothly at minute 1073
+PASS Solar falls smoothly at minute 1074
+PASS Solar falls smoothly at minute 1075
+PASS Solar falls smoothly at minute 1076
+PASS Solar falls smoothly at minute 1077
+PASS Solar falls smoothly at minute 1078
+PASS Solar falls smoothly at minute 1079
+PASS Solar falls smoothly at minute 1080
+PASS Monotonic weather transition tick 0
+PASS Monotonic weather transition tick 1
+PASS Monotonic weather transition tick 2
+PASS Monotonic weather transition tick 3
+PASS Monotonic weather transition tick 4
+PASS Monotonic weather transition tick 5
+PASS Monotonic weather transition tick 6
+PASS Monotonic weather transition tick 7
+PASS Monotonic weather transition tick 8
+PASS Monotonic weather transition tick 9
+PASS Monotonic weather transition tick 10
+PASS Monotonic weather transition tick 11
+PASS Monotonic weather transition tick 12
+PASS Monotonic weather transition tick 13
+PASS Monotonic weather transition tick 14
+PASS Monotonic weather transition tick 15
+PASS Monotonic weather transition tick 16
+PASS Monotonic weather transition tick 17
+PASS Monotonic weather transition tick 18
+PASS Monotonic weather transition tick 19
+PASS Monotonic weather transition tick 20
+PASS Monotonic weather transition tick 21
+PASS Monotonic weather transition tick 22
+PASS Monotonic weather transition tick 23
+PASS Monotonic weather transition tick 24
+PASS Monotonic weather transition tick 25
+PASS Monotonic weather transition tick 26
+PASS Monotonic weather transition tick 27
+PASS Monotonic weather transition tick 28
+PASS Monotonic weather transition tick 29
+PASS Monotonic weather transition tick 30
+PASS Monotonic weather transition tick 31
+PASS Monotonic weather transition tick 32
+PASS Monotonic weather transition tick 33
+PASS Monotonic weather transition tick 34
+PASS Monotonic weather transition tick 35
+PASS Monotonic weather transition tick 36
+PASS Monotonic weather transition tick 37
+PASS Monotonic weather transition tick 38
+PASS Monotonic weather transition tick 39
+PASS Monotonic weather transition tick 40
+PASS Monotonic weather transition tick 41
+PASS Monotonic weather transition tick 42
+PASS Monotonic weather transition tick 43
+PASS Monotonic weather transition tick 44
+PASS Monotonic weather transition tick 45
+PASS Monotonic weather transition tick 46
+PASS Monotonic weather transition tick 47
+PASS Monotonic weather transition tick 48
+PASS Monotonic weather transition tick 49
+PASS Monotonic weather transition tick 50
+PASS Monotonic weather transition tick 51
+PASS Monotonic weather transition tick 52
+PASS Monotonic weather transition tick 53
+PASS Monotonic weather transition tick 54
+PASS Monotonic weather transition tick 55
+PASS Monotonic weather transition tick 56
+PASS Monotonic weather transition tick 57
+PASS Monotonic weather transition tick 58
+PASS Monotonic weather transition tick 59
+PASS Monotonic weather transition tick 60
+PASS Monotonic weather transition tick 61
+PASS Monotonic weather transition tick 62
+PASS Monotonic weather transition tick 63
+PASS Monotonic weather transition tick 64
+PASS Monotonic weather transition tick 65
+PASS Monotonic weather transition tick 66
+PASS Monotonic weather transition tick 67
+PASS Monotonic weather transition tick 68
+PASS Monotonic weather transition tick 69
+PASS Monotonic weather transition tick 70
+PASS Monotonic weather transition tick 71
+PASS Monotonic weather transition tick 72
+PASS Monotonic weather transition tick 73
+PASS Monotonic weather transition tick 74
+PASS Monotonic weather transition tick 75
+PASS Monotonic weather transition tick 76
+PASS Monotonic weather transition tick 77
+PASS Monotonic weather transition tick 78
+PASS Monotonic weather transition tick 79
+PASS Monotonic weather transition tick 80
+PASS Monotonic weather transition tick 81
+PASS Monotonic weather transition tick 82
+PASS Monotonic weather transition tick 83
+PASS Monotonic weather transition tick 84
+PASS Monotonic weather transition tick 85
+PASS Monotonic weather transition tick 86
+PASS Monotonic weather transition tick 87
+PASS Monotonic weather transition tick 88
+PASS Monotonic weather transition tick 89
+PASS Monotonic weather transition tick 90
+PASS Monotonic weather transition tick 91
+PASS Monotonic weather transition tick 92
+PASS Monotonic weather transition tick 93
+PASS Monotonic weather transition tick 94
+PASS Monotonic weather transition tick 95
+PASS Monotonic weather transition tick 96
+PASS Monotonic weather transition tick 97
+PASS Monotonic weather transition tick 98
+PASS Monotonic weather transition tick 99
+PASS Monotonic weather transition tick 100
+PASS Monotonic weather transition tick 101
+PASS Monotonic weather transition tick 102
+PASS Monotonic weather transition tick 103
+PASS Monotonic weather transition tick 104
+PASS Monotonic weather transition tick 105
+PASS Monotonic weather transition tick 106
+PASS Monotonic weather transition tick 107
+PASS Monotonic weather transition tick 108
+PASS Monotonic weather transition tick 109
+PASS Monotonic weather transition tick 110
+PASS Monotonic weather transition tick 111
+PASS Monotonic weather transition tick 112
+PASS Monotonic weather transition tick 113
+PASS Monotonic weather transition tick 114
+PASS Monotonic weather transition tick 115
+PASS Monotonic weather transition tick 116
+PASS Monotonic weather transition tick 117
+PASS Monotonic weather transition tick 118
+PASS Monotonic weather transition tick 119
+PASS Monotonic weather transition tick 120
+PASS Monotonic weather transition tick 121
+PASS Monotonic weather transition tick 122
+PASS Monotonic weather transition tick 123
+PASS Monotonic weather transition tick 124
+PASS Monotonic weather transition tick 125
+PASS Monotonic weather transition tick 126
+PASS Monotonic weather transition tick 127
+PASS Monotonic weather transition tick 128
+PASS Monotonic weather transition tick 129
+PASS Monotonic weather transition tick 130
+PASS Monotonic weather transition tick 131
+PASS Monotonic weather transition tick 132
+PASS Monotonic weather transition tick 133
+PASS Monotonic weather transition tick 134
+PASS Monotonic weather transition tick 135
+PASS Monotonic weather transition tick 136
+PASS Monotonic weather transition tick 137
+PASS Monotonic weather transition tick 138
+PASS Monotonic weather transition tick 139
+PASS Monotonic weather transition tick 140
+PASS Monotonic weather transition tick 141
+PASS Monotonic weather transition tick 142
+PASS Monotonic weather transition tick 143
+PASS Monotonic weather transition tick 144
+PASS Monotonic weather transition tick 145
+PASS Monotonic weather transition tick 146
+PASS Monotonic weather transition tick 147
+PASS Monotonic weather transition tick 148
+PASS Monotonic weather transition tick 149
+PASS Monotonic weather transition tick 150
+PASS Monotonic weather transition tick 151
+PASS Monotonic weather transition tick 152
+PASS Monotonic weather transition tick 153
+PASS Monotonic weather transition tick 154
+PASS Monotonic weather transition tick 155
+PASS Monotonic weather transition tick 156
+PASS Monotonic weather transition tick 157
+PASS Monotonic weather transition tick 158
+PASS Monotonic weather transition tick 159
+PASS Monotonic weather transition tick 160
+PASS Monotonic weather transition tick 161
+PASS Monotonic weather transition tick 162
+PASS Monotonic weather transition tick 163
+PASS Monotonic weather transition tick 164
+PASS Monotonic weather transition tick 165
+PASS Monotonic weather transition tick 166
+PASS Monotonic weather transition tick 167
+PASS Monotonic weather transition tick 168
+PASS Monotonic weather transition tick 169
+PASS Monotonic weather transition tick 170
+PASS Monotonic weather transition tick 171
+PASS Monotonic weather transition tick 172
+PASS Monotonic weather transition tick 173
+PASS Monotonic weather transition tick 174
+PASS Monotonic weather transition tick 175
+PASS Monotonic weather transition tick 176
+PASS Monotonic weather transition tick 177
+PASS Monotonic weather transition tick 178
+PASS Monotonic weather transition tick 179
+PASS Monotonic weather transition tick 180
+PASS Monotonic weather transition tick 181
+PASS Monotonic weather transition tick 182
+PASS Monotonic weather transition tick 183
+PASS Monotonic weather transition tick 184
+PASS Monotonic weather transition tick 185
+PASS Monotonic weather transition tick 186
+PASS Monotonic weather transition tick 187
+PASS Monotonic weather transition tick 188
+PASS Monotonic weather transition tick 189
+PASS Monotonic weather transition tick 190
+PASS Monotonic weather transition tick 191
+PASS Monotonic weather transition tick 192
+PASS Monotonic weather transition tick 193
+PASS Monotonic weather transition tick 194
+PASS Monotonic weather transition tick 195
+PASS Monotonic weather transition tick 196
+PASS Monotonic weather transition tick 197
+PASS Monotonic weather transition tick 198
+PASS Monotonic weather transition tick 199
+PASS Monotonic weather transition tick 200
+PASS Monotonic weather transition tick 201
+PASS Monotonic weather transition tick 202
+PASS Monotonic weather transition tick 203
+PASS Monotonic weather transition tick 204
+PASS Monotonic weather transition tick 205
+PASS Monotonic weather transition tick 206
+PASS Monotonic weather transition tick 207
+PASS Monotonic weather transition tick 208
+PASS Monotonic weather transition tick 209
+PASS Monotonic weather transition tick 210
+PASS Monotonic weather transition tick 211
+PASS Monotonic weather transition tick 212
+PASS Monotonic weather transition tick 213
+PASS Monotonic weather transition tick 214
+PASS Monotonic weather transition tick 215
+PASS Monotonic weather transition tick 216
+PASS Monotonic weather transition tick 217
+PASS Monotonic weather transition tick 218
+PASS Monotonic weather transition tick 219
+PASS Monotonic weather transition tick 220
+PASS Monotonic weather transition tick 221
+PASS Monotonic weather transition tick 222
+PASS Monotonic weather transition tick 223
+PASS Monotonic weather transition tick 224
+PASS Monotonic weather transition tick 225
+PASS Monotonic weather transition tick 226
+PASS Monotonic weather transition tick 227
+PASS Monotonic weather transition tick 228
+PASS Monotonic weather transition tick 229
+PASS Monotonic weather transition tick 230
+PASS Monotonic weather transition tick 231
+PASS Monotonic weather transition tick 232
+PASS Monotonic weather transition tick 233
+PASS Monotonic weather transition tick 234
+PASS Monotonic weather transition tick 235
+PASS Monotonic weather transition tick 236
+PASS Monotonic weather transition tick 237
+PASS Monotonic weather transition tick 238
+PASS Monotonic weather transition tick 239
+PASS Monotonic weather transition tick 240
+PASS Monotonic weather transition tick 241
+PASS Monotonic weather transition tick 242
+PASS Monotonic weather transition tick 243
+PASS Monotonic weather transition tick 244
+PASS Monotonic weather transition tick 245
+PASS Monotonic weather transition tick 246
+PASS Monotonic weather transition tick 247
+PASS Monotonic weather transition tick 248
+PASS Monotonic weather transition tick 249
+PASS Monotonic weather transition tick 250
+PASS Monotonic weather transition tick 251
+PASS Monotonic weather transition tick 252
+PASS Monotonic weather transition tick 253
+PASS Monotonic weather transition tick 254
+PASS Monotonic weather transition tick 255
+PASS Monotonic weather transition tick 256
+PASS Monotonic weather transition tick 257
+PASS Monotonic weather transition tick 258
+PASS Monotonic weather transition tick 259
+PASS Monotonic weather transition tick 260
+PASS Monotonic weather transition tick 261
+PASS Monotonic weather transition tick 262
+PASS Monotonic weather transition tick 263
+PASS Monotonic weather transition tick 264
+PASS Monotonic weather transition tick 265
+PASS Monotonic weather transition tick 266
+PASS Monotonic weather transition tick 267
+PASS Monotonic weather transition tick 268
+PASS Monotonic weather transition tick 269
+PASS Monotonic weather transition tick 270
+PASS Monotonic weather transition tick 271
+PASS Monotonic weather transition tick 272
+PASS Monotonic weather transition tick 273
+PASS Monotonic weather transition tick 274
+PASS Monotonic weather transition tick 275
+PASS Monotonic weather transition tick 276
+PASS Monotonic weather transition tick 277
+PASS Monotonic weather transition tick 278
+PASS Monotonic weather transition tick 279
+PASS Monotonic weather transition tick 280
+PASS Monotonic weather transition tick 281
+PASS Monotonic weather transition tick 282
+PASS Monotonic weather transition tick 283
+PASS Monotonic weather transition tick 284
+PASS Monotonic weather transition tick 285
+PASS Monotonic weather transition tick 286
+PASS Monotonic weather transition tick 287
+PASS Monotonic weather transition tick 288
+PASS Monotonic weather transition tick 289
+PASS Monotonic weather transition tick 290
+PASS Monotonic weather transition tick 291
+PASS Monotonic weather transition tick 292
+PASS Monotonic weather transition tick 293
+PASS Monotonic weather transition tick 294
+PASS Monotonic weather transition tick 295
+PASS Monotonic weather transition tick 296
+PASS Monotonic weather transition tick 297
+PASS Monotonic weather transition tick 298
+PASS Monotonic weather transition tick 299
+PASS Seeded gusts fluctuate gradually over four minutes
+PASS Saved seed and active tick reproduce gust exactly
+PASS Clear and rain retain small and stronger baseline wind
+PASS Storm maintains maximum output throughout gust cycle
+PASS 400 W solar stores exactly 20 J each fixed tick
+PASS Night creates no free energy
+PASS Roof blocks renewable output
+PASS Removing roof recovers output
+PASS Signal gates generation
+PASS Dormant machines produce no energy
+PASS Generation resumes after residency returns
+PASS Incremental topology rebuild clears stale generation and rotor demand immediately
+Assertions: 1056

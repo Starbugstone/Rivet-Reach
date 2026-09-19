@@ -57,6 +57,7 @@ Mining an assembly removes its network membership, closes its open interface, dr
 | Workshop Lamp | 20 W; defaults enabled without a signal connection; light scales with received power; [lighting presentation](LIGHTING.md) covers its brighter twenty-block reach |
 | Boiler Engine | Coal/charcoal burns for 80 eligible seconds; consumes 100 mL water/s; right shaft rotates while fueled and watered |
 | Alternator | Correctly aligned adjacent running boiler supplies 800 W electricity; no remote shaft teleportation |
+| Solar Panel / Wind Turbine | [Renewable electricity](RENEWABLES.md): 400 W peak generators using shared weather and cached open-sky exposure; both use ordinary cable allocation |
 | Crusher | 160 W; 5 seconds at full allocation; 1 raw copper/iron/gold → 2 crushed corresponding ore; 1 stone or cobblestone → 1 sand |
 | Pump | No electricity required; 2 eligible seconds; removes one actual source below for 10 L in its buffer; flowing water is not accepted |
 | Drill | 240 W; 6 seconds per block at full allocation; excavates the finite column below, through iron-tier mineable materials; stops at bedrock or an obstacle |

@@ -129,6 +129,7 @@ namespace RivetReach
                 foreach(var p in group.Ports)
                 {
                     var m=p.Machine;
+                    m.DeliveredWatts=0;
                     if(p.Port.Role==PortRole.Output)generation[m]=m.SupplyWatts;
                     if(p.Port.Role==PortRole.Input){m.ReceivedWatts=0;group.Demand+=m.RequestedWatts;}
                     if(p.Port.Role==PortRole.Storage)m.BatteryWatts=m.BatteryInputWatts=m.BatteryOutputWatts=0;
@@ -162,7 +163,7 @@ namespace RivetReach
         void ConsumeGeneration(NetworkTopology.Group group,int watts)
         {
             foreach(var p in group.Ports)if(p.Port.Role==PortRole.Output&&watts>0)
-            {int take=Math.Min(watts,generation[p.Machine]);generation[p.Machine]-=take;watts-=take;}
+            {int take=Math.Min(watts,generation[p.Machine]);generation[p.Machine]-=take;p.Machine.DeliveredWatts+=take;watts-=take;}
         }
         int TransferStorage(NetworkTopology.Group group,int watts,bool charge,long tick)
         {

@@ -149,7 +149,11 @@ Breaking the input cable leaves the crusher running from stored charge. Breaking
 
 Open a Power Cable to inspect that grid's actual input, requirements and connected stored energy. Storage attached to several grids is the same shared reserve, not a separate copy for each grid.
 
+For fuel-free generation, add [Solar Panels and Wind Turbines](Renewable-power.md) to these same cable grids.
+
 ## Sharing power between batteries
+
+**All generator inputs on a connected cable grid are combined. Machines are served first. Battery output only supplies machine demand: it cannot charge another battery, including when cables form a loop.**
 
 Each connected cable grid compares generation with machine demand. If generation is higher, the surplus charges all eligible batteries equally. If demand is higher, batteries with energy share the missing power equally. Full batteries stop taking charge; empty batteries stop supplying it; their unused shares go to the others. Tiny whole-watt leftovers rotate between batteries.
 

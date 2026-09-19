@@ -575,5 +575,13 @@
   "rivet:crate_controller": {
     "description": "Provides one interface for up to **64 face-connected crates**, with no extra storage capacity or electrical demand.",
     "use": "Use one controller per connected bank. It fills crates already assigned to an item before using empty unlocked crates. Removing the controller leaves every crate and its contents intact. Pipes use saved editable priorities: machines 50, controllers 40, crates 30 and chests 20 by default; equal priorities round-robin among compatible receivers. See [Item-pipe routing](Item-pipe-routing.md). See [Crates and warehouses](Crates-and-warehouses.md)."
+  },
+  "rivet:solar_panel": {
+    "description": "Generates electricity in daylight, peaking at **400 W** at clear noon. Rain halves the available sunlight; storms reduce it to 15%.",
+    "use": "Place outdoors with air directly above, then connect Power Cable on any face. Machines take priority and surplus charges batteries in parallel. No fuel is consumed. See [Renewable power](Renewable-power.md) for weather, setup and battery behavior."
+  },
+  "rivet:wind_turbine": {
+    "description": "A compact vertical-axis turbine with gradually changing gusts: **40–140 W in clear weather, 240–360 W in rain and 400 W in storms**, by day or night.",
+    "use": "Place outdoors with air directly above, connect Power Cable on any face, and add batteries to buffer changing output. The rotor follows wind strength and stops when it supplies no power. Battery charging counts as demand. See [Renewable power](Renewable-power.md)."
   }
 }

@@ -40,4 +40,4 @@ This actual sleep example changes a storm into rain. A different night may keep 
 
 Save Game remembers the current weather and any transition in progress. Loading resumes that schedule without advancing it for time spent away. Older checkpoints begin with clear weather when first loaded into this version.
 
-Rain and thunder use the normal master audio volume in Settings. Solar panels and wind turbines are a separate upcoming feature.
+Rain and thunder use the normal master audio volume in Settings. [Solar panels and wind turbines](Renewable-power.md) now use this same weather: clouds reduce solar output and stronger wind increases turbine output.

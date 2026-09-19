@@ -1,0 +1,1 @@
+2160 triangles; 3 renderers; bounds (0.04, 0.00, 0.08) to (0.96, 0.79, 0.91)

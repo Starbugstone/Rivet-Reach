@@ -89,6 +89,7 @@ namespace RivetReach
             if(IndustryId.Bridge(m.Definition.Id)||m.Definition.Id==IndustryId.ChunkLoader){RefreshBridgeMachine(m);return;}
             machineStatus.text=m.FluidConflict?"Fluid conflict · drain vessels":m.Status==MachineStatus.NoInput&&m.Definition.Id==IndustryId.Extractor?"Chest empty or missing":m.Status==MachineStatus.NoInput&&m.Definition.Id==IndustryId.Drill?"Cutting path obstructed":StatusName(m.Status);
             if(m.Definition.Id==IndustryId.RangedPump&&m.Status==MachineStatus.NoInput)machineStatus.text=m.PumpScanIndex>0?"Searching for liquid sources":"No compatible source in range";
+            if(IndustryId.Renewable(m.Definition.Id)&&m.SupplyWatts>0&&m.DeliveredWatts==0)machineStatus.text="Ready · no power draw";
             machineStatus.color=m.Running?new Color(.35f,.90f,.83f):gold;
             bool signal=PipeConnections.Ports(m).Any(p=>p.Kind==NetworkKind.Signal);
             string detail=signal?"Signal: "+(m.SignalAttached||IndustryId.Route(m.Definition.Id)?(m.Signal?"ON":"OFF"):m.Definition.Ports.Any(p=>p.Kind==NetworkKind.Signal&&p.Role==PortRole.Output)?(m.Source?"ON":"OFF"):"not connected"):"";
@@ -96,6 +97,7 @@ namespace RivetReach
             if(powerConnection.Length>0)detail+=(detail.Length>0?"\n":"")+powerConnection;
             if(m.Definition.Watts>0)detail+=$"\nPower: {m.ReceivedWatts} / {m.RequestedWatts} W";
             if(m.Definition.Id==IndustryId.Alternator)detail+=$"\nElectrical output: {m.SupplyWatts} W";
+            if(IndustryId.Renewable(m.Definition.Id))detail+=$"\nAvailable: {m.SupplyWatts} / {RenewableCatalog.Current.Peak(m.Definition.Id)} W\nDelivered: {m.DeliveredWatts} W · {game.Weather.Kind}";
             if(m.Definition.WaterCapacity>0)detail+=$"\n{(m.Definition.Id==IndustryId.Tank||m.Definition.Id==IndustryId.RangedPump?m.Fluid.Fluid?.DisplayName??"Empty":"Water")}: {m.Fluid.Amount/1000.0:0.###} / {m.Fluid.Capacity/1000} L";
             if(m.Definition.Id==IndustryId.Pump){byte intake=game.World.Get(IndustrySimulation.Neighbor(m,3));detail+="\nBelow: "+(intake==Fluids.Water.Source?"water source":intake==0?"air — needs source":"blocked / not a source");}
             if(m.Definition.Id==IndustryId.Boiler)detail+=$"\nFuel remaining: {m.BurnTicks/20f:0.0} s";
@@ -136,6 +138,7 @@ namespace RivetReach
             if(m.Definition.Id==IndustryId.Boiler)fraction=m.BurnTicks/1600f;
             if(m.Definition.Id==IndustryId.Tank)fraction=m.WaterMl/(float)m.Definition.WaterCapacity;
             if(m.Definition.Id==IndustryId.Alternator)fraction=m.SupplyWatts/(float)IndustrySimulation.AlternatorWatts;
+            if(IndustryId.Renewable(m.Definition.Id))fraction=m.SupplyWatts/(float)RenewableCatalog.Current.Peak(m.Definition.Id);
             if(m.Definition.Id==IndustryId.Lamp)fraction=m.ReceivedWatts/20f;
             if(IndustryId.TankPart(m.Definition.Id))fraction=m.Structure?.Fluid.Capacity>0?(float)(m.Structure.Fluid.Amount/(double)m.Structure.Fluid.Capacity):0;
             machineProgress.rectTransform.sizeDelta=new Vector2((IndustryId.TankPart(m.Definition.Id)?303:155)*Mathf.Clamp01(fraction),IndustryId.TankPart(m.Definition.Id)?7:9);
@@ -144,6 +147,7 @@ namespace RivetReach
         {
             MachineStatus.NoPower=>"No electrical power",MachineStatus.Underpowered=>"Underpowered · working slowly",MachineStatus.DisabledBySignal=>"Disabled by signal",
             MachineStatus.OutputFull=>"Output full",MachineStatus.NoInput=>"Waiting for ingredients",MachineStatus.NoFuel=>"Add coal or charcoal",MachineStatus.NoWater=>"Waiting for source water",
+            MachineStatus.NoSunlight=>"No daylight",MachineStatus.Sheltered=>"Needs open sky above",
             MachineStatus.NoShaft=>"Connect a running boiler",MachineStatus.Dormant=>"Waiting for loaded terrain",MachineStatus.Depleted=>"Bedrock · column complete",_=>state.ToString()
         };
     }
