@@ -30,4 +30,8 @@ Long-session food/sleep balance and broad placement/performance playtests remain
 
 ## Wiki publication
 
-The exported reference contains **191 items and 195 recipes**. The publisher validates **220 pages and 9,433 local links/images**. All [644 source fingerprints](beds-2026-09-19/staged-export-check.txt) match the exact Git index. Live publication evidence is added after deployment.
+The exported reference contains **191 items and 195 recipes**. The publisher validates **220 pages and 9,433 local links/images**. All [644 source fingerprints](beds-2026-09-19/staged-export-check.txt) match the exact Git index. Implementation commit `1eaa39b` was pushed to `main`. [Wiki deployment 35442897068](https://github.com/Starbugstone/Rivet-Reach/actions/runs/35442897068) succeeded, publishing wiki revision `33a9d8f2e318d891020e25b1bf169695707fe9c4` on September 19, 2026.
+
+Real Chromium review covered the live bed guide, Bed, Cloth, Planks, Workbench and Spawn mechanics pages. The Bed recipe’s Cloth ingredient link was followed successfully. All page images loaded and none of those six pages overflowed at 390×844 ([browser readback](beds-2026-09-19/live-wiki-checks.json)). The guide was reviewed on desktop and the Bed recipe on mobile ([desktop capture](beds-2026-09-19/wiki-guide-desktop.png), [mobile capture](beds-2026-09-19/wiki-bed-mobile.png)). All eight guide PNGs and the new inventory icon match the local SHA-256 hashes ([published assets](beds-2026-09-19/published-assets.json)).
+
+[Issue #10](https://github.com/Starbugstone/Rivet-Reach/issues/10) was updated and read back: nine bed-related recipe/phase/acceptance entries are newly checked, stale current-status wording is reconciled, and the multiplayer-policy limitation is explicit. Crates/controllers, weather, renewables and sustained hunger tuning remain unchecked; the issue stays open ([readback](beds-2026-09-19/issue10-check.json)).

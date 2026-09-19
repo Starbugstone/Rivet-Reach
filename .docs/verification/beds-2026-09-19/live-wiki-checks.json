@@ -1,0 +1,616 @@
+[
+  {
+    "slug": "Beds-and-home-spawn",
+    "desktop": {
+      "title": "Beds and home spawn \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+      "images": [
+        {
+          "alt": "Bed recipe in the in-game browser",
+          "width": 1280,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/images/beds/bed-recipe.png?v=3f55b05318e3"
+        },
+        {
+          "alt": "Three Cloth above three Planks in the Workbench",
+          "width": 1280,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/images/beds/bed-crafting.png?v=94614a4c2989"
+        },
+        {
+          "alt": "The crafted Bed in the inventory",
+          "width": 1280,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/images/beds/bed-crafted.png?v=fcd97c10deb8"
+        },
+        {
+          "alt": "The placed timber bed with a blue quilt and linen pillow",
+          "width": 1280,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/images/beds/bed-placed.png?v=b4a482f6413f"
+        },
+        {
+          "alt": "Daytime bed use confirms the home spawn",
+          "width": 1280,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/images/beds/bed-home-set.png?v=31d6a50a2d98"
+        },
+        {
+          "alt": "Respawn beside the saved home bed",
+          "width": 1280,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/images/beds/bed-respawn.png?v=57ce4327f650"
+        },
+        {
+          "alt": "The bed before sleeping at night",
+          "width": 1280,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/images/beds/bed-night.png?v=470fa3a113e0"
+        },
+        {
+          "alt": "Morning after using the bed",
+          "width": 1280,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/images/beds/bed-morning.png?v=1f77200b1e36"
+        }
+      ],
+      "text": "Beds and home spawn\n\nCraft a Bed to make a home respawn point and sleep through the night. You need Cloth from flax and Planks.\n\nCraft and place\n\nAt a Workbench, place three Cloth in a row, with three Planks directly beneath them. This makes one Bed.\n\nLeave two empty, dry blocks above solid floors. Aim at the floor and place the bed; its pillow points away from you. Keep space beside it for getting up. Both halves must be clear of players and creatures.\n\nMining either half returns one Bed. Removing either floor also breaks the bed and drops one Bed. Pick it up normally. Crouch while placing against an existing bed to place a block instead of using it.\n\nSet your home\n\nAim at either half and right-click/Use or press Interact. During the day, this sets your home without advancing time. The game confirms the new spawn point.\n\nAfter death, respawn in a clear spot beside your bed. If it was destroyed or every safe spot is blocked, you return to the normal world spawn and see a message explaining why. Leave floor space and headroom around the bed; nearby liquids and creatures can make a spot unsafe.\n\nUsing a different bed moves your home. Breaking a bed and replacing it in the same place requires using the replacement again. Save through Escape before quitting to keep your bed and home assignment.\n\nSleep until morning\n\nUse a valid bed between 18:00 and 06:00 to set home and wake at 06:00. Holding Use does not repeatedly skip days.\n\nSleep advances the sky and calendar. It does not give crops, chickens or machines a night's worth of production, consume a night's fuel, refill hunger or heal you. Existing hostile creatures remain, so keep your bedroom safe.\n\nScreenshots: September 19, 2026, from the bed development player. The review platform demonstrates crafting, placement, setting home, sleep and respawn.\n\nAll items \u00b7 Farming and cooking \u00b7 Home\n\nRivet Reach \u00b7 \u00a9 Starbugstone \u00b7 All rights reserved. These guides describe the current playable alpha."
+    },
+    "mobile": {
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": false
+    }
+  },
+  {
+    "slug": "Item-bed",
+    "desktop": {
+      "title": "Item bed \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+      "images": [
+        {
+          "alt": "Bed",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/254.png?v=b02a26e5fdad"
+        },
+        {
+          "alt": "Workbench",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/23.png?v=b476d5c9a367"
+        },
+        {
+          "alt": "Cloth",
+          "width": 192,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/225.png?v=9bb919bd77c2"
+        },
+        {
+          "alt": "Cloth",
+          "width": 192,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/225.png?v=9bb919bd77c2"
+        },
+        {
+          "alt": "Cloth",
+          "width": 192,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/225.png?v=9bb919bd77c2"
+        },
+        {
+          "alt": "Planks",
+          "width": 48,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/20.png?v=5e588a1f553a"
+        },
+        {
+          "alt": "Planks",
+          "width": 48,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/20.png?v=5e588a1f553a"
+        },
+        {
+          "alt": "Planks",
+          "width": 48,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/20.png?v=5e588a1f553a"
+        },
+        {
+          "alt": "Bed",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/254.png?v=b02a26e5fdad"
+        },
+        {
+          "alt": "Cloth",
+          "width": 192,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/225.png?v=9bb919bd77c2"
+        },
+        {
+          "alt": "Planks",
+          "width": 48,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/20.png?v=5e588a1f553a"
+        }
+      ],
+      "text": "Bed\n\nAll items \u00b7 Crafting guide \u00b7 Home\n\nHow to obtain \u00b7 Crafting and processing\n\nA two-block timber bed for home respawning and sleeping until morning.\n\nAt a glance\nProperty\tValue\nStack size\t1\nPlacement\tPlace from the hotbar\nHow to obtain\n\nCraft at a Workbench from three Cloth above three Planks.\n\nUsing it\n\nPlace on two dry, solid floor blocks. Use/right-click or Interact sets home during the day and also skips to 06:00 at night. Leave safe standing space beside it. See Beds and home spawn for placement, recovery and respawn fallback.\n\nCrafting and processing\nRecipe 1\n\nStation: \nWorkbench \u00b7 3\u00d73\n\nShaped: keep the arrangement below. The pattern can move within a compatible grid.\n\n \u00d71\t \u00d71\t \u00d71\n \u00d71\t \u00d71\t \u00d71\n\u00a0\t\u00a0\t\u00a0\n\nOutput: \nBed \u00d71\n\nIngredient\tTotal per operation\n Cloth\t3\n Planks\t3\n\nRivet Reach \u00b7 \u00a9 Starbugstone \u00b7 All rights reserved. These guides describe the current playable alpha."
+    },
+    "mobile": {
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": false
+    }
+  },
+  {
+    "slug": "Item-cloth",
+    "desktop": {
+      "title": "Item cloth \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+      "images": [
+        {
+          "alt": "Cloth",
+          "width": 192,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/225.png?v=9bb919bd77c2"
+        },
+        {
+          "alt": "String",
+          "width": 192,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/224.png?v=69bed8f91081"
+        },
+        {
+          "alt": "Cloth",
+          "width": 192,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/225.png?v=9bb919bd77c2"
+        },
+        {
+          "alt": "String",
+          "width": 192,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/224.png?v=69bed8f91081"
+        },
+        {
+          "alt": "Bed",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/254.png?v=b02a26e5fdad"
+        }
+      ],
+      "text": "Cloth\n\nAll items \u00b7 Crafting guide \u00b7 Home\n\nHow to obtain \u00b7 Crafting and processing \u00b7 Uses\n\nFabric crafted from four Strings.\n\nAt a glance\nProperty\tValue\nStack size\t64\nTags\tfabric\nHow to obtain\n\nMake this item using the crafting or processing recipes below.\n\nUsing it\n\nThree Cloth above three Planks make one Bed at a Workbench. See Beds and home spawn.\n\nCrafting and processing\nRecipe 1\n\nStation: Personal crafting \u00b7 2\u00d72\n\nShapeless: slot positions do not matter. Keep each pictured ingredient stack and its quantity; the layout below is only an example.\n\n \u00d74\t\u00a0\n\u00a0\t\u00a0\n\nOutput: \nCloth \u00d71\n\nIngredient\tTotal per operation\n String\t4\nUsed to make\n\nFollow a result to see its complete ingredients and recipe.\n\nResult\tStation\tRecipe\n \u00d71 Bed\tWorkbench\tView recipe\n\nRivet Reach \u00b7 \u00a9 Starbugstone \u00b7 All rights reserved. These guides describe the current playable alpha."
+    },
+    "mobile": {
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": false
+    }
+  },
+  {
+    "slug": "Item-planks",
+    "desktop": {
+      "title": "Item planks \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+      "images": [
+        {
+          "alt": "Planks",
+          "width": 48,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/20.png?v=5e588a1f553a"
+        },
+        {
+          "alt": "Log",
+          "width": 48,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/4.png?v=2dbf09eb4853"
+        },
+        {
+          "alt": "Planks",
+          "width": 48,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/20.png?v=5e588a1f553a"
+        },
+        {
+          "alt": "Log",
+          "width": 48,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/4.png?v=2dbf09eb4853"
+        },
+        {
+          "alt": "Stick",
+          "width": 48,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/21.png?v=809a4c717c5a"
+        },
+        {
+          "alt": "Workbench",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/23.png?v=b476d5c9a367"
+        },
+        {
+          "alt": "Chest",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/25.png?v=19d5edd3c7a9"
+        },
+        {
+          "alt": "Wood axe",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/40.png?v=dfff3360c7a2"
+        },
+        {
+          "alt": "Wood pickaxe",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/41.png?v=d8e860fef734"
+        },
+        {
+          "alt": "Wood sword",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/42.png?v=20927930c7c4"
+        },
+        {
+          "alt": "Wood shovel",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/43.png?v=5dcf5c052685"
+        },
+        {
+          "alt": "Wood hoe",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/44.png?v=f22b43f76fe9"
+        },
+        {
+          "alt": "Power Cable",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/138.png?v=c00d677310fe"
+        },
+        {
+          "alt": "Hand Crank",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/170.png?v=f0877c8d4a3e"
+        },
+        {
+          "alt": "Wooden Door",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/171.png?v=59db34df9922"
+        },
+        {
+          "alt": "Compost Bin",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/242.png?v=ad7a71c145a4"
+        },
+        {
+          "alt": "Bed",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/254.png?v=b02a26e5fdad"
+        }
+      ],
+      "text": "Planks\n\nAll items \u00b7 Crafting guide \u00b7 Home\n\nHow to obtain \u00b7 Crafting and processing \u00b7 Uses\n\nProcessed wood for early tools, sticks, stations and building. One log makes four planks.\n\nAt a glance\nProperty\tValue\nStack size\t64\nTags\tburnable, planks\nFurnace fuel duration\t15 seconds\nPlacement\tPlace from the hotbar\nHow to obtain\n\nMake this item using the crafting or processing recipes below.\n\nCrafting and processing\nRecipe 1\n\nStation: Personal crafting \u00b7 2\u00d72\n\nShapeless: slot positions do not matter. Keep each pictured ingredient stack and its quantity; the layout below is only an example.\n\n \u00d71\t\u00a0\n\u00a0\t\u00a0\n\nOutput: \nPlanks \u00d74\n\nIngredient\tTotal per operation\n Log\t1\nUsed to make\n\nFollow a result to see its complete ingredients and recipe.\n\nResult\tStation\tRecipe\n \u00d74 Stick\tPersonal 2\u00d72\tView recipe\n \u00d71 Workbench\tPersonal 2\u00d72\tView recipe\n \u00d71 Chest\tWorkbench\tView recipe\n \u00d71 Wood axe\tWorkbench\tView recipe\n \u00d71 Wood pickaxe\tWorkbench\tView recipe\n \u00d71 Wood sword\tWorkbench\tView recipe\n \u00d71 Wood shovel\tWorkbench\tView recipe\n \u00d71 Wood hoe\tWorkbench\tView recipe\n \u00d74 Power Cable\tMachinist's Bench\tView recipe\n \u00d71 Hand Crank\tWorkbench\tView recipe\n \u00d73 Wooden Door\tWorkbench\tView recipe\n \u00d71 Compost Bin\tWorkbench\tView recipe\n \u00d71 Bed\tWorkbench\tView recipe\nFurnace fuel\n\nOne item supplies 15 seconds of burning fuel. Use it in a Furnace or Cooker for smelting or cooking.\n\nRivet Reach \u00b7 \u00a9 Starbugstone \u00b7 All rights reserved. These guides describe the current playable alpha."
+    },
+    "mobile": {
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": false
+    }
+  },
+  {
+    "slug": "Item-workbench",
+    "desktop": {
+      "title": "Item workbench \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+      "images": [
+        {
+          "alt": "Workbench",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/23.png?v=b476d5c9a367"
+        },
+        {
+          "alt": "Placed workbench in the game",
+          "width": 1600,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/images/starter-workbench.png?v=b1a61b4335e5"
+        },
+        {
+          "alt": "Planks",
+          "width": 48,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/20.png?v=5e588a1f553a"
+        },
+        {
+          "alt": "Planks",
+          "width": 48,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/20.png?v=5e588a1f553a"
+        },
+        {
+          "alt": "Planks",
+          "width": 48,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/20.png?v=5e588a1f553a"
+        },
+        {
+          "alt": "Planks",
+          "width": 48,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/20.png?v=5e588a1f553a"
+        },
+        {
+          "alt": "Workbench",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/23.png?v=b476d5c9a367"
+        },
+        {
+          "alt": "Planks",
+          "width": 48,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/20.png?v=5e588a1f553a"
+        },
+        {
+          "alt": "Machinist's Bench",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/130.png?v=b70dba21010b"
+        },
+        {
+          "alt": "Furnace",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/24.png?v=687ff93bd645"
+        },
+        {
+          "alt": "Chest",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/25.png?v=19d5edd3c7a9"
+        },
+        {
+          "alt": "Wood axe",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/40.png?v=dfff3360c7a2"
+        },
+        {
+          "alt": "Wood pickaxe",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/41.png?v=d8e860fef734"
+        },
+        {
+          "alt": "Wood sword",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/42.png?v=20927930c7c4"
+        },
+        {
+          "alt": "Wood shovel",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/43.png?v=5dcf5c052685"
+        },
+        {
+          "alt": "Wood hoe",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/44.png?v=f22b43f76fe9"
+        },
+        {
+          "alt": "Stone axe",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/45.png?v=7f2941dd9740"
+        },
+        {
+          "alt": "Stone pickaxe",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/46.png?v=5a72f5465acc"
+        },
+        {
+          "alt": "Stone sword",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/47.png?v=20a4a7dc2734"
+        },
+        {
+          "alt": "Stone shovel",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/48.png?v=be218b575b5f"
+        },
+        {
+          "alt": "Stone hoe",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/49.png?v=bb60bb25cff3"
+        },
+        {
+          "alt": "Copper axe",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/50.png?v=c6128c281ce9"
+        },
+        {
+          "alt": "Copper pickaxe",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/51.png?v=4f7567e52300"
+        },
+        {
+          "alt": "Copper sword",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/52.png?v=d596206f8c80"
+        },
+        {
+          "alt": "Copper shovel",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/53.png?v=e34d5e725645"
+        },
+        {
+          "alt": "Copper hoe",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/54.png?v=78df55e0732f"
+        },
+        {
+          "alt": "Iron axe",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/55.png?v=1e740ddf3c60"
+        },
+        {
+          "alt": "Iron pickaxe",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/56.png?v=c46c343f5c20"
+        },
+        {
+          "alt": "Iron sword",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/57.png?v=d07fd7d4696e"
+        },
+        {
+          "alt": "Iron shovel",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/58.png?v=a4380c746e9a"
+        },
+        {
+          "alt": "Iron hoe",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/59.png?v=2f4043f0a2dd"
+        },
+        {
+          "alt": "Diamond axe",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/60.png?v=c4dc0c9860a9"
+        },
+        {
+          "alt": "Diamond pickaxe",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/61.png?v=1d01caaa7344"
+        },
+        {
+          "alt": "Diamond sword",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/62.png?v=a7e4afecf8bb"
+        },
+        {
+          "alt": "Diamond shovel",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/63.png?v=4a1706454e65"
+        },
+        {
+          "alt": "Diamond hoe",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/64.png?v=5e9a58366bea"
+        },
+        {
+          "alt": "Copper helmet",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/70.png?v=597ff88c7ce3"
+        },
+        {
+          "alt": "Copper chestplate",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/71.png?v=560e67ec4317"
+        },
+        {
+          "alt": "Copper leggings",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/72.png?v=9e47d8cd30f0"
+        },
+        {
+          "alt": "Copper boots",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/73.png?v=e1acf4db6dad"
+        },
+        {
+          "alt": "Iron helmet",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/74.png?v=5a956e38d4df"
+        },
+        {
+          "alt": "Iron chestplate",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/75.png?v=b122f0af5fc7"
+        },
+        {
+          "alt": "Iron leggings",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/76.png?v=f0513a343011"
+        },
+        {
+          "alt": "Iron boots",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/77.png?v=7c33e132ae94"
+        },
+        {
+          "alt": "Diamond helmet",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/78.png?v=b12b571e5bc7"
+        },
+        {
+          "alt": "Diamond chestplate",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/79.png?v=65b2f87dedea"
+        },
+        {
+          "alt": "Diamond leggings",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/80.png?v=97da63463494"
+        },
+        {
+          "alt": "Diamond boots",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/81.png?v=6a20754ab5ef"
+        },
+        {
+          "alt": "Coal block",
+          "width": 48,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/65.png?v=6e835da57a1c"
+        },
+        {
+          "alt": "Iron block",
+          "width": 48,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/66.png?v=6e2cfd2eb6e9"
+        },
+        {
+          "alt": "Copper block",
+          "width": 48,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/67.png?v=557bed86918e"
+        },
+        {
+          "alt": "Gold block",
+          "width": 48,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/68.png?v=ae883989c210"
+        },
+        {
+          "alt": "Diamond block",
+          "width": 48,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/69.png?v=0daeccba1002"
+        },
+        {
+          "alt": "Bucket",
+          "width": 128,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/94.png?v=f07cc363023e"
+        },
+        {
+          "alt": "Machinist's Bench",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/130.png?v=b70dba21010b"
+        },
+        {
+          "alt": "Lever",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/134.png?v=e4a756de6fea"
+        },
+        {
+          "alt": "Button",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/135.png?v=fffb9203d4af"
+        },
+        {
+          "alt": "Hand Crank",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/170.png?v=f0877c8d4a3e"
+        },
+        {
+          "alt": "Wooden Door",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/171.png?v=59db34df9922"
+        },
+        {
+          "alt": "Wrench",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/173.png?v=e1968d2392a5"
+        },
+        {
+          "alt": "Cooker",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/240.png?v=90ad6f64b039"
+        },
+        {
+          "alt": "Compost Bin",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/242.png?v=ad7a71c145a4"
+        },
+        {
+          "alt": "Fishing Rod",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/244.png?v=4cb15346e41b"
+        },
+        {
+          "alt": "Bed",
+          "width": 256,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/254.png?v=b02a26e5fdad"
+        }
+      ],
+      "text": "Workbench\n\nAll items \u00b7 Crafting guide \u00b7 Home\n\nHow to obtain \u00b7 Crafting and processing \u00b7 Uses \u00b7 Recipes made here\n\nA placed crafting station with a 3\u00d73 grid for tools, armor, storage and the first Machinist\u2019s Bench.\n\nAt a glance\nProperty\tValue\nStack size\t64\nPlacement\tPlace from the hotbar\nHow to obtain\n\nMake this item using the crafting or processing recipes below.\n\nUsing it\n\nPlace it, then press E or right-click to open it. The workbench can also make personal 2\u00d72 recipes. See the crafting guide for the first steps.\n\nA wooden carpenter\u2019s bench with iron-bound trestles, a vise and hand tools.\n\nOpening its controls shows a matching illustration and name in the left panel. See Machine interfaces.\n\nCrafting and processing\nRecipe 1\n\nStation: Personal crafting \u00b7 2\u00d72\n\nShaped: keep the arrangement below. The pattern can move within a compatible grid.\n\n \u00d71\t \u00d71\n \u00d71\t \u00d71\n\nOutput: \nWorkbench \u00d71\n\nIngredient\tTotal per operation\n Planks\t4\nUsed to make\n\nFollow a result to see its complete ingredients and recipe.\n\nResult\tStation\tRecipe\n \u00d71 Machinist's Bench\tWorkbench\tView recipe\nRecipes made here\n\nThe station is reusable; it is not consumed by these recipes.\n\nResult\tStation\tRecipe\n \u00d71 Furnace\tWorkbench\tView recipe\n \u00d71 Chest\tWorkbench\tView recipe\n \u00d71 Wood axe\tWorkbench\tView recipe\n \u00d71 Wood pickaxe\tWorkbench\tView recipe\n \u00d71 Wood sword\tWorkbench\tView recipe\n \u00d71 Wood shovel\tWorkbench\tView recipe\n \u00d71 Wood hoe\tWorkbench\tView recipe\n \u00d71 Stone axe\tWorkbench\tView recipe\n \u00d71 Stone pickaxe\tWorkbench\tView recipe\n \u00d71 Stone sword\tWorkbench\tView recipe\n \u00d71 Stone shovel\tWorkbench\tView recipe\n \u00d71 Stone hoe\tWorkbench\tView recipe\n \u00d71 Copper axe\tWorkbench\tView recipe\n \u00d71 Copper pickaxe\tWorkbench\tView recipe\n \u00d71 Copper sword\tWorkbench\tView recipe\n \u00d71 Copper shovel\tWorkbench\tView recipe\n \u00d71 Copper hoe\tWorkbench\tView recipe\n \u00d71 Iron axe\tWorkbench\tView recipe\n \u00d71 Iron pickaxe\tWorkbench\tView recipe\n \u00d71 Iron sword\tWorkbench\tView recipe\n \u00d71 Iron shovel\tWorkbench\tView recipe\n \u00d71 Iron hoe\tWorkbench\tView recipe\n \u00d71 Diamond axe\tWorkbench\tView recipe\n \u00d71 Diamond pickaxe\tWorkbench\tView recipe\n \u00d71 Diamond sword\tWorkbench\tView recipe\n \u00d71 Diamond shovel\tWorkbench\tView recipe\n \u00d71 Diamond hoe\tWorkbench\tView recipe\n \u00d71 Copper helmet\tWorkbench\tView recipe\n \u00d71 Copper chestplate\tWorkbench\tView recipe\n \u00d71 Copper leggings\tWorkbench\tView recipe\n \u00d71 Copper boots\tWorkbench\tView recipe\n \u00d71 Iron helmet\tWorkbench\tView recipe\n \u00d71 Iron chestplate\tWorkbench\tView recipe\n \u00d71 Iron leggings\tWorkbench\tView recipe\n \u00d71 Iron boots\tWorkbench\tView recipe\n \u00d71 Diamond helmet\tWorkbench\tView recipe\n \u00d71 Diamond chestplate\tWorkbench\tView recipe\n \u00d71 Diamond leggings\tWorkbench\tView recipe\n \u00d71 Diamond boots\tWorkbench\tView recipe\n \u00d71 Coal block\tWorkbench\tView recipe\n \u00d71 Iron block\tWorkbench\tView recipe\n \u00d71 Copper block\tWorkbench\tView recipe\n \u00d71 Gold block\tWorkbench\tView recipe\n \u00d71 Diamond block\tWorkbench\tView recipe\n \u00d71 Bucket\tWorkbench\tView recipe\n \u00d71 Machinist's Bench\tWorkbench\tView recipe\n \u00d71 Lever\tWorkbench\tView recipe\n \u00d71 Button\tWorkbench\tView recipe\n \u00d71 Hand Crank\tWorkbench\tView recipe\n \u00d73 Wooden Door\tWorkbench\tView recipe\n \u00d71 Wrench\tWorkbench\tView recipe\n \u00d71 Cooker\tWorkbench\tView recipe\n \u00d71 Compost Bin\tWorkbench\tView recipe\n \u00d71 Fishing Rod\tWorkbench\tView recipe\n \u00d71 Bed\tWorkbench\tView recipe\n\nRivet Reach \u00b7 \u00a9 Starbugstone \u00b7 All rights reserved. These guides describe the current playable alpha."
+    },
+    "mobile": {
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": false
+    }
+  },
+  {
+    "slug": "Spawn-mechanics",
+    "desktop": {
+      "title": "Spawn mechanics \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+      "images": [
+        {
+          "alt": "A placed torch illuminates a cage and prevents new Floater spawns",
+          "width": 1280,
+          "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/images/alpha-playtest/floater-spawner-torch-disabled.png?v=0b074c5fa83b"
+        }
+      ],
+      "text": "Spawn mechanics\n\nCreature spawning depends on the actual ground, available space, light, your position and the existing population. A dark room is only one part of the check. Natural hostiles, cage spawners and chickens share basic site requirements but have different population and persistence rules.\n\nThese are the current Alpha settings. Distances are measured in blocks; spawn distances include vertical separation unless stated otherwise. Timings are active simulation time and pause with the game.\n\nWhich creatures can appear?\nCreature\tNatural habitat\tTime\tRequired light above the floor\tNatural species cap\nRustback beetle\tSurface\tDay or night, if dark enough\t0\u20137\t8\nDusk prowler\tSurface\tNight, 18:00\u201306:00\t0\u20137\t6\nFloater\tCovered underground caves\tDay or night\t0\u20137\t4\nChicken\tSurface grass\tDay, 06:00\u201318:00\t9\u201315\t12 within 48 blocks of a proposed site\n\nThe three hostile species also share a 14-living-natural-hostile cap across the current population. It is not a separate allowance for every room or chunk. Four natural Floaters in nearby caves can prevent a fifth from appearing in your prepared room even when that room is suitable. Chickens and cage-produced mobs do not consume these natural hostile allowances.\n\nGround, habitat and body clearance\n\nCurrent hostiles accept grass, dirt, stone, sand, sandstone, snow, red clay, cobblestone and planks. The entire creature footprint must have eligible support. Natural chickens require grass; placing a wooden floor in a pen does not attract new wild chickens.\n\nA surface site must be exposed to the sky. A Floater site must be covered and below that column's terrain surface. A roof over an above-ground building does not turn it into an underground Floater habitat, and an open shaft is not a covered cave. Deep constructed rooms can qualify: cobblestone and plank floors are accepted.\n\nThe complete body volume must be loaded, dry and free of solid blocks. Water and lava in that volume prevent a spawn. The site must not overlap the player, a hostile or a chicken. Natural hostiles additionally avoid positions within three blocks of another living hostile.\n\nHostile\tBody width\tBody height\tHeight hovering above support\nRustback beetle\t0.90\t0.92\t0\nDusk prowler\t0.85\t1.70\t0\nFloater\t0.90\t1.05\t0.60\n\nFor a Floater room, leave at least two clear blocks above a flat floor and room across its whole footprint. Decorative blocks, low ceilings and existing creatures can invalidate an otherwise dark location.\n\nLight that prevents hostile spawning\n\nHostiles require 0\u20137 at every tested floor position under their footprint. Level 8 or higher at any of those positions rejects the site. The game checks immediately above the supporting floor, including beneath hovering Floaters.\n\nDaylight, placed torches, powered Workshop Lamps and lava affect this light value. Walls and ceilings can leave dark pockets. A held torch brightens your view but does not protect the floor from spawning. Display brightness and ambient visual light are not substitutes for placed light.\n\nExisting creatures remain alive and can walk into lit areas. After changing a roof or light source, spawning waits for a valid light result; it does not treat an uncalculated area as dark. See Lighting and underground farms for light behavior.\n\nNatural hostile attempts\n\nNatural hostiles must appear 24\u201348 blocks from you, measured in three dimensions. Standing inside a prepared room prevents spawning close to you. Standing more than 48 blocks from it prevents natural attempts there too. A site must also lie outside the protected 16-block horizontal radius around the world's initial origin.\n\nCandidates in your current camera view are rejected when there is a clear line of sight. Look away from the area or observe from behind a wall. Underground candidates can be above or below you within the distance range; there is no separate 24-block horizontal exclusion for caves.\n\nThe game begins its natural attempt timer at four seconds, then tries every two seconds while the expedition is ready and you are alive. Each cycle examines up to eight randomly chosen species/columns and creates at most one hostile. Cave columns search a bounded vertical range around your height. The system only reads loaded terrain; it does not load distant caves to find a spawn site.\n\nAn attempt is not a guaranteed spawn. It may choose another species, a blocked column, an unsuitable habitat or an area already at its cap. A large eligible floor offers more possible sites than a small room, but nearby caves still compete for the same natural Floater cap. There is no fixed promise that a particular room fills within a few minutes.\n\nCage spawners\n\nA cage uses the same species habitat, floor, body-clearance and light checks. Its miniature identifies the species; that miniature is only a visual and does not consume a population slot.\n\nSetting\tCurrent Floater cage\nPlayer activation distance\tWithin 36 blocks of the cage centre\nFirst attempt\tAfter four active seconds\nLater cycles\tEvery ten active seconds\nCandidate area\tUp to four blocks in each horizontal direction; nearby floor levels\nCandidate tries per cycle\tUp to 12\nSuccessful spawns per cycle\tAt most one\nActive allowance\tFive living mobs originating from that cage\nLight\t0\u20137 above the cage itself and across the chosen supporting floor\n\nCages do not use the natural 24\u201348 distance band, camera-view exclusion or natural population caps. They still cannot place a mob inside you, another creature, solid terrain or liquid. Placing sufficient light at the cage prevents it from redirecting attempts into a dark corner.\n\nEach cage counts its own originating mobs, including ones that move away. Two neighbouring cages can each have five. A full natural hostile population does not disable them. Defeating or normally despawning one of a cage's mobs frees that cage's slot; another eligible cycle can replace it. Failed cycles wait for the next cooldown.\n\nCooldowns pause when you leave activation range or the cage's chunk unloads. Cages do not load chunks themselves. Breaking one drops no collectible cage, and a replacement at the same position does not inherit the old cage's population. See Floater spawners for dungeon discovery and safe setup.\n\nLeaving the area and saving\n\nNatural and cage-produced hostiles share the same lifecycle. They stop active movement beyond about 68 blocks and despawn beyond 112 blocks. They are also removed when their own chunk unloads, even if it unloads before the distance limit. Removing a cage mob releases its origin's slot. A cage does not keep a distant mob alive.\n\nSave checkpoints preserve currently recorded hostile creatures, cage identities, origins and cooldowns. Loading does not make those creatures permanent: ordinary distance and residency rules still apply. A broken cage stays broken even when its former mobs were alive at save time.\n\nChickens have a separate persistent lifecycle. They remain in the world when distant or unloaded, and their growth, breeding and egg timers pause. Up to 128 nearby chickens are active within 68 blocks, with a 4,096-record world limit. A distant chunk loader alone does not run a chicken farm.\n\nNatural chickens and breeding\n\nWild adult chickens use 20\u201344 blocks from the player, daylight, surface grass, light 9\u201315, full body clearance and the camera-view exclusion. A natural attempt runs every ten active seconds after an initial five-second delay, checking up to eight columns. A successful site can add an adult and a nearby companion if both independently qualify.\n\nThere must be fewer than 12 chickens within 48 blocks of each proposed site. Existing farm animals count too, so building a flock can suppress further wild arrivals nearby. This natural-spawn limit is separate from breeding: a fed pair can produce a chick when there is safe space and the world record limit permits it. Breeding does not require grass, daylight or a new wild-spawn distance. Follow the chicken guide for feed, cooldowns, growth and eggs.\n\nWhy is my room empty?\nCheck habitat: Floaters need a covered underground room, not a roofed surface building.\nCheck the entire floor and body volume: use accepted blocks, keep it dry, and provide two clear blocks for a Floater.\nCheck light on the floor. Placed light prevents hostiles; holding a torch does not.\nFor natural spawns, wait 24\u201348 blocks away, outside the room's clear camera view. Keep the terrain loaded.\nConsider other caves. The four-natural-Floater allowance is shared, so nearby Floaters can fill it first.\nFor a cage, stay within 36 blocks, leave candidate space around it and allow a full cooldown. Five living mobs from that cage prevent further spawns until a slot is released.\n\nThe September 19, 2026 verification capture above uses a constructed review room. Current automated checks exercise shared eligibility, natural spawning, light rejection, separate cage ownership and unloading. These rules are Alpha defaults; they do not claim a measured farm throughput or guaranteed room-filling time.\n\nHostile mobs \u00b7 Floater spawners \u00b7 Chickens \u00b7 Home\n\nHome beds and sleep\n\nA valid Bed sets your home respawn point. Death returns you beside that bed when a safe standing space is available; destroyed or blocked beds fall back to world spawn. Sleeping advances the clock to 06:00. Existing hostiles remain, while normal dawn spawn rules apply.\n\nRivet Reach \u00b7 \u00a9 Starbugstone \u00b7 All rights reserved. These guides describe the current playable alpha."
+    },
+    "mobile": {
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": false
+    }
+  }
+]

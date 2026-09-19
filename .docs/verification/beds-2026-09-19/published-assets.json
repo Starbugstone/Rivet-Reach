@@ -1,0 +1,56 @@
+[
+  {
+    "path": "images/beds/bed-crafted.png",
+    "sha256": "fcd97c10deb8f574216217a229f47f21488cb8e745bb875ec9b8c3dace322c44",
+    "url": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/images/beds/bed-crafted.png?v=fcd97c10deb8",
+    "matches": true
+  },
+  {
+    "path": "images/beds/bed-crafting.png",
+    "sha256": "94614a4c29895e88c01e26f575928c9057e2bb9c34f7cd9be759e4b97e36f7f5",
+    "url": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/images/beds/bed-crafting.png?v=94614a4c2989",
+    "matches": true
+  },
+  {
+    "path": "images/beds/bed-home-set.png",
+    "sha256": "31d6a50a2d98a63936f3196af6ba00c62cffab55d41093708e83d6560cb7bab5",
+    "url": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/images/beds/bed-home-set.png?v=31d6a50a2d98",
+    "matches": true
+  },
+  {
+    "path": "images/beds/bed-morning.png",
+    "sha256": "1f77200b1e361ceae1357262f2fc0684e16e1df4de24841b0d136f0bb3392611",
+    "url": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/images/beds/bed-morning.png?v=1f77200b1e36",
+    "matches": true
+  },
+  {
+    "path": "images/beds/bed-night.png",
+    "sha256": "470fa3a113e0a7c123b8660e684e86e71e590b636f9c81c40c56e3da690e3687",
+    "url": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/images/beds/bed-night.png?v=470fa3a113e0",
+    "matches": true
+  },
+  {
+    "path": "images/beds/bed-placed.png",
+    "sha256": "b4a482f6413fb66d82c054424c01f4bebf771f860e48626ca5fac4c079335a5e",
+    "url": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/images/beds/bed-placed.png?v=b4a482f6413f",
+    "matches": true
+  },
+  {
+    "path": "images/beds/bed-recipe.png",
+    "sha256": "3f55b05318e398430cc2c938714aedc0cccc736868bdcabe0ed2b0a65bd52c45",
+    "url": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/images/beds/bed-recipe.png?v=3f55b05318e3",
+    "matches": true
+  },
+  {
+    "path": "images/beds/bed-respawn.png",
+    "sha256": "57ce4327f6501e1c3f3f38171399aa42928187fb90c183f81b76880d538abadf",
+    "url": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/images/beds/bed-respawn.png?v=57ce4327f650",
+    "matches": true
+  },
+  {
+    "path": "icons/254.png",
+    "sha256": "b02a26e5fdad8e9e1314f67520e0ee4400424cbdf9f2c0465a6f408284cbd225",
+    "url": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/icons/254.png?v=b02a26e5fdad",
+    "matches": true
+  }
+]
