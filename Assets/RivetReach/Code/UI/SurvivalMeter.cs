@@ -11,6 +11,7 @@ namespace RivetReach
         public Kind MeterKind {get;private set;}
         public int Points {get;private set;}=-1;
         Expedition game;
+        readonly SurvivalWobble wobble=new SurvivalWobble();
         static readonly string[] Food={
             "............",".....oooo...","....ohhooo..","...ohhoooo..",
             "...ooooooo..","...ooooooo..","....ooooo...","...bbooo....",
@@ -28,7 +29,9 @@ namespace RivetReach
         {
             if(game==null||game.Hunger==null||game.Equipment==null)return;
             int points=Mathf.Clamp(MeterKind==Kind.Food?game.Hunger.Food:game.Equipment.Protection,0,20);
-            if(Points==points)return;
+            bool visible=MeterKind==Kind.Food&&game.Mode==ScreenMode.Play&&!game.LoadingSave&&!game.WaitingForRespawn&&!game.Health.Dead&&canvas!=null&&canvas.isActiveAndEnabled;
+            bool animated=wobble.Observe(game.Hunger,points,true,visible,Time.unscaledTime);
+            if(Points==points&&!animated)return;
             Points=points;SetVerticesDirty();
         }
         protected override void OnPopulateMesh(VertexHelper mesh)
@@ -47,7 +50,7 @@ namespace RivetReach
                 else if(cell=='b')tint=new Color(.95f,.88f,.70f);
                 else if(MeterKind==Kind.Armor)tint=cell=='h'?new Color(.84f,.96f,1):new Color(.48f,.72f,.84f);
                 else tint=cell=='h'?new Color(1,.80f,.40f):new Color(.86f,.47f,.16f);
-                float left=rect.xMin+icon*step+(step-size)*.5f+x*pixel,top=rect.yMax-(rect.height-size)*.5f-y*pixel;
+                float left=rect.xMin+icon*step+(step-size)*.5f+x*pixel,top=rect.yMax-(rect.height-size)*.5f-y*pixel+wobble.Offset(icon,Time.unscaledTime);
                 int first=mesh.currentVertCount;
                 mesh.AddVert(new Vector3(left,top-pixel),tint,Vector2.zero);
                 mesh.AddVert(new Vector3(left,top),tint,Vector2.zero);

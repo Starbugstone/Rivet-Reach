@@ -30,9 +30,9 @@ Use either a [Cooker](Item-cooker.md) with burnable fuel or an [Electric Cooker]
 
 | Meal | Ingredients | Food restored | Saturation |
 | --- | --- | ---: | ---: |
-| [Cooked Chicken](Item-cooked-chicken.md) | 1 Raw Chicken | 6 | 4 |
-| [Cooked Egg](Item-cooked-egg.md) | 1 Egg | 4 | 2 |
-| [Chicken Stew](Item-chicken-stew.md) | 1 raw or cooked chicken + 2 vegetables | 12 | 12 |
+| [Cooked Chicken](Item-cooked-chicken.md) | 1 Raw Chicken | 6 | 2 |
+| [Cooked Egg](Item-cooked-egg.md) | 1 Egg | 4 | 1 |
+| [Chicken Stew](Item-chicken-stew.md) | 1 raw or cooked chicken + 2 vegetables | 12 | 4 |
 
 Potatoes and carrots can be mixed for stew. Raw Chicken restores 2 food points when eaten directly; raw Eggs are cooking ingredients. Raw meat adds no saturation. [Food and hunger](Food-and-hunger.md) explains how prepared-food reserves delay the next meal.
 

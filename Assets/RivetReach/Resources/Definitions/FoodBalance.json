@@ -1,15 +1,15 @@
 {
   "foods": [
-    {"item":"rivet:baked_potato","saturation":2},
-    {"item":"rivet:roast_carrot","saturation":2},
-    {"item":"rivet:cooked_mushroom","saturation":2},
-    {"item":"rivet:cooked_egg","saturation":2},
-    {"item":"rivet:cooked_fish","saturation":4},
-    {"item":"rivet:cooked_chicken","saturation":4},
-    {"item":"rivet:bread","saturation":6},
-    {"item":"rivet:fruit_porridge","saturation":8},
-    {"item":"rivet:vegetable_stew","saturation":12},
-    {"item":"rivet:fish_stew","saturation":12},
-    {"item":"rivet:chicken_stew","saturation":12}
+    {"item":"rivet:baked_potato","saturation":1},
+    {"item":"rivet:roast_carrot","saturation":1},
+    {"item":"rivet:cooked_mushroom","saturation":1},
+    {"item":"rivet:cooked_egg","saturation":1},
+    {"item":"rivet:cooked_fish","saturation":2},
+    {"item":"rivet:cooked_chicken","saturation":2},
+    {"item":"rivet:bread","saturation":2},
+    {"item":"rivet:fruit_porridge","saturation":3},
+    {"item":"rivet:vegetable_stew","saturation":4},
+    {"item":"rivet:fish_stew","saturation":4},
+    {"item":"rivet:chicken_stew","saturation":4}
   ]
 }

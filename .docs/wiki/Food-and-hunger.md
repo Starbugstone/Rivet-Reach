@@ -6,9 +6,9 @@ You cannot eat while the food meter is full. This is true even when your saturat
 
 ![Porridge cooking from harvested grain and berries, controlled game fixture, September 19, 2026](images/food-balance/harvest-cooking.png)
 
-The captures show an actual controlled game fixture: wheat and berries grew normally, hoe harvesting replanted both crops, and the harvested ingredients cooked into one meal. The fixture supplies the platform, planting stock, cooker and fuel.
+The kitchen capture shows an actual controlled game fixture: wheat and berries grew normally, hoe harvesting replanted both crops, and the harvested ingredients cooked into one meal. The eating and HUD captures use the same saved kitchen with one supplied meal to demonstrate the revised balance. These captures were recorded on September 19, 2026.
 
-![Eating the harvested and cooked meal](images/food-balance/eating-prepared-meal.png)
+![Eating porridge in the controlled kitchen fixture](images/food-balance/eating-prepared-meal.png)
 
 ## Food and saturation
 
@@ -21,33 +21,28 @@ Prepared food can also fill a **20-point saturation reserve**. Saturation points
 | Raw potato, berries, mushroom | 1 | 0 |
 | Raw carrot, raw fish, raw chicken | 2 | 0 |
 | Apple | 4 | 0 |
-| Baked potato, roasted carrot | 5 | 2 |
-| Cooked mushrooms, cooked egg | 4 | 2 |
-| Cooked fish, cooked chicken | 6 | 4 |
-| Bread | 7 | 6 |
-| Fruit porridge | 9 | 8 |
-| Vegetable stew, fish stew, chicken stew | 12 | 12 |
+| Baked potato, roasted carrot | 5 | 1 |
+| Cooked mushrooms, cooked egg | 4 | 1 |
+| Cooked fish, cooked chicken | 6 | 2 |
+| Bread | 7 | 2 |
+| Fruit porridge | 9 | 3 |
+| Vegetable stew, fish stew, chicken stew | 12 | 4 |
 
 Raw food is useful when it is all you have. Cooking makes food last longer between meals; stews provide the largest current reserve, but can waste more if eaten too soon.
 
-## One-hour controlled comparison
+## Rebalanced cadence
 
-The table below comes from a controlled simulation in the Unity Editor (69 assertions) recorded on September 19. It simulates one hour with **20 seconds walking, two jumps and 18 successful mining/tilling actions per minute**. It is one fixed workload, not a guarantee for exploration, combat, sprinting, terrain, or player choices. “Average interval” is the fixture's mean time between completed meals; it is not a promised repetition interval. Each simulated diet starts with a full food meter, no reserve and sufficient stocked food; it eats when the meal fits without wasting restored hunger. This comparison measures eating frequency, not the time spent gathering food.
+Fruit porridge adds a **3-point** reserve. Replaying a recorded twelve-minute walking/jumping base-work session with this reserve left **14 of 20 food points**—six points spent. Your pace depends on movement, sprinting, mining and healing; this is a measured activity replay, not a fixed timer.
 
-| Food | Meals eaten in hour | Lowest food | Average interval |
-|---|---:|---:|---:|
-| Raw potato | 51 | 19 | 70.5 seconds |
-| Baked potato | 7 | 15 | 492.3 seconds |
-| Fruit porridge | 3 | 11 | 1,198.5 seconds |
-| Vegetable stew | 2 | 8 | 1,687.0 seconds |
-
-The same comparison applies to the matching stew types. A better meal reduces the number of eating actions in this controlled route; it does not make food generation, crop yields, fishing catches, chicken eggs or cooker time faster.
-
-![Well fed reserve visible after eating; the wheat and berries are already replanted, September 19, 2026](images/food-balance/well-fed-garden.png)
+![Three-point reserve after eating porridge](images/food-balance/well-fed-garden.png)
 
 ## Keep food useful
 
 Food at 6 or below prevents sprinting. Healing begins at 12 food, can continue at 11, and stops at 10 or below. Saturation is paid before food, so a prepared meal can preserve the meter while you travel or heal; the existing thresholds themselves do not change.
+
+When food visibly falls or health regenerates, the affected icon briefly wobbles for **0.45 seconds**, moving at most **three reference pixels**. It remains still while its meter is idle, static, hidden or loading, and the effect does not replay after those states.
+
+![Actual game capture: food drops, then a heart regenerates](images/food-balance/hud-wobble.png)
 
 [Beds and home spawn](Beds-and-home-spawn.md) move the sky to morning without skipping hunger, crop, animal, fuel, machine or fishing time. Pause screens stop simulation. Save/Load preserves food and saturation, but does not add offline time or production.
 

@@ -40,13 +40,13 @@ Opening a menu, switching slots, walking more than twelve blocks away, obstructi
 
 ## Cook your catch
 
-[Raw Fish](Item-raw-fish.md) restores **2 food points**. A fuel-burning or electric Cooker turns one raw fish into [Cooked Fish](Item-cooked-fish.md), restoring **6 food points plus 4 saturation**. Raw Fish grants no saturation.
+[Raw Fish](Item-raw-fish.md) restores **2 food points**. A fuel-burning or electric Cooker turns one raw fish into [Cooked Fish](Item-cooked-fish.md), restoring **6 food points plus 2 saturation**. Raw Fish grants no saturation.
 
 ![Cooked fish recipe](images/fishing/fishing-cooked-recipe.png)
 
 ![Cooker with finished cooked fish](images/fishing/fishing-cooking.png)
 
-For [Fish Stew](Item-fish-stew.md), combine **one raw or cooked fish and two vegetables** in either Cooker. Potatoes, carrots or one of each work. Stew restores **12 food points plus 12 saturation**. [Food and hunger](Food-and-hunger.md) explains the reserve and current meal cadence. Both fish recipes take ten seconds at full heat/power; use the ordinary cooker fuel, power and pipe setup described in [Farming and cooking](Farming-and-cooking.md).
+For [Fish Stew](Item-fish-stew.md), combine **one raw or cooked fish and two vegetables** in either Cooker. Potatoes, carrots or one of each work. Stew restores **12 food points plus 4 saturation**. [Food and hunger](Food-and-hunger.md) explains the reserve and current meal cadence. Both fish recipes take ten seconds at full heat/power; use the ordinary cooker fuel, power and pipe setup described in [Farming and cooking](Farming-and-cooking.md).
 
 ![Fish stew ingredients and cooker recipe](images/fishing/fishing-meal-recipe.png)
 

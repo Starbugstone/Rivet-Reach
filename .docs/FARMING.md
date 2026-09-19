@@ -35,7 +35,7 @@ Both cookers share six recipes, each taking 200 ticks (10 seconds) at full heat/
 | 2 `#vegetable` + 1 `#mushroom` | 1 Vegetable Stew | 12 |
 | 1 `#grain` + 1 `#fruit` | 1 Fruit Porridge | 9 |
 
-Potatoes and carrots are vegetables; apples and berries are fruit. Mixed tag members and split stacks count correctly. Wild carrots restore two food points, berries/mushrooms one. There is no food spoilage, freshness or refrigerator requirement. [Food balance](FOOD_BALANCE.md) owns hunger, prepared-food saturation and cadence. Baseline idle hunger drain is one point per 136.53 seconds, with additional movement/mining/healing expenditure; that calculation is not a measured play-session food cadence.
+Potatoes and carrots are vegetables; apples and berries are fruit. Mixed tag members and split stacks count correctly. Wild carrots restore two food points, berries/mushrooms one. There is no food spoilage, freshness or refrigerator requirement. [Food balance](FOOD_BALANCE.md) owns hunger, the current one-to-four-point prepared-food reserves and cadence. Baseline idle hunger drain is one point per 136.53 seconds, with additional movement/mining/healing expenditure; that calculation is not a measured play-session food cadence.
 
 ## Cooker operation
 

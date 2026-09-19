@@ -28,6 +28,7 @@ namespace RivetReach
             Rect(root,"Burning flames",0,0,1280,720).gameObject.AddComponent<FireOverlay>().Initialize(game);
             Panel(root,296,558,688,53,new Color(.045f,.08f,.085f,.70f));
             healthText=Label(root,"",304,580,335,30,24,new Color(.95f,.27f,.29f));
+            healthText.gameObject.AddComponent<HeartRegenerationWobble>().Initialize(game);
             BuildSurvivalMeter(root,SurvivalMeter.Kind.Food,655,583,322,26);
             BuildSurvivalMeter(root,SurvivalMeter.Kind.Armor,304,562,260,18);
             hungerText=Label(root,"",655,563,322,18,12,gold);hungerText.alignment=TextAnchor.UpperRight;

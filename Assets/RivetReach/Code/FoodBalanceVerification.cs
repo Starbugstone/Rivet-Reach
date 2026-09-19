@@ -23,12 +23,12 @@ namespace RivetReach
             }
             yield return Settle(120);
             game.Hunger.Exert(200);for(int i=0;i<game.Inventory.Count;i++)game.Inventory.Take(i,int.MaxValue);
-            game.Inventory.Add(FarmId.CookedMushroom,1);Check(game.Hunger.TryEat(game.Inventory,0,4,2),"Eat a small cooked meal while critically hungry");
+            game.Inventory.Add(FarmId.CookedMushroom,1);Check(game.Hunger.TryEat(game.Inventory,0,4,FoodBalanceCatalog.Current.Saturation(FarmId.CookedMushroom)),"Eat a small cooked meal while critically hungry");
             game.SetMode(ScreenMode.Play);yield return null;yield return null;
-            Check(!game.Hunger.CanSprint&&game.Hunger.Saturation==2&&game.UI.VisibleRoot.GetComponentsInChildren<UnityEngine.UI.Text>().Any(t=>t.text=="Eat to sprint"),"Low-food sprint warning takes precedence over saturation label");
+            Check(!game.Hunger.CanSprint&&game.Hunger.Saturation==1&&game.UI.VisibleRoot.GetComponentsInChildren<UnityEngine.UI.Text>().Any(t=>t.text=="Eat to sprint"),"Low-food sprint warning takes precedence over saturation label");
             yield return Capture("low-food-reserve-warning");
-            game.Hunger.Exert(200);game.Inventory.Add(FarmId.Porridge,1);Check(game.Hunger.TryEat(game.Inventory,0,9,8),"Prepared meal restores sprint eligibility");yield return null;yield return null;
-            Check(game.Hunger.CanSprint&&game.UI.VisibleRoot.GetComponentsInChildren<UnityEngine.UI.Text>().Any(t=>t.text=="Well fed · 8"),"HUD displays the exact reserve once sprint is available");
+            game.Hunger.Exert(200);game.Inventory.Add(FarmId.Porridge,1);Check(game.Hunger.TryEat(game.Inventory,0,9,FoodBalanceCatalog.Current.Saturation(FarmId.Porridge)),"Prepared meal restores sprint eligibility");yield return null;yield return null;
+            Check(game.Hunger.CanSprint&&game.UI.VisibleRoot.GetComponentsInChildren<UnityEngine.UI.Text>().Any(t=>t.text=="Well fed · 3"),"HUD displays the exact reserve once sprint is available");
             yield return Capture("saved-reserve-hud");
         }
         IEnumerator ReviewFoodBalance()
@@ -65,14 +65,14 @@ namespace RivetReach
             player.ResetMotion();player.transform.position=world.Local(p)+new Vector3(.5f,.02f,.5f);player.Yaw=-45;player.Pitch=10;yield return null;
             InputSystem.QueueStateEvent(Mouse.current,new MouseState().WithButton(MouseButton.Right));yield return new WaitForSecondsRealtime(.6f);yield return Capture("eating-prepared-meal");yield return new WaitForSecondsRealtime(.3f);
             InputSystem.QueueStateEvent(Mouse.current,new MouseState());yield return null;
-            Check(game.Inventory.Total(FarmId.Porridge)==0&&game.Hunger.Saturation==8&&game.Hunger.Food>=19,"Completed real bite consumes meal and grants nine food plus eight reserve");
+            Check(game.Inventory.Total(FarmId.Porridge)==0&&game.Hunger.Saturation==3&&game.Hunger.Food>=19,"Completed real bite consumes meal and grants nine food plus three reserve");
             yield return Capture("well-fed-garden");
             game.SetMode(ScreenMode.Pause);int pausedFood=game.Hunger.Food,pausedReserve=game.Hunger.Saturation;double pausedExhaustion=game.Hunger.Exhaustion;
             yield return new WaitForSecondsRealtime(2);Check(game.Hunger.Food==pausedFood&&game.Hunger.Saturation==pausedReserve&&game.Hunger.Exhaustion==pausedExhaustion,"Pause freezes both food balances exactly");
             game.InitializeSaves(Path.Combine(output,"Saves"));Check(game.SaveGame("Food reserve and kitchen"),"Save reserve and kitchen checkpoint");
             using(var writer=new BinaryWriter(File.Create(Path.Combine(output,"Saves","food-fixture.bin")))){writer.Write(game.Hunger.Food);writer.Write(game.Hunger.Saturation);writer.Write(game.Hunger.Exhaustion);writer.Write(game.Survival.Tick);}
             // Fifteen actual minutes: walk sixteen seconds per minute around a square,
-            // two jumps per minute, otherwise tend/observe the base. No supplied food.
+            // two one-second held-jump inputs per minute, otherwise tend/observe the base. No supplied food.
             game.SetMode(ScreenMode.Play);long start=game.Survival.Tick;int lastSecond=-1,minFood=20;double distance=0;var previous=player.transform.position;
             var csv=new StringBuilder("active_seconds,food,saturation,exhaustion,walked_metres\n");
             while(game.Survival.Tick-start<18000)

@@ -19,17 +19,19 @@ The existing health thresholds are unchanged: healing begins at food 12, continu
 | Raw potato, berries, mushroom | 1 | 0 |
 | Raw carrot, raw fish, raw chicken | 2 | 0 |
 | Apple | 4 | 0 |
-| Baked potato, roasted carrot | 5 | 2 |
-| Cooked mushrooms, cooked egg | 4 | 2 |
-| Cooked fish, cooked chicken | 6 | 4 |
-| Bread | 7 | 6 |
-| Fruit porridge | 9 | 8 |
-| Vegetable stew, fish stew, chicken stew | 12 | 12 |
+| Baked potato, roasted carrot | 5 | 1 |
+| Cooked mushrooms, cooked egg | 4 | 1 |
+| Cooked fish, cooked chicken | 6 | 2 |
+| Bread | 7 | 2 |
+| Fruit porridge | 9 | 3 |
+| Vegetable stew, fish stew, chicken stew | 12 | 4 |
 
 The recipe ingredients, outputs, cooker duration (200 ticks at full heat/power), crop growth interval (60 seconds per stage), three-minute crop maturity time, crop yields, fishing timing and chicken lifecycle timers are unchanged. Compost remains optional and cannot create an instant crop-growth loop. Fishing still requires its source-water footprint and manual bite/reel. Chicken eggs, breeding and growth remain active/resident-time systems. [Beds](BEDS.md) advance celestial time only, never skipped hunger or production ticks. [Crates](CRATES.md) store food without changing its creation or consumption.
 
 ## Persistence and tuning boundary
 
-Schema **17** appends the bounded saturation integer to player hunger after food and exhaustion. Schemas 1–16 initialize it to zero. The current content fingerprint includes the exact `FoodBalance.json` text; an unknown or altered balance configuration rejects rather than silently reinterpreting a checkpoint. The exact schema-16 catalog with [renewables](RENEWABLES.md) remains an explicit compatibility projection.
+The schema-17 hunger layout appends the bounded saturation integer after food and exhaustion; schemas 1–16 initialize it to zero. Food-balance compatibility accepts the exact original high-reserve configuration and the exact current moderate configuration, while an unknown or altered balance configuration rejects rather than silently reinterpreting a checkpoint. The exact schema-16 catalog with [renewables](RENEWABLES.md) remains an explicit compatibility projection.
 
-The controlled comparisons measure repeat meal cadence under fixed workloads. They do not establish an optimum or replace sustained human play across different terrain, combat, fishing and animal-food routes.
+The HUD animates only changed food icons on a visible loss and hearts on regeneration. A damped vertical pulse lasts 0.45 seconds with a maximum amplitude of three UI reference pixels. Fixed ten-icon state avoids per-frame collections; only an active pulse requests repeated mesh updates. Reserve-only drain does not pulse. Hidden/loading screens and replaced player state reset the baseline.
+
+The user selected fruit porridge's three-point reserve and a replay target of Food 14 after the recorded twelve-minute workload. Unity Editor checks replayed the measured exhaustion through the current hunger rules and confirmed Food 14 at twelve minutes. New controlled cadence results replace the superseded high-reserve comparison; neither result establishes an optimum or replaces sustained human play across terrain, combat, fishing and animal-food routes.

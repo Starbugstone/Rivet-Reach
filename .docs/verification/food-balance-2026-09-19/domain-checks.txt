@@ -11,7 +11,27 @@ PASS Schema17 retains exact reserve and fractional exhaustion
 PASS Old hunger payload starts with zero reserve and keeps prior food/exhaustion
 PASS Out-of-range saved saturation rejects
 PASS Food and reserve are independent of fixed-tick batching
-PASS Wild food remains immediately edible; baking adds a lasting reserve
+PASS Raw food has no reserve
+PASS Basic cooked food provides one reserve point
+PASS Fish, chicken and bread provide two reserve points
+PASS Fruit porridge provides its explicit three reserve points
+PASS All stews provide four reserve points
+PASS Recorded native cadence replays exact legacy reserve state at 0 seconds
+PASS Recorded native cadence replays exact legacy reserve state at 60 seconds
+PASS Recorded native cadence replays exact legacy reserve state at 120 seconds
+PASS Recorded native cadence replays exact legacy reserve state at 180 seconds
+PASS Recorded native cadence replays exact legacy reserve state at 240 seconds
+PASS Recorded native cadence replays exact legacy reserve state at 300 seconds
+PASS Recorded native cadence replays exact legacy reserve state at 360 seconds
+PASS Recorded native cadence replays exact legacy reserve state at 420 seconds
+PASS Recorded native cadence replays exact legacy reserve state at 480 seconds
+PASS Recorded native cadence replays exact legacy reserve state at 540 seconds
+PASS Recorded native cadence replays exact legacy reserve state at 600 seconds
+PASS Recorded native cadence replays exact legacy reserve state at 660 seconds
+PASS Recorded native cadence replays exact legacy reserve state at 720 seconds
+PASS Recorded native cadence replays exact legacy reserve state at 780 seconds
+PASS Three-point reserve reaches Food 14 after the recorded twelve-minute workload
+PASS Legacy eight-point and current three-point replays preserve the recorded thirteen-minute comparison
 PASS One-hour base workload conserves supplied Potato and prevents starvation
 PASS One-hour base workload conserves supplied Baked potato and prevents starvation
 PASS One-hour base workload conserves supplied Apple and prevents starvation
@@ -23,7 +43,7 @@ PASS One-hour base workload conserves supplied Roasted Carrot and prevents starv
 PASS One-hour base workload conserves supplied Vegetable Stew and prevents starvation
 PASS One-hour base workload conserves supplied Cooked Mushrooms and prevents starvation
 PASS One-hour base workload conserves supplied Fruit Porridge and prevents starvation
-PASS Renewable porridge supports at least fifteen minutes between meals during base activity
+PASS Renewable porridge supports at least ten minutes between meals during base activity
 PASS One-hour base workload conserves supplied Raw Fish and prevents starvation
 PASS One-hour base workload conserves supplied Cooked Fish and prevents starvation
 PASS One-hour base workload conserves supplied Fish Stew and prevents starvation
@@ -67,4 +87,4 @@ PASS One-hour sprint workload conserves supplied Raw Chicken and prevents starva
 PASS One-hour sprint workload conserves supplied Cooked Chicken and prevents starvation
 PASS One-hour sprint workload conserves supplied Cooked Egg and prevents starvation
 PASS One-hour sprint workload conserves supplied Chicken Stew and prevents starvation
-Assertions: 69
+Assertions: 89
