@@ -1,0 +1,62 @@
+[
+  {
+    "path": "images/alpha-playtest/floater-spawner-active.png",
+    "sha256": "42df86134494cfb463273e4d3ec3274d2d9f235790d92292cc972110ed9e4617",
+    "remoteMatches": true,
+    "png": true
+  },
+  {
+    "path": "images/alpha-playtest/floater-spawner-torch-disabled.png",
+    "sha256": "0b074c5fa83b51d1d406f668ddd06099878a0e8525a73b443bedf673e9dfa6ac",
+    "remoteMatches": true,
+    "png": true
+  },
+  {
+    "path": "images/alpha-playtest/generated-floater-room.png",
+    "sha256": "a144db6632621655adea2bc72793cb6324cd9acbd5db6da42ef58204fecf46bd",
+    "remoteMatches": true,
+    "png": true
+  },
+  {
+    "path": "images/alpha-playtest/hoe-harvest-replanted.png",
+    "sha256": "28993a3a4bbeed70b61e12378e89deee5d68c47230c839dd000c13c33c4888f9",
+    "remoteMatches": true,
+    "png": true
+  },
+  {
+    "path": "images/alpha-playtest/inventory-organised.png",
+    "sha256": "f9fb9bda5931168817228ad06bfbc4fcb9d23c3b2f5b9b82d291bc3daaeb0830",
+    "remoteMatches": true,
+    "png": true
+  },
+  {
+    "path": "images/alpha-playtest/lava-rock-reaction.png",
+    "sha256": "aa03af9dc754cbfc6dd4e0d1a3b3f8ce3877375cba24136843e5b278f9ee9f01",
+    "remoteMatches": true,
+    "png": true
+  },
+  {
+    "path": "images/alpha-playtest/pick-block-survival.png",
+    "sha256": "5c66715c1e04900e2e1adc5a6d3598d4aaafa12663dc087971f70c0c3bd0ca1c",
+    "remoteMatches": true,
+    "png": true
+  },
+  {
+    "path": "images/alpha-playtest/skin-after.png",
+    "sha256": "eb5a4cf5ded0ddcec7e32b474db82e29a0ef940093b42a63a78f8b188b4f179b",
+    "remoteMatches": true,
+    "png": true
+  },
+  {
+    "path": "icons/37.png",
+    "sha256": "4ea686d033e6b4bf2164b43f5942ff4a05d7f7278fd354f4ca82148bdf5d2215",
+    "remoteMatches": true,
+    "png": true
+  },
+  {
+    "path": "icons/38.png",
+    "sha256": "233aacae0b27acba944397bd8a848bb9f35add286b1e5ae775d4f1f6b908f204",
+    "remoteMatches": true,
+    "png": true
+  }
+]
