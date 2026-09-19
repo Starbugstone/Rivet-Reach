@@ -322,7 +322,7 @@ namespace RivetReach
             if (Mouse.current?.rightButton.isPressed != true) EndRightPaint();
             UpdateBrowserInput();
             if(lastRevision!=game.Inventory.Revision||lastCraftRevision!=game.Crafting.Grid.Revision||lastStationRevision!=StationRevision||lastEquipmentRevision!=game.Equipment.Revision||lastSelected!=game.Selected)RefreshSlots();
-            RefreshSurvival();RefreshMachine();
+            RefreshSurvival();RefreshMachine();RefreshCrates();
             if(message!=null)message.text=game.Message??"";
             if(loading!=null)loading.text=!game.ReadyToPlay?"Preparing nearby terrain…":"";
             if(targetLabel!=null)

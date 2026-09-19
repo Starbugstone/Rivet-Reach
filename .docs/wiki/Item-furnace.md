@@ -34,6 +34,8 @@ Connect [Item Pipes](Item-item-pipe.md) on any face. Blue Input at the back acce
 
 Opening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md).
 
+Edit **ITEM PRIORITY** in this receiver’s interface to control pipe delivery. Higher values receive first; equal values round-robin among compatible destinations. See [Item-pipe routing](Item-pipe-routing.md).
+
 ## Crafting and processing
 
 ### Recipe 1

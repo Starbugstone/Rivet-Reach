@@ -6,6 +6,7 @@ namespace RivetReach
     // One local authority owns mutations. Callers receive value copies, never the backing array.
     public class ItemContainer : IItemPipeInventory
     {
+        public int ItemInputPriority {get;set;}=20;
         bool IItemPipeInventory.CanExtract(int slot)=>slot>=0&&slot<Count;
         bool IItemPipeInventory.Prefers(byte id,int localFace)=>id!=0&&Total(id)>0;
         bool IItemPipeInventory.TryInsert(byte id,int localFace)=>id!=0&&Capacity(id)>0&&Add(id,1)==0;

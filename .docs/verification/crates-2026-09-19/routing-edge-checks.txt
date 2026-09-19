@@ -1,0 +1,7 @@
+PASS 6 assertions
+PASS Direct and controller aliases on separate pipe graphs emit one physical crate item per phase
+PASS Controller rejects delivery back into the physical crate that sourced it
+PASS Equal controller, direct crate and chest priorities round-robin compatible cargo
+PASS Stable numeric priorities do not rebuild topology or route cache
+PASS Priority edit rebuckets the existing cache without rebuilding topology
+PASS Two pipe faces to one chest are one equal-priority receiver, not two shares

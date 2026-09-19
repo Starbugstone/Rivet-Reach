@@ -236,3 +236,10 @@ The user proposed the two-gold/two-diamond Item Bridge cost. The user also confi
 ## Early fishing — 2026-09-19
 
 The [Fishing Rod](FISHING.md) consumes three Sticks and two flax-derived String at the Workbench. Its construction stays within the early wood/fibre tier. Fishing adds renewable food without free puddle fishing: a 7×7×2 source-water pond and active bite timing are required. Raw Fish restores 2 points, Cooked Fish 6, and Fish Stew 12 with two additional vegetables. These are working defaults pending sustained early/base food-cadence playtests.
+
+
+## Bulk crate progression — 2026-09-19
+
+A Bulk Crate costs a Chest plus eight Planks at the Workbench, so a player can expand ordinary storage through the early wood/workbench loop. Its **16,384**-item capacity is a logistics convenience, not created material: it stores one assigned ordinary item type and must be emptied before recovery.
+
+The Crate Controller consumes one Bulk Crate, a Machine Casing, two Iron Ingots, two Item Pipes, an Iron Cog and **two Gold Ingots** at the Machinist's Bench. This keeps physical warehouse aggregation behind the industrial component and deeper-gold progression while preserving standalone crates as the earlier storage step. The controller adds no capacity; its capacity is the sum of connected crates. Recipe costs are working balance defaults pending normal survival/base play.

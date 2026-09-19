@@ -38,3 +38,7 @@
 - [Spawn mechanics](Spawn-mechanics.md) — light, floors, distances, natural populations, cage caps and persistent chickens.
 
 - [Beds and home spawn](Beds-and-home-spawn.md) — craft a bed, set home and sleep until morning.
+
+- [Crates and warehouses](Crates-and-warehouses.md) — bulk storage, type locks and controller setup.
+
+- [Item-pipe routing](Item-pipe-routing.md) — editable receiver priorities, compatible destinations and round-robin overflow.

@@ -16,7 +16,7 @@ namespace RivetReach
             Simulation.CompostChanged+=EjectCompost;
             game.World.PersistentChunkTickets=Simulation.LoaderChunks;
             game.World.BlockChanged+=Changed;game.World.ResidencyChanged+=Simulation.Multiblocks.ResidencyChanged;
-            game.World.CanRemoveMachine=p=>{if(game.World.RecoveringMachine||Simulation.Multiblocks.CanRemove(p)&&(Simulation.At(p)?.Definition.Id!=IndustryId.Tank||Simulation.At(p).Fluid.Amount==0))return true;game.Notify(Simulation.At(p)?.Definition.Id==IndustryId.Battery?"Discharge this battery before mining it":"Drain the tank at its controller before dismantling it",3);return false;};
+            game.World.CanRemoveMachine=p=>{if(!(game.Crates?.CanRemove(p)??true))return false;if(game.World.RecoveringMachine||Simulation.Multiblocks.CanRemove(p)&&(Simulation.At(p)?.Definition.Id!=IndustryId.Tank||Simulation.At(p).Fluid.Amount==0))return true;game.Notify(Simulation.At(p)?.Definition.Id==IndustryId.Battery?"Discharge this battery before mining it":"Drain the tank at its controller before dismantling it",3);return false;};
             game.World.IsOpenMachine=p=>{var m=Simulation.At(game.World.DoorAnchor(p));return m!=null&&(m.Definition.Id==IndustryId.WoodenDoor?m.WorkInput==1:m.Definition.Id==IndustryId.Door&&m.Running);};
         }
         public void EjectCompost(MachineState m)
@@ -30,7 +30,7 @@ namespace RivetReach
         public bool Remove(BlockPos p,byte expected)=>game.World.Remove(p,expected);
         public ItemContainer Storage(BlockPos p)=>game.Survival.At(p)?.Storage;
         public IItemPipeInventory ItemEndpoint(BlockPos p)
-        {var station=game.Survival.At(p);return (IItemPipeInventory)station?.Furnace??station?.Storage;}
+        {var station=game.Survival.At(p);return CrateId.Part(station?.Block??0)?game.Crates.At(p):(IItemPipeInventory)station?.Furnace??station?.Storage;}
         public int ItemEndpointRotation(BlockPos p)=>game.Survival.At(p)?.Rotation??0;
         public void ItemEndpointChanged(BlockPos p)=>game.Survival.Wake(p);
         public byte Drop(byte block)=>game.Registry.FistDrop(block);

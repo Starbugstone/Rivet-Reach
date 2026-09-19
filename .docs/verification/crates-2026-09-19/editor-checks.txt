@@ -1,0 +1,50 @@
+PASS Exact capacity limits oversized deposit
+PASS Full or incompatible deposits do not mutate storage
+PASS Cursor withdrawals obey ordinary stack limit
+PASS Unassigned again when an unlocked crate empties
+PASS Empty manual lock reserves item type without material consumption
+PASS Empty lock survives withdrawals
+PASS Unlock empty crate clears assignment
+PASS Metadata-bearing storage is rejected without changing its contents
+PASS Nonstackable equipment still withdraws singly
+PASS Controller discovers exactly 64 face-connected crates
+PASS Existing assigned crate receives before earlier empty crate
+PASS Controller and direct pipe share physical source identity
+PASS 65th connected crate invalidates aggregate rather than silently losing capacity
+PASS Removing excess crate restores aggregate with retained stock
+PASS Unloaded crate cannot bridge a controller to resident stock
+PASS Multiple controllers invalidate a connected bank
+PASS Controller removal preserves individually usable crate contents
+PASS Machine input takes precedence over all storage tiers
+PASS Full machine falls through to controller before single crate/chest
+PASS Full controller falls through to individual crate before chest
+PASS Full crates fall through to chest with exact source conservation
+PASS All full destinations retain source stock
+PASS Incompatible machine and locked warehouses fall through to chest
+PASS Controller/direct output aliases emit once per physical crate per phase
+PASS Controller output skips its own member input and reaches external chest
+PASS Direct crate output skips controller alias instead of self-circulating
+PASS Inventory sensor remains off below 32 crate items
+PASS Inventory sensor counts physical crate stock
+PASS Inventory sensor sums connected controller stock
+PASS Inventory sensor ignores dormant controller
+PASS Custom higher numeric priority overrides default ordering
+PASS Equal custom priorities round robin one source across six deliveries
+PASS Priority edits rebucket endpoints without rebuilding pipe topology
+PASS Highest-priority incompatible locked crate is never a valid destination
+PASS Priority zero remains a valid overflow tier and 100 is served first
+PASS Stable 16-pipe route reuses topology and probes one receiver per delivered item
+PASS Stable 16-pipe routing uses bounded low managed allocations over 200 phases
+PASS Stable 1024-pipe route reuses topology and probes one receiver per delivered item
+PASS Stable 1024-pipe routing uses bounded low managed allocations over 200 phases
+PASS 64 congested sources probe each full receiver once per phase, not 4096 times
+PASS Congestion preserves every source and destination item
+PASS Warmed congested routing allocates zero managed bytes across 200 phases
+PASS Opening all 64 receivers recovers next phase with equal round-robin shares
+PASS Fill rivet:bulk_crate from exact construction ingredients
+PASS Conserve every input crafting rivet:bulk_crate
+PASS Fill rivet:crate_controller from exact construction ingredients
+PASS Conserve every input crafting rivet:crate_controller
+PASS Exact pre-crate definitions remain compatible
+PASS Unrelated definition changes remain rejected
+49 checks passed

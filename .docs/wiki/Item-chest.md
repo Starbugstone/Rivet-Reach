@@ -4,7 +4,7 @@
 
 [All items](Items.md) · [Crafting guide](Crafting-Recipes.md) · [Home](Home.md)
 
-[How to obtain](#how-to-obtain) · [Crafting and processing](#crafting-and-processing)
+[How to obtain](#how-to-obtain) · [Crafting and processing](#crafting-and-processing) · [Uses](#used-to-make)
 
 <a href="Item-chest.md" title="Chest"><img src="icons/25.png" width="96" height="96" alt="Chest"></a>
 
@@ -30,6 +30,8 @@ A wooden storage chest with an iron-banded lid and brass latch.
 ![Placed chest in the game](images/starter-chest.png) Item Pipes can connect on every face. A selected [Wrench](Item-wrench.md) sets each chest-facing pipe end to blue Input (store) or red Output (supply). See [Pipes](Pipes.md).
 
 Opening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md).
+
+Edit **ITEM PRIORITY** in this receiver’s interface to control pipe delivery. Higher values receive first; equal values round-robin among compatible destinations. See [Item-pipe routing](Item-pipe-routing.md).
 
 ## Crafting and processing
 
@@ -62,3 +64,11 @@ Opening its controls shows a matching illustration and name in the left panel. S
 | Ingredient | Total per operation |
 |---|---:|
 | <a href="Item-planks.md" title="Planks"><img src="icons/20.png" width="32" height="32" alt="Planks"></a> [Planks](Item-planks.md) | 8 |
+
+## Used to make
+
+Follow a result to see its complete ingredients and recipe.
+
+| Result | Station | Recipe |
+|---|---|---|
+| <a href="Item-bulk-crate.md#recipe-1" title="Bulk Crate"><img src="icons/176.png" width="32" height="32" alt="Bulk Crate"></a> ×1 [Bulk Crate](Item-bulk-crate.md) | [Workbench](Item-workbench.md) | [View recipe](Item-bulk-crate.md#recipe-1) |

@@ -3161,3 +3161,35 @@ MonoBehaviour:
     attackDamage: 1
     buoyant: 0
     tags: []
+  - runtimeId: 176
+    stableId: rivet:bulk_crate
+    displayName: Bulk Crate
+    stackLimit: 64
+    fistSeconds: 1.5
+    colour: {r: 0.48, g: 0.32, b: 0.14, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags: []
+  - runtimeId: 177
+    stableId: rivet:crate_controller
+    displayName: Crate Controller
+    stackLimit: 64
+    fistSeconds: 1.5
+    colour: {r: 0.48, g: 0.32, b: 0.14, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags: []

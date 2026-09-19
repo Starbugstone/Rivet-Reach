@@ -6,6 +6,7 @@ namespace RivetReach
     // Input/fuel/output authority: callers can never insert into the result slot.
     public sealed partial class FurnaceState : IItemPipeInventory
     {
+        public int ItemInputPriority {get;set;}=50;
         bool IItemPipeInventory.CanExtract(int slot)=>slot==2;
         int PipeInputSlot(byte id,int localFace)=>localFace<0?(Accepts(0,id)?0:Accepts(1,id)?1:-1):localFace==4?1:0;
         bool IItemPipeInventory.Prefers(byte id,int localFace)

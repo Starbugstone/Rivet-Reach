@@ -1,0 +1,1 @@
+1900 triangles; 1 renderer; 1 material; bounds (0.00, 0.00, 0.00) to (1.00, 0.98, 1.00); UV/normals 4108/4108.

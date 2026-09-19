@@ -67,3 +67,9 @@ Drain finite lava deposits with a [Ranged Liquid Pump](Ranged-Liquid-Pump.md), c
 - [Spawn mechanics](Spawn-mechanics.md) — light, floors, distances, natural populations, cage caps and persistent chickens.
 
 - [Beds and home spawn](Beds-and-home-spawn.md) — craft a bed, set home and sleep until morning.
+
+## Bulk storage warehouses
+
+[Crates and warehouses](Crates-and-warehouses.md) explains single-item bulk storage, manual type locks, visible contents, connected controllers and the machine-first pipe priority.
+
+- [Item-pipe routing](Item-pipe-routing.md) — editable receiver priorities, compatible destinations and round-robin overflow.

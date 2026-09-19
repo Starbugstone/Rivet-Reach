@@ -285,7 +285,7 @@ class Reference:
                  ' · '.join(f'[{g}](#{g.lower().replace(" ", "-")})' for g in order), '']
         if set(groups) - set(order):
             raise ValueError('Item category missing from index: ' + str(set(groups) - set(order)))
-        lines += ['## Recent additions', '', ' · '.join(self.link(i) for i in ['rivet:bed', 'rivet:fishing_rod', 'rivet:egg', 'rivet:auto_composter', 'rivet:cooker', 'rivet:electric_cooker', 'rivet:lava_rock', 'rivet:mob_spawner'] if i in self.items), '']
+        lines += ['## Recent additions', '', ' · '.join(self.link(i) for i in ['rivet:bulk_crate', 'rivet:crate_controller', 'rivet:bed', 'rivet:fishing_rod', 'rivet:egg', 'rivet:auto_composter', 'rivet:cooker', 'rivet:electric_cooker', 'rivet:lava_rock', 'rivet:mob_spawner'] if i in self.items), '']
         for group in order:
             lines += ['## ' + group, '']
             if group == 'Legacy test equipment':

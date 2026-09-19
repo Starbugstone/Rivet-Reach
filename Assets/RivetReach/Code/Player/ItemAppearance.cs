@@ -11,6 +11,7 @@ namespace RivetReach
             key=id switch
             {
                 BedId.Bed=>"bed",
+                CrateId.Crate=>"bulk_crate",CrateId.Controller=>"crate_controller",
                 CompostId.Compost=>"compost",
                 IndustryId.AzureCrystal=>"azure_crystal",
                 IndustryId.CopperWire=>"copper_wire",

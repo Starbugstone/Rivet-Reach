@@ -26,6 +26,8 @@ Make this item using the crafting or processing recipes below.
 
 Connect electricity and configure item-pipe Input/Output ends on any face. Charging draws up to 160 W; each input costs 8 J from a 512 J reserve. Insufficient charge or output space leaves unaccepted items in their source. Optional front Blue Signal control. See [Compost](Compost.md).
 
+Edit **ITEM PRIORITY** in this receiver’s interface to control pipe delivery. Higher values receive first; equal values round-robin among compatible destinations. See [Item-pipe routing](Item-pipe-routing.md).
+
 ## Crafting and processing
 
 ### Recipe 1

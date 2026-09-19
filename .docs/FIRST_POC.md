@@ -162,3 +162,7 @@ The September 19 fishing review build adds the [Fishing Rod, water requirements 
 ## Bed review increment
 
 The focused Windows player is `Builds/Beds/RivetReach.exe`; run `Tools/Verify-Beds.ps1` for the scripted review. Beds use the existing Use/right-click or Interact binding: set home by day and sleep until 06:00 by night. [Rules](BEDS.md), [player guide](wiki/Beds-and-home-spawn.md) and [measured evidence](verification/BED_RESULTS.md) describe the current increment.
+
+## Crate increment — 2026-09-19
+
+The focused Windows player is `Builds/Crates/RivetReach.exe`; `Tools/Verify-Crates.ps1` runs the scripted review. Open crates/controllers with Use or Interact, Shift-click to transfer and use the crate interface to lock its type. [Rules](CRATES.md), [player guide](wiki/Crates-and-warehouses.md) and [evidence](verification/CRATE_RESULTS.md) describe this increment.

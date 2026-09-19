@@ -12,6 +12,7 @@ namespace RivetReach
         public MobSystem Mobs {get;private set;}
         public PlayerFishing Fishing {get;private set;}
         public PlayerBeds Beds {get;private set;}
+        public WorldCrates Crates {get;private set;}
         public PassiveSystem Animals {get;private set;}
         public FirstPersonPlayer Player {get;private set;}
         public DroppedItems Items {get;private set;}
@@ -89,6 +90,7 @@ namespace RivetReach
             Mobs=root.AddComponent<MobSystem>();Mobs.Initialize(this);
             Animals=root.AddComponent<PassiveSystem>();Animals.Initialize(this);PassiveTargets=Animals;
             Fishing=new PlayerFishing(this);root.AddComponent<FishingPresentation>().Initialize(this);
+            Crates=new WorldCrates(this);root.AddComponent<CratePresentation>().Initialize(this);
             Beds=new PlayerBeds(this);root.AddComponent<BedPresentation>().Initialize(this);
         }
         void SpawnMinedDrop(BlockPos pos,byte id)

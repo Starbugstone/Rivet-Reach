@@ -23,7 +23,7 @@ namespace RivetReach
             if(m.Definition.Id==FarmId.Cooker){Label(parent,"FUEL",821,426,60,22,13,gold);Slot(parent,MachineSlotStart+3,821,451,53);}
             machineDetail=Label(parent,"",m.Definition.Id==FarmId.Cooker?892:821,426,m.Definition.Id==FarmId.Cooker?232:303,88,14);
             MachineButton(parent,live=>"ROTATE 90°",821,526,146,32,live=>game.Industry.Simulation.Rotate(live));
-            if(m.Definition.Id==FarmId.ElectricCooker)MachineButton(parent,live=>"PRIORITY: "+new[]{"HIGH","NORMAL","LOW"}[live.Priority],977,526,147,32,live=>live.Priority=(live.Priority+1)%3);
+            if(m.Definition.Id==FarmId.ElectricCooker)MachineButton(parent,live=>"POWER: "+new[]{"HIGH","NORMAL","LOW"}[live.Priority],977,526,147,32,live=>live.Priority=(live.Priority+1)%3);
             nextMachineRefresh=0;
         }
         void RefreshCooker(MachineState m)

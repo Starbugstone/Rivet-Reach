@@ -30,7 +30,7 @@ namespace RivetReach
                 {
                     int index=r.Int(0,32767);byte id=r.ReadByte();var p=min.Offset(index%32,index/32%32,index/1024);
                     SaveReader.Require(p.Y>TerrainGenerator.MinY&&p.Y<=TerrainGenerator.MaxY&&p.X>=-TerrainGenerator.HorizontalLimit&&p.X<=TerrainGenerator.HorizontalLimit&&p.Z>=-TerrainGenerator.HorizontalLimit&&p.Z<=TerrainGenerator.HorizontalLimit,"Invalid edited terrain position.");
-                    SaveReader.Require((!BedId.Part(id)||r.Format>=14)&&(id==0||Fluids.IsFluid(id)||BlockId.Placeable(id)||BlockId.Crop(id)||id==BedId.Head||id==IndustryId.DoorUpper||id==BlockId.Farmland),"Invalid saved terrain cell.");page.Add(index,id);
+                    SaveReader.Require((!CrateId.Part(id)||r.Format>=15)&&(!BedId.Part(id)||r.Format>=14)&&(id==0||Fluids.IsFluid(id)||BlockId.Placeable(id)||BlockId.Crop(id)||id==BedId.Head||id==IndustryId.DoorUpper||id==BlockId.Farmland),"Invalid saved terrain cell.");page.Add(index,id);
                     if(BlockId.Opaque(id)){var key=(p.X,p.Z);if(!editedColumns.TryGetValue(key,out var column))editedColumns[key]=column=new SortedSet<int>();column.Add(p.Y);}
                 }
             }
@@ -105,8 +105,8 @@ namespace RivetReach
             w.Write(Tick);w.Write(fraction);w.Write(stations.Count);
             foreach(var entry in stations)
             {
-                w.Pos(entry.Key);var s=entry.Value;w.Write(s.Block);w.Write(s.Rotation);
-                if(s.Crafting!=null)w.Slots(s.Crafting.Grid.Slots);if(s.Storage!=null)w.Slots(s.Storage.Slots);s.Furnace?.WriteSave(w);
+                w.Pos(entry.Key);var s=entry.Value;w.Write(s.Block);w.Write(s.Rotation);if(w.Format>=15)w.Write(s.ItemInputPriority);
+                if(s.Crafting!=null)w.Slots(s.Crafting.Grid.Slots);if(s.Storage!=null)w.Slots(s.Storage.Slots);s.Furnace?.WriteSave(w);s.Crate?.WriteSave(w);
             }
             w.Write(crops.Count);foreach(var crop in crops){w.Pos(crop.Position);w.Write(crop.Due);}
         }
@@ -115,10 +115,10 @@ namespace RivetReach
             Tick=r.Long();fraction=r.Number();int n=r.Count();
             for(int i=0;i<n;i++)
             {
-                var p=r.Pos();byte id=r.ReadByte();SaveReader.Require(BlockId.Station(id)&&game.World.Get(p)==id,"Saved station does not match terrain.");
+                var p=r.Pos();byte id=r.ReadByte();SaveReader.Require(BlockId.Station(id)&&(!CrateId.Part(id)||r.Format>=15)&&game.World.Get(p)==id,"Saved station does not match terrain.");
                 var s=new StationState(id,game.Recipes,game.Processing,item=>game.Registry.Get(item).stackLimit);stations.Add(p,s);
-                s.Rotation=r.Format>=5?r.Int(0,3):0;
-                if(s.Crafting!=null)r.Slots(s.Crafting.Grid);if(s.Storage!=null)r.Slots(s.Storage);s.Furnace?.ReadSave(r);Wake(p);
+                s.Rotation=r.Format>=5?r.Int(0,3):0;if(r.Format>=15)s.ItemInputPriority=r.Int(0,100);
+                if(s.Crafting!=null)r.Slots(s.Crafting.Grid);if(s.Storage!=null)r.Slots(s.Storage);s.Furnace?.ReadSave(r);if(s.Crate!=null){SaveReader.Require(r.Format>=15,"Crates require schema 15.");s.Crate.ReadSave(r);}Wake(p);
             }
             n=r.Count();for(int i=0;i<n;i++){var p=r.Pos();long due=r.Long();byte id=game.World.Get(p);SaveReader.Require(BlockId.GrowingPlant(id)&&!scheduled.ContainsKey(p),"Invalid crop schedule.");Schedule(p,due);}
             foreach(var p in game.World.SavedBlocks())
@@ -146,7 +146,7 @@ namespace RivetReach
                 if(m.IsCooker&&m.CookingSignature!=m.FoodSignature){m.Work=0;m.CookingSignature=m.FoodSignature;}
                 w.Pos(m.Position);w.Write(m.Definition.Id);w.Slots(m.Items.Slots);w.Write(m.Rotation);w.Write(m.Source);w.Write(m.NextSource);w.Write(m.PulseTicks);w.Write(m.BurnTicks);
                 w.Write(m.WaterMl);if(w.Format>=8)w.Write(m.Fluid.Fluid?.StableId??"");w.Write(m.DrillDepth);w.Write(m.Work);w.Write(m.WorkInput);w.Write(m.Priority);w.Write((int)m.Additions);w.Write((int)m.BatteryMode);
-                w.Write(m.RecoveryOutput);w.Write((int)m.PortMode);w.Write(m.LevelThreshold);w.Write((int)m.Status);w.Write(m.PipeDirections);
+                w.Write(m.RecoveryOutput);w.Write((int)m.PortMode);w.Write(m.LevelThreshold);w.Write((int)m.Status);w.Write(m.PipeDirections);if(w.Format>=15)w.Write(m.ItemInputPriority);
                 if(w.Format>=9){w.Write(m.OwnerId);w.Write(m.LinkName);w.Write(m.LoaderEnabled);}
                 if(w.Format>=10&&m.IsCooker){w.Write(m.CookingId);w.Write(m.CookingSignature);}
                 if(w.Format>=11&&m.IsComposter){w.Write(m.CompostPoints);w.Write(m.CompostBatches);w.Write(m.CompostCharge);}
@@ -174,6 +174,7 @@ namespace RivetReach
                 m.Additions=(PipeAddition)r.Int(0,3);SaveReader.Require(m.Additions==0||PipeConnections.IsTransport(id),"Invalid pipe fittings.");m.BatteryMode=(BatteryMode)r.Int(0,3);
                 m.RecoveryOutput=r.ReadBoolean();m.PortMode=(FluidPortMode)r.Int(0,2);m.LevelThreshold=r.Int(0,100);m.Status=(MachineStatus)r.Int(0,Enum.GetValues(typeof(MachineStatus)).Length-1);
                 if(r.Format>=4){m.PipeDirections=r.Int(0,4095);SaveReader.Require(PipeConnections.ValidDirections(m.PipeDirections)&&(m.PipeDirections==0||PipeConnections.IsTransport(id)),"Invalid pipe end directions.");}
+                if(r.Format>=15)m.ItemInputPriority=r.Int(0,100);
                 if(r.Format>=9)
                 {
                     m.OwnerId=r.Text(32);m.LinkName=r.Text(32);m.LoaderEnabled=r.ReadBoolean();

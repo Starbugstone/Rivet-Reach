@@ -6,6 +6,7 @@ namespace RivetReach
     // A direction setting never grants access to recipe inputs or result slots.
     public interface IItemPipeInventory
     {
+        int ItemInputPriority {get;set;}
         IReadOnlyList<ItemStack> Slots {get;}
         bool CanExtract(int slot);
         // localFace uses right, left, top, bottom, back, front.

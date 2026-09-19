@@ -98,7 +98,7 @@ namespace RivetReach
                     if(m.Definition.Id==IndustryId.TankSensor){var tank=m.Structure;bool source=tank?.Formed==true&&tank.Fluid.Amount*100>=tank.Fluid.Capacity*m.LevelThreshold;if(m.Source!=source){m.Source=source;signalsDirty=true;}}
                 }
                 if(m.Definition.Id==IndustryId.Sensor)
-                {var c=world.Storage(Neighbor(m,4));int count=0;if(world.Ready(Neighbor(m,4))&&c!=null)foreach(var s in c.Slots)count+=s.Count;bool source=count>=32;if(source!=m.Source){m.Source=source;signalsDirty=true;}}
+                {var c=ItemEndpoint(Neighbor(m,4));int count=0;if(world.Ready(Neighbor(m,4))&&c!=null)foreach(var s in c.Slots)count+=s.Count;bool source=count>=32;if(source!=m.Source){m.Source=source;signalsDirty=true;}}
             }
             if(signalsDirty){Signals.Evaluate();signalsDirty=false;}
             foreach(var m in devices)

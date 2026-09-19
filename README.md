@@ -90,3 +90,5 @@ The latest [farming and cooking increment](.docs/FARMING.md) adds growing wild c
 [Cave lighting and underground farms](.docs/wiki/Lighting-and-underground-farms.md) now use cached sky access and placed-light growth checks. Try `Builds/Lighting/RivetReach.exe`; [verification](.docs/verification/LIGHTING_RESULTS.md) includes actual cave/farm captures, normal-view-distance measurements and save regressions.
 
 [Beds](.docs/BEDS.md) turn Cloth and Planks into a home respawn point and nighttime sleep. The [player guide](.docs/wiki/Beds-and-home-spawn.md) shows crafting, placement and safe arrivals; [verification](.docs/verification/BED_RESULTS.md) records measured checks.
+
+[Bulk crates and controllers](.docs/CRATES.md) provide physical single-item warehouses and machine-first item routing. See the [illustrated guide](.docs/wiki/Crates-and-warehouses.md) and [verification](.docs/verification/CRATE_RESULTS.md).

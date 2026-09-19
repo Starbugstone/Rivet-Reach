@@ -30,6 +30,8 @@ Opening its controls shows a matching illustration and name in the left panel. S
 
 **Running means shaft power, not electricity.** This boiler has no electrical output and continues consuming fuel and water even without an alternator or electrical demand. Place a separate [Alternator](Item-alternator.md) immediately on its right, facing the same direction, with shafts meeting. Connect Power Cable to the alternator. See [why Running can still mean zero electricity](Electricity-and-batteries.md#why-running-can-still-mean-zero-electricity), with an actual missing-alternator example.
 
+Edit **ITEM PRIORITY** in this receiver’s interface to control pipe delivery. Higher values receive first; equal values round-robin among compatible destinations. See [Item-pipe routing](Item-pipe-routing.md).
+
 ## Crafting and processing
 
 ### Recipe 1

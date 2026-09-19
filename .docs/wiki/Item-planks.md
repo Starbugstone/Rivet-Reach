@@ -67,6 +67,7 @@ Follow a result to see its complete ingredients and recipe.
 | <a href="Item-wooden-door.md#recipe-1" title="Wooden Door"><img src="icons/171.png" width="32" height="32" alt="Wooden Door"></a> ×3 [Wooden Door](Item-wooden-door.md) | [Workbench](Item-workbench.md) | [View recipe](Item-wooden-door.md#recipe-1) |
 | <a href="Item-compost-bin.md#recipe-1" title="Compost Bin"><img src="icons/242.png" width="32" height="32" alt="Compost Bin"></a> ×1 [Compost Bin](Item-compost-bin.md) | [Workbench](Item-workbench.md) | [View recipe](Item-compost-bin.md#recipe-1) |
 | <a href="Item-bed.md#recipe-1" title="Bed"><img src="icons/254.png" width="32" height="32" alt="Bed"></a> ×1 [Bed](Item-bed.md) | [Workbench](Item-workbench.md) | [View recipe](Item-bed.md#recipe-1) |
+| <a href="Item-bulk-crate.md#recipe-1" title="Bulk Crate"><img src="icons/176.png" width="32" height="32" alt="Bulk Crate"></a> ×1 [Bulk Crate](Item-bulk-crate.md) | [Workbench](Item-workbench.md) | [View recipe](Item-bulk-crate.md#recipe-1) |
 
 ## Furnace fuel
 

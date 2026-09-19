@@ -8,7 +8,7 @@ Machines accept their supported power, item and fluid connections on **all six f
 
 | Connection | Carries | How you control it |
 |---|---|---|
-| [Item Pipe](Item-item-pipe.md) | Items between supported machines and chests | Wrench sets each machine-facing end to Input, Output or No connection |
+| [Item Pipe](Item-item-pipe.md) | Items between supported machines, Chests, Bulk Crates and Crate Controllers | Wrench sets each machine-facing end to Input, Output or No connection |
 | [Fluid Pipe](Item-fluid-pipe.md) | Stored water between machines and tanks | Wrench sets each machine-facing end to Input, Output or No connection |
 | [Power Cable](Item-power-cable.md) | Electricity | Automatic; no direction setting |
 | [Signal Wire](Item-signal-wire.md) / [Signal Conduit](Item-signal-conduit.md) | Blue Signal ON/OFF | Separate controls; see [Blue Signal](Blue-Signal.md) |
@@ -82,7 +82,7 @@ Item transport moves up to **four items per second per source inventory**. Addin
 
 For any machine that burns item fuel, its **back input is fuel-only** and its other input faces are for usable ingredients. The back follows the machine’s placement rotation. Machines that do not burn fuel, such as the crusher, accept their usual inputs at the back too. Boilers accept coal/charcoal only through the back; water pipes still work on any face. Existing side-fed fuel pipes must be moved to the back.
 
-Current item-pipe endpoints include chests, crusher raw inputs and product outputs, boiler fuel inputs, drill outputs and extractor outputs. An input arrow does not give an output-only device a new processing input. Furnaces accept ingredients/fuel and expose finished results. Workbenches do not provide item-pipe endpoints.
+Current item-pipe endpoints include Chests, Bulk Crates, Crate Controllers, crusher raw inputs and product outputs, boiler fuel inputs, drill outputs and extractor outputs. An input arrow does not give an output-only device a new processing input. Furnaces accept ingredients/fuel and expose finished results. Workbenches do not provide item-pipe endpoints. See [Crates and warehouses](Crates-and-warehouses.md) for physical warehouse setup.
 
 ## Example: crusher → furnace → chest
 
@@ -91,7 +91,7 @@ Current item-pipe endpoints include chests, crusher raw inputs and product outpu
 3. Supply fuel manually or connect a coal/charcoal chest with **red Output at the chest**, **blue Input at the back of the furnace**. The back accepts fuel only; the other five faces accept ingredients only.
 4. Add another pipe to a receiving chest, with **red Output at the furnace** and **blue Input at the chest**. Only finished products leave the furnace.
 
-Incompatible items stay in their source inventory. A mixed supply chest can send compatible stacks even when its first stack is unsuitable. Receivers prefer their existing input or output type: a furnace holding iron ingots requests iron ingredients before copper, while storage chests share compatible deliveries equally. Other compatible cargo is used when no preferred transfer is available. Full or mismatched furnace slots stop that cargo without losing it. Logs piped into the back burn as fuel; logs piped into another input face become charcoal. A full slot never redirects logs into the other slot. Manual quick-transfer still prefers ingredients. The furnace still needs fuel to smelt; pipes need no electricity.
+Incompatible items stay in their source inventory. A mixed supply chest can send compatible stacks even when its first stack is unsuitable. Receivers follow their saved numeric item priority, and equal priorities round-robin among compatible destinations. Full or mismatched furnace slots stop that cargo without losing it. Logs piped into the back burn as fuel; logs piped into another input face become charcoal. A full slot never redirects logs into the other slot. Manual quick-transfer still prefers ingredients. The furnace still needs fuel to smelt; pipes need no electricity.
 
 ## Example: pump → tank → boiler
 
@@ -142,7 +142,7 @@ A registered electrical connection remains connected when its generator stops or
 | Two pipe runs touch the same machine but are not connected | Each face is a terminal. Join the pipe runs directly if you want one transport network. |
 | The battery has charge but the crusher shows 0 W | Check cable continuity and battery mode. Any crusher face accepts power; leave the battery on Automatic for normal use. |
 
-Related guides: [Wrench recipe](Item-wrench.md), [electricity and batteries](Electricity-and-batteries.md), [pumps](Pumps-and-water.md), [tanks](Tanks.md), [Blue Signal](Blue-Signal.md).
+Related guides: [Wrench recipe](Item-wrench.md), [item-pipe routing](Item-pipe-routing.md), [electricity and batteries](Electricity-and-batteries.md), [pumps](Pumps-and-water.md), [tanks](Tanks.md), [Blue Signal](Blue-Signal.md).
 
 ## Boiler shaft versus electrical cable
 
@@ -154,7 +154,7 @@ A boiler can show **Running** and consume fuel while supplying **0 W** to your b
 
 Connected pipes define each grid. A chest or tank can receive through one pipe run and supply another without joining those runs together. Newly received items or water can leave on a later transfer step.
 
-Compatible inputs share deliveries equally. Full inputs are skipped and their shares go to inputs with room. Outputs share limited receiving capacity, subject to their normal transport limits and available contents. Items remain whole: when only one item is available, the receiving turn rotates. Processing machines still prefer ingredients for their existing recipe; chests do not gain priority just by receiving the first item.
+Item receivers have editable priorities from **0 through 100**. The starting values are Machine/Furnace **50**, Crate Controller **40**, direct Bulk Crate **30**, and Chest **20**. Higher eligible priorities receive first; compatible receivers with the same priority rotate turns. Processing machines still filter to useful recipe inputs, and a controller fills matching assigned crates before unlocked empty crates. Full, mismatched, locked-to-another-type, metadata-bearing or unloaded crates relinquish their chance, leaving cargo at the source. Outputs share limited receiving capacity, subject to their normal transport limits and available contents. Items remain whole: when only one item is available, the receiving turn rotates. [Set and troubleshoot routing priorities](Item-pipe-routing.md).
 
 | Connected setup | Result |
 |---|---|

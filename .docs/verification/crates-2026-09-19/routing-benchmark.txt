@@ -1,0 +1,3 @@
+16 pipes, 1 source / 1 receiver, 200 active phases: routing median 0,001600 ms, p95 0,002800 ms, allocated 0 bytes, route cache rebuilds 0, receiver probes 200.
+1024 pipes, 1 source / 1 receiver, 200 active phases: routing median 0,002600 ms, p95 0,002800 ms, allocated 0 bytes, route cache rebuilds 0, receiver probes 200.
+128 pipes, 64 sources / 64 full receivers, 200 phases: routing median 0,173600 ms, p95 0,220000 ms, allocated 0 bytes, probes 12800.

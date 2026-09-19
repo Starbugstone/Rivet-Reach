@@ -101,6 +101,7 @@ namespace RivetReach
     }
     public sealed partial class MachineState : IItemPipeInventory
     {
+        public int ItemInputPriority {get;set;}=50;
         IReadOnlyList<ItemStack> IItemPipeInventory.Slots=>Items.Slots;
         bool IItemPipeInventory.CanExtract(int slot)=>(!IsComposter||IsAutoComposter)&&slot==OutputSlot;
         bool IItemPipeInventory.Prefers(byte id,int localFace)=>IsComposter?IsAutoComposter&&CanCompost(id):IsCooker?PrefersCooking(id,localFace):AcceptsPipeInput(id,localFace)&&(Items.Slots[0].Id==id||

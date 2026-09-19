@@ -6,9 +6,10 @@ namespace RivetReach
     public sealed partial class GameUI
     {
         const int StationSlotStart=100,ArmorSlotStart=200;
-        long StationRevision=>game.OpenMachine?.Items.Revision??game.OpenStation?.Furnace?.Revision??game.OpenStation?.Storage?.Revision??0;
+        long StationRevision=>OpenCrates?.Revision??game.OpenMachine?.Items.Revision??game.OpenStation?.Furnace?.Revision??game.OpenStation?.Storage?.Revision??0;
         ItemStack StationStack(int slot)
         {
+            if(OpenCrates!=null)return CrateStack(slot);
             if(game.OpenStation.Furnace!=null)return slot>=0&&slot<3?game.OpenStation.Furnace.Slots[slot]:default;
             var storage=game.OpenStation.Storage;return storage!=null&&slot>=0&&slot<storage.Count?storage.Slots[slot]:default;
         }
@@ -68,6 +69,7 @@ namespace RivetReach
             }
             if(index<StationSlotStart||game.OpenStation==null)return false;
             int cell=index-StationSlotStart;var station=game.OpenStation;
+            if(CrateId.Part(station.Block)){ClickCrate(cell,right,shift);return true;}
             if(station.Furnace!=null&&cell<3)
             {
                 if(shift&&HeldStack.Empty)station.Furnace.TransferOut(cell,game.Inventory);else station.Furnace.Click(cell,ref HeldStack,right);
@@ -83,7 +85,8 @@ namespace RivetReach
         void QuickTransferInventory(int index)
         {
             var stack=game.Inventory.Slots[index];if(stack.Empty)return;
-            if(game.OpenMachine!=null)game.OpenMachine.TransferIn(game.Inventory,index);
+            if(OpenCrates!=null)TransferIntoCrate(index);
+            else if(game.OpenMachine!=null)game.OpenMachine.TransferIn(game.Inventory,index);
             else if(game.OpenStation?.Furnace!=null){game.OpenStation.Furnace.TransferIn(game.Inventory,index);game.Survival.Wake(game.StationPosition);}
             else if(game.OpenStation?.Storage!=null)game.Inventory.TransferTo(index,game.OpenStation.Storage);
             else if(game.Registry.Get(stack.Id).armorSlot!=ArmorSlot.None)game.Equipment.TransferIn(game.Inventory,index);

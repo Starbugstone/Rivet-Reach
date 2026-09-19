@@ -26,6 +26,8 @@ Craft at the Machinist’s Bench using one Furnace, one Machine Casing and four 
 
 Connect power on any face and open with right-click or Interact. Insert ingredients and collect output. Full power takes the same time as a normal furnace; shortages slow work. Pipes feed ingredients or extract products on any face. See the [Electric Furnace guide](Electric-Furnace.md) for setup.
 
+Edit **ITEM PRIORITY** in this receiver’s interface to control pipe delivery. Higher values receive first; equal values round-robin among compatible destinations. See [Item-pipe routing](Item-pipe-routing.md).
+
 ## Crafting and processing
 
 ### Recipe 1

@@ -198,3 +198,7 @@ The user authorized all of [issue #12](.docs/verification/ALPHA_PLAYTEST_RESULTS
 ## Authorized beds, home spawn and sleep
 
 The user authorized the next issue #10 increment: [Beds](.docs/BEDS.md), a three-Cloth/three-Plank recipe, paired placement, persistent home binding, safe respawn fallback and night skipping. Sleep advances celestial time only. Preserve unique placed-bed identity, exactly-one recovery, existing survival/production clocks, shared targeting, dormant arrival safety and schema-14 compatibility following schema 13. The configurable sleep policy defaults to 50% rounded up; multiplayer integration remains separate. Keep the illustrated wiki and issue checklist current.
+
+## Authorized bulk crates and warehouse controllers
+
+The user authorized [bulk crates and controllers](.docs/CRATES.md) for issue #10. Preserve physical per-crate contents, empty type locks, bounded face-connected resident discovery, no controller capacity, safe empty-first mining and schema-15 compatibility. The user requires saved editable **0–100 item receiver priorities**, defaulting to **machine 50, controller 40, crate 30, chest 20**. Higher priorities receive first; equal priorities round-robin among currently compatible receivers. Keep item priority separate from electrical priority, avoid repeated per-item topology searches and measure routing cost. Keep the illustrated wiki and issue checklist current.

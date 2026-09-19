@@ -6,13 +6,13 @@ Click any icon or item name for what it does, how to obtain it, its recipes, and
 
 [Crafting guide](Crafting-Recipes.md) · [Home](Home.md)
 
-Includes all **191 registered items and world-block entries** in the current development build. The downloadable alpha release may contain fewer items. Ore blocks, crops, bedrock and legacy test equipment have pages even when they cannot be crafted or placed.
+Includes all **193 registered items and world-block entries** in the current development build. The downloadable alpha release may contain fewer items. Ore blocks, crops, bedrock and legacy test equipment have pages even when they cannot be crafted or placed.
 
 [Building blocks](#building-blocks) · [Ore deposits and bedrock](#ore-deposits-and-bedrock) · [Materials and components](#materials-and-components) · [Tools and weapons](#tools-and-weapons) · [Armor](#armor) · [Food and farming](#food-and-farming) · [Home and storage](#home-and-storage) · [Light and buckets](#light-and-buckets) · [Stations and machines](#stations-and-machines) · [Connections and controls](#connections-and-controls) · [Multiblock tanks and batteries](#multiblock-tanks-and-batteries) · [Legacy test equipment](#legacy-test-equipment)
 
 ## Recent additions
 
-[Bed](Item-bed.md) · [Fishing Rod](Item-fishing-rod.md) · [Egg](Item-egg.md) · [Autocomposter](Item-auto-composter.md) · [Cooker](Item-cooker.md) · [Electric Cooker](Item-electric-cooker.md) · [Lava Rock](Item-lava-rock.md) · [Mob Spawner](Item-mob-spawner.md)
+[Bulk Crate](Item-bulk-crate.md) · [Crate Controller](Item-crate-controller.md) · [Bed](Item-bed.md) · [Fishing Rod](Item-fishing-rod.md) · [Egg](Item-egg.md) · [Autocomposter](Item-auto-composter.md) · [Cooker](Item-cooker.md) · [Electric Cooker](Item-electric-cooker.md) · [Lava Rock](Item-lava-rock.md) · [Mob Spawner](Item-mob-spawner.md)
 
 ## Building blocks
 
@@ -84,7 +84,8 @@ Includes all **191 registered items and world-block entries** in the current dev
 
 | | | | |
 |:---:|:---:|:---:|:---:|
-| <a href="Item-bed.md" title="Bed"><img src="icons/254.png" width="56" height="56" alt="Bed"><br>Bed</a> | <a href="Item-chest.md" title="Chest"><img src="icons/25.png" width="56" height="56" alt="Chest"><br>Chest</a> | <a href="Item-wooden-door.md" title="Wooden Door"><img src="icons/171.png" width="56" height="56" alt="Wooden Door"><br>Wooden Door</a> |  |
+| <a href="Item-bed.md" title="Bed"><img src="icons/254.png" width="56" height="56" alt="Bed"><br>Bed</a> | <a href="Item-bulk-crate.md" title="Bulk Crate"><img src="icons/176.png" width="56" height="56" alt="Bulk Crate"><br>Bulk Crate</a> | <a href="Item-chest.md" title="Chest"><img src="icons/25.png" width="56" height="56" alt="Chest"><br>Chest</a> | <a href="Item-crate-controller.md" title="Crate Controller"><img src="icons/177.png" width="56" height="56" alt="Crate Controller"><br>Crate Controller</a> |
+| <a href="Item-wooden-door.md" title="Wooden Door"><img src="icons/171.png" width="56" height="56" alt="Wooden Door"><br>Wooden Door</a> |  |  |  |
 
 ## Light and buckets
 

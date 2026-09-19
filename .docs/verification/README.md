@@ -90,3 +90,5 @@ This directory maintains the latest report and useful evidence for each feature.
 - [Alpha playtest corrections](ALPHA_PLAYTEST_RESULTS.md) — issue #12 interactions, Survival tuning, Lava Rock, rendering, hostile spawning and generic dungeon spawners.
 
 - [Beds, home spawn and sleep](BED_RESULTS.md) — paired placement, crafting, sleep, safe arrival and schema-14 recovery.
+
+- [Bulk crates and warehouses](CRATE_RESULTS.md) — physical stock, type locks, controller connectivity, priority routing and schema-15 recovery.

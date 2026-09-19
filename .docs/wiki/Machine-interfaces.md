@@ -16,10 +16,14 @@ A [Battery Block](Item-battery-block.md) shows stored energy and its charge/outp
 
 ## Starter stations
 
-![Furnace interface with its illustration and separate ingredient, fuel and result slots](images/machine-interface-furnace.png)
+![Furnace interface with its illustration and separate ingredient, fuel and result slots](images/crates/machine-item-priority.png)
 
 [Furnaces](Item-furnace.md), [Chests](Item-chest.md), [Workbenches](Item-workbench.md) and the [Machinist’s Bench](Item-machinist-bench.md) use the same illustration panel. Their existing slots, crafting grids and controls work as before. Shift-click transfers items; the catalog still provides recipes and uses.
 
 Close the station and open your personal inventory to see your character portrait again. Appearance and equipped armor remain available.
 
-*Screenshots: native Windows review player, 2026-09-12. These are staged in-game examples; the illustration is static item artwork.*
+All item-accepting receivers now have **ITEM PRIORITY** with an editable number. Higher priorities receive first and compatible ties round-robin. Powered machines’ **POWER** setting remains separate. See [Item-pipe routing](Item-pipe-routing.md).
+
+![Electric Furnace with separate power and item-priority controls](images/crates/electric-machine-item-priority.png)
+
+*Furnace and Electric Furnace captures: native Windows player, 2026-09-19. The earlier Crusher/Battery illustrations retain their 2026-09-12 capture dates. These are staged in-game examples.*

@@ -4,7 +4,7 @@
 
 Start with the [visual item index](Items.md), then click an item to see its purpose, how to obtain it, every recipe that makes it, and what uses it. Every item icon links to its own page.
 
-This reference covers **108 grid recipes, 11 furnace recipes, 11 electric furnace recipes, 5 crusher recipes, 22 cooker recipes and 19 compost conversions** in the current playable alpha. The recipe grids and icons come from the same catalog and artwork used by the inventory browser.
+This reference covers **110 grid recipes, 11 furnace recipes, 11 electric furnace recipes, 5 crusher recipes, 22 cooker recipes and 19 compost conversions** in the current playable alpha. The recipe grids and icons come from the same catalog and artwork used by the inventory browser.
 
 ## First crafting steps
 
@@ -125,6 +125,7 @@ Choose a result below to open its item page at the exact recipe.
 | <a href="Item-compost-bin.md#recipe-1" title="Compost Bin"><img src="icons/242.png" width="32" height="32" alt="Compost Bin"></a> ×1 [Compost Bin](Item-compost-bin.md) | [Workbench](Item-workbench.md) | [View recipe](Item-compost-bin.md#recipe-1) |
 | <a href="Item-fishing-rod.md#recipe-1" title="Fishing Rod"><img src="icons/244.png" width="32" height="32" alt="Fishing Rod"></a> ×1 [Fishing Rod](Item-fishing-rod.md) | [Workbench](Item-workbench.md) | [View recipe](Item-fishing-rod.md#recipe-1) |
 | <a href="Item-bed.md#recipe-1" title="Bed"><img src="icons/254.png" width="32" height="32" alt="Bed"></a> ×1 [Bed](Item-bed.md) | [Workbench](Item-workbench.md) | [View recipe](Item-bed.md#recipe-1) |
+| <a href="Item-bulk-crate.md#recipe-1" title="Bulk Crate"><img src="icons/176.png" width="32" height="32" alt="Bulk Crate"></a> ×1 [Bulk Crate](Item-bulk-crate.md) | [Workbench](Item-workbench.md) | [View recipe](Item-bulk-crate.md#recipe-1) |
 
 ## Machinist’s Bench — 4×4
 
@@ -171,6 +172,7 @@ Choose a result below to open its item page at the exact recipe.
 | <a href="Item-ranged-liquid-pump.md#recipe-1" title="Ranged Liquid Pump"><img src="icons/180.png" width="32" height="32" alt="Ranged Liquid Pump"></a> ×1 [Ranged Liquid Pump](Item-ranged-liquid-pump.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-ranged-liquid-pump.md#recipe-1) |
 | <a href="Item-electric-cooker.md#recipe-1" title="Electric Cooker"><img src="icons/241.png" width="32" height="32" alt="Electric Cooker"></a> ×1 [Electric Cooker](Item-electric-cooker.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-electric-cooker.md#recipe-1) |
 | <a href="Item-auto-composter.md#recipe-1" title="Autocomposter"><img src="icons/243.png" width="32" height="32" alt="Autocomposter"></a> ×1 [Autocomposter](Item-auto-composter.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-auto-composter.md#recipe-1) |
+| <a href="Item-crate-controller.md#recipe-1" title="Crate Controller"><img src="icons/177.png" width="32" height="32" alt="Crate Controller"></a> ×1 [Crate Controller](Item-crate-controller.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-crate-controller.md#recipe-1) |
 
 ## Furnace processing
 

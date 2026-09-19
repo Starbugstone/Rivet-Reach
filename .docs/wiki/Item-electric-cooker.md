@@ -26,6 +26,8 @@ Make this item using the crafting or processing recipes below.
 
 Right-click or Interact, select a recipe, load ingredients and supply 200 W electricity on any face. See [Farming and cooking](Farming-and-cooking.md) for setup, recipes and screenshots. Partial work and stored heat persist through saves; blocked or idle cookers consume no new energy.
 
+Edit **ITEM PRIORITY** in this receiver’s interface to control pipe delivery. Higher values receive first; equal values round-robin among compatible destinations. See [Item-pipe routing](Item-pipe-routing.md).
+
 ## Crafting and processing
 
 ### Recipe 1

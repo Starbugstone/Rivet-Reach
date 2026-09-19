@@ -11,7 +11,7 @@ namespace RivetReach
             var track=Panel(parent,821,295,310,18,slate);machineProgress=Panel(track.transform,0,0,0,18,gold);
             Label(parent,"ADD ORGANICS",821,329,170,22,13,gold);Slot(parent,MachineSlotStart,821,357,55);
             if(m.IsAutoComposter){Label(parent,"COMPOST",1030,329,110,22,13,gold);Slot(parent,MachineSlotStart+2,1069,357,55);}
-            machineDetail=Label(parent,"",821,426,311,180,14);
+            machineDetail=Label(parent,"",821,417,311,170,13);
             nextMachineRefresh=0;
         }
         void RefreshCompost(MachineState m)

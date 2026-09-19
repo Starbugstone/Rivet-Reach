@@ -39,8 +39,8 @@ namespace RivetReach
         sealed class StationWidgets
         {
             public RectTransform root;
-            public Text creativeStatus;
-            public InputField bridgeNameField;
+            public Text creativeStatus,crateStatus,cratePage;
+            public InputField bridgeNameField,itemPriorityField;
             public readonly List<SlotView> slots = new List<SlotView>();
             public readonly List<(Text label, Func<MachineState,string> value)> controls = new List<(Text,Func<MachineState,string>)>();
             public Text craftStatus, craftOutputName, furnaceText, machineStatus, machineDetail;
@@ -229,7 +229,7 @@ namespace RivetReach
             foreach(var slot in slots)slot.Shown=false;
         }
         int StationLayout => game.OpenMachine!=null ? 1000+game.OpenMachine.Definition.Id : game.OpenStation?.Furnace!=null ? 100 :
-            game.OpenStation?.Storage!=null ? 101 : game.Creative&&game.OpenStation==null&&!creativeCrafting ? 102 : game.Crafting.Grid.Size;
+            game.OpenStation?.Crate!=null ? 103 : game.OpenStation?.Block==CrateId.Controller ? 104 : game.OpenStation?.Storage!=null ? 101 : game.Creative&&game.OpenStation==null&&!creativeCrafting ? 102 : game.Crafting.Grid.Size;
         void BindStationPanel()
         {
             using var measurement=bindStationMarker.Auto();
@@ -244,16 +244,19 @@ namespace RivetReach
                 if(game.OpenMachine!=null)BuildMachine(panel.root);
                 else if(key==100)BuildFurnace(panel.root);
                 else if(key==101)BuildChest(panel.root);
+                else if(key==103||key==104)BuildCrate(panel.root,key==104);
                 else if(key==102)BuildCreativeCatalog(panel.root);
                 else BuildCraftingStation(panel.root);
+                BuildItemPriority(panel.root);
                 panel.slots.AddRange(slots.GetRange(first,slots.Count-first));stationScreens.Add(key,panel);
             }
             else {currentStation=panel;slots.AddRange(panel.slots);}
+            if(panel.itemPriorityField!=null)panel.itemPriorityField.SetTextWithoutNotify(ItemPriority.ToString());
             if(panel.bridgeNameField!=null)panel.bridgeNameField.SetTextWithoutNotify(game.OpenMachine.LinkName);
             foreach(var control in panel.controls)control.label.text=control.value(game.OpenMachine);
             if(panel.creativeStatus!=null)panel.creativeStatus.text="Click an item to receive a full stack";
             panel.root.gameObject.SetActive(true);
-            BindStationIllustration();
+            cratePage=0;RefreshCrates();BindStationIllustration();
         }
         void RefreshMachineControls()
         {

@@ -11,12 +11,17 @@ namespace RivetReach
         public CraftingSession Crafting {get;}
         public FurnaceState Furnace {get;}
         public ItemContainer Storage {get;}
+        public CrateStorage Crate {get;}
+        int cratePriority;
+        public int ItemInputPriority {get=>Furnace?.ItemInputPriority??Storage?.ItemInputPriority??cratePriority;set{if(Furnace!=null)Furnace.ItemInputPriority=value;else if(Storage!=null)Storage.ItemInputPriority=value;else cratePriority=value;}}
         public StationState(byte block,RecipeRegistry crafting,ProcessingRegistry processing,Func<byte,int> limit)
         {
-            Block=block;
+            Block=block;cratePriority=block==CrateId.Controller?40:30;
             if(block==BlockId.Workbench||block==IndustryId.Bench)Crafting=new CraftingSession(crafting,block==IndustryId.Bench?4:3,limit);
             else if(block==BlockId.Furnace)Furnace=new FurnaceState(processing,limit);
             else if(block==BlockId.Chest)Storage=new ItemContainer(27,limit);
+            else if(block==CrateId.Crate)Crate=new CrateStorage(limit);
+            else if(block==CrateId.Controller){}
             else throw new ArgumentException("Unsupported station block.");
         }
     }

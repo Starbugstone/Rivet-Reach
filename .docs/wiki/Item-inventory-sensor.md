@@ -23,7 +23,7 @@ Make this item using the crafting or processing recipes below.
 
 ## Using it
 
-See [Blue Signal](Blue-Signal.md) for connection directions and control examples. Signal carries an ON/OFF instruction; machines still need their separate resources and electricity.
+Counts contents behind it, including a Chest, Bulk Crate or connected Crate Controller. It switches on at **32 items** and ignores unavailable terrain. See [Blue Signal](Blue-Signal.md) for connection directions and control examples. Signal carries an ON/OFF instruction; machines still need their separate resources and electricity.
 
 Opening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md).
 

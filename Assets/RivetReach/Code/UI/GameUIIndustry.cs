@@ -27,7 +27,7 @@ namespace RivetReach
             if(m.Definition.WaterCapacity>0||m.Definition.Id==IndustryId.TankController||m.Definition.Id==IndustryId.TankHatch)
             {MachineButton(parent,live=>"ADD 10 L",821,455,146,34,live=>{if(!game.Industry.Bucket(live,true))game.Notify("Need a compatible liquid bucket and 10 L of free space",3);});MachineButton(parent,live=>"TAKE 10 L",977,455,147,34,live=>{if(!game.Industry.Bucket(live,false))game.Notify("Need an empty bucket and 10 L of stored liquid",3);});}
             else if(m.Definition.Watts>0)
-            {MachineButton(parent,live=>"PRIORITY: "+new[]{"HIGH","NORMAL","LOW"}[live.Priority],821,455,303,34,live=>{live.Priority=(live.Priority+1)%3;});}
+            {MachineButton(parent,live=>"POWER: "+new[]{"HIGH","NORMAL","LOW"}[live.Priority],821,455,303,34,live=>{live.Priority=(live.Priority+1)%3;});}
             MachineButton(parent,live=>"ROTATE PORTS 90°",821,495,303,34,live=>{game.Industry.Simulation.Rotate(live);});
             if(PipeConnections.IsTransport(m.Definition.Id))
             {
