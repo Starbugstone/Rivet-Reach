@@ -30,7 +30,13 @@ Storm flashes and thunder are atmospheric: they do not strike players, ignite bu
 
 ## Time and saves
 
-Weather continues while you play or open inventory. Pausing freezes its schedule. [Sleeping](Beds-and-home-spawn.md) changes the time of day without using up the remaining weather duration.
+Weather continues while you play or open inventory. Pausing freezes its schedule. [Sleeping](Beds-and-home-spawn.md) checks the weather again: it may stay the same or gradually change after you wake. It currently has a 50% chance to keep the existing weather; otherwise it chooses a different state. This happens once per successful night skip, so using the bed again in the morning cannot keep rerolling it.
+
+This actual sleep example changes a storm into rain. A different night may keep its weather.
+
+![Storm at the bed before sleeping](images/beds/bed-night.png)
+
+![Rain after sleeping and the gradual weather transition](images/beds/bed-morning.png)
 
 Save Game remembers the current weather and any transition in progress. Loading resumes that schedule without advancing it for time spent away. Older checkpoints begin with clear weather when first loaded into this version.
 

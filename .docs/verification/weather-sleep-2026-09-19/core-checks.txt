@@ -1,0 +1,1 @@
+PASS 217 weather core assertions

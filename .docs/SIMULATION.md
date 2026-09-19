@@ -448,4 +448,4 @@ The user selected implementation of [GitHub issue #2](https://github.com/Starbug
 
 ## Weather authority
 
-[Weather](WEATHER.md) is a world-scoped deterministic state machine advanced through active 20 Hz survival ticks. It is independent of celestial jumps, chunk residency and presentation. Saved transition/RNG snapshots provide a future replication boundary; no multiplayer transport is implemented in this increment. Rain/audio are bounded presentation consumers and do not alter gameplay light or terrain.
+[Weather](WEATHER.md) is a world-scoped deterministic state machine advanced through active 20 Hz survival ticks. It is independent of raw celestial clock edits, chunk residency and presentation. Successful bed sleep explicitly performs one saved-RNG weather recheck without advancing other simulation clocks. Saved transition/RNG snapshots provide a future replication boundary; no multiplayer transport is implemented in this increment. Rain/audio are bounded presentation consumers and do not alter gameplay light or terrain.

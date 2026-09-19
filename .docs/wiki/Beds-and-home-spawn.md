@@ -38,8 +38,8 @@ Use a valid bed between **18:00 and 06:00** to set home and wake at **06:00**. H
 
 ![Morning after using the bed](images/beds/bed-morning.png)
 
-Sleep advances the sky and calendar. It does not give crops, chickens or machines a night's worth of production, consume a night's fuel, refill hunger or heal you. Existing hostile creatures remain, so keep your bedroom safe.
+Sleep advances the sky and calendar and checks [weather](Weather.md) again. You may wake to the same weather or a gradual change; daytime bed use does not reroll it. It does not give crops, chickens or machines a night's worth of production, consume a night's fuel, refill hunger or heal you. Existing hostile creatures remain, so keep your bedroom safe.
 
-Screenshots: September 19, 2026, from the bed development player. The review platform demonstrates crafting, placement, setting home, sleep and respawn.
+Screenshots: September 19, 2026, from the bed development player; the night/morning pair was refreshed in the Weather player for the sleep weather recheck. The review platform demonstrates crafting, placement, setting home, sleep and respawn.
 
 [All items](Items.md) · [Farming and cooking](Farming-and-cooking.md) · [Home](Home.md)

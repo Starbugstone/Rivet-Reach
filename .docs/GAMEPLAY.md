@@ -514,4 +514,4 @@ The ExplorerSkin rendering path uses the world's explicit distance-fog range, pr
 
 ## Weather
 
-[Weather](WEATHER.md) implements gradual clear/rain/storm conditions, local sheltered rain, wind/thunder ambience and saved schedules. Weather advances with active survival ticks; sleep changes celestial time only. See the illustrated [player guide](wiki/Weather.md).
+[Weather](WEATHER.md) implements gradual clear/rain/storm conditions, local sheltered rain, wind/thunder ambience and saved schedules. Weather advances with active survival ticks; successful sleep changes celestial time and performs one weather recheck. See the illustrated [player guide](wiki/Weather.md).

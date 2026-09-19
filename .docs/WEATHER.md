@@ -14,7 +14,7 @@ One `WeatherState` owns clear, rain and storm conditions for the current expedit
 
 Transitions take an additional 15 seconds with smoothstep interpolation. Clear proceeds to rain 75% of the time and storm 25%; rain proceeds to clear or storm equally; storm proceeds to rain 75% or clear 25%. Seeded xorshift selection and remaining fixed ticks are world authority. All factors stay between zero and one. These are an API boundary for later renewable generators, not implemented generation modifiers.
 
-The existing active survival tick feeds weather at 20 Hz. Inventory time continues; title, menus that pause, death/residency gates and offline time freeze it. Beds advance celestial time only, preserving the weather schedule. No terrain generation changes are needed. Existing worlds acquire weather without altering generated chunks.
+The existing active survival tick feeds weather at 20 Hz. Inventory time continues; title, menus that pause, death/residency gates and offline time freeze it. Successful bed sleep advances celestial time and performs one weather recheck. The working default is a 50% chance to retain the current target and exact remaining timer; otherwise the existing next-state probabilities choose a different target, blending from the current values over 15 seconds. An in-progress transition can be retargeted smoothly. Daytime use, held/repeated morning use and unsuccessful sleep perform no check. The existing saved RNG makes the result reproducible after loading; no save-format change is needed. Other survival/production clocks receive no skipped ticks. No terrain generation changes are needed. Existing worlds acquire weather without altering generated chunks.
 
 ## Presentation and shelter
 

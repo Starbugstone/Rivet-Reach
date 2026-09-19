@@ -35,3 +35,7 @@ The exported reference contains **191 items and 195 recipes**. The publisher val
 Real Chromium review covered the live bed guide, Bed, Cloth, Planks, Workbench and Spawn mechanics pages. The Bed recipe’s Cloth ingredient link was followed successfully. All page images loaded and none of those six pages overflowed at 390×844 ([browser readback](beds-2026-09-19/live-wiki-checks.json)). The guide was reviewed on desktop and the Bed recipe on mobile ([desktop capture](beds-2026-09-19/wiki-guide-desktop.png), [mobile capture](beds-2026-09-19/wiki-bed-mobile.png)). All eight guide PNGs and the new inventory icon match the local SHA-256 hashes ([published assets](beds-2026-09-19/published-assets.json)).
 
 [Issue #10](https://github.com/Starbugstone/Rivet-Reach/issues/10) was updated and read back: nine bed-related recipe/phase/acceptance entries are newly checked, stale current-status wording is reconciled, and the multiplayer-policy limitation is explicit. Crates/controllers, weather, renewables and sustained hunger tuning remain unchecked; the issue stays open ([readback](beds-2026-09-19/issue10-check.json)).
+
+## Subsequent sleep weather recheck
+
+The user's later [weather sleep revision](WEATHER_RESULTS.md#sleep-weather-recheck--current-revision) adds one weather check to successful night skipping. It preserves the original no-production-catch-up contract; daytime use does not reroll weather. The current illustrated night/morning pair comes from that revised Weather build; the older focused bed results above retain their original build identity.

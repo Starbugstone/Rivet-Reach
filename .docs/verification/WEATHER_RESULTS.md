@@ -2,7 +2,15 @@
 
 Scope: [weather](../WEATHER.md), issue #10. The current working build is `Builds/Weather/RivetReach.exe`, Unity 6000.4.4f1 / Direct3D11. Clear, rain and storm presentation share a pure saved weather authority. This is a focused single-player check, not multiplayer or whole-game certification.
 
-## Measured checks
+## Sleep weather recheck — current revision
+
+Successful bed sleep now performs exactly one saved-RNG weather check: 50% retains the current target/timer; otherwise it selects a different target and blends over 15 seconds. This supersedes the original weather-preserving sleep decision. Raw celestial clock edits alone still do not alter weather. Other survival/production timers remain unchanged.
+
+[Pure weather checks](weather-sleep-2026-09-19/core-checks.txt): **217 assertions**, including keep/change outcomes across 64 deterministic seeds, no visual discontinuity, retained timers and saved-RNG repeatability. [Native bed review](weather-sleep-2026-09-19/runtime-report.json): **237 assertions**, including actual successful sleep with exactly one weather roll, daytime/repeated morning use without rerolls, byte-identical non-weather production state, bed save/load and failed-load rollback. The [current build](weather-sleep-2026-09-19/build-summary.txt) has zero errors and the same four existing Alpha harness API warnings. [Artifact hashes](weather-sleep-2026-09-19/build-artifacts.json) identify this revised player. Updated [night](../wiki/images/beds/bed-night.png) and [morning](../wiki/images/beds/bed-morning.png) captures show Storm → Rain.
+
+The original weather implementation and coverage evidence below belong to commit `9791ca5`; the sleep revision has its own evidence and does not re-date those measurements.
+
+## Original weather checks
 
 - [Pure core](weather-2026-09-19/core-checks.txt): **24 assertions** covering deterministic schedules, bulk/chunked advancement, smooth transitions, interrupted transitions, exact RNG continuation, legacy defaults and malformed payloads.
 - [Native player](weather-2026-09-19/runtime-report.json): **71 assertions**, including ordinary empty-handed Survival startup, live timing, pause, intermediate rain, visible bounded geometry, opaque roof shelter, cloud attenuation, master mute, delayed thunder, exact schema-16 transition saves and late-payload rollback.

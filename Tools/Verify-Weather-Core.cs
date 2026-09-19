@@ -40,6 +40,20 @@ static class VerifyWeatherCore
         bool rejected=false;try{var payload=new byte[26];payload[0]=9;using var bad=new BinaryReader(new MemoryStream(payload));new WeatherState(1).ReadSave(bad,16);}catch(InvalidDataException){rejected=true;}Check(rejected,"invalid weather kind is rejected");
         byte[] stable=bytes.Clone() as byte[];var stableState=new WeatherState(17);stableState.SetWeather(WeatherKind.Rain,true);using(var memory=new MemoryStream()){using var writer=new BinaryWriter(memory);stableState.WriteSave(writer);stable=memory.ToArray();}BitConverter.GetBytes(.25f).CopyTo(stable,14);rejected=false;try{using var bad=new BinaryReader(new MemoryStream(stable));new WeatherState(1).ReadSave(bad,16);}catch(InvalidDataException){rejected=true;}Check(rejected,"corrupt stable weather profile is rejected");
         stable[10]=stable[11]=stable[12]=stable[13]=0;rejected=false;try{using var bad=new BinaryReader(new MemoryStream(stable));new WeatherState(1).ReadSave(bad,16);}catch(InvalidDataException){rejected=true;}Check(rejected,"zero weather RNG state is rejected");
+        bool retained=false,changed=false;
+        for(int seed=0;seed<64;seed++)
+        {
+            var sleep=new WeatherState(seed);sleep.SetWeather(WeatherKind.Storm,true);sleep.Advance(23);
+            int remaining=sleep.RemainingTicks;float cloud=sleep.CloudCover,rain=sleep.RainStrength,wind=sleep.WindStrength;
+            byte[] checkpoint;using(var memory=new MemoryStream()){using var writer=new BinaryWriter(memory);sleep.WriteSave(writer);checkpoint=memory.ToArray();}
+            var twin=new WeatherState(seed);using(var reader=new BinaryReader(new MemoryStream(checkpoint)))twin.ReadSave(reader,16);
+            sleep.RecheckAfterSleep();twin.RecheckAfterSleep();
+            Check(sleep.Kind==twin.Kind&&sleep.RemainingTicks==twin.RemainingTicks&&sleep.TransitionTicks==twin.TransitionTicks,"saved RNG reproduces sleep check "+seed);
+            Check(sleep.CloudCover==cloud&&sleep.RainStrength==rain&&sleep.WindStrength==wind,"sleep check preserves continuous presentation "+seed);
+            if(sleep.Kind==WeatherKind.Storm){retained=true;Check(sleep.RemainingTicks==remaining&&!sleep.Transitioning,"retained weather keeps exact timer");}
+            else{changed=true;Check(sleep.TransitionTicks==300&&sleep.RemainingTicks==300,"changed weather starts ordinary transition");}
+        }
+        Check(retained&&changed,"sleep may retain or change weather across deterministic seeds");
         Console.WriteLine("PASS "+assertions+" weather core assertions");
     }
 }

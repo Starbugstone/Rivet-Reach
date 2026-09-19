@@ -52,6 +52,12 @@ namespace RivetReach
             if(Transitioning&&Kind==kind)return;
             Begin(kind);
         }
+        // One roll after a successful night skip. Retaining weather also retains its
+        // current schedule; changing it blends from the current presentation values.
+        public void RecheckAfterSleep()
+        {
+            if(Next(2)!=0)Begin(NextKind());
+        }
         public void Advance(int ticks)
         {
             if(ticks<0)throw new ArgumentOutOfRangeException(nameof(ticks));

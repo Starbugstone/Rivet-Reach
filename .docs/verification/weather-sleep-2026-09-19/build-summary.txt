@@ -1,0 +1,1 @@
+Succeeded; errors 0; warnings 4; seconds 17,8140361; bytes 339061369

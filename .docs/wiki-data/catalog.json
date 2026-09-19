@@ -13538,7 +13538,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/BedVerification.cs",
-            "sha256": "83784130416e63a5ac0990927d8d4e7591ade784dc8b56fcc20d465dee514daa"
+            "sha256": "35d6d77b24c983e202fda407efd47dff8d3434776d6b0b20989f4ebca55f330b"
         },
         {
             "path": "Assets/RivetReach/Code/Beds/BedPresentation.cs",
@@ -13550,7 +13550,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Beds/PlayerBeds.cs",
-            "sha256": "f73057afeb35c89e8d945b2788f2796481a650e3b0ba1691138b2176b2faa906"
+            "sha256": "d3d84004334d5ba9260358c7ce6c3aaefff8311911f630331987fc0d34881185"
         },
         {
             "path": "Assets/RivetReach/Code/Beds/WorldBeds.cs",
@@ -14314,7 +14314,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/World/WeatherState.cs",
-            "sha256": "a2390bfe893611c407cfd16340b3eb8a05101de4b0220b5fbef9027cf661e3e4"
+            "sha256": "ba3a8560ef0d52743e85921cba45d60a52e554b8faa8ec3b8b8722805f3b4c72"
         },
         {
             "path": "Assets/RivetReach/Code/World/WorldClock.cs",

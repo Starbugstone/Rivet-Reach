@@ -47,9 +47,9 @@ namespace RivetReach
             Check(world.Get(p)==BedId.Bed&&world.Get(bed.Head)==BedId.Head,"Both cells publish as one bed");
             Check(!world.Select(world.Local(p)+new Vector3(-1,.15f,.5f),Vector3.right,4,out var under)||!BedId.Part(under.Block),"Selection rays pass through the authored gap beneath the bed");AimBed();yield return new WaitForSecondsRealtime(.4f);
             Check(world.GetComponent<BedPresentation>().ViewAt(p)!=null,"Resident paired bed has original rendered model");yield return Capture("bed-placed");
-            player.enabled=true;yield return null;InputSystem.QueueStateEvent(Mouse.current,new MouseState().WithButton(MouseButton.Right));yield return new WaitForSecondsRealtime(.2f);
+            var dayWeather=WeatherBytes(game.Weather);player.enabled=true;yield return null;InputSystem.QueueStateEvent(Mouse.current,new MouseState().WithButton(MouseButton.Right));yield return new WaitForSecondsRealtime(.2f);
             Check(game.Beds.Home.HasValue&&game.Beds.Home.Value.Equals(p)&&game.Beds.HomeIdentity==bed.Identity&&Math.Abs(game.Sky.Clock.TotalDays-.4)<1e-10,"Bound daytime Use sets home without changing time");
-            yield return Capture("bed-home-set");InputSystem.QueueStateEvent(Mouse.current,new MouseState());yield return null;player.enabled=false;
+            Check(dayWeather.SequenceEqual(WeatherBytes(game.Weather)),"Daytime home binding does not reroll weather");yield return Capture("bed-home-set");InputSystem.QueueStateEvent(Mouse.current,new MouseState());yield return null;player.enabled=false;
             var spare=p.Offset(0,0,-2);
             for(int rotation=0;rotation<4;rotation++)
             {
@@ -65,8 +65,19 @@ namespace RivetReach
             var cookerPos=p.Offset(-3,0,-2);Put(cookerPos,FarmId.Cooker);var cooker=game.Industry.Simulation.At(cookerPos);cooker.Items.Add(BlockId.Potato,2,0,1);cooker.Items.Add(BlockId.Coal,1,3,4);
             byte[] State(Action<SaveWriter> write){using var buffer=new MemoryStream();using(var writer=new SaveWriter(buffer))write(writer);return buffer.ToArray();}
             byte[] Production()=>State(w=>{world.WriteSave(w);game.Survival.WriteSave(w);game.Industry.Simulation.WriteSave(w);game.Animals.WriteSave(w);game.Hunger.WriteSave(w);});
-            AimBed();game.Sky.Clock.SetTime(.875);game.Sky.Apply();yield return Capture("bed-night");var before=Production();
-            Check(game.TryInteractTarget()&&game.Sky.Clock.TotalDays==1.25,"Night bed use advances exactly to next 06:00");Check(before.SequenceEqual(Production()),"Sleep leaves terrain growth, fluids, animals, machinery and hunger byte-for-byte unchanged");yield return Capture("bed-morning");
+            // Select a deterministic storm fixture whose next sleep check changes weather.
+            WeatherState expectedWeather=null;
+            for(int attempt=0;attempt<64;attempt++)
+            {
+                game.Weather.SetWeather(WeatherKind.Storm,true);expectedWeather=new WeatherState(game.Seed);
+                using(var reader=new BinaryReader(new MemoryStream(WeatherBytes(game.Weather))))expectedWeather.ReadSave(reader,16);
+                expectedWeather.RecheckAfterSleep();if(expectedWeather.Kind!=WeatherKind.Storm)break;
+            }
+            Check(expectedWeather.Kind!=WeatherKind.Storm,"Sleep fixture exercises an actual changed-weather outcome");
+            AimBed();game.Sky.Clock.SetTime(.875);game.Sky.Apply();yield return new WaitForSecondsRealtime(4.2f);yield return Capture("bed-night");var before=Production();
+            Check(game.TryInteractTarget()&&game.Sky.Clock.TotalDays==1.25,"Night bed use advances exactly to next 06:00");Check(before.SequenceEqual(Production()),"Sleep leaves terrain growth, fluids, animals, machinery and hunger byte-for-byte unchanged");Check(WeatherBytes(game.Weather).SequenceEqual(WeatherBytes(expectedWeather)),"Successful bed sleep executes exactly one saved-RNG weather check");
+            yield return Capture("bed-morning");game.Weather.Advance(300);game.Sky.Apply();yield return Capture("bed-morning-weather");
+            var morningWeather=WeatherBytes(game.Weather);Check(game.TryInteractTarget()&&morningWeather.SequenceEqual(WeatherBytes(game.Weather)),"Repeated morning bed use cannot reroll weather");
             Aim(world.Local(bed.Head)+new Vector3(.5f,.8f,.5f),world.Local(bed.Head)+new Vector3(2,.02f,.5f));game.Sky.Clock.SetTime(2.125);Check(game.TryInteractTarget()&&game.Sky.Clock.TotalDays==2.25,"Head-half use after midnight reaches this morning, not another full day");
             // Actual held use cannot advance another day, and the bound Interact shares the route.
             player.enabled=true;yield return null;InputSystem.QueueStateEvent(Mouse.current,new MouseState().WithButton(MouseButton.Right));yield return new WaitForSecondsRealtime(.4f);Check(game.Sky.Clock.TotalDays==2.25,"Holding Use at morning cannot repeatedly advance days");InputSystem.QueueStateEvent(Mouse.current,new MouseState());yield return null;player.enabled=false;

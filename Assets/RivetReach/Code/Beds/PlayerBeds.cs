@@ -36,7 +36,7 @@ namespace RivetReach
             {
                 double morning=SleepPolicy.Morning(game.Sky.Clock.TotalDays);
                 if(morning>1e9){game.Notify("Home spawn set. This world has reached its calendar limit.",4);return true;}
-                game.Fishing.Cast.Cancel();game.Sky.Clock.SetTime(morning);game.Sky.Apply();
+                game.Fishing.Cast.Cancel();game.Sky.Clock.SetTime(morning);game.Weather.RecheckAfterSleep();game.Sky.Apply();
                 game.Notify("Home spawn set. You slept until morning.",4);
             }
             return true;
