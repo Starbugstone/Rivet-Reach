@@ -8,6 +8,8 @@ Successful bed sleep now performs exactly one saved-RNG weather check: 50% retai
 
 [Pure weather checks](weather-sleep-2026-09-19/core-checks.txt): **217 assertions**, including keep/change outcomes across 64 deterministic seeds, no visual discontinuity, retained timers and saved-RNG repeatability. [Native bed review](weather-sleep-2026-09-19/runtime-report.json): **237 assertions**, including actual successful sleep with exactly one weather roll, daytime/repeated morning use without rerolls, byte-identical non-weather production state, bed save/load and failed-load rollback. The [current build](weather-sleep-2026-09-19/build-summary.txt) has zero errors and the same four existing Alpha harness API warnings. [Artifact hashes](weather-sleep-2026-09-19/build-artifacts.json) identify this revised player. Updated [night](../wiki/images/beds/bed-night.png) and [morning](../wiki/images/beds/bed-morning.png) captures show Storm → Rain.
 
+[Wiki deployment 35452653323](https://github.com/Starbugstone/Rivet-Reach/actions/runs/35452653323) published implementation `59cc096` to wiki `61315bb`. [Live review](weather-sleep-2026-09-19/live-wiki-checks.json) verifies both revised guides, all six Weather images, mobile layouts and navigation. All 225 published pages and both refreshed bed captures match the sources. The export/link check passed with 193 items, 197 recipes and 9,653 links/images; [664 source fingerprints](weather-sleep-2026-09-19/staged-export-check.txt) match the committed inputs. Issue #10 records the revised sleep rule.
+
 The original weather implementation and coverage evidence below belong to commit `9791ca5`; the sleep revision has its own evidence and does not re-date those measurements.
 
 ## Original weather checks

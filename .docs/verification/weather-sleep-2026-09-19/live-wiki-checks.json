@@ -1,0 +1,29 @@
+{
+  "pages": [
+    {
+      "name": "Weather",
+      "desktop": {
+        "title": "Weather \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+        "images": 6,
+        "text": "Weather\n\nYour expedition now moves between clear skies, rain and storms. The day/time display also shows the current weather. New expeditions begin clear, and clouds and rainfall change gradually over about 15 seconds.\n\nWeather\tWhat you will notice\tUsual duration\nClear\tBlue sky, scattered clouds and gentle wind\t4\u20138 minutes\nRain\tCloudier sky, steady rain and rainfall sounds\t3\u20135 minutes\nStorm\tDark clouds, heavier rain, stronger wind and distant thunder\t2\u20134 minutes\n\nThe duration applies after the transition finishes. Storms can happen by day or night.\n\nClear, rain and storm\n\nActual Windows-player captures, 19 September 2026, from the same weather review scene:\n\nTake shelter\n\nA solid roof keeps rain out and muffles the weather sounds. Caves also provide shelter. Looking out from cover still shows rain outside.\n\nStorm flashes and thunder are atmospheric: they do not strike players, ignite buildings or damage crops. Rain adds no watering chores and does not fill tanks or change farmland. Existing lighting and underground farming rules still apply.\n\nTime and saves\n\nWeather continues while you play or open inventory. Pausing freezes its schedule. Sleeping checks the weather again: it may stay the same or gradually change after you wake. It currently has a 50% chance to keep the existing weather; otherwise it chooses a different state. This happens once per successful night skip, so using the bed again in the morning cannot keep rerolling it.\n\nThis actual sleep example changes a storm into rain. A different night may keep its weather.\n\nSave Game remembers the current weather and any transition in progress. Loading resumes that schedule without advancing it for time spent away. Older checkpoints begin with clear weather when first loaded into this version.\n\nRain and thunder use the normal master audio volume in Settings. Solar panels and wind turbines are a separate upcoming feature.\n\nRivet Reach \u00b7 \u00a9 Starbugstone \u00b7 All rights reserved. These guides describe the current playable alpha."
+      },
+      "mobile": {
+        "viewport": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "Beds-and-home-spawn",
+      "desktop": {
+        "title": "Beds and home spawn \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+        "images": 8,
+        "text": "Beds and home spawn\n\nCraft a Bed to make a home respawn point and sleep through the night. You need Cloth from flax and Planks.\n\nCraft and place\n\nAt a Workbench, place three Cloth in a row, with three Planks directly beneath them. This makes one Bed.\n\nLeave two empty, dry blocks above solid floors. Aim at the floor and place the bed; its pillow points away from you. Keep space beside it for getting up. Both halves must be clear of players and creatures.\n\nMining either half returns one Bed. Removing either floor also breaks the bed and drops one Bed. Pick it up normally. Crouch while placing against an existing bed to place a block instead of using it.\n\nSet your home\n\nAim at either half and right-click/Use or press Interact. During the day, this sets your home without advancing time. The game confirms the new spawn point.\n\nAfter death, respawn in a clear spot beside your bed. If it was destroyed or every safe spot is blocked, you return to the normal world spawn and see a message explaining why. Leave floor space and headroom around the bed; nearby liquids and creatures can make a spot unsafe.\n\nUsing a different bed moves your home. Breaking a bed and replacing it in the same place requires using the replacement again. Save through Escape before quitting to keep your bed and home assignment.\n\nSleep until morning\n\nUse a valid bed between 18:00 and 06:00 to set home and wake at 06:00. Holding Use does not repeatedly skip days.\n\nSleep advances the sky and calendar and checks weather again. You may wake to the same weather or a gradual change; daytime bed use does not reroll it. It does not give crops, chickens or machines a night's worth of production, consume a night's fuel, refill hunger or heal you. Existing hostile creatures remain, so keep your bedroom safe.\n\nScreenshots: September 19, 2026, from the bed development player; the night/morning pair was refreshed in the Weather player for the sleep weather recheck. The review platform demonstrates crafting, placement, setting home, sleep and respawn.\n\nAll items \u00b7 Farming and cooking \u00b7 Home\n\nRivet Reach \u00b7 \u00a9 Starbugstone \u00b7 All rights reserved. These guides describe the current playable alpha."
+      },
+      "mobile": {
+        "viewport": 390,
+        "width": 390
+      }
+    }
+  ],
+  "navigation": "https://github.com/Starbugstone/Rivet-Reach/wiki/Beds-and-home-spawn"
+}
