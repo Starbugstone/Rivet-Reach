@@ -13,6 +13,7 @@ namespace RivetReach
             var args=Environment.GetCommandLineArgs();int index=Array.IndexOf(args,"-rr-save-directory");Check(index>=0,"Renewable resume uses isolated saved fixture");
             game.InitializeSaves(args[index+1]);Check(game.ContinueLatestSave(),"Fresh process continues renewable checkpoint: "+game.SaveStatus);
             game.enabled=false;FreezeSaveFixture();game.Animals.enabled=false;
+            if(args.Contains("-rr-food-legacy"))Check(game.Hunger.Saturation==0,"Actual pre-food-balance schema16 checkpoint starts with zero reserve");
             using(var reader=new BinaryReader(File.OpenRead(Path.Combine(args[index+1],"renewable-fixture.bin"))))
             {
                 Check(game.Survival.Tick==reader.ReadInt64(),"Fresh process retains exact active survival tick");

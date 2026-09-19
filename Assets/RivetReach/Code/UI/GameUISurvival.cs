@@ -101,8 +101,8 @@ namespace RivetReach
                 healthText.text=text;
             }
             bool eating=game.Player.EatingProgress>0;
-            if(hungerText!=null&&(shownFood!=game.Hunger.Food||shownEating!=eating))
-            {shownFood=game.Hunger.Food;shownEating=eating;hungerText.text=eating?"Eating…":game.Creative?"Frozen":game.Hunger.CanSprint?"":"Eat to sprint";}
+            if(hungerText!=null&&(shownFood!=game.Hunger.Food||shownSaturation!=game.Hunger.Saturation||shownEating!=eating))
+            {shownFood=game.Hunger.Food;shownSaturation=game.Hunger.Saturation;shownEating=eating;hungerText.text=eating?"Eating…":game.Creative?"Frozen":!game.Hunger.CanSprint?"Eat to sprint":game.Hunger.Saturation>0?"Well fed · "+game.Hunger.Saturation:"";}
             var furnace=game.OpenStation?.Furnace;
             if(furnaceText!=null&&furnace!=null&&(shownProgress!=furnace.ProgressTicks||shownBurn!=furnace.BurnTicks||shownFurnaceRevision!=furnace.Revision))
             {

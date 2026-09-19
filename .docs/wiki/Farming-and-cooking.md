@@ -70,7 +70,7 @@ Each recipe takes **10 seconds** at full heat or power. Food tags allow intercha
 | 2 vegetables + 1 mushroom | Vegetable Stew | 12 |
 | 1 grain + 1 fruit | Fruit Porridge | 9 |
 
-Every food you can eat has the `edible` tag and its own hunger value. Hold Use to eat. Meals restore more hunger in a single eating action than raw forage: raw carrots restore two points, berries and mushrooms one. Stockpile cooked food for mining, exploration and building. There is no spoilage or freshness timer.
+Every food you can eat has the `edible` tag and its own hunger value. Hold Use to eat. Prepared foods also add saturation, which absorbs exhaustion before the food meter falls. Meals restore more hunger in a single eating action than raw forage: raw carrots restore two points, berries and mushrooms one. Stockpile cooked food for mining, exploration and building. There is no spoilage or freshness timer. [Food and hunger](Food-and-hunger.md) explains saturation, meal timing and the controlled one-hour comparison.
 
 The recipe browser lists both cookers and the alternatives for tagged ingredients. Search with `#edible` to see foods, `#vegetable #edible` to require both tags, or combine a tag and name such as `#ingot iron`. The existing furnace and Electric Furnace still bake potatoes alongside their normal smelting recipes.
 

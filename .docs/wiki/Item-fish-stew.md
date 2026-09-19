@@ -17,6 +17,7 @@ A prepared fish-and-vegetable meal restoring 12 food points.
 | Stack size | 64 |
 | Tags | `edible`, `prepared_food` |
 | Food restored | 12 points |
+| Saturation reserve | 12 points |
 
 ## How to obtain
 
@@ -24,7 +25,7 @@ Make this item using the crafting or processing recipes below.
 
 ## Using it
 
-Either Cooker accepts one raw or cooked fish plus two potatoes/carrots, including one of each. Hold Use to eat. See [Fishing](Fishing.md).
+Either Cooker accepts one raw or cooked fish plus two potatoes/carrots, including one of each. Hold Use to eat. See [Fishing](Fishing.md). [Food and hunger](Food-and-hunger.md) explains food restoration, saturation and meal planning.
 
 ## Crafting and processing
 

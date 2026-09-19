@@ -69,7 +69,7 @@ namespace RivetReach
     }
     public sealed class SaveStore
     {
-        public const int Format=16;
+        public const int Format=17;
         const int MaxBytes=256*1024*1024;
         public string DirectoryPath {get;}
         readonly ItemRegistry registry;
@@ -83,7 +83,7 @@ namespace RivetReach
             // Every definition present before each accepted extension must still match.
             var processing=ProcessingCatalogAsset.Load();
             bool previousTierRecipes=false;
-            string Fingerprint(int legacy,bool orchard=false,bool wrench=false,bool electric=false,bool lava=false,bool floater=false,bool bridges=false,bool ranged=false,bool farming=false,bool materialTags=true,bool compost=false,bool habitats=false,bool spawnLight=false,bool mixedCompost=false,bool fishing=false,bool chickens=false,bool playtest=false,bool beds=false,bool crates=false,bool renewables=false)
+            string Fingerprint(int legacy,bool orchard=false,bool wrench=false,bool electric=false,bool lava=false,bool floater=false,bool bridges=false,bool ranged=false,bool farming=false,bool materialTags=true,bool compost=false,bool habitats=false,bool spawnLight=false,bool mixedCompost=false,bool fishing=false,bool chickens=false,bool playtest=false,bool beds=false,bool crates=false,bool renewables=false,bool foodBalance=false)
             {
                 string definitions=string.Join("\n",registry.items.Where(i=>(renewables||i.stableId!="rivet:solar_panel"&&i.stableId!="rivet:wind_turbine")&&(crates||!CrateId.Part(i.runtimeId))&&(beds||i.runtimeId!=BedId.Bed)&&(playtest||i.runtimeId!=BlockId.LavaRock&&i.runtimeId!=BlockId.MobSpawner)&&(chickens||!ChickenId.Added(i.runtimeId))&&(fishing||!FishId.Added(i.runtimeId))&&(mixedCompost||i.runtimeId!=CompostId.Auto)&&(compost||!CompostId.Added(i.runtimeId))&&(farming||!FarmId.Added(i.runtimeId))&&(ranged||i.stableId!="rivet:ranged_liquid_pump")&&(bridges||i.runtimeId<IndustryId.ItemBridge||i.runtimeId>IndustryId.ChunkLoader)&&(floater||i.stableId!="rivet:floater_rock")&&(lava||i.stableId!="rivet:lava_bucket")&&(electric||i.stableId!="rivet:electric_furnace")&&(wrench||i.stableId!="rivet:wrench")&&(orchard||i.stableId!="rivet:sapling"&&i.stableId!="rivet:apple")&&((legacy&2)==0||i.stableId!="rivet:hand_crank")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.runtimeId).Select(i=>ItemFingerprint(i,farming,materialTags,compost)))
                     +string.Join("\n",processing.recipes.OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
@@ -98,15 +98,18 @@ namespace RivetReach
                 if(fishing)definitions+=Resources.Load<TextAsset>("Definitions/FishingCooking").text+"|fishing-v1";
                 if(mixedCompost)definitions+="|mixed-compost-v2:yield-1-4:160W:8J:512J";
                 if(renewables&&registry.items.Any(i=>i.stableId=="rivet:solar_panel"||i.stableId=="rivet:wind_turbine"))definitions+=Resources.Load<TextAsset>("Definitions/Renewables").text;
+                if(foodBalance)definitions+=Resources.Load<TextAsset>("Definitions/FoodBalance").text;
                 return Convert.ToBase64String(Hash(Encoding.UTF8.GetBytes(definitions)));
             }
-            content=Fingerprint(0,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,renewables:true);
+            content=Fingerprint(0,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,renewables:true,foodBalance:true);
             // Accept the exact pre-tiering recipes as well as current costs, with all other content still checked.
             for(int tierVersion=0;tierVersion<2;tierVersion++)
             {
             previousTierRecipes=tierVersion==1;
-            // Exact complete schema-16 catalog immediately before renewable items,
-            // recipes and configuration were introduced.
+            // Exact complete schema-16 catalog immediately before food-balance
+            // configuration was introduced.  The renewable projection remains
+            // below it for the earlier schema-16 catalog.
+            modernContent.Add(Fingerprint(0,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,renewables:true));
             modernContent.Add(Fingerprint(0,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true));
             modernContent.Add(Fingerprint(0,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true));
             modernContent.Add(Fingerprint(0,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true));

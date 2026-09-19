@@ -1,0 +1,70 @@
+PASS Full hunger cannot consume food or repeatedly refill reserve
+PASS Stew consumes exactly one and provides authored food and reserve
+PASS Paid exhaustion drains reserve before food and retains fractional work
+PASS Final reserve unit absorbs exactly four exhaustion
+PASS Ordinary food drain resumes after reserve
+PASS Reserve has an explicit twenty-point cap
+PASS Large exertion drains both bounded balances without overflow credit
+PASS Healing retains its full six-exhaustion cost while using stored nutrition
+PASS Later issue12 activity reduction and healing cost are preserved
+PASS Schema17 retains exact reserve and fractional exhaustion
+PASS Old hunger payload starts with zero reserve and keeps prior food/exhaustion
+PASS Out-of-range saved saturation rejects
+PASS Food and reserve are independent of fixed-tick batching
+PASS Wild food remains immediately edible; baking adds a lasting reserve
+PASS One-hour base workload conserves supplied Potato and prevents starvation
+PASS One-hour base workload conserves supplied Baked potato and prevents starvation
+PASS One-hour base workload conserves supplied Apple and prevents starvation
+PASS One-hour base workload conserves supplied Carrot and prevents starvation
+PASS One-hour base workload conserves supplied Berries and prevents starvation
+PASS One-hour base workload conserves supplied Mushroom and prevents starvation
+PASS One-hour base workload conserves supplied Bread and prevents starvation
+PASS One-hour base workload conserves supplied Roasted Carrot and prevents starvation
+PASS One-hour base workload conserves supplied Vegetable Stew and prevents starvation
+PASS One-hour base workload conserves supplied Cooked Mushrooms and prevents starvation
+PASS One-hour base workload conserves supplied Fruit Porridge and prevents starvation
+PASS Renewable porridge supports at least fifteen minutes between meals during base activity
+PASS One-hour base workload conserves supplied Raw Fish and prevents starvation
+PASS One-hour base workload conserves supplied Cooked Fish and prevents starvation
+PASS One-hour base workload conserves supplied Fish Stew and prevents starvation
+PASS One-hour base workload conserves supplied Raw Chicken and prevents starvation
+PASS One-hour base workload conserves supplied Cooked Chicken and prevents starvation
+PASS One-hour base workload conserves supplied Cooked Egg and prevents starvation
+PASS One-hour base workload conserves supplied Chicken Stew and prevents starvation
+PASS One-hour expedition workload conserves supplied Potato and prevents starvation
+PASS One-hour expedition workload conserves supplied Baked potato and prevents starvation
+PASS One-hour expedition workload conserves supplied Apple and prevents starvation
+PASS One-hour expedition workload conserves supplied Carrot and prevents starvation
+PASS One-hour expedition workload conserves supplied Berries and prevents starvation
+PASS One-hour expedition workload conserves supplied Mushroom and prevents starvation
+PASS One-hour expedition workload conserves supplied Bread and prevents starvation
+PASS One-hour expedition workload conserves supplied Roasted Carrot and prevents starvation
+PASS One-hour expedition workload conserves supplied Vegetable Stew and prevents starvation
+PASS One-hour expedition workload conserves supplied Cooked Mushrooms and prevents starvation
+PASS One-hour expedition workload conserves supplied Fruit Porridge and prevents starvation
+PASS One-hour expedition workload conserves supplied Raw Fish and prevents starvation
+PASS One-hour expedition workload conserves supplied Cooked Fish and prevents starvation
+PASS One-hour expedition workload conserves supplied Fish Stew and prevents starvation
+PASS One-hour expedition workload conserves supplied Raw Chicken and prevents starvation
+PASS One-hour expedition workload conserves supplied Cooked Chicken and prevents starvation
+PASS One-hour expedition workload conserves supplied Cooked Egg and prevents starvation
+PASS One-hour expedition workload conserves supplied Chicken Stew and prevents starvation
+PASS One-hour sprint workload conserves supplied Potato and prevents starvation
+PASS One-hour sprint workload conserves supplied Baked potato and prevents starvation
+PASS One-hour sprint workload conserves supplied Apple and prevents starvation
+PASS One-hour sprint workload conserves supplied Carrot and prevents starvation
+PASS One-hour sprint workload conserves supplied Berries and prevents starvation
+PASS One-hour sprint workload conserves supplied Mushroom and prevents starvation
+PASS One-hour sprint workload conserves supplied Bread and prevents starvation
+PASS One-hour sprint workload conserves supplied Roasted Carrot and prevents starvation
+PASS One-hour sprint workload conserves supplied Vegetable Stew and prevents starvation
+PASS One-hour sprint workload conserves supplied Cooked Mushrooms and prevents starvation
+PASS One-hour sprint workload conserves supplied Fruit Porridge and prevents starvation
+PASS One-hour sprint workload conserves supplied Raw Fish and prevents starvation
+PASS One-hour sprint workload conserves supplied Cooked Fish and prevents starvation
+PASS One-hour sprint workload conserves supplied Fish Stew and prevents starvation
+PASS One-hour sprint workload conserves supplied Raw Chicken and prevents starvation
+PASS One-hour sprint workload conserves supplied Cooked Chicken and prevents starvation
+PASS One-hour sprint workload conserves supplied Cooked Egg and prevents starvation
+PASS One-hour sprint workload conserves supplied Chicken Stew and prevents starvation
+Assertions: 69

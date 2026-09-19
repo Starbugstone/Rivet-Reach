@@ -17,6 +17,7 @@ Raw meat restoring 2 food points.
 | Stack size | 64 |
 | Tags | `edible`, `meat`, `raw_meat` |
 | Food restored | 2 points |
+| Saturation reserve | 0 points |
 
 ## How to obtain
 
@@ -24,7 +25,7 @@ Defeat an adult [Chicken](Chickens.md); chicks drop no meat.
 
 ## Using it
 
-Cook into Cooked Chicken, or combine with two vegetables for Chicken Stew.
+Cook into Cooked Chicken, or combine with two vegetables for Chicken Stew. [Food and hunger](Food-and-hunger.md) explains food restoration, saturation and meal planning.
 
 ## Crafting and processing
 

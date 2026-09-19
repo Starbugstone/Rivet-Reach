@@ -31,7 +31,7 @@ namespace RivetReach.Editor
             public ItemDefinition definition;
             public string drop, requiredTier, help;
             public bool placeable, ore, crop;
-            public int fuelTicks, watts, waterMl;
+            public int fuelTicks, watts, waterMl, foodSaturation;
         }
         [Serializable] public sealed class Recipe
         {
@@ -72,7 +72,7 @@ namespace RivetReach.Editor
                 items = registry.items.Select(item =>
                 {
                     IndustryDefinition.All.TryGetValue(item.runtimeId, out var machine);
-                    return new Item { definition = item, drop = Id(registry.FistDrop(item.runtimeId)),
+                    return new Item { definition = item, foodSaturation = FoodBalanceCatalog.Current.Saturation(item.runtimeId), drop = Id(registry.FistDrop(item.runtimeId)),
                         requiredTier = BlockId.RequiredTier(item.runtimeId).ToString(), placeable = BlockId.Placeable(item.runtimeId),
                         ore = BlockId.Ore(item.runtimeId), crop = BlockId.Crop(item.runtimeId),
                         fuelTicks = processing.FuelTicks(item.runtimeId), help = machine?.Help ?? "",

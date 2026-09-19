@@ -34,7 +34,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -68,7 +69,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -102,7 +104,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -139,7 +142,8 @@
             "crop": false,
             "fuelTicks": 300,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -175,7 +179,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -209,7 +214,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -243,7 +249,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -277,7 +284,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -311,7 +319,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -345,7 +354,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -379,7 +389,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -413,7 +424,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -447,7 +459,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -481,7 +494,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -517,7 +531,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -553,7 +568,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -590,7 +606,8 @@
             "crop": false,
             "fuelTicks": 1600,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -626,7 +643,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -660,7 +678,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -697,7 +716,8 @@
             "crop": false,
             "fuelTicks": 300,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -733,7 +753,8 @@
             "crop": false,
             "fuelTicks": 100,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -767,7 +788,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -801,7 +823,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -835,7 +858,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -869,7 +893,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -906,7 +931,8 @@
             "crop": false,
             "fuelTicks": 1600,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -942,7 +968,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -978,7 +1005,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -1014,7 +1042,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -1052,7 +1081,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -1089,7 +1119,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 2
         },
         {
             "definition": {
@@ -1123,7 +1154,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -1157,7 +1189,8 @@
             "crop": true,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -1191,7 +1224,8 @@
             "crop": true,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -1225,7 +1259,8 @@
             "crop": true,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -1259,7 +1294,8 @@
             "crop": true,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -1295,7 +1331,8 @@
             "crop": false,
             "fuelTicks": 200,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -1331,7 +1368,8 @@
             "crop": false,
             "fuelTicks": 200,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -1367,7 +1405,8 @@
             "crop": false,
             "fuelTicks": 200,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -1403,7 +1442,8 @@
             "crop": false,
             "fuelTicks": 200,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -1439,7 +1479,8 @@
             "crop": false,
             "fuelTicks": 200,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -1473,7 +1514,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -1507,7 +1549,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -1541,7 +1584,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -1575,7 +1619,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -1609,7 +1654,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -1643,7 +1689,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -1677,7 +1724,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -1711,7 +1759,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -1745,7 +1794,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -1779,7 +1829,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -1813,7 +1864,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -1847,7 +1899,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -1881,7 +1934,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -1915,7 +1969,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -1949,7 +2004,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -1983,7 +2039,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -2017,7 +2074,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -2051,7 +2109,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -2085,7 +2144,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -2119,7 +2179,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -2155,7 +2216,8 @@
             "crop": false,
             "fuelTicks": 16000,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -2189,7 +2251,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -2223,7 +2286,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -2257,7 +2321,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -2291,7 +2356,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -2325,7 +2391,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -2359,7 +2426,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -2393,7 +2461,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -2427,7 +2496,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -2461,7 +2531,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -2495,7 +2566,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -2529,7 +2601,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -2563,7 +2636,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -2597,7 +2671,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -2631,7 +2706,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -2665,7 +2741,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -2699,7 +2776,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -2733,7 +2811,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -2767,7 +2846,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -2801,7 +2881,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -2835,7 +2916,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -2869,7 +2951,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -2903,7 +2986,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -2937,7 +3021,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -2971,7 +3056,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -3005,7 +3091,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -3039,7 +3126,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -3073,7 +3161,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -3107,7 +3196,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -3141,7 +3231,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -3175,7 +3266,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -3209,7 +3301,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -3243,7 +3336,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -3277,7 +3371,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -3311,7 +3406,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -3345,7 +3441,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -3379,7 +3476,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -3413,7 +3511,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -3447,7 +3546,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -3481,7 +3581,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -3515,7 +3616,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -3549,7 +3651,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -3583,7 +3686,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -3617,7 +3721,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -3651,7 +3756,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -3685,7 +3791,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -3719,7 +3826,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -3753,7 +3861,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 20,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -3787,7 +3896,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 100000
+            "waterMl": 100000,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -3821,7 +3931,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -3855,7 +3966,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 160,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -3889,7 +4001,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 10000
+            "waterMl": 10000,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -3923,7 +4036,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 240,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -3957,7 +4071,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 100000
+            "waterMl": 100000,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -3991,7 +4106,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -4025,7 +4141,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -4059,7 +4176,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -4093,7 +4211,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -4127,7 +4246,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -4161,7 +4281,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -4195,7 +4316,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -4229,7 +4351,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -4263,7 +4386,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -4297,7 +4421,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -4331,7 +4456,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -4365,7 +4491,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -4399,7 +4526,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -4435,7 +4563,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -4473,7 +4602,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -4507,7 +4637,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -4541,7 +4672,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -4575,7 +4707,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 200,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -4609,7 +4742,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -4643,7 +4777,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -4677,7 +4812,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 10000
+            "waterMl": 10000,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -4711,7 +4847,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -4745,7 +4882,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -4779,7 +4917,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -4813,7 +4952,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -4850,7 +4990,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -4887,7 +5028,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -4924,7 +5066,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -4961,7 +5104,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -4997,7 +5141,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -5033,7 +5178,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -5070,7 +5216,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -5108,7 +5255,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -5145,7 +5293,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -5183,7 +5332,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -5221,7 +5371,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -5259,7 +5410,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 6
         },
         {
             "definition": {
@@ -5297,7 +5449,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 2
         },
         {
             "definition": {
@@ -5335,7 +5488,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 12
         },
         {
             "definition": {
@@ -5373,7 +5527,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 2
         },
         {
             "definition": {
@@ -5411,7 +5566,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 8
         },
         {
             "definition": {
@@ -5445,7 +5601,8 @@
             "crop": true,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -5479,7 +5636,8 @@
             "crop": true,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -5513,7 +5671,8 @@
             "crop": true,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -5547,7 +5706,8 @@
             "crop": true,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -5581,7 +5741,8 @@
             "crop": true,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -5615,7 +5776,8 @@
             "crop": true,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -5649,7 +5811,8 @@
             "crop": true,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -5683,7 +5846,8 @@
             "crop": true,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -5717,7 +5881,8 @@
             "crop": true,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -5751,7 +5916,8 @@
             "crop": true,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -5785,7 +5951,8 @@
             "crop": true,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -5819,7 +5986,8 @@
             "crop": true,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -5853,7 +6021,8 @@
             "crop": true,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -5887,7 +6056,8 @@
             "crop": true,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -5921,7 +6091,8 @@
             "crop": true,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -5955,7 +6126,8 @@
             "crop": true,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -5989,7 +6161,8 @@
             "crop": true,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -6023,7 +6196,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -6057,7 +6231,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 200,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -6091,7 +6266,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -6125,7 +6301,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -6159,7 +6336,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 160,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -6195,7 +6373,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -6233,7 +6412,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -6271,7 +6451,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 4
         },
         {
             "definition": {
@@ -6308,7 +6489,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 12
         },
         {
             "definition": {
@@ -6345,7 +6527,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -6383,7 +6566,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -6421,7 +6605,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 4
         },
         {
             "definition": {
@@ -6457,7 +6642,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -6495,7 +6681,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 2
         },
         {
             "definition": {
@@ -6532,7 +6719,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 12
         },
         {
             "definition": {
@@ -6566,7 +6754,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -6600,7 +6789,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -6634,7 +6824,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -6668,7 +6859,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -6702,7 +6894,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -6736,7 +6929,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         },
         {
             "definition": {
@@ -6770,7 +6964,8 @@
             "crop": false,
             "fuelTicks": 0,
             "watts": 0,
-            "waterMl": 0
+            "waterMl": 0,
+            "foodSaturation": 0
         }
     ],
     "recipes": [
@@ -13869,6 +14064,10 @@
             "sha256": "34affc1b41292730388a3619724a4f13bb86d730141228314278b37a7a58386f"
         },
         {
+            "path": "Assets/RivetReach/Code/FoodBalanceVerification.cs",
+            "sha256": "aa88bc673c38ba8857a03109721c11a33f1b41fdb37ea3c104cf6a6faab79174"
+        },
+        {
             "path": "Assets/RivetReach/Code/FurnacePipeVerification.cs",
             "sha256": "24fa2b31bba78aeb8f0e839d683e0db702e65ed557c8e885847292bc519a4566"
         },
@@ -14090,7 +14289,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/EntitySaveState.cs",
-            "sha256": "86ce7b0a257b768b0afa9a7eddb1cc60eeb39278e9b461a0bb736320b709011b"
+            "sha256": "ed85ccdf71c26c3f40cae51db53da6e2eb2a2e7cd0ff1b58800b3beff58b32e1"
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/ExpeditionSaves.cs",
@@ -14102,7 +14301,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/SaveIO.cs",
-            "sha256": "5590fca99db882638fd92ae6fcb2f1a55cce23455d6edb8d54d9922f13681e7e"
+            "sha256": "8e2f9acefc47ab2ba82a3267e4c95ad54e06117fdf5880d5d64c6ab81b77f1c7"
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/WorldSaveState.cs",
@@ -14158,7 +14357,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Player/FirstPersonPlayer.cs",
-            "sha256": "8aa52cb953580725af32a9c7cfc1ab16388d4aa581f8b1c4e98f738539ef5052"
+            "sha256": "9de1d4be027580e5fa5fe25bd46b22a754e6c18823e4e117b30f1a0b15a7acca"
         },
         {
             "path": "Assets/RivetReach/Code/Player/FoodVisuals.cs",
@@ -14222,11 +14421,11 @@
         },
         {
             "path": "Assets/RivetReach/Code/RenewableVerification.cs",
-            "sha256": "c737ac13bc7884a27974be12a2c7de6784ee89c60d28948016ebacb7a5de0f40"
+            "sha256": "f2424d2411b1dfda45568fdb6654ac84172262a3e3513465188dda22cea20227"
         },
         {
             "path": "Assets/RivetReach/Code/RuntimeVerification.cs",
-            "sha256": "82f59e62ccb9577995ec3b411e0d4b33d9b4a5ddcbc179a0c73e70d015567091"
+            "sha256": "69dce539ff5afe83d12ed6cd6298f2406afe9fe8e78d0d7fc30bac47926e5b3d"
         },
         {
             "path": "Assets/RivetReach/Code/SaveVerification.cs",
@@ -14281,12 +14480,16 @@
             "sha256": "ed5cbf4c9bd7aafd4fcf8ba44f69e2302569078d6abdea898c9a0b725e2bdf9d"
         },
         {
+            "path": "Assets/RivetReach/Code/Survival/FoodBalanceCatalog.cs",
+            "sha256": "6014e7778486390b7292d41303ff54315a8c9ebb34617f3194b84434c9f151b0"
+        },
+        {
             "path": "Assets/RivetReach/Code/Survival/FurnaceState.cs",
             "sha256": "e8159e8d151521d4fc3a99ee9d9f1273d62606de0aefa8eeff38239001ff854c"
         },
         {
             "path": "Assets/RivetReach/Code/Survival/HungerState.cs",
-            "sha256": "ebb352f8f226992097a1ac4c01beac5e36091d7d1fd08a78401c4b5641b80a6d"
+            "sha256": "77809ec41f0f7eb72e01194e152f1fc99e463025bcfb5e70c3e8c6799f3026e3"
         },
         {
             "path": "Assets/RivetReach/Code/Survival/ProcessingCatalogAsset.cs",
@@ -14330,7 +14533,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUI.cs",
-            "sha256": "74adba832fbb249c5b76dae3afdee5cdf2ed1a6fe6d2c6c2d9f26e31cd0bc0cb"
+            "sha256": "aef819823477dc9b18132012dc7a4e5594efe3602368a16b30319037c88812ef"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIBridges.cs",
@@ -14374,7 +14577,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIScreenReuse.cs",
-            "sha256": "6fe00ef385c038c99d13efe6c7176dd63d21ae8060088605ec5cc907c6cc9669"
+            "sha256": "7b4076665d2342b541b8fe7c922c8714db73e7b9a5cea4badd849c1726861f99"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIStationIllustration.cs",
@@ -14382,7 +14585,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUISurvival.cs",
-            "sha256": "b98f130b5ec32480d5a096ac76175b9ccc8c1ddcc8a4272e75378331815a0c29"
+            "sha256": "8ed34375fd491f36096f5aa23a0f43d2934fe618713d691d2b142282635094e5"
         },
         {
             "path": "Assets/RivetReach/Code/UI/ItemBrowserSettings.cs",
@@ -14510,7 +14713,7 @@
         },
         {
             "path": "Assets/RivetReach/Editor/WikiExport.cs",
-            "sha256": "b13e93c5a293d79bbbfffb28882ec83554d0e9f3e827567e1c313550011e876d"
+            "sha256": "310135560f95edb442b6e58a6a8f949e36e4dad49a06c704a14075fe874d0c37"
         },
         {
             "path": "Assets/RivetReach/Resources/Chickens/248Icon.png",
@@ -14595,6 +14798,14 @@
         {
             "path": "Assets/RivetReach/Resources/Definitions/FishingCooking.json.meta",
             "sha256": "8aaaa65239a5d6700a73b3dc3eb13687b800fa5cac194128398f6b1aaf4d3326"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/FoodBalance.json",
+            "sha256": "da72443011e3056cda2bd40707a768f7144d9d821097f35e58e811a31d3b12f3"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/FoodBalance.json.meta",
+            "sha256": "64a90dbec44672608f2223c870304b25534adc6802eab691a08b51c3fe9866a7"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/ItemBrowser.asset",

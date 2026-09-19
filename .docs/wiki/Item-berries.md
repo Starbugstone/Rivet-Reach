@@ -17,10 +17,15 @@ Eat raw or use as fruit in porridge.
 | Stack size | 64 |
 | Tags | `compostable`, `edible`, `fruit` |
 | Food restored | 1 points |
+| Saturation reserve | 0 points |
 
 ## How to obtain
 
 Harvest mature berry plants. See [Farming and cooking](Farming-and-cooking.md).
+
+## Using it
+
+Hold Use to eat. [Food and hunger](Food-and-hunger.md) explains food restoration, saturation and meal planning.
 
 ## Crafting and processing
 

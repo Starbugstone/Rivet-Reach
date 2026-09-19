@@ -17,6 +17,7 @@ Cooked Egg restores 4 food points.
 | Stack size | 64 |
 | Tags | `edible`, `egg`, `prepared_food` |
 | Food restored | 4 points |
+| Saturation reserve | 2 points |
 
 ## How to obtain
 
@@ -24,7 +25,7 @@ Make this item using the crafting or processing recipes below.
 
 ## Using it
 
-Prepare in either fuel or electric Cooker; hold Use to eat when hungry. See [Chickens](Chickens.md).
+Prepare in either fuel or electric Cooker; hold Use to eat when hungry. See [Chickens](Chickens.md). [Food and hunger](Food-and-hunger.md) explains food restoration, saturation and meal planning.
 
 ## Crafting and processing
 

@@ -17,6 +17,7 @@ Prepared food from a basic or electric cooker. Food never spoils.
 | Stack size | 64 |
 | Tags | `compostable`, `edible`, `prepared_food` |
 | Food restored | 9 points |
+| Saturation reserve | 8 points |
 
 ## How to obtain
 
@@ -24,7 +25,7 @@ Select its recipe in a cooker and supply the listed ingredients plus fuel or ele
 
 ## Using it
 
-Hold Use to eat. See [Farming and cooking](Farming-and-cooking.md) for food values and ingredient alternatives.
+Hold Use to eat. See [Farming and cooking](Farming-and-cooking.md) for food values and ingredient alternatives. [Food and hunger](Food-and-hunger.md) explains food restoration, saturation and meal planning.
 
 ## Crafting and processing
 

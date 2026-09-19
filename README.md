@@ -94,3 +94,5 @@ The latest [farming and cooking increment](.docs/FARMING.md) adds growing wild c
 [Bulk crates and controllers](.docs/CRATES.md) provide physical single-item warehouses and machine-first item routing. See the [illustrated guide](.docs/wiki/Crates-and-warehouses.md) and [verification](.docs/verification/CRATE_RESULTS.md).
 
 [Weather](.docs/WEATHER.md) adds gradual clear skies, rain and storms with shelter, wind/thunder and saved schedules. Run `Builds/Weather/RivetReach.exe`; the [illustrated guide](.docs/wiki/Weather.md) and [verification](.docs/verification/WEATHER_RESULTS.md) cover the current increment.
+
+[Food balance](.docs/FOOD_BALANCE.md) adds saved saturation to cooked food and meals, preserving the reduced ordinary hunger costs and existing farm/cooker rules. The current review executable is `Builds/FoodBalanceFinal/RivetReach.exe`; [the guide](.docs/wiki/Food-and-hunger.md) and [verification](.docs/verification/FOOD_BALANCE_RESULTS.md) explain measured cadence and limits. This build also includes the completed [solar and wind increment](.docs/RENEWABLES.md).

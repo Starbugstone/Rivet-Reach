@@ -17,10 +17,15 @@ Cooked food that restores **5 food points**, compared with 1 for a raw potato. B
 | Stack size | 64 |
 | Tags | `compostable`, `edible` |
 | Food restored | 5 points |
+| Saturation reserve | 2 points |
 
 ## How to obtain
 
 Make this item using the crafting or processing recipes below.
+
+## Using it
+
+Hold Use to eat. [Food and hunger](Food-and-hunger.md) explains food restoration, saturation and meal planning.
 
 ## Crafting and processing
 

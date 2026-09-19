@@ -22,6 +22,8 @@
 
 - [Farming and cooking](Farming-and-cooking.md) — wild crops, fibre and basic/electric food preparation.
 
+- [Food and hunger](Food-and-hunger.md) — eating, saturation and meal planning.
+
 - [Mobs](Mobs.md) — Rustback beetles, Dusk prowlers and Floaters; encounters, combat and persistence.
 
 - [Compost](Compost.md) — organic surplus, crop acceleration and bin automation.

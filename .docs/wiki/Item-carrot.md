@@ -17,10 +17,15 @@ Eat raw, roast it, or use it as a vegetable in stew.
 | Stack size | 64 |
 | Tags | `compostable`, `edible`, `vegetable` |
 | Food restored | 2 points |
+| Saturation reserve | 0 points |
 
 ## How to obtain
 
 Harvest mature carrot plants. See [Farming and cooking](Farming-and-cooking.md).
+
+## Using it
+
+Hold Use to eat. [Food and hunger](Food-and-hunger.md) explains food restoration, saturation and meal planning.
 
 ## Crafting and processing
 

@@ -16,18 +16,21 @@ namespace RivetReach
         public const double HealingExhaustion=6;
         public int Food {get;private set;}=Maximum;
         public double Exhaustion {get;private set;}
+        public int Saturation {get;private set;}
         public bool CanSprint=>Food>6;
         public void Exert(double amount)
         {
             if(double.IsNaN(amount)||double.IsInfinity(amount)||amount<0)throw new ArgumentOutOfRangeException(nameof(amount));
             Exhaustion+=amount;
-            int spent=(int)Math.Min(Maximum,Math.Floor(Exhaustion/4));
+            int spent=(int)Math.Min(Maximum*2,Math.Floor(Exhaustion/4));
+            int reserve=Math.Min(Saturation,spent);Saturation-=reserve;spent-=reserve;
             Food=Math.Max(0,Food-spent);Exhaustion%=4;
         }
-        public bool TryEat(Inventory inventory,int slot,int points)
+        public bool TryEat(Inventory inventory,int slot,int points,int saturation=0)
         {
+            if(saturation<0||saturation>Maximum)throw new ArgumentOutOfRangeException(nameof(saturation));
             if(points<=0||Food>=Maximum||inventory.Slots[slot].Empty)return false;
-            inventory.Take(slot,1);Food=Math.Min(Maximum,Food+points);return true;
+            inventory.Take(slot,1);Food=Math.Min(Maximum,Food+points);Saturation=Math.Min(Maximum,Saturation+saturation);return true;
         }
     }
 }

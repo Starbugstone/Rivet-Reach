@@ -96,10 +96,11 @@
   "rivet:potato": {
     "description": "A food item and planting material. Eat it raw for 1 food point, or bake it for 5.",
     "obtain": "Harvest naturally occurring ripe potatoes on grassy terrain, or grow your own crop. A ripe crop yields **2–4 potatoes**; an immature crop returns **one potato**, which you can eat or replant.",
-    "use": "Till grass or dirt with a hoe, then use one potato on the exposed [Farmland](Item-farmland.md). Each of the three growth stages takes 60 seconds while suitable exposed terrain is loaded. Water irrigation is not required by the current crop system."
+    "use": "Till grass or dirt with a hoe, then use one potato on the exposed [Farmland](Item-farmland.md). Each of the three growth stages takes 60 seconds while suitable exposed terrain is loaded. Water irrigation is not required by the current crop system. [Food and hunger](Food-and-hunger.md) explains food restoration, saturation and meal planning."
   },
   "rivet:baked_potato": {
-    "description": "Cooked food that restores **5 food points**, compared with 1 for a raw potato. Baked potatoes cannot be planted."
+    "description": "Cooked food that restores **5 food points**, compared with 1 for a raw potato. Baked potatoes cannot be planted.",
+    "use": "Hold Use to eat. [Food and hunger](Food-and-hunger.md) explains food restoration, saturation and meal planning."
   },
   "rivet:farmland": {
     "description": "Tilled soil for potatoes, wheat, flax, carrots and berry plants.",
@@ -284,7 +285,7 @@
   "rivet:apple": {
     "description": "A ready-to-eat fruit restoring four food points (two food icons).",
     "obtain": "Natural leaves have an independent 2% chance to drop an apple when destroyed, including decay after trunk chopping. Leaves on sapling-grown trees also qualify.",
-    "use": "Hold Use for 1.2 seconds to eat one. Releasing early cancels the bite; full hunger consumes nothing."
+    "use": "Hold Use for 1.2 seconds to eat one. Releasing early cancels the bite; full hunger consumes nothing. [Food and hunger](Food-and-hunger.md) explains food restoration, saturation and meal planning."
   },
   "rivet:wrench": {
     "description": "A reusable workshop tool for setting the direction of item and fluid pipe connections.",
@@ -446,40 +447,43 @@
   },
   "rivet:carrot": {
     "description": "Eat raw, roast it, or use it as a vegetable in stew.",
-    "obtain": "Harvest mature carrot plants. See [Farming and cooking](Farming-and-cooking.md)."
+    "obtain": "Harvest mature carrot plants. See [Farming and cooking](Farming-and-cooking.md).",
+    "use": "Hold Use to eat. [Food and hunger](Food-and-hunger.md) explains food restoration, saturation and meal planning."
   },
   "rivet:berries": {
     "description": "Eat raw or use as fruit in porridge.",
-    "obtain": "Harvest mature berry plants. See [Farming and cooking](Farming-and-cooking.md)."
+    "obtain": "Harvest mature berry plants. See [Farming and cooking](Farming-and-cooking.md).",
+    "use": "Hold Use to eat. [Food and hunger](Food-and-hunger.md) explains food restoration, saturation and meal planning."
   },
   "rivet:mushroom": {
     "description": "Eat raw, cook it, or add it to vegetable stew.",
-    "obtain": "Harvest mature mushroom plants. See [Farming and cooking](Farming-and-cooking.md)."
+    "obtain": "Harvest mature mushroom plants. See [Farming and cooking](Farming-and-cooking.md).",
+    "use": "Hold Use to eat. [Food and hunger](Food-and-hunger.md) explains food restoration, saturation and meal planning."
   },
   "rivet:bread": {
     "description": "Prepared food from a basic or electric cooker. Food never spoils.",
     "obtain": "Select its recipe in a cooker and supply the listed ingredients plus fuel or electricity.",
-    "use": "Hold Use to eat. See [Farming and cooking](Farming-and-cooking.md) for food values and ingredient alternatives."
+    "use": "Hold Use to eat. See [Farming and cooking](Farming-and-cooking.md) for food values and ingredient alternatives. [Food and hunger](Food-and-hunger.md) explains food restoration, saturation and meal planning."
   },
   "rivet:roast_carrot": {
     "description": "Prepared food from a basic or electric cooker. Food never spoils.",
     "obtain": "Select its recipe in a cooker and supply the listed ingredients plus fuel or electricity.",
-    "use": "Hold Use to eat. See [Farming and cooking](Farming-and-cooking.md) for food values and ingredient alternatives."
+    "use": "Hold Use to eat. See [Farming and cooking](Farming-and-cooking.md) for food values and ingredient alternatives. [Food and hunger](Food-and-hunger.md) explains food restoration, saturation and meal planning."
   },
   "rivet:vegetable_stew": {
     "description": "Prepared food from a basic or electric cooker. Food never spoils.",
     "obtain": "Select its recipe in a cooker and supply the listed ingredients plus fuel or electricity.",
-    "use": "Hold Use to eat. See [Farming and cooking](Farming-and-cooking.md) for food values and ingredient alternatives."
+    "use": "Hold Use to eat. See [Farming and cooking](Farming-and-cooking.md) for food values and ingredient alternatives. [Food and hunger](Food-and-hunger.md) explains food restoration, saturation and meal planning."
   },
   "rivet:cooked_mushroom": {
     "description": "Prepared food from a basic or electric cooker. Food never spoils.",
     "obtain": "Select its recipe in a cooker and supply the listed ingredients plus fuel or electricity.",
-    "use": "Hold Use to eat. See [Farming and cooking](Farming-and-cooking.md) for food values and ingredient alternatives."
+    "use": "Hold Use to eat. See [Farming and cooking](Farming-and-cooking.md) for food values and ingredient alternatives. [Food and hunger](Food-and-hunger.md) explains food restoration, saturation and meal planning."
   },
   "rivet:fruit_porridge": {
     "description": "Prepared food from a basic or electric cooker. Food never spoils.",
     "obtain": "Select its recipe in a cooker and supply the listed ingredients plus fuel or electricity.",
-    "use": "Hold Use to eat. See [Farming and cooking](Farming-and-cooking.md) for food values and ingredient alternatives."
+    "use": "Hold Use to eat. See [Farming and cooking](Farming-and-cooking.md) for food values and ingredient alternatives. [Food and hunger](Food-and-hunger.md) explains food restoration, saturation and meal planning."
   },
   "rivet:string": {
     "description": "Renewable flax cordage, crafted from three Flax Fibre.",
@@ -516,15 +520,15 @@
   "rivet:raw_fish": {
     "description": "A fresh catch from a successful fishing reel; edible for 2 food points.",
     "obtain": "Catch it with a [Fishing Rod](Item-fishing-rod.md). See [Fishing](Fishing.md) for water requirements and bite timing.",
-    "use": "Eat directly, cook into Cooked Fish, or combine with two vegetables for Fish Stew in either Cooker."
+    "use": "Eat directly, cook into Cooked Fish, or combine with two vegetables for Fish Stew in either Cooker. [Food and hunger](Food-and-hunger.md) explains food restoration, saturation and meal planning."
   },
   "rivet:cooked_fish": {
     "description": "Cooked fish restores 6 food points, three times the raw catch.",
-    "use": "Hold Use to eat when hungry, or use it with two vegetables for Fish Stew. Cook in either fuel or electric Cooker."
+    "use": "Hold Use to eat when hungry, or use it with two vegetables for Fish Stew. Cook in either fuel or electric Cooker. [Food and hunger](Food-and-hunger.md) explains food restoration, saturation and meal planning."
   },
   "rivet:fish_stew": {
     "description": "A prepared fish-and-vegetable meal restoring 12 food points.",
-    "use": "Either Cooker accepts one raw or cooked fish plus two potatoes/carrots, including one of each. Hold Use to eat. See [Fishing](Fishing.md)."
+    "use": "Either Cooker accepts one raw or cooked fish plus two potatoes/carrots, including one of each. Hold Use to eat. See [Fishing](Fishing.md). [Food and hunger](Food-and-hunger.md) explains food restoration, saturation and meal planning."
   },
   "rivet:egg": {
     "description": "An ingredient laid by adult chickens every five to ten active minutes.",
@@ -534,7 +538,7 @@
   "rivet:raw_chicken": {
     "description": "Raw meat restoring 2 food points.",
     "obtain": "Defeat an adult [Chicken](Chickens.md); chicks drop no meat.",
-    "use": "Cook into Cooked Chicken, or combine with two vegetables for Chicken Stew."
+    "use": "Cook into Cooked Chicken, or combine with two vegetables for Chicken Stew. [Food and hunger](Food-and-hunger.md) explains food restoration, saturation and meal planning."
   },
   "rivet:feather": {
     "description": "A material dropped by adult chickens.",
@@ -543,15 +547,15 @@
   },
   "rivet:cooked_chicken": {
     "description": "Cooked Chicken restores 6 food points.",
-    "use": "Prepare in either fuel or electric Cooker; hold Use to eat when hungry. See [Chickens](Chickens.md)."
+    "use": "Prepare in either fuel or electric Cooker; hold Use to eat when hungry. See [Chickens](Chickens.md). [Food and hunger](Food-and-hunger.md) explains food restoration, saturation and meal planning."
   },
   "rivet:cooked_egg": {
     "description": "Cooked Egg restores 4 food points.",
-    "use": "Prepare in either fuel or electric Cooker; hold Use to eat when hungry. See [Chickens](Chickens.md)."
+    "use": "Prepare in either fuel or electric Cooker; hold Use to eat when hungry. See [Chickens](Chickens.md). [Food and hunger](Food-and-hunger.md) explains food restoration, saturation and meal planning."
   },
   "rivet:chicken_stew": {
     "description": "Chicken Stew restores 12 food points.",
-    "use": "Prepare in either fuel or electric Cooker; hold Use to eat when hungry. See [Chickens](Chickens.md)."
+    "use": "Prepare in either fuel or electric Cooker; hold Use to eat when hungry. See [Chickens](Chickens.md). [Food and hunger](Food-and-hunger.md) explains food restoration, saturation and meal planning."
   },
   "rivet:lava_rock": {
     "description": "Dark volcanic glass formed when flowing water contacts a lava source.",

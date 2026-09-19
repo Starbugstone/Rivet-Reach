@@ -233,7 +233,7 @@ class Reference:
         if d['armorPoints']:
             lines += [f'| Armor protection | {d["armorPoints"]} points |']
         if d['foodPoints']:
-            lines += [f'| Food restored | {d["foodPoints"]} points |']
+            lines += [f'| Food restored | {d["foodPoints"]} points |', f'| Saturation reserve | {item.get("foodSaturation", 0)} points |']
         if item['watts']:
             lines += [f'| Power demand | {item["watts"]} W |']
         if item['waterMl']:

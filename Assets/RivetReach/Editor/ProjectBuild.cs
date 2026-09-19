@@ -44,6 +44,7 @@ namespace RivetReach.Editor
                 if(command=="alpha-playtest-player"){Build("AlphaPlaytest");File.WriteAllText("Logs/build-result.txt","SUCCESS alpha player");return;}
                 if(command=="renewables-build"||command=="renewables-player")
                 {if(command=="renewables-build")RenewableBuild.Prepare();RenewableChecks.Run();RenewablePowerChecks.Run();RenewableCompatibilityChecks.Run();GridAllocationChecks.Run();BatteryChecks.Run();IndustryChecks.Run();Build("Renewables");File.WriteAllText("Logs/build-result.txt","SUCCESS renewable player");return;}
+                if(command=="food-balance-player"||command=="food-balance-final"){FoodBalanceChecks.Run();SurvivalChecks.Run();FarmingChecks.Run();FishingChecks.Run();ChickenChecks.Run();RenewableCompatibilityChecks.Run();Build(command=="food-balance-final"?"FoodBalanceFinal":"FoodBalance");File.WriteAllText("Logs/build-result.txt","SUCCESS food balance player");return;}
                 if(command=="weather-player"){Build("Weather");File.WriteAllText("Logs/build-result.txt","SUCCESS weather player");return;}
                 if(command=="crate-build"){CrateBuild.Prepare();CrateChecks.Run();Build("Crates");File.WriteAllText("Logs/build-result.txt","SUCCESS crates");return;}
                 if(command=="crate-player"){CrateChecks.Run();CrateRoutingEdgeChecks.Run();GridAllocationChecks.Run();IndustryChecks.Run();Build("Crates");File.WriteAllText("Logs/build-result.txt","SUCCESS crate player");return;}

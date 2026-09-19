@@ -6,8 +6,8 @@ namespace RivetReach
 {
     public sealed partial class HungerState
     {
-        internal void WriteSave(SaveWriter w){w.Write(Food);w.Write(Exhaustion);}
-        internal void ReadSave(SaveReader r){Food=r.Int(0,Maximum);Exhaustion=r.Number(0,4);}
+        internal void WriteSave(SaveWriter w){w.Write(Food);w.Write(Exhaustion);if(w.Format>=17)w.Write(Saturation);}
+        internal void ReadSave(SaveReader r){Food=r.Int(0,Maximum);Exhaustion=r.Number(0,4);Saturation=r.Format>=17?r.Int(0,Maximum):0;}
     }
     public sealed partial class HealthState
     {

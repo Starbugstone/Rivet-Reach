@@ -17,6 +17,7 @@ Cooked fish restores 6 food points, three times the raw catch.
 | Stack size | 64 |
 | Tags | `edible`, `fish`, `prepared_food` |
 | Food restored | 6 points |
+| Saturation reserve | 4 points |
 
 ## How to obtain
 
@@ -24,7 +25,7 @@ Make this item using the crafting or processing recipes below.
 
 ## Using it
 
-Hold Use to eat when hungry, or use it with two vegetables for Fish Stew. Cook in either fuel or electric Cooker.
+Hold Use to eat when hungry, or use it with two vegetables for Fish Stew. Cook in either fuel or electric Cooker. [Food and hunger](Food-and-hunger.md) explains food restoration, saturation and meal planning.
 
 ## Crafting and processing
 

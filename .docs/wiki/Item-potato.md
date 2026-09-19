@@ -17,6 +17,7 @@ A food item and planting material. Eat it raw for 1 food point, or bake it for 5
 | Stack size | 64 |
 | Tags | `compostable`, `edible`, `vegetable` |
 | Food restored | 1 points |
+| Saturation reserve | 0 points |
 
 ## How to obtain
 
@@ -24,7 +25,7 @@ Harvest naturally occurring ripe potatoes on grassy terrain, or grow your own cr
 
 ## Using it
 
-Till grass or dirt with a hoe, then use one potato on the exposed [Farmland](Item-farmland.md). Each of the three growth stages takes 60 seconds while suitable exposed terrain is loaded. Water irrigation is not required by the current crop system.
+Till grass or dirt with a hoe, then use one potato on the exposed [Farmland](Item-farmland.md). Each of the three growth stages takes 60 seconds while suitable exposed terrain is loaded. Water irrigation is not required by the current crop system. [Food and hunger](Food-and-hunger.md) explains food restoration, saturation and meal planning.
 
 ## Crafting and processing
 

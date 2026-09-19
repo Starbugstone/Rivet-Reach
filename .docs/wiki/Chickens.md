@@ -28,13 +28,13 @@ Defeating an adult gives one [Raw Chicken](Item-raw-chicken.md) and one or two [
 
 Use either a [Cooker](Item-cooker.md) with burnable fuel or an [Electric Cooker](Item-electric-cooker.md) with electricity. Select the desired recipe and load its ingredients. Each takes ten seconds at full working rate.
 
-| Meal | Ingredients | Food restored |
-| --- | --- | ---: |
-| [Cooked Chicken](Item-cooked-chicken.md) | 1 Raw Chicken | 6 |
-| [Cooked Egg](Item-cooked-egg.md) | 1 Egg | 4 |
-| [Chicken Stew](Item-chicken-stew.md) | 1 raw or cooked chicken + 2 vegetables | 12 |
+| Meal | Ingredients | Food restored | Saturation |
+| --- | --- | ---: | ---: |
+| [Cooked Chicken](Item-cooked-chicken.md) | 1 Raw Chicken | 6 | 4 |
+| [Cooked Egg](Item-cooked-egg.md) | 1 Egg | 4 | 2 |
+| [Chicken Stew](Item-chicken-stew.md) | 1 raw or cooked chicken + 2 vegetables | 12 | 12 |
 
-Potatoes and carrots can be mixed for stew. Raw Chicken restores 2 food points when eaten directly; raw Eggs are cooking ingredients.
+Potatoes and carrots can be mixed for stew. Raw Chicken restores 2 food points when eaten directly; raw Eggs are cooking ingredients. Raw meat adds no saturation. [Food and hunger](Food-and-hunger.md) explains how prepared-food reserves delay the next meal.
 
 ![Cooked Chicken recipe in the actual item browser](images/chickens/chickens-recipe-250.png)
 

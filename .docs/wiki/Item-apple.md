@@ -17,6 +17,7 @@ A ready-to-eat fruit restoring four food points (two food icons).
 | Stack size | 64 |
 | Tags | `compostable`, `edible`, `fruit` |
 | Food restored | 4 points |
+| Saturation reserve | 0 points |
 
 ## How to obtain
 
@@ -24,7 +25,7 @@ Natural leaves have an independent 2% chance to drop an apple when destroyed, in
 
 ## Using it
 
-Hold Use for 1.2 seconds to eat one. Releasing early cancels the bite; full hunger consumes nothing.
+Hold Use for 1.2 seconds to eat one. Releasing early cancels the bite; full hunger consumes nothing. [Food and hunger](Food-and-hunger.md) explains food restoration, saturation and meal planning.
 
 ## Crafting and processing
 

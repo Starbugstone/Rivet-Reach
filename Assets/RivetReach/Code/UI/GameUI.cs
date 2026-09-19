@@ -134,7 +134,7 @@ namespace RivetReach
         void RefreshTooltip()
         {
             if(tooltip==null)return;var stack=StackAt(hoveredSlot);
-            tooltip.text=stack.Empty?"":game.Registry.Get(stack.Id).displayName+" · "+stack.Count+" / "+stack.Limit(game.Registry.Get(stack.Id).stackLimit)+(stack.IsStorage?" · "+stack.ContentsText+" · Shift-left-click in hand to empty":"");
+            tooltip.text=stack.Empty?"":game.Registry.Get(stack.Id).displayName+" · "+stack.Count+" / "+stack.Limit(game.Registry.Get(stack.Id).stackLimit)+(game.Registry.FoodPoints(stack.Id)>0?$" · Food {game.Registry.FoodPoints(stack.Id)} + saturation {FoodBalanceCatalog.Current.Saturation(stack.Id)}":"")+(stack.IsStorage?" · "+stack.ContentsText+" · Shift-left-click in hand to empty":"");
             if(hoveredSlot==CraftOutputSlot&&game.Crafting.Preview!=null)tooltip.text+=" · "+game.Crafting.MaximumCrafts+" craft(s) available";
             if(inventoryHint!=null)inventoryHint.enabled=tooltip.text.Length==0;
         }

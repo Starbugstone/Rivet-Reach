@@ -283,7 +283,7 @@ namespace RivetReach
                 {
                     if(Game.Hunger.Food<HungerState.Maximum)
                     {eatingItem=selected.Id;eatingSlot=Game.Selected;eating=previousEating+Time.deltaTime;}
-                    if(eating>=1.2f){if(Game.Hunger.TryEat(Game.Inventory,Game.Selected,food)){Game.Sound.Pickup();Game.Notify("Ate "+Game.Registry.Get(selected.Id).displayName,1);}eating=0;}
+                    if(eating>=1.2f){if(Game.Hunger.TryEat(Game.Inventory,Game.Selected,food,FoodBalanceCatalog.Current.Saturation(selected.Id))){Game.Sound.Pickup();Game.Notify("Ate "+Game.Registry.Get(selected.Id).displayName,1);}eating=0;}
                     return;
                 }
                 eating=0;

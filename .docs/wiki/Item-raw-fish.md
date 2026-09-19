@@ -17,6 +17,7 @@ A fresh catch from a successful fishing reel; edible for 2 food points.
 | Stack size | 64 |
 | Tags | `edible`, `fish`, `raw_fish` |
 | Food restored | 2 points |
+| Saturation reserve | 0 points |
 
 ## How to obtain
 
@@ -24,7 +25,7 @@ Catch it with a [Fishing Rod](Item-fishing-rod.md). See [Fishing](Fishing.md) fo
 
 ## Using it
 
-Eat directly, cook into Cooked Fish, or combine with two vegetables for Fish Stew in either Cooker.
+Eat directly, cook into Cooked Fish, or combine with two vegetables for Fish Stew in either Cooker. [Food and hunger](Food-and-hunger.md) explains food restoration, saturation and meal planning.
 
 ## Crafting and processing
 

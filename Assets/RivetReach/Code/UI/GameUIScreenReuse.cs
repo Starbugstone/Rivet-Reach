@@ -31,7 +31,7 @@ namespace RivetReach
             public Image progress;
             public RawImage heldIcon;
             public long lastRevision, lastCraftRevision, lastStationRevision, lastEquipmentRevision;
-            public int lastSelected, hoveredSlot, shownFood, shownArmor;
+            public int lastSelected, hoveredSlot, shownFood, shownSaturation, shownArmor;
             public float shownHealth;
             public bool shownEating;
             public ItemStack shownHeld;
@@ -86,6 +86,7 @@ namespace RivetReach
         long lastEquipmentRevision { get => currentScreen.lastEquipmentRevision; set => currentScreen.lastEquipmentRevision = value; }
         int lastSelected { get => currentScreen.lastSelected; set => currentScreen.lastSelected = value; }
         int hoveredSlot { get => currentScreen.hoveredSlot; set => currentScreen.hoveredSlot = value; }
+        int shownSaturation { get => currentScreen.shownSaturation; set => currentScreen.shownSaturation = value; }
         int shownFood { get => currentScreen.shownFood; set => currentScreen.shownFood = value; }
         int shownArmor { get => currentScreen.shownArmor; set => currentScreen.shownArmor = value; }
         float shownHealth { get => currentScreen.shownHealth; set => currentScreen.shownHealth = value; }
@@ -223,7 +224,7 @@ namespace RivetReach
         void ResetDisplayedState()
         {
             lastRevision=lastCraftRevision=lastStationRevision=lastEquipmentRevision=-1;lastSelected=hoveredSlot=-1;shownHeld=default;
-            shownHealth=float.NaN;shownFood=shownArmor=-1;shownEating=false;
+            shownHealth=float.NaN;shownFood=shownSaturation=shownArmor=-1;shownEating=false;
             shownProgress=shownBurn=-1;shownFurnaceRevision=-1;nextMachineRefresh=0;
             // Force a bind even when different inventories happen to share revision numbers.
             foreach(var slot in slots)slot.Shown=false;

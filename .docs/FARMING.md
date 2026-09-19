@@ -1,6 +1,6 @@
 # Farming, forage and food cookers
 
-Issue [#10](https://github.com/Starbugstone/Rivet-Reach/issues/10), first playable increment, authorized 2026-09-13. This working specification implements crops/forage, flax fibre/string/cloth, food-only cooker recipes and shared item tags. The subsequent [Compost increment](COMPOST.md) adds an optional organic-surplus growth accelerator. [Fishing](FISHING.md) subsequently adds rods, fish and two additional cooker recipes. [Chickens](CHICKENS.md) subsequently adds a separate persistent passive lifecycle and egg/meat meals. [Beds](BEDS.md) subsequently adds cloth-based beds, safe home respawning and night skipping. [Crates](CRATES.md) adds bulk storage and warehouse controllers. [Weather](WEATHER.md) adds clear skies, rain and storms. Renewables remain a later increment.
+Issue [#10](https://github.com/Starbugstone/Rivet-Reach/issues/10), first playable increment, authorized 2026-09-13. This working specification implements crops/forage, flax fibre/string/cloth, food-only cooker recipes and shared item tags. The subsequent [Compost increment](COMPOST.md) adds an optional organic-surplus growth accelerator. [Fishing](FISHING.md) subsequently adds rods, fish and two additional cooker recipes. [Chickens](CHICKENS.md) subsequently adds a separate persistent passive lifecycle and egg/meat meals. [Beds](BEDS.md) subsequently adds cloth-based beds, safe home respawning and night skipping. [Crates](CRATES.md) adds bulk storage and warehouse controllers. [Weather](WEATHER.md) adds clear skies, rain and storms. [Renewables](RENEWABLES.md) add solar and wind electricity without changing food production.
 
 ## Plants
 
@@ -35,7 +35,7 @@ Both cookers share six recipes, each taking 200 ticks (10 seconds) at full heat/
 | 2 `#vegetable` + 1 `#mushroom` | 1 Vegetable Stew | 12 |
 | 1 `#grain` + 1 `#fruit` | 1 Fruit Porridge | 9 |
 
-Potatoes and carrots are vegetables; apples and berries are fruit. Mixed tag members and split stacks count correctly. Wild carrots restore two food points, berries/mushrooms one. There is no food spoilage, freshness or refrigerator requirement. Hunger still uses the existing food/exhaustion state, without adding saturation. Prepared meals restore more in one eating action. Baseline idle food drain is one point per 102.4 seconds, with additional movement/mining/healing expenditure; that calculation is not a measured play-session food cadence.
+Potatoes and carrots are vegetables; apples and berries are fruit. Mixed tag members and split stacks count correctly. Wild carrots restore two food points, berries/mushrooms one. There is no food spoilage, freshness or refrigerator requirement. [Food balance](FOOD_BALANCE.md) owns hunger, prepared-food saturation and cadence. Baseline idle hunger drain is one point per 136.53 seconds, with additional movement/mining/healing expenditure; that calculation is not a measured play-session food cadence.
 
 ## Cooker operation
 
