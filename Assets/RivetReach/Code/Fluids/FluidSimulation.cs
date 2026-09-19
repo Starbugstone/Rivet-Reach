@@ -72,7 +72,11 @@ namespace RivetReach
             if(!Read(world,p,p,out byte cell))return;
             var own=registry.Get(cell);if(!Displaceable(cell)&&own==null)return;
             // Sources remain explicit; unsupported sources still produce waterfalls.
-            if(own!=null&&own.IsSource(cell)){Spread(world,p,cell,own);return;}
+            if(own!=null&&own.IsSource(cell))
+            {
+                if(TrySourceReaction(world,p,cell))return;
+                Spread(world,p,cell,own);return;
+            }
             if(!Read(world,p.Offset(0,1,0),p,out byte above)||!Read(world,p.Offset(0,-1,0),p,out byte below))return;
             var type=own??registry.Get(above);int best=99,sources=0;bool complete=true;
             foreach(var d in Sides)
@@ -95,6 +99,18 @@ namespace RivetReach
             else if(best<=type.Reach)next=type.Flow(best);
             if(next!=cell&&(next!=0||cell!=BlockId.Torch&&cell!=BlockId.Sapling)&&world.ChangeFluid(p,cell,next))Changed(world,p);
             if(next!=0)Spread(world,p,next,type);
+        }
+        bool TrySourceReaction(IFluidWorld world,BlockPos p,byte cell)
+        {
+            if(cell!=Fluids.Lava.Source||registry.Get(cell)!=Fluids.Lava)return false;
+            // Existing moving water must touch the source from above or from a side.
+            // Source water alone and flowing lava are deliberately not this reaction.
+            bool Incoming(BlockPos from)
+                =>Read(world,from,p,out byte id)&&registry.Get(id)==Fluids.Water&&!Fluids.Water.IsSource(id);
+            bool touches=Incoming(p.Offset(0,1,0));
+            foreach(var d in Sides)touches|=Incoming(p.Offset(d.x,0,d.z));
+            if(!touches||!world.ChangeFluid(p,cell,BlockId.LavaRock))return false;
+            Changed(world,p);return true;
         }
         bool Open(IFluidWorld world,BlockPos p,FluidDefinition f)
             =>world.TryRead(p,out byte id)&&(Displaceable(id)||registry.Get(id)==f&&!f.IsSource(id));

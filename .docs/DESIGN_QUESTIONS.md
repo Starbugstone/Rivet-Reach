@@ -151,3 +151,9 @@ The user authorized a full player-avatar and handling rework with artistic liber
 ## Floater Rock remote workshops — 2026-09-13
 
 The user selected paired item/liquid/electrical bridges, player-private names and chunk loaders. [BRIDGES.md](BRIDGES.md) owns the working recipes, naming/ownership boundary and ticket coverage. Open nonblocking review: assess Floater Rock availability against remote-factory construction costs, whether nearby name labels are sufficient for large installations, and measured responsiveness/memory with many distant loader tickets. These are tuning/scale questions; multiplayer authentication and cross-world connections remain later work.
+
+## Alpha playtest tuning — 2026-09-19
+
+Issue #12 explicitly requests a 20–30% initial ordinary hunger reduction and rare Floater rooms, with a separate 99/1 cave-connected/buried placement split. The working choices are a 25% ordinary-cost reduction, 36-block cage activation, ten-second cage cycles and the [versioned room profile](SPAWNERS.md). Five origin-owned mobs per cage and the 99/1 split are requirements; exact overall room density and other defaults remain Alpha tuning.
+
+Nonblocking review: longer unscripted Survival sessions, room discovery across varied seeds, and Floater Rock income versus advanced recipes. Focused checks and short scripted routes do not establish final balance, artistic acceptance or large-population performance. Any later room-profile change needs a new generator identity so already generated terrain remains exact. [Evidence](verification/ALPHA_PLAYTEST_RESULTS.md) records the tested build and limits.

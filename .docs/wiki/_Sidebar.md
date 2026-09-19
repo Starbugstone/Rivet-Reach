@@ -31,3 +31,8 @@
 - [Fishing](Fishing.md) — rod crafting, deep source-water ponds, bite timing and fish meals.
 
 - [Chickens](Chickens.md) — lead, breed and raise a persistent flock; collect eggs and cook meals.
+
+- [Building and inventory](Building-and-inventory.md) — picking blocks, sorting and farmland harvests.
+- [Floater spawners](Spawners.md) — rare cave rooms, lighting and independent cage populations.
+
+- [Spawn mechanics](Spawn-mechanics.md) — light, floors, distances, natural populations, cage caps and persistent chickens.

@@ -34,7 +34,10 @@ namespace RivetReach.Editor
             Check(BucketTransfer.TryUse(w,bag,0,p,Fluids.Registry)&&bag.Slots[0].Id==Fluids.EmptyBucket&&w.Get(p)==lava.Source,"Placing lava returns exactly one empty bucket");
             Check(!BucketTransfer.TryUse(w,bag,0,p.Offset(1,0,0),Fluids.Registry),"Flowing lava cannot be collected");
             w.Put(p.Offset(2,0,0),0);w.Put(p,0);w.Run(500);Check(w.Cells.Values.All(id=>!Fluids.IsFluid(id)),"Dependent lava drains after source removal");
-            w=new World();w.Put(p,lava.Source);w.Put(p.Offset(1,0,0),Fluids.Water.Source);w.Run(200);
+            w=new World();
+            // Isolate source-to-source contact from the separately supported moving-water reaction.
+            foreach(var wall in new[]{p.Offset(-1,0,0),p.Offset(0,0,-1),p.Offset(0,0,1),p.Offset(2,0,0),p.Offset(1,0,-1),p.Offset(1,0,1)})w.Put(wall,BlockId.Stone);
+            w.Put(p,lava.Source);w.Put(p.Offset(1,0,0),Fluids.Water.Source);w.Run(200);
             Check(w.Get(p)==lava.Source&&w.Get(p.Offset(1,0,0))==Fluids.Water.Source,"Water and lava preserve distinct sources at contact");
             var health=new HealthState();void Damage(float amount,DamageKind kind)=>health.Damage(amount,kind,20);
             health.AdvanceHeat(1,true,false,Damage);Check(health.Hearts==16&&health.Burning,"Lava immediately ignites and deals four heat damage regardless of armor");

@@ -5,7 +5,7 @@ namespace RivetReach
 {
     public sealed class TerrainGenerator
     {
-        public const string Version="terrain-8-farms", LavaVersion="terrain-7-lava", LegacyVersion="terrain-6-azure";
+        public const string Version="terrain-9-spawners", FarmVersion="terrain-8-farms", LavaVersion="terrain-7-lava", LegacyVersion="terrain-6-azure";
         public const int LavaLevel=MinY+16;
         public readonly string GenerationVersion;
         public bool GeneratesLava=>GenerationVersion!=LegacyVersion;
@@ -15,7 +15,7 @@ namespace RivetReach
         public readonly int Seed;
         public TerrainGenerator(int seed,string version=Version)
         {if(!Supported(version))throw new ArgumentException("Unsupported terrain generator");Seed=seed;GenerationVersion=version;}
-        public static bool Supported(string version)=>version==Version||version==LavaVersion||version==LegacyVersion;
+        public static bool Supported(string version)=>version==Version||version==FarmVersion||version==LavaVersion||version==LegacyVersion;
         byte CaveCell(BlockPos p)=>GeneratesLava&&p.Y<=LavaLevel?Fluids.Lava.Source:(byte)0;
         static double Smooth(double t) => t*t*(3-2*t);
         static double Lerp(double a,double b,double t) => a+(b-a)*t;
@@ -119,6 +119,7 @@ namespace RivetReach
         }
         public byte At(BlockPos p)
         {
+            if(GenerationVersion==Version&&SpawnerRooms.TryCell(this,p,out byte structure))return structure;
             if(p.Y<=MinY || Math.Abs(p.X)>HorizontalLimit || Math.Abs(p.Z)>HorizontalLimit)return BlockId.Bedrock;
             if(p.Y>MaxY)return 0;
             var column=Column(p.X,p.Z);int h=column.Height;byte ground=GroundAt(p,column);
@@ -131,7 +132,7 @@ namespace RivetReach
         }
         byte WildPlant(long x,long z,TerrainColumn column)
         {
-            if(GenerationVersion!=Version)return WildPotato(x,z,column)?BlockId.MaturePotatoPlant:(byte)0;
+            if(GenerationVersion!=Version&&GenerationVersion!=FarmVersion)return WildPotato(x,z,column)?BlockId.MaturePotatoPlant:(byte)0;
             if(column.Surface!=BlockId.Grass||Math.Abs(x)<=8&&Math.Abs(z)<=8)return 0;
             long gx=BlockPos.FloorDiv(x,6),gz=BlockPos.FloorDiv(z,6);uint hash=Hash(gx,9371,gz,Seed);
             if(hash%100>=38||x!=gx*6+1+(hash>>8)%4||z!=gz*6+1+(hash>>16)%4)return 0;
@@ -201,6 +202,7 @@ namespace RivetReach
                 var p=min.Offset(x,y,z);byte id=tree.At(p);int i=ChunkMesher.Index(x,y,z);
                 if(id!=0&&(cells[i]==0||cells[i]==BlockId.Leaves&&id==BlockId.Log))cells[i]=id;
             }
+            if(GenerationVersion==Version)SpawnerRooms.Stamp(this,chunk,cells);
             return cells;
         }
     }

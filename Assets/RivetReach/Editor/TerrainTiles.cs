@@ -112,6 +112,7 @@ namespace RivetReach.Editor
             var farmPalette=Resources.Load<Texture2D>("Farming/Palette");
             if(farmPalette!=null)for(int i=0;i<16;i++)
             {var pixels=new Color[size*size];System.Array.Fill(pixels,farmPalette.GetPixel(i%4,i/4));tiles.SetPixels(pixels,48+i);}
+            AlphaPlaytestAssets.LavaRockTile(tiles);
             tiles.Apply(true,false);EditorUtility.SetDirty(tiles);return tiles;
         }
         static Color MineralColour(int index)=>index==0?new Color(.66f,.39f,.28f):index==1?new Color(.87f,.49f,.22f):index==2?new Color(.12f,.15f,.19f):index==3?new Color(.94f,.73f,.20f):new Color(.43f,.86f,.91f);

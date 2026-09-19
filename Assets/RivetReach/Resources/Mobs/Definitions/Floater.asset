@@ -43,5 +43,7 @@ MonoBehaviour:
     - rivet:sandstone
     - rivet:snow
     - rivet:red_clay
+    - rivet:cobblestone
+    - rivet:planks
     minimumLight: 0
     maximumLight: 7

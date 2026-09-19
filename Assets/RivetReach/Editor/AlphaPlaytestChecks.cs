@@ -42,6 +42,10 @@ namespace RivetReach.Editor
             var food=new HungerState();var health=new HealthState();health.Advance(2048,food);
             Check(food.Food==20&&Math.Abs(food.Exhaustion-3)<1e-9,"ordinary idle drain is 25 percent lower");
             Check(HungerState.HealingExhaustion==6,"healing retains original cost");
+            var moving=new HungerState();moving.Exert(10*HungerState.SprintExhaustionPerMetre+5*HungerState.JumpExhaustion);
+            Check(Math.Abs(moving.Exhaustion-1.5)<1e-9&&moving.Food==20,"Ten sprint metres plus five legal jumps cost 25 percent less without doubling the sprint jump");
+            Check(Math.Abs(HungerState.WalkExhaustionPerMetre-.0075)<1e-9&&Math.Abs(HungerState.BlockActionExhaustion-.0375)<1e-9,"Walking and successful block actions share ordinary reduction");
+
             Directory.CreateDirectory("Logs/AlphaPlaytest");File.WriteAllText("Logs/AlphaPlaytest/checks.txt","PASS: "+count+" interaction/conservation assertions.\n");
         }
     }

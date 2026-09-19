@@ -3113,3 +3113,35 @@ MonoBehaviour:
     tags:
     - edible
     - prepared_food
+  - runtimeId: 37
+    stableId: rivet:lava_rock
+    displayName: Lava Rock
+    stackLimit: 64
+    fistSeconds: 30
+    colour: {r: 0.15, g: 0.12, b: 0.22, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags: []
+  - runtimeId: 38
+    stableId: rivet:mob_spawner
+    displayName: Mob Spawner
+    stackLimit: 64
+    fistSeconds: 4
+    colour: {r: 0.2, g: 0.23, b: 0.24, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags: []

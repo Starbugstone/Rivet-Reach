@@ -4,7 +4,7 @@ using UnityEngine;
 namespace RivetReach
 {
     [Flags]
-    public enum BlockTraits { None=0, HasCustomSelectionShape=1 }
+    public enum BlockTraits { None=0, HasCustomSelectionShape=1, NoMiningDrop=2 }
 
     // Selection is deliberately independent of movement solidity and rendered meshes.
     // Shapes are immutable, cached definition data; a ray never constructs geometry.
@@ -57,8 +57,8 @@ namespace RivetReach
         public readonly BlockTraits Traits;
         public readonly SelectionShape Selection;
         public readonly ISelectionShapeProvider Provider;
-        public BlockDefinition(SelectionShape shape,ISelectionShapeProvider provider=null)
-        {Selection=shape;Provider=provider;Traits=shape!=null||provider!=null?BlockTraits.HasCustomSelectionShape:BlockTraits.None;}
+        public BlockDefinition(SelectionShape shape,ISelectionShapeProvider provider=null,BlockTraits traits=BlockTraits.None)
+        {Selection=shape;Provider=provider;Traits=traits|(shape!=null||provider!=null?BlockTraits.HasCustomSelectionShape:BlockTraits.None);}
         public SelectionShape Shape(VoxelWorld world,BlockPos position)=>Provider?.GetSelectionShape(world,position)??Selection;
     }
 
@@ -69,6 +69,7 @@ namespace RivetReach
         static BlockDefinition[] Build()
         {
             var result=new BlockDefinition[256]; // Default value is the full-cube fast path.
+            result[BlockId.MobSpawner]=new BlockDefinition(null,null,BlockTraits.NoMiningDrop);
             result[BlockId.Torch]=new BlockDefinition(null,new AttachedTorchSelection());
             result[BlockId.Sapling]=new BlockDefinition(SelectionShape.Box(.12f,0,.12f,.88f,.85f,.88f));
             foreach(var crop in CropRules.Definitions)for(int id=crop.first;id<=crop.Mature;id++)

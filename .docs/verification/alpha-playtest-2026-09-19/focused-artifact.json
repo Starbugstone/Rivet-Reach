@@ -1,0 +1,11 @@
+{
+  "recorded": "2026-09-19T14:08:29.580173",
+  "unity": "6000.4.4f1",
+  "player": "Builds/AlphaPlaytest/RivetReach.exe",
+  "assembly_sha256": "785fe0b298b86897d46dcd810de9078d4cf0c70ff7e2efee3882c48fa69a5191",
+  "report": "focused-report.json",
+  "result": "PASS",
+  "assertions": 87,
+  "schema": 13,
+  "generator": "terrain-9-spawners"
+}

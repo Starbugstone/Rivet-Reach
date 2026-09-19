@@ -2,7 +2,7 @@
 
 > **2026-09-11 persistence extension:** [SAVES.md](SAVES.md) owns the implemented Save Game, Load Game and Continue Latest Save behavior. Its bounded surface-world persistence supersedes earlier session-only/durable-save exclusions below; older verification retains its original artifact identity.
 
-The user requested a terrain rework with caves, varied landscapes and biomes. The current working profile is generator **`terrain-7-lava`**, in the existing `surface` world. It replaces the previous height/cave algorithm while preserving the [finite ore profile and bedrock base](ECONOMY.md#current-ore-generation-and-bedrock), integer coordinates, chunk streaming and authoritative session edits. Numerical shapes, frequencies and material choices below are implementation defaults for review, not user-selected tuning or proven gameplay quality.
+The user requested a terrain rework with caves, varied landscapes and biomes. The current working profile is generator **`terrain-9-spawners`**, in the existing `surface` world. It retains the lava-era surface/cave profile below, adds the existing wild crops and rare spawner rooms, and applies only in previously ungenerated chunks under the [generated-history policy](SAVES.md#generated-chunk-policy--2026-09-13). It preserves the [finite ore profile and bedrock base](ECONOMY.md#current-ore-generation-and-bedrock), integer coordinates, chunk streaming and authoritative session edits. Numerical shapes, frequencies and material choices below are implementation defaults for review, not user-selected tuning or proven gameplay quality.
 
 ## Surface profile
 
@@ -88,3 +88,7 @@ Point reads and chunk/halo generation apply the same rule before ore stamping. P
 ## Farms and future generation — 2026-09-13
 
 `terrain-8-farms` adds the [crop/forage profile](FARMING.md#plants), preserving terrain relief, water, lava, ores, bedrock and clear spawn. Wild cultivable plants visibly grow on natural soil through the survival scheduler. This supersedes the older mature-potato-only hook for new generation. [The hard generated-chunk policy](SAVES.md#generated-chunk-policy--2026-09-13) preserves existing generated terrain and applies all future generator updates only to unexplored chunks, with the user-approved conservative legacy fallback.
+
+## Rare spawner rooms — 2026-09-19
+
+`terrain-9-spawners` retains the farm, fluid, ore and bedrock profiles and adds the reusable [cobblestone dungeon template](SPAWNERS.md#rare-dungeon-room-template). Overall candidate frequency is independent of the requested 99% connected / 1% buried mode selection. The complete bounded room/passage fits one chunk, so generation cannot carve into a neighboring historical chunk. Both point queries and chunk/halo construction use the same deterministic placement. Previously generated terrain keeps its recorded generator; this update appears only during new exploration. Density and discovery value remain Alpha playtest questions, not proven balance.

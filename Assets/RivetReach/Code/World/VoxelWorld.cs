@@ -103,7 +103,7 @@ namespace RivetReach
         public bool Remove(BlockPos p,byte expected) => IndustryId.DoorPart(expected)?RemoveDoor(p,expected): (CanRemoveMachine?.Invoke(p)??true)&&expected!=0&&expected!=BlockId.Bedrock&&Change(p,expected,0);
         public bool Place(BlockPos p,byte id) => id==BlockId.Sapling?PlantSapling(p): id==IndustryId.WoodenDoor?PlaceDoor(p): id==BlockId.Torch?PlaceTorch(p,p.Offset(0,-1,0)):BlockId.Placeable(id)&&(Get(p)==0||Fluids.IsFluid(Get(p)))&&Change(p,Get(p),id);
         public bool ChangeFluid(BlockPos p,byte expected,byte replacement)
-            =>(expected==0||expected==BlockId.Torch||expected==BlockId.Sapling||Fluids.IsFluid(expected))&&(replacement==0||Fluids.IsFluid(replacement))&&Change(p,expected,replacement,false);
+            =>(expected==0||expected==BlockId.Torch||expected==BlockId.Sapling||Fluids.IsFluid(expected))&&(replacement==0||Fluids.IsFluid(replacement)||expected==Fluids.Lava.Source&&replacement==BlockId.LavaRock)&&Change(p,expected,replacement,false);
         public bool Submerged(Vector3 point,out FluidDefinition fluid,out byte cell)
         {
             var p=Address(point);cell=Ready(p)?Get(p):(byte)0;fluid=Fluids.Registry.Get(cell);
@@ -143,7 +143,7 @@ namespace RivetReach
             {
                 if(!Remove(p,expected))return false;
                 RecoveringMachine=recovering;
-                BlockMined?.Invoke(p,expected);
+                if((BlockDefinitions.Get(expected).Traits&BlockTraits.NoMiningDrop)==0)BlockMined?.Invoke(p,expected);
                 if(fell)Trees.FellAbove(this,p);
                 return true;
             }

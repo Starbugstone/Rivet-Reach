@@ -64,23 +64,25 @@ namespace RivetReach
             foreach(var m in Mobs)
             {
                 w.Write(m.Id);w.Write(m.Definition.stableId);w.Point(m.Position);w.Point(m.Home);w.Write(m.Health);w.Write((int)m.Intent);
-                w.Write(m.Timer);w.Write(m.Anger);w.Write(m.Yaw);w.Write(m.Vertical);w.Write(m.Unseen);w.Write(m.Grounded);w.Write(m.Climbing);w.Vector(m.WallNormal);w.Vector(m.ClimbDirection);w.Vector(m.Knockback);
+                w.Write(m.Timer);w.Write(m.Anger);w.Write(m.Yaw);w.Write(m.Vertical);w.Write(m.Unseen);w.Write(m.Grounded);w.Write(m.Climbing);w.Vector(m.WallNormal);w.Vector(m.ClimbDirection);w.Vector(m.Knockback);if(w.Format>=13)w.Write(m.SpawnerId);
             }
+            WriteSpawnerSave(w);
         }
         internal void ReadSave(SaveReader r)
         {
             nextId=r.Long(1);accumulator=r.Float(0);spawnAt=r.Float();elapsed=r.Float(0);nextStrike=r.Float();nextPlayerHit=r.Float();graceUntil=r.Float();
-            int n=r.Count(MaximumPopulation);var ids=new System.Collections.Generic.HashSet<long>();
+            int n=r.Count(r.Format>=13?65536:MaximumPopulation);var ids=new System.Collections.Generic.HashSet<long>();
             for(int i=0;i<n;i++)
             {
                 long id=r.Long(1,nextId-1);string stable=r.Text();var definition=Definitions.SingleOrDefault(d=>d.stableId==stable);
                 SaveReader.Require(definition!=null&&ids.Add(id),"Unknown creature or duplicate identity.");
                 var m=new MobState{Id=id,Definition=definition,Position=r.Point(),Home=r.Point(),Health=r.Int(0,definition.health),Intent=(MobIntent)r.Int(0,7),Timer=r.Float(),Anger=r.Float(),Yaw=r.Float(),Vertical=r.Float(),Unseen=r.Float(),Grounded=r.ReadBoolean(),Climbing=r.ReadBoolean(),WallNormal=r.Vector(),ClimbDirection=r.Vector(),Knockback=r.Vector(),PathAt=elapsed};
+                if(r.Format>=13)m.SpawnerId=r.Long();
                 SaveReader.Require(m.Alive==(m.Intent!=MobIntent.Dead),"Invalid saved creature health.");
                 var root=new GameObject(definition.displayName+" #"+m.Id);root.transform.SetParent(transform,false);root.transform.position=m.Position.Local(game.World.Origin);
                 m.View=root.AddComponent<MobView>();m.View.Initialize(m,material);Mobs.Add(m);
             }
-            previousPlayer=game.Player.transform.position;
+            ReadSpawnerSave(r);previousPlayer=game.Player.transform.position;
         }
     }
 }

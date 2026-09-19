@@ -53,7 +53,7 @@ namespace RivetReach
         GameObject foodItem,fishingRod;
         Vector3 fishingTipLocal;
         public Vector3 FishingTip=>fishingRod!=null?fishingRod.transform.TransformPoint(fishingTipLocal):Player.Camera.transform.position+Player.Camera.transform.forward*.5f;
-        Material foodMaterial,fishingMaterial;
+        Material foodMaterial,fishingMaterial,spawnerDisplayMaterial;
         GameObject view,block,sword,pickaxe,axe,shovel,hoe,card,torch,bucket,bucketWater,wrench;
         Material cardMaterial,torchMaterial,waterMaterial;
         Light heldTorchLight;
@@ -93,12 +93,14 @@ namespace RivetReach
                 bool reuseOre=industryItem!=null&&OreVisuals.UsesModel(ItemId)&&OreVisuals.UsesModel(id);
                 ItemId=id;
                 if(foodItem!=null){Destroy(foodItem);foodItem=null;}
-                if(id!=FishId.Rod&&(FoodVisuals.UsesModel(id)||EquipmentVisuals.UsesModel(id)||MobLootVisuals.UsesModel(id)))
+                if(id!=FishId.Rod&&(id==BlockId.MobSpawner||FoodVisuals.UsesModel(id)||EquipmentVisuals.UsesModel(id)||MobLootVisuals.UsesModel(id)))
                 {
                     if(foodMaterial==null)
                     {foodMaterial=new Material(Shader.Find("RivetReach/HeldTool"));foodMaterial.SetTexture("_BaseMap",FoodVisuals.Palette);}
-                    foodMaterial.SetTexture("_BaseMap",MobLootVisuals.UsesModel(id)?MobLootVisuals.Palette:EquipmentVisuals.UsesModel(id)?EquipmentVisuals.Palette(id):FoodVisuals.PaletteFor(id));
-                    foodItem=MobLootVisuals.UsesModel(id)?MobLootVisuals.Create(block.transform,foodMaterial):EquipmentVisuals.UsesModel(id)?EquipmentVisuals.Create(id,block.transform,foodMaterial):FoodVisuals.Create(id,block.transform,foodMaterial);
+                    foodMaterial.SetTexture("_BaseMap",id==BlockId.MobSpawner?SpawnerVisuals.Palette:MobLootVisuals.UsesModel(id)?MobLootVisuals.Palette:EquipmentVisuals.UsesModel(id)?EquipmentVisuals.Palette(id):FoodVisuals.PaletteFor(id));
+                    if(id==BlockId.MobSpawner&&spawnerDisplayMaterial==null)
+                    {spawnerDisplayMaterial=new Material(Shader.Find("RivetReach/HeldTool"));spawnerDisplayMaterial.SetTexture("_BaseMap",MobLootVisuals.Palette);}
+                    foodItem=id==BlockId.MobSpawner?SpawnerVisuals.Create(block.transform,null,foodMaterial,spawnerDisplayMaterial):MobLootVisuals.UsesModel(id)?MobLootVisuals.Create(block.transform,foodMaterial):EquipmentVisuals.UsesModel(id)?EquipmentVisuals.Create(id,block.transform,foodMaterial):FoodVisuals.Create(id,block.transform,foodMaterial);
                     // Long axis crosses the supporting palm; the baked opening faces up.
                     foodItem.transform.localRotation=Quaternion.Euler(0,MobLootVisuals.UsesModel(id)?200:20,0)*foodItem.transform.localRotation;
                     foodItem.transform.localPosition=new Vector3(0,-.22f,0);
@@ -228,6 +230,7 @@ namespace RivetReach
             if(torchMaterial!=null)torchMaterial.SetFloat("_FirstPerson",firstPerson);
             if(cardMaterial!=null)cardMaterial.SetFloat("_FirstPerson",firstPerson);
             if(foodMaterial!=null)foodMaterial.SetFloat("_FirstPerson",firstPerson);
+            if(spawnerDisplayMaterial!=null)spawnerDisplayMaterial.SetFloat("_FirstPerson",firstPerson);
             if(fishingMaterial!=null)fishingMaterial.SetFloat("_FirstPerson",firstPerson);
             UpdateTorchLight(isTorch);
         }
@@ -267,6 +270,6 @@ namespace RivetReach
             arm.localRotation=Quaternion.Euler(12*amount,0,-6*amount);
             arm.localPosition+=new Vector3(.025f,-.52f,.08f)*amount*arm.localScale.x;
         }
-        void OnDestroy(){Shader.SetGlobalVector("_RRHeldTorchAmbient",Vector4.zero);if(heldTorchLight!=null)Destroy(heldTorchLight.gameObject);if(foodMaterial!=null)Destroy(foodMaterial);if(fishingMaterial!=null)Destroy(fishingMaterial);if(industryMaterial!=null)Destroy(industryMaterial);if(industryGlass!=null)Destroy(industryGlass);if(view!=null)Destroy(view);if(material!=null)Destroy(material);if(toolMaterial!=null)Destroy(toolMaterial);if(axeMaterial!=null)Destroy(axeMaterial);if(torchMaterial!=null)Destroy(torchMaterial);if(waterMaterial!=null)Destroy(waterMaterial);if(cardMaterial!=null)Destroy(cardMaterial);foreach(var mesh in meshes.Values)Destroy(mesh);}
+        void OnDestroy(){Shader.SetGlobalVector("_RRHeldTorchAmbient",Vector4.zero);if(heldTorchLight!=null)Destroy(heldTorchLight.gameObject);if(foodMaterial!=null)Destroy(foodMaterial);if(spawnerDisplayMaterial!=null)Destroy(spawnerDisplayMaterial);if(fishingMaterial!=null)Destroy(fishingMaterial);if(industryMaterial!=null)Destroy(industryMaterial);if(industryGlass!=null)Destroy(industryGlass);if(view!=null)Destroy(view);if(material!=null)Destroy(material);if(toolMaterial!=null)Destroy(toolMaterial);if(axeMaterial!=null)Destroy(axeMaterial);if(torchMaterial!=null)Destroy(torchMaterial);if(waterMaterial!=null)Destroy(waterMaterial);if(cardMaterial!=null)Destroy(cardMaterial);foreach(var mesh in meshes.Values)Destroy(mesh);}
     }
 }

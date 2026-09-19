@@ -4,6 +4,8 @@ Find wild potatoes, wheat, flax, carrots and berry plants on grassy terrain. Mus
 
 ![Crop growth stages in the game](images/farming/crop-stages.png)
 
+Ripe crops on **tilled farmland** can also be harvested with right-click. With a hoe selected, the harvest goes into your inventory, overflow drops safely, and one available planting item is consumed to replant. Wild crops retain their ordinary break interaction. [Building and inventory shortcuts](Building-and-inventory.md) explains the controls and full-backpack behavior.
+
 ## Wild harvests and planting
 
 Cultivable wild plants visibly grow through the same four stages as farm plants. Young wheat, flax, carrot and berry plants return **one seed only**. Immature potatoes return **one potato**. Eat it immediately for early survival, or keep it to replant and grow **2–4 potatoes**. Waiting for maturity produces extra food and planting stock.

@@ -1,0 +1,12 @@
+{
+  "recorded": "2026-09-19T13:48:47.513572",
+  "assembly_sha256": "da537a287e0f4302f78be10106dc07db868314b927a1f2e0a4597d23be94114b",
+  "scenarios": [
+    "save-final",
+    "Legacy12",
+    "Legacy11",
+    "Legacy10",
+    "Legacy9"
+  ],
+  "note": "Before final static miniature and capture-harness changes; same persistence/simulation code."
+}

@@ -190,3 +190,7 @@ The user authorized [fishing](.docs/FISHING.md) as the next issue #10 increment:
 ## Authorized persistent chickens
 
 The user authorized the next issue #10 increment: [chickens](.docs/CHICKENS.md), seed/grain attraction and breeding, chicks, eggs, meat/feathers and shared cooker meals. Keep passive records separate from hostile ambient despawning. Preserve shared habitat/light/navigation/targeting contracts, dormant/offline timer freeze, exactly-once offspring/loot and schema-12 compatibility. [Verification](.docs/verification/CHICKEN_RESULTS.md) distinguishes native results from remaining balance/artistic review. Keep the issue checklist and published illustrated wiki current.
+
+## Authorized Alpha playtest corrections and spawners
+
+The user authorized all of [issue #12](.docs/verification/ALPHA_PLAYTEST_RESULTS.md): shared shape-aware targeting, inventory organisation/Pick Block, farmland harvest/replant, held jumping, reduced ordinary hunger, interaction lighting and skin rendering fixes, [Lava Rock](.docs/FLUIDS.md#lava-rock--2026-09-19), a shared hostile spawn audit and [generic cage spawners/rare rooms](.docs/SPAWNERS.md). Preserve independent five-mob origin caps, shared spawn validity, ordinary hostile unload/despawn, schema-13 compatibility and generation only in unexplored chunks. Room frequency and the 99/1 connected/buried split are separate controls. Run a normal Survival route before focused acceptance checks and keep the published wiki/current visuals in scope.

@@ -21,6 +21,7 @@ namespace RivetReach
         public static bool BiomeBlock(byte id)=>id>=Sand&&id<=RedClay;
         public const byte Planks=20,Stick=21,Cobblestone=22,Workbench=23,Furnace=24,Chest=25,Charcoal=26,CopperIngot=27,IronIngot=28,GoldIngot=29;
         public const byte Potato=30,BakedPotato=31,Farmland=32,PotatoPlant=33,MaturePotatoPlant=36;
+        public const byte LavaRock=37,MobSpawner=38;
         public const byte WoodAxe=40,WoodPickaxe=41,WoodSword=42,WoodShovel=43,WoodHoe=44;
         public const byte StoneAxe=45,StonePickaxe=46,StoneSword=47,StoneShovel=48,StoneHoe=49;
         public const byte CopperAxe=50,CopperPickaxe=51,CopperSword=52,CopperShovel=53,CopperHoe=54;
@@ -31,7 +32,7 @@ namespace RivetReach
         public static bool RawMaterial(byte id)=>id>=RawIron&&id<=Diamond;
         public static bool Crop(byte id)=>CropRules.For(id)!=null;
         public static bool Station(byte id)=>id==Workbench||id==Furnace||id==Chest||id==IndustryId.Bench;
-        public static ToolTier RequiredTier(byte id)=>id==IndustryId.AzureOre?ToolTier.Copper:id==DiamondOre||id==GoldOre||id==GoldBlock||id==DiamondBlock?ToolTier.Iron:
+        public static ToolTier RequiredTier(byte id)=>id==LavaRock?ToolTier.Diamond:id==IndustryId.AzureOre?ToolTier.Copper:id==DiamondOre||id==GoldOre||id==GoldBlock||id==DiamondBlock?ToolTier.Iron:
             id==IronOre||id==CopperOre||id==IronBlock||id==CopperBlock?ToolTier.Stone:
             id==Stone||id==Cobblestone||id==CoalOre||id==Furnace||id==CoalBlock?ToolTier.Wood:ToolTier.None;
         public static bool Mineable(byte id,ToolCapability tool,ToolTier tier=ToolTier.Diamond)=>id!=Air&&id!=Bedrock&&(Placeable(id)||id==IndustryId.DoorUpper||Ore(id)||id==Farmland||Crop(id))&&
@@ -39,10 +40,10 @@ namespace RivetReach
         public static string MiningHint(byte id,ToolCapability tool,ToolTier tier=ToolTier.Diamond)=>id==Bedrock?"Unbreakable":!Mineable(id,tool,tier)&&RequiredTier(id)!=ToolTier.None?"Requires "+RequiredTier(id).ToString().ToLowerInvariant()+" pickaxe or better":"";
         public static bool GrowingPlant(byte id)=>id==Sapling||CropRules.For(id) is CropDefinition crop&&id<crop.Mature;
         public static bool SaplingSoil(byte id)=>id==Grass||id==Dirt;
-        public static bool Placeable(byte id)=>id==Sapling||IndustryId.Placed(id)||id==Torch||id>=Grass&&id<=Leaves||BiomeBlock(id)||id==Planks||id==Cobblestone||Station(id)||id>=CoalBlock&&id<=DiamondBlock;
+        public static bool Placeable(byte id)=>id==LavaRock||id==MobSpawner||id==Sapling||IndustryId.Placed(id)||id==Torch||id>=Grass&&id<=Leaves||BiomeBlock(id)||id==Planks||id==Cobblestone||Station(id)||id>=CoalBlock&&id<=DiamondBlock;
         public static bool Solid(byte id)=>id!=Air&&id!=Torch&&id!=Sapling&&!IndustryId.Thin(id)&&!Crop(id)&&!Fluids.IsFluid(id);
-        public static bool Opaque(byte id)=>Solid(id)&&id!=Leaves&&!IndustryId.Placed(id)&&id!=IndustryId.DoorUpper;
-        public static int Tile(byte id,int axis,int sign)=>id==Sapling?6:id==IndustryId.AzureOre?44:id==Planks?18:id==Cobblestone?19:id==Workbench?(axis==1&&sign>0?20:21):id==Furnace?(axis==1?19:22):id==Chest?23:id==Farmland?(axis==1&&sign>0?24:2):Crop(id)?25+id-PotatoPlant:id>=CoalBlock&&id<=DiamondBlock?29+id-CoalBlock:
+        public static bool Opaque(byte id)=>Solid(id)&&id!=MobSpawner&&id!=Leaves&&!IndustryId.Placed(id)&&id!=IndustryId.DoorUpper;
+        public static int Tile(byte id,int axis,int sign)=>id==LavaRock?45:id==Sapling?6:id==IndustryId.AzureOre?44:id==Planks?18:id==Cobblestone?19:id==Workbench?(axis==1&&sign>0?20:21):id==Furnace?(axis==1?19:22):id==Chest?23:id==Farmland?(axis==1&&sign>0?24:2):Crop(id)?25+id-PotatoPlant:id>=CoalBlock&&id<=DiamondBlock?29+id-CoalBlock:
             BiomeBlock(id)?40+id-Sand:Ore(id)?7+id-IronOre:RawMaterial(id)?13+id-RawIron:id==Bedrock?12:id==Grass?(axis==1?(sign>0?0:2):1):id==Dirt?2:id==Log?(axis==1?5:4):id==Leaves?6:3;
     }
 

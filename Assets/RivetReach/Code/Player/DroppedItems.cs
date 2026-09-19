@@ -243,6 +243,7 @@ namespace RivetReach
                 float scale=1/Mathf.Max(bounds.size.x,bounds.size.y,bounds.size.z);model.transform.localPosition=-bounds.center*scale;model.transform.localScale*=scale;
                 foreach(var r in renderers)r.sharedMaterial=Resources.Load<Material>("Industry/Workshop");
             }
+            else if(id==BlockId.MobSpawner){var cage=SpawnerVisuals.Create(view.transform);cage.transform.localPosition=Vector3.down*.5f;}
             else if(MobLootVisuals.UsesModel(id))MobLootVisuals.Create(view.transform);
             else if(EquipmentVisuals.UsesModel(id))EquipmentVisuals.Create(id,view.transform);
             else if(FoodVisuals.UsesModel(id))FoodVisuals.Create(id,view.transform);

@@ -61,3 +61,7 @@ Drain finite lava deposits with a [Ranged Liquid Pump](Ranged-Liquid-Pump.md), c
 - [Fishing](Fishing.md) — rod crafting, deep source-water ponds, bite timing and fish meals.
 
 - [Chickens](Chickens.md) — lead, breed and raise a persistent flock; collect eggs and cook meals.
+
+[Building and inventory shortcuts](Building-and-inventory.md) cover middle-click organisation, Pick Block and hoe replanting. Rare [Floater spawner rooms](Spawners.md) provide another route to encounter Floaters during underground exploration.
+
+- [Spawn mechanics](Spawn-mechanics.md) — light, floors, distances, natural populations, cage caps and persistent chickens.

@@ -1,0 +1,1 @@
+Frozen display mesh enabled=True bounds=Center: (16.50, -86.50, 16.50), Extents: (0.31, 0.12, 0.23) local=Center: (0.00, 0.00, 0.00), Extents: (118.16, 50.19, 50.17) scale=(0.00, 0.00, 0.00) vertices=3261 material=CreatureMaterial shader=RivetReach/WorldLit viewport=(0.50, 0.50, 1.91)

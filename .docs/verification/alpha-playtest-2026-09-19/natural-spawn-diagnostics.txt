@@ -1,0 +1,18 @@
+None=2
+Unloaded=0
+Blocked=394
+Fluid=5
+UnsupportedFloor=0
+WrongHabitat=0
+UnknownLight=0
+TooBright=0
+TooDark=0
+Occupied=0
+TooClose=1
+TooFar=4
+SpawnProtection=0
+Daytime=0
+Visible=0
+PopulationCap=0
+SpeciesCap=0
+Natural origin=80, -71, 18; support=3; light=0; constructed-floor eligibility checked separately. Nearby caves compete for the same four-Floater cap.

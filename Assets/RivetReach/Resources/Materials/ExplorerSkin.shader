@@ -24,7 +24,6 @@ Shader "RivetReach/ExplorerSkin"
             #pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
             #pragma multi_compile_fragment _ _SHADOWS_SOFT
-            #pragma multi_compile_fog
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "WorldLighting.hlsl"
             TEXTURE2D(_BaseMap);SAMPLER(sampler_BaseMap);
@@ -33,13 +32,14 @@ Shader "RivetReach/ExplorerSkin"
             CBUFFER_START(UnityPerMaterial)
             float4 _BaseColor;float4 _BaseMap_ST;float _FirstPerson;float _Cutoff;float _Cull;
             CBUFFER_END
+            float4 _RRFogColour,_RRFogRange;
             struct A {float3 positionOS:POSITION;float3 normalOS:NORMAL;float4 tangentOS:TANGENT;float2 uv:TEXCOORD0;};
-            struct V {float4 positionCS:SV_POSITION;float3 positionWS:TEXCOORD0;float3 normalWS:TEXCOORD1;float4 tangentWS:TEXCOORD2;float2 uv:TEXCOORD3;float fog:TEXCOORD4;};
+            struct V {float4 positionCS:SV_POSITION;float3 positionWS:TEXCOORD0;float3 normalWS:TEXCOORD1;float4 tangentWS:TEXCOORD2;float2 uv:TEXCOORD3;};
             V Vert(A i)
             {
                 V o;VertexPositionInputs p=GetVertexPositionInputs(i.positionOS);VertexNormalInputs n=GetVertexNormalInputs(i.normalOS,i.tangentOS);
                 o.positionCS=p.positionCS;o.positionWS=p.positionWS;o.normalWS=n.normalWS;
-                o.tangentWS=float4(n.tangentWS,i.tangentOS.w*GetOddNegativeScale());o.uv=i.uv;o.fog=ComputeFogFactor(p.positionCS.z);
+                o.tangentWS=float4(n.tangentWS,i.tangentOS.w*GetOddNegativeScale());o.uv=i.uv;
                 if(_FirstPerson>.5)
                 {
                     #if UNITY_REVERSED_Z
@@ -71,7 +71,10 @@ Shader "RivetReach/ExplorerSkin"
                 Light sun=GetMainLight(input.shadowCoord);
                 surface.emission=surface.albedo*half3(1,.39,.22)*packed.b*.055*saturate(.4-dot(n,sun.direction))*sun.color*sun.shadowAttenuation*RRSky(i.positionWS,n);
                 half4 colour=UniversalFragmentPBR(input,surface);
-                colour.rgb=lerp(colour.rgb,RRCaveFog(unity_FogColor.rgb,i.positionWS),_FirstPerson>.5?0:1-ComputeFogIntensity(i.fog));return colour;
+                // Match the world's distance fog. URP fog keyword stripping must not
+                // turn a nearby explorer into a solid fog-colour silhouette.
+                float fog=_FirstPerson>.5||_RRFogRange.y<=_RRFogRange.x?0:smoothstep(_RRFogRange.x,_RRFogRange.y,distance(i.positionWS,GetCameraPositionWS()));
+                colour.rgb=lerp(colour.rgb,RRCaveFog(_RRFogColour.rgb,i.positionWS),fog);return colour;
             }
             ENDHLSL
         }

@@ -33,6 +33,7 @@ namespace RivetReach
     public sealed class MobState
     {
         public long Id;
+        public long SpawnerId; // Zero denotes the natural/ordinary population.
         public MobDefinition Definition;
         public WorldPoint Position, Home;
         public int Health;

@@ -1,0 +1,2 @@
+Unity cage import: 3472 triangles; bounds metres (0.98, 0.95, 0.98); one material per renderer.
+PASS 40796 alpha world assertions

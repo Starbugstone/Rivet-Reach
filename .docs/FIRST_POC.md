@@ -8,6 +8,8 @@ The downloadable [0.0.1 alpha](releases/0.0.1.md) is a Windows x64 prerelease. E
 
 Open this repository in the pinned Unity Editor, open `Assets/RivetReach/Scenes/Main.unity`, then press Play. `Expedition.Bootstrap` creates the voxel world and UI at runtime; the unplayed scene is not a populated map. After cloning, run `git lfs pull` to retrieve binary assets.
 
+The latest issue #12 review executable is **`Builds/AlphaPlaytest/RivetReach.exe`**. Keep its adjacent data folder, DLLs and Mono runtime together. [Alpha verification](verification/ALPHA_PLAYTEST_RESULTS.md) records the Survival route, focused checks, schema-13 saves and their dated artifacts. This build includes the completed chicken increment.
+
 The latest fishing review executable is **`Builds/Fishing/RivetReach.exe`** ([rules and controls](FISHING.md)). Keep its adjacent data folder, DLLs and Mono runtime together. Start Expedition uses a fresh random world seed, or the optional signed 32-bit seed entered on the title screen. Nearby terrain prepares before movement can enter it.
 
 For the latest menu/crafting responsiveness changes, use **`Builds/RecipeBrowser/RivetReach.exe`**; [pointer verification](verification/POINTER_RESULTS.md) identifies this focused build and its checks.
@@ -35,7 +37,8 @@ The player backpack has **56 slots (seven rows of eight)**, plus the **15-slot h
 | Action | Default |
 | --- | --- |
 | Move / look | WASD / mouse |
-| Sprint / jump / crouch | Left Ctrl or double-tap Forward / Space / Left Shift |
+| Sprint / jump / crouch | Left Ctrl or double-tap Forward / hold Space to repeat grounded jumps / Left Shift |
+| Pick world block / organise hovered inventory section | Middle mouse |
 | Mine / attack | Hold left mouse while aiming within reach |
 | Interact with stations or machines | E, or right-click while aiming at the block |
 | Place / use held item | Right-click; Left Shift + right-click places against a station |

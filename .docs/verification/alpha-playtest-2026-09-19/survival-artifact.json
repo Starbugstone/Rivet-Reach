@@ -1,0 +1,8 @@
+{
+  "captured": "2026-09-19",
+  "unity": "6000.4.4f1",
+  "player": "Builds/AlphaPlaytest/RivetReach.exe",
+  "assembly_sha256": "769315c266b28133f7b91bb21a3f8e94febff264329756622d258c232f57b5a9",
+  "scope": "Corrected Survival route before focused checks; subsequent focused harness revisions have separate build identities.",
+  "survival": "survival-report.json"
+}

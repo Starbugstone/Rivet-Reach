@@ -11,6 +11,8 @@ namespace RivetReach
         public const float SpawnMinimum=24, SpawnMaximum=48, SleepDistance=68, DespawnDistance=112;
         public Func<bool> NightProvider;
         public bool NaturalSpawning=true;
+        public SpawnRejection LastSpawnRejection {get;private set;}
+        public readonly long[] SpawnRejections=new long[Enum.GetValues(typeof(SpawnRejection)).Length];
         public readonly List<MobState> Mobs=new List<MobState>();
         public MobDefinition[] Definitions {get;private set;}
         public MobState Target {get;private set;}
@@ -46,6 +48,7 @@ namespace RivetReach
             game.World.OriginShifted+=ShiftOrigin;
             game.Respawned+=GiveRespawnGrace;
             gameObject.AddComponent<MobHUD>().Initialize(this,game);
+            InitializeSpawners();
         }
         void ShiftOrigin(Vector3 shift)
         {
@@ -84,12 +87,13 @@ namespace RivetReach
             elapsed+=dt;searchBudget=2;
             if(NaturalSpawning&&elapsed>=spawnAt&&game.ReadyToPlay&&!game.Health.Dead)
             {spawnAt=elapsed+2;TryNaturalSpawn();}
+            AdvanceSpawners(dt);
             for(int i=Mobs.Count-1;i>=0;i--)
             {
                 var mob=Mobs[i];Vector3 local=mob.Position.Local(game.World.Origin);
                 if(!mob.Alive){mob.Timer-=dt;if(mob.Timer<=0)RemoveAt(i);continue;}
                 float distance=Vector3.Distance(local,game.Player.transform.position);
-                if(distance>DespawnDistance){RemoveAt(i);continue;}
+                if(distance>DespawnDistance||game.ReadyToPlay&&!game.World.Ready(mob.Position.Cell)){RemoveAt(i);continue;}
                 if(distance>SleepDistance||!game.World.Ready(mob.Position.Cell))continue;
                 Think(mob,local,distance,dt);
                 Move(mob,dt);
@@ -97,35 +101,62 @@ namespace RivetReach
         }
         public bool CanSpawn(MobDefinition definition,Vector3 local,bool distanceRule=true)
         {
-            if(Mobs.Count>=MaximumPopulation||!(distanceRule?definition.spawnRules.AllowsSite(world,game.Registry,local,definition.width,definition.height,definition.hoverHeight,IsNight):MobNavigation.Standable(world,local,definition)))return false;
-            int count=0;
+            var rejection=NaturalSpawnRejection(definition,local,distanceRule);
+            LastSpawnRejection=rejection;SpawnRejections[(int)rejection]++;
+            return rejection==SpawnRejection.None;
+        }
+        public SpawnRejection CheckSpawnSite(MobDefinition definition,Vector3 local)
+        {
+            var rejection=definition.spawnRules.CheckSite(world,game.Registry,local,definition.width,definition.height,definition.hoverHeight,IsNight);
+            if(rejection!=SpawnRejection.None)return rejection;
+            var body=new Bounds(local+Vector3.up*definition.height*.5f,new Vector3(definition.width,definition.height,definition.width));
+            var player=new Bounds(game.Player.transform.position+Vector3.up*game.Player.Height*.5f,new Vector3(.6f,game.Player.Height,.6f));
+            if(body.Intersects(player)||game.Animals!=null&&game.Animals.BlocksBody(local,definition.width,definition.height))return SpawnRejection.Occupied;
+            foreach(var mob in Mobs)if(mob.Alive)
+            {
+                var other=new Bounds(mob.Position.Local(world.Origin)+Vector3.up*mob.Definition.height*.5f,new Vector3(mob.Definition.width,mob.Definition.height,mob.Definition.width));
+                if(body.Intersects(other))return SpawnRejection.Occupied;
+            }
+            return SpawnRejection.None;
+        }
+        SpawnRejection NaturalSpawnRejection(MobDefinition definition,Vector3 local,bool distanceRule)
+        {
+            int count=0,total=0;
             foreach(var mob in Mobs)
             {
-                if(mob.Definition==definition)count++;
-                if((mob.Position.Local(game.World.Origin)-local).sqrMagnitude<9)return false;
+                if(mob.Alive&&mob.SpawnerId==0){total++;if(mob.Definition==definition)count++;}
+                if(mob.Alive&&(mob.Position.Local(game.World.Origin)-local).sqrMagnitude<9)return SpawnRejection.Occupied;
             }
-            if(count>=definition.population)return false;
+            if(total>=MaximumPopulation)return SpawnRejection.PopulationCap;
+            if(count>=definition.population)return SpawnRejection.SpeciesCap;
+            if(distanceRule){var rejection=CheckSpawnSite(definition,local);if(rejection!=SpawnRejection.None)return rejection;}
+            else if(!MobNavigation.Standable(world,local,definition))return SpawnRejection.Blocked;
             if(distanceRule)
             {
                 float distance=Vector3.Distance(local,game.Player.transform.position);
-                if(distance<SpawnMinimum||distance>SpawnMaximum)return false;
+                if(distance<SpawnMinimum)return SpawnRejection.TooClose;
+                if(distance>SpawnMaximum)return SpawnRejection.TooFar;
                 var cell=game.World.Address(local);
-                if(cell.X* (double)cell.X+cell.Z*(double)cell.Z<16*16)return false;
-                if(definition.nocturnal&&!IsNight)return false;
+                if(cell.X* (double)cell.X+cell.Z*(double)cell.Z<16*16)return SpawnRejection.SpawnProtection;
+                if(definition.nocturnal&&!IsNight)return SpawnRejection.Daytime;
                 // Never materialize in the player's current view, even outside melee range.
                 var view=game.Player.Camera.WorldToViewportPoint(local+Vector3.up*definition.height*.5f);
-                if(view.z>0&&view.x>-.1f&&view.x<1.1f&&view.y>-.1f&&view.y<1.1f&&ClearSight(game.Player.Camera.transform.position,local+Vector3.up*.5f))return false;
+                if(view.z>0&&view.x>-.1f&&view.x<1.1f&&view.y>-.1f&&view.y<1.1f&&ClearSight(game.Player.Camera.transform.position,local+Vector3.up*.5f))return SpawnRejection.Visible;
             }
-            return true;
+            return SpawnRejection.None;
         }
         public bool TryNaturalSpawn()
         {
-            if(Mobs.Count>=MaximumPopulation)return false;
+            int naturalCount=0;foreach(var mob in Mobs)if(mob.Alive&&mob.SpawnerId==0)naturalCount++;
+            if(naturalCount>=MaximumPopulation){LastSpawnRejection=SpawnRejection.PopulationCap;SpawnRejections[(int)LastSpawnRejection]++;return false;}
             for(int attempt=0;attempt<8;attempt++)
             {
                 var definition=Definitions[random.Next(Definitions.Length)];
                 if(definition.nocturnal&&!IsNight)continue;
-                float angle=(float)random.NextDouble()*Mathf.PI*2,radius=Mathf.Lerp(SpawnMinimum,SpawnMaximum,(float)random.NextDouble());
+                float angle=(float)random.NextDouble()*Mathf.PI*2;
+                // Underground sites use the complete 3D distance shell. A horizontal
+                // 24m exclusion discarded valid rooms directly above/below the player.
+                float radius=definition.spawnRules.Underground?SpawnMaximum*Mathf.Sqrt((float)random.NextDouble()):Mathf.Lerp(SpawnMinimum,SpawnMaximum,(float)random.NextDouble());
                 var candidate=game.Player.transform.position+new Vector3(Mathf.Sin(angle)*radius,0,Mathf.Cos(angle)*radius);
                 var cell=game.World.Address(candidate);
                 definition.spawnRules.SearchHeights(world,cell,(int)SpawnMaximum,out int low,out int high);
@@ -151,7 +182,11 @@ namespace RivetReach
         public MobState Spawn(MobDefinition definition,Vector3 local)
         {
             if(!CanSpawn(definition,local,false))return null;
-            var state=new MobState{Id=nextId++,Definition=definition,Position=WorldPoint.FromLocal(local,game.World.Origin),
+            return CreateMob(definition,local,0);
+        }
+        MobState CreateMob(MobDefinition definition,Vector3 local,long spawnerId)
+        {
+            var state=new MobState{Id=nextId++,SpawnerId=spawnerId,Definition=definition,Position=WorldPoint.FromLocal(local,game.World.Origin),
                 Home=WorldPoint.FromLocal(local,game.World.Origin),Health=definition.health,Intent=MobIntent.Idle,Timer=2+(float)random.NextDouble()*3,Grounded=true};
             var root=new GameObject(definition.displayName+" #"+state.Id);root.transform.SetParent(transform,false);root.transform.position=local;
             state.View=root.AddComponent<MobView>();state.View.Initialize(state,material);Mobs.Add(state);TotalSpawned++;return state;
@@ -359,6 +394,6 @@ namespace RivetReach
         }
         void RemoveAt(int index){var mob=Mobs[index];if(Target==mob)Target=null;if(mob.View!=null)Destroy(mob.View.gameObject);Mobs.RemoveAt(index);}
         public void Clear(){for(int i=Mobs.Count-1;i>=0;i--)RemoveAt(i);}
-        void OnDestroy(){if(world!=null)world.OriginShifted-=ShiftOrigin;if(game!=null)game.Respawned-=GiveRespawnGrace;}
+        void OnDestroy(){if(world!=null){world.OriginShifted-=ShiftOrigin;world.ChunkReady-=ScanSpawners;world.BlockChanged-=SpawnerChanged;world.ResidencyChanged-=RefreshResidentSpawners;}if(game!=null)game.Respawned-=GiveRespawnGrace;}
     }
 }

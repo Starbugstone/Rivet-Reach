@@ -1,5 +1,7 @@
 # Chickens
 
+See [Spawn mechanics](Spawn-mechanics.md) for the complete light, habitat, distance, population and unloading rules.
+
 Find wild adult chickens on well-lit surface grass during the day. Bring seeds or grain to lead a pair home, build a pen from ordinary blocks and doors, and feed them to raise chicks.
 
 ![Adult chickens and a golden chick in the game](images/chickens/chickens-adult-and-chick.png)

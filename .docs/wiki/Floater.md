@@ -1,5 +1,7 @@
 # Floater
 
+See [Spawn mechanics](Spawn-mechanics.md) for the complete light, habitat, distance, population and unloading rules.
+
 [All mobs](Mobs.md) · [Rustback beetle](Rustback-Beetle.md) · [Dusk prowler](Dusk-Prowler.md)
 
 Floaters are hostile stone creatures: a hovering rocky sphere with a scowling face and heavy arms. They spawn **only underground in dark, covered caves**, during either day or night. Look beneath the surface for dry chambers with enough room above a solid floor; mined underground chambers can also qualify. Open shafts and above-ground shelters do not qualify.
@@ -37,3 +39,5 @@ Floaters require light level 7 or lower immediately above their supporting floor
 ![An existing Floater remains on a torch-lit cave floor](images/lit-cave-spawn-floor.png)
 
 September 13, 2026 verification capture: the placed torch gives this floor light level 12, which blocks new natural spawns. The Floater was explicitly placed for the check to show that existing creatures remain.
+
+Rare [cobblestone spawner rooms](Spawners.md) in newly explored terrain contain a Floater cage. Its five-mob allowance is separate from the natural population; placed light prevents new spawns. Breaking the cage destroys it without an item drop.

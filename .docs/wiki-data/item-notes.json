@@ -552,5 +552,15 @@
   "rivet:chicken_stew": {
     "description": "Chicken Stew restores 12 food points.",
     "use": "Prepare in either fuel or electric Cooker; hold Use to eat when hungry. See [Chickens](Chickens.md)."
+  },
+  "rivet:lava_rock": {
+    "description": "Dark volcanic glass formed when flowing water contacts a lava source.",
+    "obtain": "Let flowing water contact a lava source from above or beside it, then mine the resulting block with a [Diamond Pickaxe](Item-diamond-pickaxe.md).",
+    "use": "Place it as a building block. See [Lava](Lava.md) for the exact reaction and source rules."
+  },
+  "rivet:mob_spawner": {
+    "description": "A cage containing a visual miniature of its configured creature. Rare underground rooms contain Floater cages.",
+    "obtain": "Find one in newly explored cave terrain. Breaking it destroys it and drops no collectible spawner; the item is available only for Creative testing.",
+    "use": "Stay within 36 blocks and keep suitable nearby floor space dark. Each cage owns at most five active mobs. See [Spawners](Spawners.md)."
   }
 }

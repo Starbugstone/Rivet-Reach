@@ -1,6 +1,6 @@
 # Lava
 
-Lava forms lakes deep underground in new worlds, just above bedrock. Explore carefully: touching it burns you, and dropped items that touch it are destroyed.
+Lava forms lakes deep underground in newly explored terrain, just above bedrock. Explore carefully: touching it burns you, and dropped items that touch it are destroyed.
 
 ## Finding lava
 
@@ -8,7 +8,7 @@ Naturally generated deep cave pools reach **Y = −240**, sixteen blocks above t
 
 ![A naturally generated near-bedrock lava lake](images/lava-natural-lake.png)
 
-Existing saves keep their original terrain and do not gain generated lava lakes. Start a new world for the new lakes. You can still place lava from a bucket in an older world, including a bucket obtained through Creative’s item catalog.
+Previously generated chunks keep their original terrain. Explore ungenerated chunks for current world content; existing chunks are never rebuilt to add lakes or rooms. Lava buckets also work in older terrain.
 
 ## Collecting and placing
 
@@ -26,7 +26,13 @@ Lava advances once per second and spreads up to **three blocks** horizontally on
 
 ![Placed lava spreading across a stone deck](images/lava-flow.png)
 
-Water and lava remain separate when they meet. They do not currently produce stone or other reaction blocks.
+## Making Lava Rock
+
+When **flowing water** reaches a **lava source** from above or beside it, the source turns into [Lava Rock](Item-lava-rock.md). The resulting dark volcanic-glass block is stable and requires a **diamond pickaxe** to harvest. Water sources alone do not trigger this reaction, and flowing lava does not become Lava Rock.
+
+![Flowing water converts the contacted source into Lava Rock](images/alpha-playtest/lava-rock-reaction.png)
+
+This reaction capture is from the September 19, 2026 Alpha review player, using a controlled surface basin.
 
 ## Burning and lost items
 

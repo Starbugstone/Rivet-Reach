@@ -409,6 +409,8 @@ namespace RivetReach
                 {var baked=Resources.Load<Texture2D>("ItemIcons/"+item.runtimeId);if(baked==null)throw new System.InvalidOperationException("Rebake missing held-model icon: "+item.displayName);icons[item.runtimeId]=baked;sharedToolIcons.Add(baked);continue;}
                 if(EquipmentVisuals.UsesModel(item.runtimeId))
                 {var icon=EquipmentVisuals.Icon(item.runtimeId);icons[item.runtimeId]=icon;sharedToolIcons.Add(icon);continue;}
+                if(item.runtimeId==BlockId.MobSpawner)
+                {var icon=SpawnerVisuals.Icon;icons[item.runtimeId]=icon;sharedToolIcons.Add(icon);continue;}
                 if(MobLootVisuals.UsesModel(item.runtimeId))
                 {var icon=MobLootVisuals.Icon;icons[item.runtimeId]=icon;sharedToolIcons.Add(icon);continue;}
                 var farmIcon=Resources.Load<Texture2D>("Farming/"+item.runtimeId+"Icon");if(farmIcon!=null){icons[item.runtimeId]=farmIcon;sharedToolIcons.Add(farmIcon);continue;}
