@@ -15,6 +15,7 @@ This directory maintains the latest report and useful evidence for each feature.
 
 | Feature | Current evidence |
 | --- | --- |
+| Tool speed and durability | [Tool verification](TOOL_DURABILITY_RESULTS.md) — tier timing, wear, transfers, final-use breakage and schema-18 saves |
 | Food and hunger | [Food-balance verification](FOOD_BALANCE_RESULTS.md) — saved saturation, current food values and measured meal cadence |
 | Solar and wind electricity | [Renewable verification](RENEWABLE_RESULTS.md) — gradual output, real demand, parallel storage and compatibility |
 | Weather | [Weather verification](WEATHER_RESULTS.md) — transitions, shelter, exact timers and schema-16 saves |

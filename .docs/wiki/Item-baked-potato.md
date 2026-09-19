@@ -17,7 +17,7 @@ Cooked food that restores **5 food points**, compared with 1 for a raw potato. B
 | Stack size | 64 |
 | Tags | `compostable`, `edible` |
 | Food restored | 5 points |
-| Saturation reserve | 2 points |
+| Saturation reserve | 1 points |
 
 ## How to obtain
 

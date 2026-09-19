@@ -18,6 +18,7 @@ Legacy equipment retained for historical test fixtures. Ordinary Survival expedi
 | Tool tier | Iron |
 | Effective mining speed | 6× on suitable blocks |
 | Melee damage | 4 |
+| Durability | 512 successful uses; [tool wear guide](Tools-and-durability.md) |
 
 ## How to obtain
 

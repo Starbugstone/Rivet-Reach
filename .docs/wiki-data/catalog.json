@@ -35,7 +35,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -70,7 +71,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -105,7 +107,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -143,7 +146,8 @@
             "fuelTicks": 300,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -180,7 +184,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -215,7 +220,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 512
         },
         {
             "definition": {
@@ -250,7 +256,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 512
         },
         {
             "definition": {
@@ -285,7 +292,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 512
         },
         {
             "definition": {
@@ -320,7 +328,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -355,7 +364,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -390,7 +400,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -425,7 +436,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -460,7 +472,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -495,7 +508,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -532,7 +546,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -569,7 +584,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -607,7 +623,8 @@
             "fuelTicks": 1600,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -644,7 +661,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -679,7 +697,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -717,7 +736,8 @@
             "fuelTicks": 300,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -754,7 +774,8 @@
             "fuelTicks": 100,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -789,7 +810,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -824,7 +846,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -859,7 +882,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -894,7 +918,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -932,7 +957,8 @@
             "fuelTicks": 1600,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -969,7 +995,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -1006,7 +1033,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -1043,7 +1071,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -1082,7 +1111,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -1120,7 +1150,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 2
+            "foodSaturation": 1,
+            "durability": 0
         },
         {
             "definition": {
@@ -1155,7 +1186,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -1190,7 +1222,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -1225,7 +1258,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -1260,7 +1294,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -1295,7 +1330,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -1332,7 +1368,8 @@
             "fuelTicks": 200,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 64
         },
         {
             "definition": {
@@ -1369,7 +1406,8 @@
             "fuelTicks": 200,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 64
         },
         {
             "definition": {
@@ -1406,7 +1444,8 @@
             "fuelTicks": 200,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 64
         },
         {
             "definition": {
@@ -1443,7 +1482,8 @@
             "fuelTicks": 200,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 64
         },
         {
             "definition": {
@@ -1480,7 +1520,8 @@
             "fuelTicks": 200,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 64
         },
         {
             "definition": {
@@ -1515,7 +1556,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 128
         },
         {
             "definition": {
@@ -1550,7 +1592,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 128
         },
         {
             "definition": {
@@ -1585,7 +1628,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 128
         },
         {
             "definition": {
@@ -1620,7 +1664,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 128
         },
         {
             "definition": {
@@ -1655,7 +1700,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 128
         },
         {
             "definition": {
@@ -1690,7 +1736,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 256
         },
         {
             "definition": {
@@ -1725,7 +1772,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 256
         },
         {
             "definition": {
@@ -1760,7 +1808,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 256
         },
         {
             "definition": {
@@ -1795,7 +1844,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 256
         },
         {
             "definition": {
@@ -1830,7 +1880,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 256
         },
         {
             "definition": {
@@ -1865,7 +1916,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 512
         },
         {
             "definition": {
@@ -1900,7 +1952,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 512
         },
         {
             "definition": {
@@ -1935,7 +1988,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 512
         },
         {
             "definition": {
@@ -1970,7 +2024,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 512
         },
         {
             "definition": {
@@ -2005,7 +2060,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 512
         },
         {
             "definition": {
@@ -2040,7 +2096,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 1536
         },
         {
             "definition": {
@@ -2075,7 +2132,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 1536
         },
         {
             "definition": {
@@ -2110,7 +2168,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 1536
         },
         {
             "definition": {
@@ -2145,7 +2204,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 1536
         },
         {
             "definition": {
@@ -2180,7 +2240,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 1536
         },
         {
             "definition": {
@@ -2217,7 +2278,8 @@
             "fuelTicks": 16000,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -2252,7 +2314,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -2287,7 +2350,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -2322,7 +2386,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -2357,7 +2422,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -2392,7 +2458,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -2427,7 +2494,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -2462,7 +2530,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -2497,7 +2566,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -2532,7 +2602,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -2567,7 +2638,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -2602,7 +2674,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -2637,7 +2710,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -2672,7 +2746,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -2707,7 +2782,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -2742,7 +2818,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -2777,7 +2854,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -2812,7 +2890,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -2847,7 +2926,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -2882,7 +2962,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -2917,7 +2998,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -2952,7 +3034,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -2987,7 +3070,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -3022,7 +3106,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -3057,7 +3142,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -3092,7 +3178,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -3127,7 +3214,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -3162,7 +3250,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -3197,7 +3286,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -3232,7 +3322,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -3267,7 +3358,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -3302,7 +3394,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -3337,7 +3430,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -3372,7 +3466,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -3407,7 +3502,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -3442,7 +3538,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -3477,7 +3574,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -3512,7 +3610,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -3547,7 +3646,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -3582,7 +3682,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -3617,7 +3718,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -3652,7 +3754,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -3687,7 +3790,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -3722,7 +3826,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -3757,7 +3862,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -3792,7 +3898,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -3827,7 +3934,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -3862,7 +3970,8 @@
             "fuelTicks": 0,
             "watts": 20,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -3897,7 +4006,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 100000,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -3932,7 +4042,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -3967,7 +4078,8 @@
             "fuelTicks": 0,
             "watts": 160,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -4002,7 +4114,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 10000,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -4037,7 +4150,8 @@
             "fuelTicks": 0,
             "watts": 240,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -4072,7 +4186,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 100000,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -4107,7 +4222,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -4142,7 +4258,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -4177,7 +4294,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -4212,7 +4330,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -4247,7 +4366,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -4282,7 +4402,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -4317,7 +4438,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -4352,7 +4474,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -4387,7 +4510,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -4422,7 +4546,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -4457,7 +4582,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -4492,7 +4618,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -4527,7 +4654,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -4564,7 +4692,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -4603,7 +4732,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -4638,7 +4768,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -4673,7 +4804,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 256
         },
         {
             "definition": {
@@ -4708,7 +4840,8 @@
             "fuelTicks": 0,
             "watts": 200,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -4743,7 +4876,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -4778,7 +4912,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -4813,7 +4948,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 10000,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -4848,7 +4984,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -4883,7 +5020,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -4918,7 +5056,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -4953,7 +5092,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -4991,7 +5131,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -5029,7 +5170,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -5067,7 +5209,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -5105,7 +5248,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -5142,7 +5286,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -5179,7 +5324,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -5217,7 +5363,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -5256,7 +5403,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -5294,7 +5442,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -5333,7 +5482,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -5372,7 +5522,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -5411,7 +5562,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 6
+            "foodSaturation": 2,
+            "durability": 0
         },
         {
             "definition": {
@@ -5450,7 +5602,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 2
+            "foodSaturation": 1,
+            "durability": 0
         },
         {
             "definition": {
@@ -5489,7 +5642,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 12
+            "foodSaturation": 4,
+            "durability": 0
         },
         {
             "definition": {
@@ -5528,7 +5682,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 2
+            "foodSaturation": 1,
+            "durability": 0
         },
         {
             "definition": {
@@ -5567,7 +5722,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 8
+            "foodSaturation": 3,
+            "durability": 0
         },
         {
             "definition": {
@@ -5602,7 +5758,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -5637,7 +5794,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -5672,7 +5830,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -5707,7 +5866,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -5742,7 +5902,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -5777,7 +5938,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -5812,7 +5974,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -5847,7 +6010,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -5882,7 +6046,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -5917,7 +6082,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -5952,7 +6118,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -5987,7 +6154,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -6022,7 +6190,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -6057,7 +6226,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -6092,7 +6262,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -6127,7 +6298,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -6162,7 +6334,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -6197,7 +6370,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -6232,7 +6406,8 @@
             "fuelTicks": 0,
             "watts": 200,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -6267,7 +6442,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -6302,7 +6478,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -6337,7 +6514,8 @@
             "fuelTicks": 0,
             "watts": 160,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -6374,7 +6552,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 128
         },
         {
             "definition": {
@@ -6413,7 +6592,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -6452,7 +6632,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 4
+            "foodSaturation": 2,
+            "durability": 0
         },
         {
             "definition": {
@@ -6490,7 +6671,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 12
+            "foodSaturation": 4,
+            "durability": 0
         },
         {
             "definition": {
@@ -6528,7 +6710,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -6567,7 +6750,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -6606,7 +6790,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 4
+            "foodSaturation": 2,
+            "durability": 0
         },
         {
             "definition": {
@@ -6643,7 +6828,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -6682,7 +6868,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 2
+            "foodSaturation": 1,
+            "durability": 0
         },
         {
             "definition": {
@@ -6720,7 +6907,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 12
+            "foodSaturation": 4,
+            "durability": 0
         },
         {
             "definition": {
@@ -6755,7 +6943,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -6790,7 +6979,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -6825,7 +7015,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -6860,7 +7051,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -6895,7 +7087,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -6930,7 +7123,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         },
         {
             "definition": {
@@ -6965,7 +7159,8 @@
             "fuelTicks": 0,
             "watts": 0,
             "waterMl": 0,
-            "foodSaturation": 0
+            "foodSaturation": 0,
+            "durability": 0
         }
     ],
     "recipes": [
@@ -13869,7 +14064,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Animals/PassiveSystem.cs",
-            "sha256": "2e749bb9ea13a740da4a13397c48a8cc09230ae55cd4e8c29712756ccae3074e"
+            "sha256": "87748c7a8407842bedb005505cb0ab58e1fd32eca36289e3238661ad63927bd4"
         },
         {
             "path": "Assets/RivetReach/Code/ArcadeVerification.cs",
@@ -13929,7 +14124,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Core/ItemContainer.cs",
-            "sha256": "6e9d5f3b4cde16e6a1181440dbb83891030388dec917bbd714ef4812df17adb0"
+            "sha256": "a5c085f1f844e023ef49782f86bff67c04864958c71f2b528c93cec1490223fe"
         },
         {
             "path": "Assets/RivetReach/Code/Core/ItemRegistry.cs",
@@ -13941,19 +14136,23 @@
         },
         {
             "path": "Assets/RivetReach/Code/Core/ItemStack.cs",
-            "sha256": "182efe532e56d253b83d96c111144ddfc1aa7478d921631bebdab4e7fd2042e3"
+            "sha256": "728e73f933dba318578fa61783fee85ed4bfac0898b33f367f06a248409c99b7"
         },
         {
             "path": "Assets/RivetReach/Code/Core/RespawnPlacement.cs",
             "sha256": "ded16a8279090f5c4b1184d17fc4d99eb4a25992589c03b66d4b22c0fa391d87"
         },
         {
+            "path": "Assets/RivetReach/Code/Core/ToolDurability.cs",
+            "sha256": "bbf9af62142e7007fb4d498bd2853bd890b153360732dde3b9c112c648b182fd"
+        },
+        {
             "path": "Assets/RivetReach/Code/Crafting/CraftingSession.cs",
-            "sha256": "f850a9bf05b5cfe1a2d3e0aa1667e4323e6c218789dbdfd5dfaa037aa3c3cbae"
+            "sha256": "12a6e27c28015562d81ed06cfc24e01b28f26a46b0bd12150fe71211a6465764"
         },
         {
             "path": "Assets/RivetReach/Code/Crafting/IngredientMatcher.cs",
-            "sha256": "7641626f1c3a27e6cc6a68d52420bb4dd1fea4a4af7a081494b601c79732ff35"
+            "sha256": "346283049d91617a21a4e7377f32fccc5055772a791e25ab63b10cd245675a04"
         },
         {
             "path": "Assets/RivetReach/Code/Crafting/RecipeAsset.cs",
@@ -13969,7 +14168,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Crafting/RecipeRegistry.cs",
-            "sha256": "be67f5645244b0a0d773d681b8c01b186713c3b0a353df6d80616c0220603513"
+            "sha256": "f19a81bcc93bbd34ededd21b8c5c413d26e089b61600997fa38f2ca3e52cb200"
         },
         {
             "path": "Assets/RivetReach/Code/Crafting/RecipeSpec.cs",
@@ -13985,7 +14184,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Crates/CrateNetwork.cs",
-            "sha256": "421962e06e37493bd0fb32db453ae4e612347ce22228e1ee89936dc7f4d8a9e0"
+            "sha256": "f76e2711241d96d8a007fda55e193ea81ea601031b8458dfea3eebda75a761e9"
         },
         {
             "path": "Assets/RivetReach/Code/Crates/CratePresentation.cs",
@@ -13993,7 +14192,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Crates/CrateStorage.cs",
-            "sha256": "f16970640c6ddaf8e4e22db2ac8638565ad2cec204be8e2d7e077bccd324f84e"
+            "sha256": "5bd581abfc541f876ecd61af723c387560bb3b43db31054a45cce60b10f37b71"
         },
         {
             "path": "Assets/RivetReach/Code/Crates/WorldCrates.cs",
@@ -14065,7 +14264,11 @@
         },
         {
             "path": "Assets/RivetReach/Code/FoodBalanceVerification.cs",
-            "sha256": "aa88bc673c38ba8857a03109721c11a33f1b41fdb37ea3c104cf6a6faab79174"
+            "sha256": "ac56580e67e431ccfdfdbaacdd6bff62b0987cf2b96974bfdc9ceffc0558e1a2"
+        },
+        {
+            "path": "Assets/RivetReach/Code/FoodHudVerification.cs",
+            "sha256": "4d7ed86e2c0a7383f5318d3c6db3e8db506e8b16a3fb74bf1e9b9daea23303c9"
         },
         {
             "path": "Assets/RivetReach/Code/FurnacePipeVerification.cs",
@@ -14133,7 +14336,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Industry/PipeEndInteraction.cs",
-            "sha256": "0e32154e76631e3a86ca4902a2dfde82a385ebe672b3329c46c94c4682cf0134"
+            "sha256": "904948c8739dde3d8a466edd34b7568ef8dd6f77fede86ccac6e33d38018232b"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/PipeEndpointPresentation.cs",
@@ -14153,7 +14356,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Industry/TransportEndpoints.cs",
-            "sha256": "414d1ec6d6f191f133db70222b88222db59216057cff06fcc5a9c145005e5f36"
+            "sha256": "a7c66427d5fc8df2fd230e89aa9a826fb2d9b86d7b7f855ee9f964e7b5547307"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/WorldIndustry.cs",
@@ -14229,7 +14432,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Mobs/MobSystem.cs",
-            "sha256": "53f84c564ac2123bb69e0f79f057d9513670ba2d6a284022fff7a3e081127799"
+            "sha256": "a2c1cef1fd068977079f42f62ed45bdc517010e285db3e313d023d0b6a8b7b89"
         },
         {
             "path": "Assets/RivetReach/Code/Mobs/MobVerification.cs",
@@ -14301,7 +14504,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/SaveIO.cs",
-            "sha256": "8e2f9acefc47ab2ba82a3267e4c95ad54e06117fdf5880d5d64c6ab81b77f1c7"
+            "sha256": "1b323cb34cd3a77f560aece560c523cabf1ce98e681cb65c1847e6dcb52f1c38"
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/WorldSaveState.cs",
@@ -14357,7 +14560,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Player/FirstPersonPlayer.cs",
-            "sha256": "9de1d4be027580e5fa5fe25bd46b22a754e6c18823e4e117b30f1a0b15a7acca"
+            "sha256": "039bff333fee0acb9e275a28773301621f7b4d0f1b164b19c68d529da481af6f"
         },
         {
             "path": "Assets/RivetReach/Code/Player/FoodVisuals.cs",
@@ -14369,7 +14572,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Player/InventoryActions.cs",
-            "sha256": "5eb5b13ba7af09cd90c8699e675d6a51b2955c013936317ffdc2659180893fe5"
+            "sha256": "f36a39b43813704a5e29b29f7c079a01344bae2c17237a9a9d16b33b7b373951"
         },
         {
             "path": "Assets/RivetReach/Code/Player/ItemAppearance.cs",
@@ -14389,7 +14592,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Player/PlayerFishing.cs",
-            "sha256": "a3e7835a5f9494d56647ab313c9f40fb2415815eb939702432bc219d9a18b1f2"
+            "sha256": "4c24ae2dc2aa957ea137bc3cad116989fd8ea29d58a7ce2246e390373a89e0ac"
         },
         {
             "path": "Assets/RivetReach/Code/Player/PlayerInput.cs",
@@ -14425,7 +14628,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/RuntimeVerification.cs",
-            "sha256": "69dce539ff5afe83d12ed6cd6298f2406afe9fe8e78d0d7fc30bac47926e5b3d"
+            "sha256": "f56646a7d29d4d80a9cb85fd58ed1829addb63c91e9ad0c235a9dbfde301a37d"
         },
         {
             "path": "Assets/RivetReach/Code/SaveVerification.cs",
@@ -14520,6 +14723,10 @@
             "sha256": "675c5a7e031ae0923afc95dd57dfbdffb5f138b4d3cbb6d539c54cbabc1c0fe5"
         },
         {
+            "path": "Assets/RivetReach/Code/ToolDurabilityVerification.cs",
+            "sha256": "b00ce500ec383b79489b7bee0f51f6012bb5420f282ef30411468ca509f654c7"
+        },
+        {
             "path": "Assets/RivetReach/Code/TorchVerification.cs",
             "sha256": "96abe6355ab873501d9c3a70a433e35acbf89e11df05e73dc99b9865825e69a1"
         },
@@ -14533,7 +14740,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUI.cs",
-            "sha256": "aef819823477dc9b18132012dc7a4e5594efe3602368a16b30319037c88812ef"
+            "sha256": "3f1b01e17669a069a8344e2420e63045bb4338c388fb1afeebc274312d00492e"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIBridges.cs",
@@ -14553,7 +14760,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUICrates.cs",
-            "sha256": "e95fa2b6c4920ec8b5bcb3cb9ab90b717bd19fff76744eaa6ff95e994de180d4"
+            "sha256": "78077d6f48f54caf57403593c1d80eda0f70410d8e87e2e90d40f1eae9920c89"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUICreative.cs",
@@ -14585,7 +14792,11 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUISurvival.cs",
-            "sha256": "8ed34375fd491f36096f5aa23a0f43d2934fe618713d691d2b142282635094e5"
+            "sha256": "0ad052e750ddac5f381efa64fc67853d7384d731d1d2a9408201e7a28c93c4ed"
+        },
+        {
+            "path": "Assets/RivetReach/Code/UI/HeartRegenerationWobble.cs",
+            "sha256": "f975a75399ea121a083953eaee3c2d55e12f8df92a1ef2cbe8622f257a847e4b"
         },
         {
             "path": "Assets/RivetReach/Code/UI/ItemBrowserSettings.cs",
@@ -14597,7 +14808,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/SurvivalMeter.cs",
-            "sha256": "caf53dcd0a807d1c39c4b387ac2eeea244ba6858b9cf7abca544623340268945"
+            "sha256": "185814f06d9d3ce578c2d49de580d6fbf997458741c8a19aabcdb92588a0217f"
         },
         {
             "path": "Assets/RivetReach/Code/WeatherVerification.cs",
@@ -14713,7 +14924,7 @@
         },
         {
             "path": "Assets/RivetReach/Editor/WikiExport.cs",
-            "sha256": "310135560f95edb442b6e58a6a8f949e36e4dad49a06c704a14075fe874d0c37"
+            "sha256": "24cc9de75712eddbd04ccc946cbe999cbaa60346d695247384c73f67382b8b88"
         },
         {
             "path": "Assets/RivetReach/Resources/Chickens/248Icon.png",
@@ -14801,11 +15012,19 @@
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/FoodBalance.json",
-            "sha256": "da72443011e3056cda2bd40707a768f7144d9d821097f35e58e811a31d3b12f3"
+            "sha256": "7f3a7f4dc2182a65d84dc10d48573e6c4238a7885a461613560849ae67f2831c"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/FoodBalance.json.meta",
             "sha256": "64a90dbec44672608f2223c870304b25534adc6802eab691a08b51c3fe9866a7"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/FoodBalanceLegacyHighSaturation.json",
+            "sha256": "da72443011e3056cda2bd40707a768f7144d9d821097f35e58e811a31d3b12f3"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/FoodBalanceLegacyHighSaturation.json.meta",
+            "sha256": "19b64d375332549a2f7581f944aea4bf55fb936a956376b0d47a56fa669cae1b"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/ItemBrowser.asset",
@@ -15854,6 +16073,14 @@
         {
             "path": "Assets/RivetReach/Resources/Definitions/Renewables.json.meta",
             "sha256": "3621d290851e39d7120adfeb7b45d728d54d64c1b9faf09651311c407670044b"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/ToolDurability.json",
+            "sha256": "166a1371e0c7ce6e6f7a64e486445745c60b0b854b961a0febb0e9b6faf89a90"
+        },
+        {
+            "path": "Assets/RivetReach/Resources/Definitions/ToolDurability.json.meta",
+            "sha256": "0ee889235759ee8014777b18138eecf950e454f526b13a1e3518ea73021b0632"
         },
         {
             "path": "Assets/RivetReach/Resources/Equipment/CopperChestIcon.png",

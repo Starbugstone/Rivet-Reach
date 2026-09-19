@@ -17,7 +17,7 @@ Cooked Egg restores 4 food points.
 | Stack size | 64 |
 | Tags | `edible`, `egg`, `prepared_food` |
 | Food restored | 4 points |
-| Saturation reserve | 2 points |
+| Saturation reserve | 1 points |
 
 ## How to obtain
 

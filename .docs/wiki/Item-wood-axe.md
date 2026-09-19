@@ -8,7 +8,7 @@
 
 <a href="Item-wood-axe.md" title="Wood axe"><img src="icons/40.png" width="96" height="96" alt="Wood axe"></a>
 
-Chops wood faster and fells connected tree sections above the cut. Tools currently have no durability loss.
+Chops wood faster and fells connected tree sections above the cut. Successful actions spend durability; better tiers last longer. [Tool wear guide](Tools-and-durability.md).
 
 ## At a glance
 
@@ -19,6 +19,7 @@ Chops wood faster and fells connected tree sections above the cut. Tools current
 | Tool tier | Wood |
 | Effective mining speed | 2× on suitable blocks |
 | Melee damage | 3 |
+| Durability | 64 successful uses; [tool wear guide](Tools-and-durability.md) |
 | Furnace fuel duration | 10 seconds |
 
 ## How to obtain

@@ -7,6 +7,7 @@ Start here:
 - [Machine interfaces](Machine-interfaces.md) — identify the machine you opened and find its controls.
 - [Items](Items.md) — browse icons, item uses and individual recipes.
 - [Crafting recipes](Crafting-Recipes.md) — complete reference for crafting and processing recipes.
+- [Tools and durability](Tools-and-durability.md) — faster tiers, remaining uses and worn-tool storage.
 - [Pipes and wrench](Pipes.md) — all-face connections, blue input/red output arrows and hands-on setup.
 - [Build a multiblock tank](Tanks.md) — exact shopping list, each layer, outward-facing controls, filling and repairs.
 - [Pumps and renewable water](Pumps-and-water.md) — intake height, a 2×2 source pool, and pumping without electricity.

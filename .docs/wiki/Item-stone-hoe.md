@@ -8,7 +8,7 @@
 
 <a href="Item-stone-hoe.md" title="Stone hoe"><img src="icons/49.png" width="96" height="96" alt="Stone hoe"></a>
 
-Tills grass or dirt into farmland and cuts leaves faster. Tools currently have no durability loss.
+Tills grass or dirt into farmland and cuts leaves faster. Successful actions spend durability; better tiers last longer. [Tool wear guide](Tools-and-durability.md).
 
 ## At a glance
 
@@ -18,6 +18,7 @@ Tills grass or dirt into farmland and cuts leaves faster. Tools currently have n
 | Tool tier | Stone |
 | Effective mining speed | 4× on suitable blocks |
 | Melee damage | 3 |
+| Durability | 128 successful uses; [tool wear guide](Tools-and-durability.md) |
 
 ## How to obtain
 

@@ -15,6 +15,7 @@ A reusable workshop tool for setting the direction of item and fluid pipe connec
 | Property | Value |
 |---|---|
 | Stack size | 1 |
+| Durability | 256 successful uses; [tool wear guide](Tools-and-durability.md) |
 
 ## How to obtain
 

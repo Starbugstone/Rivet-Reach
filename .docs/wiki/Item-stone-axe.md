@@ -8,7 +8,7 @@
 
 <a href="Item-stone-axe.md" title="Stone axe"><img src="icons/45.png" width="96" height="96" alt="Stone axe"></a>
 
-Chops wood faster and fells connected tree sections above the cut. Tools currently have no durability loss.
+Chops wood faster and fells connected tree sections above the cut. Successful actions spend durability; better tiers last longer. [Tool wear guide](Tools-and-durability.md).
 
 ## At a glance
 
@@ -18,6 +18,7 @@ Chops wood faster and fells connected tree sections above the cut. Tools current
 | Tool tier | Stone |
 | Effective mining speed | 4× on suitable blocks |
 | Melee damage | 4 |
+| Durability | 128 successful uses; [tool wear guide](Tools-and-durability.md) |
 
 ## How to obtain
 

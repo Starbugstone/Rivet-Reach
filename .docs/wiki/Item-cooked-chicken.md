@@ -17,7 +17,7 @@ Cooked Chicken restores 6 food points.
 | Stack size | 64 |
 | Tags | `edible`, `meat`, `prepared_food` |
 | Food restored | 6 points |
-| Saturation reserve | 4 points |
+| Saturation reserve | 2 points |
 
 ## How to obtain
 

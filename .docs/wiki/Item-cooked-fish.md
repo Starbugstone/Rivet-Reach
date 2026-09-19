@@ -17,7 +17,7 @@ Cooked fish restores 6 food points, three times the raw catch.
 | Stack size | 64 |
 | Tags | `edible`, `fish`, `prepared_food` |
 | Food restored | 6 points |
-| Saturation reserve | 4 points |
+| Saturation reserve | 2 points |
 
 ## How to obtain
 

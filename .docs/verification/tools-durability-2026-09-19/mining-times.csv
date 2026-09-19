@@ -1,0 +1,11 @@
+item,block,expected_seconds,observed_seconds,wear
+rivet:wood_pickaxe,3,1.5,1.501431,1
+rivet:stone_pickaxe,3,0.75,0.7507254,1
+rivet:copper_pickaxe,3,0.6,0.6002699,1
+rivet:iron_pickaxe,3,0.5,0.5000942,1
+rivet:diamond_pickaxe,3,0.375,0.3783706,1
+rivet:wood_axe,4,0.75,0.7562215,1
+rivet:stone_axe,4,0.375,0.3778085,1
+rivet:copper_axe,4,0.3,0.3001626,1
+rivet:iron_axe,4,0.25,0.255754,1
+rivet:diamond_axe,4,0.1875,0.1889929,1

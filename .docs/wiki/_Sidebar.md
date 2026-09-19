@@ -3,6 +3,7 @@
 - [Home](Home.md)
 - [Items](Items.md)
 - [Crafting recipes](Crafting-Recipes.md)
+- [Tools and durability](Tools-and-durability.md) — faster tiers, remaining uses and worn-tool storage.
 - [Pipes and wrench](Pipes.md)
 - [Wrench recipe](Item-wrench.md)
 - [Build a tank](Tanks.md)

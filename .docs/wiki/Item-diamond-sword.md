@@ -8,7 +8,7 @@
 
 <a href="Item-diamond-sword.md" title="Diamond sword"><img src="icons/62.png" width="96" height="96" alt="Diamond sword"></a>
 
-A melee weapon. It can also cut leaves faster. Tools currently have no durability loss.
+A melee weapon. It can also cut leaves faster. Successful actions spend durability; better tiers last longer. [Tool wear guide](Tools-and-durability.md).
 
 ## At a glance
 
@@ -18,6 +18,7 @@ A melee weapon. It can also cut leaves faster. Tools currently have no durabilit
 | Tool tier | Diamond |
 | Effective mining speed | 8× on suitable blocks |
 | Melee damage | 7 |
+| Durability | 1536 successful uses; [tool wear guide](Tools-and-durability.md) |
 
 ## How to obtain
 

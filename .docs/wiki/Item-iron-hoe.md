@@ -8,7 +8,7 @@
 
 <a href="Item-iron-hoe.md" title="Iron hoe"><img src="icons/59.png" width="96" height="96" alt="Iron hoe"></a>
 
-Tills grass or dirt into farmland and cuts leaves faster. Tools currently have no durability loss.
+Tills grass or dirt into farmland and cuts leaves faster. Successful actions spend durability; better tiers last longer. [Tool wear guide](Tools-and-durability.md).
 
 ## At a glance
 
@@ -18,6 +18,7 @@ Tills grass or dirt into farmland and cuts leaves faster. Tools currently have n
 | Tool tier | Iron |
 | Effective mining speed | 6× on suitable blocks |
 | Melee damage | 4 |
+| Durability | 512 successful uses; [tool wear guide](Tools-and-durability.md) |
 
 ## How to obtain
 

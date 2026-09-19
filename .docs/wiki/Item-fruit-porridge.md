@@ -17,7 +17,7 @@ Prepared food from a basic or electric cooker. Food never spoils.
 | Stack size | 64 |
 | Tags | `compostable`, `edible`, `prepared_food` |
 | Food restored | 9 points |
-| Saturation reserve | 8 points |
+| Saturation reserve | 3 points |
 
 ## How to obtain
 

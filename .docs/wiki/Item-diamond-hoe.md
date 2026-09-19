@@ -8,7 +8,7 @@
 
 <a href="Item-diamond-hoe.md" title="Diamond hoe"><img src="icons/64.png" width="96" height="96" alt="Diamond hoe"></a>
 
-Tills grass or dirt into farmland and cuts leaves faster. Tools currently have no durability loss.
+Tills grass or dirt into farmland and cuts leaves faster. Successful actions spend durability; better tiers last longer. [Tool wear guide](Tools-and-durability.md).
 
 ## At a glance
 
@@ -18,6 +18,7 @@ Tills grass or dirt into farmland and cuts leaves faster. Tools currently have n
 | Tool tier | Diamond |
 | Effective mining speed | 8× on suitable blocks |
 | Melee damage | 5 |
+| Durability | 1536 successful uses; [tool wear guide](Tools-and-durability.md) |
 
 ## How to obtain
 

@@ -1,0 +1,6 @@
+tier,speed,uses,stone_seconds,log_seconds
+Wood,2,64,1.5,0.75
+Stone,4,128,0.75,0.375
+Copper,5,256,0.6,0.3
+Iron,6,512,0.5,0.25
+Diamond,8,1536,0.375,0.1875

@@ -8,7 +8,7 @@
 
 <a href="Item-copper-sword.md" title="Copper sword"><img src="icons/52.png" width="96" height="96" alt="Copper sword"></a>
 
-A melee weapon. It can also cut leaves faster. Tools currently have no durability loss.
+A melee weapon. It can also cut leaves faster. Successful actions spend durability; better tiers last longer. [Tool wear guide](Tools-and-durability.md).
 
 ## At a glance
 
@@ -18,6 +18,7 @@ A melee weapon. It can also cut leaves faster. Tools currently have no durabilit
 | Tool tier | Copper |
 | Effective mining speed | 5× on suitable blocks |
 | Melee damage | 5 |
+| Durability | 256 successful uses; [tool wear guide](Tools-and-durability.md) |
 
 ## How to obtain
 

@@ -1,0 +1,112 @@
+PASS Tier 1 improves pick speed, axe speed and durability
+PASS All five tool types use the authored tier capacity
+PASS Every use and final break boundary for Wood axe (64 uses)
+PASS Every use publishes one revision; broken tool cannot be used again
+PASS All five tool types use the authored tier capacity
+PASS Every use and final break boundary for Wood pickaxe (64 uses)
+PASS Every use publishes one revision; broken tool cannot be used again
+PASS All five tool types use the authored tier capacity
+PASS Every use and final break boundary for Wood sword (64 uses)
+PASS Every use publishes one revision; broken tool cannot be used again
+PASS All five tool types use the authored tier capacity
+PASS Every use and final break boundary for Wood shovel (64 uses)
+PASS Every use publishes one revision; broken tool cannot be used again
+PASS All five tool types use the authored tier capacity
+PASS Every use and final break boundary for Wood hoe (64 uses)
+PASS Every use publishes one revision; broken tool cannot be used again
+PASS Tier 2 improves pick speed, axe speed and durability
+PASS All five tool types use the authored tier capacity
+PASS Every use and final break boundary for Stone axe (128 uses)
+PASS Every use publishes one revision; broken tool cannot be used again
+PASS All five tool types use the authored tier capacity
+PASS Every use and final break boundary for Stone pickaxe (128 uses)
+PASS Every use publishes one revision; broken tool cannot be used again
+PASS All five tool types use the authored tier capacity
+PASS Every use and final break boundary for Stone sword (128 uses)
+PASS Every use publishes one revision; broken tool cannot be used again
+PASS All five tool types use the authored tier capacity
+PASS Every use and final break boundary for Stone shovel (128 uses)
+PASS Every use publishes one revision; broken tool cannot be used again
+PASS All five tool types use the authored tier capacity
+PASS Every use and final break boundary for Stone hoe (128 uses)
+PASS Every use publishes one revision; broken tool cannot be used again
+PASS Tier 3 improves pick speed, axe speed and durability
+PASS All five tool types use the authored tier capacity
+PASS Every use and final break boundary for Copper axe (256 uses)
+PASS Every use publishes one revision; broken tool cannot be used again
+PASS All five tool types use the authored tier capacity
+PASS Every use and final break boundary for Copper pickaxe (256 uses)
+PASS Every use publishes one revision; broken tool cannot be used again
+PASS All five tool types use the authored tier capacity
+PASS Every use and final break boundary for Copper sword (256 uses)
+PASS Every use publishes one revision; broken tool cannot be used again
+PASS All five tool types use the authored tier capacity
+PASS Every use and final break boundary for Copper shovel (256 uses)
+PASS Every use publishes one revision; broken tool cannot be used again
+PASS All five tool types use the authored tier capacity
+PASS Every use and final break boundary for Copper hoe (256 uses)
+PASS Every use publishes one revision; broken tool cannot be used again
+PASS Tier 4 improves pick speed, axe speed and durability
+PASS All five tool types use the authored tier capacity
+PASS Every use and final break boundary for Iron axe (512 uses)
+PASS Every use publishes one revision; broken tool cannot be used again
+PASS All five tool types use the authored tier capacity
+PASS Every use and final break boundary for Iron pickaxe (512 uses)
+PASS Every use publishes one revision; broken tool cannot be used again
+PASS All five tool types use the authored tier capacity
+PASS Every use and final break boundary for Iron sword (512 uses)
+PASS Every use publishes one revision; broken tool cannot be used again
+PASS All five tool types use the authored tier capacity
+PASS Every use and final break boundary for Iron shovel (512 uses)
+PASS Every use publishes one revision; broken tool cannot be used again
+PASS All five tool types use the authored tier capacity
+PASS Every use and final break boundary for Iron hoe (512 uses)
+PASS Every use publishes one revision; broken tool cannot be used again
+PASS Tier 5 improves pick speed, axe speed and durability
+PASS All five tool types use the authored tier capacity
+PASS Every use and final break boundary for Diamond axe (1536 uses)
+PASS Every use publishes one revision; broken tool cannot be used again
+PASS All five tool types use the authored tier capacity
+PASS Every use and final break boundary for Diamond pickaxe (1536 uses)
+PASS Every use publishes one revision; broken tool cannot be used again
+PASS All five tool types use the authored tier capacity
+PASS Every use and final break boundary for Diamond sword (1536 uses)
+PASS Every use publishes one revision; broken tool cannot be used again
+PASS All five tool types use the authored tier capacity
+PASS Every use and final break boundary for Diamond shovel (1536 uses)
+PASS Every use publishes one revision; broken tool cannot be used again
+PASS All five tool types use the authored tier capacity
+PASS Every use and final break boundary for Diamond hoe (1536 uses)
+PASS Every use publishes one revision; broken tool cannot be used again
+PASS Durability preserves ore grade gates
+PASS Wrong tool does not gain wood speed
+PASS Wear participates in identity and worn tools never merge
+PASS Quick transfer and chest transfer retain exact wear
+PASS Cursor, right-click and organizing retain exact wear
+PASS Bulk storage rejects worn tools without erasing wear
+PASS Storage emptying cannot repair tools
+PASS Stack layout and legacy pristine default schema 1
+PASS Stack layout and legacy pristine default schema 2
+PASS Stack layout and legacy pristine default schema 3
+PASS Stack layout and legacy pristine default schema 4
+PASS Stack layout and legacy pristine default schema 5
+PASS Stack layout and legacy pristine default schema 6
+PASS Stack layout and legacy pristine default schema 7
+PASS Stack layout and legacy pristine default schema 8
+PASS Stack layout and legacy pristine default schema 9
+PASS Stack layout and legacy pristine default schema 10
+PASS Stack layout and legacy pristine default schema 11
+PASS Stack layout and legacy pristine default schema 12
+PASS Stack layout and legacy pristine default schema 13
+PASS Stack layout and legacy pristine default schema 14
+PASS Stack layout and legacy pristine default schema 15
+PASS Stack layout and legacy pristine default schema 16
+PASS Stack layout and legacy pristine default schema 17
+PASS Stack layout and legacy pristine default schema 18
+PASS Reject corrupt or impossible tool wear 56:-1:1
+PASS Reject corrupt or impossible tool wear 56:512:1
+PASS Reject corrupt or impossible tool wear 2:1:1
+PASS Reject corrupt or impossible tool wear 56:1:2
+PASS Legacy writer cannot silently discard wear
+PASS Utility tools have authored capacity
+Assertions: 111

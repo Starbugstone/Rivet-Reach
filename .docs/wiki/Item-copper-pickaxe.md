@@ -8,7 +8,7 @@
 
 <a href="Item-copper-pickaxe.md" title="Copper pickaxe"><img src="icons/51.png" width="96" height="96" alt="Copper pickaxe"></a>
 
-Mines stone and ore when its tier meets the deposit’s requirement. Tools currently have no durability loss.
+Mines stone and ore when its tier meets the deposit’s requirement. Successful actions spend durability; better tiers last longer. [Tool wear guide](Tools-and-durability.md).
 
 ## At a glance
 
@@ -18,6 +18,7 @@ Mines stone and ore when its tier meets the deposit’s requirement. Tools curre
 | Tool tier | Copper |
 | Effective mining speed | 5× on suitable blocks |
 | Melee damage | 3 |
+| Durability | 256 successful uses; [tool wear guide](Tools-and-durability.md) |
 
 ## How to obtain
 

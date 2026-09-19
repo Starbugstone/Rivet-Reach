@@ -1,0 +1,4 @@
+Unity export: SUCCESS
+195 item pages; 199 recipes
+Validated 230 pages and 9925 local links/images
+All 686 exported source fingerprints match HEAD 712592b (LFS object identities resolved).

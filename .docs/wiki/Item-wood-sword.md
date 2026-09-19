@@ -8,7 +8,7 @@
 
 <a href="Item-wood-sword.md" title="Wood sword"><img src="icons/42.png" width="96" height="96" alt="Wood sword"></a>
 
-A melee weapon. It can also cut leaves faster. Tools currently have no durability loss.
+A melee weapon. It can also cut leaves faster. Successful actions spend durability; better tiers last longer. [Tool wear guide](Tools-and-durability.md).
 
 ## At a glance
 
@@ -19,6 +19,7 @@ A melee weapon. It can also cut leaves faster. Tools currently have no durabilit
 | Tool tier | Wood |
 | Effective mining speed | 2× on suitable blocks |
 | Melee damage | 4 |
+| Durability | 64 successful uses; [tool wear guide](Tools-and-durability.md) |
 | Furnace fuel duration | 10 seconds |
 
 ## How to obtain

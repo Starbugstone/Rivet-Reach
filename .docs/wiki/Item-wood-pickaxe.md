@@ -8,7 +8,7 @@
 
 <a href="Item-wood-pickaxe.md" title="Wood pickaxe"><img src="icons/41.png" width="96" height="96" alt="Wood pickaxe"></a>
 
-Mines stone and ore when its tier meets the deposit’s requirement. Tools currently have no durability loss.
+Mines stone and ore when its tier meets the deposit’s requirement. Successful actions spend durability; better tiers last longer. [Tool wear guide](Tools-and-durability.md).
 
 ## At a glance
 
@@ -19,6 +19,7 @@ Mines stone and ore when its tier meets the deposit’s requirement. Tools curre
 | Tool tier | Wood |
 | Effective mining speed | 2× on suitable blocks |
 | Melee damage | 2 |
+| Durability | 64 successful uses; [tool wear guide](Tools-and-durability.md) |
 | Furnace fuel duration | 10 seconds |
 
 ## How to obtain

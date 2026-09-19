@@ -8,7 +8,7 @@
 
 <a href="Item-diamond-pickaxe.md" title="Diamond pickaxe"><img src="icons/61.png" width="96" height="96" alt="Diamond pickaxe"></a>
 
-Mines stone and ore when its tier meets the deposit’s requirement. Tools currently have no durability loss.
+Mines stone and ore when its tier meets the deposit’s requirement. Successful actions spend durability; better tiers last longer. [Tool wear guide](Tools-and-durability.md).
 
 ## At a glance
 
@@ -18,6 +18,7 @@ Mines stone and ore when its tier meets the deposit’s requirement. Tools curre
 | Tool tier | Diamond |
 | Effective mining speed | 8× on suitable blocks |
 | Melee damage | 5 |
+| Durability | 1536 successful uses; [tool wear guide](Tools-and-durability.md) |
 
 ## How to obtain
 

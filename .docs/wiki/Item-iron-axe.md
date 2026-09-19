@@ -8,7 +8,7 @@
 
 <a href="Item-iron-axe.md" title="Iron axe"><img src="icons/55.png" width="96" height="96" alt="Iron axe"></a>
 
-Chops wood faster and fells connected tree sections above the cut. Tools currently have no durability loss.
+Chops wood faster and fells connected tree sections above the cut. Successful actions spend durability; better tiers last longer. [Tool wear guide](Tools-and-durability.md).
 
 ## At a glance
 
@@ -18,6 +18,7 @@ Chops wood faster and fells connected tree sections above the cut. Tools current
 | Tool tier | Iron |
 | Effective mining speed | 6× on suitable blocks |
 | Melee damage | 5 |
+| Durability | 512 successful uses; [tool wear guide](Tools-and-durability.md) |
 
 ## How to obtain
 

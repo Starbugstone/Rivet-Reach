@@ -8,7 +8,7 @@
 
 <a href="Item-wood-hoe.md" title="Wood hoe"><img src="icons/44.png" width="96" height="96" alt="Wood hoe"></a>
 
-Tills grass or dirt into farmland and cuts leaves faster. Tools currently have no durability loss.
+Tills grass or dirt into farmland and cuts leaves faster. Successful actions spend durability; better tiers last longer. [Tool wear guide](Tools-and-durability.md).
 
 ## At a glance
 
@@ -19,6 +19,7 @@ Tills grass or dirt into farmland and cuts leaves faster. Tools currently have n
 | Tool tier | Wood |
 | Effective mining speed | 2× on suitable blocks |
 | Melee damage | 2 |
+| Durability | 64 successful uses; [tool wear guide](Tools-and-durability.md) |
 | Furnace fuel duration | 10 seconds |
 
 ## How to obtain

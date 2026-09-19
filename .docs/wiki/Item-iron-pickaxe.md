@@ -8,7 +8,7 @@
 
 <a href="Item-iron-pickaxe.md" title="Iron pickaxe"><img src="icons/56.png" width="96" height="96" alt="Iron pickaxe"></a>
 
-Mines stone and ore when its tier meets the deposit’s requirement. Tools currently have no durability loss.
+Mines stone and ore when its tier meets the deposit’s requirement. Successful actions spend durability; better tiers last longer. [Tool wear guide](Tools-and-durability.md).
 
 ## At a glance
 
@@ -18,6 +18,7 @@ Mines stone and ore when its tier meets the deposit’s requirement. Tools curre
 | Tool tier | Iron |
 | Effective mining speed | 6× on suitable blocks |
 | Melee damage | 4 |
+| Durability | 512 successful uses; [tool wear guide](Tools-and-durability.md) |
 
 ## How to obtain
 

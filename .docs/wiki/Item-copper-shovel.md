@@ -8,7 +8,7 @@
 
 <a href="Item-copper-shovel.md" title="Copper shovel"><img src="icons/53.png" width="96" height="96" alt="Copper shovel"></a>
 
-Digs dirt, grass and farmland faster. Tools currently have no durability loss.
+Digs dirt, grass and farmland faster. Successful actions spend durability; better tiers last longer. [Tool wear guide](Tools-and-durability.md).
 
 ## At a glance
 
@@ -18,6 +18,7 @@ Digs dirt, grass and farmland faster. Tools currently have no durability loss.
 | Tool tier | Copper |
 | Effective mining speed | 5× on suitable blocks |
 | Melee damage | 3 |
+| Durability | 256 successful uses; [tool wear guide](Tools-and-durability.md) |
 
 ## How to obtain
 

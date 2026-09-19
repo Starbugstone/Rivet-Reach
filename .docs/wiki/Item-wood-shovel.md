@@ -8,7 +8,7 @@
 
 <a href="Item-wood-shovel.md" title="Wood shovel"><img src="icons/43.png" width="96" height="96" alt="Wood shovel"></a>
 
-Digs dirt, grass and farmland faster. Tools currently have no durability loss.
+Digs dirt, grass and farmland faster. Successful actions spend durability; better tiers last longer. [Tool wear guide](Tools-and-durability.md).
 
 ## At a glance
 
@@ -19,6 +19,7 @@ Digs dirt, grass and farmland faster. Tools currently have no durability loss.
 | Tool tier | Wood |
 | Effective mining speed | 2× on suitable blocks |
 | Melee damage | 2 |
+| Durability | 64 successful uses; [tool wear guide](Tools-and-durability.md) |
 | Furnace fuel duration | 10 seconds |
 
 ## How to obtain

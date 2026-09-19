@@ -16,6 +16,7 @@ A reusable wooden rod for catching fish by hand.
 |---|---|
 | Stack size | 1 |
 | Tags | `fishing_rod` |
+| Durability | 128 successful uses; [tool wear guide](Tools-and-durability.md) |
 
 ## How to obtain
 

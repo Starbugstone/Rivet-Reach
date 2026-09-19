@@ -17,7 +17,7 @@ A prepared fish-and-vegetable meal restoring 12 food points.
 | Stack size | 64 |
 | Tags | `edible`, `prepared_food` |
 | Food restored | 12 points |
-| Saturation reserve | 12 points |
+| Saturation reserve | 4 points |
 
 ## How to obtain
 
