@@ -452,13 +452,16 @@ namespace RivetReach
         public bool Raycast(Vector3 start,Vector3 direction,float reach,out BlockPos hit,out byte id)
             => Raycast(start,direction,reach,out hit,out id,out _);
         public bool Raycast(Vector3 start,Vector3 direction,float reach,out BlockPos hit,out byte id,out Vector3Int face,bool fluidSources=false)
-            => Trace(start,direction,reach,out hit,out id,out face,fluidSources,false);
+        {bool found=Trace(start,direction,reach,out var result,fluidSources,false);hit=result.Position;id=result.Block;face=result.Face;return found;}
+        public bool Select(Vector3 start,Vector3 direction,float reach,out BlockSelectionHit hit,bool fluidSources=false)
+            =>Trace(start,direction,reach,out hit,fluidSources,false);
         // Camera clearance shares movement's solid predicate, not interaction targeting.
         public bool RaycastSolid(Vector3 start,Vector3 direction,float reach,out BlockPos hit,out byte id)
-            => Trace(start,direction,reach,out hit,out id,out _,false,true);
-        bool Trace(Vector3 start,Vector3 direction,float reach,out BlockPos hit,out byte id,out Vector3Int face,bool fluidSources,bool solidsOnly)
+        {bool found=Trace(start,direction,reach,out var result,false,true);hit=result.Position;id=result.Block;return found;}
+        bool Trace(Vector3 start,Vector3 direction,float reach,out BlockSelectionHit hit,bool fluidSources,bool solidsOnly)
         {
-            hit=default;id=0;face=Vector3Int.zero;var cell=Address(start);
+            hit=default;if(reach<0||direction.sqrMagnitude<1e-12f)return false;
+            direction.Normalize();var face=Vector3Int.zero;var cell=Address(start);
             Vector3 localCell=Local(cell),step=new Vector3(Math.Sign(direction.x),Math.Sign(direction.y),Math.Sign(direction.z));
             Vector3 delta=new Vector3(direction.x==0?float.PositiveInfinity:Mathf.Abs(1/direction.x),direction.y==0?float.PositiveInfinity:Mathf.Abs(1/direction.y),direction.z==0?float.PositiveInfinity:Mathf.Abs(1/direction.z));
             Vector3 t=new Vector3((direction.x>0?localCell.x+1-start.x:start.x-localCell.x)*delta.x,(direction.y>0?localCell.y+1-start.y:start.y-localCell.y)*delta.y,(direction.z>0?localCell.z+1-start.z:start.z-localCell.z)*delta.z);
@@ -466,9 +469,15 @@ namespace RivetReach
             float distance=0;
             for(int i=0;i<64&&distance<=reach;i++)
             {
-                if(!Ready(cell)){if(solidsOnly){hit=cell;return true;}return false;}
+                if(!Ready(cell)){if(solidsOnly){hit=new BlockSelectionHit(cell,0,start+direction*distance,face,distance);return true;}return false;}
                 byte b=Get(cell);var fluid=Fluids.Registry.Get(b);
-                if(solidsOnly?Solid(cell):b!=0&&(fluid==null||fluidSources&&fluid.IsSource(b))){hit=cell;id=b;return true;}
+                if(solidsOnly?Solid(cell):b!=0&&(fluid==null||fluidSources&&fluid.IsSource(b)))
+                {
+                    var definition=BlockDefinitions.Get(b);float selectedDistance=distance;var selectedFace=face;
+                    if(solidsOnly||(definition.Traits&BlockTraits.HasCustomSelectionShape)==0||
+                        definition.Shape(this,cell).Intersect(start-Local(cell),direction,reach,out selectedDistance,out selectedFace))
+                    {hit=new BlockSelectionHit(cell,b,start+direction*selectedDistance,selectedFace,selectedDistance);return true;}
+                }
                 int axis=t.x<t.y?(t.x<t.z?0:2):(t.y<t.z?1:2);
                 distance=t[axis];t[axis]+=delta[axis];
                 face=Vector3Int.zero;face[axis]=-(int)step[axis];

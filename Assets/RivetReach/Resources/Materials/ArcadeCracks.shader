@@ -1,6 +1,6 @@
 Shader "RivetReach/ArcadeCracks"
 {
-    Properties { _Progress("Mining progress",Float)=0 _Pulse("Contact pulse",Float)=0 }
+    Properties { _Progress("Mining progress",Float)=0 }
     SubShader
     {
         Tags {"RenderPipeline"="UniversalPipeline" "Queue"="Transparent"}
@@ -11,7 +11,7 @@ Shader "RivetReach/ArcadeCracks"
             #pragma vertex Vert
             #pragma fragment Frag
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-            float _Progress,_Pulse;
+            float _Progress;
             struct A {float3 positionOS:POSITION;float2 uv:TEXCOORD0;};
             struct V {float4 positionCS:SV_POSITION;float2 uv:TEXCOORD0;};
             V Vert(A i){V o;o.positionCS=TransformObjectToHClip(i.positionOS);o.uv=i.uv;return o;}
@@ -23,9 +23,7 @@ Shader "RivetReach/ArcadeCracks"
                 float reach=saturate((_Progress*.73-radius)*12);
                 float cracks=(1-smoothstep(.004,.013,arms))*reach;
                 cracks=max(cracks,(1-smoothstep(.002,.006,branch))*saturate((_Progress-.45)*2)*reach);
-                float edge=min(min(i.uv.x,1-i.uv.x),min(i.uv.y,1-i.uv.y));
-                float flash=_Pulse*(1-smoothstep(.012,.06,edge))*.3;
-                return half4(lerp(half3(.055,.07,.09),half3(1.8,1.15,.38),_Pulse*.70),max(cracks*.83,flash));
+                return half4(half3(.012,.015,.019),cracks*.83);
             }
             ENDHLSL
         }

@@ -120,9 +120,10 @@ namespace RivetReach.Editor
             var health=new HealthState();Check(Math.Abs(health.Damage(10,DamageKind.Impact,equipment.Protection)-2)<.001f,"Armor mitigates contact damage");
             Check(health.Damage(3,DamageKind.Fall,20)==3,"Armor does not erase fall damage");
             hunger=new HungerState();health.Advance(80,hunger);Check(health.Hearts==16&&hunger.Food==19,"High food heals a heart point and spends exhaustion");
-            var idleFood=new HungerState();var idleHealth=new HealthState();idleHealth.Advance(2047,idleFood);
+            int idleTicks=(int)Math.Ceiling(4/HungerState.PassiveExhaustionPerTick);
+            var idleFood=new HungerState();var idleHealth=new HealthState();idleHealth.Advance(idleTicks-1,idleFood);
             Check(idleFood.Food==20,"Passive hunger waits for the complete food-point cost");
-            idleHealth.Advance(1,idleFood);Check(idleFood.Food==19&&idleFood.Exhaustion==0,"Idle survival drains food after 102.4 seconds without a healing surcharge");
+            idleHealth.Advance(1,idleFood);Check(idleFood.Food==19&&idleFood.Exhaustion>=0&&idleFood.Exhaustion<HungerState.PassiveExhaustionPerTick,"Idle survival drains food at its configured interval without a healing surcharge");
             var bandFood=new HungerState();bandFood.Exert(32);var bandHealth=new HealthState();bandHealth.Damage(10,DamageKind.Fall,0);
             bandHealth.Advance(79,bandFood);Check(bandHealth.Hearts==10&&bandHealth.Regenerating,"Healing starts at 60 percent, but waits four seconds");
             bandHealth.Advance(1,bandFood);Check(bandHealth.Hearts==11&&bandFood.Food==11&&bandHealth.Regenerating,"Healing costs extra food and continues at 55 percent");

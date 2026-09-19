@@ -100,7 +100,7 @@ namespace RivetReach
                 float speed=Flying?(Sprinting?12f:7f):Height<1.5f?2.2f:Sprinting?6.5f:4.5f;
                 input=Vector2.ClampMagnitude(input,1);
                 Vector3 move=transform.TransformDirection(new Vector3(input.x,0,input.y))*speed;
-                bool jump=!Flying&&control&&Game.Input.Pressed("Jump")&&Grounded;
+                bool jump=!Flying&&control&&Game.Input.Held("Jump")&&Grounded;
                 // The requested 1.6-block apex leaves clearance for future half blocks.
                 if(jump)vertical=8f;
                 float dt=Mathf.Min(Time.deltaTime,.05f);
@@ -129,7 +129,7 @@ namespace RivetReach
                 Grounded=ground;if(ground)vertical=-1;
                 Vector3 travelled=transform.position-previous;travelled.y=0;
                 float distance=travelled.magnitude,motion=Mathf.Clamp01(distance/Mathf.Max(.001f,speed*dt));
-                if(control&&!Game.Creative)Game.Hunger.Exert(distance*(Sprinting?.1:.01)+(jump?.2:0));
+                if(control&&!Game.Creative)Game.Hunger.Exert(distance*(Sprinting?HungerState.SprintExhaustionPerMetre:HungerState.WalkExhaustionPerMetre)+(jump?HungerState.JumpExhaustion:0));
                 if(!Game.Creative&&!ground&&transform.position.y<previous.y)fallDistance+=previous.y-transform.position.y;
                 if(ground){if(fallDistance>3)Game.TakeDamage(Mathf.Floor(fallDistance-3),DamageKind.Fall);fallDistance=0;}
                 // Footfalls follow the same distance-driven phase as the authored feet.
@@ -183,7 +183,13 @@ namespace RivetReach
             AnimateEating();
             UpdateSwingSound(audibleSwing);
             selection.SetActive(HasTarget);
-            if(HasTarget)selection.transform.position=Game.World.Local(Target)-Vector3.one*.002f;
+            if(HasTarget)
+            {
+                var shape=BlockDefinitions.Get(TargetId).Shape(Game.World,Target);
+                var bounds=shape?.Bounds??new Bounds(Vector3.one*.5f,Vector3.one);
+                selection.transform.position=Game.World.Local(Target)+bounds.min-Vector3.one*.002f;
+                selection.transform.localScale=bounds.size+Vector3.one*.004f;
+            }
         }
         void UpdateSwingSound(bool swing)
         {
@@ -240,9 +246,17 @@ namespace RivetReach
             bool found=Game.World.Raycast(Camera.transform.position,Camera.transform.forward,5,out var pos,out byte id,out _,heldId==Fluids.EmptyBucket);
             if(!found||!HasTarget||!pos.Equals(Target)||id!=TargetId)MiningProgress=0;
             HasTarget=found;Target=pos;TargetId=id;
+            if(Game.Input.Rebinding==null&&Mouse.current?.middleButton.wasPressedThisFrame==true)
+            {
+                MiningProgress=0;
+                if(found)Game.Selected=InventoryActions.Pick(Game.Inventory,Game.Registry,id,Game.Selected,Game.Creative);
+                return;
+            }
             if(Game.Input.Place)
             {
                 MiningProgress=0;
+                if(found&&Game.Input.PlacePressed&&Game.TryHarvestCrop(pos,id,(tool&ToolCapability.Hoe)!=0))
+                {Arms.TriggerSwing();Body.TriggerSwing();return;}
                 if(Game.Input.PlacePressed&&Game.TryConfigurePipeEnd())return;
                 if(Game.HoldingWrench&&!Game.Input.PlacePressed)return;
                 if(Fluids.IsBucket(heldId)){if(Game.Input.PlacePressed&&Game.TryUseBucket()){Arms.TriggerSwing();Body.TriggerSwing();}return;}
@@ -253,7 +267,7 @@ namespace RivetReach
                 if((tool&ToolCapability.Blade)!=0){eating=0;eatingItem=0;return;}
                 if(found&&(tool&ToolCapability.Hoe)!=0&&(id==BlockId.Grass||id==BlockId.Dirt))
                 {
-                    if(Time.time>=nextPlace&&Game.World.Till(pos)){nextPlace=Time.time+.22f;Arms.TriggerSwing();Body.TriggerSwing();if(!Game.Creative)Game.Hunger.Exert(.05);}
+                    if(Time.time>=nextPlace&&Game.World.Till(pos)){nextPlace=Time.time+.22f;Arms.TriggerSwing();Body.TriggerSwing();if(!Game.Creative)Game.Hunger.Exert(HungerState.BlockActionExhaustion);}
                     return;
                 }
                 if(found&&id==BlockId.Farmland&&CropRules.Planting(selected.Id)!=null)
@@ -282,7 +296,7 @@ namespace RivetReach
             bool drop=!Game.Creative||tool!=ToolCapability.None||heldId==IndustryId.Wrench;
             if(Game.World.Mine(pos,id,tool,Game.Registry.Tier(selected),Game.Creative,drop))
             {
-                if(!Game.Creative)Game.Hunger.Exert(.05);
+                if(!Game.Creative)Game.Hunger.Exert(HungerState.BlockActionExhaustion);
                 Game.Sound.Mine(id,Game.World.Local(pos)+Vector3.one*.5f);Game.Notify(drop?"Gathered "+Game.Registry.Get(Game.Registry.FistDrop(id)).displayName+" — walk close to collect":"Removed "+Game.Registry.Get(id).displayName,1);
             }
         }

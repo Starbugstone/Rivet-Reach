@@ -94,6 +94,39 @@ namespace RivetReach
             return total;
         }
 
+        // Deliberate inventory command, never a frame update. Plan before publishing so
+        // metadata-bearing portable storage remains individual and quantities stay exact.
+        public bool Organize(int start=0,int end=-1)
+        {
+            if(end==-1)end=Count;Range(start,end);
+            var plan=Snapshot();
+            for(int i=start;i<end;i++)plan.slots[i]=default;
+            for(int i=start;i<end;i++)
+            {
+                var stack=slots[i];if(stack.Empty)continue;
+                if(plan.Add(stack,start,end)!=0)throw new InvalidOperationException("Inventory organization lost capacity.");
+            }
+            Array.Sort(plan.slots,start,end-start,Comparer<ItemStack>.Create((a,b)=>
+            {
+                if(a.Empty||b.Empty)return a.Empty==b.Empty?0:a.Empty?1:-1;
+                int order=a.Id.CompareTo(b.Id);if(order!=0)return order;
+                order=a.Energy.CompareTo(b.Energy);if(order!=0)return order;
+                order=a.FluidId.CompareTo(b.FluidId);if(order!=0)return order;
+                order=a.FluidCapacity.CompareTo(b.FluidCapacity);if(order!=0)return order;
+                order=a.FluidAmount.CompareTo(b.FluidAmount);return order!=0?order:b.Count.CompareTo(a.Count);
+            }));
+            bool changed=false;
+            for(int i=start;i<end;i++){changed|=!slots[i].Equals(plan.slots[i]);slots[i]=plan.slots[i];}
+            if(changed)Revision++;return changed;
+        }
+
+        public void Swap(int first,int second)
+        {
+            Range(first,first+1);Range(second,second+1);
+            if(first==second||slots[first].Equals(slots[second]))return;
+            var stack=slots[first];slots[first]=slots[second];slots[second]=stack;Revision++;
+        }
+
         public int Capacity(byte id, int start = 0, int end = -1)
         {
             if (end == -1) end = Count;

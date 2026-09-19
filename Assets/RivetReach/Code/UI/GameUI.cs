@@ -238,6 +238,18 @@ namespace RivetReach
             ClickSlot(index, true, false);
         }
         public void EndRightPaint() { rightPainting = false; paintedSlots.Clear(); }
+
+        public void OrganizeInventory(int index)
+        {
+            if(!HasInventoryBinding||RecipeVisible||!HeldStack.Empty||rightPainting)return;
+            if(index>=0&&index<Inventory.SlotCount)
+                game.Inventory.Organize(index<Inventory.HotbarCount?0:Inventory.HotbarCount,
+                    index<Inventory.HotbarCount?Inventory.HotbarCount:Inventory.SlotCount);
+            else if(game.OpenStation?.Storage!=null&&index>=StationSlotStart&&index<StationSlotStart+game.OpenStation.Storage.Count)
+                game.OpenStation.Storage.Organize();
+            else return; // Recipe grids and typed machine slots have positional meaning.
+            RefreshSlots();
+        }
         void OnApplicationFocus(bool focus) { if (!focus) {BindingVersion++;EndRightPaint();creativeDrag=default;} }
 
         public void ClickSlot(int index,bool right,bool shift)
@@ -445,6 +457,8 @@ namespace RivetReach
         public void OnPointerUp(PointerEventData e) { if (e.button == PointerEventData.InputButton.Right) Owner.EndRightPaint(); }
         public void OnPointerClick(PointerEventData e)
         {
+            if(Owner.AcceptGesture(this,pressVersion)&&e.button==PointerEventData.InputButton.Middle&&!dragged&&!e.dragging)
+            {Owner.OrganizeInventory(Index);return;}
             if (!Owner.AcceptGesture(this,pressVersion) || (e.button != PointerEventData.InputButton.Left && e.button != PointerEventData.InputButton.Right)) return;
             if (dragged || e.dragging || e.button == PointerEventData.InputButton.Right && rightPressHandled) return;
             Owner.ClickSlot(Index, e.button == PointerEventData.InputButton.Right, Keyboard.current?.shiftKey.isPressed == true);

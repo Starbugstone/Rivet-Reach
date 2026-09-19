@@ -55,7 +55,7 @@ namespace RivetReach
                 if(hunger.Food==0)Damage(1,DamageKind.Starvation,0);
                 else
                 {
-                    Hearts=Math.Min(Maximum,Hearts+1);hunger.Exert(6);
+                    Hearts=Math.Min(Maximum,Hearts+1);hunger.Exert(HungerState.HealingExhaustion);
                     if(hunger.Food<=10||Hearts>=Maximum)Regenerating=false;
                 }
             }

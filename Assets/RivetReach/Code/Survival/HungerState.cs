@@ -6,8 +6,14 @@ namespace RivetReach
     public sealed partial class HungerState
     {
         public const int Maximum=20;
-        // At 20 ticks/second, idle survival spends one food point every 102.4 seconds.
-        public const double PassiveExhaustionPerTick=1d/512;
+        // Alpha tuning: ordinary activity costs 25% less; healing keeps its full cost.
+        public const double ActivityMultiplier=.75;
+        public const double PassiveExhaustionPerTick=ActivityMultiplier/512;
+        public const double WalkExhaustionPerMetre=.01*ActivityMultiplier;
+        public const double SprintExhaustionPerMetre=.1*ActivityMultiplier;
+        public const double JumpExhaustion=.2*ActivityMultiplier;
+        public const double BlockActionExhaustion=.05*ActivityMultiplier;
+        public const double HealingExhaustion=6;
         public int Food {get;private set;}=Maximum;
         public double Exhaustion {get;private set;}
         public bool CanSprint=>Food>6;

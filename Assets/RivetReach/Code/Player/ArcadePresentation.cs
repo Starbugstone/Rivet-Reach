@@ -24,9 +24,8 @@ namespace RivetReach
         readonly ParticleSystem.Particle[] shifted=new ParticleSystem.Particle[256];
         readonly System.Random random=new System.Random(9471);
         GameObject cracks;Material crackMaterial;
-        float clock,lastPhase,pulse,nextPollen,lastY,lastFall;bool struck,wasGrounded;
-        int burstFrame=-1,frameBursts;Vector3 flashPosition;
-        Color flashColour;
+        float clock,lastPhase,nextPollen,lastY,lastFall;bool struck,wasGrounded;
+        int burstFrame=-1,frameBursts;
         void Awake()
         {
             Active=this;game=GetComponentInParent<Expedition>();Intensity=Mathf.Clamp01(PlayerPrefs.GetFloat("visual.effects",1));
@@ -80,14 +79,14 @@ namespace RivetReach
         {
             if(world!=null){world.BlockMined-=Break;world.OriginShifted-=Shift;}
             world=game.World;world.BlockMined+=Break;world.OriginShifted+=Shift;
-            foreach(var system in systems)system.Clear();cracks.SetActive(false);pulse=0;lastPhase=0;struck=false;
+            foreach(var system in systems)system.Clear();cracks.SetActive(false);lastPhase=0;struck=false;
             lastY=game.Player.transform.position.y;wasGrounded=game.Player.Grounded;
             game.Player.Camera.GetUniversalAdditionalCameraData().antialiasing=AntialiasingMode.SubpixelMorphologicalAntiAliasing;
         }
         public void SetIntensity(float value)
         {
             Intensity=Mathf.Clamp01(value);PlayerPrefs.SetFloat("visual.effects",Intensity);
-            if(Intensity==0){foreach(var system in systems)system.Clear();pulse=0;}
+            if(Intensity==0){foreach(var system in systems)system.Clear();}
         }
         float Rand(float min,float max)=>Mathf.Lerp(min,max,(float)random.NextDouble());
         Vector3 Spread()=>new Vector3(Rand(-1,1),Rand(-.4f,1),Rand(-1,1)).normalized;
@@ -108,7 +107,7 @@ namespace RivetReach
         }
         public void Impact(byte id,Vector3 at,Vector3 normal)
         {
-            if(!Allow(at))return;var colour=Tint(id);pulse=1;flashPosition=at;flashColour=Color.Lerp(colour,new Color(1,.72f,.29f),.6f);
+            if(!Allow(at))return;var colour=Tint(id);
             int count=Mathf.CeilToInt(9*Intensity);
             for(int i=0;i<count;i++)Emit(id==BlockId.Leaves?leaves:id==BlockId.Log?wood:chips,at+normal*.035f,normal*Rand(.6f,2.2f)+Spread()*1.1f,colour,Rand(.04f,.085f),Rand(.18f,.40f));
             for(int i=0;i<3*Intensity;i++)Emit(dust,at+normal*.04f,normal*.3f+Spread()*.3f,new Color(colour.r,colour.g,colour.b,.28f),Rand(.22f,.42f),.34f);
@@ -119,15 +118,12 @@ namespace RivetReach
             Vector3 at=world.Local(cell)+Vector3.one*.5f;if(!Allow(at))return;var colour=Tint(id);
             for(int i=0;i<28*Intensity;i++)Emit(id==BlockId.Leaves?leaves:id==BlockId.Log?wood:chips,at+Spread()*.3f,Spread()*Rand(1,3.1f)+Vector3.up*1.3f,colour,Rand(.045f,.14f),Rand(.35f,.68f));
             for(int i=0;i<7*Intensity;i++)Emit(dust,at+Spread()*.26f,Spread()*.55f,new Color(colour.r,colour.g,colour.b,.24f),Rand(.35f,.65f),.5f);
-            Emit(rings,at,Vector3.zero,new Color(1.7f,1.05f,.35f,.38f),1.30f,.22f);pulse=1;flashPosition=at;flashColour=new Color(1,.7f,.28f);
         }
         public void Place(Vector3 centre,byte id)
         {
             if(!Allow(centre))return;
-            Vector3 facing=(game.Player.Camera.transform.position-centre).normalized;
-            Vector3 front=centre+facing*(.66f/Mathf.Max(.01f,Mathf.Abs(facing.x),Mathf.Abs(facing.y),Mathf.Abs(facing.z)));
-            Emit(rings,front,Vector3.zero,new Color(.55f,1.7f,1.8f,.4f),1.35f,.30f);
-            for(int i=0;i<12*Intensity;i++)Emit(sparks,centre+Spread()*.55f,Vector3.up*.65f+Spread()*.4f,new Color(.65f,1.6f,1.75f,.75f),.08f,.32f);
+            var colour=Tint(id);
+            for(int i=0;i<6*Intensity;i++)Emit(dust,centre+Spread()*.52f,Spread()*.2f,new Color(colour.r,colour.g,colour.b,.20f),.08f,.22f);
         }
         public void Pickup(Vector3 at,byte id)
         {
@@ -138,7 +134,7 @@ namespace RivetReach
         void Shift(Vector3 offset)
         {
             foreach(var system in systems){int count=system.GetParticles(shifted);for(int i=0;i<count;i++)shifted[i].position-=offset;system.SetParticles(shifted,count);}
-            flashPosition-=offset;lastY-=offset.y;
+            lastY-=offset.y;
         }
         void LateUpdate()
         {
@@ -147,8 +143,6 @@ namespace RivetReach
             foreach(var system in systems)
             {if(game.Paused){if(!system.isPaused)system.Pause();}else if(system.isPaused)system.Play();}
             var p=game.Player;bool playing=game.Started&&!game.Paused&&!game.InventoryOpen&&!p.Inspecting;
-            pulse=Mathf.MoveTowards(pulse,0,dt*8);
-            Shader.SetGlobalVector("_RRImpactLight",new Vector4(flashPosition.x,flashPosition.y,flashPosition.z,pulse*Intensity));Shader.SetGlobalColor("_RRImpactColour",flashColour);
             bool swing=playing&&p.Arms.MiningWeight>.15f;
             float phase=p.Arms.SwingPhase;if(phase<lastPhase)struck=false;
             if(swing&&!struck&&phase>=.43f)
@@ -162,8 +156,8 @@ namespace RivetReach
                 }
             }
             if(!swing)struck=false;lastPhase=phase;
-            cracks.SetActive(playing&&p.HasTarget&&(p.MiningProgress>.015f||pulse>.1f));
-            if(cracks.activeSelf){cracks.transform.position=world.Local(p.Target)+Vector3.one*.5f;crackMaterial.SetFloat("_Progress",p.MiningProgress);crackMaterial.SetFloat("_Pulse",pulse*Intensity);}
+            cracks.SetActive(playing&&p.HasTarget&&p.MiningProgress>.015f&&(BlockDefinitions.Get(p.TargetId).Traits&BlockTraits.HasCustomSelectionShape)==0);
+            if(cracks.activeSelf){cracks.transform.position=world.Local(p.Target)+Vector3.one*.5f;crackMaterial.SetFloat("_Progress",p.MiningProgress);}
             if(playing&&!wasGrounded&&p.Grounded&&lastFall<-3&&Allow(p.transform.position))
                 for(int i=0;i<8*Intensity;i++)Emit(dust,p.transform.position+Spread()*.2f,Spread()*.8f,new Color(.70f,.65f,.48f,.23f),.30f,.35f);
             if(Time.deltaTime>0)lastFall=(p.transform.position.y-lastY)/Time.deltaTime;lastY=p.transform.position.y;wasGrounded=p.Grounded;
@@ -178,7 +172,7 @@ namespace RivetReach
         {
             if(world!=null){world.BlockMined-=Break;world.OriginShifted-=Shift;}
             foreach(var material in materials)Destroy(material);foreach(var mesh in meshes)Destroy(mesh);
-            if(Active==this)Active=null;Shader.SetGlobalVector("_RRImpactLight",Vector4.zero);
+            if(Active==this)Active=null;
         }
     }
 }

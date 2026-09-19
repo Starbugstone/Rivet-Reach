@@ -31,7 +31,7 @@ Shader "RivetReach/VoxelTerrain"
             #include "VoxelLight.hlsl"
             TEXTURE2D_ARRAY(_Tiles); SAMPLER(sampler_Tiles);
             TEXTURE2D_ARRAY(_DetailTiles); SAMPLER(sampler_DetailTiles);
-            float4 _RRFogColour; float4 _RRFogRange; float4 _RRWorldOffset; float _RRPresentationTime;float4 _RRImpactLight,_RRImpactColour;
+            float4 _RRFogColour; float4 _RRFogRange; float4 _RRWorldOffset; float _RRPresentationTime;
             float4 _RRAmbientSky,_RRAmbientGround;
             float PaletteHash(float2 cell)
             {
@@ -89,11 +89,6 @@ Shader "RivetReach/VoxelTerrain"
                 // Azure crystal seams retain their blue identity underground without per-ore lights.
                 half3 mineralEmission=abs(i.tile-44)<.5?colour*half3(.15,.55,1)*saturate((colour.b-colour.r-.08)*4)*.65:half3(0,0,0);
                 colour=colour*lighting+sun.color*sheen+mineralEmission;
-                if(_RRImpactLight.w>0)
-                {
-                    float3 toLight=_RRImpactLight.xyz-i.positionWS;float distanceSquared=max(dot(toLight,toLight),.01);
-                    colour+=_RRImpactColour.rgb*pow(saturate(1-sqrt(distanceSquared)/2.4),2)*saturate(dot(normal,toLight*rsqrt(distanceSquared)))*_RRImpactLight.w*.19;
-                }
                 float range=distance(i.positionWS,GetCameraPositionWS());
                 float fog=smoothstep(_RRFogRange.x,_RRFogRange.y,range);
                 // A small amount of aerial perspective separates ridges before the streaming fade.
