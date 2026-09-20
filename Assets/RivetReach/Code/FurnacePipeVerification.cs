@@ -12,7 +12,14 @@ namespace RivetReach
             FreezeSaveFixture();game.SetCreative(true);game.enabled=false;
             var world=game.World;var sim=game.Industry.Simulation;var p=origin.Offset(0,0,6);
             void Put(BlockPos pos,byte id)
-            {byte old=world.Get(pos);if(old!=0)Check(world.Remove(pos,old),"Clear furnace pipe fixture");if(id!=0)Check(world.Place(pos,id),"Place furnace pipe fixture "+id);}
+            {
+                byte old=world.Get(pos);
+                // This fixture replaces the preceding liquid-routing display.
+                // Direct deletion correctly protects its nonempty portable tanks.
+                if(old==IndustryId.Tank&&sim.At(pos) is MachineState tank)tank.Fluid.Withdraw(tank.Fluid.Amount);
+                if(old!=0)Check(world.Remove(pos,old),"Clear furnace pipe fixture");
+                if(id!=0)Check(world.Place(pos,id),"Place furnace pipe fixture "+id);
+            }
             for(int x=-2;x<=5;x++)for(int y=0;y<=3;y++)Put(p.Offset(x,y,0),0);
             Put(p,IndustryId.Crusher);Put(p.Offset(1,0,0),IndustryId.ItemPipe);
             // Place the furnace after its pipe: station creation must invalidate topology.

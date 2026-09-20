@@ -18,7 +18,7 @@ namespace RivetReach
         }
         [Serializable] public sealed class Report
         {
-            public string timestamp,unity,cpu,gpu,context,result,probeVersion="2";
+            public string timestamp,unity,cpu,gpu,context,result,probeVersion="3";
             public int seed=246813,viewDistance=10,inventoryObjects,guideObjects,residentCount,width,height;
             public List<Measurement> measurements=new List<Measurement>();
             public List<string> checks=new List<string>();
@@ -34,11 +34,11 @@ namespace RivetReach
             var times=new List<double>();var allocations=new List<double>();
             for(int i=0;i<count;i++)
             {
-                long bytes=GC.GetAllocatedBytesForCurrentThread(),start=Stopwatch.GetTimestamp();action();
-                times.Add((Stopwatch.GetTimestamp()-start)*1000.0/Stopwatch.Frequency);allocations.Add(GC.GetAllocatedBytesForCurrentThread()-bytes);
+                long bytes=RuntimeCosts.AllocationCounterSupported?GC.GetAllocatedBytesForCurrentThread():0,start=Stopwatch.GetTimestamp();action();
+                times.Add((Stopwatch.GetTimestamp()-start)*1000.0/Stopwatch.Frequency);if(RuntimeCosts.AllocationCounterSupported)allocations.Add(GC.GetAllocatedBytesForCurrentThread()-bytes);
                 yield return null;
             }
-            report.measurements.Add(Summarize(name,times,allocations));
+            report.measurements.Add(Summarize(name,times,RuntimeCosts.AllocationCounterSupported?allocations:null));
         }
         static IEnumerator Frames(Report report,string name,int count)
         {
@@ -46,8 +46,8 @@ namespace RivetReach
         }
         public static IEnumerator Run(Expedition game,string output)
         {
-            Directory.CreateDirectory(output);
-            var report=new Report{timestamp=DateTime.UtcNow.ToString("O"),unity=Application.unityVersion,cpu=SystemInfo.processorType,gpu=SystemInfo.graphicsDeviceName,context=Application.isEditor?"Unity Editor Play mode":"Windows Development player",result="RUNNING",width=Screen.width,height=Screen.height};
+            Directory.CreateDirectory(output);RuntimeCosts.CalibrateAllocations();
+            var report=new Report{timestamp=DateTime.UtcNow.ToString("O"),unity=Application.unityVersion,cpu=SystemInfo.processorType,gpu=SystemInfo.graphicsDeviceName,context=Application.isEditor?"Unity Editor Play mode":UnityEngine.Debug.isDebugBuild?"Windows Development player":"Windows Release player",result="RUNNING",width=Screen.width,height=Screen.height};
             game.StartSession(report.seed);game.World.ViewDistance=report.viewDistance;game.Mobs.NaturalSpawning=false;
             float deadline=Time.realtimeSinceStartup+180;
             do{yield return null;if(Time.realtimeSinceStartup>deadline)throw new TimeoutException("Terrain did not settle");}while(!game.ReadyToPlay||game.World.PendingCount>0);
@@ -65,24 +65,12 @@ namespace RivetReach
             Check(report,game.Crafting.Grid.Slots[0].Count==16&&game.UI.HeldStack.Count==64,"Output-full cursor preserves remaining ingredients");
             game.UI.ClickSlot(slot,false,false);game.UI.ClickSlot(Inventory.SlotCount+16,false,true);
             Check(report,game.Crafting.Grid.Slots[0].Empty&&game.Inventory.Slots.Where(s=>s.Id==BlockId.Planks).Sum(s=>s.Count)==128,"Shift craft preserves exact input/output quantities");
-            // The separately authored browser can land independently of this performance pass.
-            // Keep the probe runnable on both its API and the previous guide UI.
-            var inspect=typeof(GameUI).GetMethod("InspectBrowserItem");
-            if(inspect!=null)
-            {
-                yield return Measure(report,"open recipe detail",6,()=>inspect.Invoke(game.UI,new object[]{BlockId.Planks,false}));
-                yield return null;
-                Check(report,game.UI.VisibleRoot.GetComponentsInChildren<Text>().Any(t=>t.text.Contains("Planks")),"Browser displays the selected recipe");
-            }
-            else
-            {
-                var button=game.UI.VisibleRoot.GetComponentsInChildren<Button>().Single(b=>b.GetComponentInChildren<Text>().text=="RECIPES");
-                button.onClick.Invoke();yield return null;
-                Check(report,game.UI.VisibleRoot.GetComponentsInChildren<ScrollRect>().Length==1,"Recipe guide is available");
-            }
+            yield return Measure(report,"open recipe detail",6,()=>game.UI.InspectBrowserItem(BlockId.Planks,false));
+            yield return null;
+            Check(report,game.UI.VisibleRoot.GetComponentsInChildren<Text>().Any(t=>t.text.Contains("Planks")),"Browser displays the selected recipe");
             report.guideObjects=game.UI.VisibleRoot.GetComponentsInChildren<Transform>().Length;
             ScreenCapture.CaptureScreenshot(Path.Combine(output,"crafting.png"));yield return Frames(report,"recipe detail frames",180);
-            typeof(GameUI).GetMethod("CloseBrowserRecipe")?.Invoke(game.UI,null);
+            game.UI.CloseBrowserRecipe();
             game.SetMode(ScreenMode.Play);
             var p=new BlockPos(2,game.World.Generator.Height(2,2)+5,2);
             Check(report,game.World.Ready(p)&&game.World.Get(p)==0,"Terrain edit fixture is ready and empty");

@@ -1,0 +1,15 @@
+Unity 6000.4.4f1 | Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz | NVIDIA GeForce RTX 2060
+Uncapped moving-pointer workload; 60 warmup + 240 measured frames per phase. Profiler times overlap; frame time is not physical mouse-to-display latency.
+phase,counter,median_ms,p95_ms,max_ms
+menu hover,Frame interval,4.347697,6.740504,8.937103
+menu hover,Main Thread,4.347700,6.739800,8.941300
+menu hover,GPU Frame Time,2.173184,3.267072,3.379200
+sidebar hover,Frame interval,5.233199,6.610700,8.731605
+sidebar hover,Main Thread,5.231800,6.609700,8.732900
+sidebar hover,GPU Frame Time,3.041280,3.191040,4.143104
+held stack motion,Frame interval,4.824100,6.765703,8.757405
+held stack motion,Main Thread,4.821400,6.767900,8.760700
+held stack motion,GPU Frame Time,3.215360,3.342080,3.375616
+crafting hover,Frame interval,4.637004,6.701998,13.643098
+crafting hover,Main Thread,4.634000,6.698500,13.637100
+crafting hover,GPU Frame Time,3.311872,3.385344,3.437056

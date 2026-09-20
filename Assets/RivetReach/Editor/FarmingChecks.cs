@@ -23,10 +23,10 @@ namespace RivetReach.Editor
             Directory.CreateDirectory("Logs/Farming");var lines=new List<string>();
             void Check(bool ok,string message){if(!ok)throw new Exception("Farming: "+message);lines.Add("PASS "+message);}
             FarmingCatalog.Load();var items=ItemRegistry.Load();var processing=ProcessingCatalogAsset.Load().Compile(items);var food=CookingCatalog.Current;
-            foreach(var item in items.items)Check(items.HasTag(item.runtimeId,"edible")== (item.foodPoints>0),"Edible tag matches configured food: "+item.stableId);
+            foreach(var item in items.items)Check((items.Capability<IEdible>(item.runtimeId)!=null)==(item.foodPoints>0),"Edible interface matches configured food: "+item.stableId);
             var carrot=items.Get(FarmId.Carrot);var tags=carrot.tags;
-            try{carrot.tags=tags.Where(t=>t!="edible").ToArray();Check(items.FoodPoints(FarmId.Carrot)==0,"Food value without edible tag cannot authorize eating");}
-            finally{carrot.tags=tags;}
+            try{carrot.tags=tags.Where(t=>t!="edible").ToArray();items.InvalidateIndex();Check(items.FoodPoints(FarmId.Carrot)==0,"Food value without the edible capability cannot authorize eating");}
+            finally{carrot.tags=tags;items.InvalidateIndex();}
             foreach(var crop in CropRules.Definitions)
             {
                 for(byte stage=crop.first;stage<crop.Mature;stage++)
@@ -34,8 +34,8 @@ namespace RivetReach.Editor
                 for(uint random=0;random<10;random++)
                 {var drops=CropRules.Harvest(crop.Mature,random).ToArray();Check(drops.Any(s=>s.Id==crop.produce&&s.Count>=crop.minYield)&& (crop.planting==0||drops.Any(s=>s.Id==crop.planting&&s.Count>=1)),crop.key+" mature resource and renewable planting stock, sample "+random);}
             }
-            foreach(byte fuel in new[]{BlockId.Coal,BlockId.Charcoal,BlockId.Log,BlockId.Planks})Check(items.HasTag(fuel,"burnable")&&processing.FuelTicks(fuel)>0,"Tagged fuel has explicit duration: "+fuel);
-            Check(!items.HasTag(BlockId.Stone,"burnable")&&processing.FuelTicks(BlockId.Stone)==0,"Inert material cannot supply energy");
+            foreach(byte fuel in new[]{BlockId.Coal,BlockId.Charcoal,BlockId.Log,BlockId.Planks})Check(items.Capability<IBurnable>(fuel)!=null&&processing.FuelTicks(fuel)>0,"Burnable capability has explicit duration: "+fuel);
+            Check(items.Capability<IBurnable>(BlockId.Stone)==null&&processing.FuelTicks(BlockId.Stone)==0,"Inert material cannot supply energy");
             foreach(var recipe in food.recipes)foreach(byte cooker in new[]{FarmId.Cooker,FarmId.ElectricCooker})
             {
                 var world=new World();var sim=new IndustrySimulation(world,id=>items.Get(id).stackLimit,processing);var p=new BlockPos(0,0,0);var m=sim.Add(p,cooker);m.SelectCooking(recipe.id);

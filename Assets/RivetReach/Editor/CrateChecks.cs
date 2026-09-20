@@ -28,6 +28,7 @@ namespace RivetReach.Editor
         }
         public static void Run()
         {
+            Directory.CreateDirectory("Logs/Crates");
             var log=new StringBuilder();int count=0;
             void Check(bool ok,string text){if(!ok)throw new Exception("Crates: "+text);log.AppendLine("PASS "+text);count++;}
             var c=new CrateStorage(_=>64);
@@ -93,7 +94,7 @@ namespace RivetReach.Editor
         }
         static void RoutingCost(Action<bool,string> check)
         {
-            var report=new StringBuilder();
+            RuntimeCosts.CalibrateAllocations();var report=new StringBuilder();
             foreach(int length in new[]{16,1024})
             {
                 var w=new World();var sim=new IndustrySimulation(w,_=>64);var p=new BlockPos(0,20,0);
@@ -102,7 +103,7 @@ namespace RivetReach.Editor
                 sim.At(p).PipeDirections=2<<(1*2);Settle(sim);var samples=new double[200];long allocated=0;int builds=sim.ItemRouteCacheBuilds;long probes=sim.ItemReceiverProbes;
                 for(int i=0;i<200;i++){source.Add(BlockId.Stone,1);Phase(sim);sink.Take(0,64);samples[i]=sim.LastItemRoutingMs;allocated+=sim.LastItemRoutingAllocatedBytes;}
                 Array.Sort(samples);check(sim.ItemRouteCacheBuilds==builds&&sim.ItemReceiverProbes-probes==200,"Stable "+length+"-pipe route reuses topology and probes one receiver per delivered item");
-                check(allocated<65536,"Stable "+length+"-pipe routing uses bounded low managed allocations over 200 phases");report.AppendLine($"{length} pipes, 1 source / 1 receiver, 200 active phases: routing median {samples[100]:F6} ms, p95 {samples[190]:F6} ms, allocated {allocated} bytes, route cache rebuilds {sim.ItemRouteCacheBuilds-builds}, receiver probes {sim.ItemReceiverProbes-probes}.");
+                if(RuntimeCosts.AllocationCounterSupported)check(allocated<65536,"Stable "+length+"-pipe routing uses bounded low managed allocations over 200 phases");report.AppendLine($"{length} pipes, 1 source / 1 receiver, 200 active phases: routing median {samples[100]:F6} ms, p95 {samples[190]:F6} ms, allocated {(RuntimeCosts.AllocationCounterSupported?allocated.ToString():"UNVERIFIED")} bytes, route cache rebuilds {sim.ItemRouteCacheBuilds-builds}, receiver probes {sim.ItemReceiverProbes-probes}.");
             }
             File.WriteAllText("Logs/Crates/routing-benchmark.txt",report.ToString());
         }
@@ -117,9 +118,9 @@ namespace RivetReach.Editor
             Settle(sim);foreach(var sink in sinks)sink.Add(BlockId.Stone,64);foreach(var source in sources)source.Add(BlockId.Stone,64);Phase(sim);
             long probes=sim.ItemReceiverProbes,allocated=0;var samples=new double[200];
             for(int i=0;i<200;i++){Phase(sim);allocated+=sim.LastItemRoutingAllocatedBytes;samples[i]=sim.LastItemRoutingMs;}
-            Array.Sort(samples);check(sim.ItemReceiverProbes-probes==64*200,"64 congested sources probe each full receiver once per phase, not 4096 times");check(sources.All(s=>s.Total(BlockId.Stone)==64)&&sinks.All(s=>s.Total(BlockId.Stone)==64),"Congestion preserves every source and destination item");check(allocated==0,"Warmed congested routing allocates zero managed bytes across 200 phases");
+            Array.Sort(samples);check(sim.ItemReceiverProbes-probes==64*200,"64 congested sources probe each full receiver once per phase, not 4096 times");check(sources.All(s=>s.Total(BlockId.Stone)==64)&&sinks.All(s=>s.Total(BlockId.Stone)==64),"Congestion preserves every source and destination item");if(RuntimeCosts.AllocationCounterSupported)check(allocated==0,"Warmed congested routing allocates zero managed bytes across 200 phases");
             foreach(var sink in sinks)sink.Take(0,64);Phase(sim);check(sinks.All(s=>s.Total(BlockId.Stone)==1)&&sources.All(s=>s.Total(BlockId.Stone)==63),"Opening all 64 receivers recovers next phase with equal round-robin shares");
-            File.AppendAllText("Logs/Crates/routing-benchmark.txt",$"128 pipes, 64 sources / 64 full receivers, 200 phases: routing median {samples[100]:F6} ms, p95 {samples[190]:F6} ms, allocated {allocated} bytes, probes {sim.ItemReceiverProbes-probes-64}.\n");
+            File.AppendAllText("Logs/Crates/routing-benchmark.txt",$"128 pipes, 64 sources / 64 full receivers, 200 phases: routing median {samples[100]:F6} ms, p95 {samples[190]:F6} ms, allocated {(RuntimeCosts.AllocationCounterSupported?allocated.ToString():"UNVERIFIED")} bytes, probes {sim.ItemReceiverProbes-probes-64}.\n");
         }
         static void Sensors(Action<bool,string> check)
         {
@@ -137,15 +138,7 @@ namespace RivetReach.Editor
                 check(craft.FillRecipe(key,inventory)==RecipeFillStatus.Filled,"Fill "+key+" from exact construction ingredients");
                 ItemStack cursor=default;check(craft.CraftToCursor(ref cursor).Succeeded&&cursor.Id==recipe.Output.Id&&cursor.Count==1&&craft.Grid.Slots.All(s=>s.Empty)&&inventory.Slots.All(s=>s.Empty),"Conserve every input crafting "+key);
             }
-            var old=ScriptableObject.CreateInstance<ItemRegistry>();var originals=catalog.recipes;
-            try
-            {
-                var current=new SaveStore("unused",items);old.items=items.items.Where(i=>!CrateId.Part(i.runtimeId)).Select(i=>JsonUtility.FromJson<ItemDefinition>(JsonUtility.ToJson(i))).ToArray();catalog.recipes=originals.Where(r=>r.stableId!="rivet:bulk_crate"&&r.stableId!="rivet:crate_controller").ToArray();
-                var previous=new SaveStore("unused",old);var entry=new SaveEntry{Id=new string('a',32),WorldId=new string('b',32),Name="pre-crates",Seed=1,UtcTicks=DateTime.UtcNow.Ticks,GeneratorVersion=TerrainGenerator.Version};
-                using(var r=current.Open(previous.Encode(entry,w=>w.Write(314)),out _))check(r.ReadInt32()==314,"Exact pre-crate definitions remain compatible");
-                old.Get(BlockId.Stone).fistSeconds+=.1f;old.InvalidateIndex();bool rejected=false;try{using var r=current.Open(new SaveStore("unused",old).Encode(entry,w=>w.Write(314)),out _);}catch(InvalidDataException){rejected=true;}check(rejected,"Unrelated definition changes remain rejected");
-            }
-            finally{catalog.recipes=originals;UnityEngine.Object.DestroyImmediate(old);}
+            // Save compatibility is exercised centrally by SaveCompatibilityChecks using real historical files.
         }
     }
 }

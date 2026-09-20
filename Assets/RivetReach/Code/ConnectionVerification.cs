@@ -241,6 +241,7 @@ namespace RivetReach
                 foreach(var pos in placed)
                 {
                     var m=sim.At(pos);if(m?.Definition.Id==IndustryId.Battery)m.EnergyCells[0].Discharge(BatteryPower.Amount(m));
+                    if(m?.Definition.Id==IndustryId.Tank)m.Fluid.Withdraw(m.Fluid.Amount);
                     Check(world.Remove(pos,world.Get(pos)),"Remove balanced grid fixture");
                 }
                 placed.Clear();Settle();

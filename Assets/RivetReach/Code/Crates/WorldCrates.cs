@@ -8,21 +8,23 @@ namespace RivetReach
         readonly Expedition game;
         readonly Dictionary<(long,long),HashSet<BlockPos>> columns=new Dictionary<(long,long),HashSet<BlockPos>>();
         readonly HashSet<BlockPos> positions=new HashSet<BlockPos>();
+        readonly ResidencyDependencies residency=new ResidencyDependencies();
         public CrateNetwork Network {get;}
         public WorldCrates(Expedition game)
         {
             this.game=game;Network=new CrateNetwork(p=>game.World.Get(p),p=>game.Survival.At(p)?.Crate,p=>game.World.Ready(p));
             Network.GetPriority=p=>game.Survival.At(p)?.ItemInputPriority??30;Network.SetPriority=(p,value)=>{if(game.Survival.At(p) is StationState s)s.ItemInputPriority=value;};
-            game.World.BlockChanged+=Changed;game.World.ResidencyChanged+=Residency;
+            game.World.BlockChanged+=Changed;game.World.ChunkResidencyChanged+=Residency;
         }
-        void Residency(){Network.Invalidate();game.Industry?.Simulation.Invalidate();}
+        void Residency(ChunkPos chunk)
+        {if(!residency.Contains(chunk))return;Network.Invalidate();game.Industry?.Simulation.ResidencyChanged(chunk);}
         void Register(BlockPos p)
-        {if(!positions.Add(p))return;var key=(p.Chunk.X,p.Chunk.Z);if(!columns.TryGetValue(key,out var set))columns[key]=set=new HashSet<BlockPos>();set.Add(p);}
+        {if(!positions.Add(p))return;residency.Add(p);var key=(p.Chunk.X,p.Chunk.Z);if(!columns.TryGetValue(key,out var set))columns[key]=set=new HashSet<BlockPos>();set.Add(p);}
         void Changed(BlockPos p)
         {
             bool added=CrateId.Part(game.World.Get(p));if(!added&&!positions.Contains(p))return;
-            if(added)Register(p);else{positions.Remove(p);var key=(p.Chunk.X,p.Chunk.Z);columns[key].Remove(p);if(columns[key].Count==0)columns.Remove(key);Network.Removed(p);}
-            Network.Invalidate();game.Industry?.Simulation.Invalidate();
+            if(added)Register(p);else{positions.Remove(p);residency.Remove(p);var key=(p.Chunk.X,p.Chunk.Z);columns[key].Remove(p);if(columns[key].Count==0)columns.Remove(key);Network.Removed(p);}
+            Network.Invalidate();game.Industry?.Simulation.Invalidate(p);
         }
         public void Restored(){foreach(var s in game.Survival.Stations)if(CrateId.Part(s.Value.Block))Register(s.Key);Network.Invalidate();}
         public CrateEndpoint At(BlockPos p)=>Network.At(p);

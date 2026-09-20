@@ -59,15 +59,28 @@ namespace RivetReach
         public bool PlacePressed => Rebinding==null&&Mouse.current!=null&&(PlayerPrefs.GetInt("mineButton",0)==0?Mouse.current.rightButton.wasPressedThisFrame:Mouse.current.leftButton.wasPressedThisFrame);
         public string UseButtonName=>PlayerPrefs.GetInt("mineButton",0)==0?"Right-click":"Left-click";
         public void BeginRebind(string name) {Rebinding=name;rebindAfter=Time.unscaledTime+.2f;}
+        void AssignBinding(string action,Key selected)
+        {
+            Key old=Keys[action];
+            // One mutation authority for direct rebinding and explicit presets.
+            foreach(var name in new List<string>(Keys.Keys))if(name!=action&&Keys[name]==selected)
+            {Keys[name]=old;PlayerPrefs.SetInt("binding."+name,(int)old);}
+            Keys[action]=selected;PlayerPrefs.SetInt("binding."+action,(int)selected);
+        }
+        public bool TryApplyEInventoryPreset(out string message)
+        {
+            foreach(var binding in Keys)
+                if(binding.Key!="Inventory"&&binding.Key!="Interact"&&(binding.Value==Key.E||binding.Value==Key.F))
+                {message=binding.Value+" is assigned to "+binding.Key+". Rebind that action first; no controls changed.";return false;}
+            AssignBinding("Inventory",Key.E);AssignBinding("Interact",Key.F);
+            Rebinding=null;PlayerPrefs.Save();message="E opens inventory; F interacts. Other controls are unchanged.";return true;
+        }
         public bool PollRebind()
         {
             if(Rebinding==null||Time.unscaledTime<rebindAfter||Keyboard.current==null)return false;
             foreach(var key in Keyboard.current.allKeys)if(key.wasPressedThisFrame)
             {
-                Key selected=key.keyCode,old=Keys[Rebinding];
-                // Swap conflicting actions, so movement/pause cannot silently become inaccessible.
-                foreach(var n in new List<string>(Keys.Keys))if(n!=Rebinding&&Keys[n]==selected){Keys[n]=old;PlayerPrefs.SetInt("binding."+n,(int)old);}
-                Keys[Rebinding]=selected;PlayerPrefs.SetInt("binding."+Rebinding,(int)selected);PlayerPrefs.Save();Rebinding=null;return true;
+                AssignBinding(Rebinding,key.keyCode);PlayerPrefs.Save();Rebinding=null;return true;
             }
             return false;
         }

@@ -66,3 +66,9 @@ The item sidebar and Creative item search accept intersecting name and tag terms
 The review adds only the frozen material tags to existing item definitions. Schema-10 compatibility can project those exact additions away for pre-review saves while retaining all earlier tags, fields and catalogs. Machine state encoding and generation history are unchanged. [Review verification](verification/STABILITY_REVIEW_RESULTS.md) records tests and remaining limits.
 
 Persistent chickens and egg/meat meals are now a separate increment; [CHICKENS.md](CHICKENS.md) owns lifecycle, feed and new tagged recipes.
+
+## Capability interface migration
+
+Item behavior now follows [the shared capability contracts](CAPABILITIES.md). Existing ingredient labels and serialized tags remain compatible; gameplay queries use cached typed interfaces.
+
+Growth publishes its authoritative stage immediately and queues the affected terrain pages through the existing mesh workers. Several plant changes in one page share a rebuild; natural growth does not synchronously rebuild that page once per plant. Harvesting, stage timing, light/support checks, drops and saves continue to use authoritative voxel state. Player placement and mining retain their immediate feedback path.

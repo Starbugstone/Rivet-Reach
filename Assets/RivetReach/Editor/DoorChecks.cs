@@ -52,21 +52,7 @@ namespace RivetReach.Editor
                 for(int y=0;y<3;y++)for(int x=0;x<2;x++){int slot=(y+oy)*size+x+ox;craft.Grid.Add(BlockId.Planks,1,slot,slot+1);}
                 ItemStack held=default;Check(craft.CraftToCursor(ref held).Succeeded&&held.Id==IndustryId.WoodenDoor&&held.Count==3&&craft.Grid.Slots.All(s=>s.Empty),"Exact plank/output conservation in translated "+size+" grid");
             }
-            // Fingerprints retain every older definition; removing only the additive content is allowed.
-            var store=new SaveStore("unused",items);var oldItems=ScriptableObject.CreateInstance<ItemRegistry>();var originals=catalog.recipes;
-            try
-            {
-                foreach(bool crank in new[]{true,false})
-                {
-                    oldItems.items=items.items.Where(i=>i.runtimeId!=Fluids.LavaBucket&&i.runtimeId!=IndustryId.ElectricFurnace&&i.runtimeId!=IndustryId.Wrench&&i.runtimeId!=IndustryId.WoodenDoor&&(crank||i.runtimeId!=IndustryId.HandCrank)).Select(i=>JsonUtility.FromJson<ItemDefinition>(JsonUtility.ToJson(i))).ToArray();
-                    catalog.recipes=originals.Where(r=>r.stableId!="rivet:industry_174"&&r.stableId!="rivet:wrench"&&r.stableId!="rivet:wooden_door"&&(crank||r.stableId!="rivet:industry_170")).ToArray();
-                    var entry=new SaveEntry{Id=Guid.NewGuid().ToString("N"),WorldId=Guid.NewGuid().ToString("N"),Name="Door compatibility",UtcTicks=DateTime.UtcNow.Ticks};
-                    var bytes=SaveFixtureEnvelope.Schema3(new SaveStore("unused",oldItems).Encode(entry,w=>w.Write(314)));using(var reader=store.Open(bytes,out _))Check(reader.ReadInt32()==314,"Pre-door content loads, crank present="+crank);
-                    oldItems.items[0].attackDamage++;bytes=SaveFixtureEnvelope.Schema3(new SaveStore("unused",oldItems).Encode(entry,w=>w.Write(314)));bool rejected=false;
-                    try{using var reader=store.Open(bytes,out _);}catch(InvalidDataException){rejected=true;}Check(rejected,"Unrelated content changes rejected, crank present="+crank);
-                }
-            }
-            finally{catalog.recipes=originals;UnityEngine.Object.DestroyImmediate(oldItems);}
+            // Save compatibility is exercised centrally by SaveCompatibilityChecks using real historical files.
             lines.AppendLine(count+" checks passed");File.WriteAllText("Logs/door-checks.txt",lines.ToString());
         }
     }

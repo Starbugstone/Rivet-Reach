@@ -9,10 +9,11 @@ namespace RivetReach
         void ItemEndpointChanged(BlockPos p)
         {if(world is IIndustryItemEndpoints endpoints)endpoints.ItemEndpointChanged(p);}
 
-        void InitializePipeEnds()
+        IEnumerable<int> InitializePipeEnds(IReadOnlyList<MachineState> candidates)
         {
-            foreach(var pipe in eligible)
+            foreach(var pipe in candidates)
             {
+                yield return 0;
                 if(!PipeConnections.IsTransport(pipe.Definition.Id))continue;
                 for(int face=0;face<6;face++)
                     if(((pipe.PipeDirections>>(face*2))&3)==0&&HasPipeEnd(pipe,face))
@@ -32,7 +33,7 @@ namespace RivetReach
             var role=PipeEndRole(pipe,face);
             int value=role==PortRole.Input?2:role==PortRole.Output?3:1;
             pipe.PipeDirections=(pipe.PipeDirections&~(3<<(face*2)))|(value<<(face*2));
-            Invalidate();return true;
+            Invalidate(pipe.Position);return true;
         }
         public int DisconnectedPipeFaces(MachineState pipe)
         {
@@ -85,17 +86,21 @@ namespace RivetReach
         sealed class ItemRouteBucket
         {
             public readonly List<ItemReceiver> Receivers=new List<ItemReceiver>();
-            public readonly int[] Next=new int[256];
+            public int NextReceiver;
         }
         sealed class ItemRoutes
         {
+            public NetworkTopology.Group Graph;
+            public readonly List<int> Candidates=new List<int>();
             public readonly List<(MachineState machine,IItemPipeInventory inventory,BlockPos position)> Sources=new List<(MachineState,IItemPipeInventory,BlockPos)>();
             public readonly List<ItemReceiver> Receivers=new List<ItemReceiver>();
             public readonly Dictionary<int,ItemRouteBucket> Buckets=new Dictionary<int,ItemRouteBucket>();
         }
         readonly Dictionary<NetworkTopology.Group,ItemRoutes> itemRoutes=new Dictionary<NetworkTopology.Group,ItemRoutes>();
         readonly List<int> itemPriorities=new List<int>();readonly bool[] itemPriorityPresent=new bool[101];
-        int itemRoutesTopology=-1;
+        long itemRoutesTopology=-1;
+        readonly HashSet<NetworkTopology.Group> currentItemGroups=new HashSet<NetworkTopology.Group>();
+        readonly List<NetworkTopology.Group> obsoleteItemGroups=new List<NetworkTopology.Group>();
         public int ItemRouteCacheBuilds {get;private set;}
         public long ItemReceiverProbes {get;private set;}
         public double LastItemRoutingMs {get;private set;}
@@ -103,12 +108,16 @@ namespace RivetReach
 
         void RefreshItemRoutes()
         {
-            if(itemRoutesTopology!=TopologyRebuilds)
+            if(itemRoutesTopology!=ItemNetwork.Revision)
             {
-                itemRoutes.Clear();itemRoutesTopology=TopologyRebuilds;ItemRouteCacheBuilds++;
+                itemRoutesTopology=ItemNetwork.Revision;ItemRouteCacheBuilds++;
+                currentItemGroups.Clear();foreach(var graph in ItemNetwork.Groups)currentItemGroups.Add(graph);
+                obsoleteItemGroups.Clear();foreach(var graph in itemRoutes.Keys)if(!currentItemGroups.Contains(graph))obsoleteItemGroups.Add(graph);
+                foreach(var graph in obsoleteItemGroups)itemRoutes.Remove(graph);
                 foreach(var graph in ItemNetwork.Groups)
                 {
-                    var routes=new ItemRoutes();itemRoutes.Add(graph,routes);var receivers=new Dictionary<IItemPipeInventory,ItemReceiver>();
+                    if(itemRoutes.ContainsKey(graph))continue;
+                    var routes=new ItemRoutes{Graph=graph};itemRoutes.Add(graph,routes);var receivers=new Dictionary<IItemPipeInventory,ItemReceiver>();
                     var sources=new HashSet<IItemPipeInventory>();
                     void Source(MachineState machine,IItemPipeInventory inventory,BlockPos position)
                     {if(inventory!=null&&sources.Add(inventory))routes.Sources.Add((machine,inventory,position));}
@@ -145,6 +154,7 @@ namespace RivetReach
             System.Array.Clear(itemPriorityPresent,0,itemPriorityPresent.Length);
             foreach(var routes in itemRoutes.Values)
             {
+                if(!routes.Graph.Active)continue;
                 bool changed=false;foreach(var receiver in routes.Receivers)if(receiver.Priority!=ItemPipeRouting.Priority(receiver.Inventory)){changed=true;break;}
                 if(changed)
                 {
@@ -166,7 +176,7 @@ namespace RivetReach
             for(int n=0;n<count;n++)
             {
                 int slot=(start+n)%count;var stack=slots[slot];
-                if(!stack.Empty&&source.CanExtract(slot))itemSources.Add((graph,machine,source,position,slot,stack,ItemPipeRouting.SourceIdentity(source,slot)));
+                if(!stack.Empty&&source.CanExtract(slot)){itemRoutes[graph].Candidates.Add(itemSources.Count);itemSources.Add((graph,machine,source,position,slot,stack,ItemPipeRouting.SourceIdentity(source,slot)));}
             }
         }
         void TransferConfiguredItems()
@@ -175,49 +185,68 @@ namespace RivetReach
             long began=System.Diagnostics.Stopwatch.GetTimestamp(),allocated=System.GC.GetAllocatedBytesForCurrentThread();
             RefreshItemRoutes();itemSources.Clear();itemSent.Clear();
             foreach(var entry in itemRoutes)
+            {
+                entry.Value.Candidates.Clear();
+                if(!entry.Key.Active)continue;
                 foreach(var source in entry.Value.Sources)
                 {
-                    if(source.machine?.Definition.Id==IndustryId.Extractor)
-                    {if(!source.machine.Enabled){source.machine.Status=MachineStatus.DisabledBySignal;continue;}source.machine.Status=MachineStatus.NoInput;}
-                    CaptureItemSource(entry.Key,source.machine,source.inventory,source.position);
+                    bool extractor=source.machine?.Definition.Id==IndustryId.Extractor;
+                    if(extractor&&!source.machine.Enabled){source.machine.Status=MachineStatus.DisabledBySignal;continue;}
+                    int before=itemSources.Count;CaptureItemSource(entry.Key,source.machine,source.inventory,source.position);
+                    if(extractor)source.machine.Status=itemSources.Count>before?MachineStatus.OutputFull:MachineStatus.NoInput;
                 }
-            // All slots are snapshotted before delivery; one physical source emits once.
-            // Higher priorities get every source's compatible cargo before overflow tiers.
-            int first=(int)(Tick/5%System.Math.Max(1,itemSources.Count));
+            }
+            // Fair receiver turns choose preferred cargo, not preferred receivers.
+            // This preserves recipe/storage affinity without starving empty peers.
+            // Source snapshots and identity budgets span every graph and priority.
             foreach(int priority in itemPriorities)
-            for(int i=0;i<itemSources.Count;i++)
+            foreach(var routes in itemRoutes.Values)
             {
-                var candidate=itemSources[(first+i)%itemSources.Count];var source=candidate.inventory;
-                if(itemSent.Contains(candidate.identity)||!world.Ready(candidate.position))continue;
-                var current=source is CrateEndpoint crate?crate.Store(candidate.slot)?.Stack??default:source.Slots[candidate.slot];
-                if(current.Empty||current.Id!=candidate.stack.Id||!source.CanExtract(candidate.slot))continue;
-                bool sent=DeliverItem(candidate.graph,source,candidate.identity,current.WithCount(1),priority);
-                if(sent){source.Extract(candidate.slot,1);itemSent.Add(candidate.identity);ItemEndpointChanged(candidate.position);}
-                if(candidate.machine?.Definition.Id==IndustryId.Extractor)candidate.machine.Status=sent?MachineStatus.Running:MachineStatus.OutputFull;
+                if(!routes.Graph.Active||!routes.Buckets.TryGetValue(priority,out var bucket))continue;
+                int count=bucket.Receivers.Count;
+                for(int unit=0;unit<routes.Candidates.Count;unit++)
+                {
+                    bool sent=false;int start=bucket.NextReceiver%count;
+                    for(int n=0;n<count;n++)
+                    {
+                        int index=(start+n)%count;
+                        if(!DeliverRequestedItem(routes,bucket.Receivers[index]))continue;
+                        bucket.NextReceiver=(index+1)%count;sent=true;break;
+                    }
+                    if(!sent)break;
+                }
             }
             LastItemRoutingMs=(System.Diagnostics.Stopwatch.GetTimestamp()-began)*1000.0/System.Diagnostics.Stopwatch.Frequency;
-            LastItemRoutingAllocatedBytes=System.GC.GetAllocatedBytesForCurrentThread()-allocated;
+            LastItemRoutingAllocatedBytes=RuntimeCosts.AllocationCounterSupported?System.GC.GetAllocatedBytesForCurrentThread()-allocated:-1;
         }
-        bool DeliverItem(NetworkTopology.Group graph,IItemPipeInventory source,object identity,ItemStack stack,int priority)
+        bool DeliverRequestedItem(ItemRoutes routes,ItemReceiver receiver)
         {
-            if(!itemRoutes[graph].Buckets.TryGetValue(priority,out var bucket))return false;
-            int count=bucket.Receivers.Count,start=bucket.Next[stack.Id]%count;
+            if(!routes.Graph.Active||!world.Ready(receiver.Position))return false;
+            int count=routes.Candidates.Count,start=(int)(Tick/5%System.Math.Max(1,count));
+            for(int preference=0;preference<2;preference++)
             for(int n=0;n<count;n++)
             {
-                int index=(start+n)%count;var receiver=bucket.Receivers[index];
-                if(!world.Ready(receiver.Position)||ReferenceEquals(receiver.Inventory,source)||receiver.Inventory is IItemPipeRoutingPolicy own&&own.SharesStorage(source))continue;
-                int rejectionKey=stack.Id+(stack.HasInstanceState?256:0);
-                if(receiver.RejectedAt!=null&&receiver.RejectedAt[rejectionKey]==Tick)continue;
+                var candidate=itemSources[routes.Candidates[(start+n)%count]];var source=candidate.inventory;
+                if(itemSent.Contains(candidate.identity)||!world.Ready(candidate.position)||ReferenceEquals(receiver.Inventory,source)||receiver.Inventory is IItemPipeRoutingPolicy own&&own.SharesStorage(source))continue;
+                var current=source.ReadSlot(candidate.slot);
+                if(current.Empty||current.Id!=candidate.stack.Id||!source.CanExtract(candidate.slot))continue;
+                var stack=current.WithCount(1);int rejectionKey=stack.Id+preference*256;
+                if(!stack.HasInstanceState&&receiver.RejectedAt!=null&&receiver.RejectedAt[rejectionKey]==Tick)continue;
+                bool attempted=false;
                 foreach(int face in receiver.Faces)
                 {
-                    ItemReceiverProbes++;
-                    bool accepted=stack.HasInstanceState?receiver.Inventory is ItemContainer container&&container.Add(stack)==0:receiver.Inventory is IItemPipeRoutingPolicy policy?policy.TryInsertFrom(stack.Id,identity,face):receiver.Inventory.TryInsert(stack.Id,face);
+                    var request=receiver.Inventory.QueryInput(stack.Id,face);
+                    if(request==ItemInputRequest.Reject){attempted=true;continue;}
+                    if((request==ItemInputRequest.Prefer)!=(preference==0))continue;
+                    attempted=true;ItemReceiverProbes++;
+                    bool accepted=stack.HasInstanceState?receiver.Inventory is IItemPipeStackReceiver exact&&exact.TryInsertStack(stack,face):receiver.Inventory is IItemPipeRoutingPolicy policy?policy.TryInsertFrom(stack.Id,candidate.identity,face):receiver.Inventory.TryInsert(stack.Id,face);
                     if(!accepted)continue;
-                    bucket.Next[stack.Id]=(index+1)%count;ItemEndpointChanged(receiver.Position);return true;
+                    source.Extract(candidate.slot,1);itemSent.Add(candidate.identity);
+                    ItemEndpointChanged(candidate.position);ItemEndpointChanged(receiver.Position);
+                    if(candidate.machine?.Definition.Id==IndustryId.Extractor)candidate.machine.Status=MachineStatus.Running;
+                    return true;
                 }
-                // A rejected item is rechecked next transfer phase, not once per source.
-                // Source/self exclusions above never poison receiver compatibility.
-                receiver.RejectedAt??=new long[512];receiver.RejectedAt[rejectionKey]=Tick;
+                if(attempted&&!stack.HasInstanceState){receiver.RejectedAt??=new long[512];receiver.RejectedAt[rejectionKey]=Tick;}
             }
             return false;
         }

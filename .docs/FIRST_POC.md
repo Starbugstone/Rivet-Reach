@@ -4,19 +4,21 @@ The Unity **6000.4.4f1 / URP 17.4.0** project now includes terrain and caves, FP
 
 ## Run and build
 
-The current issue #10 food-balance review executable is **`Builds/Tools/RivetReach.exe`**, including farming, fishing, chickens, beds, crates, weather and solar/wind. Keep its adjacent data folder, DLLs and Mono runtime together. [Food-balance verification](verification/FOOD_BALANCE_RESULTS.md) identifies measured checks and retained build evidence.
+The pre-0.1.0 review executable is **`Builds/ReleaseReviewRetail/RivetReach.exe`**, including farming, fishing, chickens, beds, crates, weather, renewables, tool durability and the current performance/interaction changes. Keep its adjacent data folder, DLLs and Mono runtime together. [Release review](verification/RELEASE_REVIEW_RESULTS.md) identifies the exact build, measured checks and remaining performance limits. This is a local review build, not a new tagged release.
+
+In an already-open pinned Editor, write `release-review-retail` to `Logs/build-request.txt` to run the 46-suite gate and create this non-development Windows build. `Logs/build-result.txt` and `Logs/build-summary.txt` record completion. It builds the versioned assets without reauthoring them. Use `Tools/Verify-ReleaseReview.ps1` with a fresh output directory to run native checks; the release report gives the measured invocation.
 
 The downloadable [0.0.1 alpha](releases/0.0.1.md) is a Windows x64 prerelease. Extract its complete ZIP and run `RivetReach.exe`. Build it from a clean checkout with `Tools/Build-Release.ps1`; output is `Builds/Release/0.0.1/RivetReach-0.0.1-alpha-windows-x64/RivetReach.exe`. It uses the pinned Editor and a non-development build. Supply that path to `Tools/Verify-Creative.ps1 -Executable <path> -FullRun` to check the release player.
 
 Open this repository in the pinned Unity Editor, open `Assets/RivetReach/Scenes/Main.unity`, then press Play. `Expedition.Bootstrap` creates the voxel world and UI at runtime; the unplayed scene is not a populated map. After cloning, run `git lfs pull` to retrieve binary assets.
 
-The latest issue #12 review executable is **`Builds/AlphaPlaytest/RivetReach.exe`**. Keep its adjacent data folder, DLLs and Mono runtime together. [Alpha verification](verification/ALPHA_PLAYTEST_RESULTS.md) records the Survival route, focused checks, schema-13 saves and their dated artifacts. This build includes the completed chicken increment.
+The earlier issue #12 focused review executable is **`Builds/AlphaPlaytest/RivetReach.exe`**. Keep its adjacent data folder, DLLs and Mono runtime together. [Alpha verification](verification/ALPHA_PLAYTEST_RESULTS.md) records the Survival route, focused checks, schema-13 saves and their dated artifacts. This build includes the completed chicken increment.
 
-The latest fishing review executable is **`Builds/Fishing/RivetReach.exe`** ([rules and controls](FISHING.md)). Keep its adjacent data folder, DLLs and Mono runtime together. Start Expedition uses a fresh random world seed, or the optional signed 32-bit seed entered on the title screen. Nearby terrain prepares before movement can enter it.
+The earlier fishing focused review executable is **`Builds/Fishing/RivetReach.exe`** ([rules and controls](FISHING.md)). Keep its adjacent data folder, DLLs and Mono runtime together. Start Expedition uses a fresh random world seed, or the optional signed 32-bit seed entered on the title screen. Nearby terrain prepares before movement can enter it.
 
-For the latest menu/crafting responsiveness changes, use **`Builds/RecipeBrowser/RivetReach.exe`**; [pointer verification](verification/POINTER_RESULTS.md) identifies this focused build and its checks.
+The earlier focused menu/crafting responsiveness build is **`Builds/RecipeBrowser/RivetReach.exe`**; [pointer verification](verification/POINTER_RESULTS.md) identifies this focused build and its checks.
 
-For the latest quit, respawn and mining-speed corrections, use **`Builds/GameplayFixes/RivetReach.exe`**; [gameplay verification](verification/GAMEPLAY_FIX_RESULTS.md) records the tested build. In an already-running Editor Play session, stop and restart Play to load the updated scripts.
+The earlier focused quit, respawn and mining-speed build is **`Builds/GameplayFixes/RivetReach.exe`**; [gameplay verification](verification/GAMEPLAY_FIX_RESULTS.md) records the tested build. In an already-running Editor Play session, stop and restart Play to load the updated scripts.
 
 The normal build entry point is **Rivet Reach → Build Windows first POC**, or Windows PowerShell:
 
@@ -51,12 +53,14 @@ The player backpack has **56 slots (seven rows of eight)**, plus the **15-slot h
 | Drop one / selected stack | Q / Shift+Q |
 | Inspect body / diagnostics | F5 / F12 |
 | Move an inventory stack | Click source then destination, or drag |
-| Split / place one in a slot | Right-click; hold and drag to place one per inventory/crafting slot |
+| Split / place one in a slot | Right-click; hold and drag to place one per compatible inventory, crafting, storage or machine-input slot |
 | Transfer / craft all that fit | Shift-click inventory slots / crafting result |
 | Fill recipe from the item browser | Shift-click icon: one recipe; Ctrl+Shift-click icon or Shift-click Fill grid: maximum |
 | Rotate the appearance preview | Drag the player portrait |
 
-Keyboard controls can be rebound; conflicting actions swap keys. The old default Sprint/Crouch pair migrates to Ctrl/Shift; other customized pairs are preserved. New Interact bindings preserve existing customized keys. Mining can use either mouse button; use/placement follows the opposite button, including the displayed prompts. Appearance, audio and settings are remembered locally.
+Keyboard controls can be rebound; conflicting actions swap keys. The optional **Controls → E inventory preset** sets **E** to inventory and **F** to Interact. It changes no defaults until selected, keeps mouse Use and the 15-slot hotbar, and preserves unrelated bindings. If another customized action already uses E or F, the preset reports the conflict and changes nothing; rebind that action first. The old default Sprint/Crouch pair migrates to Ctrl/Shift; other customized pairs are preserved. New Interact bindings preserve existing customized keys. Mining can use either mouse button; use/placement follows the opposite button, including the displayed prompts. Appearance, audio and settings are remembered locally.
+
+Spare armor Shift-clicks into its matching equipment slot when empty; otherwise it transfers between backpack and hotbar. Right-drag skips incompatible/full slots and never inserts into or withdraws from machine output slots. The [release review](verification/RELEASE_REVIEW_RESULTS.md) records native pointer checks for these improvements and the optional preset; older focused captures below retain their original build identity.
 
 ## Start crafting
 
@@ -81,7 +85,7 @@ Gather wild ripe potatoes. Use a hoe to till grass/dirt, use a potato to plant, 
 
 [Five biomes and caves](TERRAIN_GENERATION.md), the [day/night clock](GAMEPLAY.md#day-night-and-lunar-phases), and [Rustback beetles and Dusk prowlers](MOBS.md) are integrated. Aim and hold Mine to attack with the selected item or fists. Night affects prowler spawning. Health and equipment remain independent of male/female appearance and skin selection.
 
-**Save progress with Escape → Save Game.** Load a checkpoint through Load Game, or use Continue Latest Save on the title. Save & Quit writes before exiting; closing the window does not autosave. [SAVES.md](SAVES.md) owns storage, recovery and compatibility. Equipment wear, fitted armor meshes, irrigation and generated structures remain future scope.
+**Save progress with Escape → Save Game.** Load a checkpoint through Load Game, or use Continue Latest Save on the title. Save & Quit writes before exiting; closing the window does not autosave. [SAVES.md](SAVES.md) owns storage, recovery and compatibility. [Tool wear](TOOLS.md), [fitted armor](EQUIPMENT_ART.md) and rare [spawner rooms](SPAWNERS.md) are implemented. Irrigation remains future scope.
 
 ## Foundation and diagnostics
 

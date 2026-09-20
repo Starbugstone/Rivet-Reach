@@ -17,10 +17,16 @@ namespace RivetReach
         readonly Color[] colours=new Color[MaximumStreaks*4];
         readonly float[] floors=new float[Diameter*Diameter];
         readonly bool[] known=new bool[Diameter*Diameter];
-        Expedition game;Mesh mesh;Material material;MeshRenderer rainRenderer;
+        Expedition game;VoxelWorld world;Mesh mesh;Material material;MeshRenderer rainRenderer;
         AudioSource rain,thunder;AudioLowPassFilter rainFilter;AudioClip rainClip,thunderClip;
         float time,nextColumns,nextThunder=18,thunderDelay=-1,flash,exposure;
-        BlockPos anchor;bool anchored,suspended;
+        BlockPos anchor;bool anchored,suspended,columnsDirty=true,meshShown;
+        int columnRevision,shownColumnRevision;
+        float shownTime,shownStrength,shownDaylight;
+        Vector3 shownEye,shownRight;BlockPos shownOrigin;
+        static readonly int FlashProperty=Shader.PropertyToID("_RRWeatherFlash");
+        public long TotalRoofQueries {get;private set;}
+        public int MeshUploads {get;private set;}
         public float Flash=>flash;
         public float Exposure=>exposure;
         public int VisibleStreaks {get;private set;}
@@ -42,7 +48,8 @@ namespace RivetReach
         public int ThunderEvents {get;private set;}
         public void Initialize(Expedition owner)
         {
-            game=owner;
+            game=owner;world=owner.World;
+            world.BlockChanged+=Changed;world.ChunkResidencyChanged+=ResidencyChanged;world.OriginShifted+=Shifted;
             for(int i=0;i<MaximumStreaks;i++)
             {
                 int stratum=i/4,ring=stratum/16,sector=stratum%16;
@@ -95,14 +102,19 @@ namespace RivetReach
         }
         void LateUpdate()
         {
+            using var cost=RuntimeCosts.Weather.Auto();
             if(game==null||game.World.gameObject!=gameObject)return;
             bool pause=game.Paused||!game.Started;
             if(pause!=suspended){suspended=pause;if(pause){rain.Pause();thunder.Pause();}else{rain.UnPause();thunder.UnPause();}}
             float dt=pause?0:Time.deltaTime;time+=dt;
-            var eye=game.Player.Camera.transform.position;var cell=game.World.Address(eye);
-            if(!anchored||Math.Abs(cell.X-anchor.X)>8||Math.Abs(cell.Y-anchor.Y)>8||Math.Abs(cell.Z-anchor.Z)>8||time>=nextColumns)
+            var eye=game.Player.Camera.transform.position;var cell=world.Address(eye);
+            float strength=game.Weather.RainStrength;
+            bool needsShelter=game.Started&&(strength>.001f||rain.volume>.001f||thunder.isPlaying||thunderDelay>=0);
+            bool moved=!anchored||!cell.Equals(anchor);
+            bool distant=!anchored||Math.Abs(cell.X-anchor.X)>8||Math.Abs(cell.Y-anchor.Y)>8||Math.Abs(cell.Z-anchor.Z)>8;
+            if(needsShelter&&(distant||time>=nextColumns&&(moved||columnsDirty||KnownColumns<known.Length)))
             {anchor=cell;anchored=true;nextColumns=time+.25f;RefreshColumns();}
-            float strength=(float)game.Weather.RainStrength;
+            if(!needsShelter)columnsDirty=true;
             float target=game.Started?strength*Mathf.Lerp(.045f,.48f,exposure)*game.Sound.Master:0;
             if(!pause)rain.volume=Mathf.MoveTowards(rain.volume,target,dt*.5f);
             if(game.Sound.Master==0)rain.volume=0;
@@ -115,16 +127,39 @@ namespace RivetReach
                 if(nextThunder<=0){flash=.6f;thunderDelay=1.8f;nextThunder=23+Mathf.Repeat(time*7,19);}
             }
             if(thunderDelay>=0&&dt>0){thunderDelay-=dt;if(thunderDelay<0){thunder.Play();ThunderEvents++;}}
-            Shader.SetGlobalFloat("_RRWeatherFlash",flash);
+            Shader.SetGlobalFloat(FlashProperty,flash);
             rainRenderer.enabled=game.Started&&strength>.001f;
-            if(rainRenderer.enabled)RenderRain(eye,strength);else VisibleStreaks=0;
+            if(rainRenderer.enabled)
+            {
+                var right=game.Player.Camera.transform.right;
+                if(!meshShown||shownTime!=time||shownStrength!=strength||shownDaylight!=game.Sky.Daylight||shownEye!=eye||shownRight!=right||shownColumnRevision!=columnRevision||!shownOrigin.Equals(world.Origin))
+                {
+                    RenderRain(eye,strength);meshShown=true;shownTime=time;shownStrength=strength;shownDaylight=game.Sky.Daylight;
+                    shownEye=eye;shownRight=right;shownColumnRevision=columnRevision;shownOrigin=world.Origin;
+                }
+                else LastMeshMilliseconds=0;
+            }
+            else{VisibleStreaks=0;meshShown=false;LastMeshMilliseconds=0;}
         }
+        void Changed(BlockPos position)
+        {
+            // Roofs may be arbitrarily far above the listener. Horizontal bounds
+            // cover every sampled column; liquid edits share this invalidation.
+            if(!anchored||Math.Abs(position.X-anchor.X)<=Diameter/2&&Math.Abs(position.Z-anchor.Z)<=Diameter/2)columnsDirty=true;
+        }
+        void ResidencyChanged(ChunkPos chunk)
+        {
+            if(!anchored){columnsDirty=true;return;}
+            var min=anchor.Offset(-Diameter/2,0,-Diameter/2).Chunk;var max=anchor.Offset(Diameter/2,0,Diameter/2).Chunk;
+            if(chunk.X>=min.X&&chunk.X<=max.X&&chunk.Z>=min.Z&&chunk.Z<=max.Z)columnsDirty=true;
+        }
+        void Shifted(Vector3 delta){columnsDirty=true;meshShown=false;}
         void RefreshColumns()
         {
-            var world=game.World;RoofQueries=0;KnownColumns=0;
+            columnsDirty=false;columnRevision++;RoofQueries=0;KnownColumns=0;
             for(int z=0;z<Diameter;z++)for(int x=0;x<Diameter;x++)
             {
-                int i=x+z*Diameter;var cell=anchor.Offset(x-Diameter/2,0,z-Diameter/2);RoofQueries++;
+                int i=x+z*Diameter;var cell=anchor.Offset(x-Diameter/2,0,z-Diameter/2);RoofQueries++;TotalRoofQueries++;
                 known[i]=world.TryPrecipitationHeight(cell,out int height);floors[i]=height+1;if(known[i])KnownColumns++;
                 // Clip rain against visible source/flowing liquids as well as solid roofs.
                 if(known[i])for(int y=anchor.Y+8;y>Math.Max(height,anchor.Y-10);y--)
@@ -150,10 +185,10 @@ namespace RivetReach
                 var tint=visible?colour:Color.clear;tint.a*=Mathf.SmoothStep(0,1,Mathf.InverseLerp(1,3,Vector3.Distance(bottom,eye)));for(int k=0;k<4;k++)colours[v+k]=tint;
                 if(visible)VisibleStreaks++;
             }
-            mesh.vertices=vertices;mesh.colors=colours;mesh.bounds=new Bounds(eye,Vector3.one*48);
+            mesh.vertices=vertices;mesh.colors=colours;mesh.bounds=new Bounds(eye,Vector3.one*48);MeshUploads++;
             LastMeshMilliseconds=(System.Diagnostics.Stopwatch.GetTimestamp()-began)*1000.0/System.Diagnostics.Stopwatch.Frequency;
         }
         void OnDisable(){if(rain!=null)rain.Pause();if(thunder!=null)thunder.Pause();suspended=true;}
-        void OnDestroy(){if(mesh!=null)Destroy(mesh);if(material!=null)Destroy(material);if(rainClip!=null)Destroy(rainClip);if(thunderClip!=null)Destroy(thunderClip);}
+        void OnDestroy(){if(world!=null){world.BlockChanged-=Changed;world.ChunkResidencyChanged-=ResidencyChanged;world.OriginShifted-=Shifted;}if(mesh!=null)Destroy(mesh);if(material!=null)Destroy(material);if(rainClip!=null)Destroy(rainClip);if(thunderClip!=null)Destroy(thunderClip);}
     }
 }

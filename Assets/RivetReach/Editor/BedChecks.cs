@@ -33,20 +33,7 @@ namespace RivetReach.Editor
             var p=new BlockPos(-1,30,31);var heads=new[]{p.Offset(0,0,1),p.Offset(1,0,0),p.Offset(0,0,-1),p.Offset(-1,0,0)};
             for(int r=0;r<4;r++)Check(BedId.HeadAt(p,r).Equals(heads[r]),"Cardinal footprint "+r);
             foreach(byte b in new[]{BedId.Bed,BedId.Head,BlockId.MobSpawner,BlockId.Torch,IndustryId.WoodenDoor,Fluids.Water.Source})Check(!BedId.Floor(b),"Invalid floor "+b);
-            // Remove only this additive feature; every unrelated previous definition remains checked.
-            var oldItems=ScriptableObject.CreateInstance<ItemRegistry>();var originals=catalog.recipes;
-            try
-            {
-                var current=new SaveStore("unused",items);
-                oldItems.items=items.items.Where(i=>i.runtimeId!=BedId.Bed).Select(i=>JsonUtility.FromJson<ItemDefinition>(JsonUtility.ToJson(i))).ToArray();
-                catalog.recipes=originals.Where(r=>r.stableId!="rivet:bed").ToArray();
-                var prior=new SaveStore("unused",oldItems);var entry=new SaveEntry{Id=new string('a',32),WorldId=new string('b',32),Name="pre-bed",Seed=1,UtcTicks=DateTime.UtcNow.Ticks,GeneratorVersion=TerrainGenerator.Version};
-                using(var reader=current.Open(prior.Encode(entry,w=>w.Write(314)),out _))Check(reader.ReadInt32()==314,"Pre-bed content fingerprint accepted");
-                oldItems.Get(BlockId.Stone).fistSeconds+=.125f;oldItems.InvalidateIndex();bool rejected=false;
-                try{using var reader=current.Open(new SaveStore("unused",oldItems).Encode(entry,w=>w.Write(314)),out _);}catch(InvalidDataException){rejected=true;}
-                Check(rejected,"Unrelated prior content change remains rejected");
-            }
-            finally{catalog.recipes=originals;UnityEngine.Object.DestroyImmediate(oldItems);}
+            // Save compatibility is exercised centrally by SaveCompatibilityChecks using real historical files.
             Directory.CreateDirectory("Logs/Beds");lines.AppendLine(count+" checks passed");File.WriteAllText("Logs/Beds/editor-checks.txt",lines.ToString());
         }
     }

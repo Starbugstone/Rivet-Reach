@@ -18,6 +18,8 @@ A **Crate Controller** has no independent inventory. It exposes the physical con
 
 Controller insertion deterministically fills already assigned matching crates before unlocked empty crates. It never moves or duplicates contents merely because the bank changes. Removing a controller leaves every crate and its stored contents intact.
 
+Crate residency invalidation uses reference-counted chunk dependencies for registered crates/controllers and their face neighbors. Unrelated terrain pages do not invalidate warehouse membership or industry topology. A relevant unload/reload invalidates the cached aggregate and industry graph after the whole unload batch is unavailable; membership continues to include only resident physical stores. Save restoration rebuilds these dependencies from the physical station records. Physical warehouse cells and all connected inventory endpoints belong to the same conservative automation dependency component, so direct-crate and controller aliases cannot continue spending a shared store through a suspended route. Reconstruction pauses that component, preserves unrelated factories and publishes all replacement channel graphs together. It adds no automatic residency or catch-up production.
+
 The 4×4 Machinist's Bench recipe consumes one Bulk Crate, one Machine Casing, two Gold Ingots, two Iron Ingots, two Item Pipes and one Iron Cog. Gold and the industrial components place the controller after the basic storage/bootstrap chain, while its consumed crate keeps the warehouse physically grounded.
 
 ## Pipes and priorities

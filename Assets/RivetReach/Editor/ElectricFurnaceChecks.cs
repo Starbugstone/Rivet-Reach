@@ -61,7 +61,7 @@ namespace RivetReach.Editor
                 sim.Activate(lever);sim.Step();Check(m.Work==work+1,"ON signal resumes work");
                 m.Items.Add(BlockId.IronIngot,64,2,3);sim.Step();work=m.Work;energy=battery.EnergyCells[0].Amount;
                 for(int i=0;i<10;i++)sim.Step();Check(m.Status==MachineStatus.OutputFull&&m.RequestedWatts==0&&m.Work==work&&battery.EnergyCells[0].Amount==energy,"Full output uses no electricity");
-                Check(port.Prefers(IndustryId.CrushedIron,4)&&!port.Prefers(BlockId.RawCopper,4),"Pipe preference matches retained product");
+                Check(port.QueryInput(IndustryId.CrushedIron,4)==ItemInputRequest.Prefer&&port.QueryInput(BlockId.RawCopper,4)!=ItemInputRequest.Prefer,"Pipe preference matches retained product");
                 Check(!port.CanExtract(0)&&port.CanExtract(2)&&port.Extract(0,1).Empty,"Pipes can extract only completed output");
                 port.Extract(2,64);sim.Step();Check(m.Work==work+1,"Output extraction resumes work");
                 world.Sleeping.Add(p);sim.Invalidate();sim.Step();work=m.Work;energy=battery.EnergyCells[0].Amount;
@@ -94,22 +94,7 @@ namespace RivetReach.Editor
                 m.Items.Add(BlockId.RawIron,1,0,1);for(int i=0;i<7;i++)sim.Step();Check(m.Items.Slots[0].Empty&&m.Items.Slots[2].Count==3&&m.Work==0,"Registry owns batch amounts and duration");
             }
             Check(RecipeTransferChecks.Run(items,recipes)>0,"All registered crafting recipes transfer and conserve inputs, including the furnace upgrade");
-            Compatibility(items,Check);
             File.WriteAllLines("Logs/electric-furnace-checks.txt",new[]{"PASS "+lines.Count+" assertions"}.Concat(lines));
-        }
-        static void Compatibility(ItemRegistry items,Action<bool,string> check)
-        {
-            var store=new SaveStore("unused",items);var old=ScriptableObject.CreateInstance<ItemRegistry>();var catalog=RecipeCatalogAsset.Load();var original=catalog.recipes;
-            try
-            {
-                old.items=items.items.Where(i=>i.runtimeId!=IndustryId.ElectricFurnace).Select(i=>JsonUtility.FromJson<ItemDefinition>(JsonUtility.ToJson(i))).ToArray();
-                catalog.recipes=original.Where(r=>r.stableId!="rivet:industry_174").ToArray();
-                var entry=new SaveEntry{Id=Guid.NewGuid().ToString("N"),WorldId=Guid.NewGuid().ToString("N"),Name="Pre-electric content",UtcTicks=DateTime.UtcNow.Ticks};
-                var data=new SaveStore("unused",old).Encode(entry,w=>w.Write(314));using(var r=store.Open(data,out _))check(r.ReadInt32()==314,"Pre-electric current-schema content remains compatible");
-                old.items[0].attackDamage++;data=new SaveStore("unused",old).Encode(entry,w=>w.Write(314));bool rejected=false;
-                try{using var r=store.Open(data,out _);}catch(InvalidDataException){rejected=true;}check(rejected,"Unrelated old content changes still reject");
-            }
-            finally{catalog.recipes=original;UnityEngine.Object.DestroyImmediate(old);}
         }
     }
 }

@@ -1,0 +1,12 @@
+{
+    "executable":  "D:\\Dev\\github-desktop\\Rivet-Reach\\Builds\\ReleaseReviewRetail\\RivetReach.exe",
+    "sha256":  "413A04009D5FC13E03FE4E5C6941A8606C63C103EDD08853EFC6C9BD57E6151B",
+    "started":  "2026-09-19T23:54:27.2708732Z",
+    "width":  1920,
+    "height":  1080,
+    "reviewFrameLimit":  90,
+    "gpuTelemetry":  true,
+    "gpuTimestampTimezone":  "Romance Standard Time",
+    "gpuTimestampOffset":  "02:00:00",
+    "assemblySha256":  "824BDB14320BC4369F83AA07F8821AB14F778CA0342B27FBF8286808ABBF51F6"
+}

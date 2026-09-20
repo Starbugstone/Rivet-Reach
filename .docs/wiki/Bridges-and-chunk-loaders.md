@@ -41,11 +41,13 @@ Bridges join the existing networks: they do not create electricity or duplicate 
 
 ## Keep the remote workshop running
 
+**You are responsible for keeping your factory loaded while away.** Without nearby player coverage or enabled Chunk Loaders, unloaded machines stop. They keep their stored contents and partial work, but produce nothing until loaded again. Returning gives no catch-up production.
+
 Craft a [Chunk Loader](Item-chunk-loader.md) from **4 Floater Rocks + 1 Machine Casing + 4 Azure Crystals** at the Machinist’s Bench. Place it in the chunk you want active; it starts enabled and needs no power or fuel.
 
 ![Chunk loader controls show enabled state and chunk coverage](images/chunk-loader-controls.png)
 
-A loader covers only its own **32 × 32 × 32 block chunk**. Open its controls to see the chunk’s minimum coordinates. Machines, stations, pipe/cable runs and pump/drill targets across a chunk boundary need coverage in that chunk too. Cover both bridge endpoints and the factories they connect.
+A loader covers only its own **32 × 32 × 32 block chunk**. Open its controls to see the chunk’s minimum coordinates. Machines, stations, pipe/cable runs and pump/drill targets across a chunk boundary need coverage in that chunk too. Cover both bridge endpoints and the factories they connect. An unloaded gap disconnects that route even if both ends remain loaded. Loaded sections can continue using their remaining valid connections; the game never loads the rest of a factory automatically.
 
 Enabled loaders and bridge names survive Save/Load. Their distant chunks load automatically when you resume that world. Pausing or closing the world stops production; nothing is produced offline. Ordinary creature spawning still depends on player range.
 

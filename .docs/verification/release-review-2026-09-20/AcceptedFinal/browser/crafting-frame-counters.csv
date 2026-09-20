@@ -1,0 +1,8 @@
+phase,counter,unit,samples,median,p95,max
+Raw profiler units are retained; zero or missing GPU counters do not establish GPU cost.
+idle inventory,Main Thread,TimeNanoseconds,120,11107200,11113700,11249200
+idle inventory,GPU Frame Time,TimeNanoseconds,120,3055360,3223808,3249920
+craft every frame,Main Thread,TimeNanoseconds,120,11107000,11120800,11384700
+craft every frame,GPU Frame Time,TimeNanoseconds,120,3064320,3201280,3245568
+open every frame,Main Thread,TimeNanoseconds,120,12016200,15884500,19041700
+open every frame,GPU Frame Time,TimeNanoseconds,120,3076096,3299840,3350272

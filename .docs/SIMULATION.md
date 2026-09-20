@@ -49,6 +49,8 @@ Signal loops need bounded propagation. Proposed starting semantics give changes 
 
 **Selected boundary policy:** simulate eligible portions only. Connections through dormant portions stop at explicit boundaries; they do not teleport resources across missing topology. Preserve boundary state, and show the resulting blockage in diagnostics. Each network type must define how its eligible subgraphs are derived, including whether stored power/fluid remains local or partitioned.
 
+**User confirmation — 2026-09-20:** [factory loading is the player’s responsibility](GAMEPLAY.md#factory-residency-and-player-responsibility). Explicit chunk loaders are the supported way to keep remote production eligible. Do not compensate for missing coverage with automatic network tickets, reduced-rate dormant simulation or catch-up credits.
+
 Retaining traversable topology through dormant terrain was not selected: it would make eligibility and quota accounting harder to explain. A later explicit revision may explore bounded network tickets; the baseline never routes through a dormant middle chunk.
 
 Required cases:
@@ -449,3 +451,13 @@ The user selected implementation of [GitHub issue #2](https://github.com/Starbug
 ## Weather authority
 
 [Weather](WEATHER.md) is a world-scoped deterministic state machine advanced through active 20 Hz survival ticks. It is independent of raw celestial clock edits, chunk residency and presentation. Successful bed sleep explicitly performs one saved-RNG weather recheck without advancing other simulation clocks. Saved transition/RNG snapshots provide a future replication boundary; no multiplayer transport is implemented in this increment. Rain/audio are bounded presentation consumers and do not alter gameplay light or terrain.
+
+## Camera-aware streaming priority — 2026-09-20
+
+The user's release review requires useful terrain in front of the player to load first. `ChunkWorkPriority` ranks only pages already admitted by ordinary player demand or explicit chunk tickets; camera direction never changes residency eligibility, generation rules or draw distance. Normal dispatches first serve the immediate 3×3×3 chunk neighborhood, then apply a camera-direction bias to weighted squared distance. The camera's full forward vector is captured once per selection pass, including pitch; dot products and squared lengths avoid raycasts and per-page square roots.
+
+As a working scheduling default, three dispatches use safety/direction ranking and every fourth serves the oldest pending request. A monotonic enqueue sequence belongs to each new pending interval, so repeatedly edited old resident pages cannot monopolize the age queue. The reserved slot lets rear and remote-loader work progress under continuing new work. Existing workers remain bounded; current jobs are not canceled merely because the player looks away. Native frame-time and traversal evidence must establish the result on the target PC.
+
+Worker results carry their chunk identity and revision independently of success. A stale completion cannot alter a replacement resident. Revision-rejected work rejoins the age queue at its tail; an unchanged failed job receives one automatic retry, then remains reported as an error until a new edit or residency episode allows new work. This avoids both permanent busy flags and unbounded retries.
+
+Terrain meshing retains at most three idle scratch builders, at most 32 MiB of list/array payload per builder and 64 MiB in total. Published mesh arrays remain independently owned; only private temporary lists/masks are reused. Natural crop growth updates authoritative state immediately and coalesces its mesh work through this queue. Player placement/mining feedback retains its existing immediate path.

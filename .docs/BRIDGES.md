@@ -33,6 +33,8 @@ A pair only carries resources while **both endpoints are resident**. A named but
 
 ## Chunk loaders
 
+[Factory residency is a player responsibility](GAMEPLAY.md#factory-residency-and-player-responsibility), explicitly confirmed by the user on 2026-09-20. Without player proximity or explicit loader coverage, factories disconnect and freeze. The engine does not add tickets for connected machinery, simulate reduced-rate production, or award catch-up output when the player returns.
+
 An enabled loader keeps its own **32×32×32 chunk** resident and eligible for the existing simulation at any player distance. It needs no fuel or electricity, avoiding a bootstrapping cycle in which an unloaded power source must first power its loader. It defaults enabled, can be toggled through its interface and returns its ordinary item when mined.
 
 The loader registry supplies deduplicated chunk tickets to world demand. Multiple enabled loaders in one chunk retain one ticket; disabling/mining the last releases it when normal player demand no longer includes the chunk. Tickets are derived from persistent machine records, so a saved remote loader restores its chunk without requiring a player visit. Neighboring chunks are not implicitly loaded. Crops/furnaces/industry use their existing resident-world authorities; ticketed chunks also enter the terrain growth set. Spawn distance rules are unchanged; loading chunks does not grant remote hostile-mob spawning or Floater farming.

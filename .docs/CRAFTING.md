@@ -106,6 +106,8 @@ Recipe details expose the canonical shaped layout (including holes and mirror pe
 
 `RecipeBrowserIndex` compiles direct production/usage indices once from the live session's crafting and furnace registries and the crusher's shared input mapping. Uses include consumed ingredients, furnace fuels and stations that perform a process; the detail view labels the latter two roles. Furnace recipes show their authored time and alternative fuel quantities for one craft starting unlit (ceiling of recipe ticks / fuel burn ticks). Residual fuel, shared batches and idle burn can change actual fuel use. Crusher recipes show its shared cycle duration and definition's full-power requirement. Gathering, pump/drill extraction, boiler fluid/energy conversion and other world interactions are not invented as item recipes; items without a production recipe say so explicitly.
 
+The furnace's **Recipes & Fuel** button opens the first operating recipe whose station is that furnace, showing its processing requirements and fuel alternatives. It uses the complete ordinary Uses list, starting at that recipe's page rather than the first construction recipe that consumes a furnace. Previous/next still reach every usage; sidebar right-click and **U** retain the ordinary catalog order. Following an ingredient, output or station icon and then selecting **Back** restores the guide's original usage page. This navigation never changes inventory, crafting-grid or cursor contents.
+
 ### Edit browser content and presentation
 
 - Add/edit an item through `Definitions/Items.asset`; it appears automatically with the existing game icon. Recipe changes follow the normal grid/furnace authoring workflow above. Restart Play to compile changed definitions.

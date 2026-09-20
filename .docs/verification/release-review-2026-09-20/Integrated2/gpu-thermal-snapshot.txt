@@ -1,0 +1,71 @@
+
+==============NVSMI LOG==============
+
+Timestamp                                              : Sun Sep 20 01:25:35 2026
+Driver Version                                         : 591.44
+CUDA Version                                           : 13.1
+
+Attached GPUs                                          : 1
+GPU 00000000:01:00.0
+    Performance State                                  : P0
+    Clocks Event Reasons
+        Idle                                           : Not Active
+        Applications Clocks Setting                    : Not Active
+        SW Power Cap                                   : Not Active
+        HW Slowdown                                    : Not Active
+            HW Thermal Slowdown                        : Not Active
+            HW Power Brake Slowdown                    : Not Active
+        Sync Boost                                     : Not Active
+        SW Thermal Slowdown                            : Active
+        Display Clock Setting                          : Not Active
+    Clocks Event Reasons Counters
+        SW Power Capping                               : 6256020 us
+        Sync Boost                                     : 0 us
+        SW Thermal Slowdown                            : 318935444 us
+        HW Thermal Slowdown                            : 86700499 us
+        HW Power Braking                               : 687764 us
+    Sparse Operation Mode                              : N/A
+    Temperature
+        GPU Current Temp                               : 85 C
+        GPU T.Limit Temp                               : N/A
+        GPU Shutdown Temp                              : 98 C
+        GPU Slowdown Temp                              : 93 C
+        GPU Max Operating Temp                         : 102 C
+        GPU Target Temperature                         : 87 C
+        Memory Current Temp                            : N/A
+        Memory Max Operating Temp                      : N/A
+    Clocks
+        Graphics                                       : 1080 MHz
+        SM                                             : 1080 MHz
+        Memory                                         : 5500 MHz
+        Video                                          : 990 MHz
+    Applications Clocks
+        Graphics                                       : Requested functionality has been deprecated
+        Memory                                         : Requested functionality has been deprecated
+    Default Applications Clocks
+        Graphics                                       : Requested functionality has been deprecated
+        Memory                                         : Requested functionality has been deprecated
+    Deferred Clocks
+        Memory                                         : N/A
+    Max Clocks
+        Graphics                                       : 2100 MHz
+        SM                                             : 2100 MHz
+        Memory                                         : 5501 MHz
+        Video                                          : 1950 MHz
+    Max Customer Boost Clocks
+        Graphics                                       : N/A
+    SM Clock Samples
+        Duration                                       : Not Found
+        Number of Samples                              : Not Found
+        Max                                            : Not Found
+        Min                                            : Not Found
+        Avg                                            : Not Found
+    Memory Clock Samples
+        Duration                                       : Not Found
+        Number of Samples                              : Not Found
+        Max                                            : Not Found
+        Min                                            : Not Found
+        Avg                                            : Not Found
+    Clock Policy
+        Auto Boost                                     : N/A
+        Auto Boost Default                             : N/A

@@ -1,0 +1,3 @@
+1920x1080 frozen route off/on captures, decoded RGB comparison.
+Changed pixels 1514376/2073600 (73.031250%); mean absolute channel delta 1.234943/255; p99 delta 21/255; maximum162/255.
+Visual review finds routes in matching positions, but pixel equivalence is not established. The explicit renderer experiment was rejected: fewer submissions did not consistently improve measured frame times. Raw captures remain in Logs/ReleaseReview/RouteExperiment/release-review.

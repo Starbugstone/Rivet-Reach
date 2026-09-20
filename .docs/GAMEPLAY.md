@@ -519,3 +519,9 @@ The ExplorerSkin rendering path uses the world's explicit distance-fog range, pr
 ## Weather
 
 [Weather](WEATHER.md) implements gradual clear/rain/storm conditions, local sheltered rain, wind/thunder ambience and saved schedules. Weather advances with active survival ticks; successful sleep changes celestial time and performs one weather recheck. See the illustrated [player guide](wiki/Weather.md).
+
+## Factory residency and player responsibility
+
+**User requirement — 2026-09-20:** keeping a factory loaded while away is the player's responsibility. Machines operate only while their required chunks are loaded. Use [Chunk Loaders](BRIDGES.md#chunk-loaders) for remote production, covering machines, storage, the entire pipe/cable route, both bridge endpoints and any pump/drill targets. A loader covers its own 32×32×32 chunk; it does not load an entire connected factory.
+
+When a required chunk unloads, its endpoints disconnect and its machine state freezes with exact inventories, fluids, stored energy and partial work retained. Resident sections may continue through valid resident connections; resources never cross an unloaded gap. Returning resumes ordinary eligible processing without granting production for the absent interval. The engine must not keep factories alive through hidden tickets, reduced-rate background simulation or elapsed-time compensation. Pausing or closing the world stops production even with loaders. [Simulation boundaries](SIMULATION.md#3-networks-spanning-chunk-states) own the technical contract; [the player guide](wiki/Bridges-and-chunk-loaders.md#keep-the-remote-workshop-running) explains coverage.

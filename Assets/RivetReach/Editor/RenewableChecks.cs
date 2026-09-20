@@ -63,7 +63,10 @@ namespace RivetReach.Editor
             world.Resident=false;sim.Invalidate();before=BatteryPower.Amount(battery);sim.Step();Check(sun.Status==MachineStatus.Dormant&&BatteryPower.Amount(battery)==before,"Dormant machines produce no energy");
             world.Resident=true;sim.Invalidate();sim.Step();Check(sun.DeliveredWatts==400,"Generation resumes after residency returns");
             for(int i=0;i<2500;i++)Add(100+i,IndustryId.PowerCable);
-            sim.Step();Check(sim.Rebuilding&&sun.DeliveredWatts==0&&sun.SupplyWatts==0,"Incremental topology rebuild clears stale generation and rotor demand immediately");
+            before=BatteryPower.Amount(battery);sim.Step();
+            Check(sim.Rebuilding&&sun.DeliveredWatts==400&&sun.SupplyWatts==400&&BatteryPower.Amount(battery)-before==20000,"Unrelated component reconstruction preserves exact renewable generation and storage");
+            sim.Invalidate(sun.Position);before=BatteryPower.Amount(battery);sim.Step();
+            Check(sim.Rebuilding&&sun.DeliveredWatts==0&&sun.SupplyWatts==0&&BatteryPower.Amount(battery)==before,"Affected component reconstruction clears stale generation and rotor demand without spending storage");
             Directory.CreateDirectory("Logs/Renewables");File.WriteAllText("Logs/Renewables/domain-checks.txt",report+"Assertions: "+assertions+"\n");
         }
     }

@@ -82,8 +82,17 @@ namespace RivetReach.Editor
             foreach(int y in new[]{TerrainGenerator.MinY-1,TerrainGenerator.MinY})
                 check(g.At(new BlockPos(x,y,-x))==BlockId.Bedrock,"Bedrock continuously closes the supported world base");
             var tiles=Resources.Load<Texture2DArray>("Materials/BlockTiles");
+            FarmingMeshes.Initialize();
             foreach(var item in registry.items)
-                check(BlockId.Tile(item.runtimeId,0,1)<tiles.depth,"Every item texture references an imported layer");
+            {
+                if(BlockId.Crop(item.runtimeId)&&item.runtimeId>=200)
+                {
+                    var cells=new byte[34*34*34];cells[ChunkMesher.Index(8,8,8)]=item.runtimeId;
+                    var crop=ChunkMesher.Build(default,0,cells);
+                    check(crop.Vertices.Length>0&&crop.Tiles.All(t=>t.x>=0&&t.x<tiles.depth),"Imported crop palette references available layers: "+item.stableId);
+                }
+                else check(BlockId.Tile(item.runtimeId,0,1)<tiles.depth,"Every item texture references an imported layer: "+item.stableId);
+            }
             for(int i=0;i<OreGenerator.Bands.Count;i++)report.AppendLine(registry.Get(OreGenerator.Bands[i].Block).displayName+": "+counts[i]+" cells; mean Y "+(sums[i]/(double)counts[i]).ToString("F2"));
             check(sums[0]/(double)counts[0]>sums[1]/(double)counts[1]&&sums[1]/(double)counts[1]>sums[2]/(double)counts[2]&&sums[2]/(double)counts[2]>sums[3]/(double)counts[3]&&sums[3]/(double)counts[3]>sums[4]/(double)counts[4],"Measured ore depths descend from coal through diamond");
             timings.Sort();report.AppendLine(chunks+" generated chunks; generation median "+timings[timings.Count/2].ToString("F3")+" ms; p95 "+timings[(int)(timings.Count*.95)].ToString("F3")+" ms; max "+timings.Last().ToString("F3")+" ms (Editor, generation only).");

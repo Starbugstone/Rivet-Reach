@@ -109,9 +109,11 @@ Instead use:
 - logical networks rather than per-pipe/per-wire updates;
 - sleeping inactive systems;
 - event-driven signals;
-- background simulation levels;
+- bounded scheduling of explicitly resident simulation;
 - bounded work queues;
 - batching only where equivalent to the reference simulation.
+
+The current [factory residency rule](GAMEPLAY.md#factory-residency-and-player-responsibility) requires player-provided chunk loaders for remote operation. Unloaded factories freeze and disconnect; scheduling optimizations must not introduce background production or catch-up.
 
 ### Multiple worlds
 

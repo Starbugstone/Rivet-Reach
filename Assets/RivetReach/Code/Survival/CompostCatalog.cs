@@ -34,7 +34,7 @@ namespace RivetReach
             {
                 if(input==null||!seen.Add(input.item))throw new ArgumentException("Duplicate compost input.");
                 var item=registry.Get(registry.ResolveId(input.item));
-                if(item==null||item.runtimeId==CompostId.Compost||item.runtimeId==CompostId.Bin||item.runtimeId==CompostId.Auto||!registry.HasTag(item.runtimeId,"compostable")||input.points<1||input.points>pointsPerCompost)throw new ArgumentException("Invalid compost contribution: "+input.item);
+                if(item==null||item.runtimeId==CompostId.Compost||item.runtimeId==CompostId.Bin||item.runtimeId==CompostId.Auto||registry.Capability<ICompostable>(item.runtimeId)==null||input.points<1||input.points>pointsPerCompost)throw new ArgumentException("Invalid compost contribution: "+input.item);
                 compiled[item.runtimeId]=input.points;
             }
             contributions=compiled;

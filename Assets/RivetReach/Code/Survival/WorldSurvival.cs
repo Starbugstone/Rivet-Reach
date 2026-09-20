@@ -102,6 +102,7 @@ namespace RivetReach
         }
         public void AdvanceTicks(int ticks)
         {
+            using var cost=RuntimeCosts.Survival.Auto();
             if(ticks<0)throw new ArgumentOutOfRangeException(nameof(ticks));Tick=checked(Tick+ticks);
             sleep.Clear();
             foreach(var p in active)

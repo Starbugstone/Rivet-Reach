@@ -41,6 +41,12 @@ namespace RivetReach
             game.Weather.Advance(150);game.Sky.Apply();yield return new WaitForSecondsRealtime(2);yield return Capture("weather-rain");
             Check(presentation.VisibleStreaks>0&&presentation.VisibleStreaks<=WeatherPresentation.MaximumStreaks,"Rain renders a bounded visible streak mesh");
             Check(presentation.RoofQueries==WeatherPresentation.Diameter*WeatherPresentation.Diameter&&presentation.Exposure==1,"Rain uses bounded cached columns and recognises open sky");
+            float readyDeadline=Time.realtimeSinceStartup+120;while(world.PendingLightChunks>0&&Time.realtimeSinceStartup<readyDeadline)yield return null;
+            yield return new WaitForSecondsRealtime(.5f);long roofs=presentation.TotalRoofQueries;
+            yield return new WaitForSecondsRealtime(1);
+            Check(presentation.TotalRoofQueries==roofs,"Settled stationary rain reuses known roof columns");
+            game.SetMode(ScreenMode.Pause);yield return null;yield return null;int uploads=presentation.MeshUploads;
+            yield return new WaitForSecondsRealtime(.5f);Check(presentation.MeshUploads==uploads,"Paused stationary rain reuses its uploaded mesh");game.SetMode(ScreenMode.Play);
             Check(game.Sky.MainLight.intensity<sunny&&game.Sky.Clock.IsNight==night,"Clouds dim presentation without changing hostile day/night authority");
             game.Weather.SetWeather(WeatherKind.Storm,true);game.Sky.Apply();yield return new WaitForSecondsRealtime(2);yield return Capture("weather-storm");
             var coverage=new System.Text.StringBuilder();
@@ -54,7 +60,7 @@ namespace RivetReach
             File.WriteAllText(Path.Combine(output,"weather-coverage.txt"),coverage.ToString());
             player.Camera.transform.rotation=Quaternion.Euler(5,35,0);
             double meshTotal=0,meshMax=0;for(int i=0;i<120;i++){yield return null;meshTotal+=presentation.LastMeshMilliseconds;meshMax=Math.Max(meshMax,presentation.LastMeshMilliseconds);}
-            File.WriteAllText(Path.Combine(output,"weather-cost.txt"),$"Local rain mesh: {WeatherPresentation.MaximumStreaks} maximum streaks; {WeatherPresentation.Diameter*WeatherPresentation.Diameter} cached roof queries per refresh (4 Hz while stationary).\n120-frame CPU mesh update mean {meshTotal/120:F4} ms; max {meshMax:F4} ms. This is a focused fixture, not a full-game performance claim.\n");
+            File.WriteAllText(Path.Combine(output,"weather-cost.txt"),$"Local rain mesh: {WeatherPresentation.MaximumStreaks} maximum streaks; {WeatherPresentation.Diameter*WeatherPresentation.Diameter} cached roof queries per invalidated refresh (at most 4 Hz for nearby movement/edits).\n120-frame CPU mesh update mean {meshTotal/120:F4} ms; max {meshMax:F4} ms. This is a focused fixture, not a full-game performance claim.\n");
             yield return new WaitForSecondsRealtime(21);Check(presentation.ThunderEvents>0,"Storm schedules delayed thunder through its bounded audio source");
             // Build an actual opaque roof above the camera; invalidation suppresses stale rain.
             var roof=world.Address(player.Camera.transform.position).Offset(0,3,0);

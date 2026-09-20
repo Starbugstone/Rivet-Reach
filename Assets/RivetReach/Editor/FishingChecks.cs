@@ -10,6 +10,7 @@ namespace RivetReach.Editor
     {
         public static void Run()
         {
+            Directory.CreateDirectory("Logs/Fishing");
             int checks=0;void Check(bool ok,string label){if(!ok)throw new Exception(label);checks++;}
             var p=new BlockPos(2000000000,30,-2000000000);var cast=new FishingCast();
             Check(!cast.Reel()&&!cast.Active,"Idle reel cannot create a fish");

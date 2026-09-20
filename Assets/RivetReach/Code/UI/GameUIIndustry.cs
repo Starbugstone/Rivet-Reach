@@ -61,13 +61,13 @@ namespace RivetReach
                 MachineButton(parent,live=>"TAKE 10 L",977,415,147,34,live=>{if(!game.Industry.Bucket(live,false))game.Notify("Need an empty bucket and 10 L stored fluid",3);});
             }
             if(m.Definition.Id==IndustryId.TankPort||m.Definition.Id==IndustryId.TankValve)
-                MachineButton(parent,live=>live.PortMode==FluidPortMode.Disabled?"PORT: DISABLED":"PORT: ENABLED",821,415,303,34,live=>{live.PortMode=live.PortMode==FluidPortMode.Disabled?FluidPortMode.Input:FluidPortMode.Disabled;game.Industry.Simulation.Invalidate();});
+                MachineButton(parent,live=>live.PortMode==FluidPortMode.Disabled?"PORT: DISABLED":"PORT: ENABLED",821,415,303,34,live=>{live.PortMode=live.PortMode==FluidPortMode.Disabled?FluidPortMode.Input:FluidPortMode.Disabled;game.Industry.Simulation.Invalidate(live.Position);});
             if(m.Definition.Id==IndustryId.TankSensor)
                 MachineButton(parent,live=>"ON AT: "+live.LevelThreshold+"%",821,415,303,34,live=>{live.LevelThreshold=live.LevelThreshold==100?10:live.LevelThreshold+10;});
             MachineButton(parent,live=>"ROTATE 90°",821,456,146,34,live=>{game.Industry.Simulation.Rotate(live);});
             MachineButton(parent,live=>"RE-SCAN",977,456,147,34,live=>{var c=live.Structure??game.Industry.Simulation.Multiblocks.At(live.Position);if(c!=null)game.Industry.Simulation.Multiblocks.Request(c);else game.Notify("Build a sealed shell with one outward-facing controller",3);});
             if(m.Definition.Id==IndustryId.TankController)
-                MachineButton(parent,live=>"RECOVERY OUT: "+(live.RecoveryOutput?"ON":"OFF"),821,497,303,30,live=>{live.RecoveryOutput=!live.RecoveryOutput;game.Industry.Simulation.Invalidate();});
+                MachineButton(parent,live=>"RECOVERY OUT: "+(live.RecoveryOutput?"ON":"OFF"),821,497,303,30,live=>{live.RecoveryOutput=!live.RecoveryOutput;game.Industry.Simulation.Invalidate(live.Position);});
             nextMachineRefresh=0;
         }
         static string MachinePortSummary(MachineState m)

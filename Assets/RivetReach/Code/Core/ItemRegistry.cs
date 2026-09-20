@@ -73,10 +73,11 @@ namespace RivetReach
     {
         public ItemDefinition[] items;
         ItemDefinition[] byId;
+        ItemCapabilityIndex capabilityIndex;
         Dictionary<string, byte> byStableId;
         readonly Dictionary<string,ItemSelector> selectors=new Dictionary<string,ItemSelector>(StringComparer.Ordinal);
         void OnEnable() => InvalidateIndex();
-        public void InvalidateIndex(){byId=null;byStableId=null;selectors.Clear();}
+        public void InvalidateIndex(){byId=null;byStableId=null;capabilityIndex=null;selectors.Clear();}
         void OnValidate() => InvalidateIndex();
         void BuildIndex()
         {
@@ -99,10 +100,21 @@ namespace RivetReach
                     throw new InvalidOperationException("Invalid or duplicate item tag: "+item.stableId);
                 ids[item.runtimeId]=item;stable.Add(item.stableId,item.runtimeId);
             }
-            byId=ids;byStableId=stable;
+            var capabilities=new ItemCapabilityIndex(items);
+            byId=ids;byStableId=stable;capabilityIndex=capabilities;
         }
-        public bool HasTag(byte id,string tag)=>id!=0&&Array.IndexOf(Get(id).tags??Array.Empty<string>(),tag)>=0;
-        public int FoodPoints(byte id)=>HasTag(id,ItemTags.Edible)?Get(id).foodPoints:0;
+        public T Capability<T>(byte id) where T:class,IItemCapability
+        {if(byId==null)BuildIndex();return id==0?null:capabilityIndex.Get<T>(Get(id).runtimeId);}
+        // Compatibility for authored #selectors and browser search. Gameplay asks
+        // for typed capabilities; label membership is compiled, never string-scanned.
+        public bool HasTag(byte id,string tag)
+        {if(byId==null)BuildIndex();return id!=0&&capabilityIndex.Matches(Get(id).runtimeId,tag);}
+        public int FoodPoints(byte id)=>Capability<IEdible>(id)?.FoodPoints??0;
+        public IItemSelector Select<T>() where T:class,IItemCapability
+        {
+            if(byId==null)BuildIndex();
+            return capabilityIndex.Select<T>()??throw new ArgumentException("Ingredient capability has no members: "+typeof(T).Name);
+        }
         public ItemSelector Select(string selector)
         {
             if(byId==null)BuildIndex();
@@ -111,7 +123,7 @@ namespace RivetReach
             if(selector[0]=='#')
             {
                 string tag=selector.Substring(1);if(!ItemTags.Valid(tag))throw new ArgumentException("Invalid ingredient tag: "+selector);
-                compiled=new ItemSelector(items.Where(i=>HasTag(i.runtimeId,tag)).Select(i=>i.runtimeId));
+                compiled=capabilityIndex.Select(tag)??throw new ArgumentException("Ingredient selector has no members: "+selector);
             }
             else compiled=new ItemSelector(new[]{ResolveId(selector)});
             if(compiled.Choices.Count==0)throw new ArgumentException("Ingredient selector has no members: "+selector);

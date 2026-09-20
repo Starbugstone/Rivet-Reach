@@ -106,14 +106,26 @@ namespace RivetReach
     {
         public int ItemInputPriority {get;set;}=50;
         IReadOnlyList<ItemStack> IItemPipeInventory.Slots=>Items.Slots;
+        ItemStack IItemPipeInventory.ReadSlot(int slot)=>Items.Slots[slot];
         bool IItemPipeInventory.CanExtract(int slot)=>(!IsComposter||IsAutoComposter)&&slot==OutputSlot;
-        bool IItemPipeInventory.Prefers(byte id,int localFace)=>IsComposter?IsAutoComposter&&CanCompost(id):IsCooker?PrefersCooking(id,localFace):AcceptsPipeInput(id,localFace)&&(Items.Slots[0].Id==id||
-            !Items.Slots[2].Empty&&ProcessingOutput(id).Id==Items.Slots[2].Id);
+        ItemInputRequest IItemPipeInventory.QueryInput(byte id,int localFace)
+        {
+            if(IsComposter)return IsAutoComposter&&CanCompost(id)?ItemInputRequest.Prefer:ItemInputRequest.Reject;
+            if(IsCooker)
+            {
+                int slot=Definition.Id==FarmId.Cooker&&(localFace==4||localFace<0&&CookerAccepts(3,id))?3:0;
+                if(!CookerAccepts(slot,id))return ItemInputRequest.Reject;
+                return PrefersCooking(id,localFace)?ItemInputRequest.Prefer:ItemInputRequest.Accept;
+            }
+            if(!AcceptsPipeInput(id,localFace))return ItemInputRequest.Reject;
+            return Items.Slots[0].Id==id||!Items.Slots[2].Empty&&ProcessingOutput(id).Id==Items.Slots[2].Id?ItemInputRequest.Prefer:ItemInputRequest.Accept;
+        }
         bool IItemPipeInventory.TryInsert(byte id,int localFace)=>IsComposter?IsAutoComposter&&AddCompost(id,1)==1:IsCooker?InsertCooker(id,localFace):AcceptsPipeInput(id,localFace)&&Items.Capacity(id,0,1)>0&&Items.Add(id,1,0,1)==0;
         ItemStack IItemPipeInventory.Extract(int slot,int count)=>(!IsComposter||IsAutoComposter)&&slot==OutputSlot?Items.Take(slot,count):default;
         public readonly BlockPos Position; public readonly IndustryDefinition Definition;
         public readonly ItemContainer Items;
         readonly ProcessingRegistry processing;
+        readonly ItemRegistry itemRegistry;
         public int FuelTicks(byte id)=>processing.FuelTicks(id);
         public ProcessingRecipe FurnaceRecipe=>Definition.Id==IndustryId.ElectricFurnace?processing?.Find(Items.Slots[0].Id):null;
         public ItemStack ProcessingOutput(byte id)=>Definition.Id==IndustryId.Crusher?CrusherOutput(id):Definition.Id==IndustryId.ElectricFurnace?processing?.Find(id)?.Output??default:default;
@@ -146,11 +158,11 @@ namespace RivetReach
         public string OwnerId="",LinkName="";
         public bool LoaderEnabled=true;
         public MachineState(BlockPos p,byte id,Func<byte,int> limit,ProcessingRegistry processing=null)
-        {this.processing=processing??ProcessingCatalogAsset.Current;Position=p;Definition=IndustryDefinition.All[id];EnergyCells=id==IndustryId.Battery?new[]{new BatteryStorage()}:Array.Empty<BatteryStorage>();Fluid=new FluidStorage(Definition.WaterCapacity);Items=new ItemContainer(IsCooker?5:3,limit);CookingPlan=IsCooker?new int[3]:null;if(IsCooker)CookingId=CookingCatalog.Current.recipes[0].id;}
+        {this.processing=processing??ProcessingCatalogAsset.Current;itemRegistry=ItemRegistry.Load();Position=p;Definition=IndustryDefinition.All[id];EnergyCells=id==IndustryId.Battery?new[]{new BatteryStorage()}:Array.Empty<BatteryStorage>();Fluid=new FluidStorage(Definition.WaterCapacity);Items=new ItemContainer(IsCooker?5:3,limit);CookingPlan=IsCooker?new int[3]:null;if(IsCooker)CookingId=CookingCatalog.Current.recipes[0].id;}
         public bool Enabled=>!SignalAttached||Signal;
         public bool Running=>Status==MachineStatus.Running||Status==MachineStatus.Underpowered;
         bool AcceptsPipeInput(byte id,int localFace)=>Accepts(0,id)&&(!Definition.RequiresItemFuel||localFace<0||localFace==4);
-        public bool Accepts(int slot,byte id)=>IsComposter?slot==0&&CompostCatalog.Current.Points(id)>0:IsCooker?CookerAccepts(slot,id):slot==0&&(Definition.Id==IndustryId.Boiler?ItemRegistry.Load().HasTag(id,ItemTags.BoilerFuel)&&FuelTicks(id)>0:!ProcessingOutput(id).Empty);
+        public bool Accepts(int slot,byte id)=>IsComposter?slot==0&&CompostCatalog.Current.Points(id)>0:IsCooker?CookerAccepts(slot,id):slot==0&&(Definition.Id==IndustryId.Boiler?itemRegistry.Capability<IBoilerFuel>(id)!=null&&FuelTicks(id)>0:!ProcessingOutput(id).Empty);
         public const int CrusherTicks = 100;
         public static ItemStack CrusherOutput(byte id)=>id switch
         {
@@ -164,12 +176,7 @@ namespace RivetReach
         {
             if(slot<0||slot>=Items.Count)return;
             if(IsComposter&&slot==0&&!held.Empty){int n=AddCompost(held.Id,right?1:held.Count);held.Count-=n;if(held.Count==0)held=default;return;}
-            if(slot==OutputSlot)
-            {
-                var output=Items.Slots[slot];if(output.Empty||!held.Empty&&!held.CanStack(output))return;
-                int amount=Math.Min(right?(output.Count+1)/2:output.Count,Items.StackLimit(output.Id)-held.Count);
-                if(amount>0){Items.Take(slot,amount);held=new ItemStack(output.Id,held.Count+amount);}return;
-            }
+            if(slot==OutputSlot){Items.TakeToCursor(slot,ref held,right);return;}
             if(!held.Empty&&!Accepts(slot,held.Id))return;Items.Click(slot,ref held,right);
         }
         public void TransferIn(ItemContainer from,int slot)

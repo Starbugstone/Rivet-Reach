@@ -135,10 +135,10 @@ namespace RivetReach
             foreach(var pos in new[]{a,b}){game.World.Remove(pos,BlockId.Workbench);Check(game.World.Place(pos,IndustryId.Crusher),"Place same-type machine fixture");}
             var ma=game.Industry.Simulation.At(a);var mb=game.Industry.Simulation.At(b);ma.Priority=0;mb.Priority=2;
             Open(a,true);yield return null;
-            BoundUIButton Priority()=>game.UI.VisibleRoot.GetComponentsInChildren<BoundUIButton>().Single(v=>v.GetComponentInChildren<Text>().text.StartsWith("PRIORITY:"));
+            BoundUIButton Priority()=>game.UI.VisibleRoot.GetComponentsInChildren<BoundUIButton>().Single(v=>v.GetComponentInChildren<Text>().text.StartsWith("POWER:"));
             var button=Priority();button.OnPointerDown(stalePress);
             game.SetMode(ScreenMode.Play);Open(b,true);yield return null;
-            Check(Priority()==button && button.GetComponentInChildren<Text>().text=="PRIORITY: LOW","Cached machine control labels rebind to the new machine");
+            Check(Priority()==button && button.GetComponentInChildren<Text>().text=="POWER: LOW","Cached machine control labels rebind to the new machine");
             button.OnPointerClick(stalePress);
             Check(ma.Priority==0&&mb.Priority==2,"Stale machine button release cannot modify the previous or current machine");
             yield return BrowserPointer(button);

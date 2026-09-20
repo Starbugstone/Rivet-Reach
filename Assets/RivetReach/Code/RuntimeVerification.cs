@@ -46,16 +46,7 @@ namespace RivetReach
         {
             game=Expedition.Instance;var args=Environment.GetCommandLineArgs();int index=Array.IndexOf(args,"-rr-output");
             output=index>=0&&index+1<args.Length?args[index+1]:Path.Combine(Application.persistentDataPath,"Verification");Directory.CreateDirectory(output);
-            var routines=new Stack<IEnumerator>();routines.Push(Run());
-            while(routines.Count>0)
-            {
-                bool more;object current=null;
-                try{more=routines.Peek().MoveNext();if(more)current=routines.Peek().Current;}
-                catch(Exception ex){errors.Add(ex.ToString());break;}
-                if(!more){routines.Pop();continue;}
-                if(current is IEnumerator nested){routines.Push(nested);continue;}
-                yield return current;
-            }
+            yield return VerificationCoroutines.Run(Run(),error=>errors.Add(error.ToString()));
             sampling=false;report.timestamp=DateTime.UtcNow.ToString("O");report.unity=Application.unityVersion;report.cpu=SystemInfo.processorType;report.gpu=SystemInfo.graphicsDeviceName;report.graphicsApi=SystemInfo.graphicsDeviceType.ToString();
             report.memoryMB=SystemInfo.systemMemorySize;report.width=Screen.width;report.height=Screen.height;report.assertions=checks.Count;
             report.drawCallsPeak=report.drawCallsPeak>0?report.drawCallsPeak:-1;
@@ -106,6 +97,7 @@ namespace RivetReach
             if(Environment.GetCommandLineArgs().Contains("-rr-connections-legacy-review"))
             {report.workload="Actual schema-2/3 checkpoint migration to the current save schema";yield return ReviewConnectionLegacy();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-renewables-resume-review")){report.workload="Fresh-process renewable machines, exact stored energy and gust continuation";yield return ReviewRenewablesResume();yield break;}
+            if(Environment.GetCommandLineArgs().Contains("-rr-release-legacy")){report.workload="Historical full-world schemas migrate and round-trip exactly";yield return ReviewReleaseLegacy();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-tools-legacy")){report.workload="Historical full world migrates without tool wear or food loss";yield return ReviewToolsLegacy();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-tools-resume")){report.workload="Fresh-process exact tool wear";yield return ReviewToolsResume();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-food-hud-review")){report.workload="Moderate food balance, actual legacy checkpoint and rendered HUD tick wobble";yield return ReviewFoodHud();yield break;}
@@ -143,6 +135,9 @@ namespace RivetReach
             if(Environment.GetCommandLineArgs().Contains("-rr-food-balance-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-tools-review"))game.World.ViewDistance=4;
             yield return Settle();report.firstReadySeconds=Time.realtimeSinceStartup-began;
+            if(Environment.GetCommandLineArgs().Contains("-rr-inventory-gestures-review")){report.workload="Native inventory drag, split, station input and spare armor gestures";yield return ReviewInventoryGestures();yield break;}
+            if(Environment.GetCommandLineArgs().Contains("-rr-performance-review")){report.workload="Calibrated interaction timings and revision-safe terrain work";game.Diagnostics=false;yield return PerformanceProbe.Run(game,output);yield break;}
+            if(Environment.GetCommandLineArgs().Contains("-rr-release-review")){report.workload="Release review: full-distance frame pacing, weather, factory, streaming and interactions";yield return ReviewReleasePerformance();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-tools-review")){report.workload="Survival route, tiered pick/axe timing, durability, transfers and saves";yield return ReviewTools();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-food-balance-review")){report.workload="Normal Survival route, cultivated kitchen, paid eating and sustained base activity";yield return ReviewFoodBalance();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-lighting-review")){report.workload="Underground crop growth, cached sky/source lighting, cave entrances, roof edits and saves";yield return ReviewLighting();yield break;}

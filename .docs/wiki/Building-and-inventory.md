@@ -1,5 +1,27 @@
 # Building and inventory shortcuts
 
+## Familiar inventory controls
+
+The default inventory key is **Tab**, with **E** for Interact. For an E-to-open inventory layout, choose **Escape → Controls → E inventory preset**. It assigns **E** to inventory and **F** to Interact, keeps mouse Use and the 15-slot hotbar, and leaves your other controls alone. If a different custom action already uses E or F, the preset explains the conflict and changes nothing until you rebind that action.
+
+Click or drag to move a stack. Right-click takes the rounded-up half of a stack, or places one held item. Hold right-click and drag across compatible inventory, crafting, chest, crate or machine-input slots to place one per visited slot. Full or incompatible slots are skipped; moving back across a slot does not deposit twice. Machine result slots are excluded from painting.
+
+Shift-click transfers between containers. In your personal inventory, armor equips when its matching equipment slot is empty. Spare armor moves between backpack and hotbar when that equipment slot is occupied; it never replaces your worn armor automatically.
+
+![Controls after selecting the optional E inventory preset](images/release-review/controls-e-inventory-preset.png)
+
+Actual standalone capture, September 20, 2026. Native pointer checks cover right-drag placement, spare-armor transfers and selecting the preset button. The older screenshots elsewhere on this page retain their original capture dates.
+
+## Find recipes and furnace fuel
+
+In the item sidebar, click an item to see how to make it, or right-click to see its uses. You can also hover an item and press **R** for recipes or **U** for uses. Follow ingredient, result or station icons to explore related recipes; **Back** restores the previous item and recipe page.
+
+At an open furnace, select **Recipes & Fuel** to start with a recipe the furnace processes and its fuel choices. The fuel icons are alternatives: choose one. The page arrows still reach every furnace usage, including upgrade recipes that consume a furnace. Right-clicking Furnace in the sidebar keeps the complete ordinary Uses order. Browsing does not move items or craft anything.
+
+![The furnace guide opens a smelting recipe and shows alternative fuels](images/release-review/furnace-recipes-and-fuel.png)
+
+Actual Windows player capture, September 20, 2026. The highlighted log is the consumed ingredient; the row below shows alternative fuels.
+
 ## Pick the block you are looking at
 
 Middle-click a world block to select it for building. In Survival, an owned hotbar stack is selected first. If the item is in your backpack, it swaps into the selected hotbar slot. If you do not own it, nothing is created. Creative can supply a usable stack.

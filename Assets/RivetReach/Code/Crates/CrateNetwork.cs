@@ -72,9 +72,10 @@ namespace RivetReach
         public CrateStorage Store(int slot){Resolve();return slot>=0&&slot<members.Count&&network.Ready(position)&&network.Ready(members[slot].pos)?members[slot].store:null;}
         public bool SharesStorage(IItemPipeInventory other)
         {if(other is not CrateEndpoint endpoint)return false;Resolve();foreach(var member in endpoint.Members)if(identities.Contains(member.store))return true;return false;}
+        public ItemStack ReadSlot(int slot)=>Store(slot)?.Stack??default;
         public bool CanExtract(int slot)=>Store(slot)?.Count>0;
         public object SourceIdentity(int slot)=>Store(slot);
-        public bool Prefers(byte id,int localFace=-1)=>false;
+        public ItemInputRequest QueryInput(byte id,int localFace=-1)=>id==0?ItemInputRequest.Reject:ItemInputRequest.Accept;
         public bool TryInsert(byte id,int localFace=-1)=>TryInsertFrom(id,null,localFace);
         public bool TryInsertFrom(byte id,object source,int localFace=-1)=>Insert(new ItemStack(id,1),source)==1;
         public int Insert(ItemStack stack,object source=null)

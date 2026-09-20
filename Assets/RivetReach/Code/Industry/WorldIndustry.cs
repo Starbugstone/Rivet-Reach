@@ -11,11 +11,11 @@ namespace RivetReach
         public WorldIndustry(Expedition game)
         {
             this.game=game;Simulation=new IndustrySimulation(this,id=>game.Registry.Get(id).stackLimit,game.Processing);
-            game.World.MachineLight=p=>{var lamp=Simulation.At(p);return lamp!=null&&lamp.Definition.Id==IndustryId.Lamp&&lamp.Running?(byte)14:(byte)0;};
+            game.World.MachineLight=p=>{var lamp=Simulation.At(p);return lamp!=null&&lamp.Definition.Id==IndustryId.Lamp&&lamp.Running&&Simulation.IsSimulating(lamp)?(byte)14:(byte)0;};
             Simulation.LightChanged+=game.World.LightSourceChanged;
             Simulation.CompostChanged+=EjectCompost;
             game.World.PersistentChunkTickets=Simulation.LoaderChunks;
-            game.World.BlockChanged+=Changed;game.World.ResidencyChanged+=Simulation.Multiblocks.ResidencyChanged;
+            game.World.BlockChanged+=Changed;game.World.ChunkResidencyChanged+=Simulation.ResidencyChanged;
             game.World.CanRemoveMachine=p=>{if(!(game.Crates?.CanRemove(p)??true))return false;if(game.World.RecoveringMachine||Simulation.Multiblocks.CanRemove(p)&&(Simulation.At(p)?.Definition.Id!=IndustryId.Tank||Simulation.At(p).Fluid.Amount==0))return true;game.Notify(Simulation.At(p)?.Definition.Id==IndustryId.Battery?"Discharge this battery before mining it":"Drain the tank at its controller before dismantling it",3);return false;};
             game.World.IsOpenMachine=p=>{var m=Simulation.At(game.World.DoorAnchor(p));return m!=null&&(m.Definition.Id==IndustryId.WoodenDoor?m.WorkInput==1:m.Definition.Id==IndustryId.Door&&m.Running);};
         }
@@ -59,19 +59,20 @@ namespace RivetReach
             }
             if(IndustryId.Placed(id)&&Simulation.At(p)==null)Simulation.Add(p,id);
             if(id==IndustryId.ChunkLoader||old?.Definition.Id==IndustryId.ChunkLoader)game.World.RefreshChunkTickets();
-            if(id==BlockId.Chest||id==BlockId.Furnace)Simulation.Invalidate();
-            else if(id==BlockId.Air)for(int f=0;f<6;f++)if(Simulation.At(IndustryDefinition.Neighbor(p,f))?.Definition.Id==IndustryId.ItemPipe){Simulation.Invalidate();break;}
+            if(id==BlockId.Chest||id==BlockId.Furnace)Simulation.Invalidate(p);
+            else if(id==BlockId.Air)for(int f=0;f<6;f++)if(Simulation.At(IndustryDefinition.Neighbor(p,f))?.Definition.Id==IndustryId.ItemPipe){Simulation.Invalidate(p);break;}
             var above=p.Offset(0,1,0);
             if(Get(above)==IndustryId.SignalWire&&!BlockId.Solid(id))game.World.Mine(above,IndustryId.SignalWire,ToolCapability.None);
         }
-        public void Advance(int ticks){for(int i=0;i<ticks;i++)Simulation.Step();}
+        public void Advance(int ticks)
+        {Simulation.BeginFrame();try{for(int i=0;i<ticks;i++)Simulation.Step();}finally{Simulation.EndFrame();}}
         public bool AddPipeChannel(MachineState machine,PipeAddition addition)
         {
             if(addition!=PipeAddition.Signal&&addition!=PipeAddition.Power)return false;
             if(game.OpenMachine!=machine||!Ready(machine.Position)||!PipeConnections.IsTransport(machine.Definition.Id)||(machine.Additions&addition)!=0)return false;
             byte item=addition==PipeAddition.Signal?IndustryId.SignalConduit:IndustryId.PowerCable;
             int slot=game.Inventory.FindSlot(s=>s.Id==item&&!s.Empty);if(slot<0)return false;
-            game.Inventory.Take(slot,1);machine.Additions|=addition;Simulation.Invalidate();return true;
+            game.Inventory.Take(slot,1);machine.Additions|=addition;Simulation.Invalidate(machine.Position);return true;
         }
         public bool Bucket(MachineState machine,bool fill)
         {
@@ -80,7 +81,7 @@ namespace RivetReach
             {
                 var tank=machine.Structure;
                 if(tank==null||machine.Definition.Id!=IndustryId.TankController&&machine.Definition.Id!=IndustryId.TankHatch||fill&&!tank.Formed)return false;
-                int filledSlot=game.Inventory.FindSlot(s=>s.Count==1&&Fluids.Registry.FromBucket(s.Id)!=null);
+                int filledSlot=game.Inventory.FindSlot(s=>s.Count==1&&Fluids.Registry.FromBucket(s.Id) is FluidDefinition liquid&&tank.Fluid.Accepts(liquid));
                 var fluid=fill?(filledSlot<0?null:Fluids.Registry.FromBucket(game.Inventory.Slots[filledSlot].Id)):tank.Fluid.Fluid;
                 if(fluid==null)return false;
                 byte input=fill?fluid.BucketItem:Fluids.EmptyBucket,output=fill?Fluids.EmptyBucket:fluid.BucketItem;

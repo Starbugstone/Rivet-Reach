@@ -1,0 +1,5 @@
+RetailFinal follow-up analysis, September 20, 2026
+Source: retained frames.csv.gz and gpu-telemetry.csv.
+Five-minute soak: 1,138 floor-breach rows; returned GPU timing median 27.083 ms across those rows, versus 12.646 ms for 17,844 within-floor rows. Returned timing samples are delayed and may repeat, so these grouped row statistics are supporting correlation, not exact per-frame attribution.
+The twelve largest soak frame rows record zero machine/crate view creation. Maximum returned GPU timings in that region reach approximately 100 ms. Late-soak NVIDIA samples record thermal throttling and graphics clocks falling to 300–405 MHz. CPU render medians remain about 3.7–3.8 ms in both row groups.
+This supports investigating rendering and thermal limits; it does not establish that every floor breach is GPU-caused or excuse the unmet 60/45 FPS gate.

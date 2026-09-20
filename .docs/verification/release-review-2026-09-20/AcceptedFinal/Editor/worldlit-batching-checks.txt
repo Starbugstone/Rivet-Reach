@@ -1,0 +1,26 @@
+Unity 6000.4.4f1; API Direct3D11; SRP Batcher enabled=True
+PASS Actual Workshop references the project WorldLit shader
+PASS Pinned Editor exposes SRP compatibility metadata; unavailable API means UNVERIFIED, never compatible
+PASS Required pass is retained: ForwardLit / authored Workshop keywords
+PASS Pass compiles and binds: ForwardLit / authored Workshop keywords (no graphics device means UNVERIFIED)
+PASS Required pass is retained: ShadowCaster / authored Workshop keywords
+PASS Pass compiles and binds: ShadowCaster / authored Workshop keywords (no graphics device means UNVERIFIED)
+PASS Required pass is retained: DepthOnly / authored Workshop keywords
+PASS Pass compiles and binds: DepthOnly / authored Workshop keywords (no graphics device means UNVERIFIED)
+PASS Required pass is retained: DepthNormals / authored Workshop keywords
+PASS Pass compiles and binds: DepthNormals / authored Workshop keywords (no graphics device means UNVERIFIED)
+PASS Selected WorldLit passes have no reported compiler errors: authored Workshop keywords
+PASS Compiled shader has an active subshader: authored Workshop keywords
+PASS Native SRP compatibility metadata: subshader=0, code=0, reason=compatible / authored Workshop keywords
+PASS Required pass is retained: ForwardLit / authored material plus normal/cutout keywords
+PASS Pass compiles and binds: ForwardLit / authored material plus normal/cutout keywords (no graphics device means UNVERIFIED)
+PASS Required pass is retained: ShadowCaster / authored material plus normal/cutout keywords
+PASS Pass compiles and binds: ShadowCaster / authored material plus normal/cutout keywords (no graphics device means UNVERIFIED)
+PASS Required pass is retained: DepthOnly / authored material plus normal/cutout keywords
+PASS Pass compiles and binds: DepthOnly / authored material plus normal/cutout keywords (no graphics device means UNVERIFIED)
+PASS Required pass is retained: DepthNormals / authored material plus normal/cutout keywords
+PASS Pass compiles and binds: DepthNormals / authored material plus normal/cutout keywords (no graphics device means UNVERIFIED)
+PASS Selected WorldLit passes have no reported compiler errors: authored material plus normal/cutout keywords
+PASS Compiled shader has an active subshader: authored material plus normal/cutout keywords
+PASS Native SRP compatibility metadata: subshader=0, code=0, reason=compatible / authored material plus normal/cutout keywords
+PASS metadata checks only. Native renderer participation, visual equivalence and frame-time benefit remain unverified.

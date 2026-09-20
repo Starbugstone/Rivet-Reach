@@ -34,7 +34,8 @@ namespace RivetReach
             var search=game.UI.VisibleRoot.GetComponentsInChildren<UnityEngine.UI.InputField>().Single(f=>f.name=="Item browser search");
             search.text="#edible";yield return null;
             var foodViews=game.UI.VisibleRoot.GetComponentsInChildren<BrowserItemView>().Where(v=>v.CatalogSource).ToArray();
-            Check(foodViews.Length==11&&foodViews.All(v=>game.Registry.HasTag(v.Item,ItemTags.Edible)),"Actual item browser filters all eleven edible foods");
+            var expectedFoods=game.Registry.items.Where(item=>game.Registry.Capability<IEdible>(item.runtimeId)!=null).Select(item=>item.runtimeId).OrderBy(id=>id).ToArray();
+            Check(foodViews.Select(v=>v.Item).OrderBy(id=>id).SequenceEqual(expectedFoods),"Actual item browser filters every current edible capability, including later fish/chicken recipes");
             yield return Capture("edible-tag-search");search.text="#ingot iron";yield return null;
             var ingotViews=game.UI.VisibleRoot.GetComponentsInChildren<BrowserItemView>().Where(v=>v.CatalogSource).ToArray();
             Check(ingotViews.Length==1&&ingotViews[0].Item==BlockId.IronIngot,"Tag and name filtering intersect in the real item browser");

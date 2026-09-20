@@ -8,7 +8,7 @@ namespace RivetReach
     // follow the same transaction rules. Supplied work buffers avoid per-tick garbage.
     public sealed class IngredientMatcher
     {
-        readonly ItemSelector[] units;
+        readonly IItemSelector[] units;
         readonly int slots,fullMask;
         readonly int[] limits=new int[256];
         readonly byte[] representatives;
@@ -16,7 +16,7 @@ namespace RivetReach
         {
             if(ingredients==null||items==null)throw new ArgumentNullException();
             if(slots<1||slots>9)throw new ArgumentOutOfRangeException(nameof(slots));this.slots=slots;
-            var list=new List<ItemSelector>();
+            var list=new List<IItemSelector>();
             foreach(var input in ingredients)
             {
                 if(input.Count<1||input.Count>9||list.Count+input.Count>9)throw new ArgumentException("Ingredient matcher supports one to nine units.");

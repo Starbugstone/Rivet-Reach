@@ -38,6 +38,25 @@ namespace RivetReach.Editor
             command=command.Replace("|ready","");File.Delete(request);
             try
             {
+                if(command=="release-review-baseline"||command=="release-review-final"||command=="release-review-checks"||command=="release-review-player"||command=="release-review-retail")
+                {
+                    if(EditorUtility.scriptCompilationFailed)throw new InvalidOperationException("Release review requires a successful current script compilation.");
+                    if(command!="release-review-baseline"&&command!="release-review-player")ReleaseReviewChecks.Run();
+                    if(command!="release-review-checks")
+                    {
+                        const string settingsPath="ProjectSettings/ProjectSettings.asset";
+                        string timingLine=File.ReadLines(settingsPath).First(line=>line.TrimStart().StartsWith("enableFrameTimingStats:"));
+                        bool timings=timingLine.TrimEnd().EndsWith("1");
+                        try{PlayerSettings.enableFrameTimingStats=true;Build(command=="release-review-baseline"?"ReleaseReviewBaseline":command=="release-review-retail"?"ReleaseReviewRetail":"ReleaseReviewFinal",command=="release-review-retail"?BuildOptions.None:BuildOptions.Development);}
+                        finally
+                        {
+                            PlayerSettings.enableFrameTimingStats=timings;
+                            string settings=File.ReadAllText(settingsPath);
+                            File.WriteAllText(settingsPath,System.Text.RegularExpressions.Regex.Replace(settings,@"(?m)^  enableFrameTimingStats: [01]",timingLine));
+                        }
+                    }
+                    File.WriteAllText("Logs/build-result.txt","SUCCESS release review");return;
+                }
                 if(command=="alpha-playtest-checks"||command=="alpha-playtest-build")
                 {AlphaPlaytestAssets.Prepare();AlphaPlaytestChecks.Run();AlphaWorldChecks.Run();LavaChecks.Run();InventoryChecks.Run();SurvivalChecks.Run();FarmingChecks.Run();FishingChecks.Run();ChickenChecks.Run();if(command=="alpha-playtest-build")Build("AlphaPlaytest");File.WriteAllText("Logs/build-result.txt","SUCCESS alpha playtest");return;}
                 if(command=="alpha-playtest-export"){WikiExport.Export();File.WriteAllText("Logs/build-result.txt","SUCCESS alpha export");return;}

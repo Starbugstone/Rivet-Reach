@@ -73,7 +73,7 @@ namespace RivetReach.Editor
             // Large static graph and a ring: bounded topology and no per-tick rebuild.
             var scaleWorld=new World();var scale=new IndustrySimulation(scaleWorld,id=>64);
             for(int i=0;i<10000;i++)scale.Add(P(i,20),IndustryId.SignalConduit);
-            var clock=Stopwatch.StartNew();int steps=0;do{scale.Step();steps++;}while(scale.Rebuilding&&steps<100);
+            var clock=Stopwatch.StartNew();int steps=0;do{scale.BeginFrame(2048,double.PositiveInfinity);scale.Step();scale.EndFrame();if(scale.ReconstructionStepsThisFrame>2048)throw new Exception("Topology exceeded its operation budget");steps++;}while(scale.Rebuilding&&steps<1000);
             Check(!scale.Rebuilding&&steps>1,"10,000-node topology rebuild is spread over bounded steps");
             int rebuilds=scale.TopologyRebuilds;double[] times=new double[200];
             for(int i=0;i<times.Length;i++){scale.Step();times[i]=scale.LastStepMs;}

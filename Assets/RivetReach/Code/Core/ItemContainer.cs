@@ -4,11 +4,15 @@ using System.Collections.Generic;
 namespace RivetReach
 {
     // One local authority owns mutations. Callers receive value copies, never the backing array.
-    public class ItemContainer : IItemPipeInventory
+    public class ItemContainer : IItemPipeInventory,IItemPipeStackReceiver
     {
         public int ItemInputPriority {get;set;}=20;
+        ItemStack IItemPipeInventory.ReadSlot(int slot)=>slots[slot];
+        bool IItemPipeStackReceiver.TryInsertStack(ItemStack stack,int localFace)
+            =>!stack.Empty&&stack.Count==1&&stack.ValidContents&&Add(stack)==0;
         bool IItemPipeInventory.CanExtract(int slot)=>slot>=0&&slot<Count;
-        bool IItemPipeInventory.Prefers(byte id,int localFace)=>id!=0&&Total(id)>0;
+        // Cargo affinity is evaluated within a receiver turn, preserving fair sharing.
+        ItemInputRequest IItemPipeInventory.QueryInput(byte id,int localFace)=>id==0?ItemInputRequest.Reject:Total(id)>0?ItemInputRequest.Prefer:ItemInputRequest.Accept;
         bool IItemPipeInventory.TryInsert(byte id,int localFace)=>id!=0&&Capacity(id)>0&&Add(id,1)==0;
         ItemStack IItemPipeInventory.Extract(int slot,int count)=>Take(slot,count);
         readonly ItemStack[] slots;
@@ -239,6 +243,18 @@ namespace RivetReach
             else if (!right) { slots[index] = held; held = stack; }
             else return;
             Revision++;
+        }
+
+        // Shared result-slot gesture. It may withdraw or merge, never insert or
+        // swap into an output. Copy the complete stack so future metadata survives.
+        public bool TakeToCursor(int index,ref ItemStack held,bool right)
+        {
+            var output=slots[index];
+            if(output.Empty||!held.Empty&&!held.CanStack(output))return false;
+            int current=held.Empty?0:held.Count;
+            int amount=Math.Min(right?(output.Count+1)/2:output.Count,output.Limit(Limit(output.Id))-current);
+            if(amount<=0)return false;
+            held=Take(index,amount).WithCount(current+amount);return true;
         }
 
         public void TransferTo(int index, ItemContainer destination, int start = 0, int end = -1)

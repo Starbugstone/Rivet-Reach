@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace RivetReach
 {
+    public sealed class NetworkActivity {public bool Active=true;}
     // Shared topology machinery; family-specific services own signal and energy semantics.
     // Ports are separate vertices: a relay input and output never become an implicit short.
     public sealed class NetworkTopology
@@ -10,15 +11,27 @@ namespace RivetReach
         public sealed class Endpoint
         {
             public MachineState Machine;public MachinePort Port;public int Faces,Group;
+            internal int Order;
         }
         public sealed class Group
         {
             public readonly List<Endpoint> Ports=new List<Endpoint>();
+            internal readonly List<Endpoint> Devices=new List<Endpoint>();
+            internal bool HadFluidConflict;
             public int Id;public bool Signal;public int Supply,Demand;
+            public NetworkActivity Activity;
+            public bool Active=>Activity==null||Activity.Active;
+        }
+        internal sealed class Snapshot
+        {
+            public readonly List<Group> Groups=new List<Group>();
+            public readonly Dictionary<BlockPos,int> Connections=new Dictionary<BlockPos,int>();
+            public readonly HashSet<MachineState> Registered=new HashSet<MachineState>();
         }
         public List<Group> Groups {get;private set;}=new List<Group>();
         public Dictionary<BlockPos,int> Connections {get;private set;}=new Dictionary<BlockPos,int>();
         HashSet<MachineState> registered=new HashSet<MachineState>();
+        public long Revision {get;private set;}
         public bool Connected(MachineState machine)=>machine!=null&&registered.Contains(machine)&&Connections.TryGetValue(machine.Position,out int faces)&&faces!=0;
         public readonly NetworkKind Kind;
         public Func<BlockPos,int> ExternalEndpointFaces;
@@ -49,13 +62,27 @@ namespace RivetReach
                 yield return 0;
             }
             var queue=new Queue<int>();
+            var groupMembers=Kind==NetworkKind.Power?new HashSet<MachineState>():null;
+            int visitedSinceYield=0;
             for(int i=0;i<nodes.Count;i++)
             {
-                if(nodes[i].Group>=0)continue;
+                if(nodes[i].Group>=0)
+                {
+                    // Finishing a large connected component leaves a long run
+                    // of visited vertices. Account for that scan in the budget.
+                    if(++visitedSinceYield==64){visitedSinceYield=0;yield return 0;}
+                    continue;
+                }
+                visitedSinceYield=0;groupMembers?.Clear();
                 var group=new Group{Id=groups.Count};groups.Add(group);nodes[i].Group=group.Id;queue.Enqueue(i);
                 while(queue.Count>0)
                 {
-                    var a=nodes[queue.Dequeue()];group.Ports.Add(a);
+                    var a=nodes[queue.Dequeue()];
+                    // Several device faces on one power grid share one budget.
+                    // Keep the first BFS occurrence while still visiting every
+                    // face for connectivity, rather than an unbounded final pass.
+                    if(groupMembers==null||groupMembers.Add(a.Machine))
+                    {a.Order=group.Ports.Count;group.Ports.Add(a);if(a.Port.Role!=PortRole.Route)group.Devices.Add(a);}
                     var remote=RemotePartner?.Invoke(a.Machine);
                     if(remote!=null&&byPosition.TryGetValue(remote.Position,out var remoteNodes))
                         foreach(int j in remoteNodes)if(nodes[j].Group<0&&nodes[j].Port.Role==PortRole.Route)
@@ -81,17 +108,29 @@ namespace RivetReach
                     yield return 0;
                 }
             }
-            if(Kind==NetworkKind.Power)
-            {
-                // Several faces on the same cable grid still represent one device budget.
-                foreach(var group in groups)
-                {
-                    var seen=new HashSet<MachineState>();
-                    group.Ports.RemoveAll(p=>!seen.Add(p.Machine));
-                }
-            }
-            Groups=groups;Connections=connections;registered=members;
+            Groups=groups;Connections=connections;registered=members;Revision++;
         }
+        internal IEnumerable<int> Combine(NetworkTopology replacement,HashSet<NetworkActivity> removed,HashSet<BlockPos> affected,
+            Func<MachineState,NetworkActivity> activity,Snapshot snapshot)
+        {
+            int nextId=0;
+            foreach(var group in Groups)
+            {
+                nextId=Math.Max(nextId,group.Id+1);
+                if(group.Activity==null||!removed.Contains(group.Activity))
+                {snapshot.Groups.Add(group);foreach(var port in group.Ports){snapshot.Registered.Add(port.Machine);yield return 0;}}
+                yield return 0;
+            }
+            foreach(var pair in Connections){if(!affected.Contains(pair.Key))snapshot.Connections.Add(pair.Key,pair.Value);yield return 0;}
+            foreach(var group in replacement.Groups)
+            {
+                group.Id=nextId++;group.Activity=activity(group.Ports[0].Machine);snapshot.Groups.Add(group);
+                foreach(var port in group.Ports){snapshot.Registered.Add(port.Machine);yield return 0;}
+            }
+            foreach(var pair in replacement.Connections){snapshot.Connections[pair.Key]=pair.Value;yield return 0;}
+        }
+        internal void Publish(Snapshot snapshot)
+        {Groups=snapshot.Groups;Connections=snapshot.Connections;registered=snapshot.Registered;Revision++;}
     }
     public sealed class SignalNetworkService
     {
@@ -100,6 +139,7 @@ namespace RivetReach
         {
             foreach(var group in Topology.Groups)
             {
+                if(!group.Active)continue;
                 bool value=false,attached=false;
                 foreach(var p in group.Ports)
                 {if(p.Port.Role!=PortRole.Input)attached=true;if(p.Port.Role==PortRole.Output&&p.Machine.Source)value=true;}
@@ -118,6 +158,11 @@ namespace RivetReach
         public readonly NetworkTopology Topology=new NetworkTopology(NetworkKind.Power);
         readonly Dictionary<MachineState,int> generation=new Dictionary<MachineState,int>();
         readonly FairAllocation<MachineState> storageShares=new FairAllocation<MachineState>();
+        readonly Func<MachineState,long,long> storageTransfer;
+        bool storageCharge;
+        public PowerNetworkService(){storageTransfer=TransferReservedStorage;}
+        long TransferReservedStorage(MachineState machine,long amount)
+        {BatteryPower.Transfer(machine,(int)amount,storageCharge);return amount;}
         // Shared device budgets prevent multiple faces/grids from duplicating generation,
         // demand or storage. Only cable vertices connect grids, never a device interior.
         public void Allocate(long tick)
@@ -125,8 +170,9 @@ namespace RivetReach
             generation.Clear();
             foreach(var group in Topology.Groups)
             {
+                if(!group.Active)continue;
                 group.Supply=group.Demand=0;
-                foreach(var p in group.Ports)
+                foreach(var p in group.Devices)
                 {
                     var m=p.Machine;
                     m.DeliveredWatts=0;
@@ -138,6 +184,7 @@ namespace RivetReach
             // First all ordinary loads consume generation, before any storage charge.
             foreach(var group in Topology.Groups)
             {
+                if(!group.Active)continue;
                 int used=Serve(group,AvailableGeneration(group),tick);
                 ConsumeGeneration(group,used);group.Supply+=used;
             }
@@ -146,8 +193,9 @@ namespace RivetReach
             ChargeSurplus(tick);
             foreach(var group in Topology.Groups)
             {
+                if(!group.Active)continue;
                 int available=0;
-                foreach(var p in group.Ports)if(p.Port.Role==PortRole.Storage)available=(int)Math.Min(int.MaxValue,(long)available+BatteryPower.Available(p.Machine,false));
+                foreach(var p in group.Devices)if(p.Port.Role==PortRole.Storage)available=(int)Math.Min(int.MaxValue,(long)available+BatteryPower.Available(p.Machine,false));
                 int used=Serve(group,available,tick);group.Supply+=used;
                 TransferStorage(group,used,false,tick);
             }
@@ -157,24 +205,27 @@ namespace RivetReach
         int AvailableGeneration(NetworkTopology.Group group)
         {
             int watts=0;
-            foreach(var p in group.Ports)if(p.Port.Role==PortRole.Output)watts+=generation[p.Machine];
+            foreach(var p in group.Devices)if(p.Port.Role==PortRole.Output)watts+=generation[p.Machine];
             return watts;
         }
         void ConsumeGeneration(NetworkTopology.Group group,int watts)
         {
-            foreach(var p in group.Ports)if(p.Port.Role==PortRole.Output&&watts>0)
+            foreach(var p in group.Devices)if(p.Port.Role==PortRole.Output&&watts>0)
             {int take=Math.Min(watts,generation[p.Machine]);generation[p.Machine]-=take;p.Machine.DeliveredWatts+=take;watts-=take;}
         }
         int TransferStorage(NetworkTopology.Group group,int watts,bool charge,long tick)
         {
+            if(watts<=0)return 0;
             storageShares.Clear();
-            foreach(var p in group.Ports)if(p.Port.Role==PortRole.Storage)storageShares.Add(p.Machine,BatteryPower.Available(p.Machine,charge));
-            return (int)storageShares.Distribute(watts,tick,(m,take)=>{BatteryPower.Transfer(m,(int)take,charge);return take;});
+            foreach(var p in group.Devices)if(p.Port.Role==PortRole.Storage)storageShares.Add(p.Machine,BatteryPower.Available(p.Machine,charge));
+            storageCharge=charge;
+            return (int)storageShares.Distribute(watts,tick,storageTransfer);
         }
         void ChargeSurplus(long tick)
         {
             foreach(var group in Topology.Groups)
             {
+                if(!group.Active)continue;
                 int used=TransferStorage(group,AvailableGeneration(group),true,tick);
                 ConsumeGeneration(group,used);group.Supply+=used;
             }
@@ -187,15 +238,19 @@ namespace RivetReach
             for(int priority=0;priority<3&&supply>0;priority++)
             {
                 int requested=0;
-                foreach(var p in group.Ports)if(p.Port.Role==PortRole.Input&&p.Machine.Priority==priority)requested+=Need(p.Machine);
+                foreach(var p in group.Devices)if(p.Port.Role==PortRole.Input&&p.Machine.Priority==priority)requested+=Need(p.Machine);
                 if(requested==0)continue;
                 int available=Math.Min(supply,requested),used=0;
-                foreach(var p in group.Ports)if(p.Port.Role==PortRole.Input&&p.Machine.Priority==priority)
+                foreach(var p in group.Devices)if(p.Port.Role==PortRole.Input&&p.Machine.Priority==priority)
                 {int amount=(int)((long)Need(p.Machine)*available/requested);p.Machine.ReceivedWatts+=amount;used+=amount;}
-                int residual=available-used,count=group.Ports.Count,start=(int)(tick%count);
-                for(int n=0;n<count&&residual>0;n++)
+                int residual=available-used,start=(int)(tick%group.Ports.Count);
+                // Preserve the original all-port cursor, including route positions,
+                // while visiting only devices on either side of its wrap point.
+                for(int pass=0;pass<2&&residual>0;pass++)
+                foreach(var p in group.Devices)
                 {
-                    var p=group.Ports[(start+n)%count];
+                    if(residual==0)break;
+                    if(pass==0?p.Order<start:p.Order>=start)continue;
                     if(p.Port.Role==PortRole.Input&&p.Machine.Priority==priority&&Need(p.Machine)>0)
                     {p.Machine.ReceivedWatts++;residual--;}
                 }

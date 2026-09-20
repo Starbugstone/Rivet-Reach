@@ -7,12 +7,14 @@ namespace RivetReach
     public sealed partial class FurnaceState : IItemPipeInventory
     {
         public int ItemInputPriority {get;set;}=50;
+        ItemStack IItemPipeInventory.ReadSlot(int slot)=>contents.Slots[slot];
         bool IItemPipeInventory.CanExtract(int slot)=>slot==2;
         int PipeInputSlot(byte id,int localFace)=>localFace<0?(Accepts(0,id)?0:Accepts(1,id)?1:-1):localFace==4?1:0;
-        bool IItemPipeInventory.Prefers(byte id,int localFace)
+        ItemInputRequest IItemPipeInventory.QueryInput(byte id,int localFace)
         {
             int slot=PipeInputSlot(id,localFace);
-            return slot>=0&&Accepts(slot,id)&&(Slots[slot].Id==id||slot==0&&!Slots[2].Empty&&registry.Find(id).Output.Id==Slots[2].Id);
+            if(slot<0||!Accepts(slot,id))return ItemInputRequest.Reject;
+            return Slots[slot].Id==id||slot==0&&!Slots[2].Empty&&registry.Find(id).Output.Id==Slots[2].Id?ItemInputRequest.Prefer:ItemInputRequest.Accept;
         }
         bool IItemPipeInventory.TryInsert(byte id,int localFace)
         {
@@ -43,12 +45,7 @@ namespace RivetReach
         public void Click(int slot,ref ItemStack held,bool right)
         {
             if(slot<0||slot>2)throw new ArgumentOutOfRangeException(nameof(slot));
-            if(slot==2)
-            {
-                var output=Slots[2];if(output.Empty||!held.Empty&&held.Id!=output.Id)return;
-                int amount=Math.Min(right?(output.Count+1)/2:output.Count,limit(output.Id)-(held.Empty?0:held.Count));
-                if(amount<=0)return;contents.Take(2,amount);held=new ItemStack(output.Id,held.Count+amount);
-            }
+            if(slot==2)contents.TakeToCursor(slot,ref held,right);
             else if(held.Empty||Accepts(slot,held.Id))contents.Click(slot,ref held,right);
             InputChanged();
         }

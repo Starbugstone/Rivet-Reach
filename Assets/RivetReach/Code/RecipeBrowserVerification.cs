@@ -251,7 +251,21 @@ namespace RivetReach
             game.UI.ClickSlot(12, false, false); var held = game.UI.HeldStack;
             Search().text = "torch"; yield return null; yield return BrowserPointer(Item(BlockId.Torch));
             Check(game.UI.HeldStack.Id == held.Id && game.UI.HeldStack.Count == held.Count && game.Crafting.Grid.Revision == gridRevision, "Recipe clicks preserve a held cursor stack and cannot fall through into crafting");
-            Check(TextContains("1 / "+new RecipeBrowserIndex(game.Registry,game.Recipes,game.Processing).Find(BlockId.RawIron,true).Count), "Alternative coal and charcoal torch recipes are both discoverable");
+            var torchRecipes=new RecipeBrowserIndex(game.Registry,game.Recipes,game.Processing).Find(BlockId.Torch,false);
+            Check(torchRecipes.Any(r=>r.Ingredients.Any(s=>s.Id==BlockId.Coal))&&torchRecipes.Any(r=>r.Ingredients.Any(s=>s.Id==BlockId.Charcoal)),
+                "Torch recipe index contains both coal and charcoal alternatives");
+            var visibleTorchFuels=new HashSet<byte>();
+            for(int page=0;page<torchRecipes.Count;page++)
+            {
+                var torchDetail=game.UI.VisibleRoot.GetComponentsInChildren<Transform>().Single(t=>t.name=="Recipe detail");
+                Check(torchDetail.GetComponentsInChildren<Text>().Any(t=>t.text==(page+1)+" / "+torchRecipes.Count),"Torch alternatives show their own correct page count");
+                var visibleItems=torchDetail.GetComponentsInChildren<BrowserItemView>();
+                Check(visibleItems.Any(v=>v.Item==BlockId.Torch)&&visibleItems.Any(v=>v.Item==BlockId.Stick),"Torch alternative displays its output and stick ingredient");
+                foreach(var view in visibleItems)if(view.Item==BlockId.Coal||view.Item==BlockId.Charcoal)visibleTorchFuels.Add(view.Item);
+                if(page+1<torchRecipes.Count)yield return BrowserPointer(torchDetail.GetComponentsInChildren<Button>().Single(b=>b.GetComponentInChildren<Text>().text=="›"));
+            }
+            Check(visibleTorchFuels.Contains(BlockId.Coal)&&visibleTorchFuels.Contains(BlockId.Charcoal),"Alternative coal and charcoal torch recipes are both discoverable through actual page navigation");
+            Check(game.UI.HeldStack.Id==held.Id&&game.UI.HeldStack.Count==held.Count&&game.Crafting.Grid.Revision==gridRevision,"Alternative recipe navigation preserves the held stack and crafting grid");
             yield return Capture("torch-alternatives");
             game.UI.CloseBrowserRecipe(); game.UI.ClickSlot(12, false, false); game.Inventory.Take(12, int.MaxValue);
             Search().text = "iron"; game.SetMode(ScreenMode.Play); game.SetMode(ScreenMode.Inventory); yield return null; yield return null;
@@ -432,7 +446,41 @@ namespace RivetReach
                     Search().text = "";
                 }
                 if (stationId == IndustryId.Bench) { Check(game.Crafting.Grid.Size == 4, "Machinist retains its 4 × 4 crafting grid"); yield return Capture("machinist-sidebar"); }
-                if (stationId == BlockId.Furnace) { yield return Capture("furnace-sidebar"); yield return BrowserPointer(Named("RECIPES & FUEL")); Check(TextContains("Used here as the station"), "Furnace guide opens station uses in the shared browser"); game.UI.CloseBrowserRecipe(); }
+                if (stationId == BlockId.Furnace)
+                {
+                    yield return Capture("furnace-sidebar");
+                    var furnaceUses = new RecipeBrowserIndex(game.Registry, game.Recipes, game.Processing).Find(BlockId.Furnace, true);
+                    int stationPage = furnaceUses.ToList().FindIndex(r => r.Station == BlockId.Furnace);
+                    int ingredientPage = furnaceUses.ToList().FindIndex(r => r.GridRecipe != null && r.Ingredients.Any(s => s.Id == BlockId.Furnace));
+                    Check(stationPage >= 0 && ingredientPage >= 0, "Furnace has operating recipes and crafting-ingredient uses");
+                    long furnaceBagRevision = game.Inventory.Revision, furnaceGridRevision = game.Crafting.Grid.Revision;
+                    var furnaceHeld = game.UI.HeldStack;
+                    yield return BrowserPointer(Named("RECIPES & FUEL"));
+                    var furnaceDetail = game.UI.VisibleRoot.GetComponentsInChildren<Transform>().Single(t => t.name == "Recipe detail");
+                    bool ShowsFurnaceRecipe(int page) => furnaceDetail.GetComponentsInChildren<BrowserItemView>().Any(v => v.RecipeId == furnaceUses[page].Id && v.Item == furnaceUses[page].Output.Id)
+                        && furnaceDetail.GetComponentsInChildren<Text>().Any(t => t.text == (page + 1) + " / " + furnaceUses.Count);
+                    Check(TextContains("Used here as the station") && ShowsFurnaceRecipe(stationPage), "Furnace guide opens station uses in the shared browser");
+                    Check(furnaceUses[stationPage].Fuels.Count > 0 && TextContains("FUEL · choose one")
+                        && furnaceUses[stationPage].Fuels.All(id => furnaceDetail.GetComponentsInChildren<BrowserItemView>().Any(v => v.Item == id)),
+                        "Furnace guide displays the operating recipe's fuel alternatives");
+                    yield return Capture("furnace-recipes-and-fuel");
+                    yield return BrowserPointer(furnaceDetail.GetComponentsInChildren<BrowserItemView>().First(v => v.Item == BlockId.Furnace));
+                    yield return BrowserPointer(Named("‹ BACK"));
+                    Check(ShowsFurnaceRecipe(stationPage) && TextContains("Used here as the station"), "Back restores the furnace guide's operating recipe page");
+                    yield return BrowserPointer(Named("DONE"));
+                    Search().text = "rivet:furnace"; yield return null;
+                    yield return BrowserPointer(Item(BlockId.Furnace), right: true);
+                    Check(ShowsFurnaceRecipe(0), "Sidebar Furnace uses retains its complete catalog order");
+                    for (int page = 0; page < ingredientPage; page++)
+                        yield return BrowserPointer(furnaceDetail.GetComponentsInChildren<Button>().Single(b => b.GetComponentInChildren<Text>().text == "›"));
+                    Check(ShowsFurnaceRecipe(ingredientPage)
+                        && furnaceDetail.GetComponentsInChildren<BrowserItemView>().Any(v => v.Item == BlockId.Furnace)
+                        && !TextContains("Used here as the station"), "Sidebar Furnace uses still exposes crafting recipes that consume a furnace");
+                    Check(game.Inventory.Revision == furnaceBagRevision && game.Crafting.Grid.Revision == furnaceGridRevision
+                        && game.UI.HeldStack.Id == furnaceHeld.Id && game.UI.HeldStack.Count == furnaceHeld.Count,
+                        "Furnace guide, Back and generic usage navigation preserve inventory, crafting and cursor contents");
+                    yield return BrowserPointer(Named("DONE")); Search().text = "";
+                }
                 game.SetMode(ScreenMode.Play); game.World.Remove(stationPosition, stationId);
             }
             for (int i = 0; i < game.Inventory.Count; i++) game.Inventory.Take(i, int.MaxValue);

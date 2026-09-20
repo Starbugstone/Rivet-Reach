@@ -1,0 +1,11 @@
+PASS 10 assertions
+PASS Constructing input retains the established defaults and does not apply the optional preset
+PASS Explicit preset applies E inventory and F interact
+PASS Preset preserves movement, hotbar actions, mouse Use preference, sensitivity and the15-slot hotbar
+PASS Chosen preset survives input reconstruction
+PASS Applying the selected preset again is idempotent
+PASS Loading custom bindings never silently replaces them with a preset
+PASS Choosing the preset cancels pending rebinding and preserves unrelated custom keys
+PASS Custom E conflict rejects the complete preset without changing any binding
+PASS Custom F conflict rejects the complete preset without changing any binding
+PASS Shared rebind authority swaps an existing E/F pair without duplicate actions

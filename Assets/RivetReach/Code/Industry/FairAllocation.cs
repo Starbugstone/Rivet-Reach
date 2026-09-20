@@ -13,11 +13,20 @@ namespace RivetReach
         }
         readonly List<Share> shares=new List<Share>(),lowest=new List<Share>();
         readonly Dictionary<T,Share> identities=new Dictionary<T,Share>();
-        public void Clear(){shares.Clear();identities.Clear();}
+        int count;
+        public void Clear()
+        {
+            // Keep peak scratch capacity, but release previous inventory/storage
+            // identities and reset grants before the next independent phase.
+            for(int i=0;i<count;i++){var share=shares[i];share.Target=default;share.Remaining=share.Granted=0;}
+            count=0;identities.Clear();lowest.Clear();
+        }
         public void Add(T target,long capacity)
         {
             if(capacity<=0||identities.ContainsKey(target))return;
-            var share=new Share{Target=target,Remaining=capacity};shares.Add(share);identities.Add(target,share);
+            Share share;
+            if(count==shares.Count){share=new Share();shares.Add(share);}else share=shares[count];
+            count++;share.Target=target;share.Remaining=capacity;share.Granted=0;identities.Add(target,share);
         }
         // Redistribute capped/rejected shares. Retain grants across calls in the
         // same phase so several sources cannot all favour the first destination.
@@ -27,8 +36,9 @@ namespace RivetReach
             while(budget>0)
             {
                 long level=long.MaxValue,next=long.MaxValue;lowest.Clear();
-                foreach(var s in shares)
+                for(int i=0;i<count;i++)
                 {
+                    var s=shares[i];
                     if(s.Remaining==0||eligible!=null&&!eligible(s.Target))continue;
                     if(s.Granted<level){next=level;level=s.Granted;lowest.Clear();lowest.Add(s);}
                     else if(s.Granted==level)lowest.Add(s);

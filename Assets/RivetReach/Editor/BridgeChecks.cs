@@ -95,7 +95,7 @@ namespace RivetReach.Editor
             try
             {
                 for(int i=0;i<changed.Length;i++)changed[i].ingredients=original[i].Take(changed[i].stableId=="rivet:industry_180"?2:3).ToArray();
-                Accept(Encode(),"Pre-tiering bridge and ranged pump checkpoint opens without changing payload");
+                Reject("Current-schema saves cannot impersonate historical recipes by removing advanced ingredients");
                 changed[0].ingredients[0].count++;
                 Reject("Changed original ingredient quantity still rejects in pre-tiering checkpoint");
                 changed[0].ingredients[0].count--;

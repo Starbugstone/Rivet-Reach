@@ -91,6 +91,7 @@ namespace RivetReach
         {foreach(var pair in views)pair.Value.Root.transform.position=world.Local(pair.Key.Min);Refresh();}
         public void Refresh()
         {
+            using var cost=RuntimeCosts.Torches.Auto();
             if(world==null||world.Observer==null)return;
             var timer=System.Diagnostics.Stopwatch.StartNew();
             refreshAt=Time.unscaledTime+.2f;

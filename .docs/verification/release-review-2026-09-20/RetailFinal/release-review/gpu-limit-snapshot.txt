@@ -1,0 +1,6 @@
+timestamp, pstate, clocks.current.graphics [MHz], power.draw [W], temperature.gpu, clocks_event_reasons.hw_thermal_slowdown, clocks_event_reasons.hw_power_brake_slowdown, clocks_event_reasons.sw_power_cap
+2026/09/20 02:03:28.550, P0, 1110 MHz, 63.14 W, 85, Not Active, Not Active, Not Active
+
+
+BatteryStatus            : 2
+EstimatedChargeRemaining : 96

@@ -46,7 +46,7 @@ namespace RivetReach
         void BuildFurnace(Transform parent)
         {
             Label(parent,"FURNACE",821,115,300,42,27);
-            Button(parent,"RECIPES & FUEL",821,164,282,32,()=>InspectBrowserItem(BlockId.Furnace,true));
+            Button(parent,"RECIPES & FUEL",821,164,282,32,()=>InspectBrowserStation(BlockId.Furnace));
             Label(parent,"INGREDIENT",821,213,120,24,13,gold);Slot(parent,StationSlotStart,837,242,60);
             Label(parent,"FUEL",821,356,100,24,13,gold);Slot(parent,StationSlotStart+1,837,384,60);
             Label(parent,"RESULT",1010,261,120,24,13,gold);Slot(parent,StationSlotStart+2,1021,290,72);
@@ -58,6 +58,16 @@ namespace RivetReach
         {
             Label(parent,"CHEST",821,115,300,42,27);Label(parent,"27 slots · Shift-click to transfer",821,164,300,30,15,gold);
             for(int i=0;i<27;i++)Slot(parent,StationSlotStart+i,821+i%5*57,213+i/5*51,45);
+        }
+        bool PaintableStationSlot(int index)
+        {
+            if(index>=ArmorSlotStart&&index<ArmorSlotStart+4)return true;
+            if(index>=MachineSlotStart&&game.OpenMachine!=null)
+            {int slot=index-MachineSlotStart;return slot<game.OpenMachine.Items.Count&&slot!=game.OpenMachine.OutputSlot;}
+            if(index<StationSlotStart||game.OpenStation==null)return false;
+            int cell=index-StationSlotStart;var station=game.OpenStation;
+            if(CrateId.Part(station.Block))return cell<(station.Block==CrateId.Controller?16:1);
+            return station.Furnace!=null?cell<2:station.Storage!=null&&cell<station.Storage.Count;
         }
         bool ClickStationSlot(int index,bool right,bool shift)
         {
@@ -90,7 +100,11 @@ namespace RivetReach
             else if(game.OpenMachine!=null)game.OpenMachine.TransferIn(game.Inventory,index);
             else if(game.OpenStation?.Furnace!=null){game.OpenStation.Furnace.TransferIn(game.Inventory,index);game.Survival.Wake(game.StationPosition);}
             else if(game.OpenStation?.Storage!=null)game.Inventory.TransferTo(index,game.OpenStation.Storage);
-            else if(game.Registry.Get(stack.Id).armorSlot!=ArmorSlot.None)game.Equipment.TransferIn(game.Inventory,index);
+            else if(game.Registry.Get(stack.Id).armorSlot!=ArmorSlot.None)
+            {
+                long revision=game.Inventory.Revision;game.Equipment.TransferIn(game.Inventory,index);
+                if(game.Inventory.Revision==revision)game.Inventory.QuickTransfer(index);
+            }
             else game.Inventory.QuickTransfer(index);
         }
         void RefreshSurvival()

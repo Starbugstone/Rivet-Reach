@@ -198,14 +198,19 @@ namespace RivetReach
             }
             else if(game.Mode==ScreenMode.Controls)
             {
-                Label(p.transform,game.Input.Rebinding==null?"Select an action, then press a key. Existing conflicts swap keys.":"Press a key for "+game.Input.Rebinding,36,87,718,45,16,gold);
+                var controlsHint=Label(p.transform,game.Input.Rebinding==null?"Select an action, then press a key. Existing conflicts swap keys.":"Press a key for "+game.Input.Rebinding,36,87,718,45,16,gold);
                 int i=0;foreach(var kv in game.Input.Keys)
                 {
                     string name=kv.Key;int col=i%2,row=i/2;
                     Button(p.transform,name+"   ·   "+kv.Value,36+col*365,143+row*48,348,40,()=>{game.Input.BeginRebind(name);Rebuild();});i++;
                 }
                 Button(p.transform,"MINE: "+(PlayerPrefs.GetInt("mineButton",0)==0?"LEFT MOUSE":"RIGHT MOUSE"),36,530,348,44,()=>{PlayerPrefs.SetInt("mineButton",1-PlayerPrefs.GetInt("mineButton",0));PlayerPrefs.Save();Rebuild();});
-                Label(p.transform,$"{game.Input.UseButtonName}: use / place\n{game.Input.Keys["Crouch"]} + {game.Input.UseButtonName}: place against stations",410,527,340,60,15);
+                Label(p.transform,$"{game.Input.UseButtonName}: use / place\n{game.Input.Keys["Crouch"]} + {game.Input.UseButtonName}: place against stations",410,527,340,50,15);
+                Button(p.transform,"E INVENTORY PRESET",36,580,348,32,()=>
+                {
+                    if(game.Input.TryApplyEInventoryPreset(out var result))Rebuild();else controlsHint.text=result;
+                },game.Input.Keys["Inventory"]==Key.E&&game.Input.Keys["Interact"]==Key.F);
+                Label(p.transform,"E: inventory · F: interact\nKeeps mouse Use and other controls.",410,579,340,37,13,gold);
             }
         }
         void Slider(Transform parent,string title,float y,float initial,float min,float max,Action<float> change,bool whole=false)
@@ -222,8 +227,8 @@ namespace RivetReach
         }
         bool rightPainting;
         readonly HashSet<int> paintedSlots = new HashSet<int>();
-        bool PaintableSlot(int index) => index >= 0 && (index < Inventory.SlotCount ||
-            index >= CraftSlotStart && index < CraftSlotStart + game.Crafting.Grid.Count) && !RecipeVisible;
+        bool PaintableSlot(int index) => index >= 0 && !RecipeVisible && (index < Inventory.SlotCount ||
+            index >= CraftSlotStart && index < CraftSlotStart + game.Crafting.Grid.Count || PaintableStationSlot(index));
         public bool BeginRightPaint(int index, bool shift)
         {
             EndRightPaint();
@@ -329,6 +334,7 @@ namespace RivetReach
         }
         void Update()
         {
+            using var cost=RuntimeCosts.UI.Auto();
             if(game==null)return;
             if(game.InventoryOpen && !HasInventoryBinding) { game.SetMode(ScreenMode.Play); return; }
             PrewarmInventory();
@@ -338,31 +344,16 @@ namespace RivetReach
             RefreshSurvival();RefreshMachine();RefreshCrates();
             if(message!=null)message.text=game.Message??"";
             if(loading!=null)loading.text=!game.ReadyToPlay?"Preparing nearby terrain…":"";
-            if(targetLabel!=null)
-            {
-                string hint=BlockId.MiningHint(game.Player.TargetId,game.Creative?ToolCapability.Pickaxe:game.Registry.Capabilities(game.Inventory.Slots[game.Selected]),game.Creative?ToolTier.Diamond:game.Registry.Tier(game.Inventory.Slots[game.Selected]));
-                targetLabel.text=game.Player.HasTarget?(Fluids.Registry.Get(game.Player.TargetId) is FluidDefinition targetFluid?targetFluid.DisplayName+" source · Use bucket":game.Registry.Get(game.Player.TargetId).displayName)+((BlockId.Station(game.Player.TargetId)||IndustryId.Placed(game.Player.TargetId))?$"\n{game.Input.Keys["Interact"]} / {game.Input.UseButtonName} · Open"+(game.Player.TargetId==BlockId.Workbench?" 3 × 3 crafting":""):hint.Length>0?" · "+hint:""):"";
-                if(game.Player.HasTarget&&IndustryId.DoorPart(game.Player.TargetId))
-                    targetLabel.text=$"Wooden Door\n{game.Input.Keys["Interact"]} / {game.Input.UseButtonName}: open / close · Blue Signal at base";
-                if(game.Player.HasTarget&&game.Player.TargetId==IndustryId.HandCrank)
-                    targetLabel.text=$"Hand Crank\n{game.Input.Keys["Interact"]} / {game.Input.UseButtonName}: turn · hold {game.Input.UseButtonName} to repeat\n50 J per turn · 100 W while cranking";
-                if(game.TryGetPipeEndTarget(out var pipe,out int pipeFace))
-                    targetLabel.text=(pipe.Definition.Id==IndustryId.ItemPipe?"Item":"Fluid")+" connection · "+(game.Industry.Simulation.PipeEndRole(pipe,pipeFace)==PortRole.Disabled?"NO CONNECTION":game.Industry.Simulation.PipeEndRole(pipe,pipeFace)==PortRole.Input?"<color=#3399ff>INPUT into machine</color>":"<color=#ff4433>OUTPUT from machine</color>")+(game.HoldingWrench?$"\n{game.Input.UseButtonName} with wrench: Input → Output → No connection":"\nHold a Wrench to change direction");
-            }
+            RefreshTargetLabel();
             if(progress!=null)
             {
                 progress.transform.parent.gameObject.SetActive(game.Player.HasTarget&&game.Player.MiningProgress>0);
                 progress.rectTransform.sizeDelta=new Vector2(120*Mathf.Clamp01(game.Player.MiningProgress),3);
             }
-            if(selectedLabel!=null){var s=game.Inventory.Slots[game.Selected];selectedLabel.text=s.Empty?"BARE HAND":game.Registry.Get(s.Id).displayName+"  ·  "+StackStatus(s);}
             frameAverage=Mathf.Lerp(frameAverage,Time.unscaledDeltaTime,.05f);
             if(diagnosticsPanel!=null)diagnosticsPanel.SetActive(game.Diagnostics);
-            if(worldTime!=null)
-            {
-                var clock=game.Sky.Clock;int minute=(int)(clock.Hour*60);
-                worldTime.text=$"Day {clock.DayNumber} · {minute/60:00}:{minute%60:00}\n{clock.MoonPhaseName} · {game.Weather.Kind}";
-            }
-            if(diagnostics!=null)diagnostics.text=game.Diagnostics?$"{1/Mathf.Max(.001f,frameAverage):0} fps · {frameAverage*1000:0.0} ms\nWorld: {TerrainGenerator.WorldId} · seed {game.Seed} · {game.World.Address(game.Player.transform.position)}\nChunks {game.World.ReadyCount}/{game.World.ResidentCount} · queue {game.World.PendingCount}\nGeneration + mesh {game.World.LastBuildMs:0.0} ms · edit mesh {game.World.LastEditMeshMs:0.0} ms\nTriangles {game.World.MeshTriangles:N0} · changes {game.World.EditCount} · piles {game.Items.Piles.Count}\nStale jobs rejected {game.World.RejectedJobs} · origin {game.World.Origin}\nPlacement: {game.PlacementDiagnostic??"No attempt yet"}\nIndustry: {game.Industry.Simulation.Machines.Count} assemblies · tick {game.Industry.Simulation.LastStepMs:0.00} ms · {(game.Industry.Simulation.Rebuilding?"Connecting":"Ready")}":"";
+            RefreshWorldTime();
+            RefreshDiagnostics();
             if(preview!=null&&previewRoot.activeSelf)preview.Animate(.12f,false,Time.unscaledTime*2);
         }
         void LateUpdate()

@@ -4,8 +4,10 @@ using System.Linq;
 
 namespace RivetReach
 {
+    public interface IItemSelector { IReadOnlyList<byte> Choices {get;} bool Matches(byte id); }
+
     // Immutable selector shared by recipe compilers; quantities belong to their recipe.
-    public sealed class ItemSelector
+    public sealed class ItemSelector : IItemSelector
     {
         readonly bool[] members=new bool[256];
         public IReadOnlyList<byte> Choices {get;}

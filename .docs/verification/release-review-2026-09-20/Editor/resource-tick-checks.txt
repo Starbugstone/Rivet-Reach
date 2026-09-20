@@ -1,0 +1,13 @@
+PASS 11 assertions
+GC.Alloc recorder calibrated: empty control emitted no event; retained 4096-byte array emitted an event. Byte counter unsupported (0).
+PASS Reused allocation entries discard prior identities/grants and redistribute fresh caps exactly
+PASS Warmed capped allocation phases reuse share entries without allocation (calibrated allocation detection)
+PASS Device-only power scans preserve the original full-port rotating leftover order across long cable runs
+PASS Warmed power allocation and battery storage callbacks allocate no managed memory (calibrated allocation detection)
+PASS Cached power endpoints retain exact surplus charging after topology replacement
+PASS Shared tank fixture forms with one closed valve and one ordinary open inlet
+PASS A closed inlet cannot hide the receiving capacity of another open port sharing the same tank
+PASS Conflicting liquids retain exact contents and mark both cached devices and route geometry
+PASS Removing a fluid conflict refreshes device and route state without topology reconstruction
+PASS Warmed ordinary fluid ticks reuse allocator entries, callbacks and identity scratch without allocation (calibrated allocation detection)
+PASS Reused fluid phase scratch retains the exact 100 mL end budget and stable topology

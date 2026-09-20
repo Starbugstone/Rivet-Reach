@@ -1,0 +1,1 @@
+512 mixed mature crops: 603656 vertices, 737904 indices; exact scratch payload 27107072 bytes; retained 53811808 bytes across 3 builders [679113 vertices / 830142 indices / 30495328 bytes; 4096 vertices / 4096 indices / 181248 bytes; 524288 vertices / 524288 indices / 23135232 bytes]

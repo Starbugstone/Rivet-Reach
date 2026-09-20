@@ -77,24 +77,11 @@ namespace RivetReach.Editor
                 bytes.Position=0;var restored=new IndustrySimulation(w,id=>64);using(var reader=new SaveReader(bytes,items))typeof(IndustrySimulation).GetMethod("ReadSave",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(restored,new object[]{reader});
                 var saved=restored.At(origin);Check(saved.Work==work&&saved.Fluid.Amount==1234&&saved.Fluid.Fluid==Fluids.Lava,"Machine save round trip retains exact lava and partial work");
             }
-            Compatibility(items,Check);
             var model=Resources.Load<GameObject>("Industry/Runtime/ranged_liquid_pump");Check(model!=null&&model.GetComponentsInChildren<MeshFilter>().Length==3,"Imported cradle, suspended core and status lamp");
             var filters=model.GetComponentsInChildren<MeshFilter>();
             Check(filters.All(f=>f.sharedMesh.vertices.All(v=>{var p=f.transform.TransformPoint(v);return p.x>=-.001f&&p.y>=-.001f&&p.z>=-.001f&&p.x<=1.001f&&p.y<=1.001f&&p.z<=1.001f;})),"Imported geometry remains inside one cell");
             lines.Add("Imported triangles: "+filters.Sum(f=>f.sharedMesh.triangles.Length/3)+"; mesh parts: "+filters.Length);
             lines.Insert(0,"PASS "+lines.Count(line=>line.StartsWith("PASS "))+" assertions");File.WriteAllLines("Logs/ranged-pump-checks.txt",lines);
-        }
-        static void Compatibility(ItemRegistry items,Action<bool,string> check)
-        {
-            var store=new SaveStore("unused",items);var old=ScriptableObject.CreateInstance<ItemRegistry>();var catalog=RecipeCatalogAsset.Load();var original=catalog.recipes;
-            try
-            {
-                old.items=items.items.Where(i=>i.runtimeId!=IndustryId.RangedPump).Select(i=>JsonUtility.FromJson<ItemDefinition>(JsonUtility.ToJson(i))).ToArray();catalog.recipes=original.Where(r=>r.stableId!="rivet:industry_180").ToArray();
-                var entry=new SaveEntry{Id=Guid.NewGuid().ToString("N"),WorldId=Guid.NewGuid().ToString("N"),Name="Pre-ranged content",UtcTicks=DateTime.UtcNow.Ticks};
-                var bytes=new SaveStore("unused",old).Encode(entry,w=>w.Write(512));using(var r=store.Open(bytes,out _))check(r.ReadInt32()==512,"Pre-ranged current-schema content remains compatible");
-                old.items[0].attackDamage++;bytes=new SaveStore("unused",old).Encode(entry,w=>w.Write(512));bool rejected=false;try{using var r=store.Open(bytes,out _);}catch(InvalidDataException){rejected=true;}check(rejected,"Unrelated earlier definition changes still reject");
-            }
-            finally{catalog.recipes=original;UnityEngine.Object.DestroyImmediate(old);}
         }
     }
 }

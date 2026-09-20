@@ -190,12 +190,24 @@ namespace RivetReach
             browserHovered = id;
             if (browserTip != null) browserTip.text = (id == 0 ? "Click: recipes · Right-click: uses" : game.Registry.Get(id).displayName) + "\nShift-click: fill one · Ctrl+Shift: max\nRight-click / U: uses" + BrowserDragHint;
         }
-        public void InspectBrowserItem(byte id, bool usages)
+        void InspectBrowserStation(byte id)
+        {
+            if (!HasInventoryBinding || id == 0) return;
+            EnsureBrowserIndex();
+            var matches = browserIndex.Find(id, true);
+            // A station can also be a construction ingredient. Its guide opens at
+            // an operating recipe while retaining the complete ordinary Uses list.
+            for (int page = 0; page < matches.Count; page++)
+                if (matches[page].Station == id) { InspectBrowserItem(id, true, page); return; }
+            InspectBrowserItem(id, true);
+        }
+        public void InspectBrowserItem(byte id, bool usages) => InspectBrowserItem(id, usages, 0);
+        void InspectBrowserItem(byte id, bool usages, int page)
         {
             if (!HasInventoryBinding || id == 0) return;
             if (browserItem != 0) browserHistory.Push((browserItem, browserUses, recipePage));
             browserSearchField?.DeactivateInputField();
-            browserItem = id; browserUses = usages; recipePage = 0; DrawBrowserRecipe();
+            browserItem = id; browserUses = usages; recipePage = page; DrawBrowserRecipe();
         }
         public void CloseBrowserRecipe()
         {

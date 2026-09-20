@@ -65,8 +65,8 @@ namespace RivetReach
             while(accumulator>=.05f)
             {
                 accumulator-=.05f;
-                var watch=System.Diagnostics.Stopwatch.StartNew();Tick(.05f);
-                MaximumTickMs=Math.Max(MaximumTickMs,watch.Elapsed.TotalMilliseconds);
+                using var cost=RuntimeCosts.Mobs.Auto();long began=System.Diagnostics.Stopwatch.GetTimestamp();Tick(.05f);
+                MaximumTickMs=Math.Max(MaximumTickMs,(System.Diagnostics.Stopwatch.GetTimestamp()-began)*1000.0/System.Diagnostics.Stopwatch.Frequency);
             }
             foreach(var mob in Mobs)
             {

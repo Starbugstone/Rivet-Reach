@@ -27,8 +27,9 @@ namespace RivetReach
             for(int x=-5;x<=5;x++)for(int z=-3;z<=4;z++)
             {Put(p.Offset(x,-1,z),BlockId.Dirt);for(int y=0;y<=3;y++)Put(p.Offset(x,y,z),0);}
             player.transform.position=world.Local(p)+new Vector3(.5f,.02f,-2.2f);player.ResetMotion();game.Sky.Clock.SetTime(.4);game.Sky.Apply();
+            Vector3 SelectionCenter(BlockPos cell)=>world.Local(cell)+(BlockDefinitions.Get(world.Get(cell)).Shape(world,cell)?.Bounds.center??Vector3.one*.5f);
             void Aim(BlockPos cell)
-            {player.Camera.transform.position=world.Local(cell)+new Vector3(.5f,1.2f,-2);player.Camera.transform.LookAt(world.Local(cell)+new Vector3(.5f,.35f,.5f));}
+            {player.Camera.transform.position=world.Local(cell)+new Vector3(.5f,1.2f,-2);player.Camera.transform.LookAt(SelectionCenter(cell));}
             var binPos=p;Put(binPos,CompostId.Bin);var bin=sim.At(binPos);sim.Step();
             var seeds=new ItemStack(FarmId.WheatSeed,3);bin.Click(0,ref seeds,false);var potatoes=new ItemStack(BlockId.Potato,4);bin.Click(0,ref potatoes,false);var bread=new ItemStack(FarmId.Bread,3);bin.Click(0,ref bread,false);
             Check(seeds.Empty&&potatoes.Empty&&bread.Empty&&bin.CompostPoints==23&&bin.Items.Slots[0].Empty,"Mixed manual deposits vanish immediately and accumulate shared progress");
@@ -39,7 +40,9 @@ namespace RivetReach
             player.Camera.transform.position=world.Local(binPos)+new Vector3(2.3f,1.8f,-2.4f);player.Camera.transform.LookAt(world.Local(binPos)+Vector3.one*.45f);yield return new WaitForSecondsRealtime(.5f);yield return Capture("compost-bin-filled");
             var wild=p.Offset(-3,0,1);var farm=p.Offset(-2,0,1);Check(world.Till(wild.Offset(0,-1,0))&&world.Plant(wild,FarmId.WheatSeed),"Plant timed wheat fixture");Check(world.Till(farm.Offset(0,-1,0))&&world.Plant(farm,FarmId.CarrotSeed),"Cultivated carrot planted beside timed wheat");
             AdvanceCrops(1199);Check(world.Get(wild)==FarmId.WheatPlant&&world.Get(farm)==FarmId.CarrotPlant,"Crops still immature just before original deadline");
-            game.Inventory.Add(CompostId.Compost,8,0,1);game.Selected=0;Aim(wild);Check(game.TryUseCompost(),"Selected compost accelerates immature wheat through raycast");
+            Check(game.Inventory.Add(CompostId.Compost,8,0,1)==0,"All eight compost items enter the selected fixture slot");game.Selected=0;Aim(wild);
+            Check(world.Raycast(player.Camera.transform.position,player.Camera.transform.forward,5,out var cropHit,out _)&&cropHit.Equals(wild),"Compost aim intersects the actual immature wheat selection shape");
+            Check(game.TryUseCompost(),"Selected compost accelerates immature wheat through raycast");
             Check(world.Get(wild)==FarmId.WheatPlant+1&&game.Inventory.Total(CompostId.Compost)==7,"Successful use consumes exactly one compost and one stage");
             AdvanceCrops(1);Check(world.Get(wild)==FarmId.WheatPlant+1&&world.Get(farm)==FarmId.CarrotPlant+1,"Old wheat deadline was replaced while ordinary cultivated growth continued");
             Aim(farm);Check(game.TryUseCompost(),"Compost also accelerates cultivated crop");Check(world.Get(farm)==FarmId.CarrotPlant+2,"Cultivated growth advances exactly one stage");
@@ -68,7 +71,7 @@ namespace RivetReach
             var shaded=p.Offset(-4,0,1);Check(world.Till(shaded.Offset(0,-1,0))&&world.Plant(shaded,FarmId.FlaxSeed),"Plant flax use fixture");
             // Real input dispatch: a held mouse press applies once; a second click is required.
             player.transform.position=world.Local(shaded)+new Vector3(.5f,.02f,-2);player.enabled=true;player.Yaw=0;player.Pitch=25;player.ResetMotion();yield return null;
-            Vector3 direction=(world.Local(shaded)+new Vector3(.5f,.35f,.5f)-player.Camera.transform.position).normalized;player.Yaw=Mathf.Atan2(direction.x,direction.z)*Mathf.Rad2Deg;player.Pitch=-Mathf.Asin(direction.y)*Mathf.Rad2Deg;yield return null;
+            Vector3 direction=(SelectionCenter(shaded)-player.Camera.transform.position).normalized;player.Yaw=Mathf.Atan2(direction.x,direction.z)*Mathf.Rad2Deg;player.Pitch=-Mathf.Asin(direction.y)*Mathf.Rad2Deg;yield return null;
             count=game.Inventory.Total(CompostId.Compost);InputSystem.QueueStateEvent(Mouse.current,new MouseState().WithButton(MouseButton.Right));yield return new WaitForSecondsRealtime(.5f);
             InputSystem.QueueStateEvent(Mouse.current,new MouseState());yield return null;player.enabled=false;
             Check(world.Get(shaded)==FarmId.FlaxPlant+1&&game.Inventory.Total(CompostId.Compost)==count-1,"Actual held right-click applies compost once, without repeated stage spending");yield return Capture("compost-use-in-hand");

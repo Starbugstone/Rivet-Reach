@@ -39,7 +39,7 @@ namespace RivetReach
         }
         void LateUpdate()
         {
-            if(game==null||game.Player==null)return;
+            if(game==null||game.Player==null||!game.HoldingWrench&&views.Count==0)return;
             var sim=game.Industry.Simulation;
             if(Time.unscaledTime>=nextRefresh)
             {

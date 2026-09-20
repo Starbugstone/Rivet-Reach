@@ -68,7 +68,8 @@ namespace RivetReach
         {var obj=new GameObject((c.Adult?"Chicken":"Chick")+" #"+c.Id);obj.transform.SetParent(transform,false);obj.transform.position=c.Position.Local(world.Origin);c.View=obj.AddComponent<ChickenView>();c.View.Initialize(c);}
         public void Step()
         {
-            var watch=System.Diagnostics.Stopwatch.StartNew();searchBudget=2;LastSearches=0;
+            using var cost=RuntimeCosts.Animals.Auto();
+            long began=System.Diagnostics.Stopwatch.GetTimestamp();searchBudget=2;LastSearches=0;
             if(--refreshTicks<=0){refreshTicks=20;RefreshActive();}
             if(--spawnTicks<=0){spawnTicks=200;if(NaturalSpawning&&game.ReadyToPlay&&!game.Health.Dead)TryNaturalSpawn();}
             for(int i=active.Count-1;i>=0;i--)
@@ -95,7 +96,7 @@ namespace RivetReach
                     break;
                 }
             }
-            MaximumTickMs=Math.Max(MaximumTickMs,watch.Elapsed.TotalMilliseconds);
+            MaximumTickMs=Math.Max(MaximumTickMs,(System.Diagnostics.Stopwatch.GetTimestamp()-began)*1000.0/System.Diagnostics.Stopwatch.Frequency);
         }
         bool Dry(Vector3 feet,MobDefinition body)
         {

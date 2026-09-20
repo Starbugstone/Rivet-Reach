@@ -13,6 +13,8 @@ namespace RivetReach
         sealed class Resident
         {
             public int Revision, Token;
+            public int FailedRevision=-1,Failures;
+            public long PendingSequence;
             public byte[] Cells;
             public GameObject View;
             public Mesh Mesh,FluidMesh;
@@ -20,18 +22,24 @@ namespace RivetReach
             public bool Busy,Dirty=true;
         }
         readonly Dictionary<ChunkPos,Resident> chunks=new Dictionary<ChunkPos,Resident>();
+        // Only pending pages participate in worker selection; a settled world does
+        // not rescan thousands of resident pages every rendered frame.
+        readonly Dictionary<ChunkPos,Resident> pendingMeshes=new Dictionary<ChunkPos,Resident>();
         readonly Dictionary<(long x,long z),(int min,int max)> surfaceRanges=new Dictionary<(long,long),(int,int)>();
         readonly Dictionary<ChunkPos,Dictionary<int,byte>> edits=new Dictionary<ChunkPos,Dictionary<int,byte>>();
-        readonly List<Task<ChunkBuild>> work=new List<Task<ChunkBuild>>();
-        int nextToken;
+        readonly List<(Task<ChunkBuild> task,ChunkPos position,int token,int revision)> work=new List<(Task<ChunkBuild>,ChunkPos,int,int)>();
+        int nextToken;long nextPendingSequence,meshDispatches;
         readonly HashSet<ChunkPos> wanted=new HashSet<ChunkPos>();
         readonly HashSet<(long,long)> wantedColumns=new HashSet<(long,long)>();
         readonly List<ChunkPos> releaseChunks=new List<ChunkPos>();
+        readonly Queue<(GameObject view,Mesh terrain,Mesh fluid)> retiredViews=new Queue<(GameObject,Mesh,Mesh)>();
+        public const int ViewTeardownBudget=4;
+        public int PendingViewTeardowns=>retiredViews.Count;
         readonly List<(long,long)> releaseColumns=new List<(long,long)>();
         readonly List<(long x,long z)> releaseSky=new List<(long x,long z)>();
         public TerrainGenerator Generator { get; private set; }
         public BlockPos Origin { get; private set; }
-        public Transform Observer;
+        public Transform Observer,ViewObserver;
         public int ViewDistance=10;
         public float FogStart => Math.Max(48,(ViewDistance*32-24)*.80f);
         public float FogEnd => ViewDistance*32-16;
@@ -42,7 +50,7 @@ namespace RivetReach
         public double LastFluidTickMs {get;private set;}
         public int ResidentCount => chunks.Count;
         public int ReadyCount => chunks.Values.Count(c=>c.Cells!=null);
-        public int PendingCount => chunks.Values.Count(c=>c.Dirty);
+        public int PendingCount => pendingMeshes.Count;
         public int RunningJobs=>work.Count;
         public int EditCount => edits.Values.Sum(e=>e.Count);
         public int MeshTriangles => chunks.Values.Sum(c=>c.Mesh==null||c.Mesh.subMeshCount==0?0:(int)c.Mesh.GetIndexCount(0)/3);
@@ -55,6 +63,7 @@ namespace RivetReach
         public event Action<Vector3> OriginShifted;
         public event Action<BlockPos> BlockChanged;
         public event Action ResidencyChanged;
+        public event Action<ChunkPos> ChunkResidencyChanged;
         public event Action<ChunkPos,byte[]> ChunkReady;
         public Func<BlockPos,bool> IsOpenMachine;
         public Func<IEnumerable<ChunkPos>> PersistentChunkTickets;
@@ -153,8 +162,9 @@ namespace RivetReach
             (Get(p)==BlockId.Grass?Change(p,BlockId.Grass,BlockId.Farmland):Change(p,BlockId.Dirt,BlockId.Farmland));
         public bool Plant(BlockPos p,byte planting=BlockId.Potato)
         {var crop=CropRules.Planting(planting);return crop!=null&&Get(p.Offset(0,-1,0))==BlockId.Farmland&&Change(p,0,crop.first);}
+        // Growth changes authoritative state now; all stages in a page share queued mesh work.
         public bool Grow(BlockPos p,byte expected)
-        {var crop=CropRules.For(expected);return crop!=null&&crop.Supports(Get(p.Offset(0,-1,0)))&&expected<crop.Mature&&Change(p,expected,(byte)(expected+1));}
+        {var crop=CropRules.For(expected);return crop!=null&&crop.Supports(Get(p.Offset(0,-1,0)))&&expected<crop.Mature&&Change(p,expected,(byte)(expected+1),false);}
         public bool Uproot(BlockPos p,byte expected)
         {
             if((!BlockId.Crop(expected)&&expected!=BlockId.Sapling)||!Change(p,expected,0,false,false))return false;
@@ -216,7 +226,7 @@ namespace RivetReach
             grassAccumulator+=dt;int steps=0;
             while(grassAccumulator>=GrassSimulation.StepSeconds&&steps++<4)
             {
-                var clock=Stopwatch.StartNew();Grass.Step(this,grassChunks);LastGrassTickMs=clock.Elapsed.TotalMilliseconds;
+                long began=Stopwatch.GetTimestamp();Grass.Step(this,grassChunks);LastGrassTickMs=(Stopwatch.GetTimestamp()-began)*1000.0/Stopwatch.Frequency;
                 grassAccumulator-=GrassSimulation.StepSeconds;
             }
         }
@@ -240,7 +250,7 @@ namespace RivetReach
                 var kv=new KeyValuePair<ChunkPos,Resident>(key,resident);
                 var min=kv.Key.Min;long x=p.X-min.X,z=p.Z-min.Z;int y=p.Y-min.Y;
                 if(x < -1 || x>32 || y < -1 || y>32 || z < -1 || z>32)continue;
-                var c=kv.Value;c.Revision++;c.Dirty=true;
+                var c=kv.Value;c.Revision++;c.Dirty=true;QueueMesh(kv.Key,c);
                 if(!requireReady)treeMeshes.Add(kv.Key);
                 if(c.Cells!=null)c.Cells[ChunkMesher.Index((int)x,y,(int)z)]=replacement;
             }
@@ -257,21 +267,24 @@ namespace RivetReach
             TorchChanged(p,expected,replacement);
             FluidSimulation.Changed(this,p);
             if(!immediate){BlockChanged?.Invoke(p);return true;}
-            var editClock=Stopwatch.StartNew();
+            long editBegan=Stopwatch.GetTimestamp();
             for(int z=-1;z<=1;z++)for(int y=-1;y<=1;y++)for(int x=-1;x<=1;x++)
             {
                 var key=p.Chunk.Offset(x,y,z);if(!chunks.TryGetValue(key,out var c)||!c.Dirty||c.Cells==null)continue;
                 var kv=new KeyValuePair<ChunkPos,Resident>(key,c);
                 var min=kv.Key.Min;
                 if(Math.Abs(p.X-min.X)>33||Math.Abs(p.Z-min.Z)>33||Math.Abs(p.Y-min.Y)>33)continue;
-                var mesh=ChunkMesher.Build(kv.Key,c.Revision,c.Cells);Apply(mesh,c);
+                ImmediateMeshBuilds++;var mesh=ChunkMesher.Build(kv.Key,c.Revision,c.Cells);Apply(mesh,c);
             }
-            LastEditMeshMs=editClock.Elapsed.TotalMilliseconds;BlockChanged?.Invoke(p);return true;
+            LastEditMeshMs=(Stopwatch.GetTimestamp()-editBegan)*1000.0/Stopwatch.Frequency;BlockChanged?.Invoke(p);return true;
         }
         public double LastEditMeshMs { get; private set; }
+        public long ImmediateMeshBuilds {get;private set;}
 
         void Update()
         {
+            using var cost=RuntimeCosts.Streaming.Auto();
+            DrainRetiredViews(ViewTeardownBudget);
             if(Generator==null||Observer==null||stopped)return;
             Shader.SetGlobalColor("_RRFogColour",RenderSettings.fogColor);
             Shader.SetGlobalVector("_RRFogRange",new Vector4(FogStart,FogEnd,0,0));
@@ -288,38 +301,72 @@ namespace RivetReach
             var centre=Address(Observer.position).Chunk;
             if(!centre.Equals(lastCentre)||lastViewDistance!=ViewDistance||demandChanged&&Time.unscaledTime>=nextDemand)
             {nextDemand=Time.unscaledTime+0.4f;lastCentre=centre;lastViewDistance=ViewDistance;demandChanged=false;Demand(centre);}
-            var clock=Stopwatch.StartNew();
+            long began=Stopwatch.GetTimestamp();
             for(int i=work.Count-1;i>=0;i--)
             {
-                var t=work[i];if(!t.IsCompleted)continue;work.RemoveAt(i);
-                if(t.IsFaulted){Error=t.Exception?.GetBaseException().Message;continue;}
+                var job=work[i];var t=job.task;if(!t.IsCompleted)continue;work.RemoveAt(i);
+                if(t.IsFaulted||t.IsCanceled)
+                {FailMesh(job.position,job.token,job.revision,t.Exception?.GetBaseException().Message??"Chunk worker cancelled");continue;}
                 var result=t.Result;
                 if(!chunks.TryGetValue(result.Position,out var c)||c.Token!=result.Token){RejectedJobs++;continue;}
                 c.Busy=false;
-                if(c.Revision!=result.Revision){RejectedJobs++;c.Dirty=true;continue;}
+                if(c.Revision!=result.Revision){RejectStaleMesh(result.Position,c);continue;}
                 if(result.HasSurfaceRange&&!surfaceRanges.ContainsKey((result.Position.X,result.Position.Z)))
                 {surfaceRanges[(result.Position.X,result.Position.Z)]=(result.SurfaceMin,result.SurfaceMax);demandChanged=true;}
                 Apply(result,c);LastBuildMs=result.Milliseconds;
-                if(clock.Elapsed.TotalMilliseconds>4)break;
+                if((Stopwatch.GetTimestamp()-began)*1000.0/Stopwatch.Frequency>4)break;
             }
             AdvanceLighting();
             if(work.Count<2)
             {
-                // Select the nearest two without allocating and sorting the whole resident set.
-                Resident first=null,second=null;ChunkPos firstKey=default,secondKey=default;
-                double firstDistance=double.MaxValue,secondDistance=double.MaxValue;
-                foreach(var kv in chunks)
+                var priority=new ChunkWorkPriority(centre,(ViewObserver!=null?ViewObserver:Observer).forward);
+                // The two available workers each consume one actual dispatch slot.
+                // Busy pages are skipped, so the first choice cannot be sent twice.
+                while(work.Count<2)
                 {
-                    if(!kv.Value.Dirty||kv.Value.Busy)continue;
-                    double distance=Distance(kv.Key,centre);
-                    if(distance<firstDistance){second=first;secondKey=firstKey;secondDistance=firstDistance;first=kv.Value;firstKey=kv.Key;firstDistance=distance;}
-                    else if(distance<secondDistance){second=kv.Value;secondKey=kv.Key;secondDistance=distance;}
+                    Resident next=null;ChunkWorkPriority.Candidate best=default;
+                    bool oldest=ChunkWorkPriority.IsOldestSlot(meshDispatches);
+                    foreach(var entry in pendingMeshes)
+                    {
+                        if(entry.Value.Busy)continue;
+                        var rank=priority.Rank(entry.Key);
+                        if(next!=null&&ChunkWorkPriority.Compare(rank,entry.Value.PendingSequence,best,next.PendingSequence,oldest)>=0)continue;
+                        next=entry.Value;best=rank;
+                    }
+                    if(next==null)break;
+                    Launch(best.Position,next);meshDispatches++;
                 }
-                if(first!=null)Launch(firstKey,first);
-                if(second!=null&&work.Count<2)Launch(secondKey,second);
             }
         }
-        static double Distance(ChunkPos a,ChunkPos b) {double x=a.X-b.X,z=a.Z-b.Z,y=a.Y-b.Y;return x*x+z*z+y*y*0.5;}
+        // Regional light solves retain their distance ordering independently of mesh dispatch.
+        static double Distance(ChunkPos a,ChunkPos b) {double x=a.X-b.X,z=a.Z-b.Z,y=(long)a.Y-b.Y;return x*x+z*z+y*y*.5;}
+        void QueueMesh(ChunkPos position,Resident resident,bool retry=false)
+        {
+            // A stale completed job already consumed its turn. Requeue at the
+            // tail so continuous edits cannot monopolize the oldest-work slot.
+            if(retry||!pendingMeshes.ContainsKey(position))resident.PendingSequence=++nextPendingSequence;
+            pendingMeshes[position]=resident;
+        }
+        void RejectStaleMesh(ChunkPos position,Resident resident)
+        {
+            RejectedJobs++;
+            // A newer synchronous edit can already have published its mesh.
+            // Only still-dirty data needs another worker after stale completion.
+            if(resident.Dirty)QueueMesh(position,resident,true);
+        }
+        void FailMesh(ChunkPos position,int token,int revision,string message)
+        {
+            Error=$"Chunk {position.X},{position.Y},{position.Z}: {message}";
+            if(!chunks.TryGetValue(position,out var resident)||resident.Token!=token){RejectedJobs++;return;}
+            resident.Busy=false;
+            // A synchronous edit may already have published a newer mesh while
+            // this worker was running. Its late failure must not dirty that mesh.
+            if(!resident.Dirty)return;
+            if(resident.Revision!=revision){QueueMesh(position,resident,true);return;}
+            if(resident.FailedRevision!=revision){resident.FailedRevision=revision;resident.Failures=0;}
+            if(++resident.Failures<=1)QueueMesh(position,resident,true);
+            else pendingMeshes.Remove(position); // Deterministic failures cannot retry forever.
+        }
         void Demand(ChunkPos centre)
         {
             DemandPasses++;
@@ -347,16 +394,28 @@ namespace RivetReach
                 {
                     if((y<caveLow||y>caveHigh)&&(y<lowest||y>highest))continue;
                     var p=new ChunkPos(cx,y,cz);wanted.Add(p);
-                    if(!chunks.ContainsKey(p))chunks.Add(p,new Resident{Token=++nextToken});
+                    if(!chunks.ContainsKey(p)){var resident=new Resident{Token=++nextToken};chunks.Add(p,resident);QueueMesh(p,resident);}
                 }
             }
             ticketedChunks.Clear();
             if(PersistentChunkTickets!=null)foreach(var p in PersistentChunkTickets())
-            {ticketedChunks.Add(p);wanted.Add(p);wantedColumns.Add((p.X,p.Z));if(!chunks.ContainsKey(p))chunks.Add(p,new Resident{Token=++nextToken});}
+            {ticketedChunks.Add(p);wanted.Add(p);wantedColumns.Add((p.X,p.Z));if(!chunks.ContainsKey(p)){var resident=new Resident{Token=++nextToken};chunks.Add(p,resident);QueueMesh(p,resident);}}
             releaseChunks.Clear();foreach(var key in chunks.Keys)if(!wanted.Contains(key))releaseChunks.Add(key);
-            foreach(var key in releaseChunks){Release(chunks[key]);chunks.Remove(key);}
+            foreach(var key in releaseChunks)
+            {
+                var departed=chunks[key];if(departed.View!=null)departed.View.SetActive(false);
+                if(departed.View!=null||departed.Mesh!=null||departed.FluidMesh!=null)retiredViews.Enqueue((departed.View,departed.Mesh,departed.FluidMesh));
+                // Keep only native handles until teardown; resident cell buffers can be collected now.
+                chunks.Remove(key);pendingMeshes.Remove(key);
+            }
             LightingResidency();
-            if(releaseChunks.Count>0)ResidencyChanged?.Invoke();
+            if(releaseChunks.Count>0)
+            {
+                // Every callback observes the completed batch, never a partially
+                // unloaded network whose other pages still appear available.
+                foreach(var key in releaseChunks)ChunkResidencyChanged?.Invoke(key);
+                ResidencyChanged?.Invoke();
+            }
             releaseColumns.Clear();foreach(var key in surfaceRanges.Keys)if(!wantedColumns.Contains(key))releaseColumns.Add(key);
             foreach(var key in releaseColumns)surfaceRanges.Remove(key);
             grassChunks.Clear();
@@ -379,7 +438,7 @@ namespace RivetReach
                 if(!edits.TryGetValue(key,out var e))continue;
                 foreach(var v in e)changes.Add(new KeyValuePair<BlockPos,byte>(key.Min.Offset(v.Key%32,v.Key/32%32,v.Key/1024),v.Value));
             }
-            work.Add(Task.Run(()=>
+            var task=Task.Run(()=>
             {
                 var sw=Stopwatch.StartNew();int surfaceMin=0,surfaceMax=0;
                 // Loaded pages already contain current edits and halos. Remesh an immutable
@@ -399,13 +458,14 @@ namespace RivetReach
                     if(x>=-1&&x<=32&&y>=-1&&y<=32&&z>=-1&&z<=32)cells[ChunkMesher.Index((int)x,y,(int)z)]=e.Value;
                 }
                 var result=ChunkMesher.Build(p,revision,cells);result.Token=token;result.HasSurfaceRange=snapshot==null;result.SurfaceMin=surfaceMin;result.SurfaceMax=surfaceMax;result.Milliseconds=sw.Elapsed.TotalMilliseconds;return result;
-            }));
+            });
+            work.Add((task,p,token,revision));
         }
         void Apply(ChunkBuild result,Resident c)
         {
             bool first=c.Cells==null;
             bool visibleTerrain=result.Triangles.Length>0,visibleFluid=result.FluidMesh.Indices.Length>0;
-            c.Cells=result.Cells;c.Dirty=false;
+            c.Cells=result.Cells;c.Dirty=false;pendingMeshes.Remove(result.Position);
             // Empty underground/sky pages still provide collision and residency data,
             // but need neither an empty renderer nor an empty native Mesh.
             if(c.View==null&&(visibleTerrain||visibleFluid))
@@ -440,12 +500,20 @@ namespace RivetReach
             if(first)
             {
                 DirtyLight(result.Position);
-                FluidSimulation.Ready(result.Position);ResidencyChanged?.Invoke();ChunkReady?.Invoke(result.Position,c.Cells);
+                FluidSimulation.Ready(result.Position);ChunkResidencyChanged?.Invoke(result.Position);ResidencyChanged?.Invoke();ChunkReady?.Invoke(result.Position,c.Cells);
                 // The worker identifies exposed/unsettled cells. Stable source interiors and
                 // shared source boundaries never enter the scheduled queue on mere residency.
                 var min=result.Position.Min;
                 foreach(int i in result.FluidMesh.ActiveCells)
                     FluidSimulation.Changed(this,min.Offset(i%32,i/32%32,i/1024));
+            }
+        }
+        void DrainRetiredViews(int budget)
+        {
+            while(budget-->0&&retiredViews.Count>0)
+            {
+                var retired=retiredViews.Dequeue();
+                if(retired.view!=null)Destroy(retired.view);if(retired.terrain!=null)Destroy(retired.terrain);if(retired.fluid!=null)Destroy(retired.fluid);
             }
         }
         static void Release(Resident c)
@@ -520,7 +588,7 @@ namespace RivetReach
             }
             return feet;
         }
-        public void Stop() {stopped=true;StopLighting();if(TorchView!=null)TorchView.Clear();foreach(var c in chunks.Values)Release(c);chunks.Clear();surfaceRanges.Clear();}
+        public void Stop() {stopped=true;StopLighting();if(TorchView!=null)TorchView.Clear();foreach(var c in chunks.Values)Release(c);chunks.Clear();pendingMeshes.Clear();surfaceRanges.Clear();DrainRetiredViews(int.MaxValue);}
         void OnDestroy() {Stop();}
     }
 }

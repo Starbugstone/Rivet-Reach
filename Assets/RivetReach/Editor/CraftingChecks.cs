@@ -226,6 +226,8 @@ namespace RivetReach.Editor
 
         static void Benchmark()
         {
+            using var allocationCounter=new AllocationCounter();measurements.Add(allocationCounter.Description);
+            string AllocationResult(long value)=>!allocationCounter.Supported?"UNVERIFIED (no calibrated allocation counter)":value==0?"no allocation detected":"allocation detected";
             foreach(int count in new[]{10,1000,10000})
             {
                 var specs=new RecipeSpec[count];
@@ -241,25 +243,40 @@ namespace RivetReach.Editor
                 var consume=new int[16];
                 for(int i=0;i<10000;i++)registry.TryMatch(grid,consume,out _,out _);
                 const int iterations=100000;
-                long before=GC.GetAllocatedBytesForCurrentThread();timer.Restart();int hits=0;
-                for(int i=0;i<iterations;i++)if(registry.TryMatch(grid,consume,out _,out _))hits++;
-                timer.Stop();long allocation=GC.GetAllocatedBytesForCurrentThread()-before;
-                Check(hits==iterations&&allocation==0,"Matched 4x4 lookup allocates zero bytes for "+count+" recipes");
+                int hits=0;
+                long hitAllocation=allocationCounter.Measure(()=>
+                {
+                    timer.Restart();
+                    for(int i=0;i<iterations;i++)if(registry.TryMatch(grid,consume,out _,out _))hits++;
+                    timer.Stop();
+                });
+                Check(hits==iterations,"Matched 4x4 lookup resolves every input for "+count+" recipes");
+                if(allocationCounter.Supported)Check(hitAllocation==0,"Calibrated counter detects no allocation in matched 4x4 lookup for "+count+" recipes");
                 double hitUs=timer.Elapsed.TotalMilliseconds*1000/iterations;
                 grid.Take(15,1);grid.Add(200,1,15,16);
                 for(int i=0;i<10000;i++)registry.TryMatch(grid,consume,out _,out _);
-                before=GC.GetAllocatedBytesForCurrentThread();timer.Restart();hits=0;
-                for(int i=0;i<iterations;i++)if(registry.TryMatch(grid,consume,out _,out _))hits++;
-                timer.Stop();allocation=GC.GetAllocatedBytesForCurrentThread()-before;
-                Check(hits==0&&allocation==0,"Missing 4x4 lookup allocates zero bytes for "+count+" recipes");
-                measurements.Add($"{count} recipes; compile {compileMs:F3} ms; 4x4 hit {hitUs:F3} us, miss {timer.Elapsed.TotalMilliseconds*1000/iterations:F3} us; {iterations} iterations each; {allocation} bytes per loop after warmup.");
+                hits=0;
+                long missAllocation=allocationCounter.Measure(()=>
+                {
+                    timer.Restart();
+                    for(int i=0;i<iterations;i++)if(registry.TryMatch(grid,consume,out _,out _))hits++;
+                    timer.Stop();
+                });
+                Check(hits==0,"Missing 4x4 lookup rejects every unmatched input for "+count+" recipes");
+                if(allocationCounter.Supported)Check(missAllocation==0,"Calibrated counter detects no allocation in missing 4x4 lookup for "+count+" recipes");
+                measurements.Add($"{count} recipes; compile {compileMs:F3} ms; 4x4 hit {hitUs:F3} us, miss {timer.Elapsed.TotalMilliseconds*1000/iterations:F3} us; {iterations} iterations each; calibrated allocation probes after warmup: hit {AllocationResult(hitAllocation)}, miss {AllocationResult(missAllocation)}.");
             }
             var session=Session(Shape("cache",1,1,1));Put(session.Grid,0,1,500);var expected=session.Preview;
-            var watch=new Stopwatch();long start=GC.GetAllocatedBytesForCurrentThread();watch.Start();int matched=0;
-            for(int i=0;i<1000000;i++)if(ReferenceEquals(session.Preview,expected))matched++;
-            watch.Stop();long allocated=GC.GetAllocatedBytesForCurrentThread()-start;
-            Check(matched==1000000&&allocated==0,"Unchanged previews allocate zero bytes");
-            measurements.Add($"Cached preview: {watch.Elapsed.TotalMilliseconds:F3} ms / 1,000,000 reads, {allocated} bytes. Editor Mono, isolated synchronous workload; not whole-game frame timings.");
+            var watch=new Stopwatch();int matched=0;
+            long allocated=allocationCounter.Measure(()=>
+            {
+                watch.Start();
+                for(int i=0;i<1000000;i++)if(ReferenceEquals(session.Preview,expected))matched++;
+                watch.Stop();
+            });
+            Check(matched==1000000,"Unchanged previews retain the same cached result");
+            if(allocationCounter.Supported)Check(allocated==0,"Calibrated counter detects no allocation in unchanged previews");
+            measurements.Add($"Cached preview: {watch.Elapsed.TotalMilliseconds:F3} ms / 1,000,000 reads; calibrated allocation probe: {AllocationResult(allocated)}. Counter calibration/start/stop are excluded from timings. Editor Mono, isolated synchronous workload; not whole-game frame timings. Event probes report presence only, not allocated bytes or event totals.");
         }
     }
 }

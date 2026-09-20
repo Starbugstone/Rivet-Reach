@@ -136,7 +136,7 @@ namespace RivetReach
             for(int i=0;i<game.Inventory.Count;i++)game.Inventory.Take(i,int.MaxValue);game.Inventory.Add(BlockId.Torch,1);game.Selected=0;player.enabled=true;AlphaAim(room.Spawner);yield return new WaitForSecondsRealtime(.6f);player.enabled=false;
             player.Camera.transform.position=world.Local(room.Spawner)+new Vector3(.5f,1.15f,-1.3f);player.Camera.transform.LookAt(world.Local(room.Spawner)+new Vector3(.5f,.5f,.5f));
             yield return AlphaSceneCapture("generated-floater-room");
-            var miniature=UnityEngine.Object.FindObjectsByType<FrozenSpawnerDisplay>(FindObjectsSortMode.None).OrderBy(v=>(v.transform.position-world.Local(room.Spawner)).sqrMagnitude).First();
+            var miniature=UnityEngine.Object.FindObjectsByType<FrozenSpawnerDisplay>().OrderBy(v=>(v.transform.position-world.Local(room.Spawner)).sqrMagnitude).First();
             File.WriteAllText(Path.Combine(output,"miniature-renderers.txt"),string.Join("\n",miniature.GetComponentsInChildren<MeshRenderer>().Select(r=>r.name+" enabled="+r.enabled+" bounds="+r.bounds+" local="+r.localBounds+" scale="+r.transform.lossyScale+" vertices="+r.GetComponent<MeshFilter>().sharedMesh.vertexCount+" material="+r.sharedMaterial.name+" shader="+r.sharedMaterial.shader.name+" viewport="+player.Camera.WorldToViewportPoint(r.bounds.center))));
             var visible=miniature.GetComponentsInChildren<MeshRenderer>();
             Check(visible.Length>0&&visible.All(r=>r.enabled&&r.GetComponent<MeshFilter>().sharedMesh.vertexCount>0&&r.GetComponent<MeshFilter>().sharedMesh.GetIndexCount(0)>0),"Native cage miniature has enabled indexed render geometry after animation cleanup");
@@ -158,7 +158,7 @@ namespace RivetReach
             player.Camera.transform.position=world.Local(floor)+new Vector3(.5f,2.65f,-5);player.Camera.transform.LookAt(world.Local(floor)+new Vector3(.5f,1.5f,4));
             var darkCell=floor.Offset(0,1,3);AlphaPut(darkCell,BlockId.Stone);yield return SettleLighting();
             Check(world.TryGetSpawnLight(darkCell.Offset(0,1,0),false,out byte dark)&&dark==0,"Ordinary block fixture is genuinely unlit");
-            int ActiveLights()=>UnityEngine.Object.FindObjectsByType<Light>(FindObjectsSortMode.None).Count(l=>l.enabled&&l.gameObject.activeInHierarchy&&l.type==LightType.Point&&l.intensity>0);
+            int ActiveLights()=>UnityEngine.Object.FindObjectsByType<Light>().Count(l=>l.enabled&&l.gameObject.activeInHierarchy&&l.type==LightType.Point&&l.intensity>0);
             int lights=ActiveLights();yield return AlphaSceneCapture("ordinary-block-dark-before");
             ArcadePresentation.Active.Impact(BlockId.Stone,world.Local(darkCell)+new Vector3(.5f,.5f,0),Vector3.back);yield return AlphaSceneCapture("ordinary-block-dark-hit");
             Check(ActiveLights()==lights,"Ordinary block hit creates no point-light pulse");

@@ -46,6 +46,9 @@ namespace RivetReach
         public string Message {get;private set;}
         public string PlacementDiagnostic {get;private set;}
         const string PlayerOverlapReason="Cannot place inside the player";
+        static readonly Key[] hotbarDigits={Key.Digit1,Key.Digit2,Key.Digit3,Key.Digit4,Key.Digit5,Key.Digit6,Key.Digit7,Key.Digit8,Key.Digit9,Key.Digit0};
+        VoxelWorld notifiedWorkerErrorWorld;
+        string notifiedWorkerError;
         float messageUntil;
         float invulnerableUntil;
         int modeChangedFrame=-1;
@@ -79,7 +82,7 @@ namespace RivetReach
             RenderSettings.fogStartDistance=World.FogStart;RenderSettings.fogEndDistance=World.FogEnd;
             var p=new GameObject("Player");p.transform.SetParent(transform,false);Player=p.AddComponent<FirstPersonPlayer>();Player.Initialize(this);
             // Deterministic spawn remains on a supported surface with headroom.
-            int h=World.Generator.Height(0,0);Player.transform.position=new Vector3(.5f,h+1.01f,.5f);World.Observer=Player.transform;
+            int h=World.Generator.Height(0,0);Player.transform.position=new Vector3(.5f,h+1.01f,.5f);World.Observer=Player.transform;World.ViewObserver=Player.Camera.transform;
             var drops=new GameObject("World item stacks");drops.transform.SetParent(transform,false);Items=drops.AddComponent<DroppedItems>();Items.Initialize(this);
             World.BlockMined+=SpawnMinedDrop;
             World.GrowthObstructed=cell=>World.OccupiesCell(Player.transform.position,.6f,Player.Height,cell)||(Mobs?.Occupies(cell)??false)||(Animals?.Occupies(cell)??false);
@@ -154,13 +157,18 @@ namespace RivetReach
                 if(Mouse.current!=null){float scroll=Mouse.current.scroll.ReadValue().y;if(scroll!=0)Selected=(Selected+(scroll>0?-1:1)+Inventory.HotbarCount)%Inventory.HotbarCount;}
                 if(Keyboard.current!=null)
                 {
-                    Key[] digits={Key.Digit1,Key.Digit2,Key.Digit3,Key.Digit4,Key.Digit5,Key.Digit6,Key.Digit7,Key.Digit8,Key.Digit9,Key.Digit0};
-                    for(int i=0;i<digits.Length;i++)if(Keyboard.current[digits[i]].wasPressedThisFrame)Selected=i;
+                    for(int i=0;i<hotbarDigits.Length;i++)if(Keyboard.current[hotbarDigits[i]].wasPressedThisFrame)Selected=i;
                 }
                 if(Input.Pressed("Drop"))Drop(Inventory.Take(Selected,Keyboard.current?.shiftKey.isPressed==true?int.MaxValue:1));
             }
             if(Time.unscaledTime>messageUntil)Message=null;
-            if(World.Error!=null)Notify("Terrain worker error: "+World.Error,10);
+            // Observe committed session replacement here; a failed load can
+            // restore the old world synchronously without replaying its error.
+            if(!ReferenceEquals(notifiedWorkerErrorWorld,World))
+            {notifiedWorkerErrorWorld=World;notifiedWorkerError=null;}
+            string workerError=World.Error;
+            if(workerError!=null&&!string.Equals(workerError,notifiedWorkerError,StringComparison.Ordinal))
+            {notifiedWorkerError=workerError;Notify("Terrain worker error: "+workerError,10);}
         }
         public bool TryInteractTarget()
         {
@@ -267,7 +275,7 @@ namespace RivetReach
             if(IndustryId.Placed(selected.Id)){var machine=Industry.Simulation.At(cell);machine.Rotation=facing;PortableStorage.Restore(machine,selected);
                 if(crankSupport.HasValue)for(int rotation=0;rotation<4;rotation++)
                     if(IndustryDefinition.Neighbor(cell,4,rotation).Equals(crankSupport.Value)){machine.Rotation=rotation;break;}
-                Industry.Simulation.Invalidate();}
+                Industry.Simulation.Invalidate(cell);}
             if(!Creative||selected.HasContents)Inventory.Take(Selected,1);Sound.Place(selected.Id,World.Local(cell)+Vector3.one*.5f);ArcadePresentation.Active?.Place(World.Local(cell)+Vector3.one*.5f,selected.Id);PlacementDiagnostic="Placed "+Registry.Get(selected.Id).displayName;Notify(PlacementDiagnostic,1);return true;
         }
         public bool TryUseBucket()

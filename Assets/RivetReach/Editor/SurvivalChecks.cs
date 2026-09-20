@@ -79,10 +79,15 @@ namespace RivetReach.Editor
             HealthAndArmor(items);
             var clock=Stopwatch.StartNew();var machines=new FurnaceState[1000];
             for(int i=0;i<machines.Length;i++){machines[i]=Furnace();Put(machines[i],0,BlockId.RawIron,64);Put(machines[i],1,BlockId.Coal,8);}
-            clock.Restart();long before=GC.GetAllocatedBytesForCurrentThread();
-            for(int tick=0;tick<200;tick++)foreach(var machine in machines)machine.Advance(1);
-            long allocated=GC.GetAllocatedBytesForCurrentThread()-before;clock.Stop();
-            string report=$"PASS: {checks} assertions. {recipes.Recipes.Count} crafting recipes, {processing.Recipes.Count} furnace recipes; bootstrap graph, tier gates, furnace boundaries/filters/conservation/time partition equivalence, hunger, health, equipment.\n1000 active furnaces × 200 one-tick advances: {clock.Elapsed.TotalMilliseconds:F3} ms total; {allocated} managed bytes in measured loop.\n";
+            using var allocationCounter=new AllocationCounter();
+            long allocated=allocationCounter.Measure(()=>
+            {
+                clock.Restart();
+                for(int tick=0;tick<200;tick++)foreach(var machine in machines)machine.Advance(1);
+                clock.Stop();
+            });
+            string allocationResult=!allocationCounter.Supported?"UNVERIFIED (no calibrated allocation counter)":allocated==0?"no allocation detected":"allocation detected";
+            string report=$"PASS: {checks} assertions. {recipes.Recipes.Count} crafting recipes, {processing.Recipes.Count} furnace recipes; bootstrap graph, tier gates, furnace boundaries/filters/conservation/time partition equivalence, hunger, health, equipment.\n1000 active furnaces × 200 one-tick advances: {clock.Elapsed.TotalMilliseconds:F3} ms total; calibrated allocation probe: {allocationResult}. Counter calibration/start/stop are excluded from timing. Event probes report presence only, not allocated bytes or event totals.\n{allocationCounter.Description}\n";
             File.WriteAllText("Logs/survival-checks.txt",report);UnityEngine.Debug.Log(report);
         }
         static void Bootstrap(ItemRegistry items,RecipeRegistry registry,ProcessingRegistry processing)

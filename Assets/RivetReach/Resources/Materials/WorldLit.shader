@@ -31,14 +31,9 @@ Shader "RivetReach/WorldLit"
             #pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
             #pragma multi_compile_fragment _ _SHADOWS_SOFT _SHADOWS_SOFT_LOW _SHADOWS_SOFT_MEDIUM _SHADOWS_SOFT_HIGH
-            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            // Match the shared material buffer used by the inherited URP passes.
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
             #include "WorldLighting.hlsl"
-            TEXTURE2D(_BaseMap);SAMPLER(sampler_BaseMap);TEXTURE2D(_BumpMap);SAMPLER(sampler_BumpMap);
-            TEXTURE2D(_MetallicGlossMap);SAMPLER(sampler_MetallicGlossMap);
-            TEXTURE2D(_EmissionMap);SAMPLER(sampler_EmissionMap);
-            CBUFFER_START(UnityPerMaterial)
-            float4 _BaseColor,_BaseMap_ST,_EmissionColor;float _Metallic,_Smoothness,_BumpScale,_Cutoff;
-            CBUFFER_END
             float4 _RRFogColour,_RRFogRange;
             struct A {float3 positionOS:POSITION;float3 normalOS:NORMAL;float4 tangentOS:TANGENT;float2 uv:TEXCOORD0;};
             struct V {float4 positionCS:SV_POSITION;float3 positionWS:TEXCOORD0;float3 normalWS:TEXCOORD1;float4 tangentWS:TEXCOORD2;float2 uv:TEXCOORD3;};

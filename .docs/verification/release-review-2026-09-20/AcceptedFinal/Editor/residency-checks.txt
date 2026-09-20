@@ -1,0 +1,303 @@
+PASS 302 assertions
+PASS Removing one owner preserves shared anchor and upper-page dependencies
+PASS Removing the last boundary owner releases its unique neighbouring page
+PASS Removing all owners releases every page reference
+PASS Re-registering restored negative-coordinate owners restores boundary coverage
+PASS Ten thousand unrelated terrain pages do not invalidate industry
+PASS Unrelated streaming preserves operating power graph and factory progress
+PASS Boundary unload pauses production and conserves dormant work and stored energy
+PASS Boundary reload resumes the same machine through rebuilt power connections
+PASS A chest across a page boundary registers as a pipe endpoint
+PASS External chest unload removes its endpoint despite no machine anchor in that page
+PASS External chest reload restores its original pipe end
+PASS Removing the last pipe releases its external endpoint residency subscription
+PASS A door sleeps when only its upper-cell page unloads
+PASS Door upper-cell reload restores eligibility
+PASS Independent tanks form before residency stress
+PASS Unrelated streaming queues neither controller
+PASS Boundary unload invalidates only the affected potential footprint immediately
+PASS Unavailable shell/interior retains exact contents while the distant tank remains formed
+PASS Reload restores the affected shared store without revalidating the distant tank
+PASS Power traversal preserves the first device-face occurrence and exactly one shared budget per connected grid
+PASS Deduplication retains all three connected device faces for geometry and connectivity
+PASS Disconnected device faces remain separate terminal groups
+PASS Scanning already visited vertices still yields after a large BFS without publishing a partial graph
+PASS Cancelling during the visited-node scan preserves the completed graph
+PASS A restarted bounded traversal publishes every cable once without changing connectivity
+PASS Unloading one factory immediately suspends only its shared automation component
+PASS Twenty fixed ticks share one four-operation frame budget and cannot publish an incomplete replacement
+PASS Suspended factory retains exact work and storage without stale power delivery
+PASS Independent factory completes every fixed tick and pays exact energy during another component's reconstruction
+PASS Cancelled unload reconstruction reconnects atomically while preserving unaffected group identity
+PASS Reconnected machinery advances once without offline or reconstruction catch-up
+PASS Independent pipe graphs sharing a physical chest suspend together as one state dependency component
+PASS Shared chest cannot forward during partial reconstruction and retains every item
+PASS Reconnected shared-inventory graphs resume exact transfers
+PASS Operational powered lamp publishes its initial light source
+PASS Suspended lamp invalidates cached lighting exactly once despite retaining its status snapshot
+PASS Reconnected lamp republishes light only when real powered ticking resumes
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint churn respects the shared reconstruction budget
+PASS Disjoint residency/configuration churn does not restart the in-flight factory reconstruction
+PASS First publication resumes exactly one production tick without catch-up or lost energy
+PASS Disjoint changes remain queued and suspended after the first atomic publication
+PASS Queued disjoint changes subsequently reconnect after churn ends
+PASS Intersecting residency changes cancel stale reconstruction and preserve frozen work/storage
+PASS An intersecting cancelled reconstruction safely reconnects after reload

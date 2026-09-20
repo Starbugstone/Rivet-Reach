@@ -152,7 +152,8 @@ namespace RivetReach.Editor
                 var world=new World();var sim=new IndustrySimulation(world,Limit);var source=sim.Add(origin,IndustryId.Tank);source.Fluid.Deposit(other,1000);
                 var pipe=sim.Add(origin.Offset(1,0,0),IndustryId.FluidPipe);var dest=sim.Add(origin.Offset(2,0,0),target);
                 Mode(sim,pipe,1,PortRole.Output);Mode(sim,pipe,0,PortRole.Input);Steps(sim);
-                Check(source.Fluid.Amount==1000&&dest.Fluid.Amount==0,"Incompatible fluid retained at source for device "+target);
+                Check(target==IndustryId.Tank?source.Fluid.Amount==0&&dest.Fluid.Amount==1000:source.Fluid.Amount==1000&&dest.Fluid.Amount==0,"Generic tanks accept liquid; water-only devices reject it: "+target);
+                if(target==IndustryId.Tank)dest.Fluid.Withdraw(1000);
                 source.Fluid.Withdraw(1000);source.Fluid.Deposit(Fluids.Water,1000);Steps(sim);
                 Check(source.WaterMl==0&&dest.WaterMl==1000,"Supported water moves without loss for device "+target);
             }

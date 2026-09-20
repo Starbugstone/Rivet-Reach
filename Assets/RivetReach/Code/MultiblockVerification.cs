@@ -76,10 +76,11 @@ namespace RivetReach
             // Stop transport for exact bucket/full-inventory and breach checks.
             sim.Activate(lever);outputPort.PortMode=FluidPortMode.Disabled;sim.Invalidate();yield return new WaitForSecondsRealtime(.2f);
             Aim(controller);Check(game.TryOpenMachine(controller.Position),"Controller opens through ordinary target interaction");
+            game.Inventory.Add(Fluids.LavaBucket,1); // Earlier incompatible bucket must not hide a later compatible one.
             game.Inventory.Add(Fluids.WaterBucket,1);
             for(int i=0;i<game.Inventory.Count;i++)if(game.Inventory.Slots[i].Empty)game.Inventory.Add(BlockId.Stone,64,i,i+1);
             long before=tank.Fluid.Amount;
-            Check(game.Industry.Bucket(controller,true)&&tank.Fluid.Amount==before+10000,"Full inventory swaps filled bucket transactionally");
+            Check(game.Industry.Bucket(controller,true)&&tank.Fluid.Amount==before+10000&&game.Inventory.Total(Fluids.LavaBucket)==1,"Full inventory selects compatible bucket and preserves earlier incompatible liquid");
             Check(game.Industry.Bucket(controller,false)&&tank.Fluid.Amount==before,"Full inventory withdrawal returns exact 10 L bucket");
             yield return Capture("multiblock-controller-ui");game.SetMode(ScreenMode.Play);
             var breach=origin.Offset(0,2,2);long held=tank.Fluid.Amount;var identity=tank.StructureId;

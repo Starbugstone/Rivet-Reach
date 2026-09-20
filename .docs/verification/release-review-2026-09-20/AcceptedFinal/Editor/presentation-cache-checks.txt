@@ -1,0 +1,14 @@
+PASS 13 assertions
+PASS Leaving view range hides the existing root immediately
+PASS Equal-position replacement state cannot acquire an older state's view
+PASS Returning exact state reuses its same active view without another creation
+PASS Repeated hiding cannot duplicate a retained view
+PASS Overflow caps reusable roots and queues native destruction instead of performing it in the refresh burst
+PASS Evicted root stays hidden and cannot be reacquired from the reusable cache
+PASS A replacement's own view remains independently reusable
+PASS Session disposal clears every cache and retirement reference
+PASS Disposing the owning hierarchy destroys active, cached and queued roots
+PASS Fixture retains the removed identity in an unfinished published topology snapshot
+PASS Same-cell replacement hides and detaches its predecessor before topology publication
+PASS Replacement cannot reactivate the removed machine's cached view
+PASS Repeated pending-topology pruning does not duplicate retired identity ownership

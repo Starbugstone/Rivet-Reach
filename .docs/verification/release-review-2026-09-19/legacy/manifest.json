@@ -1,0 +1,104 @@
+[
+  {
+    "schema": 1,
+    "file": "schema-01.rrsave",
+    "source": "Logs/ScreenReuse/Fourth/screen-reuse-saves/af690c77b40441708db9886fa5e9db41.rrsave",
+    "sha256": "a39d8ac09e0b1df4ab2ed6c79883faea9a8b0b54b325b4c0325114256ad7be8c"
+  },
+  {
+    "schema": 2,
+    "file": "schema-02.rrsave",
+    "source": "Logs/PointerBaseline/screen-reuse-saves/ea8d63b8cadd45d2908b3310eab1f1f4.rrsave",
+    "sha256": "e245d3777639b4d7a8f6334611cf15cdd0275304fe24b267fa25145766c728a4"
+  },
+  {
+    "schema": 3,
+    "file": "schema-03.rrsave",
+    "source": "Logs/DoorVerification/Saves/2da62cd8a44b4710ba9758afc5f36848.rrsave",
+    "sha256": "8b2bcaac2294550e66cbf12a983e60e9762136693482e4b4eb90199011c28d8d"
+  },
+  {
+    "schema": 4,
+    "file": "schema-04.rrsave",
+    "source": "Logs/Connections/Saves-D3D11-Final/Saves/2c26d6ac39344b24b00002725f4b7587.rrsave",
+    "sha256": "71de76fc386f5f23dbef90ac5438ed91842e06c123928db1d1820250d751c4b1"
+  },
+  {
+    "schema": 5,
+    "file": "schema-05.rrsave",
+    "source": "Logs/PlacementFacing/Runtime-2/Saves/97c218426d624f83aa402be8514f35e9.rrsave",
+    "sha256": "6fa8367f99754ad17852f1bef4304ddce58556e8d5d82a543d12551218cacf35"
+  },
+  {
+    "schema": 6,
+    "file": "schema-06.rrsave",
+    "source": "Logs/Inventory/Runtime-Final-720/Saves/3f61408c514a4c3c8bcf795a0d0143fa.rrsave",
+    "sha256": "d69ee8fafe9c0be71791a84046b6d9b824d609932bbe7f3b31316de4b532a17c"
+  },
+  {
+    "schema": 7,
+    "file": "schema-07.rrsave",
+    "source": "Logs/ElectricFurnaceFinal/Saves/10b2d46a9f5d4a05a36d786cc4604de6.rrsave",
+    "sha256": "2af0344361f5cf48d15776a38007d8aff08c086f45d064c7f47245490cd1d87e"
+  },
+  {
+    "schema": 8,
+    "file": "schema-08.rrsave",
+    "source": "Logs/RangedPumpDelivery/Saves/6f077b3bbbd542b593dff1a0b29a52cb.rrsave",
+    "sha256": "2330572ecd418336501fec473a8c51c93cb2c8507506b2e274222ac62cbdcc0d"
+  },
+  {
+    "schema": 9,
+    "file": "schema-09.rrsave",
+    "source": "Logs/BridgesDelivery/Saves/0bc93d2ca3294546be5305ba5d16eb30.rrsave",
+    "sha256": "b12896dc7ee124016c6743e5dfacb8841407f3093ed2206558d387a1d42e2789"
+  },
+  {
+    "schema": 10,
+    "file": "schema-10.rrsave",
+    "source": "Logs/Compost/Final/Saves/19832dff7eba42208f5ce2bebd42a312.rrsave",
+    "sha256": "cd979ac0d3ad68ddc45f2448c4f75ffd24615098ac4ca7a0714b7fa93c41a253"
+  },
+  {
+    "schema": 11,
+    "file": "schema-11.rrsave",
+    "source": "Logs/CompostMixing/Final/Saves/91413d90efda4973b15d1735ae4b9557.rrsave",
+    "sha256": "5bd9cc9f0149964e8033ffdb294b486f21cfd523cea1f83211e3cf23a3ed8886"
+  },
+  {
+    "schema": 12,
+    "file": "schema-12.rrsave",
+    "source": "Logs/AlphaPlaytest/Legacy12/Saves/8cd6d58f1b56488cbd0fe329335290e5.rrsave",
+    "sha256": "82bd466ec309622cd96e036e45539fd7aac36111a13e3edf9a94bf255774c4b9"
+  },
+  {
+    "schema": 13,
+    "file": "schema-13.rrsave",
+    "source": "Logs/AlphaPlaytest/save-final/Saves/038d4e39696e4940940a036faee8b7f7.rrsave",
+    "sha256": "7384b4579a57b7c1ddcf2389d61cf7134b2bdcd8740e2593992d4e0a4b11b3be"
+  },
+  {
+    "schema": 14,
+    "file": "schema-14.rrsave",
+    "source": "Logs/Beds/FishingRegression/Saves/1dece4a78eda46b9ad93f6646401a302.rrsave",
+    "sha256": "887ce40176c5ecac28f0519e8fb7e0657c2a117646d3c62041d73801cc90edb0"
+  },
+  {
+    "schema": 15,
+    "file": "schema-15.rrsave",
+    "source": "Logs/Weather/Legacy15/Saves/078d9efbd39446e987726f93172b76fc.rrsave",
+    "sha256": "4709f1ee91207fd1fcbbb5debfe48fc728385992db5f887e081cddfd60c0b9f9"
+  },
+  {
+    "schema": 16,
+    "file": "schema-16.rrsave",
+    "source": "Logs/FoodBalance/OldWeatherSaves/36c74e8487094ac08792623393d591e1.rrsave",
+    "sha256": "a16c430ea926aa3bfd9f71ea1352cf0f82b62c32684317ca0f9a0f1a7b8fdbcb"
+  },
+  {
+    "schema": 17,
+    "file": "schema-17.rrsave",
+    "source": "Logs/FoodBalance/Kitchen/Saves/0b1a77f599e048e899d497e24309f4ad.rrsave",
+    "sha256": "b8aac6815e557a86aada8244e72906701d8a600d97ee978896c0954b77dab3c3"
+  }
+]

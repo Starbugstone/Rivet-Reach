@@ -80,3 +80,5 @@ Drain finite lava deposits with a [Ranged Liquid Pump](Ranged-Liquid-Pump.md), c
 - [Weather](Weather.md) — clear skies, rain, storms, shelter and saved weather.
 
 [Renewable power](Renewable-power.md): craft solar panels and wind turbines, connect machines and share surplus between batteries.
+
+- [Factory stress-test gallery](Release-review-gallery.md) — actual factory, storm and farm captures from the pre-0.1.0 review.

@@ -1,0 +1,29 @@
+PASS 27 assertions
+PASS Equidistant forward work wins over rear work
+PASS Turning the camera reverses directional preference
+PASS Looking down prioritizes below-player work
+PASS Looking up prioritizes above-player work
+PASS The player's own page is the first normal-slot priority
+PASS Every immediate neighboring page, including rear floor corners, precedes direction-biased distant work
+PASS Nearby rear terrain still precedes much farther forward terrain
+PASS Negative world coordinates preserve relative rank and safety boundaries
+PASS Cached forward vectors are normalized once per selection pass
+PASS Invalid or absent camera direction falls back to weighted squared distance
+PASS Distance fallback preserves the existing half-weighted vertical metric
+PASS Equal geometric priorities use enqueue age then stable coordinate ordering
+PASS Initial three dispatches protect safety and each fourth dispatch reserves oldest work
+PASS A far loader page yields normal slots to player safety but wins its oldest reservation
+PASS Twelve older loader jobs finish within forty-eight dispatches despite continuous fresh nearby work
+PASS Repeated queued edits preserve current episode age before a dispatch completes
+PASS Rejected worker retry moves behind already waiting background work
+PASS Matching worker fault releases Busy, retains its reported error and queues one retry
+PASS A second failure of unchanged data stops automatic retries without wedging the resident
+PASS Fresh authoritative edits permit one new bounded retry
+PASS Late fault from an unloaded identity cannot change a replacement worker or its queue entry
+PASS A late fault cannot dirty a newer synchronously published mesh
+PASS A stale successful result counts as rejected without requeuing a newer synchronously published mesh
+PASS A stale successful result preserves newer dirty data and retries it behind previously queued work
+PASS Late fault for an unloaded page cannot recreate pending residency
+GC.Alloc recorder calibrated: empty control emitted no event; retained 4096-byte array emitted an event. Byte counter unsupported (0).
+PASS Repeated ranks remain finite across directions and vertical offsets
+PASS Calibrated counter detects no allocation in ranking and comparison

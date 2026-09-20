@@ -114,4 +114,7 @@ ArtSource/Renewables/*.png filter=lfs diff=lfs merge=lfs -text
 .docs/verification/renewables-2026-09-19/*.png filter=lfs diff=lfs merge=lfs -text
 
 .docs/wiki/images/food-balance/*.png filter=lfs diff=lfs merge=lfs -text
+
+.docs/verification/release-review-2026-09-20/*.png filter=lfs diff=lfs merge=lfs -text
+.docs/wiki/images/release-review/*.png filter=lfs diff=lfs merge=lfs -text
 .docs/verification/food-balance-2026-09-19/*.png filter=lfs diff=lfs merge=lfs -text

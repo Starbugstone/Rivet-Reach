@@ -49,3 +49,5 @@
 - [Weather](Weather.md) — clear skies, rain, storms, shelter and saved weather.
 
 - [Renewable power](Renewable-power.md) — solar panels, wind turbines and parallel battery charging.
+
+- [Factory stress-test gallery](Release-review-gallery.md) — actual factory, storm and farm captures from the pre-0.1.0 review.

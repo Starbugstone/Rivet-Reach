@@ -42,7 +42,7 @@ namespace RivetReach
         {
             c.Revision++;c.State=MultiblockState.Pending;
             if(queued.Add(c))pending.Enqueue(c);
-            simulation.Invalidate();
+            simulation.Invalidate(c.Controller.Position);
         }
         public void Changed(BlockPos p)
         {
@@ -55,6 +55,12 @@ namespace RivetReach
             }
         }
         public void ResidencyChanged(){foreach(var c in controllers.Values)Request(c);simulation.Invalidate();}
+        public void ResidencyChanged(ChunkPos chunk)
+        {
+            // The existing watch index includes missing shell and interior
+            // pages, so invalid/waiting structures still wake on repair/load.
+            if(watchers.TryGetValue(chunk,out var local))foreach(var c in local)Request(c);
+        }
         public void Step()
         {
             // At most one hard-budget scan per eligible simulation tick. Pending structures cannot transfer.
@@ -77,7 +83,7 @@ namespace RivetReach
                 if(c.Formed){c.LastFormed=result;foreach(var p in result.Members.Keys){claims[p]=c;var m=simulation.At(p);if(m!=null)m.Structure=c;}}
                 if(c.MachineData is BatteryBankData bank)
                 {bank.Cells.Clear();if(c.Formed){var positions=new List<BlockPos>(result.Members.Keys);positions.Sort((a,b)=>{int n=a.X.CompareTo(b.X);if(n!=0)return n;n=a.Y.CompareTo(b.Y);return n!=0?n:a.Z.CompareTo(b.Z);});foreach(var p in positions){var cell=simulation.At(p);if(cell?.EnergyCells.Length==1)bank.Cells.Add(cell.EnergyCells[0]);}}}
-                c.Controller.Structure=c;c.Revision++;simulation.Invalidate();return;
+                c.Controller.Structure=c;c.Revision++;simulation.Invalidate(c.Controller.Position);return;
             }
         }
     }

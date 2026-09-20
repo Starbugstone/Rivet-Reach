@@ -25,13 +25,64 @@ namespace RivetReach
         {
             var table=new bool[256];for(int i=0;i<table.Length;i++)table[i]=BlockId.Solid((byte)i)&&!CrateId.Part((byte)i)&&!BedId.Part((byte)i)&&i!=BlockId.MobSpawner&&!IndustryId.Placed((byte)i)&&i!=IndustryId.DoorUpper&&!StarterStationVisuals.UsesModel((byte)i);return table;
         }
+        // Each concurrent build exclusively owns its scratch until publication.
+        // Keep the two workers plus synchronous edit path warm, but do not retain
+        // pathological checkerboard/editor-fixture buffers for the whole session.
+        sealed class Scratch
+        {
+            public readonly List<Vector3> Vertices=new List<Vector3>(),Normals=new List<Vector3>();
+            public readonly List<Vector2> UV=new List<Vector2>(),Tiles=new List<Vector2>();
+            public readonly List<int> Indices=new List<int>();
+            public readonly List<(Vector3 position,byte id)> Plants=new List<(Vector3,byte)>();
+            public readonly byte[] Mask=new byte[1024];
+            public void Clear(){Vertices.Clear();Normals.Clear();UV.Clear();Tiles.Clear();Indices.Clear();Plants.Clear();}
+            public long Bytes=>1024L+12L*(Vertices.Capacity+Normals.Capacity)+8L*(UV.Capacity+Tiles.Capacity)+4L*Indices.Capacity+16L*Plants.Capacity;
+            long UsedBytes=>1024L+12L*(Vertices.Count+Normals.Count)+8L*(UV.Count+Tiles.Count)+4L*Indices.Count+16L*Plants.Count;
+            public bool Retainable=>Bytes<=32L*1024*1024;
+            public void CompactForRetention()
+            {
+                // Dense crop pages can fit the byte budget while List's doubled
+                // capacities exceed it. Keep up to 12.5% headroom within the same
+                // byte budget so gradual growth does not compact every revision.
+                if(Retainable||UsedBytes>32L*1024*1024)return;
+                long used=UsedBytes-1024;
+                double growth=used==0?1:System.Math.Min(1.125,(32L*1024*1024-1024)/(double)used);
+                Vertices.Capacity=(int)(Vertices.Count*growth);Normals.Capacity=(int)(Normals.Count*growth);
+                UV.Capacity=(int)(UV.Count*growth);Tiles.Capacity=(int)(Tiles.Count*growth);
+                Indices.Capacity=(int)(Indices.Count*growth);Plants.Capacity=(int)(Plants.Count*growth);
+            }
+        }
+        const int ScratchLimit=3;
+        static readonly Stack<Scratch> scratchPool=new Stack<Scratch>(ScratchLimit);
+        const long ScratchByteLimit=64L*1024*1024;
+        static long retainedScratchBytes;
+        static readonly int[] stride={1,34,1156};
+        static Scratch RentScratch()
+        {lock(scratchPool){if(scratchPool.Count>0){var scratch=scratchPool.Pop();retainedScratchBytes-=scratch.Bytes;return scratch;}}return new Scratch();}
+        static void ReturnScratch(Scratch scratch)
+        {
+            scratch.CompactForRetention();
+            scratch.Clear();
+            if(!scratch.Retainable)return;
+            lock(scratchPool)
+            {
+                while(scratchPool.Count>0&&(scratchPool.Count>=ScratchLimit||retainedScratchBytes+scratch.Bytes>ScratchByteLimit))
+                    retainedScratchBytes-=scratchPool.Pop().Bytes;
+                scratchPool.Push(scratch);retainedScratchBytes+=scratch.Bytes;
+            }
+        }
         public static int Index(int x,int y,int z) => x+1+34*(y+1+34*(z+1));
         public static ChunkBuild Build(ChunkPos pos,int revision,byte[] cells)
         {
-            var vertices=new List<Vector3>();var normals=new List<Vector3>();var uv=new List<Vector2>();
-            var tiles=new List<Vector2>();var indices=new List<int>();var mask=new byte[1024];
-            var plants=new List<(Vector3 position,byte id)>();
-            int[] stride={1,34,1156};
+            var scratch=RentScratch();
+            try{return Build(pos,revision,cells,scratch);}
+            finally{ReturnScratch(scratch);}
+        }
+        static ChunkBuild Build(ChunkPos pos,int revision,byte[] cells,Scratch scratch)
+        {
+            var vertices=scratch.Vertices;var normals=scratch.Normals;var uv=scratch.UV;
+            var tiles=scratch.Tiles;var indices=scratch.Indices;var mask=scratch.Mask;var plants=scratch.Plants;
+            // Every mask slot is overwritten before each layer consumes it.
             for(int axis=0;axis<3;axis++)for(int sign=-1;sign<=1;sign+=2)
             {
                 int u=(axis+1)%3,v=(axis+2)%3;
@@ -82,8 +133,8 @@ namespace RivetReach
                         int start=vertices.Count;vertices.Add(a);vertices.Add(b);vertices.Add(c);vertices.Add(d);
                         uv.Add(Vector2.zero);uv.Add(Vector2.right);uv.Add(Vector2.one);uv.Add(Vector2.up);
                         for(int k=0;k<4;k++){normals.Add(side==0?normal:-normal);tiles.Add(new Vector2(stem&&plant.id==BlockId.Sapling?4:BlockId.Tile(plant.id,1,1),0));}
-                        if(side==0)indices.AddRange(new[]{start,start+1,start+2,start,start+2,start+3});
-                        else indices.AddRange(new[]{start,start+2,start+1,start,start+3,start+2});
+                        if(side==0){indices.Add(start);indices.Add(start+1);indices.Add(start+2);indices.Add(start);indices.Add(start+2);indices.Add(start+3);}
+                        else {indices.Add(start);indices.Add(start+2);indices.Add(start+1);indices.Add(start);indices.Add(start+3);indices.Add(start+2);}
                     }
                 }
                 Leaf(centre+Vector3.left*.025f,centre+Vector3.right*.025f,centre+new Vector3(.025f,h,0),centre+new Vector3(-.025f,h,0),true);

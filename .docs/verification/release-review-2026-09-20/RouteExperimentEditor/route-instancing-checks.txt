@@ -1,0 +1,31 @@
+PASS Actual Workshop uses the project WorldLit shader without reported import/compiler errors; shader=RivetReach/WorldLit
+PASS Experiment stays disabled without explicit opt-in
+PASS Identical mesh/material/region share one batch and original renderers stop submitting
+PASS Submission borrows exact mesh, material, shadow and rendering-layer settings
+PASS Disconnected-end nonuniform transforms and orientations are preserved exactly
+PASS Batch culling bounds contain all transformed mesh corners without shrinking shadow geometry
+PASS Origin shifts update submission matrices while retaining previous-frame transforms
+PASS Different existing emission material identities remain separate batches
+PASS Layer differences retain separate camera-culling masks
+PASS Rendering-layer masks are not merged
+PASS Separate 16-block regions retain separate conservative culling bounds
+PASS Distinct shadow-casting settings remain separate batches
+PASS Distinct shadow-receiving settings remain separate batches
+PASS Vertical 16-block regions remain separate batches
+PASS Z-axis 16-block regions remain separate batches
+PASS Removing a visible view immediately restores only its original renderer
+PASS A replacement at the same block owns a distinct renderer and cannot revive the removed view
+PASS Disable restores all source renderers and clears submissions immediately
+PASS Re-enabling reuses retained matrix buffers
+PASS MPBs, custom probe anchors, baked lighting, non-default probe modes and extra material slots retain original renderers
+PASS A previously disabled renderer is never enabled by the experiment
+PASS Unsupported scene/device retains the complete original rendering path
+PASS Exhausted batch budget leaves overflow rendered by its original renderer
+PASS Capacity fallback and batched views both remain visible after disable
+PASS A full 256-instance group splits without dropping or duplicating its final instance
+GC.Alloc recorder calibrated: empty control emitted no event; retained 4096-byte array emitted an event. Byte counter unsupported (0).
+PASS Unchanged batch preparation performs no managed allocation after warmup; counter result=0; GC.Alloc recorder calibrated: empty control emitted no event; retained 4096-byte array emitted an event. Byte counter unsupported (0).
+PASS Repeated dirty regrouping of 64 views reuses multiple existing matrix buffers
+PASS Warmed material changes plus Sync and dirty Prepare produce no managed allocation; counter result=0; GC.Alloc recorder calibrated: empty control emitted no event; retained 4096-byte array emitted an event. Byte counter unsupported (0).
+Editor verification only: 256 dirty regroupings of 64 views 45.001 ms; no native draw-allocation or player-timing claim.
+PASS Disposal is idempotent, releases owned buffers and preserves borrowed meshes/materials

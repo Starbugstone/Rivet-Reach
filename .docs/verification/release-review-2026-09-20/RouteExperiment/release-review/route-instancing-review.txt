@@ -1,0 +1,11 @@
+Route instancing review: three paired 600-frame live-simulation windows, order off/on, on/off, off/on. Frozen fidelity captures and origin travel are excluded from gameplay timings.
+route-pair-1-off: enabled=False, instances=0, batches=0, buffers=0, capacityFallbacks=0
+route-pair-1-on: enabled=True, instances=914, batches=133, buffers=133, capacityFallbacks=0
+route-pair-2-on: enabled=True, instances=914, batches=133, buffers=133, capacityFallbacks=0
+route-pair-2-off: enabled=False, instances=0, batches=0, buffers=133, capacityFallbacks=0
+route-pair-3-off: enabled=False, instances=0, batches=0, buffers=133, capacityFallbacks=0
+route-pair-3-on: enabled=True, instances=914, batches=133, buffers=133, capacityFallbacks=0
+frozen-off: enabled=False, instances=0, batches=0, buffers=133, capacityFallbacks=0
+frozen-on: enabled=True, instances=914, batches=133, buffers=133, capacityFallbacks=0
+origin-return: enabled=True, instances=914, batches=133, buffers=133, capacityFallbacks=0
+PASS: frozen off/on captures and actual origin-shift return; instancing remains enabled for subsequent storm, unload, full-output and save checks.
