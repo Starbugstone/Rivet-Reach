@@ -1,0 +1,33 @@
+{
+  "verifiedUtc": "2026-09-20T01:53:24.083697+00:00",
+  "sourceCommit": "1b3a1a9de21d49a10ecd070ec8f7c7773f231424",
+  "wikiCommit": "7d6afe9",
+  "workflow": "https://github.com/Starbugstone/Rivet-Reach/actions/runs/35482166070",
+  "workflowConclusion": "success",
+  "browser": "Existing local Playwright Chromium, headless with installed sysroot libraries",
+  "viewport": {
+    "width": 1280,
+    "height": 1000
+  },
+  "galleryImagesLoaded": 4,
+  "galleryImageResolution": "1920x1080",
+  "inventoryGuideImagesLoaded": 6,
+  "itemIconsLoaded": 195,
+  "brokenItemIcons": 0,
+  "unlinkedItemIcons": 0,
+  "navigation": [
+    "Release-review-gallery \u2192 Building-and-inventory",
+    "Bridges-and-chunk-loaders responsibility text",
+    "Items \u2192 Item-iron-pickaxe \u2192 Item-iron-ingot"
+  ],
+  "consoleErrors": 0,
+  "consoleWarnings": 0,
+  "publishedFilesMatchingReviewedBytes": 11,
+  "screenshots": [
+    "output/playwright/release-review/gallery-live.png",
+    "output/playwright/release-review/inventory-live.png"
+  ],
+  "limitations": [
+    "Browser verification does not establish game FPS or release acceptance."
+  ]
+}
