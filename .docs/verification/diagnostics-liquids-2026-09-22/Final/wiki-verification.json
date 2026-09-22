@@ -1,0 +1,42 @@
+{
+  "verifiedUtc": "2026-09-22T07:39:10.825761+00:00",
+  "sourceCommit": "6a3ad3d78dd902efd0c4f509464500e4441e1886",
+  "wikiCommit": "26035f8270f29f71d4cea3c3d4e79fdfef1fa82b",
+  "workflow": "https://github.com/Starbugstone/Rivet-Reach/actions/runs/35700166341",
+  "workflowConclusion": "success",
+  "validatedPages": 232,
+  "validatedLinksAndImages": 9941,
+  "itemPages": 195,
+  "recipes": 199,
+  "url": "https://github.com/Starbugstone/Rivet-Reach/wiki/Performance-diagnostics?review=6a3ad3d",
+  "title": "Performance diagnostics \u00b7 Starbugstone/Rivet-Reach Wiki \u00b7 GitHub",
+  "browser": "Chromium via playwright-cli",
+  "viewport": {
+    "width": 1280,
+    "height": 1000
+  },
+  "hasF12Instructions": true,
+  "hasRemainingFloorLimit": true,
+  "horizontalOverflow": false,
+  "images": [
+    {
+      "path": "images/diagnostics-liquids/timing-overlay.png",
+      "loaded": true,
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "images/diagnostics-liquids/water-and-lava.png",
+      "loaded": true,
+      "width": 1920,
+      "height": 1080
+    }
+  ],
+  "publishedFilesMatchSources": [
+    "Home.md",
+    "Performance-diagnostics.md",
+    "images/diagnostics-liquids/timing-overlay.png",
+    "images/diagnostics-liquids/water-and-lava.png"
+  ],
+  "visualReview": "Full rendered page and both actual game captures inspected. Both images load; instructions and remaining performance limits visible."
+}
