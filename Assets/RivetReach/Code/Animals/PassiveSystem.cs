@@ -53,12 +53,14 @@ namespace RivetReach
             if(game==null||!game.Started||game.Paused)return;
             accumulator+=Mathf.Min(Time.deltaTime,.2f);
             while(accumulator>=.05f){accumulator-=.05f;Step();}
-            foreach(var c in active)if(c.Alive&&c.View!=null)c.View.Present(c,Time.deltaTime,world.Origin);
+            using(RuntimeCosts.AnimalViews.Auto())
+            {foreach(var c in active)if(c.Alive&&c.View!=null)c.View.Present(c,Time.deltaTime,world.Origin);}
             if(game.Mode!=ScreenMode.Play||game.Player.Inspecting)Target=null;
             else {var eye=game.Player.Camera.transform;Target=game.SelectInteraction(eye.position,eye.forward,3.2f,out var hit)&&ReferenceEquals(hit.Source,this)?hit.Entity.Target as ChickenState:null;}
         }
         void RefreshActive()
         {
+            using var cost=RuntimeCosts.AnimalActivation.Auto();
             var previous=active.ToArray();active.Clear();var player=game.Player.transform.position;
             foreach(var c in Near(player,SleepDistance).Where(IsActive).OrderBy(c=>(c.Position.Local(world.Origin)-player).sqrMagnitude).Take(MaximumActive))active.Add(c);
             foreach(var c in previous)if(!active.Contains(c)&&c.View!=null){Destroy(c.View.gameObject);c.View=null;}
@@ -141,6 +143,7 @@ namespace RivetReach
         }
         public bool TryNaturalSpawn()
         {
+            using var cost=RuntimeCosts.AnimalSpawning.Auto();
             for(int attempt=0;attempt<8;attempt++)
             {
                 float angle=Random()%6284/1000f,radius=20+Random()%2401/100f;

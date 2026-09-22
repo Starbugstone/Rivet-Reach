@@ -86,70 +86,80 @@ namespace RivetReach
         public void Step()
         {
             using var cost=RuntimeCosts.Industry.Auto();
-            long start=Stopwatch.GetTimestamp();Tick++;AdvanceStructureValidation();
-            AdvanceReconstruction();
-            foreach(var m in devices)
+            long start=Stopwatch.GetTimestamp();Tick++;
+            using(RuntimeCosts.Topology.Auto()){AdvanceStructureValidation();AdvanceReconstruction();}
+            using(RuntimeCosts.IndustryMachines.Auto())
             {
-                if(CanSimulate(m))continue;
-                ResetTransferredPower(m);
-                if(m.Definition.Id==IndustryId.Lamp&&lampLightStates.TryGetValue(m.Position,out bool lit)&&lit)
-                {lampLightStates[m.Position]=false;LightChanged?.Invoke(m.Position);}
-                if(!world.Ready(m.Position)||m.Definition.Id==IndustryId.WoodenDoor&&!world.Ready(m.Position.Offset(0,1,0)))
-                {m.Eligible=false;ResetNetworkState(m);m.Status=MachineStatus.Dormant;}
-            }
-            foreach(var m in devices)
-            {
-                if(!CanSimulate(m))continue;
-                m.RequestedWatts=0;ResetTransferredPower(m);
-                if(IndustryId.BatteryPart(m.Definition.Id))m.Status=m.Definition.Id==IndustryId.BatteryController&&m.Structure?.Formed!=true?MachineStatus.StructureInvalid:MachineStatus.Ready;
-                if(m.Definition.Id==IndustryId.Relay&&m.Source!=m.NextSource){m.Source=m.NextSource;signalsDirty=true;}
-                if(IndustryId.TankPart(m.Definition.Id))
+                foreach(var m in devices)
                 {
-                    m.Status=m.Structure?.Formed==true?MachineStatus.Ready:MachineStatus.StructureInvalid;
-                    if(m.Definition.Id==IndustryId.TankSensor){var tank=m.Structure;bool source=tank?.Formed==true&&tank.Fluid.Amount*100>=tank.Fluid.Capacity*m.LevelThreshold;if(m.Source!=source){m.Source=source;signalsDirty=true;}}
+                    if(CanSimulate(m))continue;
+                    ResetTransferredPower(m);
+                    if(m.Definition.Id==IndustryId.Lamp&&lampLightStates.TryGetValue(m.Position,out bool lit)&&lit)
+                    {lampLightStates[m.Position]=false;LightChanged?.Invoke(m.Position);}
+                    if(!world.Ready(m.Position)||m.Definition.Id==IndustryId.WoodenDoor&&!world.Ready(m.Position.Offset(0,1,0)))
+                    {m.Eligible=false;ResetNetworkState(m);m.Status=MachineStatus.Dormant;}
                 }
-                if(m.Definition.Id==IndustryId.Sensor)
-                {var c=ItemEndpoint(Neighbor(m,4));int count=0;if(world.Ready(Neighbor(m,4))&&c!=null)foreach(var s in c.Slots)count+=s.Count;bool source=count>=32;if(source!=m.Source){m.Source=source;signalsDirty=true;}}
-            }
-            if(signalsDirty){Signals.Evaluate();signalsDirty=false;}
-            foreach(var m in devices)
-            {
-                if(!CanSimulate(m))continue;
-                byte id=m.Definition.Id;
-                if(id==IndustryId.Relay)m.NextSource=m.Signal;
-                if(id==IndustryId.Button&&m.PulseTicks>0&&--m.PulseTicks==0){m.Source=false;signalsDirty=true;}
-                if(id==IndustryId.Boiler)Boiler(m);
-            }
-            foreach(var m in devices)
-            {
-                if(!CanSimulate(m))continue;
-                if(m.Definition.Id==IndustryId.Alternator)
+                foreach(var m in devices)
                 {
-                    var engine=At(Neighbor(m,1));
-                    bool coupled=engine!=null&&engine.Eligible&&engine.Definition.Id==IndustryId.Boiler&&Neighbor(engine,0).Equals(m.Position)&&engine.Running;
-                    m.SupplyWatts=coupled?AlternatorWatts:0;m.Status=coupled?MachineStatus.Running:MachineStatus.NoShaft;
+                    if(!CanSimulate(m))continue;
+                    m.RequestedWatts=0;ResetTransferredPower(m);
+                    if(IndustryId.BatteryPart(m.Definition.Id))m.Status=m.Definition.Id==IndustryId.BatteryController&&m.Structure?.Formed!=true?MachineStatus.StructureInvalid:MachineStatus.Ready;
+                    if(m.Definition.Id==IndustryId.Relay&&m.Source!=m.NextSource){m.Source=m.NextSource;signalsDirty=true;}
+                    if(IndustryId.TankPart(m.Definition.Id))
+                    {
+                        m.Status=m.Structure?.Formed==true?MachineStatus.Ready:MachineStatus.StructureInvalid;
+                        if(m.Definition.Id==IndustryId.TankSensor){var tank=m.Structure;bool source=tank?.Formed==true&&tank.Fluid.Amount*100>=tank.Fluid.Capacity*m.LevelThreshold;if(m.Source!=source){m.Source=source;signalsDirty=true;}}
+                    }
+                    if(m.Definition.Id==IndustryId.Sensor)
+                    {var c=ItemEndpoint(Neighbor(m,4));int count=0;if(world.Ready(Neighbor(m,4))&&c!=null)foreach(var s in c.Slots)count+=s.Count;bool source=count>=32;if(source!=m.Source){m.Source=source;signalsDirty=true;}}
                 }
-                if(m.Definition.Id==IndustryId.HandCrank)
+                if(signalsDirty){Signals.Evaluate();signalsDirty=false;}
+                foreach(var m in devices)
                 {
-                    m.SupplyWatts=m.PulseTicks>0?CrankWatts:0;
-                    m.Status=m.PulseTicks>0?MachineStatus.Running:MachineStatus.Ready;
-                    if(m.PulseTicks>0)m.PulseTicks--;
+                    if(!CanSimulate(m))continue;
+                    byte id=m.Definition.Id;
+                    if(id==IndustryId.Relay)m.NextSource=m.Signal;
+                    if(id==IndustryId.Button&&m.PulseTicks>0&&--m.PulseTicks==0){m.Source=false;signalsDirty=true;}
+                    if(id==IndustryId.Boiler)Boiler(m);
                 }
-                if(IndustryId.Renewable(m.Definition.Id))PrepareRenewable(m);
-                Prepare(m);
+                foreach(var m in devices)
+                {
+                    if(!CanSimulate(m))continue;
+                    if(m.Definition.Id==IndustryId.Alternator)
+                    {
+                        var engine=At(Neighbor(m,1));
+                        bool coupled=engine!=null&&engine.Eligible&&engine.Definition.Id==IndustryId.Boiler&&Neighbor(engine,0).Equals(m.Position)&&engine.Running;
+                        m.SupplyWatts=coupled?AlternatorWatts:0;m.Status=coupled?MachineStatus.Running:MachineStatus.NoShaft;
+                    }
+                    if(m.Definition.Id==IndustryId.HandCrank)
+                    {
+                        m.SupplyWatts=m.PulseTicks>0?CrankWatts:0;
+                        m.Status=m.PulseTicks>0?MachineStatus.Running:MachineStatus.Ready;
+                        if(m.PulseTicks>0)m.PulseTicks--;
+                    }
+                    if(IndustryId.Renewable(m.Definition.Id))PrepareRenewable(m);
+                    Prepare(m);
+                }
             }
-            Power.Allocate(Tick);
-            foreach(var m in devices)if(CanSimulate(m)&&IndustryId.BatteryPart(m.Definition.Id)&&(m.BatteryInputWatts>0||m.BatteryOutputWatts>0))m.Status=MachineStatus.Running;
+            using(RuntimeCosts.IndustryPower.Auto())
+            {
+                Power.Allocate(Tick);
+                foreach(var m in devices)if(CanSimulate(m)&&IndustryId.BatteryPart(m.Definition.Id)&&(m.BatteryInputWatts>0||m.BatteryOutputWatts>0))m.Status=MachineStatus.Running;
+            }
             // Transfers precede processing: new products cannot be forwarded in their producing tick.
-            TransferConfiguredItems();TransferFluids();
-            foreach(var m in devices)
+            using(RuntimeCosts.IndustryItems.Auto())TransferConfiguredItems();
+            using(RuntimeCosts.IndustryFluids.Auto())TransferFluids();
+            using(RuntimeCosts.IndustryMachines.Auto())
             {
-                if(!CanSimulate(m))continue;
-                Advance(m);
-                if(m.Definition.Id==IndustryId.Lamp)
+                foreach(var m in devices)
                 {
-                    lampLightStates.TryGetValue(m.Position,out bool wasLit);
-                    if(wasLit!=m.Running){lampLightStates[m.Position]=m.Running;LightChanged?.Invoke(m.Position);}
+                    if(!CanSimulate(m))continue;
+                    Advance(m);
+                    if(m.Definition.Id==IndustryId.Lamp)
+                    {
+                        lampLightStates.TryGetValue(m.Position,out bool wasLit);
+                        if(wasLit!=m.Running){lampLightStates[m.Position]=m.Running;LightChanged?.Invoke(m.Position);}
+                    }
                 }
             }
             Revision++;LastStepMs=(Stopwatch.GetTimestamp()-start)*1000.0/Stopwatch.Frequency;

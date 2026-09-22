@@ -12,7 +12,9 @@ namespace RivetReach
         public BlockPos(long x, int y, long z) { X = x; Y = y; Z = z; }
         public static long FloorDiv(long v, int d) => v >= 0 ? v / d : (v + 1) / d - 1;
         public ChunkPos Chunk => new ChunkPos(FloorDiv(X, 32), (int)FloorDiv(Y, 32), FloorDiv(Z, 32));
-        public int Index => (int)(X - Chunk.X * 32) + 32 * ((Y - Chunk.Y * 32) + 32 * (int)(Z - Chunk.Z * 32));
+        // The low five bits are the floor-modulo local coordinate on the 32-cell
+        // grid, including negative addresses. Avoid nine repeated chunk divisions.
+        public int Index => (int)(X&31) + ((Y&31)<<5) + ((int)(Z&31)<<10);
         public BlockPos Offset(int x, int y, int z) => new BlockPos(checked(X+x), checked(Y+y), checked(Z+z));
         public bool Equals(BlockPos p) => X == p.X && Y == p.Y && Z == p.Z;
         public override bool Equals(object o) => o is BlockPos p && Equals(p);

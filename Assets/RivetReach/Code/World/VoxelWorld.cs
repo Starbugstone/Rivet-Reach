@@ -195,7 +195,15 @@ namespace RivetReach
             LastTreeTickMs=(Stopwatch.GetTimestamp()-began)*1000.0/Stopwatch.Frequency;MaxTreeTickMs=Math.Max(MaxTreeTickMs,LastTreeTickMs);
         }
         public bool TryRead(BlockPos p,out byte id)
-        {id=0;if(!Ready(p))return false;id=Get(p);return true;}
+        {
+            var key=p.Chunk;id=0;
+            if(!chunks.TryGetValue(key,out var resident)||resident.Cells==null)return false;
+            int index=p.Index;
+            // Preserve edit authority and the closed nonresident boundary while
+            // avoiding Ready/Get's repeated chunk and coordinate lookups.
+            if(edits.TryGetValue(key,out var page)&&page.TryGetValue(index,out id))return true;
+            id=resident.Cells[ChunkMesher.Index(index&31,(index>>5)&31,index>>10)];return true;
+        }
         public byte SkyLight(BlockPos air)
         {
             var key=(air.X,air.Z);
@@ -440,6 +448,7 @@ namespace RivetReach
             }
             var task=Task.Run(()=>
             {
+                using var workerCost=RuntimeCosts.TerrainWorker.Auto();
                 var sw=Stopwatch.StartNew();int surfaceMin=0,surfaceMax=0;
                 // Loaded pages already contain current edits and halos. Remesh an immutable
                 // copy; regenerate only genuinely new residency pages.
@@ -463,6 +472,7 @@ namespace RivetReach
         }
         void Apply(ChunkBuild result,Resident c)
         {
+            using var cost=RuntimeCosts.TerrainUpload.Auto();
             bool first=c.Cells==null;
             bool visibleTerrain=result.Triangles.Length>0,visibleFluid=result.FluidMesh.Indices.Length>0;
             c.Cells=result.Cells;c.Dirty=false;pendingMeshes.Remove(result.Position);

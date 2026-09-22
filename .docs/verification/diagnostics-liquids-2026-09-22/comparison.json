@@ -1,0 +1,212 @@
+{
+  "before": {
+    "frames": 12010,
+    "floorBreaches": 43,
+    "maxFrameMs": 250.41109323501587,
+    "workloads": {
+      "empty-basins": {
+        "fluidCalls": 100,
+        "meanFluidCallMs": 0.0007009999999999999,
+        "peakFluidSampleMs": 0.0031,
+        "callsInPeakSample": 1,
+        "frameP95Ms": 11.173199862241745,
+        "maxFrameMs": 15.909800305962563,
+        "floorBreaches": 0
+      },
+      "water-cascades": {
+        "fluidCalls": 500,
+        "meanFluidCallMs": 1.9160013999999999,
+        "peakFluidSampleMs": 242.6058,
+        "callsInPeakSample": 1,
+        "frameP95Ms": 11.128295212984085,
+        "maxFrameMs": 250.41109323501587,
+        "floorBreaches": 10
+      },
+      "water-and-lava-cascades": {
+        "fluidCalls": 500,
+        "meanFluidCallMs": 0.13895580000000002,
+        "peakFluidSampleMs": 16.0032,
+        "callsInPeakSample": 1,
+        "frameP95Ms": 11.133701540529728,
+        "maxFrameMs": 19.857900217175484,
+        "floorBreaches": 0
+      },
+      "pulsed-liquid-fronts": {
+        "fluidCalls": 720,
+        "meanFluidCallMs": 1.83641625,
+        "peakFluidSampleMs": 199.9451,
+        "callsInPeakSample": 1,
+        "frameP95Ms": 11.165802367031574,
+        "maxFrameMs": 202.93620228767395,
+        "floorBreaches": 14
+      },
+      "paused-unload": {
+        "fluidCalls": 0,
+        "meanFluidCallMs": null,
+        "peakFluidSampleMs": 0.0,
+        "callsInPeakSample": 0,
+        "frameP95Ms": 11.122803203761578,
+        "maxFrameMs": 11.534105986356735,
+        "floorBreaches": 0
+      },
+      "paused-return": {
+        "fluidCalls": 0,
+        "meanFluidCallMs": null,
+        "peakFluidSampleMs": 0.0,
+        "callsInPeakSample": 0,
+        "frameP95Ms": 11.186295188963413,
+        "maxFrameMs": 12.808000668883324,
+        "floorBreaches": 0
+      },
+      "source-removal-drain": {
+        "fluidCalls": 700,
+        "meanFluidCallMs": 1.1834010000000001,
+        "peakFluidSampleMs": 60.5461,
+        "callsInPeakSample": 1,
+        "frameP95Ms": 11.138498783111572,
+        "maxFrameMs": 64.4695982336998,
+        "floorBreaches": 19
+      }
+    }
+  },
+  "firstOptimization": {
+    "frames": 12166,
+    "floorBreaches": 22,
+    "maxFrameMs": 78.96439731121063,
+    "workloads": {
+      "empty-basins": {
+        "fluidCalls": 100,
+        "meanFluidCallMs": 0.0005340000000000001,
+        "peakFluidSampleMs": 0.0016,
+        "callsInPeakSample": 1,
+        "frameP95Ms": 11.169196106493473,
+        "maxFrameMs": 11.605002917349339,
+        "floorBreaches": 0
+      },
+      "water-cascades": {
+        "fluidCalls": 500,
+        "meanFluidCallMs": 0.6780109999999999,
+        "peakFluidSampleMs": 76.1189,
+        "callsInPeakSample": 1,
+        "frameP95Ms": 11.135097593069077,
+        "maxFrameMs": 78.96439731121063,
+        "floorBreaches": 6
+      },
+      "water-and-lava-cascades": {
+        "fluidCalls": 500,
+        "meanFluidCallMs": 0.0649114,
+        "peakFluidSampleMs": 6.8517,
+        "callsInPeakSample": 1,
+        "frameP95Ms": 11.172200553119183,
+        "maxFrameMs": 14.25890065729618,
+        "floorBreaches": 0
+      },
+      "pulsed-liquid-fronts": {
+        "fluidCalls": 720,
+        "meanFluidCallMs": 0.7217972222222222,
+        "peakFluidSampleMs": 68.7085,
+        "callsInPeakSample": 1,
+        "frameP95Ms": 11.16570271551609,
+        "maxFrameMs": 71.4901015162468,
+        "floorBreaches": 10
+      },
+      "paused-unload": {
+        "fluidCalls": 0,
+        "meanFluidCallMs": null,
+        "peakFluidSampleMs": 0.0,
+        "callsInPeakSample": 0,
+        "frameP95Ms": 11.132100597023964,
+        "maxFrameMs": 15.571202151477337,
+        "floorBreaches": 0
+      },
+      "paused-return": {
+        "fluidCalls": 0,
+        "meanFluidCallMs": null,
+        "peakFluidSampleMs": 0.0,
+        "callsInPeakSample": 0,
+        "frameP95Ms": 11.182397603988647,
+        "maxFrameMs": 11.852402240037918,
+        "floorBreaches": 0
+      },
+      "source-removal-drain": {
+        "fluidCalls": 700,
+        "meanFluidCallMs": 0.6098068571428571,
+        "peakFluidSampleMs": 40.7885,
+        "callsInPeakSample": 1,
+        "frameP95Ms": 11.185402050614357,
+        "maxFrameMs": 44.19520124793053,
+        "floorBreaches": 6
+      }
+    }
+  },
+  "final": {
+    "frames": 12209,
+    "floorBreaches": 6,
+    "maxFrameMs": 39.54800218343735,
+    "workloads": {
+      "empty-basins": {
+        "fluidCalls": 100,
+        "meanFluidCallMs": 0.0005560000000000001,
+        "peakFluidSampleMs": 0.0014,
+        "callsInPeakSample": 1,
+        "frameP95Ms": 11.174497194588184,
+        "maxFrameMs": 12.714002281427383,
+        "floorBreaches": 0
+      },
+      "water-cascades": {
+        "fluidCalls": 500,
+        "meanFluidCallMs": 0.3142256,
+        "peakFluidSampleMs": 27.9032,
+        "callsInPeakSample": 1,
+        "frameP95Ms": 11.165299452841282,
+        "maxFrameMs": 30.92699870467186,
+        "floorBreaches": 2
+      },
+      "water-and-lava-cascades": {
+        "fluidCalls": 500,
+        "meanFluidCallMs": 0.0974418,
+        "peakFluidSampleMs": 11.4429,
+        "callsInPeakSample": 1,
+        "frameP95Ms": 11.180201545357704,
+        "maxFrameMs": 19.623901695013046,
+        "floorBreaches": 0
+      },
+      "pulsed-liquid-fronts": {
+        "fluidCalls": 720,
+        "meanFluidCallMs": 0.4285804166666667,
+        "peakFluidSampleMs": 35.4363,
+        "callsInPeakSample": 1,
+        "frameP95Ms": 11.172604747116566,
+        "maxFrameMs": 39.54800218343735,
+        "floorBreaches": 2
+      },
+      "paused-unload": {
+        "fluidCalls": 0,
+        "meanFluidCallMs": null,
+        "peakFluidSampleMs": 0.0,
+        "callsInPeakSample": 0,
+        "frameP95Ms": 11.208198964595795,
+        "maxFrameMs": 12.439901940524578,
+        "floorBreaches": 0
+      },
+      "paused-return": {
+        "fluidCalls": 0,
+        "meanFluidCallMs": null,
+        "peakFluidSampleMs": 0.0,
+        "callsInPeakSample": 0,
+        "frameP95Ms": 11.136897839605808,
+        "maxFrameMs": 12.0872026309371,
+        "floorBreaches": 0
+      },
+      "source-removal-drain": {
+        "fluidCalls": 700,
+        "meanFluidCallMs": 0.3528972857142857,
+        "peakFluidSampleMs": 23.9995,
+        "callsInPeakSample": 1,
+        "frameP95Ms": 11.173902079463005,
+        "maxFrameMs": 34.02850031852722,
+        "floorBreaches": 2
+      }
+    }
+  }
+}

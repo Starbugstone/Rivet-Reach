@@ -118,8 +118,13 @@ namespace RivetReach
             Label(root,"Escape · Save game",1090,694,172,22,12,new Color(.75f,.77f,.73f));
             message=Label(root,"",330,555,620,40,18,gold);message.alignment=TextAnchor.MiddleCenter;
             loading=Label(root,"",435,457,410,50,20);loading.alignment=TextAnchor.MiddleCenter;
-            var debug=Panel(root,20,94,680,210,new Color(.025f,.045f,.055f,.9f));diagnosticsPanel=debug.gameObject;
-            diagnostics=Label(debug.transform,"",8,9,660,190,14);diagnosticsPanel.SetActive(game.Diagnostics);
+            var debug=Panel(root,20,94,950,446,new Color(.025f,.045f,.055f,.9f));diagnosticsPanel=debug.gameObject;
+            diagnostics=Label(debug.transform,"",10,8,930,150,13);
+            currentScreen.diagnosticSimulation=Label(debug.transform,"",10,164,435,250,13);
+            currentScreen.diagnosticPresentation=Label(debug.transform,"",460,164,480,250,13);
+            Label(debug.transform,"Scopes include children; do not add them. Worker times are completed-job latency, not CPU usage. Threads overlap.",10,412,930,18,12);
+            Label(debug.transform,"Refresh 4 Hz · n/a = unsupported or no fresh timing · idle = no calls this window · GPU samples may arrive late",10,428,930,18,12);
+            diagnosticsPanel.SetActive(game.Diagnostics);
         }
         ItemStack StackAt(int index)
         {
@@ -334,8 +339,9 @@ namespace RivetReach
         }
         void Update()
         {
-            using var cost=RuntimeCosts.UI.Auto();
             if(game==null)return;
+            runtimeDiagnostics.Tick(game.Diagnostics);
+            using var cost=RuntimeCosts.UI.Auto();
             if(game.InventoryOpen && !HasInventoryBinding) { game.SetMode(ScreenMode.Play); return; }
             PrewarmInventory();
             if (Mouse.current?.rightButton.isPressed != true) EndRightPaint();
@@ -440,7 +446,7 @@ namespace RivetReach
                 texture.SetPixels(pixels);texture.Apply();icons[item.runtimeId]=texture;
             }
         }
-        void OnDestroy(){foreach(var t in icons.Values)if(!sharedToolIcons.Contains(t))Destroy(t);if(previewTexture!=null){previewTexture.Release();Destroy(previewTexture);}if(previewRoot!=null)Destroy(previewRoot);}
+        void OnDestroy(){RuntimeCosts.SetSampling(false);foreach(var t in icons.Values)if(!sharedToolIcons.Contains(t))Destroy(t);if(previewTexture!=null){previewTexture.Release();Destroy(previewTexture);}if(previewRoot!=null)Destroy(previewRoot);}
     }
     public sealed class PortraitDrag : MonoBehaviour,IDragHandler
     {public GameUI Owner;public void OnDrag(PointerEventData e)=>Owner.RotatePreview(e.delta.x);}

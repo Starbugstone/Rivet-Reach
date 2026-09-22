@@ -135,7 +135,11 @@ namespace RivetReach
             if(Input==null)return;
             if(WaitingForRespawn&&ReadyToPlay){WaitingForRespawn=false;invulnerableUntil=Time.time+2;SetMode(Mode);}
             if(LoadingSave&&ReadyToPlay){LoadingSave=false;SetMode(Mode);}
-            if(Started&&!Paused){Sky.Advance(Time.deltaTime);World.AdvanceGrass(Time.deltaTime);World.AdvanceTrees(Time.deltaTime);World.AdvanceFluids(Time.deltaTime);int ticks=Survival.Advance(Time.deltaTime);Industry.Advance(ticks);Fishing.Advance(ticks);Weather.Advance(ticks);if(!Creative){Health.Advance(ticks,Hunger);AdvanceLava(ticks);}}
+            if(Started&&!Paused)
+            {
+                using var cost=RuntimeCosts.SimulationAdvance.Auto();
+                Sky.Advance(Time.deltaTime);World.AdvanceGrass(Time.deltaTime);World.AdvanceTrees(Time.deltaTime);World.AdvanceFluids(Time.deltaTime);int ticks=Survival.Advance(Time.deltaTime);Industry.Advance(ticks);Fishing.Advance(ticks);Weather.Advance(ticks);if(!Creative){Health.Advance(ticks,Hunger);AdvanceLava(ticks);}
+            }
             if((OpenStation!=null||OpenMachine!=null)&&(!World.Ready(StationPosition)||(World.Local(StationPosition)+Vector3.one*.5f-Player.transform.position).sqrMagnitude>36))SetMode(ScreenMode.Play);
             if(Health.Dead)return;
             if(Input.PollRebind()){UI.Rebuild();return;}

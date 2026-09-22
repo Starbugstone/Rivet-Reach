@@ -19,6 +19,7 @@ namespace RivetReach
     {
         public static FluidMeshData Build(byte[] cells)
         {
+            using var cost=RuntimeCosts.FluidMeshes.Auto();
             var active=new List<int>();
             var vertices=new List<Vector3>();var normals=new List<Vector3>();var colours=new List<Color>();var indices=new List<int>();
             void Face(Vector3 a,Vector3 b,Vector3 c,Vector3 d,Vector3 normal,Color color)

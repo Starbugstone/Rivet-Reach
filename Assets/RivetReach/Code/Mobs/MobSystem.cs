@@ -68,12 +68,15 @@ namespace RivetReach
                 using var cost=RuntimeCosts.Mobs.Auto();long began=System.Diagnostics.Stopwatch.GetTimestamp();Tick(.05f);
                 MaximumTickMs=Math.Max(MaximumTickMs,(System.Diagnostics.Stopwatch.GetTimestamp()-began)*1000.0/System.Diagnostics.Stopwatch.Frequency);
             }
-            foreach(var mob in Mobs)
+            using(RuntimeCosts.MobViews.Auto())
             {
-                if(mob.View==null)continue;
-                bool visible=(mob.Position.Local(game.World.Origin)-player).sqrMagnitude<SleepDistance*SleepDistance&&game.World.Ready(mob.Position.Cell);
-                mob.View.gameObject.SetActive(visible);
-                if(visible)mob.View.Present(mob.Position.Local(game.World.Origin),Time.deltaTime);
+                foreach(var mob in Mobs)
+                {
+                    if(mob.View==null)continue;
+                    bool visible=(mob.Position.Local(game.World.Origin)-player).sqrMagnitude<SleepDistance*SleepDistance&&game.World.Ready(mob.Position.Cell);
+                    mob.View.gameObject.SetActive(visible);
+                    if(visible)mob.View.Present(mob.Position.Local(game.World.Origin),Time.deltaTime);
+                }
             }
             if(game.Mode!=ScreenMode.Play||game.Player.Inspecting)Target=null;
         }
@@ -85,9 +88,12 @@ namespace RivetReach
         void Tick(float dt)
         {
             elapsed+=dt;searchBudget=2;
-            if(NaturalSpawning&&elapsed>=spawnAt&&game.ReadyToPlay&&!game.Health.Dead)
-            {spawnAt=elapsed+2;TryNaturalSpawn();}
-            AdvanceSpawners(dt);
+            using(RuntimeCosts.MobSpawning.Auto())
+            {
+                if(NaturalSpawning&&elapsed>=spawnAt&&game.ReadyToPlay&&!game.Health.Dead)
+                {spawnAt=elapsed+2;TryNaturalSpawn();}
+                AdvanceSpawners(dt);
+            }
             for(int i=Mobs.Count-1;i>=0;i--)
             {
                 var mob=Mobs[i];Vector3 local=mob.Position.Local(game.World.Origin);

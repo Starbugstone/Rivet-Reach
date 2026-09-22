@@ -1,0 +1,37 @@
+Two separate 48x24x18 resident basins; 16 spaced sources each, 17m above floor. Normal water/lava timing, reach and source rules; no direct simulation stepping. Baseline 5s, water/lava 25s each, combined source pulses 36s, paused unload/return first 5s each (subsequent settle tails excluded), drain 35s plus bounded convergence wait if needed. Total fixture deadline 350s. Setup, full voxel audits, CSV writes and captures excluded. Marker columns are cumulative retail stopwatch deltas; nested scopes overlap and worker totals are parallel work, not frame critical-path time. FrameTimingManager samples may be delayed/repeated; timing_timestamp identifies samples. Missing counters and unaudited liquid counts are -1. Queue counts describe the sample end; audited counts have their separate UTC time and may follow additional settle/drain time. Liquid occupied cells are derived flow, not a volume-conservation measure.
+Seed: 246813
+Water floor origin: 0, 160, 0
+source 3, 177, 7
+source 9, 177, 7
+source 15, 177, 7
+source 21, 177, 7
+source 27, 177, 7
+source 33, 177, 7
+source 39, 177, 7
+source 45, 177, 7
+source 3, 177, 17
+source 9, 177, 17
+source 15, 177, 17
+source 21, 177, 17
+source 27, 177, 17
+source 33, 177, 17
+source 39, 177, 17
+source 45, 177, 17
+Lava floor origin: 54, 160, 0
+source 57, 177, 7
+source 63, 177, 7
+source 69, 177, 7
+source 75, 177, 7
+source 81, 177, 7
+source 87, 177, 7
+source 93, 177, 7
+source 99, 177, 7
+source 57, 177, 17
+source 63, 177, 17
+source 69, 177, 17
+source 75, 177, 17
+source 81, 177, 17
+source 87, 177, 17
+source 93, 177, 17
+source 99, 177, 17
+Extra drain convergence wait seconds: 0.000

@@ -1,0 +1,243 @@
+{
+  "source": "frames.csv.gz",
+  "uncompressedSha256": "3fffb01f96f2cf17dcc99e9ff6eb684564a25a0cd792bdad388f78e28efec79e",
+  "build": "Historical Integrated2 Development; not AcceptedFinal",
+  "units": "ms per active rendered frame (may include multiple fixed ticks), only positive scope samples; scopes inclusive",
+  "workloads": {
+    "stress-factory-farm-mobs-clear": {
+      "frames": 1800,
+      "scopes": {
+        "RR.IndustryTick": {
+          "activeFrames": 545,
+          "p50Ms": 3.9651,
+          "p95Ms": 6.2315,
+          "maxMs": 15.341
+        },
+        "RR.PassiveTick": {
+          "activeFrames": 545,
+          "p50Ms": 1.156,
+          "p95Ms": 3.2687,
+          "maxMs": 12.3451
+        },
+        "RR.HostileTick": {
+          "activeFrames": 545,
+          "p50Ms": 0.2553,
+          "p95Ms": 0.7339,
+          "maxMs": 10.6233
+        },
+        "RR.Streaming": {
+          "activeFrames": 1800,
+          "p50Ms": 0.0197,
+          "p95Ms": 0.3117,
+          "maxMs": 13.5541
+        },
+        "RR.MachineViews": {
+          "activeFrames": 1800,
+          "p50Ms": 0.58365,
+          "p95Ms": 1.441,
+          "maxMs": 4.2641
+        },
+        "RR.WeatherViews": {
+          "activeFrames": 1800,
+          "p50Ms": 0.0066,
+          "p95Ms": 0.0096,
+          "maxMs": 0.1015
+        },
+        "RR.UI": {
+          "activeFrames": 1800,
+          "p50Ms": 0.9887,
+          "p95Ms": 1.2498,
+          "maxMs": 11.1224
+        }
+      }
+    },
+    "stress-five-minute-soak": {
+      "frames": 17015,
+      "scopes": {
+        "RR.IndustryTick": {
+          "activeFrames": 5623,
+          "p50Ms": 4.3022,
+          "p95Ms": 9.1593,
+          "maxMs": 35.0855
+        },
+        "RR.PassiveTick": {
+          "activeFrames": 5623,
+          "p50Ms": 1.1756,
+          "p95Ms": 2.3244,
+          "maxMs": 9.2151
+        },
+        "RR.HostileTick": {
+          "activeFrames": 5623,
+          "p50Ms": 0.2655,
+          "p95Ms": 0.8785,
+          "maxMs": 13.7948
+        },
+        "RR.Streaming": {
+          "activeFrames": 17015,
+          "p50Ms": 0.0184,
+          "p95Ms": 0.0858,
+          "maxMs": 21.5516
+        },
+        "RR.MachineViews": {
+          "activeFrames": 17015,
+          "p50Ms": 0.5824,
+          "p95Ms": 1.4851,
+          "maxMs": 12.0258
+        },
+        "RR.WeatherViews": {
+          "activeFrames": 17015,
+          "p50Ms": 0.0066,
+          "p95Ms": 0.01,
+          "maxMs": 0.1263
+        },
+        "RR.UI": {
+          "activeFrames": 17015,
+          "p50Ms": 0.9954,
+          "p95Ms": 1.3212,
+          "maxMs": 11.6317
+        }
+      }
+    },
+    "stress-factory-farm-mobs-storm": {
+      "frames": 1800,
+      "scopes": {
+        "RR.IndustryTick": {
+          "activeFrames": 721,
+          "p50Ms": 4.5528,
+          "p95Ms": 10.842,
+          "maxMs": 31.2053
+        },
+        "RR.PassiveTick": {
+          "activeFrames": 713,
+          "p50Ms": 1.2016,
+          "p95Ms": 2.4923,
+          "maxMs": 5.8987
+        },
+        "RR.HostileTick": {
+          "activeFrames": 713,
+          "p50Ms": 0.3004,
+          "p95Ms": 1.3688,
+          "maxMs": 8.4116
+        },
+        "RR.Streaming": {
+          "activeFrames": 1800,
+          "p50Ms": 0.36935,
+          "p95Ms": 1.7224,
+          "maxMs": 4.9825
+        },
+        "RR.MachineViews": {
+          "activeFrames": 1800,
+          "p50Ms": 0.59745,
+          "p95Ms": 1.5671,
+          "maxMs": 4.5897
+        },
+        "RR.WeatherViews": {
+          "activeFrames": 1800,
+          "p50Ms": 0.20205,
+          "p95Ms": 0.2782,
+          "maxMs": 3.6916
+        },
+        "RR.UI": {
+          "activeFrames": 1800,
+          "p50Ms": 1.0424,
+          "p95Ms": 1.3652,
+          "maxMs": 4.6654
+        }
+      }
+    },
+    "active-factory-unload-return": {
+      "frames": 4323,
+      "scopes": {
+        "RR.IndustryTick": {
+          "activeFrames": 1163,
+          "p50Ms": 2.4898,
+          "p95Ms": 9.5077,
+          "maxMs": 38.374
+        },
+        "RR.PassiveTick": {
+          "activeFrames": 1158,
+          "p50Ms": 0.01005,
+          "p95Ms": 2.0691,
+          "maxMs": 13.916
+        },
+        "RR.HostileTick": {
+          "activeFrames": 1158,
+          "p50Ms": 0.0035,
+          "p95Ms": 0.0107,
+          "maxMs": 2.7006
+        },
+        "RR.Streaming": {
+          "activeFrames": 4323,
+          "p50Ms": 1.4882,
+          "p95Ms": 2.9049,
+          "maxMs": 36.751
+        },
+        "RR.MachineViews": {
+          "activeFrames": 4323,
+          "p50Ms": 0.0382,
+          "p95Ms": 1.0263,
+          "maxMs": 5.7709
+        },
+        "RR.WeatherViews": {
+          "activeFrames": 4323,
+          "p50Ms": 0.2121,
+          "p95Ms": 0.3351,
+          "maxMs": 8.5049
+        },
+        "RR.UI": {
+          "activeFrames": 4323,
+          "p50Ms": 0.9656,
+          "p95Ms": 1.3251,
+          "maxMs": 8.9537
+        }
+      }
+    },
+    "streaming": {
+      "frames": 1000,
+      "scopes": {
+        "RR.IndustryTick": {
+          "activeFrames": 307,
+          "p50Ms": 3.8173,
+          "p95Ms": 12.5173,
+          "maxMs": 26.7409
+        },
+        "RR.PassiveTick": {
+          "activeFrames": 307,
+          "p50Ms": 0.8449,
+          "p95Ms": 2.5473,
+          "maxMs": 5.7781
+        },
+        "RR.HostileTick": {
+          "activeFrames": 307,
+          "p50Ms": 0.0033,
+          "p95Ms": 0.0049,
+          "maxMs": 0.0107
+        },
+        "RR.Streaming": {
+          "activeFrames": 1000,
+          "p50Ms": 1.3434,
+          "p95Ms": 2.923,
+          "maxMs": 9.1694
+        },
+        "RR.MachineViews": {
+          "activeFrames": 1000,
+          "p50Ms": 0.0599,
+          "p95Ms": 0.5682,
+          "maxMs": 2.412
+        },
+        "RR.WeatherViews": {
+          "activeFrames": 1000,
+          "p50Ms": 0.006,
+          "p95Ms": 0.0171,
+          "maxMs": 0.0476
+        },
+        "RR.UI": {
+          "activeFrames": 1000,
+          "p50Ms": 1.10395,
+          "p95Ms": 1.5203,
+          "maxMs": 4.4169
+        }
+      }
+    }
+  }
+}

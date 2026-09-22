@@ -10,6 +10,7 @@ namespace RivetReach
         // identity so new screens/sessions cannot inherit stale presentation.
         (Text,bool,byte,ToolCapability,ToolTier,MachineState,int,PortRole,bool,Key,string) shownTarget;
         (Text,long,int,int,WeatherKind) shownClock;
+        readonly RuntimeDiagnostics runtimeDiagnostics=new RuntimeDiagnostics();
         Text shownDiagnostics;bool shownDiagnosticsEnabled;float nextDiagnosticsRefresh;
         void RefreshDiagnostics()
         {
@@ -23,7 +24,10 @@ namespace RivetReach
             // updates per second and must not repeat those scans every frame.
             if(shownDiagnostics==diagnostics&&shownDiagnosticsEnabled&&UnityEngine.Time.unscaledTime<nextDiagnosticsRefresh)return;
             shownDiagnostics=diagnostics;shownDiagnosticsEnabled=true;nextDiagnosticsRefresh=UnityEngine.Time.unscaledTime+.25f;
-            diagnostics.text=game.Diagnostics?$"{1/Mathf.Max(.001f,frameAverage):0} fps · {frameAverage*1000:0.0} ms\nWorld: {TerrainGenerator.WorldId} · seed {game.Seed} · {game.World.Address(game.Player.transform.position)}\nChunks {game.World.ReadyCount}/{game.World.ResidentCount} · queue {game.World.PendingCount}\nGeneration + mesh {game.World.LastBuildMs:0.0} ms · edit mesh {game.World.LastEditMeshMs:0.0} ms\nTriangles {game.World.MeshTriangles:N0} · changes {game.World.EditCount} · piles {game.Items.Piles.Count}\nStale jobs rejected {game.World.RejectedJobs} · origin {game.World.Origin}\nPlacement: {game.PlacementDiagnostic??"No attempt yet"}\nIndustry: {game.Industry.Simulation.Machines.Count} assemblies · tick {game.Industry.Simulation.LastStepMs:0.00} ms · {(game.Industry.Simulation.Rebuilding?"Connecting":"Ready")}":"";
+            runtimeDiagnostics.Refresh();
+            diagnostics.text=$"{runtimeDiagnostics.Frames}\n{runtimeDiagnostics.Threads}\nWorld {TerrainGenerator.WorldId} · seed {game.Seed} · {game.World.Address(game.Player.transform.position)}\nChunks ready/resident {game.World.ReadyCount}/{game.World.ResidentCount} · queued {game.World.PendingCount} · running terrain jobs {game.World.RunningJobs}\nLight queue {game.World.PendingLightChunks} · fluid queue {game.World.FluidSimulation.Pending} · fluid work last tick {game.World.FluidSimulation.LastWork}/{FluidSimulation.WorkBudget}\nTerrain triangles {game.World.MeshTriangles:N0} · edits {game.World.EditCount} · rejected jobs {game.World.RejectedJobs} · piles {game.Items.Piles.Count}\nFactory {game.Industry.Simulation.Machines.Count} assemblies · {(game.Industry.Simulation.Rebuilding?"Connecting":"Ready")} · origin {game.World.Origin}\nPlacement: {game.PlacementDiagnostic??"No attempt yet"}";
+            currentScreen.diagnosticSimulation.text=runtimeDiagnostics.Simulation;
+            currentScreen.diagnosticPresentation.text=runtimeDiagnostics.Presentation;
         }
         void RefreshTargetLabel()
         {

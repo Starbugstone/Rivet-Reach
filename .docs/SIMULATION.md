@@ -461,3 +461,14 @@ As a working scheduling default, three dispatches use safety/direction ranking a
 Worker results carry their chunk identity and revision independently of success. A stale completion cannot alter a replacement resident. Revision-rejected work rejoins the age queue at its tail; an unchanged failed job receives one automatic retry, then remains reported as an error until a new edit or residency episode allows new work. This avoids both permanent busy flags and unbounded retries.
 
 Terrain meshing retains at most three idle scratch builders, at most 32 MiB of list/array payload per builder and 64 MiB in total. Published mesh arrays remain independently owned; only private temporary lists/masks are reused. Natural crop growth updates authoritative state immediately and coalesces its mesh work through this queue. Player placement/mining feedback retains its existing immediate path.
+
+
+## Runtime timing overlay — 2026-09-22
+
+The debug overlay measures main-thread simulation and presentation scopes with opt-in `Stopwatch` timings, including ordinary non-Development players. It refreshes text four times per second and reuses counter/sampling storage. Hiding it stops these timing samples unless an explicit verification scenario requests them; Unity Profiler markers remain independently usable.
+
+Each row reports average duration **per completed call**, peak completed-call duration in the refresh window, and calls per second. This keeps a 20 Hz simulation tick distinguishable from a once-per-render-frame update. `Simulation advance` includes child fluid/survival/industry work; factory tick includes topology, processing, power and pipe phases. Parent and child timings must not be summed. Creature views include animation/presentation separately from AI ticks.
+
+Terrain generation/meshing and lighting solve rows measure completed background-job wall latency. Fluid mesh construction is a nested geometry scope which can execute on workers or during immediate main-thread rebuilds. Worker latency includes scheduling/preemption during the job and is **not** CPU utilization or a guaranteed main-thread stall. Queued terrain/light/fluid counts provide backlog context. CPU upload rows measure submission on the main thread, not GPU execution.
+
+FrameTimingManager supplies main-thread, render-thread, GPU and present-wait average/peak durations when available. These samples may arrive late and overlap; repeated timestamps are excluded. Unavailable or nonpositive timings display `n/a`, never an assumed zero. Idle scope rows explicitly show zero calls. Frame timing statistics are enabled in player settings; this is instrumentation, not proof that the release performance gates pass. Current evidence and remaining isolation work belong in [the diagnostics/liquids review](verification/DIAGNOSTICS_LIQUID_RESULTS.md).

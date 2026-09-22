@@ -144,6 +144,7 @@ namespace RivetReach
         }
         void LaunchLight(ChunkPos p)
         {
+            using var snapshotCost=RuntimeCosts.LightSnapshot.Auto();
             if(!chunks.TryGetValue(p,out var c)||c.Cells==null||!lightPages.TryGetValue(p,out var page))return;
             var cells=(byte[])c.Cells.Clone();var borders=new byte[6][];var emissions=new byte[ChunkLighting.Count];
             for(int face=0;face<6;face++)
@@ -173,6 +174,7 @@ namespace RivetReach
             int requestRevision=page.Revision,token=c.Token;
             lightWork=Task.Run(()=>
             {
+                using var workerCost=RuntimeCosts.LightWorker.Auto();
                 var clock=Stopwatch.StartNew();int[] heights=cached;
                 if(heights==null)
                 {
@@ -199,6 +201,7 @@ namespace RivetReach
         static int BorderIndex(int face,int a,int b)=>face<2?(face==0?31:0)+32*(a+32*b):face<4?a+32*((face==2?31:0)+32*b):a+32*(b+32*(face==4?31:0));
         void UploadLight(LightPage page)
         {
+            using var uploadCost=RuntimeCosts.LightUpload.Auto();
             byte value=page.Values[0];bool uniform=true;foreach(byte b in page.Values)if(b!=value){uniform=false;break;}
             if(uniform)
             {
@@ -230,6 +233,7 @@ namespace RivetReach
         static uint LightHash(int x,int y,int z)=>unchecked((uint)x*73856093u^(uint)y*19349663u^(uint)z*83492791u);
         void PublishLightTable()
         {
+            using var uploadCost=RuntimeCosts.LightUpload.Auto();
             int size=Math.Max(64,Mathf.NextPowerOfTwo(lightPages.Count*2));
             if(lightEntries==null||lightEntries.Length!=size){lightEntries=new LightEntry[size];lightTable?.Release();lightTable=new ComputeBuffer(size,16);}
             Array.Clear(lightEntries,0,lightEntries.Length);

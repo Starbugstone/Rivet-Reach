@@ -13,7 +13,7 @@ namespace RivetReach.Editor
         {
             Directory.CreateDirectory("Logs/ReleaseReview");
             var report=new StringBuilder();int failed=0;
-            Action[] suites={WorldLitBatchingChecks.Run,IndustryMaterialVariantChecks.Run,ResourceTickChecks.Run,ChunkWorkPriorityChecks.Run,ControlPresetChecks.Run,PresentationViewCacheChecks.Run,ResidencyInvalidationChecks.Run,ItemInputContractChecks.Run,SaveCompatibilityChecks.Run,DomainChecks.Run,CraftingChecks.Run,PerformanceChecks.Run,
+            Action[] suites={RuntimeDiagnosticsChecks.Run,FluidRoutingChecks.Run,WorldLitBatchingChecks.Run,IndustryMaterialVariantChecks.Run,ResourceTickChecks.Run,ChunkWorkPriorityChecks.Run,ControlPresetChecks.Run,PresentationViewCacheChecks.Run,ResidencyInvalidationChecks.Run,ItemInputContractChecks.Run,SaveCompatibilityChecks.Run,DomainChecks.Run,CraftingChecks.Run,PerformanceChecks.Run,
                 InventoryChecks.Run,ToolDurabilityChecks.Run,PortableStorageChecks.Run,
                 TagReviewChecks.Run,FarmingChecks.Run,FishingChecks.Run,ChickenChecks.Run,
                 FoodBalanceChecks.Run,CompostChecks.Run,BedChecks.Run,LightingChecks.Run,

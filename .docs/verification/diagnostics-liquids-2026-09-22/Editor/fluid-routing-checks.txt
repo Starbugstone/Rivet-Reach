@@ -1,0 +1,11 @@
+PASS 6220 assertions; prior algorithm is a frozen test-only equivalence oracle, not a second runtime implementation
+PASS 1536 adjacent-direction comparisons preserve flat/no-drop ties, holes, obstacles, source exclusions, mixed liquids and unready seams
+PASS local-query bounds/mutation/readiness equivalence; flat decision reads current=120, prior=304
+PASS flat Spread reads current=125, prior=1221; exact same pending work
+PASS unchanged-neighbour Spread reads current=5, prior=1221
+PASS flat source and drain: 160 identical tick states, mutation sequences, pending/work counts; reads avoided=153768
+PASS equal drop routes and changed dam: 130 identical tick states, mutation sequences, pending/work counts; reads avoided=901
+PASS renewing source support: 140 identical tick states, mutation sequences, pending/work counts; reads avoided=166690
+PASS dormant frontier and reload: 180 identical tick states, mutation sequences, pending/work counts; reads avoided=150288
+PASS mixed water lava source reaction: 180 identical tick states, mutation sequences, pending/work counts; reads avoided=109180
+PASS falling lava and removal: 240 identical tick states, mutation sequences, pending/work counts; reads avoided=3744

@@ -14064,7 +14064,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Animals/PassiveSystem.cs",
-            "sha256": "d19a857027af82ec836f826ea25504db5a50b5b4468e21bb9edef830873a2ac9"
+            "sha256": "c527fe14efcf0adec38156b352ba7e8b56d70ef693e38ba35126d36972dbaa7d"
         },
         {
             "path": "Assets/RivetReach/Code/ArcadeVerification.cs",
@@ -14116,7 +14116,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Core/Coordinates.cs",
-            "sha256": "e27ca6b81541bb93d58558f809dbbaefa77031f42aff0059b3ca3cbd3560e058"
+            "sha256": "2589381320c614716e5883a7377ea2c6c9de8f9350996c534afb8e594ebf5888"
         },
         {
             "path": "Assets/RivetReach/Code/Core/IItemPipeInventory.cs",
@@ -14232,7 +14232,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Expedition.cs",
-            "sha256": "a78f4c56bb9f09666134df21d55cd88db28047b6c3dd015760ceb96dfed74ba0"
+            "sha256": "c14a3faf1460366346d64fa78f2469ce18278301e67b426ee86d2cbab5416ecd"
         },
         {
             "path": "Assets/RivetReach/Code/FarmingVerification.cs",
@@ -14241,6 +14241,10 @@
         {
             "path": "Assets/RivetReach/Code/FishingVerification.cs",
             "sha256": "a6b58d79a8241f07a148929ffc04c28528cfaa6b4f7eb4b85ec868dc6ad86e0a"
+        },
+        {
+            "path": "Assets/RivetReach/Code/FluidStressVerification.cs",
+            "sha256": "a95bff489390d3b4cd2519399a66184faa7dfb90345a14e3c1b7899bfc912049"
         },
         {
             "path": "Assets/RivetReach/Code/FluidVerification.cs",
@@ -14256,11 +14260,11 @@
         },
         {
             "path": "Assets/RivetReach/Code/Fluids/FluidMesher.cs",
-            "sha256": "e08dd5c573fe2020bedd435365e306f17f0379afda8f0d9e741e70d180b52f25"
+            "sha256": "c4b036ab9a8cfd281e0c8f1a31c70e8690a6be8eb3445bba2bbd1b1a0c9ef105"
         },
         {
             "path": "Assets/RivetReach/Code/Fluids/FluidSimulation.cs",
-            "sha256": "2b978c39b271510405162bbbae6d883cfaa0c2d86a76a65fc7f6e530b82535d2"
+            "sha256": "2ad81a7aadfb189b781672e7d4b61f262e5d0fd16dd2dccd4a736897e0809c03"
         },
         {
             "path": "Assets/RivetReach/Code/Fluids/LavaHazards.cs",
@@ -14336,7 +14340,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Industry/IndustrySimulation.cs",
-            "sha256": "f39a031052350ad7e9cbbfe23a1daf180c9404c3625930a20d8dafee2df790e9"
+            "sha256": "5fcd22d0a43b7425d80af404d29538b868673a708d3274e8e3e9e18a065e73a6"
         },
         {
             "path": "Assets/RivetReach/Code/Industry/NetworkTopology.cs",
@@ -14448,7 +14452,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Mobs/MobSystem.cs",
-            "sha256": "0fa055dded307d71e1ff6d1c934a8fee597f010e59c79cbcfcaef015d7c84966"
+            "sha256": "0962fb3f6e8b1aacd6c3a5d1fa9631d5730a353bcea16b2a770109e75a8cc962"
         },
         {
             "path": "Assets/RivetReach/Code/Mobs/MobVerification.cs",
@@ -14640,7 +14644,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/ReleaseReviewVerification.cs",
-            "sha256": "f31d7d04cf9cd6905db56804ef1181a5a0471f428730ce890e499fe9b91cea0c"
+            "sha256": "3dc85806e52516a4b0818f5f6e49b3c7f93e51264b98151f356b07870e1dffe7"
         },
         {
             "path": "Assets/RivetReach/Code/ReleaseStressVerification.cs",
@@ -14655,8 +14659,16 @@
             "sha256": "f2424d2411b1dfda45568fdb6654ac84172262a3e3513465188dda22cea20227"
         },
         {
+            "path": "Assets/RivetReach/Code/RuntimeCosts.cs",
+            "sha256": "33d4e1bebf28d0a7b6ef28371f435ee1ba13ca730895130a9d82e78c8d0d1b05"
+        },
+        {
+            "path": "Assets/RivetReach/Code/RuntimeDiagnostics.cs",
+            "sha256": "f89f6879814cd44a3efaeb353b8f7a9e13ae2d3acc2ca3bdd79625b8db2a0244"
+        },
+        {
             "path": "Assets/RivetReach/Code/RuntimeVerification.cs",
-            "sha256": "a738dda13b613a751291ce61b8e5db1fbf39fe7aff31fe1d688816aff351f406"
+            "sha256": "fb1d18e0aac8fbb4dbe206e7907477da4fc0f22c7b5c9fd5a923655fe74c1e13"
         },
         {
             "path": "Assets/RivetReach/Code/SaveVerification.cs",
@@ -14768,7 +14780,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUI.cs",
-            "sha256": "40ae091fd7fc5c0c63dc57f28668c494afe84a88388fd56c4156738ef2e8bfd5"
+            "sha256": "6d12ee5a4ad87f0ed96523f17af62d11a3ef7d671385e6fbe49f0085569196e3"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIBridges.cs",
@@ -14796,7 +14808,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIHud.cs",
-            "sha256": "f8ff4b72292cd1579820672f6e30ef11e1589dfc7205d4d1146932e87221cfcf"
+            "sha256": "ff9976e682e04c04ebb02b69afc9314b2c6f079e66ce429a4bd5efc784979647"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIIndustry.cs",
@@ -14816,7 +14828,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIScreenReuse.cs",
-            "sha256": "7b4076665d2342b541b8fe7c922c8714db73e7b9a5cea4badd849c1726861f99"
+            "sha256": "a03265c4b2365f50664168f01cdf1882dbb0ff0b6c51a6b65a00804121e756b4"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIStationIllustration.cs",
@@ -14920,7 +14932,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/World/VoxelWorld.cs",
-            "sha256": "685a4f56d1c5fe1e23dee93c7d4cae97a168ce6a57dfbae340f31581d62f5f34"
+            "sha256": "530d51edfec9df86002aee004d613aab59d1e382849469cbb64cd0bc77c5bf59"
         },
         {
             "path": "Assets/RivetReach/Code/World/WeatherPresentation.cs",
@@ -14940,7 +14952,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/World/WorldLighting.cs",
-            "sha256": "25ef3bd352cb236fd25ed96ac1cf9a6852075c8c65aada608f9fc5d45c46583b"
+            "sha256": "fff3405bf2dffba5a35c88e2319646e1ffaaa3ab1063c1d6d603df7cc2a4c445"
         },
         {
             "path": "Assets/RivetReach/Code/World/WorldNoise.cs",

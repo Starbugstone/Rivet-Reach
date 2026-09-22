@@ -58,6 +58,7 @@ namespace RivetReach
         {if(world.TryRead(p,out cell))return true;Sleep(requester,p.Chunk);return false;}
         public void Step(IFluidWorld world)
         {
+            using var cost=RuntimeCosts.WorldFluids.Auto();
             tick++;LastWork=0;
             while(LastWork<WorkBudget&&due.Count>0)
             {
@@ -112,39 +113,66 @@ namespace RivetReach
             if(!touches||!world.ChangeFluid(p,cell,BlockId.LavaRock))return false;
             Changed(world,p);return true;
         }
-        bool Open(IFluidWorld world,BlockPos p,FluidDefinition f)
-            =>world.TryRead(p,out byte id)&&(Displaceable(id)||registry.Get(id)==f&&!f.IsSource(id));
-        // Bounded lookahead chooses equally short routes to a drop, otherwise spreads on the flat.
-        readonly Queue<(BlockPos p,int distance)> routes=new Queue<(BlockPos,int)>();
-        readonly HashSet<BlockPos> visited=new HashSet<BlockPos>();
-        int DropDistance(IFluidWorld world,BlockPos p,BlockPos from,FluidDefinition f,int remaining)
+        // Each direction starts one cell from the origin and looks ahead at
+        // most four more cells. All reads fit an 11x11 square at Y and Y-1.
+        // Scratch belongs to one synchronous query, never a world/tick cache.
+        const int RouteWidth=11,RouteCells=RouteWidth*RouteWidth,RouteCenter=RouteCells/2;
+        readonly byte[] routeOpen=new byte[RouteCells*2],routeVisited=new byte[RouteCells];
+        readonly int[] routeQueue=new int[RouteCells];
+        bool OpenRoute(IFluidWorld world,BlockPos from,int index,bool below,FluidDefinition f)
         {
-            routes.Clear();visited.Clear();visited.Add(from);visited.Add(p);routes.Enqueue((p,0));
-            while(routes.Count>0)
+            int cached=index+(below?RouteCells:0);byte value=routeOpen[cached];
+            if(value==0)
             {
-                var node=routes.Dequeue();
-                if(Open(world,node.p.Offset(0,-1,0),f))return node.distance;
-                if(node.distance==remaining)continue;
+                var p=from.Offset(index%RouteWidth-5,below?-1:0,index/RouteWidth-5);
+                bool open=world.TryRead(p,out byte id)&&(Displaceable(id)||registry.Get(id)==f&&!f.IsSource(id));
+                routeOpen[cached]=value=open?(byte)2:(byte)1;
+            }
+            return value==2;
+        }
+        // Bounded BFS retains the same neighbour order and blocks return through
+        // the origin. Per-direction stamps avoid clearing visited between routes.
+        int DropDistance(IFluidWorld world,BlockPos from,int first,FluidDefinition f,int remaining,byte stamp)
+        {
+            int head=0,tail=1;routeQueue[0]=first;
+            routeVisited[RouteCenter]=stamp;routeVisited[first]=stamp;
+            while(head<tail)
+            {
+                int entry=routeQueue[head++],index=entry&127,distance=entry>>7;
+                if(OpenRoute(world,from,index,true,f))return distance;
+                if(distance==remaining)continue;
                 foreach(var d in Sides)
                 {
-                    var n=node.p.Offset(d.x,0,d.z);
-                    if(visited.Contains(n)||!Open(world,n,f))continue;
-                    visited.Add(n);routes.Enqueue((n,node.distance+1));
+                    int next=index+d.x+d.z*RouteWidth;
+                    if(routeVisited[next]==stamp||!OpenRoute(world,from,next,false,f))continue;
+                    routeVisited[next]=stamp;routeQueue[tail++]=next|((distance+1)<<7);
                 }
             }
             return 99;
         }
+        int FlowDirections(IFluidWorld world,BlockPos from,FluidDefinition f,byte cell)
+        {
+            if(f.Level(cell)>=f.Reach)return 0;
+            Array.Clear(routeOpen,0,routeOpen.Length);Array.Clear(routeVisited,0,routeVisited.Length);
+            // Without a reachable drop every target ties at 99, including closed
+            // targets; callers separately enforce compatibility and readiness.
+            int best=99,mask=15;
+            for(int side=0;side<Sides.Length;side++)
+            {
+                var d=Sides[side];int first=RouteCenter+d.x+d.z*RouteWidth;
+                if(!OpenRoute(world,from,first,false,f))continue;
+                int score=DropDistance(world,from,first,f,Math.Min(4,f.Reach-f.Level(cell)-1),(byte)(side+1));
+                if(score<best){best=score;mask=1<<side;}
+                else if(score==best)mask|=1<<side;
+            }
+            return mask;
+        }
         bool FlowsToward(IFluidWorld world,BlockPos from,BlockPos target,FluidDefinition f,byte cell)
         {
-            if(f.Level(cell)>=f.Reach)return false;
-            int best=99,targetScore=99;
-            foreach(var d in Sides)
-            {
-                var n=from.Offset(d.x,0,d.z);if(!Open(world,n,f))continue;
-                int score=DropDistance(world,n,from,f,Math.Min(4,f.Reach-f.Level(cell)-1));
-                best=Math.Min(best,score);if(n.Equals(target))targetScore=score;
-            }
-            return targetScore==best;
+            int mask=FlowDirections(world,from,f,cell);
+            for(int side=0;side<Sides.Length;side++)
+            {var d=Sides[side];if(from.Offset(d.x,0,d.z).Equals(target))return (mask&(1<<side))!=0;}
+            return false; // Every caller supplies one of the four adjacent targets.
         }
         void Spread(IFluidWorld world,BlockPos p,byte cell,FluidDefinition f)
         {
@@ -153,15 +181,19 @@ namespace RivetReach
             if(Displaceable(floor)||registry.Get(floor)==f&&!f.IsSource(floor)&&!f.IsFalling(floor))Wake(down,f.TickDelay);
             if(Displaceable(floor)||registry.Get(floor)==f&&!f.IsSource(floor))return;
             if(f.Level(cell)>=f.Reach)return;
-            foreach(var d in Sides)
+            int directions=-1;
+            for(int side=0;side<Sides.Length;side++)
             {
-                var n=p.Offset(d.x,0,d.z);
+                var d=Sides[side];var n=p.Offset(d.x,0,d.z);
                 if(!Read(world,n,p,out byte id))continue;
-                if((Displaceable(id)||registry.Get(id)==f&&!f.IsSource(id))&&FlowsToward(world,p,n,f,cell))
-                {
-                    // Unchanged neighbours sleep; only weaker/empty cells need propagation.
-                    if(Displaceable(id)||f.Level(id)>f.Level(cell)+1)Wake(n,f.TickDelay);
-                }
+                if(!Displaceable(id)&&(registry.Get(id)!=f||f.IsSource(id)))continue;
+                // Unchanged neighbours need no wake and therefore no route search.
+                if(!Displaceable(id)&&f.Level(id)<=f.Level(cell)+1)continue;
+                // Wake only schedules future work; no cells change during this
+                // loop, so all neighbours share these same four route scores.
+                if(directions<0)directions=FlowDirections(world,p,f,cell);
+                if((directions&(1<<side))==0)continue;
+                Wake(n,f.TickDelay);
             }
         }
     }

@@ -97,3 +97,5 @@ This directory maintains the latest report and useful evidence for each feature.
 - [Beds, home spawn and sleep](BED_RESULTS.md) — paired placement, crafting, sleep, safe arrival and schema-14 recovery.
 
 - [Bulk crates and warehouses](CRATE_RESULTS.md) — physical stock, type locks, controller connectivity, priority routing and schema-15 recovery.
+
+[Diagnostics and flowing-liquid review](DIAGNOSTICS_LIQUID_RESULTS.md) records the September 22 timing overlay, subsystem analysis and native flow stress evidence.

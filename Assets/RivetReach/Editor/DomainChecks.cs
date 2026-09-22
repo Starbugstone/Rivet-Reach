@@ -20,6 +20,13 @@ namespace RivetReach.Editor
                 var point=new WorldPoint(p,new Vector3(.25f,.5f,.75f));var round=WorldPoint.FromLocal(point.Local(p.Chunk.Min),p.Chunk.Min);
                 Check(round.Cell.Equals(p)&&round.Fraction==point.Fraction,"Floating origin round trip");
             }
+            foreach(long x in new[]{long.MinValue,long.MinValue+31,-33L,-32,-1,0,31,32,long.MaxValue-31,long.MaxValue})
+            foreach(int y in new[]{int.MinValue,-33,-32,-1,0,31,32,int.MaxValue})
+            foreach(long z in new[]{long.MinValue,-1L,0,31,long.MaxValue})
+            {
+                var p=new BlockPos(x,y,z);int index=p.Index;
+                Check(index>=0&&index<32768&&p.Chunk.Min.Offset(index%32,index/32%32,index/1024).Equals(p),"Signed coordinate index round trip "+p);
+            }
             var generator=new TerrainGenerator(246813);var adjacent=new[]{new ChunkPos(-1,1,0),new ChunkPos(0,1,0)};
             byte[] a=generator.Generate(adjacent[0]),b=generator.Generate(adjacent[1]);
             Check(a.SequenceEqual(new TerrainGenerator(246813).Generate(adjacent[0])),"Repeat seed");

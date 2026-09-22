@@ -38,6 +38,8 @@ namespace RivetReach.Editor
             command=command.Replace("|ready","");File.Delete(request);
             try
             {
+                if(command=="diagnostics-liquids"||command=="diagnostics-liquids-player")
+                {if(command=="diagnostics-liquids")BuildDiagnosticsLiquids();else Build("DiagnosticsLiquids",BuildOptions.None);File.WriteAllText("Logs/build-result.txt","SUCCESS diagnostics liquids");return;}
                 if(command=="release-review-baseline"||command=="release-review-final"||command=="release-review-checks"||command=="release-review-player"||command=="release-review-retail")
                 {
                     if(EditorUtility.scriptCompilationFailed)throw new InvalidOperationException("Release review requires a successful current script compilation.");
@@ -318,6 +320,10 @@ namespace RivetReach.Editor
             PortableStorageChecks.Run();InventoryChecks.Run();BatteryChecks.Run();MultiblockChecks.Run();
             IndustryChecks.Run();GridAllocationChecks.Run();CraftingChecks.Run();SurvivalChecks.Run();
             WikiExport.Export();Build("PortableStorage");
+        }
+        public static void BuildDiagnosticsLiquids()
+        {
+            ReleaseReviewChecks.Run();Build("DiagnosticsLiquids",BuildOptions.None);
         }
         public static void BuildAlpha()
         {

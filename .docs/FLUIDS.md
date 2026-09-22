@@ -60,3 +60,10 @@ The [Ranged Liquid Pump](RANGED_PUMP.md) subsequently adds automatic collection 
 Flowing water immediately above or beside a lava source converts that source cell once into **Lava Rock** (`rivet:lava_rock`, block 37). Water sources alone do not trigger conversion; flowing lava is not converted. The normal queued fluid authority performs the exact source-to-solid transaction and invalidates neighboring fluid/light/mesh state. The resulting block is stable, opaque and placeable, with its own volcanic-glass atlas tile and ordinary stack limit of 64.
 
 Only a diamond-tier pickaxe can successfully harvest Lava Rock. Lower tiers and other tool capabilities cannot remove it through mining. No additional fluid reactions or crafting recipe are introduced. Existing terrain is not retrofitted. [Alpha verification](verification/ALPHA_PLAYTEST_RESULTS.md) records reaction and mining evidence.
+
+
+## Flow profiling and route reuse — 2026-09-22
+
+The release-capable diagnostics overlay separates world-fluid ticks from pipe transport, geometry construction and CPU uploads. The dedicated `-rr-fluid-stress` scenario exercises real water/lava cascades, source pulses, drainage and chunk unload/return with the ordinary 512-cell step budget. [Diagnostics/liquid verification](verification/DIAGNOSTICS_LIQUID_RESULTS.md) owns its workload and measured limits.
+
+Within a spreading cell, downhill direction scores are computed once and reused for the neighbours that need waking. Scheduling a wake does not mutate the world, so all those neighbours see the same routing inputs. Already sufficient neighbours skip the route search entirely. Within each routing query, an 11×11 scratch grid at the current height and one cell below reuses passability reads; a packed local queue and per-direction visit stamps replace coordinate hashing. The bound follows one initial neighbour plus at most four lookahead steps. Scratch is cleared before every query; it is not a persistent route cache that could survive terrain/source changes. Fluid reach, delays, renewal, source reactions, readiness boundaries and wake ordering remain unchanged.

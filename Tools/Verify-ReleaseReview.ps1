@@ -21,9 +21,9 @@ $failed=@()
 foreach ($scenario in $Scenarios) {
     $destination=Join-Path $OutputDirectory $scenario
     New-Item -ItemType Directory -Force $destination | Out-Null
-    $known=@('alpha-survival','release-review','release-legacy','alpha-playtest','crafting','browser','inventory','inventory-gestures','tools','saves','multiblock','fluid','weather','renewables','crates','chicken','bed','farming','compost','fishing','lighting','industry','connections','portable-storage','bridges','ranged-pump','electric-furnace','door','hand-crank','lava','interaction','food-balance','performance')
+    $known=@('fluid-stress','alpha-survival','release-review','release-legacy','alpha-playtest','crafting','browser','inventory','inventory-gestures','tools','saves','multiblock','fluid','weather','renewables','crates','chicken','bed','farming','compost','fishing','lighting','industry','connections','portable-storage','bridges','ranged-pump','electric-furnace','door','hand-crank','lava','interaction','food-balance','performance')
     if ($scenario -notin $known) { throw ('Unknown verification scenario: '+$scenario) }
-    $flag=if ($scenario -eq 'release-legacy') {'-rr-release-legacy'} elseif ($scenario -eq 'release-review') {'-rr-release-review'} elseif ($scenario -eq 'saves') {'-rr-save-review'} else {'-rr-'+$scenario+'-review'}
+    $flag=if ($scenario -eq 'fluid-stress') {'-rr-fluid-stress'} elseif ($scenario -eq 'release-legacy') {'-rr-release-legacy'} elseif ($scenario -eq 'release-review') {'-rr-release-review'} elseif ($scenario -eq 'saves') {'-rr-save-review'} else {'-rr-'+$scenario+'-review'}
     $arguments=@('-force-d3d11','-screen-fullscreen','1','-window-mode','borderless','-screen-width',$Width,'-screen-height',$Height,'-rr-verify',$flag,'-rr-output',('"'+$destination+'"'),'-rr-save-directory',('"'+(Join-Path $destination 'saves')+'"'),'-logFile',('"'+(Join-Path $destination 'player.log')+'"'))
     if ($scenario -eq 'release-legacy') {
         if (!(Test-Path $FixtureDirectory)) { throw 'Historical fixture directory is required.' }

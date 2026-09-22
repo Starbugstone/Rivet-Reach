@@ -9,36 +9,6 @@ using UnityEngine.InputSystem;
 
 namespace RivetReach
 {
-    // Named scopes are also useful in the ordinary Unity Profiler. No logging,
-    // fixture or recorder runs in normal play.
-    public static class RuntimeCosts
-    {
-        public static bool MeasureAllocations;
-        public static bool AllocationCounterSupported {get;private set;}
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
-        static void AllocationWitness(){var witness=new byte[4096];witness[0]=1;GC.KeepAlive(witness);}
-        public static void CalibrateAllocations()
-        {
-            AllocationWitness();GC.GetAllocatedBytesForCurrentThread();
-            long before=GC.GetAllocatedBytesForCurrentThread();AllocationWitness();
-            AllocationCounterSupported=GC.GetAllocatedBytesForCurrentThread()-before>=4096;
-        }
-        public static readonly long[] Allocated=new long[9];
-        public readonly struct Marker
-        {
-            readonly ProfilerMarker marker;readonly int index;
-            public Marker(string name,int index){marker=new ProfilerMarker(name);this.index=index;}
-            public Scope Auto()=>new Scope(marker,index);
-        }
-        public readonly struct Scope : IDisposable
-        {
-            readonly ProfilerMarker.AutoScope scope;readonly long before;readonly int index;readonly bool measure;
-            public Scope(ProfilerMarker marker,int index){scope=marker.Auto();this.index=index;measure=MeasureAllocations&&AllocationCounterSupported;before=measure?GC.GetAllocatedBytesForCurrentThread():0;}
-            public void Dispose(){if(measure)Allocated[index]+=GC.GetAllocatedBytesForCurrentThread()-before;scope.Dispose();}
-        }
-        public static readonly Marker UI=new Marker("RR.UI",0),Streaming=new Marker("RR.Streaming",1),Industry=new Marker("RR.IndustryTick",2),Machines=new Marker("RR.MachineViews",3),Weather=new Marker("RR.WeatherViews",4),Torches=new Marker("RR.TorchRefresh",5),Animals=new Marker("RR.PassiveTick",6),Mobs=new Marker("RR.HostileTick",7),Survival=new Marker("RR.SurvivalTick",8);
-    }
-
     public sealed partial class RuntimeVerification
     {
         [Serializable] sealed class FrameDistribution

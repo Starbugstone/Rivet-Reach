@@ -26,6 +26,7 @@ namespace RivetReach
             public RectTransform stationHost;
             public int commonSlots;
             public RectTransform root, heldRoot;
+            public Text diagnosticSimulation, diagnosticPresentation;
             public Text message, diagnostics, targetLabel, heldLabel, selectedLabel, loading, tooltip, worldTime, inventoryHint, healthText, hungerText, armorText;
             public GameObject diagnosticsPanel;
             public Image progress;

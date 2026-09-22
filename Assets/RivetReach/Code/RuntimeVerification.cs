@@ -117,7 +117,7 @@ namespace RivetReach
             game.SetMode(ScreenMode.Title);yield return null;
             seedField=game.UI.VisibleRoot.GetComponentInChildren<UnityEngine.UI.InputField>();seedField.text="246813";StartButton().onClick.Invoke();
             Check(game.Seed==246813&&game.World.Generator.Seed==246813,"Entering an explicit seed starts that reproducible world");
-            game.World.ViewDistance=Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-fluid-review")?4:10;game.Diagnostics=true;
+            game.World.ViewDistance=Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-fluid-review"||arg=="-rr-fluid-stress")?4:10;game.Diagnostics=true;
             if(Array.Exists(Environment.GetCommandLineArgs(),arg=>arg=="-rr-gameplay-fixes-review"||arg=="-rr-save-review"||arg=="-rr-workshop-followup-review"||arg=="-rr-browser-review"||arg=="-rr-creative-review"||arg=="-rr-creative-mining-review"||arg=="-rr-torch-review"||arg=="-rr-industry-review"||arg=="-rr-multiblock-review"||arg=="-rr-clearance-review"||arg=="-rr-starter-stations-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-azure-review")||Environment.GetCommandLineArgs().Contains("-rr-ore-variants-review")||Environment.GetCommandLineArgs().Contains("-rr-ore-drops-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-hand-crank-review")||Environment.GetCommandLineArgs().Contains("-rr-door-review")||Environment.GetCommandLineArgs().Contains("-rr-battery-fill-review"))game.World.ViewDistance=4;
@@ -137,6 +137,7 @@ namespace RivetReach
             yield return Settle();report.firstReadySeconds=Time.realtimeSinceStartup-began;
             if(Environment.GetCommandLineArgs().Contains("-rr-inventory-gestures-review")){report.workload="Native inventory drag, split, station input and spare armor gestures";yield return ReviewInventoryGestures();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-performance-review")){report.workload="Calibrated interaction timings and revision-safe terrain work";game.Diagnostics=false;yield return PerformanceProbe.Run(game,output);yield break;}
+            if(Environment.GetCommandLineArgs().Contains("-rr-fluid-stress")){report.workload="Bounded real water/lava cascade, spread, drainage and residency stress";yield return ReviewFluidStress();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-release-review")){report.workload="Release review: full-distance frame pacing, weather, factory, streaming and interactions";yield return ReviewReleasePerformance();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-tools-review")){report.workload="Survival route, tiered pick/axe timing, durability, transfers and saves";yield return ReviewTools();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-food-balance-review")){report.workload="Normal Survival route, cultivated kitchen, paid eating and sustained base activity";yield return ReviewFoodBalance();yield break;}

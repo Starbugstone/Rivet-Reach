@@ -1,0 +1,84 @@
+RIVET REACH
+Day 1 · 13:52
+Full moon · Clear
+CREATIVE · INVINCIBLE
+Double-tap Space: toggle flight · LeftShift: crouch / descend · LeftCtrl: run
+
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+10
+
+11
+
+12
+
+13
+
+14
+
+15
+BARE HAND
+Tab  Inventory    E  Interact    Right-click  Use / place    Q  Drop
+<color=#ef5359>♥</color><color=#ef5359>♥</color><color=#ef5359>♥</color><color=#ef5359>♥</color><color=#ef5359>♥</color><color=#ef5359>♥</color><color=#ef5359>♥</color><color=#ef5359>♥</color><color=#ef5359>♥</color><color=#ef5359>♥</color>
+Frozen
+Escape · Save game
+
+
+90 FPS · frame avg 11,12 / worst 11,21 ms · target 16.67 / floor 22.22 ms
+Thread avg/peak ms: Main 2,92/8,07 · Render 0,73/3,07 · GPU 3,18/5,42 · Present wait 8,19/9,68
+World surface · seed 246813 · 50, 180, -10
+Chunks ready/resident 432/432 · queued 0 · running terrain jobs 0
+Light queue 6 · fluid queue 112 · fluid work last tick 0/512
+Terrain triangles 153 358 · edits 4500 · rejected jobs 93 · piles 0
+Factory 0 assemblies · Ready · origin 0, 0, 0
+Placement: No attempt yet
+MAIN THREAD · avg/call | peak ms | calls/s
+Simulation advance: 0,41 | 3,41 | 89,8
+Survival tick: 0,00 | 0,00 | 19,5
+World fluid tick: 0,30 | 1,50 | 19,5
+Factory tick: 0,01 | 0,02 | 19,5
+  Network rebuild: 0,00 | 0,00 | 19,5
+  Processing phases: 0,00 | 0,01 | 39,1
+  Power: 0,00 | 0,01 | 19,5
+  Item pipes: 0,00 | 0,00 | 19,5
+  Fluid pipes: 0,00 | 0,00 | 19,5
+Hostile tick: 0,00 | 0,00 | 19,5
+  Hostile spawn: 0,00 | 0,00 | 19,5
+Passive tick: 0,00 | 0,00 | 19,5
+  Passive spawn: idle (0 calls)
+  Passive residency: idle (0 calls)
+
+PRESENTATION / JOBS · avg/call | peak ms | calls/s
+Streaming: 0,16 | 0,52 | 89,8
+Terrain upload CPU: 0,08 | 0,14 | 11,7
+Light snapshot: 0,15 | 0,21 | 58,6
+Light upload CPU: 0,04 | 0,06 | 54,7
+Machine views: 0,00 | 0,00 | 89,8
+Hostile views: 0,00 | 0,00 | 89,8
+Passive views: 0,00 | 0,00 | 89,8
+Weather views: 0,00 | 0,01 | 89,8
+Torch refresh: 0,11 | 0,13 | 7,8
+UI: 0,08 | 0,24 | 89,8
+Terrain worker job: 4,21 | 5,40 | 11,7
+Light worker job: 3,51 | 5,63 | 58,6
+Fluid mesh CPU: 1,69 | 3,03 | 11,7
+
+Scopes include children; do not add them. Worker times are completed-job latency, not CPU usage. Threads overlap.
+Refresh 4 Hz · n/a = unsupported or no fresh timing · idle = no calls this window · GPU samples may arrive late

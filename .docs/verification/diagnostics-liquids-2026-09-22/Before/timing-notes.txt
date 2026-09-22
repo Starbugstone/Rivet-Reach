@@ -1,0 +1,2 @@
+Stopwatch scopes accumulate work completed between coroutine samples; Time.unscaledDeltaTime is the preceding frame interval. Thus a long scope can precede the corresponding long frame interval by one CSV row. GPU/CPU FrameTiming samples can arrive still later and are identified by timing_timestamp. Worker rows are summed completed-job wall durations and may overlap. No row-wise sum of all columns is valid.
+CSV SHA256 25126979b468cdd59cff630f8ce31b0e9870199c52cab784d7fb8144b5c516b1
