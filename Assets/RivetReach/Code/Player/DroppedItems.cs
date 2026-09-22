@@ -304,8 +304,8 @@ namespace RivetReach
                 if(!meshes.TryGetValue(id,out var mesh))
                 {
                     var cells=new byte[34*34*34];cells[ChunkMesher.Index(0,0,0)]=id;var cube=ChunkMesher.Build(default,0,cells);
-                    for(int i=0;i<cube.Vertices.Length;i++)cube.Vertices[i]-=Vector3.one*.5f;
-                    mesh=new Mesh{name="World item voxel "+id};mesh.vertices=cube.Vertices;mesh.normals=cube.Normals;mesh.uv=cube.UV;mesh.uv2=cube.Tiles;mesh.triangles=cube.Triangles;mesh.RecalculateBounds();meshes.Add(id,mesh);
+                    cube.Translate(-Vector3.one*.5f);
+                    mesh=cube.ToMesh();mesh.name="World item voxel "+id;meshes.Add(id,mesh);
                 }
                 view.AddComponent<MeshFilter>().sharedMesh=mesh;view.AddComponent<MeshRenderer>().sharedMaterial=World.TerrainMaterial;
             }

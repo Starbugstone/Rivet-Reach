@@ -10,11 +10,17 @@ namespace RivetReach
         public bool HasSurfaceRange;
         public int SurfaceMin,SurfaceMax;
         public byte[] Cells;
-        public Vector3[] Vertices,Normals;
-        public Vector2[] UV, Tiles;
+        public TerrainVertex[] Vertices;
+        public Bounds Bounds;
         public int[] Triangles;
         public FluidMeshData FluidMesh;
         public double Milliseconds;
+        public Mesh ToMesh(Mesh mesh=null)=>ChunkMeshUpload.Terrain(Vertices,Triangles,Bounds,mesh);
+        public void Translate(Vector3 offset)
+        {
+            for(int i=0;i<Vertices.Length;i++)Vertices[i].Position+=offset;
+            if(Vertices.Length>0)Bounds.center+=offset;
+        }
     }
 
     public static class ChunkMesher
@@ -145,7 +151,10 @@ namespace RivetReach
                     Leaf(start,Vector3.Lerp(start,end,.5f)-across*h*.19f,end,Vector3.Lerp(start,end,.5f)+across*h*.19f);
                 }
             }
-            return new ChunkBuild{FluidMesh=FluidMesher.Build(cells),Position=pos,Revision=revision,Cells=cells,Vertices=vertices.ToArray(),Normals=normals.ToArray(),UV=uv.ToArray(),Tiles=tiles.ToArray(),Triangles=indices.ToArray()};
+            var packed=new TerrainVertex[vertices.Count];var bounds=new MeshBounds();
+            for(int i=0;i<packed.Length;i++)
+            {var position=vertices[i];packed[i]=new TerrainVertex(position,normals[i],uv[i],tiles[i]);bounds.Add(position);}
+            return new ChunkBuild{FluidMesh=FluidMesher.Build(cells),Position=pos,Revision=revision,Cells=cells,Vertices=packed,Bounds=bounds.Value,Triangles=indices.ToArray()};
         }
     }
 }

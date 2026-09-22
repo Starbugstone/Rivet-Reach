@@ -45,10 +45,11 @@ namespace RivetReach
                 if(index==4)foreach(var r in creatureRenderers)r.enabled=false;
             }
             var names=new[]{"sun-shadows-off","msaa-off","scale-70","machine-renderers-off","creature-renderers-off"};
+            bool shaderComparison=Environment.GetCommandLineArgs().Contains("-rr-factory-shader");
             long tick=game.Industry.Simulation.Tick;double day=game.Sky.Clock.TotalDays;
             File.WriteAllText(Path.Combine(output,"graphics-isolation.txt"),
                 "Diagnostic frozen-scene experiment, not ordinary gameplay FPS. Same camera/factory/world/clock; principal simulation and presentation updates suspended, while ambient effects and dropped-item updates remain active. " +
-                "Each control has 300-frame baseline/control/baseline samples, with normal 90-frame warmups. Two rounds; second reverses control order. " +
+                (shaderComparison?"Two historical/current/historical WorldLit shader brackets, 1200 measured frames per stage and 90-frame warmups; quality and visibility controls are not run. ":"Each quality/visibility control has 300-frame baseline/control/baseline samples, with normal 90-frame warmups. Two rounds; second reverses control order. ") +
                 "Settings and enabled states restored before live unloading/travel. GPU timings remain delayed; inspect thermal telemetry. " +
                 "Machine control disables current IndustryPresentation renderers including pipe views/shadows, but leaves crates, lights and terrain intact. " +
                 "Creature control disables mesh renderers, not a gameplay population change. No quality setting is shipped differently.\n"+
@@ -79,6 +80,35 @@ namespace RivetReach
             {
                 foreach(var b in behaviours)if(b!=null)b.enabled=false;
                 yield return Capture("isolation-restored-before");
+                if(shaderComparison)
+                {
+                    var reference=Resources.Load<Shader>("Verification/WorldLit");
+                    Check(reference!=null,"Shader comparison requires explicitly staged historical reference assets");
+                    if(reference==null)yield break;
+                    var current=Shader.Find("RivetReach/WorldLit");
+                    var materials=FindObjectsByType<Renderer>().SelectMany(r=>r.sharedMaterials).Where(m=>m!=null&&m.shader==current).Distinct().ToArray();
+                    var keywords=materials.Select(m=>m.shaderKeywords).ToArray();
+                    void SetShader(Shader shader){for(int i=0;i<materials.Length;i++){materials[i].shader=shader;materials[i].shaderKeywords=keywords[i];}}
+                    Check(materials.Length>0,"Shader comparison finds actual world materials");
+                    try
+                    {
+                        // Old/current/old brackets compare unchanged visible geometry,
+                        // resolution, shadows and camera in the same player process.
+                        for(int round=1;round<=2;round++)
+                        {
+                            SetShader(reference);
+                            yield return sample("gpu-shader-r"+round+"-before",1200);
+                            SetShader(current);
+                            yield return sample("gpu-shader-r"+round+"-control",1200);
+                            SetShader(reference);
+                            yield return sample("gpu-shader-r"+round+"-after",1200);
+                            Check(game.Industry.Simulation.Tick==tick&&game.Sky.Clock.TotalDays==day,"Shader comparison preserves factory and clock, round "+round);
+                        }
+                    }
+                    finally{for(int i=0;i<materials.Length;i++){materials[i].shader=current;materials[i].shaderKeywords=keywords[i];}}
+                }
+                else
+                {
                 for(int round=0;round<2;round++)
                 for(int j=0;j<names.Length;j++)
                 {
@@ -87,6 +117,7 @@ namespace RivetReach
                     Control(index);yield return sample(prefix+"-control",300);
                     Restore();yield return sample(prefix+"-after",300);
                     Check(game.Industry.Simulation.Tick==tick&&game.Sky.Clock.TotalDays==day,"Frozen graphics comparison does not advance factory or clock: "+prefix);
+                }
                 }
                 yield return Capture("isolation-restored-after");
             }

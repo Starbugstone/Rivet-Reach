@@ -1,0 +1,2 @@
+Seed 246813; view radius 10; 32 production lines; 5967 placed blocks; 1518 industrial assemblies; 230 stations/crates; 512 crop cells; 64 persistent chickens; 14 explicitly placed hostile mobs.
+All setup resources are fixtures. Ordinary simulation, storage, renderers and navigation run during samples.

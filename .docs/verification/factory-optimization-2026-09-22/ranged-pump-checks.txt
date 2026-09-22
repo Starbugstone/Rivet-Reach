@@ -1,0 +1,149 @@
+PASS 147 assertions
+PASS Resident read preserves exact logical scan positions on tick 1
+PASS Resident read never falls through to potentially generating Get on tick 1
+PASS Resident read preserves exact logical scan positions on tick 2
+PASS Resident read never falls through to potentially generating Get on tick 2
+PASS Resident read preserves exact logical scan positions on tick 3
+PASS Resident read never falls through to potentially generating Get on tick 3
+PASS Resident read preserves exact logical scan positions on tick 4
+PASS Resident read never falls through to potentially generating Get on tick 4
+PASS Resident read preserves exact logical scan positions on tick 5
+PASS Resident read never falls through to potentially generating Get on tick 5
+PASS Resident read preserves exact logical scan positions on tick 6
+PASS Resident read never falls through to potentially generating Get on tick 6
+PASS Resident read preserves exact logical scan positions on tick 7
+PASS Resident read never falls through to potentially generating Get on tick 7
+PASS Resident read preserves exact logical scan positions on tick 8
+PASS Resident read never falls through to potentially generating Get on tick 8
+PASS Resident read preserves exact logical scan positions on tick 9
+PASS Resident read never falls through to potentially generating Get on tick 9
+PASS Resident read preserves exact logical scan positions on tick 10
+PASS Resident read never falls through to potentially generating Get on tick 10
+PASS Resident read preserves exact logical scan positions on tick 11
+PASS Resident read never falls through to potentially generating Get on tick 11
+PASS Resident read preserves exact logical scan positions on tick 12
+PASS Resident read never falls through to potentially generating Get on tick 12
+PASS Resident read preserves exact logical scan positions on tick 13
+PASS Resident read never falls through to potentially generating Get on tick 13
+PASS Resident read preserves exact logical scan positions on tick 14
+PASS Resident read never falls through to potentially generating Get on tick 14
+PASS Resident read preserves exact logical scan positions on tick 15
+PASS Resident read never falls through to potentially generating Get on tick 15
+PASS Resident read preserves exact logical scan positions on tick 16
+PASS Resident read never falls through to potentially generating Get on tick 16
+PASS Resident read preserves exact logical scan positions on tick 17
+PASS Resident read never falls through to potentially generating Get on tick 17
+PASS Resident read preserves exact logical scan positions on tick 18
+PASS Resident read never falls through to potentially generating Get on tick 18
+PASS Resident read preserves exact logical scan positions on tick 19
+PASS Resident read never falls through to potentially generating Get on tick 19
+PASS Resident read preserves exact logical scan positions on tick 20
+PASS Resident read never falls through to potentially generating Get on tick 20
+PASS Unavailable scanned positions preserve dormant search status
+PASS New source does not bypass exhausted-search cooldown 21
+PASS New source does not bypass exhausted-search cooldown 22
+PASS New source does not bypass exhausted-search cooldown 23
+PASS New source does not bypass exhausted-search cooldown 24
+PASS New source does not bypass exhausted-search cooldown 25
+PASS New source does not bypass exhausted-search cooldown 26
+PASS New source does not bypass exhausted-search cooldown 27
+PASS New source does not bypass exhausted-search cooldown 28
+PASS New source does not bypass exhausted-search cooldown 29
+PASS New source does not bypass exhausted-search cooldown 30
+PASS New source does not bypass exhausted-search cooldown 31
+PASS New source does not bypass exhausted-search cooldown 32
+PASS New source does not bypass exhausted-search cooldown 33
+PASS New source does not bypass exhausted-search cooldown 34
+PASS New source does not bypass exhausted-search cooldown 35
+PASS New source does not bypass exhausted-search cooldown 36
+PASS New source does not bypass exhausted-search cooldown 37
+PASS New source does not bypass exhausted-search cooldown 38
+PASS New source does not bypass exhausted-search cooldown 39
+PASS New source does not bypass exhausted-search cooldown 40
+PASS New source does not bypass exhausted-search cooldown 41
+PASS New source does not bypass exhausted-search cooldown 42
+PASS New source does not bypass exhausted-search cooldown 43
+PASS New source does not bypass exhausted-search cooldown 44
+PASS New source does not bypass exhausted-search cooldown 45
+PASS New source does not bypass exhausted-search cooldown 46
+PASS New source does not bypass exhausted-search cooldown 47
+PASS New source does not bypass exhausted-search cooldown 48
+PASS New source does not bypass exhausted-search cooldown 49
+PASS New source does not bypass exhausted-search cooldown 50
+PASS New source does not bypass exhausted-search cooldown 51
+PASS New source does not bypass exhausted-search cooldown 52
+PASS New source does not bypass exhausted-search cooldown 53
+PASS New source does not bypass exhausted-search cooldown 54
+PASS New source does not bypass exhausted-search cooldown 55
+PASS New source does not bypass exhausted-search cooldown 56
+PASS New source does not bypass exhausted-search cooldown 57
+PASS New source does not bypass exhausted-search cooldown 58
+PASS New source does not bypass exhausted-search cooldown 59
+PASS Exhausted search resumes on original retry tick and first position
+PASS Cached target becoming nonresident pauses with one resident probe
+PASS Replaced cached source resets work and follows the original rescan order
+PASS Resident-reader path preserves exact forty-tick source transaction
+PASS Full ranged pump performs no resident reads
+PASS Registered Machinist bench recipe produces one pump
+PASS Upgrade consumes exactly one Pump, one Floater Rock and two gold ingots
+PASS All crafting recipes transfer and conserve ingredients
+PASS Source acquired at inclusive corner -8, -8, -8 / Water
+PASS No early output at 39 eligible ticks
+PASS Exact 10 L source removal at 40 ticks
+PASS No electrical demand or endpoint
+PASS Full buffer cannot remove more sources
+PASS Source acquired at inclusive corner 8, 8, 8 / Water
+PASS No early output at 39 eligible ticks
+PASS Exact 10 L source removal at 40 ticks
+PASS No electrical demand or endpoint
+PASS Full buffer cannot remove more sources
+PASS Source acquired at inclusive corner -8, 8, 8 / Water
+PASS No early output at 39 eligible ticks
+PASS Exact 10 L source removal at 40 ticks
+PASS No electrical demand or endpoint
+PASS Full buffer cannot remove more sources
+PASS Source acquired at inclusive corner 8, -8, -8 / Water
+PASS No early output at 39 eligible ticks
+PASS Exact 10 L source removal at 40 ticks
+PASS No electrical demand or endpoint
+PASS Full buffer cannot remove more sources
+PASS Source acquired at inclusive corner -8, -8, -8 / Lava
+PASS No early output at 39 eligible ticks
+PASS Exact 10 L source removal at 40 ticks
+PASS No electrical demand or endpoint
+PASS Full buffer cannot remove more sources
+PASS Source acquired at inclusive corner 8, 8, 8 / Lava
+PASS No early output at 39 eligible ticks
+PASS Exact 10 L source removal at 40 ticks
+PASS No electrical demand or endpoint
+PASS Full buffer cannot remove more sources
+PASS Source acquired at inclusive corner -8, 8, 8 / Lava
+PASS No early output at 39 eligible ticks
+PASS Exact 10 L source removal at 40 ticks
+PASS No electrical demand or endpoint
+PASS Full buffer cannot remove more sources
+PASS Source acquired at inclusive corner 8, -8, -8 / Lava
+PASS No early output at 39 eligible ticks
+PASS Exact 10 L source removal at 40 ticks
+PASS No electrical demand or endpoint
+PASS Full buffer cannot remove more sources
+PASS All six radius-nine faces and flowing/falling liquids are excluded
+PASS Per-tick empty search is bounded to 256 cell reads
+PASS OFF signal preserves work
+PASS ON signal resumes work
+PASS Unloaded source pauses without collection
+PASS Rejected world transaction never yields fluid
+PASS Successful retry yields one source only
+PASS Emptied buffer can switch liquid type
+PASS Retained liquid blocks mixing and partial-capacity extraction
+PASS Overlapping pumps cannot duplicate one finite source
+PASS All-face lava export conserves liquid on face 0
+PASS All-face lava export conserves liquid on face 1
+PASS All-face lava export conserves liquid on face 2
+PASS All-face lava export conserves liquid on face 3
+PASS All-face lava export conserves liquid on face 4
+PASS All-face lava export conserves liquid on face 5
+PASS Machine save round trip retains exact lava and partial work
+PASS Imported cradle, suspended core and status lamp
+PASS Imported geometry remains inside one cell
+Imported triangles: 1976; mesh parts: 3

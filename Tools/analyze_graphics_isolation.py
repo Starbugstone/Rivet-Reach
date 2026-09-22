@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compare bracketed frozen-factory controls; these are not gameplay speedups."""
+"""Compare bracketed frozen-factory controls or historical/current shaders."""
 import argparse
 import csv
 import json
@@ -27,7 +27,9 @@ def compare(analysis, performance, telemetry, offset_hours=2):
                 'temperature_min_c': min(row[1] for row in rows), 'temperature_max_c': max(row[1] for row in rows),
                 'clock_min_mhz': clocks[0], 'clock_median_mhz': clocks[len(clocks)//2], 'clock_max_mhz': clocks[-1]}
 
-    result = {'conditions': 'Frozen scene, diagnostic quality/visibility controls, not gameplay speedups. Each control is bracketed by restored baselines; round 2 reverses order. Baseline reference is mean of the two GPU medians. Thermal telemetry is sparse and does not remove hardware variation.', 'comparisons': []}
+    shader = any(name.startswith('gpu-shader-') for name in stages)
+    description = ('Frozen factory/camera, historical/current/historical WorldLit shader brackets; identical visible geometry and quality settings. ' if shader else 'Frozen factory/camera, diagnostic quality/visibility controls, not gameplay speedups. Each control is bracketed by restored baselines; round 2 reverses order. ')
+    result = {'conditions': description + 'Baseline reference is mean of the two GPU medians. Ambient visual effects remain active. Thermal telemetry is sparse and does not remove hardware variation.', 'comparisons': []}
     for name in stages:
         if not name.startswith('gpu-') or not name.endswith('-control'):
             continue

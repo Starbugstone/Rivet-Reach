@@ -1,0 +1,14 @@
+{
+  "purpose": "Final compile, 48-suite gate and 34 pixel checks after diagnostic-only changes; not a new native performance run.",
+  "changes_since_native_measurement": {
+    "Assets/RivetReach/Code/FactoryIsolationVerification.cs": {
+      "measured": "c0fca7da0c4bdf2d1d3e8573717c7f175958dd774da5660a52c140ba5e9c2f9c",
+      "final": "1e8ab92f2e5d3e539c735ee504f5e57b77dea0c149838765b994dde3ac4ed3de"
+    },
+    "Assets/RivetReach/Editor/ShaderEquivalenceChecks.cs": {
+      "measured": "333b78835cc695bd1d36277858714ef78ecad7a42e62c411b29ed226dadb2fcf",
+      "final": "7bc9a98483712bd25a7a22c80e405bf5c3ac21412ea6e1498d3e71563da4015c"
+    }
+  },
+  "assemblySha256": "5ffa636cd6302f89e3424c9421667be077f8197d9ed215865cb47028bdb1350f"
+}

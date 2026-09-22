@@ -496,9 +496,7 @@ namespace RivetReach
             {
                 if(visibleTerrain)
                 {
-                    if(c.Mesh==null)c.Mesh=new Mesh{name="Voxel chunk",indexFormat=IndexFormat.UInt32};
-                    else c.Mesh.Clear();
-                    c.Mesh.vertices=result.Vertices;c.Mesh.normals=result.Normals;c.Mesh.uv=result.UV;c.Mesh.uv2=result.Tiles;c.Mesh.triangles=result.Triangles;c.Mesh.RecalculateBounds();
+                    c.Mesh=result.ToMesh(c.Mesh);
                     c.View.GetComponent<MeshFilter>().sharedMesh=c.Mesh;
                 }
                 else if(c.Mesh!=null){c.View.GetComponent<MeshFilter>().sharedMesh=null;Destroy(c.Mesh);c.Mesh=null;}

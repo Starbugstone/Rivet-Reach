@@ -2,6 +2,8 @@
 
 **Status: both extra native runs and the 48-suite Editor gate pass correctness checks; the 60/45 FPS performance gate still fails.** This is a completed investigation, not an implemented speedup. It follows the [full factory profile](FACTORY_PROFILE_RESULTS.md).
 
+Implementation follow-up: [factory optimization results](FACTORY_OPTIMIZATION_RESULTS.md) records the changes and their separate verification.
+
 ## Test design
 
 The same i7-10750H / RTX 2060 laptop runs non-Development Unity 6000.4.4f1, D3D11, 1920×1080, view distance 10, 90 FPS cap, VSync off, original 4× MSAA and four 160 m sun-shadow cascades. The fixture retains 32 production lines, 1,518 industrial assemblies, 230 stations/crates, 512 crops, 64 chickens and 14 initial hostiles. Gameplay, source scan budgets, recipes, resources and default visual settings are unchanged.

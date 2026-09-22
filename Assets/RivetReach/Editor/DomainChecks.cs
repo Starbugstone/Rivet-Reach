@@ -38,7 +38,7 @@ namespace RivetReach.Editor
             for(int i=0;i<mesh.Triangles.Length;i+=3)
             {
                 int p=mesh.Triangles[i],q=mesh.Triangles[i+1],r=mesh.Triangles[i+2];
-                Check(Vector3.Dot(Vector3.Cross(mesh.Vertices[q]-mesh.Vertices[p],mesh.Vertices[r]-mesh.Vertices[p]),mesh.Normals[p])>0,"Face winding");
+                Check(Vector3.Dot(Vector3.Cross(mesh.Vertices[q].Position-mesh.Vertices[p].Position,mesh.Vertices[r].Position-mesh.Vertices[p].Position),mesh.Vertices[p].Normal)>0,"Face winding");
             }
             for(int z=0;z<32;z++)for(int y=0;y<32;y++)for(int x=0;x<32;x++)cells[ChunkMesher.Index(x,y,z)]=3;
             Check(ChunkMesher.Build(default,0,cells).Triangles.Length==36,"Greedy solid chunk is six quads");

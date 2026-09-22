@@ -38,7 +38,7 @@ Shader "RivetReach/HeldBlock"
                 input.viewDirectionWS=GetWorldSpaceNormalizeViewDir(i.positionWS);input.bakedGI=SampleSH(input.normalWS);
                 input.shadowMask=half4(1,1,1,1);input.normalizedScreenSpaceUV=GetNormalizedScreenSpaceUV(i.positionCS);
                 SurfaceData surface=(SurfaceData)0;surface.albedo=SAMPLE_TEXTURE2D_ARRAY(_Tiles,sampler_Tiles,i.uv,i.tile).rgb;surface.occlusion=1;surface.alpha=1;
-                return UniversalFragmentPBR(input,surface);
+                return RRFragmentPBR(input,surface);
             }
             ENDHLSL
         }

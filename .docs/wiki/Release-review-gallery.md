@@ -1,6 +1,6 @@
 # Factory stress-test gallery
 
-Actual Rivet Reach screenshots captured on September 20, 2026, in the Windows release-review player at **1920 × 1080**. This is a deliberately constructed testing world, with supplied resources and controlled creature populations. The machines, pipes, storage, farms, weather and creatures use the game’s real systems.
+Actual Rivet Reach screenshots captured on September 22, 2026, in the Windows optimization-review player at **1920 × 1080**. This is a deliberately constructed testing world, with supplied resources and controlled creature populations. The machines, pipes, storage, farms, weather and creatures use the game’s real systems.
 
 ## Production after sunset
 
@@ -26,6 +26,6 @@ The same factory is tested in clear weather and storms, with inventory use and j
 
 Crops and persistent animals share the test with automation, so growth and movement run while machines are busy. Unloaded factories keep their contents and partial work but produce nothing: [cover the required chunks](Bridges-and-chunk-loaders.md#keep-the-remote-workshop-running) if you want them operating while away.
 
-These images show the test world’s appearance; they are not an FPS guarantee or a release certification. The repository’s [release review](https://github.com/Starbugstone/Rivet-Reach/blob/main/.docs/verification/RELEASE_REVIEW_RESULTS.md) records hardware, frame distributions, correctness checks and remaining limits. The PNG files are direct game captures, with no generated scenery or composited machinery.
+These images show the test world’s appearance; they are not an FPS guarantee or a release certification. The repository’s [optimization review](https://github.com/Starbugstone/Rivet-Reach/blob/main/.docs/verification/FACTORY_OPTIMIZATION_RESULTS.md) records hardware, frame distributions, correctness checks and remaining limits. The PNG files are direct game captures, with no generated scenery or composited machinery.
 
 [Building and inventory](Building-and-inventory.md) · [Renewable power](Renewable-power.md) · [Crates and warehouses](Crates-and-warehouses.md) · [Home](Home.md)

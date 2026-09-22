@@ -15,8 +15,7 @@ namespace RivetReach.Editor
             for(byte id=BlockId.PotatoPlant;id<=BlockId.MaturePotatoPlant;id++)
             {
                 var cells=new byte[34*34*34];cells[ChunkMesher.Index(0,0,0)]=id;
-                var built=ChunkMesher.Build(default,0,cells);var mesh=new Mesh();
-                mesh.vertices=built.Vertices;mesh.normals=built.Normals;mesh.uv=built.UV;mesh.triangles=built.Triangles;mesh.RecalculateBounds();
+                var built=ChunkMesher.Build(default,0,cells);var mesh=built.ToMesh();
                 var texture=new Texture2D(atlas.width,atlas.height,TextureFormat.RGBA32,false);texture.SetPixels(atlas.GetPixels(BlockId.Tile(id,1,1)));texture.Apply();
                 var material=new Material(AssetDatabase.LoadAssetAtPath<Shader>("Assets/RivetReach/Editor/ItemIcon.shader"));material.SetTexture("_BaseMap",texture);
                 var preview=new PreviewRenderUtility();

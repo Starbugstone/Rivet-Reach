@@ -44,7 +44,7 @@ Shader "RivetReach/HeldTool"
                 surface.metallic=metal*.62;surface.smoothness=lerp(.23,.48,metal);
                 surface.emission=colour.rgb*SampleSH(input.normalWS)*metal*.13*max(.008,RRSky(i.positionWS,input.normalWS));surface.alpha=1;surface.occlusion=1;
                 if(_Torch>.5&&region==12){surface.metallic=0;surface.emission=half3(2.4,.72,.10)*(1+.06*sin(_Time.y*11));}
-                return UniversalFragmentPBR(input,surface);
+                return RRFragmentPBR(input,surface);
             }
             ENDHLSL
         }

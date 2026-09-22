@@ -177,7 +177,7 @@ namespace RivetReach
             Check(remoteLamp.ReceivedWatts>0,"Stress electrical bridges supply a remote load");
             game.Diagnostics=true;yield return sample("stress-diagnostics",600);game.Diagnostics=false;
             bool isolation=Environment.GetCommandLineArgs().Contains("-rr-factory-isolation");
-            if(isolation){yield return sample("isolation-live-settled",Environment.GetCommandLineArgs().Contains("-rr-factory-cpu-only")?-45:600);yield return ReviewFactoryIsolation(sample);}
+            if(isolation){yield return sample("isolation-live-settled",(Environment.GetCommandLineArgs().Contains("-rr-factory-cpu-only")||Environment.GetCommandLineArgs().Contains("-rr-factory-shader"))?-45:600);yield return ReviewFactoryIsolation(sample);}
             else yield return sample("stress-five-minute-soak",-300);
             Check(game.World.Error==null,isolation?"Isolation scenario has no worker failure":"Five-minute combined simulation has no worker failure");
             for(int i=0;i<lines.Count;i++)Check(lines[i].IronUnits==iron[i],"Soaked factory conserves line "+i);

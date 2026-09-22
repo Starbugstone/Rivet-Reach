@@ -88,7 +88,7 @@ namespace RivetReach
                 var model=OreVisuals.Create(ids[i],fixture.transform);model.transform.localPosition=new Vector3((i%3)*1.6f,0,(i/3)*2.7f);
                 Check(model.GetComponentInChildren<MeshFilter>().sharedMesh==mesh,"Variant instance shares the same mesh reference: "+ids[i]);
                 var cells=new byte[34*34*34];cells[ChunkMesher.Index(0,0,0)]=ids[i];var data=ChunkMesher.Build(default,0,cells);
-                var tileMesh=new Mesh{vertices=data.Vertices,normals=data.Normals,uv=data.UV,uv2=data.Tiles,triangles=data.Triangles};tempMeshes.Add(tileMesh);
+                var tileMesh=data.ToMesh();tempMeshes.Add(tileMesh);
                 var cube=new GameObject("Terrain ore "+ids[i]);cube.transform.SetParent(fixture.transform,false);cube.transform.localPosition=model.transform.localPosition+new Vector3(0,0,1.15f);
                 cube.AddComponent<MeshFilter>().sharedMesh=tileMesh;cube.AddComponent<MeshRenderer>().sharedMaterial=world.TerrainMaterial;
             }

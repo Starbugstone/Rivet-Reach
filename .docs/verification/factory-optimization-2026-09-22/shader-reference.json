@@ -1,0 +1,35 @@
+{
+  "reference_commit": "3034df3f642b320db28549c5e01e0b69daf29f4b",
+  "files": {
+    "Assets/RivetReach/Resources/Materials/WorldLit.shader": "9b243b4d891ce1c782b4da9276435d84660c63f53d31bdd930366cd248ebdcb7",
+    "Assets/RivetReach/Resources/Materials/HeldBlock.shader": "25b0b7ae1bc917881c40c7d87c613f8eb41e31bd4f7fc0c96d6cb00f0a190f04",
+    "Assets/RivetReach/Resources/Materials/HeldTool.shader": "6d63daffdf6137077e977700288f2edb5d155d15e49a000cd572174c6defecb2",
+    "Assets/RivetReach/Resources/Materials/ExplorerSkin.shader": "278ea0d53e6e8e6c785e81488ffeb425e39423fa2e4c06e954a14a94024013ec",
+    "Assets/RivetReach/Resources/Materials/WorldLighting.hlsl": "4942ed7cd0056a66b58fc14ae064ffed8c308adab2fb67533c77d8fbaf98a391",
+    "Assets/RivetReach/Resources/Materials/VoxelLight.hlsl": "d2f8579044824671e0d2dd15292bd2aa744be3964a9d1102e1ef71f63f54a846"
+  },
+  "material_variants": {
+    "Assets/RivetReach/Resources/Chickens/Chicken.mat": "069648d38ec046e36de388b68e0df40d6e5afefcdd3ad3068dc1c68173c78d88",
+    "Assets/RivetReach/Resources/Equipment/Copper.mat": "1c973bfc857035431bc54400106607ba73aa359c39d735209118572bd007de4e",
+    "Assets/RivetReach/Resources/Equipment/Diamond.mat": "fa8ff05bcd8418d10c785597a7febd6caf55b23b33041d5eadc85600f3581199",
+    "Assets/RivetReach/Resources/Equipment/Gold.mat": "7d8c7fbe06121cfadb46381b79405bef60fb57666d7bfeb79af8e8c5263b564e",
+    "Assets/RivetReach/Resources/Equipment/Iron.mat": "123e12e850cc8c0306a9ec2aec4565098e2d39eccdff6552b4007192ad964987",
+    "Assets/RivetReach/Resources/Farming/Farm.mat": "8006416be3b70fe2d31a3d45bea4513dd5bec4a49c382d3e4b3bb1e9d6e86744",
+    "Assets/RivetReach/Resources/Food/Potato.mat": "ec69df4c93aa6c58e93934ff8f9c54ebced24db7a7680afabb15acf8eee69916",
+    "Assets/RivetReach/Resources/Industry/BatteryCharge.mat": "085e3277d5c3d2b4bc4e9956658fd2b78567db874ab210c2cc6f1045c8303b0c",
+    "Assets/RivetReach/Resources/Industry/Bed.mat": "28f6addbd95c37fe7ce72f945d9a538fd161e0923195be1a6bdf6e42ad09ece2",
+    "Assets/RivetReach/Resources/Industry/Crates.mat": "2c99d2796acf28e6c9609af0c08cd367376817b97cd553449a8b7f7195466ea1",
+    "Assets/RivetReach/Resources/Industry/StarterEmbers.mat": "8a423eb1a74d2bfcd7bfa1841382d306e10b556fa62fd5872581fcbb24352275",
+    "Assets/RivetReach/Resources/Industry/TankGlass.mat": "36a0f053dab134aea3b2ef23faa63fe75881c9e7f5dc8bb26f26d5895e2ce5d4",
+    "Assets/RivetReach/Resources/Industry/TankWater.mat": "867496294631e09072350e02e255549e499d583d052078d31f2ba887c2c2b0d5",
+    "Assets/RivetReach/Resources/Industry/Workshop.mat": "e13c1180c1f5511619c0ddfd6fb3396efddc1b4a8a3136c02f96ec2f337a9862",
+    "Assets/RivetReach/Resources/Mobs/CreatureMaterial.mat": "e4599d289229bf365afc695d3fc76fffcc1e15c91c543b6729fb19cd61b33fdf",
+    "Assets/RivetReach/Resources/Orchard/Apple.mat": "b5a630053a9c748c1521f1273effeb8b3b37e434df1dbdc0b4a2bfa7db76e82d",
+    "Assets/RivetReach/Resources/Ores/10.mat": "43a71afd783b0c3ab84becdf0ff43e3806efd2c70bb2dbf522509c51d428a848",
+    "Assets/RivetReach/Resources/Ores/11.mat": "883f46e1141bab863038de6f4ad17792d38815abdca005affe2de052a746782f",
+    "Assets/RivetReach/Resources/Ores/12.mat": "e6d9f7d0cf8a0c0d84f4f212ccf5ea15459e4bf2052a978c23e05c6c34ddcf74",
+    "Assets/RivetReach/Resources/Ores/13.mat": "e41d2e0160dae0b67008a8fe5e1e4643147489591714a561dfb665825eb9e863",
+    "Assets/RivetReach/Resources/Ores/9.mat": "197aa23434208b27d627ee7e8bda6a9fe9d00802e94712bd76603e6645a5ff3e",
+    "Assets/RivetReach/Resources/Spawners/Cage.mat": "b72a9825e4da09ea8687b93570cc166ac0dc32f12ac0f368e398fe21d56f334a"
+  }
+}

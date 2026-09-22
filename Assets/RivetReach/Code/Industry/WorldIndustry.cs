@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace RivetReach
 {
-    public sealed class WorldIndustry : IIndustryWorld, IIndustryItemEndpoints, IRenewableEnvironment
+    public sealed class WorldIndustry : IIndustryWorld, IIndustryItemEndpoints, IRenewableEnvironment, IIndustryResidentCells
     {
         readonly Expedition game;
         readonly System.Collections.Generic.Dictionary<BlockPos,ItemStack> recovered=new System.Collections.Generic.Dictionary<BlockPos,ItemStack>();
@@ -30,6 +30,7 @@ namespace RivetReach
         public float WindStrength=>game.Weather.WindStrength;
         public double WindGust=>RenewableWind.Sample(game.Seed,game.Survival.Tick,RenewableCatalog.Current.windGustTicks);
         public bool SkyExposed(BlockPos p)=>game.World.Ready(p.Offset(0,1,0))&&game.World.Get(p.Offset(0,1,0))==BlockId.Air&&game.World.TryPrecipitationHeight(p,out int height)&&height<=p.Y;
+        public bool TryRead(BlockPos p,out byte block)=>game.World.TryRead(p,out block);
         public bool Ready(BlockPos p)=>game.World.Ready(p);
         public byte Get(BlockPos p)=>game.World.Get(p);
         public bool Remove(BlockPos p,byte expected)=>game.World.Remove(p,expected);

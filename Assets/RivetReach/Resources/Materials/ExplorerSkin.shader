@@ -70,7 +70,7 @@ Shader "RivetReach/ExplorerSkin"
                 // Restrained wrap on skin: highlights remain BRDF-based, clothing stays diffuse.
                 Light sun=GetMainLight(input.shadowCoord);
                 surface.emission=surface.albedo*half3(1,.39,.22)*packed.b*.055*saturate(.4-dot(n,sun.direction))*sun.color*sun.shadowAttenuation*RRSky(i.positionWS,n);
-                half4 colour=UniversalFragmentPBR(input,surface);
+                half4 colour=RRFragmentPBR(input,surface);
                 // Match the world's distance fog. URP fog keyword stripping must not
                 // turn a nearby explorer into a solid fog-colour silhouette.
                 float fog=_FirstPerson>.5||_RRFogRange.y<=_RRFogRange.x?0:smoothstep(_RRFogRange.x,_RRFogRange.y,distance(i.positionWS,GetCameraPositionWS()));

@@ -1,0 +1,103 @@
+{
+  "conditions": "Frozen factory/camera, historical/current/historical WorldLit shader brackets; identical visible geometry and quality settings. Baseline reference is mean of the two GPU medians. Ambient visual effects remain active. Thermal telemetry is sparse and does not remove hardware variation.",
+  "comparisons": [
+    {
+      "control": "gpu-shader-r1",
+      "gpu_median_ms_before_control_after": [
+        11.8211,
+        10.068,
+        11.7727
+      ],
+      "gpu_median_reduction_percent": 14.655545100831585,
+      "baseline_drift_percent": 0.41027727623357924,
+      "frame_p95_ms_before_control_after": [
+        22.4112,
+        18.7498,
+        20.3566
+      ],
+      "srp_draw_mean_before_control_after": [
+        7046.0,
+        7046.0,
+        7046.0
+      ],
+      "thermal_before_control_after": [
+        {
+          "samples": 8,
+          "thermal_active_samples": 8,
+          "temperature_min_c": 83,
+          "temperature_max_c": 87,
+          "clock_min_mhz": 300,
+          "clock_median_mhz": 915,
+          "clock_max_mhz": 1200
+        },
+        {
+          "samples": 8,
+          "thermal_active_samples": 7,
+          "temperature_min_c": 84,
+          "temperature_max_c": 87,
+          "clock_min_mhz": 300,
+          "clock_median_mhz": 1170,
+          "clock_max_mhz": 1680
+        },
+        {
+          "samples": 8,
+          "thermal_active_samples": 6,
+          "temperature_min_c": 82,
+          "temperature_max_c": 87,
+          "clock_min_mhz": 1005,
+          "clock_median_mhz": 1125,
+          "clock_max_mhz": 1410
+        }
+      ]
+    },
+    {
+      "control": "gpu-shader-r2",
+      "gpu_median_ms_before_control_after": [
+        11.9747,
+        10.4886,
+        12.5012
+      ],
+      "gpu_median_reduction_percent": 14.294469253428893,
+      "baseline_drift_percent": 4.302191134953161,
+      "frame_p95_ms_before_control_after": [
+        26.8687,
+        64.3676,
+        67.9235
+      ],
+      "srp_draw_mean_before_control_after": [
+        7046.0,
+        7046.0,
+        7046.0
+      ],
+      "thermal_before_control_after": [
+        {
+          "samples": 9,
+          "thermal_active_samples": 5,
+          "temperature_min_c": 82,
+          "temperature_max_c": 87,
+          "clock_min_mhz": 300,
+          "clock_median_mhz": 1140,
+          "clock_max_mhz": 1650
+        },
+        {
+          "samples": 9,
+          "thermal_active_samples": 8,
+          "temperature_min_c": 83,
+          "temperature_max_c": 87,
+          "clock_min_mhz": 300,
+          "clock_median_mhz": 420,
+          "clock_max_mhz": 1695
+        },
+        {
+          "samples": 9,
+          "thermal_active_samples": 8,
+          "temperature_min_c": 83,
+          "temperature_max_c": 87,
+          "clock_min_mhz": 300,
+          "clock_median_mhz": 495,
+          "clock_max_mhz": 1605
+        }
+      ]
+    }
+  ]
+}

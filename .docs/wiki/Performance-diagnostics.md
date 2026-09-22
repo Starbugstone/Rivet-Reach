@@ -21,3 +21,9 @@ The September 22 review uses separate water and lava basins with 32 elevated emi
 ![Water and lava cascading into the separate test basins](images/diagnostics-liquids/water-and-lava.png)
 
 Actual Windows player capture, September 22, 2026. Reusing route calculations reduced the worst measured water tick from about 243 ms to 28 ms in this scene. The complete final test still had six frames below the 45 FPS floor, with a worst frame near 40 ms. The 60/45 FPS target remains under review; the overlay itself does not certify performance.
+
+## Large-factory optimization review
+
+The September 22 optimization build keeps the same graphics settings, production rules and chunk-loader requirements. In the 45-second test on an i7-10750H / RTX 2060 laptop at 1080p, factory simulation used about **41% less time per tick**; the separate five-minute soak measured **37% less**. A separate comparison of the old and updated machinery shader reduced median GPU time by **14–15%**. Long frames still occur, including a 359 ms graphics/presentation-associated stall in the longer run, so the 45 FPS floor is not yet met.
+
+The [refreshed factory gallery](Release-review-gallery.md) shows the actual test build in clear weather, moonlight and rain. The [full measurements](https://github.com/Starbugstone/Rivet-Reach/blob/main/.docs/verification/FACTORY_OPTIMIZATION_RESULTS.md) distinguish CPU work, GPU time, chunk hitches and the remaining limits. Faster code does not run unloaded factories: keep the required [chunks covered](Bridges-and-chunk-loaders.md#keep-the-remote-workshop-running).

@@ -9,7 +9,7 @@ namespace RivetReach.Editor
 {
     public static class RangedPumpChecks
     {
-        sealed class World : IIndustryWorld
+        class World : IIndustryWorld
         {
             public readonly Dictionary<BlockPos,byte> Cells=new Dictionary<BlockPos,byte>();
             public readonly HashSet<BlockPos> Sleeping=new HashSet<BlockPos>();
@@ -19,9 +19,41 @@ namespace RivetReach.Editor
             public bool Remove(BlockPos p,byte expected){if(RejectRemoval||!Ready(p)||Get(p)!=expected)return false;Cells.Remove(p);Removals++;return true;}
             public ItemContainer Storage(BlockPos p)=>null;public byte Drop(byte b)=>b;public bool PlayerInside(BlockPos p)=>false;
         }
+        sealed class ResidentWorld : World,IIndustryResidentCells
+        {
+            public readonly List<BlockPos> Probes=new List<BlockPos>();
+            public bool TryRead(BlockPos p,out byte cell)
+            {Probes.Add(p);cell=0;if(Sleeping.Contains(p))return false;Cells.TryGetValue(p,out cell);return true;}
+        }
+        static void ResidentReadChecks(Action<bool,string> check)
+        {
+            var origin=new BlockPos(-33,31,32);var world=new ResidentWorld();var sim=new IndustrySimulation(world,_=>64);
+            var pump=sim.Add(origin,IndustryId.RangedPump);
+            BlockPos ScanPosition(int index)=>origin.Offset(-8+index%17,8-index/289,-8+index/17%17);
+            // Assert the historical scan trace, including nonresident positions, rather
+            // than merely comparing two callers of the optimized implementation.
+            world.Sleeping.Add(ScanPosition(7));world.Sleeping.Add(ScanPosition(4888));
+            for(int tick=1;tick<=20;tick++)
+            {
+                world.Probes.Clear();sim.Step();int start=(tick-1)*256,count=Math.Min(256,4913-start);
+                check(world.Probes.SequenceEqual(Enumerable.Range(start,count).Select(ScanPosition)),"Resident read preserves exact logical scan positions on tick "+tick);
+                check(world.Reads==0,"Resident read never falls through to potentially generating Get on tick "+tick);
+            }
+            check(pump.Status==MachineStatus.Dormant,"Unavailable scanned positions preserve dormant search status");
+            world.Sleeping.Clear();world.Cells[ScanPosition(0)]=Fluids.Lava.Source;
+            for(int tick=21;tick<60;tick++){world.Probes.Clear();sim.Step();check(world.Probes.Count==0&&pump.Work==0,"New source does not bypass exhausted-search cooldown "+tick);}
+            world.Probes.Clear();sim.Step();check(world.Probes.SequenceEqual(new[]{ScanPosition(0)})&&pump.Work==1,"Exhausted search resumes on original retry tick and first position");
+            world.Sleeping.Add(ScanPosition(0));world.Probes.Clear();sim.Step();
+            check(world.Probes.Count==1&&pump.Work==1&&pump.Status==MachineStatus.Dormant,"Cached target becoming nonresident pauses with one resident probe");
+            world.Sleeping.Clear();world.Cells[ScanPosition(0)]=Fluids.Water.Source;world.Probes.Clear();sim.Step();
+            check(pump.Work==1&&pump.WorkInput==Fluids.Water.Source&&world.Probes.SequenceEqual(new[]{ScanPosition(0),ScanPosition(0)}),"Replaced cached source resets work and follows the original rescan order");
+            for(int i=0;i<39;i++)sim.Step();check(pump.Fluid.Amount==10000&&pump.Fluid.Fluid==Fluids.Water&&world.Removals==1,"Resident-reader path preserves exact forty-tick source transaction");
+            world.Probes.Clear();sim.Step();check(world.Probes.Count==0,"Full ranged pump performs no resident reads");
+        }
         public static void Run()
         {
             var lines=new List<string>();void Check(bool ok,string message){if(!ok)throw new Exception("Ranged pump: "+message);lines.Add("PASS "+message);}
+            ResidentReadChecks(Check);
             var items=ItemRegistry.Load();var origin=new BlockPos(0,0,0);
             void Steps(IndustrySimulation s,int count){for(int i=0;i<count;i++)s.Step();}
             var recipe=RecipeCatalogAsset.Load().Compile(items).Recipes.Single(r=>r.Output.Id==IndustryId.RangedPump);

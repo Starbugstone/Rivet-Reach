@@ -125,8 +125,8 @@ namespace RivetReach
                     {
                         var cells=new byte[34*34*34];cells[ChunkMesher.Index(0,0,0)]=id;
                         var cube=ChunkMesher.Build(default,0,cells);
-                        for(int i=0;i<cube.Vertices.Length;i++)cube.Vertices[i]-=Vector3.one*.5f;
-                        mesh=new Mesh{name="Held terrain block "+id};mesh.vertices=cube.Vertices;mesh.normals=cube.Normals;mesh.uv=cube.UV;mesh.uv2=cube.Tiles;mesh.triangles=cube.Triangles;mesh.RecalculateBounds();meshes.Add(id,mesh);
+                        cube.Translate(-Vector3.one*.5f);
+                        mesh=cube.ToMesh();mesh.name="Held terrain block "+id;meshes.Add(id,mesh);
                     }
                     filter.sharedMesh=mesh;
                 }

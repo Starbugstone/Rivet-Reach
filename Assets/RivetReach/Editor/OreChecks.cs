@@ -89,7 +89,7 @@ namespace RivetReach.Editor
                 {
                     var cells=new byte[34*34*34];cells[ChunkMesher.Index(8,8,8)]=item.runtimeId;
                     var crop=ChunkMesher.Build(default,0,cells);
-                    check(crop.Vertices.Length>0&&crop.Tiles.All(t=>t.x>=0&&t.x<tiles.depth),"Imported crop palette references available layers: "+item.stableId);
+                    check(crop.Vertices.Length>0&&crop.Vertices.All(v=>v.Tile.x>=0&&v.Tile.x<tiles.depth),"Imported crop palette references available layers: "+item.stableId);
                 }
                 else check(BlockId.Tile(item.runtimeId,0,1)<tiles.depth,"Every item texture references an imported layer: "+item.stableId);
             }

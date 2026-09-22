@@ -90,8 +90,8 @@ namespace RivetReach.Editor
             world.RemoveTreeBlock(log,BlockId.Log,true);world.sim.FellAbove(world,log);world.sim.Step(world);
             check(world.logs==5&&world.Get(construction)==BlockId.Log,"Generated-tree felling cannot enter touching player-placed wood");
             var cells=new byte[34*34*34];cells[ChunkMesher.Index(0,0,0)]=BlockId.Log;
-            var mesh=ChunkMesher.Build(default,0,cells);check(mesh.Tiles.Any(t=>t.x==4)&&mesh.Tiles.Any(t=>t.x==5),"Logs render bark and end grain on distinct faces");
-            cells[ChunkMesher.Index(0,0,0)]=BlockId.Leaves;check(ChunkMesher.Build(default,0,cells).Tiles.All(t=>t.x==6),"Leaves use their own tile");
+            var mesh=ChunkMesher.Build(default,0,cells);check(mesh.Vertices.Any(v=>v.Tile.x==4)&&mesh.Vertices.Any(v=>v.Tile.x==5),"Logs render bark and end grain on distinct faces");
+            cells[ChunkMesher.Index(0,0,0)]=BlockId.Leaves;check(ChunkMesher.Build(default,0,cells).Vertices.All(v=>v.Tile.x==6),"Leaves use their own tile");
             var axeTexture=Resources.Load<Texture2D>("Tools/StarterAxe");var axeIcon=Resources.Load<Texture2D>("Tools/StarterAxeIcon");
             check(axeTexture!=null&&axeTexture.width==128&&axeIcon!=null&&axeIcon.width==64,"Axe palette and icon import as ordinary 2D textures");
             var axe=UnityEngine.Object.Instantiate(Resources.Load<GameObject>("Tools/StarterAxe"));

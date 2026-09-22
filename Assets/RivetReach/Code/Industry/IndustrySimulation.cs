@@ -9,8 +9,14 @@ namespace RivetReach
         bool Ready(BlockPos p);byte Get(BlockPos p);bool Remove(BlockPos p,byte expected);
         ItemContainer Storage(BlockPos p);byte Drop(byte block);bool PlayerInside(BlockPos p);
     }
+    // Optional single-lookup resident read; implementations must never generate/load cells.
+    public interface IIndustryResidentCells
+    {
+        bool TryRead(BlockPos position,out byte block);
+    }
     public sealed partial class IndustrySimulation
     {
+        readonly IIndustryResidentCells residentCells;
         readonly IIndustryWorld world;readonly Func<byte,int> limit;readonly ProcessingRegistry processing;
         readonly Dictionary<BlockPos,MachineState> machines=new Dictionary<BlockPos,MachineState>();
         List<MachineState> eligible=new List<MachineState>();
@@ -38,7 +44,7 @@ namespace RivetReach
         public double LastStepMs {get;private set;}
         public IndustrySimulation(IIndustryWorld world,Func<byte,int> limit,ProcessingRegistry processing=null)
         {
-            this.world=world;this.limit=limit;this.processing=processing;Multiblocks=new MultiblockService(world,this);
+            this.world=world;residentCells=world as IIndustryResidentCells;this.limit=limit;this.processing=processing;Multiblocks=new MultiblockService(world,this);
             reserveFluidSource=ReserveFluidSource;reserveFluidSink=ReserveFluidSink;otherFluidSink=OtherFluidSink;
             ItemNetwork.ExternalEndpointFaces=p=>ItemEndpoint(p)!=null?63:0;
             ItemNetwork.ResolvePorts=m=>TransportPorts(m,NetworkKind.Item);

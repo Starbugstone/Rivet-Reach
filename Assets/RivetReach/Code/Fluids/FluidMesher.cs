@@ -1,19 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace RivetReach
 {
     public sealed class FluidMeshData
     {
-        public Vector3[] Vertices,Normals;
-        public Color[] Colours;
+        public FluidVertex[] Vertices;
+        public Bounds Bounds;
         public int[] Indices,ActiveCells;
-        public Mesh ToMesh(Mesh mesh=null)
-        {
-            if(mesh==null)mesh=new Mesh{name="Fluid surfaces",indexFormat=IndexFormat.UInt32};else mesh.Clear();
-            mesh.vertices=Vertices;mesh.normals=Normals;mesh.colors=Colours;mesh.triangles=Indices;mesh.RecalculateBounds();return mesh;
-        }
+        public Mesh ToMesh(Mesh mesh=null)=>ChunkMeshUpload.Fluid(Vertices,Indices,Bounds,mesh);
     }
     public static class FluidMesher
     {
@@ -21,11 +16,13 @@ namespace RivetReach
         {
             using var cost=RuntimeCosts.FluidMeshes.Auto();
             var active=new List<int>();
-            var vertices=new List<Vector3>();var normals=new List<Vector3>();var colours=new List<Color>();var indices=new List<int>();
+            var vertices=new List<FluidVertex>();var indices=new List<int>();var bounds=new MeshBounds();
             void Face(Vector3 a,Vector3 b,Vector3 c,Vector3 d,Vector3 normal,Color color)
             {
-                int start=vertices.Count;vertices.Add(a);vertices.Add(b);vertices.Add(c);vertices.Add(d);
-                for(int k=0;k<4;k++){normals.Add(normal);colours.Add(color);}
+                int start=vertices.Count;
+                vertices.Add(new FluidVertex(a,normal,color));vertices.Add(new FluidVertex(b,normal,color));
+                vertices.Add(new FluidVertex(c,normal,color));vertices.Add(new FluidVertex(d,normal,color));
+                bounds.Add(a);bounds.Add(b);bounds.Add(c);bounds.Add(d);
                 indices.Add(start);indices.Add(start+1);indices.Add(start+2);indices.Add(start);indices.Add(start+2);indices.Add(start+3);
             }
             for(int z=0;z<32;z++)for(int y=0;y<32;y++)for(int x=0;x<32;x++)
@@ -50,7 +47,7 @@ namespace RivetReach
                 Side(-1156,b,a,Vector3.back);Side(1156,d,c,Vector3.forward);
                 Side(-1,a,d,Vector3.left);Side(1,c,b,Vector3.right);
             }
-            return new FluidMeshData{ActiveCells=active.ToArray(),Vertices=vertices.ToArray(),Normals=normals.ToArray(),Colours=colours.ToArray(),Indices=indices.ToArray()};
+            return new FluidMeshData{ActiveCells=active.ToArray(),Vertices=vertices.ToArray(),Bounds=bounds.Value,Indices=indices.ToArray()};
         }
     }
 }

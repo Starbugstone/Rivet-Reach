@@ -62,9 +62,11 @@ Shader "RivetReach/WorldLit"
                 #if defined(_EMISSION)
                 surface.emission=SAMPLE_TEXTURE2D(_EmissionMap,sampler_EmissionMap,i.uv).rgb*_EmissionColor.rgb;
                 #endif
-                half4 colour=UniversalFragmentPBR(input,surface);
+                half4 colour=RRFragmentPBR(input,surface);
                 float fog=smoothstep(_RRFogRange.x,_RRFogRange.y,distance(i.positionWS,GetCameraPositionWS()));
-                colour.rgb=lerp(colour.rgb,RRCaveFog(_RRFogColour.rgb,i.positionWS+n*.035),fog);return colour;
+                // The fog sample has a different offset from surface lighting. Preserve it
+                // wherever fog contributes, and skip its buffer reads at zero weight.
+                [branch] if(fog>0)colour.rgb=lerp(colour.rgb,RRCaveFog(_RRFogColour.rgb,i.positionWS+n*.035),fog);return colour;
             }
             ENDHLSL
         }

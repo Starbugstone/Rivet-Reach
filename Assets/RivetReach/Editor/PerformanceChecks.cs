@@ -7,7 +7,9 @@ using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace RivetReach.Editor
 {
@@ -34,7 +36,7 @@ namespace RivetReach.Editor
                 // The all-byte fixture includes identities added after terrain-6; its
                 // old hash is not a geometry contract for those new imported models.
                 if(i!=5&&hash!=expected[i])throw new Exception("Changed mesh output, fixture "+i);
-                if(current.Triangles.Any(index=>index<0||index>=current.Vertices.Length)||current.Vertices.Any(v=>!float.IsFinite(v.x)||!float.IsFinite(v.y)||!float.IsFinite(v.z)))throw new Exception("Invalid geometry, fixture "+i);
+                if(current.Triangles.Any(index=>index<0||index>=current.Vertices.Length)||current.Vertices.Any(v=>!float.IsFinite(v.Position.x)||!float.IsFinite(v.Position.y)||!float.IsFinite(v.Position.z)))throw new Exception("Invalid geometry, fixture "+i);
                 if(i==5&&hash!=Digest(ChunkMesher.Build(default,3,cases[i])))throw new Exception("Nondeterministic registered geometry");
                 results.Add("PASS fixture "+i+": "+hash);
             }
@@ -86,7 +88,7 @@ namespace RivetReach.Editor
                 capacities.Add(vertexCapacity+" vertices / "+indexCapacity+" indices / "+type.GetProperty("Bytes").GetValue(scratch)+" bytes");
             }
             long accounted=(long)typeof(ChunkMesher).GetField("retainedScratchBytes",BindingFlags.Static|BindingFlags.NonPublic).GetValue(null);
-            long cropPayload=1024L+12L*(cropMesh.Vertices.Length+cropMesh.Normals.Length)+8L*(cropMesh.UV.Length+cropMesh.Tiles.Length)+4L*cropMesh.Triangles.Length+512L*16;
+            long cropPayload=1024L+40L*cropMesh.Vertices.Length+4L*cropMesh.Triangles.Length+512L*16;
             string cropReport="512 mixed mature crops: "+cropMesh.Vertices.Length+" vertices, "+cropMesh.Triangles.Length+" indices; exact scratch payload "+cropPayload+" bytes; retained "+retainedBytes+" bytes across "+pooled+" builders ["+string.Join("; ",capacities)+"]";
             // Preserve useful native counts even if a retention assertion fails.
             Directory.CreateDirectory("Logs/Performance");File.WriteAllText("Logs/Performance/mesh-scratch-capacity.txt",cropReport);
@@ -96,7 +98,74 @@ namespace RivetReach.Editor
             var fluid=ChunkMesher.Build(default,0,noise).FluidMesh;var mesh=fluid.ToMesh();
             try{if(!ReferenceEquals(mesh,fluid.ToMesh(mesh))||mesh.vertexCount!=fluid.Vertices.Length)throw new Exception("Fluid mesh reuse differs");}
             finally{UnityEngine.Object.DestroyImmediate(mesh);}
+            VerifyUploads(cases,cropMesh,results);
             Directory.CreateDirectory("Logs/Performance");File.WriteAllLines("Logs/Performance/mesh-regression.txt",results);UnityEngine.Debug.Log("PASS performance mesh equivalence and reuse");
+        }
+        static void VerifyUploads(List<byte[]> cases,ChunkBuild cropMesh,List<string> results)
+        {
+            if(Marshal.SizeOf<TerrainVertex>()!=40||Marshal.SizeOf<FluidVertex>()!=40)throw new Exception("Packed vertex stride changed");
+            Mesh terrain=null,fluid=null;
+            try
+            {
+                // Reuse across large/small/empty payloads and both liquid definitions;
+                // native readback catches layout/stride errors a managed hash cannot.
+                var liquidCells=new byte[34*34*34];
+                liquidCells[ChunkMesher.Index(0,31,31)]=Fluids.Lava.Source;
+                liquidCells[ChunkMesher.Index(31,0,0)]=Fluids.Water.Flow(7);
+                var fixtures=new List<ChunkBuild>();
+                foreach(int fixture in new[]{6,2,0,5,1})fixtures.Add(ChunkMesher.Build(default,0,cases[fixture]));
+                fixtures.Add(cropMesh);fixtures.Add(ChunkMesher.Build(default,0,liquidCells));
+                foreach(var data in fixtures)
+                {
+                    var oldTerrain=terrain;terrain=data.ToMesh(terrain);
+                    if(oldTerrain!=null&&!ReferenceEquals(oldTerrain,terrain))throw new Exception("Terrain mesh reuse differs");
+                    using(var reference=new TemporaryMesh())
+                    {
+                        reference.Mesh.vertices=data.Vertices.Select(v=>v.Position).ToArray();
+                        reference.Mesh.normals=data.Vertices.Select(v=>v.Normal).ToArray();
+                        reference.Mesh.uv=data.Vertices.Select(v=>v.UV).ToArray();reference.Mesh.uv2=data.Vertices.Select(v=>v.Tile).ToArray();
+                        reference.Mesh.triangles=data.Triangles;reference.Mesh.RecalculateBounds();
+                        Compare(terrain,reference.Mesh,data.Bounds,"terrain");
+                    }
+                    var oldFluid=fluid;fluid=data.FluidMesh.ToMesh(fluid);
+                    if(oldFluid!=null&&!ReferenceEquals(oldFluid,fluid))throw new Exception("Fluid mesh reuse differs");
+                    using(var reference=new TemporaryMesh())
+                    {
+                        reference.Mesh.vertices=data.FluidMesh.Vertices.Select(v=>v.Position).ToArray();
+                        reference.Mesh.normals=data.FluidMesh.Vertices.Select(v=>v.Normal).ToArray();
+                        reference.Mesh.colors=data.FluidMesh.Vertices.Select(v=>v.Colour).ToArray();
+                        reference.Mesh.triangles=data.FluidMesh.Indices;reference.Mesh.RecalculateBounds();
+                        Compare(fluid,reference.Mesh,data.FluidMesh.Bounds,"fluid");
+                    }
+                }
+                var cubeCells=new byte[34*34*34];cubeCells[ChunkMesher.Index(0,0,0)]=BlockId.Stone;
+                var cube=ChunkMesher.Build(default,0,cubeCells);var original=cube.Vertices.Select(v=>v.Position).ToArray();
+                cube.Translate(-Vector3.one*.5f);terrain=cube.ToMesh(terrain);
+                if(!terrain.vertices.SequenceEqual(original.Select(v=>v-Vector3.one*.5f))||terrain.bounds.center!=Vector3.zero||terrain.bounds.size!=Vector3.one)
+                    throw new Exception("Held/dropped cube translation changed positions or culling bounds");
+                results.Add("PASS packed native terrain/fluid readback matches legacy channel uploads, indices and bounds across seven reused large/small/empty/crop/water/lava payloads; translated held/dropped cube bounds preserved");
+            }
+            finally
+            {if(terrain!=null)UnityEngine.Object.DestroyImmediate(terrain);if(fluid!=null)UnityEngine.Object.DestroyImmediate(fluid);}
+            void Compare(Mesh actual,Mesh expected,Bounds workerBounds,string label)
+            {
+                if(actual.indexFormat!=IndexFormat.UInt32||actual.subMeshCount!=1||actual.vertexCount!=expected.vertexCount||
+                    !actual.vertices.SequenceEqual(expected.vertices)||!actual.normals.SequenceEqual(expected.normals)||
+                    !actual.uv.SequenceEqual(expected.uv)||!actual.uv2.SequenceEqual(expected.uv2)||
+                    !actual.colors.SequenceEqual(expected.colors)||!actual.triangles.SequenceEqual(expected.triangles))
+                    throw new Exception("Packed "+label+" native attributes or winding differ from legacy mesh");
+                var sub=actual.GetSubMesh(0);
+                if(sub.firstVertex!=0||sub.vertexCount!=actual.vertexCount||sub.indexStart!=0||sub.indexCount!=(int)actual.GetIndexCount(0)||sub.topology!=MeshTopology.Triangles||
+                    (workerBounds.center-expected.bounds.center).sqrMagnitude>1e-10f||(workerBounds.extents-expected.bounds.extents).sqrMagnitude>1e-10f||
+                    actual.bounds!=workerBounds||sub.bounds!=workerBounds)
+                    throw new Exception("Packed "+label+" worker/native/submesh bounds differ from legacy culling bounds");
+                if(actual.vertexCount>0&&(actual.vertexBufferCount!=1||actual.GetVertexBufferStride(0)!=40))throw new Exception("Packed "+label+" native vertex layout differs");
+            }
+        }
+        sealed class TemporaryMesh:IDisposable
+        {
+            public readonly Mesh Mesh=new Mesh{indexFormat=IndexFormat.UInt32};
+            public void Dispose()=>UnityEngine.Object.DestroyImmediate(Mesh);
         }
         static string Digest(ChunkBuild mesh)
         {
@@ -105,9 +174,9 @@ namespace RivetReach.Editor
                 void V3(Vector3[] values){writer.Write(values.Length);foreach(var v in values){writer.Write(v.x);writer.Write(v.y);writer.Write(v.z);}}
                 void V2(Vector2[] values){writer.Write(values.Length);foreach(var v in values){writer.Write(v.x);writer.Write(v.y);}}
                 void Ints(int[] values){writer.Write(values.Length);foreach(var v in values)writer.Write(v);}
-                V3(mesh.Vertices);V3(mesh.Normals);V2(mesh.UV);V2(mesh.Tiles);Ints(mesh.Triangles);
-                V3(mesh.FluidMesh.Vertices);V3(mesh.FluidMesh.Normals);Ints(mesh.FluidMesh.Indices);Ints(mesh.FluidMesh.ActiveCells);
-                foreach(var c in mesh.FluidMesh.Colours){writer.Write(c.r);writer.Write(c.g);writer.Write(c.b);writer.Write(c.a);}
+                V3(mesh.Vertices.Select(v=>v.Position).ToArray());V3(mesh.Vertices.Select(v=>v.Normal).ToArray());V2(mesh.Vertices.Select(v=>v.UV).ToArray());V2(mesh.Vertices.Select(v=>v.Tile).ToArray());Ints(mesh.Triangles);
+                V3(mesh.FluidMesh.Vertices.Select(v=>v.Position).ToArray());V3(mesh.FluidMesh.Vertices.Select(v=>v.Normal).ToArray());Ints(mesh.FluidMesh.Indices);Ints(mesh.FluidMesh.ActiveCells);
+                foreach(var c in mesh.FluidMesh.Vertices.Select(v=>v.Colour)){writer.Write(c.r);writer.Write(c.g);writer.Write(c.b);writer.Write(c.a);}
                 writer.Flush();using(var hash=SHA256.Create())return BitConverter.ToString(hash.ComputeHash(stream.ToArray())).Replace("-","");
             }
         }

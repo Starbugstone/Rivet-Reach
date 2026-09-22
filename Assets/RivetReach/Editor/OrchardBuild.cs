@@ -43,7 +43,7 @@ namespace RivetReach.Editor
             Check(!hunger.TryEat(inventory,0,4)&&inventory.Total(BlockId.Apple)==2,"Full hunger preserves apples");hunger.Exert(16);
             Check(hunger.TryEat(inventory,0,4)&&hunger.Food==20&&inventory.Total(BlockId.Apple)==1,"One apple restores four food points");
             var cells=new byte[34*34*34];cells[ChunkMesher.Index(0,0,0)]=BlockId.Sapling;var plant=ChunkMesher.Build(default,0,cells);
-            Check(!BlockId.Solid(BlockId.Sapling)&&BlockId.Mineable(BlockId.Sapling,ToolCapability.None)&&plant.Triangles.Length>0&&plant.Tiles.Any(t=>t.x==4)&&plant.Tiles.Any(t=>t.x==6),"Sapling is mineable, pass-through, with wood and leaf surfaces");
+            Check(!BlockId.Solid(BlockId.Sapling)&&BlockId.Mineable(BlockId.Sapling,ToolCapability.None)&&plant.Triangles.Length>0&&plant.Vertices.Any(v=>v.Tile.x==4)&&plant.Vertices.Any(v=>v.Tile.x==6),"Sapling is mineable, pass-through, with wood and leaf surfaces");
             File.WriteAllText("Logs/Orchard/checks.txt",$"PASS: apple import 782 triangles, one mesh/material, bounds {bounds}; 100000 leaf rolls: {saplings} saplings, {apples} apples, {both} both; food consumption and sapling meshing.\n");
             DomainChecks.Run();FluidChecks.Run();WikiExport.Export();
             const string output="Builds/Orchard";Directory.CreateDirectory(output);

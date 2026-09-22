@@ -1,0 +1,11 @@
+PASS fixture 0: 6DB65FD59FD356F6729140571B5BCD6BB3B83492A16E1BF0A3884442FC3C8A0E
+PASS fixture 1: 6DB65FD59FD356F6729140571B5BCD6BB3B83492A16E1BF0A3884442FC3C8A0E
+PASS fixture 2: CA552034F0C5500E012157A273D2483B4988577B6418C6F6E120FBF444D3C9A5
+PASS fixture 3: 5A25408993FBF5E00B0073CD8B7EA7B1907CE444B698A3B50226E16A0350AAD3
+PASS fixture 4: 8A5CE840F13B5762E3E605732727627DAEFEF90271480D98BEC76F055BC335FF
+PASS fixture 5: 1ED8910E9DE6BB6E3EF88CFEC07A8DD5476EA32D860C9E5DE714504D9098BCB3
+PASS fixture 6: 67FDDE1B0826A9F9D04881FDE7A07E8F2E17743282430CFB0B7618C2FAFBF229
+PASS nine concurrent builds preserve geometry, metadata, cell identity and independent published buffers after reuse
+PASS partial failed build returns clean scratch before subsequent equivalent geometry
+PASS 512 mixed mature crops: 603656 vertices, 737904 indices; exact scratch payload 27107072 bytes; retained 53811808 bytes across 3 builders [679113 vertices / 830142 indices / 30495328 bytes; 4096 vertices / 4096 indices / 181248 bytes; 524288 vertices / 524288 indices / 23135232 bytes] within 64 MiB cap
+PASS packed native terrain/fluid readback matches legacy channel uploads, indices and bounds across seven reused large/small/empty/crop/water/lava payloads; translated held/dropped cube bounds preserved

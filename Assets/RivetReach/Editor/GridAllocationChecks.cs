@@ -35,7 +35,7 @@ namespace RivetReach.Editor
             }
             var totals=new long[3];for(int tick=0;tick<3;tick++){fair.Clear();for(int i=0;i<3;i++)fair.Add(i,10);fair.Distribute(1,tick,(i,n)=>{totals[i]+=n;return n;});}
             Check(totals.All(n=>n==1),"Indivisible residual rotates between eligible identities");
-            Power(Check);Pipes(Check,false);Pipes(Check,true);
+            Power(Check);PowerReferenceChecks(Check);Pipes(Check,false);Pipes(Check,true);
             Directory.CreateDirectory("Logs");File.WriteAllText("Logs/grid-allocation-checks.txt",log+"Assertions: "+assertions+"\n");
         }
         static void Power(Action<bool,string> check)
@@ -60,6 +60,53 @@ namespace RivetReach.Editor
             cells[0].BatteryMode=BatteryMode.Automatic;Empty();
             var sum=new int[3];for(int t=0;t<3;t++){power.Allocate(t);for(int i=0;i<3;i++)sum[i]+=cells[i].BatteryInputWatts;}
             check(sum.All(n=>n==800),"800 W divided over three batteries rotates fractional-watt leftovers");
+        }
+        static void PowerReferenceChecks(Action<bool,string> check)
+        {
+            var machines=new List<MachineState>();
+            MachineState Add(int x,int z,byte id){var m=new MachineState(new BlockPos(x,0,z),id,_=>64);machines.Add(m);return m;}
+            for(int x=0;x<=8;x++){Add(x,0,IndustryId.PowerCable);Add(x,2,IndustryId.PowerCable);}
+            foreach(int x in new[]{0,4,8})Add(x,1,IndustryId.Battery);
+            Add(0,-1,IndustryId.Alternator);Add(8,3,IndustryId.Alternator);Add(2,1,IndustryId.Alternator);
+            foreach(int x in new[]{2,4,6}){Add(x,-1,IndustryId.Crusher);Add(x,3,IndustryId.Lamp);}
+            Add(40,0,IndustryId.Crusher);Add(42,0,IndustryId.Alternator);Add(44,0,IndustryId.Battery);
+            var power=new PowerNetworkService();var reference=new LegacyPowerAllocator(power.Topology);var random=new Random(2761);
+            void Rebuild(){foreach(var unit in power.Topology.Rebuild(machines)){}}
+            Rebuild();
+            string State()=>string.Join(";",machines.Select(m=>$"{m.ReceivedWatts},{m.DeliveredWatts},{m.BatteryWatts},{m.BatteryInputWatts},{m.BatteryOutputWatts}:{string.Join(",",m.EnergyCells.Select(c=>c.Amount))}"))+
+                "|"+string.Join(";",power.Topology.Groups.Select(g=>$"{g.Supply},{g.Demand}"));
+            for(int trial=0;trial<160;trial++)
+            {
+                if(trial%20==0)
+                {
+                    // Changed BFS start order stresses the historical all-port remainder cursor.
+                    var first=machines[0];machines.RemoveAt(0);machines.Add(first);Rebuild();
+                }
+                if(trial%20==10)
+                {
+                    var published=power.Topology.Groups;
+                    using(var pending=power.Topology.Rebuild(machines).GetEnumerator())for(int n=0;n<5;n++)pending.MoveNext();
+                    check(ReferenceEquals(published,power.Topology.Groups),"Cancelled power rebuild retains published groups "+trial);
+                }
+                foreach(var m in machines)
+                {
+                    m.Priority=random.Next(3);m.SupplyWatts=random.Next(801);m.RequestedWatts=random.Next(401);
+                    m.ReceivedWatts=17;m.DeliveredWatts=19;m.BatteryWatts=23;m.BatteryInputWatts=29;m.BatteryOutputWatts=31;
+                    m.BatteryMode=(BatteryMode)random.Next(4);
+                    foreach(var cell in m.EnergyCells){cell.Discharge(cell.Amount);long amount=trial%3==0?random.Next(20000):trial%3==1?cell.Capacity-random.Next(20000):random.Next((int)cell.Capacity);cell.Charge(amount);}
+                }
+                foreach(var group in power.Topology.Groups){group.Activity=new NetworkActivity{Active=random.Next(5)!=0};group.Supply=37;group.Demand=41;}
+                var initial=machines.Select(m=>(m,received:m.ReceivedWatts,delivered:m.DeliveredWatts,battery:m.BatteryWatts,input:m.BatteryInputWatts,output:m.BatteryOutputWatts,energy:m.EnergyCells.Select(c=>c.Amount).ToArray())).ToArray();
+                reference.Allocate(trial);string expected=State();
+                foreach(var saved in initial)
+                {
+                    var m=saved.m;m.ReceivedWatts=saved.received;m.DeliveredWatts=saved.delivered;m.BatteryWatts=saved.battery;m.BatteryInputWatts=saved.input;m.BatteryOutputWatts=saved.output;
+                    for(int i=0;i<m.EnergyCells.Length;i++){m.EnergyCells[i].Discharge(m.EnergyCells[i].Amount);m.EnergyCells[i].Charge(saved.energy[i]);}
+                }
+                foreach(var group in power.Topology.Groups){group.Supply=37;group.Demand=41;}
+                power.Allocate(trial);
+                check(State()==expected,"Cached power roles match pre-optimization allocation, shared budgets, cell rounding and display state "+trial);
+            }
         }
         static void Pipes(Action<bool,string> check,bool fluid)
         {
@@ -104,5 +151,122 @@ namespace RivetReach.Editor
             long stored=fluid?tanks[2].WaterMl+tanks[3].WaterMl:chests[2].Total(BlockId.Stone)+chests[3].Total(BlockId.Stone);Phase();
             check((fluid?tanks[2].WaterMl+tanks[3].WaterMl:chests[2].Total(BlockId.Stone)+chests[3].Total(BlockId.Stone))>stored,"Removing unused "+(fluid?"fluid":"item")+" branch preserves transport");
         }
+        // Frozen pre-optimization allocator used as an independent behavioral oracle.
+        sealed class LegacyPowerAllocator
+    {
+        public readonly NetworkTopology Topology;
+        readonly Dictionary<MachineState,int> generation=new Dictionary<MachineState,int>();
+        readonly FairAllocation<MachineState> storageShares=new FairAllocation<MachineState>();
+        readonly Func<MachineState,long,long> storageTransfer;
+        bool storageCharge;
+        public LegacyPowerAllocator(NetworkTopology topology){Topology=topology;storageTransfer=TransferReservedStorage;}
+        long TransferReservedStorage(MachineState machine,long amount)
+        {BatteryPower.Transfer(machine,(int)amount,storageCharge);return amount;}
+        // Shared device budgets prevent multiple faces/grids from duplicating generation,
+        // demand or storage. Only cable vertices connect grids, never a device interior.
+        public void Allocate(long tick)
+        {
+
+            {
+                generation.Clear();
+                foreach(var group in Topology.Groups)
+                {
+                    if(!group.Active)continue;
+                    group.Supply=group.Demand=0;
+                    foreach(var p in group.Ports)
+                    {
+                        if(p.Port.Role==PortRole.Route)continue;
+                        var m=p.Machine;
+                        m.DeliveredWatts=0;
+                        if(p.Port.Role==PortRole.Output)generation[m]=m.SupplyWatts;
+                        if(p.Port.Role==PortRole.Input){m.ReceivedWatts=0;group.Demand+=m.RequestedWatts;}
+                        if(p.Port.Role==PortRole.Storage)m.BatteryWatts=m.BatteryInputWatts=m.BatteryOutputWatts=0;
+                    }
+                }
+            }
+            // First all ordinary loads consume generation, before any storage charge.
+
+            {
+                foreach(var group in Topology.Groups)
+                {
+                    if(!group.Active)continue;
+                    int used=Serve(group,AvailableGeneration(group),tick);
+                    ConsumeGeneration(group,used);group.Supply+=used;
+                }
+            }
+            // Charge before discharge so even an empty battery can relay this tick's
+            // generation to a separate load grid, independent of traversal order.
+            ChargeSurplus(tick);
+
+            {
+                foreach(var group in Topology.Groups)
+                {
+                    if(!group.Active)continue;
+                    int available=0;
+                    foreach(var p in group.Ports)if(p.Port.Role==PortRole.Storage)available=(int)Math.Min(int.MaxValue,(long)available+BatteryPower.Available(p.Machine,false));
+                    int used=Serve(group,available,tick);group.Supply+=used;
+                    TransferStorage(group,used,false,tick);
+                }
+            }
+            // A full battery may have freed room while feeding another grid.
+            ChargeSurplus(tick);
+        }
+        int AvailableGeneration(NetworkTopology.Group group)
+        {
+            int watts=0;
+            foreach(var p in group.Ports)if(p.Port.Role==PortRole.Output)watts+=generation[p.Machine];
+            return watts;
+        }
+        void ConsumeGeneration(NetworkTopology.Group group,int watts)
+        {
+            foreach(var p in group.Ports)if(p.Port.Role==PortRole.Output&&watts>0)
+            {int take=Math.Min(watts,generation[p.Machine]);generation[p.Machine]-=take;p.Machine.DeliveredWatts+=take;watts-=take;}
+        }
+        int TransferStorage(NetworkTopology.Group group,int watts,bool charge,long tick)
+        {
+            if(watts<=0)return 0;
+            storageShares.Clear();
+            foreach(var p in group.Ports)if(p.Port.Role==PortRole.Storage)storageShares.Add(p.Machine,BatteryPower.Available(p.Machine,charge));
+            storageCharge=charge;
+            return (int)storageShares.Distribute(watts,tick,storageTransfer);
+        }
+        void ChargeSurplus(long tick)
+        {
+            foreach(var group in Topology.Groups)
+            {
+                if(!group.Active)continue;
+                int used=TransferStorage(group,AvailableGeneration(group),true,tick);
+                ConsumeGeneration(group,used);group.Supply+=used;
+            }
+        }
+        static int Need(MachineState m)=>Math.Max(0,m.RequestedWatts-m.ReceivedWatts);
+        // Whole watts, priorities and proportional shortfall within each cable grid.
+        static int Serve(NetworkTopology.Group group,int supply,long tick)
+        {
+            int total=0;
+            for(int priority=0;priority<3&&supply>0;priority++)
+            {
+                int requested=0;
+                foreach(var p in group.Ports)if(p.Port.Role==PortRole.Input&&p.Machine.Priority==priority)requested+=Need(p.Machine);
+                if(requested==0)continue;
+                int available=Math.Min(supply,requested),used=0;
+                foreach(var p in group.Ports)if(p.Port.Role==PortRole.Input&&p.Machine.Priority==priority)
+                {int amount=(int)((long)Need(p.Machine)*available/requested);p.Machine.ReceivedWatts+=amount;used+=amount;}
+                int residual=available-used,start=(int)(tick%group.Ports.Count);
+                // Preserve the original all-port cursor, including route positions,
+                // while visiting only devices on either side of its wrap point.
+                for(int pass=0;pass<2&&residual>0;pass++)
+                foreach(var p in group.Ports)
+                {
+                    if(residual==0)break;
+                    if(pass==0?group.Ports.IndexOf(p)<start:group.Ports.IndexOf(p)>=start)continue;
+                    if(p.Port.Role==PortRole.Input&&p.Machine.Priority==priority&&Need(p.Machine)>0)
+                    {p.Machine.ReceivedWatts++;residual--;}
+                }
+                supply-=available;total+=available;
+            }
+            return total;
+        }
+    }
     }
 }
