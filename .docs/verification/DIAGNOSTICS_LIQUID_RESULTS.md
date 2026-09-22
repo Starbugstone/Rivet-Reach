@@ -1,5 +1,7 @@
 # Diagnostics and flowing-liquid review — 2026-09-22
 
+**Latest factory measurement:** [September 22 phase profile](FACTORY_PROFILE_RESULTS.md) reruns the full fixture with 27 retail scopes, including the soak and chunk transitions. Its dated results supplement the earlier evidence below.
+
 Status: implemented; 48 Editor suites and 53 native correctness checks pass. The 45 FPS worst-frame gate remains **unmet**. This page does not replace the dated [release review](RELEASE_REVIEW_RESULTS.md).
 
 ## What the existing factory measurements establish

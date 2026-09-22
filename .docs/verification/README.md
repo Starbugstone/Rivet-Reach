@@ -15,6 +15,7 @@ This directory maintains the latest report and useful evidence for each feature.
 
 | Feature | Current evidence |
 | --- | --- |
+| Large-factory CPU/GPU attribution | [September 22 factory profile](FACTORY_PROFILE_RESULTS.md) — 27 retail scopes, thermal telemetry, five-minute soak and transition spike analysis |
 | Pre-0.1.0 quality and performance review | [Release review](RELEASE_REVIEW_RESULTS.md) — capabilities, interaction regressions, factory residency, camera-aware streaming and measured frame-time limits |
 | Tool speed and durability | [Tool verification](TOOL_DURABILITY_RESULTS.md) — tier timing, wear, transfers, final-use breakage and schema-18 saves |
 | Food and hunger | [Food-balance verification](FOOD_BALANCE_RESULTS.md) — saved saturation, current food values and measured meal cadence |

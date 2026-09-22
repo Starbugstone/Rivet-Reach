@@ -1,0 +1,173 @@
+{
+  "conditions": "NVIDIA samples about every 2 seconds; local timestamp UTC+02:00. Windows approximated from performance.startedUtc plus sum(frame_ms). States between samples and CPU thermals are unknown. Active means software thermal slowdown at observation.",
+  "workloads": {
+    "terrain-day": {
+      "local_start": "2026-09-22T10:12:13.636493",
+      "local_end": "2026-09-22T10:12:20.305399",
+      "samples": 3,
+      "thermal_active_samples": 3,
+      "temperature_c_min": 82,
+      "temperature_c_max": 83,
+      "clock_mhz_min": 1470,
+      "clock_mhz_max": 1725,
+      "utilization_percent_min": 42,
+      "utilization_percent_max": 43
+    },
+    "inventory-idle": {
+      "local_start": "2026-09-22T10:12:21.833848",
+      "local_end": "2026-09-22T10:12:28.506230",
+      "samples": 3,
+      "thermal_active_samples": 3,
+      "temperature_c_min": 82,
+      "temperature_c_max": 83,
+      "clock_mhz_min": 1575,
+      "clock_mhz_max": 1635,
+      "utilization_percent_min": 49,
+      "utilization_percent_max": 50
+    },
+    "terrain-night": {
+      "local_start": "2026-09-22T10:12:29.945399",
+      "local_end": "2026-09-22T10:12:36.616266",
+      "samples": 3,
+      "thermal_active_samples": 3,
+      "temperature_c_min": 81,
+      "temperature_c_max": 83,
+      "clock_mhz_min": 1260,
+      "clock_mhz_max": 1635,
+      "utilization_percent_min": 43,
+      "utilization_percent_max": 44
+    },
+    "terrain-storm": {
+      "local_start": "2026-09-22T10:12:38.051386",
+      "local_end": "2026-09-22T10:12:44.721306",
+      "samples": 3,
+      "thermal_active_samples": 3,
+      "temperature_c_min": 83,
+      "temperature_c_max": 83,
+      "clock_mhz_min": 1575,
+      "clock_mhz_max": 1590,
+      "utilization_percent_min": 43,
+      "utilization_percent_max": 44
+    },
+    "factory-192": {
+      "local_start": "2026-09-22T10:12:48.836402",
+      "local_end": "2026-09-22T10:12:55.516689",
+      "samples": 3,
+      "thermal_active_samples": 3,
+      "temperature_c_min": 82,
+      "temperature_c_max": 83,
+      "clock_mhz_min": 1410,
+      "clock_mhz_max": 1425,
+      "utilization_percent_min": 66,
+      "utilization_percent_max": 68
+    },
+    "stress-factory-farm-mobs-clear": {
+      "local_start": "2026-09-22T10:15:09.513429",
+      "local_end": "2026-09-22T10:15:36.841012",
+      "samples": 14,
+      "thermal_active_samples": 13,
+      "temperature_c_min": 83,
+      "temperature_c_max": 87,
+      "clock_mhz_min": 300,
+      "clock_mhz_max": 1605,
+      "utilization_percent_min": 95,
+      "utilization_percent_max": 98
+    },
+    "stress-diagnostics": {
+      "local_start": "2026-09-22T10:15:38.579387",
+      "local_end": "2026-09-22T10:15:47.231897",
+      "samples": 4,
+      "thermal_active_samples": 4,
+      "temperature_c_min": 83,
+      "temperature_c_max": 85,
+      "clock_mhz_min": 660,
+      "clock_mhz_max": 1185,
+      "utilization_percent_min": 97,
+      "utilization_percent_max": 97
+    },
+    "stress-five-minute-soak": {
+      "local_start": "2026-09-22T10:15:48.981648",
+      "local_end": "2026-09-22T10:20:48.990091",
+      "samples": 148,
+      "thermal_active_samples": 70,
+      "temperature_c_min": 82,
+      "temperature_c_max": 88,
+      "clock_mhz_min": 300,
+      "clock_mhz_max": 1665,
+      "utilization_percent_min": 90,
+      "utilization_percent_max": 99
+    },
+    "stress-factory-farm-mobs-storm": {
+      "local_start": "2026-09-22T10:21:01.202996",
+      "local_end": "2026-09-22T10:21:28.990599",
+      "samples": 13,
+      "thermal_active_samples": 13,
+      "temperature_c_min": 84,
+      "temperature_c_max": 87,
+      "clock_mhz_min": 300,
+      "clock_mhz_max": 1125,
+      "utilization_percent_min": 92,
+      "utilization_percent_max": 99
+    },
+    "stress-inventory": {
+      "local_start": "2026-09-22T10:21:31.489309",
+      "local_end": "2026-09-22T10:21:43.758831",
+      "samples": 6,
+      "thermal_active_samples": 3,
+      "temperature_c_min": 82,
+      "temperature_c_max": 86,
+      "clock_mhz_min": 300,
+      "clock_mhz_max": 1245,
+      "utilization_percent_min": 97,
+      "utilization_percent_max": 99
+    },
+    "active-factory-unload-return": {
+      "local_start": "2026-09-22T10:21:47.009825",
+      "local_end": "2026-09-22T10:22:47.058727",
+      "samples": 30,
+      "thermal_active_samples": 19,
+      "temperature_c_min": 83,
+      "temperature_c_max": 88,
+      "clock_mhz_min": 300,
+      "clock_mhz_max": 1815,
+      "utilization_percent_min": 72,
+      "utilization_percent_max": 99
+    },
+    "stress-full-output": {
+      "local_start": "2026-09-22T10:22:50.014956",
+      "local_end": "2026-09-22T10:23:00.035784",
+      "samples": 5,
+      "thermal_active_samples": 4,
+      "temperature_c_min": 84,
+      "temperature_c_max": 86,
+      "clock_mhz_min": 300,
+      "clock_mhz_max": 1380,
+      "utilization_percent_min": 92,
+      "utilization_percent_max": 99
+    },
+    "stress-power-shortage": {
+      "local_start": "2026-09-22T10:23:01.711579",
+      "local_end": "2026-09-22T10:23:10.161743",
+      "samples": 4,
+      "thermal_active_samples": 4,
+      "temperature_c_min": 84,
+      "temperature_c_max": 87,
+      "clock_mhz_min": 300,
+      "clock_mhz_max": 1035,
+      "utilization_percent_min": 93,
+      "utilization_percent_max": 98
+    },
+    "streaming": {
+      "local_start": "2026-09-22T10:23:11.682463",
+      "local_end": "2026-09-22T10:23:26.204648",
+      "samples": 7,
+      "thermal_active_samples": 5,
+      "temperature_c_min": 85,
+      "temperature_c_max": 88,
+      "clock_mhz_min": 1110,
+      "clock_mhz_max": 1755,
+      "utilization_percent_min": 81,
+      "utilization_percent_max": 95
+    }
+  }
+}

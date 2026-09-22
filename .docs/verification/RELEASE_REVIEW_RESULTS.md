@@ -1,5 +1,7 @@
 # Pre-0.1.0 release review — September 20, 2026
 
+**Latest factory measurement:** [September 22 phase profile](FACTORY_PROFILE_RESULTS.md) reruns the full fixture with 27 retail scopes, including the soak and chunk transitions. Its dated results supplement the earlier evidence below.
+
 **The 60/45 FPS release gate is not met.** The non-development player passes the combined factory’s correctness checks, but the large workload still has frame-time tails below the requested floor. The review fixes correctness and scheduling defects; this report does not certify 0.1.0.
 
 The user requires **above 60 FPS normally** and **45 FPS at worst**: 16.67 ms and 22.22 ms per frame. We use p95 below 16.67 ms as the normal-play indicator and count every measured gameplay frame above 22.22 ms as a floor breach. Means alone do not establish either requirement.
