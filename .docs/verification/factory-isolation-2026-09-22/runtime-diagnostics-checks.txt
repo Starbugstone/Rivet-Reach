@@ -1,0 +1,53 @@
+PASS Marker index and unique name agree with counter slot 0
+PASS Marker index and unique name agree with counter slot 1
+PASS Marker index and unique name agree with counter slot 2
+PASS Marker index and unique name agree with counter slot 3
+PASS Marker index and unique name agree with counter slot 4
+PASS Marker index and unique name agree with counter slot 5
+PASS Marker index and unique name agree with counter slot 6
+PASS Marker index and unique name agree with counter slot 7
+PASS Marker index and unique name agree with counter slot 8
+PASS Marker index and unique name agree with counter slot 9
+PASS Marker index and unique name agree with counter slot 10
+PASS Marker index and unique name agree with counter slot 11
+PASS Marker index and unique name agree with counter slot 12
+PASS Marker index and unique name agree with counter slot 13
+PASS Marker index and unique name agree with counter slot 14
+PASS Marker index and unique name agree with counter slot 15
+PASS Marker index and unique name agree with counter slot 16
+PASS Marker index and unique name agree with counter slot 17
+PASS Marker index and unique name agree with counter slot 18
+PASS Marker index and unique name agree with counter slot 19
+PASS Marker index and unique name agree with counter slot 20
+PASS Marker index and unique name agree with counter slot 21
+PASS Marker index and unique name agree with counter slot 22
+PASS Marker index and unique name agree with counter slot 23
+PASS Marker index and unique name agree with counter slot 24
+PASS Marker index and unique name agree with counter slot 25
+PASS Marker index and unique name agree with counter slot 26
+PASS Marker index and unique name agree with counter slot 27
+PASS Marker index and unique name agree with counter slot 28
+PASS Marker index and unique name agree with counter slot 29
+PASS Marker index and unique name agree with counter slot 30
+PASS Marker index and unique name agree with counter slot 31
+PASS Marker index and unique name agree with counter slot 32
+PASS Marker index and unique name agree with counter slot 33
+PASS Marker index and unique name agree with counter slot 34
+PASS Marker index and unique name agree with counter slot 35
+PASS Marker index and unique name agree with counter slot 36
+PASS Marker index and unique name agree with counter slot 37
+PASS Stopwatch ticks convert to milliseconds without a frame-rate assumption
+PASS Nested scopes record actual positive elapsed time and retain inclusive parent duration
+PASS First completed scope initializes lifetime and window peaks
+PASS Repeated enabling preserves the current epoch and collected totals
+PASS Reading/resetting the window peak preserves call totals, total time and lifetime peak
+PASS The next window measures only new completed scope peaks while totals accumulate
+PASS Disabled scopes and repeated disabling do not add calls or time
+PASS A scope opened while disabled cannot enter a later enabled window
+PASS A scope spanning disable/re-enable is rejected by the new epoch
+PASS Concurrent workers reach the shared start barrier
+PASS Concurrent worker scopes preserve every call without lost updates
+PASS Concurrent nested worker elapsed totals and peaks remain internally consistent
+PASS Worker opens its scope before the sampling transition
+PASS An old worker finishing after re-enable cannot contaminate the new epoch
+PASS The new epoch continues accepting newly started worker scopes

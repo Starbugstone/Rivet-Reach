@@ -13,6 +13,7 @@ namespace RivetReach
         }
         void PrepareRangedPump(MachineState m)
         {
+            using var cost=RuntimeCosts.RangedPumpPreparation.Auto();
             if(m.Fluid.Capacity-m.Fluid.Amount<10000){m.Status=MachineStatus.OutputFull;return;}
             if(m.PumpTarget is BlockPos target)
             {

@@ -478,37 +478,47 @@ namespace RivetReach
             c.Cells=result.Cells;c.Dirty=false;pendingMeshes.Remove(result.Position);
             // Empty underground/sky pages still provide collision and residency data,
             // but need neither an empty renderer nor an empty native Mesh.
-            if(c.View==null&&(visibleTerrain||visibleFluid))
+            using(RuntimeCosts.TerrainViews.Auto())
             {
-                c.View=new GameObject("Chunk");c.View.transform.SetParent(transform,false);
-                c.View.AddComponent<MeshFilter>();var r=c.View.AddComponent<MeshRenderer>();r.sharedMaterial=TerrainMaterial;
-                r.shadowCastingMode=ShadowCastingMode.On;
+                if(c.View==null&&(visibleTerrain||visibleFluid))
+                {
+                    c.View=new GameObject("Chunk");c.View.transform.SetParent(transform,false);
+                    c.View.AddComponent<MeshFilter>();var r=c.View.AddComponent<MeshRenderer>();r.sharedMaterial=TerrainMaterial;
+                    r.shadowCastingMode=ShadowCastingMode.On;
+                }
+                if(c.View!=null)
+                {
+                    c.View.SetActive(visibleTerrain||visibleFluid);c.View.transform.position=Local(result.Position.Min);
+                    c.View.GetComponent<MeshRenderer>().enabled=visibleTerrain;
+                }
             }
-            if(c.View!=null)
+            using(RuntimeCosts.TerrainMeshUpload.Auto())
             {
-                c.View.SetActive(visibleTerrain||visibleFluid);c.View.transform.position=Local(result.Position.Min);
-                c.View.GetComponent<MeshRenderer>().enabled=visibleTerrain;
+                if(visibleTerrain)
+                {
+                    if(c.Mesh==null)c.Mesh=new Mesh{name="Voxel chunk",indexFormat=IndexFormat.UInt32};
+                    else c.Mesh.Clear();
+                    c.Mesh.vertices=result.Vertices;c.Mesh.normals=result.Normals;c.Mesh.uv=result.UV;c.Mesh.uv2=result.Tiles;c.Mesh.triangles=result.Triangles;c.Mesh.RecalculateBounds();
+                    c.View.GetComponent<MeshFilter>().sharedMesh=c.Mesh;
+                }
+                else if(c.Mesh!=null){c.View.GetComponent<MeshFilter>().sharedMesh=null;Destroy(c.Mesh);c.Mesh=null;}
             }
-            if(visibleTerrain)
+            using(RuntimeCosts.FluidMeshUpload.Auto())
             {
-                if(c.Mesh==null)c.Mesh=new Mesh{name="Voxel chunk",indexFormat=IndexFormat.UInt32};
-                else c.Mesh.Clear();
-                c.Mesh.vertices=result.Vertices;c.Mesh.normals=result.Normals;c.Mesh.uv=result.UV;c.Mesh.uv2=result.Tiles;c.Mesh.triangles=result.Triangles;c.Mesh.RecalculateBounds();
-                c.View.GetComponent<MeshFilter>().sharedMesh=c.Mesh;
+                if(c.FluidView==null&&visibleFluid)
+                {
+                    c.FluidView=new GameObject("Fluid surface");c.FluidView.transform.SetParent(c.View.transform,false);
+                    c.FluidView.AddComponent<MeshFilter>();var renderer=c.FluidView.AddComponent<MeshRenderer>();
+                    renderer.sharedMaterial=fluidMaterial;renderer.shadowCastingMode=ShadowCastingMode.Off;
+                }
+                if(visibleFluid)c.FluidMesh=result.FluidMesh.ToMesh(c.FluidMesh);
+                else if(c.FluidMesh!=null){Destroy(c.FluidMesh);c.FluidMesh=null;}
+                if(c.FluidView!=null)
+                {c.FluidView.SetActive(visibleFluid);c.FluidView.GetComponent<MeshFilter>().sharedMesh=c.FluidMesh;}
             }
-            else if(c.Mesh!=null){c.View.GetComponent<MeshFilter>().sharedMesh=null;Destroy(c.Mesh);c.Mesh=null;}
-            if(c.FluidView==null&&visibleFluid)
-            {
-                c.FluidView=new GameObject("Fluid surface");c.FluidView.transform.SetParent(c.View.transform,false);
-                c.FluidView.AddComponent<MeshFilter>();var renderer=c.FluidView.AddComponent<MeshRenderer>();
-                renderer.sharedMaterial=fluidMaterial;renderer.shadowCastingMode=ShadowCastingMode.Off;
-            }
-            if(visibleFluid)c.FluidMesh=result.FluidMesh.ToMesh(c.FluidMesh);
-            else if(c.FluidMesh!=null){Destroy(c.FluidMesh);c.FluidMesh=null;}
-            if(c.FluidView!=null)
-            {c.FluidView.SetActive(visibleFluid);c.FluidView.GetComponent<MeshFilter>().sharedMesh=c.FluidMesh;}
             if(first)
             {
+                using var activationCost=RuntimeCosts.ChunkActivation.Auto();
                 DirtyLight(result.Position);
                 FluidSimulation.Ready(result.Position);ChunkResidencyChanged?.Invoke(result.Position);ResidencyChanged?.Invoke();ChunkReady?.Invoke(result.Position,c.Cells);
                 // The worker identifies exposed/unsettled cells. Stable source interiors and

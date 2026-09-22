@@ -15,6 +15,7 @@ This directory maintains the latest report and useful evidence for each feature.
 
 | Feature | Current evidence |
 | --- | --- |
+| Factory bottleneck isolation | [Extra September 22 tests](FACTORY_ISOLATION_RESULTS.md) — repeated mesh submission hitch, ranged-pump cost, power role counts, paired graphics controls and proposed fixes |
 | Large-factory CPU/GPU attribution | [September 22 factory profile](FACTORY_PROFILE_RESULTS.md) — 27 retail scopes, thermal telemetry, five-minute soak and transition spike analysis |
 | Pre-0.1.0 quality and performance review | [Release review](RELEASE_REVIEW_RESULTS.md) — capabilities, interaction regressions, factory residency, camera-aware streaming and measured frame-time limits |
 | Tool speed and durability | [Tool verification](TOOL_DURABILITY_RESULTS.md) — tier timing, wear, transfers, final-use breakage and schema-18 saves |

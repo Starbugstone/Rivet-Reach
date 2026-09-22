@@ -176,8 +176,10 @@ namespace RivetReach
             Check(liquidOutput.Fluid.Amount>0&&liquidOutput.Fluid.Amount+liquidSupply.Fluid.Amount==100000,"Stress liquid bridges transfer with exact conservation");
             Check(remoteLamp.ReceivedWatts>0,"Stress electrical bridges supply a remote load");
             game.Diagnostics=true;yield return sample("stress-diagnostics",600);game.Diagnostics=false;
-            yield return sample("stress-five-minute-soak",-300);
-            Check(game.World.Error==null,"Five-minute combined simulation has no worker failure");
+            bool isolation=Environment.GetCommandLineArgs().Contains("-rr-factory-isolation");
+            if(isolation){yield return sample("isolation-live-settled",Environment.GetCommandLineArgs().Contains("-rr-factory-cpu-only")?-45:600);yield return ReviewFactoryIsolation(sample);}
+            else yield return sample("stress-five-minute-soak",-300);
+            Check(game.World.Error==null,isolation?"Isolation scenario has no worker failure":"Five-minute combined simulation has no worker failure");
             for(int i=0;i<lines.Count;i++)Check(lines[i].IronUnits==iron[i],"Soaked factory conserves line "+i);
             yield return StressBlogCapture("blog-01-factory-overview",origin,new Vector3(42,26,35),new Vector3(16,0,35),.5,WeatherKind.Clear);
             yield return StressBlogCapture("blog-02-dusk-production",origin,new Vector3(-5,10,4),new Vector3(15,0,30),.76,WeatherKind.Clear);

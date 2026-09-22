@@ -1,0 +1,495 @@
+{
+  "conditions": "Frozen scene, diagnostic quality/visibility controls, not gameplay speedups. Each control is bracketed by restored baselines; round 2 reverses order. Baseline reference is mean of the two GPU medians. Thermal telemetry is sparse and does not remove hardware variation.",
+  "comparisons": [
+    {
+      "control": "gpu-r1-sun-shadows-off",
+      "gpu_median_ms_before_control_after": [
+        11.5671,
+        11.1892,
+        11.8003
+      ],
+      "gpu_median_reduction_percent": 4.232392136052795,
+      "baseline_drift_percent": 1.9959430659808115,
+      "frame_p95_ms_before_control_after": [
+        21.0334,
+        11.9818,
+        20.4921
+      ],
+      "srp_draw_mean_before_control_after": [
+        7060.0,
+        4853.0,
+        7060.0
+      ],
+      "thermal_before_control_after": [
+        {
+          "samples": 2,
+          "thermal_active_samples": 2,
+          "temperature_min_c": 83,
+          "temperature_max_c": 85,
+          "clock_min_mhz": 840,
+          "clock_median_mhz": 1095,
+          "clock_max_mhz": 1095
+        },
+        {
+          "samples": 1,
+          "thermal_active_samples": 1,
+          "temperature_min_c": 85,
+          "temperature_max_c": 85,
+          "clock_min_mhz": 1080,
+          "clock_median_mhz": 1080,
+          "clock_max_mhz": 1080
+        },
+        {
+          "samples": 2,
+          "thermal_active_samples": 1,
+          "temperature_min_c": 83,
+          "temperature_max_c": 85,
+          "clock_min_mhz": 1005,
+          "clock_median_mhz": 1125,
+          "clock_max_mhz": 1125
+        }
+      ]
+    },
+    {
+      "control": "gpu-r1-msaa-off",
+      "gpu_median_ms_before_control_after": [
+        11.5425,
+        10.9443,
+        11.7187
+      ],
+      "gpu_median_reduction_percent": 5.900813371623141,
+      "baseline_drift_percent": 1.51496913314876,
+      "frame_p95_ms_before_control_after": [
+        17.5831,
+        15.839,
+        17.5515
+      ],
+      "srp_draw_mean_before_control_after": [
+        7060.0,
+        7060.0,
+        7060.0
+      ],
+      "thermal_before_control_after": [
+        {
+          "samples": 2,
+          "thermal_active_samples": 2,
+          "temperature_min_c": 83,
+          "temperature_max_c": 85,
+          "clock_min_mhz": 870,
+          "clock_median_mhz": 1200,
+          "clock_max_mhz": 1200
+        },
+        {
+          "samples": 2,
+          "thermal_active_samples": 2,
+          "temperature_min_c": 82,
+          "temperature_max_c": 85,
+          "clock_min_mhz": 300,
+          "clock_median_mhz": 1305,
+          "clock_max_mhz": 1305
+        },
+        {
+          "samples": 1,
+          "thermal_active_samples": 1,
+          "temperature_min_c": 85,
+          "temperature_max_c": 85,
+          "clock_min_mhz": 1185,
+          "clock_median_mhz": 1185,
+          "clock_max_mhz": 1185
+        }
+      ]
+    },
+    {
+      "control": "gpu-r1-scale-70",
+      "gpu_median_ms_before_control_after": [
+        11.4355,
+        9.9261,
+        12.673
+      ],
+      "gpu_median_reduction_percent": 17.654769064852644,
+      "baseline_drift_percent": 10.266088723894068,
+      "frame_p95_ms_before_control_after": [
+        19.6981,
+        16.8124,
+        73.7373
+      ],
+      "srp_draw_mean_before_control_after": [
+        7060.0,
+        7060.0,
+        7060.0
+      ],
+      "thermal_before_control_after": [
+        {
+          "samples": 2,
+          "thermal_active_samples": 2,
+          "temperature_min_c": 83,
+          "temperature_max_c": 85,
+          "clock_min_mhz": 405,
+          "clock_median_mhz": 720,
+          "clock_max_mhz": 720
+        },
+        {
+          "samples": 1,
+          "thermal_active_samples": 1,
+          "temperature_min_c": 85,
+          "temperature_max_c": 85,
+          "clock_min_mhz": 1110,
+          "clock_median_mhz": 1110,
+          "clock_max_mhz": 1110
+        },
+        {
+          "samples": 3,
+          "thermal_active_samples": 0,
+          "temperature_min_c": 82,
+          "temperature_max_c": 86,
+          "clock_min_mhz": 1005,
+          "clock_median_mhz": 1005,
+          "clock_max_mhz": 1635
+        }
+      ]
+    },
+    {
+      "control": "gpu-r1-machine-renderers-off",
+      "gpu_median_ms_before_control_after": [
+        12.7078,
+        7.8843,
+        11.401
+      ],
+      "gpu_median_reduction_percent": 34.59400716750731,
+      "baseline_drift_percent": 10.840854791611369,
+      "frame_p95_ms_before_control_after": [
+        75.4459,
+        51.501,
+        18.446
+      ],
+      "srp_draw_mean_before_control_after": [
+        7060.0,
+        2963.0,
+        7060.0
+      ],
+      "thermal_before_control_after": [
+        {
+          "samples": 2,
+          "thermal_active_samples": 0,
+          "temperature_min_c": 84,
+          "temperature_max_c": 85,
+          "clock_min_mhz": 1605,
+          "clock_median_mhz": 1620,
+          "clock_max_mhz": 1620
+        },
+        {
+          "samples": 2,
+          "thermal_active_samples": 0,
+          "temperature_min_c": 87,
+          "temperature_max_c": 87,
+          "clock_min_mhz": 1410,
+          "clock_median_mhz": 1530,
+          "clock_max_mhz": 1530
+        },
+        {
+          "samples": 2,
+          "thermal_active_samples": 2,
+          "temperature_min_c": 84,
+          "temperature_max_c": 85,
+          "clock_min_mhz": 645,
+          "clock_median_mhz": 720,
+          "clock_max_mhz": 720
+        }
+      ]
+    },
+    {
+      "control": "gpu-r1-creature-renderers-off",
+      "gpu_median_ms_before_control_after": [
+        11.7568,
+        11.948,
+        11.403
+      ],
+      "gpu_median_reduction_percent": -3.178783927322344,
+      "baseline_drift_percent": 3.05529408716828,
+      "frame_p95_ms_before_control_after": [
+        18.2502,
+        25.5202,
+        19.0551
+      ],
+      "srp_draw_mean_before_control_after": [
+        7060.0,
+        7060.0,
+        7060.0
+      ],
+      "thermal_before_control_after": [
+        {
+          "samples": 2,
+          "thermal_active_samples": 2,
+          "temperature_min_c": 84,
+          "temperature_max_c": 85,
+          "clock_min_mhz": 675,
+          "clock_median_mhz": 840,
+          "clock_max_mhz": 840
+        },
+        {
+          "samples": 2,
+          "thermal_active_samples": 1,
+          "temperature_min_c": 82,
+          "temperature_max_c": 84,
+          "clock_min_mhz": 945,
+          "clock_median_mhz": 1005,
+          "clock_max_mhz": 1005
+        },
+        {
+          "samples": 2,
+          "thermal_active_samples": 2,
+          "temperature_min_c": 84,
+          "temperature_max_c": 86,
+          "clock_min_mhz": 1080,
+          "clock_median_mhz": 1095,
+          "clock_max_mhz": 1095
+        }
+      ]
+    },
+    {
+      "control": "gpu-r2-creature-renderers-off",
+      "gpu_median_ms_before_control_after": [
+        11.9869,
+        12.8819,
+        12.5714
+      ],
+      "gpu_median_reduction_percent": -4.908727395625906,
+      "baseline_drift_percent": 4.760101472821817,
+      "frame_p95_ms_before_control_after": [
+        18.462,
+        74.9051,
+        74.5582
+      ],
+      "srp_draw_mean_before_control_after": [
+        7060.0,
+        7060.0,
+        7060.0
+      ],
+      "thermal_before_control_after": [
+        {
+          "samples": 2,
+          "thermal_active_samples": 2,
+          "temperature_min_c": 84,
+          "temperature_max_c": 84,
+          "clock_min_mhz": 1050,
+          "clock_median_mhz": 1185,
+          "clock_max_mhz": 1185
+        },
+        {
+          "samples": 3,
+          "thermal_active_samples": 3,
+          "temperature_min_c": 86,
+          "temperature_max_c": 87,
+          "clock_min_mhz": 300,
+          "clock_median_mhz": 375,
+          "clock_max_mhz": 390
+        },
+        {
+          "samples": 3,
+          "thermal_active_samples": 3,
+          "temperature_min_c": 86,
+          "temperature_max_c": 86,
+          "clock_min_mhz": 300,
+          "clock_median_mhz": 360,
+          "clock_max_mhz": 510
+        }
+      ]
+    },
+    {
+      "control": "gpu-r2-machine-renderers-off",
+      "gpu_median_ms_before_control_after": [
+        12.6075,
+        6.7461,
+        11.6726
+      ],
+      "gpu_median_reduction_percent": 44.43103611599622,
+      "baseline_drift_percent": 7.700956750589995,
+      "frame_p95_ms_before_control_after": [
+        31.152,
+        25.025,
+        16.0257
+      ],
+      "srp_draw_mean_before_control_after": [
+        7060.0,
+        2963.0,
+        7060.0
+      ],
+      "thermal_before_control_after": [
+        {
+          "samples": 3,
+          "thermal_active_samples": 3,
+          "temperature_min_c": 83,
+          "temperature_max_c": 86,
+          "clock_min_mhz": 300,
+          "clock_median_mhz": 315,
+          "clock_max_mhz": 1155
+        },
+        {
+          "samples": 2,
+          "thermal_active_samples": 1,
+          "temperature_min_c": 83,
+          "temperature_max_c": 84,
+          "clock_min_mhz": 1290,
+          "clock_median_mhz": 1410,
+          "clock_max_mhz": 1410
+        },
+        {
+          "samples": 1,
+          "thermal_active_samples": 1,
+          "temperature_min_c": 83,
+          "temperature_max_c": 83,
+          "clock_min_mhz": 795,
+          "clock_median_mhz": 795,
+          "clock_max_mhz": 795
+        }
+      ]
+    },
+    {
+      "control": "gpu-r2-scale-70",
+      "gpu_median_ms_before_control_after": [
+        11.3436,
+        9.5969,
+        11.6575
+      ],
+      "gpu_median_reduction_percent": 16.552686610640365,
+      "baseline_drift_percent": 2.7294346792109967,
+      "frame_p95_ms_before_control_after": [
+        49.0766,
+        56.0359,
+        18.806
+      ],
+      "srp_draw_mean_before_control_after": [
+        7060.0,
+        7060.0,
+        7060.0
+      ],
+      "thermal_before_control_after": [
+        {
+          "samples": 2,
+          "thermal_active_samples": 2,
+          "temperature_min_c": 85,
+          "temperature_max_c": 87,
+          "clock_min_mhz": 480,
+          "clock_median_mhz": 1125,
+          "clock_max_mhz": 1125
+        },
+        {
+          "samples": 2,
+          "thermal_active_samples": 2,
+          "temperature_min_c": 86,
+          "temperature_max_c": 86,
+          "clock_min_mhz": 345,
+          "clock_median_mhz": 495,
+          "clock_max_mhz": 495
+        },
+        {
+          "samples": 2,
+          "thermal_active_samples": 2,
+          "temperature_min_c": 85,
+          "temperature_max_c": 85,
+          "clock_min_mhz": 1140,
+          "clock_median_mhz": 1170,
+          "clock_max_mhz": 1170
+        }
+      ]
+    },
+    {
+      "control": "gpu-r2-msaa-off",
+      "gpu_median_ms_before_control_after": [
+        11.7908,
+        9.6236,
+        11.9767
+      ],
+      "gpu_median_reduction_percent": 19.018828231829175,
+      "baseline_drift_percent": 1.5643210266119567,
+      "frame_p95_ms_before_control_after": [
+        20.9357,
+        17.1844,
+        24.1679
+      ],
+      "srp_draw_mean_before_control_after": [
+        7060.0,
+        7060.0,
+        7060.0
+      ],
+      "thermal_before_control_after": [
+        {
+          "samples": 2,
+          "thermal_active_samples": 2,
+          "temperature_min_c": 84,
+          "temperature_max_c": 84,
+          "clock_min_mhz": 1065,
+          "clock_median_mhz": 1110,
+          "clock_max_mhz": 1110
+        },
+        {
+          "samples": 2,
+          "thermal_active_samples": 2,
+          "temperature_min_c": 84,
+          "temperature_max_c": 85,
+          "clock_min_mhz": 1050,
+          "clock_median_mhz": 1200,
+          "clock_max_mhz": 1200
+        },
+        {
+          "samples": 2,
+          "thermal_active_samples": 1,
+          "temperature_min_c": 85,
+          "temperature_max_c": 87,
+          "clock_min_mhz": 1125,
+          "clock_median_mhz": 1425,
+          "clock_max_mhz": 1425
+        }
+      ]
+    },
+    {
+      "control": "gpu-r2-sun-shadows-off",
+      "gpu_median_ms_before_control_after": [
+        11.9844,
+        11.6147,
+        12.618
+      ],
+      "gpu_median_reduction_percent": 5.580756348974102,
+      "baseline_drift_percent": 5.150717003219193,
+      "frame_p95_ms_before_control_after": [
+        21.4524,
+        55.344,
+        74.53
+      ],
+      "srp_draw_mean_before_control_after": [
+        7060.0,
+        4853.0,
+        7060.0
+      ],
+      "thermal_before_control_after": [
+        {
+          "samples": 2,
+          "thermal_active_samples": 2,
+          "temperature_min_c": 84,
+          "temperature_max_c": 85,
+          "clock_min_mhz": 495,
+          "clock_median_mhz": 1050,
+          "clock_max_mhz": 1050
+        },
+        {
+          "samples": 2,
+          "thermal_active_samples": 1,
+          "temperature_min_c": 83,
+          "temperature_max_c": 83,
+          "clock_min_mhz": 870,
+          "clock_median_mhz": 1005,
+          "clock_max_mhz": 1005
+        },
+        {
+          "samples": 3,
+          "thermal_active_samples": 0,
+          "temperature_min_c": 82,
+          "temperature_max_c": 83,
+          "clock_min_mhz": 1005,
+          "clock_median_mhz": 1005,
+          "clock_max_mhz": 1005
+        }
+      ]
+    }
+  ]
+}

@@ -167,40 +167,49 @@ namespace RivetReach
         // demand or storage. Only cable vertices connect grids, never a device interior.
         public void Allocate(long tick)
         {
-            generation.Clear();
-            foreach(var group in Topology.Groups)
+            using(RuntimeCosts.PowerPrepare.Auto())
             {
-                if(!group.Active)continue;
-                group.Supply=group.Demand=0;
-                foreach(var p in group.Devices)
+                generation.Clear();
+                foreach(var group in Topology.Groups)
                 {
-                    var m=p.Machine;
-                    m.DeliveredWatts=0;
-                    if(p.Port.Role==PortRole.Output)generation[m]=m.SupplyWatts;
-                    if(p.Port.Role==PortRole.Input){m.ReceivedWatts=0;group.Demand+=m.RequestedWatts;}
-                    if(p.Port.Role==PortRole.Storage)m.BatteryWatts=m.BatteryInputWatts=m.BatteryOutputWatts=0;
+                    if(!group.Active)continue;
+                    group.Supply=group.Demand=0;
+                    foreach(var p in group.Devices)
+                    {
+                        var m=p.Machine;
+                        m.DeliveredWatts=0;
+                        if(p.Port.Role==PortRole.Output)generation[m]=m.SupplyWatts;
+                        if(p.Port.Role==PortRole.Input){m.ReceivedWatts=0;group.Demand+=m.RequestedWatts;}
+                        if(p.Port.Role==PortRole.Storage)m.BatteryWatts=m.BatteryInputWatts=m.BatteryOutputWatts=0;
+                    }
                 }
             }
             // First all ordinary loads consume generation, before any storage charge.
-            foreach(var group in Topology.Groups)
+            using(RuntimeCosts.PowerLoads.Auto())
             {
-                if(!group.Active)continue;
-                int used=Serve(group,AvailableGeneration(group),tick);
-                ConsumeGeneration(group,used);group.Supply+=used;
+                foreach(var group in Topology.Groups)
+                {
+                    if(!group.Active)continue;
+                    int used=Serve(group,AvailableGeneration(group),tick);
+                    ConsumeGeneration(group,used);group.Supply+=used;
+                }
             }
             // Charge before discharge so even an empty battery can relay this tick's
             // generation to a separate load grid, independent of traversal order.
-            ChargeSurplus(tick);
-            foreach(var group in Topology.Groups)
+            using(RuntimeCosts.PowerCharge.Auto())ChargeSurplus(tick);
+            using(RuntimeCosts.PowerDischarge.Auto())
             {
-                if(!group.Active)continue;
-                int available=0;
-                foreach(var p in group.Devices)if(p.Port.Role==PortRole.Storage)available=(int)Math.Min(int.MaxValue,(long)available+BatteryPower.Available(p.Machine,false));
-                int used=Serve(group,available,tick);group.Supply+=used;
-                TransferStorage(group,used,false,tick);
+                foreach(var group in Topology.Groups)
+                {
+                    if(!group.Active)continue;
+                    int available=0;
+                    foreach(var p in group.Devices)if(p.Port.Role==PortRole.Storage)available=(int)Math.Min(int.MaxValue,(long)available+BatteryPower.Available(p.Machine,false));
+                    int used=Serve(group,available,tick);group.Supply+=used;
+                    TransferStorage(group,used,false,tick);
+                }
             }
             // A full battery may have freed room while feeding another grid.
-            ChargeSurplus(tick);
+            using(RuntimeCosts.PowerCharge.Auto())ChargeSurplus(tick);
         }
         int AvailableGeneration(NetworkTopology.Group group)
         {

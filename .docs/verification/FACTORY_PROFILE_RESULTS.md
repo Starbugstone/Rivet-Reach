@@ -2,6 +2,8 @@
 
 **Status: 2,263 native correctness checks pass; the 60/45 FPS performance gate fails.** Across 30,318 measured frames, 2,216 exceed 22.22 ms. The worst gameplay frame is 176.09 ms. This report supplements the dated [release review](RELEASE_REVIEW_RESULTS.md) and [liquid review](DIAGNOSTICS_LIQUID_RESULTS.md); it does not certify 0.1.0.
 
+
+Follow-up: [extra factory isolation tests and optimization proposals](FACTORY_ISOLATION_RESULTS.md) reproduce the terrain mesh submission hitch, measure ranged-pump preparation and power roles, and compare paired graphics controls. Those shorter diagnostic runs supplement this five-minute soak.
 ## Workload and build
 
 The unchanged fixture runs 32 production lines, 1,518 industrial assemblies including routes, 230 stations/crates, 512 crop cells, 64 persistent chickens and 14 hostiles. All existing machine families, crates, steam/solar/wind, batteries/banks, hand crank, tanks, three bridge channels and an explicit loader-maintained remote circuit are present. Natural spawning is disabled; ordinary simulation and rendering remain active. Finite input stocks and growing output buffers mean later stages are not identical production loads. The fixture includes a five-minute soak, storms, inventory, unloading/return, output backpressure, power shortage and travel.

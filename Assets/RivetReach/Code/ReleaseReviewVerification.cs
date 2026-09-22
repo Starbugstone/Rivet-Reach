@@ -154,7 +154,7 @@ namespace RivetReach
                 result.pendingMachineViews=machinePresentation.PendingCreateCount;result.pendingCrateViews=cratePresentation.PendingCreateCount;
                 result.nativeMemory=UnityEngine.Profiling.Profiler.GetTotalAllocatedMemoryLong();summary.workloads.Add(result);csv.Flush();
                 File.WriteAllText(Path.Combine(output,"performance.json"),JsonUtility.ToJson(summary,true));
-                yield return Capture(workload);
+                if(!workload.StartsWith("gpu-",StringComparison.Ordinal))yield return Capture(workload);
             }
             try
             {

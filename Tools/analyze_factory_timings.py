@@ -25,8 +25,8 @@ def analyze(path):
     if not rows:
         raise ValueError("Empty capture")
     scopes = [key.removesuffix("_wall_ms") for key in rows[0] if key.endswith("_wall_ms")]
-    if len(scopes) != 27:
-        raise ValueError(f"Expected 27 retail scopes, found {len(scopes)}")
+    if len(scopes) < 27:
+        raise ValueError(f"Expected at least 27 retail scopes, found {len(scopes)}")
     groups = defaultdict(list)
     for row in rows:
         groups[row["workload"]].append(row)
@@ -71,9 +71,23 @@ def analyze(path):
         for scope in ("RR.Topology", "RR.IndustryPower", "RR.IndustryItems", "RR.IndustryFluids"):
             if result["scopes"][scope]["calls"] != factory_calls:
                 raise ValueError(f"Incomplete factory scope calls in {name}/{scope}")
+        detail_scopes = ("RR.MachineStateSetup", "RR.MachinePreparation", "RR.MachineAdvance",
+                         "RR.PowerPrepare", "RR.PowerLoads", "RR.PowerCharge", "RR.PowerDischarge")
+        for scope in detail_scopes:
+            if scope not in result["scopes"]:
+                continue
+            expected_calls = factory_calls * (2 if scope == "RR.PowerCharge" else 1)
+            if result["scopes"][scope]["calls"] != expected_calls:
+                raise ValueError(f"Incomplete detailed factory calls in {name}/{scope}")
+        result["factory_detail_ms_per_tick"] = {
+            scope: result["scopes"][scope]["total_ms"] / factory_calls if factory_calls else None
+            for scope in detail_scopes if scope in result["scopes"]}
         result["factory_phases_ms_per_tick"] = {
             scope: result["scopes"][scope]["total_ms"] / factory_calls if factory_calls else None
             for scope in ("RR.IndustryTick", "RR.Topology", "RR.IndustryMachines", "RR.IndustryPower", "RR.IndustryItems", "RR.IndustryFluids")}
+        if "RR.RangedPumpPreparation" in result["scopes"]:
+            result["factory_detail_ms_per_tick"]["RR.RangedPumpPreparation"] = (
+                result["scopes"]["RR.RangedPumpPreparation"]["total_ms"] / factory_calls if factory_calls else None)
         largest = sorted(range(len(group)), key=lambda i: frames[i], reverse=True)[:5]
         keys = ["frame", "unity_frame", "frame_ms", "sample_time_s", "timing_timestamp",
                 "gpu_ms", "cpu_main_ms", "cpu_render_ms", "present_wait_ms",
