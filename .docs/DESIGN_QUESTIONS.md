@@ -4,6 +4,10 @@
 
 Related: [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md), [PROJECT_PLAN.md](PROJECT_PLAN.md), [GAMEPLAY.md](GAMEPLAY.md), [SIMULATION.md](SIMULATION.md), [TRANSPORT.md](TRANSPORT.md), [ECONOMY.md](ECONOMY.md), [CONTENT_PIPELINE.md](CONTENT_PIPELINE.md), [DELIVERY.md](DELIVERY.md).
 
+## 0.1.0 frame presentation review — 2026-09-27
+
+The user confirmed steady 60 FPS at 1080p. [The release-readiness audit](verification/RELEASE_READINESS_0_1_0.md) distinguishes measured failures from proposed acceptance details. Remaining nonblocking design questions are the supported minimum PC, the persisted frame-cap/display-sync policy for 60 Hz and higher-refresh displays, and exact long-session duration/percentile tolerances. The existing laptop provides benchmark evidence, not an inferred minimum specification. Resolve these through the performance/presentation work before certification; they do not block the current audit.
+
 ## 1. Decision status and ownership
 
 - **Agreed direction:** explicit existing project intent, including playable real foundations, world-item stacks and sink-by-default water behaviour.

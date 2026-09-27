@@ -100,6 +100,8 @@ Future recovery exercises: interrupted save, interrupted transfer, blocked desti
 
 ## 7. Responsiveness and workload budgets
 
+For the current 0.1.0 review, the user confirmed **steady 60 FPS at 1080p** on September 27. [Delivery](DELIVERY.md) and [the readiness audit](verification/RELEASE_READINESS_0_1_0.md) own that release target, evidence limits and proposed percentile details. The original candidate budgets below remain context for other systems; they do not permit recurring gameplay stalls in the current release.
+
 These are **candidate targets**, not measured promises or approved minimum requirements.
 
 | Measure | Initial candidate | Evidence required |

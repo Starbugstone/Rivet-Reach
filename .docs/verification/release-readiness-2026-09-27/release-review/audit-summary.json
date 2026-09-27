@@ -1,0 +1,22 @@
+{
+  "rows": 30794,
+  "over_16_67_ms": 9659,
+  "over_22_22_ms": 4218,
+  "maximum_ms": 163.101,
+  "worst_row": {
+    "workload": "stress-five-minute-soak",
+    "frame": "1392",
+    "frame_ms": "163.1010",
+    "sample_time_s": "391.099837",
+    "unity_frame": "21299"
+  },
+  "gpu_telemetry": {
+    "samples": 454,
+    "temperature_min_c": 62.0,
+    "temperature_max_c": 88.0,
+    "graphics_clock_min_mhz": 300,
+    "graphics_clock_max_mhz": 1890,
+    "thermal_active_samples": 309
+  },
+  "raw_csv_sha256": "0d0f3a9ad94b4702cf3670392d626fea317f237364785763e91192bc986d9a59"
+}

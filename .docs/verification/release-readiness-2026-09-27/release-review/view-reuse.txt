@@ -1,0 +1,2 @@
+Machines: created 3459, reused 1684, destroyed 2039, inactive 0, peak retirement 957.
+Crates: created 160, reused 440, destroyed 0, inactive 0, peak retirement 0.

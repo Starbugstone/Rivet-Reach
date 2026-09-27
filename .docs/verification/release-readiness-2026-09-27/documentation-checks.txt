@@ -1,0 +1,5 @@
+2026-09-27 audit; no game content/artwork modified.
+Main workspace: python3 Tools/publish_wiki.py --check FAIL: pre-existing modified Assets/RivetReach/Resources/Materials/BlockTiles.asset differs from the Unity wiki export fingerprint.
+Existing isolated review checkout using committed artwork: python3 Tools/publish_wiki.py --check PASS: 195 item pages, 2 indexes, 199 recipes; 232 pages and 9943 local links/images.
+No wiki content publication requested or needed by this audit; final candidate artwork still needs matching export/validation.
+Checked 38 audit/incoming local links; errors 0. Native reports, exit codes, raw-analysis counts and 4218 floor-breach rows agree.

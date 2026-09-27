@@ -1,6 +1,6 @@
 # Pre-0.1.0 release review — September 20, 2026
 
-**Latest factory measurement:** [September 22 phase profile](FACTORY_PROFILE_RESULTS.md) reruns the full fixture with 27 retail scopes, including the soak and chunk transitions. Its dated results supplement the earlier evidence below.
+**Later evidence:** [September 22 optimizations](FACTORY_OPTIMIZATION_RESULTS.md) follow the phase profile and bottleneck isolation. [The September 27 readiness audit](RELEASE_READINESS_0_1_0.md) records the clarified steady-60-at-1080p target and current release blockers. The dated measurements below remain results of the September 20 build.
 
 **The 60/45 FPS release gate is not met.** The non-development player passes the combined factory’s correctness checks, but the large workload still has frame-time tails below the requested floor. The review fixes correctness and scheduling defects; this report does not certify 0.1.0.
 

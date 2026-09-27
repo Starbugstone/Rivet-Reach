@@ -4,6 +4,8 @@ The Unity **6000.4.4f1 / URP 17.4.0** project now includes terrain and caves, FP
 
 ## Run and build
 
+Before release profiling, verify the executable's assembly identity against [the September 27 readiness audit](verification/RELEASE_READINESS_0_1_0.md#current-audit-and-artifact-identity). The main workspace and isolated review checkout have different builds under the same `Builds/DiagnosticsLiquids` path. The audit identifies the final optimized player; folder names and older feature checks do not certify the current source.
+
 The September 22 diagnostics/liquid review player is **`Builds/DiagnosticsLiquids/RivetReach.exe`**. **F12** shows system tick and thread timings. [Diagnostics and flowing-liquid results](verification/DIAGNOSTICS_LIQUID_RESULTS.md) record 48 passing Editor suites, native stress results and the remaining frame-time breaches. Request `diagnostics-liquids` in `Logs/build-request.txt` for this build and its checks.
 
 The earlier pre-0.1.0 review executable is **`Builds/ReleaseReviewRetail/RivetReach.exe`**, including farming, fishing, chickens, beds, crates, weather, renewables, tool durability and the current performance/interaction changes. Keep its adjacent data folder, DLLs and Mono runtime together. [Release review](verification/RELEASE_REVIEW_RESULTS.md) identifies the exact build, measured checks and remaining performance limits. This is a local review build, not a new tagged release.

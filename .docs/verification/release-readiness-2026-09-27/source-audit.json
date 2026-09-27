@@ -1,0 +1,11 @@
+{
+  "audit_date": "2026-09-27",
+  "source_commit": "7c2cb236e65c3aa9e9d5720e841b129b4397772e",
+  "comparison": "September 22 measured manifest plus documented final diagnostic changes; unused Mobile pipeline excluded",
+  "verified_manifest_paths": 349,
+  "differences": [],
+  "review_player": "/mnt/d/Dev/github-desktop/Rivet-Reach-ReleaseReview-20260920/Builds/DiagnosticsLiquids/RivetReach.exe",
+  "assembly_sha256": "5ffa636cd6302f89e3424c9421667be077f8197d9ed215865cb47028bdb1350f",
+  "expected_final_assembly_sha256": "5ffa636cd6302f89e3424c9421667be077f8197d9ed215865cb47028bdb1350f",
+  "workspace_player_assembly_sha256": "01d4973584d9981e7daa710b56598e5898be0c26e92828666d7f2a79baecd56b"
+}
