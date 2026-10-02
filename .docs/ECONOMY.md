@@ -69,7 +69,7 @@ The implemented progression uses personal 2×2 crafting, Workbench 3×3 and Mach
 | 1 Pump | 1 Machine Casing + 1 Iron Cog + 4 Copper Wire + 2 Copper Plate | Machinist’s Bench 4×4 |
 | 1 Drill | 1 Machine Casing + 2 Iron Cog + 4 Iron Plate + 4 Copper Wire | Machinist’s Bench 4×4 |
 
-Sand smelts into one Glass per Sand in either furnace. Glass already supplies industrial indicators, lamps and tank windows. Ordinary Glass remains a component; Reinforced Tank Glass is the placeable industrial window. The original issue’s standalone Glass block proposal is not implemented by this reconciliation. Processing fuel, durations, electricity and other machine costs belong to [Industry](INDUSTRY.md), [the furnace guide](wiki/Item-furnace.md) and their authored catalogues. The obsolete pre-implementation bootstrap table remains only in Git history.
+Sand smelts into one Glass per Sand in either furnace. Glass already supplies industrial indicators, lamps and tank windows. The subsequent [building increment](BUILDING.md) also makes ordinary Glass a placeable connected window, preserving its component uses. Reinforced Tank Glass remains the separate multiblock tank wall part. Processing fuel, durations, electricity and other machine costs belong to [Industry](INDUSTRY.md), [the furnace guide](wiki/Item-furnace.md) and their authored catalogues. The obsolete pre-implementation bootstrap table remains only in Git history.
 
 The wooden tool bootstraps stone without a metal dependency. Ore smelting and unpowered bench component recipes bootstrap machinery without already owning a crusher, press, pump or generator. Recycling may later specify deliberate losses or exact recovery; no generic reverse conversion may multiply raw materials.
 

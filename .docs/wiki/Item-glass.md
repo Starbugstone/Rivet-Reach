@@ -23,7 +23,7 @@ Smelt one Sand into one Glass in a Furnace or Electric Furnace.
 
 ## Using it
 
-Place blocks side by side to make a continuous window with joined edges. Mining recovers the Glass. See [Slabs and connected glass](Slabs-and-connected-glass.md) for in-game examples.
+Place blocks side by side to make a continuous window with joined edges. Mining recovers the Glass. See [Slabs and connected glass](Slabs-and-connected-glass.md) for in-game examples. Multiblock tanks require [Reinforced Tank Glass](Item-tank-glass.md); ordinary Glass cannot seal their walls.
 
 ## Crafting and processing
 

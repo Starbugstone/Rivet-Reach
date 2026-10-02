@@ -2,7 +2,10 @@ Unity native build: exit 0.
 Editor checks: 56 guidance/building; 1888 starter; 138 component checks; pinned historical save envelopes and corruption gates passed.
 Final focused native: 38 behavioral/residency assertions plus supplied setup; zero errors; exit 0.
 Final Survival native: 7 assertions; zero errors; exit 0.
-Isolated wiki check: 239 pages; 10096 local links/images.
+Isolated wiki check: 239 pages; 10098 local links/images.
 Design/report links: 582 checked; zero errors.
 Delivery assembly hash matches native acceptance.
 FPS recheck explicitly deferred by user.
+Staged wiki source fingerprints: all 720 match.
+Initial wiki deployment 37070327431: success for implementation commit 455e0fd.
+Live building guide: all three 1600px captures loaded; new slab page icons and Planks link/reverse use verified.

@@ -23,7 +23,7 @@ Actual Windows-player recipe captures, October 2, 2026, from the focused craftin
 
 [Cogs](Item-cog.md) are used by the Boiler Engine, Alternator, Crusher, Pump and other mechanisms. [Rivets](Item-rivets.md) and Plates make the [Machine Casing](Item-machine-casing.md), which supplies the structural component for many machines. [Copper Wire](Item-copper-wire.md) carries the electrical side of this progression.
 
-Smelt **one Sand into one Glass** in a Furnace or Electric Furnace. [Glass](Item-glass.md) is an ingredient for lamps, indicators and [Reinforced Tank Glass](Item-tank-glass.md); ordinary Glass is not a standalone placeable window.
+Smelt **one Sand into one Glass** in a Furnace or Electric Furnace. [Glass](Item-glass.md) is an ingredient for lamps, indicators and [Reinforced Tank Glass](Item-tank-glass.md); ordinary Glass also places as a [connected building window](Slabs-and-connected-glass.md). Use Reinforced Tank Glass for multiblock tank walls.
 
 Existing saves keep every component and machine already owned. The revised recipes apply to new crafting; previously made Cogs and Rivets are not converted or refunded.
 

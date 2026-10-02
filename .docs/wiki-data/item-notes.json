@@ -182,7 +182,7 @@
   "rivet:glass": {
     "description": "Clear, lightly tinted building Glass that also remains a component for lamps, tank windows and controllers.",
     "obtain": "Smelt one Sand into one Glass in a Furnace or Electric Furnace.",
-    "use": "Place blocks side by side to make a continuous window with joined edges. Mining recovers the Glass. See [Slabs and connected glass](Slabs-and-connected-glass.md) for in-game examples."
+    "use": "Place blocks side by side to make a continuous window with joined edges. Mining recovers the Glass. See [Slabs and connected glass](Slabs-and-connected-glass.md) for in-game examples. Multiblock tanks require [Reinforced Tank Glass](Item-tank-glass.md); ordinary Glass cannot seal their walls."
   },
   "rivet:tank_frame": {
     "use": "Use this part in a sealed hollow tank. The [tank construction guide](Tanks.md) gives the shopping list, layer diagrams, outward-facing controls and repair instructions.\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
