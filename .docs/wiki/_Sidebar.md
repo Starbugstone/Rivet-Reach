@@ -51,4 +51,5 @@
 
 - [Renewable power](Renewable-power.md) — solar panels, wind turbines and parallel battery charging.
 
+- [Seeing your factory from a distance](Factory-visibility.md) — distant machines, pipes and tanks, with a native camera tour.
 - [Factory stress-test gallery](Release-review-gallery.md) — actual factory, storm and farm captures from the pre-0.1.0 review.

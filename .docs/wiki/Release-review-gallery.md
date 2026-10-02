@@ -1,5 +1,7 @@
 # Factory stress-test gallery
 
+For the October 2 distance update and camera video, see [Seeing your factory from a distance](Factory-visibility.md). The images below retain their September 22 build identity.
+
 Actual Rivet Reach screenshots captured on September 22, 2026, in the Windows optimization-review player at **1920 × 1080**. This is a deliberately constructed testing world, with supplied resources and controlled creature populations. The machines, pipes, storage, farms, weather and creatures use the game’s real systems.
 
 ## Production after sunset

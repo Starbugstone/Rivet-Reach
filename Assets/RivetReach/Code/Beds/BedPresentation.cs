@@ -16,11 +16,11 @@ namespace RivetReach
         void Update()
         {
             if(game==null||Time.unscaledTime<nextRefresh)return;nextRefresh=Time.unscaledTime+.25f;nearby.Clear();
-            foreach(var bed in world.NearbyBeds(world.Address(game.Player.transform.position)))
+            foreach(var bed in world.NearbyBeds(world.Address(game.Player.transform.position),FactoryVisibility.DetailColumns))
             {
-                if(!world.Ready(bed.Foot)||!world.Ready(bed.Head)||(world.Local(bed.Foot)-game.Player.transform.position).sqrMagnitude>64*64)continue;
+                if(!world.Ready(bed.Foot)||!world.Ready(bed.Head)||(world.Local(bed.Foot)-game.Player.transform.position).sqrMagnitude>FactoryVisibility.DetailSquared)continue;
                 nearby.Add(bed.Foot);
-                if(!views.TryGetValue(bed.Foot,out var view)){view=Instantiate(Resources.Load<GameObject>("Industry/Runtime/bed"),transform,false);view.name="Bed";views.Add(bed.Foot,view);}
+                if(!views.TryGetValue(bed.Foot,out var view)){view=Instantiate(Resources.Load<GameObject>("Industry/Runtime/bed"),transform,false);view.name="Bed";GetComponent<FactoryDistancePresentation>().Detail(view);views.Add(bed.Foot,view);}
                 var rotation=Quaternion.Euler(0,bed.Rotation*90,0);
                 view.transform.SetPositionAndRotation(world.Local(bed.Foot)+new Vector3(.5f,0,.5f)-rotation*new Vector3(.5f,0,.5f),rotation);
             }

@@ -1,0 +1,12 @@
+{
+    "executable":  "D:\\Dev\\github-desktop\\Rivet-Reach-Issue1-20261002\\Builds\\FactoryVisibility\\RivetReach.exe",
+    "sha256":  "413A04009D5FC13E03FE4E5C6941A8606C63C103EDD08853EFC6C9BD57E6151B",
+    "started":  "2026-10-02T18:10:35.7650075Z",
+    "width":  1920,
+    "height":  1080,
+    "reviewFrameLimit":  90,
+    "gpuTelemetry":  true,
+    "gpuTimestampTimezone":  "Romance Standard Time",
+    "gpuTimestampOffset":  "02:00:00",
+    "assemblySha256":  "5F791BCD048A2738E74DE729913364EEF7481910FA9815A0F2CA0A1D32BB18B7"
+}

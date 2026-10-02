@@ -32,9 +32,9 @@ namespace RivetReach
         {
             if(game.Survival.At(p)?.Crate?.Count>0){game.Notify("Empty this crate before mining it. Its stored items are safe.",4);return false;}return true;
         }
-        public IEnumerable<BlockPos> Nearby(BlockPos center)
+        public IEnumerable<BlockPos> Nearby(BlockPos center,int radius=3)
         {
-            var c=center.Chunk;for(long x=c.X-3;x<=c.X+3;x++)for(long z=c.Z-3;z<=c.Z+3;z++)
+            var c=center.Chunk;for(long x=c.X-radius;x<=c.X+radius;x++)for(long z=c.Z-radius;z<=c.Z+radius;z++)
                 if(columns.TryGetValue((x,z),out var set))foreach(var p in set)yield return p;
         }
     }

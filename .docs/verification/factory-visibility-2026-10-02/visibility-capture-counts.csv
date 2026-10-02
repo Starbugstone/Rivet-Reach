@@ -1,0 +1,6 @@
+view,distant_instances,distant_draw_submissions,pending_meshes,cached_source_triangles,cached_distant_triangles,peak_mesh_build_ms
+visibility-close,509,150,0,141191,19875,29.484
+visibility-midrange,1706,154,0,141639,19999,29.484
+visibility-longrange,1706,154,0,141639,19999,29.484
+visibility-elevated-tank,1706,154,0,141639,19999,29.484
+visibility-tank-detail,724,0,0,141639,19999,29.484

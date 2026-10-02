@@ -1,0 +1,3 @@
+Distant cached source triangles 208915; reduced triangles 27387; peak cooperative mesh-build work 41,677 ms.
+Dither transition 48–64 blocks, detailed roots retained to 72, distant range follows terrain fog.
+Comparisons are live factory runs with matched cameras, old cutoff controls and restoration; sequential thermal/production drift remains possible.

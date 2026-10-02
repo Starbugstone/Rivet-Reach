@@ -16,11 +16,13 @@ namespace RivetReach
         Expedition game;float next;Material metal,glass,water,status;GameObject fault;
         MaterialPropertyBlock properties;
         public int ViewCount=>views.Count;
+        public GameObject LiquidAt(MultiblockInstance instance)=>liquids.TryGetValue(instance,out var root)?root:null;
         public IEnumerable<GameObject> RenderedRoots
         {get{foreach(var view in views.Values)yield return view.Root;foreach(var liquid in liquids.Values)yield return liquid;}}
         public void Initialize(Expedition value)
         {
             game=value;metal=Resources.Load<Material>("Industry/Workshop");glass=Resources.Load<Material>("Industry/TankGlass");water=Resources.Load<Material>("Industry/TankWater");status=Resources.Load<Material>("Industry/Status");properties=new MaterialPropertyBlock();
+            var distance=GetComponent<FactoryDistancePresentation>();metal=distance.Near(metal);glass=distance.Near(glass);status=distance.Near(status);
             game.World.OriginShifted+=Shift;
         }
         void Shift(Vector3 delta){foreach(var v in views.Values)v.Root.transform.position-=delta;foreach(var v in liquids.Values)v.transform.position-=delta;if(fault!=null)fault.transform.position-=delta;next=0;}
@@ -30,7 +32,7 @@ namespace RivetReach
             var sim=game.Industry.Simulation;visible.Clear();
             foreach(var m in sim.EligibleMachines)
             {
-                if(!IndustryId.TankPart(m.Definition.Id)||!game.World.Ready(m.Position)||(game.World.Local(m.Position)-game.Player.transform.position).sqrMagnitude>64*64)continue;
+                if(!ReferenceEquals(sim.At(m.Position),m)||!IndustryId.TankPart(m.Definition.Id)||!game.World.Ready(m.Position)||(game.World.Local(m.Position)-game.Player.transform.position).sqrMagnitude>FactoryVisibility.DetailSquared)continue;
                 visible.Add(m.Position);ulong key=Key(m,out int faces,out ulong joins);
                 if(!views.TryGetValue(m.Position,out var v)){v=new View{Root=new GameObject(m.Definition.Name),Machine=m};v.Root.transform.SetParent(transform,false);views.Add(m.Position,v);}
                 if(v.Key!=key)
@@ -52,7 +54,8 @@ namespace RivetReach
             foreach(var c in sim.Multiblocks.Instances)
             {
                 if(c.Fluid==null)continue;
-                bool show=c.Formed&&c.Fluid.Amount>0&&visible.Contains(c.Controller.Position);
+                var bounds=new Bounds(game.World.Local(c.Bounds.Min)+new Vector3(c.Bounds.Width,c.Bounds.Height,c.Bounds.Depth)*.5f,new Vector3(c.Bounds.Width,c.Bounds.Height,c.Bounds.Depth));
+                bool show=c.Formed&&c.Fluid.Amount>0&&game.World.Ready(c.Controller.Position)&&(FactoryVisibility.LegacyReview?visible.Contains(c.Controller.Position):FactoryVisibility.Visible(game.Player.transform.position,bounds,game.World.FogEnd));
                 if(!show){if(liquids.TryGetValue(c,out var old)){Destroy(old);liquids.Remove(c);}continue;}
                 if(!liquids.TryGetValue(c,out var liquid))
                 {liquid=GameObject.CreatePrimitive(PrimitiveType.Cube);liquid.name="Contained liquid · presentation only";Destroy(liquid.GetComponent<Collider>());liquid.transform.SetParent(transform,false);liquid.GetComponent<Renderer>().sharedMaterial=water;liquids.Add(c,liquid);}
@@ -71,6 +74,11 @@ namespace RivetReach
                 fault.transform.position=game.World.Local(inspect.Validation.Fault.Value);fault.SetActive(true);
             }
             else if(fault!=null)fault.SetActive(false);
+        }
+        public Mesh[] ShellMeshes(MachineState m)
+        {
+            ulong key=Key(m,out int faces,out ulong joins);
+            if(!cache.TryGetValue(key,out var meshes)){meshes=Assemble(m,faces,joins);cache.Add(key,meshes);}return meshes;
         }
         ulong Key(MachineState m,out int faces,out ulong joins)
         {

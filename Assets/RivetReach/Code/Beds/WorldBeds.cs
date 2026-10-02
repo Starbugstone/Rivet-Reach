@@ -29,10 +29,10 @@ namespace RivetReach
         public IReadOnlyDictionary<BlockPos,BedState> Beds=>beds;
         internal bool IssuedBedIdentity(long id)=>id>0&&id<nextBedIdentity;
         public BedState BedAt(BlockPos cell)=>bedCells.TryGetValue(cell,out var bed)?bed:null;
-        public IEnumerable<BedState> NearbyBeds(BlockPos center)
+        public IEnumerable<BedState> NearbyBeds(BlockPos center,int radius=3)
         {
             var c=center.Chunk;
-            for(long x=c.X-3;x<=c.X+3;x++)for(long z=c.Z-3;z<=c.Z+3;z++)
+            for(long x=c.X-radius;x<=c.X+radius;x++)for(long z=c.Z-radius;z<=c.Z+radius;z++)
                 if(bedColumns.TryGetValue((x,z),out var page))foreach(var bed in page)yield return bed;
         }
         public bool CanPlaceBed(BlockPos foot,int rotation)

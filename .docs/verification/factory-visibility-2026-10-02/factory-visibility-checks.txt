@@ -1,0 +1,13 @@
+PASS 35531 assertions; representative triangles 18128 -> 3082
+PASS Whole tank bounds retain a near wall even when the controller/center is outside range
+PASS Whole tank disappears only outside its nearest visible bound
+PASS Elevated machinery survives the former 64-block sphere
+PASS Detailed roots overlap the complete fade band
+PASS boiler_engine: source 3204 triangles, distant 524
+PASS alternator: source 3136 triangles, distant 743
+PASS crusher: source 4136 triangles, distant 520
+PASS pump: source 2848 triangles, distant 466
+PASS wind_turbine: source 2452 triangles, distant 437
+PASS water_tank: source 2352 triangles, distant 392
+PASS Measured representative distant geometry reduction
+PASS Shared distance shader is included

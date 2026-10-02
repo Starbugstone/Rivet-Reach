@@ -1,5 +1,7 @@
 # Machine visibility distance review — 2026-10-02
 
+> Follow-up: the user authorized implementation and stress testing of [distant factory visibility](../FACTORY_VISIBILITY.md). The rules below record the pre-change source review.
+
 The user's recollection matches the current source and the September factory captures: most industrial models stop being shown at **64 blocks**, even when their terrain remains visible much farther away. This is a presentation cutoff, not evidence that the machine was deleted. This review changes no visibility or simulation behavior.
 
 ## Current rules

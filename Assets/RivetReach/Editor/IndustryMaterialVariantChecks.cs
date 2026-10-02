@@ -28,7 +28,7 @@ namespace RivetReach.Editor
                 Check(Resources.LoadAll<GameObject>("Industry/Runtime").SelectMany(prefab=>prefab.GetComponentsInChildren<Renderer>(true)).All(renderer=>renderer.sharedMaterials.Length==1),"Authored industrial renderers use one material slot, preserving whole-renderer override semantics");
                 var idle=Body(first,false);var active=Body(first,true);variants.Add(idle);variants.Add(active);
                 Check(idle.GetColor("_EmissionColor")==new Color(.12f,.12f,.12f)&&active.GetColor("_EmissionColor")==new Color(1.5f,1.5f,1.5f),"Body and pipe-fitting emission exactly preserve idle and active values");
-                Check(Equivalent(workshop,idle,"_EmissionColor")&&Equivalent(workshop,active,"_EmissionColor"),"Body variants retain all other shader properties, textures, keywords and render settings");
+                Check(Equivalent(workshop,idle,"_EmissionColor")&&Equivalent(workshop,active,"_EmissionColor"),"Body variants use the detailed LOD shader and retain all other shader properties, textures, keywords and render settings");
                 bool mapping=true,properties=true,reused=true;
                 foreach(MachineStatus state in Enum.GetValues(typeof(MachineStatus)))foreach(bool running in new[]{false,true})
                 {
@@ -37,7 +37,7 @@ namespace RivetReach.Editor
                     mapping&=material.GetColor("_BaseColor")==expected;properties&=Equivalent(indicator,material,"_BaseColor");reused&=ReferenceEquals(material,Status(first,state,running));
                 }
                 Check(mapping,"Every status/running combination retains its original indicator colour");
-                Check(properties,"Indicator variants retain all other shader properties, textures, keywords and render settings");
+                Check(properties,"Indicator variants retain their original unlit shader and all other shader properties, textures, keywords and render settings");
                 Check(variants.Count==7&&Count(first)==7&&reused&&ReferenceEquals(idle,Body(first,false))&&ReferenceEquals(active,Body(first,true)),"All views and repeated state transitions share exactly seven stable session materials");
                 var a=root.AddComponent<MeshRenderer>();var child=new GameObject("Second view");child.transform.SetParent(root.transform,false);var b=child.AddComponent<MeshRenderer>();
                 var block=new MaterialPropertyBlock();block.SetColor("_EmissionColor",Color.magenta);a.SetPropertyBlock(block);b.SetPropertyBlock(block);
@@ -56,7 +56,7 @@ namespace RivetReach.Editor
         }
         static bool Equivalent(Material source,Material variant,string changed)
         {
-            if(source.shader!=variant.shader||source.renderQueue!=variant.renderQueue||source.enableInstancing!=variant.enableInstancing||source.doubleSidedGI!=variant.doubleSidedGI||source.globalIlluminationFlags!=variant.globalIlluminationFlags||!new HashSet<string>(source.shaderKeywords).SetEquals(variant.shaderKeywords))return false;
+            if(variant.shader!=(source.shader.name=="RivetReach/WorldLit"?Resources.Load<Shader>("Materials/MachineLit"):source.shader)||source.renderQueue!=variant.renderQueue||source.enableInstancing!=variant.enableInstancing||source.doubleSidedGI!=variant.doubleSidedGI||source.globalIlluminationFlags!=variant.globalIlluminationFlags||!new HashSet<string>(source.shaderKeywords).SetEquals(variant.shaderKeywords.Where(k=>k!="RR_MACHINE_NEAR")))return false;
             for(int pass=0;pass<source.passCount;pass++)if(source.GetShaderPassEnabled(source.GetPassName(pass))!=variant.GetShaderPassEnabled(source.GetPassName(pass)))return false;
             var shader=source.shader;
             for(int i=0;i<shader.GetPropertyCount();i++)

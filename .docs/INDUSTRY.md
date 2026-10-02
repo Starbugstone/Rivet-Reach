@@ -198,3 +198,7 @@ The Bulk Crate is a 3×3 Workbench recipe of eight Planks around one Chest. The 
 ## Shared receiver contracts
 
 [Capability interfaces](CAPABILITIES.md#item-transport) own the shared item request and transfer contract. Receiver priorities and fair turns select destinations; each destination selects preferred cargo within its turn. [Network lifecycle](CAPABILITIES.md#network-lifecycle) separates completed demand from transfers during budgeted topology rebuilds.
+
+## Distant machine presentation — 2026-10-02
+
+[Factory visibility](FACTORY_VISIBILITY.md) owns the shared detail transition, terrain-distance limit and derived distant meshes. This changes presentation only: machine operation, interaction reach, connection settings, inventories and chunk-loader responsibility remain unchanged.

@@ -288,3 +288,5 @@ A bank of batteries is a different kind of multiblock and is **solid rather than
 ## Pipe direction controls
 
 Fluid Pipes can meet any accessible face of a functional fluid port. Direction changes require a **selected [Wrench](Item-wrench.md) and right-click on the machine-facing pipe end**. Empty hands, other items and Interact cannot change them. Rotating the tank part does not reverse configured ends. The port interface enables/disables transfer; the wrench chooses each end’s direction. See [Pipes](Pipes.md).
+
+[Seeing your factory from a distance](Factory-visibility.md) shows current model visibility and an elevated tank view.

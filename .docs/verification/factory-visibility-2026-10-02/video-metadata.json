@@ -1,0 +1,12 @@
+{
+  "codec": "H.264 High",
+  "pixelFormat": "yuv420p",
+  "width": 1920,
+  "height": 1080,
+  "frames": 720,
+  "fps": 30,
+  "durationSeconds": 24,
+  "fullDecode": "PASS",
+  "sha256": "086d5c5fdf050ba677468b9e365a990cabaa8a29a69a8706ad4b5a36948c35fd",
+  "bytes": 35055583
+}

@@ -35,7 +35,12 @@ namespace RivetReach
         {
             if(root==null)return;var body=root.transform.GetChild(0);var filter=body.GetComponent<MeshFilter>();
             var shape=Shape(key,mask);if(filter.sharedMesh!=shape)filter.sharedMesh=shape;
-            body.localRotation=mask==0?Quaternion.Euler(0,isolatedRotation*90,0):Quaternion.identity;
+            var matrix=ShapeTransform(mask,isolatedRotation,disconnectedFaces);
+            body.localPosition=matrix.GetColumn(3);body.localRotation=matrix.rotation;body.localScale=matrix.lossyScale;
+        }
+        public static Matrix4x4 ShapeTransform(int mask,int isolatedRotation=0,int disconnectedFaces=0)
+        {
+            var rotation=mask==0?Quaternion.Euler(0,isolatedRotation*90,0):Quaternion.identity;
             var scale=Vector3.one;var center=Vector3.one*.5f;
             if(disconnectedFaces!=0)
             {
@@ -46,8 +51,7 @@ namespace RivetReach
                     for(int face=0;face<6;face++)if((mask&(1<<face))!=0&&(disconnectedFaces&(1<<(face^1)))!=0)
                     {scale[face/2]=.65f;var d=IndustryDefinition.Directions[face];center+=new Vector3(d.x,d.y,d.z)*.175f;}
             }
-            body.localScale=scale;
-            body.localPosition=center-body.localRotation*Vector3.Scale(Vector3.one*.5f,scale);
+            return Matrix4x4.TRS(center-rotation*Vector3.Scale(Vector3.one*.5f,scale),rotation,scale);
         }
     }
 }

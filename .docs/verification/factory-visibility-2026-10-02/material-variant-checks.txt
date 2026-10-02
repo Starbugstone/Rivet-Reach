@@ -1,0 +1,11 @@
+PASS 10 assertions
+PASS Authored industrial renderers use one material slot, preserving whole-renderer override semantics
+PASS Body and pipe-fitting emission exactly preserve idle and active values
+PASS Body variants use the detailed LOD shader and retain all other shader properties, textures, keywords and render settings
+PASS Every status/running combination retains its original indicator colour
+PASS Indicator variants retain their original unlit shader and all other shader properties, textures, keywords and render settings
+PASS All views and repeated state transitions share exactly seven stable session materials
+PASS Renderer binding shares identity and clears the old per-renderer overrides
+PASS Independent sessions own separate finite palettes
+PASS Resource material assets remain unchanged and are never used as mutable variants
+PASS Disposal is idempotent, releases every owned material and preserves another session

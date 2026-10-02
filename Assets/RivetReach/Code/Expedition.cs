@@ -88,7 +88,7 @@ namespace RivetReach
             World.GrowthObstructed=cell=>World.OccupiesCell(Player.transform.position,.6f,Player.Height,cell)||(Mobs?.Occupies(cell)??false)||(Animals?.Occupies(cell)??false);
             World.OriginShifted+=Sound.ShiftOrigin;
             FarmingCatalog.Load();FarmingMeshes.Initialize();_ = CompostCatalog.Current;
-            Survival=new WorldSurvival(this);Industry=new WorldIndustry(this);root.AddComponent<IndustryPresentation>().Initialize(this);root.AddComponent<StarterStationPresentation>().Initialize(this);root.AddComponent<MultiblockPresentation>().Initialize(this);
+            Survival=new WorldSurvival(this);Industry=new WorldIndustry(this);root.AddComponent<FactoryDistancePresentation>().Initialize(this);root.AddComponent<IndustryPresentation>().Initialize(this);root.AddComponent<StarterStationPresentation>().Initialize(this);root.AddComponent<MultiblockPresentation>().Initialize(this);
             Industry.Simulation.Multiblocks.WorldId=Guid.ParseExact(WorldId,"N");
             root.AddComponent<PipeEndpointPresentation>().Initialize(this);
             Mobs=root.AddComponent<MobSystem>();Mobs.Initialize(this);

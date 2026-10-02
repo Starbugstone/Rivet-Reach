@@ -1,0 +1,8 @@
+{
+  "samples": 562,
+  "temperatureMinC": 64.0,
+  "temperatureMaxC": 89.0,
+  "clockMinMHz": 300.0,
+  "clockMaxMHz": 1875.0,
+  "thermalSlowdownSamples": 419
+}

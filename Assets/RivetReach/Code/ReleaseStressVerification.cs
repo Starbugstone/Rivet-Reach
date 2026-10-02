@@ -175,6 +175,8 @@ namespace RivetReach
             Check(bridgeOutput.Total(BlockId.Stone)>0&&bridgeOutput.Total(BlockId.Stone)+bridgeSupply.Total(BlockId.Stone)==256,"Stress item bridges transfer with exact conservation; source="+bridgeSupply.Total(BlockId.Stone)+", destination="+bridgeOutput.Total(BlockId.Stone));
             Check(liquidOutput.Fluid.Amount>0&&liquidOutput.Fluid.Amount+liquidSupply.Fluid.Amount==100000,"Stress liquid bridges transfer with exact conservation");
             Check(remoteLamp.ReceivedWatts>0,"Stress electrical bridges supply a remote load");
+            if(Environment.GetCommandLineArgs().Contains("-rr-visibility-video")){yield return CaptureFactoryVisibility(origin);yield break;}
+            if(Environment.GetCommandLineArgs().Contains("-rr-factory-visibility"))yield return ReviewFactoryVisibility(sample,origin,tankController);
             game.Diagnostics=true;yield return sample("stress-diagnostics",600);game.Diagnostics=false;
             bool isolation=Environment.GetCommandLineArgs().Contains("-rr-factory-isolation");
             if(isolation){yield return sample("isolation-live-settled",(Environment.GetCommandLineArgs().Contains("-rr-factory-cpu-only")||Environment.GetCommandLineArgs().Contains("-rr-factory-shader"))?-45:600);yield return ReviewFactoryIsolation(sample);}

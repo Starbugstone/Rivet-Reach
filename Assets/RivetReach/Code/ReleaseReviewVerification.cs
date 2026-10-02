@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -180,6 +181,7 @@ namespace RivetReach
                 player.Camera.transform.LookAt(game.World.Local(anchor)+new Vector3(12,0,4));
                 yield return Settle(180);yield return Sample("factory-192",600);
                 yield return ReviewStressFactory(Sample);
+                if(arguments.Contains("-rr-visibility-video"))yield break;
                 player=game.Player;
                 // Horizontal travel exercises generation, light caches and invalidation
                 // while retaining the same view distance. Creative removes survival variance.

@@ -1,0 +1,2 @@
+Complete stress checkpoint: 870619 bytes, 1518 industrial assemblies, 64 persistent animals; exact state round-trip passed.
+Paused save: 74.97 ms; synchronous load transaction: 1028.68 ms (subsequent streaming excluded).

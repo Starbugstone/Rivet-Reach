@@ -49,3 +49,5 @@ Save with Escape before quitting. Save/Load preserves each crate's item, count a
 Screenshots: native Windows development player, 19 September 2026. This constructed Survival review platform uses scripted fixture resources. Capacity and warehouse limits are working balance defaults.
 
 [All items](Items.md) · [Pipes](Pipes.md) · [Machine interfaces](Machine-interfaces.md) · [Home](Home.md)
+
+[Seeing your factory from a distance](Factory-visibility.md) shows current model visibility and an elevated tank view.

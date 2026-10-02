@@ -43,6 +43,7 @@ namespace RivetReach
         readonly MachineState[] nearestLamps=new MachineState[8];readonly float[] lampDistances=new float[8];int lampCount,pendingIndex;
         readonly GameObject[] prefabs=new GameObject[256];readonly bool[] prefabLoaded=new bool[256];
         Material batteryMaterial;IndustryMaterialVariants materials;
+        internal Material BodyMaterial(bool active)=>materials.Body(active);
         public int MaterialVariantCount=>materials?.Count??0;
         public int ViewCount=>views.Count;
         public int CachedViewCount=>cache.CachedCount;
@@ -59,7 +60,7 @@ namespace RivetReach
         public void Initialize(Expedition game)
         {
             this.game=game;world=game.World;world.OriginShifted+=Shift;
-            materials=new IndustryMaterialVariants(Resources.Load<Material>("Industry/Workshop"),Resources.Load<Material>("Industry/Status"));batteryMaterial=Resources.Load<Material>("Industry/BatteryCharge");
+            materials=new IndustryMaterialVariants(Resources.Load<Material>("Industry/Workshop"),Resources.Load<Material>("Industry/Status"));batteryMaterial=GetComponent<FactoryDistancePresentation>().Near(Resources.Load<Material>("Industry/BatteryCharge"));
         }
         void SetAddition(Addition addition,NetworkTopology topology,MachineState m)
         {
@@ -89,7 +90,7 @@ namespace RivetReach
         }
         bool SelectedLamp(MachineState machine)
         {for(int i=0;i<lampCount;i++)if(ReferenceEquals(nearestLamps[i],machine))return true;return false;}
-        float ViewRangeSquared(MachineState machine)=>machine.Definition.Id==IndustryId.Lamp?world.FogEnd*world.FogEnd:64*64;
+        float ViewRangeSquared(MachineState machine)=>FactoryVisibility.LegacyReview&&machine.Definition.Id==IndustryId.Lamp?world.FogEnd*world.FogEnd:FactoryVisibility.DetailSquared;
         void HideView(BlockPos position)
         {
             var view=views[position];view.LightWanted=false;view.LightBlend=0;if(view.Light!=null)view.Light.enabled=false;

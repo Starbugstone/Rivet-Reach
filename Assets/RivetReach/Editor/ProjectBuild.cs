@@ -38,6 +38,8 @@ namespace RivetReach.Editor
             command=command.Replace("|ready","");File.Delete(request);
             try
             {
+                if(command=="factory-visibility-player"){FactoryVisibilityChecks.Run();IndustryMaterialVariantChecks.Run();WikiExport.Export();Build("FactoryVisibility",BuildOptions.None);File.WriteAllText("Logs/build-result.txt","SUCCESS factory visibility player");return;}
+                if(command=="factory-visibility"){FactoryLodAssets.Prepare();ReleaseReviewChecks.Run();WikiExport.Export();Build("FactoryVisibility",BuildOptions.None);File.WriteAllText("Logs/build-result.txt","SUCCESS factory visibility");return;}
                 if(command=="diagnostics-liquids"||command=="diagnostics-liquids-player")
                 {if(command=="diagnostics-liquids")BuildDiagnosticsLiquids();else Build("DiagnosticsLiquids",BuildOptions.None);File.WriteAllText("Logs/build-result.txt","SUCCESS diagnostics liquids");return;}
                 if(command=="release-review-baseline"||command=="release-review-final"||command=="release-review-checks"||command=="release-review-player"||command=="release-review-retail")

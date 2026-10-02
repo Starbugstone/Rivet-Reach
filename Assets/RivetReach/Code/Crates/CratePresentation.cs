@@ -41,6 +41,7 @@ namespace RivetReach
         View Create(StationState state)
         {
             var root=Instantiate(state.Block==CrateId.Crate?cratePrefab:controllerPrefab,transform,false);
+            GetComponent<FactoryDistancePresentation>().Detail(root);
             var canvas=new GameObject("Contents label",typeof(RectTransform),typeof(Canvas));canvas.transform.SetParent(root.transform,false);
             var rect=(RectTransform)canvas.transform;rect.sizeDelta=new Vector2(256,192);rect.localPosition=new Vector3(.5f,.56f,.001f);rect.localScale=Vector3.one*.0018f;
             canvas.GetComponent<Canvas>().renderMode=RenderMode.WorldSpace;
@@ -73,9 +74,9 @@ namespace RivetReach
         void RefreshVisible()
         {
             nextRefresh=Time.unscaledTime+.25f;near.Clear();pending.Clear();pendingIndex=0;var player=game.Player.transform.position;
-            foreach(var position in game.Crates.Nearby(world.Address(player)))
+            foreach(var position in game.Crates.Nearby(world.Address(player),FactoryVisibility.DetailColumns))
             {
-                if(!world.Ready(position))continue;float distance=(world.Local(position)-player).sqrMagnitude;if(distance>64*64)continue;
+                if(!world.Ready(position))continue;float distance=(world.Local(position)-player).sqrMagnitude;if(distance>FactoryVisibility.DetailSquared)continue;
                 var state=game.Survival.At(position);if(state==null)continue;near.Add(position);
                 if(views.TryGetValue(position,out var old)&&!ReferenceEquals(old.state,state)){cache.Hide(old.state);views.Remove(position);}
                 if(!views.TryGetValue(position,out var view))
@@ -95,7 +96,7 @@ namespace RivetReach
             while(pendingIndex<pending.Count&&attempted<CreateBudgetPerFrame&&(attempted==0||(Stopwatch.GetTimestamp()-started)*1000.0/Stopwatch.Frequency<CreateBudgetMilliseconds))
             {
                 var candidate=pending[pendingIndex++];attempted++;
-                if(!world.Ready(candidate.Position)||!ReferenceEquals(game.Survival.At(candidate.Position),candidate.State)||(world.Local(candidate.Position)-game.Player.transform.position).sqrMagnitude>64*64)continue;
+                if(!world.Ready(candidate.Position)||!ReferenceEquals(game.Survival.At(candidate.Position),candidate.State)||(world.Local(candidate.Position)-game.Player.transform.position).sqrMagnitude>FactoryVisibility.DetailSquared)continue;
                 var view=Create(candidate.State);cache.Register(candidate.State,view,view.root);views.Add(candidate.Position,view);RefreshView(view,candidate.Position);CreatedThisFrame++;
             }
             LastCreateMilliseconds=(Stopwatch.GetTimestamp()-started)*1000.0/Stopwatch.Frequency;if(CreatedThisFrame>PeakCreatedPerFrame)PeakCreatedPerFrame=CreatedThisFrame;

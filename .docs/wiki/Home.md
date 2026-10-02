@@ -83,4 +83,5 @@ Drain finite lava deposits with a [Ranged Liquid Pump](Ranged-Liquid-Pump.md), c
 [Renewable power](Renewable-power.md): craft solar panels and wind turbines, connect machines and share surplus between batteries.
 
 - [Performance diagnostics](Performance-diagnostics.md) — read frame, tick and worker timings with F12.
+- [Seeing your factory from a distance](Factory-visibility.md) — distant machines, pipes and tanks, with a native camera tour.
 - [Factory stress-test gallery](Release-review-gallery.md) — actual factory, storm and farm captures from the pre-0.1.0 review.

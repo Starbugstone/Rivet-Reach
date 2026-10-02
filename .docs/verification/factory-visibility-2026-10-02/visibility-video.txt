@@ -1,0 +1,1 @@
+720 actual Unity frames at fixed 30 Hz capture; 24 seconds. Frame capture is excluded from timing samples and is not a real-time FPS claim.

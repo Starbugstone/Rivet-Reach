@@ -239,3 +239,7 @@ The September 27 release audit clarified the user's priority as **steady 60 FPS 
 ## Runtime profiling and world-flow stress
 
 The user requires debug timings for separate simulation systems and threads, and stress coverage for **flowing world liquids** as well as industrial fluid pipes. Preserve the opt-in, release-capable [timing overlay contract](.docs/SIMULATION.md#runtime-timing-overlay--2026-09-22): inclusive parent/child scopes, completed worker-job latency, delayed/overlapping CPU/GPU samples, explicit unavailable values, and bounded four-Hz text refresh. [Diagnostics/liquid verification](.docs/verification/DIAGNOSTICS_LIQUID_RESULTS.md) owns the measured workload and remaining limits. Flow optimizations must preserve the real tick budget, source/renewal/reaction rules, wake order and dormant boundaries; validate decisions and state against the prior algorithm rather than changing gameplay to meet a timing target.
+
+## Authorized distant factory visibility
+
+The user authorized the [shared factory visibility policy](.docs/FACTORY_VISIBILITY.md), cheaper distant machinery and a smooth transition, with native factory stress tests plus final screenshots and video. Preserve authoritative machine/pipe/tank state, configured connections, loader responsibility, saved contents and unchanged starter recipes. Measure frame-time tails and the added rendering range; capture overhead must remain outside benchmark samples.

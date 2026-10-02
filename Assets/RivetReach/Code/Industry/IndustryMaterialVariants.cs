@@ -25,6 +25,7 @@ namespace RivetReach
         static Material Variant(Material source,string label,string property,Color colour)
         {
             var material=new Material(source){name=source.name+" (session "+label+")",hideFlags=HideFlags.DontSave};
+            if(source.shader.name=="RivetReach/WorldLit"){material.shader=Resources.Load<Shader>("Materials/MachineLit");material.shaderKeywords=source.shaderKeywords;material.renderQueue=source.renderQueue;material.EnableKeyword("RR_MACHINE_NEAR");}
             material.SetColor(property,colour);return material;
         }
         public Material Body(bool active)=>body[active?1:0];

@@ -27,3 +27,5 @@ All item-accepting receivers now have **ITEM PRIORITY** with an editable number.
 ![Electric Furnace with separate power and item-priority controls](images/crates/electric-machine-item-priority.png)
 
 *Furnace and Electric Furnace captures: native Windows player, 2026-09-19. The earlier Crusher/Battery illustrations retain their 2026-09-12 capture dates. These are staged in-game examples.*
+
+For placed models and viewing distances, see [Seeing your factory from a distance](Factory-visibility.md).
