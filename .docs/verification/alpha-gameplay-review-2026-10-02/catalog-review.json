@@ -1,0 +1,570 @@
+{
+  "items": 195,
+  "grid_recipes": 112,
+  "all_recipes": 199,
+  "natural_roots": [
+    "rivet:apple",
+    "rivet:berries",
+    "rivet:berry_seed",
+    "rivet:carrot",
+    "rivet:carrot_seed",
+    "rivet:dirt",
+    "rivet:egg",
+    "rivet:feather",
+    "rivet:flax_fibre",
+    "rivet:flax_seed",
+    "rivet:floater_rock",
+    "rivet:grain",
+    "rivet:leaves",
+    "rivet:log",
+    "rivet:mushroom",
+    "rivet:potato",
+    "rivet:raw_chicken",
+    "rivet:red_clay",
+    "rivet:sand",
+    "rivet:sandstone",
+    "rivet:sapling",
+    "rivet:snow",
+    "rivet:wheat_seed"
+  ],
+  "reachability_waves": [
+    [
+      "rivet:bed",
+      "rivet:bulk_crate",
+      "rivet:chest",
+      "rivet:cloth",
+      "rivet:compost",
+      "rivet:compost_bin",
+      "rivet:fishing_rod",
+      "rivet:planks",
+      "rivet:stick",
+      "rivet:string",
+      "rivet:wood_axe",
+      "rivet:wood_hoe",
+      "rivet:wood_pickaxe",
+      "rivet:wood_shovel",
+      "rivet:wood_sword",
+      "rivet:wooden_door",
+      "rivet:workbench"
+    ],
+    [
+      "rivet:baked_potato",
+      "rivet:charcoal",
+      "rivet:coal",
+      "rivet:coal_block",
+      "rivet:cobblestone",
+      "rivet:furnace",
+      "rivet:glass",
+      "rivet:raw_fish",
+      "rivet:stone",
+      "rivet:stone_axe",
+      "rivet:stone_hoe",
+      "rivet:stone_pickaxe",
+      "rivet:stone_shovel",
+      "rivet:stone_sword",
+      "rivet:torch"
+    ],
+    [
+      "rivet:copper_ingot",
+      "rivet:iron_ingot",
+      "rivet:raw_copper",
+      "rivet:raw_iron"
+    ],
+    [
+      "rivet:alternator",
+      "rivet:battery_block",
+      "rivet:boiler_engine",
+      "rivet:bread",
+      "rivet:bucket",
+      "rivet:chicken_stew",
+      "rivet:cog",
+      "rivet:cooked_chicken",
+      "rivet:cooked_egg",
+      "rivet:cooked_fish",
+      "rivet:cooked_mushroom",
+      "rivet:cooker",
+      "rivet:copper_axe",
+      "rivet:copper_block",
+      "rivet:copper_boots",
+      "rivet:copper_chestplate",
+      "rivet:copper_helmet",
+      "rivet:copper_hoe",
+      "rivet:copper_leggings",
+      "rivet:copper_pickaxe",
+      "rivet:copper_plate",
+      "rivet:copper_shovel",
+      "rivet:copper_sword",
+      "rivet:copper_wire",
+      "rivet:crushed_copper",
+      "rivet:crushed_iron",
+      "rivet:crusher",
+      "rivet:drill",
+      "rivet:electric_cooker",
+      "rivet:electric_furnace",
+      "rivet:extractor",
+      "rivet:fish_stew",
+      "rivet:fluid_pipe",
+      "rivet:fruit_porridge",
+      "rivet:hand_crank",
+      "rivet:iron_axe",
+      "rivet:iron_block",
+      "rivet:iron_boots",
+      "rivet:iron_chestplate",
+      "rivet:iron_helmet",
+      "rivet:iron_hoe",
+      "rivet:iron_leggings",
+      "rivet:iron_pickaxe",
+      "rivet:iron_plate",
+      "rivet:iron_shovel",
+      "rivet:iron_sword",
+      "rivet:item_pipe",
+      "rivet:machine_casing",
+      "rivet:machinist_bench",
+      "rivet:power_cable",
+      "rivet:pump",
+      "rivet:rivets",
+      "rivet:roast_carrot",
+      "rivet:tank_frame",
+      "rivet:tank_glass",
+      "rivet:tank_hatch",
+      "rivet:tank_port",
+      "rivet:tank_wall",
+      "rivet:vegetable_stew",
+      "rivet:water_tank",
+      "rivet:workshop_lamp",
+      "rivet:wrench"
+    ],
+    [
+      "rivet:azure_crystal",
+      "rivet:azure_ore",
+      "rivet:crushed_gold",
+      "rivet:diamond",
+      "rivet:diamond_axe",
+      "rivet:diamond_block",
+      "rivet:diamond_boots",
+      "rivet:diamond_chestplate",
+      "rivet:diamond_helmet",
+      "rivet:diamond_hoe",
+      "rivet:diamond_leggings",
+      "rivet:diamond_pickaxe",
+      "rivet:diamond_shovel",
+      "rivet:diamond_sword",
+      "rivet:gold_ingot",
+      "rivet:lava_bucket",
+      "rivet:raw_gold",
+      "rivet:water_bucket"
+    ],
+    [
+      "rivet:auto_composter",
+      "rivet:battery_controller",
+      "rivet:button",
+      "rivet:chunk_loader",
+      "rivet:crate_controller",
+      "rivet:gold_block",
+      "rivet:inventory_sensor",
+      "rivet:item_bridge",
+      "rivet:lava_rock",
+      "rivet:lever",
+      "rivet:liquid_bridge",
+      "rivet:power_bridge",
+      "rivet:ranged_liquid_pump",
+      "rivet:signal_conduit",
+      "rivet:signal_indicator",
+      "rivet:signal_relay",
+      "rivet:signal_wire",
+      "rivet:solar_panel",
+      "rivet:tank_controller",
+      "rivet:tank_sensor",
+      "rivet:tank_valve",
+      "rivet:wind_turbine",
+      "rivet:workshop_hatch"
+    ]
+  ],
+  "unreachable_grid_recipes": [],
+  "bills": {
+    "startup": {
+      "targets": {
+        "workbench": 1,
+        "wood_pickaxe": 1,
+        "stone_pickaxe": 1,
+        "iron_pickaxe": 1,
+        "stone_axe": 1,
+        "furnace": 1,
+        "torch": 8
+      },
+      "materials": {
+        "rivet:coal": 2,
+        "rivet:cobblestone": 14,
+        "rivet:iron_ingot": 3,
+        "rivet:log": 4
+      },
+      "leftovers": {
+        "rivet:planks": 3,
+        "rivet:stick": 2
+      },
+      "crafts": {
+        "rivet:craft_furnace": 1,
+        "rivet:craft_iron_pickaxe": 1,
+        "rivet:craft_planks": 4,
+        "rivet:craft_sticks": 3,
+        "rivet:craft_stone_axe": 1,
+        "rivet:craft_stone_pickaxe": 1,
+        "rivet:craft_wood_pickaxe": 1,
+        "rivet:craft_workbench": 1,
+        "rivet:torch_coal": 2
+      },
+      "bootstrap_smelts": 3,
+      "single_furnace_processing_seconds": 30,
+      "minimum_extra_coal_for_those_smelts": 1
+    },
+    "piped_furnace": {
+      "targets": {
+        "workbench": 1,
+        "wood_pickaxe": 1,
+        "stone_pickaxe": 1,
+        "iron_pickaxe": 1,
+        "stone_axe": 1,
+        "furnace": 1,
+        "torch": 8,
+        "wrench": 1,
+        "chest": 2,
+        "item_pipe": 8,
+        "machinist_bench": 1
+      },
+      "materials": {
+        "rivet:coal": 2,
+        "rivet:cobblestone": 14,
+        "rivet:copper_ingot": 3,
+        "rivet:iron_ingot": 16,
+        "rivet:log": 9
+      },
+      "leftovers": {
+        "rivet:iron_plate": 2,
+        "rivet:planks": 3,
+        "rivet:stick": 2
+      },
+      "crafts": {
+        "rivet:craft_chest": 2,
+        "rivet:craft_furnace": 1,
+        "rivet:craft_iron_pickaxe": 1,
+        "rivet:craft_planks": 9,
+        "rivet:craft_sticks": 3,
+        "rivet:craft_stone_axe": 1,
+        "rivet:craft_stone_pickaxe": 1,
+        "rivet:craft_wood_pickaxe": 1,
+        "rivet:craft_workbench": 2,
+        "rivet:industry_122": 1,
+        "rivet:industry_124": 2,
+        "rivet:industry_130": 1,
+        "rivet:industry_146": 2,
+        "rivet:torch_coal": 2,
+        "rivet:wrench": 1
+      },
+      "bootstrap_smelts": 19,
+      "single_furnace_processing_seconds": 190,
+      "minimum_extra_coal_for_those_smelts": 3
+    },
+    "powered_ore_processing": {
+      "targets": {
+        "workbench": 1,
+        "wood_pickaxe": 1,
+        "stone_pickaxe": 1,
+        "iron_pickaxe": 1,
+        "stone_axe": 1,
+        "furnace": 1,
+        "torch": 8,
+        "wrench": 1,
+        "chest": 2,
+        "item_pipe": 8,
+        "machinist_bench": 1,
+        "boiler_engine": 1,
+        "alternator": 1,
+        "pump": 1,
+        "crusher": 1,
+        "bucket": 1,
+        "fluid_pipe": 4,
+        "power_cable": 4
+      },
+      "materials": {
+        "rivet:coal": 2,
+        "rivet:cobblestone": 14,
+        "rivet:copper_ingot": 16,
+        "rivet:iron_ingot": 50,
+        "rivet:log": 9
+      },
+      "leftovers": {
+        "rivet:copper_plate": 1,
+        "rivet:iron_plate": 2,
+        "rivet:planks": 2,
+        "rivet:stick": 2
+      },
+      "crafts": {
+        "rivet:bucket": 1,
+        "rivet:craft_chest": 2,
+        "rivet:craft_furnace": 1,
+        "rivet:craft_iron_pickaxe": 1,
+        "rivet:craft_planks": 9,
+        "rivet:craft_sticks": 3,
+        "rivet:craft_stone_axe": 1,
+        "rivet:craft_stone_pickaxe": 1,
+        "rivet:craft_wood_pickaxe": 1,
+        "rivet:craft_workbench": 2,
+        "rivet:industry_122": 5,
+        "rivet:industry_123": 3,
+        "rivet:industry_124": 10,
+        "rivet:industry_125": 7,
+        "rivet:industry_126": 4,
+        "rivet:industry_127": 4,
+        "rivet:industry_130": 1,
+        "rivet:industry_138": 1,
+        "rivet:industry_140": 1,
+        "rivet:industry_141": 1,
+        "rivet:industry_142": 1,
+        "rivet:industry_143": 1,
+        "rivet:industry_146": 2,
+        "rivet:industry_147": 1,
+        "rivet:torch_coal": 2,
+        "rivet:wrench": 1
+      },
+      "bootstrap_smelts": 66,
+      "single_furnace_processing_seconds": 660,
+      "minimum_extra_coal_for_those_smelts": 9
+    },
+    "with_drill": {
+      "targets": {
+        "workbench": 1,
+        "wood_pickaxe": 1,
+        "stone_pickaxe": 1,
+        "iron_pickaxe": 1,
+        "stone_axe": 1,
+        "furnace": 1,
+        "torch": 8,
+        "wrench": 1,
+        "chest": 2,
+        "item_pipe": 12,
+        "machinist_bench": 1,
+        "boiler_engine": 1,
+        "alternator": 1,
+        "pump": 1,
+        "crusher": 1,
+        "bucket": 1,
+        "fluid_pipe": 4,
+        "power_cable": 8,
+        "drill": 1
+      },
+      "materials": {
+        "rivet:coal": 2,
+        "rivet:cobblestone": 14,
+        "rivet:copper_ingot": 19,
+        "rivet:iron_ingot": 61,
+        "rivet:log": 9
+      },
+      "leftovers": {
+        "rivet:copper_plate": 1,
+        "rivet:copper_wire": 2,
+        "rivet:planks": 1,
+        "rivet:stick": 2
+      },
+      "crafts": {
+        "rivet:bucket": 1,
+        "rivet:craft_chest": 2,
+        "rivet:craft_furnace": 1,
+        "rivet:craft_iron_pickaxe": 1,
+        "rivet:craft_planks": 9,
+        "rivet:craft_sticks": 3,
+        "rivet:craft_stone_axe": 1,
+        "rivet:craft_stone_pickaxe": 1,
+        "rivet:craft_wood_pickaxe": 1,
+        "rivet:craft_workbench": 2,
+        "rivet:industry_122": 8,
+        "rivet:industry_123": 3,
+        "rivet:industry_124": 13,
+        "rivet:industry_125": 9,
+        "rivet:industry_126": 5,
+        "rivet:industry_127": 5,
+        "rivet:industry_130": 1,
+        "rivet:industry_138": 2,
+        "rivet:industry_140": 1,
+        "rivet:industry_141": 1,
+        "rivet:industry_142": 1,
+        "rivet:industry_143": 1,
+        "rivet:industry_144": 1,
+        "rivet:industry_146": 3,
+        "rivet:industry_147": 1,
+        "rivet:torch_coal": 2,
+        "rivet:wrench": 1
+      },
+      "bootstrap_smelts": 80,
+      "single_furnace_processing_seconds": 800,
+      "minimum_extra_coal_for_those_smelts": 10
+    }
+  },
+  "direct_material_uses": {
+    "gold_ingot": [
+      {
+        "item": "rivet:gold_block",
+        "count": 1
+      },
+      {
+        "item": "rivet:item_bridge",
+        "count": 2
+      },
+      {
+        "item": "rivet:liquid_bridge",
+        "count": 2
+      },
+      {
+        "item": "rivet:power_bridge",
+        "count": 2
+      },
+      {
+        "item": "rivet:ranged_liquid_pump",
+        "count": 1
+      },
+      {
+        "item": "rivet:auto_composter",
+        "count": 1
+      },
+      {
+        "item": "rivet:crate_controller",
+        "count": 1
+      },
+      {
+        "item": "rivet:solar_panel",
+        "count": 1
+      },
+      {
+        "item": "rivet:wind_turbine",
+        "count": 1
+      }
+    ],
+    "diamond": [
+      {
+        "item": "rivet:diamond_axe",
+        "count": 1
+      },
+      {
+        "item": "rivet:diamond_pickaxe",
+        "count": 1
+      },
+      {
+        "item": "rivet:diamond_sword",
+        "count": 1
+      },
+      {
+        "item": "rivet:diamond_shovel",
+        "count": 1
+      },
+      {
+        "item": "rivet:diamond_hoe",
+        "count": 1
+      },
+      {
+        "item": "rivet:diamond_helmet",
+        "count": 1
+      },
+      {
+        "item": "rivet:diamond_chestplate",
+        "count": 1
+      },
+      {
+        "item": "rivet:diamond_leggings",
+        "count": 1
+      },
+      {
+        "item": "rivet:diamond_boots",
+        "count": 1
+      },
+      {
+        "item": "rivet:diamond_block",
+        "count": 1
+      },
+      {
+        "item": "rivet:item_bridge",
+        "count": 2
+      },
+      {
+        "item": "rivet:liquid_bridge",
+        "count": 2
+      },
+      {
+        "item": "rivet:power_bridge",
+        "count": 2
+      },
+      {
+        "item": "rivet:solar_panel",
+        "count": 1
+      },
+      {
+        "item": "rivet:wind_turbine",
+        "count": 1
+      }
+    ],
+    "floater_rock": [
+      {
+        "item": "rivet:item_bridge",
+        "count": 2
+      },
+      {
+        "item": "rivet:liquid_bridge",
+        "count": 2
+      },
+      {
+        "item": "rivet:power_bridge",
+        "count": 2
+      },
+      {
+        "item": "rivet:chunk_loader",
+        "count": 1
+      },
+      {
+        "item": "rivet:ranged_liquid_pump",
+        "count": 1
+      }
+    ],
+    "azure_crystal": [
+      {
+        "item": "rivet:signal_wire",
+        "count": 4
+      },
+      {
+        "item": "rivet:lever",
+        "count": 1
+      },
+      {
+        "item": "rivet:button",
+        "count": 1
+      },
+      {
+        "item": "rivet:signal_indicator",
+        "count": 1
+      },
+      {
+        "item": "rivet:signal_relay",
+        "count": 1
+      },
+      {
+        "item": "rivet:tank_controller",
+        "count": 1
+      },
+      {
+        "item": "rivet:battery_controller",
+        "count": 1
+      },
+      {
+        "item": "rivet:chunk_loader",
+        "count": 1
+      }
+    ],
+    "feather": [],
+    "lava_rock": []
+  },
+  "limitations": [
+    "Reachability assumes eventual access to natural resources, combat drops, water, fuel, and exploration; it is not a seed or time guarantee.",
+    "Bills are one explicitly listed compact layout; include authored batch rounding and separate persistent starter workshop.",
+    "Bills exclude shelter, food, armor, replacement tools, exploration tunnels, operating fuel/water and terrain-specific extra pipes.",
+    "Smelt time is furnace work, overlaps player actions, and excludes fuel burn wasted between loads. Coal is additional to any recipe coal.",
+    "Tagged food recipes use catalog example ingredients; compost quantity is not modeled by bills."
+  ],
+  "catalog_sha256": "2bd1597a08c9345429c8ef57e40c589a029c8c328b9421adce4a6543d20826a1"
+}

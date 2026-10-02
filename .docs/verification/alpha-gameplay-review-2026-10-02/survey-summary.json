@@ -1,0 +1,149 @@
+{
+  "samples": [
+    {
+      "seed": 246813,
+      "phase": "surface-day",
+      "peak": 4,
+      "spawned": 4,
+      "chickens": 18,
+      "first_peak_seconds": 43.005,
+      "cage_origin_peak": 0,
+      "species": [
+        "rivet:floater:4"
+      ]
+    },
+    {
+      "seed": 246813,
+      "phase": "surface-night",
+      "peak": 14,
+      "spawned": 14,
+      "chickens": 0,
+      "first_peak_seconds": 31.02,
+      "cage_origin_peak": 0,
+      "species": [
+        "rivet:dusk_prowler:6",
+        "rivet:rustback_beetle:8"
+      ]
+    },
+    {
+      "seed": 246813,
+      "phase": "deep-cave-day",
+      "peak": 4,
+      "spawned": 4,
+      "chickens": 0,
+      "first_peak_seconds": 17.003,
+      "cage_origin_peak": 0,
+      "species": [
+        "rivet:floater:4"
+      ]
+    },
+    {
+      "seed": 777,
+      "phase": "surface-day",
+      "peak": 1,
+      "spawned": 1,
+      "chickens": 24,
+      "first_peak_seconds": 7.001,
+      "cage_origin_peak": 0,
+      "species": [
+        "rivet:floater:1"
+      ]
+    },
+    {
+      "seed": 777,
+      "phase": "surface-night",
+      "peak": 14,
+      "spawned": 14,
+      "chickens": 0,
+      "first_peak_seconds": 27.007,
+      "cage_origin_peak": 0,
+      "species": [
+        "rivet:dusk_prowler:6",
+        "rivet:rustback_beetle:8"
+      ]
+    },
+    {
+      "seed": 777,
+      "phase": "deep-cave-day",
+      "peak": 4,
+      "spawned": 4,
+      "chickens": 0,
+      "first_peak_seconds": 11.015,
+      "cage_origin_peak": 0,
+      "species": [
+        "rivet:floater:4"
+      ]
+    }
+  ],
+  "native_report_completed": true,
+  "native_errors": [],
+  "launcher_exit_status": "Unavailable: WSL PowerShell launcher returned signal 143; native process finished its six samples and screenshots, wrote final timestamp and is no longer running. No native OS exit code was retained.",
+  "screenshots": [
+    {
+      "file": "246813-deep-cave-day.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "4755ee9a0a2ee4e72f0a1fe4f22adba9a3842ac85d9171cf673e1e45f17efa3e"
+    },
+    {
+      "file": "246813-surface-day.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "1857a2a5ccee2c2e37cf28b4559fc862f8655763d5635148af33000f9c45487a"
+    },
+    {
+      "file": "246813-surface-night.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "75a1ccc7f4de28eaa895be5c36520e22ec06e5cadbf6c57224befd37e7066471"
+    },
+    {
+      "file": "777-deep-cave-day.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "b47457f1e2a3dadc2bf1eaa7f848a999569af5996aefae0dff3c00747a083b59"
+    },
+    {
+      "file": "777-surface-day.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "5a8995cb5046ecf2b457547df2c9bc615029f21f291474e32bfd090ccc352356"
+    },
+    {
+      "file": "777-surface-night.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "9555555729a754c95784c3ad85d40fd8195eff670c434fd5a4cbbca5cb31c59a"
+    },
+    {
+      "file": "scenery-777-Alpine.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "d19b473a03b29eac61ed3f245a24c7e20e80d21297552472e43b3127d7156fb2"
+    },
+    {
+      "file": "scenery-777-Badlands.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "b168480be4dc55b6967f6d67c2f15431545ff6cfd26f3cd72b1c579fe1e898b0"
+    },
+    {
+      "file": "scenery-777-Desert.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "01329f492d58002fc41622e4288cdcd69dd04b6fc6b36be62b1e2728582fcc9e"
+    },
+    {
+      "file": "scenery-777-Forest.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "ff2977c2de70f50eb38c42e2b8ea97a48dc4c0fa5518ccd8d1852497aa97a6bf"
+    },
+    {
+      "file": "scenery-777-Sea.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "e1871ea82bcc256018e85308318ca7c2e1c01e060d9e98ee91d38356be944115"
+    }
+  ]
+}

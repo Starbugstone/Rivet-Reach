@@ -159,6 +159,8 @@ The earlier 256-block spawn-validation requirement belongs to the complete indus
 
 The initial terrain/FPS/inventory slice has been extended with the [current survival recipes](#current-survival-recipes-and-tiers), ore distribution, tool progression, furnaces, farming, hunger, health and armor. The industrial chain below is implemented. Its ordinary resource-paid completion time and player comprehension still need sustained play review; a fixture with supplied inputs does not establish a first-session time target.
 
+**October 2, 2026 acceptance target:** the user selected **one play session, roughly 1–2 hours, to the first automated production line** for alpha 0.1.0. The [gameplay review](verification/ALPHA_0_1_0_GAMEPLAY_REVIEW.md) proposes a concrete powered ore-processing line and records its current material bill. That proposed layout and intermediate timing targets are review choices; end-to-end completion time has not yet been measured. Preserve all starter recipes and the approved Cog/Rivet quantities while testing discovery, gathering and setup comprehension.
+
 The first industrial sequence is:
 
 1. Gather wood and stone, craft tools/workbench/furnace, then find and smelt both ores.

@@ -1,0 +1,412 @@
+{
+    "worlds": [
+        {
+            "seed": 246813,
+            "spawnY": 50,
+            "trees": 37,
+            "edibleHarvest": 71,
+            "plants": 98,
+            "maturePlants": 39,
+            "rooms": 1,
+            "buriedRooms": 0,
+            "nearestTree": 10.770329475402832,
+            "food": [
+                "rivet:berries:7",
+                "rivet:carrot:11",
+                "rivet:mushroom:27",
+                "rivet:potato:26"
+            ],
+            "ores": [
+                "rivet:coal_ore centres=52 exposed_of_nearest_16=7 nearest_centre=-5, 46, -27 distance=27.7",
+                "rivet:copper_ore centres=279 exposed_of_nearest_16=4 nearest_centre=9, 44, -3 distance=11.2",
+                "rivet:iron_ore centres=1027 exposed_of_nearest_16=2 nearest_centre=6, 40, -1 distance=11.7",
+                "rivet:gold_ore centres=467 exposed_of_nearest_16=2 nearest_centre=30, -65, 43 distance=126.4",
+                "rivet:diamond_ore centres=151 exposed_of_nearest_16=3 nearest_centre=-15, -165, -24 distance=216.9",
+                "rivet:azure_ore centres=362 exposed_of_nearest_16=3 nearest_centre=20, 8, 19 distance=50.2"
+            ],
+            "biomes": [
+                884,
+                561,
+                478,
+                325,
+                1407,
+                5473,
+                281
+            ]
+        },
+        {
+            "seed": 777,
+            "spawnY": 56,
+            "trees": 36,
+            "edibleHarvest": 66,
+            "plants": 82,
+            "maturePlants": 37,
+            "rooms": 2,
+            "buriedRooms": 0,
+            "nearestTree": 30.4138126373291,
+            "food": [
+                "rivet:berries:10",
+                "rivet:carrot:15",
+                "rivet:mushroom:18",
+                "rivet:potato:23"
+            ],
+            "ores": [
+                "rivet:coal_ore centres=276 exposed_of_nearest_16=6 nearest_centre=20, 48, 4 distance=21.9",
+                "rivet:copper_ore centres=490 exposed_of_nearest_16=2 nearest_centre=-6, 29, 12 distance=30.1",
+                "rivet:iron_ore centres=1185 exposed_of_nearest_16=3 nearest_centre=16, 43, -2 distance=20.7",
+                "rivet:gold_ore centres=429 exposed_of_nearest_16=0 nearest_centre=-10, -70, -1 distance=126.4",
+                "rivet:diamond_ore centres=151 exposed_of_nearest_16=0 nearest_centre=-10, -161, -62 distance=225.9",
+                "rivet:azure_ore centres=361 exposed_of_nearest_16=0 nearest_centre=-2, 3, 21 distance=57.0"
+            ],
+            "biomes": [
+                884,
+                1110,
+                1826,
+                1191,
+                1075,
+                2891,
+                432
+            ]
+        },
+        {
+            "seed": -917,
+            "spawnY": 37,
+            "trees": 48,
+            "edibleHarvest": 76,
+            "plants": 143,
+            "maturePlants": 47,
+            "rooms": 4,
+            "buriedRooms": 0,
+            "nearestTree": 11.401754379272461,
+            "food": [
+                "rivet:berries:5",
+                "rivet:carrot:15",
+                "rivet:mushroom:31",
+                "rivet:potato:25"
+            ],
+            "ores": [
+                "rivet:coal_ore centres=257 exposed_of_nearest_16=6 nearest_centre=-18, 32, -20 distance=27.4",
+                "rivet:copper_ore centres=486 exposed_of_nearest_16=5 nearest_centre=16, 31, -2 distance=17.2",
+                "rivet:iron_ore centres=1261 exposed_of_nearest_16=6 nearest_centre=-19, 32, 7 distance=20.9",
+                "rivet:gold_ore centres=445 exposed_of_nearest_16=1 nearest_centre=-8, -64, 22 distance=103.7",
+                "rivet:diamond_ore centres=162 exposed_of_nearest_16=0 nearest_centre=17, -173, -28 distance=212.5",
+                "rivet:azure_ore centres=376 exposed_of_nearest_16=4 nearest_centre=7, 7, 3 distance=31.0"
+            ],
+            "biomes": [
+                2133,
+                1080,
+                2222,
+                1091,
+                1839,
+                715,
+                329
+            ]
+        },
+        {
+            "seed": -2147483648,
+            "spawnY": 54,
+            "trees": 41,
+            "edibleHarvest": 78,
+            "plants": 118,
+            "maturePlants": 51,
+            "rooms": 0,
+            "buriedRooms": 0,
+            "nearestTree": 13.34166431427002,
+            "food": [
+                "rivet:berries:5",
+                "rivet:carrot:2",
+                "rivet:mushroom:35",
+                "rivet:potato:36"
+            ],
+            "ores": [
+                "rivet:coal_ore centres=326 exposed_of_nearest_16=5 nearest_centre=0, 49, 6 distance=7.8",
+                "rivet:copper_ore centres=508 exposed_of_nearest_16=4 nearest_centre=13, 42, -1 distance=17.7",
+                "rivet:iron_ore centres=1085 exposed_of_nearest_16=4 nearest_centre=14, 34, -8 distance=25.7",
+                "rivet:gold_ore centres=430 exposed_of_nearest_16=0 nearest_centre=-53, -66, 24 distance=133.4",
+                "rivet:diamond_ore centres=131 exposed_of_nearest_16=1 nearest_centre=-40, -168, -5 distance=225.6",
+                "rivet:azure_ore centres=364 exposed_of_nearest_16=1 nearest_centre=-26, 3, 4 distance=57.4"
+            ],
+            "biomes": [
+                1431,
+                1022,
+                1128,
+                1295,
+                631,
+                3544,
+                358
+            ]
+        },
+        {
+            "seed": 1,
+            "spawnY": 49,
+            "trees": 58,
+            "edibleHarvest": 118,
+            "plants": 169,
+            "maturePlants": 59,
+            "rooms": 3,
+            "buriedRooms": 0,
+            "nearestTree": 13.152946472167969,
+            "food": [
+                "rivet:berries:11",
+                "rivet:carrot:24",
+                "rivet:mushroom:50",
+                "rivet:potato:33"
+            ],
+            "ores": [
+                "rivet:coal_ore centres=354 exposed_of_nearest_16=1 nearest_centre=11, 44, 5 distance=13.1",
+                "rivet:copper_ore centres=612 exposed_of_nearest_16=0 nearest_centre=5, 43, -16 distance=17.8",
+                "rivet:iron_ore centres=1118 exposed_of_nearest_16=0 nearest_centre=-2, 26, -5 distance=23.6",
+                "rivet:gold_ore centres=451 exposed_of_nearest_16=1 nearest_centre=30, -64, 15 distance=117.9",
+                "rivet:diamond_ore centres=126 exposed_of_nearest_16=1 nearest_centre=21, -161, 44 distance=215.6",
+                "rivet:azure_ore centres=452 exposed_of_nearest_16=0 nearest_centre=1, -3, 19 distance=55.4"
+            ],
+            "biomes": [
+                1657,
+                546,
+                1027,
+                756,
+                1284,
+                3688,
+                451
+            ]
+        },
+        {
+            "seed": 2,
+            "spawnY": 51,
+            "trees": 25,
+            "edibleHarvest": 75,
+            "plants": 127,
+            "maturePlants": 45,
+            "rooms": 3,
+            "buriedRooms": 0,
+            "nearestTree": 7.8102498054504398,
+            "food": [
+                "rivet:berries:18",
+                "rivet:carrot:10",
+                "rivet:mushroom:20",
+                "rivet:potato:27"
+            ],
+            "ores": [
+                "rivet:coal_ore centres=66 exposed_of_nearest_16=1 nearest_centre=-2, 44, -17 distance=18.5",
+                "rivet:copper_ore centres=323 exposed_of_nearest_16=2 nearest_centre=7, 39, -19 distance=23.5",
+                "rivet:iron_ore centres=1119 exposed_of_nearest_16=1 nearest_centre=-18, 33, 6 distance=26.2",
+                "rivet:gold_ore centres=508 exposed_of_nearest_16=1 nearest_centre=3, -65, 39 distance=122.4",
+                "rivet:diamond_ore centres=169 exposed_of_nearest_16=1 nearest_centre=-6, -164, -12 distance=215.4",
+                "rivet:azure_ore centres=393 exposed_of_nearest_16=0 nearest_centre=-15, 4, 8 distance=50.0"
+            ],
+            "biomes": [
+                1516,
+                1051,
+                1206,
+                1226,
+                1521,
+                2594,
+                295
+            ]
+        },
+        {
+            "seed": 3,
+            "spawnY": 47,
+            "trees": 28,
+            "edibleHarvest": 74,
+            "plants": 104,
+            "maturePlants": 40,
+            "rooms": 0,
+            "buriedRooms": 0,
+            "nearestTree": 10.770329475402832,
+            "food": [
+                "rivet:berries:3",
+                "rivet:carrot:8",
+                "rivet:mushroom:38",
+                "rivet:potato:25"
+            ],
+            "ores": [
+                "rivet:coal_ore centres=102 exposed_of_nearest_16=3 nearest_centre=2, 32, -2 distance=15.3",
+                "rivet:copper_ore centres=357 exposed_of_nearest_16=5 nearest_centre=-4, 42, -17 distance=18.2",
+                "rivet:iron_ore centres=1087 exposed_of_nearest_16=3 nearest_centre=-22, 36, 4 distance=24.9",
+                "rivet:gold_ore centres=473 exposed_of_nearest_16=1 nearest_centre=19, -76, 7 distance=124.7",
+                "rivet:diamond_ore centres=136 exposed_of_nearest_16=0 nearest_centre=-11, -161, -20 distance=209.2",
+                "rivet:azure_ore centres=415 exposed_of_nearest_16=1 nearest_centre=-35, 8, -21 distance=56.5"
+            ],
+            "biomes": [
+                677,
+                883,
+                374,
+                394,
+                989,
+                5869,
+                223
+            ]
+        },
+        {
+            "seed": 42,
+            "spawnY": 42,
+            "trees": 41,
+            "edibleHarvest": 87,
+            "plants": 115,
+            "maturePlants": 44,
+            "rooms": 0,
+            "buriedRooms": 0,
+            "nearestTree": 7.211102485656738,
+            "food": [
+                "rivet:berries:11",
+                "rivet:carrot:16",
+                "rivet:mushroom:15",
+                "rivet:potato:45"
+            ],
+            "ores": [
+                "rivet:coal_ore centres=56 exposed_of_nearest_16=9 nearest_centre=9, 30, -5 distance=15.8",
+                "rivet:copper_ore centres=284 exposed_of_nearest_16=4 nearest_centre=-1, 34, -13 distance=15.3",
+                "rivet:iron_ore centres=1032 exposed_of_nearest_16=3 nearest_centre=-19, 36, 21 distance=28.9",
+                "rivet:gold_ore centres=419 exposed_of_nearest_16=3 nearest_centre=-49, -66, -19 distance=120.1",
+                "rivet:diamond_ore centres=147 exposed_of_nearest_16=1 nearest_centre=31, -168, -68 distance=222.9",
+                "rivet:azure_ore centres=364 exposed_of_nearest_16=1 nearest_centre=3, 7, 7 distance=35.8"
+            ],
+            "biomes": [
+                501,
+                437,
+                143,
+                253,
+                672,
+                7279,
+                124
+            ]
+        },
+        {
+            "seed": 12345,
+            "spawnY": 54,
+            "trees": 63,
+            "edibleHarvest": 117,
+            "plants": 159,
+            "maturePlants": 55,
+            "rooms": 3,
+            "buriedRooms": 0,
+            "nearestTree": 14.317821502685547,
+            "food": [
+                "rivet:berries:12",
+                "rivet:carrot:21",
+                "rivet:mushroom:41",
+                "rivet:potato:43"
+            ],
+            "ores": [
+                "rivet:coal_ore centres=270 exposed_of_nearest_16=4 nearest_centre=10, 46, 2 distance=13.0",
+                "rivet:copper_ore centres=441 exposed_of_nearest_16=1 nearest_centre=-7, 40, -6 distance=16.8",
+                "rivet:iron_ore centres=1158 exposed_of_nearest_16=3 nearest_centre=2, 37, -2 distance=17.2",
+                "rivet:gold_ore centres=486 exposed_of_nearest_16=1 nearest_centre=-7, -71, 47 distance=133.7",
+                "rivet:diamond_ore centres=149 exposed_of_nearest_16=1 nearest_centre=19, -162, -71 distance=228.2",
+                "rivet:azure_ore centres=350 exposed_of_nearest_16=1 nearest_centre=-26, 5, 16 distance=57.7"
+            ],
+            "biomes": [
+                789,
+                1138,
+                1184,
+                524,
+                2158,
+                3297,
+                319
+            ]
+        },
+        {
+            "seed": 65536,
+            "spawnY": 37,
+            "trees": 36,
+            "edibleHarvest": 64,
+            "plants": 118,
+            "maturePlants": 35,
+            "rooms": 3,
+            "buriedRooms": 0,
+            "nearestTree": 21.21320343017578,
+            "food": [
+                "rivet:berries:7",
+                "rivet:carrot:5",
+                "rivet:mushroom:30",
+                "rivet:potato:22"
+            ],
+            "ores": [
+                "rivet:coal_ore centres=256 exposed_of_nearest_16=5 nearest_centre=-12, 32, -4 distance=13.6",
+                "rivet:copper_ore centres=540 exposed_of_nearest_16=2 nearest_centre=-2, 31, 9 distance=11.0",
+                "rivet:iron_ore centres=1242 exposed_of_nearest_16=1 nearest_centre=-6, 26, -12 distance=17.3",
+                "rivet:gold_ore centres=490 exposed_of_nearest_16=1 nearest_centre=33, -64, -15 distance=107.3",
+                "rivet:diamond_ore centres=134 exposed_of_nearest_16=2 nearest_centre=-9, -169, -71 distance=218.1",
+                "rivet:azure_ore centres=386 exposed_of_nearest_16=1 nearest_centre=3, 8, -31 distance=42.6"
+            ],
+            "biomes": [
+                334,
+                837,
+                587,
+                2547,
+                1192,
+                3550,
+                362
+            ]
+        },
+        {
+            "seed": 20261002,
+            "spawnY": 57,
+            "trees": 33,
+            "edibleHarvest": 73,
+            "plants": 121,
+            "maturePlants": 42,
+            "rooms": 3,
+            "buriedRooms": 0,
+            "nearestTree": 13.601470947265625,
+            "food": [
+                "rivet:berries:10",
+                "rivet:carrot:9",
+                "rivet:mushroom:29",
+                "rivet:potato:25"
+            ],
+            "ores": [
+                "rivet:coal_ore centres=78 exposed_of_nearest_16=0 nearest_centre=-5, 47, 4 distance=11.9",
+                "rivet:copper_ore centres=349 exposed_of_nearest_16=0 nearest_centre=-16, 52, 7 distance=18.2",
+                "rivet:iron_ore centres=957 exposed_of_nearest_16=1 nearest_centre=-2, 43, 7 distance=15.8",
+                "rivet:gold_ore centres=413 exposed_of_nearest_16=0 nearest_centre=90, -65, -26 distance=153.8",
+                "rivet:diamond_ore centres=130 exposed_of_nearest_16=1 nearest_centre=-12, -160, 66 distance=227.1",
+                "rivet:azure_ore centres=357 exposed_of_nearest_16=1 nearest_centre=16, -2, -16 distance=63.2"
+            ],
+            "biomes": [
+                1272,
+                1170,
+                554,
+                1287,
+                2052,
+                2756,
+                318
+            ]
+        },
+        {
+            "seed": 2147483647,
+            "spawnY": 55,
+            "trees": 61,
+            "edibleHarvest": 94,
+            "plants": 145,
+            "maturePlants": 51,
+            "rooms": 4,
+            "buriedRooms": 0,
+            "nearestTree": 13.152946472167969,
+            "food": [
+                "rivet:berries:11",
+                "rivet:carrot:19",
+                "rivet:mushroom:38",
+                "rivet:potato:26"
+            ],
+            "ores": [
+                "rivet:coal_ore centres=242 exposed_of_nearest_16=0 nearest_centre=6, 44, -8 distance=14.9",
+                "rivet:copper_ore centres=513 exposed_of_nearest_16=2 nearest_centre=12, 41, 11 distance=21.5",
+                "rivet:iron_ore centres=1112 exposed_of_nearest_16=0 nearest_centre=-15, 46, -14 distance=22.4",
+                "rivet:gold_ore centres=434 exposed_of_nearest_16=1 nearest_centre=18, -68, -14 distance=125.1",
+                "rivet:diamond_ore centres=148 exposed_of_nearest_16=0 nearest_centre=-11, -170, -44 distance=229.5",
+                "rivet:azure_ore centres=328 exposed_of_nearest_16=1 nearest_centre=14, -1, 6 distance=58.0"
+            ],
+            "biomes": [
+                2092,
+                1165,
+                1236,
+                1129,
+                1651,
+                1659,
+                477
+            ]
+        }
+    ]
+}

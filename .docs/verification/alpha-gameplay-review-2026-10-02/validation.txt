@@ -1,0 +1,9 @@
+Documentation validation: 267 local document/image links, zero errors.
+Catalog references and explicit natural-resource roots valid; 112/112 grid recipes reachable under stated assumptions.
+Corrected native observer: 6 completed 120-second windows, no recorded runtime errors, 11 validated 1920x1080 PNGs.
+Native process exit code not retained: WSL launcher exited with signal 143. Final report timestamp and complete data were independently checked; player log records normal subsystem shutdown.
+Isolated committed-artwork wiki check: 195 generated item pages, 199 recipes; 234 pages and 9980 local links/images validated.
+Production gameplay/recipe/presentation sources are unchanged by this review.
+Main-workspace wiki check rejects stale export fingerprints for AlphaPlaytestVerification.cs, AvatarEquipment.cs, AvatarView.cs, RuntimeVerification.cs, GameUI.cs and BlockTiles.asset. The first five are concurrent changes appearing after the initial source comparison; they are not included in the reviewed native candidate. Unrelated changes preserved.
+Native log line endings normalized to LF for repository whitespace checks.
+Link validation reads the staged owned document revisions; the concurrent appearance section in DESIGN_QUESTIONS.md is excluded from this commit.

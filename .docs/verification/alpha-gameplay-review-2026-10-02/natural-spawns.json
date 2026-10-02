@@ -1,0 +1,200 @@
+{
+    "timestamp": "2026-10-02T20:02:24.1632906Z",
+    "samples": [
+        {
+            "seed": 246813,
+            "spawned": 4,
+            "peak": 4,
+            "animals": 18,
+            "attackHits": 0,
+            "phase": "surface-day",
+            "position": "64, 37, -4",
+            "seconds": 120.00189971923828,
+            "species": [
+                "rivet:floater:4"
+            ],
+            "rejections": [
+                8,
+                0,
+                2196,
+                81,
+                0,
+                0,
+                0,
+                59,
+                0,
+                8,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2549
+            ]
+        },
+        {
+            "seed": 246813,
+            "spawned": 14,
+            "peak": 14,
+            "animals": 0,
+            "attackHits": 0,
+            "phase": "surface-night",
+            "position": "64, 37, -4",
+            "seconds": 120.00120544433594,
+            "species": [
+                "rivet:dusk_prowler:6",
+                "rivet:rustback_beetle:8"
+            ],
+            "rejections": [
+                28,
+                0,
+                647,
+                22,
+                0,
+                0,
+                0,
+                0,
+                0,
+                4,
+                0,
+                0,
+                0,
+                0,
+                0,
+                44,
+                77
+            ]
+        },
+        {
+            "seed": 246813,
+            "spawned": 4,
+            "peak": 4,
+            "animals": 0,
+            "attackHits": 0,
+            "phase": "deep-cave-day",
+            "position": "-23, -123, -26",
+            "seconds": 120.009521484375,
+            "species": [
+                "rivet:floater:4"
+            ],
+            "rejections": [
+                8,
+                0,
+                2388,
+                36,
+                0,
+                0,
+                0,
+                97,
+                0,
+                6,
+                1,
+                15,
+                2,
+                0,
+                1,
+                0,
+                10234
+            ]
+        },
+        {
+            "seed": 777,
+            "spawned": 1,
+            "peak": 1,
+            "animals": 24,
+            "attackHits": 0,
+            "phase": "surface-day",
+            "position": "64, 68, -64",
+            "seconds": 120.00949096679688,
+            "species": [
+                "rivet:floater:1"
+            ],
+            "rejections": [
+                2,
+                0,
+                7763,
+                0,
+                0,
+                0,
+                0,
+                152,
+                0,
+                0,
+                0,
+                8,
+                0,
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        {
+            "seed": 777,
+            "spawned": 14,
+            "peak": 14,
+            "animals": 0,
+            "attackHits": 0,
+            "phase": "surface-night",
+            "position": "64, 68, -64",
+            "seconds": 120.0067138671875,
+            "species": [
+                "rivet:dusk_prowler:6",
+                "rivet:rustback_beetle:8"
+            ],
+            "rejections": [
+                28,
+                0,
+                523,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                2,
+                0,
+                0,
+                0,
+                46,
+                8
+            ]
+        },
+        {
+            "seed": 777,
+            "spawned": 4,
+            "peak": 4,
+            "animals": 0,
+            "attackHits": 0,
+            "phase": "deep-cave-day",
+            "position": "-17, -123, -10",
+            "seconds": 120.0186767578125,
+            "species": [
+                "rivet:floater:4"
+            ],
+            "rejections": [
+                8,
+                0,
+                1721,
+                0,
+                0,
+                0,
+                0,
+                115,
+                0,
+                1,
+                2,
+                2,
+                0,
+                0,
+                1,
+                0,
+                12063
+            ]
+        }
+    ],
+    "errors": []
+}

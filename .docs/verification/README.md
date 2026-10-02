@@ -17,7 +17,7 @@ This directory maintains the latest report and useful evidence for each feature.
 | --- | --- |
 | Machine visibility distance | [October 2 implementation and native stress test](FACTORY_VISIBILITY_RESULTS.md) — terrain-distance models, detail transition, tank visibility, exact state preservation, images/video and measured performance limits |
 | Crafting identity and component recipes | [October 2 issue #1 verification](CRAFTING_IDENTITY_RESULTS.md) — project-owned recipe contract, one-ingot Cog, plate Rivets and exact legacy content compatibility |
-| 0.1.0 release readiness | [September 27 audit](RELEASE_READINESS_0_1_0.md) — steady 60 FPS at 1080p, frame integrity, fresh optimized-player checks and prioritized release blockers |
+| 0.1.0 gameplay and release readiness | [October 2 gameplay/code review](ALPHA_0_1_0_GAMEPLAY_REVIEW.md) — 1–2 hour first-line target, recipe/resource surveys, natural populations, scenery and prioritized work; [September 27 timing audit](RELEASE_READINESS_0_1_0.md) retains its dated performance evidence |
 | Factory optimizations | [September 22 implementation](FACTORY_OPTIMIZATION_RESULTS.md) — packed mesh submission, cached power roles, resident pump reads and shared shader sampling |
 | Factory bottleneck isolation | [Extra September 22 tests](FACTORY_ISOLATION_RESULTS.md) — repeated mesh submission hitch, ranged-pump cost, power role counts, paired graphics controls and proposed fixes |
 | Large-factory CPU/GPU attribution | [September 22 factory profile](FACTORY_PROFILE_RESULTS.md) — 27 retail scopes, thermal telemetry, five-minute soak and transition spike analysis |

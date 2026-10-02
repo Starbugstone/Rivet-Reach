@@ -16,7 +16,7 @@ The long-term vision combines:
 
 ## Current status
 
-**0.1.0 readiness:** [the September 27 audit](.docs/verification/RELEASE_READINESS_0_1_0.md) prioritizes steady 60 FPS at 1080p and frame integrity. Release remains on hold pending smoothness, sustained stability and final package verification; passing gameplay checks alone does not certify performance.
+**0.1.0 readiness:** [the October 2 gameplay and code review](.docs/verification/ALPHA_0_1_0_GAMEPLAY_REVIEW.md) covers survival-to-factory progression, the agreed 1–2 hour first-line target, resources, natural mob populations, scenery and remaining release work. Release remains on hold pending smoothness, progression/balance acceptance, sustained stability and final package verification; passing gameplay checks alone does not certify performance. The [September 27 timing audit](.docs/verification/RELEASE_READINESS_0_1_0.md) retains its dated evidence.
 
 **Download:** [Rivet Reach 0.0.1 Alpha for Windows x64](https://github.com/Starbugstone/Rivet-Reach/releases/tag/v0.0.1). Extract the complete Windows ZIP and run `RivetReach.exe`; no Unity installation is needed. **Save Game, Load Game and Continue Latest Save are included.** See the [alpha notes](.docs/releases/0.0.1.md).
 

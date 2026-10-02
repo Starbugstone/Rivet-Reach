@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-02",
+  "commit": "5082f141dd3f0a50b2c89cfc2aeec549a000c954",
+  "unity": "6000.4.4f1",
+  "graphics": "D3D11",
+  "build": "non-Development Windows x64",
+  "source_comparison_paths": 985,
+  "source_mismatches": [],
+  "comparison_scope": "Tracked Code, Editor, Definitions and Mob definitions; review-only probe is additional. Candidate reuses committed art in the isolated checkout; unrelated main-workspace art changes are excluded.",
+  "files": {
+    "survey_source": {
+      "path": "/mnt/d/Dev/github-desktop/Rivet-Reach/Tools/AlphaReview/ReadinessSurvey.cs",
+      "sha256": "e29d4d5cb614a2890f1a95bac82275a9549fc89b905e9107ac6550a142dbb1f7"
+    },
+    "player": {
+      "path": "/mnt/d/Dev/github-desktop/Rivet-Reach-Issue1-20261002/Builds/ReadinessSurvey/RivetReach.exe",
+      "sha256": "413a04009d5fc13e03fe4e5c6941a8606c63c103edd08853efc6c9bd57e6151b"
+    },
+    "assembly": {
+      "path": "/mnt/d/Dev/github-desktop/Rivet-Reach-Issue1-20261002/Builds/ReadinessSurvey/RivetReach_Data/Managed/Assembly-CSharp.dll",
+      "sha256": "66451a8b6322ac7312e7abf05ec739e090c7865507e81a115c4e603b42ef867e"
+    },
+    "catalog": {
+      "path": "/mnt/d/Dev/github-desktop/Rivet-Reach/.docs/wiki-data/catalog.json",
+      "sha256": "2bd1597a08c9345429c8ef57e40c589a029c8c328b9421adce4a6543d20826a1"
+    }
+  },
+  "source_comparison_timing": "Initial comparison before concurrent appearance/UI edits appeared in main workspace.",
+  "later_unreviewed_main_changes": [
+    "Assets/RivetReach/Code/AlphaPlaytestVerification.cs",
+    "Assets/RivetReach/Code/Player/AvatarEquipment.cs",
+    "Assets/RivetReach/Code/Player/AvatarView.cs",
+    "Assets/RivetReach/Code/RuntimeVerification.cs",
+    "Assets/RivetReach/Code/UI/GameUI.cs"
+  ]
+}
