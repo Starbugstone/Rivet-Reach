@@ -30,7 +30,7 @@ namespace RivetReach
                 {
                     int index=r.Int(0,32767);byte id=r.ReadByte();var p=min.Offset(index%32,index/32%32,index/1024);
                     SaveReader.Require(p.Y>TerrainGenerator.MinY&&p.Y<=TerrainGenerator.MaxY&&p.X>=-TerrainGenerator.HorizontalLimit&&p.X<=TerrainGenerator.HorizontalLimit&&p.Z>=-TerrainGenerator.HorizontalLimit&&p.Z<=TerrainGenerator.HorizontalLimit,"Invalid edited terrain position.");
-                    SaveReader.Require((!CrateId.Part(id)||r.Format>=15)&&(!BedId.Part(id)||r.Format>=14)&&(id==0||Fluids.IsFluid(id)||BlockId.Placeable(id)||BlockId.Crop(id)||id==BedId.Head||id==IndustryId.DoorUpper||id==BlockId.Farmland),"Invalid saved terrain cell.");page.Add(index,id);
+                    SaveReader.Require((BuildingBlocks.SlabFor(id)==null||r.Format>=19)&&(!CrateId.Part(id)||r.Format>=15)&&(!BedId.Part(id)||r.Format>=14)&&(id==0||Fluids.IsFluid(id)||BuildingBlocks.Internal(id)||BlockId.Placeable(id)||BlockId.Crop(id)||id==BedId.Head||id==IndustryId.DoorUpper||id==BlockId.Farmland),"Invalid saved terrain cell.");page.Add(index,id);
                     if(BlockId.Opaque(id)){var key=(p.X,p.Z);if(!editedColumns.TryGetValue(key,out var column))editedColumns[key]=column=new SortedSet<int>();column.Add(p.Y);}
                 }
             }
@@ -38,7 +38,7 @@ namespace RivetReach
             for(int i=0;i<count;i++)
             {
                 var p=r.Pos();var support=r.Pos();
-                SaveReader.Require(Get(p)==BlockId.Torch&&BlockId.Solid(Get(support))&&p.Y>=support.Y&&Math.Abs(p.X-support.X)+Math.Abs(p.Y-support.Y)+Math.Abs(p.Z-support.Z)==1,"Invalid torch attachment.");
+                SaveReader.Require(Get(p)==BlockId.Torch&&TorchSupported(Get(support),p.Y-support.Y)&&p.Y>=support.Y&&Math.Abs(p.X-support.X)+Math.Abs(p.Y-support.Y)+Math.Abs(p.Z-support.Z)==1,"Invalid torch attachment.");
                 if(!torchSupports.TryGetValue(p.Chunk,out var page))torchSupports[p.Chunk]=page=new Dictionary<BlockPos,BlockPos>();page.Add(p,support);
             }
             foreach(var page in edits)foreach(var e in page.Value)if(e.Value==BlockId.Torch)

@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-02",
+  "unity": "6000.4.4f1",
+  "graphics": "Direct3D11",
+  "resolution": "1600x1000",
+  "sourceBase": "4292c7e51a524e394236aa419d8015e454578da2",
+  "build": "Builds/AlphaGuidance",
+  "assemblySha256": "9a59f4c7d6900782ce7de122efff53ac98708e7fdae6218ed448d3064cf4e1bb",
+  "legacySource": "Logs/ReleaseReview/AcceptedFinal/connections/Saves/98eb00220b7d45c68b27e895230461e4.rrsave",
+  "legacySha256": "21ecf57fa62d703baea689dbff1131b9f17376d9d5d864dfb446022c3a384484",
+  "performance": "Deferred by user; these checks do not measure frame-rate acceptance."
+}

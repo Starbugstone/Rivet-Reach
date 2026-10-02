@@ -8,17 +8,22 @@
 
 <a href="Item-glass.md" title="Glass"><img src="icons/128.png" width="96" height="96" alt="Glass"></a>
 
-Smelted sand used as a component in lamps, tank windows and controllers. This glass item is not a standalone placeable window block.
+Clear, lightly tinted building Glass that also remains a component for lamps, tank windows and controllers.
 
 ## At a glance
 
 | Property | Value |
 |---|---|
 | Stack size | 64 |
+| Placement | Place from the hotbar |
 
 ## How to obtain
 
-Make this item using the crafting or processing recipes below.
+Smelt one Sand into one Glass in a Furnace or Electric Furnace.
+
+## Using it
+
+Place blocks side by side to make a continuous window with joined edges. Mining recovers the Glass. See [Slabs and connected glass](Slabs-and-connected-glass.md) for in-game examples.
 
 ## Crafting and processing
 

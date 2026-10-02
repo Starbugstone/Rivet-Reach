@@ -134,7 +134,8 @@ namespace RivetReach
             w.scroll.StopMovement();w.content.anchoredPosition=Vector2.zero;
             if(!any)
             {
-                w.empty.text=browserUses?"No registered recipe uses this item.":"No crafting or processing recipe.\nFind this item through exploration or other world interactions.";
+                string source=ResourceGuidance.Source(browserItem,game.Registry);
+                w.empty.text=browserUses?"No registered recipe uses this item.":source.Length>0?source:"No crafting or processing recipe.\nFind this item through exploration or other world interactions.";
                 w.footer.text="Browse another item, or select the other tab.";recipePanel.SetActive(true);return;
             }
             var recipe=shownRecipe;var grid=recipe.GridRecipe;

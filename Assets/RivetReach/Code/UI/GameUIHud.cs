@@ -41,7 +41,7 @@ namespace RivetReach
                 var key=(targetLabel,game.Player.HasTarget,game.Player.TargetId,capability,tier,pipe,pipeFace,role,game.HoldingWrench,game.Input.Keys["Interact"],game.Input.UseButtonName);
                 if(key.Equals(shownTarget))return;
                 shownTarget=key;
-                string hint=BlockId.MiningHint(game.Player.TargetId,capability,tier);
+                string hint=ResourceGuidance.ToolHint(game.Player.TargetId,capability,tier);
                 targetLabel.text=game.Player.HasTarget?(Fluids.Registry.Get(game.Player.TargetId) is FluidDefinition targetFluid?targetFluid.DisplayName+" source · Use bucket":game.Registry.Get(game.Player.TargetId).displayName)+((BlockId.Station(game.Player.TargetId)||IndustryId.Placed(game.Player.TargetId))?$"\n{game.Input.Keys["Interact"]} / {game.Input.UseButtonName} · Open"+(game.Player.TargetId==BlockId.Workbench?" 3 × 3 crafting":""):hint.Length>0?" · "+hint:""):"";
                 if(game.Player.HasTarget&&IndustryId.DoorPart(game.Player.TargetId))
                     targetLabel.text=$"Wooden Door\n{game.Input.Keys["Interact"]} / {game.Input.UseButtonName}: open / close · Blue Signal at base";
@@ -53,6 +53,7 @@ namespace RivetReach
         }
         void RefreshWorldTime()
         {
+            RefreshGuidance();
             if(worldTime==null)return;
             var clock=game.Sky.Clock;int minute=(int)(clock.Hour*60);
             var key=(worldTime,clock.DayNumber,minute,clock.MoonPhase,game.Weather.Kind);

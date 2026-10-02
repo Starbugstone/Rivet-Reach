@@ -180,7 +180,9 @@
     "description": "The common frame used to assemble machinery and batteries."
   },
   "rivet:glass": {
-    "description": "Smelted sand used as a component in lamps, tank windows and controllers. This glass item is not a standalone placeable window block."
+    "description": "Clear, lightly tinted building Glass that also remains a component for lamps, tank windows and controllers.",
+    "obtain": "Smelt one Sand into one Glass in a Furnace or Electric Furnace.",
+    "use": "Place blocks side by side to make a continuous window with joined edges. Mining recovers the Glass. See [Slabs and connected glass](Slabs-and-connected-glass.md) for in-game examples."
   },
   "rivet:tank_frame": {
     "use": "Use this part in a sealed hollow tank. The [tank construction guide](Tanks.md) gives the shopping list, layer diagrams, outward-facing controls and repair instructions.\n\nOpening its controls shows a matching illustration and name in the left panel. See [Machine interfaces](Machine-interfaces.md)."
@@ -587,5 +589,15 @@
   "rivet:wind_turbine": {
     "description": "A compact vertical-axis turbine with gradually changing gusts: **40–140 W in clear weather, 240–360 W in rain and 400 W in storms**, by day or night.",
     "use": "Place outdoors with air directly above, connect Power Cable on any face, and add batteries to buffer changing output. The rotor follows wind strength and stops when it supplies no power. Battery charging counts as demand. See [Renewable power](Renewable-power.md)."
+  },
+  "rivet:wooden_slab": {
+    "description": "A half-height building block for floors, porches and ceilings.",
+    "obtain": "Craft three Planks in a horizontal workbench row to make six slabs.",
+    "use": "Place in the lower or upper half of a cell. Combine two matching slabs into a full block; mining recovers two slabs. See [Slabs and connected glass](Slabs-and-connected-glass.md)."
+  },
+  "rivet:stone_slab": {
+    "description": "A half-height building block for floors, porches and ceilings.",
+    "obtain": "Craft three Stone in a horizontal workbench row to make six slabs.",
+    "use": "Place in the lower or upper half of a cell. Combine two matching slabs into a full block; mining recovers two slabs. See [Slabs and connected glass](Slabs-and-connected-glass.md). Requires a wooden pickaxe or better to mine."
   }
 }

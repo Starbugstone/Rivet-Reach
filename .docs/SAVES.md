@@ -191,3 +191,11 @@ Schema **17** appends the player's integer saturation reserve after the existing
 Issue #1 changes the two grid recipes to one Iron Ingot → one Iron Cog and one Iron Plate → four Rivets. Schema **18** and all item identities/payload fields stay unchanged. Current-schema loading accepts either the new complete fingerprint or the exact previous complete fingerprint. Older-schema projections reconstruct the former horizontal pair of Iron Ingots → one Cog and single Iron Ingot → eight Rivets before applying existing historical projections.
 
 Projection applies only to the exact new component shapes, materials, quantities, outputs and 4×4 gate. A changed gate, mirror flag, yield, ingredient or unrelated content definition remains incompatible. Existing component stacks, placed machines, partial work and inventories load without refunds, item conversion or changed counts. Whole-session rollback and previous-checkpoint recovery remain unchanged. `ComponentRecipeChecks` tests current/previous schema-18 envelopes and rejection cases; `SaveCompatibilityChecks` retains the independent pinned schemas 1–17 sweep.
+
+## Guidance and building compatibility — 2026-10-02
+
+Schema **19** adds the optional last-death world address after existing weather state. Home continues to use the original unique Bed binding; no duplicate home or mine waypoint state is stored. Failed-load rollback restores the previous navigation object as well as all existing authorities. Schemas 1–18 start without a death marker.
+
+Wooden/Stone Slabs add two item identities and two recipes. Upper/double variants are terrain-only cell IDs and are rejected as inventory items. Current saves retain exact variant cells through ordinary world edits. Glass retains its existing item, smelting recipe and component uses; making it placeable adds no replacement identity or terrain generation.
+
+Schema-19 loading requires the complete current content fingerprint. Schema 18 accepts the exact pre-slab catalog with either approved Cog/Rivet definitions or their known previous definitions. Earlier compatibility projections exclude only the added slab items/recipes before applying their existing checks. Unrelated item, recipe, tool, food, mob and generation checks remain mandatory; no broad fingerprint bypass is introduced.

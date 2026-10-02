@@ -81,3 +81,5 @@ In-game captures from the October 2, 2026 explorer review build. Appearance neve
 Hold Jump to jump again after each landing. It never supplies an additional jump in mid-air. Ordinary activity and passive hunger expenditure are 25% lower than the initial Alpha 0.0.2 values; healing retains its existing food cost.
 
 [Growing and cooking](Farming-and-cooking.md) · [All items](Items.md) · [Home](Home.md)
+
+For half-height construction and joined windows, see [Slabs and connected glass](Slabs-and-connected-glass.md). The [exploration guide](Exploration-and-navigation.md) explains the new depth, Home and Last death HUD cues.

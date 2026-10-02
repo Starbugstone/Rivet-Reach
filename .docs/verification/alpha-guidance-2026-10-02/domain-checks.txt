@@ -1,0 +1,56 @@
+PASS Compiled half-block capability 82
+PASS World variants resolve canonical item
+PASS Three full blocks make exactly six slabs
+PASS Six faces with true half-height mesh 82
+PASS Target passes through empty half 82
+PASS Solid slab roof blocks voxel sunlight 82
+PASS Collision and selection use same half 82
+PASS Six faces with true half-height mesh 83
+PASS Target passes through empty half 83
+PASS Solid slab roof blocks voxel sunlight 83
+PASS Collision and selection use same half 83
+PASS Exposed lower face combines in its own cell
+PASS Exposed upper face combines in its own cell
+PASS Upper side placement crosses chunk boundary
+PASS Support tracks full top face
+PASS Torch support rejects floating attachments
+PASS Mining variants returns public slab
+PASS Pick Block never creates internal variant
+PASS Compiled half-block capability 85
+PASS World variants resolve canonical item
+PASS Three full blocks make exactly six slabs
+PASS Six faces with true half-height mesh 85
+PASS Target passes through empty half 85
+PASS Solid slab roof blocks voxel sunlight 85
+PASS Collision and selection use same half 85
+PASS Six faces with true half-height mesh 86
+PASS Target passes through empty half 86
+PASS Solid slab roof blocks voxel sunlight 86
+PASS Collision and selection use same half 86
+PASS Exposed lower face combines in its own cell
+PASS Exposed upper face combines in its own cell
+PASS Upper side placement crosses chunk boundary
+PASS Support tracks full top face
+PASS Torch support rejects floating attachments
+PASS Mining variants returns public slab
+PASS Pick Block never creates internal variant
+PASS Glass uses separate transparent chunk mesh
+PASS Adjacent glass removes both internal faces
+PASS Exterior face joins right edge only
+PASS Diagonal connection preserves concave-corner information
+PASS Halo joins glass across chunk boundary
+PASS Removing neighbor restores exposed face and rim
+PASS Existing Glass is solid, transparent and placeable
+PASS Depth/tool cues match generator authority 11
+PASS Depth/tool cues match generator authority 10
+PASS Depth/tool cues match generator authority 9
+PASS Depth/tool cues match generator authority 12
+PASS Depth/tool cues match generator authority 13
+PASS Depth/tool cues match generator authority 120
+PASS Insufficient pickaxe shows requirement
+PASS Sufficient pickaxe shows readiness
+PASS Navigation retains precision at remote coordinates
+PASS Navigation follows player heading
+PASS Schema 19 restores death address exactly
+PASS Death marker can be dismissed
+PASS Legacy saves require no added marker bytes

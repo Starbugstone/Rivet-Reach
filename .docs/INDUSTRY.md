@@ -202,3 +202,11 @@ The Bulk Crate is a 3×3 Workbench recipe of eight Planks around one Chest. The 
 ## Distant machine presentation — 2026-10-02
 
 [Factory visibility](FACTORY_VISIBILITY.md) owns the shared detail transition, terrain-distance limit and derived distant meshes. This changes presentation only: machine operation, interaction reach, connection settings, inventories and chunk-loader responsibility remain unchanged.
+
+## Machine setup feedback — 2026-10-02
+
+The retained station illustration now includes an actionable explanation, refreshed at four Hz from the current station and simulation. It distinguishes a missing electrical connection from a connected grid without supply, explains underpower and disabled Blue Signal, directs blocked output toward red source/blue destination pipe ends, and teaches the selected-Wrench interaction. Boilers explain rear fuel, any-face water and right-shaft coupling; Alternators distinguish absent, misaligned and inactive Boilers. Pumps explain source water directly below and their electricity-free startup. Furnace guidance preserves its rear-fuel/other-face ingredient rules.
+
+These are read-only presentation changes. The existing status, network topology, ingredients, work and allocation authorities remain unchanged. A running Boiler still consumes fuel/water without useful electrical demand. The [illustrated setup guide](wiki/Machine-setup-feedback.md) owns player-facing examples.
+
+A powered component assembler is tracked separately in [issue #22](https://github.com/Starbugstone/Rivet-Reach/issues/22), for implementation in another thread. It is not part of this increment.

@@ -175,6 +175,7 @@ namespace RivetReach
                 Button(p.transform,"SAVE & TITLE",36,388,346,48,game.SaveAndTitle);
                 Button(p.transform,"SAVE & QUIT",406,388,346,48,game.SaveAndQuit);
                 Button(p.transform,"QUIT WITHOUT SAVING",406,456,346,44,game.Quit);
+                Button(p.transform,"CLEAR DEATH MARKER",36,456,346,44,()=>{game.Navigation.ClearDeath();Rebuild();}).interactable=game.Navigation.LastDeath.HasValue;
                 Label(p.transform,game.SaveStatus??"Save your expedition before leaving.\nClosing the window does not automatically save.",36,529,716,68,17,gold);
             }
             else if(game.Mode==ScreenMode.Appearance)

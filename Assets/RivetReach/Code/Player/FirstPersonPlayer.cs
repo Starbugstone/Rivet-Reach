@@ -124,7 +124,7 @@ namespace RivetReach
                 }
                 if(crouch&&Grounded&&!jump&&!Game.World.Overlaps(transform.position+move*dt-Vector3.up*.12f,.6f,.12f))move=Vector3.zero;
                 Vector3 previous=transform.position;
-                transform.position=Game.World.Move(transform.position,move*dt+Vector3.up*verticalTravel,.6f,Height,out bool ground);
+                transform.position=Game.World.Move(transform.position,move*dt+Vector3.up*verticalTravel,.6f,Height,out bool ground,Grounded&&!Flying&&!jump?.5f:0);
                 if(Game.Mobs!=null)transform.position=Game.Mobs.ConstrainPlayer(previous,transform.position);
                 if(Game.Animals!=null)transform.position=Game.Animals.ConstrainPlayer(previous,transform.position);
                 float impact=!Grounded&&ground?Mathf.Max(0,-vertical):0;

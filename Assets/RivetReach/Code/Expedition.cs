@@ -29,6 +29,7 @@ namespace RivetReach
         public HealthState Health {get;private set;}
         public EquipmentState Equipment {get;private set;}
         public event Action Respawned;
+        public PlayerNavigation Navigation {get;private set;}
         public PlayerInput Input {get;private set;}
         public GameUI UI {get;private set;}
         public WorldSound Sound {get;private set;}
@@ -74,7 +75,7 @@ namespace RivetReach
         {
             Seed=seed;Creative=false;LoadingSave=false;Selected=0;WorldId=Guid.NewGuid().ToString("N");SaveId=null;SaveName="Expedition";
             invulnerableUntil=0;WaitingForRespawn=false;
-            Weather=new WeatherState(seed);Sky.ResetClock();
+            Weather=new WeatherState(seed);Navigation=new PlayerNavigation();Sky.ResetClock();
             Inventory=new Inventory(id=>Registry.Get(id).stackLimit);
             OpenMachine=null;OpenStation=null;PersonalCrafting=new CraftingSession(Recipes,2,id=>Registry.Get(id).stackLimit);
             Hunger=new HungerState();Health=new HealthState();Equipment=new EquipmentState(Registry.Get);
@@ -107,7 +108,7 @@ namespace RivetReach
                 return;
             }
             byte drop=Registry.FistDrop(id);
-            int count=id==BlockId.MaturePotatoPlant?2+(int)(TerrainGenerator.Hash(pos.X,pos.Y,pos.Z,Seed)%3):1;
+            int count=BuildingBlocks.Doubled(id)?2:id==BlockId.MaturePotatoPlant?2+(int)(TerrainGenerator.Hash(pos.X,pos.Y,pos.Z,Seed)%3):1;
             Items.Spawn(Industry.Recovered(pos,new ItemStack(drop,count)),World.Local(pos)+new Vector3(.5f,.3f,.5f),Vector3.up*1.6f,actionCreated:true);
         }
         public void StartSession(int seed)
@@ -198,6 +199,7 @@ namespace RivetReach
             if(Creative||!Started||Paused||Health.Dead||Time.time<invulnerableUntil)return 0;
             float accepted=Health.Damage(amount,kind,Equipment.Protection);
             if(!Health.Dead)return accepted;
+            Navigation.RecordDeath(World.Address(Player.transform.position));
             SetMode(ScreenMode.Death);
             for(int i=0;i<Inventory.Count;i++)Drop(Inventory.Take(i,int.MaxValue));
             for(int i=0;i<PersonalCrafting.Grid.Count;i++)Drop(PersonalCrafting.Grid.Take(i,int.MaxValue));
@@ -217,6 +219,9 @@ namespace RivetReach
         public bool PlacementPreview(out BlockPos cell,out string reason)
         {
             cell=default;reason="Aim at a block face";
+            var selected=Inventory.Slots[Selected];
+            if(!selected.Empty&&Registry.Capability<IHalfBlock>(selected.Id) is IHalfBlock slab)
+                return SlabPlacement(slab,out cell,out _,out _,out reason);
             if(!World.Raycast(Player.Camera.transform.position,Player.Camera.transform.forward,5,out var support,out _,out var face)||face==Vector3Int.zero)return false;
             cell=support.Offset(face.x,face.y,face.z);
             if(!CanPlace(cell,out reason))return false;
@@ -232,7 +237,7 @@ namespace RivetReach
             if(selected.Empty||!BlockId.Placeable(selected.Id))return false;
             reason="Waiting for nearby terrain";if(!World.Ready(cell))return false;
             reason="This cell is occupied";if(World.Get(cell)!=0&&!Fluids.IsFluid(World.Get(cell)))return false;
-            if(selected.Id==IndustryId.SignalWire&&(!World.Ready(cell.Offset(0,-1,0))||!BlockId.Solid(World.Get(cell.Offset(0,-1,0))))){reason="Signal Wire needs a solid floor";return false;}
+            if(selected.Id==IndustryId.SignalWire&&(!World.Ready(cell.Offset(0,-1,0))||!BuildingBlocks.FullTop(World.Get(cell.Offset(0,-1,0))))){reason="Signal Wire needs a solid floor";return false;}
             if(selected.Id==BedId.Bed)
             {
                 int rotation=PlacementFacing.TowardsPlayer(World.Local(cell)+Vector3.one*.5f,Player.transform.position,Player.Yaw);
@@ -254,7 +259,7 @@ namespace RivetReach
             {bool dry=World.Get(cell)==BlockId.Air;reason=dry?"Place Torch":"Torches need a dry floor or wall face";return dry;}
             // Use the movement collider's exact occupied-cell rule, including its skin.
             // Touching the supporting face is legal; occupying the player's body is not.
-            reason=PlayerOverlapReason;if(World.OccupiesCell(Player.transform.position,.6f,Player.Height,cell))return false;
+            reason=PlayerOverlapReason;if(World.OccupiesBlock(Player.transform.position,.6f,Player.Height,cell,selected.Id))return false;
             reason="Cannot place inside a creature";if((Mobs!=null&&Mobs.Occupies(cell))||(Animals?.Occupies(cell)??false))return false;
             reason="Place "+Registry.Get(selected.Id).displayName;return true;
         }
@@ -267,7 +272,11 @@ namespace RivetReach
             BlockPos? crankSupport=null;
             if(selected.Id==IndustryId.HandCrank&&World.Raycast(Player.Camera.transform.position,Player.Camera.transform.forward,5,out var attachment,out _))crankSupport=attachment;
             // One local authority turn: recheck occupancy, commit the voxel, then consume exactly one.
-            if(selected.Id==BlockId.Torch)
+            if(Registry.Capability<IHalfBlock>(selected.Id) is IHalfBlock slab)
+            {
+                if(!SlabPlacement(slab,out cell,out var expected,out var replacement,out _)||!World.PlaceSlab(cell,expected,replacement))return false;
+            }
+            else if(selected.Id==BlockId.Torch)
             {
                 if(!World.Raycast(Player.Camera.transform.position,Player.Camera.transform.forward,5,out var support,out _)||!World.PlaceTorch(cell,support))return false;
             }

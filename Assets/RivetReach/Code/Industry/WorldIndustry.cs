@@ -63,7 +63,7 @@ namespace RivetReach
             if(id==BlockId.Chest||id==BlockId.Furnace)Simulation.Invalidate(p);
             else if(id==BlockId.Air)for(int f=0;f<6;f++)if(Simulation.At(IndustryDefinition.Neighbor(p,f))?.Definition.Id==IndustryId.ItemPipe){Simulation.Invalidate(p);break;}
             var above=p.Offset(0,1,0);
-            if(Get(above)==IndustryId.SignalWire&&!BlockId.Solid(id))game.World.Mine(above,IndustryId.SignalWire,ToolCapability.None);
+            if(Get(above)==IndustryId.SignalWire&&!BuildingBlocks.FullTop(id))game.World.Mine(above,IndustryId.SignalWire,ToolCapability.None);
         }
         public void Advance(int ticks)
         {Simulation.BeginFrame();try{for(int i=0;i<ticks;i++)Simulation.Step();}finally{Simulation.EndFrame();}}

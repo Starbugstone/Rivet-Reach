@@ -227,7 +227,7 @@ namespace RivetReach
                 if(block==BlockId.Bedrock||p.Y<TerrainGenerator.MinY){m.Status=MachineStatus.Depleted;return;}
                 if(!BlockId.Mineable(block,ToolCapability.Pickaxe,ToolTier.Iron)||IndustryId.Placed(block)||BlockId.Station(block)){m.Status=MachineStatus.NoInput;return;}
                 if(m.WorkInput!=block){m.Work=0;m.WorkInput=block;}
-                if(m.Items.Capacity(world.Drop(block),2,3)<1){m.Status=MachineStatus.OutputFull;return;}
+                if(m.Items.Capacity(world.Drop(block),2,3)<BuildingBlocks.DropCount(block)){m.Status=MachineStatus.OutputFull;return;}
             }
             m.RequestedWatts=m.Definition.Watts;m.Status=MachineStatus.NoPower;
         }
@@ -271,7 +271,7 @@ namespace RivetReach
             {var p=Neighbor(m,3);if(world.Get(p)!=Fluids.Water.Source||!world.Remove(p,Fluids.Water.Source))return;m.WaterMl+=10000;}
             if(id==IndustryId.RangedPump&&!CollectRangedSource(m))return;
             if(id==IndustryId.Drill)
-            {var p=m.Position.Offset(0,-m.DrillDepth,0);byte b=world.Get(p);if(b!=m.WorkInput||!world.Remove(p,b))return;m.Items.Add(world.Drop(b),1,2,3);m.DrillDepth++;}
+            {var p=m.Position.Offset(0,-m.DrillDepth,0);byte b=world.Get(p);if(b!=m.WorkInput||!world.Remove(p,b))return;m.Items.Add(world.Drop(b),BuildingBlocks.DropCount(b),2,3);m.DrillDepth++;}
             m.Work-=duration;
         }
         void TransferFluids()

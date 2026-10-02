@@ -14,6 +14,7 @@ namespace RivetReach
         public Bounds Bounds;
         public int[] Triangles;
         public FluidMeshData FluidMesh;
+        public GlassMeshData GlassMesh=GlassMeshData.Empty;
         public double Milliseconds;
         public Mesh ToMesh(Mesh mesh=null)=>ChunkMeshUpload.Terrain(Vertices,Triangles,Bounds,mesh);
         public void Translate(Vector3 offset)
@@ -27,9 +28,10 @@ namespace RivetReach
     {
         // Registry and block identities are immutable for the process lifetime.
         static readonly bool[] terrainSolid=BuildSolidTable();
+        public static bool FullTerrainCube(byte id)=>terrainSolid[id];
         static bool[] BuildSolidTable()
         {
-            var table=new bool[256];for(int i=0;i<table.Length;i++)table[i]=BlockId.Solid((byte)i)&&!CrateId.Part((byte)i)&&!BedId.Part((byte)i)&&i!=BlockId.MobSpawner&&!IndustryId.Placed((byte)i)&&i!=IndustryId.DoorUpper&&!StarterStationVisuals.UsesModel((byte)i);return table;
+            var table=new bool[256];for(int i=0;i<table.Length;i++)table[i]=i!=IndustryId.Glass&&!BuildingBlocks.Half((byte)i)&&BlockId.Solid((byte)i)&&!CrateId.Part((byte)i)&&!BedId.Part((byte)i)&&i!=BlockId.MobSpawner&&!IndustryId.Placed((byte)i)&&i!=IndustryId.DoorUpper&&!StarterStationVisuals.UsesModel((byte)i);return table;
         }
         // Each concurrent build exclusively owns its scratch until publication.
         // Keep the two workers plus synchronous edit path warm, but do not retain
@@ -40,10 +42,11 @@ namespace RivetReach
             public readonly List<Vector2> UV=new List<Vector2>(),Tiles=new List<Vector2>();
             public readonly List<int> Indices=new List<int>();
             public readonly List<(Vector3 position,byte id)> Plants=new List<(Vector3,byte)>();
+            public readonly List<(Vector3 position,byte id)> Building=new List<(Vector3,byte)>();
             public readonly byte[] Mask=new byte[1024];
-            public void Clear(){Vertices.Clear();Normals.Clear();UV.Clear();Tiles.Clear();Indices.Clear();Plants.Clear();}
-            public long Bytes=>1024L+12L*(Vertices.Capacity+Normals.Capacity)+8L*(UV.Capacity+Tiles.Capacity)+4L*Indices.Capacity+16L*Plants.Capacity;
-            long UsedBytes=>1024L+12L*(Vertices.Count+Normals.Count)+8L*(UV.Count+Tiles.Count)+4L*Indices.Count+16L*Plants.Count;
+            public void Clear(){Vertices.Clear();Normals.Clear();UV.Clear();Tiles.Clear();Indices.Clear();Plants.Clear();Building.Clear();}
+            public long Bytes=>1024L+12L*(Vertices.Capacity+Normals.Capacity)+8L*(UV.Capacity+Tiles.Capacity)+4L*Indices.Capacity+16L*(Plants.Capacity+Building.Capacity);
+            long UsedBytes=>1024L+12L*(Vertices.Count+Normals.Count)+8L*(UV.Count+Tiles.Count)+4L*Indices.Count+16L*(Plants.Count+Building.Count);
             public bool Retainable=>Bytes<=32L*1024*1024;
             public void CompactForRetention()
             {
@@ -56,6 +59,7 @@ namespace RivetReach
                 Vertices.Capacity=(int)(Vertices.Count*growth);Normals.Capacity=(int)(Normals.Count*growth);
                 UV.Capacity=(int)(UV.Count*growth);Tiles.Capacity=(int)(Tiles.Count*growth);
                 Indices.Capacity=(int)(Indices.Count*growth);Plants.Capacity=(int)(Plants.Count*growth);
+                Building.Capacity=(int)(Building.Count*growth);
             }
         }
         const int ScratchLimit=3;
@@ -99,6 +103,7 @@ namespace RivetReach
                         int address=Index(0,0,0)+layer*stride[axis]+i*stride[u]+j*stride[v];
                         byte a=cells[address],b=cells[address+sign*stride[axis]];
                         if(axis==0&&sign==-1&&(BlockId.Crop(a)||a==BlockId.Sapling))plants.Add((new Vector3(layer,i,j),a));
+                        if(axis==0&&sign==-1&&(BuildingBlocks.Half(a)||a==IndustryId.Glass))scratch.Building.Add((new Vector3(layer,i,j),a));
                         mask[i+j*32]=terrainSolid[a]&&!terrainSolid[b]?a:(byte)0;
                     }
                     for(int j=0;j<32;j++)for(int i=0;i<32;)
@@ -151,10 +156,12 @@ namespace RivetReach
                     Leaf(start,Vector3.Lerp(start,end,.5f)-across*h*.19f,end,Vector3.Lerp(start,end,.5f)+across*h*.19f);
                 }
             }
+            foreach(var cell in scratch.Building)if(BuildingBlocks.Half(cell.id))BuildingMesher.Slab(cell.id,cell.position,cells,vertices,normals,uv,tiles,indices);
+            var glass=BuildingMesher.Glass(cells,scratch.Building);
             var packed=new TerrainVertex[vertices.Count];var bounds=new MeshBounds();
             for(int i=0;i<packed.Length;i++)
             {var position=vertices[i];packed[i]=new TerrainVertex(position,normals[i],uv[i],tiles[i]);bounds.Add(position);}
-            return new ChunkBuild{FluidMesh=FluidMesher.Build(cells),Position=pos,Revision=revision,Cells=cells,Vertices=packed,Bounds=bounds.Value,Triangles=indices.ToArray()};
+            return new ChunkBuild{GlassMesh=glass,FluidMesh=FluidMesher.Build(cells),Position=pos,Revision=revision,Cells=cells,Vertices=packed,Bounds=bounds.Value,Triangles=indices.ToArray()};
         }
     }
 }

@@ -17,8 +17,8 @@ namespace RivetReach
             public long PendingSequence;
             public byte[] Cells;
             public GameObject View;
-            public Mesh Mesh,FluidMesh;
-            public GameObject FluidView;
+            public Mesh Mesh,FluidMesh,GlassMesh;
+            public GameObject FluidView,GlassView;
             public bool Busy,Dirty=true;
         }
         readonly Dictionary<ChunkPos,Resident> chunks=new Dictionary<ChunkPos,Resident>();
@@ -32,7 +32,7 @@ namespace RivetReach
         readonly HashSet<ChunkPos> wanted=new HashSet<ChunkPos>();
         readonly HashSet<(long,long)> wantedColumns=new HashSet<(long,long)>();
         readonly List<ChunkPos> releaseChunks=new List<ChunkPos>();
-        readonly Queue<(GameObject view,Mesh terrain,Mesh fluid)> retiredViews=new Queue<(GameObject,Mesh,Mesh)>();
+        readonly Queue<(GameObject view,Mesh terrain,Mesh fluid,Mesh glass)> retiredViews=new Queue<(GameObject,Mesh,Mesh,Mesh)>();
         public const int ViewTeardownBudget=4;
         public int PendingViewTeardowns=>retiredViews.Count;
         readonly List<(long,long)> releaseColumns=new List<(long,long)>();
@@ -44,7 +44,7 @@ namespace RivetReach
         public float FogStart => Math.Max(48,(ViewDistance*32-24)*.80f);
         public float FogEnd => ViewDistance*32-16;
         public Material TerrainMaterial;
-        Material fluidMaterial;
+        Material fluidMaterial,glassMaterial;
         public FluidSimulation FluidSimulation {get;private set;}
         float fluidAccumulator;
         public double LastFluidTickMs {get;private set;}
@@ -93,6 +93,7 @@ namespace RivetReach
             Grass=new GrassSimulation(seed);Trees=new TreeSimulation();
             FluidSimulation=new FluidSimulation(Fluids.Registry);
             fluidMaterial=Resources.Load<Material>("Materials/Water");
+            glassMaterial=Resources.Load<Material>("Materials/ConnectedGlass");
             TerrainMaterial=Resources.Load<Material>("Materials/Terrain");
             lightTableDirty=true;RenderPipelineManager.beginCameraRendering+=LightCamera;
             TorchView=gameObject.AddComponent<TorchPresentation>();TorchView.Initialize(this);
@@ -412,7 +413,7 @@ namespace RivetReach
             foreach(var key in releaseChunks)
             {
                 var departed=chunks[key];if(departed.View!=null)departed.View.SetActive(false);
-                if(departed.View!=null||departed.Mesh!=null||departed.FluidMesh!=null)retiredViews.Enqueue((departed.View,departed.Mesh,departed.FluidMesh));
+                if(departed.View!=null||departed.Mesh!=null||departed.FluidMesh!=null)retiredViews.Enqueue((departed.View,departed.Mesh,departed.FluidMesh,departed.GlassMesh));
                 // Keep only native handles until teardown; resident cell buffers can be collected now.
                 chunks.Remove(key);pendingMeshes.Remove(key);
             }
@@ -474,13 +475,13 @@ namespace RivetReach
         {
             using var cost=RuntimeCosts.TerrainUpload.Auto();
             bool first=c.Cells==null;
-            bool visibleTerrain=result.Triangles.Length>0,visibleFluid=result.FluidMesh.Indices.Length>0;
+            bool visibleTerrain=result.Triangles.Length>0,visibleFluid=result.FluidMesh.Indices.Length>0,visibleGlass=result.GlassMesh.Indices.Length>0;
             c.Cells=result.Cells;c.Dirty=false;pendingMeshes.Remove(result.Position);
             // Empty underground/sky pages still provide collision and residency data,
             // but need neither an empty renderer nor an empty native Mesh.
             using(RuntimeCosts.TerrainViews.Auto())
             {
-                if(c.View==null&&(visibleTerrain||visibleFluid))
+                if(c.View==null&&(visibleTerrain||visibleFluid||visibleGlass))
                 {
                     c.View=new GameObject("Chunk");c.View.transform.SetParent(transform,false);
                     c.View.AddComponent<MeshFilter>();var r=c.View.AddComponent<MeshRenderer>();r.sharedMaterial=TerrainMaterial;
@@ -488,7 +489,7 @@ namespace RivetReach
                 }
                 if(c.View!=null)
                 {
-                    c.View.SetActive(visibleTerrain||visibleFluid);c.View.transform.position=Local(result.Position.Min);
+                    c.View.SetActive(visibleTerrain||visibleFluid||visibleGlass);c.View.transform.position=Local(result.Position.Min);
                     c.View.GetComponent<MeshRenderer>().enabled=visibleTerrain;
                 }
             }
@@ -514,6 +515,15 @@ namespace RivetReach
                 if(c.FluidView!=null)
                 {c.FluidView.SetActive(visibleFluid);c.FluidView.GetComponent<MeshFilter>().sharedMesh=c.FluidMesh;}
             }
+            if(c.GlassView==null&&visibleGlass)
+            {
+                c.GlassView=new GameObject("Connected glass");c.GlassView.transform.SetParent(c.View.transform,false);
+                c.GlassView.AddComponent<MeshFilter>();var renderer=c.GlassView.AddComponent<MeshRenderer>();
+                renderer.sharedMaterial=glassMaterial;renderer.shadowCastingMode=ShadowCastingMode.Off;
+            }
+            if(visibleGlass)c.GlassMesh=result.GlassMesh.ToMesh(c.GlassMesh);
+            else if(c.GlassMesh!=null){Destroy(c.GlassMesh);c.GlassMesh=null;}
+            if(c.GlassView!=null){c.GlassView.SetActive(visibleGlass);c.GlassView.GetComponent<MeshFilter>().sharedMesh=c.GlassMesh;}
             if(first)
             {
                 using var activationCost=RuntimeCosts.ChunkActivation.Auto();
@@ -531,11 +541,11 @@ namespace RivetReach
             while(budget-->0&&retiredViews.Count>0)
             {
                 var retired=retiredViews.Dequeue();
-                if(retired.view!=null)Destroy(retired.view);if(retired.terrain!=null)Destroy(retired.terrain);if(retired.fluid!=null)Destroy(retired.fluid);
+                if(retired.view!=null)Destroy(retired.view);if(retired.terrain!=null)Destroy(retired.terrain);if(retired.fluid!=null)Destroy(retired.fluid);if(retired.glass!=null)Destroy(retired.glass);
             }
         }
         static void Release(Resident c)
-        {if(c.View!=null)Destroy(c.View);if(c.Mesh!=null)Destroy(c.Mesh);if(c.FluidMesh!=null)Destroy(c.FluidMesh);}
+        {if(c.View!=null)Destroy(c.View);if(c.Mesh!=null)Destroy(c.Mesh);if(c.FluidMesh!=null)Destroy(c.FluidMesh);if(c.GlassMesh!=null)Destroy(c.GlassMesh);}
         public bool Raycast(Vector3 start,Vector3 direction,float reach,out BlockPos hit,out byte id)
             => Raycast(start,direction,reach,out hit,out id,out _);
         public bool Raycast(Vector3 start,Vector3 direction,float reach,out BlockPos hit,out byte id,out Vector3Int face,bool fluidSources=false)
@@ -561,7 +571,7 @@ namespace RivetReach
                 if(solidsOnly?Solid(cell):b!=0&&(fluid==null||fluidSources&&fluid.IsSource(b)))
                 {
                     var definition=BlockDefinitions.Get(b);float selectedDistance=distance;var selectedFace=face;
-                    if(solidsOnly||(definition.Traits&BlockTraits.HasCustomSelectionShape)==0||
+                    if(solidsOnly&&definition.Collision==null||!solidsOnly&&(definition.Traits&BlockTraits.HasCustomSelectionShape)==0||
                         definition.Shape(this,cell).Intersect(start-Local(cell),direction,reach,out selectedDistance,out selectedFace))
                     {hit=new BlockSelectionHit(cell,b,start+direction*selectedDistance,selectedFace,selectedDistance);return true;}
                 }
@@ -575,8 +585,18 @@ namespace RivetReach
         public bool Overlaps(Vector3 feet,float width,float height)
         {
             CollisionCells(feet,width,height,out var min,out var max);
-            for(long z=min.Z;z<=max.Z;z++)for(int y=min.Y;y<=max.Y;y++)for(long x=min.X;x<=max.X;x++)if(Solid(new BlockPos(x,y,z)))return true;
+            for(long z=min.Z;z<=max.Z;z++)for(int y=min.Y;y<=max.Y;y++)for(long x=min.X;x<=max.X;x++)
+            {var cell=new BlockPos(x,y,z);if(Solid(cell)&&(!Ready(cell)||OccupiesBlock(feet,width,height,cell,Get(cell))))return true;}
             return false;
+        }
+        public bool OccupiesBlock(Vector3 feet,float width,float height,BlockPos cell,byte id)
+        {
+            if(!OccupiesCell(feet,width,height,cell))return false;
+            var collision=BlockDefinitions.Get(id).Collision;
+            if(collision==null)return true;
+            var localFeet=feet-Local(cell);
+            var body=new Bounds(localFeet+Vector3.up*(height*.5f),new Vector3(width-.002f,height-.002f,width-.002f));
+            return collision.Bounds.Intersects(body);
         }
         public bool OccupiesCell(Vector3 feet,float width,float height,BlockPos cell)
         {
@@ -588,7 +608,7 @@ namespace RivetReach
             min=Address(feet+new Vector3(-width/2+0.001f,0.001f,-width/2+0.001f));
             max=Address(feet+new Vector3(width/2-0.001f,height-0.001f,width/2-0.001f));
         }
-        public Vector3 Move(Vector3 feet,Vector3 delta,float width,float height,out bool grounded)
+        public Vector3 Move(Vector3 feet,Vector3 delta,float width,float height,out bool grounded,float stepHeight=0)
         {
             grounded=false;int steps=Math.Max(1,Mathf.CeilToInt(delta.magnitude/0.18f));var step=delta/steps;
             for(int i=0;i<steps;i++)for(int axis=0;axis<3;axis++)
@@ -598,6 +618,9 @@ namespace RivetReach
                 if(!Overlaps(dest,width,height))feet=dest;
                 else
                 {
+                    if(axis!=1&&stepHeight>0&&!Overlaps(dest+Vector3.up*stepHeight,width,height)&&
+                        !Overlaps(feet+Vector3.up*stepHeight,width,height)&&Overlaps(dest+Vector3.up*(stepHeight-.02f),width,.02f))
+                    {feet=dest+Vector3.up*stepHeight;grounded=true;continue;}
                     float low=0,high=1;
                     for(int b=0;b<9;b++){float t=(low+high)*0.5f;dest=feet;dest[axis]+=step[axis]*t;if(Overlaps(dest,width,height))high=t;else low=t;}
                     feet[axis]+=step[axis]*low;if(axis==1&&step.y<0)grounded=true;

@@ -17,9 +17,10 @@ namespace RivetReach
         public bool CanPlaceTorch(BlockPos cell,BlockPos support)
         {
             long dx=cell.X-support.X,dz=cell.Z-support.Z;int dy=cell.Y-support.Y;
-            return Ready(cell)&&Ready(support)&&Get(cell)==BlockId.Air&&BlockId.Solid(Get(support))&&
+            return Ready(cell)&&Ready(support)&&Get(cell)==BlockId.Air&&TorchSupported(Get(support),dy)&&
                 Math.Abs(dx)+Math.Abs(dz)+Math.Abs(dy)==1&&dy>=0&&cell.Y>TerrainGenerator.MinY&&cell.Y<=TerrainGenerator.MaxY;
         }
+        public static bool TorchSupported(byte id,int dy)=>BlockId.Solid(id)&&(!BuildingBlocks.Half(id)||dy>0&&BuildingBlocks.Upper(id));
         public bool PlaceTorch(BlockPos cell,BlockPos support)
         {
             if(!CanPlaceTorch(cell,support))return false;
@@ -47,7 +48,7 @@ namespace RivetReach
                 // Mining emits its own drop; fluid replacement also recovers exactly one torch.
                 if(Fluids.IsFluid(after))BlockMined?.Invoke(cell,BlockId.Torch);
             }
-            if(!BlockId.Solid(after))
+            if(!BlockId.Solid(after)||BuildingBlocks.Half(after))
             {
                 // Only the five possible attachments can depend on this support.
                 Detach(cell.Offset(0,1,0));Detach(cell.Offset(1,0,0));Detach(cell.Offset(-1,0,0));
@@ -56,7 +57,7 @@ namespace RivetReach
             if(before==BlockId.Torch||after==BlockId.Torch)TorchView?.Refresh();
             void Detach(BlockPos attached)
             {
-                if(TorchSupport(attached,out var support)&&support.Equals(cell)&&Change(attached,BlockId.Torch,BlockId.Air,false,false))
+                if(TorchSupport(attached,out var support)&&support.Equals(cell)&&!TorchSupported(after,attached.Y-cell.Y)&&Change(attached,BlockId.Torch,BlockId.Air,false,false))
                     BlockMined?.Invoke(attached,BlockId.Torch);
             }
         }

@@ -5,7 +5,7 @@ namespace RivetReach
     public sealed partial class VoxelWorld
     {
         public BlockPos DoorAnchor(BlockPos p)=>Get(p)==IndustryId.DoorUpper?p.Offset(0,-1,0):p;
-        internal static bool DoorFloor(byte id)=>BlockId.Solid(id)&&!IndustryId.Placed(id)&&id!=IndustryId.DoorUpper;
+        internal static bool DoorFloor(byte id)=>BuildingBlocks.FullTop(id)&&!IndustryId.Placed(id)&&id!=IndustryId.DoorUpper;
         public bool CanPlaceDoor(BlockPos p)
         {
             var top=p.Offset(0,1,0);var floor=p.Offset(0,-1,0);

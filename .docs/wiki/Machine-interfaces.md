@@ -29,3 +29,5 @@ All item-accepting receivers now have **ITEM PRIORITY** with an editable number.
 *Furnace and Electric Furnace captures: native Windows player, 2026-09-19. The earlier Crusher/Battery illustrations retain their 2026-09-12 capture dates. These are staged in-game examples.*
 
 For placed models and viewing distances, see [Seeing your factory from a distance](Factory-visibility.md).
+
+The left illustration panel now includes live [machine setup feedback](Machine-setup-feedback.md), including missing connections and connected grids without power.

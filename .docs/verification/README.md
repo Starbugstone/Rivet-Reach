@@ -15,6 +15,7 @@ This directory maintains the latest report and useful evidence for each feature.
 
 | Feature | Current evidence |
 | --- | --- |
+| Guidance, navigation and building | [October 2 focused verification](ALPHA_GUIDANCE_RESULTS.md) — depth/tool hints, machine setup help, Home/Last death, slabs and connected Glass; FPS recheck deferred |
 | Machine visibility distance | [October 2 implementation and native stress test](FACTORY_VISIBILITY_RESULTS.md) — terrain-distance models, detail transition, tank visibility, exact state preservation, images/video and measured performance limits |
 | Crafting identity and component recipes | [October 2 issue #1 verification](CRAFTING_IDENTITY_RESULTS.md) — project-owned recipe contract, one-ingot Cog, plate Rivets and exact legacy content compatibility |
 | 0.1.0 gameplay and release readiness | [October 2 gameplay/code review](ALPHA_0_1_0_GAMEPLAY_REVIEW.md) — 1–2 hour first-line target, recipe/resource surveys, natural populations, scenery and prioritized work; [September 27 timing audit](RELEASE_READINESS_0_1_0.md) retains its dated performance evidence |

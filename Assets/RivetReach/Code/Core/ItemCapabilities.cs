@@ -84,6 +84,7 @@ namespace RivetReach
             foreach(var item in items)
             {
                 byte id=item.runtimeId;
+                if(BuildingBlocks.AddedItem(id))Add<IHalfBlock>(id,"half_block",BuildingBlocks.SlabFor(id));
                 foreach(string label in item.tags)
                 {
                     if(!labels.TryGetValue(label,out var table)){table=new bool[256];labels.Add(label,table);}table[id]=true;

@@ -20,13 +20,17 @@ namespace RivetReach
                 Panel(card.transform, 15, 35 + i * 30, 180, 1, grid);
             }
             Label(card.transform, "INTERACTING WITH", 12, 12, 186, 20, 11, gold).alignment = TextAnchor.MiddleCenter;
-            var art = Rect(card.transform, "Machine graphic", 10, 32, 190, 190).gameObject.AddComponent<RawImage>();
+            var art = Rect(card.transform, "Machine graphic", 53, 32, 104, 104).gameObject.AddComponent<RawImage>();
             currentScreen.stationImage = art;
-            Panel(card.transform, 16, 227, 178, 1, gold * new Color(1, 1, 1, .4f));
-            var name = Label(card.transform, "", 10, 232, 190, 34, 15);
+            Panel(card.transform, 16, 171, 178, 1, gold * new Color(1, 1, 1, .4f));
+            var name = Label(card.transform, "", 10, 136, 190, 32, 14);
             name.alignment = TextAnchor.MiddleCenter;
             name.verticalOverflow = VerticalWrapMode.Truncate;
             currentScreen.stationImageName = name;
+            currentScreen.stationSetup=Label(card.transform,"",12,181,186,81,12);
+            currentScreen.stationSetup.resizeTextForBestFit=true;
+            currentScreen.stationSetup.resizeTextMinSize=10;currentScreen.stationSetup.resizeTextMaxSize=12;
+            currentScreen.stationSetup.verticalOverflow=VerticalWrapMode.Truncate;
             // Decoration must never intercept inventory dragging or clicks.
             foreach (var graphic in card.GetComponentsInChildren<Graphic>()) graphic.raycastTarget = false;
             card.gameObject.SetActive(false);
@@ -42,12 +46,13 @@ namespace RivetReach
             var texture = ItemIcon(id);
             currentScreen.stationImage.texture = texture;
             // Fit the full image even if a future authored icon is not square.
-            float scale = 190f / Mathf.Max(texture.width, texture.height);
+            float scale = 104f / Mathf.Max(texture.width, texture.height);
             var size = new Vector2(texture.width, texture.height) * scale;
             var rect = currentScreen.stationImage.rectTransform;
             rect.sizeDelta = size;
-            rect.anchoredPosition = new Vector2(10 + (190 - size.x) / 2, -32 - (190 - size.y) / 2);
+            rect.anchoredPosition = new Vector2(53 + (104 - size.x) / 2, -32 - (104 - size.y) / 2);
             currentScreen.stationImageName.text = game.Registry.Get(id).displayName;
+            currentScreen.stationSetup.text=MachineSetupFeedback.For(game);
         }
     }
 }

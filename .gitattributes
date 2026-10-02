@@ -125,3 +125,6 @@ ArtSource/Renewables/*.png filter=lfs diff=lfs merge=lfs -text
 
 .docs/wiki/images/factory-visibility-2026-10-02/*.png filter=lfs diff=lfs merge=lfs -text
 .docs/verification/factory-visibility-2026-10-02/*.mp4 filter=lfs diff=lfs merge=lfs -text
+
+.docs/wiki/images/alpha-guidance/*.png filter=lfs diff=lfs merge=lfs -text
+.docs/verification/alpha-guidance-2026-10-02/*.png filter=lfs diff=lfs merge=lfs -text

@@ -4,7 +4,7 @@
 
 Start with the [visual item index](Items.md), then click an item to see its purpose, how to obtain it, every recipe that makes it, and what uses it. Every item icon links to its own page.
 
-This reference covers **112 grid recipes, 11 furnace recipes, 11 electric furnace recipes, 5 crusher recipes, 22 cooker recipes and 19 compost conversions** in the current playable alpha. The recipe grids and icons come from the same catalog and artwork used by the inventory browser.
+This reference covers **114 grid recipes, 11 furnace recipes, 11 electric furnace recipes, 5 crusher recipes, 22 cooker recipes and 19 compost conversions** in the current playable alpha. The recipe grids and icons come from the same catalog and artwork used by the inventory browser.
 
 ## First crafting steps
 
@@ -126,6 +126,8 @@ Choose a result below to open its item page at the exact recipe.
 | <a href="Item-fishing-rod.md#recipe-1" title="Fishing Rod"><img src="icons/244.png" width="32" height="32" alt="Fishing Rod"></a> ×1 [Fishing Rod](Item-fishing-rod.md) | [Workbench](Item-workbench.md) | [View recipe](Item-fishing-rod.md#recipe-1) |
 | <a href="Item-bed.md#recipe-1" title="Bed"><img src="icons/254.png" width="32" height="32" alt="Bed"></a> ×1 [Bed](Item-bed.md) | [Workbench](Item-workbench.md) | [View recipe](Item-bed.md#recipe-1) |
 | <a href="Item-bulk-crate.md#recipe-1" title="Bulk Crate"><img src="icons/176.png" width="32" height="32" alt="Bulk Crate"></a> ×1 [Bulk Crate](Item-bulk-crate.md) | [Workbench](Item-workbench.md) | [View recipe](Item-bulk-crate.md#recipe-1) |
+| <a href="Item-wooden-slab.md#recipe-1" title="Wooden Slab"><img src="icons/82.png" width="32" height="32" alt="Wooden Slab"></a> ×6 [Wooden Slab](Item-wooden-slab.md) | [Workbench](Item-workbench.md) | [View recipe](Item-wooden-slab.md#recipe-1) |
+| <a href="Item-stone-slab.md#recipe-1" title="Stone Slab"><img src="icons/85.png" width="32" height="32" alt="Stone Slab"></a> ×6 [Stone Slab](Item-stone-slab.md) | [Workbench](Item-workbench.md) | [View recipe](Item-stone-slab.md#recipe-1) |
 
 ## Machinist’s Bench — 4×4
 

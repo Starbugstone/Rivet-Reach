@@ -53,3 +53,7 @@
 
 - [Seeing your factory from a distance](Factory-visibility.md) — distant machines, pipes and tanks, with a native camera tour.
 - [Factory stress-test gallery](Release-review-gallery.md) — actual factory, storm and farm captures from the pre-0.1.0 review.
+
+- [Slabs and connected glass](Slabs-and-connected-glass.md) — half-height building and clear joined windows.
+- [Exploration and navigation](Exploration-and-navigation.md) — ore heights, tool requirements, Home and Last death.
+- [Machine setup feedback](Machine-setup-feedback.md) — power, fuel, shaft and pipe guidance.

@@ -17,6 +17,7 @@ namespace RivetReach
             public GameObject inventoryPortrait, stationIllustration;
             public RawImage stationImage;
             public Text stationImageName;
+            public Text stationSetup, navigationText, depthText;
             public Canvas canvas;
             public GraphicRaycaster raycaster;
             public readonly List<Canvas> childCanvases=new List<Canvas>();

@@ -3225,3 +3225,37 @@ MonoBehaviour:
     attackDamage: 1
     buoyant: 0
     tags: []
+  - runtimeId: 82
+    stableId: rivet:wooden_slab
+    displayName: Wooden Slab
+    stackLimit: 64
+    fistSeconds: 1
+    colour: {r: 0.6, g: 0.38, b: 0.2, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags:
+    - half_block
+  - runtimeId: 85
+    stableId: rivet:stone_slab
+    displayName: Stone Slab
+    stackLimit: 64
+    fistSeconds: 1.5
+    colour: {r: 0.52, g: 0.55, b: 0.56, a: 1}
+    fistDropId: 0
+    toolCapabilities: 0
+    tier: 0
+    miningSpeed: 1
+    foodPoints: 0
+    armorSlot: 0
+    armorPoints: 0
+    attackDamage: 1
+    buoyant: 0
+    tags:
+    - half_block

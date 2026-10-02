@@ -4,6 +4,8 @@ The Unity **6000.4.4f1 / URP 17.4.0** project now includes terrain and caves, FP
 
 ## Run and build
 
+The October 2 guidance/building review player is **`Builds/AlphaGuidance/RivetReach.exe`**. It adds depth/tool cues, Home/Last death navigation, live machine setup advice, wooden/stone slabs and connected Glass. [Focused verification](verification/ALPHA_GUIDANCE_RESULTS.md) identifies its exact native evidence. Rebuild using `-executeMethod RivetReach.Editor.AlphaGuidanceBuild.Build` in the pinned Editor; it runs the focused geometry, recipe and save-envelope checks and exports the matching wiki catalog. Frame-rate acceptance is deferred until the development machine is less loaded. This is not a tagged 0.1.0 release.
+
 Before release profiling, verify the executable's assembly identity against [the September 27 readiness audit](verification/RELEASE_READINESS_0_1_0.md#current-audit-and-artifact-identity). The main workspace and isolated review checkout have different builds under the same `Builds/DiagnosticsLiquids` path. The audit identifies the final optimized player; folder names and older feature checks do not certify the current source.
 
 The September 22 diagnostics/liquid review player is **`Builds/DiagnosticsLiquids/RivetReach.exe`**. **F12** shows system tick and thread timings. [Diagnostics and flowing-liquid results](verification/DIAGNOSTICS_LIQUID_RESULTS.md) record 48 passing Editor suites, native stress results and the remaining frame-time breaches. Request `diagnostics-liquids` in `Logs/build-request.txt` for this build and its checks.

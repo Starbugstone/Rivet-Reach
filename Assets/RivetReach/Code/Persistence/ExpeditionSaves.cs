@@ -24,6 +24,7 @@ namespace RivetReach
                 w.Write(Sky.Clock.DaySeconds);w.Write(Sky.Clock.TotalDays);w.Write(Selected);w.Write(Math.Max(0,invulnerableUntil-Time.time));
                 World.WriteSave(w);Player.WriteSave(w);w.Slots(Inventory.Slots);w.Slots(PersonalCrafting.Grid.Slots);Hunger.WriteSave(w);Health.WriteSave(w);Equipment.WriteSave(w);
                 Survival.WriteSave(w);Industry.Simulation.WriteSave(w);Items.WriteSave(w);Mobs.WriteSave(w);Animals.WriteSave(w);Beds.WriteSave(w);Weather.WriteSave(w);
+                Navigation.WriteSave(w);
             });
         }
         public bool SaveGame(string name=null,bool newSlot=false)
@@ -66,6 +67,7 @@ namespace RivetReach
             var oldHunger=Hunger;var oldHealth=Health;var oldEquipment=Equipment;var oldSurvival=Survival;var oldIndustry=Industry;var oldFishing=Fishing;var oldAnimals=Animals;var oldBeds=Beds;var oldCrates=Crates;var oldWeather=Weather;
             string oldSaveId=SaveId,oldSaveName=SaveName;int oldSelected=Selected;bool oldLoading=LoadingSave,oldWaiting=WaitingForRespawn;
             var oldStation=OpenStation;var oldMachine=OpenMachine;int oldSeed=Seed;bool oldCreative=Creative;
+            var oldNavigation=Navigation;
             float oldImmunity=invulnerableUntil,oldDayLength=Sky.DayLengthMinutes;double oldDays=Sky.Clock.TotalDays;string oldWorldId=WorldId;
             oldWorld.gameObject.SetActive(false);oldPlayer.gameObject.SetActive(false);oldItems.gameObject.SetActive(false);
             try
@@ -77,7 +79,7 @@ namespace RivetReach
                 Survival.ReadSave(r);Crates.Restored();Industry.Simulation.ReadSave(r);
                 SaveReader.Require(Industry.Simulation.Multiblocks.WorldId.ToString("N")==WorldId,"Saved world identities differ.");
                 foreach(var p in World.SavedBlocks())if(IndustryId.Placed(p.Value))SaveReader.Require(Industry.Simulation.At(p.Key)!=null,"Missing saved machine.");
-                Items.ReadSave(r);Mobs.ReadSave(r);Animals.ReadSave(r);Beds.ReadSave(r);Weather.ReadSave(r,r.Format);SaveReader.Require(r.BaseStream.Position==r.BaseStream.Length,"Unexpected trailing save data.");
+                Items.ReadSave(r);Mobs.ReadSave(r);Animals.ReadSave(r);Beds.ReadSave(r);Weather.ReadSave(r,r.Format);Navigation.ReadSave(r);SaveReader.Require(r.BaseStream.Position==r.BaseStream.Length,"Unexpected trailing save data.");
                 if(r.Format<10)
                 {
                     foreach(var pile in Items.Piles)World.ProtectLegacy(pile.Position.Cell);
@@ -90,7 +92,7 @@ namespace RivetReach
             {
                 if(World!=oldWorld){World.Stop();World.gameObject.SetActive(false);Destroy(World.gameObject);Player.gameObject.SetActive(false);Destroy(Player.gameObject);Items.gameObject.SetActive(false);Destroy(Items.gameObject);}
                 World=oldWorld;Player=oldPlayer;Items=oldItems;Mobs=oldMobs;Inventory=oldInventory;PersonalCrafting=oldCrafting;Hunger=oldHunger;Health=oldHealth;Equipment=oldEquipment;Survival=oldSurvival;Industry=oldIndustry;Fishing=oldFishing;Animals=oldAnimals;Beds=oldBeds;Crates=oldCrates;Weather=oldWeather;PassiveTargets=oldAnimals;OpenStation=oldStation;OpenMachine=oldMachine;Seed=oldSeed;Creative=oldCreative;invulnerableUntil=oldImmunity;WorldId=oldWorldId;SaveId=oldSaveId;SaveName=oldSaveName;Selected=oldSelected;LoadingSave=oldLoading;
-                WaitingForRespawn=oldWaiting;Sky.DayLengthMinutes=oldDayLength;Sky.ResetClock();Sky.Clock.SetTime(oldDays);Sky.Apply();RenderSettings.fogStartDistance=World.FogStart;RenderSettings.fogEndDistance=World.FogEnd;
+                Navigation=oldNavigation;WaitingForRespawn=oldWaiting;Sky.DayLengthMinutes=oldDayLength;Sky.ResetClock();Sky.Clock.SetTime(oldDays);Sky.Apply();RenderSettings.fogStartDistance=World.FogStart;RenderSettings.fogEndDistance=World.FogEnd;
                 oldWorld.gameObject.SetActive(true);oldPlayer.gameObject.SetActive(true);oldItems.gameObject.SetActive(true);throw;
             }
             oldWorld.Stop();Destroy(oldWorld.gameObject);Destroy(oldPlayer.gameObject);Destroy(oldItems.gameObject);

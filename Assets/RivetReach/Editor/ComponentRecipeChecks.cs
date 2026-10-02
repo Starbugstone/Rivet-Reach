@@ -39,7 +39,7 @@ namespace RivetReach.Editor
             Check(obsolete.Preview==null,"Old two-ingot Cog layout is no longer registered");
             var glass=ProcessingCatalogAsset.Load().Compile(items).Recipes.Single(r=>r.Input.Id==BlockId.Sand);
             Check(glass.Input.Count==1&&glass.Output.Id==IndustryId.Glass&&glass.Output.Count==1,"One Sand smelts into one Glass component");
-            Check(!BlockId.Placeable(IndustryId.Glass)&&BlockId.Placeable(IndustryId.TankGlass),"Glass remains a component; reinforced tank glass supplies placed industrial windows");
+            Check(BlockId.Placeable(IndustryId.Glass)&&BlockId.Placeable(IndustryId.TankGlass),"Ordinary Glass and reinforced tank glass retain separate placement roles");
             var furnace=new FurnaceState(ProcessingCatalogAsset.Load().Compile(items),Limit);
             var sand=new ItemStack(BlockId.Sand,1);furnace.Click(0,ref sand,false);var coal=new ItemStack(BlockId.Coal,1);furnace.Click(1,ref coal,false);
             furnace.Advance(glass.Ticks);Check(sand.Empty&&coal.Empty&&furnace.Slots[0].Empty&&furnace.Slots[2].Id==IndustryId.Glass&&furnace.Slots[2].Count==1,"Real furnace transaction produces Glass");
@@ -50,22 +50,38 @@ namespace RivetReach.Editor
             var identity=new SaveEntry{Id=Guid.NewGuid().ToString("N"),WorldId=Guid.NewGuid().ToString("N"),Name="Component contract",Seed=18,UtcTicks=DateTime.UtcNow.Ticks,GeneratorVersion=TerrainGenerator.Version};
             var current=new SaveStore("unused",items);byte[] oldBytes;
             void Payload(SaveWriter writer){writer.Stack(new ItemStack(IndustryId.Cog,17));writer.Stack(new ItemStack(IndustryId.Rivets,31));}
-            void ReadExact(SaveStore store,byte[] bytes)
+            void ReadExact(SaveStore store,byte[] bytes,int format=SaveStore.Format)
             {
                 using var reader=store.Open(bytes,out _);var a=reader.Stack();var b=reader.Stack();
-                Check(reader.Format==18&&a.Id==IndustryId.Cog&&a.Count==17&&b.Id==IndustryId.Rivets&&b.Count==31,"Schema 18 retains exact existing component stacks");
+                Check(reader.Format==format&&a.Id==IndustryId.Cog&&a.Count==17&&b.Id==IndustryId.Rivets&&b.Count==31,"Schema "+format+" retains exact existing component stacks");
             }
             try
             {
                 ReadExact(current,current.Encode(identity,Payload));
+                // Approved components immediately before the additive building change.
+                var preBuildingItems=items.items;var preBuildingRecipes=catalog.recipes;
+                try
+                {
+                    items.items=preBuildingItems.Where(i=>!BuildingBlocks.AddedItem(i.runtimeId)).ToArray();items.InvalidateIndex();
+                    catalog.recipes=preBuildingRecipes.Where(r=>!BuildingBlocks.Recipe(r.stableId)).ToArray();
+                    ReadExact(current,SaveFixtureEnvelope.WithSchema(new SaveStore("unused",items).Encode(identity,Payload),18),18);
+                }
+                finally{items.items=preBuildingItems;items.InvalidateIndex();catalog.recipes=preBuildingRecipes;}
                 // Recreate the exact former recipe definitions, not a bypassed hash.
                 // This is a synthetic schema-18 envelope; pinned schemas 1–17 are
                 // independently exercised by SaveCompatibilityChecks.
                 cog.kind=RecipeKind.Shaped;cog.width=2;cog.ingredients=new[]{new RecipeCellData{itemId="rivet:iron_ingot",count=1},new RecipeCellData{itemId="rivet:iron_ingot",count=1}};
                 rivets.ingredients=new[]{new RecipeCellData{itemId="rivet:iron_ingot",count=1}};rivets.output.count=8;
-                oldBytes=new SaveStore("unused",items).Encode(identity,Payload);
+                var allItems=items.items;var allRecipes=catalog.recipes;
+                try
+                {
+                    items.items=allItems.Where(i=>!BuildingBlocks.AddedItem(i.runtimeId)).ToArray();items.InvalidateIndex();
+                    catalog.recipes=allRecipes.Where(r=>!BuildingBlocks.Recipe(r.stableId)).ToArray();
+                    oldBytes=SaveFixtureEnvelope.WithSchema(new SaveStore("unused",items).Encode(identity,Payload),18);
+                }
+                finally{items.items=allItems;items.InvalidateIndex();catalog.recipes=allRecipes;}
                 JsonUtility.FromJsonOverwrite(cogJson,cog);JsonUtility.FromJsonOverwrite(rivetJson,rivets);
-                ReadExact(current,oldBytes);
+                ReadExact(current,oldBytes,18);
                 void Reject(Action mutate,RecipeAsset recipe,string original,string label)
                 {
                     try

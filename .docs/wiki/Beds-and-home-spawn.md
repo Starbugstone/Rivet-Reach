@@ -43,3 +43,5 @@ Sleep advances the sky and calendar and checks [weather](Weather.md) again. You 
 Screenshots: September 19, 2026, from the bed development player; the night/morning pair was refreshed in the Weather player for the sleep weather recheck. The review platform demonstrates crafting, placement, setting home, sleep and respawn.
 
 [All items](Items.md) · [Farming and cooking](Farming-and-cooking.md) · [Home](Home.md)
+
+Your bound bed also supplies the HUD Home direction and distance. See [Exploration and navigation](Exploration-and-navigation.md).

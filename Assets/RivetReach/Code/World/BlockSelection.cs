@@ -52,13 +52,21 @@ namespace RivetReach
         SelectionShape GetSelectionShape(VoxelWorld world,BlockPos position);
     }
 
+    public interface IBlockCollisionShape { Bounds Bounds {get;} }
+    public sealed class BoxCollisionShape : IBlockCollisionShape
+    {
+        public Bounds Bounds {get;}
+        public BoxCollisionShape(Bounds bounds){Bounds=bounds;}
+    }
+
     public readonly struct BlockDefinition
     {
         public readonly BlockTraits Traits;
         public readonly SelectionShape Selection;
         public readonly ISelectionShapeProvider Provider;
-        public BlockDefinition(SelectionShape shape,ISelectionShapeProvider provider=null,BlockTraits traits=BlockTraits.None)
-        {Selection=shape;Provider=provider;Traits=traits|(shape!=null||provider!=null?BlockTraits.HasCustomSelectionShape:BlockTraits.None);}
+        public readonly IBlockCollisionShape Collision;
+        public BlockDefinition(SelectionShape shape,ISelectionShapeProvider provider=null,BlockTraits traits=BlockTraits.None,IBlockCollisionShape collision=null)
+        {Selection=shape;Provider=provider;Collision=collision;Traits=traits|(shape!=null||provider!=null?BlockTraits.HasCustomSelectionShape:BlockTraits.None);}
         public SelectionShape Shape(VoxelWorld world,BlockPos position)=>Provider?.GetSelectionShape(world,position)??Selection;
     }
 
@@ -69,6 +77,8 @@ namespace RivetReach
         static BlockDefinition[] Build()
         {
             var result=new BlockDefinition[256]; // Default value is the full-cube fast path.
+            foreach(byte id in new[]{BuildingBlocks.WoodenSlab,BuildingBlocks.WoodenUpper,BuildingBlocks.StoneSlab,BuildingBlocks.StoneUpper})
+            {var bounds=BuildingBlocks.Bounds(id);result[id]=new BlockDefinition(new SelectionShape(bounds),collision:new BoxCollisionShape(bounds));}
             result[BlockId.MobSpawner]=new BlockDefinition(null,null,BlockTraits.NoMiningDrop);
             result[BedId.Bed]=new BlockDefinition(null,new BedSelection(false));
             result[BedId.Head]=new BlockDefinition(null,new BedSelection(true));
