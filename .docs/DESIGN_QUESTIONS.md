@@ -182,3 +182,16 @@ Nonblocking questions for the future customisation UI:
 - Should custom PNG skins use the published 8×8 cell layout with tinting disabled?
 
 Reverting means setting `AvatarAppearance.Generation` to 1.
+
+## Performance and code-quality plan — 2026-10-03
+
+Following the 2026-10-02 code review, the user asked for a written plan. [PERFORMANCE_PLAN.md](PERFORMANCE_PLAN.md) proposes patches with rationale, risks and validation. Nothing in it is implemented, built or measured. Items marked exact (no intended gameplay or image change) may proceed once their checks pass. The user deferred renewed frame-rate measurements, so performance acceptance waits for the plan's measurement protocol.
+
+Nonblocking questions to settle before the related items change any default:
+
+- Default frame pacing after measurement: the current 90 FPS cap, display sync, or a 60/120 cap (B5).
+- Anti-aliasing: the current MSAA 4× plus SMAA, or an alternative chosen from captures (B2).
+- Inventory portrait: keep full-rate shadows and SSAO, or reduce them (B3).
+- Lamp voxel light: immediate, or settled over 10 ticks so power-shortage flicker stops re-solving light (D7).
+- Sustained overload: keep the whole tick backlog (proposed), or drop backlog beyond one second (C1).
+- SSAO resolution/source (I4) and IL2CPP adoption (B6).

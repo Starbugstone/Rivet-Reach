@@ -67,6 +67,8 @@ Evidence: [build identity](release-readiness-2026-09-27/build-identity.json), [S
 | P1 | Complete sustained stability and memory coverage. Existing five-minute runs and Unity allocated-memory snapshots cannot establish multi-hour stability, total process/VRAM use or allocation/GC behavior. | Extended ordinary Survival → automation → travel → save/reload session, repeated residency cycles, process and graphics memory trends, usable GC/allocation traces and no lost/duplicated state or recurring exceptions. Preserve offline/dormant freeze. |
 | P1 | Produce one reproducible 0.1.0 candidate and validate its documentation. Version settings and release packaging still name 0.0.1, and several run-guide paths point to historical builds. | Clean pinned-source build with deliberate version/notes, complete runtime files and notices, exact hashes, fresh-extraction launch, legacy-save/recovery checks and a second environment run. Validate/export the wiki against the exact selected artwork. No release/tag is created by this audit. |
 
+[PERFORMANCE_PLAN.md](../PERFORMANCE_PLAN.md) (2026-10-03) proposes prioritized changes for these blockers, with draft patches, risks and required checks. It is a proposal and adds no new evidence.
+
 ## Frame integrity: what has and has not been demonstrated
 
 Treat image correctness and presentation timing as two related checks. Shader reference images and resource-safe publication are valuable, but a correct screenshot can coexist with dropped/repeated displayed frames, tearing or an obvious streaming pop. The frame CSV measures Unity frame intervals; delayed `FrameTimingManager` samples do not certify monitor scanout or input-to-photon latency.
