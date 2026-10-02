@@ -16,6 +16,8 @@ Inventory icons and the five static item meshes come from the same armor/ingot a
 
 `AvatarEquipment` rebinds imported armor to the explorer's existing animated bones. Each equipped slot selects its registered material, supporting mixed tiers. Revision-driven synchronization updates the body, first-person bracers and inventory portrait after equipment changes. Appearance rebuilds bind the same equipment authority to the new model/skin. Helmet-covered crown hair is hidden while equipped and restored on removal; lower hair remains visible. First-person body armor retains a full armor shadow while omitting the head and duplicate arms from the visible body. Knee guards blend across the existing thigh/shin joint to retain coverage during crouching. Bracers follow the dominant arm and the existing pickaxe support-hand visibility.
 
+Second-generation explorers ([EXPLORER_V2.md](EXPLORER_V2.md)) keep the same skeleton and fit within the existing armor shells. Their helmet rule also hides goggles above the brow. [Their verification](verification/EXPLORER_V2_RESULTS.md) records the measured fit.
+
 Armor is presentation derived from `EquipmentState`; it adds no save fields, hitbox changes, inventory authority, damage rules or extra Animator. Existing armor persistence and death removal drive the visual state. World materials and imported mesh data are shared; first-person materials and extracted body/arm meshes belong to the avatar and are released on rebuild/destruction.
 
 ## Reproduction and evidence

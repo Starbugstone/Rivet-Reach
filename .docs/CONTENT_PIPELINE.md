@@ -60,6 +60,8 @@ The user's accepted female direction uses longer hair and a modestly different f
 
 Provide an original Rivet Reach skin template and preview it on the model before fixing its layout. PNG is the working interchange proposal; exact resolution, UV layout, filtering and optional overlay-layer support remain to be selected through the player visual review. Familiar skin customization does not imply compatibility with other games’ skin files. Do not advertise direct compatibility without a separately selected and tested mapping.
 
+**Second-generation template, 2026-10-02:** [EXPLORER_V2.md](EXPLORER_V2.md#layered-appearance) owns the current layout. Both bodies share one parametric UV layout in a 2048 px atlas of 8×8 tint cells nested in the original 4×4 semantic tiles. A near-white base map stores modulation, and a point-sampled tint per cell supplies independently chosen skin, hair, eye and cloth colours. The surface and normal maps are shared, and occlusion is a per-model vertex colour. The rig, single material, single UV set and four-influence limit are unchanged.
+
 The initial two test skins must differ in face/skin colours and clothing and be tested on both male and female models so body/first-person mismatches are easy to detect. Verify seams, left/right orientation, hand detail, bending at joints and unchanged collision/mining behaviour. If custom-file import is selected for the first slice, reject invalid formats/dimensions or excessive decoded sizes and preserve the last valid selection. Base-body transparency must not make the player disappear; optional transparent overlays require their own explicit format rule.
 
 

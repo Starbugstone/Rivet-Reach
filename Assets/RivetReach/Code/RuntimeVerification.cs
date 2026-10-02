@@ -395,9 +395,9 @@ namespace RivetReach
             game.SetMode(ScreenMode.Inventory);yield return Capture("03-inventory");
             game.SetMode(ScreenMode.Appearance);game.SetAppearance(false,0);yield return null;
             report.armsTriangles=player.Arms.TriangleCount;report.bodyTriangles=player.Body.TriangleCount;
-            report.maleTriangles=Resources.Load<GameObject>("Characters/ExplorerMale").GetComponentInChildren<SkinnedMeshRenderer>().sharedMesh.triangles.Length/3;
+            report.maleTriangles=Resources.Load<GameObject>(AvatarAppearance.ModelPath(false)).GetComponentInChildren<SkinnedMeshRenderer>().sharedMesh.triangles.Length/3;
             yield return Capture("04-male");game.SetAppearance(false,1);game.UI.Rebuild();yield return Capture("04b-male-alternate");game.SetAppearance(true,0);game.UI.Rebuild();yield return Capture("05-female");
-            report.femaleTriangles=Resources.Load<GameObject>("Characters/ExplorerFemale").GetComponentInChildren<SkinnedMeshRenderer>().sharedMesh.triangles.Length/3;
+            report.femaleTriangles=Resources.Load<GameObject>(AvatarAppearance.ModelPath(true)).GetComponentInChildren<SkinnedMeshRenderer>().sharedMesh.triangles.Length/3;
             game.SetAppearance(true,1);game.UI.Rebuild();yield return Capture("06-alternate-skin");
             Check(Mathf.Approximately(player.Height,1.8f),"Appearance changes preserve gameplay height");
             Check(report.maleTriangles<=90000&&report.femaleTriangles<=90000,"Both imported player meshes meet revised triangle review budget");
@@ -438,7 +438,7 @@ namespace RivetReach
                 var body=player.Body.GetComponentsInChildren<SkinnedMeshRenderer>().Single(r=>r.shadowCastingMode!=UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly);
                 var weights=body.sharedMesh.boneWeights;
                 Check(weights.Any(w=>body.bones[w.boneIndex0].name=="Chest")&&weights.Any(w=>body.bones[w.boneIndex0].name=="Spine"),"First-person jacket and waist survive the visibility filter");
-                int full=Resources.Load<GameObject>("Characters/"+(variant?"ExplorerFemale":"ExplorerMale")).GetComponentInChildren<SkinnedMeshRenderer>().sharedMesh.triangles.Length/3;
+                int full=Resources.Load<GameObject>(AvatarAppearance.ModelPath(variant)).GetComponentInChildren<SkinnedMeshRenderer>().sharedMesh.triangles.Length/3;
                 if(variant)report.femaleTriangles=full;else report.maleTriangles=full;
                 Check(player.Body.ShadowTriangleCount==full,"First-person player casts the complete model silhouette");
                 report.bodyTriangles=player.Body.TriangleCount;report.armsTriangles=player.Arms.TriangleCount;report.bodyShadowTriangles=player.Body.ShadowTriangleCount;

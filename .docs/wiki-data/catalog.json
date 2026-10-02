@@ -14040,7 +14040,7 @@
     "sources": [
         {
             "path": "Assets/RivetReach/Code/AlphaPlaytestVerification.cs",
-            "sha256": "0f4087efde38c882b46a9b04d78f4f0358c9aeaa0ff929918305936c7a9b5ee3"
+            "sha256": "a13cf19720672c0a9f3549b98231a29a75a33561761fa89afaea896b54cdbcd1"
         },
         {
             "path": "Assets/RivetReach/Code/AlphaSurvivalVerification.cs",
@@ -14555,8 +14555,12 @@
             "sha256": "6017a87c9970f218e60bf48b86d0cc3a4cbab554f15b84f6d2408bde72d1d84f"
         },
         {
+            "path": "Assets/RivetReach/Code/Player/AvatarAppearance.cs",
+            "sha256": "ee823b189b393b7f5ec81ef8c5aa5b9dcb0703bfe5a6dddb594a13f5381f9218"
+        },
+        {
             "path": "Assets/RivetReach/Code/Player/AvatarEquipment.cs",
-            "sha256": "ace2627c29faf7d1531e95d2c01391b24aeb6137c83bdb85b8d079586d0d95f8"
+            "sha256": "c1820cacd14030eaef6aaea499d3cb9b2274e99e43fb9f3bdd489af00f624393"
         },
         {
             "path": "Assets/RivetReach/Code/Player/AvatarReworkVerification.cs",
@@ -14568,7 +14572,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Player/AvatarView.cs",
-            "sha256": "a25a7dc86fdc14eed82df29a03bd513d403cfcbdb50d8ccfbcc51306a77a676a"
+            "sha256": "a32822ba76f4c309d5cdbcc8a2d392cdecb3425ba2e349e5e9ea74fde65fccff"
         },
         {
             "path": "Assets/RivetReach/Code/Player/DroppedItems.cs",
@@ -14684,7 +14688,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/RuntimeVerification.cs",
-            "sha256": "c77e9e05f8b4e77987714d979545cf4042a40c5fa8873c6956264bf3c742e58e"
+            "sha256": "d027053e41a3ebccc1f84ecda70a49ee4bd478a50c3fc29fdc45505c7be62911"
         },
         {
             "path": "Assets/RivetReach/Code/SaveVerification.cs",
@@ -14796,7 +14800,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUI.cs",
-            "sha256": "6d12ee5a4ad87f0ed96523f17af62d11a3ef7d671385e6fbe49f0085569196e3"
+            "sha256": "b793c0240765414ec85e0b3c8e57131d49d655a936a9a190809f1a9adb409cc3"
         },
         {
             "path": "Assets/RivetReach/Code/UI/GameUIBridges.cs",

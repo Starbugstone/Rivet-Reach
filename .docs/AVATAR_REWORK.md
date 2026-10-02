@@ -1,5 +1,7 @@
 # Player avatar and held equipment rework
 
+**Runtime status, 2026-10-02:** the visible explorers are now the [second generation](EXPLORER_V2.md). They reuse this revision's rig, 50 clips, grip sockets, animation graph and sculpted forearm/hand skin. The first-generation models below remain in place and return with `AvatarAppearance.Generation = 1`. The pose, timing and held-model rules in this document still apply to both generations.
+
 Working revision under the user's 2026-09-10 request for a more polished 3D avatar, detailed hands and improved item/weapon handling. The user authorized original Blender model and animation changes and artistic liberties. This request supersedes the earlier player handoff reservation for the character files changed here. Gameplay dimensions, appearance selection and skin behavior remain governed by [GAMEPLAY.md](GAMEPLAY.md#15-player-skins).
 
 ## Appearance and construction

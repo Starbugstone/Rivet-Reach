@@ -1,0 +1,18 @@
+{
+  "build": "Succeeded; errors 0; warnings 0; seconds 77,9135671; bytes 398310126",
+  "buildResult": "PASS 2026-10-02T20:51:48.4415321Z",
+  "unity": "6000.4.4f1",
+  "blender": "5.2.0 LTS",
+  "sha256": {
+    "Builds/AvatarRework/RivetReach.exe": "7d52ee70fb22771f4608d810d1015f539c37dd8b7b2fbb1a0ea9f6bc5c32d5c9",
+    "Builds/AvatarRework/RivetReach_Data/Managed/Assembly-CSharp.dll": "38bdcae22d1d969465d88cf08ed73de881809f780556a68f306738e5bdd4f95e",
+    "Assets/RivetReach/Resources/Characters/V2/ExplorerMale.fbx": "2b443e98b1e6f0778b1d64b6df8b9d99769844386a639422374146e88f706330",
+    "Assets/RivetReach/Resources/Characters/V2/ExplorerFemale.fbx": "391e87bf28b6eb6db9d99727f2bda81cfe12cf823659f161ecbcb9f7c46ee852",
+    "Assets/RivetReach/Resources/Characters/V2/SkinBase.png": "bf3603798347e380c60d6176c0cc36ea5d59cc153a0bcbd08894beb8b860a7d0",
+    "Assets/RivetReach/Resources/Characters/V2/SkinSurface.png": "8cdfc8604e8575d9a4d35d929851ee19cdebe8225260b62aebadaea0c0021a10",
+    "Assets/RivetReach/Resources/Characters/V2/SkinNormal.png": "d53d9533b78892875f4adf6725b24e66352a6cd1113edb12f097a28233707c9e",
+    "Assets/RivetReach/Resources/Characters/V2/AppearancePalette.json": "4e41b15bd019d0a36d48be00e2e65b31d579000bd60836460fbb46c665003371",
+    "ArtSource/Characters/V2/ExplorerMale.blend": "26a5f053552408e1a52b7cbf1eeb292c6b9d50f8179755800592c36fd9987687",
+    "ArtSource/Characters/V2/ExplorerFemale.blend": "bbccf502f3d183036a9870aa1f5b931a4ced7f6f1b86975ce87b6f83996c0217"
+  }
+}

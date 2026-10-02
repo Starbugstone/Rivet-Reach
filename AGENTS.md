@@ -243,3 +243,7 @@ The user requires debug timings for separate simulation systems and threads, and
 ## Authorized distant factory visibility
 
 The user authorized the [shared factory visibility policy](.docs/FACTORY_VISIBILITY.md), cheaper distant machinery and a smooth transition, with native factory stress tests plus final screenshots and video. Preserve authoritative machine/pipe/tank state, configured connections, loader responsibility, saved contents and unchanged starter recipes. Measure frame-time tails and the added rendering range; capture overhead must remain outside benchmark samples.
+
+## Authorized machinist explorer rework
+
+The user requested a much more polished player appearance that no longer looks out of place beside the machinery. The old model must stay available for reverting. First-person arms are the priority, and the inventory shows the full figure. [Second-generation explorers](.docs/EXPLORER_V2.md) keep the shared rig, clips, grip sockets and verified hand skin, so held items and fitted armor still bind. They separate skin, hair, eye and cloth colours into layered region tints, ready for a later customisation UI. Preserve the untouched first-generation assets and the `AvatarAppearance.Generation` switch, gameplay dimensions, saved skin indices and armor/helmet behaviour. [Verification](.docs/verification/EXPLORER_V2_RESULTS.md) records measured evidence.

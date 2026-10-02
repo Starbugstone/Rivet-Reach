@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "notes": "Second-generation explorer appearance layers. The 2048 px skin atlas is an 8x8 grid of cells; each cell names the layer whose colour tints it. Rows run bottom (v=0) to top. 'fixed' cells keep their painted colour. Colours are sRGB albedo; the base map's flat areas are white so these values are the finished colours.",
+  "grid": 8,
+  "layers": ["skin", "hair", "eyes", "shirt", "vest", "trousers", "leather", "boots", "brass", "copper", "accent", "fixed"],
+  "cells": [
+    "skin", "skin", "shirt", "shirt", "shirt", "shirt", "shirt", "shirt",
+    "skin", "skin", "shirt", "shirt", "shirt", "shirt", "shirt", "shirt",
+    "skin", "skin", "skin", "skin", "trousers", "trousers", "trousers", "trousers",
+    "skin", "skin", "skin", "skin", "trousers", "trousers", "trousers", "trousers",
+    "leather", "leather", "hair", "hair", "fixed", "fixed", "boots", "boots",
+    "leather", "leather", "hair", "hair", "fixed", "fixed", "fixed", "fixed",
+    "brass", "brass", "vest", "vest", "eyes", "accent", "copper", "copper",
+    "brass", "brass", "vest", "vest", "eyes", "accent", "copper", "copper"
+  ],
+  "palettes": {
+    "skin": ["#F1D0B5", "#E2B596", "#C98D68", "#B5744F", "#8E5536", "#6A3B24", "#4A2818"],
+    "hair": ["#121010", "#2A1E17", "#4A2F1E", "#7A3A1C", "#A86A32", "#C9A464", "#8A8A88", "#2C3F55"],
+    "eyes": ["#6B4A2A", "#3E2A1A", "#4E7A4A", "#3F6E8E", "#7A7F82", "#8A6A2A"],
+    "cloth": ["#2F4250", "#2C5A55", "#26303D", "#3B302A", "#5B3A2A", "#8E7A5C", "#C29A4A", "#6E7378", "#7A2E24", "#3E4A2E", "#D9D2C2"],
+    "leather": ["#6A3E22", "#4E2E1B", "#3A2A22", "#2B211C", "#8A5A32"],
+    "metal": ["#D4A04A", "#C46F3E", "#9AA4A8", "#5A6066"]
+  },
+  "presets": [
+    {"name": "Foundry", "vestName": "Steel", "skin": "#B5744F", "hair": "#2A1E17", "eyes": "#6B4A2A", "shirt": "#8E7A5C", "vest": "#2F4250",
+     "trousers": "#3B302A", "leather": "#6A3E22", "boots": "#4E2E1B", "brass": "#D4A04A", "copper": "#C46F3E", "accent": "#2E8C8A"},
+    {"name": "Verdigris", "vestName": "Ochre", "skin": "#E2B596", "hair": "#7A3A1C", "eyes": "#4E7A4A", "shirt": "#C29A4A", "vest": "#2C5A55",
+     "trousers": "#26303D", "leather": "#3A2A22", "boots": "#2B211C", "brass": "#D4A04A", "copper": "#C46F3E", "accent": "#B85A30"}
+  ]
+}

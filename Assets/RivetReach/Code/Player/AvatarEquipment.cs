@@ -60,7 +60,7 @@ namespace RivetReach
             {
                 var source=r.sharedMesh;var uv=source.uv;var indices=source.triangles;var positions=source.vertices;
                 bool AboveBrow(int index)=>transform.InverseTransformPoint(r.transform.TransformPoint(positions[index])).y>1.678f;
-                bool Hair(int index)=>Mathf.FloorToInt(uv[index].x*4)+Mathf.FloorToInt(uv[index].y*4)*4==9;
+                bool Hair(int index)=>AvatarAppearance.HiddenUnderHelmet(uv[index]);
                 var keep=new List<int>();
                 for(int i=0;i<indices.Length;i+=3)if(!Hair(indices[i])||!Hair(indices[i+1])||!Hair(indices[i+2])||!(AboveBrow(indices[i])||AboveBrow(indices[i+1])||AboveBrow(indices[i+2]))){keep.Add(indices[i]);keep.Add(indices[i+1]);keep.Add(indices[i+2]);}
                 if(keep.Count==indices.Length)continue;

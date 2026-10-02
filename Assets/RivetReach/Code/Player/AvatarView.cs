@@ -20,6 +20,7 @@ namespace RivetReach
         readonly Dictionary<string,Transform> bones=new Dictionary<string,Transform>();
         readonly List<Mesh> derivedMeshes=new List<Mesh>();
         GameObject model;
+        string modelPath;
         Material material;
         AvatarMask miningMask,gripMask;
         SkinnedMeshRenderer supportHand;
@@ -82,7 +83,7 @@ namespace RivetReach
         public void Build(bool female,int skin)
         {
             Release();bones.Clear();triangles=vertices=ShadowTriangleCount=supportTriangles=supportVertices=0;presentationApplied=false;
-            string path="Characters/"+(female?"ExplorerFemale":"ExplorerMale");
+            string path=AvatarAppearance.ModelPath(female);modelPath=path;
             var asset=Resources.Load<GameObject>(path);
             if(asset==null){Debug.LogError("Missing player model");return;}
             model=Instantiate(asset,transform);model.name=female?"Female":"Male";
@@ -90,7 +91,7 @@ namespace RivetReach
             foreach(var t in model.GetComponentsInChildren<Transform>())bones[t.name]=t;
             material=new Material(Resources.Load<Material>("Materials/Player"));
             material.SetFloat("_FirstPerson",FirstPersonArms?1:0);
-            material.SetTexture("_BaseMap",Resources.Load<Texture2D>("Characters/"+(skin==0?"SkinField":"SkinOchre")));
+            AvatarAppearance.Apply(material,skin);
             foreach(var r in model.GetComponentsInChildren<Renderer>())r.sharedMaterial=material;
             foreach(var r in model.GetComponentsInChildren<SkinnedMeshRenderer>())
             {
@@ -348,7 +349,7 @@ namespace RivetReach
         {
             if(model==null)return;
             RestoreAnimatedPose();
-            var c=Resources.LoadAll<AnimationClip>("Characters/"+(model.name=="Female"?"ExplorerFemale":"ExplorerMale")).FirstOrDefault(a=>a.name==clip||a.name.EndsWith("|"+clip));
+            var c=Resources.LoadAll<AnimationClip>(modelPath).FirstOrDefault(a=>a.name==clip||a.name.EndsWith("|"+clip));
             if(c==null)throw new InvalidOperationException("Missing pose "+clip);
             c.SampleAnimation(model,seconds);
             model.transform.localPosition=Vector3.zero;

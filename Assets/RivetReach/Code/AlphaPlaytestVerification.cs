@@ -103,7 +103,7 @@ namespace RivetReach
             {
                 player.Female=female;player.Skin=skin;player.RefreshAppearance();yield return new WaitForSecondsRealtime(.5f);
                 var renderers=player.Body.GetComponentsInChildren<SkinnedMeshRenderer>().Where(r=>r.enabled&&r.shadowCastingMode!=UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly).ToArray();
-                Check(renderers.Length>0&&renderers.All(r=>r.sharedMaterial.shader.name=="RivetReach/ExplorerSkin"&&r.sharedMaterial.GetTexture("_BaseMap")==Resources.Load<Texture2D>("Characters/"+(skin==0?"SkinField":"SkinOchre"))),"Both body variants retain actual registered skin texture");
+                Check(renderers.Length>0&&renderers.All(r=>r.sharedMaterial.shader.name=="RivetReach/ExplorerSkin"&&r.sharedMaterial.GetTexture("_BaseMap")==AvatarAppearance.BaseMap(skin)&&(AvatarAppearance.Generation<2||r.sharedMaterial.GetTexture("_TintMap")==AvatarAppearance.TintMap(skin))),"Both body variants retain actual registered skin texture");
                 yield return Capture("body-looking-down-"+(female?"female":"male")+"-skin-"+skin);
             }
             player.enabled=false;

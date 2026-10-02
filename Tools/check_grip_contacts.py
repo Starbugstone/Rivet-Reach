@@ -2,9 +2,12 @@
 import bpy,json,math
 from pathlib import Path
 from mathutils import Vector
+import sys
 root=Path(__file__).resolve().parents[1];report=[]
+# --v2 checks the second-generation explorers in ArtSource/Characters/V2.
+v2='--v2' in sys.argv;source=root/'ArtSource/Characters'/('V2' if v2 else '')
 for name in ['ExplorerMale','ExplorerFemale']:
- bpy.ops.wm.open_mainfile(filepath=str(root/'ArtSource/Characters'/(name+'.blend')))
+ bpy.ops.wm.open_mainfile(filepath=str(source/(name+'.blend')))
  rig=next(o for o in bpy.data.objects if o.type=='ARMATURE');model=next(o for o in bpy.data.objects if o.type=='MESH')
  groups={g.index:g.name for g in model.vertex_groups}
  fingers=[v.index for v in model.data.vertices if sum(g.weight for g in v.groups if groups[g.group].endswith('R') and ('Finger' in groups[g.group] or 'Thumb' in groups[g.group]))>.9]
@@ -41,4 +44,4 @@ for name in ['ExplorerMale','ExplorerFemale']:
   assert peak<35,(name,action.name,'wrist flexion',peak)
   assert contact['penetration']<.001,(name,action.name,'mesh penetrates prop',contact)
   report.append({'model':name,'clip':action.name,'maxWristDegrees':peak,'windupToContactDescentMetres':descent,'maxShaftForward':maxForward,'minShaftUp':minUp,'contact':contact,'supportContactErrorMetres':supportError,'supportWristDegrees':supportBend})
-(root/'Logs/grip-contact-checks.json').write_text(json.dumps(report,indent=2)+'\n');print('GRIP_CONTACT_MEASUREMENTS')
+(root/'Logs'/('grip-contact-checks'+('-v2' if v2 else '')+'.json')).write_text(json.dumps(report,indent=2)+'\n');print('GRIP_CONTACT_MEASUREMENTS')

@@ -184,8 +184,8 @@ namespace RivetReach
                 Button(p.transform,"MALE",365,167,165,46,()=>{game.SetAppearance(false,game.Player.Skin);Rebuild();},!game.Player.Female);
                 Button(p.transform,"FEMALE",548,167,165,46,()=>{game.SetAppearance(true,game.Player.Skin);Rebuild();},game.Player.Female);
                 Label(p.transform,"SKIN",365,258,350,30,15,gold);
-                Button(p.transform,"FIELD / TEAL",365,300,348,46,()=>{game.SetAppearance(game.Player.Female,0);Rebuild();},game.Player.Skin==0);
-                Button(p.transform,"OCHRE / SLATE",365,362,348,46,()=>{game.SetAppearance(game.Player.Female,1);Rebuild();},game.Player.Skin==1);
+                Button(p.transform,AvatarAppearance.SkinLabel(0),365,300,348,46,()=>{game.SetAppearance(game.Player.Female,0);Rebuild();},game.Player.Skin==0);
+                Button(p.transform,AvatarAppearance.SkinLabel(1),365,362,348,46,()=>{game.SetAppearance(game.Player.Female,1);Rebuild();},game.Player.Skin==1);
                 Label(p.transform,"Appearance is cosmetic.\nBoth players share the same reach and movement.\nYour choice is remembered on this computer.",365,453,350,110,17);
                 Label(p.transform,"Drag the player to rotate",365,578,350,24,14,gold);
                 RefreshPreview();

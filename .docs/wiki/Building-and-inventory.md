@@ -48,11 +48,33 @@ A full backpack can leave the planting items on the ground, so it cannot guarant
 
 ## Player appearance
 
-Both explorer models keep their selected skin visible in the world and inventory. The Alpha correction restores the skin shader's colour and detail when fog is disabled.
+Both explorers wear machinist workwear in the same steel, copper and brass style as the machines:
+- a riveted waistcoat with copper piping
+- rolled canvas sleeves
+- fingerless leather work gloves with a riveted knuckle guard and buckled wrist strap
+- a tool belt with pouches
+- laced boots with copper toe caps
+- brass goggles pushed up on the forehead
 
-![Both explorer models with the field skin in the standalone player](images/alpha-playtest/skin-after.png)
+Open the inventory and choose **Appearance** to pick the male or female explorer and one of two colour schemes. Your choice changes the inventory portrait and your first-person arms immediately, and is remembered.
 
-Standalone avatar review capture, September 19, 2026. This shows the two model choices with their existing field skin; it is not new character artwork.
+![Male and female explorers in the Foundry / Steel colours](images/explorer-v2-front.png)
+
+**Foundry / Steel** uses a steel-blue waistcoat, canvas shirt and dark trousers. **Verdigris / Ochre** changes skin tone, hair, eye colour and every clothing colour.
+
+![The same explorers in the Verdigris / Ochre colours](images/explorer-v2-verdigris.png)
+
+In first person you see your sleeves, forearms and gloves holding the selected item.
+
+![First-person view holding an iron pickaxe](images/explorer-v2-first-person.png)
+
+Armor is worn over the outfit. A helmet covers the goggles and the hair on top of the head; lower hair, such as the female explorer's ponytail and side locks, stays visible.
+
+![Both explorers wearing fitted armor](images/explorer-v2-armor.png)
+
+![Inventory portrait of the Verdigris / Ochre explorer](images/explorer-v2-portrait.png)
+
+In-game captures from the October 2, 2026 explorer review build. Appearance never changes your size, reach, movement or abilities.
 
 ## Movement and hunger
 

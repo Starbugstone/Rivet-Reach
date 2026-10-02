@@ -124,7 +124,7 @@ Run `Builds/Multiblocks/RivetReach.exe` for the current industrial review. [Indu
 
 ## Avatar rework review
 
-The 2026-09-10 [avatar rework](AVATAR_REWORK.md) is available in `Builds/AvatarRework/RivetReach.exe`. Run `Tools/Build-AvatarRework.ps1` to build with the pinned Editor; use `Tools/Verify-AvatarRework.ps1` and its `-Gameplay` option for the focused checks. Existing movement, inventory, appearance and Creative controls apply. Tools rest horizontally below the aim point, rise vertically to attack, and return after recovery. Hold the bound Use button with a blade for its vertical guard stance. [Evidence and limits](verification/AVATAR_REWORK_RESULTS.md) include both skins, held tools and selection transitions.
+The 2026-09-10 [avatar rework](AVATAR_REWORK.md) is available in `Builds/AvatarRework/RivetReach.exe`; since 2026-10-02 it shows the [second-generation explorers](EXPLORER_V2.md). Run `Tools/Build-AvatarRework.ps1` to build with the pinned Editor; use `Tools/Verify-AvatarRework.ps1` and its `-Gameplay` option for the focused checks. Existing movement, inventory, appearance and Creative controls apply. Tools rest horizontally below the aim point, rise vertically to attack, and return after recovery. Hold the bound Use button with a blade for its vertical guard stance. [Evidence and limits](verification/AVATAR_REWORK_RESULTS.md) include both skins, held tools and selection transitions.
 
 
 ## Multiblock tanks and pipe fittings

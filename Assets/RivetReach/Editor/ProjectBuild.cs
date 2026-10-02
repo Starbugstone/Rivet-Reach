@@ -215,6 +215,7 @@ namespace RivetReach.Editor
                 if(!changed)changed=current.Where((c,i)=>c.name!=clips[i].name||c.takeName!=clips[i].takeName||c.firstFrame!=clips[i].firstFrame||c.lastFrame!=clips[i].lastFrame||c.loopTime!=clips[i].loopTime||!c.lockRootHeightY||!c.lockRootPositionXZ||!c.lockRootRotation).Any();
                 if(changed){importer.importAnimation=true;importer.animationCompression=ModelImporterAnimationCompression.Off;importer.clipAnimations=clips;importer.SaveAndReimport();}
             }
+            ExplorerV2Assets.Prepare();
             foreach(string name in new[]{"SkinField","SkinOchre"})
             {
                 var importer=(TextureImporter)AssetImporter.GetAtPath("Assets/RivetReach/Resources/Characters/"+name+".png");
@@ -299,7 +300,7 @@ namespace RivetReach.Editor
             var models=new System.Text.StringBuilder();
             foreach(string name in new[]{"ExplorerMale","ExplorerFemale"})
             {
-                var prefab=Resources.Load<GameObject>("Characters/"+name);
+                var prefab=Resources.Load<GameObject>(AvatarAppearance.ModelPath(name=="ExplorerFemale"));
                 foreach(var renderer in prefab.GetComponentsInChildren<SkinnedMeshRenderer>())models.AppendLine(name+": "+renderer.sharedMesh.triangles.Length/3+" triangles; "+renderer.bones.Length+" bones; bounds "+renderer.bounds+"; scale "+prefab.transform.localScale);
             }
             File.WriteAllText("Logs/model-report.txt",models.ToString());

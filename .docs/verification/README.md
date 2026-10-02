@@ -63,7 +63,7 @@ This directory maintains the latest report and useful evidence for each feature.
 | Biomes, caves and streaming | [Terrain verification](TERRAIN_GENERATION_RESULTS.md) |
 | Creatures and combat | [Mob verification](MOB_RESULTS.md), plus the current [beetle wall-climbing extension](BEETLE_WALL_CLIMB_RESULTS.md) |
 | Sun, moon and time | [Day/night verification](DAY_NIGHT_RESULTS.md) |
-| Player model, hands, held equipment and animation | [Avatar rework verification](AVATAR_REWORK_RESULTS.md) |
+| Player model, hands, held equipment and animation | [Second-generation explorers](EXPLORER_V2_RESULTS.md) (current models, layered skins, armor fit); [avatar rework](AVATAR_REWORK_RESULTS.md) for the shared rig, grips and animation |
 | Food-to-mouth animation and interrupted bites | [Eating verification](EATING_RESULTS.md) |
 | Audio and dated Editor startup | [Audio and earlier startup verification](HIFI_PLAYER_AND_AUDIO_RESULTS.md) |
 | Item pickup ranges and passable-block collection | [Pickup verification](PICKUP_RESULTS.md) |

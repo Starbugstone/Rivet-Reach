@@ -169,3 +169,16 @@ Nonblocking review: longer unscripted Survival sessions, room discovery across v
 Issue #1 now uses [Rivet Reach’s recipe contract](CRAFTING.md#starter-recipe-and-block-interaction-acceptance), with the user-confirmed single-ingot Cog and plate-to-four-Rivets recipes. [The disposition](RECIPE_DISPOSITION.md) records all current grid recipes and retained names/stations; [verification](verification/CRAFTING_IDENTITY_RESULTS.md) records compatibility, UI evidence and the pre-existing old survival-fixture failure. A standalone plain Glass building block, extra tool-head intermediates and a separate Assembly Table remain unselected proposals, not completion claims.
 
 The user’s short machine-visibility concern is confirmed by [the fixed 64-block presentation rule](verification/MACHINE_VISIBILITY_REVIEW.md). A shared visibility policy and cheaper distant machinery need a separately measured follow-up; raising terrain view distance alone does not change that rule.
+
+## Explorer appearance generation 2
+
+The user asked on 2026-10-02 for a much more polished player model that matches the machinery, keeping the previous model for a possible revert. [The second-generation explorers](EXPLORER_V2.md) select machinist workwear in the machine palette, riveted fingerless gloves, copper toe caps, brass-rimmed goggles and layered region tints. They retain the shared rig, clips and verified hand skin. These are working artistic choices, not user-approved final appearance. [Verification](verification/EXPLORER_V2_RESULTS.md) records the measured evidence.
+
+Nonblocking questions for the future customisation UI:
+
+- Should goggles, pouches and straps become removable cosmetic pieces? They currently add silhouette that a texture cannot remove.
+- Which palette entries, extra base maps or hairstyles should be offered?
+- How should more than the two saved skin indices map to presets and saves?
+- Should custom PNG skins use the published 8×8 cell layout with tinting disabled?
+
+Reverting means setting `AvatarAppearance.Generation` to 1.

@@ -1,0 +1,546 @@
+[
+  {
+    "model": "ExplorerMale",
+    "generation": 2,
+    "triangles": 82032,
+    "vertices": 43085,
+    "bones": 50,
+    "deformBones": 48,
+    "materials": 1,
+    "uvLayers": [
+      "SkinUV"
+    ],
+    "colorAttributes": [
+      "Occlusion"
+    ],
+    "maxInfluences": 4,
+    "sockets": [
+      "BlockSocket",
+      "ToolSocket"
+    ],
+    "clips": [
+      {
+        "name": "Airborne",
+        "seconds": 1.0,
+        "loop": true
+      },
+      {
+        "name": "CrouchIdle",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "CrouchWalk",
+        "seconds": 1.2,
+        "loop": true
+      },
+      {
+        "name": "FP_Airborne",
+        "seconds": 1.0,
+        "loop": true
+      },
+      {
+        "name": "FP_Crouch",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_CrouchWalk",
+        "seconds": 1.2,
+        "loop": true
+      },
+      {
+        "name": "FP_HoldAxe",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_HoldBlock",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_HoldHoe",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_HoldShovel",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_HoldTool",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_HoldTwoHandTool",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_Idle",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_Land",
+        "seconds": 0.4,
+        "loop": false
+      },
+      {
+        "name": "FP_Mine",
+        "seconds": 0.3,
+        "loop": false
+      },
+      {
+        "name": "FP_MineAxe",
+        "seconds": 0.6,
+        "loop": false
+      },
+      {
+        "name": "FP_MineBlock",
+        "seconds": 0.3,
+        "loop": false
+      },
+      {
+        "name": "FP_MineHoe",
+        "seconds": 0.6,
+        "loop": false
+      },
+      {
+        "name": "FP_MineShovel",
+        "seconds": 0.6,
+        "loop": false
+      },
+      {
+        "name": "FP_MineTool",
+        "seconds": 0.6,
+        "loop": false
+      },
+      {
+        "name": "FP_MineTwoHandTool",
+        "seconds": 0.6,
+        "loop": false
+      },
+      {
+        "name": "FP_RestAxe",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_RestHoe",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_RestShovel",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_RestTool",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_RestTwoHandTool",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_Run",
+        "seconds": 0.8,
+        "loop": true
+      },
+      {
+        "name": "FP_Walk",
+        "seconds": 1.0,
+        "loop": true
+      },
+      {
+        "name": "HoldAxe",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "HoldBlock",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "HoldHoe",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "HoldShovel",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "HoldTool",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "HoldTwoHandTool",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "Idle",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "Land",
+        "seconds": 0.4,
+        "loop": false
+      },
+      {
+        "name": "Mine",
+        "seconds": 0.3,
+        "loop": false
+      },
+      {
+        "name": "MineAxe",
+        "seconds": 0.6,
+        "loop": false
+      },
+      {
+        "name": "MineBlock",
+        "seconds": 0.3,
+        "loop": false
+      },
+      {
+        "name": "MineHoe",
+        "seconds": 0.6,
+        "loop": false
+      },
+      {
+        "name": "MineShovel",
+        "seconds": 0.6,
+        "loop": false
+      },
+      {
+        "name": "MineTool",
+        "seconds": 0.6,
+        "loop": false
+      },
+      {
+        "name": "MineTwoHandTool",
+        "seconds": 0.6,
+        "loop": false
+      },
+      {
+        "name": "RestAxe",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "RestHoe",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "RestShovel",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "RestTool",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "RestTwoHandTool",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "Run",
+        "seconds": 0.8,
+        "loop": true
+      },
+      {
+        "name": "Walk",
+        "seconds": 1.0,
+        "loop": true
+      }
+    ]
+  },
+  {
+    "model": "ExplorerFemale",
+    "generation": 2,
+    "triangles": 85211,
+    "vertices": 44696,
+    "bones": 50,
+    "deformBones": 48,
+    "materials": 1,
+    "uvLayers": [
+      "SkinUV"
+    ],
+    "colorAttributes": [
+      "Occlusion"
+    ],
+    "maxInfluences": 4,
+    "sockets": [
+      "BlockSocket",
+      "ToolSocket"
+    ],
+    "clips": [
+      {
+        "name": "Airborne",
+        "seconds": 1.0,
+        "loop": true
+      },
+      {
+        "name": "CrouchIdle",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "CrouchWalk",
+        "seconds": 1.2,
+        "loop": true
+      },
+      {
+        "name": "FP_Airborne",
+        "seconds": 1.0,
+        "loop": true
+      },
+      {
+        "name": "FP_Crouch",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_CrouchWalk",
+        "seconds": 1.2,
+        "loop": true
+      },
+      {
+        "name": "FP_HoldAxe",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_HoldBlock",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_HoldHoe",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_HoldShovel",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_HoldTool",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_HoldTwoHandTool",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_Idle",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_Land",
+        "seconds": 0.4,
+        "loop": false
+      },
+      {
+        "name": "FP_Mine",
+        "seconds": 0.3,
+        "loop": false
+      },
+      {
+        "name": "FP_MineAxe",
+        "seconds": 0.6,
+        "loop": false
+      },
+      {
+        "name": "FP_MineBlock",
+        "seconds": 0.3,
+        "loop": false
+      },
+      {
+        "name": "FP_MineHoe",
+        "seconds": 0.6,
+        "loop": false
+      },
+      {
+        "name": "FP_MineShovel",
+        "seconds": 0.6,
+        "loop": false
+      },
+      {
+        "name": "FP_MineTool",
+        "seconds": 0.6,
+        "loop": false
+      },
+      {
+        "name": "FP_MineTwoHandTool",
+        "seconds": 0.6,
+        "loop": false
+      },
+      {
+        "name": "FP_RestAxe",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_RestHoe",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_RestShovel",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_RestTool",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_RestTwoHandTool",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "FP_Run",
+        "seconds": 0.8,
+        "loop": true
+      },
+      {
+        "name": "FP_Walk",
+        "seconds": 1.0,
+        "loop": true
+      },
+      {
+        "name": "HoldAxe",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "HoldBlock",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "HoldHoe",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "HoldShovel",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "HoldTool",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "HoldTwoHandTool",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "Idle",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "Land",
+        "seconds": 0.4,
+        "loop": false
+      },
+      {
+        "name": "Mine",
+        "seconds": 0.3,
+        "loop": false
+      },
+      {
+        "name": "MineAxe",
+        "seconds": 0.6,
+        "loop": false
+      },
+      {
+        "name": "MineBlock",
+        "seconds": 0.3,
+        "loop": false
+      },
+      {
+        "name": "MineHoe",
+        "seconds": 0.6,
+        "loop": false
+      },
+      {
+        "name": "MineShovel",
+        "seconds": 0.6,
+        "loop": false
+      },
+      {
+        "name": "MineTool",
+        "seconds": 0.6,
+        "loop": false
+      },
+      {
+        "name": "MineTwoHandTool",
+        "seconds": 0.6,
+        "loop": false
+      },
+      {
+        "name": "RestAxe",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "RestHoe",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "RestShovel",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "RestTool",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "RestTwoHandTool",
+        "seconds": 3.0,
+        "loop": true
+      },
+      {
+        "name": "Run",
+        "seconds": 0.8,
+        "loop": true
+      },
+      {
+        "name": "Walk",
+        "seconds": 1.0,
+        "loop": true
+      }
+    ]
+  }
+]

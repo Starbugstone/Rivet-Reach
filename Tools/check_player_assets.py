@@ -1,9 +1,12 @@
 """Check source weights, portable textures and evaluated animation geometry in Blender."""
 import bpy,json,math
 from pathlib import Path
+import sys
 root=Path(__file__).resolve().parents[1];report=[]
+# --v2 checks the second-generation explorers in ArtSource/Characters/V2.
+v2='--v2' in sys.argv;source=root/'ArtSource/Characters'/('V2' if v2 else '')
 for name in ['ExplorerMale','ExplorerFemale']:
- bpy.ops.wm.open_mainfile(filepath=str(root/'ArtSource/Characters'/(name+'.blend')))
+ bpy.ops.wm.open_mainfile(filepath=str(source/(name+'.blend')))
  rig=next(o for o in bpy.data.objects if o.type=='ARMATURE');model=next(o for o in bpy.data.objects if o.type=='MESH')
  for v in model.data.vertices:assert abs(sum(g.weight for g in v.groups)-1)<.001
  assert max(sum(g.weight>1e-6 for g in v.groups) for v in model.data.vertices)<=4
@@ -33,4 +36,4 @@ for name in ['ExplorerMale','ExplorerFemale']:
    loop_error=max((a-b).length for a,b in zip(*endpoints));assert loop_error<.0001,(name,action.name,'loop seam',loop_error)
   actions.append({'clip':action.name,'maxEdgeMetres':round(peak,4),'loopSeamMetres':loop_error})
  report.append({'model':name,'normalizedWeights':True,'relativeTextures':True,'singleUV':True,'clips':actions})
-(root/'Logs/player-source-checks.json').write_text(json.dumps(report,indent=2)+'\n');print('SOURCE_CHECKS_PASS')
+(root/'Logs'/('player-source-checks'+('-v2' if v2 else '')+'.json')).write_text(json.dumps(report,indent=2)+'\n');print('SOURCE_CHECKS_PASS')

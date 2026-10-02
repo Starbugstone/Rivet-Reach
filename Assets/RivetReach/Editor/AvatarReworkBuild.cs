@@ -45,6 +45,7 @@ namespace RivetReach.Editor
                 }
                 importer.clipAnimations=clips;importer.SaveAndReimport();
             }
+            ExplorerV2Assets.Prepare();
             const string output="Builds/AvatarRework";Directory.CreateDirectory(output);
             var report=BuildPipeline.BuildPlayer(new BuildPlayerOptions{scenes=EditorBuildSettings.scenes.Where(s=>s.enabled).Select(s=>s.path).ToArray(),locationPathName=output+"/RivetReach.exe",target=BuildTarget.StandaloneWindows64,options=BuildOptions.Development});
             File.WriteAllText("Logs/AvatarRework/build-summary.txt",report.summary.result+"; errors "+report.summary.totalErrors+"; warnings "+report.summary.totalWarnings+"; seconds "+report.summary.totalTime.TotalSeconds+"; bytes "+report.summary.totalSize);
