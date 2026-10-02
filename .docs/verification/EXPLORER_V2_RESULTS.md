@@ -53,3 +53,7 @@ The broad POC, Alpha-playtest and release suites were not re-run for this art ch
 The Unity wiki item export was not re-run. Its source fingerprints were updated for the five changed avatar-presentation files and the new `AvatarAppearance.cs`. Exported item data, recipes and icons do not depend on these files. The committed catalog was checked against the committed file contents, and `publish_wiki.py` validation passed for 234 pages and 9,984 local links/images.
 
 Faces, proportions, goggles, palette choices and the leather/canvas detail are working artistic choices. The user retains visual acceptance and may revert with `AvatarAppearance.Generation = 1`.
+
+## Wiki deployment
+
+Repository commit `48c94a6` updated the [Building and inventory guide](../wiki/Building-and-inventory.md#player-appearance) with five in-game captures. [Sync GitHub Wiki run 37065369177](https://github.com/Starbugstone/Rivet-Reach/actions/runs/37065369177) validated 234 pages and 9,984 local links/images. Its first push to the wiki hit a transient HTTP 408. The re-run published wiki commit `5a35074`. A live headless-Chromium review of the published page loaded all five images at 1280×720, served as real PNG bytes, with the new appearance text.
