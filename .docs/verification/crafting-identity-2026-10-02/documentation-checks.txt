@@ -5,3 +5,6 @@ Main workspace retains pre-existing BlockTiles.asset edits; its source-fingerpri
 Changed specification/evidence Markdown: 881 local file/section links validated.
 PASS maintained files contain no remaining explicit external-game name (case-insensitive search).
 PASS starter recipe definitions and executable acceptance expectations are unchanged.
+PASS final Unity wiki export refreshed after the comment-only fluid verification edit.
+PASS GitHub Actions 37038259572 published wiki 5db220b5d7c2e35f4f6ae07c12e5959c8fdb0967.
+PASS live guide/Cog/Rivet/Plate review, two loaded native captures, 195 loaded item-index icons and ingredient navigation.

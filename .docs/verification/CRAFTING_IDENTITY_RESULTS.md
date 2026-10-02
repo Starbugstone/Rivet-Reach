@@ -52,6 +52,10 @@ These are direct October 2 native screenshots, visually inspected for the bench,
 
 `python3 Tools/publish_wiki.py --check` passes in the isolated candidate: **233 pages and 9,963 local links/images**. The main workspace check correctly rejects its pre-existing modified `BlockTiles.asset`; that unrelated artwork is not included in this task. All **881** local links/anchors in changed non-wiki Markdown pass. The remote wiki was compared against maintained pages before publication, with no unrelated remote-only page changes. [Documentation checks](crafting-identity-2026-10-02/documentation-checks.txt) record the distinction.
 
+## Publication and live review
+
+Repository commits `a13bc8d` and `f223c69` were pushed to `main`. [Wiki deployment 37038259572](https://github.com/Starbugstone/Rivet-Reach/actions/runs/37038259572) succeeded and published wiki commit `5db220b5d7c2e35f4f6ae07c12e5959c8fdb0967`. The live Workshop components, Cog and Rivet pages show the approved quantities; both native screenshots load at their original 1280-pixel width. The guide-to-Cog and Rivet-to-Iron-Plate links were followed successfully, and the live item index loads all 195 icons with no broken images. The browser’s focused click command failed, so these links were followed through their actual DOM anchors. Issue #1 is closed with the clarified starter-preservation boundary and measured evidence.
+
 ## Reproduction
 
 Use the pinned Editor on a clean checkout containing this change:
