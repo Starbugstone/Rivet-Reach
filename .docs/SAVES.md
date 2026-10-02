@@ -125,7 +125,7 @@ The [bridge](BRIDGES.md#crafting) and [ranged-pump](RANGED_PUMP.md#working-rules
 
 ## Compost compatibility — 2026-09-13
 
-[Compost](COMPOST.md#persistence-and-compatibility) reuses schema-10 machine slots/work and crop deadlines. Its additive content fingerprint includes the new catalog; known pre-compost fingerprints remove only the two added items, bin recipe and frozen compostable tags. Existing content checks, atomic replacement, previous-tier recipe compatibility and generated-chunk history remain required.
+[Compost](COMPOST.md#recovery-and-compatibility) reuses schema-10 machine slots/work and crop deadlines. Its additive content fingerprint includes the new catalog; known pre-compost fingerprints remove only the two added items, bin recipe and frozen compostable tags. Existing content checks, atomic replacement, previous-tier recipe compatibility and generated-chunk history remain required.
 
 ## Mob spawn-profile compatibility — 2026-09-13
 
@@ -185,3 +185,9 @@ Schema **17** appends the player's integer saturation reserve after the existing
 ## Tool durability compatibility — 2026-09-19
 
 [Tools](TOOLS.md#persistence) adds schema 18 with exact per-stack spent durability. Schemas 1–17 retain their layouts and load pristine tools, preserving schema-17 food saturation. The complete schema-17 fingerprint remains an explicit legacy candidate. Current schema-18 files require the durability configuration and all existing content checks. Validation rejects non-tool wear, exhausted/corrupt values and stacked worn tools before publishing a loaded world.
+
+## Component recipe compatibility — 2026-10-02
+
+Issue #1 changes the two grid recipes to one Iron Ingot → one Iron Cog and one Iron Plate → four Rivets. Schema **18** and all item identities/payload fields stay unchanged. Current-schema loading accepts either the new complete fingerprint or the exact previous complete fingerprint. Older-schema projections reconstruct the former horizontal pair of Iron Ingots → one Cog and single Iron Ingot → eight Rivets before applying existing historical projections.
+
+Projection applies only to the exact new component shapes, materials, quantities, outputs and 4×4 gate. A changed gate, mirror flag, yield, ingredient or unrelated content definition remains incompatible. Existing component stacks, placed machines, partial work and inventories load without refunds, item conversion or changed counts. Whole-session rollback and previous-checkpoint recovery remain unchanged. `ComponentRecipeChecks` tests current/previous schema-18 envelopes and rejection cases; `SaveCompatibilityChecks` retains the independent pinned schemas 1–17 sweep.

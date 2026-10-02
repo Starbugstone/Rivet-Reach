@@ -49,41 +49,46 @@ Eligible background miners load the authoritative voxel pages they read/change a
 
 The first complete sandbox/industrial slice uses logs, stone, iron ore, copper ore and water. Charcoal is the planned starter fuel from logs; the ore extension below now generates coal as a future naturally found fuel alternative. Fuel processing is implemented by the survival extension below. Surface wood and mineable stone are available near valid spawn locations. Spawn validation also requires reachable iron and copper within a provisional 256-block search region, without replacing player exploration with map markers. An unsuitable candidate spawn is rejected deterministically, not repaired after exploration order changes.
 
-The broader industrial bootstrap table below remains a future specification where it goes beyond the current survival recipe section. The shared grid engine supports 2×2, 3×3 and 4×4; personal and workbench interfaces are implemented. Initial bootstrap recipes use a 2x2 personal grid and a 3x3 workbench. Shaped layouts are content data; the table specifies material quantities and manufacturing dependencies. The browser shows layouts from that same registry. All recipes below are accessible without knowledge/XP flags when their materials and station are present.
+The implemented progression uses personal 2×2 crafting, Workbench 3×3 and Machinist’s Bench 4×4. The following bootstrap costs are read from the registered recipe assets. The [illustrated catalogue](wiki/Crafting-Recipes.md) owns player-facing layouts; the [complete disposition](RECIPE_DISPOSITION.md) records every grid recipe. Recipes require their materials and minimum grid, with no knowledge or XP gate.
 
-| Output | Inputs | Process / purpose |
-|---|---|---|
-| 4 planks | 1 log | Personal crafting; first construction material |
-| 4 handles | 2 planks | Personal crafting |
-| Workbench | 4 planks | Personal crafting; enables larger assemblies |
-| Wooden pick | 3 planks + 2 handles | Workbench; mines stone |
-| Stone pick | 3 stone + 2 handles | Workbench; mines initial metal ores |
-| Furnace | 8 stone | Workbench; fuel processing and basic smelting |
-| Chest | 8 planks | Workbench; one inventory model shared with machines |
-| 1 charcoal | 1 log | Furnace; one smelting operation |
-| 1 iron/copper ingot | 1 matching raw ore | Furnace; direct route needed before powered processing |
-| 1 plate | 1 iron or copper ingot | Workbench; initially slow manual shaping, no powered press dependency |
-| 4 copper wire | 1 copper ingot | Workbench; manual drawing route for first generator |
-| 1 gear | 2 iron ingots | Workbench; mechanical assembly |
-| 1 casing | 4 iron plates | Workbench; common machine frame |
-| 1 bucket | 3 iron ingots | Workbench; moves one source cell / 10 L under water rules |
-| 1 water tank | 4 copper plates + 2 iron plates | Workbench; 100 L capacity |
-| 4 fluid pipes | 2 copper plates | Workbench; same fluid type/amount model as tanks |
-| Boiler-engine | 1 casing + 4 copper plates + 2 gears | Workbench; charcoal + water -> shaft power |
-| Alternator | 1 casing + 2 gears + 8 copper wire | Workbench; adjacent mechanical input -> electricity |
-| 4 power cables | 4 copper wire + 1 plank | Workbench; cable item bundle, insulation represented by recipe |
-| Crusher | 1 casing + 2 gears + 4 iron plates | Workbench; first powered ore-yield improvement |
-| 2 crushed ore | 1 matching raw ore | Crusher; each intermediate smelts into 1 ingot |
-| 1 sand | 1 stone or 1 cobblestone | Crusher; 5 seconds at 160 W |
-| 4 item pipes | 2 iron plates + 2 copper wire | Workbench; inventory-to-inventory logistics |
-| Extractor attachment | 1 gear + 2 copper wire | Workbench; chooses extraction side of an item connection |
-| Switch + 4 signal conduits | 1 handle + 1 stone + 2 copper wire | Workbench; one small control bundle |
-| Pump | 1 casing + 1 gear + 4 copper wire | Workbench; source water to tank/pipe |
-| Drill | 1 casing + 2 gears + 4 iron plates + 4 copper wire | Workbench; automates finite terrain extraction |
+| Output | Inputs | Minimum station |
+| --- | --- | --- |
+| 4 Planks | 1 Log | Personal 2×2 |
+| 4 Stick | 2 Planks | Personal 2×2 |
+| 1 Workbench | 4 Planks | Personal 2×2 |
+| 1 Machinist's Bench | 1 Workbench + 4 Iron ingot + 2 Copper ingot | Workbench 3×3 |
+| 4 Copper Wire | 1 Copper ingot | Machinist’s Bench 4×4 |
+| 3 Copper Plate | 3 Copper ingot | Machinist’s Bench 4×4 |
+| 3 Iron Plate | 3 Iron ingot | Machinist’s Bench 4×4 |
+| 1 Iron Cog | 1 Iron ingot | Machinist’s Bench 4×4 |
+| 4 Rivets | 1 Iron Plate | Machinist’s Bench 4×4 |
+| 1 Machine Casing | 4 Iron Plate + 4 Rivets | Machinist’s Bench 4×4 |
+| 1 Boiler Engine | 1 Machine Casing + 4 Copper Plate + 2 Iron Cog | Machinist’s Bench 4×4 |
+| 1 Alternator | 1 Machine Casing + 2 Iron Cog + 8 Copper Wire | Machinist’s Bench 4×4 |
+| 1 Crusher | 1 Machine Casing + 2 Iron Cog + 4 Iron Plate | Machinist’s Bench 4×4 |
+| 1 Pump | 1 Machine Casing + 1 Iron Cog + 4 Copper Wire + 2 Copper Plate | Machinist’s Bench 4×4 |
+| 1 Drill | 1 Machine Casing + 2 Iron Cog + 4 Iron Plate + 4 Copper Wire | Machinist’s Bench 4×4 |
 
-Historical industrial tuning proposed one plank per operation, eight operations per charcoal and 8-second operations; the current survival furnace values below supersede those defaults. Fuel credit stays in the furnace and is persisted; closing the interface does not reset it. No recipe converts crafted plates, gears or machines back into more raw material than was consumed. Recycling later specifies deliberate losses or exact recovery, not generic arithmetic by item category.
+Sand smelts into one Glass per Sand in either furnace. Glass already supplies industrial indicators, lamps and tank windows. Ordinary Glass remains a component; Reinforced Tank Glass is the placeable industrial window. The original issue’s standalone Glass block proposal is not implemented by this reconciliation. Processing fuel, durations, electricity and other machine costs belong to [Industry](INDUSTRY.md), [the furnace guide](wiki/Item-furnace.md) and their authored catalogues. The obsolete pre-implementation bootstrap table remains only in Git history.
 
-The wooden tool exists to bootstrap stone without a metal dependency. The furnace and manual component recipes bootstrap machinery without already owning a crusher, press, pump or generator. Machine production later improves speed/batching, not permission to make the first machine.
+The wooden tool bootstraps stone without a metal dependency. Ore smelting and unpowered bench component recipes bootstrap machinery without already owning a crusher, press, pump or generator. Recycling may later specify deliberate losses or exact recovery; no generic reverse conversion may multiply raw materials.
+
+### Recipe ownership and current disposition — 2026-10-02
+
+The user selected completion of [issue #1](https://github.com/Starbugstone/Rivet-Reach/issues/1), then explicitly selected its Cog/Rivet recipes. Rivet Reach’s own catalogue and independent fixtures now own recipe acceptance. This supersedes the former requirement to match another game’s recipes; it does not require arbitrary differences or a percentage-different target. The [full disposition](RECIPE_DISPOSITION.md) classifies all 112 grid recipes.
+
+| Family / decision | Selected rule and rationale |
+| --- | --- |
+| Starter building/tools — KEEP | Keep log/plank/stick transforms, readable tool silhouettes, Workbench, Furnace and Chest layouts. They make first-session construction inferable. |
+| Metal tools and armor — KEEP | Retain the current copper/iron/diamond material recipes. Extra tool-head/handle and armor-plate intermediates are not selected merely for differentiation; further changes need a useful progression reason. |
+| Cog — ADJUST | One Iron Ingot → one Iron Cog, shapeless, at the Machinist’s Bench. Stable item `rivet:cog` and recipe `rivet:industry_125` remain. Cogs already feed generators, processors and other machinery. |
+| Rivets — ADJUST | One Iron Plate → four Rivets, shapeless, at the same bench. This makes the ingot transform unambiguously produce a Cog and gives plates a reusable assembly role. Plates retain the three-ingot horizontal row → three-plate recipe. |
+| Industrial components and machinery — KEEP | Copper Wire, Plates, Machine Casing, Glass and the existing functional machines already establish the manufacturing vocabulary. Preserve advanced gold/diamond/Floater Rock costs and avoid bootstrap cycles. |
+| Other implemented recipes — KEEP | Retain the authored survival, farming, food, storage, logistics and renewable recipes. Their specialist documents own behavior and balance. |
+
+Keep the player-facing names **Chest**, **Furnace**, **Iron Cog**, **Machine Casing** and **Machinist’s Bench**. “Cog” names the inventory component; “gearing” may describe an actual mechanical mechanism. The Machinist’s Bench already supplies the 4×4 industrial assembly role, so issue #1’s earlier separate Assembly Table/3×3 Machinist proposal is superseded by the implemented station. No duplicate station is needed. Current minimum-grid gates enforce this distinction; a future same-size station specialization would need its own explicit authority.
+
+The component change keeps the same item identities and schema-18 payload. [Save compatibility](SAVES.md#component-recipe-compatibility--2026-10-02) recognizes the exact former Cog/Rivet definitions while retaining unrelated content checks. Already owned components and machines keep their counts; there is no conversion, refund or reprocessing of saved items.
 
 ### Current survival recipes and tiers
 
@@ -152,18 +157,18 @@ The earlier 256-block spawn-validation requirement belongs to the complete indus
 
 ## 4. First-session and industrial sequence
 
-The initial terrain/FPS/inventory slice has been extended with the [current survival recipes](#current-survival-recipes-and-tiers), ore distribution, tool progression, furnaces, farming, hunger, health and armor. The broader industrial bootstrap below remains a candidate for later implementation chosen after playable review. When selected, its first 20–30 minutes should support building, inventory use, industrial processing and durable saving without developer commands; it does not promise that every player finishes industrialization in that interval.
+The initial terrain/FPS/inventory slice has been extended with the [current survival recipes](#current-survival-recipes-and-tiers), ore distribution, tool progression, furnaces, farming, hunger, health and armor. The industrial chain below is implemented. Its ordinary resource-paid completion time and player comprehension still need sustained play review; a fixture with supplied inputs does not establish a first-session time target.
 
 The first industrial sequence is:
 
 1. Gather wood and stone, craft tools/workbench/furnace, then find and smelt both ores.
-2. Handcraft plates/gears/wire; build a boiler-engine and alternator. Fill a tank manually using a bucket; automation is not needed to bootstrap water.
+2. Craft the Machinist’s Bench, then Plates/Cogs/Rivets/Wire; build a boiler-engine and alternator. Fill a tank manually using a bucket; automation is not needed to bootstrap water.
 3. Build a crusher. Process manually gathered ore at better yield and observe power/water/fuel consumption.
 4. Add chests, pipes and an extractor; stop a full-output or disabled machine using clear status and signal control.
 5. Add a pump to remove water-carrying work. Add a drill to remove repeated manual extraction.
 6. Expand because the first drill encounters depletion, the bore needs relocation, or throughput no longer meets a visible construction goal.
 
-Initial tuning: boiler-engine consumes 0.1 L/s of water and one charcoal per 240 seconds while supplying up to 1,000 W shaft power. An adjacent alternator converts at 80% efficiency for up to 800 W electrical output. Crusher demand is 250 W for 4 seconds per ore; pumps require no electricity (the current cycle is defined in [INDUSTRY.md](INDUSTRY.md)); drill demand is 400 W. Thus these two electrical loads total 650 W, fitting one starter source while leaving little expansion margin.
+[Industry](INDUSTRY.md) owns current machine power, processing durations and fuel/water consumption. An adjacent boiler/alternator supplies up to 800 W; the Crusher requests 160 W and processes in 5 seconds at full allocation. Pumps require no electricity. Do not restore the superseded pre-implementation wattages from older planning tables.
 
 These values are gameplay units, not thermodynamic claims. Boiler output is controlled by load; fuel/water consumption scales with delivered shaft work, with prepaid remaining fuel energy retained when idle. No idle consumption is required in the starter model. The boiler stops safely on no water or fuel; it does not explode. Pumps operate without electricity so water supply can start and recover generation; the tank buffers supply interruptions. The direct adjacent shaft connection is the first real mechanical port; shafts/gears for distributed layouts extend it later.
 
@@ -200,7 +205,7 @@ Validate every recipe graph from spawn resources: there must be an ingredient/st
 
 Measure time spent gathering versus building, amount of construction enabled by one ore trip, power/water interruptions and time between useful decisions. Recipe quantities, hardness, bore reach, fuel duration and deposit sizes can change together after tests. The finite-terrain model, manual bootstrap routes and durable realm-reward policy are the working decisions; final balance remains unvalidated.
 
-Mechanic references for the requested familiar progression: Minecraft's official [crafting introduction](https://www.minecraft.net/en-us/article/how-craft), [furnace overview](https://www.minecraft.net/en-us/article/block-week-furnace) and [Copper Age release notes](https://www.minecraft.net/en-us/article/minecraft-java-edition-1-21-9). Rivet Reach's implementation and procedural visuals are authored in this repository; the survival timing/balance exceptions are stated above.
+The recipe acceptance baseline is authored and versioned here, with independent project fixtures. [Crafting](CRAFTING.md#starter-recipe-and-block-interaction-acceptance) owns that contract; external games are not recipe authorities.
 
 ## Authorized industrial extension — 2026-09-10
 

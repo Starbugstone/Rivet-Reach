@@ -131,7 +131,7 @@ A benchmark passes only for its stated workload. When overloaded, bounded queues
 
 ## 8. World-item entity simulation
 
-**Agreed gameplay direction:** mined blocks, mob drops and manually discarded inventory can exist as physical world-item entities. These should feel Minecraft-like in normal play while using a representation designed for larger worlds and heavier automation.
+**Agreed gameplay direction:** mined blocks, mob drops and manually discarded inventory can exist as physical world-item entities. These should feel familiar and tactile in normal play while using a representation designed for larger worlds and heavier automation.
 
 ### One entity represents a stack
 

@@ -445,7 +445,25 @@ namespace RivetReach
                         "Fill shortcuts reject non-crafting station " + stationId + " without moving materials");
                     Search().text = "";
                 }
-                if (stationId == IndustryId.Bench) { Check(game.Crafting.Grid.Size == 4, "Machinist retains its 4 × 4 crafting grid"); yield return Capture("machinist-sidebar"); }
+                if (stationId == IndustryId.Bench)
+                {
+                    Check(game.Crafting.Grid.Size == 4, "Machinist retains its 4 × 4 crafting grid"); yield return Capture("machinist-sidebar");
+                    foreach(var component in new[]{(input:BlockId.IronIngot,output:IndustryId.Cog,count:1,name:"cog"),(input:IndustryId.IronPlate,output:IndustryId.Rivets,count:4,name:"rivets")})
+                    {
+                        game.Crafting.ReturnIngredients(game.Inventory);
+                        Check(game.UI.HeldStack.Empty,"Component capture begins without a cursor stack");
+                        game.Inventory.Add(component.input,1);
+                        int beforeInput=game.Inventory.Total(component.input),beforeOutput=game.Inventory.Total(component.output);
+                        game.UI.InspectBrowserItem(component.output,false);yield return null;yield return null;
+                        yield return BrowserPointer(Named("FILL GRID"));
+                        Check(game.Crafting.Preview?.Output.Id==component.output&&game.Crafting.Preview.Output.Count==component.count&&game.Crafting.Grid.Slots.Sum(stack=>stack.Count)==1,
+                            "Component guide fills exactly one correct ingredient: "+component.name);
+                        yield return Capture("component-"+component.name+"-recipe");
+                        yield return ClickCraftUI(CraftResultSlot,false,true);
+                        Check(game.Crafting.Grid.Slots.All(stack=>stack.Empty)&&game.Inventory.Total(component.input)==beforeInput-1&&game.Inventory.Total(component.output)==beforeOutput+component.count,
+                            "Pointer crafts component with exact consumed input and output: "+component.name);
+                    }
+                }
                 if (stationId == BlockId.Furnace)
                 {
                     yield return Capture("furnace-sidebar");

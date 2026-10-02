@@ -1,0 +1,7 @@
+Isolated candidate: generated reference check passed (195 item pages, 2 indexes, 199 entries).
+Wiki: 233 pages, 9963 local links/images validated.
+Exported icon bytes are unchanged.
+Main workspace retains pre-existing BlockTiles.asset edits; its source-fingerprint check is expected to reject that mixed artwork. Candidate validation uses the committed artwork in the isolated checkout.
+Changed specification/evidence Markdown: 881 local file/section links validated.
+PASS maintained files contain no remaining explicit external-game name (case-insensitive search).
+PASS starter recipe definitions and executable acceptance expectations are unchanged.

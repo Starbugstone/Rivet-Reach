@@ -15,6 +15,8 @@ This directory maintains the latest report and useful evidence for each feature.
 
 | Feature | Current evidence |
 | --- | --- |
+| Machine visibility distance | [October 2 source review](MACHINE_VISIBILITY_REVIEW.md) — fixed 64-block model cutoff, terrain-distance mismatch and proposed measured follow-up; behavior unchanged |
+| Crafting identity and component recipes | [October 2 issue #1 verification](CRAFTING_IDENTITY_RESULTS.md) — project-owned recipe contract, one-ingot Cog, plate Rivets and exact legacy content compatibility |
 | 0.1.0 release readiness | [September 27 audit](RELEASE_READINESS_0_1_0.md) — steady 60 FPS at 1080p, frame integrity, fresh optimized-player checks and prioritized release blockers |
 | Factory optimizations | [September 22 implementation](FACTORY_OPTIMIZATION_RESULTS.md) — packed mesh submission, cached power roles, resident pump reads and shared shader sampling |
 | Factory bottleneck isolation | [Extra September 22 tests](FACTORY_ISOLATION_RESULTS.md) — repeated mesh submission hitch, ranged-pump cost, power role counts, paired graphics controls and proposed fixes |

@@ -56,7 +56,7 @@ This prevents world travel from accidentally becoming early fast travel.
 
 A single unique gateway would create a multiplayer cluster and punish distant settlements.
 
-Likewise, compressed-coordinate travel similar to Minecraft's Nether would undermine the choice to live remotely.
+Likewise, compressed-coordinate travel between realms would undermine the choice to live remotely.
 
 Rivet Reach should support both:
 

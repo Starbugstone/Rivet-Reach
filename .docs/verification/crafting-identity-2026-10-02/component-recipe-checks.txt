@@ -1,0 +1,137 @@
+PASS Component needs the Machinist's Bench, grid 2 slot 0
+PASS Component needs the Machinist's Bench, grid 2 slot 1
+PASS Component needs the Machinist's Bench, grid 2 slot 2
+PASS Component needs the Machinist's Bench, grid 2 slot 3
+PASS Component needs the Machinist's Bench, grid 3 slot 0
+PASS Component needs the Machinist's Bench, grid 3 slot 1
+PASS Component needs the Machinist's Bench, grid 3 slot 2
+PASS Component needs the Machinist's Bench, grid 3 slot 3
+PASS Component needs the Machinist's Bench, grid 3 slot 4
+PASS Component needs the Machinist's Bench, grid 3 slot 5
+PASS Component needs the Machinist's Bench, grid 3 slot 6
+PASS Component needs the Machinist's Bench, grid 3 slot 7
+PASS Component needs the Machinist's Bench, grid 3 slot 8
+PASS Independent component output at slot 0
+PASS Exact component consumption at slot 0
+PASS No second output after consumption
+PASS Independent component output at slot 1
+PASS Exact component consumption at slot 1
+PASS No second output after consumption
+PASS Independent component output at slot 2
+PASS Exact component consumption at slot 2
+PASS No second output after consumption
+PASS Independent component output at slot 3
+PASS Exact component consumption at slot 3
+PASS No second output after consumption
+PASS Independent component output at slot 4
+PASS Exact component consumption at slot 4
+PASS No second output after consumption
+PASS Independent component output at slot 5
+PASS Exact component consumption at slot 5
+PASS No second output after consumption
+PASS Independent component output at slot 6
+PASS Exact component consumption at slot 6
+PASS No second output after consumption
+PASS Independent component output at slot 7
+PASS Exact component consumption at slot 7
+PASS No second output after consumption
+PASS Independent component output at slot 8
+PASS Exact component consumption at slot 8
+PASS No second output after consumption
+PASS Independent component output at slot 9
+PASS Exact component consumption at slot 9
+PASS No second output after consumption
+PASS Independent component output at slot 10
+PASS Exact component consumption at slot 10
+PASS No second output after consumption
+PASS Independent component output at slot 11
+PASS Exact component consumption at slot 11
+PASS No second output after consumption
+PASS Independent component output at slot 12
+PASS Exact component consumption at slot 12
+PASS No second output after consumption
+PASS Independent component output at slot 13
+PASS Exact component consumption at slot 13
+PASS No second output after consumption
+PASS Independent component output at slot 14
+PASS Exact component consumption at slot 14
+PASS No second output after consumption
+PASS Independent component output at slot 15
+PASS Exact component consumption at slot 15
+PASS No second output after consumption
+PASS Full cursor preserves ingredient
+PASS Component needs the Machinist's Bench, grid 2 slot 0
+PASS Component needs the Machinist's Bench, grid 2 slot 1
+PASS Component needs the Machinist's Bench, grid 2 slot 2
+PASS Component needs the Machinist's Bench, grid 2 slot 3
+PASS Component needs the Machinist's Bench, grid 3 slot 0
+PASS Component needs the Machinist's Bench, grid 3 slot 1
+PASS Component needs the Machinist's Bench, grid 3 slot 2
+PASS Component needs the Machinist's Bench, grid 3 slot 3
+PASS Component needs the Machinist's Bench, grid 3 slot 4
+PASS Component needs the Machinist's Bench, grid 3 slot 5
+PASS Component needs the Machinist's Bench, grid 3 slot 6
+PASS Component needs the Machinist's Bench, grid 3 slot 7
+PASS Component needs the Machinist's Bench, grid 3 slot 8
+PASS Independent component output at slot 0
+PASS Exact component consumption at slot 0
+PASS No second output after consumption
+PASS Independent component output at slot 1
+PASS Exact component consumption at slot 1
+PASS No second output after consumption
+PASS Independent component output at slot 2
+PASS Exact component consumption at slot 2
+PASS No second output after consumption
+PASS Independent component output at slot 3
+PASS Exact component consumption at slot 3
+PASS No second output after consumption
+PASS Independent component output at slot 4
+PASS Exact component consumption at slot 4
+PASS No second output after consumption
+PASS Independent component output at slot 5
+PASS Exact component consumption at slot 5
+PASS No second output after consumption
+PASS Independent component output at slot 6
+PASS Exact component consumption at slot 6
+PASS No second output after consumption
+PASS Independent component output at slot 7
+PASS Exact component consumption at slot 7
+PASS No second output after consumption
+PASS Independent component output at slot 8
+PASS Exact component consumption at slot 8
+PASS No second output after consumption
+PASS Independent component output at slot 9
+PASS Exact component consumption at slot 9
+PASS No second output after consumption
+PASS Independent component output at slot 10
+PASS Exact component consumption at slot 10
+PASS No second output after consumption
+PASS Independent component output at slot 11
+PASS Exact component consumption at slot 11
+PASS No second output after consumption
+PASS Independent component output at slot 12
+PASS Exact component consumption at slot 12
+PASS No second output after consumption
+PASS Independent component output at slot 13
+PASS Exact component consumption at slot 13
+PASS No second output after consumption
+PASS Independent component output at slot 14
+PASS Exact component consumption at slot 14
+PASS No second output after consumption
+PASS Independent component output at slot 15
+PASS Exact component consumption at slot 15
+PASS No second output after consumption
+PASS Full cursor preserves ingredient
+PASS Old two-ingot Cog layout is no longer registered
+PASS One Sand smelts into one Glass component
+PASS Glass remains a component; reinforced tank glass supplies placed industrial windows
+PASS Real furnace transaction produces Glass
+PASS Schema 18 retains exact existing component stacks
+PASS Schema 18 retains exact existing component stacks
+PASS Historical component compatibility rejects changed station gate
+PASS Historical component compatibility rejects changed Cog yield
+PASS Historical component compatibility rejects changed mirror flag
+PASS Historical component compatibility rejects changed Cog input quantity
+PASS Historical component compatibility rejects changed Rivet material
+PASS Historical component compatibility rejects changed Rivet yield
+PASS Historical component compatibility rejects unrelated starter recipe change

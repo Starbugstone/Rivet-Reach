@@ -2,7 +2,7 @@
 
 > **2026-09-11 persistence extension:** [SAVES.md](SAVES.md) owns the implemented Save Game, Load Game and Continue Latest Save behavior. Its bounded surface-world persistence supersedes earlier session-only/durable-save exclusions below; older verification retains its original artifact identity.
 
-The user authorized world liquids, a sea biome, rivers and bucket collection/placement, with Minecraft-style behaviour. They explicitly confirmed that **two-source renewal is a per-fluid boolean**, enabled for water and independently disabled for other liquids. This supersedes the earlier no-renewal water proposal. These are original implementations; no third-party code or assets were imported.
+The user authorized world liquids, a sea biome, rivers and bucket collection/placement, with block-based source and flow behaviour. They explicitly confirmed that **two-source renewal is a per-fluid boolean**, enabled for water and independently disabled for other liquids. This supersedes the earlier no-renewal water proposal. These are original implementations; no third-party code or assets were imported.
 
 ## Playable water rules
 
@@ -13,7 +13,7 @@ The user authorized world liquids, a sea biome, rivers and bucket collection/pla
 - Immersion slows player travel and applies the fluid current. Hold Jump to rise and Crouch to descend; otherwise the player sinks gently. Immersion resets accumulated fall damage. Existing male/female collision dimensions and appearance remain unchanged.
 - Dropped items experience drag and current. `ItemDefinition.buoyant` defaults to false, so ordinary items sink. A definition can opt into rising. This does not change item identity, quantities, pickup delay or lifetime.
 
-The familiar bucket and renewal reference is Mojang's [bucket overview](https://www.minecraft.net/en-us/article/taking-inventory-bucket) and [water overview](https://www.minecraft.net/en-us/article/block-week-water). The request selects similar block-fluid behaviour, not exact compatibility with every Minecraft edition, tick-order quirk or block interaction.
+The following source, flow, bucket and renewal rules define Rivet Reach’s fluid behavior. Compatibility with another game's tick order or block interactions is not required.
 
 ## Fluid abstraction and extension
 

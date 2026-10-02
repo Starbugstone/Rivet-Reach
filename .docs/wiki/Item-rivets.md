@@ -8,7 +8,7 @@
 
 <a href="Item-rivets.md" title="Rivets"><img src="icons/126.png" width="96" height="96" alt="Rivets"></a>
 
-Small iron fasteners used in industrial and multiblock assemblies.
+Small iron fasteners used in industrial and multiblock assemblies. One Iron Plate makes four Rivets at the Machinist’s Bench. See [Workshop components](Workshop-components.md).
 
 ## At a glance
 
@@ -30,7 +30,7 @@ Make this item using the crafting or processing recipes below.
 
 <table>
 <tr>
-<td align="center" width="72" height="64"><a href="Item-iron-ingot.md" title="Iron ingot"><img src="icons/28.png" width="48" height="48" alt="Iron ingot"></a> ×1</td>
+<td align="center" width="72" height="64"><a href="Item-iron-plate.md" title="Iron Plate"><img src="icons/124.png" width="48" height="48" alt="Iron Plate"></a> ×1</td>
 <td align="center" width="72" height="64">&nbsp;</td>
 <td align="center" width="72" height="64">&nbsp;</td>
 <td align="center" width="72" height="64">&nbsp;</td>
@@ -55,11 +55,11 @@ Make this item using the crafting or processing recipes below.
 </tr>
 </table>
 
-**Output:** <a href="Item-rivets.md" title="Rivets"><img src="icons/126.png" width="56" height="56" alt="Rivets"><br>Rivets</a> ×8
+**Output:** <a href="Item-rivets.md" title="Rivets"><img src="icons/126.png" width="56" height="56" alt="Rivets"><br>Rivets</a> ×4
 
 | Ingredient | Total per operation |
 |---|---:|
-| <a href="Item-iron-ingot.md" title="Iron ingot"><img src="icons/28.png" width="32" height="32" alt="Iron ingot"></a> [Iron ingot](Item-iron-ingot.md) | 1 |
+| <a href="Item-iron-plate.md" title="Iron Plate"><img src="icons/124.png" width="32" height="32" alt="Iron Plate"></a> [Iron Plate](Item-iron-plate.md) | 1 |
 
 ## Used to make
 

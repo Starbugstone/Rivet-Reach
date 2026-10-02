@@ -13,14 +13,12 @@ MonoBehaviour:
   m_Name: Industry125
   m_EditorClassIdentifier: Assembly-CSharp::RivetReach.RecipeAsset
   stableId: rivet:industry_125
-  kind: 0
+  kind: 1
   minimumGridSize: 4
-  width: 2
+  width: 1
   height: 1
   mirror: 0
   ingredients:
-  - itemId: rivet:iron_ingot
-    count: 1
   - itemId: rivet:iron_ingot
     count: 1
   output:

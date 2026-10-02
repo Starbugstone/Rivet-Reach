@@ -8,7 +8,7 @@
 
 <a href="Item-cog.md" title="Iron Cog"><img src="icons/125.png" width="96" height="96" alt="Iron Cog"></a>
 
-An iron mechanical component used in machines and item extraction.
+An iron mechanical component used in machines and item extraction. One Iron Ingot makes one Cog at the Machinist’s Bench. See [Workshop components](Workshop-components.md).
 
 ## At a glance
 
@@ -26,12 +26,12 @@ Make this item using the crafting or processing recipes below.
 
 **Station:** <a href="Item-machinist-bench.md" title="Machinist&#x27;s Bench"><img src="icons/130.png" width="40" height="40" alt="Machinist&#x27;s Bench"><br>Machinist&#x27;s Bench</a> · 4×4
 
-**Shaped:** keep the arrangement below. The pattern can move within a compatible grid.
+**Shapeless:** slot positions do not matter. Keep each pictured ingredient stack and its quantity; the layout below is only an example.
 
 <table>
 <tr>
 <td align="center" width="72" height="64"><a href="Item-iron-ingot.md" title="Iron ingot"><img src="icons/28.png" width="48" height="48" alt="Iron ingot"></a> ×1</td>
-<td align="center" width="72" height="64"><a href="Item-iron-ingot.md" title="Iron ingot"><img src="icons/28.png" width="48" height="48" alt="Iron ingot"></a> ×1</td>
+<td align="center" width="72" height="64">&nbsp;</td>
 <td align="center" width="72" height="64">&nbsp;</td>
 <td align="center" width="72" height="64">&nbsp;</td>
 </tr>
@@ -59,7 +59,7 @@ Make this item using the crafting or processing recipes below.
 
 | Ingredient | Total per operation |
 |---|---:|
-| <a href="Item-iron-ingot.md" title="Iron ingot"><img src="icons/28.png" width="32" height="32" alt="Iron ingot"></a> [Iron ingot](Item-iron-ingot.md) | 2 |
+| <a href="Item-iron-ingot.md" title="Iron ingot"><img src="icons/28.png" width="32" height="32" alt="Iron ingot"></a> [Iron ingot](Item-iron-ingot.md) | 1 |
 
 ## Used to make
 

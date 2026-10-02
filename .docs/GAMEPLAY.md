@@ -93,9 +93,9 @@ Use separate evidence for fun and technical correctness:
 
 Record confusion, waiting, repetitive travel, failure recovery and motivation alongside frame time. These scenarios are future playtests; documentation review cannot declare them successful.
 
-## 8. Minecraft-like world item behaviour
+## 8. Physical world item behaviour
 
-**Agreed direction:** basic moment-to-moment play should retain the familiar, readable feel of Minecraft where that interaction already works well. Rivet Reach differentiates itself through its own automation depth, technology progression, worlds, lore and visual identity rather than by making basic sandbox controls unnecessarily unfamiliar.
+**Agreed direction:** basic moment-to-moment play should retain familiar, readable voxel-sandbox interactions. Rivet Reach differentiates itself through its own automation depth, technology progression, worlds, lore and visual identity rather than by making basic sandbox controls unnecessarily unfamiliar.
 
 ### Dropping items
 
@@ -108,7 +108,7 @@ The intended feel is familiar sandbox behaviour:
 - mined blocks, mob drops and manually discarded inventory become physical world-item entities;
 - world items fall under gravity, collide with terrain and settle on the ground;
 - walking close enough collects compatible items into the player's inventory;
-- exact keys and controller bindings remain configurable rather than hard-coded to Minecraft's defaults.
+- exact keys and controller bindings remain configurable rather than fixed to another game's defaults.
 
 A dropped stack is represented as **one world entity containing an item stack**, not one physics entity per individual item.
 
@@ -140,11 +140,11 @@ Compatibility must respect item identity and any item metadata that makes two st
 
 ### Water interaction and buoyancy
 
-Water should use a Minecraft-like block-fluid interaction model rather than expensive continuous fluid dynamics.
+Water should use a block-based fluid interaction model rather than expensive continuous fluid dynamics.
 
 Flowing water applies current to physical entities, including dropped items.
 
-Rivet Reach deliberately differs from modern Minecraft in one clear rule:
+Rivet Reach requires the following placement rule:
 
 > **Dropped items sink in water by default.**
 
@@ -193,7 +193,7 @@ Pipe item
 
 Optional moving icons/items visible inside pipes can be cosmetic only.
 
-This keeps the world tactile and Minecraft-like while allowing large factories to scale without thousands of authoritative moving item entities.
+This keeps the world tactile and familiar while allowing large factories to scale without thousands of authoritative moving item entities.
 
 ## 9. Working interaction specification
 
@@ -297,7 +297,7 @@ Give immediate fist/selection/progress feedback and simple readable impact feedb
 
 ### Grass growth — user feedback extension
 
-Grass spreads gradually to nearby dirt on random fixed ticks when source and destination have light and the destination has an open top. Covering grass causes it to decay to dirt on a later random tick. The first implementation uses direct sky exposure in the current opaque-terrain/daylight world: a roof anywhere above the column blocks growth, and removing it restores eligibility. Grass keeps this direct-exposure rule; the subsequent [cave-light system](LIGHTING.md) supplies indirect sky and placed light to crops, saplings and compost. This is an explicit limitation, not a claim of exact Minecraft light propagation.
+Grass spreads gradually to nearby dirt on random fixed ticks when source and destination have light and the destination has an open top. Covering grass causes it to decay to dirt on a later random tick. The first implementation uses direct sky exposure in the current opaque-terrain/daylight world: a roof anywhere above the column blocks growth, and removing it restores eligibility. Grass keeps this direct-exposure rule; the subsequent [cave-light system](LIGHTING.md) supplies indirect sky and placed light to crops, saplings and compost. Indirect light propagation remains outside this grass-spread rule.
 
 The working neighbourhood includes horizontal and diagonal neighbours one block away, up one or down three levels, allowing grass to move across slopes. Timing is randomized rather than an immediate flood. Nearby resident terrain ticks during Play and inventory; paused or distant/unloaded terrain does not accrue catch-up. Conversion changes terrain state without producing or consuming items, and survives chunk unload/reload within the session. [SIMULATION.md](SIMULATION.md#13-grass-random-ticks--first-step-feedback) owns scheduling and mutation details. Artificial grass collection/tools remain later work; ordinary fist mining therefore supplies dirt for building.
 
@@ -353,7 +353,7 @@ Normal application/Editor Play startup prepares a fresh random seed. The optiona
 
 ### First-step terrain placement — user feedback extension
 
-Use the opposite mouse button from mining (right mouse by default). Aim at an existing block within 5 m; the voxel ray supplies the entered face and therefore the adjacent destination cell. Following the user's later Minecraft-style interaction request, show one thin dark outline around the aimed existing block, with consistent screen-space thickness and normal terrain occlusion. This supersedes the green/red destination wireframe. Destination validation still occurs on every placement attempt, with the reason shown when rejected. These three terrain blocks have no directional state, so rotation is unnecessary; machinery orientation and footprints remain later work.
+Use the opposite mouse button from mining (right mouse by default). Aim at an existing block within 5 m; the voxel ray supplies the entered face and therefore the adjacent destination cell. Following the user's later block-targeting interaction request, show one thin dark outline around the aimed existing block, with consistent screen-space thickness and normal terrain occlusion. This supersedes the green/red destination wireframe. Destination validation still occurs on every placement attempt, with the reason shown when rejected. These three terrain blocks have no directional state, so rotation is unnecessary; machinery orientation and footprints remain later work.
 
 Validate the current selected stack, destination residency, empty occupancy and overlap with the player on each attempt. Use the same occupied-cell boundary and 1 mm skin as movement, so touching feet do not reject a block that fits below them. Loose items are allowed in the destination; after the voxel commits, move overlapping piles above it or into a clear side, waking their movement without changing their item identities, quantities, pickup delays or lifetimes. Different item types may share the destination and escape space. Reject placement while an inventory/menu is open, while inspecting the body, or when there is no reachable target face. Leave quantities unchanged on rejection. Player-overlap rejection is silent in the normal HUD and recorded in the F12 debug panel; other actionable placement failures retain their HUD feedback. [The play guide](FIRST_POC.md#foundation-and-diagnostics) describes panel contents and controls. A successful local authority turn commits one terrain voxel and immediately consumes one item from the selected stack. Successful held placements repeat at most once per 0.22 seconds using the current target; a failed attempt does not spend this cooldown. Holding placement while jumping can therefore fill the space as soon as the feet clear it. Release resets the repeat timer. Mining and placing simultaneously gives placement priority.
 
@@ -373,7 +373,10 @@ Allowing players to supply their own PNG skin using a published Rivet Reach temp
 
 ## 16. Modular grid crafting
 
-**Explicit user extension, 2026-09-08:** implement modular, easily editable recipes as a core system supporting 2×2, 3×3 and 4×4 grids. Activate the existing personal 2×2 inventory area. The personal 2×2 and placed workbench 3×3 interfaces are active. The future 4×4 interface already has core support.
+Recipe layouts and quantities follow [Rivet Reach’s own crafting contract](CRAFTING.md#starter-recipe-and-block-interaction-acceptance). Readable starter shapes are intentional; progression then introduces Cogs, Plates, Rivets, Wire and the 4×4 Machinist’s Bench. [Economy](ECONOMY.md#recipe-ownership-and-current-disposition--2026-10-02) owns the current recipe decisions.
+
+
+**Explicit user extension, 2026-09-08:** implement modular, easily editable recipes as a core system supporting 2×2, 3×3 and 4×4 grids. Activate the existing personal 2×2 inventory area. The personal 2×2, placed Workbench 3×3 and Machinist’s Bench 4×4 interfaces are active.
 
 **Working interaction rules:** move, split, combine, swap and drag ingredients using the same controls as inventory. Shaped recipes may move anywhere they fit in a larger grid; internal empty cells remain empty, mirroring is per-recipe, and rotation is not implicit. Shapeless recipes accept any cell arrangement with the exact occupied-slot ingredients. Extra inputs reject the match. Minimum grid size is an independent recipe requirement. No knowledge or XP flag gates the registered recipes.
 
@@ -420,7 +423,7 @@ The user explicitly authorized mobs, Blender-authored enemies, AI and spawning o
 
 - Start empty-handed. Gather logs, craft planks, sticks and a workbench in the personal 2×2 grid. Place and use the workbench for 3×3 tools, stations, armor and storage blocks. Stone requires a wooden pickaxe or better; later ore extraction follows the displayed grade requirement. Below-grade attempts preserve the resource. Supplied starter tools and their temporary personal recipes are retired from ordinary play.
 - Use a workbench, furnace or chest within reach to open it. Crouch-use permits placing against a station instead. Furnace ingredients, fuel and results are separate filtered slots; result slots never accept inserted items. Shift-click moves station stacks; dragging logs to the fuel slot selects burning instead of charcoal production. Closing returns held items and workbench ingredients where they fit; station contents and remaining ingredients survive interface closure and chunk unloading in this session.
-- Find ripe wild potato plants, harvest by hand and keep potatoes for planting. Use any hoe on exposed grass/dirt to create farmland, then use a potato on it to plant. Crops have four visible stages and do not block movement. A ripe harvest yields 2–4 potatoes; immature harvest returns one potato for eating or replanting. Removing the supporting soil uproots the crop and returns its harvest. No crop GameObject, per-frame crop update, irrigation or fertilizer system is introduced. Growth uses loaded terrain and geometric skylight; its current 60-second stages and lack of hydration are working defaults, not full Minecraft farming equivalence.
+- Find ripe wild potato plants, harvest by hand and keep potatoes for planting. Use any hoe on exposed grass/dirt to create farmland, then use a potato on it to plant. Crops have four visible stages and do not block movement. A ripe harvest yields 2–4 potatoes; immature harvest returns one potato for eating or replanting. Removing the supporting soil uproots the crop and returns its harvest. No crop GameObject, per-frame crop update, irrigation or fertilizer system is introduced. Growth uses loaded terrain and geometric skylight; its current 60-second stages and lack of hydration are working defaults, not a complete farming simulation.
 - Hunger has 20 food points, shown as ten food icons with half icons for odd points. Survival spends one food point per approximately 136.53 seconds at rest; walking uses 0.0075 exhaustion per metre, sprinting 0.075, jumping 0.15 and successful mining/tilling 0.0375. Four exhaustion spends one food point. Issue #12's 0.75 multiplier applies to those ordinary costs, while healing keeps its six-exhaustion cost. Prepared foods can add a capped 20-point saturation reserve, spent before food at four exhaustion per point. Food at 6 or below prevents sprinting. Hold Use for 1.2 seconds to eat; full hunger does not consume food, even with an empty reserve. Planting on farmland takes precedence over eating. [Food balance](FOOD_BALANCE.md) owns exact food/reserve values and working-tuning limits.
 - Health has 20 points, shown as ten hearts. Healing starts at food 12 or higher (60%), continues through food 11, and stops at food 10 or lower (50%) or full health. While active, missing health regenerates one point (half a heart) every four seconds and costs six exhaustion in addition to passive/activity hunger. A stopped cycle requires food 12 again; opening inventory does not reset it. This 60%/50% rule and the icon meters were selected by the user on 2026-09-11; the drain/healing rates remain working tuning. At zero food, starvation removes one health point every four seconds down to one; further damage can kill. Falling more than three blocks deals one point per additional whole block. Inventory screens keep simulation running; pause/death screens stop it.
 - Copper, iron and diamond armor have head, chest, legs and feet slots. Drag the matching piece into a slot, or shift-click it in the personal/workbench inventory. Protection is shown as a fixed ten-shield meter in the HUD and equipment panel, with two points per shield and half shields for odd values. Each armor point reduces ordinary impact/creature damage by 4%, capped at 80%; positive hits always retain at least 20% damage, including with excess protection. Empty armor shows all ten empty shields; it never shrinks the meter. Fall and starvation damage bypass armor. Equipment affects survival independently of the male/female model and skin choice. The [fitted armor presentation](EQUIPMENT_ART.md) appears on both explorers, the inventory portrait and first-person bracers, with matching icons and held/dropped models. Equipment wear remains future work.

@@ -19,8 +19,8 @@ MonoBehaviour:
   height: 1
   mirror: 0
   ingredients:
-  - itemId: rivet:iron_ingot
+  - itemId: rivet:iron_plate
     count: 1
   output:
     itemId: rivet:rivets
-    count: 8
+    count: 4

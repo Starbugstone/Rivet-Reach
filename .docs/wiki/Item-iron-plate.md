@@ -67,6 +67,7 @@ Follow a result to see its complete ingredients and recipe.
 
 | Result | Station | Recipe |
 |---|---|---|
+| <a href="Item-rivets.md#recipe-1" title="Rivets"><img src="icons/126.png" width="32" height="32" alt="Rivets"></a> ×4 [Rivets](Item-rivets.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-rivets.md#recipe-1) |
 | <a href="Item-machine-casing.md#recipe-1" title="Machine Casing"><img src="icons/127.png" width="32" height="32" alt="Machine Casing"></a> ×1 [Machine Casing](Item-machine-casing.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-machine-casing.md#recipe-1) |
 | <a href="Item-signal-relay.md#recipe-1" title="Signal Relay"><img src="icons/133.png" width="32" height="32" alt="Signal Relay"></a> ×1 [Signal Relay](Item-signal-relay.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-signal-relay.md#recipe-1) |
 | <a href="Item-workshop-hatch.md#recipe-1" title="Workshop Hatch"><img src="icons/137.png" width="32" height="32" alt="Workshop Hatch"></a> ×1 [Workshop Hatch](Item-workshop-hatch.md) | [Machinist's Bench](Item-machinist-bench.md) | [View recipe](Item-workshop-hatch.md#recipe-1) |

@@ -45,4 +45,8 @@ The first POC enables the pinned Editor's built-in `audio`, `physics` and `scree
 
 The player models, skin images, terrain tiles, sky/terrain shaders and synthesized sound effects were created for Rivet Reach from the versioned scripts and code. Blender is an authoring tool; its executable and implementation are not redistributed in the game. No third-party character, texture or audio asset was copied. The Windows build helper includes this notice inventory, the supplied package/template license copies and Rivet Reach's proprietary license alongside the player. Some preserved package notices cover development tooling as well as runtime material; inclusion does not imply those tools are gameplay features.
 
-The player rebuild enables `com.unity.modules.animation` 1.0.0 from the same pinned Unity Editor for Animator/Playables and FBX animation playback. It is a built-in Unity Engine module under the same engine terms; no external rig, animation library, Minecraft model or third-party character asset is included.
+The player rebuild enables `com.unity.modules.animation` 1.0.0 from the same pinned Unity Editor for Animator/Playables and FBX animation playback. It is a built-in Unity Engine module under the same engine terms; no external rig, animation library or third-party character asset is included.
+
+## Recipe specification review — 2026-10-02
+
+Issue #1 retires the external recipe-comparison report from maintained evidence. Rivet Reach’s versioned recipes, original implementation and independent fixtures own the crafting contract. This cleanup introduces no third-party code, artwork, recipe data, package or licensing change. Retiring a comparison does not rewrite the documented development history; the existing provenance records and proprietary notices remain in force.

@@ -171,10 +171,10 @@
     "description": "A shaped iron component for machine casings, structural parts and assemblies."
   },
   "rivet:cog": {
-    "description": "An iron mechanical component used in machines and item extraction."
+    "description": "An iron mechanical component used in machines and item extraction. One Iron Ingot makes one Cog at the Machinist’s Bench. See [Workshop components](Workshop-components.md)."
   },
   "rivet:rivets": {
-    "description": "Small iron fasteners used in industrial and multiblock assemblies."
+    "description": "Small iron fasteners used in industrial and multiblock assemblies. One Iron Plate makes four Rivets at the Machinist’s Bench. See [Workshop components](Workshop-components.md)."
   },
   "rivet:machine_casing": {
     "description": "The common frame used to assemble machinery and batteries."

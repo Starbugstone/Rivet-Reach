@@ -2,7 +2,7 @@
 
 > **Status:** evolving design / internal lore bible
 >
-> This document defines the hidden rules that make Rivet Reach's worlds coherent. Most of this lore should **not be directly explained to the player**. Rivet Reach should use Minecraft-style environmental storytelling: the player sees villages, ruins, machines, creatures and impossible structures, then forms their own story from what they discover.
+> This document defines the hidden rules that make Rivet Reach's worlds coherent. Most of this lore should **not be directly explained to the player**. Rivet Reach should use environmental storytelling through discovery: the player sees villages, ruins, machines, creatures and impossible structures, then forms their own story from what they discover.
 >
 > These ideas will continue to evolve while we brainstorm, build the POC and test what produces the best world and gameplay.
 
@@ -346,7 +346,7 @@ The Gate realm therefore has real geography rather than being a collection of di
 
 Distance is preserved. A player who settles extremely far from other players remains extremely far from them in the corresponding portal realm.
 
-The Gate network must **not** become a compressed-distance fast-travel system like Minecraft's Nether coordinate scaling.
+The Gate network must **not** become a compressed-distance fast-travel system with coordinate scaling between realms.
 
 More implementation detail lives in [TRANSPORT.md](TRANSPORT.md).
 

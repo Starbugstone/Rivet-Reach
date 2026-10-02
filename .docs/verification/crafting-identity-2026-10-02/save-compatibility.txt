@@ -1,0 +1,29 @@
+PASS pinned historical envelope schema 1 Retained screen checkpoint .docs/verification/release-review-2026-09-19/legacy\schema-01.rrsave
+PASS pinned historical envelope schema 2 Retained screen checkpoint .docs/verification/release-review-2026-09-19/legacy\schema-02.rrsave
+PASS pinned historical envelope schema 3 Doors verification .docs/verification/release-review-2026-09-19/legacy\schema-03.rrsave
+PASS pinned historical envelope schema 4 Cross-process expedition .docs/verification/release-review-2026-09-19/legacy\schema-04.rrsave
+PASS pinned historical envelope schema 5 Placement facing .docs/verification/release-review-2026-09-19/legacy\schema-05.rrsave
+PASS pinned historical envelope schema 6 Expanded inventory .docs/verification/release-review-2026-09-19/legacy\schema-06.rrsave
+PASS pinned historical envelope schema 7 Electric furnace partial work .docs/verification/release-review-2026-09-19/legacy\schema-07.rrsave
+PASS pinned historical envelope schema 8 Ranged pump partial collection .docs/verification/release-review-2026-09-19/legacy\schema-08.rrsave
+PASS pinned historical envelope schema 9 Remote bridge installation .docs/verification/release-review-2026-09-19/legacy\schema-09.rrsave
+PASS pinned historical envelope schema 10 Compost checkpoint .docs/verification/release-review-2026-09-19/legacy\schema-10.rrsave
+PASS pinned historical envelope schema 11 Compost checkpoint .docs/verification/release-review-2026-09-19/legacy\schema-11.rrsave
+PASS pinned historical envelope schema 12 Chicken checkpoint .docs/verification/release-review-2026-09-19/legacy\schema-12.rrsave
+PASS pinned historical envelope schema 13 Second slot .docs/verification/release-review-2026-09-19/legacy\schema-13.rrsave
+PASS pinned historical envelope schema 14 Fishing checkpoint .docs/verification/release-review-2026-09-19/legacy\schema-14.rrsave
+PASS pinned historical envelope schema 15 Crate warehouse .docs/verification/release-review-2026-09-19/legacy\schema-15.rrsave
+PASS pinned historical envelope schema 16 Weather checkpoint .docs/verification/release-review-2026-09-19/legacy\schema-16.rrsave
+PASS pinned historical envelope schema 17 Food reserve and kitchen .docs/verification/release-review-2026-09-19/legacy\schema-17.rrsave
+PASS reject empty historical fixture directory
+PASS reject manifest without historical captures
+PASS reject partial historical capture set
+PASS reject duplicated schema in manifest
+PASS reject extra unmanifested historical capture
+PASS reject modified historical capture bytes
+PASS reject modified capture and forged matching manifest hash
+PASS reject mismatched manifest source/save identity
+PASS restored complete fixture set validates after independent corruptions
+PASS nested coroutine failure restores outer state and reports original plus cleanup exceptions in order
+PASS disposing suspended nested verification runs every parent finally exactly once
+PASS successful nested verification restores state without reporting a failure

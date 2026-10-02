@@ -9,5 +9,6 @@
   "starter_report": "runtime-report.json",
   "survival_report": "../survival/runtime-report.json",
   "build_summary": "build-summary.txt",
-  "recipe_reference": "minecraft-recipe-comparison.json"
+  "recipe_reference": "starter-recipe-checks.txt",
+  "metadata_note": "2026-10-02: external comparison retired; reference now points to this build's retained independent fixtures. Build identity and results are unchanged."
 }

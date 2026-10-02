@@ -1,0 +1,6 @@
+PASS: 1324249 crafting assertions. UTC 2026-10-02T16:35:39.5910542Z; Unity 6000.4.4f1; Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
+GC.Alloc recorder calibrated: empty control emitted no event; retained 4096-byte array emitted an event. Byte counter unsupported (0).
+10 recipes; compile 0,033 ms; 4x4 hit 0,821 us, miss 0,822 us; 100000 iterations each; calibrated allocation probes after warmup: hit no allocation detected, miss no allocation detected.
+1000 recipes; compile 2,317 ms; 4x4 hit 0,790 us, miss 0,785 us; 100000 iterations each; calibrated allocation probes after warmup: hit no allocation detected, miss no allocation detected.
+10000 recipes; compile 23,446 ms; 4x4 hit 0,798 us, miss 0,799 us; 100000 iterations each; calibrated allocation probes after warmup: hit no allocation detected, miss no allocation detected.
+Cached preview: 3,688 ms / 1,000,000 reads; calibrated allocation probe: no allocation detected. Counter calibration/start/stop are excluded from timings. Editor Mono, isolated synchronous workload; not whole-game frame timings. Event probes report presence only, not allocated bytes or event totals.

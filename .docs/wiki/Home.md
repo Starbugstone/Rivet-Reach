@@ -7,6 +7,7 @@ Start here:
 - [Machine interfaces](Machine-interfaces.md) — identify the machine you opened and find its controls.
 - [Items](Items.md) — browse icons, item uses and individual recipes.
 - [Crafting recipes](Crafting-Recipes.md) — complete reference for crafting and processing recipes.
+- [Workshop components](Workshop-components.md) — craft Cogs, Plates, Rivets and your first machine parts.
 - [Tools and durability](Tools-and-durability.md) — faster tiers, remaining uses and worn-tool storage.
 - [Pipes and wrench](Pipes.md) — all-face connections, blue input/red output arrows and hands-on setup.
 - [Build a multiblock tank](Tanks.md) — exact shopping list, each layer, outward-facing controls, filling and repairs.

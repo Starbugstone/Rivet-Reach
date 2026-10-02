@@ -18,14 +18,14 @@ The 2026-09-11 Azure art revision follows the [Blue Signal concept sheet](concep
 |---|---|---|
 | Copper Wire | 1 copper ingot | 4; one cell |
 | Copper / Iron Plate | 3 corresponding ingots | 3; horizontal row of three |
-| Iron Cog | 2 iron ingots | 1; horizontal pair |
-| Rivets | 1 iron ingot | 8; one cell |
+| Iron Cog | 1 iron ingot | 1; one cell |
+| Rivets | 1 iron plate | 4; one cell |
 | Machine Casing | 4 iron plates + 4 rivets | 1 |
 | Signal Wire | 1 Copper Wire + 1 Azure Crystal | 4 |
 | Signal Conduit | 2 copper plates + 1 Signal Wire | 2 |
 | Power Cable | 4 Copper Wire + 1 plank | 4 |
 
-The different component layouts avoid ambiguous matches; a larger stack in the same single cell cannot choose a different recipe. Other industrial recipes are shapeless, with quantities shown on each ingredient cell. Editable assets live in `Assets/RivetReach/Resources/Definitions/Recipes/Industry*.asset`; processing uses `Process*.asset`. Existing survival layouts and quantities remain unchanged. Sand smelts to Glass for indicators and lamps. The complete machine and connector recipes are available through the [item sidebar](CRAFTING.md#item-sidebar-and-recipe-discovery--2026-09-10), including the 4×4 station requirement and upstream processing paths.
+The October 2 issue #1 revision reserves a single Iron Ingot for one Cog and makes four Rivets from one Iron Plate. [Economy](ECONOMY.md#recipe-ownership-and-current-disposition--2026-10-02) owns the rationale and [saves](SAVES.md#component-recipe-compatibility--2026-10-02) retain the exact previous definitions. The different component inputs/layouts avoid ambiguous matches; a larger stack in the same single cell cannot choose a different recipe. Other industrial recipes are shapeless, with quantities shown on each ingredient cell. Editable assets live in `Assets/RivetReach/Resources/Definitions/Recipes/Industry*.asset`; processing uses `Process*.asset`. Existing survival layouts and quantities remain unchanged. Sand smelts to Glass for indicators and lamps. The complete machine and connector recipes are available through the [item sidebar](CRAFTING.md#item-sidebar-and-recipe-discovery--2026-09-10), including the 4×4 station requirement and upstream processing paths.
 
 ## Placement and ports
 

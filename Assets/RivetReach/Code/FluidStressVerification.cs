@@ -24,7 +24,7 @@ namespace RivetReach
             public List<FluidStressStage> stages=new List<FluidStressStage>();
         }
         // Source count, not occupied voxel count, is the finite-resource witness:
-        // Minecraft-style flow creates derived cells without consuming its source.
+        // Source-based flow creates derived cells without consuming its source.
         sealed class FluidStressBasin
         {
             public const int Width=48,Depth=24,Height=18;

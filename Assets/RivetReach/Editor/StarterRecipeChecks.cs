@@ -6,8 +6,9 @@ using UnityEngine;
 
 namespace RivetReach.Editor
 {
-    // Independent acceptance fixtures: changing an authored recipe must not silently
-    // change the expected Minecraft-style layout alongside the existing catalog tests.
+    // Independent Rivet Reach acceptance fixtures, owned by .docs/CRAFTING.md and
+    // .docs/ECONOMY.md. Retain readable starter shapes by deliberate design. A content
+    // edit must not silently redefine its expected result through catalog-driven tests.
     public static class StarterRecipeChecks
     {
         public static int Run(ItemRegistry items,RecipeRegistry registry)

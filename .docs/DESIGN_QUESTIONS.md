@@ -115,7 +115,7 @@ These alternatives can be revisited with a concrete reason and affected-rule rev
 
 [FIRST_POC.md](FIRST_POC.md) records the implemented playable increment and [current verification](verification/README.md) links the latest maintained evidence per feature. The full-game decisions above remain working specifications. Superseded implementation histories and screenshots are retained in Git history.
 
-Review movement, mining pace, terrain composition, cave visibility, original player appearance/hand poses, and the time to a first tool and cooked meal through play. The user selected exact Minecraft-style beginning recipe layouts and quantities; these are acceptance requirements, not open balance defaults. The shared engine supports 2×2/3×3/4×4; only personal and workbench interfaces are present. [CRAFTING.md](CRAFTING.md) owns the independent recipe checks and station interaction boundary.
+Review movement, mining pace, terrain composition, cave visibility, original player appearance/hand poses, and the time to a first tool and cooked meal through play. The October 2, 2026 issue #1 decision makes Rivet Reach’s own starter recipe layouts and quantities the acceptance baseline. All starter layouts and quantities must remain exactly as implemented; the cleanup changes their description, not their crafting behavior. Personal 2×2, Workbench 3×3 and Machinist’s Bench 4×4 interfaces are implemented. [CRAFTING.md](CRAFTING.md) owns the independent recipe checks and station interaction boundary.
 
 Generated-only axe felling and player-placed wood/leaf protection are requirements. Ore identities and tier gates are implemented; tune availability, vein size and gathering time through play. Saplings/regrowth, equipment wear, propagated voxel lighting, irrigation, durable saves and 4×4 station forms remain separate choices. [ECONOMY.md](ECONOMY.md) and [GAMEPLAY.md](GAMEPLAY.md) own the current rules. Do not treat previous prototype starter tools or historical recipe layouts as active policy.
 
@@ -128,7 +128,7 @@ The user selected caves, varied terrain and biomes. [The working profile](TERRAI
 
 ## Survival progression working decisions — 2026-09-09
 
-The user explicitly selected basic Minecraft-style recipes, five tool tiers including copper, furnaces, potatoes, farming, hunger, health and armor. [ECONOMY.md](ECONOMY.md#current-survival-recipes-and-tiers) and [GAMEPLAY.md](GAMEPLAY.md#survival-progression-farming-health-and-armor) own the current implementation rules. The authored recipe graph can bootstrap from gathered resources without supplied tools. Tool speeds, three 60-second crop growth intervals, exhaustion/food/healing rates and respawn grace are working defaults, not individually approved or playtest-balanced numbers. Further review should assess time to first cooked meal, underground return trips, hunger pressure and armor usefulness. Tool wear, fitted armor cosmetics, irrigation and durable saves remain separate additions.
+The user selected familiar basic recipes, five tool tiers including copper, furnaces, potatoes, farming, hunger, health and armor. Recipe ownership now follows the issue #1 decision above. [ECONOMY.md](ECONOMY.md#current-survival-recipes-and-tiers) and [GAMEPLAY.md](GAMEPLAY.md#survival-progression-farming-health-and-armor) own the current implementation rules. The authored recipe graph can bootstrap from gathered resources without supplied tools. Tool speeds, three 60-second crop growth intervals, exhaustion/food/healing rates and respawn grace are working defaults, not individually approved or playtest-balanced numbers. Further review should assess time to first cooked meal, underground return trips, hunger pressure and armor usefulness. Tool wear, fitted armor cosmetics, irrigation and durable saves remain separate additions.
 
 
 ## Native mob working decisions — 2026-09-09
@@ -139,7 +139,7 @@ The user explicitly selected basic Minecraft-style recipes, five tool tiers incl
 
 ## World-fluid increment — 2026-09-10
 
-The user explicitly selected seas, rivers, bucket movement and Minecraft-style source/flow behaviour, then confirmed two-source renewal as a boolean that varies by liquid. [FLUIDS.md](FLUIDS.md) owns the implementation. Water enables renewal; future liquids can disable it. The initial source encoding, 0.25-second water delay, river/sea scale and material presentation are working defaults for play review. Actual lava, reactions, irrigation and industry remain future requests.
+The user explicitly selected seas, rivers, bucket movement and block-based source/flow behaviour, then confirmed two-source renewal as a boolean that varies by liquid. [FLUIDS.md](FLUIDS.md) owns the implementation. Water enables renewal; future liquids can disable it. The initial source encoding, 0.25-second water delay, river/sea scale and material presentation are working defaults for play review. Actual lava, reactions, irrigation and industry remain future requests.
 
 Remaining review: river width and continuity across many seeds, coast composition, swimming feel, transparent-water appearance and sustained edits across large fluid regions. Focused measured evidence belongs in [fluid verification](verification/FLUID_RESULTS.md).
 
@@ -161,3 +161,9 @@ The user selected paired item/liquid/electrical bridges, player-private names an
 Issue #12 explicitly requests a 20–30% initial ordinary hunger reduction and rare Floater rooms, with a separate 99/1 cave-connected/buried placement split. The working choices are a 25% ordinary-cost reduction, 36-block cage activation, ten-second cage cycles and the [versioned room profile](SPAWNERS.md). Five origin-owned mobs per cage and the 99/1 split are requirements; exact overall room density and other defaults remain Alpha tuning.
 
 Nonblocking review: longer unscripted Survival sessions, room discovery across varied seeds, and Floater Rock income versus advanced recipes. Focused checks and short scripted routes do not establish final balance, artistic acceptance or large-population performance. Any later room-profile change needs a new generator identity so already generated terrain remains exact. [Evidence](verification/ALPHA_PLAYTEST_RESULTS.md) records the tested build and limits.
+
+## Recipe identity reconciliation — 2026-10-02
+
+Issue #1 now uses [Rivet Reach’s recipe contract](CRAFTING.md#starter-recipe-and-block-interaction-acceptance), with the user-confirmed single-ingot Cog and plate-to-four-Rivets recipes. [The disposition](RECIPE_DISPOSITION.md) records all current grid recipes and retained names/stations; [verification](verification/CRAFTING_IDENTITY_RESULTS.md) records compatibility, UI evidence and the pre-existing old survival-fixture failure. A standalone plain Glass building block, extra tool-head intermediates and a separate Assembly Table remain unselected proposals, not completion claims.
+
+The user’s short machine-visibility concern is confirmed by [the fixed 64-block presentation rule](verification/MACHINE_VISIBILITY_REVIEW.md). A shared visibility policy and cheaper distant machinery need a separately measured follow-up; raising terrain view distance alone does not change that rule.

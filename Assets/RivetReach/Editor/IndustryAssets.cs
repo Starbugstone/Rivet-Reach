@@ -29,7 +29,7 @@ namespace RivetReach.Editor
             {
                 string key="rivet:industry_"+output;string path="Assets/RivetReach/Resources/Definitions/Recipes/Industry"+output+".asset";
                 var recipe=AssetDatabase.LoadAssetAtPath<RecipeAsset>(path);
-                if(recipe==null){recipe=ScriptableObject.CreateInstance<RecipeAsset>();recipe.stableId=key;recipe.kind=RecipeKind.Shapeless;recipe.minimumGridSize=size;recipe.width=recipe.height=1;recipe.ingredients=input.Select(i=>Cell(i.id,i.count)).ToArray();recipe.output=Cell(output,count);if(output==IndustryId.CopperPlate||output==IndustryId.IronPlate||output==IndustryId.Cog){int cells=output==IndustryId.Cog?2:3;recipe.kind=RecipeKind.Shaped;recipe.width=cells;recipe.ingredients=Enumerable.Repeat(Cell(input[0].id),cells).ToArray();}AssetDatabase.CreateAsset(recipe,path);}
+                if(recipe==null){recipe=ScriptableObject.CreateInstance<RecipeAsset>();recipe.stableId=key;recipe.kind=RecipeKind.Shapeless;recipe.minimumGridSize=size;recipe.width=recipe.height=1;recipe.ingredients=input.Select(i=>Cell(i.id,i.count)).ToArray();recipe.output=Cell(output,count);if(output==IndustryId.CopperPlate||output==IndustryId.IronPlate){int cells=3;recipe.kind=RecipeKind.Shaped;recipe.width=cells;recipe.ingredients=Enumerable.Repeat(Cell(input[0].id),cells).ToArray();}AssetDatabase.CreateAsset(recipe,path);}
                 if(IndustryId.TankPart(output)){recipe.ingredients=input.Select(i=>Cell(i.id,i.count)).ToArray();EditorUtility.SetDirty(recipe);}
                 if(!catalog.recipes.Contains(recipe)){catalog.recipes=catalog.recipes.Append(recipe).ToArray();EditorUtility.SetDirty(catalog);}
             }
@@ -38,7 +38,7 @@ namespace RivetReach.Editor
             Recipe(IndustryId.PowerBridge,2,4,(BlockId.FloaterRock,2),(IndustryId.Casing,2),(IndustryId.PowerCable,4),(BlockId.GoldIngot,2),(BlockId.Diamond,2));
             Recipe(IndustryId.ChunkLoader,1,4,(BlockId.FloaterRock,4),(IndustryId.Casing,1),(IndustryId.AzureCrystal,4));
             Recipe(IndustryId.Bench,1,3,(BlockId.Workbench,1),(BlockId.IronIngot,4),(BlockId.CopperIngot,2));
-            Recipe(IndustryId.CopperWire,4,4,(BlockId.CopperIngot,1));Recipe(IndustryId.CopperPlate,3,4,(BlockId.CopperIngot,3));Recipe(IndustryId.IronPlate,3,4,(BlockId.IronIngot,3));Recipe(IndustryId.Cog,1,4,(BlockId.IronIngot,2));Recipe(IndustryId.Rivets,8,4,(BlockId.IronIngot,1));
+            Recipe(IndustryId.CopperWire,4,4,(BlockId.CopperIngot,1));Recipe(IndustryId.CopperPlate,3,4,(BlockId.CopperIngot,3));Recipe(IndustryId.IronPlate,3,4,(BlockId.IronIngot,3));Recipe(IndustryId.Cog,1,4,(BlockId.IronIngot,1));Recipe(IndustryId.Rivets,4,4,(IndustryId.IronPlate,1));
             Recipe(IndustryId.Casing,1,4,(IndustryId.IronPlate,4),(IndustryId.Rivets,4));
             Recipe(IndustryId.SignalWire,4,4,(IndustryId.CopperWire,1),(IndustryId.AzureCrystal,1));
             Recipe(IndustryId.SignalConduit,2,4,(IndustryId.CopperPlate,2),(IndustryId.SignalWire,1));

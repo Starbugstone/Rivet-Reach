@@ -75,6 +75,7 @@ namespace RivetReach
         public string DirectoryPath {get;}
         readonly ItemRegistry registry;
         readonly string content;
+        readonly HashSet<string> currentSchemaContent=new HashSet<string>();
         readonly HashSet<string> legacyContent=new HashSet<string>(),currentContent=new HashSet<string>(),modernContent=new HashSet<string>();
         public string ScanWarning {get;private set;}
         public SaveStore(string path,ItemRegistry registry)
@@ -83,13 +84,13 @@ namespace RivetReach
             // Schema 1/2 predate orchard state; doors and crank are independent additive content.
             // Every definition present before each accepted extension must still match.
             var processing=ProcessingCatalogAsset.Load();
-            bool previousTierRecipes=false;
+            bool previousTierRecipes=false,previousComponentRecipes=false;
             string Fingerprint(int legacy,bool orchard=false,bool wrench=false,bool electric=false,bool lava=false,bool floater=false,bool bridges=false,bool ranged=false,bool farming=false,bool materialTags=true,bool compost=false,bool habitats=false,bool spawnLight=false,bool mixedCompost=false,bool fishing=false,bool chickens=false,bool playtest=false,bool beds=false,bool crates=false,bool renewables=false,bool foodBalance=false,bool legacyHighFoodBalance=false,bool toolWear=false)
             {
                 string definitions=string.Join("\n",registry.items.Where(i=>(renewables||i.stableId!="rivet:solar_panel"&&i.stableId!="rivet:wind_turbine")&&(crates||!CrateId.Part(i.runtimeId))&&(beds||i.runtimeId!=BedId.Bed)&&(playtest||i.runtimeId!=BlockId.LavaRock&&i.runtimeId!=BlockId.MobSpawner)&&(chickens||!ChickenId.Added(i.runtimeId))&&(fishing||!FishId.Added(i.runtimeId))&&(mixedCompost||i.runtimeId!=CompostId.Auto)&&(compost||!CompostId.Added(i.runtimeId))&&(farming||!FarmId.Added(i.runtimeId))&&(ranged||i.stableId!="rivet:ranged_liquid_pump")&&(bridges||i.runtimeId<IndustryId.ItemBridge||i.runtimeId>IndustryId.ChunkLoader)&&(floater||i.stableId!="rivet:floater_rock")&&(lava||i.stableId!="rivet:lava_bucket")&&(electric||i.stableId!="rivet:electric_furnace")&&(wrench||i.stableId!="rivet:wrench")&&(orchard||i.stableId!="rivet:sapling"&&i.stableId!="rivet:apple")&&((legacy&2)==0||i.stableId!="rivet:hand_crank")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.runtimeId).Select(i=>ItemFingerprint(i,farming,materialTags,compost)))
                     +string.Join("\n",processing.recipes.OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
                     +string.Join("\n",processing.fuels.OrderBy(i=>i.itemId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
-                    +string.Join("\n",RecipeCatalogAsset.Load().recipes.Where(i=>(renewables||i.stableId!="rivet:industry_178"&&i.stableId!="rivet:industry_179")&&(crates||i.stableId!="rivet:bulk_crate"&&i.stableId!="rivet:crate_controller")&&(beds||i.stableId!="rivet:bed")&&(fishing||i.stableId!="rivet:fishing_rod")&&(mixedCompost||i.stableId!="rivet:auto_composter")&&(compost||i.stableId!="rivet:compost_bin")&&(farming||!i.stableId.StartsWith("rivet:farm_",StringComparison.Ordinal))&&(ranged||i.stableId!="rivet:industry_180")&&(bridges||!new[]{"rivet:industry_190","rivet:industry_191","rivet:industry_192","rivet:industry_193"}.Contains(i.stableId))&&(electric||i.stableId!="rivet:industry_174")&&(wrench||i.stableId!="rivet:wrench")&&((legacy&2)==0||i.stableId!="rivet:industry_170")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>RecipeFingerprint(i,previousTierRecipes)))
+                    +string.Join("\n",RecipeCatalogAsset.Load().recipes.Where(i=>(renewables||i.stableId!="rivet:industry_178"&&i.stableId!="rivet:industry_179")&&(crates||i.stableId!="rivet:bulk_crate"&&i.stableId!="rivet:crate_controller")&&(beds||i.stableId!="rivet:bed")&&(fishing||i.stableId!="rivet:fishing_rod")&&(mixedCompost||i.stableId!="rivet:auto_composter")&&(compost||i.stableId!="rivet:compost_bin")&&(farming||!i.stableId.StartsWith("rivet:farm_",StringComparison.Ordinal))&&(ranged||i.stableId!="rivet:industry_180")&&(bridges||!new[]{"rivet:industry_190","rivet:industry_191","rivet:industry_192","rivet:industry_193"}.Contains(i.stableId))&&(electric||i.stableId!="rivet:industry_174")&&(wrench||i.stableId!="rivet:wrench")&&((legacy&2)==0||i.stableId!="rivet:industry_170")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>RecipeFingerprint(i,previousTierRecipes,previousComponentRecipes)))
                     +string.Join("\n",Resources.LoadAll<MobDefinition>("Mobs/Definitions").Where(i=>floater||i.stableId!="rivet:floater").OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>MobFingerprint(i,floater,habitats,spawnLight,playtest)));
                 if(farming&&registry.items.Any(i=>i.runtimeId==FarmId.Cooker))definitions+=Resources.Load<TextAsset>("Definitions/Cooking").text+Resources.Load<TextAsset>("Definitions/Crops").text;
                 if(compost)definitions+=Resources.Load<TextAsset>("Definitions/Compost").text;
@@ -104,6 +105,12 @@ namespace RivetReach
                 return Convert.ToBase64String(Hash(Encoding.UTF8.GetBytes(definitions)));
             }
             content=Fingerprint(0,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,renewables:true,foodBalance:true,toolWear:true);
+            currentSchemaContent.Add(content);
+            // Issue #1 changes only the Cog/Rivets recipes, not schema 18's layout.
+            // All earlier schemas used the old component recipes. Reconstruct those
+            // exact definitions while retaining every unrelated content check.
+            previousComponentRecipes=true;
+            currentSchemaContent.Add(Fingerprint(0,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,renewables:true,foodBalance:true,toolWear:true));
             // Accept the exact pre-tiering recipes as well as current costs, with all other content still checked.
             for(int tierVersion=0;tierVersion<2;tierVersion++)
             {
@@ -133,9 +140,19 @@ namespace RivetReach
             modernContent.Add(Fingerprint(0,true,true,true,true,true,true,true));modernContent.Add(content);modernContent.Add(Fingerprint(0,true,true,true,true,true,true,false));modernContent.Add(Fingerprint(0,true,true,true,true,true,false,true));modernContent.Add(Fingerprint(0,true,true,true,true,true));modernContent.Add(Fingerprint(0,true,true,true,true));modernContent.Add(Fingerprint(0,true,true,false,true));modernContent.Add(Fingerprint(0,true,true,false,true,true,true));modernContent.Add(Fingerprint(0,true,true,true));modernContent.Add(Fingerprint(0,true,true));for(int legacy=0;legacy<4;legacy++){legacyContent.Add(Fingerprint(legacy));currentContent.Add(Fingerprint(legacy,true));}
             }
         }
-        static string RecipeFingerprint(RecipeAsset recipe,bool previousTierRecipes)
+        static string RecipeFingerprint(RecipeAsset recipe,bool previousTierRecipes,bool previousComponentRecipes)
         {
             string json=JsonUtility.ToJson(recipe);
+            if(previousComponentRecipes&&recipe.kind==RecipeKind.Shapeless&&recipe.minimumGridSize==4&&recipe.width==1&&recipe.height==1&&!recipe.mirror&&recipe.ingredients?.Length==1&&recipe.ingredients[0].count==1)
+            {
+                // Project only the exact approved new forms. Unknown edits to either
+                // recipe (including station/output/mirror) must not gain compatibility.
+                if(recipe.stableId=="rivet:industry_125"&&recipe.ingredients[0].itemId=="rivet:iron_ingot"&&recipe.output.itemId=="rivet:cog"&&recipe.output.count==1)
+                    return json.Replace("\"kind\":1","\"kind\":0").Replace("\"width\":1","\"width\":2")
+                        .Replace("\"ingredients\":[{\"itemId\":\"rivet:iron_ingot\",\"count\":1}]","\"ingredients\":[{\"itemId\":\"rivet:iron_ingot\",\"count\":1},{\"itemId\":\"rivet:iron_ingot\",\"count\":1}]");
+                if(recipe.stableId=="rivet:industry_126"&&recipe.ingredients[0].itemId=="rivet:iron_plate"&&recipe.output.itemId=="rivet:rivets"&&recipe.output.count==4)
+                    return json.Replace("\"itemId\":\"rivet:iron_plate\"","\"itemId\":\"rivet:iron_ingot\"").Replace("\"output\":{\"itemId\":\"rivet:rivets\",\"count\":4}","\"output\":{\"itemId\":\"rivet:rivets\",\"count\":8}");
+            }
             if(!previousTierRecipes)return json;
             bool pump=recipe.stableId=="rivet:industry_180";
             bool bridge=recipe.stableId=="rivet:industry_190"||recipe.stableId=="rivet:industry_191"||recipe.stableId=="rivet:industry_192";
@@ -228,7 +245,7 @@ namespace RivetReach
                 entry.GeneratorVersion=r.Text();
                 SaveReader.Require(TerrainGenerator.Supported(entry.GeneratorVersion),"This save requires a different terrain generator.");
                 string savedContent=r.Text();
-                SaveReader.Require(format>=18?savedContent==content:format>=4?modernContent.Contains(savedContent):format==3?currentContent.Contains(savedContent):legacyContent.Contains(savedContent),"This save requires different content definitions; migration is not available.");
+                SaveReader.Require(format>=18?currentSchemaContent.Contains(savedContent):format>=4?modernContent.Contains(savedContent):format==3?currentContent.Contains(savedContent):legacyContent.Contains(savedContent),"This save requires different content definitions; migration is not available.");
                 return r;
             }
             catch{r.Dispose();throw;}

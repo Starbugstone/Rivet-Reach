@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-02",
+  "baseCommit": "d9e539a9eb31b5a93bda60efef23991d1272c12d",
+  "unity": "6000.4.4f1",
+  "build": "isolated checkout, Development Windows x64, D3D11",
+  "player": "/mnt/d/Dev/github-desktop/Rivet-Reach-Issue1-20261002/Builds/RecipeBrowser/RivetReach.exe",
+  "assemblySha256": "a8b0e67c8b0e28aa75ce7043f31a03e8bab3031d0d74155b73eabd46cdda6124",
+  "playerSha256": "7d52ee70fb22771f4608d810d1015f539c37dd8b7b2fbb1a0ea9f6bc5c32d5c9",
+  "sourceSha256": {
+    "Assets/RivetReach/Code/Persistence/SaveIO.cs": "0f6369deeb0d025cf19f5d42398817a0c30650bea066ff9fd05a3d0e5f426e43",
+    "Assets/RivetReach/Code/RecipeBrowserVerification.cs": "245d0675740f3971fe03f14aa910ddc7f581d9b9a5cd995450f200f3fdd59cb1",
+    "Assets/RivetReach/Code/RuntimeVerification.cs": "c77e9e05f8b4e77987714d979545cf4042a40c5fa8873c6956264bf3c742e58e",
+    "Assets/RivetReach/Editor/IndustryAssets.cs": "5eb7cd52ff5f8538b2ab4a42f905ba427bbf0661b95d447e2fa3fa6e587bd129",
+    "Assets/RivetReach/Editor/ReleaseReviewChecks.cs": "10dfeca6e2f2168e4044e024394f2fd4e8ea3026b02c63f2dc43eac2d720f862",
+    "Assets/RivetReach/Editor/StarterRecipeChecks.cs": "c500756125189cef6d5a6503e64c01c87906a6ed3d9ad5cad14c9e595e4f706d",
+    "Assets/RivetReach/Resources/Definitions/Recipes/Industry125.asset": "f034fb1f1c581f47e38e5a92e929610d22d356323300da2aedd44f2109c9af8f",
+    "Assets/RivetReach/Resources/Definitions/Recipes/Industry126.asset": "2d160dd0fd2f29f81836a2cf673850889891cb6fe67cda1fa6c1fae22e1bb8ac",
+    "Assets/RivetReach/Editor/ComponentRecipeChecks.cs": "ddc434848c599d015d3acd17253a2688a7e698727efe1895bc5393a8ac9b865c",
+    "Assets/RivetReach/Editor/ComponentRecipeChecks.cs.meta": "c961470f6592ce62a60bb2f9c87faa840a9ec6bb011db10431e2e85cba4107c7"
+  },
+  "limits": [
+    "Native UI fixtures supply inputs/stations; not a resource-paid complete industrial playthrough.",
+    "Historical schemas 1\u201317 are pinned envelopes; previous component schema 18 is a synthetic exact-definition envelope.",
+    "No FPS acceptance, subjective balancing or new machine-distance playtest is claimed.",
+    "Subsequent FluidStressVerification.cs change is a comment-only naming cleanup; not rebuilt for that wording edit."
+  ],
+  "legacySurvivalBaselineAssemblySha256": "5ffa636cd6302f89e3424c9421667be077f8197d9ed215865cb47028bdb1350f"
+}

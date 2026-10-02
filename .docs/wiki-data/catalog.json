@@ -9627,7 +9627,7 @@
         {
             "id": "rivet:industry_125",
             "station": "rivet:machinist_bench",
-            "kind": "Shaped",
+            "kind": "Shapeless",
             "output": {
                 "item": "rivet:cog",
                 "count": 1
@@ -9636,17 +9636,13 @@
                 {
                     "item": "rivet:iron_ingot",
                     "count": 1
-                },
-                {
-                    "item": "rivet:iron_ingot",
-                    "count": 1
                 }
             ],
             "foodIngredients": [],
             "fuels": [],
             "grid": 4,
-            "width": 2,
-            "height": 1,
+            "width": 0,
+            "height": 0,
             "ticks": 0,
             "watts": 0,
             "compostPercent": 0.0,
@@ -9658,11 +9654,11 @@
             "kind": "Shapeless",
             "output": {
                 "item": "rivet:rivets",
-                "count": 8
+                "count": 4
             },
             "ingredients": [
                 {
-                    "item": "rivet:iron_ingot",
+                    "item": "rivet:iron_plate",
                     "count": 1
                 }
             ],
@@ -14528,7 +14524,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/SaveIO.cs",
-            "sha256": "1b323cb34cd3a77f560aece560c523cabf1ce98e681cb65c1847e6dcb52f1c38"
+            "sha256": "0f6369deeb0d025cf19f5d42398817a0c30650bea066ff9fd05a3d0e5f426e43"
         },
         {
             "path": "Assets/RivetReach/Code/Persistence/WorldSaveState.cs",
@@ -14644,7 +14640,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/RecipeBrowserVerification.cs",
-            "sha256": "1832f3b102d2416ccd146367911efd02eb6f0da01270f03f652c42e874874862"
+            "sha256": "245d0675740f3971fe03f14aa910ddc7f581d9b9a5cd995450f200f3fdd59cb1"
         },
         {
             "path": "Assets/RivetReach/Code/ReleaseReviewVerification.cs",
@@ -14672,7 +14668,7 @@
         },
         {
             "path": "Assets/RivetReach/Code/RuntimeVerification.cs",
-            "sha256": "fb1d18e0aac8fbb4dbe206e7907477da4fc0f22c7b5c9fd5a923655fe74c1e13"
+            "sha256": "c77e9e05f8b4e77987714d979545cf4042a40c5fa8873c6956264bf3c742e58e"
         },
         {
             "path": "Assets/RivetReach/Code/SaveVerification.cs",
@@ -15280,7 +15276,7 @@
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry125.asset",
-            "sha256": "e67e921ddc3802622a4c3b6de2b66cdb8e86cf881ae1e1d48e4ec73aba03b196"
+            "sha256": "f034fb1f1c581f47e38e5a92e929610d22d356323300da2aedd44f2109c9af8f"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry125.asset.meta",
@@ -15288,7 +15284,7 @@
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry126.asset",
-            "sha256": "2b8094b1dd7d5ddc47509f6f1a2bd486ed859e8adf57e41e80597c5ef72c29d1"
+            "sha256": "2d160dd0fd2f29f81836a2cf673850889891cb6fe67cda1fa6c1fae22e1bb8ac"
         },
         {
             "path": "Assets/RivetReach/Resources/Definitions/Recipes/Industry126.asset.meta",

@@ -1,0 +1,3 @@
+PASS: 47725 assertions. 112 crafting recipes, 11 furnace recipes; bootstrap graph, tier gates, furnace boundaries/filters/conservation/time partition equivalence, hunger, health, equipment.
+1000 active furnaces × 200 one-tick advances: 38,268 ms total; calibrated allocation probe: no allocation detected. Counter calibration/start/stop are excluded from timing. Event probes report presence only, not allocated bytes or event totals.
+GC.Alloc recorder calibrated: empty control emitted no event; retained 4096-byte array emitted an event. Byte counter unsupported (0).

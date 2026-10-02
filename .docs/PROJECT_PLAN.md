@@ -46,7 +46,7 @@ Rivet Reach is a **first-person voxel sandbox** built around two equally importa
 
 ### Engineering and automation
 
-- Minecraft-style mining, placement, hotbar, inventory and grid crafting;
+- Familiar voxel-sandbox mining, placement, hotbar, inventory and grid crafting;
 - much more generous inventory and stack limits;
 - machines and processing chains;
 - item pipes rather than conveyor belts as the primary item-logistics system;
@@ -60,7 +60,7 @@ Rivet Reach is a **first-person voxel sandbox** built around two equally importa
 
 The game should begin with the familiarity of a voxel crafting sandbox and gradually allow players to create large Factorio-like industrial systems without losing the importance of exploration.
 
-Rivet Reach should be inspired by Minecraft, classic technology mods and Factorio without directly copying Minecraft-specific mobs, structures, textures, names, recipes, dimensions or visual assets. The user subsequently selected familiar basic recipe layouts for the bounded survival increment; code and visual assets remain original, and the broader game vision remains distinct.
+Rivet Reach combines familiar voxel survival, classic technology-mod progression and factory automation while using original mobs, structures, textures, lore and visual assets. Familiar basic recipe layouts are retained as deliberate Rivet Reach choices under [the current recipe specification](CRAFTING.md#starter-recipe-and-block-interaction-acceptance). Issue #1’s October 2, 2026 cleanup removes external naming and preserves every starter recipe exactly; code and visual assets remain original.
 
 ---
 
@@ -553,7 +553,7 @@ Machines and structures should communicate through physical models, ports, anima
 
 ## 12. Inventory and hotbar
 
-Retain the familiar Minecraft-like interaction model but make it significantly more permissive for an industrial game.
+Retain the familiar voxel-sandbox interaction model but make it significantly more permissive for an industrial game.
 
 Working initial values (tunable; detailed interactions in [GAMEPLAY.md](GAMEPLAY.md)):
 

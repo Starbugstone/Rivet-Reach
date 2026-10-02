@@ -1,12 +1,16 @@
-# Current crafting recipes and block interaction
+# Starter crafting and block-interaction evidence
 
-The implemented starter recipes use the same ingredient positions and output quantities as the corresponding Minecraft recipes. This verifies actual versioned recipe assets and a Windows player run. Superseded stone/log starter recipes and old screenshots are no longer presented as the current game.
+The September 9, 2026 results below verify the then-current Rivet Reach starter recipe assets and Windows player. They retain their original build identity and counts. [The current crafting contract](../CRAFTING.md#starter-recipe-and-block-interaction-acceptance) owns recipe acceptance; the October 2 issue #1 cleanup retires external recipe equality as a specification. Familiar layouts remain deliberate project choices.
+
+## Current contract revision — 2026-10-02
+
+[Issue #1 verification](CRAFTING_IDENTITY_RESULTS.md) records the independent recipe contract, Cog/Rivet changes, save compatibility and current UI captures. The dated evidence below remains tied to its original executable.
 
 ## Recipe audit
 
-All **52 active grid recipes** pass **1,744 independent acceptance checks**. [The checked recipe matrix](crafting/starter-recipe-checks.txt) lists each output, quantity and layout. Fixtures are authored independently of the catalog; they exercise the compiled matcher, every fitting translation across 2×2/3×3/4×4 grids, permitted mirrors and exact input consumption/output. They reject horizontal-plank sticks, logs substituted for workbench planks, and the obsolete stone/log starter axe.
+The original **52-recipe starter catalogue** passed **1,744 independent acceptance checks** in that build. [The checked recipe matrix](crafting/starter-recipe-checks.txt) lists each output, quantity and layout. Fixtures are authored independently of the catalog; they exercise the compiled matcher, every fitting translation across 2×2/3×3/4×4 grids, permitted mirrors and exact input consumption/output. They reject horizontal-plank sticks, logs substituted for workbench planks, and the obsolete stone/log starter axe.
 
-A separate [reference comparison](crafting/minecraft-recipe-comparison.json) compares all 52 selected assets with [Mojang's official recipe samples](https://github.com/Mojang/bedrock-samples/tree/736072450c26a7c67f07b1661f29d9a5ebaa14b1/behavior_pack/recipes), pinned to commit `736072450c26a7c67f07b1661f29d9a5ebaa14b1`. The report records source URLs and hashes. Wood/stone tags map to the material types implemented in Rivet Reach; the single-cell shaped and shapeless forms are behaviorally equivalent here. No external source, recipe asset, artwork or dependency was imported into the game.
+The former external recipe-comparison report has been removed from maintained evidence and remains in Git history. The independent project fixtures and dated gameplay reports below remain useful; removing the comparison adds no new gameplay or performance measurement.
 
 | Beginning recipe | Exact layout and output |
 | --- | --- |
@@ -21,7 +25,7 @@ A separate [reference comparison](crafting/minecraft-recipe-comparison.json) com
 | Furnace | Eight cobblestones around an empty center → one furnace |
 | Chest | Eight planks around an empty center → one chest |
 
-Tool materials are planks, cobblestone, copper ingots, iron ingots and diamonds. The audit also covers copper/iron/diamond armor and coal/copper/iron/gold/diamond storage-block packing/unpacking. This is the selected 52-recipe subset, not Minecraft's complete item catalog or all alternative ingredient variants. Durability, combat tuning, artwork and inventory size are separate project rules. [Minecraft's crafting guide](https://www.minecraft.net/en-us/article/how-craft), [sticks](https://www.minecraft.net/en-us/article/taking-inventory--stick) and [the official shaped-recipe documentation](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/recipereference/examples/recipedefinitions/minecraftrecipe_shaped?view=minecraft-bedrock-stable) explain the starting/reference behavior.
+Tool materials are planks, cobblestone, copper ingots, iron ingots and diamonds. The audit also covers copper/iron/diamond armor and coal/copper/iron/gold/diamond storage-block packing/unpacking. This is the original 52-recipe subset, not the complete current catalogue. Durability, combat tuning, artwork and inventory size follow their own project specifications.
 
 ## Actual input and screenshots
 
@@ -50,13 +54,13 @@ Build the pinned Unity **6000.4.4f1** project, then run:
 .\Tools\Verify-POC.ps1 -Survival -Executable Builds/Survival/RivetReach.exe
 ```
 
-[CRAFTING.md](../CRAFTING.md) owns editable recipe assets, the factory/compiled registry and transaction boundaries. [Current run instructions](../FIRST_POC.md) identify the review executable and controls. The 4×4 engine is checked, but only personal 2×2 and workbench 3×3 interfaces are implemented. Session progress resets on quit; play balance and visual acceptance remain subject to user review.
+[CRAFTING.md](../CRAFTING.md) owns editable recipe assets, the factory/compiled registry and transaction boundaries. [Current run instructions](../FIRST_POC.md) identify the review executable and controls. That historical build checked the 4×4 engine but exposed only personal 2×2 and Workbench 3×3 interfaces, with session-only progress. The current game also has the [4×4 Machinist’s Bench](../INDUSTRY.md) and [durable saves](../SAVES.md); the older captures do not verify those later features. Play balance and visual acceptance remain subject to user review.
 
 ## Subsequent bucket recipe
 
 The fluid increment adds the three-iron bucket as recipe 53. [Fluid verification](FLUID_RESULTS.md) records the extended independent acceptance checks and bucket player interaction. Earlier crafting screenshots retain their original 52-recipe build identity.
 
-The torch increment adds separate coal and charcoal recipes, taking the catalog to **55 recipes**. [Torch verification](TORCH_RESULTS.md) records the latest 1,862 independent acceptance checks and the actual lighting/placement build. The earlier reference comparison and screenshots above retain their dated 52-recipe artifact identity.
+The torch increment adds separate coal and charcoal recipes, taking the catalog to **55 recipes**. [Torch verification](TORCH_RESULTS.md) records the latest 1,862 independent acceptance checks and the actual lighting/placement build. The screenshots above retain their dated 52-recipe artifact identity.
 
 
 ## Shift crafting with an occupied cursor — 2026-09-10

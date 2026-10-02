@@ -4,7 +4,7 @@
     "cpu": "Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz",
     "gpu": "NVIDIA GeForce RTX 2060",
     "result": "PASS",
-    "workload": "Minecraft starter recipe quantities and pointer layouts, crafted workbench placement, keyboard/mouse interaction, visibility, reach and rebinding",
+    "workload": "Rivet Reach starter recipe quantities and pointer layouts, crafted workbench placement, keyboard/mouse interaction, visibility, reach and rebinding",
     "bodyShadowTriangles": 0,
     "terrainTilePixels": 0,
     "memoryMB": 32553,
