@@ -1,0 +1,375 @@
+block 0: False False False False
+block 1: True True False True
+block 2: True True False True
+block 3: True True False True
+block 4: True True False True
+block 5: True False False True
+block 6: True True False False
+block 7: True True False False
+block 8: True True False False
+block 9: True True False False
+block 10: True True False False
+block 11: True True False False
+block 12: True True False False
+block 13: True True False False
+block 14: True True False False
+block 15: True True False False
+block 16: True True False False
+block 17: True True False False
+block 18: True True False False
+block 19: True True False False
+block 20: True True False True
+block 21: True True False False
+block 22: True True False True
+block 23: True True False True
+block 24: True True False True
+block 25: True True False True
+block 26: True True False False
+block 27: True True False False
+block 28: True True False False
+block 29: True True False False
+block 30: True True False False
+block 31: True True False False
+block 32: True True False False
+block 33: False False True False
+block 34: False False True False
+block 35: False False True False
+block 36: False False True False
+block 37: True True False True
+block 38: True False False True
+block 39: True True False False
+block 40: True True False False
+block 41: True True False False
+block 42: True True False False
+block 43: True True False False
+block 44: True True False False
+block 45: True True False False
+block 46: True True False False
+block 47: True True False False
+block 48: True True False False
+block 49: True True False False
+block 50: True True False False
+block 51: True True False False
+block 52: True True False False
+block 53: True True False False
+block 54: True True False False
+block 55: True True False False
+block 56: True True False False
+block 57: True True False False
+block 58: True True False False
+block 59: True True False False
+block 60: True True False False
+block 61: True True False False
+block 62: True True False False
+block 63: True True False False
+block 64: True True False False
+block 65: True True False True
+block 66: True True False True
+block 67: True True False True
+block 68: True True False True
+block 69: True True False True
+block 70: True True False False
+block 71: True True False False
+block 72: True True False False
+block 73: True True False False
+block 74: True True False False
+block 75: True True False False
+block 76: True True False False
+block 77: True True False False
+block 78: True True False False
+block 79: True True False False
+block 80: True True False False
+block 81: True True False False
+block 82: True True False True
+block 83: True True False False
+block 84: True True False False
+block 85: True True False True
+block 86: True True False False
+block 87: True True False False
+block 88: True True False False
+block 89: True True False False
+block 90: True True False True
+block 91: True True False True
+block 92: True True False True
+block 93: True True False True
+block 94: True True False False
+block 95: True True False False
+block 96: False False False True
+block 97: False False False True
+block 98: True True False False
+block 99: True True False False
+block 100: False False False False
+block 101: False False False False
+block 102: False False False False
+block 103: False False False False
+block 104: False False False False
+block 105: False False False False
+block 106: False False False False
+block 107: False False False False
+block 108: False False False False
+block 109: True True False False
+block 110: False False False False
+block 111: False False False False
+block 112: False False False False
+block 113: False False False False
+block 114: True True False False
+block 115: True True False False
+block 116: True True False False
+block 117: True True False False
+block 118: False False False False
+block 119: True True False False
+block 120: True True False False
+block 121: True True False False
+block 122: True True False False
+block 123: True True False False
+block 124: True True False False
+block 125: True True False False
+block 126: True True False False
+block 127: True True False False
+block 128: True False False True
+block 129: True True False False
+block 130: True False False True
+block 131: False False False True
+block 132: False False False True
+block 133: False False False True
+block 134: False False False True
+block 135: False False False True
+block 136: False False False True
+block 137: True False False True
+block 138: False False False True
+block 139: True False False True
+block 140: True False False True
+block 141: True False False True
+block 142: True False False True
+block 143: True False False True
+block 144: True False False True
+block 145: True False False True
+block 146: False False False True
+block 147: False False False True
+block 148: True False False True
+block 149: False False False True
+block 150: True True False False
+block 151: True True False False
+block 152: True True False False
+block 153: True True False False
+block 154: True True False False
+block 155: True True False False
+block 156: True True False False
+block 157: True True False False
+block 158: True True False False
+block 159: True True False False
+block 160: True False False True
+block 161: True False False True
+block 162: True False False True
+block 163: True False False True
+block 164: True False False True
+block 165: True False False True
+block 166: True False False True
+block 167: True False False True
+block 168: True False False True
+block 169: True False False True
+block 170: True False False True
+block 171: True False False True
+block 172: True False False False
+block 173: True True False False
+block 174: True False False True
+block 175: True True False False
+block 176: True False False True
+block 177: True False False True
+block 178: True False False True
+block 179: True False False True
+block 180: True False False True
+block 181: True True False False
+block 182: True True False False
+block 183: True True False False
+block 184: True True False False
+block 185: True True False False
+block 186: True True False False
+block 187: True True False False
+block 188: True True False False
+block 189: True True False False
+block 190: True False False True
+block 191: True False False True
+block 192: True False False True
+block 193: True False False True
+block 194: True True False False
+block 195: True True False False
+block 196: True True False False
+block 197: True True False False
+block 198: True True False False
+block 199: True True False False
+block 200: False False True False
+block 201: False False True False
+block 202: False False True False
+block 203: False False True False
+block 204: False False True False
+block 205: False False True False
+block 206: False False True False
+block 207: False False True False
+block 208: False False True False
+block 209: False False True False
+block 210: False False True False
+block 211: False False True False
+block 212: False False True False
+block 213: False False True False
+block 214: False False True False
+block 215: False False True False
+block 216: False False True False
+block 217: True True False False
+block 218: True True False False
+block 219: True True False False
+block 220: True True False False
+block 221: True True False False
+block 222: True True False False
+block 223: True True False False
+block 224: True True False False
+block 225: True True False False
+block 226: True True False False
+block 227: True True False False
+block 228: True True False False
+block 229: True True False False
+block 230: True True False False
+block 231: True True False False
+block 232: True True False False
+block 233: True True False False
+block 234: True True False False
+block 235: True True False False
+block 236: True True False False
+block 237: True True False False
+block 238: True True False False
+block 239: True True False False
+block 240: True False False True
+block 241: True False False True
+block 242: True False False True
+block 243: True False False True
+block 244: True True False False
+block 245: True True False False
+block 246: True True False False
+block 247: True True False False
+block 248: True True False False
+block 249: True True False False
+block 250: True True False False
+block 251: True True False False
+block 252: True True False False
+block 253: True True False False
+block 254: True False False True
+block 255: True False False False
+content: jCvxkLL2bmFeOHHS4TUZO0gog3N7+4ektw7OCU7WWQE=
+currentSchemaContent: Utf3V8M0DciYHFbp+mI8pSnRDbu9/lJR2JJzuzyFH5w=
+currentSchemaContent: biQXS7JLhoJTUBVM7NEPCiRqNZSLfbPCqMKs2zmFXpw=
+legacyContent: /QfoR9osSeAIyifNFzL7lH0ApBR3+DHD+k9ADaLrGOw=
+legacyContent: 1bV0qRWwMOXfQs0OJP7lN2LdAuJhJ0o+4JF5xNF8IHk=
+legacyContent: GM0ZvkW4xS+rl30YNHaFhRHZJzKnYp4DJJQ3q42Z0YI=
+legacyContent: oEkiGYumlzwn0QSkZaxyE3AQ+of+FVlgkdbY9n8bJyc=
+currentContent: 5NYcvwqTNh1qHnr8yRG0DgfI+GVyvt6vsEzfqtd3bug=
+currentContent: FBlxhcbXBWc/Owh1yVS0jF5jWvRJ5dNuYBYrN38Iobc=
+currentContent: S+hGx8nXgTEqlzEb4YDE1Hu/ddwX1nxxL/eRfBm7ShI=
+currentContent: gPKQZ1MMRtq7yix1kSKBld53xaQYfx0vqZuVw+7bIoQ=
+modernContent: +xD5TJnfI/WvWiIoyg0RiUwkyTz0DswPnA9H+k90mn4=
+modernContent: /rfkEj0CfxPD9ItEuDGvf3rPmBg2xzi212no7p0/uDE=
+modernContent: 0j1gv7OUvtKd4+Mwv1oalVaV93IuvI5nPburFG2oPHg=
+modernContent: 1A+kytyi5/52UdWX+gq2FDocPYVKOtYShjCKM+EoIGo=
+modernContent: 1Uys9OK3DVrmurRI8HN23/l7jWy5q7J9HNArU0XOX8w=
+modernContent: 2PKDY7CoZAXY3yPz1xVRziAIm7XnyVn2AJi6sMmpb7c=
+modernContent: 3I+1WTV4h6X6qlfXdyZhJ0EBuCK2q6Uqpnxw7gX7uUI=
+modernContent: 3pQOwU/+4NkdAZ6xzj3QMBe9Crj25iGedpLbEhrmgbk=
+modernContent: 42FLgoFx/ReOM+OeDyPM/yg3/zJxVtOrDRf9ZircW3I=
+modernContent: 42JaquGUkO27Vco7Leo1GduKVAC6d4trhAPXaa2HwZ8=
+modernContent: 4LtGzujNx1lLl+UHxVDGkQg80dP8VtXzoFTSuEnWjww=
+modernContent: 54Z5QZfXSRl8B0K62yMIWWe79g2x9NK9jOWHRvq1+tQ=
+modernContent: 7/BHbM5toGDH1n0oKW3yUCHxyPCbN4PEpU11z2FLt8M=
+modernContent: 7CkP7By66NJXQ0PfJvoxz2GwmE7PiqZWe1BrQjvGsn4=
+modernContent: 87L2AHT7LaZGCFolyYto95h0vEj4ri6rs6wY5ssDPUc=
+modernContent: 89eX3z1KncOa+D7U1y0xGa/VnsAdZrVFxzLV/hJ9Ihs=
+modernContent: A12efIV3V2ZrLwfqfepMP76MlDrxs3PM4Rd8U9o3IZw=
+modernContent: A8MetW/O6XcGUWJxex0aDDA7/83/jzgmihRvfWKCWLU=
+modernContent: C1i9dTEXyj5qZDTrkkEq3H0lglnL2usOjsWLARduGIM=
+modernContent: CDIMnBp2+DUN+y++O7CMVFK/Or8LDZGwo24XyhkIq0U=
+modernContent: CPhQ93crk/E1Gl6fLYdKQ568KTAuFlr9sFHxzVT0FIY=
+modernContent: CsZboh29YrY5aIzrZLb9/bSurDUYrjqvKeXIsRt9qU8=
+modernContent: EF/LTgqGzPu7yrHHe8GeW33gffw8rTo0eNZ84A5BwYU=
+modernContent: GPU0rKAdNc9nImHPDSrVx7H2CH3/y72TOzINtazUxc0=
+modernContent: H/4/KgOVf5/gG7cEBFYkYf5Wog7wfa+5d2ljbIVwWP0=
+modernContent: IJ/YlTPUDtebH1akOdaXa7hAcwtSwwDuoKWGjAZ0BzE=
+modernContent: J7wPkc3+D4rmJcKI/V9oMEgALJZ5oku1c7mIXTZpgRM=
+modernContent: JV52+i3cXhcno/5QfCHfr5Krg2q2Iy0s1O4FXkwkJ4w=
+modernContent: JwJV7RKLOmUQx6KekAv3+cMB5Iz1Au+ahYK3gySvrb8=
+modernContent: Kz6msoHiC604QdImbNl8GgueH0lSRXpfYBQd2jBeIno=
+modernContent: L8RDfsCBXnSOHwNRri9fhRg48bxvyaq0zIhiehBZlDQ=
+modernContent: LFhgykdTTwnXlPBIVxAk43TgEtNWmt5JvsWFE6hOwLY=
+modernContent: LPcM09UOgG7QH2Iw2fgrjDsMsfBMiq0N+fo3xQbJRU4=
+modernContent: MPHxCq1hKEnZ0rfd4rMUGiIMsuXLHNBJ9BB5x7zcugc=
+modernContent: MwTJrXroZ/ddi4UWcBcO5Un1KlevnAOfU3Z6W42dr/g=
+modernContent: OhsB24eY9X1pkx9BiI09XEVhhN0APSmgMRF+0YVbO3s=
+modernContent: QnX2k1okp2eSz7y0Nvisyu/+vJUHGdT7ZF/T4X81iWg=
+modernContent: QoNuKnYLXm6RnLHBQiHgORhyi/avWT5b/FNQu2sPUpY=
+modernContent: R0pP4UwE0NkTbDMqihSjqZB5ARz62EsAxwnZw5WKxvc=
+modernContent: RSZjYiEaK+Sm70AFHqdepbsnMwOc64v9J2yQ0ZpAd90=
+modernContent: RewwVWCsY7ovnGbTQWxikRD1WsL4nQVaBUS3kLnBarM=
+modernContent: SDVu1xM3XBqwxclWalYUM50qFM/TAWpa7w/lged6Z24=
+modernContent: SWONayageW3C9mrRvCAEZ6foTA6uLIFCzJC0asytfHU=
+modernContent: SmkmT5QyNSiuqB/Xg0UTcUZP+fpztv2XQ1qqtRsncc4=
+modernContent: ToutT+nKLzLgBEzFJj7rnunF2GoT1vyCF6BWjrPQzCI=
+modernContent: TqGl2ZKpercFClHOT580FATdNuHAx3Q3l97h/XkJMTQ=
+modernContent: W7SYJj1AByd1vxQ7ggftP5RLk0dUQ0dub0TRyWWOgUA=
+modernContent: WDDDx44deN1GI5glqbwIlFDY5OdYVP1tthqMi8ufAIY=
+modernContent: WN2kjH6BHHCEKK3VKOhPNAziY5MkC88mR+JXwzF9sm4=
+modernContent: XASkLqJnTHVUzGQbFCBlwCzvn4KYQHDO62jxAYJFcPQ=
+modernContent: XSyGnwJXmweyU3A0PVGbkJ8neOBbmhmtqbUyOmRGQwU=
+modernContent: XxxqrBk8j9D0aeyhRnw6wE3e2wAmoFFT76ttzfeaDTo=
+modernContent: Y7ZaCQ1LDDgZUp+MwTm7tC73ozcDPlitipOa+K9E8HI=
+modernContent: ZeDvvPhV49+Fo8GmEBJG7HcGCYwg5Xw/4oxQfifWiR0=
+modernContent: ZfyL5MsT/ttD9agkqL/A2zoit14PusvB4k6pEhaHKho=
+modernContent: bNdg7j2eLZdYkVsk6r/XhzoS+lkcMmnd+ntGiErnL6o=
+modernContent: bOenCWxVfhUALisNjujYe+Qszwvb5+66I1JOX4mCFxw=
+modernContent: c3yFew6ERxWTJSWDhZF7frpXF7uaGyIwRZUs2+G5mKg=
+modernContent: c9XPL5UYEvJxXyXMeauuzRFG5KxmoSDwVplgRLVvfoc=
+modernContent: cBC3vHqMQ4qoKwXgML22+bmY1Va5o4e2B/LppOUKHZY=
+modernContent: cJz+3kHjfq562NzYftLUQFkvHTBqondxIHut/EiHQBg=
+modernContent: cskiCMbpNsWjMn9TG9lHS/Al6X2ZR0ldjAoAXC9fv6E=
+modernContent: dij0eu923i4OQIbEbkZ3zg+G3QWUOWa+SUNEdaBNeDc=
+modernContent: dpTYnd8MGwS5EGBBjUGrNod60ic8ykbMkKbUOoBaVN4=
+modernContent: fiDKnNoWnQM7vpkO/eJ3Jh5zcdTPpB2sal5S2dcZiPM=
+modernContent: ggw1a0vWnloamNe9yAbBcia5N5yClvt01fxpSGgbU8g=
+modernContent: h5ym/dG3wxdrFem1a1OWYu5qI8NFzGyZm4R184ueZEs=
+modernContent: hGSuaCd64cRZirtu95RcGscGwM9upZ0w7P676xsIdHU=
+modernContent: jCvxkLL2bmFeOHHS4TUZO0gog3N7+4ektw7OCU7WWQE=
+modernContent: jLCRq799ejYpk+hSk3zB3+XS5dhxzT89jqfQ9aCjx1w=
+modernContent: k8Zs2TiZceBD4f363J/S4AEJY621S+1bKWFPqoli+y0=
+modernContent: kVqLUbU/tTXltJYOgphs/2u6MNBAwPNmTTDW+eht+f0=
+modernContent: ke+PBJXNbTDeuOIH+8R9VtfAwmODnFh3KgNkXSrDyco=
+modernContent: l76PT2YKG9OHsccLwHIeyU6qedHGFnq/WhhTn6D6PvE=
+modernContent: m9kVVBgLIokcomYkLS+QDwEHgX7HQa1lqHjhkwMLtJ0=
+modernContent: oFOtExBMxUAM0RaOLXPa+fUB2ihW5wvH0MehUBcCtr8=
+modernContent: ojjl3a3a0mtfAdp1yklffyzMGmFRGhRjWSSUZuQBG1k=
+modernContent: pHi07G5N504h9SXc6ilHSWEgkCUyLEwftnQyTsMf/n8=
+modernContent: qlDt/fJ90pwIv/VtCkmMIUwmScpMtagVceqxf3ev4jc=
+modernContent: r9nCoOckGDZFhFZa4SGg5prnXIB45eQv5MCAmK/njxs=
+modernContent: sA8BkwdkYa44/VwX4MmvYnaZNsnIe4GBP4JHZNhHFvE=
+modernContent: tHfpzPOMAliko5errjDlHxrwhkGxu2kBidxYq3NI5ns=
+modernContent: u35SJzxAI0weZ8V3cmRUupd2/5H/ya2aXbKObj3rq+I=
+modernContent: uXnuqqJ9zkZl3G+v0CYC7Jv/iy12jATgRJ4VUPtiz0Y=
+modernContent: wLcDCLbhM2+vhkl+0V49diXHO7o26afj1zvx9jTWU9s=
+modernContent: wOowZwRpKlWMvAN6ktQh5Vzn4C532Pt4EwasdmQkWS4=
+modernContent: wgxz3W8Ne80RiF1/MRmKmkC+r4Bp7hyIRULoggM09Tk=
+modernContent: xCF4q9OW7YuXPzHLImsJJQsGJUHtaCifqHcnfFTIKvg=
+modernContent: xLIR9Xek5x3waQs8jx2ioI55hrW4EbDuqGyx9+/mjTA=
+modernContent: y2H3ti2RKMUCjIRMktPbeLhVqpOOgbgtq6eT1Fh9of4=
+modernContent: yCJkAdAWd2FxSOqOfrw06kdWyWyFV/nkpMkynH0jxgg=
+modernContent: z4y342uwAB5caczQnyzwRWF1R+GadskUvJyHGh4MeWY=
+modernContent: z8ND1C/GxMR9F2ZzGoreXyC/sVTHjtMhzlqFgAPt6c8=
+modernContent: zAvThPotcYXfqddmzX6kF3l94+ca5sOWWwXFFmsmbIs=
+modernContent: zSPKavShx/HSBzSQkpPQsFRYdHfiOxN80rDDrNKmsIg=
+modernContent: zmEwGE39mXgaeHhsArnqwedBcXjDbTvVZFwmrBf869A=
+terrain terrain-6-azure 17: sJTR0g+0drdPO5/CErrAFD8rvpt73DWv0nTXds9z8SI=
+terrain terrain-6-azure 7441: w+kmhxQw4ozbzKecZlGr5IO/YHu1aJRUv3gCLR9UM8A=
+terrain terrain-6-azure -93: 278b4SBaG8UUM9+je7QzAC6V/SoTx9BagJ4EQUJgVkM=
+terrain terrain-7-lava 17: J7I8BukBzMw+uE3i3gEsY8eTT97dbmdXK1PkH0rNMOE=
+terrain terrain-7-lava 7441: OeGh3hGwrrIWBqsbirZeKU5gffiCUBd6Z+dBVj0SPhw=
+terrain terrain-7-lava -93: rT6HoN65dKtiK3ZY2yBrt0z+gv2HOXki6+XRM0tLMj4=
+terrain terrain-8-farms 17: bj0pYUaT0bAjUGPrZoLKKm37VS3myyW3geHrKSfYp3c=
+terrain terrain-8-farms 7441: C5cRjFRXEPpBZATPXeinhU4oqFpV2E4e4BFcRAvhAL0=
+terrain terrain-8-farms -93: 4pW8h8mOClE05DClI0ts/3JeSsrtjIQKD9VseOQg8xw=
+terrain terrain-9-spawners 17: bj0pYUaT0bAjUGPrZoLKKm37VS3myyW3geHrKSfYp3c=
+terrain terrain-9-spawners 7441: C5cRjFRXEPpBZATPXeinhU4oqFpV2E4e4BFcRAvhAL0=
+terrain terrain-9-spawners -93: 4pW8h8mOClE05DClI0ts/3JeSsrtjIQKD9VseOQg8xw=

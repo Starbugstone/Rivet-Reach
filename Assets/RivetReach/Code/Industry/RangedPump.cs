@@ -15,6 +15,15 @@ namespace RivetReach
             fluid=Fluids.Registry.Get(cell);
             return fluid!=null&&fluid.IsSource(cell)&&m.Fluid.Accepts(fluid);
         }
+        bool RangedReachHasNoSources(MachineState machine)
+        {
+            if(sourceIndex==null)return false;
+            var min=machine.Position.Offset(RangedPumpMin,RangedPumpMin,RangedPumpMin).Chunk;
+            var max=machine.Position.Offset(RangedPumpMax,RangedPumpMax,RangedPumpMax).Chunk;
+            for(long z=min.Z;z<=max.Z;z++)for(int y=min.Y;y<=max.Y;y++)for(long x=min.X;x<=max.X;x++)
+                if(!sourceIndex.TryGetFluidSourceCount(new ChunkPos(x,y,z),out int sources)||sources!=0)return false;
+            return true;
+        }
         void PrepareRangedPump(MachineState m)
         {
             using var cost=RuntimeCosts.RangedPumpPreparation.Auto();
@@ -29,7 +38,8 @@ namespace RivetReach
 
             // Drain upper layers first. Stop on the first eligible source; no temporary
             // lists, chunk loads or scans while disabled/full. Empty areas retry at 2 s.
-            for(int budget=0;budget<RangedPumpScanBudget&&m.PumpScanIndex<RangedPumpCells;budget++)
+            if(RangedReachHasNoSources(m))m.PumpScanIndex+=System.Math.Min(RangedPumpScanBudget,RangedPumpCells-m.PumpScanIndex);
+            else for(int budget=0;budget<RangedPumpScanBudget&&m.PumpScanIndex<RangedPumpCells;budget++)
             {
                 int index=m.PumpScanIndex++;
                 int x=RangedPumpMin+index%RangedPumpWidth;

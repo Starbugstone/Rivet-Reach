@@ -41,6 +41,9 @@ namespace RivetReach
         public bool WaitingForRespawn {get;private set;}
         public bool Paused=>LoadingSave||WaitingForRespawn||Mode!=ScreenMode.Play&&Mode!=ScreenMode.Inventory;
         public bool Diagnostics;
+        public int LastSimulationTicks { get; private set; }
+        public int MaxSimulationTicks { get; private set; }
+        SimulationMode previousPhysicsMode;
         public int Selected;
         public int Seed {get;private set;}
         public static int NewRandomSeed()=>BitConverter.ToInt32(Guid.NewGuid().ToByteArray(),0)&int.MaxValue;
@@ -62,7 +65,9 @@ namespace RivetReach
         }
         void Awake()
         {
-            Instance=this;Application.targetFrameRate=90;QualitySettings.vSyncCount=0;
+            Instance=this;FramePacing.Apply(FramePacing.Current);
+            // Authoritative movement and collisions use the voxel world. Restore Editor state on teardown.
+            previousPhysicsMode=Physics.simulationMode;Physics.simulationMode=SimulationMode.Script;
             foreach(var camera in FindObjectsByType<Camera>())camera.gameObject.SetActive(false);
             Sky=gameObject.AddComponent<DayNightCycle>();Sky.Initialize();
             Input=new PlayerInput();Registry=ItemRegistry.Load();Recipes=RecipeCatalogAsset.Load().Compile(Registry);Processing=ProcessingCatalogAsset.Load().Compile(Registry);Sound=gameObject.AddComponent<WorldSound>();
@@ -74,7 +79,7 @@ namespace RivetReach
         void CreateSession(int seed,string generatorVersion=TerrainGenerator.Version)
         {
             Seed=seed;Creative=false;LoadingSave=false;Selected=0;WorldId=Guid.NewGuid().ToString("N");SaveId=null;SaveName="Expedition";
-            invulnerableUntil=0;WaitingForRespawn=false;
+            invulnerableUntil=0;WaitingForRespawn=false;LastSimulationTicks=MaxSimulationTicks=0;
             Weather=new WeatherState(seed);Navigation=new PlayerNavigation();Sky.ResetClock();
             Inventory=new Inventory(id=>Registry.Get(id).stackLimit);
             OpenMachine=null;OpenStation=null;PersonalCrafting=new CraftingSession(Recipes,2,id=>Registry.Get(id).stackLimit);
@@ -136,10 +141,11 @@ namespace RivetReach
             if(Input==null)return;
             if(WaitingForRespawn&&ReadyToPlay){WaitingForRespawn=false;invulnerableUntil=Time.time+2;SetMode(Mode);}
             if(LoadingSave&&ReadyToPlay){LoadingSave=false;SetMode(Mode);}
+            LastSimulationTicks=0;
             if(Started&&!Paused)
             {
                 using var cost=RuntimeCosts.SimulationAdvance.Auto();
-                Sky.Advance(Time.deltaTime);World.AdvanceGrass(Time.deltaTime);World.AdvanceTrees(Time.deltaTime);World.AdvanceFluids(Time.deltaTime);int ticks=Survival.Advance(Time.deltaTime);Industry.Advance(ticks);Fishing.Advance(ticks);Weather.Advance(ticks);if(!Creative){Health.Advance(ticks,Hunger);AdvanceLava(ticks);}
+                Sky.Advance(Time.deltaTime);World.AdvanceGrass(Time.deltaTime);World.AdvanceTrees(Time.deltaTime);World.AdvanceFluids(Time.deltaTime);int ticks=Survival.Advance(Time.deltaTime);LastSimulationTicks=ticks;MaxSimulationTicks=Math.Max(MaxSimulationTicks,ticks);Industry.Advance(ticks);Fishing.Advance(ticks);Weather.Advance(ticks);if(!Creative){Health.Advance(ticks,Hunger);AdvanceLava(ticks);}
             }
             if((OpenStation!=null||OpenMachine!=null)&&(!World.Ready(StationPosition)||(World.Local(StationPosition)+Vector3.one*.5f-Player.transform.position).sqrMagnitude>36))SetMode(ScreenMode.Play);
             if(Health.Dead)return;
@@ -231,6 +237,13 @@ namespace RivetReach
             {reason="Torches need a dry floor or wall face";return false;}
             return true;
         }
+        bool BodyBlocksCell(BlockPos cell,out string reason)
+        {
+            reason=PlayerOverlapReason;
+            if(World.OccupiesCell(Player.transform.position,.6f,Player.Height,cell))return true;
+            reason="Cannot place inside a creature";
+            return (Mobs?.Occupies(cell)??false)||(Animals?.Occupies(cell)??false);
+        }
         public bool CanPlace(BlockPos cell,out string reason)
         {
             var selected=Inventory.Slots[Selected];reason="Select a terrain block in the hotbar";
@@ -242,16 +255,12 @@ namespace RivetReach
             {
                 int rotation=PlacementFacing.TowardsPlayer(World.Local(cell)+Vector3.one*.5f,Player.transform.position,Player.Yaw);
                 reason="Beds need two dry empty cells above solid floors";if(!World.CanPlaceBed(cell,rotation))return false;
-                var head=BedId.HeadAt(cell,rotation);reason=PlayerOverlapReason;
-                if(World.OccupiesCell(Player.transform.position,.6f,Player.Height,head))return false;
-                reason="Cannot place inside a creature";if((Mobs?.Occupies(head)??false)||(Animals?.Occupies(head)??false))return false;
+                if(BodyBlocksCell(BedId.HeadAt(cell,rotation),out reason))return false;
             }
             if(selected.Id==IndustryId.WoodenDoor)
             {
                 reason="Doors need two empty cells above a solid floor";if(!World.CanPlaceDoor(cell))return false;
-                var upper=cell.Offset(0,1,0);reason=PlayerOverlapReason;
-                if(World.OccupiesCell(Player.transform.position,.6f,Player.Height,upper))return false;
-                reason="Cannot place inside a creature";if((Mobs!=null&&Mobs.Occupies(upper))||(Animals?.Occupies(upper)??false))return false;
+                if(BodyBlocksCell(cell.Offset(0,1,0),out reason))return false;
             }
             if(selected.Id==BlockId.Sapling)
             {bool valid=World.CanPlantSapling(cell);reason=valid?"Plant Sapling":"Saplings need dry grass or dirt";return valid;}
@@ -326,7 +335,7 @@ namespace RivetReach
             Application.Quit();
 #endif
         }
-        void OnDestroy(){Time.timeScale=1;Cursor.lockState=CursorLockMode.None;Cursor.visible=true;if(Instance==this)Instance=null;}
+        void OnDestroy(){Physics.simulationMode=previousPhysicsMode;Time.timeScale=1;Cursor.lockState=CursorLockMode.None;Cursor.visible=true;if(Instance==this)Instance=null;}
     }
 
 }

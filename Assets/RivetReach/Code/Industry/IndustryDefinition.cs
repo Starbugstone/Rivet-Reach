@@ -133,6 +133,11 @@ namespace RivetReach
         public int Rotation {get;internal set;}
         public MachineStatus Status {get;internal set;}
         public bool Signal,SignalAttached,Source,NextSource,Eligible,FluidConflict;
+        // Derived per-session scheduler and per-tick generation caches; never saved.
+        internal NetworkActivity ComponentActivity;
+        internal long ComponentIndexVersion=-1;
+        internal int GenerationRemaining;
+        internal bool ShowsActiveBody=>Definition.Id==IndustryId.ElectricFurnace||Definition.Id==IndustryId.RangedPump?Running:Signal||Source;
         public int PulseTicks,BurnTicks,RequestedWatts,ReceivedWatts,SupplyWatts,DeliveredWatts,DrillDepth=1;
         public readonly FluidStorage Fluid;
         public int WaterMl {get=>(int)Fluid.Amount;set=>Fluid.SetWater(value);}

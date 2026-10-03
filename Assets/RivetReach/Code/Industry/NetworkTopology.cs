@@ -178,7 +178,6 @@ namespace RivetReach
     public sealed class PowerNetworkService
     {
         public readonly NetworkTopology Topology=new NetworkTopology(NetworkKind.Power);
-        readonly Dictionary<MachineState,int> generation=new Dictionary<MachineState,int>();
         readonly FairAllocation<MachineState> storageShares=new FairAllocation<MachineState>();
         readonly Func<MachineState,long,long> storageTransfer;
         bool storageCharge;
@@ -191,7 +190,6 @@ namespace RivetReach
         {
             using(RuntimeCosts.PowerPrepare.Auto())
             {
-                generation.Clear();
                 foreach(var group in Topology.Groups)
                 {
                     if(!group.Active)continue;
@@ -200,7 +198,7 @@ namespace RivetReach
                     {
                         var m=p.Machine;
                         m.DeliveredWatts=0;
-                        if(p.Port.Role==PortRole.Output)generation[m]=m.SupplyWatts;
+                        if(p.Port.Role==PortRole.Output)m.GenerationRemaining=m.SupplyWatts;
                         if(p.Port.Role==PortRole.Input){m.ReceivedWatts=0;group.Demand+=m.RequestedWatts;}
                         if(p.Port.Role==PortRole.Storage)m.BatteryWatts=m.BatteryInputWatts=m.BatteryOutputWatts=0;
                     }
@@ -236,13 +234,13 @@ namespace RivetReach
         int AvailableGeneration(NetworkTopology.Group group)
         {
             int watts=0;
-            foreach(var p in group.PowerOutputs)watts+=generation[p.Machine];
+            foreach(var p in group.PowerOutputs)watts+=p.Machine.GenerationRemaining;
             return watts;
         }
         void ConsumeGeneration(NetworkTopology.Group group,int watts)
         {
             foreach(var p in group.PowerOutputs)if(watts>0)
-            {int take=Math.Min(watts,generation[p.Machine]);generation[p.Machine]-=take;p.Machine.DeliveredWatts+=take;watts-=take;}
+            {int take=Math.Min(watts,p.Machine.GenerationRemaining);p.Machine.GenerationRemaining-=take;p.Machine.DeliveredWatts+=take;watts-=take;}
         }
         int TransferStorage(NetworkTopology.Group group,int watts,bool charge,long tick)
         {

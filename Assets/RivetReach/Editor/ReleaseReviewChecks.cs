@@ -13,7 +13,7 @@ namespace RivetReach.Editor
         {
             Directory.CreateDirectory("Logs/ReleaseReview");
             var report=new StringBuilder();int failed=0;
-            Action[] suites={FactoryVisibilityChecks.Run,RuntimeDiagnosticsChecks.Run,FluidRoutingChecks.Run,WorldLitBatchingChecks.Run,IndustryMaterialVariantChecks.Run,ResourceTickChecks.Run,ChunkWorkPriorityChecks.Run,ControlPresetChecks.Run,PresentationViewCacheChecks.Run,ResidencyInvalidationChecks.Run,ItemInputContractChecks.Run,SaveCompatibilityChecks.Run,ComponentRecipeChecks.Run,DomainChecks.Run,CraftingChecks.Run,PerformanceChecks.Run,
+            Action[] suites={PerformancePlanChecks.Run,FactoryVisibilityChecks.Run,RuntimeDiagnosticsChecks.Run,FluidRoutingChecks.Run,WorldLitBatchingChecks.Run,IndustryMaterialVariantChecks.Run,ResourceTickChecks.Run,ChunkWorkPriorityChecks.Run,ControlPresetChecks.Run,PresentationViewCacheChecks.Run,ResidencyInvalidationChecks.Run,ItemInputContractChecks.Run,SaveCompatibilityChecks.Run,ComponentRecipeChecks.Run,DomainChecks.Run,CraftingChecks.Run,PerformanceChecks.Run,
                 InventoryChecks.Run,ToolDurabilityChecks.Run,PortableStorageChecks.Run,
                 TagReviewChecks.Run,FarmingChecks.Run,FishingChecks.Run,ChickenChecks.Run,
                 FoodBalanceChecks.Run,CompostChecks.Run,BedChecks.Run,LightingChecks.Run,
@@ -22,7 +22,7 @@ namespace RivetReach.Editor
                 GridAllocationChecks.Run,BatteryChecks.Run,MultiblockChecks.Run,ConnectionChecks.Run,
                 ConnectedPipeChecks.Run,ItemPipeChecks.Run,DoorChecks.Run,HandCrankChecks.Run,
                 BridgeChecks.Run,RangedPumpChecks.Run,CrateChecks.Run,CrateRoutingEdgeChecks.Run,
-                RenewableChecks.Run,RenewablePowerChecks.Run,RenewableCompatibilityChecks.Run};
+                RenewableChecks.Run,RenewablePowerChecks.Run,RenewableCompatibilityChecks.Run,AlphaGuidanceChecks.Run};
             foreach(var suite in suites)
             {
                 var watch=Stopwatch.StartNew();

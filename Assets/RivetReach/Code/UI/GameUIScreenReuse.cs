@@ -63,7 +63,6 @@ namespace RivetReach
         bool constructing, prewarmed, recipeWarmed;
         public RectTransform VisibleRoot => root;
         public int CreatedWidgets { get; private set; }
-        public int RetainedStationLayouts => stationScreens.Count;
         List<SlotView> slots => currentScreen.slots;
         RectTransform root { get => currentScreen.root; set => currentScreen.root = value; }
         RectTransform heldRoot { get => currentScreen.heldRoot; set => currentScreen.heldRoot = value; }

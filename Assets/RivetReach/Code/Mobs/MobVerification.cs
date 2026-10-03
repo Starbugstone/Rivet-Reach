@@ -252,7 +252,12 @@ namespace RivetReach
             Aim(bug);yield return null;
             InputSystem.QueueStateEvent(Mouse.current,new MouseState().WithButton(MouseButton.Right));
             yield return new WaitForSeconds(.3f);
-            Check(game.Player.EatingProgress>0,"Food use can begin while a creature is in view");
+            // The shared nearest-target contract routes Use to the creature first.
+            Check(game.Player.EatingProgress==0&&game.Inventory.Slots[8].Count==2,"Creature targeting takes Use priority without consuming held food");
+            game.Player.Pitch=-60;yield return new WaitForSeconds(.3f);
+            Check(game.Player.EatingProgress>0,"Food use begins when aiming away from the creature");
+            Aim(bug);yield return null;yield return null;
+            Check(game.Player.EatingProgress==0&&game.Inventory.Slots[8].Count==2,"Retargeting a creature cancels the unfinished bite without consuming food");
             InputSystem.QueueStateEvent(Mouse.current,new MouseState());yield return null;yield return null;
             Check(game.Player.EatingProgress==0&&game.Inventory.Slots[8].Count==2,"Aiming at a mob still cancels an unfinished bite on Use release");
             game.Selected=9;

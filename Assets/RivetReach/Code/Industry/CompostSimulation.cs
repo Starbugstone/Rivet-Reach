@@ -9,7 +9,6 @@ namespace RivetReach
         public const int CompostWatts=160,CompostItemCharge=160,CompostChargeCapacity=64*CompostItemCharge;
         public long CompostBatches;
         public Action<MachineState> CompostChanged;
-        public int CompostBatchCount=>CompostCatalog.Current.BatchCount(Items.Slots[0].Id);
         // Kept for legacy capture callers; elapsed processing no longer funds output.
         public void SynchronizeCompostInput() { }
         public int NextCompostYield

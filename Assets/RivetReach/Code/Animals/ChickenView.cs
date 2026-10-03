@@ -11,6 +11,14 @@ namespace RivetReach
         PlayableGraph graph;AnimationMixerPlayable mixer;readonly AnimationClipPlayable[] clips=new AnimationClipPlayable[4];
         readonly float[] lengths=new float[4];Renderer[] renderers;MaterialPropertyBlock properties;
         float clock,flash,deathTime;int current=-1;bool dead;
+        static readonly int BaseColor=Shader.PropertyToID("_BaseColor");
+        static readonly System.Collections.Generic.Dictionary<string,AnimationClip[]> clipCache=new System.Collections.Generic.Dictionary<string,AnimationClip[]>();
+        Color shownTint;bool tintShown;
+        static AnimationClip[] ImportedClips(string path)
+        {
+            if(!clipCache.TryGetValue(path,out var result))clipCache[path]=result=Resources.LoadAll<AnimationClip>(path);
+            return result;
+        }
         public int Triangles {get;private set;}
         public void Initialize(ChickenState c)
         {
@@ -19,7 +27,7 @@ namespace RivetReach
             if(animator==null)throw new InvalidOperationException("Chicken animator missing.");animator.applyRootMotion=false;
             graph=PlayableGraph.Create("Passive chicken");graph.SetTimeUpdateMode(DirectorUpdateMode.Manual);mixer=AnimationMixerPlayable.Create(graph,4);
             AnimationPlayableOutput.Create(graph,"Chicken pose",animator).SetSourcePlayable(mixer);
-            var imported=Resources.LoadAll<AnimationClip>(path);string[] names={"Idle","Walk","Peck","Death"};
+            var imported=ImportedClips(path);string[] names={"Idle","Walk","Peck","Death"};
             for(int i=0;i<4;i++)
             {var clip=Array.Find(imported,a=>a.name==names[i]);if(clip==null)throw new InvalidOperationException("Chicken action missing: "+names[i]);lengths[i]=clip.length;clips[i]=AnimationClipPlayable.Create(graph,clip);clips[i].SetSpeed(0);graph.Connect(clips[i],0,mixer,i);}
             graph.Play();mixer.SetInputWeight(0,1);graph.Evaluate(0);
@@ -42,8 +50,13 @@ namespace RivetReach
             transform.position=Vector3.Lerp(transform.position,c.Position.Local(origin),1-Mathf.Exp(-20*dt));
             transform.rotation=Quaternion.Slerp(transform.rotation,Quaternion.Euler(0,c.Yaw,0),1-Mathf.Exp(-12*dt));
             Play(c.PeckTicks>0?2:c.PathIndex<c.Path.Count?1:0,dt);flash=Mathf.Max(0,flash-dt);
-            properties.SetColor("_BaseColor",flash>0?new Color(1.6f,.65f,.45f):c.LoveTicks>0?new Color(1.15f,.85f,.9f):Color.white);
-            foreach(var r in renderers)r.SetPropertyBlock(properties);
+            var tint=flash>0?new Color(1.6f,.65f,.45f):c.LoveTicks>0?new Color(1.15f,.85f,.9f):Color.white;
+            if(tintShown&&tint==shownTint)return;
+            shownTint=tint;tintShown=true;
+            // Default white is already on the shared material and preserves SRP batching.
+            if(tint==Color.white){foreach(var renderer in renderers)renderer.SetPropertyBlock(null);return;}
+            properties.SetColor(BaseColor,tint);
+            foreach(var renderer in renderers)renderer.SetPropertyBlock(properties);
         }
         void OnDestroy(){if(graph.IsValid())graph.Destroy();}
     }

@@ -126,8 +126,14 @@ namespace RivetReach
             if(ground==BlockId.Stone)return OreGenerator.At(Seed,p);
             if(ground!=0||p.Y<=h||p.Y>h+MaxTreeHeight+2)return ground;
             byte result=0;
-            foreach(var tree in Trees(p.X,p.Z,p.X,p.Z))
-            {byte id=tree.At(p);if(id==BlockId.Log)return id;if(id==BlockId.Leaves)result=id;}
+            // Same candidate order as Trees, without an iterator for each point query.
+            long z0=BlockPos.FloorDiv(p.Z-CanopyRadius,TreeSpacing),z1=BlockPos.FloorDiv(p.Z+CanopyRadius,TreeSpacing);
+            long x0=BlockPos.FloorDiv(p.X-CanopyRadius,TreeSpacing),x1=BlockPos.FloorDiv(p.X+CanopyRadius,TreeSpacing);
+            for(long z=z0;z<=z1;z++)for(long x=x0;x<=x1;x++)
+            {
+                if(!TryTree(x,z,out var tree))continue;
+                byte id=tree.At(p);if(id==BlockId.Log)return id;if(id==BlockId.Leaves)result=id;
+            }
             return result==0&&p.Y==h+1?WildPlant(p.X,p.Z,column):result;
         }
         byte WildPlant(long x,long z,TerrainColumn column)

@@ -8,6 +8,7 @@
 /[Bb]uilds/
 /[Mm]emoryCaptures/
 /[Rr]ecordings/
+/output/
 # IDE-generated files
 /.vs/
 /.idea/

@@ -30,6 +30,8 @@ namespace RivetReach
     public sealed partial class WorldSurvival
     {
         public const int TicksPerSecond=20,CropStageTicks=1200,SaplingGrowthTicks=3600;
+        public const int MaxTicksPerFrame=3;
+        public double TickFraction=>fraction;
         readonly Expedition game;
         readonly Dictionary<BlockPos,StationState> stations=new Dictionary<BlockPos,StationState>();
         readonly HashSet<BlockPos> active=new HashSet<BlockPos>();
@@ -97,7 +99,7 @@ namespace RivetReach
         public int Advance(float seconds)
         {
             if(float.IsNaN(seconds)||float.IsInfinity(seconds)||seconds<0)throw new ArgumentOutOfRangeException(nameof(seconds));
-            fraction+=seconds*TicksPerSecond;int ticks=(int)Math.Min(100,fraction);fraction-=ticks;
+            fraction+=seconds*TicksPerSecond;int ticks=(int)Math.Min(MaxTicksPerFrame,fraction);fraction-=ticks;
             if(ticks==0)return 0;AdvanceTicks(ticks);return ticks;
         }
         public void AdvanceTicks(int ticks)

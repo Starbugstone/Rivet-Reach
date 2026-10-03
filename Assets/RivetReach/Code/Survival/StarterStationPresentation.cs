@@ -23,9 +23,9 @@ namespace RivetReach
         public void Initialize(Expedition expedition)
         {
             game=expedition;glow=new MaterialPropertyBlock();
-            game.World.OriginShifted+=Shift;game.World.BlockChanged+=Changed;
+            game.World.OriginShifted+=Shift;game.World.BlockReplaced+=Changed;
         }
-        void Changed(BlockPos position){nextRefresh=0;}
+        void Changed(BlockPos position,byte before,byte after){if(StarterStationVisuals.UsesModel(before)||StarterStationVisuals.UsesModel(after))nextRefresh=0;}
         void Shift(Vector3 delta){foreach(var view in views.Values)view.Root.transform.position-=delta;nextRefresh=0;}
         void Update()
         {
@@ -64,7 +64,7 @@ namespace RivetReach
         }
         void OnDestroy()
         {
-            if(game!=null&&game.World!=null){game.World.OriginShifted-=Shift;game.World.BlockChanged-=Changed;}
+            if(game!=null&&game.World!=null){game.World.OriginShifted-=Shift;game.World.BlockReplaced-=Changed;}
         }
     }
 }

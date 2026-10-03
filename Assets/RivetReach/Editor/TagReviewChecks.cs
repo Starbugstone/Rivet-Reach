@@ -56,7 +56,8 @@ namespace RivetReach.Editor
             Mapping<IMeat>("meat");Mapping<IRawMeat>("raw_meat");Mapping<IFish>("fish");Mapping<IRawFish>("raw_fish");Mapping<IEgg>("egg");Mapping<IRawEgg>("raw_egg");
             Mapping<ISeed>("seed");Mapping<IFibre>("fibre");Mapping<ICordage>("cordage");Mapping<IFabric>("fabric");Mapping<IFeather>("feather");
             Mapping<IRawOre>("raw_ore");Mapping<IIngot>("ingot");Mapping<ILogMaterial>("log");Mapping<IPlankMaterial>("planks");Mapping<IFishingRod>("fishing_rod");Mapping<ICompostable>("compostable");
-            Check(mappedLabels.Count==25&&mappedLabels.SetEquals(items.items.SelectMany(item=>item.tags)),"All 25 shipped categories have explicit capability mappings");
+            Mapping<IHalfBlock>("half_block");
+            Check(mappedLabels.Count==26&&mappedLabels.SetEquals(items.items.SelectMany(item=>item.tags)),"All 26 shipped categories have explicit capability mappings");
             var vegetableSelector=items.Select<IVegetable>();
             Check(items.Capability<IEdible>(0)==null&&items.Capability<IBurnable>(0)==null&&!vegetableSelector.Matches(0),"Empty item identity supplies no capability or ingredient");
             for(int n=0;n<100;n++){items.Capability<IEdible>(BlockId.Stone);items.Select<IVegetable>().Matches(BlockId.Potato);items.Capability<IBurnable>(BlockId.Coal);}

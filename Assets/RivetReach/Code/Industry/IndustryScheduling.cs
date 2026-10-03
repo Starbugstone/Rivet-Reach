@@ -30,7 +30,6 @@ namespace RivetReach
         Dictionary<ChunkPos,HashSet<AutomationComponent>> componentPages=new Dictionary<ChunkPos,HashSet<AutomationComponent>>();
         bool frameBudgetManaged,structureValidationAvailable;int reconstructionRemaining;long reconstructionDeadline;
         public int ReconstructionStepsThisFrame {get;private set;}
-        public int SuspendedComponents=>pendingComponents.Count;
         public void BeginFrame(int operations=2048,double milliseconds=2)
         {
             if(operations<1||double.IsNaN(milliseconds)||milliseconds<=0)throw new ArgumentOutOfRangeException();
@@ -40,7 +39,17 @@ namespace RivetReach
         public void EndFrame()=>frameBudgetManaged=false;
         void AdvanceStructureValidation()
         {if(!frameBudgetManaged||structureValidationAvailable){Multiblocks.Step();structureValidationAvailable=false;}}
-        bool CanSimulate(MachineState machine)=>machine.Eligible&&componentAt.TryGetValue(machine.Position,out var component)&&component.Activity.Active;
+        long componentIndexVersion;
+        bool CanSimulate(MachineState machine)
+        {
+            if(!machine.Eligible)return false;
+            if(machine.ComponentIndexVersion!=componentIndexVersion)
+            {
+                machine.ComponentActivity=componentAt.TryGetValue(machine.Position,out var component)?component.Activity:null;
+                machine.ComponentIndexVersion=componentIndexVersion;
+            }
+            return machine.ComponentActivity!=null&&machine.ComponentActivity.Active;
+        }
         public bool IsSimulating(MachineState machine)=>machine!=null&&At(machine.Position)==machine&&CanSimulate(machine);
         void Suspend(AutomationComponent component)
         {component.Activity.Active=false;pendingComponents.Add(component);}
@@ -50,7 +59,7 @@ namespace RivetReach
             // publication preparation. Conservatively restart for new anchors.
             if(rebuild!=null)dirty=true;
             if(!componentAt.TryGetValue(machine.Position,out var component))
-            {component=new AutomationComponent();components.Add(component);componentAt.Add(machine.Position,component);component.Nodes.Add(machine.Position);WatchComponent(component,machine.Position);}
+            {component=new AutomationComponent();components.Add(component);componentAt.Add(machine.Position,component);componentIndexVersion++;component.Nodes.Add(machine.Position);WatchComponent(component,machine.Position);}
             component.Members.Add(machine);
         }
         void WatchComponent(AutomationComponent component,BlockPos position)
@@ -195,7 +204,7 @@ namespace RivetReach
             foreach(var pair in partners){publishedPartners[pair.Key]=pair.Value;yield return 0;}
             // Single main-thread publication. No callback or fixed tick can see
             // one channel reconnected before the other shared-state channels.
-            components=publishedComponents;componentAt=publishedPositions;componentPages=publishedPages;
+            components=publishedComponents;componentAt=publishedPositions;componentIndexVersion++;componentPages=publishedPages;
             pendingComponents.ExceptWith(replaced);
             dirty=pendingComponents.Count>0;
             bridgePartners=publishedPartners;

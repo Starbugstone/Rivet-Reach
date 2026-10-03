@@ -116,9 +116,9 @@ namespace RivetReach
                     if(InstanceCount>before)represented.Add(m.Position);continue;
                 }
                 int previous=InstanceCount;
-                bool active=id==IndustryId.ElectricFurnace||id==IndustryId.RangedPump?m.Running:m.Signal||m.Source;
+                bool active=m.ShowsActiveBody;
                 var body=detailed.BodyMaterial(active);
-                var topology=id==IndustryId.PowerCable?sim.Power.Topology:id==IndustryId.ItemPipe?sim.ItemNetwork:id==IndustryId.FluidPipe?sim.FluidNetwork:sim.Signals.Topology;
+                var topology=sim.ConnectionTopology(id);
                 topology.Connections.TryGetValue(m.Position,out int mask);
                 if(ConnectedPipeVisuals.UsesConnectedMesh(id))
                 {
@@ -153,15 +153,16 @@ namespace RivetReach
             if(FactoryVisibility.LegacyReview||FactoryVisibility.FullDetailReview)return;
             Build();if(Time.unscaledTime>=next)Refresh();
             GeometryUtility.CalculateFrustumPlanes(game.Player.Camera,planes);
+            var eye=game.Player.transform.position;float fogEnd=game.World.FogEnd;
             foreach(var batch in batches.Values)
             {
-                int count=0;
+                int count=0;var meshBounds=batch.Mesh.bounds;
                 foreach(var matrix in batch.Matrices)
                 {
-                    var bounds=batch.Mesh.bounds;var center=matrix.MultiplyPoint3x4(bounds.center);var e=bounds.extents;
+                    var center=matrix.MultiplyPoint3x4(meshBounds.center);var e=meshBounds.extents;
                     var x=matrix.MultiplyVector(new Vector3(e.x,0,0));var y=matrix.MultiplyVector(new Vector3(0,e.y,0));var z=matrix.MultiplyVector(new Vector3(0,0,e.z));
-                    bounds=new Bounds(center,2*new Vector3(Mathf.Abs(x.x)+Mathf.Abs(y.x)+Mathf.Abs(z.x),Mathf.Abs(x.y)+Mathf.Abs(y.y)+Mathf.Abs(z.y),Mathf.Abs(x.z)+Mathf.Abs(y.z)+Mathf.Abs(z.z)));
-                    if(!FactoryVisibility.Visible(game.Player.transform.position,bounds,game.World.FogEnd)||!GeometryUtility.TestPlanesAABB(planes,bounds))continue;
+                    var bounds=new Bounds(center,2*new Vector3(Mathf.Abs(x.x)+Mathf.Abs(y.x)+Mathf.Abs(z.x),Mathf.Abs(x.y)+Mathf.Abs(y.y)+Mathf.Abs(z.y),Mathf.Abs(x.z)+Mathf.Abs(y.z)+Mathf.Abs(z.z)));
+                    if(!FactoryVisibility.Visible(eye,bounds,fogEnd)||!GeometryUtility.TestPlanesAABB(planes,bounds))continue;
                     instances[count++]=matrix;if(count==instances.Length){Draw(batch,count);count=0;}
                 }
                 if(count>0)Draw(batch,count);

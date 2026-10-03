@@ -70,15 +70,19 @@ namespace RivetReach
                 MachineButton(parent,live=>"RECOVERY OUT: "+(live.RecoveryOutput?"ON":"OFF"),821,497,303,30,live=>{live.RecoveryOutput=!live.RecoveryOutput;game.Industry.Simulation.Invalidate(live.Position);});
             nextMachineRefresh=0;
         }
-        static string MachinePortSummary(MachineState m)
+        MachineState shownCable;
+        NetworkTopology shownCableTopology;
+        NetworkTopology.Group shownCableGrid;
+        long shownCableRevision=-1;
+        NetworkTopology.Group CableGrid(MachineState machine)
         {
-            if(PipeConnections.IsTransport(m.Definition.Id))
-                return "Connections on all six faces: "+string.Join(" · ",PipeConnections.Ports(m).Select(p=>p.Kind==NetworkKind.Item?"Items":p.Kind==NetworkKind.Fluid?"Fluids":p.Kind==NetworkKind.Signal?"Blue Signal":"Electricity"));
-            if(IndustryId.TankPart(m.Definition.Id))return "Shell blocks share one tank · front faces outward";
-            string ports="";
-            foreach(var p in PipeConnections.Ports(m))
-            {for(int f=0;f<6;f++)if((p.Faces&(1<<f))!=0)ports+=(ports.Length==0?"":" · ")+p.Kind+" "+p.Role+" "+new[]{"R","L","top","base","rear","front"}[f];}
-            return "Ports (relative to front): "+ports;
+            var topology=game.Industry.Simulation.Power.Topology;
+            if(shownCable!=machine||shownCableTopology!=topology||shownCableRevision!=topology.Revision)
+            {
+                shownCable=machine;shownCableTopology=topology;shownCableRevision=topology.Revision;
+                shownCableGrid=topology.Groups.FirstOrDefault(group=>group.Ports.Any(port=>port.Machine==machine));
+            }
+            return shownCableGrid;
         }
         void RefreshMachine()
         {
@@ -124,7 +128,7 @@ namespace RivetReach
             }
             if(m.Definition.Id==IndustryId.PowerCable)
             {
-                var grid=game.Industry.Simulation.Power.Topology.Groups.FirstOrDefault(g=>g.Ports.Any(p=>p.Machine==m));
+                var grid=CableGrid(m);
                 if(grid!=null)
                 {
                     long stored=0;foreach(var p in grid.Ports)if(p.Port.Role==PortRole.Storage)stored+=BatteryPower.Amount(p.Machine);

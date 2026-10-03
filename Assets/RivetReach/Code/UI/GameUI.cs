@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
+using UnityEngine.Rendering.Universal;
 
 namespace RivetReach
 {
@@ -118,12 +119,12 @@ namespace RivetReach
             Label(root,"Escape · Save game",1090,694,172,22,12,new Color(.75f,.77f,.73f));
             message=Label(root,"",330,555,620,40,18,gold);message.alignment=TextAnchor.MiddleCenter;
             loading=Label(root,"",435,457,410,50,20);loading.alignment=TextAnchor.MiddleCenter;
-            var debug=Panel(root,20,94,950,446,new Color(.025f,.045f,.055f,.9f));diagnosticsPanel=debug.gameObject;
-            diagnostics=Label(debug.transform,"",10,8,930,150,13);
-            currentScreen.diagnosticSimulation=Label(debug.transform,"",10,164,435,250,13);
-            currentScreen.diagnosticPresentation=Label(debug.transform,"",460,164,480,250,13);
-            Label(debug.transform,"Scopes include children; do not add them. Worker times are completed-job latency, not CPU usage. Threads overlap.",10,412,930,18,12);
-            Label(debug.transform,"Refresh 4 Hz · n/a = unsupported or no fresh timing · idle = no calls this window · GPU samples may arrive late",10,428,930,18,12);
+            var debug=Panel(root,20,94,950,470,new Color(.025f,.045f,.055f,.9f));diagnosticsPanel=debug.gameObject;
+            diagnostics=Label(debug.transform,"",10,8,930,174,13);
+            currentScreen.diagnosticSimulation=Label(debug.transform,"",10,188,435,250,13);
+            currentScreen.diagnosticPresentation=Label(debug.transform,"",460,188,480,250,13);
+            Label(debug.transform,"Scopes include children; do not add them. Worker times are completed-job latency, not CPU usage. Threads overlap.",10,436,930,18,12);
+            Label(debug.transform,"Refresh 4 Hz · n/a = unsupported or no fresh timing · idle = no calls this window · GPU samples may arrive late",10,452,930,18,12);
             diagnosticsPanel.SetActive(game.Diagnostics);
         }
         ItemStack StackAt(int index)
@@ -199,8 +200,9 @@ namespace RivetReach
                 Slider(p.transform,"Interface scale",298,Mathf.Clamp(PlayerPrefs.GetFloat("uiScale",1),.85f,1),.85f,1,v=>{PlayerPrefs.SetFloat("uiScale",v);root.localScale=Vector3.one*v;});
                 Slider(p.transform,"Sound volume",366,game.Sound.Master,0,1,game.Sound.SetMaster);
                 Slider(p.transform,"Effect intensity",434,ArcadePresentation.Active.Intensity,0,1,ArcadePresentation.Active.SetIntensity);
-                Button(p.transform,"REBIND CONTROLS",36,537,346,44,()=>game.SetMode(ScreenMode.Controls));
-                Button(p.transform,"APPLY",407,537,346,44,()=>{PlayerPrefs.Save();game.SetMode(game.Started?ScreenMode.Pause:ScreenMode.Title);},true);
+                Button(p.transform,FramePacing.Label(FramePacing.Current),36,505,716,36,()=>{FramePacing.Apply(FramePacing.Next(FramePacing.Current),persist:true);Rebuild();});
+                Button(p.transform,"REBIND CONTROLS",36,550,346,44,()=>game.SetMode(ScreenMode.Controls));
+                Button(p.transform,"APPLY",407,550,346,44,()=>{PlayerPrefs.Save();game.SetMode(game.Started?ScreenMode.Pause:ScreenMode.Title);},true);
             }
             else if(game.Mode==ScreenMode.Controls)
             {
@@ -210,7 +212,7 @@ namespace RivetReach
                     string name=kv.Key;int col=i%2,row=i/2;
                     Button(p.transform,name+"   ·   "+kv.Value,36+col*365,143+row*48,348,40,()=>{game.Input.BeginRebind(name);Rebuild();});i++;
                 }
-                Button(p.transform,"MINE: "+(PlayerPrefs.GetInt("mineButton",0)==0?"LEFT MOUSE":"RIGHT MOUSE"),36,530,348,44,()=>{PlayerPrefs.SetInt("mineButton",1-PlayerPrefs.GetInt("mineButton",0));PlayerPrefs.Save();Rebuild();});
+                Button(p.transform,"MINE: "+(PlayerPrefs.GetInt("mineButton",0)==0?"LEFT MOUSE":"RIGHT MOUSE"),36,530,348,44,()=>{PlayerPrefs.SetInt("mineButton",1-PlayerPrefs.GetInt("mineButton",0));PlayerPrefs.Save();game.Input.RefreshPreferences();Rebuild();});
                 Label(p.transform,$"{game.Input.UseButtonName}: use / place\n{game.Input.Keys["Crouch"]} + {game.Input.UseButtonName}: place against stations",410,527,340,50,15);
                 Button(p.transform,"E INVENTORY PRESET",36,580,348,32,()=>
                 {
@@ -393,6 +395,9 @@ namespace RivetReach
             var model=new GameObject("Preview model");model.transform.SetParent(previewRoot.transform,false);model.transform.localRotation=Quaternion.Euler(0,-18,0);preview=model.AddComponent<AvatarView>();preview.Preview=true;
             var cam=new GameObject("Portrait camera");cam.transform.SetParent(previewRoot.transform,false);cam.transform.localPosition=new Vector3(0,.94f,2.8f);cam.transform.LookAt(previewRoot.transform.position+Vector3.up*.92f);
             var camera=cam.AddComponent<Camera>();camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=slate;camera.fieldOfView=38;camera.nearClipPlane=.1f;camera.farClipPlane=8;camera.cullingMask=1<<30;
+            var portraitData=camera.GetUniversalAdditionalCameraData();
+            portraitData.requiresColorOption=CameraOverrideOption.Off;portraitData.requiresDepthOption=CameraOverrideOption.Off;
+            portraitData.renderPostProcessing=false;
             var fillLight=new GameObject("Portrait fill");fillLight.transform.SetParent(previewRoot.transform,false);fillLight.transform.localPosition=new Vector3(.5f,1.5f,2);
             var lamp=fillLight.AddComponent<Light>();lamp.type=LightType.Point;lamp.range=5;lamp.intensity=3;lamp.cullingMask=1<<30;lamp.shadows=LightShadows.None;
             previewTexture=new RenderTexture(768,1024,24){antiAliasing=4,filterMode=FilterMode.Bilinear};previewTexture.Create();camera.targetTexture=previewTexture;

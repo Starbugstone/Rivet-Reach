@@ -29,12 +29,6 @@ namespace RivetReach
         public bool EditingText => EventSystem.current != null && EventSystem.current.currentSelectedGameObject != null &&
             EventSystem.current.currentSelectedGameObject.GetComponent<InputField>() is InputField input && input.isFocused;
 
-        void ResetBrowserUI()
-        {
-            creativeDrag = default;
-            browserHost = null; recipePanel = null; recipeTransferStatus = null; browserTip = null; browserSearchField = null;
-            browserCells.Clear(); browserHovered = 0; browserItem = 0; browserHistory.Clear();
-        }
         void EnsureBrowserIndex()
         {
             if (browserIndex != null) return;

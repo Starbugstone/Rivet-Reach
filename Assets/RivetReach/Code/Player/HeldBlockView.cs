@@ -35,7 +35,6 @@ namespace RivetReach
         int displayedSlot=-1;
         float equipLowering;
         bool equipping;
-        public float EquipLowering=>equipLowering;
         // Cache presentation only. The selected inventory stack still owns every action.
         public void PrepareFrame(float dt)
         {

@@ -20,6 +20,7 @@ namespace RivetReach
             public Mesh Mesh,FluidMesh,GlassMesh;
             public GameObject FluidView,GlassView;
             public bool Busy,Dirty=true;
+            public int FluidSources;
         }
         readonly Dictionary<ChunkPos,Resident> chunks=new Dictionary<ChunkPos,Resident>();
         // Only pending pages participate in worker selection; a settled world does
@@ -34,7 +35,6 @@ namespace RivetReach
         readonly List<ChunkPos> releaseChunks=new List<ChunkPos>();
         readonly Queue<(GameObject view,Mesh terrain,Mesh fluid,Mesh glass)> retiredViews=new Queue<(GameObject,Mesh,Mesh,Mesh)>();
         public const int ViewTeardownBudget=4;
-        public int PendingViewTeardowns=>retiredViews.Count;
         readonly List<(long,long)> releaseColumns=new List<(long,long)>();
         readonly List<(long x,long z)> releaseSky=new List<(long x,long z)>();
         public TerrainGenerator Generator { get; private set; }
@@ -62,6 +62,7 @@ namespace RivetReach
         public string Error { get; private set; }
         public event Action<Vector3> OriginShifted;
         public event Action<BlockPos> BlockChanged;
+        public event Action<BlockPos,byte,byte> BlockReplaced;
         public event Action ResidencyChanged;
         public event Action<ChunkPos> ChunkResidencyChanged;
         public event Action<ChunkPos,byte[]> ChunkReady;
@@ -100,15 +101,42 @@ namespace RivetReach
         }
         public Vector3 Local(BlockPos p) => new Vector3((float)(p.X-Origin.X),p.Y-Origin.Y,(float)(p.Z-Origin.Z));
         public BlockPos Address(Vector3 local) => WorldPoint.FromLocal(local,Origin).Cell;
+        static bool FluidSource(byte id)=>Fluids.Registry.Get(id) is FluidDefinition fluid&&fluid.IsSource(id);
+        static int CountFluidSources(byte[] cells)
+        {
+            int count=0;
+            for(int z=0;z<32;z++)for(int y=0;y<32;y++)
+            {
+                int row=ChunkMesher.Index(0,y,z);
+                for(int x=0;x<32;x++)if(FluidSource(cells[row+x]))count++;
+            }
+            return count;
+        }
+        public bool TryGetFluidSourceCount(ChunkPos key,out int sources)
+        {
+            sources=0;
+            if(!chunks.TryGetValue(key,out var resident)||resident.Cells==null)return false;
+            sources=resident.FluidSources;return true;
+        }
         public bool Ready(BlockPos p) => chunks.TryGetValue(p.Chunk,out var c)&&c.Cells!=null;
         public byte Get(BlockPos p)
         {
-            if(edits.TryGetValue(p.Chunk,out var e)&&e.TryGetValue(p.Index,out byte b))return b;
-            if(chunks.TryGetValue(p.Chunk,out var c)&&c.Cells!=null)
-            {int i=p.Index;return c.Cells[ChunkMesher.Index(i%32,i/32%32,i/1024)];}
-            return GeneratorFor(p.Chunk).At(p);
+            var key=p.Chunk;
+            if(chunks.TryGetValue(key,out var c)&&c.Cells!=null)return ResidentCell(key,c,p.Index);
+            if(edits.TryGetValue(key,out var e)&&e.TryGetValue(p.Index,out byte b))return b;
+            return GeneratorFor(key).At(p);
         }
-        public bool Solid(BlockPos p) => !Ready(p)||BlockId.Solid(Get(p))&&!(IsOpenMachine?.Invoke(p)??false);
+        byte ResidentCell(ChunkPos key,Resident resident,int index)
+        {
+            byte value=resident.Cells[ChunkMesher.Index(index&31,(index>>5)&31,index>>10)];
+#if RR_VALIDATE_WORLD
+            if(edits.TryGetValue(key,out var page)&&page.TryGetValue(index,out byte edited)&&edited!=value)
+                throw new InvalidOperationException($"Resident cell differs from its edit at {key.Min}, index {index}");
+#endif
+            return value;
+        }
+        public bool Solid(BlockPos p)=>!TryRead(p,out byte id)||SolidResident(p,id);
+        bool SolidResident(BlockPos p,byte id)=>BlockId.Solid(id)&&!(IsOpenMachine?.Invoke(p)??false);
         public Func<BlockPos,bool> CanRemoveMachine;
         public bool Remove(BlockPos p,byte expected) => BedId.Part(expected)?RemoveBed(p,expected): IndustryId.DoorPart(expected)?RemoveDoor(p,expected): (CanRemoveMachine?.Invoke(p)??true)&&expected!=0&&expected!=BlockId.Bedrock&&Change(p,expected,0);
         public bool Place(BlockPos p,byte id) => id==BedId.Bed?PlaceBed(p,0): id==BlockId.Sapling?PlantSapling(p): id==IndustryId.WoodenDoor?PlaceDoor(p): id==BlockId.Torch?PlaceTorch(p,p.Offset(0,-1,0)):BlockId.Placeable(id)&&(Get(p)==0||Fluids.IsFluid(Get(p)))&&Change(p,Get(p),id);
@@ -199,11 +227,7 @@ namespace RivetReach
         {
             var key=p.Chunk;id=0;
             if(!chunks.TryGetValue(key,out var resident)||resident.Cells==null)return false;
-            int index=p.Index;
-            // Preserve edit authority and the closed nonresident boundary while
-            // avoiding Ready/Get's repeated chunk and coordinate lookups.
-            if(edits.TryGetValue(key,out var page)&&page.TryGetValue(index,out id))return true;
-            id=resident.Cells[ChunkMesher.Index(index&31,(index>>5)&31,index>>10)];return true;
+            id=ResidentCell(key,resident,p.Index);return true;
         }
         public byte SkyLight(BlockPos air)
         {
@@ -263,6 +287,8 @@ namespace RivetReach
                 if(!requireReady)treeMeshes.Add(kv.Key);
                 if(c.Cells!=null)c.Cells[ChunkMesher.Index((int)x,y,(int)z)]=replacement;
             }
+            if(chunks.TryGetValue(p.Chunk,out var owner)&&owner.Cells!=null)
+                owner.FluidSources+=(FluidSource(replacement)?1:0)-(FluidSource(expected)?1:0);
             // Masking the old block requires fresh meshes; their local surface work is prioritized.
             // Hide stale chunks immediately, publishing a synchronous local rebuild for this edit only.
             // 32^3 bounded meshing is measured independently from asynchronous streaming.
@@ -275,7 +301,7 @@ namespace RivetReach
             if(expected==BlockId.Sapling&&Fluids.IsFluid(replacement))BlockMined?.Invoke(p,BlockId.Sapling);
             TorchChanged(p,expected,replacement);
             FluidSimulation.Changed(this,p);
-            if(!immediate){BlockChanged?.Invoke(p);return true;}
+            if(!immediate){BlockReplaced?.Invoke(p,expected,replacement);BlockChanged?.Invoke(p);return true;}
             long editBegan=Stopwatch.GetTimestamp();
             for(int z=-1;z<=1;z++)for(int y=-1;y<=1;y++)for(int x=-1;x<=1;x++)
             {
@@ -285,7 +311,7 @@ namespace RivetReach
                 if(Math.Abs(p.X-min.X)>33||Math.Abs(p.Z-min.Z)>33||Math.Abs(p.Y-min.Y)>33)continue;
                 ImmediateMeshBuilds++;var mesh=ChunkMesher.Build(kv.Key,c.Revision,c.Cells);Apply(mesh,c);
             }
-            LastEditMeshMs=(Stopwatch.GetTimestamp()-editBegan)*1000.0/Stopwatch.Frequency;BlockChanged?.Invoke(p);return true;
+            LastEditMeshMs=(Stopwatch.GetTimestamp()-editBegan)*1000.0/Stopwatch.Frequency;BlockReplaced?.Invoke(p,expected,replacement);BlockChanged?.Invoke(p);return true;
         }
         public double LastEditMeshMs { get; private set; }
         public long ImmediateMeshBuilds {get;private set;}
@@ -467,7 +493,7 @@ namespace RivetReach
                     long x=e.Key.X-min.X,z=e.Key.Z-min.Z;int y=e.Key.Y-min.Y;
                     if(x>=-1&&x<=32&&y>=-1&&y<=32&&z>=-1&&z<=32)cells[ChunkMesher.Index((int)x,y,(int)z)]=e.Value;
                 }
-                var result=ChunkMesher.Build(p,revision,cells);result.Token=token;result.HasSurfaceRange=snapshot==null;result.SurfaceMin=surfaceMin;result.SurfaceMax=surfaceMax;result.Milliseconds=sw.Elapsed.TotalMilliseconds;return result;
+                var result=ChunkMesher.Build(p,revision,cells);result.Token=token;result.HasSurfaceRange=snapshot==null;result.SurfaceMin=surfaceMin;result.SurfaceMax=surfaceMax;result.FluidSources=snapshot==null?CountFluidSources(cells):-1;result.Milliseconds=sw.Elapsed.TotalMilliseconds;return result;
             });
             work.Add((task,p,token,revision));
         }
@@ -477,6 +503,10 @@ namespace RivetReach
             bool first=c.Cells==null;
             bool visibleTerrain=result.Triangles.Length>0,visibleFluid=result.FluidMesh.Indices.Length>0,visibleGlass=result.GlassMesh.Indices.Length>0;
             c.Cells=result.Cells;c.Dirty=false;pendingMeshes.Remove(result.Position);
+            if(first)c.FluidSources=result.FluidSources>=0?result.FluidSources:CountFluidSources(c.Cells);
+#if RR_VALIDATE_WORLD
+            if(c.FluidSources!=CountFluidSources(c.Cells))throw new InvalidOperationException("Resident fluid source count differs from its cells.");
+#endif
             // Empty underground/sky pages still provide collision and residency data,
             // but need neither an empty renderer nor an empty native Mesh.
             using(RuntimeCosts.TerrainViews.Auto())
@@ -527,7 +557,7 @@ namespace RivetReach
             if(first)
             {
                 using var activationCost=RuntimeCosts.ChunkActivation.Auto();
-                DirtyLight(result.Position);
+                LightResidencyInvalidations++;DirtyLight(result.Position);
                 FluidSimulation.Ready(result.Position);ChunkResidencyChanged?.Invoke(result.Position);ResidencyChanged?.Invoke();ChunkReady?.Invoke(result.Position,c.Cells);
                 // The worker identifies exposed/unsettled cells. Stable source interiors and
                 // shared source boundaries never enter the scheduled queue on mere residency.
@@ -566,9 +596,9 @@ namespace RivetReach
             float distance=0;
             for(int i=0;i<64&&distance<=reach;i++)
             {
-                if(!Ready(cell)){if(solidsOnly){hit=new BlockSelectionHit(cell,0,start+direction*distance,face,distance);return true;}return false;}
-                byte b=Get(cell);var fluid=Fluids.Registry.Get(b);
-                if(solidsOnly?Solid(cell):b!=0&&(fluid==null||fluidSources&&fluid.IsSource(b)))
+                if(!TryRead(cell,out byte b)){if(solidsOnly){hit=new BlockSelectionHit(cell,0,start+direction*distance,face,distance);return true;}return false;}
+                var fluid=Fluids.Registry.Get(b);
+                if(solidsOnly?SolidResident(cell,b):b!=0&&(fluid==null||fluidSources&&fluid.IsSource(b)))
                 {
                     var definition=BlockDefinitions.Get(b);float selectedDistance=distance;var selectedFace=face;
                     if(solidsOnly&&definition.Collision==null||!solidsOnly&&(definition.Traits&BlockTraits.HasCustomSelectionShape)==0||
@@ -586,7 +616,11 @@ namespace RivetReach
         {
             CollisionCells(feet,width,height,out var min,out var max);
             for(long z=min.Z;z<=max.Z;z++)for(int y=min.Y;y<=max.Y;y++)for(long x=min.X;x<=max.X;x++)
-            {var cell=new BlockPos(x,y,z);if(Solid(cell)&&(!Ready(cell)||OccupiesBlock(feet,width,height,cell,Get(cell))))return true;}
+            {
+                var cell=new BlockPos(x,y,z);
+                if(!TryRead(cell,out byte id))return true;
+                if(SolidResident(cell,id)&&OccupiesBlock(feet,width,height,cell,id))return true;
+            }
             return false;
         }
         public bool OccupiesBlock(Vector3 feet,float width,float height,BlockPos cell,byte id)

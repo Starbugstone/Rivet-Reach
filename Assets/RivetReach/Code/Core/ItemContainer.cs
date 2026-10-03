@@ -44,18 +44,13 @@ namespace RivetReach
 
         public int FindSlot(Predicate<ItemStack> predicate) => Array.FindIndex(slots, predicate);
 
-        // Command planning works on private copies. Publishing a pair validates both
-        // containers before either write, so recipe transfer cannot partially clear a grid.
+        // Command planning works on private copies. Publishing validates all
+        // containers before any write, so recipe transfer cannot partially clear a grid.
         internal ItemContainer Snapshot()
         {
             var copy = new ItemContainer(Count, stackLimit);
             Array.Copy(slots, copy.slots, Count);
             return copy;
-        }
-        internal static void CommitPair(ItemContainer first, IReadOnlyList<ItemStack> firstPlan,
-            ItemContainer second, IReadOnlyList<ItemStack> secondPlan)
-        {
-            CommitMany(new[] { first, second }, new[] { firstPlan, secondPlan });
         }
         internal int StackLimit(byte id) => Limit(id);
 

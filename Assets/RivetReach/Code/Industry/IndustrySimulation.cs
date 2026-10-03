@@ -14,9 +14,15 @@ namespace RivetReach
     {
         bool TryRead(BlockPos position,out byte block);
     }
+    // Optional resident-only acceleration. False requires the ordinary cell reads.
+    public interface IFluidSourceIndex
+    {
+        bool TryGetFluidSourceCount(ChunkPos chunk,out int sources);
+    }
     public sealed partial class IndustrySimulation
     {
         readonly IIndustryResidentCells residentCells;
+        readonly IFluidSourceIndex sourceIndex;
         readonly IIndustryWorld world;readonly Func<byte,int> limit;readonly ProcessingRegistry processing;
         readonly Dictionary<BlockPos,MachineState> machines=new Dictionary<BlockPos,MachineState>();
         List<MachineState> eligible=new List<MachineState>();
@@ -44,7 +50,7 @@ namespace RivetReach
         public double LastStepMs {get;private set;}
         public IndustrySimulation(IIndustryWorld world,Func<byte,int> limit,ProcessingRegistry processing=null)
         {
-            this.world=world;residentCells=world as IIndustryResidentCells;this.limit=limit;this.processing=processing;Multiblocks=new MultiblockService(world,this);
+            this.world=world;residentCells=world as IIndustryResidentCells;sourceIndex=world as IFluidSourceIndex;this.limit=limit;this.processing=processing;Multiblocks=new MultiblockService(world,this);
             reserveFluidSource=ReserveFluidSource;reserveFluidSink=ReserveFluidSink;otherFluidSink=OtherFluidSink;
             ItemNetwork.ExternalEndpointFaces=p=>ItemEndpoint(p)!=null?63:0;
             ItemNetwork.ResolvePorts=m=>TransportPorts(m,NetworkKind.Item);
@@ -52,6 +58,7 @@ namespace RivetReach
             foreach(var graph in new[]{Power.Topology,ItemNetwork,FluidNetwork})graph.RemotePartner=BridgePartner;
         }
         public MachineState At(BlockPos p)=>machines.TryGetValue(p,out var m)?m:null;
+        public NetworkTopology ConnectionTopology(byte id)=>id==IndustryId.PowerCable?Power.Topology:id==IndustryId.ItemPipe?ItemNetwork:id==IndustryId.FluidPipe?FluidNetwork:Signals.Topology;
         public void Invalidate()=>InvalidateAllComponents();
         public void ResidencyChanged(ChunkPos chunk)
         {
@@ -180,7 +187,7 @@ namespace RivetReach
         // A suspended component cannot transfer while reconstruction spans ticks;
         // its last completed request remains useful to UI and diagnostics.
         static void ResetTransferredPower(MachineState m)
-        {m.ReceivedWatts=m.SupplyWatts=m.DeliveredWatts=m.BatteryWatts=m.BatteryInputWatts=m.BatteryOutputWatts=0;}
+        {m.ReceivedWatts=m.SupplyWatts=m.DeliveredWatts=m.BatteryWatts=m.BatteryInputWatts=m.BatteryOutputWatts=m.GenerationRemaining=0;}
         static void ResetNetworkState(MachineState m)
         {ResetTransferredPower(m);m.RequestedWatts=0;m.Signal=false;m.SignalAttached=false;m.FluidConflict=false;}
         static int Compare(BlockPos a,BlockPos b){int c=a.X.CompareTo(b.X);if(c!=0)return c;c=a.Y.CompareTo(b.Y);return c!=0?c:a.Z.CompareTo(b.Z);}

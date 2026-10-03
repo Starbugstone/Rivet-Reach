@@ -9,9 +9,9 @@ namespace RivetReach
         readonly Dictionary<BlockPos,GameObject> views=new Dictionary<BlockPos,GameObject>();
         readonly HashSet<BlockPos> nearby=new HashSet<BlockPos>();
         readonly List<BlockPos> remove=new List<BlockPos>();
-        public void Initialize(Expedition game){this.game=game;world=game.World;world.OriginShifted+=Shift;world.BlockChanged+=Changed;}
+        public void Initialize(Expedition game){this.game=game;world=game.World;world.OriginShifted+=Shift;world.BlockReplaced+=Changed;}
         void Shift(Vector3 delta){foreach(var view in views.Values)view.transform.position-=delta;nextRefresh=0;}
-        void Changed(BlockPos cell){nextRefresh=0;}
+        void Changed(BlockPos cell,byte before,byte after){if(BedId.Part(before)||BedId.Part(after))nextRefresh=0;}
         public GameObject ViewAt(BlockPos foot)=>views.TryGetValue(foot,out var view)?view:null;
         void Update()
         {
@@ -27,6 +27,6 @@ namespace RivetReach
             remove.Clear();foreach(var pair in views)if(!nearby.Contains(pair.Key))remove.Add(pair.Key);
             foreach(var p in remove){Destroy(views[p]);views.Remove(p);}
         }
-        void OnDestroy(){if(world!=null){world.OriginShifted-=Shift;world.BlockChanged-=Changed;}}
+        void OnDestroy(){if(world!=null){world.OriginShifted-=Shift;world.BlockReplaced-=Changed;}}
     }
 }

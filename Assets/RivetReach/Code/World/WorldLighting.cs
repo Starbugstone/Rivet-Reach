@@ -36,6 +36,11 @@ namespace RivetReach
         internal bool BypassLightForReview;
         public int PendingLightChunks=>dirtyLights.Count+(lightWork==null?0:1);
         public int LightSolveCount {get;private set;}
+        // Count requests by cause, including requests rejected at nonresident boundaries.
+        public long LightSourceInvalidations { get; private set; }
+        public long LightOpacityInvalidations { get; private set; }
+        public long LightBorderInvalidations { get; private set; }
+        public long LightResidencyInvalidations { get; private set; }
         public double LastLightWorkerMs {get;private set;}
         public double LastLightMainMs {get;private set;}
         public double MaxLightMainMs {get;private set;}
@@ -77,7 +82,7 @@ namespace RivetReach
             {byte v=page.Values[p.Index];return (byte)Math.Max(sky,Math.Max(v>>4,v&15));}
             return sky;
         }
-        public void LightSourceChanged(BlockPos p)=>DirtyLight(p.Chunk);
+        public void LightSourceChanged(BlockPos p){LightSourceInvalidations++;DirtyLight(p.Chunk);}
         void DirtyLight(ChunkPos p)
         {
             if(!chunks.TryGetValue(p,out var c)||c.Cells==null)return;
@@ -88,10 +93,12 @@ namespace RivetReach
         {
             if(BlockId.Opaque(before)!=BlockId.Opaque(after))
             {
+                LightOpacityInvalidations++;
                 var col=(p.Chunk.X,p.Chunk.Z);lightColumnRevisions.TryGetValue(col,out int revision);lightColumnRevisions[col]=revision+1;lightColumns.Remove(col);
-                foreach(var key in chunks.Keys)if(key.X==p.Chunk.X&&key.Z==p.Chunk.Z)DirtyLight(key);
+                var chunk=p.Chunk;
+                for(int y=TerrainGenerator.MinY>>5;y<=(TerrainGenerator.MaxY>>5);y++)DirtyLight(new ChunkPos(chunk.X,y,chunk.Z));
             }
-            else if(before==BlockId.Torch||after==BlockId.Torch||Fluids.Registry.Get(before)==Fluids.Lava||Fluids.Registry.Get(after)==Fluids.Lava||before==IndustryId.Lamp||after==IndustryId.Lamp)DirtyLight(p.Chunk);
+            else if(before==BlockId.Torch||after==BlockId.Torch||Fluids.Registry.Get(before)==Fluids.Lava||Fluids.Registry.Get(after)==Fluids.Lava||before==IndustryId.Lamp||after==IndustryId.Lamp){LightSourceInvalidations++;DirtyLight(p.Chunk);}
         }
         void LightingResidency()
         {
@@ -100,7 +107,7 @@ namespace RivetReach
             {
                 var page=lightPages[p];if(page.Slot>=0)freeLightSlots.Push(page.Slot);
                 lightPages.Remove(p);dirtyLights.Remove(p);lightTableDirty=true;
-                foreach(var d in ChunkLighting.Faces)DirtyLight(p.Offset(d.x,d.y,d.z));
+                foreach(var d in ChunkLighting.Faces){LightResidencyInvalidations++;DirtyLight(p.Offset(d.x,d.y,d.z));}
             }
             // Column caches are bounded by loaded columns, including remote loader tickets.
             var old=new List<(long,long)>();foreach(var p in lightColumns.Keys)if(!wantedColumns.Contains(p))old.Add(p);
@@ -127,7 +134,7 @@ namespace RivetReach
                             bool changed=false;
                             for(int b=0;b<32&&!changed;b++)for(int a=0;a<32;a++)
                             {int i=BorderIndex(face,a,b);if(old[i]!=page.Values[i]){changed=true;break;}}
-                            if(changed){var d=ChunkLighting.Faces[face];DirtyLight(result.Position.Offset(d.x,d.y,d.z));}
+                            if(changed){LightBorderInvalidations++;var d=ChunkLighting.Faces[face];DirtyLight(result.Position.Offset(d.x,d.y,d.z));}
                         }
                     }
                     else if(lightPages.ContainsKey(result.Position))dirtyLights.Add(result.Position);

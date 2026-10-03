@@ -224,10 +224,10 @@ namespace RivetReach
                     var cell=machine.EnergyCells[0];view.ShownCharge=cell.Amount;float height=.72f*(float)(cell.Amount/(double)cell.Capacity);
                     view.ChargeFill.localScale=new Vector3(.76f,height,.76f);view.ChargeFill.localPosition=new Vector3(.5f,.14f+height*.5f,.5f);view.ChargeFill.gameObject.SetActive(cell.Amount>0);
                 }
-                bool active=machine.Definition.Id==IndustryId.ElectricFurnace||machine.Definition.Id==IndustryId.RangedPump?machine.Running:machine.Signal||machine.Source;
+                bool active=machine.ShowsActiveBody;
                 if(revision||view.Mask<0)
                 {
-                    var topology=machine.Definition.Id==IndustryId.PowerCable?sim.Power.Topology:machine.Definition.Id==IndustryId.ItemPipe?sim.ItemNetwork:machine.Definition.Id==IndustryId.FluidPipe?sim.FluidNetwork:sim.Signals.Topology;
+                    var topology=sim.ConnectionTopology(machine.Definition.Id);
                     if(!ReferenceEquals(view.Connections,topology.Connections)||view.GeometryRotation!=machine.Rotation||view.GeometryDirections!=machine.PipeDirections)
                     {
                         topology.Connections.TryGetValue(machine.Position,out int mask);int disconnected=PipeConnections.IsTransport(machine.Definition.Id)?sim.DisconnectedPipeFaces(machine):0;

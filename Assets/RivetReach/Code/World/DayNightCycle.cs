@@ -38,10 +38,8 @@ namespace RivetReach
         public void Apply()
         {
             float cloud=(float)(Expedition.Instance?.Weather?.CloudCover??0);
-            float flash=Expedition.Instance?.World?.GetComponent<WeatherPresentation>()?.Flash??0;
             float attenuation=Mathf.Lerp(1,.40f,cloud);
             Shader.SetGlobalFloat("_RRWeatherCloud",cloud);
-            Shader.SetGlobalFloat("_RRWeatherFlash",flash);
             float angle=(float)((Clock.Hour-6)/24*System.Math.PI*2);
             SunDirection=new Vector3(Mathf.Cos(angle),Mathf.Sin(angle)*.9063078f,Mathf.Sin(angle)*.4226183f).normalized;
             Daylight=Mathf.SmoothStep(0,1,Mathf.InverseLerp(-.16f,.22f,SunDirection.y));

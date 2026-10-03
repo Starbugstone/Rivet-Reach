@@ -16,6 +16,7 @@ namespace RivetReach
         public FluidMeshData FluidMesh;
         public GlassMeshData GlassMesh=GlassMeshData.Empty;
         public double Milliseconds;
+        public int FluidSources=-1;
         public Mesh ToMesh(Mesh mesh=null)=>ChunkMeshUpload.Terrain(Vertices,Triangles,Bounds,mesh);
         public void Translate(Vector3 offset)
         {

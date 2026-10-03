@@ -54,10 +54,21 @@ namespace RivetReach
         public bool Pressed(string name) => Rebinding==null && Keyboard.current!=null&&Keyboard.current[Keys[name]].wasPressedThisFrame;
         public Vector2 Move => new Vector2((Held("Right")?1:0)-(Held("Left")?1:0),(Held("Forward")?1:0)-(Held("Back")?1:0)).normalized;
         public Vector2 Look => Mouse.current==null?Vector2.zero:Mouse.current.delta.ReadValue()*Sensitivity;
-        public bool Mine => Rebinding==null&&Mouse.current!=null&&(PlayerPrefs.GetInt("mineButton",0)==0?Mouse.current.leftButton.isPressed:Mouse.current.rightButton.isPressed);
-        public bool Place => Rebinding==null&&Mouse.current!=null&&(PlayerPrefs.GetInt("mineButton",0)==0?Mouse.current.rightButton.isPressed:Mouse.current.leftButton.isPressed);
-        public bool PlacePressed => Rebinding==null&&Mouse.current!=null&&(PlayerPrefs.GetInt("mineButton",0)==0?Mouse.current.rightButton.wasPressedThisFrame:Mouse.current.leftButton.wasPressedThisFrame);
-        public string UseButtonName=>PlayerPrefs.GetInt("mineButton",0)==0?"Right-click":"Left-click";
+        int mineButton,mineButtonFrame=-1;
+        int MineButton
+        {
+            get
+            {
+                int frame=Time.frameCount;
+                if(frame!=mineButtonFrame){mineButtonFrame=frame;mineButton=PlayerPrefs.GetInt("mineButton",0);}
+                return mineButton;
+            }
+        }
+        public void RefreshPreferences()=>mineButtonFrame=-1;
+        public bool Mine => Rebinding==null&&Mouse.current!=null&&(MineButton==0?Mouse.current.leftButton.isPressed:Mouse.current.rightButton.isPressed);
+        public bool Place => Rebinding==null&&Mouse.current!=null&&(MineButton==0?Mouse.current.rightButton.isPressed:Mouse.current.leftButton.isPressed);
+        public bool PlacePressed => Rebinding==null&&Mouse.current!=null&&(MineButton==0?Mouse.current.rightButton.wasPressedThisFrame:Mouse.current.leftButton.wasPressedThisFrame);
+        public string UseButtonName=>MineButton==0?"Right-click":"Left-click";
         public void BeginRebind(string name) {Rebinding=name;rebindAfter=Time.unscaledTime+.2f;}
         void AssignBinding(string action,Key selected)
         {

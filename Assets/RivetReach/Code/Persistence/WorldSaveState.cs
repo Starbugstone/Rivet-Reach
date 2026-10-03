@@ -88,13 +88,13 @@ namespace RivetReach
     {
         internal void WriteSave(SaveWriter w)
         {
-            w.Write(tick);w.Write(due.Count);foreach(var job in due){w.Write(job.Key);w.Positions(job.Value);}
+            w.Write(tick);w.Write(due.Count);foreach(long when in dueTicks.Sorted()){w.Write(when);w.Positions(due[when]);}
             w.Write(sleeping.Count);foreach(var page in sleeping){w.Pos(page.Key.Min);w.Positions(page.Value);}
         }
         internal void ReadSave(SaveReader r)
         {
             tick=r.Long();int n=r.Count();
-            for(int i=0;i<n;i++){long when=r.Long();var positions=r.Positions();due.Add(when,new Queue<BlockPos>(positions));foreach(var p in positions)SaveReader.Require(scheduled.Add(p),"Duplicate fluid job.");}
+            for(int i=0;i<n;i++){long when=r.Long();var positions=r.Positions();due.Add(when,new Queue<BlockPos>(positions));dueTicks.Push(when);foreach(var p in positions)SaveReader.Require(scheduled.Add(p),"Duplicate fluid job.");}
             n=r.Count();for(int i=0;i<n;i++){var p=r.Pos();SaveReader.Require(p.Equals(p.Chunk.Min),"Invalid fluid frontier.");sleeping.Add(p.Chunk,new HashSet<BlockPos>(r.Positions()));}
         }
     }

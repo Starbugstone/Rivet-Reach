@@ -6,6 +6,7 @@ namespace RivetReach
     public sealed partial class GameUI
     {
         int cratePage;
+        (Text label,byte item,long count,int members,int page,bool locked,string status) shownCrate;
         CrateEndpoint OpenCrates=>game.OpenStation!=null&&CrateId.Part(game.OpenStation.Block)?game.Crates.At(game.StationPosition):null;
         void BuildCrate(Transform parent,bool controller)
         {
@@ -35,11 +36,16 @@ namespace RivetReach
         void RefreshCrates()
         {
             var endpoint=OpenCrates;if(endpoint==null||currentStation.crateStatus==null)return;
-            if(game.OpenStation.Crate is CrateStorage store)
+            var store=game.OpenStation.Crate;
+            long count=store?.Count??0;
+            if(store==null)foreach(var member in endpoint.Members)count+=member.store.Count;
+            var key=(currentStation.crateStatus,store?.Item??(byte)0,count,endpoint.Members.Count,cratePage,store?.Locked??false,endpoint.Status);
+            if(key.Equals(shownCrate))return;
+            shownCrate=key;
+            if(store!=null)
                 currentStation.crateStatus.text=(store.Item==0?"Unassigned":game.Registry.Get(store.Item).displayName)+$"\n{store.Count:N0} / {CrateStorage.Capacity:N0}"+(store.Locked?" · Locked":" · Unlocked");
             else
             {
-                long count=0;foreach(var member in endpoint.Members)count+=member.store.Count;
                 currentStation.crateStatus.text=$"{endpoint.Members.Count} / 64 connected crates\n{count:N0} / {(long)endpoint.Members.Count*CrateStorage.Capacity:N0} items\n"+endpoint.Status;
                 currentStation.cratePage.text=$"Page {cratePage+1} / 4";
             }

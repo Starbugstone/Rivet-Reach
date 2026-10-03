@@ -1,76 +1,27 @@
 using System;
 using System.Collections.Generic;
 
-namespace RivetReach
+namespace RivetReach.Editor
 {
-    public interface IFluidWorld
-    {
-        bool TryRead(BlockPos position,out byte cell);
-        bool ChangeFluid(BlockPos position,byte expected,byte replacement);
-    }
-    // One world authority; deterministic scheduled work, no scan of settled fluid volumes.
-    public sealed partial class FluidSimulation
+    // Frozen e293b1e fluid algorithm and scheduler for exact decision/save comparisons.
+    // Do not update this reference when optimizing the production implementation.
+    internal sealed class ReferenceFluidSimulation
     {
         public const float StepSeconds=.05f;
         public const int WorkBudget=512;
         public static readonly (int x,int z)[] Sides={(1,0),(-1,0),(0,1),(0,-1)};
         readonly FluidRegistry registry;
-        readonly TickHeap dueTicks=new TickHeap();
-        readonly Dictionary<long,Queue<BlockPos>> due=new Dictionary<long,Queue<BlockPos>>();
-        readonly Stack<Queue<BlockPos>> spareQueues=new Stack<Queue<BlockPos>>();
-        // One entry per nonempty due queue. FIFO order within a tick is unchanged.
-        sealed class TickHeap
-        {
-            long[] values=new long[64];
-            int count;
-            public int Count=>count;
-            public long Min=>values[0];
-            public void Push(long value)
-            {
-                if(count==values.Length)Array.Resize(ref values,count*2);
-                int index=count++;
-                while(index>0)
-                {
-                    int parent=(index-1)>>1;
-                    if(values[parent]<=value)break;
-                    values[index]=values[parent];index=parent;
-                }
-                values[index]=value;
-            }
-            public void Pop()
-            {
-                long last=values[--count];int index=0;
-                while(true)
-                {
-                    int child=index*2+1;
-                    if(child>=count)break;
-                    if(child+1<count&&values[child+1]<values[child])child++;
-                    if(values[child]>=last)break;
-                    values[index]=values[child];index=child;
-                }
-                if(count>0)values[index]=last;
-            }
-            public long[] Sorted()
-            {
-                var copy=new long[count];Array.Copy(values,copy,count);Array.Sort(copy);return copy;
-            }
-        }
+        readonly SortedDictionary<long,Queue<BlockPos>> due=new SortedDictionary<long,Queue<BlockPos>>();
         readonly HashSet<BlockPos> scheduled=new HashSet<BlockPos>();
         readonly Dictionary<ChunkPos,HashSet<BlockPos>> sleeping=new Dictionary<ChunkPos,HashSet<BlockPos>>();
         long tick;
         public int Pending=>scheduled.Count;
         public int LastWork {get;private set;}
-        public FluidSimulation(FluidRegistry registry){this.registry=registry??throw new ArgumentNullException(nameof(registry));}
+        public ReferenceFluidSimulation(FluidRegistry registry){this.registry=registry??throw new ArgumentNullException(nameof(registry));}
         public void Wake(BlockPos p,int delay=5)
         {
             if(p.Y<=TerrainGenerator.MinY||p.Y>TerrainGenerator.MaxY||Math.Abs(p.X)>TerrainGenerator.HorizontalLimit||Math.Abs(p.Z)>TerrainGenerator.HorizontalLimit||!scheduled.Add(p))return;
-            long when=tick+delay;
-            if(!due.TryGetValue(when,out var queue))
-            {
-                queue=spareQueues.Count>0?spareQueues.Pop():new Queue<BlockPos>();
-                due.Add(when,queue);dueTicks.Push(when);
-            }
-            queue.Enqueue(p);
+            long when=tick+delay;if(!due.TryGetValue(when,out var queue)){queue=new Queue<BlockPos>();due.Add(when,queue);}queue.Enqueue(p);
         }
         public void Changed(IFluidWorld world,BlockPos p)
         {
@@ -105,12 +56,11 @@ namespace RivetReach
         {
             using var cost=RuntimeCosts.WorldFluids.Auto();
             tick++;LastWork=0;
-            while(LastWork<WorkBudget&&dueTicks.Count>0)
+            while(LastWork<WorkBudget&&due.Count>0)
             {
-                long when=dueTicks.Min;if(when>tick)break;
-                var queue=due[when];var p=queue.Dequeue();
-                if(queue.Count==0){due.Remove(when);dueTicks.Pop();spareQueues.Push(queue);}
-                scheduled.Remove(p);LastWork++;
+                var iterator=due.GetEnumerator();iterator.MoveNext();var entry=iterator.Current;iterator.Dispose();
+                if(entry.Key>tick)break;
+                var p=entry.Value.Dequeue();if(entry.Value.Count==0)due.Remove(entry.Key);scheduled.Remove(p);LastWork++;
                 Evaluate(world,p);
             }
         }
@@ -241,6 +191,11 @@ namespace RivetReach
                 if((directions&(1<<side))==0)continue;
                 Wake(n,f.TickDelay);
             }
+        }
+        internal void WriteSave(SaveWriter w)
+        {
+            w.Write(tick);w.Write(due.Count);foreach(var job in due){w.Write(job.Key);w.Positions(job.Value);}
+            w.Write(sleeping.Count);foreach(var page in sleeping){w.Pos(page.Key.Min);w.Positions(page.Value);}
         }
     }
 }

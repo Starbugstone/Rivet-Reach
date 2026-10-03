@@ -16,9 +16,7 @@ namespace RivetReach
         Material heldArmorMaterial;
         long equipmentRevision=long.MinValue;
         public int ArmorTriangles=>armorRenderers.Where(r=>r.enabled&&r.shadowCastingMode!=ShadowCastingMode.ShadowsOnly).Sum(r=>r.sharedMesh.triangles.Length/3);
-        public int ArmorShadowTriangles=>armorRenderers.Where(r=>r.enabled&&r.shadowCastingMode!=ShadowCastingMode.Off).Sum(r=>r.sharedMesh.triangles.Length/3);
         public int EquippedVisualCount=>equipped.Count(id=>id!=0);
-        public byte EquippedVisual(int slot)=>equipped[slot];
         void BuildArmor(bool female)
         {
             equipmentRevision=long.MinValue;

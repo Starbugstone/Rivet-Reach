@@ -336,7 +336,24 @@ namespace RivetReach.Editor
             IndustryChecks.Run();MultiblockChecks.Run();BatteryChecks.Run();ConnectedPipeChecks.Run();
             Build("Release/0.0.1/RivetReach-0.0.1-alpha-windows-x64",BuildOptions.None);
         }
+        public static void BuildPerformancePlan()
+        {
+            ShaderEquivalenceChecks.Run();
+            ReleaseReviewChecks.Run();
+            BuildConfigured("PerformancePlan",BuildOptions.None,new[]{"RR_VALIDATE_WORLD"});
+            WikiExport.Export();
+        }
+        public static void BuildPerformancePlayer()
+        {
+            if(Directory.Exists("Assets/RivetReach/Resources/Verification"))
+                throw new InvalidOperationException("Remove the isolated shader reference assets before building the ordinary player.");
+            PerformancePlanChecks.Run();
+            Build("PerformancePlanPlayer",BuildOptions.None);
+            WikiExport.Export();
+        }
         static void Build(string outputFolder="PlayerRevision4",BuildOptions options=BuildOptions.Development)
+            =>BuildConfigured(outputFolder,options,null);
+        static void BuildConfigured(string outputFolder,BuildOptions options,string[] extraDefines)
         {
             string output=Path.Combine("Builds",outputFolder);Directory.CreateDirectory(output);
             // Apply the alpha's verified renderer to every shared Windows build.
@@ -348,7 +365,7 @@ namespace RivetReach.Editor
             {
                 PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.StandaloneWindows64,false);
                 PlayerSettings.SetGraphicsAPIs(BuildTarget.StandaloneWindows64,new[]{GraphicsDeviceType.Direct3D11});
-                report=BuildPipeline.BuildPlayer(new BuildPlayerOptions{scenes=EditorBuildSettings.scenes.Where(s=>s.enabled).Select(s=>s.path).ToArray(),locationPathName=Path.Combine(output,"RivetReach.exe"),target=BuildTarget.StandaloneWindows64,options=options});
+                report=BuildPipeline.BuildPlayer(new BuildPlayerOptions{scenes=EditorBuildSettings.scenes.Where(s=>s.enabled).Select(s=>s.path).ToArray(),locationPathName=Path.Combine(output,"RivetReach.exe"),target=BuildTarget.StandaloneWindows64,options=options,extraScriptingDefines=extraDefines});
             }
             finally
             {

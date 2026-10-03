@@ -13,7 +13,6 @@ namespace RivetReach
             if(game.OpenStation.Furnace!=null)return slot>=0&&slot<3?game.OpenStation.Furnace.Slots[slot]:default;
             var storage=game.OpenStation.Storage;return storage!=null&&slot>=0&&slot<storage.Count?storage.Slots[slot]:default;
         }
-        void ResetSurvivalUI(){healthText=hungerText=armorText=furnaceText=null;cookBar=burnBar=null;shownHealth=float.NaN;shownFood=shownArmor=shownProgress=shownBurn=-1;shownFurnaceRevision=-1;}
         void BuildEquipment(Transform parent)
         {
             Label(parent,"ARMOR",28,392,200,24,14,gold);

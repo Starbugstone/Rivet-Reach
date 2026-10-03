@@ -26,6 +26,8 @@ namespace RivetReach
             shownDiagnostics=diagnostics;shownDiagnosticsEnabled=true;nextDiagnosticsRefresh=UnityEngine.Time.unscaledTime+.25f;
             runtimeDiagnostics.Refresh();
             diagnostics.text=$"{runtimeDiagnostics.Frames}\n{runtimeDiagnostics.Threads}\nWorld {TerrainGenerator.WorldId} · seed {game.Seed} · {game.World.Address(game.Player.transform.position)}\nChunks ready/resident {game.World.ReadyCount}/{game.World.ResidentCount} · queued {game.World.PendingCount} · running terrain jobs {game.World.RunningJobs}\nLight queue {game.World.PendingLightChunks} · fluid queue {game.World.FluidSimulation.Pending} · fluid work last tick {game.World.FluidSimulation.LastWork}/{FluidSimulation.WorkBudget}\nTerrain triangles {game.World.MeshTriangles:N0} · edits {game.World.EditCount} · rejected jobs {game.World.RejectedJobs} · piles {game.Items.Piles.Count}\nFactory {game.Industry.Simulation.Machines.Count} assemblies · {(game.Industry.Simulation.Rebuilding?"Connecting":"Ready")} · origin {game.World.Origin}\nPlacement: {game.PlacementDiagnostic??"No attempt yet"}";
+            var world=game.World;
+            diagnostics.text+=$"\nLight invalidations source {world.LightSourceInvalidations} · opacity {world.LightOpacityInvalidations} · border {world.LightBorderInvalidations} · residency {world.LightResidencyInvalidations} · ticks frame/max {game.LastSimulationTicks}/{game.MaxSimulationTicks}";
             currentScreen.diagnosticSimulation.text=runtimeDiagnostics.Simulation;
             currentScreen.diagnosticPresentation.text=runtimeDiagnostics.Presentation;
         }

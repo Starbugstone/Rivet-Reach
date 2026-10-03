@@ -3,6 +3,7 @@
 import argparse
 import hashlib
 import json
+import posixpath
 import re
 import subprocess
 import uuid
@@ -20,10 +21,23 @@ destination = project / 'Assets/RivetReach/Resources/Verification'
 destination.mkdir(parents=True, exist_ok=True)
 commit = subprocess.check_output(['git', 'rev-parse', args.reference + '^{commit}'], cwd=root, text=True).strip()
 manifest = {'reference_commit': commit, 'files': {}}
-for name in ['WorldLit.shader', 'HeldBlock.shader', 'HeldTool.shader', 'ExplorerSkin.shader', 'WorldLighting.hlsl', 'VoxelLight.hlsl']:
-    path = 'Assets/RivetReach/Resources/Materials/' + name
+materials = 'Assets/RivetReach/Resources/Materials/'
+pending = [materials + name for name in ['WorldLit.shader', 'HeldBlock.shader', 'HeldTool.shader', 'ExplorerSkin.shader']]
+while pending:
+    path = pending.pop(0)
+    if path in manifest['files']:
+        continue
+    name = path.removeprefix(materials)
     original = subprocess.check_output(['git', 'show', commit + ':' + path], cwd=root)
     text = original.decode().replace('Shader "RivetReach/', 'Shader "Hidden/RivetReach/Reference/')
+    for include in re.findall(r'#include(?:_with_pragmas)?\s+"([^"]+)"', text):
+        if include.startswith('Packages/'):
+            continue
+        dependency = posixpath.normpath(posixpath.join(posixpath.dirname(path), include))
+        if not dependency.startswith(materials):
+            raise ValueError('Reference include leaves the material directory: ' + include)
+        pending.append(dependency)
+    (destination / name).parent.mkdir(parents=True, exist_ok=True)
     (destination / name).write_text(text)
     meta = destination / (name + '.meta')
     if not meta.exists():
@@ -48,4 +62,4 @@ for path in sorted((project / 'Assets/RivetReach/Resources').rglob('*.mat')):
     (variants / (identity + '.mat')).write_text(original.replace('guid: ' + old_guid, 'guid: ' + new_guid))
     manifest['material_variants'][str(path.relative_to(project))] = hashlib.sha256(original.encode()).hexdigest()
 (project / 'Logs/shader-reference.json').write_text(json.dumps(manifest, indent=2) + '\n')
-print('Staged six reference files and', len(manifest['material_variants']), 'material variants from', commit, 'in', destination)
+print('Staged', len(manifest['files']), 'reference files and', len(manifest['material_variants']), 'material variants from', commit, 'in', destination)

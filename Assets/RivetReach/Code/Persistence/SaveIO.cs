@@ -67,6 +67,7 @@ namespace RivetReach
         public int Seed;
         public string GeneratorVersion=TerrainGenerator.Version;
         public bool Backup;
+        internal SaveEntry Clone()=>(SaveEntry)MemberwiseClone();
     }
     public sealed class SaveStore
     {
@@ -78,30 +79,62 @@ namespace RivetReach
         readonly HashSet<string> currentSchemaContent=new HashSet<string>();
         readonly HashSet<string> legacyContent=new HashSet<string>(),currentContent=new HashSet<string>(),modernContent=new HashSet<string>();
         public string ScanWarning {get;private set;}
+        readonly Dictionary<string,(long length,DateTime written,SaveEntry entry)> listing=new Dictionary<string,(long,DateTime,SaveEntry)>();
         public SaveStore(string path,ItemRegistry registry)
         {
             DirectoryPath=path;this.registry=registry;
             // Schema 1/2 predate orchard state; doors and crank are independent additive content.
             // Every definition present before each accepted extension must still match.
             var processing=ProcessingCatalogAsset.Load();
+            var recipes=RecipeCatalogAsset.Load().recipes.OrderBy(i=>i.stableId,StringComparer.Ordinal).ToArray();
+            var mobs=Resources.LoadAll<MobDefinition>("Mobs/Definitions").OrderBy(i=>i.stableId,StringComparer.Ordinal).ToArray();
+            string processingText=string.Join("\n",processing.recipes.OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
+                +string.Join("\n",processing.fuels.OrderBy(i=>i.itemId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)));
+            var itemCache=new Dictionary<(ItemDefinition,bool,bool,bool),string>();
+            var recipeCache=new Dictionary<(RecipeAsset,bool,bool),string>();
+            var mobCache=new Dictionary<(MobDefinition,bool,bool,bool,bool),string>();
+            var textCache=new Dictionary<string,string>(StringComparer.Ordinal);
+            string Item(ItemDefinition item,bool farming,bool tags,bool compost)
+            {
+                var key=(item,farming,tags,compost);
+                if(!itemCache.TryGetValue(key,out string json))itemCache[key]=json=ItemFingerprint(item,farming,tags,compost);
+                return json;
+            }
+            string Recipe(RecipeAsset recipe,bool previousTier,bool previousComponents)
+            {
+                var key=(recipe,previousTier,previousComponents);
+                if(!recipeCache.TryGetValue(key,out string json))recipeCache[key]=json=RecipeFingerprint(recipe,previousTier,previousComponents);
+                return json;
+            }
+            string Mob(MobDefinition mob,bool floater,bool habitats,bool spawnLight,bool playtest)
+            {
+                var key=(mob,floater,habitats,spawnLight,playtest);
+                if(!mobCache.TryGetValue(key,out string json))mobCache[key]=json=MobFingerprint(mob,floater,habitats,spawnLight,playtest);
+                return json;
+            }
+            string Text(string path)
+            {
+                if(!textCache.TryGetValue(path,out string value))textCache[path]=value=Resources.Load<TextAsset>(path).text;
+                return value;
+            }
+            string spawnerText="|alpha-playtest-v1:"+string.Join("|",MobSystem.SpawnerDefinitions.OrderBy(d=>d.key,StringComparer.Ordinal).Select(d=>JsonUtility.ToJson(d)));
             bool previousTierRecipes=false,previousComponentRecipes=false;
             string Fingerprint(int legacy,bool orchard=false,bool wrench=false,bool electric=false,bool lava=false,bool floater=false,bool bridges=false,bool ranged=false,bool farming=false,bool materialTags=true,bool compost=false,bool habitats=false,bool spawnLight=false,bool mixedCompost=false,bool fishing=false,bool chickens=false,bool playtest=false,bool beds=false,bool crates=false,bool renewables=false,bool foodBalance=false,bool legacyHighFoodBalance=false,bool toolWear=false,bool building=false)
             {
-                string definitions=string.Join("\n",registry.items.Where(i=>(building||!BuildingBlocks.AddedItem(i.runtimeId))&&(renewables||i.stableId!="rivet:solar_panel"&&i.stableId!="rivet:wind_turbine")&&(crates||!CrateId.Part(i.runtimeId))&&(beds||i.runtimeId!=BedId.Bed)&&(playtest||i.runtimeId!=BlockId.LavaRock&&i.runtimeId!=BlockId.MobSpawner)&&(chickens||!ChickenId.Added(i.runtimeId))&&(fishing||!FishId.Added(i.runtimeId))&&(mixedCompost||i.runtimeId!=CompostId.Auto)&&(compost||!CompostId.Added(i.runtimeId))&&(farming||!FarmId.Added(i.runtimeId))&&(ranged||i.stableId!="rivet:ranged_liquid_pump")&&(bridges||i.runtimeId<IndustryId.ItemBridge||i.runtimeId>IndustryId.ChunkLoader)&&(floater||i.stableId!="rivet:floater_rock")&&(lava||i.stableId!="rivet:lava_bucket")&&(electric||i.stableId!="rivet:electric_furnace")&&(wrench||i.stableId!="rivet:wrench")&&(orchard||i.stableId!="rivet:sapling"&&i.stableId!="rivet:apple")&&((legacy&2)==0||i.stableId!="rivet:hand_crank")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.runtimeId).Select(i=>ItemFingerprint(i,farming,materialTags,compost)))
-                    +string.Join("\n",processing.recipes.OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
-                    +string.Join("\n",processing.fuels.OrderBy(i=>i.itemId,StringComparer.Ordinal).Select(i=>JsonUtility.ToJson(i)))
-                    +string.Join("\n",RecipeCatalogAsset.Load().recipes.Where(i=>(building||!BuildingBlocks.Recipe(i.stableId))&&(renewables||i.stableId!="rivet:industry_178"&&i.stableId!="rivet:industry_179")&&(crates||i.stableId!="rivet:bulk_crate"&&i.stableId!="rivet:crate_controller")&&(beds||i.stableId!="rivet:bed")&&(fishing||i.stableId!="rivet:fishing_rod")&&(mixedCompost||i.stableId!="rivet:auto_composter")&&(compost||i.stableId!="rivet:compost_bin")&&(farming||!i.stableId.StartsWith("rivet:farm_",StringComparison.Ordinal))&&(ranged||i.stableId!="rivet:industry_180")&&(bridges||!new[]{"rivet:industry_190","rivet:industry_191","rivet:industry_192","rivet:industry_193"}.Contains(i.stableId))&&(electric||i.stableId!="rivet:industry_174")&&(wrench||i.stableId!="rivet:wrench")&&((legacy&2)==0||i.stableId!="rivet:industry_170")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>RecipeFingerprint(i,previousTierRecipes,previousComponentRecipes)))
-                    +string.Join("\n",Resources.LoadAll<MobDefinition>("Mobs/Definitions").Where(i=>floater||i.stableId!="rivet:floater").OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>MobFingerprint(i,floater,habitats,spawnLight,playtest)));
-                if(farming&&registry.items.Any(i=>i.runtimeId==FarmId.Cooker))definitions+=Resources.Load<TextAsset>("Definitions/Cooking").text+Resources.Load<TextAsset>("Definitions/Crops").text;
-                if(compost)definitions+=Resources.Load<TextAsset>("Definitions/Compost").text;
-                if(playtest)definitions+="|alpha-playtest-v1:"+string.Join("|",MobSystem.SpawnerDefinitions.OrderBy(d=>d.key,StringComparer.Ordinal).Select(d=>JsonUtility.ToJson(d)));
-                if(chickens)definitions+=Resources.Load<TextAsset>("Definitions/Chickens").text+Resources.Load<TextAsset>("Definitions/ChickenCooking").text+"|chickens-v1";
+                string definitions=string.Join("\n",registry.items.Where(i=>(building||!BuildingBlocks.AddedItem(i.runtimeId))&&(renewables||i.stableId!="rivet:solar_panel"&&i.stableId!="rivet:wind_turbine")&&(crates||!CrateId.Part(i.runtimeId))&&(beds||i.runtimeId!=BedId.Bed)&&(playtest||i.runtimeId!=BlockId.LavaRock&&i.runtimeId!=BlockId.MobSpawner)&&(chickens||!ChickenId.Added(i.runtimeId))&&(fishing||!FishId.Added(i.runtimeId))&&(mixedCompost||i.runtimeId!=CompostId.Auto)&&(compost||!CompostId.Added(i.runtimeId))&&(farming||!FarmId.Added(i.runtimeId))&&(ranged||i.stableId!="rivet:ranged_liquid_pump")&&(bridges||i.runtimeId<IndustryId.ItemBridge||i.runtimeId>IndustryId.ChunkLoader)&&(floater||i.stableId!="rivet:floater_rock")&&(lava||i.stableId!="rivet:lava_bucket")&&(electric||i.stableId!="rivet:electric_furnace")&&(wrench||i.stableId!="rivet:wrench")&&(orchard||i.stableId!="rivet:sapling"&&i.stableId!="rivet:apple")&&((legacy&2)==0||i.stableId!="rivet:hand_crank")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.runtimeId).Select(i=>Item(i,farming,materialTags,compost)))
+                    +processingText
+                    +string.Join("\n",recipes.Where(i=>(building||!BuildingBlocks.Recipe(i.stableId))&&(renewables||i.stableId!="rivet:industry_178"&&i.stableId!="rivet:industry_179")&&(crates||i.stableId!="rivet:bulk_crate"&&i.stableId!="rivet:crate_controller")&&(beds||i.stableId!="rivet:bed")&&(fishing||i.stableId!="rivet:fishing_rod")&&(mixedCompost||i.stableId!="rivet:auto_composter")&&(compost||i.stableId!="rivet:compost_bin")&&(farming||!i.stableId.StartsWith("rivet:farm_",StringComparison.Ordinal))&&(ranged||i.stableId!="rivet:industry_180")&&(bridges||!new[]{"rivet:industry_190","rivet:industry_191","rivet:industry_192","rivet:industry_193"}.Contains(i.stableId))&&(electric||i.stableId!="rivet:industry_174")&&(wrench||i.stableId!="rivet:wrench")&&((legacy&2)==0||i.stableId!="rivet:industry_170")&&((legacy&1)==0||i.stableId!="rivet:wooden_door")).OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>Recipe(i,previousTierRecipes,previousComponentRecipes)))
+                    +string.Join("\n",mobs.Where(i=>floater||i.stableId!="rivet:floater").OrderBy(i=>i.stableId,StringComparer.Ordinal).Select(i=>Mob(i,floater,habitats,spawnLight,playtest)));
+                if(farming&&registry.items.Any(i=>i.runtimeId==FarmId.Cooker))definitions+=Text("Definitions/Cooking")+Text("Definitions/Crops");
+                if(compost)definitions+=Text("Definitions/Compost");
+                if(playtest)definitions+=spawnerText;
+                if(chickens)definitions+=Text("Definitions/Chickens")+Text("Definitions/ChickenCooking")+"|chickens-v1";
                 if(crates&&registry.items.Any(i=>i.runtimeId==CrateId.Crate))definitions+="|crates-v2:16384:64:receiver-priority-0-100:50-40-30-20";
-                if(fishing)definitions+=Resources.Load<TextAsset>("Definitions/FishingCooking").text+"|fishing-v1";
+                if(fishing)definitions+=Text("Definitions/FishingCooking")+"|fishing-v1";
                 if(mixedCompost)definitions+="|mixed-compost-v2:yield-1-4:160W:8J:512J";
-                if(renewables&&registry.items.Any(i=>i.stableId=="rivet:solar_panel"||i.stableId=="rivet:wind_turbine"))definitions+=Resources.Load<TextAsset>("Definitions/Renewables").text;
-                if(foodBalance)definitions+=Resources.Load<TextAsset>(legacyHighFoodBalance?"Definitions/FoodBalanceLegacyHighSaturation":"Definitions/FoodBalance").text;
-                if(toolWear)definitions+=Resources.Load<TextAsset>("Definitions/ToolDurability").text;
+                if(renewables&&registry.items.Any(i=>i.stableId=="rivet:solar_panel"||i.stableId=="rivet:wind_turbine"))definitions+=Text("Definitions/Renewables");
+                if(foodBalance)definitions+=Text(legacyHighFoodBalance?"Definitions/FoodBalanceLegacyHighSaturation":"Definitions/FoodBalance");
+                if(toolWear)definitions+=Text("Definitions/ToolDurability");
                 return Convert.ToBase64String(Hash(Encoding.UTF8.GetBytes(definitions)));
             }
             content=Fingerprint(0,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,renewables:true,foodBalance:true,toolWear:true,building:true);
@@ -262,19 +295,31 @@ namespace RivetReach
             var entries=new List<SaveEntry>();ScanWarning=null;
             try
             {
-                if(!Directory.Exists(DirectoryPath))return entries;
+                if(!Directory.Exists(DirectoryPath)){listing.Clear();return entries;}
+                var seen=new HashSet<string>();
                 foreach(string path in Directory.EnumerateFiles(DirectoryPath,"*.rrsave*"))
                 {
                     bool backup=path.EndsWith(".rrsave.bak",StringComparison.Ordinal);if(!backup&&!path.EndsWith(".rrsave",StringComparison.Ordinal))continue;
+                    seen.Add(path);
                     try
                     {
-                        SaveReader.Require(new FileInfo(path).Length<=MaxBytes+128,"Save exceeds the supported size.");
+                        var info=new FileInfo(path);long length=info.Length;DateTime written=info.LastWriteTimeUtc;
+                        if(listing.TryGetValue(path,out var cached)&&cached.length==length&&cached.written==written)
+                        {entries.Add(cached.entry.Clone());continue;}
+                        listing.Remove(path);
+                        SaveReader.Require(length<=MaxBytes+128,"Save exceeds the supported size.");
                         using var r=Open(File.ReadAllBytes(path),out var entry);
                         SaveReader.Require(path==SlotPath(entry.Id)+(backup?".bak":""),"Save filename does not match its identity.");
                         entry.Path=path;entry.Backup=backup;entries.Add(entry);
+                        // Do not cache a file that changed during validation. Actual loads
+                        // always validate the full envelope again, regardless of this hint.
+                        info.Refresh();
+                        if(info.Exists&&info.Length==length&&info.LastWriteTimeUtc==written)
+                            listing[path]=(length,written,entry.Clone());
                     }
-                    catch(Exception ex) when(IsSaveError(ex)){ScanWarning="Some saves are unavailable: "+ex.Message;}
+                    catch(Exception ex) when(IsSaveError(ex)){listing.Remove(path);ScanWarning="Some saves are unavailable: "+ex.Message;}
                 }
+                foreach(string path in listing.Keys.Where(path=>!seen.Contains(path)).ToArray())listing.Remove(path);
             }
             catch(Exception ex) when(IsSaveError(ex)){ScanWarning="Cannot list saves: "+ex.Message;}
             return entries.OrderByDescending(e=>e.UtcTicks).ThenBy(e=>e.Backup).ThenBy(e=>e.Id,StringComparer.Ordinal).ToList();
@@ -284,6 +329,7 @@ namespace RivetReach
             // Validate the complete envelope before touching an existing checkpoint.
             using(var check=Open(bytes,out var actual))SaveReader.Require(actual.Id==entry.Id,"Save identity mismatch.");
             Directory.CreateDirectory(DirectoryPath);string target=SlotPath(entry.Id),temp=target+"."+Guid.NewGuid().ToString("N")+".tmp";
+            listing.Remove(target);listing.Remove(target+".bak");
             try
             {
                 using(var stream=new FileStream(temp,FileMode.CreateNew,FileAccess.Write,FileShare.None)){stream.Write(bytes,0,bytes.Length);stream.Flush(true);}

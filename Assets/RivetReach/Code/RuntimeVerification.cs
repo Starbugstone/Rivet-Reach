@@ -134,7 +134,9 @@ namespace RivetReach
             if(Environment.GetCommandLineArgs().Contains("-rr-lighting-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-food-balance-review"))game.World.ViewDistance=4;
             if(Environment.GetCommandLineArgs().Contains("-rr-tools-review"))game.World.ViewDistance=4;
+            if(Environment.GetCommandLineArgs().Contains("-rr-performance-plan-review"))game.World.ViewDistance=4;
             yield return Settle();report.firstReadySeconds=Time.realtimeSinceStartup-began;
+            if(Environment.GetCommandLineArgs().Contains("-rr-performance-plan-review")){report.workload="Performance plan functional controls, bounded ticks, diagnostic layout and portrait captures; no frame-rate acceptance";yield return ReviewPerformancePlan();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-inventory-gestures-review")){report.workload="Native inventory drag, split, station input and spare armor gestures";yield return ReviewInventoryGestures();yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-performance-review")){report.workload="Calibrated interaction timings and revision-safe terrain work";game.Diagnostics=false;yield return PerformanceProbe.Run(game,output);yield break;}
             if(Environment.GetCommandLineArgs().Contains("-rr-fluid-stress")){report.workload="Bounded real water/lava cascade, spread, drainage and residency stress";yield return ReviewFluidStress();yield break;}
