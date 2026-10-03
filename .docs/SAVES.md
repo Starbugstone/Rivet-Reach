@@ -1,6 +1,6 @@
 # Save, load and continue
 
-The user authorized durable single-player saves and a rebuilt **0.0.1 Alpha** on 2026-09-11. This supersedes earlier session-only limitations for the implemented surface world. [Verification](verification/SAVE_RESULTS.md) records measured evidence and remaining limits.
+The user authorized durable single-player saves and a **0.0.1 Alpha rebuild candidate** on 2026-09-11. The feature is implemented for the surface world and verified in a local Windows player. **That rebuild was not published:** the September 10 `v0.0.1` ZIP remains session-only. This supersedes earlier session-only limitations in current source, not in the existing public download. [Verification](verification/SAVE_RESULTS.md) records measured evidence, publication status and remaining limits.
 
 The October 3 [performance implementation](verification/PERFORMANCE_PLAN_RESULTS.md) memoizes fingerprint projections only within each `SaveStore` constructor; replacing a registry still constructs its own complete content checks. Menu listings reuse validated metadata while file size and modification time match, return independent entries, invalidate current/backup entries on writes, and never cache failed validation. Every actual load re-reads and validates the full envelope. An external replacement preserving both size and modification time can leave stale menu metadata, without bypassing load validation. Save format, accepted fingerprints and the atomic write/rollback rules are unchanged.
 
