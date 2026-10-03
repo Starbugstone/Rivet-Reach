@@ -128,3 +128,5 @@ ArtSource/Renewables/*.png filter=lfs diff=lfs merge=lfs -text
 
 .docs/wiki/images/alpha-guidance/*.png filter=lfs diff=lfs merge=lfs -text
 .docs/verification/alpha-guidance-2026-10-02/*.png filter=lfs diff=lfs merge=lfs -text
+
+.docs/wiki/images/alpha-0.1.0/*.png filter=lfs diff=lfs merge=lfs -text

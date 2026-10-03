@@ -1,0 +1,50 @@
+0,0s: Begin gathering, workshop and exploration route; food=20 health=20 position=0, 50, 0
+7,5s: Gathered logs=2; food=20 health=20 position=-4, 50, 9
+14,2s: Gathered logs=4; food=20 health=20 position=-6, 50, 17
+14,7s: Crafted workbench=True; food=20 health=20 position=-6, 50, 17
+15,8s: Placed workshop and crafted wooden pickaxe=True; food=20 health=20 position=-6, 50, 17
+22,6s: Exploration leg 1; food=20 health=20 position=15, 49, 1
+27,3s: Exploration leg 2; food=20 health=20 position=4, 50, 15
+33,6s: Exploration leg 3; food=20 health=20 position=-14, 51, 6
+38,1s: Exploration leg 4; food=20 health=20 position=-10, 50, -13
+43,1s: Exploration leg 5; food=20 health=20 position=11, 49, -12
+55,3s: Exploration leg 6; food=19 health=20 position=13, 49, 1
+63,0s: Exploration leg 7; food=19 health=20 position=-7, 50, 14
+70,0s: Exploration leg 8; food=19 health=20 position=-15, 51, -5
+74,5s: Exploration leg 9; food=19 health=20 position=1, 50, -16
+79,5s: Exploration leg 10; food=19 health=20 position=15, 49, -2
+85,0s: Exploration leg 11; food=19 health=20 position=4, 50, 15
+92,1s: Exploration leg 12; food=19 health=20 position=-15, 51, 5
+97,1s: Exploration leg 13; food=19 health=20 position=-10, 50, -14
+109,3s: Exploration leg 14; food=18 health=20 position=10, 50, -11
+114,5s: Exploration leg 15; food=18 health=20 position=12, 49, 9
+122,7s: Exploration leg 16; food=18 health=20 position=-7, 50, 14
+128,9s: Exploration leg 17; food=18 health=20 position=-15, 51, -6
+133,4s: Exploration leg 18; food=18 health=20 position=1, 50, -16
+138,9s: Exploration leg 19; food=18 health=20 position=15, 49, -1
+144,7s: Exploration leg 20; food=18 health=20 position=3, 50, 15
+151,8s: Exploration leg 21; food=17 health=20 position=-15, 51, 5
+156,5s: Exploration leg 22; food=17 health=20 position=-9, 50, -14
+168,7s: Exploration leg 23; food=17 health=20 position=10, 49, -11
+173,9s: Exploration leg 24; food=17 health=20 position=12, 49, 9
+180,6s: Exploration leg 25; food=17 health=20 position=-8, 50, 14
+186,5s: Exploration leg 26; food=17 health=20 position=-15, 51, -6
+191,5s: Exploration leg 27; food=17 health=20 position=2, 50, -16
+196,4s: Exploration leg 28; food=17 health=20 position=15, 49, -1
+201,7s: Exploration leg 29; food=16 health=20 position=3, 50, 15
+208,4s: Exploration leg 30; food=16 health=20 position=-15, 51, 4
+212,9s: Exploration leg 31; food=16 health=20 position=-9, 50, -14
+225,1s: Exploration leg 32; food=16 health=20 position=10, 49, -10
+229,8s: Exploration leg 33; food=16 health=20 position=12, 49, 10
+238,1s: Exploration leg 34; food=16 health=20 position=-8, 50, 14
+244,6s: Exploration leg 35; food=15 health=20 position=-15, 51, -6
+249,6s: Exploration leg 36; food=15 health=20 position=2, 50, -16
+255,9s: Exploration leg 37; food=15 health=20 position=15, 49, 0
+262,4s: Exploration leg 38; food=15 health=20 position=2, 50, 15
+270,0s: Exploration leg 39; food=15 health=20 position=-15, 51, 3
+274,5s: Exploration leg 40; food=15 health=20 position=-8, 50, -14
+280,4s: Exploration leg 41; food=15 health=20 position=12, 49, -10
+292,7s: Exploration leg 42; food=14 health=20 position=11, 50, -7
+305,0s: Exploration leg 43; food=14 health=20 position=-7, 50, 13
+316,9s: Worked nearby ground with crafted tool; food=14 health=20 position=-7, 50, 13
+317,3s: Route finished; logs=4 workbench=True pickaxe=1; food=14 health=20 position=-7, 50, 13

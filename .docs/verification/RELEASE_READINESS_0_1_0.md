@@ -1,5 +1,7 @@
 # 0.1.0 release readiness — September 27, 2026
 
+> **October 3 publication decision:** the owner requested a [0.1.0 Alpha playtest release](../releases/0.1.0.md) with the known limitations documented. This supersedes the publication hold below, not its performance, balance or stability findings. [The release report](ALPHA_0_1_0_RESULTS.md) owns the new artifact and checks; all measurements below retain their original dates.
+
 **Decision: hold release. Frame pacing is the first blocker.** The implemented single-player game has substantial functional evidence, but neither a high average FPS nor passing gameplay assertions establishes the required smoothness. This audit covers the current implemented content; it does not add realms, multiplayer or other roadmap features to the release scope.
 
 The user confirmed **steady 60 FPS at 1080p** during this audit. Report every frame above the 16.67 ms budget, plus p95, p99, maximum and individual spike records. The older review's 45 FPS / 22.22 ms floor remains useful for comparing severe breaches; it is not an acceptable steady state or permission to ship recurring stutters. The old p95-only normal-play indicator is insufficient on its own for this clarified priority.

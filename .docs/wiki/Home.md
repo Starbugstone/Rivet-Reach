@@ -2,6 +2,8 @@
 
 Build, connect, and troubleshoot your workshop. These guides describe the current playable game, including Creative testing. Save checkpoints preserve worlds and their stored resources across restarts.
 
+**Download:** [0.1.0 Alpha for Windows x64](https://github.com/Starbugstone/Rivet-Reach/releases/tag/v0.1.0). It includes named saves and the current workshop features. Read [installation, controls and known alpha limits](Alpha-0.1.0.md) before playing. The historical 0.0.1 download is session-only.
+
 Start here:
 
 - [Machine interfaces](Machine-interfaces.md) — identify the machine you opened and find its controls.

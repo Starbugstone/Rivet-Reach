@@ -15,6 +15,7 @@ This directory maintains the latest report and useful evidence for each feature.
 
 | Feature | Current evidence |
 | --- | --- |
+| Downloadable Windows 0.1.0 Alpha | [Release build and package verification](ALPHA_0_1_0_RESULTS.md) — current source identity, native checks, save compatibility and download integrity; performance acceptance remains open |
 | October 3 performance plan | [Implementation and review](PERFORMANCE_PLAN_RESULTS.md) — exact-path optimizations, functional verification and deferred measurement/decision work |
 | Guidance, navigation and building | [October 2 focused verification](ALPHA_GUIDANCE_RESULTS.md) — depth/tool hints, machine setup help, Home/Last death, slabs and connected Glass; FPS recheck deferred |
 | Machine visibility distance | [October 2 implementation and native stress test](FACTORY_VISIBILITY_RESULTS.md) — terrain-distance models, detail transition, tank visibility, exact state preservation, images/video and measured performance limits |

@@ -2,7 +2,9 @@
 
 [Save rules and recovery](../SAVES.md) · [Alpha release evidence](ALPHA_0_0_1_RESULTS.md)
 
-The save feature was exercised by `Tools/Verify-Saves.ps1` in a non-development Windows x64 alpha player using Unity 6000.4.4f1. The script uses a fresh isolated save directory; it never edits the user's normal saves. The second scenario starts a separate player process and continues the first process's disk checkpoint. The locally verified candidate player was built from `141c5be7b4cf3d4b7e9c931cd482bc6f11cdbe9c` with Direct3D 11. The user cancelled the release update after local verification; the published alpha remains unchanged. The [alpha report](ALPHA_0_0_1_RESULTS.md) describes that older published artifact.
+The save feature was exercised by `Tools/Verify-Saves.ps1` in a non-development Windows x64 alpha player using Unity 6000.4.4f1. The script uses a fresh isolated save directory; it never edits the user's normal saves. The second scenario starts a separate player process and continues the first process's disk checkpoint. The locally verified candidate player was built from `141c5be7b4cf3d4b7e9c931cd482bc6f11cdbe9c` with Direct3D 11. The user cancelled the release update after local verification; the published 0.0.1 archive remains unchanged. The [alpha report](ALPHA_0_0_1_RESULTS.md) describes that older published artifact.
+
+**October 3 publication:** durable saves now ship in [0.1.0 Alpha](../releases/0.1.0.md); [new release evidence](ALPHA_0_1_0_RESULTS.md) is separate from the September checks below.
 
 ## Measured checks
 

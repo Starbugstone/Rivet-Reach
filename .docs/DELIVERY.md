@@ -6,6 +6,8 @@ Related: [DEVELOPMENT_STRATEGY.md](DEVELOPMENT_STRATEGY.md), [GAMEPLAY.md](GAMEP
 
 **September 27, 2026 release audit:** the user confirmed **steady 60 FPS at 1080p**, prioritizing frame integrity and smooth pacing. [The 0.1.0 readiness audit](verification/RELEASE_READINESS_0_1_0.md) records current evidence, proposed percentile acceptance details and outstanding release work. Older 60/45 measurements retain their original thresholds; the 45 FPS floor does not establish steady 60 FPS acceptance. This review covers the implemented single-player increment without adding later full-game milestones to 0.1.0.
 
+**October 3, 2026:** the owner authorized publishing [0.1.0 Alpha](releases/0.1.0.md) for playtesting with the unresolved limits disclosed. [Package verification](verification/ALPHA_0_1_0_RESULTS.md) records release checks; publication does not close the earlier smoothness, balance or extended-stability findings.
+
 ## 1. Complete scope and staged delivery
 
 Keep the full vision: infinite horizontal worlds, building/crafting, meaningful technology ages, large automation, exploration realms, planetary cargo and later multiplayer. Stage completion delivers a playable part of this game, not a claim that the full game is complete.

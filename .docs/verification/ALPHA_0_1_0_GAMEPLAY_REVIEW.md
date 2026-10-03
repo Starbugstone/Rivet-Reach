@@ -1,5 +1,7 @@
 # Alpha 0.1.0 gameplay and code review — October 2, 2026
 
+> **October 3 publication decision:** the owner requested a [0.1.0 Alpha playtest release](../releases/0.1.0.md) with the known limitations documented. This supersedes the publication hold below, not its performance, balance or stability findings. [The release report](ALPHA_0_1_0_RESULTS.md) owns the new artifact and checks; all measurements below retain their original dates.
+
 **Decision: hold the release, but keep the current survival/factory foundation.** The implemented recipes and resources support the requested progression. The remaining work is chiefly performance, teaching that progression, encounter/reward balance, visual consistency and release validation. The user selected **one play session, roughly 1–2 hours, to the first automated production line**. This review does not rebalance recipes, alter generation, add features or publish a release.
 
 This is a risk-focused review across survival, tools, crafting/discovery, generation, mobs/passives, industry/logistics, lighting/presentation and saves, combined with a complete exported recipe audit and new generator/native population surveys. It is not a line-by-line certification of every source file or a completed two-hour human playtest. All proposed adjustments below remain review recommendations.

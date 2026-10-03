@@ -1,6 +1,7 @@
 **Rivet Reach field guide**
 
 - [Home](Home.md)
+- [Download 0.1.0 Alpha](Alpha-0.1.0.md)
 - [Items](Items.md)
 - [Crafting recipes](Crafting-Recipes.md)
 - [Workshop components](Workshop-components.md) — craft Cogs, Plates, Rivets and your first machine parts.

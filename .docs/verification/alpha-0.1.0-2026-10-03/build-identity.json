@@ -1,0 +1,124 @@
+{
+  "version": "0.1.0",
+  "unity": "6000.4.4f1",
+  "platform": "Windows x64",
+  "graphicsApi": "Direct3D11",
+  "development": false,
+  "backend": "Mono",
+  "saveSchema": 19,
+  "sourceCommit": "0ca023355fa46d3f58c1c98ff5ffdc1a90e32444",
+  "editorJobWorkers": 1,
+  "assemblySha256": "c9ca7c9a1056f7207ea633e01e6f821416704b376dc7a525b0a2e26ec96c4a44",
+  "executableSha256": "413a04009d5fc13e03fe4e5c6941a8606c63c103edd08853efc6c9bd57e6151b",
+  "sourceTrees": {
+    "Assets": "bb60f3efcb16e469df197313c1e682ca4305e7d3",
+    "Packages": "c76493065621100b5aa99485da2eafe66d96a901",
+    "ProjectSettings": "154976e8b74eb2488a2283e23a1e0c54c3f2ced4"
+  },
+  "editorSuitesPassed": 52,
+  "runtimeReports": [
+    {
+      "scenario": "alpha-survival",
+      "assertions": 7,
+      "result": "PASS",
+      "report": "native/alpha-survival/runtime-report.json"
+    },
+    {
+      "scenario": "save",
+      "assertions": 183,
+      "result": "PASS",
+      "report": "native/save/runtime-report.json"
+    },
+    {
+      "scenario": "save-resume",
+      "assertions": 5,
+      "result": "PASS",
+      "report": "native/save-resume/runtime-report.json"
+    },
+    {
+      "scenario": "bed",
+      "assertions": 237,
+      "result": "PASS",
+      "report": "native/bed/runtime-report.json"
+    },
+    {
+      "scenario": "browser",
+      "assertions": 937,
+      "result": "PASS",
+      "report": "native/browser/runtime-report.json"
+    },
+    {
+      "scenario": "chicken",
+      "assertions": 321,
+      "result": "PASS",
+      "report": "native/chicken/runtime-report.json"
+    },
+    {
+      "scenario": "connections",
+      "assertions": 408,
+      "result": "PASS",
+      "report": "native/connections/runtime-report.json"
+    },
+    {
+      "scenario": "crates",
+      "assertions": 137,
+      "result": "PASS",
+      "report": "native/crates/runtime-report.json"
+    },
+    {
+      "scenario": "fluid",
+      "assertions": 36,
+      "result": "PASS",
+      "report": "native/fluid/runtime-report.json"
+    },
+    {
+      "scenario": "industry",
+      "assertions": 89,
+      "result": "PASS",
+      "report": "native/industry/runtime-report.json"
+    },
+    {
+      "scenario": "inventory-gestures",
+      "assertions": 31,
+      "result": "PASS",
+      "report": "native/inventory-gestures/runtime-report.json"
+    },
+    {
+      "scenario": "multiblock",
+      "assertions": 140,
+      "result": "PASS",
+      "report": "native/multiblock/runtime-report.json"
+    },
+    {
+      "scenario": "performance-plan",
+      "assertions": 19,
+      "result": "PASS",
+      "report": "native/performance-plan/runtime-report.json"
+    },
+    {
+      "scenario": "release-legacy",
+      "assertions": 87,
+      "result": "PASS",
+      "report": "native/release-legacy/runtime-report.json"
+    },
+    {
+      "scenario": "renewables",
+      "assertions": 147,
+      "result": "PASS",
+      "report": "native/renewables/runtime-report.json"
+    },
+    {
+      "scenario": "tools",
+      "assertions": 252,
+      "result": "PASS",
+      "report": "native/tools/runtime-report.json"
+    },
+    {
+      "scenario": "weather",
+      "assertions": 73,
+      "result": "PASS",
+      "report": "native/weather/runtime-report.json"
+    }
+  ],
+  "runtimeAssertions": 3109
+}
