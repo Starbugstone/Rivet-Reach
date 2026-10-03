@@ -1,5 +1,6 @@
 param(
-    [string]$UnityEditor = 'D:\Unity\Hub\6000.4.4f1\Editor\Unity.exe'
+    [string]$UnityEditor = 'D:\Unity\Hub\6000.4.4f1\Editor\Unity.exe',
+    [ValidateRange(1,64)][int]$EditorJobWorkers = 1
 )
 $ErrorActionPreference = 'Stop'
 $project = Split-Path $PSScriptRoot -Parent
@@ -15,7 +16,7 @@ $notes = Join-Path $project ('.docs\releases\'+$version+'.md')
 if (!(Test-Path $notes)) { throw "Missing release notes for $version." }
 $output = Join-Path $project ("Builds\Release\$version\RivetReach-$version-alpha-windows-x64")
 if (Test-Path $output) { throw 'Release output already exists. Use a fresh checkout/output to prevent stale files entering the release.' }
-$process = Start-Process -FilePath $UnityEditor -ArgumentList @('-batchmode','-quit','-projectPath',('"'+$project+'"'),'-executeMethod','RivetReach.Editor.ProjectBuild.BuildAlpha','-logFile',('"'+(Join-Path $logs 'release-build.log')+'"')) -PassThru -Wait
+$process = Start-Process -FilePath $UnityEditor -ArgumentList @('-batchmode','-quit','-force-d3d11','-job-worker-count',$EditorJobWorkers,'-projectPath',('"'+$project+'"'),'-executeMethod','RivetReach.Editor.ProjectBuild.BuildAlpha','-logFile',('"'+(Join-Path $logs 'release-build.log')+'"')) -PassThru -Wait
 if ($process.ExitCode -ne 0) { throw "Unity release build exited $($process.ExitCode). See Logs/release-build.log." }
 if (!(Test-Path (Join-Path $output 'RivetReach.exe'))) { throw 'Unity did not produce the release executable.' }
 Copy-Item $notes (Join-Path $output 'README.md')
