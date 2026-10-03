@@ -331,10 +331,13 @@ namespace RivetReach.Editor
         public static void BuildAlpha()
         {
             Directory.CreateDirectory("Logs");
-            if(PlayerSettings.bundleVersion!="0.0.1")throw new Exception("Alpha release requires version 0.0.1.");
-            DomainChecks.Run();FluidChecks.Run();
-            IndustryChecks.Run();MultiblockChecks.Run();BatteryChecks.Run();ConnectedPipeChecks.Run();
-            Build("Release/0.0.1/RivetReach-0.0.1-alpha-windows-x64",BuildOptions.None);
+            string version=PlayerSettings.bundleVersion;
+            if(!System.Text.RegularExpressions.Regex.IsMatch(version,@"^\d+\.\d+\.\d+$"))
+                throw new InvalidOperationException("Alpha release requires a numeric major.minor.patch version.");
+            if(Directory.Exists("Assets/RivetReach/Resources/Verification"))
+                throw new InvalidOperationException("Remove isolated shader reference assets before building a release.");
+            ReleaseReviewChecks.Run();
+            Build($"Release/{version}/RivetReach-{version}-alpha-windows-x64",BuildOptions.None);
         }
         public static void BuildPerformancePlan()
         {
