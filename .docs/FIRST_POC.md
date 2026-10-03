@@ -16,7 +16,7 @@ The earlier pre-0.1.0 review executable is **`Builds/ReleaseReviewRetail/RivetRe
 
 In an already-open pinned Editor, write `release-review-retail` to `Logs/build-request.txt` to run the current 52-suite gate and create this non-development Windows build. `Logs/build-result.txt` and `Logs/build-summary.txt` record completion. It builds the versioned assets without reauthoring them. Use `Tools/Verify-ReleaseReview.ps1` with a fresh output directory to run native checks; the release report gives the measured invocation.
 
-The downloadable [0.0.1 alpha](releases/0.0.1.md) is a Windows x64 prerelease. Extract its complete ZIP and run `RivetReach.exe`. Build it from a clean checkout with `Tools/Build-Release.ps1`; output is `Builds/Release/0.0.1/RivetReach-0.0.1-alpha-windows-x64/RivetReach.exe`. It uses the pinned Editor and a non-development build. Supply that path to `Tools/Verify-Creative.ps1 -Executable <path> -FullRun` to check the release player.
+The downloadable [0.0.1 alpha](releases/0.0.1.md) is a Windows x64 prerelease. Extract its complete ZIP and run `RivetReach.exe`. **The published September 10 ZIP is session-only and predates named saves.** Building a clean checkout of current source with `Tools/Build-Release.ps1` produces a later local player at `Builds/Release/0.0.1/RivetReach-0.0.1-alpha-windows-x64/RivetReach.exe`; the matching output path does not mean that build was uploaded to the release. It uses the pinned Editor and a non-development build. Supply that local path to `Tools/Verify-Creative.ps1 -Executable <path> -FullRun` to check that player.
 
 Open this repository in the pinned Unity Editor, open `Assets/RivetReach/Scenes/Main.unity`, then press Play. `Expedition.Bootstrap` creates the voxel world and UI at runtime; the unplayed scene is not a populated map. After cloning, run `git lfs pull` to retrieve binary assets.
 
@@ -93,7 +93,7 @@ Gather wild ripe potatoes. Use a hoe to till grass/dirt, use a potato to plant, 
 
 [Five biomes and caves](TERRAIN_GENERATION.md), the [day/night clock](GAMEPLAY.md#day-night-and-lunar-phases), and [Rustback beetles and Dusk prowlers](MOBS.md) are integrated. Aim and hold Mine to attack with the selected item or fists. Night affects prowler spawning. Health and equipment remain independent of male/female appearance and skin selection.
 
-**Save progress with Escape → Save Game.** Load a checkpoint through Load Game, or use Continue Latest Save on the title. Save & Quit writes before exiting; closing the window does not autosave. [SAVES.md](SAVES.md) owns storage, recovery and compatibility. [Tool wear](TOOLS.md), [fitted armor](EQUIPMENT_ART.md) and rare [spawner rooms](SPAWNERS.md) are implemented. Irrigation remains future scope.
+**In current review builds, save progress with Escape → Save Game.** Load a checkpoint through Load Game, or use Continue Latest Save on the title. Save & Quit writes before exiting; closing the window does not autosave. These controls are implemented and verified locally, but are not in the older public ZIP. [SAVES.md](SAVES.md) owns storage, recovery and compatibility. [Tool wear](TOOLS.md), [fitted armor](EQUIPMENT_ART.md) and rare [spawner rooms](SPAWNERS.md) are implemented. Irrigation remains future scope.
 
 ## Foundation and diagnostics
 
