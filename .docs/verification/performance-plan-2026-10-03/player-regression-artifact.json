@@ -1,0 +1,17 @@
+{
+  "baseCommit": "e293b1e3a3ba0f8cecb0bb74a38ce730829454f6",
+  "unity": "6000.4.4f1",
+  "build": "Builds/PerformancePlanPlayer",
+  "graphicsApi": "Direct3D11",
+  "scriptingBackend": "Mono",
+  "development": false,
+  "extraDefines": [],
+  "containsShaderReferences": false,
+  "sha256": {
+    "Builds/PerformancePlanPlayer/RivetReach.exe": "413a04009d5fc13e03fe4e5c6941a8606c63c103edd08853efc6c9bd57e6151b",
+    "Builds/PerformancePlanPlayer/RivetReach_Data/Managed/Assembly-CSharp.dll": "6d98992d79e1316bab187a9ec16acb00895da0ff509acd6f56d133879619c0df",
+    "Builds/PerformancePlanPlayer/RivetReach_Data/resources.assets": "805fec05dd74e98359a69a25105ab946ea5701bd6c787f4a064b79828dc5b3ca",
+    "Assets/RivetReach/Settings/PC_RPAsset.asset": "1fc67b5009565f53b635b9cfeae65033241f07d29ad1f726db5fe23a4e539620",
+    ".docs/wiki-data/catalog.json": "0d8b1ea585dedc692290785fe14c492cd81d4b073d73da9283cf57535e5c16e2"
+  }
+}

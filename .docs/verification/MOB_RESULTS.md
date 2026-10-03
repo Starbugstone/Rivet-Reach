@@ -1,5 +1,7 @@
 # Native mob verification — 2026-09-09
 
+The October 3 [performance regression review](PERFORMANCE_PLAN_RESULTS.md) adds a **168-check native mob pass** and a separate **88-check Floater pass**, with dated artifact identities. The shared-target runner now checks creature Use priority, eating while aiming away and cancellation on retargeting; the older eating-through-a-creature expectation predated the current targeting contract. The historical asset measurements and captures below retain their original dates.
+
 Status: **56 standalone mob checks passed, zero logged errors**. Original Blender assets, Unity import validation, the Windows build and shared domain checks passed. Actual source renders and Unity day/night/combat captures were inspected; artistic acceptance and broader play balance remain for user review.
 
 ## Blender source evidence

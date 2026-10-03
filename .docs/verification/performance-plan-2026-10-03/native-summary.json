@@ -1,0 +1,178 @@
+[
+  {
+    "scenario": "alpha-survival",
+    "artifact": "validation",
+    "result": "PASS",
+    "assertions": 7,
+    "timestamp": "2026-10-03T00:14:34.7875725Z",
+    "report": "native/alpha-survival/runtime-report.json"
+  },
+  {
+    "scenario": "bed",
+    "artifact": "validation",
+    "result": "PASS",
+    "assertions": 237,
+    "timestamp": "2026-10-03T00:25:03.9935050Z",
+    "report": "native/bed/runtime-report.json"
+  },
+  {
+    "scenario": "chicken",
+    "artifact": "validation",
+    "result": "PASS",
+    "assertions": 321,
+    "timestamp": "2026-10-03T00:24:28.3704350Z",
+    "report": "native/chicken/runtime-report.json"
+  },
+  {
+    "scenario": "connections",
+    "artifact": "validation",
+    "result": "PASS",
+    "assertions": 408,
+    "timestamp": "2026-10-03T00:28:36.5210432Z",
+    "report": "native/connections/runtime-report.json"
+  },
+  {
+    "scenario": "crates",
+    "artifact": "validation",
+    "result": "PASS",
+    "assertions": 137,
+    "timestamp": "2026-10-03T00:27:24.8445674Z",
+    "report": "native/crates/runtime-report.json"
+  },
+  {
+    "scenario": "fluid",
+    "artifact": "validation",
+    "result": "PASS",
+    "assertions": 36,
+    "timestamp": "2026-10-03T00:18:24.1988459Z",
+    "report": "native/fluid/runtime-report.json"
+  },
+  {
+    "scenario": "industry",
+    "artifact": "validation",
+    "result": "PASS",
+    "assertions": 89,
+    "timestamp": "2026-10-03T00:20:29.7272475Z",
+    "report": "native/industry/runtime-report.json"
+  },
+  {
+    "scenario": "interaction",
+    "artifact": "validation",
+    "result": "PASS",
+    "assertions": 88,
+    "timestamp": "2026-10-03T00:17:34.6415627Z",
+    "report": "native/interaction/runtime-report.json"
+  },
+  {
+    "scenario": "inventory",
+    "artifact": "validation",
+    "result": "PASS",
+    "assertions": 107,
+    "timestamp": "2026-10-03T00:26:52.9795981Z",
+    "report": "native/inventory/runtime-report.json"
+  },
+  {
+    "scenario": "lava",
+    "artifact": "validation",
+    "result": "PASS",
+    "assertions": 28,
+    "timestamp": "2026-10-03T00:19:19.8435373Z",
+    "report": "native/lava/runtime-report.json"
+  },
+  {
+    "scenario": "lighting",
+    "artifact": "validation",
+    "result": "PASS",
+    "assertions": 722,
+    "timestamp": "2026-10-03T00:24:02.5036361Z",
+    "report": "native/lighting/runtime-report.json"
+  },
+  {
+    "scenario": "ranged-pump",
+    "artifact": "validation",
+    "result": "PASS",
+    "assertions": 140,
+    "timestamp": "2026-10-03T00:21:23.4819354Z",
+    "report": "native/ranged-pump/runtime-report.json"
+  },
+  {
+    "scenario": "release-legacy",
+    "artifact": "validation",
+    "result": "PASS",
+    "assertions": 87,
+    "timestamp": "2026-10-03T00:30:20.6688269Z",
+    "report": "native/release-legacy/runtime-report.json"
+  },
+  {
+    "scenario": "renewables",
+    "artifact": "validation",
+    "result": "PASS",
+    "assertions": 147,
+    "timestamp": "2026-10-03T00:27:50.8835350Z",
+    "report": "native/renewables/runtime-report.json"
+  },
+  {
+    "scenario": "save",
+    "artifact": "validation",
+    "result": "PASS",
+    "assertions": 183,
+    "timestamp": "2026-10-03T00:30:53.6614425Z",
+    "report": "native/save/runtime-report.json"
+  },
+  {
+    "scenario": "save-resume",
+    "artifact": "validation",
+    "result": "PASS",
+    "assertions": 5,
+    "timestamp": "2026-10-03T00:31:06.0992339Z",
+    "report": "native/save-resume/runtime-report.json"
+  },
+  {
+    "scenario": "starter-stations",
+    "artifact": "validation",
+    "result": "PASS",
+    "assertions": 47,
+    "timestamp": "2026-10-03T00:26:05.1141791Z",
+    "report": "native/starter-stations/runtime-report.json"
+  },
+  {
+    "scenario": "player-1080p",
+    "artifact": "final player",
+    "result": "PASS",
+    "assertions": 19,
+    "timestamp": "2026-10-03T00:40:21.0968272Z",
+    "report": "player-1080p/runtime-report.json"
+  },
+  {
+    "scenario": "player-720p",
+    "artifact": "final player",
+    "result": "PASS",
+    "assertions": 19,
+    "timestamp": "2026-10-03T00:40:39.5877105Z",
+    "report": "player-720p/runtime-report.json"
+  },
+  {
+    "scenario": "player-mobs",
+    "artifact": "final player",
+    "result": "PASS",
+    "assertions": 168,
+    "timestamp": "2026-10-03T00:40:01.8211134Z",
+    "report": "player-mobs/mob-runtime-report.json"
+  },
+  {
+    "scenario": "player-weather",
+    "artifact": "player regression",
+    "result": "PASS",
+    "assertions": 73,
+    "timestamp": "2026-10-03T00:33:13.0077375Z",
+    "report": "player-weather/runtime-report.json"
+  },
+  {
+    "scenario": "player-floater",
+    "artifact": "player regression",
+    "result": "PASS",
+    "assertions": 88,
+    "timestamp": "2026-10-03T00:35:42.7731570Z",
+    "report": "player-floater/mob-runtime-report.json"
+  }
+]

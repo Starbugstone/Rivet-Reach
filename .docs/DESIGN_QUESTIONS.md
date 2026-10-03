@@ -185,7 +185,7 @@ Reverting means setting `AvatarAppearance.Generation` to 1.
 
 ## Performance and code-quality plan — 2026-10-03
 
-Following the 2026-10-02 code review, the user asked for a written plan. [PERFORMANCE_PLAN.md](PERFORMANCE_PLAN.md) proposes patches with rationale, risks and validation. Nothing in it is implemented, built or measured. Items marked exact (no intended gameplay or image change) may proceed once their checks pass. The user deferred renewed frame-rate measurements, so performance acceptance waits for the plan's measurement protocol.
+Following the 2026-10-02 code review, the user requested [a plan](PERFORMANCE_PLAN.md), then authorized implementation on October 3. [Implementation results](verification/PERFORMANCE_PLAN_RESULTS.md) distinguish implemented changes, review corrections, measured functional verification and remaining work. The user deferred renewed frame-rate measurements, so performance acceptance and the plan's subsequent measurement-gated work remain pending.
 
 Nonblocking questions to settle before the related items change any default:
 
@@ -193,5 +193,5 @@ Nonblocking questions to settle before the related items change any default:
 - Anti-aliasing: the current MSAA 4× plus SMAA, or an alternative chosen from captures (B2).
 - Inventory portrait: keep full-rate shadows and SSAO, or reduce them (B3).
 - Lamp voxel light: immediate, or settled over 10 ticks so power-shortage flicker stops re-solving light (D7).
-- Sustained overload: keep the whole tick backlog (proposed), or drop backlog beyond one second (C1).
+- Sustained overload: the implementation retains the whole tick backlog and processes at most three ticks per frame (C1); dropping time would require a separate decision. C2's proposed phase realignment is rejected as written because it overwrites saved remainders and cannot keep groups separate through hitches.
 - SSAO resolution/source (I4) and IL2CPP adoption (B6).

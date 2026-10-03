@@ -1,0 +1,10 @@
+{
+    "executable":  "D:\\Dev\\github-desktop\\Rivet-Reach-Performance-20261003\\Builds\\PerformancePlan\\RivetReach.exe",
+    "sha256":  "413A04009D5FC13E03FE4E5C6941A8606C63C103EDD08853EFC6C9BD57E6151B",
+    "started":  "2026-10-03T00:09:03.6234524Z",
+    "width":  1920,
+    "height":  1080,
+    "reviewFrameLimit":  -1,
+    "gpuTelemetry":  false,
+    "assemblySha256":  "0379F5A39EEB48377931D5BD0E036A0C3FFBAAA30CAD463E065B0B87F2DD9A46"
+}

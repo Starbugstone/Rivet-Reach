@@ -10,7 +10,7 @@ The registry builds the capability tables transactionally when content loads. Th
 
 Existing serialized `tags` and `#category` recipe/search syntax are compatibility inputs. Changing their spelling or removing their serialized definitions would change historical content fingerprints. They compile into cached membership tables; gameplay behavior must use typed contracts. New gameplay capabilities need an explicit interface and a registry mapping. Arbitrary data-only search/recipe labels remain supported, including injected test catalogs, but must not become a second gameplay type system.
 
-`IItemSelector` is the immutable recipe membership contract. `ItemRegistry.Select<IVegetable>()` and `Select("#vegetable")` return the same compiled selector. The 25 shipped labels resolve through their interface tables, so recipe membership cannot drift from typed capability discovery. Recipe compilation resolves selectors once; matching and staging use the existing bounded matcher and conserve exact ingredient quantities. This migration does not change recipes, stack IDs, saved payloads or current/legacy content fingerprints.
+`IItemSelector` is the immutable recipe membership contract. `ItemRegistry.Select<IVegetable>()` and `Select("#vegetable")` return the same compiled selector. The 26 shipped labels, including the building increment's `half_block`, resolve through their interface tables, so recipe membership cannot drift from typed capability discovery. Recipe compilation resolves selectors once; matching and staging use the existing bounded matcher and conserve exact ingredient quantities. This migration does not change recipes, stack IDs, saved payloads or current/legacy content fingerprints.
 
 Inheritance is explicit: the same boiler-fuel component is registered under both `IBoilerFuel` and `IBurnable`, and its serialized definition must include both existing labels. Other category combinations are independent; for example, `IRawMeat` does not silently add `IMeat` or `IEdible`. Preserve the authored memberships rather than inferring extra recipe alternatives. Query registered capability interfaces, not implementation classes or the common `IItemCapability` marker.
 
@@ -24,6 +24,7 @@ Inheritance is explicit: the same boiler-fuel component is registered under both
 | `seed`, `fibre`, `cordage`, `fabric`, `feather` | `ISeed`, `IFibre`, `ICordage`, `IFabric`, `IFeather` |
 | `raw_ore`, `ingot`, `log`, `planks` | `IRawOre`, `IIngot`, `ILogMaterial`, `IPlankMaterial` |
 | `fishing_rod`, `compostable` | `IFishingRod`, `ICompostable` |
+| `half_block` | `IHalfBlock` |
 
 Registry invalidation replaces its complete capability/selector snapshot on the next lookup. Already compiled recipe catalogs retain their immutable snapshot and must be recompiled as part of content reload; mutating authoring definitions is not a supported way to change live recipes mid-tick. Failed compilation publishes no partial index. Independent injected registries cannot alter the live registry's cached components.
 

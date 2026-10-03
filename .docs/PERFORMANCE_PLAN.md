@@ -1,6 +1,6 @@
 # Performance and code-quality improvement plan — 2026-10-03
 
-> **Status:** proposal only. Nothing below is implemented, built or measured. The patches are drafts written against commit `1811ac1`. Its gameplay code matches `455e0fd`, the code reviewed on 2026-10-02. Each patch must be compiled and verified with its listed checks before use. Performance numbers are taken from the [September 27 readiness audit](verification/RELEASE_READINESS_0_1_0.md). Expected gains are estimates, not results. The user has deferred new frame-rate measurements until the development machine is less busy. Functional checks can proceed; performance acceptance cannot be claimed until the [measurement protocol](#a2--measurement-protocol-deferred-by-the-user) runs.
+> **Status:** implementation authorized on October 3. The first tranche is implemented and functionally verified; [implementation and review results](verification/PERFORMANCE_PLAN_RESULTS.md) own the current disposition of every group and the evidence. The patches below remain the original drafts against `1811ac1`, not an exact description of the final code. Performance numbers are historical [September 27 measurements](verification/RELEASE_READINESS_0_1_0.md); estimated gains are not results. The user has deferred renewed frame-rate measurements until the development machine is less busy. Functional checks do not establish performance acceptance; that still requires [A2](#a2--measurement-protocol-deferred-by-the-user).
 
 Related: [readiness audit](verification/RELEASE_READINESS_0_1_0.md), [SIMULATION.md](SIMULATION.md), [INDUSTRY.md](INDUSTRY.md), [LIGHTING.md](LIGHTING.md), [FLUIDS.md](FLUIDS.md), [SAVES.md](SAVES.md), [CAPABILITIES.md](CAPABILITIES.md), [DESIGN_QUESTIONS.md](DESIGN_QUESTIONS.md#performance-and-code-quality-plan--2026-10-03).
 
@@ -60,7 +60,7 @@ Existing gates are reused wherever possible.
 
 | Gate | How to run | Covers |
 | --- | --- | --- |
-| Release domain gate (48 suites) | Write `release-review-checks` to `Logs/build-request.txt` in the open Editor. The result goes to `Logs/build-result.txt` and the summary to `Logs/ReleaseReview/domain-summary.txt` | Domain, industry, fluids, saves, performance, lighting, crates, renewables and more ([ReleaseReviewChecks.cs](../Assets/RivetReach/Editor/ReleaseReviewChecks.cs)) |
+| Release domain gate (52 suites after this implementation) | Write `release-review-checks` to `Logs/build-request.txt` in the open Editor. The result goes to `Logs/build-result.txt` and the summary to `Logs/ReleaseReview/domain-summary.txt` | Domain, industry, fluids, saves, performance, lighting, crates, renewables and more ([ReleaseReviewChecks.cs](../Assets/RivetReach/Editor/ReleaseReviewChecks.cs)) |
 | Shader image equivalence | Create `Logs/shader-comparison-request.txt`; the result goes to `Logs/shader-comparison-result.txt` | WorldLit, HeldTool, HeldBlock and ExplorerSkin against reference shaders |
 | Editor play verification | `verify-editor` request | Editor play-mode smoke checks |
 | Native scenarios | `Tools/Verify-<Feature>.ps1` (Fluids, Lighting, Industry, Multiblocks, Weather, Chickens, Saves, Crates, Renewables, RangedPump, Performance and others) | Real player-build behaviour |

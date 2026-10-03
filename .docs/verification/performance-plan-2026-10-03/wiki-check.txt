@@ -1,0 +1,4 @@
+Validated in Rivet-Reach-Performance-20261003 using the final catalog, runtime source and committed assets.
+Checked 197 item pages and 2 indexes; 201 recipes.
+Validated 239 pages and 10099 local links/images; all item icons link to their item page.
+Main workspace check reports a pre-existing BlockTiles.asset edit, excluded from this task and publication.
