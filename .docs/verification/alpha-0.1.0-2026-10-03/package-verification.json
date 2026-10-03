@@ -1,0 +1,20 @@
+{
+  "archive": "RivetReach-0.1.0-alpha-windows-x64.zip",
+  "bytes": 108041937,
+  "sha256": "a4cc8aca3f1d5db9459f671988144398b40d8da65c38c16c28539c87d19f1b63",
+  "payloadFiles": 202,
+  "zipEntries": 203,
+  "crcCheck": "PASS",
+  "payloadHashes": "PASS",
+  "freshExtraction": "PASS",
+  "sourceCommit": "0ca023355fa46d3f58c1c98ff5ffdc1a90e32444",
+  "packagingCommit": "565e30bc9abefaecae4c4fe39c2b22a17b705e15",
+  "extractedPlayer": {
+    "result": "PASS",
+    "assertions": 19,
+    "exitCode": 0,
+    "defaultGraphicsApi": "Direct3D11",
+    "width": 1280,
+    "height": 720
+  }
+}

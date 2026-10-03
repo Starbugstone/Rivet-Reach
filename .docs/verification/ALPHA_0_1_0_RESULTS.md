@@ -49,7 +49,11 @@ Actual 0.1.0 standalone player, October 3, 2026. These images retain this releas
 
 ## Package verification
 
-Archive extraction, downloaded-byte comparison and publication evidence are recorded here after the final packaging checks.
+The Windows ZIP is **108,041,937 bytes**, containing **202 payload files** plus the embedded manifest. SHA-256: `a4cc8aca3f1d5db9459f671988144398b40d8da65c38c16c28539c87d19f1b63`. [Package verification](alpha-0.1.0-2026-10-03/package-verification.json) records successful ZIP CRC, exact entry-set, per-file size/hash and fresh-extraction checks. Debug symbols and DoNotShip folders are excluded. The manifest identifies compiled source `0ca023355fa46d3f58c1c98ff5ffdc1a90e32444` and packaging commit `565e30bc9abefaecae4c4fe39c2b22a17b705e15`; all production input trees remain unchanged after compilation.
+
+The freshly extracted executable also passed **19 assertions**, exited 0 and selected **Direct3D11 by default**, without a forced-renderer flag, at 1280×720. [Extracted-player report](alpha-0.1.0-2026-10-03/extracted-player/runtime-report.json). Combined with the prepackage checks, **3,128 runtime assertions passed**. These checks use isolated saves.
+
+Reviewed actual release-player Survival, Settings and both male/female inventory portrait captures. The wiki checker passed **240 pages / 10,107 links and images**; 493 relative file links in changed documentation and `git diff --check` also passed. Publication and downloaded-byte verification follow this local package record.
 
 ## Reproduction and remaining limits
 
