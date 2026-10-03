@@ -16,6 +16,8 @@ namespace RivetReach.Editor
         {
             var lines=new List<string>{"Unity "+Application.unityVersion+"; API "+SystemInfo.graphicsDeviceType+"; SRP Batcher enabled="+GraphicsSettings.useScriptableRenderPipelineBatching};
             var owned=new List<Material>();
+            bool asyncCompilation=ShaderUtil.allowAsyncCompilation;
+            ShaderUtil.allowAsyncCompilation=false;
             void Check(bool value,string message){lines.Add((value?"PASS ":"FAIL ")+message);if(!value)throw new InvalidOperationException("WorldLit batching: "+message);}
             try
             {
@@ -40,6 +42,22 @@ namespace RivetReach.Editor
                         int pass=material.FindPass(name);Check(pass>=0,"Required pass is retained: "+name+" / "+variant);
                         Check(material.SetPass(pass),"Pass compiles and binds: "+name+" / "+variant+" (no graphics device means UNVERIFIED)");
                     }
+                    // In a fresh batch Editor, SetPass alone does not initialize
+                    // the render pipeline's native batching metadata. Exercise the
+                    // actual SRP before reading it; retain every compatibility gate.
+                    var preview=new PreviewRenderUtility();
+                    try
+                    {
+                        var sample=GameObject.CreatePrimitive(PrimitiveType.Cube);
+                        sample.GetComponent<Renderer>().sharedMaterial=material;
+                        preview.AddSingleGO(sample);
+                        preview.camera.transform.position=new Vector3(0,0,-3);
+                        preview.camera.transform.LookAt(Vector3.zero);
+                        preview.camera.nearClipPlane=.1f;preview.camera.farClipPlane=10;
+                        preview.BeginPreview(new Rect(0,0,32,32),GUIStyle.none);
+                        preview.Render(true,false);preview.EndPreview();
+                    }
+                    finally{preview.Cleanup();}
                     foreach(var message in ShaderUtil.GetShaderMessages(shader))lines.Add("Compiler "+message.severity+": "+message.message+" / "+message.file+":"+message.line);
                     Check(!ShaderUtil.ShaderHasError(shader),"Selected WorldLit passes have no reported compiler errors: "+variant);
                     int subshader=ShaderUtil.GetShaderData(shader).ActiveSubshaderIndex;
@@ -53,6 +71,7 @@ namespace RivetReach.Editor
             catch(Exception error){lines.Add("FAIL exception: "+error);throw;}
             finally
             {
+                ShaderUtil.allowAsyncCompilation=asyncCompilation;
                 foreach(var material in owned)if(material!=null)UnityEngine.Object.DestroyImmediate(material);
                 Directory.CreateDirectory("Logs/ReleaseReview");File.WriteAllLines("Logs/ReleaseReview/worldlit-batching-checks.txt",lines);
             }
