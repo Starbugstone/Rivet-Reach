@@ -1,0 +1,60 @@
+{
+  "releaseUrl": "https://github.com/Starbugstone/Rivet-Reach/releases/tag/v0.1.0",
+  "publishedAt": "2026-10-03T11:30:56Z",
+  "tag": "v0.1.0",
+  "prerelease": true,
+  "assets": [
+    {
+      "name": "build-manifest.json",
+      "bytes": 38316,
+      "sha256": "a8a126dd2ca78303e9fbd23b503b4a5f66d1cfd7845991f2d1b50d9c11f05d65",
+      "downloadUrl": "https://github.com/Starbugstone/Rivet-Reach/releases/download/v0.1.0/build-manifest.json",
+      "githubDigest": "PASS",
+      "downloadedBytes": "PASS"
+    },
+    {
+      "name": "RivetReach-0.1.0-alpha-windows-x64.zip",
+      "bytes": 108041937,
+      "sha256": "a4cc8aca3f1d5db9459f671988144398b40d8da65c38c16c28539c87d19f1b63",
+      "downloadUrl": "https://github.com/Starbugstone/Rivet-Reach/releases/download/v0.1.0/RivetReach-0.1.0-alpha-windows-x64.zip",
+      "githubDigest": "PASS",
+      "downloadedBytes": "PASS"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 105,
+      "sha256": "519b59f2f677387dcc2b4cda1960c82713927f44c83ad9e32719a855bf578825",
+      "downloadUrl": "https://github.com/Starbugstone/Rivet-Reach/releases/download/v0.1.0/SHA256SUMS.txt",
+      "githubDigest": "PASS",
+      "downloadedBytes": "PASS"
+    }
+  ],
+  "previousReleaseUnchanged": true,
+  "verifiedAt": "2026-10-03T11:37:22.936517+00:00",
+  "tagCommit": "10654c43056252d1dd356503dd65d4c6e8cb4040",
+  "wiki": {
+    "workflow": {
+      "conclusion": "success",
+      "status": "completed",
+      "url": "https://github.com/Starbugstone/Rivet-Reach/actions/runs/37120124147"
+    },
+    "commit": "15faddd4552e6d5cff447698c840944fd229c244",
+    "page": "https://github.com/Starbugstone/Rivet-Reach/wiki/Alpha-0.1.0",
+    "homeAndSidebarLinks": "PASS: rendered page targets without .md",
+    "images": [
+      {
+        "name": "survival-workbench.png",
+        "loaded": true,
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "name": "settings.png",
+        "loaded": true,
+        "width": 1920,
+        "height": 1080
+      }
+    ],
+    "liveRendering": "PASS"
+  }
+}

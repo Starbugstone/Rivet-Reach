@@ -53,7 +53,7 @@ The Windows ZIP is **108,041,937 bytes**, containing **202 payload files** plus 
 
 The freshly extracted executable also passed **19 assertions**, exited 0 and selected **Direct3D11 by default**, without a forced-renderer flag, at 1280×720. [Extracted-player report](alpha-0.1.0-2026-10-03/extracted-player/runtime-report.json). Combined with the prepackage checks, **3,128 runtime assertions passed**. These checks use isolated saves.
 
-Reviewed actual release-player Survival, Settings and both male/female inventory portrait captures. The wiki checker passed **240 pages / 10,107 links and images**; 493 relative file links in changed documentation and `git diff --check` also passed. Publication and downloaded-byte verification follow this local package record.
+Reviewed actual release-player Survival, Settings and both male/female inventory portrait captures. The wiki checker passed **240 pages / 10,107 links and images**; 493 relative file links in changed documentation and `git diff --check` also passed. Publication and downloaded-byte verification are recorded below.
 
 ## Reproduction and remaining limits
 
@@ -62,3 +62,9 @@ Use a clean checkout with LFS content and the pinned Editor. `Tools/Build-Releas
 Run `Tools/Verify-ReleaseReview.ps1` with the scenarios above, first running `alpha-survival` separately. Use `Tools/Verify-Saves.ps1` for `save`/`save-resume`; pass `.docs/verification/release-review-2026-09-19/legacy` as the historical fixture directory. All runners need fresh output directories. Package only the checked executable using `python3 Tools/package_alpha.py <player-folder> <fresh-package-directory> --source-commit 0ca023355fa46d3f58c1c98ff5ffdc1a90e32444`. Packaging rejects changed build inputs and records version/schema from the source.
 
 The [September timing audit](RELEASE_READINESS_0_1_0.md), [October gameplay review](ALPHA_0_1_0_GAMEPLAY_REVIEW.md) and [performance-plan report](PERFORMANCE_PLAN_RESULTS.md) retain their dated findings. No new steady-60 acceptance, second-machine result, minimum-hardware specification, multi-hour memory/GC result or final art/balance acceptance is claimed. Public 0.0.1 remains unchanged and session-only; this is a new release with durable saves.
+
+## Publication and live verification
+
+Published [Rivet Reach 0.1.0 Alpha](https://github.com/Starbugstone/Rivet-Reach/releases/tag/v0.1.0) as a GitHub **prerelease**, with annotated tag `v0.1.0` at `10654c43056252d1dd356503dd65d4c6e8cb4040`. The three assets are the Windows ZIP, `build-manifest.json` and `SHA256SUMS.txt`. All three were downloaded again from GitHub: their SHA-256 hashes and byte sizes match the local files and GitHub's recorded asset digests. [Publication verification](alpha-0.1.0-2026-10-03/publication-verification.json) retains those identities. The existing 0.0.1 release metadata and assets were checked unchanged.
+
+[Wiki deployment](https://github.com/Starbugstone/Rivet-Reach/actions/runs/37120124147) succeeded. Live browser inspection confirmed the Home/sidebar release links, the rendered download guide and both current 1920×1080 captures. That inspection found that page names containing version dots initially retained `.md` in the published navigation; the publisher now strips the final Markdown suffix correctly, preserving fragments and external links. Local Home/sidebar, HTML, anchor and external-URL checks passed, the complete wiki validation passed again, and the corrected deployed links were verified. This publishing-only follow-up does not change or replace the tagged player.
