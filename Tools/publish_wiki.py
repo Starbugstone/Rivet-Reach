@@ -102,8 +102,9 @@ def image_url(value):
 
 def render(text):
     def target(value):
-        if re.fullmatch(r'[A-Za-z0-9_-]+\.md(?:#[^\s]*)?', value):
-            return value.replace('.md', '', 1)
+        page = re.fullmatch(r'([A-Za-z0-9_.-]+)\.md(#[^\s]*)?', value)
+        if page:
+            return page[1] + (page[2] or '')
         if value.startswith(('icons/', 'images/')):
             return image_url(value)
         return value
