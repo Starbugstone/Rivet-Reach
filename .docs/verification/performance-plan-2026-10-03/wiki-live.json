@@ -1,0 +1,52 @@
+{
+  "checkedAt": "2026-10-03T00:46:25.673Z",
+  "hasFramePacing": true,
+  "images": [
+    {
+      "alt": "The expanded timing overlay in the Windows player",
+      "complete": true,
+      "naturalHeight": 1080,
+      "naturalWidth": 1920,
+      "renderedHeight": 495.5625,
+      "renderedWidth": 881,
+      "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/images/performance-plan/timing-overlay.png?v=05accce75d96",
+      "visible": true
+    },
+    {
+      "alt": "Settings showing the saved frame-pacing control",
+      "complete": true,
+      "naturalHeight": 1080,
+      "naturalWidth": 1920,
+      "renderedHeight": 495.5625,
+      "renderedWidth": 881,
+      "src": "https://raw.githubusercontent.com/wiki/Starbugstone/Rivet-Reach/images/performance-plan/settings-Legacy90.png?v=e66742f52dbc",
+      "visible": true
+    }
+  ],
+  "pageOverflowsHorizontally": false,
+  "sectionText": [
+    "Open Settings and click Frame pacing to cycle through 90 FPS cap → Display sync → 60 FPS cap → 120 FPS cap. The choice is saved immediately and applies to later launches. The default remains 90 FPS.",
+    "",
+    "Actual Windows player capture, October 3, 2026.",
+    "Display sync follows your monitor's refresh rate. The other choices set an upper frame-rate limit. A cap does not guarantee that the game reaches that rate. Choose the setting that feels best on your display; lower caps can reduce unnecessary rendering when the game is already running faster than you need.",
+    "The October 3 update reduces repeated world, factory, presentation and save-menu work while preserving production and save rules. New frame-rate measurements are deferred; the older results below retain their original dates and builds."
+  ],
+  "title": "Performance diagnostics · Starbugstone/Rivet-Reach Wiki · GitHub",
+  "url": "https://github.com/Starbugstone/Rivet-Reach/wiki/Performance-diagnostics",
+  "viewport": {
+    "height": 800,
+    "width": 1280
+  },
+  "repositoryCommit": "8c791349d30bb085e1c125535077bcf0e78665bb",
+  "wikiCommit": "b2a14fcca246ac2626e60bd8f477d62b74955894",
+  "workflow": {
+    "url": "https://github.com/Starbugstone/Rivet-Reach/actions/runs/37083312996",
+    "conclusion": "success"
+  },
+  "publishedFilesMatched": 625,
+  "imageSha256": {
+    "settings-Legacy90.png": "e66742f52dbc83e2bb5a00a4a2844a022930d7bd77a94f9d8cb180a398f46dfc",
+    "timing-overlay.png": "05accce75d96cbb4180588376c26011b49a726c663014f53bc67fce7f6262f84"
+  },
+  "screenshotLimit": "T3 preview_snapshot failed on three attempts, including text-only mode. Live verification used browser text, loaded image dimensions, computed visibility and layout; the actual game captures were previously inspected and their published bytes match."
+}
